@@ -10,7 +10,7 @@ import http from 'http';
 import forceGC from './core/forceGC';
 import logger from './core/logger';
 import rankings from './core/Ranks';
-import sequelize from './data/sql/sequelize';
+import { sync as syncSql } from './data/sql/sequelize';
 import { connect as connectRedis } from './data/redis/client';
 import routes from './routes';
 import chatProvider from './core/ChatProvider';
@@ -84,7 +84,7 @@ app.use(routes);
 // ip config
 // -----------------------------------------------------------------------------
 // sync sql models
-sequelize.sync({ alter: { drop: false } })
+syncSql()
   // connect to redis
   .then(connectRedis)
   .then(async () => {
@@ -122,7 +122,7 @@ sequelize.sync({ alter: { drop: false } })
      * initializers that rely on the cluster being fully established
      * i.e. to know if it is the shard that runs the event
      */
-    if (socketEvents.isCluster && socketEvents.amIImportant()) {
+    if (socketEvents.isCluster && socketEvents.important) {
       logger.info('I am the main shard');
     }
     rankings.initialize();

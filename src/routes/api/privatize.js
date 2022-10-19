@@ -9,17 +9,9 @@ async function privatize(req, res) {
   const { priv } = req.body;
   const { user } = req;
 
-  const errors = [];
   if (typeof priv !== 'boolean') {
-    errors.push('Not defined if setting or unsetting private');
-  }
-  if (!user || !user.regUser) {
-    errors.push('You are not logged in');
-  }
-  if (errors.length) {
-    res.status(400);
-    res.json({
-      errors,
+    res.status(400).json({
+      errors: ['Not defined if setting or unsetting private'],
     });
     return;
   }

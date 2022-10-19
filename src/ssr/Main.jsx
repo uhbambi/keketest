@@ -25,7 +25,7 @@ function generateMainPage(req) {
   const { lang } = req;
   const host = getHostFromRequest(req, false);
   const shard = (host.startsWith(`${socketEvents.thisShard}.`))
-    ? null : socketEvents.getLowestActiveShard();
+    ? null : socketEvents.lowestActiveShard;
   const ssvR = JSON.stringify({
     availableStyles: getCssAssets(),
     langs,

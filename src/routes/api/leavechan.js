@@ -11,17 +11,9 @@ async function leaveChan(req, res) {
   const channelId = parseInt(req.body.channelId, 10);
   const { user } = req;
 
-  const errors = [];
   if (channelId && Number.isNaN(channelId)) {
-    errors.push('Invalid channelId');
-  }
-  if (!user || !user.regUser) {
-    errors.push('You are not logged in');
-  }
-  if (errors.length) {
-    res.status(400);
-    res.json({
-      errors,
+    res.status(400).json({
+      errors: ['Invalid channelId'],
     });
     return;
   }
@@ -35,8 +27,7 @@ async function leaveChan(req, res) {
     }
   }
   if (!channel) {
-    res.status(401);
-    res.json({
+    res.status(401).json({
       errors: ['You are not in this channel'],
     });
     return;
@@ -49,8 +40,7 @@ async function leaveChan(req, res) {
    * Faction and Default channels should be impossible to leave
    */
   if (channel.type !== 1) {
-    res.status(401);
-    res.json({
+    res.status(401).json({
       errors: ['Can not leave this channel'],
     });
     return;

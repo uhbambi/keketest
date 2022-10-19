@@ -31,9 +31,6 @@ async function block(req, res) {
   if (!userName && !userId) {
     errors.push('No userId or userName defined');
   }
-  if (!user || !user.regUser) {
-    errors.push('You are not logged in');
-  }
   if (user && userId && user.id === userId) {
     errors.push('You can not block yourself.');
   }

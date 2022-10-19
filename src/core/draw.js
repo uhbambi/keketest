@@ -7,9 +7,10 @@ import {
 } from './utils';
 import logger, { pixelLogger } from './logger';
 import allowPlace from '../data/redis/cooldown';
+import { USERLVL } from '../data/sql';
 import socketEvents from '../socket/socketEvents';
 import { setPixelByOffset } from './setPixel';
-import isIPAllowed from './isAllowed';
+import isIPAllowed from './ipUserIntel';
 import canvases from './canvases';
 
 import { THREE_CANVAS_HEIGHT, THREE_TILE_SIZE, TILE_SIZE } from './constants';
@@ -109,16 +110,11 @@ export default async function drawByOffsets(
       throw new Error(3);
     }
 
-    /*
-     * userlvl:
-     *   0: nothing
-     *   1: admin
-     *   2: mod
-     */
-    const isAdmin = (user.userlvl === 1);
+    const isAdmin = (user.userlvl >= USERLVL.ADMIN);
     const req = (isAdmin) ? null : canvas.req;
     const clrIgnore = canvas.cli || 0;
-    let factor = (isAdmin || (user.userlvl > 0 && pixels[0][1] < clrIgnore))
+    let factor = (isAdmin
+      || (user.userlvl >= USERLVL.MOD && pixels[0][1] < clrIgnore))
       ? 0.0 : coolDownFactor;
 
     if (user.country === 'tr') {
@@ -154,7 +150,7 @@ export default async function drawByOffsets(
       // admins and mods can place unset pixels
       if (color >= canvas.colors.length
         || (color < clrIgnore
-          && user.userlvl === 0
+          && user.userlvl < USERLVL.MOD
           && !(canvas.v && color === 0))
       ) {
         // color out of bounds
@@ -200,7 +196,7 @@ export default async function drawByOffsets(
     );
 
     if (needProxycheck) {
-      const pc = await isIPAllowed(ip, true);
+      const pc = await isIPAllowed(ip, { disableCache: true });
       if (pc.status > 0) {
         pxlCnt = 0;
         switch (pc.status) {

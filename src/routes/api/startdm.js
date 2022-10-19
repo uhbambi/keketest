@@ -27,10 +27,7 @@ async function startDm(req, res) {
   if (!userName && !userId) {
     errors.push('No userId or userName defined');
   }
-  if (!user || !user.regUser) {
-    errors.push('You are not logged in');
-  }
-  if (user && userId && user.id === userId) {
+  if (userId && user.id === userId) {
     errors.push('You can not  DM yourself.');
   }
   if (errors.length) {
@@ -73,7 +70,7 @@ async function startDm(req, res) {
   }
 
   logger.info(
-    `Creating DM Channel between ${user.regUser.name} and ${userName}`,
+    `Creating DM Channel between ${user.name} and ${userName}`,
   );
   /*
    * start DM session

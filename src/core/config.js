@@ -13,7 +13,7 @@ if (process.env.BROWSER) {
 export const ASSET_DIR = '/assets';
 
 export const PORT = process.env.PORT || 8080;
-export const HOST = process.env.HOST || 'localhost';
+export const HOST = process.env.HOST || '127.0.0.1';
 
 export const USE_MAILER = parseInt(process.env.USE_MAILER, 10) || false;
 export const MAIL_ADDRESS = process.env.MAIL_ADDRESS

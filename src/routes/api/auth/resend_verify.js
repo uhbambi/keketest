@@ -4,19 +4,13 @@
 
 import mailProvider from '../../../core/MailProvider';
 import { getHostFromRequest } from '../../../utils/ip';
+import { USERLVL } from '../../../data/sql';
 
 export default async (req, res) => {
   const { user, lang } = req;
-  if (!user || !user.regUser) {
-    res.status(401);
-    res.json({
-      errors: ['You are not authenticated.'],
-    });
-    return;
-  }
 
-  const { name, email, mailVerified } = user.regUser;
-  if (mailVerified) {
+  const { name, email, userlvl } = user.regUser;
+  if (userlvl >= USERLVL.VERIFIED) {
     res.status(400);
     res.json({
       errors: ['You are already verified.'],

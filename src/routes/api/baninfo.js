@@ -8,7 +8,7 @@ import {
 import {
   getBanInfo,
   unbanIP,
-} from '../../data/sql/Ban';
+} from '../../data/sql/IPBan';
 import {
   getCacheAllowed,
   cleanCacheForIP,

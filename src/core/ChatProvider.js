@@ -5,12 +5,13 @@ import { Op } from 'sequelize';
 import logger from './logger';
 import RateLimiter from '../utils/RateLimiter';
 import {
-  Channel, RegUser, UserChannel, Message,
+  Channel, RegUser, UserChannel, Message, USERLVL,
 } from '../data/sql';
 import { findIdByNameOrId } from '../data/sql/RegUser';
+import { banIP } from '../data/sql/IPBan';
 import ChatMessageBuffer from './ChatMessageBuffer';
 import socketEvents from '../socket/socketEvents';
-import isIPAllowed from './isAllowed';
+import isIPAllowed from './ipUserIntel';
 import {
   mutec, unmutec,
   unmutecAll, listMutec,
@@ -18,7 +19,6 @@ import {
   unmute,
   allowedChat,
 } from '../data/redis/chat';
-import { banIP } from '../data/sql/Ban';
 import { DailyCron } from '../utils/cron';
 import { escapeMd } from './utils';
 import ttags from './ttag';
@@ -82,7 +82,7 @@ export class ChatProvider {
   }
 
   async clearOldMessages() {
-    if (!socketEvents.amIImportant()) {
+    if (!socketEvents.important) {
       return;
     }
     const ids = Object.keys(this.defaultChannels);
@@ -152,7 +152,7 @@ export class ChatProvider {
       where: { name },
       defaults: {
         name,
-        verified: 3,
+        userlvl: USERLVL.VERIFIED,
         email: 'info@example.com',
       },
       raw: true,
@@ -166,7 +166,7 @@ export class ChatProvider {
       where: { name },
       defaults: {
         name,
-        verified: 3,
+        userlvl: USERLVL.VERIFIED,
         email: 'event@example.com',
       },
       raw: true,
@@ -180,7 +180,7 @@ export class ChatProvider {
       where: { name },
       defaults: {
         name,
-        verified: 3,
+        userlvl: USERLVL.VERIFIED,
         email: 'event@example.com',
       },
       raw: true,
@@ -419,7 +419,7 @@ export class ChatProvider {
       return 'nope';
     }
 
-    if (!user.userlvl) {
+    if (user.userlvl < USERLVL.MOD) {
       const [allowed, needProxycheck] = await allowedChat(
         channelId,
         id,
@@ -432,7 +432,7 @@ export class ChatProvider {
         );
         if (allowed === 1) {
           return t`You can not send chat messages with proxy`;
-        } if (allowed === 100 && user.userlvl === 0) {
+        } if (allowed === 100) {
           return t`Your country is temporary muted from this chat channel`;
         } if (allowed === 101) {
           // eslint-disable-next-line max-len
@@ -472,7 +472,7 @@ export class ChatProvider {
     }
 
     let displayCountry = country;
-    if (user.userlvl !== 0) {
+    if (user.userlvl >= USERLVL.MOD) {
       displayCountry = 'zz';
     } else if (user.id === 2927) {
       /*
@@ -484,7 +484,7 @@ export class ChatProvider {
       displayCountry = 'to';
     }
 
-    if (USE_MAILER && !user.regUser.verified) {
+    if (USE_MAILER && user.userlvl < USERLVL.VERIFIED) {
       return t`Your mail has to be verified in order to chat`;
     }
 

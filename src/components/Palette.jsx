@@ -7,6 +7,7 @@ import { useDispatch, useSelector, shallowEqual } from 'react-redux';
 
 import { selectColor } from '../store/actions';
 import useWindowSize from './hooks/resize';
+import { USERLVL } from '../core/constants';
 
 
 /*
@@ -117,7 +118,7 @@ const Palette = () => {
     if (!paletteOpen) setRender(false);
   };
 
-  const clrHide = (userlvl === 0) ? clrIgnore : 0;
+  const clrHide = (userlvl >= USERLVL.MOD) ? 0 : clrIgnore;
 
   const [paletteStyle, spanStyle] = getStylesByWindowSize(
     (render && paletteOpen),

@@ -6,15 +6,20 @@ import { DataTypes } from 'sequelize';
 import sequelize from './sequelize';
 
 
-const Whitelist = sequelize.define('Whitelist', {
-  ip: {
-    type: DataTypes.CHAR(39),
+const IPWhitelist = sequelize.define('IPWhitelist', {
+  reason: {
+    type: `${DataTypes.CHAR(200)} CHARSET utf8mb4 COLLATE utf8mb4_unicode_ci`,
     allowNull: false,
-    primaryKey: true,
+    set(value) {
+      this.setDataValue('reason', value.slice(0, 200));
+    },
   },
-}, {
-  timestamps: true,
-  updatedAt: false,
+
+  createdAt: {
+    type: DataTypes.DATE,
+    defaultValue: DataTypes.NOW,
+    allowNull: false,
+  },
 });
 
 /*
@@ -23,7 +28,7 @@ const Whitelist = sequelize.define('Whitelist', {
  * @return boolean
  */
 export async function isWhitelisted(ip) {
-  const count = await Whitelist
+  const count = await IPWhitelist
     .count({
       where: { ip },
     });
@@ -37,7 +42,7 @@ export async function isWhitelisted(ip) {
  *         false if it was already whitelisted
  */
 export async function whitelistIP(ip) {
-  const [, created] = await Whitelist.findOrCreate({
+  const [, created] = await IPWhitelist.findOrCreate({
     where: { ip },
   });
   return created;
@@ -50,10 +55,10 @@ export async function whitelistIP(ip) {
  *         false if ip wasn't whitelisted anyway
  */
 export async function unwhitelistIP(ip) {
-  const count = await Whitelist.destroy({
+  const count = await IPWhitelist.destroy({
     where: { ip },
   });
   return !!count;
 }
 
-export default Whitelist;
+export default IPWhitelist;

@@ -43,10 +43,11 @@ router.use('/tiles', tiles);
 /*
  * public folder
  * (this should be served with nginx or other webserver)
+ * TODO: do we really do a filesystem check for every single request
+ * that isn't chunks or tiles and rely on fallthrough?
  */
 router.use(express.static(path.join(__dirname, 'public'), {
   maxAge: 12 * MONTH,
-  extensions: ['html'],
 }));
 
 /*

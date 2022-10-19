@@ -1,5 +1,5 @@
 /*
- *
+ * tell user his own IID
  */
 import {
   getIPFromRequest,
@@ -16,7 +16,6 @@ async function getiid(req, res, next) {
     );
 
     const iid = await getIIDofIP(ip);
-
     if (!iid) {
       throw new Error('Could not get IID');
     }

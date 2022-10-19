@@ -8,11 +8,11 @@
 import sharp from 'sharp';
 import Sequelize from 'sequelize';
 
-import isIPAllowed from './isAllowed';
+import isIPAllowed from './ipUserIntel';
 import { validateCoorRange } from '../utils/validation';
 import CanvasCleaner from './CanvasCleaner';
 import socketEvents from '../socket/socketEvents';
-import { RegUser } from '../data/sql';
+import { RegUser, USERLVL } from '../data/sql';
 import {
   cleanCacheForIP,
 } from '../data/redis/isAllowedCache';
@@ -26,7 +26,7 @@ import {
   getBanInfo,
   banIP,
   unbanIP,
-} from '../data/sql/Ban';
+} from '../data/sql/IPBan';
 import {
   getInfoToIp,
   getIPofIID,
@@ -100,7 +100,7 @@ export async function executeIIDAction(
 
   switch (action) {
     case 'status': {
-      const allowed = await isIPAllowed(ip, true);
+      const allowed = await isIPAllowed(ip, { disableCache: true });
       let out = `Allowed to place: ${allowed.allowed}\n`;
       const info = await getInfoToIp(ip);
       out += `Country: ${info.country}\n`
@@ -594,7 +594,7 @@ export async function removeMod(userId) {
   }
   try {
     await user.update({
-      isMod: false,
+      userlvl: USERLVL.VERIFIED,
     });
     return `Moderation rights removed from user ${userId}`;
   } catch {
@@ -621,7 +621,7 @@ export async function makeMod(name) {
   }
   try {
     await user.update({
-      isMod: true,
+      userlvl: USERLVL.MOD,
     });
     return [user.id, user.name];
   } catch {

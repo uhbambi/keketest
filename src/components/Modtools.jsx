@@ -9,6 +9,7 @@ import Canvastools from './ModCanvastools';
 import Admintools from './Admintools';
 import Watchtools from './ModWatchtools';
 import IIDTools from './ModIIDtools';
+import { USERLVL } from '../core/constants';
 
 
 const CONTENT = {
@@ -26,7 +27,7 @@ function Modtools() {
   const Content = CONTENT[selectedPart];
 
   const parts = Object.keys(CONTENT)
-    .filter((part) => part !== 'Admin' || userlvl === 1);
+    .filter((part) => part !== 'Admin' || userlvl >= USERLVL.ADMIN);
 
   return (
     <>

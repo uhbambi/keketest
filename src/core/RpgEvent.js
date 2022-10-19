@@ -112,7 +112,7 @@ class RpgEvent {
     const success = await getSuccess();
     this.success = success;
     RpgEvent.setCoolDownFactorFromSuccess(success);
-    if (socketEvents.amIImportant()) {
+    if (socketEvents.important) {
       let eventTimestamp = await nextEvent();
       if (!eventTimestamp) {
         eventTimestamp = await RpgEvent.setNextEvent();
@@ -196,7 +196,7 @@ class RpgEvent {
      * if we aren't the main shard, we just wait and regularly check,
      * re-initializing if we become it
      */
-    if (!socketEvents.amIImportant()) {
+    if (!socketEvents.important) {
       this.iAmNotImportant = true;
       if (this.void) {
         this.void.cancel();

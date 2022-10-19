@@ -28,14 +28,6 @@ export default async (req, res) => {
   }
 
   const { user } = req;
-  if (!user || !user.regUser) {
-    res.status(401);
-    res.json({
-      errors: [t`You are not authenticated.`],
-    });
-    return;
-  }
-
   const currentPassword = user.regUser.password;
   if (currentPassword && !compareToHash(password, currentPassword)) {
     res.status(400);

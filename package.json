@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "engines": {
-    "node": ">=16"
+    "node": ">=18"
   },
   "description": "Unlimited planet canvas for placing pixels",
   "main": "server.js",
@@ -14,6 +14,7 @@
     "build:dev": "webpack --config ./webpack.config.server.js && webpack --env development --config ./webpack.config.client.js && npm run minify-css",
     "update-browserlist": "browserslist --update-db",
     "deploy": "ssh pixelplanet /home/pixelpla/rebuild.sh",
+    "restart": "ssh pixelplanet /home/pixelpla/restart.sh",
     "minify-css": "node scripts/minifyCss.js",
     "babel-node": "babel-node",
     "lint": "cd $INIT_CWD && eslint --ext .jsx --ext .js",

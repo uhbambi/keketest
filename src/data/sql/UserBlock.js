@@ -1,16 +1,10 @@
 /*
- *
  * Junction table for User -> Blocked User
- * Relations defined in ./index.js
- *
  */
 
 import sequelize from './sequelize';
 
-const UserBlock = sequelize.define('UserBlock', {
-}, {
-  timestamps: false,
-});
+const UserBlock = sequelize.define('UserBlock', {});
 
 export async function isUserBlockedBy(userId, blockedById) {
   const exists = await UserBlock.findOne({

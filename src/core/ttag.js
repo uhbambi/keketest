@@ -19,15 +19,6 @@ function loadTtags() {
   const jsLangs = getLangsOfJsAsset('client');
   availableLangs.length = 0;
 
-  if (jsLangs.includes('en')) {
-    if (!ttags.en) {
-      ttags.en = new TTag();
-    }
-    availableLangs.push(['en', 'gb']);
-  } else if (ttags.en) {
-    delete ttags.en;
-  }
-
   for (let i = 0; i < langs.length; i += 1) {
     const file = langs[i];
     // ./ssr-de.po
@@ -53,6 +44,15 @@ function loadTtags() {
     } else if (ttags[lang]) {
       delete ttags[lang];
     }
+  }
+
+  if (jsLangs.includes('en') || !availableLangs.length) {
+    if (!ttags.en) {
+      ttags.en = new TTag();
+    }
+    availableLangs.push(['en', 'gb']);
+  } else if (ttags.en) {
+    delete ttags.en;
   }
 }
 

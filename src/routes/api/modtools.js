@@ -9,7 +9,6 @@ import multer from 'multer';
 
 import CanvasCleaner from '../../core/CanvasCleaner';
 import chatProvider from '../../core/ChatProvider';
-import { getIPFromRequest } from '../../utils/ip';
 import { escapeMd } from '../../core/utils';
 import logger, { modtoolsLogger } from '../../core/logger';
 import {
@@ -24,6 +23,7 @@ import {
   removeMod,
   makeMod,
 } from '../../core/adminfunctions';
+import { USERLVL } from '../../data/sql';
 
 
 const router = express.Router();
@@ -41,31 +41,22 @@ const upload = multer({
 
 
 /*
- * make sure User is logged in and mod or mod
+ * make sure User is logged in and at least Mod
  */
 router.use(async (req, res, next) => {
-  const ip = getIPFromRequest(req);
   if (!req.user) {
-    logger.warn(
-      `MODTOOLS: ${ip} tried to access modtools without login`,
-    );
     const { t } = req.ttag;
-    res.status(403).send(t`You are not logged in`);
+    next(new Error(t`You are not logged in`));
     return;
   }
-  /*
-   * 1 = Admin
-   * 2 = Mod
-   */
-  if (!req.user.userlvl) {
+  if (req.user.userlvl < USERLVL.MOD) {
     logger.warn(
-      `MODTOOLS: ${ip} / ${req.user.id} tried to access modtools`,
+      `MODTOOLS: ${req.user.ip} / ${req.user.id} tried to access modtools`,
     );
     const { t } = req.ttag;
-    res.status(403).send(t`You are not allowed to access this page`);
+    next(new Error(t`You are not allowed to access this page`));
     return;
   }
-
   next();
 });
 
@@ -77,7 +68,7 @@ router.post('/', upload.single('image'), async (req, res, next) => {
   const aLogger = (text) => {
     const timeString = new Date().toLocaleTimeString();
     // eslint-disable-next-line max-len
-    const logText = `@[${escapeMd(req.user.regUser.name)}](${req.user.id}) ${text}`;
+    const logText = `@[${escapeMd(req.user.name)}](${req.user.id}) ${text}`;
     modtoolsLogger.info(
       `${timeString} | MODTOOLS> ${logText}`,
     );
@@ -90,7 +81,7 @@ router.post('/', upload.single('image'), async (req, res, next) => {
   };
 
   const bLogger = (text) => {
-    logger.info(`IID> ${req.user.regUser.name}[${req.user.id}]> ${text}`);
+    logger.info(`IID> ${req.user.name}[${req.user.id}]> ${text}`);
   };
 
   try {
@@ -186,7 +177,7 @@ router.post('/', upload.single('image'), async (req, res, next) => {
         brcoor,
         canvasid,
         aLogger,
-        (req.user.userlvl === 1),
+        (req.user.userlvl >= USERLVL.ADMIN),
       );
       res.status(ret).send(msg);
       return;
@@ -202,7 +193,7 @@ router.post('/', upload.single('image'), async (req, res, next) => {
  * just admins past here, no Mods
  */
 router.use(async (req, res, next) => {
-  if (req.user.userlvl !== 1) {
+  if (req.user.userlvl < USERLVL.ADMIN) {
     const { t } = req.ttag;
     res.status(403).send(t`Just admins can do that`);
     return;
@@ -215,7 +206,7 @@ router.use(async (req, res, next) => {
  */
 router.post('/', async (req, res, next) => {
   const aLogger = (text) => {
-    logger.info(`ADMIN> ${req.user.regUser.name}[${req.user.id}]> ${text}`);
+    logger.info(`ADMIN> ${req.user.name}[${req.user.id}]> ${text}`);
   };
 
   try {
@@ -251,8 +242,8 @@ router.post('/', async (req, res, next) => {
   }
 });
 
-router.use(async (req, res) => {
-  res.status(400).send('Invalid request');
+router.use(async (req, res, next) => {
+  next(new Error('Invalid request'));
 });
 
 // eslint-disable-next-line no-unused-vars

@@ -10,17 +10,9 @@ async function blockdm(req, res) {
   const { block } = req.body;
   const { user } = req;
 
-  const errors = [];
   if (typeof block !== 'boolean') {
-    errors.push('Not defined if blocking or unblocking');
-  }
-  if (!user || !user.regUser) {
-    errors.push('You are not logged in');
-  }
-  if (errors.length) {
-    res.status(400);
-    res.json({
-      errors,
+    res.status(400).json({
+      errors: ['Not defined if blocking or unblocking'],
     });
     return;
   }

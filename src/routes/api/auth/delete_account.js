@@ -30,13 +30,6 @@ export default async (req, res) => {
   }
 
   const { user } = req;
-  if (!user || !user.regUser) {
-    res.status(401);
-    res.json({
-      errors: [t`You are not authenticated.`],
-    });
-    return;
-  }
   const { id, name } = user;
 
   const mutedTtl = await checkIfMuted(id);

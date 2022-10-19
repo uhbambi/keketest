@@ -9,7 +9,7 @@ export default async (req, res, next) => {
   try {
     const { user, lang } = req;
     const userdata = await getMe(user, lang);
-    user.updateLogInTimestamp();
+    user.touch();
     res.json(userdata);
   } catch (error) {
     next(error);

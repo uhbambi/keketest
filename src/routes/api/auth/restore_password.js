@@ -16,7 +16,7 @@ async function validate(email, gettext) {
 }
 
 export default async (req, res) => {
-  const ip = req.trueIp;
+  const { ip } = req.user;
   const { email } = req.body;
   const { gettext } = req.ttag;
 

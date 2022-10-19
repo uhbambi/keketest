@@ -26,7 +26,7 @@ Click or tab: Place Pixel
 
 ## Build
 ### Requirements
-- [nodejs environment](https://nodejs.org/en/) (>=16)
+- [nodejs environment](https://nodejs.org/en/) (>=18)
 - Linux or WSL if you want to be safe (we do not build on Windows and therefor can't guarantee that it will work there)
 
 ### Building
@@ -59,7 +59,7 @@ git config --global url.https://github.com/.insteadOf git://github.com/
 
 ## Run
 ### Requirements
-- nodejs environment with [npm](https://www.npmjs.com/get-npm) (>=16)
+- nodejs environment with [npm](https://www.npmjs.com/get-npm) (>=18)
 - [pm2](https://github.com/Unitech/pm2) (`npm install -g pm2`) as process manager and for logging
 - [redis](https://redis.io/) as database for storìng the canvas
 - mysql or mariadb ([setup own user](https://www.digitalocean.com/community/tutorials/how-to-create-a-new-user-and-grant-permissions-in-mysql) and [create database](https://www.w3schools.com/SQl/sql_create_db.asp) for pixelplanet) for storing additional data like IP blacklist

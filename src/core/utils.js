@@ -102,7 +102,7 @@ export function getTileOfPixel(
 
 export function getMaxTiledZoom(canvasSize) {
   if (!canvasSize) return 0;
-  return Math.log2(canvasSize / TILE_SIZE) / TILE_ZOOM_LEVEL * 2;
+  return Math.log2(canvasSize / TILE_SIZE) / Math.log2(TILE_ZOOM_LEVEL);
 }
 
 export function getHistoricalCanvasSize(

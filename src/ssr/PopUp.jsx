@@ -22,7 +22,7 @@ function generatePopUpPage(req) {
   const { lang } = req;
   const host = getHostFromRequest(req);
   const shard = (host.startsWith(`${socketEvents.thisShard}.`))
-    ? null : socketEvents.getLowestActiveShard();
+    ? null : socketEvents.lowestActiveShard;
   const ssvR = JSON.stringify({
     availableStyles: getCssAssets(),
     langs,

@@ -41,10 +41,11 @@ const LISTEN_PREFIX = 'l';
 
 
 class MessageBroker extends SocketEvents {
+  isCluster = true;
+  thisShard = SHARD_NAME;
+
   constructor() {
     super();
-    this.isCluster = true;
-    this.thisShard = SHARD_NAME;
     /*
      * currently running cross-shard requests,
      * are tracked in order to only send them to receiving
@@ -75,6 +76,28 @@ class MessageBroker extends SocketEvents {
     setInterval(this.checkHealth, 10000);
   }
 
+  get important() {
+    /*
+     * important main shard does tasks like running RpgEvent
+     * or updating rankings
+     */
+    return !this.shardOnlineCounters[0]
+      || this.shardOnlineCounters[0][0] === this.thisShard;
+  }
+
+  get lowestActiveShard() {
+    let lowest = 0;
+    let lShard = null;
+    this.shardOnlineCounters.forEach((shardData) => {
+      const [shard, cnt] = shardData;
+      if (cnt.total < lowest || !lShard) {
+        lShard = shard;
+        lowest = cnt.total;
+      }
+    });
+    return lShard || this.thisShard;
+  }
+
   async initialize() {
     this.publisher = pubsub.publisher;
     this.subscriber = pubsub.subscriber;
@@ -96,7 +119,7 @@ class MessageBroker extends SocketEvents {
     console.log('CLUSTER: Initialized message broker');
   }
 
-  /*
+  /**
    * messages on shared broadcast channels that every shard is listening to
    */
   async onShardBCMessage(message) {
@@ -129,7 +152,7 @@ class MessageBroker extends SocketEvents {
         super.emit(key, ...val);
         return;
       }
-      /*
+      /**
        * other messages are shard names that announce the existence
        * of a shard
        */
@@ -151,7 +174,7 @@ class MessageBroker extends SocketEvents {
     }
   }
 
-  /*
+  /**
    * messages on shard specific listener channel
    * messages in form `type,JSONArrayData`
    * straight emitted as socket event
@@ -168,29 +191,7 @@ class MessageBroker extends SocketEvents {
     }
   }
 
-  getLowestActiveShard() {
-    let lowest = 0;
-    let lShard = null;
-    this.shardOnlineCounters.forEach((shardData) => {
-      const [shard, cnt] = shardData;
-      if (cnt.total < lowest || !lShard) {
-        lShard = shard;
-        lowest = cnt.total;
-      }
-    });
-    return lShard || this.thisShard;
-  }
-
-  amIImportant() {
-    /*
-     * important main shard does tasks like running RpgEvent
-     * or updating rankings
-     */
-    return !this.shardOnlineCounters[0]
-      || this.shardOnlineCounters[0][0] === this.thisShard;
-  }
-
-  /*
+  /**
    * requests that go over all shards and combine responses from all
    */
   req(type, ...args) {
@@ -256,7 +257,7 @@ class MessageBroker extends SocketEvents {
     this.sumOnlineCounters();
   }
 
-  /*
+  /**
    * messages on binary shard channels, where specific shards send from
    */
   onShardBinaryMessage(buffer, shard) {
@@ -314,7 +315,7 @@ class MessageBroker extends SocketEvents {
     this.publisher.publish(BROADCAST_CHAN, msg);
   }
 
-  /*
+  /**
    * broadcast pixel message via websocket
    * @param canvasId number ident of canvas
    * @param chunkid number id consisting of i,j chunk coordinates
@@ -337,7 +338,7 @@ class MessageBroker extends SocketEvents {
   }
 
   setCoolDownFactor(fac) {
-    if (this.amIImportant()) {
+    if (this.important) {
       this.emit('setCoolDownFactor', fac);
     } else {
       super.emit('setCoolDownFactor', fac);

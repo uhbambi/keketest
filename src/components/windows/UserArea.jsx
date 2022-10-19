@@ -14,6 +14,7 @@ import useInterval from '../hooks/interval';
 import LogInArea from '../LogInArea';
 import Tabs from '../Tabs';
 import UserAreaContent from '../UserAreaContent';
+import { USERLVL } from '../../core/constants';
 
 // eslint-disable-next-line max-len
 const Rankings = React.lazy(() => import(/* webpackChunkName: "stats" */ '../Rankings'));
@@ -66,8 +67,8 @@ const UserArea = () => {
             <Converter />
           </Suspense>
         </div>
-        {userlvl && (
-        <div label={(userlvl === 1) ? t`Modtools` : t`Modtools`}>
+        {(userlvl >= USERLVL.MOD) && (
+        <div label={(userlvl >= USERLVL.ADMIN) ? t`Admintools` : t`Modtools`}>
           <Suspense fallback={<div>{t`Loading...`}</div>}>
             <Modtools />
           </Suspense>

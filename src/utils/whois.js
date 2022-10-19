@@ -4,12 +4,12 @@
 
 import net from 'net';
 
-import { isIPv6, ip4InRangeToCIDR } from './ip';
+import { isIPv6, ipSubnetToHex } from './ip';
 import { OUTGOING_ADDRESS } from '../core/config';
 
 const WHOIS_PORT = 43;
 const QUERY_SUFFIX = '\r\n';
-const WHOIS_TIMEOUT = 30000;
+const WHOIS_TIMEOUT = 10000;
 
 /*
  * parse whois return into fields
@@ -18,14 +18,13 @@ function parseSimpleWhois(whois) {
   let data = {
     groups: {},
   };
-
   const groups = [{}];
   const text = [];
   const lines = whois.split('\n');
   let lastLabel;
 
   for (let i = 0; i < lines.length; i += 1) {
-    const line = lines[i].trim();
+    let line = lines[i].trim();
     if (line.startsWith('%') || line.startsWith('#')) {
       /*
        * detect if an ASN or IP has multiple WHOIS results,
@@ -39,6 +38,11 @@ function parseSimpleWhois(whois) {
       continue;
     }
     if (line) {
+      // strip network prefix for rwhois
+      if (line.startsWith('network:')) {
+        line = line.slice(8);
+      }
+
       const sep = line.indexOf(':');
       if (~sep) {
         const label = line.slice(0, sep).toLowerCase();
@@ -86,25 +90,17 @@ function parseSimpleWhois(whois) {
  * @return object with whois data
  */
 function parseWhois(ip, whoisReturn) {
+  const data = {};
+  if (!whoisReturn) {
+    return data;
+  }
   const whoisData = parseSimpleWhois(whoisReturn);
 
-  let cidr;
-  if (isIPv6(ip)) {
-    const range = whoisData.inet6num || whoisData.netrange || whoisData.inetnum
-      || whoisData.route || whoisData.cidr;
-    cidr = range && !range.includes('-') && range;
-  } else {
-    const range = whoisData.inetnum || whoisData.netrange
-      || whoisData.route || whoisData.cidr;
-    if (range) {
-      if (range.includes('/') && !range.includes('-')) {
-        cidr = range;
-      } else {
-        cidr = ip4InRangeToCIDR(ip, range);
-      }
-    }
-  }
-
+  let range = whoisData.inetnum || whoisData.inet6num || whoisData.cidr
+      || whoisData.netrange || whoisData.route || whoisData.route6
+      || whoisData['ip-network'] || whoisData['auth-area'];
+  range = ipSubnetToHex(range, ip);
+  if (range) data.range = range;
   let org = whoisData['org-name']
     || whoisData.organization
     || whoisData.orgname
@@ -117,52 +113,81 @@ function parseWhois(ip, whoisReturn) {
     if (contactGroup) {
       [org] = whoisData.groups[contactGroup].address.split('\n');
     } else {
-      org = whoisData.owner || whoisData['mnt-by'] || 'N/A';
+      org = whoisData.owner || whoisData['mnt-by'];
     }
   }
-  const descr = whoisData.netname || whoisData.descr || 'N/A';
-  const asn = whoisData.asn
+  if (org) data.org = org;
+  const descr = whoisData.netname || whoisData.descr;
+  if (descr) data.descr = descr;
+  let asn = whoisData.asn
     || whoisData.origin
     || whoisData.originas
-    || whoisData['aut-num'] || 'N/A';
-  let country = whoisData.country
-    || (whoisData.organisation && whoisData.organisation.Country)
-    || 'xx';
-  if (country.length > 2) {
-    country = country.slice(0, 2);
+    || whoisData['aut-num'];
+  if (asn) {
+    // use only first ASN from possible list
+    asn = asn.split(',')[0].split('\n')[0];
+    // only number
+    if (asn.startsWith('AS')) {
+      asn = asn.slice(2);
+    }
+    const dotIndex = asn.indexOf('.');
+    if (dotIndex === -1) {
+      // asplain
+      asn = parseInt(asn, 10);
+      if (!Number.isNaN(asn)) {
+        data.asn = asn;
+      }
+    } else {
+      // asdot
+      const p1 = parseInt(asn.slice(0, dotIndex));
+      const p2 = parseInt(asn.slice(dotIndex + 1));
+      if (!Number.isNaN(p1) && !Number.isNaN(p2)) {
+        data.asn = (p1 << 16) | p2;
+      }
+    }
   }
-
-  return {
-    ip,
-    cidr: cidr || 'N/A',
-    org,
-    country,
-    asn,
-    descr,
-  };
+  const country = whoisData.country
+    || whoisData.organisation?.Country
+    || whoisData['country-code'];
+  if (country) {
+    data.country = country.slice(0, 2).toLowerCase();
+  }
+  return data;
 }
 
 /*
  * send a raw whois query to server
  * @param query
- * @param host
+ * @param hostInput host with or without port
  */
 function singleWhoisQuery(
   query,
-  host,
+  hostInput,
 ) {
-  if (host.endsWith(':4321')) {
-    throw new Error('no rwhois support');
+  const options = {
+    timeout: WHOIS_TIMEOUT,
+  };
+
+  const pos = hostInput.indexOf(':');
+  if (~pos) {
+    // split port if neccessary
+    options.host = hostInput.slice(0, pos);
+    options.port = hostInput.slice(pos + 1);
+  } else {
+    options.host = hostInput;
+    options.port = WHOIS_PORT;
   }
+  if (OUTGOING_ADDRESS) {
+    options.localAddress = OUTGOING_ADDRESS;
+    options.family = isIPv6(OUTGOING_ADDRESS) ? 6 : 4;
+  }
+
   return new Promise((resolve, reject) => {
     let data = '';
-    const socket = net.createConnection({
-      host,
-      port: WHOIS_PORT,
-      localAddress: OUTGOING_ADDRESS,
-      family: 4,
-      timeout: WHOIS_TIMEOUT,
-    }, () => socket.write(query + QUERY_SUFFIX));
+    const socket = net.createConnection(
+      options,
+      () => socket.write(query + QUERY_SUFFIX),
+    );
     socket.on('data', (chunk) => { data += chunk; });
     socket.on('close', () => resolve(data));
     socket.on('timeout', () => socket.destroy(new Error('Timeout')));
@@ -204,30 +229,32 @@ function checkForReferral(
   return null;
 }
 
-/*
+/**
  * whois ip
+ * @param ip ip as string
+ * @param host whois host (optional)
+ * @returns {
+ *   range as [start: hex, end: hex, mask: number],
+ *   org as string,
+ *   descr as string,
+ *   asn as unsigned 32bit integer,
+ *   country as two letter lowercase code,
+ *   referralHost as string,
+ *   referralRange as [start: hex, end: hex, mask: number],
+ * }
  */
-export default async function whoisIp(
-  ip,
-  host = null,
-) {
-  let useHost;
-  if (!host) {
-    if (Math.random() > 0.5) {
-      useHost = 'whois.arin.net';
-    } else {
-      useHost = 'whois.iana.org';
-    }
-  } else {
-    useHost = host;
-  }
-  let whoisResult = '';
+export default async function whoisIp(ip, options) {
+  let host = options?.host || 'whois.iana.org';
+  const logger = options?.logger || console;
+  let whoisResult;
+  let prevResult;
+  let prevHost;
   let refCnt = 0;
   while (refCnt < 5) {
     let queryPrefix = '';
-    if (useHost === 'whois.arin.net') {
+    if (host === 'whois.arin.net') {
       queryPrefix = '+ n';
-    } else if (useHost === 'whois.ripe.net') {
+    } else if (host === 'whois.ripe.net') {
       /*
        * flag to not return personal information, otherwise
        * RIPE is gonna rate limit and ban
@@ -237,18 +264,37 @@ export default async function whoisIp(
 
     try {
       // eslint-disable-next-line no-await-in-loop
-      whoisResult = await singleWhoisQuery(`${queryPrefix} ${ip}`, useHost);
+      whoisResult = await singleWhoisQuery(`${queryPrefix} ${ip}`, host);
       const ref = checkForReferral(whoisResult);
       if (!ref) {
         break;
       }
-      useHost = ref;
+      prevResult = whoisResult;
+      prevHost = host;
+      host = ref;
     } catch (err) {
       // eslint-disable-next-line no-console
-      console.error(`Error on WHOIS ${ip} ${useHost}: ${err.message}`);
+      logger.error(`WHOIS ${ip} ${host}: ${err.message}`);
+      host = prevHost;
       break;
     }
     refCnt += 1;
   }
-  return parseWhois(ip, whoisResult);
+
+  let result = parseWhois(ip, whoisResult);
+  if (!result.range) {
+    // eslint-disable-next-line no-console
+    logger.error(`WHOIS ${ip} ${host}: This host gives incomplete results.`);
+    host = prevHost;
+  }
+  if (prevResult) {
+    const pastWhois = parseWhois(ip, prevResult);
+    if (host && pastWhois.range) {
+      result.referralHost = host;
+      result.referralRange = pastWhois.range;
+    }
+    result = { ...pastWhois, ...result };
+  }
+  result.ip = ip;
+  return result;
 }

@@ -30,8 +30,6 @@ class APISocketServer {
       perMessageDeflate: false,
       clientTracking: true,
       maxPayload: 65536,
-      // path: "/mcws",
-      // server,
       noServer: true,
     });
     this.wss = wss;

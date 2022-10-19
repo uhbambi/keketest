@@ -3,7 +3,11 @@
  *
  */
 
-import { TILE_ZOOM_LEVEL, TILE_SIZE } from '../core/constants';
+import {
+  TILE_ZOOM_LEVEL,
+  TILE_SIZE,
+  BACKGROUND_CLR_HEX,
+} from '../core/constants';
 
 import {
   getTileOfPixel,
@@ -21,6 +25,8 @@ import PixelPainterControls from '../controls/PixelPainterControls';
 import Renderer from './Renderer';
 import ChunkLoader from './ChunkLoader2D';
 import pixelNotify from './PixelNotify';
+
+const LOG_FRAC = Math.log2(TILE_ZOOM_LEVEL);
 
 class Renderer2D extends Renderer {
   is3D = false;
@@ -178,13 +184,12 @@ class Renderer2D extends Renderer {
     pixelNotify.updateScale(viewscale);
     let tiledScale = (viewscale > 0.5)
       ? 0
-      : Math.round(Math.log2(viewscale) * 2 / TILE_ZOOM_LEVEL);
+      : Math.round(Math.log2(viewscale) / LOG_FRAC);
     tiledScale = TILE_ZOOM_LEVEL ** tiledScale;
     const canvasMaxTiledZoom = (isHistoricalView)
       ? this.historicalCanvasMaxTiledZoom
       : this.canvasMaxTiledZoom;
-    const tiledZoom = canvasMaxTiledZoom + Math.log2(tiledScale)
-      * 2 / TILE_ZOOM_LEVEL;
+    const tiledZoom = canvasMaxTiledZoom + Math.log2(tiledScale) / LOG_FRAC;
     const relScale = viewscale / tiledScale;
 
     this.tiledScale = tiledScale;
@@ -345,7 +350,7 @@ class Renderer2D extends Renderer {
     if (scale > this.scaleThreshold) relScale = 1.0;
     // scale
     context.save();
-    context.fillStyle = '#C4C4C4';
+    context.fillStyle = BACKGROUND_CLR_HEX;
     context.scale(relScale, relScale);
     // decide if we update the timestamps of accessed chunks
     const curTime = Date.now();
@@ -576,7 +581,7 @@ class Renderer2D extends Renderer {
     const CHUNK_RENDER_RADIUS_Y = Math.ceil(height / TILE_SIZE / 2 / scale);
 
     context.save();
-    context.fillStyle = '#C4C4C4';
+    context.fillStyle = BACKGROUND_CLR_HEX;
     // clear canvas and do nothing if no time selected
     if (!historicalDate || !historicalTime) {
       context.fillRect(0, 0, this.canvas.width, this.canvas.height);

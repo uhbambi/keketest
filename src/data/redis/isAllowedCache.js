@@ -6,7 +6,9 @@
 import client from './client';
 
 export const PREFIX = 'isal';
+export const MAIL_PREFIX = 'ised';
 const CACHE_DURATION = 14 * 24 * 3600;
+const MAIL_CACHE_DURATION = 7 * 24 * 3600;
 
 export function cacheAllowed(ip, status) {
   const key = `${PREFIX}:${ip}`;
@@ -32,4 +34,21 @@ export async function getCacheAllowed(ip) {
 export function cleanCacheForIP(ip) {
   const key = `${PREFIX}:${ip}`;
   return client.del(key);
+}
+
+export function cacheMailProviderDisposable(mailProvider, isDisposable) {
+  const key = `${MAIL_PREFIX}:${mailProvider}`;
+  const value = (isDisposable) ? '1' : '';
+  return client.set(key, value, {
+    EX: MAIL_CACHE_DURATION,
+  });
+}
+
+export async function getCacheMailProviderDisposable(mailProvider) {
+  const key = `${MAIL_PREFIX}:${mailProvider}`;
+  const cache = await client.get(key);
+  if (!cache) {
+    return null;
+  }
+  return cache === '1';
 }

@@ -1,49 +1,9 @@
 /**
  *
- * basic functions to get data from headers and parse IPs
+ * basic functions for parsing IPs
  */
 
-import { USE_XREALIP } from '../core/config';
-
-/*
- * Parse ip4 string to 32bit integer
- * @param ipString ip string
- * @return ipNum numerical ip
- */
-function ip4ToNum(ipString) {
-  if (!ipString) {
-    return null;
-  }
-  const ipArr = ipString
-    .trim()
-    .split('.')
-    .map((numString) => parseInt(numString, 10));
-  if (ipArr.length !== 4 || ipArr.some(
-    (num) => Number.isNaN(num) || num > 255 || num < 0,
-  )) {
-    return null;
-  }
-  return (ipArr[0] << 24)
-    + (ipArr[1] << 16)
-    + (ipArr[2] << 8)
-    + ipArr[3];
-}
-
-/*
- * Parse ip4 number to string representation
- * @param ipNum numerical ip (32bit integer)
- * @return ipString string representation of ip (xxx.xxx.xxx.xxx)
- */
-function ip4NumToStr(ipNum) {
-  return [
-    ipNum >>> 24,
-    ipNum >>> 16 & 0xFF,
-    ipNum >>> 8 & 0xFF,
-    ipNum & 0xFF,
-  ].join('.');
-}
-
-/*
+/**
  * Get hostname from request
  * @param req express req object
  * @param includeProto if we include protocol (https, http)
@@ -64,37 +24,11 @@ export function getHostFromRequest(req, includeProto = true, stripSub = false) {
   if (!includeProto) {
     return host;
   }
-
   const proto = headers['x-forwarded-proto'] || 'http';
   return `${proto}://${host}`;
 }
 
-/*
- * Get IP from request
- * @param req express req object
- * @return ip as string
- */
-export function getIPFromRequest(req) {
-  if (USE_XREALIP) {
-    const ip = req.headers['x-real-ip'];
-    if (ip) {
-      return ip;
-    }
-  }
-
-  const { socket, connection } = req;
-  let conip = (connection ? connection.remoteAddress : socket.remoteAddress);
-  conip = conip || '0.0.0.1';
-  if (!USE_XREALIP) {
-    // eslint-disable-next-line no-console
-    console.warn(
-      `Connection not going through reverse proxy! IP: ${conip}`, req.headers,
-    );
-  }
-  return conip;
-}
-
-/*
+/**
  * Check if IP is v6 or v4
  * @param ip ip as string
  * @return true if ipv6, false otherwise
@@ -103,46 +37,129 @@ export function isIPv6(ip) {
   return ip.includes(':');
 }
 
-/*
- * Set last digits of IPv6 to zero,
- * needed because IPv6 assigns subnets to customers, we don't want to
- * mess with individual ips
- * @param ip ip as string (v4 or v6)
- * @return ip as string, and if v6, the last digits set to 0
+/**
+ * unpack IPv6 address into 8 blocks
+ * @param ip IPv6 IP string
+ * @return Array with length 8 of IPv6 parts as strings
  */
-export function getIPv6Subnet(ip) {
+export function unpackIPv6(ip) {
+  let ipUnpack = ip.split(':');
+  const spacer = ipUnpack.indexOf('');
+  if (spacer !== -1) {
+    ipUnpack = ipUnpack.filter((a) => a);
+    ipUnpack.splice(spacer, 0, ...Array(8 - ipUnpack.length).fill('0'));
+  }
+  return ipUnpack;
+}
+
+/**
+ * Get hex representation of IP
+ * @param ip ip as string (if IPv6, the first 64bit have to be unpacked)
+ * @return hex string (without leading '0x')
+ */
+export function ipToHex(ip) {
   if (isIPv6(ip)) {
-    // eslint-disable-next-line max-len
-    return `${ip.split(':')
+    return ip.split(':')
       .slice(0, 4)
-      .join(':')}:0000:0000:0000:0000`;
+      .map((n) => `000${n}`.slice(-4).toLowerCase())
+      .join('');
+  }
+  return ip.split('.')
+    .map((n) => `0${parseInt(n, 10).toString(16)}`.slice(-2))
+    .join('');
+}
+
+/**
+ * Parse IPv4 string to Number and IPv6 string to 2xNumbers (first 64bit)
+ * @param ipString ip string
+ * @return numerical IP (Number or BigInt)
+ */
+function ipToNum(ipString) {
+  if (!ipString) {
+    return null;
+  }
+  if (isIPv6(ipString)) {
+    // IPv6
+    const hex = unpackIPv6(ipString.trim())
+      .map((n) => `000${n}`.slice(-4))
+      .slice(0, 4).join('');
+    try {
+      return BigInt(`0x${hex}`);
+    } catch {
+      return null;
+    }
+  }
+  // IPv4
+  const ipArr = ipString
+    .split('.')
+    .map((numString) => parseInt(numString, 10));
+  if (ipArr.length !== 4 || ipArr.some((num) => Number.isNaN(num))) {
+    return null;
+  }
+  // >>>0 is needed to convert from signed to unsigned
+  return ((ipArr[0] << 24)
+    + (ipArr[1] << 16)
+    + (ipArr[2] << 8)
+    + ipArr[3]) >>> 0;
+}
+
+/**
+ * parse num representation of IP to hex
+ * @param num IP as 64bit BigInt if IPv6, Number if IPv4
+ * @return hex
+ */
+function numToHex(num) {
+  const ip = `00000000${num.toString(16)}`;
+  return ip.slice(
+    (typeof num === 'bigint') ? -16 : -8,
+  );
+}
+
+/**
+ * parse hex representation of IP to string
+ * @param hex IP as 64bit hex for IPv6 and 32bit hex for IPv4
+ * @return ip as string
+ */
+export function hexToIp(hex) {
+  let ip = '';
+  if (hex.length === 8) {
+    // IPv4
+    let i = 0;
+    // eslint-disable-next-line no-constant-condition
+    while (true) {
+      ip += parseInt(hex.slice(i, i += 2), 16).toString(10);
+      if (i >= 8) break;
+      ip += '.';
+    }
+  } else {
+    // IPv6
+    for (let i = 0; i < 16; i += 4) {
+      ip += hex.slice(i, i + 4);
+      ip += ':';
+    }
+    ip += ':';
   }
   return ip;
 }
 
-/*
- * Get numerical start and end of range
- * @param range string of range in the format 'xxx.xxx.xxx.xxx - xxx.xxx.xxx.xxx'
- * @return [start, end] with numerical IPs (32bit integer)
+/**
+ * parse range into readable string
+ * @param range [start, end, mask] with start and end in hex
+ * @return string
  */
-function ip4RangeStrToRangeNum(range) {
+export function rangeToString(range) {
   if (!range) {
-    return null;
+    return undefined;
   }
-  const [start, end] = range.split('-')
-    .map(ip4ToNum);
-  if (!start || !end || start > end) {
-    return null;
-  }
-  return [start, end];
+  return `${hexToIp(range[0])}/${range[2]}`;
 }
 
-/*
- * Get Array of CIDRs for an numerical IPv4 range
- * @param [start, end] with numerical IPs (32bit integer)
+/**
+ * Get Array of CIDRs for an 32bit numerical IP range
+ * @param [start, end] with numerical IPs as Number
  * @return Array of CIDR strings
  */
-function ip4RangeNumToCIDR([start, end]) {
+function ip32RangeNumToCIDR(start, end, ip) {
   let maskNum = 32;
   let mask = 0xFFFFFFFF;
   const diff = start ^ end;
@@ -151,62 +168,112 @@ function ip4RangeNumToCIDR([start, end]) {
     maskNum -= 1;
   }
   if ((start & (~mask)) || (~(end | mask))) {
-    const divider = start | (~mask >> 1);
-    return ip4RangeNumToCIDR([start, divider]).concat(
-      ip4RangeNumToCIDR([divider + 1, end]),
+    const divider = (start | (~mask >> 1)) >>> 0;
+    if (ip) {
+      if (ip <= divider) {
+        return ip32RangeNumToCIDR(start, divider, ip);
+      }
+      return ip32RangeNumToCIDR(divider + 1, end, ip);
+    }
+    return ip32RangeNumToCIDR(start, divider).concat(
+      ip32RangeNumToCIDR(divider + 1, end),
     );
   }
-  return [`${ip4NumToStr(start)}/${maskNum}`];
+  return [[start, end, maskNum]];
 }
 
-/*
- * Get Array of CIDRs for an IPv4 range
- * @param range string of range in the format 'xxx.xxx.xxx.xxx - xxx.xxx.xxx.xxx'
+/**
+ * Get Array of CIDRs for an 64bit numerical IP range
+ * @param [start, end] with numerical IPs as BigInt
+ * @param ip if given, return only range that includes ip
  * @return Array of CIDR strings
  */
-export function ip4RangeToCIDR(range) {
-  const rangeNum = ip4RangeStrToRangeNum(range);
-  if (!rangeNum) {
-    return null;
-  }
-  return ip4RangeNumToCIDR(rangeNum);
-}
-
-/*
- * Get specific CIDR in numeric range that includes numeric ip
- * @param ip numerical ip (32bit integer)
- * @param [start, end] with numerical IPs (32bit integer)
- * @return CIDR string
- */
-function ip4NumInRangeNumToCIDR(ip, [start, end]) {
-  let maskNum = 32;
-  let mask = 0xFFFFFFFF;
+function ip64RangeNumToCIDR(start, end, ip) {
+  let maskNum = 64;
+  const mask64 = 0xFFFFFFFFFFFFFFFFn;
+  let mask = mask64;
   const diff = start ^ end;
   while (diff & mask) {
-    mask <<= 1;
+    mask = (mask << 1n) & mask64;
     maskNum -= 1;
   }
-  if ((start & (~mask)) || (~(end | mask))) {
-    const divider = start | (~mask >> 1);
-    if (ip <= divider) {
-      return ip4NumInRangeNumToCIDR(ip, [start, divider]);
+  const invMask = ~mask & mask64;
+  if ((start & invMask) || (~(end | mask) & mask64)) {
+    const divider = start | (invMask >> 1n);
+    if (ip) {
+      if (ip <= divider) {
+        return ip64RangeNumToCIDR(start, divider, ip);
+      }
+      return ip64RangeNumToCIDR(divider + 1n, end, ip);
     }
-    return ip4NumInRangeNumToCIDR(ip, [divider + 1, end]);
+    return ip64RangeNumToCIDR(start, divider).concat(
+      ip64RangeNumToCIDR(divider + 1n, end),
+    );
   }
-  return `${ip4NumToStr(start)}/${maskNum}`;
+  return [[start, end, maskNum]];
 }
 
-/*
- * Get specific CIDR in range that includes ip
- * @param ip ip string ('xxx.xxx.xxx.xxx')
- * @param range string ('xxx.xxx.xxx.xxx - xxx.xxx.xxx.xxx')
- * @return CIDR string
+/**
+ * Parse subnet given as string into array numerical representations
+ * @param subnet given as CIDR or range
+ * @param ip if given, return only range that includes ip
+ * @return [start, end, mask] start and end as hex and mask part of CIDR
+ *          Array of same if ip isn't given and there could be multiple
  */
-export function ip4InRangeToCIDR(ip, range) {
-  const rangeNum = ip4RangeStrToRangeNum(range);
-  const ipNum = ip4ToNum(ip);
-  if (!ipNum || !rangeNum || rangeNum[0] > ip || rangeNum[1] < ip) {
+export function ipSubnetToHex(subnet, ip) {
+  const ipNum = ip && ipToNum(ip);
+  if (!subnet || (ip && !ipNum)) {
     return null;
   }
-  return ip4NumInRangeNumToCIDR(ipNum, rangeNum);
+  let ranges;
+  if (subnet.includes('-')) {
+    // given as range
+    const [start, end] = subnet.split('-').map(ipToNum);
+    if (!start
+      || typeof start !== typeof end
+      || start > end
+      || (ipNum && typeof ipNum !== typeof start)
+    ) {
+      return null;
+    }
+    const numRanges = (typeof start === 'bigint')
+      ? ip64RangeNumToCIDR(start, end, ipNum)
+      : ip32RangeNumToCIDR(start, end, ipNum);
+    ranges = numRanges;
+  } else {
+    // given as CIDR
+    let [start, mask] = subnet.split('/');
+    start = ipToNum(start);
+    mask = parseInt(mask, 10);
+    if (!start || !mask) {
+      return null;
+    }
+    let end;
+    if (typeof start === 'bigint') {
+      // IPv6
+      if (mask >= 64) {
+        end = start;
+      } else {
+        const bitmask = (0xFFFFFFFFFFFFFFFFn >> BigInt(mask));
+        start &= (~bitmask & 0xFFFFFFFFFFFFFFFFn);
+        end = start | bitmask;
+      }
+    } else if (mask === 32) {
+      // IPv4
+      end = start;
+    } else {
+      const bitmask = (0xFFFFFFFF >>> mask);
+      start = (start & ~bitmask) >>> 0;
+      end = (start | bitmask) >>> 0;
+    }
+    ranges = [[start, end, mask]];
+  }
+  if (ipNum && (ipNum < ranges[0][0] || ipNum > ranges[0][1])) {
+    return null;
+  }
+  ranges = ranges.map(([s, e, m]) => [numToHex(s), numToHex(e), m]);
+  if (ip) {
+    [ranges] = ranges;
+  }
+  return ranges;
 }

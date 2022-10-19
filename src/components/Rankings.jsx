@@ -231,8 +231,8 @@ const Rankings = () => {
           </thead>
           <tbody>
             {{
-              total: totalRanking.map((rank) => (
-                <tr key={rank.name}>
+              total: totalRanking.map((rank, ind) => (
+                <tr key={rank.name || ind}>
                   <td>{rank.r}</td>
                   <td><span>{rank.name}</span></td>
                   <td>{rank.t}</td>
@@ -240,8 +240,8 @@ const Rankings = () => {
                   <td>{rank.dt}</td>
                 </tr>
               )),
-              today: totalDailyRanking.map((rank) => (
-                <tr key={rank.name}>
+              today: totalDailyRanking.map((rank, ind) => (
+                <tr key={rank.name || ind}>
                   <td>{rank.dr}</td>
                   <td><span>{rank.name}</span></td>
                   <td>{rank.dt}</td>
@@ -250,7 +250,7 @@ const Rankings = () => {
                 </tr>
               )),
               yesterday: prevTop.map((rank, ind) => (
-                <tr key={rank.name}>
+                <tr key={rank.name || ind}>
                   <td>{ind + 1}</td>
                   <td><span>{rank.name}</span></td>
                   <td>{rank.px}</td>

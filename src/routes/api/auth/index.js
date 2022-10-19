@@ -77,18 +77,6 @@ router.get('/verify', verify);
  * JSON APIs
  */
 
-router.get('/logout', logout);
-
-router.get('/resend_verify', resend_verify);
-
-router.post('/change_passwd', change_passwd);
-
-router.post('/change_name', change_name);
-
-router.post('/change_mail', change_mail);
-
-router.post('/delete_account', delete_account);
-
 router.post('/restore_password', restore_password);
 
 router.post('/register', register);
@@ -102,5 +90,33 @@ router.post('/local', passport.authenticate('json'), async (req, res) => {
     me,
   });
 });
+
+router.use((req, res, next) => {
+  if (!req.user.isRegistered) {
+    const { t } = req.ttag;
+    const error = new Error(t`You are not logged in`);
+    error.status = 401;
+    throw error;
+  }
+  next();
+});
+
+/*
+ * require registered user after this point
+ */
+
+router.get('/logout', logout);
+
+router.get('/resend_verify', resend_verify);
+
+router.post('/change_passwd', change_passwd);
+
+router.post('/change_name', change_name);
+
+router.post('/change_mail', change_mail);
+
+router.post('/delete_account', delete_account);
+
+
 
 export default router;

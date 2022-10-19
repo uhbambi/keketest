@@ -3,7 +3,7 @@
  */
 
 import logger from '../../core/logger';
-import { banIP } from '../../data/sql/Ban';
+import { banIP } from '../../data/sql/IPBan';
 import { getIPv6Subnet, getIPFromRequest } from '../../utils/ip';
 
 async function banme(req, res) {

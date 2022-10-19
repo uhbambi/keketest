@@ -11,8 +11,7 @@ import { getTTag } from './ttag';
 import { codeExists, checkCode, setCode } from '../data/redis/mailCodes';
 import socketEvents from '../socket/socketEvents';
 import { USE_MAILER, MAIL_ADDRESS } from './config';
-
-import { RegUser } from '../data/sql';
+import { RegUser, USERLVL } from '../data/sql';
 
 export class MailProvider {
   constructor() {
@@ -130,16 +129,6 @@ export class MailProvider {
       return t`Couldn't find this mail in our database`;
     }
 
-    /*
-     * not sure if this is needed yet
-     * does it matter if spamming password reset mails or verifications mails?
-     *
-    if(!reguser.verified) {
-      logger.info(`Password reset mail for ${to} requested by ${ip} - mail not verified`);
-      return "Can't reset password of unverified account.";
-    }
-    */
-
     const code = setCode(to);
     if (this.enabled) {
       this.postPasswdResetMail(to, ip, host, lang, code);
@@ -160,7 +149,7 @@ export class MailProvider {
       return false;
     }
     await reguser.update({
-      mailVerified: true,
+      userlvl: USERLVL.VERIFIED,
       verificationReqAt: null,
     });
     return reguser.name;
@@ -176,7 +165,7 @@ export class MailProvider {
           [Sequelize.Op.lt]:
             Sequelize.literal('CURRENT_TIMESTAMP - INTERVAL 4 DAY'),
         },
-        verified: 0,
+        userlvl: USERLVL.REGISTERED,
       },
     });
   }

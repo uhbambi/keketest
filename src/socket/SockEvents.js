@@ -8,6 +8,11 @@ import {
 } from './packets/server';
 
 class SocketEvents extends EventEmitter {
+  isCluster = false;
+  // object with amount of online users
+  // in total and per canvas
+  onlineCounter;
+
   constructor() {
     super();
     /*
@@ -23,18 +28,18 @@ class SocketEvents extends EventEmitter {
   }
 
   // eslint-disable-next-line class-methods-use-this
-  async initialize() {
-    // nothing, only for child classes
+  get important() {
+    return true;
   }
 
   // eslint-disable-next-line class-methods-use-this
-  getLowestActiveShard() {
+  get lowestActiveShard() {
     return null;
   }
 
   // eslint-disable-next-line class-methods-use-this
-  amIImportant() {
-    return true;
+  async initialize() {
+    // nothing, only for child classes
   }
 
   /*
@@ -48,7 +53,7 @@ class SocketEvents extends EventEmitter {
     });
   }
 
-  /*
+  /**
    * requests that expect a response
    * req(type, args) can be awaited
    * it will return a response from whatever listens on onReq(type, cb(args))
@@ -84,7 +89,7 @@ class SocketEvents extends EventEmitter {
     });
   }
 
-  /*
+  /**
    * broadcast pixel message via websocket
    * @param canvasId number ident of canvas
    * @param chunkid number id consisting of i,j chunk coordinates
@@ -102,7 +107,7 @@ class SocketEvents extends EventEmitter {
     this.emit('chunkUpdate', canvasId, [i, j]);
   }
 
-  /*
+  /**
    * chunk updates from event, image upload, etc.
    * everything that's not a pixelUpdate and changes chunks
    * @param canvasId
@@ -115,7 +120,26 @@ class SocketEvents extends EventEmitter {
     this.emit('chunkUpdate', canvasId, chunk);
   }
 
-  /*
+  /**
+   * broadcast fetched IpInfo of user,
+   * used to spread flag informations of users
+   * to shards
+   * @param userIpInfo object {
+   *   userId, // 0 if not logged in
+   *   status, // proxycheck and ban status (see core/isAllowed)
+   *   ip,
+   *   cidr,
+   *   org,
+   *   country,
+   *   asn,
+   *   descr,
+   * }
+   */
+  gotUserIpInfo(userIpInfo) {
+    this.emit('useripinfo', userIpInfo);
+  }
+
+  /**
    * ask other shards to send email for us,
    * only used when USE_MAILER is false
    * @param type type of mail to send
@@ -125,7 +149,7 @@ class SocketEvents extends EventEmitter {
     this.emit('mail', ...args);
   }
 
-  /*
+  /**
    * received Chat message on own websocket
    * @param user User Instance that sent the message
    * @param message text message
@@ -139,7 +163,7 @@ class SocketEvents extends EventEmitter {
     this.emit('recvChatMessage', user, message, channelId);
   }
 
-  /*
+  /**
    * set cooldownfactor
    * (used by RpgEvent)
    * @param fac factor by which cooldown changes globally
@@ -148,7 +172,7 @@ class SocketEvents extends EventEmitter {
     this.emit('setCoolDownFactor', fac);
   }
 
-  /*
+  /**
    * broadcast chat message to all users in channel
    * @param name chatname
    * @param message Message to send
@@ -174,7 +198,7 @@ class SocketEvents extends EventEmitter {
     );
   }
 
-  /*
+  /**
    * send chat message to a single user in channel
    */
   broadcastSUChatMessage(
@@ -196,7 +220,7 @@ class SocketEvents extends EventEmitter {
     );
   }
 
-  /*
+  /**
    * broadcast Assigning chat channel to user
    * @param userId numerical id of user
    * @param channelId numerical id of chat channel
@@ -215,7 +239,7 @@ class SocketEvents extends EventEmitter {
     );
   }
 
-  /*
+  /**
    * broadcast Removing chat channel from user
    * @param userId numerical id of user
    * @param channelId numerical id of chat channel
@@ -228,7 +252,7 @@ class SocketEvents extends EventEmitter {
     this.emit('remChatChannel', userId, channelId);
   }
 
-  /*
+  /**
    * trigger rate limit of ip
    * @param ip
    * @param blockTime in ms
@@ -237,7 +261,7 @@ class SocketEvents extends EventEmitter {
     this.emit('rateLimitTrigger', ip, blockTime);
   }
 
-  /*
+  /**
    * broadcast ranking list updates
    * @param {
    *   dailyRanking?: daily pixel raking top 100,
@@ -249,14 +273,14 @@ class SocketEvents extends EventEmitter {
     this.emit('rankingListUpdate', rankings);
   }
 
-  /*
+  /**
    * reload user on websocket to get changes
    */
   reloadUser(name) {
     this.emit('reloadUser', name);
   }
 
-  /*
+  /**
    * broadcast online counter
    * @param online Object of total and canvas online users
    *   (see this.onlineCounter)

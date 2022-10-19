@@ -14,8 +14,6 @@ const UserChannel = sequelize.define('UserChannel', {
     type: DataTypes.DATE,
     allowNull: true,
   },
-}, {
-  timestamps: false,
 });
 
 export default UserChannel;

@@ -33,8 +33,8 @@ import socketEvents from './socketEvents';
 import chatProvider, { ChatProvider } from '../core/ChatProvider';
 import authenticateClient from './authenticateClient';
 import drawByOffsets from '../core/draw';
-import isIPAllowed from '../core/isAllowed';
 import { HOUR } from '../core/constants';
+import isIPAllowed from '../core/ipUserIntel';
 import { checkCaptchaSolution } from '../data/redis/captcha';
 
 
@@ -63,8 +63,6 @@ class SocketServer {
       perMessageDeflate: false,
       clientTracking: true,
       maxPayload: 65536,
-      // path: "/ws",
-      // server,
       noServer: true,
     });
     this.wss = wss;
@@ -104,6 +102,10 @@ class SocketServer {
           this.onTextMessage(message, ws);
         }
       });
+    });
+
+    socketEvents.on('useripinfo', (userIpInfo) => {
+
     });
 
     socketEvents.on('onlineCounter', (online) => {
@@ -188,7 +190,7 @@ class SocketServer {
   async handleUpgrade(request, socket, head) {
     const { headers } = request;
     const ip = getIPFromRequest(request);
-    // trigger proxycheck
+    // trigger proxycheck TODO DO WE REMOVE THIS????
     isIPAllowed(ip);
     /*
      * rate limit
@@ -235,6 +237,7 @@ class SocketServer {
       socket.destroy();
       return;
     }
+    user.isAllowed();
     request.user = user;
     this.wss.handleUpgrade(request, socket, head, (ws) => {
       this.wss.emit('connection', ws, request);
@@ -329,8 +332,9 @@ class SocketServer {
 
   killAllWsByUerIp(ip) {
     let amount = ipCounter.get(ip);
-    if (!amount) return 0;
-
+    if (!amount) {
+      return 0;
+    }
     for (const [chunkid, clients] of this.CHUNK_CLIENTS.entries()) {
       const newClients = clients.filter((ws) => ws.user.ip !== ip);
       if (clients.length !== newClients.length) {
@@ -630,18 +634,23 @@ class SocketServer {
     if (!clients) {
       clients = [];
       this.CHUNK_CLIENTS.set(chunkid, clients);
+    } else if (clients.includes(ws)) {
+      return;
     }
-    const pos = clients.indexOf(ws);
-    if (~pos) return;
     clients.push(ws);
   }
 
   deleteChunk(chunkid, ws) {
-    ws.chunkCnt -= 1;
-    if (!this.CHUNK_CLIENTS.has(chunkid)) return;
     const clients = this.CHUNK_CLIENTS.get(chunkid);
+    if (!clients) {
+      return;
+    }
     const pos = clients.indexOf(ws);
-    if (~pos) clients.splice(pos, 1);
+    if (pos === -1) {
+      return;
+    }
+    ws.chunkCnt -= 1;
+    clients.splice(pos, 1);
   }
 
   deleteAllChunks(ws) {
@@ -650,10 +659,12 @@ class SocketServer {
     }
     for (const client of this.CHUNK_CLIENTS.values()) {
       const pos = client.indexOf(ws);
-      if (~pos) {
+      if (pos !== -1) {
         client.splice(pos, 1);
         ws.chunkCnt -= 1;
-        if (!ws.chunkCnt) return;
+        if (!ws.chunkCnt) {
+          return;
+        }
       }
     }
   }

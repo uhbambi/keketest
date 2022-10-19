@@ -2,7 +2,7 @@
  * timers and cron for account related actions
  */
 
-import { populateRanking } from '../data/sql/RegUser';
+import { populateIdObj } from '../data/sql/RegUser';
 import {
   getRanks,
   resetDailyRanks,
@@ -23,8 +23,10 @@ import { MINUTE } from './constants';
 import { DailyCron, HourlyCron } from '../utils/cron';
 
 class Ranks {
+  #ranks;
+
   constructor() {
-    this.ranks = {
+    this.#ranks = {
       // ranking today of users by pixels
       dailyRanking: [],
       // ranking of users by pixels
@@ -48,14 +50,18 @@ class Ranks {
      * we go through socketEvents for sharding
      */
     socketEvents.on('rankingListUpdate', (rankings) => {
-      this.mergeIntoRanks(rankings);
+      this.#mergeIntoRanks(rankings);
     });
+  }
+
+  get ranks() {
+    return this.#ranks;
   }
 
   async initialize() {
     try {
-      this.mergeIntoRanks(await Ranks.dailyUpdateRanking());
-      this.mergeIntoRanks(await Ranks.hourlyUpdateRanking());
+      this.#mergeIntoRanks(await Ranks.dailyUpdateRanking());
+      this.#mergeIntoRanks(await Ranks.hourlyUpdateRanking());
       await Ranks.updateRanking();
     } catch (err) {
       // eslint-disable-next-line no-console
@@ -66,28 +72,39 @@ class Ranks {
     DailyCron.hook(Ranks.setDailyRanking);
   }
 
-  mergeIntoRanks(newRanks) {
+  #mergeIntoRanks(newRanks) {
     if (!newRanks) {
       return;
     }
-    this.ranks = {
-      ...this.ranks,
+    this.#ranks = {
+      ...this.#ranks,
       ...newRanks,
     };
   }
 
+  /*
+   * populate ranking list with userdata inplace, censor private users
+   * @param ranks Array of rank objects with userIds
+   * @return ranks Array
+   */
+  static async #populateRanking(ranks) {
+    const popRanks = await populateIdObj(ranks);
+    // remove data of private users
+    return popRanks.map((rank) => (rank.name ? rank : {}));
+  }
+
   static async updateRanking() {
     // only main shard does it
-    if (!socketEvents.amIImportant()) {
+    if (!socketEvents.important) {
       return null;
     }
-    const ranking = await populateRanking(
+    const ranking = await Ranks.#populateRanking(
       await getRanks(
         false,
         1,
         100,
       ));
-    const dailyRanking = await populateRanking(
+    const dailyRanking = await Ranks.#populateRanking(
       await getRanks(
         true,
         1,
@@ -112,7 +129,7 @@ class Ranks {
       cHistStats,
       pHourlyStats,
     };
-    if (socketEvents.amIImportant()) {
+    if (socketEvents.important) {
       // only main shard sends to others
       socketEvents.rankingListUpdate(ret);
     }
@@ -120,12 +137,13 @@ class Ranks {
   }
 
   static async dailyUpdateRanking() {
-    const prevTop = await populateRanking(
+    const prevTop = await Ranks.#populateRanking(
       await getPrevTop(),
     );
     const pDailyStats = await getDailyPixelStats();
     const histStats = await getTopDailyHistory();
-    histStats.users = await populateRanking(histStats.users);
+    const hisUsers = await Ranks.#populateRanking(histStats.users);
+    histStats.users = hisUsers.filter((r) => r.name);
     histStats.stats = histStats.stats.map((day) => day.filter(
       (r) => histStats.users.some((u) => u.id === r.id),
     ));
@@ -134,7 +152,7 @@ class Ranks {
       pDailyStats,
       histStats,
     };
-    if (socketEvents.amIImportant()) {
+    if (socketEvents.important) {
       // only main shard sends to others
       socketEvents.rankingListUpdate(ret);
     }
@@ -142,7 +160,7 @@ class Ranks {
   }
 
   static async setHourlyRanking() {
-    if (!socketEvents.amIImportant()) {
+    if (!socketEvents.important) {
       return;
     }
     const amount = socketEvents.onlineCounter.total;
@@ -155,7 +173,7 @@ class Ranks {
    * reset daily rankings, store previous rankings
    */
   static async setDailyRanking() {
-    if (!socketEvents.amIImportant()) {
+    if (!socketEvents.important) {
       return;
     }
     logger.info('Resetting Daily Ranking');
@@ -165,5 +183,4 @@ class Ranks {
 }
 
 
-const rankings = new Ranks();
-export default rankings;
+export default new Ranks();

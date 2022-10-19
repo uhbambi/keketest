@@ -1,49 +1,33 @@
-import { DataTypes } from 'sequelize';
+import Sequelize, { DataTypes } from 'sequelize';
+
 import sequelize from './sequelize';
 
-
 const IPInfo = sequelize.define('IPInfo', {
+  /*
+   * Store both 32bit IPv4 and first half of 128bit IPv6
+   * (only the first 64bit of a v6 is usually assigned
+   * to customers by ISPs, the second half is assigned by devices)
+   * NOTE:
+   * IPv6 addresses in the ::/32 subnet would map to IPv4, which
+   * should be no issues, because ::/8 is reserved by IETF
+   */
   ip: {
-    type: DataTypes.CHAR(39),
-    allowNull: false,
+    type: 'VARBINARY(8)',
     primaryKey: true,
   },
 
   uuid: {
-    type: DataTypes.UUID,
-    defaultValue: DataTypes.UUIDV4,
+    type: 'BINARY(16)',
+    defaultValue: Sequelize.literal('UUID_TO_BIN(UUID())'),
     allowNull: false,
   },
 
-  country: {
-    type: DataTypes.CHAR(2),
-    defaultValue: 'xx',
-    allowNull: false,
-  },
-
-  cidr: {
-    type: DataTypes.CHAR(43),
-    defaultValue: 'N/A',
-    allowNull: false,
-  },
-
-  org: {
-    type: `${DataTypes.CHAR(60)} CHARSET utf8mb4 COLLATE utf8mb4_unicode_ci`,
-  },
-
-  descr: {
-    type: `${DataTypes.CHAR(60)} CHARSET utf8mb4 COLLATE utf8mb4_unicode_ci`,
-  },
-
-  asn: {
-    type: DataTypes.CHAR(12),
-    defaultValue: 'N/A',
-    allowNull: false,
-  },
-
+  /*
+   * 0: no proxy
+   * 1: proxy
+   */
   proxy: {
     type: DataTypes.TINYINT,
-    defaultValue: 0,
   },
 
   /*
@@ -51,42 +35,35 @@ const IPInfo = sequelize.define('IPInfo', {
    * proxycheck
    */
   pcheck: {
-    type: `${DataTypes.CHAR(60)} CHARSET utf8mb4 COLLATE utf8mb4_unicode_ci`,
-  },
-}, {
-  getterMethods: {
-    isProxy() {
-      return (this.proxy === 1);
-    },
-  },
-
-  setterMethods: {
-    isProxy(proxy) {
-      const num = (proxy) ? 1 : 0;
-      this.setDataValue('proxy', num);
-    },
-
-    asn(value) {
-      const asn = value.split(',')[0];
-      this.setDataValue('asn', asn);
-    },
-
-    org(value) {
-      this.setDataValue('org', value.slice(0, 60));
-    },
-
-    descr(value) {
-      this.setDataValue('descr', value.slice(0, 60));
-    },
-
-    pcheck(value) {
+    type: `${DataTypes.STRING(60)} CHARSET utf8mb4 COLLATE utf8mb4_unicode_ci`,
+    set(value) {
       if (value) {
         this.setDataValue('pcheck', value.slice(0, 60));
       }
     },
+  },
 
-    country(value) {
-      this.setDataValue('country', value.slice(0, 2).toLowerCase());
+  /*
+   * time of last proxycheck
+   */
+  checkedAt: {
+    type: DataTypes.DATE,
+    defaultValue: DataTypes.NOW,
+  },
+
+  /*
+   * virtual field to get a boolean for proxy,
+   * is not set in database
+   */
+  isProxy: {
+    type: DataTypes.VIRTUAL,
+    get() {
+      return (this.proxy === 1);
+    },
+    set() {
+      throw new Error(
+        'Do not try to set the `isProxy` value! Set proxy instead',
+      );
     },
   },
 });
@@ -95,33 +72,39 @@ export async function getIPofIID(uuid) {
   if (!uuid) {
     return null;
   }
-  let result = null;
   try {
-    result = await IPInfo.findOne({
-      attributes: ['ip'],
-      where: { uuid },
+    const result = await IPInfo.findOne({
+      attributes: [
+        [Sequelize.fn('BIN_TO_IP', Sequelize.col('ip')), 'ip'],
+      ],
+      where: {
+        uuid: Sequelize.fn('UUID_TO_BIN', uuid),
+      },
       raw: true,
     });
-  } catch {
-    // nothing
+    return result.ip;
+  } catch (err) {
+    console.error(`SQL Error on getIPofIID: ${err.message}`);
+    return null;
   }
-  return result && result.ip;
 }
 
 export async function getIIDofIP(ip) {
-  if (!ip) {
-    return null;
-  }
-  let result = null;
   try {
-    result = await IPInfo.findByPk(ip, {
-      attributes: ['uuid'],
+    const result = await IPInfo.findOne({
+      attributes: [
+        [Sequelize.fn('BIN_TO_UUID', Sequelize.col('uuid')), 'uuid'],
+      ],
+      where: {
+        ip: Sequelize.fn('IP_TO_BIN', ip),
+      },
       raw: true,
     });
-  } catch {
-    // nothing
+    return result?.uuid;
+  } catch (err) {
+    console.error(`SQL Error on getIIDofIP: ${err.message}`);
+    return null;
   }
-  return result && result.uuid;
 }
 
 export async function getIdsToIps(ips) {
@@ -131,21 +114,24 @@ export async function getIdsToIps(ips) {
   }
   try {
     const result = await IPInfo.findAll({
-      attributes: ['ip', 'uuid'],
-      where: { ip: ips },
+      attributes: [
+        [Sequelize.fn('BIN_TO_IP', Sequelize.col('ip')), 'ip'],
+        [Sequelize.fn('BIN_TO_UUID', Sequelize.col('uuid')), 'uuid'],
+      ],
+      where: { ip: ips.map((ip) => Sequelize.fn('IP_TO_BIN', ip)) },
       raw: true,
     });
     result.forEach((obj) => {
       ipToIdMap.set(obj.ip, obj.uuid);
     });
-  } catch {
-    // nothing
+  } catch (err) {
+    console.error(`SQL Error on getIdsToIps: ${err.message}`);
   }
   return ipToIdMap;
 }
 
 export async function getInfoToIp(ip) {
-  return IPInfo.findByPk(ip);
+  return IPInfo.findByPk(Sequelize.fn('IP_TO_BIN', ip));
 }
 
 export async function getInfoToIps(ips) {
@@ -155,8 +141,15 @@ export async function getInfoToIps(ips) {
   }
   try {
     const result = await IPInfo.findAll({
-      attributes: ['ip', 'uuid', 'country', 'cidr', 'org', 'pcheck'],
-      where: { ip: ips },
+      attributes: [
+        [Sequelize.fn('BIN_TO_IP', Sequelize.col('ip')), 'ip'],
+        [Sequelize.fn('BIN_TO_UUID', Sequelize.col('uuid')), 'uuid'],
+        'country',
+        'cidr',
+        'org',
+        'pcheck',
+      ],
+      where: { ip: ips.map((ip) => Sequelize.fn('IP_TO_BIN', ip)) },
       raw: true,
     });
     result.forEach((obj) => {

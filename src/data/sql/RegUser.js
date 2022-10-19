@@ -1,5 +1,4 @@
 /**
- * Created by HF
  *
  * This is the database of the data for registered Users
  *
@@ -9,6 +8,9 @@ import Sequelize, { DataTypes, QueryTypes } from 'sequelize';
 
 import sequelize from './sequelize';
 import { generateHash } from '../../utils/hash';
+import { USERLVL } from '../../core/constants';
+
+export { USERLVL } from '../../core/constants';
 
 
 const RegUser = sequelize.define('User', {
@@ -20,7 +22,7 @@ const RegUser = sequelize.define('User', {
 
   email: {
     type: DataTypes.CHAR(40),
-    allowNull: true,
+    unique: true,
   },
 
   name: {
@@ -28,110 +30,80 @@ const RegUser = sequelize.define('User', {
     allowNull: false,
   },
 
-  /*
-   * if account is private,
-   * exclude it from statistics etc.
-   */
-  priv: {
-    type: DataTypes.BOOLEAN,
-    allowNull: false,
-    defaultValue: false,
-  },
-
-  // null if external oauth authentication
+  // null if only ever used external oauth
   password: {
     type: DataTypes.CHAR(60),
-    allowNull: true,
-  },
-
-  // currently just moderator
-  roles: {
-    type: DataTypes.TINYINT,
-    allowNull: false,
-    defaultValue: 0,
-  },
-
-  // mail and Minecraft verified
-  verified: {
-    type: DataTypes.TINYINT,
-    allowNull: false,
-    defaultValue: false,
-  },
-
-  // currently just blockDm
-  blocks: {
-    type: DataTypes.TINYINT,
-    allowNull: false,
-    defaultValue: 0,
-  },
-
-  discordid: {
-    type: DataTypes.CHAR(20),
-    allowNull: true,
-  },
-
-  redditid: {
-    type: DataTypes.CHAR(10),
-    allowNull: true,
-  },
-
-  // when mail verification got requested,
-  // used for purging unverified accounts
-  verificationReqAt: {
-    type: DataTypes.DATE,
-    allowNull: true,
-  },
-
-  // flag == country code
-  flag: {
-    type: DataTypes.CHAR(2),
-    defaultValue: 'xx',
-    allowNull: false,
-  },
-
-  lastLogIn: {
-    type: DataTypes.DATE,
-    allowNull: true,
-  },
-}, {
-  timestamps: true,
-  updatedAt: false,
-
-  getterMethods: {
-    mailVerified() {
-      return this.verified & 0x01;
-    },
-
-    blockDm() {
-      return this.blocks & 0x01;
-    },
-
-    isMod() {
-      return this.roles & 0x01;
-    },
-  },
-
-  setterMethods: {
-    mailVerified(num) {
-      const val = (num) ? (this.verified | 0x01) : (this.verified & ~0x01);
-      this.setDataValue('verified', val);
-    },
-
-    blockDm(num) {
-      const val = (num) ? (this.blocks | 0x01) : (this.blocks & ~0x01);
-      this.setDataValue('blocks', val);
-    },
-
-    isMod(num) {
-      const val = (num) ? (this.roles | 0x01) : (this.roles & ~0x01);
-      this.setDataValue('roles', val);
-    },
-
-    password(value) {
+    set(value) {
       if (value) this.setDataValue('password', generateHash(value));
     },
   },
 
+  userlvl: {
+    type: DataTypes.TINYINT,
+    allowNull: false,
+    defaultValue: USERLVL.REGISTERED,
+  },
+
+  /*
+   * from lowest to highest bit:
+   * 0: blockDm (if account blocks all DMs)
+   * 1: priv (if account is private)
+   */
+  flags: {
+    type: DataTypes.TINYINT,
+    allowNull: false,
+    defaultValue: 0,
+  },
+
+  /*
+   * when email verification got requested,
+   * NULL means successfully verified
+   */
+  verificationReqAt: {
+    type: DataTypes.DATE,
+  },
+
+  createdAt: {
+    type: DataTypes.DATE,
+    defaultValue: DataTypes.NOW,
+    allowNull: false,
+  },
+
+  blockDm: {
+    type: DataTypes.VIRTUAL,
+    get() {
+      return !!(this.blocks & 0x01);
+    },
+    set(num) {
+      const val = (num) ? (this.blocks | 0x01) : (this.blocks & ~0x01);
+      this.setDataValue('blocks', val);
+    },
+  },
+
+  priv: {
+    type: DataTypes.VIRTUAL,
+    get() {
+      return !!(this.blocks & 0x02);
+    },
+    set(num) {
+      const val = (num) ? (this.blocks | 0x02) : (this.blocks & ~0x02);
+      this.setDataValue('blocks', val);
+    },
+  },
+
+  verified: {
+    type: DataTypes.VIRTUAL,
+    get() {
+      return (this.verificationReqAt === null);
+    },
+    set(value) {
+      if (value) {
+        this.setDataValue('verificationReqAt', null);
+      } else {
+        this.setDataValue('verificationReqAt', new Date());
+      }
+    },
+  },
 });
 
 export async function name2Id(name) {
@@ -192,10 +164,11 @@ export async function getNamesToIds(ids) {
 }
 
 /*
- * take array of {id: useId, ...} object and resolve
- * user information
+ * take array of objects that include user ids and add
+ * user informations if user is not private
+ * @param rawRanks array of {id: userId, ...} objects
  */
-export async function populateRanking(rawRanks) {
+export async function populateIdObj(rawRanks) {
   if (!rawRanks.length) {
     return rawRanks;
   }
@@ -219,15 +192,14 @@ export async function populateRanking(rawRanks) {
     },
     raw: true,
   });
-  for (let i = 0; i < userData.length; i += 1) {
-    const { id, name, age } = userData[i];
+  for (const { id, name, age } of userData) {
     const dat = rawRanks.find((r) => r.id === id);
     if (dat) {
       dat.name = name;
       dat.age = age;
     }
   }
-  return rawRanks.filter((r) => r.name);
+  return rawRanks;
 }
 
 export default RegUser;

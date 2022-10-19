@@ -16,6 +16,7 @@ import {
 } from '../core/utils';
 import {
   THREE_TILE_SIZE,
+  BACKGROUND_CLR_HEX,
 } from '../core/constants';
 import {
   setHover,
@@ -145,7 +146,7 @@ class Renderer3D extends Renderer {
     oobGeometry.rotateX(-Math.PI / 2);
     oobGeometry.translate(THREE_TILE_SIZE / 2, 0.2, THREE_TILE_SIZE / 2);
     const oobMaterial = new THREE.MeshLambertMaterial({
-      color: '#C4C4C4',
+      color: BACKGROUND_CLR_HEX,
     });
     this.oobGeometry = oobGeometry;
     this.oobMaterial = oobMaterial;

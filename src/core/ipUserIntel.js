@@ -1,16 +1,22 @@
 /*
- * decide if IP is allowed
+ * Get various data of IP and User and check if it is allowed to use site
+ * or check if Email is dispoable
  * does proxycheck and check bans and whitelists
+ * write IPInfo and UserIP to database
  */
 import { getIPv6Subnet } from '../utils/ip';
 import whois from '../utils/whois';
 import ProxyCheck from '../utils/ProxyCheck';
 import { IPInfo } from '../data/sql';
-import { isIPBanned } from '../data/sql/Ban';
+import { updateLastIp } from '../data/sql/UserIP';
+import { isIPBanned } from '../data/sql/IPBan';
 import { isWhitelisted } from '../data/sql/Whitelist';
+import socketEvents from '../socket/socketEvents';
 import {
   cacheAllowed,
   getCacheAllowed,
+  cacheMailProviderDisposable,
+  getCacheMailProviderDisposable,
 } from '../data/redis/isAllowedCache';
 import { proxyLogger as logger } from './logger';
 
@@ -22,15 +28,37 @@ let checker = () => ({ allowed: true, status: 0, pcheck: 'dummy' });
 let mailChecker = () => false;
 
 if (USE_PROXYCHECK && PROXYCHECK_KEY) {
+  /*
+   * TODO: go through main shard
+   */
   const pc = new ProxyCheck(PROXYCHECK_KEY, logger);
   checker = pc.checkIp;
   mailChecker = pc.checkEmail;
 }
 
 /*
+ * notify user update
+ */
+async function userIpUpdate(userIpData) {
+  const {
+    userId,
+    ip,
+    userAgent,
+  } = userIpData;
+  try {
+    await updateLastIp(userId, ip, userAgent);
+    socketEvents.gotUserIpInfo(userIpData);
+  } catch (error) {
+    logger.error(
+      `Error on saving UserIP for ${ip} / ${userId}: ${error.message}`,
+    );
+  }
+}
+
+/*
  * save information of ip into database
  */
-async function saveIPInfo(ip, whoisRet, allowed, info) {
+async function saveIPInfo(ip, whoisRet, allowed, info, options) {
   try {
     await IPInfo.upsert({
       ...whoisRet,
@@ -38,16 +66,27 @@ async function saveIPInfo(ip, whoisRet, allowed, info) {
       proxy: allowed,
       pcheck: info,
     });
+
+    const { userId } = options;
+    if (userId) {
+      const userIpData = {
+        ...whoisRet,
+        ip,
+        userId,
+        userAgent: options.userAgent || null,
+      };
+      userIpUpdate(userIpData);
+    }
   } catch (error) {
     logger.error(`Error whois for ${ip}: ${error.message}`);
   }
 }
 
-/*
+/**
  * execute proxycheck and blacklist whitelist check
  * @param f proxycheck function
  * @param ip full ip
- * @param ipKey
+ * @param ipKey IP cleared of IPv6Subnets
  * @return [ allowed, status, pcheck capromise]
  */
 async function checkPCAndLists(f, ip, ipKey) {
@@ -78,13 +117,15 @@ async function checkPCAndLists(f, ip, ipKey) {
   return [allowed, status, pcheck, caPromise];
 }
 
-/*
+/**
  * execute proxycheck and whois and save result into cache
  * @param f function for checking if proxy
  * @param ip IP to check
+ * @param ipKey IP cleared of IPv6Subnets
+ * @param options see checkIfAllowed
  * @return checkifAllowed return
  */
-async function withoutCache(f, ip, ipKey) {
+async function withoutCache(f, ip, ipKey, options) {
   const [
     [allowed, status, pcheck, caPromise],
     whoisRet,
@@ -95,7 +136,7 @@ async function withoutCache(f, ip, ipKey) {
 
   await Promise.all([
     caPromise,
-    saveIPInfo(ipKey, whoisRet, status, pcheck),
+    saveIPInfo(ipKey, whoisRet, status, pcheck, options),
   ]);
 
   return {
@@ -113,18 +154,20 @@ async function withoutCache(f, ip, ipKey) {
  * ]
  */
 const checking = [];
-/*
+/**
  * Execute proxycheck and whois and save result into cache
  * If IP is already getting checked, reuse its request
  * @param ip ip to check
+ * @param ipKey IP cleared of IPv6Subnets
+ * @param options see checkIfAllowed
  * @return checkIfAllowed return
  */
-async function withoutCacheButReUse(f, ip, ipKey) {
+async function withoutCacheButReUse(f, ip, ipKey, options) {
   const runReq = checking.find((q) => q[0] === ipKey);
   if (runReq) {
     return runReq[1];
   }
-  const promise = withoutCache(f, ip, ipKey);
+  const promise = withoutCache(f, ip, ipKey, options);
   checking.push([ipKey, promise]);
 
   const result = await promise;
@@ -135,15 +178,17 @@ async function withoutCacheButReUse(f, ip, ipKey) {
   return result;
 }
 
-/*
+/**
  * execute proxycheck, don't wait, return cache if exists or
  * status -2 if currently checking
  * @param f function for checking if proxy
  * @param ip IP to check
+ * @param ipKey IP cleared of IPv6Subnets
+ * @param options see checkIfAllowed
  * @return Object as in checkIfAllowed
  * @return true if proxy or blacklisted, false if not or whitelisted
  */
-async function withCache(f, ip, ipKey) {
+async function withCache(f, ip, ipKey, options) {
   const runReq = checking.find((q) => q[0] === ipKey);
 
   if (!runReq) {
@@ -151,7 +196,7 @@ async function withCache(f, ip, ipKey) {
     if (cache) {
       return cache;
     }
-    withoutCacheButReUse(f, ip, ipKey);
+    withoutCacheButReUse(f, ip, ipKey, options);
   }
 
   return {
@@ -160,10 +205,14 @@ async function withCache(f, ip, ipKey) {
   };
 }
 
-/*
- * check if ip is allowed
+/**
+ * check if ip is allowed, get IP informations and store them
  * @param ip IP
- * @param disableCache if we fetch result from cache
+ * @param options {
+ *   userId: id of user (if given, connect IP to user via UserIP table),
+ *   userAgent: useragent string (for UserIP table ),
+ *   disableCache: if we fetch result from cache,
+ * }
  * @return Promise {
  *     allowed: boolean if allowed to use site
  * ,   status:  -2: not yet checked
@@ -175,8 +224,8 @@ async function withCache(f, ip, ipKey) {
  *              4: invalid ip
  *   }
  */
-export default function checkIfAllowed(ip, disableCache = false) {
-  if (!ip || ip === '0.0.0.1') {
+export default function getIpUserIntel(ip, options = {}) {
+  if (!ip) {
     return {
       allowed: false,
       status: 4,
@@ -184,20 +233,32 @@ export default function checkIfAllowed(ip, disableCache = false) {
   }
   const ipKey = getIPv6Subnet(ip);
 
-  if (disableCache) {
-    return withoutCacheButReUse(checker, ip, ipKey);
+  if (options.disableCache) {
+    return withoutCacheButReUse(checker, ip, ipKey, options);
   }
-  return withCache(checker, ip, ipKey);
+  return withCache(checker, ip, ipKey, options);
 }
 
-/*
+/**
  * check if email is disposable
  * @param email
+ * @param disableCache if we fetch result from cache
  * @return Promise
  *   null: some error occurred
  *   false: legit provider
  *   true: disposable
  */
-export function checkIfMailDisposable(email) {
-  return mailChecker(email);
+export async function checkIfMailDisposable(email, options = {}) {
+  const mailProvider = email.slice(email.indexOf('@') + 1);
+  if (!options.disableCache) {
+    const cache = await getCacheMailProviderDisposable(mailProvider);
+    if (cache !== null) {
+      return cache;
+    }
+  }
+  const isDisposable = await mailChecker(email);
+  if (isDisposable !== null) {
+    cacheMailProviderDisposable(mailProvider, isDisposable);
+  }
+  return isDisposable;
 }

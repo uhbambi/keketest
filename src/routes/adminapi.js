@@ -2,6 +2,7 @@ import express from 'express';
 
 import logger from '../core/logger';
 import { RegUser } from '../data/sql';
+import { USERLVL } from '../core/constants';
 import { getIPFromRequest } from '../utils/ip';
 import { compareToHash } from '../utils/hash';
 import { APISOCKET_KEY } from '../core/config';
@@ -48,7 +49,7 @@ router.post('/checklogin', async (req, res) => {
       'name',
       'email',
       'password',
-      'verified',
+      'userlvl',
     ],
   };
   let userString;
@@ -94,14 +95,14 @@ router.post('/checklogin', async (req, res) => {
     return;
   }
 
-  logger.info(`ADMINAPI: User ${reguser.name} / ${reguser.id} got loged in`);
+  logger.info(`ADMINAPI: User ${reguser.name} / ${reguser.id} got logged in`);
   res.json({
     success: true,
     userdata: {
       id: reguser.id,
       name: reguser.name,
       email: reguser.email,
-      verified: !!reguser.verified,
+      verified: reguser.userlvl >= USERLVL.VERIFIED,
     },
   });
 });

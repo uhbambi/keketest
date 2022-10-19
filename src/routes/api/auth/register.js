@@ -5,7 +5,7 @@ import { RegUser } from '../../../data/sql';
 import mailProvider from '../../../core/MailProvider';
 import getMe from '../../../core/me';
 import { getIPFromRequest, getHostFromRequest } from '../../../utils/ip';
-import { checkIfMailDisposable } from '../../../core/isAllowed';
+import { checkIfMailDisposable } from '../../../core/ipUserIntel';
 import {
   validateEMail,
   validateName,

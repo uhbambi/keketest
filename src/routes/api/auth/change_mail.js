@@ -9,6 +9,7 @@ import { getHostFromRequest } from '../../../utils/ip';
 import { compareToHash } from '../../../utils/hash';
 import { checkIfMuted } from '../../../data/redis/chat';
 import { checkIfMailDisposable } from '../../../core/isAllowed';
+import { USERLVL } from '../../../core/constants';
 
 async function validate(email, password, t, gettext) {
   const errors = [];
@@ -38,14 +39,6 @@ export default async (req, res) => {
   }
 
   const { user, lang } = req;
-  if (!user || !user.regUser) {
-    res.status(401);
-    res.json({
-      errors: [t`You are not authenticated.`],
-    });
-    return;
-  }
-
   const currentPassword = user.regUser.password;
   if (!compareToHash(password, currentPassword)) {
     res.status(400);
@@ -64,13 +57,18 @@ export default async (req, res) => {
     return;
   }
 
-  await user.regUser.update({
+  const { regUser } = user;
+  let { userlvl } = regUser;
+  if (userlvl <= USERLVL.VERIFIED && userlvl > USERLVL.REGISTERED) {
+    userlvl = USERLVL.REGISTERED;
+  }
+  await regUser.update({
     email,
-    mailVerified: false,
+    userlvl,
   });
 
   const host = getHostFromRequest(req);
-  mailProvider.sendVerifyMail(email, user.regUser.name, host, lang);
+  mailProvider.sendVerifyMail(email, regUser.name, host, lang);
 
   res.json({
     success: true,

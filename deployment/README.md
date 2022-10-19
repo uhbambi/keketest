@@ -16,6 +16,9 @@ Pixelplanet has its own git repository for deployment on the live system, if an 
 ## rebuild.sh
 script to manually trigger rebuilding and restarting pixelplanet on the server
 
+## banlist.csv
+CIDR banlist for firewall
+
 ## Some notes:
 Cloudflare Caching Setting `Broser Cache Expiration` should be set to `Respect Existing Headers` or it would default to 4h, which is unreasonable for chunks.
 Additinally make sure that cachebreakers get blocked by setting Cloudflare Firewall rules to block empty query strings at least for chunks

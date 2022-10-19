@@ -129,14 +129,12 @@ class PcKeyProvider {
     }
     const queriesToday = Number(usage['Queries Today']) || 0;
     const availableBurst = Number(usage['Burst Tokens Available']) || 0;
+    const burstActive = Number(usage['Burst Token Active']) === 1;
     let dailyLimit = Number(usage['Daily Limit']) || 0;
-    let burstActive = false;
-    let availableQueries = dailyLimit - queriesToday;
-    if (availableQueries < 0) {
-      burstActive = true;
+    if (burstActive) {
       dailyLimit *= 5;
-      availableQueries = dailyLimit - queriesToday;
     }
+    const availableQueries = dailyLimit - queriesToday;
     // eslint-disable-next-line max-len
     this.logger.info(`PCKey: ${key}, Queries Today: ${availableQueries} / ${dailyLimit} (Burst: ${availableBurst}, ${burstActive ? 'active' : 'inactive'})`);
     const keyData = [
@@ -146,7 +144,7 @@ class PcKeyProvider {
       availableBurst,
       false,
     ];
-    if (burstActive || availableQueries > HYSTERESIS) {
+    if (availableQueries > HYSTERESIS) {
       /*
        * data is a few minutes old, stop at HYSTERESIS
        */
@@ -157,7 +155,6 @@ class PcKeyProvider {
   }
 
   /*
-   * TODO: proxycheck added the used burst token to API
    * query the API for limits
    * @param key
    */
@@ -411,8 +408,6 @@ class ProxyCheck {
 
   /*
    * same as for ip
-   * TODO: cache for mail providers, remember
-   * a disposable provider for an hour or so
    * @param email
    * @return Promise that resolves to
    *  null: failure

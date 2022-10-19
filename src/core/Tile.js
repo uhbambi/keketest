@@ -507,7 +507,7 @@ export async function createTexture(
   // dont create textures larger than 4096
   const targetSize = Math.min(canvasSize, 4096);
   const amount = targetSize / TILE_SIZE;
-  const zoom = Math.log2(amount) * 2 / TILE_ZOOM_LEVEL;
+  const zoom = Math.log2(amount) * Math.log2(TILE_ZOOM_LEVEL);
   const textureBuffer = new Uint8Array(targetSize * targetSize * 3);
   const startTime = Date.now();
 

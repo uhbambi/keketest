@@ -4,13 +4,13 @@
  *
  */
 
-import { DataTypes, Utils } from 'sequelize';
+import { DataTypes } from 'sequelize';
 
 import sequelize from './sequelize';
-import RegUser from './RegUser';
+
+export { CHANNEL_TYPES } from '../../core/constants';
 
 const Channel = sequelize.define('Channel', {
-  // Channel ID
   id: {
     type: DataTypes.INTEGER.UNSIGNED,
     autoIncrement: true,
@@ -22,53 +22,33 @@ const Channel = sequelize.define('Channel', {
     allowNull: true,
   },
 
-  /*
-   * 0: public channel
-   * 1: DM
-   * 2: Group (not implemented)
-   * 3: faction (not implemented)
-   */
   type: {
-    type: DataTypes.TINYINT,
+    type: DataTypes.TINYINT.UNSIGNED,
     allowNull: false,
     defaultValue: 0,
   },
 
   lastMessage: {
     type: DataTypes.DATE,
-    defaultValue: new Utils.Literal('CURRENT_TIMESTAMP'),
+    defaultValue: DataTypes.NOW,
     allowNull: false,
   },
-}, {
-  updatedAt: false,
 
-  getterMethods: {
-    lastTs() {
+  createdAt: {
+    type: DataTypes.DATE,
+    defaultValue: DataTypes.NOW,
+    allowNull: false,
+  },
+
+  lastTs: {
+    type: DataTypes.VIRTUAL,
+    get() {
       return new Date(this.lastMessage).valueOf();
     },
-  },
-  setterMethods: {
-    lastTs(ts) {
-      this.setDataValue('lastMessage', new Date(ts).toISOString());
+    set(value) {
+      this.setDataValue('lastMessage', new Date(value));
     },
   },
-});
-
-/*
- * Direct Message User id
- * just set if channel is DM
- * (associating it here allows us too
- * keep track of users leaving and joining DMs and ending up
- * in the same conversation)
- * dmu1id < dmu2id
- */
-Channel.belongsTo(RegUser, {
-  as: 'dmu1',
-  foreignKey: 'dmu1id',
-});
-Channel.belongsTo(RegUser, {
-  as: 'dmu2',
-  foreignKey: 'dmu2id',
 });
 
 export default Channel;

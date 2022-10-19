@@ -1,6 +1,7 @@
 #!/bin/bash
 # Rebuild and Restert pixelplanet
-
+# To set up a server to use this, you have to go through the building steps manually first.
+#
 #folder for building the canvas (the git repository will get checkout there and the canvas will get buil thtere)
 BUILDDIR="/home/pixelpla/pixelplanet-build"
 #folder for dev canvas
@@ -25,7 +26,7 @@ should_reinstall () {
 
 npm_reinstall () {
     rm -rf node_modules
-    rm package-lock.json 
+    rm package-lock.json
     npm install
 }
 

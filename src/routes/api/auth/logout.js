@@ -5,13 +5,6 @@
 export default async (req, res) => {
   const { user } = req;
   const { t } = req.ttag;
-  if (!user || !user.regUser) {
-    res.status(401);
-    res.json({
-      errors: [t`You are not even logged in.`],
-    });
-    return;
-  }
 
   req.logout((err) => {
     if (err) {
