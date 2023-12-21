@@ -1,5 +1,3 @@
-> **Currently pixelplanet is being developed in a another private repository. This development version diverted and is incompatible with the stable version here. Until it is ready, this public repository will be frozen.**
-
 # PixelPlanet.fun
 
 
@@ -170,7 +168,7 @@ npm install
 ### Running
 
 1. Make sure that mysql and redis are running
-3. Start with 
+3. Start with
 
 ```
 pm2 start ecosystem.yml
@@ -183,7 +181,7 @@ General logs are in `~/pm2/log/`, you can view them with
 pm2 log ppfun-server
 ```
 
-you can flush the logs with 
+you can flush the logs with
 
 ```
 pm2 log flush
