@@ -9,6 +9,7 @@ import logger, { pixelLogger } from './logger';
 import allowPlace from '../data/redis/cooldown';
 import { USERLVL } from '../data/sql';
 import socketEvents from '../socket/socketEvents';
+import rankings from './Ranks';
 import { setPixelByOffset } from './setPixel';
 import isIPAllowed from './ipUserIntel';
 import canvases from './canvases';
@@ -117,12 +118,18 @@ export default async function drawByOffsets(
       || (user.userlvl >= USERLVL.MOD && pixels[0][1] < clrIgnore))
       ? 0.0 : coolDownFactor;
 
+    /*
     if (user.country === 'tr') {
       factor *= 1.4;
     }
+    */
 
-    const bcd = canvas.bcd * factor;
-    const pcd = (canvas.pcd) ? canvas.pcd * factor : bcd;
+    factor *= rankings.getCountryCoolDownFactor(user.country);
+
+    factor *= 0.75;
+
+    const bcd = Math.floor(canvas.bcd * factor);
+    const pcd = Math.floor((canvas.pcd) ? canvas.pcd * factor : bcd);
     const userId = user.id;
     const pxlOffsets = [];
 
