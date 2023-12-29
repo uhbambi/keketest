@@ -69,7 +69,9 @@ function buildServer() {
     const argsc = (langs === 'all')
       ? ['webpack', '--env', 'extract', '--config', './webpack.config.server.js']
       : ['webpack', '--config', './webpack.config.server.js']
-    const serverCompile = spawn('npx', argsc);
+    const serverCompile = spawn('npx', argsc, {
+      shell: process.platform == 'win32',
+    });
     serverCompile.stdout.on('data', (data) => {
       console.log(data.toString());
     });
@@ -91,7 +93,9 @@ function buildServer() {
 
 function buildClients(slangs) {
   return new Promise((resolve, reject) => {
-    const clientCompile = spawn('npm', ['run', 'build', '--', '--client', '--recursion', '--langs', slangs.join(',')]);
+    const clientCompile = spawn('npm', ['run', 'build', '--', '--client', '--recursion', '--langs', slangs.join(',')], {
+      shell: process.platform == 'win32',
+    });
     clientCompile.stdout.on('data', (data) => {
       console.log(data.toString());
     });
@@ -168,9 +172,7 @@ async function buildProduction() {
 
   if (doBuildClient) {
     if (!recursion) {
-      console.log(
-        'Building one package seperately to populate cache and possibly extract langs...',
-      );
+      console.log('Building one client package...');
       await compile(clientConfig({
         development: false,
         analyze: false,

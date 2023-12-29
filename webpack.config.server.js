@@ -21,7 +21,11 @@ const basePackageValues = {
   private: true,
   engines: pkg.engines,
   scripts: {
-    start: 'node --nouse-idle-notification --expose-gc server.js',
+    start: 'pm2 start ecosystem.yml',
+    restart: 'pm2 restart ecosystem.yml',
+    stop: 'pm2 stop all',
+    poststop: 'pm2 kill',
+    'install-pm2': 'npm install -g pm2'
   },
   dependencies: {
     mysql2: '',
