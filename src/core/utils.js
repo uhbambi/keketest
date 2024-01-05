@@ -51,15 +51,15 @@ export function dateToString(date) {
 }
 
 /*
- * get current date in YYYY-MM-DD
+ * get current UTC date in YYYY-MM-DD
  */
 export function getToday() {
   const date = new Date();
-  let day = date.getDate();
-  let month = date.getMonth() + 1;
+  let day = date.getUTCDate();
+  let month = date.getUTCMonth() + 1;
   if (month < 10) month = `0${month}`;
   if (day < 10) day = `0${day}`;
-  return `${date.getFullYear()}-${month}-${day}`;
+  return `${date.getUTCFullYear()}-${month}-${day}`;
 }
 
 // z is assumed to be height here
@@ -468,6 +468,28 @@ export function getDateTimeString(timestamp) {
     return date.toLocaleString();
   }
   return date.toLocaleTimeString();
+}
+
+/*
+ * get X_Y coordinates out of URL
+ * @param url url ending with #canas,x,y,z coords
+ * @return coordinates in X_Y form or null
+ */
+export function coordsFromUrl(url) {
+  let splitInd = url.lastIndexOf('#');
+  if (splitInd === -1) {
+    return null;
+  }
+  let part = url.slice(splitInd + 1);
+  splitInd = part.indexOf('?');
+  if (splitInd !== -1) {
+    part = part.slice(0, splitInd);
+  }
+  const [, x, y] = part.split(',');
+  if (x && y) {
+    return `${x}_${y}`;
+  }
+  return null;
 }
 
 /*

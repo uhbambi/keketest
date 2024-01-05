@@ -88,8 +88,8 @@ export default async function drawByOffsets(
     curReqIPs.set(ip, startTime);
 
     const canvas = canvases[canvasId];
-    if (!canvas) {
-      // canvas doesn't exist
+    if (!canvas || canvas.ed) {
+      // canvas doesn't exist or is expired
       throw new Error(1);
     }
 
@@ -119,13 +119,6 @@ export default async function drawByOffsets(
       ? 0.0 : coolDownFactor;
 
     factor *= rankings.getCountryCoolDownFactor(user.country);
-
-    if (canvasId === 0 && (user.country === 'ir' || user.country === 'lb')) {
-      factor *= 0.25;
-      if (canvas.bcd * factor < 1000) {
-        factor = 1000 / canvas.bcd;
-      }
-    }
 
     const bcd = Math.floor(canvas.bcd * factor);
     const pcd = Math.floor((canvas.pcd) ? canvas.pcd * factor : bcd);

@@ -231,6 +231,13 @@ msgstr ""
 msgid "You have new messages in chat"
 msgstr ""
 
+#: src/components/Converter.jsx:565
+#: src/components/CoordinatesBox.jsx:31
+#: src/components/ModWatchtools.jsx:384
+#: src/components/ModWatchtools.jsx:402
+msgid "Copy to Clipboard"
+msgstr ""
+
 #: src/components/OnlineBox.jsx:40
 msgid "Online Users on Canvas"
 msgstr ""
@@ -243,24 +250,17 @@ msgstr ""
 msgid "Pixels placed"
 msgstr ""
 
-#: src/components/Converter.jsx:565
-#: src/components/CoordinatesBox.jsx:31
-#: src/components/ModWatchtools.jsx:378
-#: src/components/ModWatchtools.jsx:396
-msgid "Copy to Clipboard"
-msgstr ""
-
-#: src/components/buttons/CanvasSwitchButton.jsx:20
-#: src/components/windows/index.js:19
-msgid "Canvas Selection"
-msgstr ""
-
 #: src/components/buttons/ChatButton.jsx:88
 msgid "Close Chat"
 msgstr ""
 
 #: src/components/buttons/ChatButton.jsx:88
 msgid "Open Chat"
+msgstr ""
+
+#: src/components/buttons/CanvasSwitchButton.jsx:20
+#: src/components/windows/index.js:19
+msgid "Canvas Selection"
 msgstr ""
 
 #: src/components/buttons/ExpandMenuButton.jsx:22
@@ -271,11 +271,11 @@ msgstr ""
 msgid "Open Menu"
 msgstr ""
 
-#: src/components/HistorySelect.jsx:144
+#: src/components/HistorySelect.jsx:146
 msgid "Loading"
 msgstr ""
 
-#: src/components/HistorySelect.jsx:145
+#: src/components/HistorySelect.jsx:147
 msgid "Select Date above"
 msgstr ""
 
@@ -782,10 +782,10 @@ msgstr ""
 
 #: src/components/Admintools.jsx:154
 #: src/components/Admintools.jsx:238
-#: src/components/ModCanvastools.jsx:302
-#: src/components/ModCanvastools.jsx:382
-#: src/components/ModCanvastools.jsx:455
-#: src/components/ModCanvastools.jsx:546
+#: src/components/ModCanvastools.jsx:305
+#: src/components/ModCanvastools.jsx:390
+#: src/components/ModCanvastools.jsx:467
+#: src/components/ModCanvastools.jsx:562
 #: src/components/ModIIDtools.jsx:135
 #: src/components/windows/ForgotPassword.jsx:84
 #: src/components/windows/Register.jsx:127
@@ -794,13 +794,18 @@ msgstr ""
 
 #: src/components/windows/CanvasSelect.jsx:29
 msgid ""
-"Select the canvas you want to use.  Every canvas is unique and has "
-"different palettes, cooldown and requirements.  Archive of closed canvases "
-"can be accessed here:"
+"Select the canvas you want to use.\n"
+"Every canvas is unique and has different palettes, cooldown and "
+"requirements.\n"
+"Archive of removed canvases can be accessed here:"
 msgstr ""
 
 #: src/components/windows/CanvasSelect.jsx:37
 msgid "Archive"
+msgstr ""
+
+#: src/components/windows/CanvasSelect.jsx:59
+msgid "Retired Canvases (history only)"
 msgstr ""
 
 #: src/components/windows/Archive.jsx:16
@@ -808,20 +813,20 @@ msgid ""
 "While we tend to not delete canvases, some canvases are started for fun or "
 "as a request by users who currently like a meme. Those canvases can get "
 "boring after a while and after weeks of no major change and if they really "
-"aren't worth being kept active, we decide to remove them."
+"aren't worth being kept active."
 msgstr ""
 
-#: src/components/windows/Archive.jsx:18
+#: src/components/windows/Archive.jsx:17
 msgid ""
-"Here we collect those canvases to archive them in a proper way (which is "
-"currently just one)."
+"Here we collect removed canvases to archive them in a proper way. Which is "
+"currently only one."
 msgstr ""
 
-#: src/components/windows/Archive.jsx:20
+#: src/components/windows/Archive.jsx:19
 msgid "Political Compass Canvas"
 msgstr ""
 
-#: src/components/windows/Archive.jsx:27
+#: src/components/windows/Archive.jsx:26
 msgid ""
 "This canvas got requested during a time of political conflicts on the main "
 "Earth canvas. It was a 1024x1024 representation of the political compass "
@@ -829,7 +834,7 @@ msgid ""
 "remained active for months till it got shut down on November 30th."
 msgstr ""
 
-#: src/components/windows/Archive.jsx:28
+#: src/components/windows/Archive.jsx:27
 msgid ""
 "We decided to archive it as a timelapse with lossless encoded webm. Taking "
 "a screenshot from the timelapse results in a perfect 1:1 representation of "
@@ -1225,6 +1230,10 @@ msgstr ""
 msgid "Click here to request a new verification mail."
 msgstr ""
 
+#: src/components/ChangeName.jsx:64
+msgid "New Username"
+msgstr ""
+
 #: src/components/ChangePassword.jsx:21
 msgid "Passwords do not match."
 msgstr ""
@@ -1243,10 +1252,6 @@ msgstr ""
 
 #: src/components/ChangePassword.jsx:103
 msgid "Confirm New Password"
-msgstr ""
-
-#: src/components/ChangeName.jsx:64
-msgid "New Username"
 msgstr ""
 
 #: src/components/ChangeMail.jsx:59
@@ -1333,50 +1338,50 @@ msgid "File"
 msgstr ""
 
 #: src/components/ModCanvastools.jsx:269
-msgid "Coordinates in X_Y format:"
+msgid "Coordinates:"
 msgstr ""
 
-#: src/components/ModCanvastools.jsx:307
+#: src/components/ModCanvastools.jsx:310
 msgid "Pixel Protection"
 msgstr ""
 
-#: src/components/ModCanvastools.jsx:309
+#: src/components/ModCanvastools.jsx:314
 msgid ""
-"Set protection of areas         (if you need finer grained control,         "
-"use protect with image upload and alpha layers)"
+"Set protection of areas (if you need finer grained control, use protect "
+"with image upload and alpha layers)"
 msgstr ""
 
-#: src/components/ModCanvastools.jsx:330
-#: src/components/ModCanvastools.jsx:403
-#: src/components/ModCanvastools.jsx:486
+#: src/components/ModCanvastools.jsx:334
+#: src/components/ModCanvastools.jsx:411
+#: src/components/ModCanvastools.jsx:498
 #: src/components/ModWatchtools.jsx:176
 msgid "Top-left corner"
 msgstr ""
 
-#: src/components/ModCanvastools.jsx:347
-#: src/components/ModCanvastools.jsx:420
-#: src/components/ModCanvastools.jsx:503
-#: src/components/ModWatchtools.jsx:193
+#: src/components/ModCanvastools.jsx:353
+#: src/components/ModCanvastools.jsx:430
+#: src/components/ModCanvastools.jsx:517
+#: src/components/ModWatchtools.jsx:195
 msgid "Bottom-right corner"
 msgstr ""
 
-#: src/components/ModCanvastools.jsx:388
+#: src/components/ModCanvastools.jsx:396
 msgid "Rollback to Date"
 msgstr ""
 
-#: src/components/ModCanvastools.jsx:390
+#: src/components/ModCanvastools.jsx:398
 msgid "Rollback an area of the canvas to a set date (00:00 UTC)"
 msgstr ""
 
-#: src/components/ModCanvastools.jsx:461
+#: src/components/ModCanvastools.jsx:473
 msgid "Canvas Cleaner"
 msgstr ""
 
-#: src/components/ModCanvastools.jsx:463
+#: src/components/ModCanvastools.jsx:475
 msgid "Apply a filter to clean trash in large canvas areas."
 msgstr ""
 
-#: src/components/ModCanvastools.jsx:564
+#: src/components/ModCanvastools.jsx:580
 msgid "Stop Cleaner"
 msgstr ""
 
@@ -1432,11 +1437,11 @@ msgstr ""
 msgid "IID (optional)"
 msgstr ""
 
-#: src/components/ModWatchtools.jsx:239
+#: src/components/ModWatchtools.jsx:243
 msgid "Get Pixels"
 msgstr ""
 
-#: src/components/ModWatchtools.jsx:271
+#: src/components/ModWatchtools.jsx:275
 msgid "Get Users"
 msgstr ""
 

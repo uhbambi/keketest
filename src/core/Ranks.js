@@ -106,7 +106,7 @@ class Ranks {
       return;
     }
     /*
-     * don't punish when canvas has less than 22% of
+     * don't punish when canvas has less than 50% of
      * daily peak activity
      */
     const { pHourlyStats } = this.ranks;
@@ -116,7 +116,7 @@ class Ranks {
         maxActivity = e;
       }
     });
-    if (pHourlyStats[0] < maxActivity * 0.22) {
+    if (pHourlyStats[0] < maxActivity * 0.5) {
       this.#punishedCountry = null;
       this.#punishmentFactor = 1.0;
       return;
@@ -138,8 +138,8 @@ class Ranks {
      * 20% gets added to their cooldown for every country
      * after the first. Ceiled at 200%
      */
-    if (outnumbered >= 2) {
-      let punishmentFactor = 1 + 0.25 * (outnumbered - 1);
+    if (outnumbered > 2) {
+      let punishmentFactor = 1 + 0.25 * (outnumbered - 2);
       if (punishmentFactor > 3) {
         punishmentFactor = 3;
       }

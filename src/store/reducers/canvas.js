@@ -4,6 +4,7 @@ import {
   getIdFromObject,
   getHistoricalCanvasSize,
   getMaxTiledZoom,
+  dateToString,
 } from '../../core/utils';
 
 
@@ -23,6 +24,7 @@ export type CanvasState = {
   is3D: boolean,
   canvasSize: number,
   canvasStartDate: string,
+  canvasEndDate: string,
   palette: Palette,
   clrIgnore: number,
   view: Array,
@@ -43,6 +45,51 @@ export type CanvasState = {
   showHiddenCanvases: boolean,
 };
 */
+
+/*
+ * checks if toggling historical view is neccessary
+ * in given state or if properties have to change.
+ * Changes the state inplace.
+ * @param state
+ * @return same state with fixed historical view
+ */
+function fixHistoryIfNeccessary(state, doClamp = true) {
+  const {
+    canvasEndDate,
+    isHistoricalView,
+    is3D,
+  } = state;
+
+  if (is3D && isHistoricalView) {
+    state.isHistoricalView = false;
+  } else if (canvasEndDate && !isHistoricalView) {
+    state.isHistoricalView = true;
+    if (!state.historicalDate) {
+      state.historicalDate = dateToString(canvasEndDate);
+      state.historicalTime = '0000';
+    }
+  }
+  if (state.isHistoricalView) {
+    const {
+      historicalDate,
+      canvasId,
+      canvasSize,
+      canvases,
+      scale,
+      viewscale,
+    } = state;
+    state.historicalCanvasSize = getHistoricalCanvasSize(
+      historicalDate,
+      canvasSize,
+      canvases[canvasId]?.historicalSizes,
+    );
+    if (doClamp && (scale < 0.7 || viewscale < 0.7)) {
+      state.scale = 0.7;
+      state.viewscale = 0.7;
+    }
+  }
+  return state;
+}
 
 /*
  * parse url hash and sets view to coordinates
@@ -68,7 +115,8 @@ function getViewFromURL(canvases) {
     const clrIgnore = canvas.cli || 0;
     const {
       colors,
-      sd: canvasStartDate,
+      sd: canvasStartDate = null,
+      ed: canvasEndDate = null,
       size: canvasSize,
     } = canvas;
     const is3D = !!canvas.v;
@@ -92,57 +140,61 @@ function getViewFromURL(canvases) {
     }
 
     if (!is3D && canvasId !== null) {
-      scale = clamp(scale, TILE_SIZE / canvasSize, MAX_SCALE);
+      const minScale = TILE_SIZE / canvasSize;
+      scale = clamp(scale, minScale, MAX_SCALE);
       view.length = 2;
     }
 
-    return {
+    return fixHistoryIfNeccessary({
       canvasId,
       canvasIdent,
       canvasSize,
       historicalCanvasSize: canvasSize,
       is3D,
       canvasStartDate,
+      canvasEndDate,
       canvasMaxTiledZoom: getMaxTiledZoom(canvasSize),
       palette: new Palette(colors, 0),
       clrIgnore,
       selectedColor: clrIgnore,
       view,
       viewscale: scale,
+      isHistoricalView: false,
+      historicalDate: null,
       scale,
       canvases,
-    };
+    }, canvasId !== null);
   } catch (error) {
     const canvasd = canvases[DEFAULT_CANVAS_ID];
-    return {
+    return fixHistoryIfNeccessary({
       canvasId: DEFAULT_CANVAS_ID,
       canvasIdent: canvasd.ident,
       canvasSize: canvasd.size,
       historicalCanvasSize: canvasd.size,
       is3D: !!canvasd.v,
-      canvasStartDate: null,
+      canvasStartDate: canvasd.sd,
+      canvasEndDate: canvasd.ed,
       canvasMaxTiledZoom: getMaxTiledZoom(canvasd.size),
       palette: new Palette(canvasd.colors, 0),
       clrIgnore: canvasd.cli || 0,
       selectedColor: canvasd.cli || 0,
       view: [0, 0, 0],
       viewscale: DEFAULT_SCALE,
+      isHistoricalView: false,
+      historicalDate: null,
       scale: DEFAULT_SCALE,
       canvases,
-    };
+    });
   }
 }
 
 const initialState = {
   ...getViewFromURL(DEFAULT_CANVASES),
-  isHistoricalView: false,
-  historicalDate: null,
   historicalTime: null,
   showHiddenCanvases: false,
   hover: null,
   prevCanvasCoords: {},
 };
-
 
 export default function canvasReducer(
   state = initialState,
@@ -196,34 +248,21 @@ export default function canvasReducer(
         date,
         time,
       } = action;
-      const {
-        canvasSize,
-        canvases,
-        canvasId,
-      } = state;
-      const historicalCanvasSize = getHistoricalCanvasSize(
-        date, canvasSize, canvases[canvasId].historicalSizes,
-      );
-
-      return {
+      return fixHistoryIfNeccessary({
         ...state,
-        historicalCanvasSize,
         historicalDate: date,
         historicalTime: time,
-      };
+      });
     }
 
     case 's/TGL_HISTORICAL_VIEW': {
-      const {
-        scale,
-        viewscale,
-      } = state;
-      return {
+      if (state.is3D || state.canvasEndDate) {
+        return state;
+      }
+      return fixHistoryIfNeccessary({
         ...state,
-        scale: (scale < 1.0) ? 1.0 : scale,
-        viewscale: (viewscale < 1.0) ? 1.0 : viewscale,
-        isHistoricalView: !state.is3D && !state.isHistoricalView,
-      };
+        isHistoricalView: !state.isHistoricalView,
+      });
     }
 
     case 's/TGL_HIDDEN_CANVASES': {
@@ -280,7 +319,11 @@ export default function canvasReducer(
 
     case 's/SELECT_CANVAS': {
       let { canvasId } = action;
-      const { canvases, prevCanvasCoords, canvasId: prevCanvasId } = state;
+      const {
+        canvases,
+        prevCanvasCoords,
+        canvasId: prevCanvasId,
+      } = state;
       let canvas = canvases[canvasId];
       if (!canvas) {
         canvasId = DEFAULT_CANVAS_ID;
@@ -289,7 +332,8 @@ export default function canvasReducer(
       const clrIgnore = canvas.cli || 0;
       const {
         size: canvasSize,
-        sd: canvasStartDate,
+        sd: canvasStartDate = null,
+        ed: canvasEndDate = null,
         ident: canvasIdent,
         colors,
       } = canvas;
@@ -305,18 +349,13 @@ export default function canvasReducer(
         scale = prevCanvasCoords[canvasId].scale;
         selectedColor = prevCanvasCoords[canvasId].selectedColor;
       }
-      //---
-      const isHistoricalView = !is3D && state.isHistoricalView;
-      const historicalCanvasSize = getHistoricalCanvasSize(
-        state.historicalDate,
-        canvasSize,
-        canvas.historicalSizes,
-      );
       const palette = new Palette(colors, 0);
+
       if (!is3D) {
         view.length = 2;
       }
-      return {
+
+      return fixHistoryIfNeccessary({
         ...state,
         canvasId,
         canvasIdent,
@@ -324,13 +363,14 @@ export default function canvasReducer(
         canvasSize,
         is3D,
         canvasStartDate,
+        canvasEndDate,
         palette,
         clrIgnore,
         view,
         viewscale,
         scale,
-        isHistoricalView,
-        historicalCanvasSize,
+        // reset if last canvas was retired
+        isHistoricalView: (!state.canvasEndDate && state.isHistoricalView),
         // remember view, scale and viewscale
         prevCanvasCoords: {
           ...state.prevCanvasCoords,
@@ -341,15 +381,21 @@ export default function canvasReducer(
             selectedColor: state.selectedColor,
           },
         },
-      };
+      });
     }
 
     case 's/REC_ME': {
       const { canvases } = action;
-      let { canvasIdent, scale, view } = state;
+      let {
+        canvasIdent,
+        scale,
+        view,
+      } = state;
 
       let canvasId = getIdFromObject(canvases, canvasIdent);
-      if (canvasId === null) {
+      if (canvasId === null || (
+        !window.ssv?.backupurl && canvases[canvasId].ed
+      )) {
         canvasId = DEFAULT_CANVAS_ID;
         canvasIdent = canvases[DEFAULT_CANVAS_ID].ident;
       }
@@ -358,30 +404,33 @@ export default function canvasReducer(
       const is3D = !!canvas.v;
       const {
         size: canvasSize,
-        sd: canvasStartDate,
+        sd: canvasStartDate = null,
+        ed: canvasEndDate = null,
         colors,
       } = canvas;
       const palette = new Palette(colors, 0);
 
       if (!is3D) {
-        scale = clamp(scale, TILE_SIZE / canvasSize, MAX_SCALE);
+        const minScale = TILE_SIZE / canvasSize;
+        scale = clamp(scale, minScale, MAX_SCALE);
         view = [view[0], view[1]];
       }
 
-      return {
+      return fixHistoryIfNeccessary({
         ...state,
         canvasId,
         canvasIdent,
         canvasSize,
         is3D,
         canvasStartDate,
+        canvasEndDate,
         palette,
         clrIgnore,
         canvases,
         viewscale: scale,
         scale,
         view,
-      };
+      });
     }
 
     default:
