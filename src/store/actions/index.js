@@ -27,9 +27,9 @@ export function toggleHistoricalView() {
   };
 }
 
-export function toggleHiddenCanvases() {
+export function toggleEasterEgg() {
   return {
-    type: 's/TGL_HIDDEN_CANVASES',
+    type: 's/TGL_EASTER_EGG',
   };
 }
 
@@ -42,6 +42,12 @@ export function toggleGrid() {
 export function togglePixelNotify() {
   return {
     type: 's/TGL_PXL_NOTIFY',
+  };
+}
+
+export function toggleMvmCtrls() {
+  return {
+    type: 's/TGL_MVM_CTRLS',
   };
 }
 
@@ -90,6 +96,20 @@ export function toggleLightGrid() {
 export function toggleOpenPalette() {
   return {
     type: 's/TGL_OPEN_PALETTE',
+  };
+}
+
+export function selectHoldPaint(value, immediate) {
+  return {
+    type: 's/SELECT_HOLD_PAINT',
+    value,
+    immediate,
+  };
+}
+
+export function selectHoverColor() {
+  return {
+    type: 'SELECT_HOVER_COLOR',
   };
 }
 
@@ -146,45 +166,18 @@ export function selectCanvas(canvasId) {
   };
 }
 
+export function updateView(view) {
+  return {
+    type: 'UPDATE_VIEW',
+    view,
+  };
+}
+
 export function setViewCoordinates(view) {
   return {
     type: 'SET_VIEW_COORDINATES',
     view,
   };
-}
-
-export function move([dx, dy]) {
-  return (dispatch, getState) => {
-    const { view } = getState().canvas;
-
-    const [x, y] = view;
-    dispatch(setViewCoordinates([x + dx, y + dy]));
-  };
-}
-
-export function moveDirection([vx, vy]) {
-  return (dispatch, getState) => {
-    const { viewscale } = getState().canvas;
-
-    const speed = 100.0 / viewscale;
-    dispatch(move([speed * vx, speed * vy]));
-  };
-}
-
-export function moveNorth() {
-  return moveDirection([0, -1]);
-}
-
-export function moveWest() {
-  return moveDirection([-1, 0]);
-}
-
-export function moveSouth() {
-  return moveDirection([0, 1]);
-}
-
-export function moveEast() {
-  return moveDirection([1, 0]);
 }
 
 export function setScale(scale, zoompoint) {
@@ -195,19 +188,31 @@ export function setScale(scale, zoompoint) {
   };
 }
 
-export function zoomIn(zoompoint) {
-  return (dispatch, getState) => {
-    const { scale } = getState().canvas;
-    const zoomscale = scale >= 1.0 ? scale * 1.1 : scale * 1.04;
-    dispatch(setScale(zoomscale, zoompoint));
+export function setMoveU(value) {
+  return {
+    type: 's/SET_MOVE_U',
+    value,
   };
 }
 
-export function zoomOut(zoompoint) {
-  return (dispatch, getState) => {
-    const { scale } = getState().canvas;
-    const zoomscale = scale >= 1.0 ? scale / 1.1 : scale / 1.04;
-    dispatch(setScale(zoomscale, zoompoint));
+export function setMoveV(value) {
+  return {
+    type: 's/SET_MOVE_V',
+    value,
+  };
+}
+
+export function setMoveW(value) {
+  return {
+    type: 's/SET_MOVE_W',
+    value,
+  };
+}
+
+export function cancelMove(value) {
+  return {
+    type: 's/CANCEL_MOVE',
+    value,
   };
 }
 
@@ -430,12 +435,6 @@ export function unmuteChatChannel(cid) {
   return {
     type: 's/UNMUTE_CHAT_CHANNEL',
     cid,
-  };
-}
-
-export function onViewFinishChange() {
-  return {
-    type: 'ON_VIEW_FINISH_CHANGE',
   };
 }
 

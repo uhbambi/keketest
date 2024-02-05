@@ -3,9 +3,13 @@
  *
  */
 
+/* eslint-disable no-underscore-dangle */
+
 import {
   TILE_ZOOM_LEVEL,
   TILE_SIZE,
+  MAX_SCALE,
+  OVERLAY_SP_TH,
   BACKGROUND_CLR_HEX,
 } from '../core/constants';
 
@@ -13,12 +17,15 @@ import {
   getTileOfPixel,
   getPixelFromChunkOffset,
   getMaxTiledZoom,
+  clamp,
 } from '../core/utils';
 
 import {
   renderGrid,
   renderPlaceholder,
   renderPotatoPlaceholder,
+  renderOverlay,
+  renderSmallPOverlay,
 } from './render2Delements';
 import PixelPainterControls from '../controls/PixelPainterControls';
 
@@ -29,57 +36,48 @@ import pixelNotify from './PixelNotify';
 const LOG_FRAC = Math.log2(TILE_ZOOM_LEVEL);
 
 class Renderer2D extends Renderer {
-  is3D = false;
-  //
   canvasId = null;
+  viewscale = 0;
   //--
-  centerChunk;
-  tiledScale;
-  tiledZoom;
-  hover;
+  centerChunk = [null, null];
+  tiledScale = 0;
+  tiledZoom = 4;
+  hover = false;
   //--
   viewport = null;
   //--
-  forceNextRender;
-  forceNextSubrender;
+  lastFetch = 0;
   canvas;
-  lastFetch;
   //--
-  oldHistoricalTime;
+  oldHistoricalTime = null;
 
   constructor(store) {
     super(store);
-    this.centerChunk = [null, null];
-    this.tiledScale = 0;
-    this.tiledZoom = 4;
+    this.is3D = false;
+
     this.canvasMaxTiledZoom = 0;
     this.historicalCanvasMaxTiledZoom = 0;
-    this.hover = false;
     this.scaleThreshold = 1;
-    //--
-    this.forceNextRender = true;
-    this.forceNextSubrender = true;
-    this.lastFetch = 0;
-    this.oldHistoricalTime = null;
     //--
     const viewport = document.createElement('canvas');
     viewport.className = 'viewport';
+    const viewportCtx = viewport.getContext('2d', { alpha: false });
     this.viewport = viewport;
-    //--
-    this.canvas = document.createElement('canvas');
+    const canvas = document.createElement('canvas');
+    const context = canvas.getContext('2d', { alpha: false });
+    this.canvas = canvas;
     this.onWindowResize();
-    document.body.appendChild(this.viewport);
     //--
+    context.fillStyle = '#C4C4C4';
+    context.fillRect(0, 0, this.canvas.width, this.canvas.height);
+    viewportCtx.fillStyle = '#C4C4C4';
+    viewportCtx.fillRect(0, 0, this.viewport.width, this.viewport.height);
+    //--
+    document.body.appendChild(this.viewport);
     this.onWindowResize = this.onWindowResize.bind(this);
     window.addEventListener('resize', this.onWindowResize);
-
-    const context = this.canvas.getContext('2d');
-    context.fillStyle = '#000000';
-    context.fillRect(0, 0, this.canvas.width, this.canvas.height);
     //--
-    const state = store.getState();
-    this.updateCanvasData(state);
-    this.updateScale(state);
+    this.updateCanvasData(store.getState());
     this.controls = new PixelPainterControls(this, this.viewport, store);
   }
 
@@ -139,8 +137,10 @@ class Renderer2D extends Renderer {
           canvases[canvasId].historicalSizes,
         );
       }
+      this._view[2] = 0;
+      this.updateView(state.canvas.view);
+      this.forceNextRender = true;
     }
-    this.updateScale(state);
   }
 
   updateOldHistoricalTime(oldDate, oldTime) {
@@ -156,7 +156,7 @@ class Renderer2D extends Renderer {
       historicalCanvasSize,
     );
     this.forceNextRender = true;
-    this.updateScale(this.store.getState());
+    this.updateView(this.store.getState().canvas.view);
   }
 
   getColorIndexOfPixel(cx, cy, historical = false) {
@@ -173,62 +173,91 @@ class Renderer2D extends Renderer {
     return this.chunkLoader.getColorIndexOfPixel(cx, cy);
   }
 
-  updateScale(
-    state,
-    prevScale = null,
-  ) {
-    const {
-      viewscale,
-      isHistoricalView,
-    } = state.canvas;
-    pixelNotify.updateScale(viewscale);
-    let tiledScale = (viewscale > 0.5)
-      ? 0
-      : Math.round(Math.log2(viewscale) / LOG_FRAC);
-    tiledScale = TILE_ZOOM_LEVEL ** tiledScale;
-    const canvasMaxTiledZoom = (isHistoricalView)
-      ? this.historicalCanvasMaxTiledZoom
-      : this.canvasMaxTiledZoom;
-    const tiledZoom = canvasMaxTiledZoom + Math.log2(tiledScale) / LOG_FRAC;
-    const relScale = viewscale / tiledScale;
-
-    this.tiledScale = tiledScale;
-    this.tiledZoom = tiledZoom;
-    this.relScale = relScale;
-    this.updateView(state);
-    if (prevScale === null
-      || viewscale < this.scaleThreshold || prevScale < this.scaleThreshold) {
-      this.forceNextRender = true;
-    } else {
-      this.forceNextSubrender = true;
-    }
+  getPointedColor() {
+    return this.getColorIndexOfPixel(
+      ...this.store.getState().canvas.hover,
+    );
   }
 
-  updateView(state) {
-    const {
-      view,
-    } = state.canvas;
-    const canvasSize = (state.canvas.isHistoricalView)
+  updateView(view, origin) {
+    let [x, y, scale] = view;
+    const state = this.store.getState();
+    const { isHistoricalView } = state.canvas;
+    const canvasSize = (isHistoricalView)
       ? state.canvas.historicalCanvasSize
       : state.canvas.canvasSize;
 
-    const [x, y] = view;
-    let [cx, cy] = this.centerChunk;
-    const [curcx, curcy] = getTileOfPixel(
+    // clamp scale and set viewscale
+    if (scale) {
+      const minScale = (isHistoricalView) ? 0.7 : TILE_SIZE / canvasSize;
+      scale = clamp(view[2], minScale, MAX_SCALE);
+      if (origin) {
+        let scalediff = this.viewscale;
+        // clamp to 1.0 (only when origin is given, so not on phones)
+        this.viewscale = (scale > 0.85 && scale < 1.20) ? 1.0 : scale;
+        // make sure that origin is at the same place on the screen
+        scalediff /= this.viewscale;
+        const [px, py] = origin;
+        x = px + (x - px) * scalediff;
+        y = py + (y - py) * scalediff;
+      } else {
+        this.viewscale = scale;
+      }
+    } else {
+      [,, scale] = this._view;
+    }
+    // clamp coords
+    const canvasMinXY = -canvasSize / 2;
+    const canvasMaxXY = canvasSize / 2 - 1;
+    x = clamp(x, canvasMinXY, canvasMaxXY);
+    y = clamp(y, canvasMinXY, canvasMaxXY);
+
+    const prevScale = this.view[2];
+    super.updateView([x, y, scale]);
+
+    if (prevScale !== scale) {
+      const { viewscale } = this;
+      pixelNotify.updateScale(viewscale);
+      let tiledScale = (viewscale > 0.5)
+        ? 0
+        : Math.round(Math.log2(viewscale) * 2 / TILE_ZOOM_LEVEL);
+      tiledScale = TILE_ZOOM_LEVEL ** tiledScale;
+      const canvasMaxTiledZoom = (isHistoricalView)
+        ? this.historicalCanvasMaxTiledZoom
+        : this.canvasMaxTiledZoom;
+      const tiledZoom = canvasMaxTiledZoom + Math.log2(tiledScale)
+        * 2 / TILE_ZOOM_LEVEL;
+      const relScale = viewscale / tiledScale;
+      this.tiledScale = tiledScale;
+      this.tiledZoom = tiledZoom;
+      this.relScale = relScale;
+      if (viewscale < this.scaleThreshold || prevScale < this.scaleThreshold
+        || (state.templates.ovEnabled && (
+          (prevScale <= OVERLAY_SP_TH && scale > OVERLAY_SP_TH)
+          || (prevScale > OVERLAY_SP_TH && scale <= OVERLAY_SP_TH)
+        ))) {
+        this.forceNextRender = true;
+      } else {
+        this.forceNextSubrender = true;
+      }
+    }
+
+    const prevCenterChunk = this.centerChunk;
+    const centerChunk = getTileOfPixel(
       this.tiledScale,
       [x, y],
       canvasSize,
     );
-    if (cx !== curcx || cy !== curcy) {
-      cx = curcx;
-      cy = curcy;
-      this.centerChunk = [cx, cy];
+    if (!prevCenterChunk
+      || prevCenterChunk[0] !== centerChunk[0]
+      || prevCenterChunk[1] !== centerChunk[1]
+    ) {
+      this.centerChunk = centerChunk;
       this.forceNextRender = true;
     } else {
       this.forceNextSubrender = true;
     }
   }
-
 
   renderPixel(
     i,
@@ -241,9 +270,9 @@ class Renderer2D extends Renderer {
     const {
       canvasSize,
       palette,
-      scale,
       isHistoricalView,
     } = state.canvas;
+    const scale = this.viewscale;
     this.chunkLoader.getPixelUpdate(i, j, offset, color);
 
     if (scale < 0.8 || isHistoricalView) return;
@@ -320,11 +349,9 @@ class Renderer2D extends Renderer {
       tiledScale,
       tiledZoom,
       viewport,
-    } = this;
-    const {
       viewscale: scale,
-      canvasSize,
-    } = state.canvas;
+    } = this;
+    const { canvasSize } = state.canvas;
 
     let { relScale } = this;
 
@@ -391,6 +418,7 @@ class Renderer2D extends Renderer {
           context.fillRect(x, y, TILE_SIZE, TILE_SIZE);
         } else {
           chunk = this.chunkLoader.getChunk(tiledZoom, cx, cy);
+          // TODO is chunk nnow an object or image? it doesnt make any sense
           if (chunk) {
             context.drawImage(chunk, x, y);
             if (touch) {
@@ -403,6 +431,15 @@ class Renderer2D extends Renderer {
       }
     }
     context.restore();
+
+    if (state.templates.ovEnabled
+      && (scale < OVERLAY_SP_TH || !state.templates.oSmallPxls)
+    ) {
+      renderOverlay(
+        state, this.canvas, chunkPosition, scale,
+        this.tiledScale, this.scaleThreshold,
+      );
+    }
   }
 
 
@@ -410,6 +447,7 @@ class Renderer2D extends Renderer {
     if (!this.chunkLoader) {
       return;
     }
+    super.render();
     const state = this.store.getState();
     if (state.canvas.isHistoricalView) {
       this.renderHistorical(state);
@@ -425,7 +463,9 @@ class Renderer2D extends Renderer {
     state,
   ) {
     const {
+      _view,
       viewport,
+      viewscale,
     } = this;
     const {
       showGrid,
@@ -437,13 +477,11 @@ class Renderer2D extends Renderer {
       fetchingPixel,
     } = state.fetching;
     const {
-      view,
-      viewscale,
       canvasSize,
       hover,
     } = state.canvas;
 
-    const [x, y] = view;
+    const [x, y] = _view;
     const [cx, cy] = this.centerChunk;
 
     // if we have to render pixelnotify
@@ -527,17 +565,25 @@ class Renderer2D extends Renderer {
       );
     }
 
-    if (showGrid && viewscale >= 8) {
-      renderGrid(state, viewport, viewscale, isLightGrid);
+    if (state.templates.ovEnabled
+      && state.templates.oSmallPxls && viewscale >= OVERLAY_SP_TH
+    ) {
+      renderSmallPOverlay(state, viewport, _view, viewscale);
     }
 
-    if (doRenderPixelnotify) pixelNotify.render(state, viewport);
+    if (showGrid && viewscale >= 8) {
+      renderGrid(state, viewport, _view, viewscale, isLightGrid);
+    }
+
+    if (doRenderPixelnotify) {
+      pixelNotify.render(state, viewport, _view, viewscale);
+    }
 
     if (hover && doRenderPlaceholder) {
-      renderPlaceholder(state, viewport, viewscale);
+      renderPlaceholder(state, viewport, _view, viewscale);
     }
     if (hover && doRenderPotatoPlaceholder) {
-      renderPotatoPlaceholder(state, viewport, viewscale);
+      renderPotatoPlaceholder(state, viewport, _view, viewscale);
     }
   }
 
@@ -551,10 +597,10 @@ class Renderer2D extends Renderer {
     const {
       centerChunk: chunkPosition,
       viewport,
+      viewscale,
       oldHistoricalTime,
     } = this;
     const {
-      viewscale,
       historicalDate,
       historicalTime,
       historicalCanvasSize,
@@ -677,18 +723,17 @@ class Renderer2D extends Renderer {
   ) {
     const {
       viewport,
+      viewscale,
     } = this;
     const {
       showGrid,
       isLightGrid,
     } = state.gui;
     const {
-      view,
-      viewscale,
       historicalCanvasSize,
     } = state.canvas;
 
-    const [x, y] = view;
+    const [x, y] = this._view;
     const [cx, cy] = this.centerChunk;
 
     if (!this.forceNextRender && !this.forceNextSubrender) {

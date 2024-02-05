@@ -4,7 +4,10 @@
 
 import { persistStore } from 'redux-persist';
 
-import createKeyPressHandler from './controls/keypress';
+import {
+  createKeyDownHandler,
+  createKeyUpHandler,
+} from './controls/keypress';
 import {
   initTimer,
   urlChange,
@@ -17,7 +20,8 @@ import {
 import pixelTransferController from './ui/PixelTransferController';
 import store from './store/store';
 import renderApp from './components/App';
-import { initRenderer, getRenderer } from './ui/rendererFactory';
+import { getRenderer } from './ui/rendererFactory';
+import templateLoader from './ui/templateLoader';
 import socketClient from './socket/SocketClient';
 import { GC_INTERVAL } from './core/constants';
 
@@ -26,19 +30,21 @@ persistStore(store, {}, () => {
 
   store.dispatch({ type: 'HYDRATED' });
 
-  initRenderer(store, false);
-
   pixelTransferController.initialize(store, socketClient, getRenderer);
+
+  // TODO should be in middleware
+  templateLoader.initialize(store);
 
   window.addEventListener('hashchange', () => {
     store.dispatch(urlChange());
   });
 
   // check if on mobile
-  function checkMobile() {
+  window.imMobile = function checkMobile() {
+    delete window.imMobile;
     store.dispatch(setMobile(true));
-  }
-  document.addEventListener('touchstart', checkMobile, { once: true });
+  };
+  document.addEventListener('touchstart', window.imMobile, { once: true });
 
   // listen for resize
   function onWindowResize() {
@@ -59,8 +65,10 @@ persistStore(store, {}, () => {
     window.name = 'main';
     renderApp(document.getElementById('app'), store);
 
-    const onKeyPress = createKeyPressHandler(store);
-    document.addEventListener('keydown', onKeyPress, false);
+    const onKeyDown = createKeyDownHandler(store);
+    const onKeyUp = createKeyUpHandler(store);
+    document.addEventListener('keydown', onKeyDown, false);
+    document.addEventListener('keyup', onKeyUp, false);
 
     // garbage collection
     setInterval(() => {

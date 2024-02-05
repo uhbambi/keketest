@@ -2,12 +2,16 @@
  *
  */
 
-import React from 'react';
+import React, { useCallback } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import { c, t, jt } from 'ttag';
 import { GiMouse } from 'react-icons/gi';
 import { MdTouchApp } from 'react-icons/md';
 
 import GetIID from '../GetIID';
+import useLongPress from '../hooks/useLongPress';
+import { toggleEasterEgg } from '../../store/actions';
+import { notify } from '../../store/actions/thunks';
 
 /* eslint-disable max-len */
 
@@ -29,7 +33,6 @@ const Help = () => {
   const mouseSymbol = <kbd><GiMouse /></kbd>;
   const touchSymbol = <kbd><MdTouchApp /></kbd>;
   const bindShift = <kbd>⇧ {c('keybinds').t`Shift`}</kbd>;
-  const bindC = <kbd>{c('keybinds').t`C`}</kbd>;
 
   const starhouseLink = <a href="https://twitter.com/starhousedev">starhouse </a>;
   const vinikLink = <a href="https://twitter.com/Vinikdev">Vinikdev</a>;
@@ -37,8 +40,27 @@ const Help = () => {
   const guildedLink = <a href="https://pixelplanet.fun/guilded">guilded</a>;
   const mailLink = <a href="mailto:admin@pixelplanet.fun">admin@pixelplanet.fun</a>;
 
+  const dispatch = useDispatch();
+  const easterEgg = useSelector((state) => state.gui.easterEgg);
+
+  const onLongPress = useCallback(() => {
+    dispatch(toggleEasterEgg());
+    dispatch(notify((easterEgg)
+      ? t`Easter Egg OFF`
+      : t`Easter Egg ON`));
+  }, [easterEgg, dispatch]);
+  const refCallback = useLongPress(null, onLongPress, 1000);
+
   return (
     <div className="content">
+      <img
+        style={{
+          padding: 2, maxWidth: '20%', verticalAlign: 'middle', display: 'inline-block',
+        }}
+        alt="ppfun"
+        src="./logo.svg"
+        ref={refCallback}
+      />
       <p>
         {t`Place color pixels on a large canvas with other players online!`}<br />
         {t`Our main canvas is a huge worldmap, you can place wherever you like, but you will have to wait a specific \
@@ -79,7 +101,7 @@ can be downloaded from mega.nz here: `}<a href="https://mega.nz/#!JpkBwAbJ!EnSLl
       <div style={{ lineHeight: 1.5 }}>
         {jt`Press ${bindW}, ${bindA}, ${bindS}, ${bindD} to move`}<br />
         {jt`Press ${bindAUp}, ${bindALeft}, ${bindADown}, ${bindARight} to move`}<br />
-        {jt`Press ${bindE} and ${bindC} to fly up and down`}<br />
+        {jt`Press ${bindQ} and ${bindE} to fly up and down`}<br />
         {jt`${mouseSymbol} Hold left mouse button and drag mouse to rotate`}<br />
         {jt`${mouseSymbol} Scroll mouse wheel or hold ${mouseSymbol} middle mouse button and drag to zoom`}<br />
         {jt`${mouseSymbol} Right click and drag mouse to pan`}<br />

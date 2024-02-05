@@ -186,7 +186,6 @@ h3 {
   margin-right: 10px;
   overflow: hidden;
   word-wrap: break-word;
-  margin-bottom: 0;
 }
 
 h4 {
@@ -307,6 +306,62 @@ tr:nth-child(even) {
   font-size: 14px;
   overflow-x: hidden;
   color: #212121;
+}
+
+.tmpitm {
+  margin-top: 8px;
+  margin-bottom: 8px;
+  border: #c5c5c5;
+  border-style: solid;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.tmpitm.disabled {
+  border-style: dotted;
+  opacity: 0.6;
+}
+
+.tmpitm-preview {
+  width: 96px;
+  height: 96px;
+  margin: 5px;
+}
+
+.tmpitm-img {
+  max-width: 100%;
+  max-height: 100%;
+}
+
+.tmpitm-actions {
+  margin-right: 10px;
+}
+
+.tmpitm.disabled .tmpitm-img {
+  opacity: 0.6;
+}
+
+.tmpitm-desc {
+  margin-top: 3px;
+  margin-bottom: 3px;
+  flex-grow: 1;
+}
+
+.tmpitm-desc p {
+  margin-top: 3px;
+  margin-bottom: 3px;
+}
+
+.centered-on-img {
+  position: relative;
+  transform: translateY(-96px);
+  line-height: 96px;
+  background: #e6e6e6a6;
+  white-space: nowrap;
+  max-width: 96px;
+  height: 96px;
+  overflow: clip;
 }
 
 .cvbtn {
@@ -460,6 +515,19 @@ tr:nth-child(even) {
   bottom: 16px;
   right: 57px;
 }
+#pencilbutton {
+  left: 16px;
+  transition: bottom 300ms ease-in-out;
+}
+#pencilbutton.ppencil {
+  background-color: rgba(240, 232, 169, 0.8);
+}
+#pencilbutton.phistory {
+  background-color: rgba(171, 240, 169, 0.8);
+}
+#pencilbutton.poverlay {
+  background-color: rgba(240, 169, 169, 0.8);
+}
 
 #historyselect {
   position: fixed;
@@ -563,7 +631,7 @@ tr:nth-child(even) {
   font-size: 16px;
 }
 
-.Alert p,.window p {
+.Alert p {
   margin-top: 12px;
   margin-bottom: 12px;
 }
@@ -581,7 +649,6 @@ tr:nth-child(even) {
   font-size: 14px;
   line-height: 20px;
   font-weight: 500;
-  margin-top: 4px;
 }
 
 .modaldivider {
@@ -599,7 +666,7 @@ tr:nth-child(even) {
   height: 100%;
 }
 
-.modalinfo {
+.modalinfo, .tmpitm-desc span {
   color: #4f545c;
   font-size: 15px;
   font-weight: 500;
@@ -630,6 +697,7 @@ tr:nth-child(even) {
 
 .setitem h3 {
   margin-top: 0;
+  margin-bottom: 1px;
 }
 
 .setitem {
@@ -903,7 +971,7 @@ table td span {
   border-width: thin;
   margin-left: auto;
   margin-right: auto;
-  z-index: 2;
+  z-index: 8;
   transition: visibility 0.5s, opacity 0.5s linear;
   visibility: hidden;
   opacity: 0;
@@ -981,6 +1049,14 @@ table td span {
   background-color: #d2d2d2cc;
 }
 
+#mvmctrls {
+  transition: opacity 0.25s ease;
+  opacity: 0;
+}
+#mvmctrls.show {
+  opacity: 1;
+}
+
 #palettebox {
   z-index: 1;
   bottom: 59px;
@@ -1011,7 +1087,7 @@ table td span {
 }
 
 .modal.show, .Alert.show, .overlay.show, .window.show {
-    opacity: 1;
+  opacity: 1;
 }
 
 .vemb {

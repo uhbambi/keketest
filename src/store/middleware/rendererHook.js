@@ -10,19 +10,14 @@ import {
   getRenderer,
   initRenderer,
 } from '../../ui/rendererFactory';
+import {
+  selectColor,
+} from '../actions';
 
 export default (store) => (next) => (action) => {
   const { type } = action;
 
-  let prevScale = null;
-
   switch (type) {
-    case 'SET_SCALE': {
-      const state = store.getState();
-      prevScale = state.canvas.viewscale;
-      break;
-    }
-
     case 'SET_HISTORICAL_TIME': {
       const state = store.getState();
       const renderer = getRenderer();
@@ -36,7 +31,14 @@ export default (store) => (next) => (action) => {
       );
       break;
     }
-
+    case 'SELECT_HOVER_COLOR': {
+      const renderer = getRenderer();
+      const clr = renderer.getPointedColor();
+      if (clr !== null) {
+        store.dispatch(selectColor(clr));
+      }
+      break;
+    }
     default:
       // nothing
   }
@@ -55,10 +57,14 @@ export default (store) => (next) => (action) => {
 
       if (is3D === renderer.is3D) {
         renderer.updateCanvasData(state);
+        if (type === 'RELOAD_URL') {
+          renderer.updateView(state.canvas.view);
+        }
       } else {
         initRenderer(store, is3D);
       }
 
+      // TODO this looks shade, i.e. when a nwe Renderer appears
       if (state.canvas.isHistoricalView) {
         const {
           historicalDate,
@@ -75,7 +81,7 @@ export default (store) => (next) => (action) => {
       break;
     }
 
-    case 's/TGL_HIDDEN_CANVASES': {
+    case 's/TGL_EASTER_EGG': {
       const renderer = getRenderer();
       const { is3D } = state.canvas;
       if (is3D) {
@@ -99,6 +105,12 @@ export default (store) => (next) => (action) => {
       break;
     }
 
+    case 's/CHG_TEMPLATE':
+    case 's/TGL_OVENABLED':
+    case 's/TGL_SMALLPXLS':
+    case 's/REM_TEMPLATE':
+    case 's/UPD_TEMPLATE_IMG':
+    case 's/SET_O_OPACITY':
     case 'REQ_BIG_CHUNK':
     case 'PRE_LOADED_BIG_CHUNK':
     case 'REC_BIG_CHUNK':
@@ -115,16 +127,45 @@ export default (store) => (next) => (action) => {
       break;
     }
 
-    case 's/TGL_HISTORICAL_VIEW':
-    case 'SET_SCALE': {
+    case 's/TGL_HISTORICAL_VIEW': {
       const renderer = getRenderer();
-      renderer.updateScale(state, prevScale);
+      // update view to clamp scale
+      renderer.updateView(renderer.view, renderer.view);
+      renderer.forceNextRender = true;
+      break;
+    }
+
+    case 's/SELECT_HOLD_PAINT': {
+      if (action.value) {
+        const renderer = getRenderer();
+        renderer.controls.holdPaintStarted?.(action.immediate);
+      }
+      break;
+    }
+
+    case 's/SET_MOVE_U':
+    case 's/SET_MOVE_V':
+    case 's/SET_MOVE_W':
+    case 's/CANCEL_MOVE': {
+      if (!action.value) {
+        const renderer = getRenderer();
+        renderer.storeViewInState();
+      }
       break;
     }
 
     case 'SET_VIEW_COORDINATES': {
       const renderer = getRenderer();
-      renderer.updateView(state);
+      renderer.updateView(action.view);
+      renderer.storeViewInState();
+      break;
+    }
+
+    case 'SET_SCALE': {
+      const renderer = getRenderer();
+      const [x, y] = renderer.view;
+      renderer.updateView([x, y, action.scale], action.zoompoint);
+      renderer.storeViewInState();
       break;
     }
 

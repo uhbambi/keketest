@@ -3,7 +3,9 @@
  *
  */
 
+import templateLoader from './templateLoader';
 import { screenToWorld, worldToScreen } from '../core/utils';
+import { TILE_SIZE } from '../core/constants';
 
 const PLACEHOLDER_SIZE = 1.2;
 const PLACEHOLDER_BORDER = 1;
@@ -11,14 +13,14 @@ const PLACEHOLDER_BORDER = 1;
 export function renderPlaceholder(
   state,
   $viewport,
+  view,
   scale,
 ) {
   const viewportCtx = $viewport.getContext('2d');
 
-  const { hover } = state.canvas;
-  const { palette, selectedColor } = state.canvas;
+  const { hover, palette, selectedColor } = state.canvas;
 
-  const [sx, sy] = worldToScreen(state, $viewport, hover);
+  const [sx, sy] = worldToScreen(view, scale, $viewport, hover);
 
   viewportCtx.save();
   viewportCtx.translate(sx + (scale / 2), sy + (scale / 2));
@@ -45,14 +47,14 @@ export function renderPlaceholder(
 export function renderPotatoPlaceholder(
   state,
   $viewport,
+  view,
   scale,
 ) {
   const viewportCtx = $viewport.getContext('2d');
 
-  const { hover } = state.canvas;
-  const { palette, selectedColor } = state.canvas;
+  const { palette, selectedColor, hover } = state.canvas;
 
-  const [sx, sy] = worldToScreen(state, $viewport, hover);
+  const [sx, sy] = worldToScreen(view, scale, $viewport, hover);
 
   viewportCtx.save();
   viewportCtx.fillStyle = '#000';
@@ -72,6 +74,7 @@ export function renderPotatoPlaceholder(
 export function renderGrid(
   state,
   $viewport,
+  view,
   scale,
   isLightGrid,
 ) {
@@ -83,8 +86,8 @@ export function renderGrid(
   viewportCtx.globalAlpha = 0.5;
   viewportCtx.fillStyle = (isLightGrid) ? '#DDDDDD' : '#222222';
 
-  let [xoff, yoff] = screenToWorld(state, $viewport, [0, 0]);
-  let [x, y] = worldToScreen(state, $viewport, [xoff, yoff]);
+  let [xoff, yoff] = screenToWorld(view, scale, $viewport, [0, 0]);
+  let [x, y] = worldToScreen(view, scale, $viewport, [xoff, yoff]);
 
   for (; x < width; x += scale) {
     const thick = (xoff++ % 10 === 0) ? 2 : 1;
@@ -97,4 +100,90 @@ export function renderGrid(
   }
 
   viewportCtx.globalAlpha = 1;
+}
+
+/*
+ * Overlay draws onto offscreen canvas, so its doing weirder math
+ */
+export function renderOverlay(
+  state,
+  $canvas,
+  centerChunk,
+  scale,
+  tiledScale,
+  scaleThreshold,
+) {
+  if (!templateLoader.ready) return;
+  const { canvasSize, canvasId } = state.canvas;
+  // world coordinates of center of center chunk
+  const [x, y] = centerChunk
+    .map((z) => z * TILE_SIZE / tiledScale
+    + TILE_SIZE / 2 / tiledScale - canvasSize / 2);
+
+  // if scale > scaleThreshold, then scaling happens in renderer
+  // instead of offscreen canvas
+  const offscreenScale = (scale > scaleThreshold) ? 1.0 : scale;
+
+  const { width, height } = $canvas;
+  const horizontalRadius = width / 2 / offscreenScale;
+  const verticalRadius = height / 2 / offscreenScale;
+  const templates = templateLoader.getTemplatesInView(
+    canvasId, x, y, horizontalRadius, verticalRadius,
+  );
+
+  if (!templates.length) return;
+  const context = $canvas.getContext('2d');
+  if (!context) return;
+
+  context.save();
+  context.scale(offscreenScale, offscreenScale);
+  context.globalAlpha = state.templates.oOpacity / 100;
+  for (const template of templates) {
+    const image = templateLoader.getTemplateSync(template.imageId);
+    if (!image) continue;
+
+    context.drawImage(image,
+      template.x - x + width / 2 / offscreenScale,
+      template.y - y + height / 2 / offscreenScale,
+    );
+  }
+  context.restore();
+}
+
+/*
+ * Small pixel overlay draws into viewport, because it needs
+ * high scale values
+ */
+export function renderSmallPOverlay(
+  state,
+  $viewport,
+  view,
+  scale,
+) {
+  if (!templateLoader.ready) return;
+  const { canvasId } = state.canvas;
+  const [x, y] = view;
+  const { width, height } = $viewport;
+  const horizontalRadius = width / 2 / scale;
+  const verticalRadius = height / 2 / scale;
+  const templates = templateLoader.getTemplatesInView(
+    canvasId, x, y, horizontalRadius, verticalRadius,
+  );
+
+  if (!templates.length) return;
+  const context = $viewport.getContext('2d');
+  if (!context) return;
+
+  const relScale = scale / 3;
+  context.save();
+  context.scale(relScale, relScale);
+  for (const template of templates) {
+    const image = templateLoader.getSmallTemplateSync(template.imageId);
+    if (!image) continue;
+    context.drawImage(image,
+      (template.x - x) * 3 + width / 2 / relScale,
+      (template.y - y) * 3 + height / 2 / relScale,
+    );
+  }
+  context.restore();
 }

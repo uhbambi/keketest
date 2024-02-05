@@ -10,11 +10,11 @@ import { jt, t } from 'ttag';
 import {
   ColorDistanceCalculators,
   ImageQuantizerKernels,
-  readFileIntoCanvas,
   scaleImage,
   quantizeImage,
   addGrid,
-} from '../utils/image';
+} from '../utils/imageFilters';
+import { fileToCanvas } from '../utils/imageFiles';
 import printGIMPPalette from '../core/exportGPL';
 import { copyCanvasToClipboard } from '../utils/clipboard';
 
@@ -93,7 +93,7 @@ function Converter() {
   ] = useSelector((state) => [
     state.canvas.canvasId,
     state.canvas.canvases,
-    state.canvas.showHiddenCanvases,
+    state.gui.easterEgg,
   ], shallowEqual);
 
   const [selectedCanvas, selectCanvas] = useState(canvasId);
@@ -145,6 +145,7 @@ function Converter() {
     extraOpts,
     scaleData,
     gridData,
+    canvases,
   ]);
 
   const {
@@ -171,17 +172,17 @@ function Converter() {
     if (showExtraOptions) {
       setTimeout(() => setExtraRender(true), 10);
     }
-  }, [selectedStrategy]);
+  }, [showExtraOptions]);
   useEffect(() => {
     if (gridEnabled) {
       setTimeout(() => setGridRender(true), 10);
     }
-  }, [gridData.enabled]);
+  }, [gridEnabled]);
   useEffect(() => {
     if (scalingEnabled) {
       setTimeout(() => setScalingRender(true), 10);
     }
-  }, [scaleData.enabled]);
+  }, [scalingEnabled]);
 
   const gimpLink = <a href="https://www.gimp.org">GIMP</a>;
 
@@ -246,7 +247,7 @@ function Converter() {
           const fileSel = evt.target;
           const file = (!fileSel.files || !fileSel.files[0])
             ? null : fileSel.files[0];
-          const imageData = await readFileIntoCanvas(file);
+          const imageData = await fileToCanvas(file);
           setInputImageCanvas(null);
           setScaleData({
             enabled: false,

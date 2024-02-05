@@ -9,33 +9,53 @@
 import {
   setHover,
   unsetHover,
-  setViewCoordinates,
-  setScale,
-  zoomIn,
-  zoomOut,
   selectColor,
-  moveNorth,
-  moveWest,
-  moveSouth,
-  moveEast,
-  onViewFinishChange,
 } from '../store/actions';
 import pixelTransferController from '../ui/PixelTransferController';
 import {
   screenToWorld,
   getChunkOfPixel,
   getOffsetOfPixel,
+  getTapOrClickCenter,
 } from '../core/utils';
+import {
+  HOLD_PAINT,
+} from '../core/constants';
+import templateLoader from '../ui/templateLoader';
 
 class PixelPainterControls {
-  constructor(renderer, viewport, curStore) {
-    this.store = curStore;
+  store;
+  renderer;
+  viewport;
+  //
+  clickTapStartView = [0, 0];
+  clickTapStartTime = 0;
+  tapStartDist = 50;
+  // screen coords of where a tap/click started
+  clickTapStartCoords = [0, 0];
+  // stored speed for acceleration
+  speedScalar = 0;
+  // on mouse: true as long as left mouse button is pressed
+  isClicking = false;
+  // on touch: true if more than one finger on screen
+  isMultiTap = false;
+  // on touch: true if current tab was ever more than one figher at any time
+  wasEverMultiTap = false;
+  // on touch: when painting with holdPaint is active
+  isTapPainting = false;
+  // on touch: timeout to detect long-press
+  tapTimeout = null;
+  // time of last tick
+  prevTime = Date.now();
+  // if we are waiting before placing pixel via holdPaint again
+  coolDownDelta = false;
+
+  constructor(renderer, viewport, store) {
+    this.store = store;
     this.renderer = renderer;
     this.viewport = viewport;
 
     this.onMouseDown = this.onMouseDown.bind(this);
-    this.onKeyDown = this.onKeyDown.bind(this);
-    this.onKeyUp = this.onKeyUp.bind(this);
     this.onAuxClick = this.onAuxClick.bind(this);
     this.onMouseOut = this.onMouseOut.bind(this);
     this.onMouseMove = this.onMouseMove.bind(this);
@@ -45,33 +65,6 @@ class PixelPainterControls {
     this.onTouchEnd = this.onTouchEnd.bind(this);
     this.onTouchMove = this.onTouchMove.bind(this);
 
-    this.onViewFinishChangeTimeOut = null;
-
-    this.clickTapStartView = [0, 0];
-    this.clickTapStartTime = 0;
-    this.clickTapStartCoords = [0, 0];
-    this.tapStartDist = 50;
-    this.tapStartScale = this.store.getState().scale;
-    // on mouse: true as long as left mouse button is pressed
-    // on touch: set to true when one finger touches the screen
-    //           set to false when second finger touches or touch ends
-    this.isClicking = false;
-    // on touch: true if more than one finger on screen
-    this.isMultiTab = false;
-    // on touch: timeout to detect long-press
-    this.tapTimeout = null;
-    /*
-     * if we are shift-hold-painting
-     * 0: no
-     * 1: left shift
-     * 2: right shift
-     */
-    this.holdPainting = 0;
-    // if we are waiting before placing pixel via holdPainting again
-    this.coolDownDelta = false;
-
-    document.addEventListener('keydown', this.onKeyDown, false);
-    document.addEventListener('keyup', this.onKeyUp, false);
     viewport.addEventListener('auxclick', this.onAuxClick, false);
     viewport.addEventListener('mousedown', this.onMouseDown, false);
     viewport.addEventListener('mousemove', this.onMouseMove, false);
@@ -84,10 +77,8 @@ class PixelPainterControls {
     viewport.addEventListener('touchcancel', this.onMouseOut, false);
   }
 
-  dispose() {
-    document.removeEventListener('keydown', this.onKeyDown, false);
-    document.removeEventListener('keyup', this.onKeyUp, false);
-  }
+  // eslint-disable-next-line class-methods-use-this
+  dispose() {}
 
   gotCoolDownDelta(delta) {
     this.coolDownDelta = true;
@@ -101,12 +92,12 @@ class PixelPainterControls {
     document.activeElement.blur();
 
     if (event.button === 0) {
-      clearTimeout(this.onViewFinishChangeTimeOut);
+      this.renderer.cancelStoreViewInState();
       this.isClicking = true;
       const { clientX, clientY } = event;
       this.clickTapStartTime = Date.now();
       this.clickTapStartCoords = [clientX, clientY];
-      this.clickTapStartView = this.store.getState().canvas.view;
+      this.clickTapStartView = this.renderer.view;
       const { viewport } = this;
       setTimeout(() => {
         if (this.isClicking) {
@@ -116,22 +107,10 @@ class PixelPainterControls {
     }
   }
 
-  /*
-   * try to avoid updating history too often
-   */
-  scheduleOnViewFinishChange() {
-    if (this.onViewFinishChangeTimeOut) {
-      clearTimeout(this.onViewFinishChangeTimeOut);
-    }
-    this.onViewFinishChangeTimeOut = setTimeout(() => {
-      this.store.dispatch(onViewFinishChange());
-    }, 500);
-  }
-
   onMouseUp(event) {
     event.preventDefault();
 
-    const { store } = this;
+    const { store, renderer } = this;
     if (event.button === 0) {
       this.isClicking = false;
       const { clientX, clientY } = event;
@@ -139,44 +118,31 @@ class PixelPainterControls {
       const coordsDiff = [
         clickTapStartCoords[0] - clientX,
         clickTapStartCoords[1] - clientY,
-      ];
+      ].map(Math.abs);
       // thresholds for single click / holding
       if (clickTapStartTime > Date.now() - 250
-        && coordsDiff[0] < 2 && coordsDiff[1] < 2) {
-        const state = store.getState();
-        const cell = screenToWorld(
-          state,
-          this.viewport,
-          [clientX, clientY],
-        );
+        && coordsDiff[0] < 6 && coordsDiff[1] < 6
+      ) {
         PixelPainterControls.placePixel(
           store,
-          this.renderer,
-          cell,
+          renderer,
+          this.screenToWorld([clientX, clientY]),
         );
       }
       this.viewport.style.cursor = 'auto';
     }
-    this.scheduleOnViewFinishChange();
+    renderer.storeViewInState();
   }
 
   static getTouchCenter(event) {
-    switch (event.touches.length) {
-      case 1: {
-        const { pageX, pageY } = event.touches[0];
-        return [pageX, pageY];
-      }
-      case 2: {
-        const pageX = Math.floor(0.5
-            * (event.touches[0].pageX + event.touches[1].pageX));
-        const pageY = Math.floor(0.5
-            * (event.touches[0].pageY + event.touches[1].pageY));
-        return [pageX, pageY];
-      }
-      default:
-        break;
+    let x = 0;
+    let y = 0;
+    for (const { pageX, pageY } of event.touches) {
+      x += pageX;
+      y += pageY;
     }
-    return null;
+    const { length } = event.touches;
+    return [x / length, y / length];
   }
 
   /*
@@ -185,26 +151,25 @@ class PixelPainterControls {
    */
   static placePixel(store, renderer, cell, colorIndex = null) {
     const state = store.getState();
-    const { autoZoomIn } = state.gui;
-    const { clrIgnore } = state.canvas;
-    const {
-      scale,
-      isHistoricalView,
-    } = state.canvas;
-    const selectedColor = (colorIndex === null)
-      ? state.canvas.selectedColor
-      : colorIndex;
+    if (state.canvas.isHistoricalView) {
+      return;
+    }
+    const selectedColor = colorIndex
+      ?? PixelPainterControls.getWantedColor(state, renderer, cell);
+    if (selectedColor === null) {
+      return;
+    }
+    const { viewscale: scale } = renderer;
 
-    if (isHistoricalView) return;
-
-    if (autoZoomIn && scale < 8) {
-      store.dispatch(setViewCoordinates(cell));
-      store.dispatch(setScale(12));
+    if (state.gui.autoZoomIn && scale < 8) {
+      renderer.updateView([cell[0], cell[1], 12]);
       return;
     }
 
     // allow placing of pixel just on low zoomlevels
-    if (scale < 3) return;
+    if (scale < 3) {
+      return;
+    }
 
     const curColor = renderer.getColorIndexOfPixel(...cell);
     if (selectedColor === curColor) {
@@ -212,7 +177,7 @@ class PixelPainterControls {
     }
 
     // placing unset pixel
-    if (selectedColor < clrIgnore) {
+    if (selectedColor < state.canvas.clrIgnore) {
       const { palette } = state.canvas;
       const { rgb } = palette;
       let clrOffset = selectedColor * 3;
@@ -263,68 +228,70 @@ class PixelPainterControls {
 
   onTouchStart(event) {
     event.preventDefault();
-    event.stopPropagation();
     document.activeElement.blur();
 
-    clearTimeout(this.onViewFinishChangeTimeOut);
+    this.renderer.cancelStoreViewInState();
+    this.clearTabTimeout();
+    this.isTapPainting = false;
     this.clickTapStartTime = Date.now();
-    this.clickTapStartCoords = PixelPainterControls.getTouchCenter(event);
-    const state = this.store.getState();
-    this.clickTapStartView = state.canvas.view;
+    this.clickTapStartCoords = getTapOrClickCenter(event);
+    this.clickTapStartView = this.renderer.view;
 
     if (event.touches.length > 1) {
-      this.tapStartScale = state.canvas.scale;
       this.tapStartDist = PixelPainterControls.getMultiTouchDistance(event);
-      this.isMultiTab = true;
-      this.clearTabTimeout();
+      this.isMultiTap = true;
+      this.wasEverMultiTap = true;
     } else {
-      this.isClicking = true;
-      this.isMultiTab = false;
-      this.tapTimeout = setTimeout(() => {
-        // check for longer tap to select taped color
-        PixelPainterControls.selectColor(
-          this.store,
-          this.viewport,
-          this.renderer,
-          this.clickTapStartCoords,
-        );
-      }, 600);
+      this.isMultiTap = false;
+      this.wasEverMultiTap = false;
+      const state = this.store.getState();
+      if (state.gui.holdPaint) {
+        this.tapTimeout = setTimeout(() => {
+          this.isTapPainting = true;
+          PixelPainterControls.placePixel(
+            this.store,
+            this.renderer,
+            this.screenToWorld(this.clickTapStartCoords),
+          );
+        }, 200);
+      } else {
+        this.tapTimeout = setTimeout(() => {
+          // check for longer tap to select taped color
+          this.selectColorFromScreen(this.clickTapStartCoords);
+        }, 600);
+      }
     }
   }
 
   onTouchEnd(event) {
     event.preventDefault();
-    event.stopPropagation();
+    if (event.touches.length) {
+      return;
+    }
 
-    const { store } = this;
-    if (event.touches.length === 0 && this.isClicking) {
-      const { pageX, pageY } = event.changedTouches[0];
+    const { store, renderer } = this;
+    if (!this.wasEverMultiTap) {
+      const [clientX, clientY] = getTapOrClickCenter(event);
       const { clickTapStartCoords, clickTapStartTime } = this;
       const coordsDiff = [
-        clickTapStartCoords[0] - pageX,
-        clickTapStartCoords[1] - pageY,
-      ];
+        clickTapStartCoords[0] - clientX,
+        clickTapStartCoords[1] - clientY,
+      ].map(Math.abs);
       // thresholds for single click / holding
       if (clickTapStartTime > Date.now() - 580
-        && coordsDiff[0] < 2 && coordsDiff[1] < 2) {
-        const { viewport } = this;
-        const state = store.getState();
-        const cell = screenToWorld(
-          state,
-          viewport,
-          [pageX, pageY],
-        );
+        && coordsDiff[0] < 6 && coordsDiff[1] < 6
+      ) {
         PixelPainterControls.placePixel(
           store,
           this.renderer,
-          cell,
+          this.screenToWorld([clientX, clientY]),
         );
         setTimeout(() => {
           store.dispatch(unsetHover());
         }, 500);
       }
     }
-    this.scheduleOnViewFinishChange();
+    renderer.storeViewInState();
     this.clearTabTimeout();
   }
 
@@ -333,84 +300,178 @@ class PixelPainterControls {
     event.stopPropagation();
 
     const multiTouch = (event.touches.length > 1);
+    const state = this.store.getState();
 
-    const [clientX, clientY] = PixelPainterControls.getTouchCenter(event);
-    const { store } = this;
-    const state = store.getState();
-    if (this.isMultiTab !== multiTouch) {
+    const [clientX, clientY] = getTapOrClickCenter(event);
+    if (this.isMultiTap !== multiTouch) {
+      this.wasEverMultiTap = true;
       // if one finger got lifted or added, reset clickTabStart
-      this.isMultiTab = multiTouch;
+      this.isMultiTap = multiTouch;
       this.clickTapStartCoords = [clientX, clientY];
-      this.clickTapStartView = state.canvas.view;
+      this.clickTapStartView = this.renderer.view;
       this.tapStartDist = PixelPainterControls.getMultiTouchDistance(event);
-      this.tapStartScale = state.canvas.scale;
-    } else {
-      // pan
-      const { clickTapStartView, clickTapStartCoords } = this;
+      return;
+    }
+    const { clickTapStartView, clickTapStartCoords } = this;
+    // pinch
+    if (multiTouch) {
+      this.clearTabTimeout();
+      const a = event.touches[0];
+      const b = event.touches[1];
+      const dist = Math.sqrt(
+        (b.pageX - a.pageX) ** 2 + (b.pageY - a.pageY) ** 2,
+      );
+      const pinchScale = dist / this.tapStartDist;
+      const [x, y] = this.renderer.view;
+      this.renderer.updateView([x, y, clickTapStartView[2] * pinchScale]);
+    }
+    // pan
+    if (!state.gui.holdPaint || multiTouch) {
       const [lastPosX, lastPosY] = clickTapStartView;
-
       const deltaX = clientX - clickTapStartCoords[0];
       const deltaY = clientY - clickTapStartCoords[1];
-      if (deltaX > 2 || deltaY > 2) {
+      if (deltaX > 5 || deltaY > 5) {
         this.clearTabTimeout();
       }
-      const { scale } = state.canvas;
-      store.dispatch(setViewCoordinates([
+      const { viewscale: scale } = this.renderer;
+      this.renderer.updateView([
         lastPosX - (deltaX / scale),
         lastPosY - (deltaY / scale),
-      ]));
-
-      // pinch
-      if (multiTouch) {
-        this.clearTabTimeout();
-
-        const a = event.touches[0];
-        const b = event.touches[1];
-        const { tapStartDist, tapStartScale } = this;
-        const dist = Math.sqrt(
-          (b.pageX - a.pageX) ** 2 + (b.pageY - a.pageY) ** 2,
+      ]);
+    } else if (!this.wasEverMultiTap && !this.coolDownDelta) {
+      // hold paint
+      if (this.isTapPainting) {
+        PixelPainterControls.placePixel(
+          this.store,
+          this.renderer,
+          this.screenToWorld([clientX, clientY]),
         );
-        const pinchScale = dist / tapStartDist;
-        store.dispatch(setScale(tapStartScale * pinchScale));
+      } else {
+        // while we are waiting for isTapPainting to trigger track coordinates
+        this.clickTapStartCoords = [clientX, clientY];
+        this.clickTapStartView = this.renderer.view;
+        this.tapStartDist = PixelPainterControls.getMultiTouchDistance(event);
       }
     }
   }
 
   clearTabTimeout() {
-    this.isClicking = false;
     if (this.tapTimeout) {
       clearTimeout(this.tapTimeout);
       this.tapTimeout = null;
     }
   }
 
+  zoom(direction, origin) {
+    const [x, y, scale] = this.renderer.view;
+    const deltaScale = scale >= 1.0 ? 1.1 : 1.04;
+    const newScale = (direction > 0) ? scale * deltaScale : scale / deltaScale;
+    this.renderer.updateView([x, y, newScale], origin);
+    this.renderer.storeViewInState();
+  }
+
+  step(direction) {
+    const [x, y, scale] = this.renderer.view;
+    const [dx, dy] = direction.map((z) => z * 100.0 / scale);
+    this.renderer.updateView([x + dx, y + dy]);
+    this.renderer.storeViewInState();
+  }
+
+  holdPaintStarted(immediate) {
+    // if hold painting is started by keyboard,
+    // we immeidately have to place, and not just when mousemove starts
+    if (!immediate) {
+      return;
+    }
+    const { hover } = this.store.getState().canvas;
+    if (hover) {
+      PixelPainterControls.placePixel(
+        this.store,
+        this.renderer,
+        hover,
+      );
+    }
+  }
+
   onWheel(event) {
     event.preventDefault();
+    event.stopPropagation();
     document.activeElement.blur();
 
     const { deltaY } = event;
     const { store } = this;
-    const state = store.getState();
-    const { hover } = state.canvas;
-    let zoompoint = null;
-    if (hover) {
-      zoompoint = hover;
-    }
+    const { hover } = store.getState().canvas;
+    const origin = hover || null;
     if (deltaY < 0) {
-      store.dispatch(zoomIn(zoompoint));
+      this.zoom(1, origin);
     }
     if (deltaY > 0) {
-      store.dispatch(zoomOut(zoompoint));
+      this.zoom(-1, origin);
     }
-    this.scheduleOnViewFinishChange();
+  }
+
+  static getWantedColor(state, renderer, cell) {
+    if (state.gui.holdPaint === HOLD_PAINT.HISTORY) {
+      return renderer.getColorIndexOfPixel(...cell, true);
+    }
+    if (state.gui.holdPaint === HOLD_PAINT.OVERLAY) {
+      const { canvasId } = state.canvas;
+      const rgb = templateLoader.getColorOfPixel(canvasId, ...cell);
+      if (!rgb) {
+        return null;
+      }
+      return state.canvas.palette.getClosestIndexOfColor(...rgb);
+    }
+    return state.canvas.selectedColor;
+  }
+
+  screenToWorld(screenCoor) {
+    return screenToWorld(
+      this.renderer.view,
+      this.renderer.viewscale,
+      this.viewport,
+      screenCoor,
+    );
+  }
+
+  /*
+   * set hover from screen coordinates
+   * @param [x, y] screen coordinates
+   * @return null if hover didn't changed,
+   *         hover if it changed
+   */
+  setHoverFromScrrenCoor(screenCoor) {
+    const { store } = this;
+    const state = store.getState();
+    const { hover: prevHover } = state.canvas;
+    const hover = this.screenToWorld(screenCoor);
+    const [x, y] = hover;
+
+    /* out of bounds check */
+    const { canvasSize } = state.canvas;
+    const maxCoords = canvasSize / 2;
+    if (x < -maxCoords || x >= maxCoords
+      || y < -maxCoords || y >= maxCoords
+    ) {
+      if (prevHover) {
+        store.dispatch(unsetHover());
+      }
+      return null;
+    }
+
+    if (!prevHover || prevHover[0] !== x || prevHover[1] !== y) {
+      store.dispatch(setHover(hover));
+      return hover;
+    }
+    return null;
   }
 
   onMouseMove(event) {
     event.preventDefault();
 
     const { clientX, clientY } = event;
-    const { store, isClicking } = this;
-    const state = store.getState();
+    const { renderer, isClicking } = this;
+    const { viewscale } = renderer;
     if (isClicking) {
       if (Date.now() < this.clickTapStartTime + 100) {
         // 100ms threshold till starting to pan
@@ -421,63 +482,23 @@ class PixelPainterControls {
       const deltaX = clientX - clickTapStartCoords[0];
       const deltaY = clientY - clickTapStartCoords[1];
 
-      const { scale } = state.canvas;
-      store.dispatch(setViewCoordinates([
-        lastPosX - (deltaX / scale),
-        lastPosY - (deltaY / scale),
-      ]));
+      this.renderer.updateView([
+        lastPosX - (deltaX / viewscale),
+        lastPosY - (deltaY / viewscale),
+      ]);
     } else {
-      const { hover } = state.canvas;
-      const screenCoor = screenToWorld(
-        state,
-        this.viewport,
-        [clientX, clientY],
-      );
-      const [x, y] = screenCoor;
-
-      /* out of bounds check */
-      const { canvasSize } = state.canvas;
-      const maxCoords = canvasSize / 2;
-      if (x < -maxCoords || x >= maxCoords
-        || y < -maxCoords || y >= maxCoords
-      ) {
-        if (hover) {
-          store.dispatch(unsetHover());
-        }
+      const hover = this.setHoverFromScrrenCoor([clientX, clientY]);
+      if (!hover) {
         return;
       }
-
-      if (!hover || hover[0] !== x || hover[1] !== y) {
-        store.dispatch(setHover(screenCoor));
-        /* shift placing */
-        if (!this.coolDownDelta) {
-          switch (this.holdPainting) {
-            case 1: {
-              /* left shift: from selected color */
-              PixelPainterControls.placePixel(
-                store,
-                this.renderer,
-                screenCoor,
-              );
-              break;
-            }
-            case 2: {
-              /* right shift: from historical view */
-              const colorIndex = this.renderer
-                .getColorIndexOfPixel(x, y, true);
-              if (colorIndex !== null) {
-                PixelPainterControls.placePixel(
-                  store,
-                  this.renderer,
-                  screenCoor,
-                  colorIndex,
-                );
-              }
-              break;
-            }
-            default:
-          }
-        }
+      const state = this.store.getState();
+      if (!this.coolDownDelta && state.gui.holdPaint) {
+        /* hold paint */
+        PixelPainterControls.placePixel(
+          this.store,
+          this.renderer,
+          hover,
+        );
       }
     }
   }
@@ -486,16 +507,15 @@ class PixelPainterControls {
     const { store, viewport } = this;
     viewport.style.cursor = 'auto';
     store.dispatch(unsetHover());
-    this.holdPainting = 0;
     this.clearTabTimeout();
   }
 
-  static selectColor(store, viewport, renderer, center) {
-    const state = store.getState();
-    if (state.canvas.scale < 3) {
+  selectColorFromScreen(center) {
+    const { renderer, store } = this;
+    if (this.renderer.viewscale < 3) {
       return;
     }
-    const coords = screenToWorld(state, viewport, center);
+    const coords = this.screenToWorld(center);
     const clrIndex = renderer.getColorIndexOfPixel(...coords);
     if (clrIndex !== null) {
       store.dispatch(selectColor(clrIndex));
@@ -509,109 +529,38 @@ class PixelPainterControls {
       return;
     }
     event.preventDefault();
-
-    PixelPainterControls.selectColor(
-      this.store,
-      this.viewport,
-      this.renderer,
-      [clientX, clientY],
-    );
+    this.selectColorFromScreen([clientX, clientY]);
   }
 
-  onKeyUp(event) {
-    switch (event.key) {
-      case 'Shift':
-      case 'CapsLock':
-        this.holdPainting = 0;
-        break;
-      default:
-    }
-  }
+  update() {
+    let time = Date.now();
+    const { moveU, moveV, moveW } = this.store.getState().gui;
+    const isAccelerating = (moveU || moveV || moveW);
 
-  onKeyDown(event) {
-    // ignore key presses if modal is open or chat is used
-    if (event.target.nodeName === 'INPUT'
-      || event.target.nodeName === 'TEXTAREA'
-    ) {
-      return;
+    if (!isAccelerating) {
+      this.prevTime = time;
+      this.speedScalar = 0;
+      return false;
     }
-    const { store } = this;
+    // set to time since last tick
+    time -= this.prevTime;
+    this.prevTime += time;
 
-    /*
-     * key location
-     */
-    switch (event.code) {
-      case 'ArrowUp':
-      case 'KeyW':
-        store.dispatch(moveNorth());
-        return;
-      case 'ArrowLeft':
-      case 'KeyA':
-        store.dispatch(moveWest());
-        return;
-      case 'ArrowDown':
-      case 'KeyS':
-        store.dispatch(moveSouth());
-        return;
-      case 'ArrowRight':
-      case 'KeyD':
-        store.dispatch(moveEast());
-        return;
-      case 'KeyE':
-        store.dispatch(zoomIn());
-        return;
-      case 'KeyQ':
-        store.dispatch(zoomOut());
-        return;
-      default:
-    }
+    this.speedScalar = Math.min(1, this.speedScalar + 0.025);
 
-    /*
-     * key char
-     */
-    switch (event.key) {
-      case '+':
-        store.dispatch(zoomIn());
-        break;
-      case '-':
-        store.dispatch(zoomOut());
-        break;
-      case 'Control':
-      case 'Shift': {
-        const state = store.getState();
-        const { hover } = state.canvas;
-        if (hover) {
-          if (event.key === 'Control') {
-            // ctrl
-            const clrIndex = this.renderer.getColorIndexOfPixel(...hover);
-            store.dispatch(selectColor(clrIndex));
-            return;
-          }
-          if (event.location === KeyboardEvent.DOM_KEY_LOCATION_LEFT) {
-            // left shift
-            this.holdPainting = 1;
-            PixelPainterControls.placePixel(store, this.renderer, hover);
-            return;
-          }
-          if (event.location === KeyboardEvent.DOM_KEY_LOCATION_RIGHT) {
-            // right shift
-            this.holdPainting = 2;
-            const colorIndex = this.renderer
-              .getColorIndexOfPixel(...hover, true);
-            if (colorIndex !== null) {
-              PixelPainterControls.placePixel(
-                store,
-                this.renderer,
-                hover,
-                colorIndex,
-              );
-            }
-          }
-        }
-        break;
-      }
-      default:
-    }
+    const [x, y, scale] = this.renderer.view;
+
+    const directionalStep = time * 0.4 / scale * this.speedScalar;
+    let scaleFactor = scale >= 1.0 ? 1.0005 : 1.0003;
+    scaleFactor **= moveW * this.speedScalar;
+
+    this.renderer.updateView([
+      x + directionalStep * moveU,
+      y + directionalStep * moveV,
+      scale * scaleFactor ** time,
+    ]);
+
+    return true;
   }
 }
 

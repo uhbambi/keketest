@@ -195,30 +195,30 @@ export function getCellInsideChunk(
 }
 
 export function screenToWorld(
-  state,
+  view,
+  scale,
   $viewport,
   [x, y],
 ) {
-  const { view, viewscale } = state.canvas;
   const [viewX, viewY] = view;
   const { width, height } = $viewport;
   return [
-    Math.floor(((x - (width / 2)) / viewscale) + viewX),
-    Math.floor(((y - (height / 2)) / viewscale) + viewY),
+    Math.floor(((x - (width / 2)) / scale) + viewX),
+    Math.floor(((y - (height / 2)) / scale) + viewY),
   ];
 }
 
 export function worldToScreen(
-  state,
+  view,
+  scale,
   $viewport,
   [x, y],
 ) {
-  const { view, viewscale } = state.canvas;
   const [viewX, viewY] = view;
   const { width, height } = $viewport;
   return [
-    ((x - viewX) * viewscale) + (width / 2),
-    ((y - viewY) * viewscale) + (height / 2),
+    ((x - viewX) * scale) + (width / 2),
+    ((y - viewY) * scale) + (height / 2),
   ];
 }
 
@@ -637,6 +637,44 @@ export function getDateKeyOfTs(ts) {
 }
 
 /*
+ * get largest distance between axes of array
+ */
+export function getDiff(arr1, arr2) {
+  let largest = 0;
+  for (let i = 0; i < arr1.length; i += 1) {
+    const length = Math.abs(arr1[i] - arr2[i]);
+    if (length > largest) {
+      largest = length;
+    }
+  }
+  return largest;
+}
+
+/*
+ * get screen coords of touch / mouse event
+ * @param event MouseEvent or TouchEvent
+ * @return [x, y] in screen coordinates
+ */
+export function getTapOrClickCenter(event) {
+  if (event instanceof TouchEvent) {
+    const touches = (event.touches.length)
+      ? event.touches : event.changedTouches;
+    let x = 0;
+    let y = 0;
+    for (const { pageX, pageY } of touches) {
+      x += pageX;
+      y += pageY;
+    }
+    const { length } = touches;
+    return [x / length, y / length];
+  }
+  return [
+    event.clientX,
+    event.clientY,
+  ];
+}
+
+/*
  * check if parent window exists and
  * is accessible
  */
@@ -649,4 +687,26 @@ export function parentExists() {
   } catch {
     return false;
   }
+}
+
+export function bufferToBase64(array) {
+  return new Promise((resolve) => {
+    const blob = new Blob([array]);
+    const reader = new FileReader();
+
+    reader.onload = (event) => {
+      const dataUrl = event.target.result;
+      const [, base64] = dataUrl.split(',');
+
+      resolve(base64);
+    };
+
+    reader.readAsDataURL(blob);
+  });
+}
+
+export async function base64ToBuffer(base64) {
+  const dataUrl = `data:application/octet-binary;base64,${base64}`;
+  const res = await fetch(dataUrl);
+  return res.arrayBuffer();
 }

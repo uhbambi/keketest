@@ -8,9 +8,11 @@ import { c, t } from 'ttag';
 
 import SettingsItem from '../SettingsItem';
 import LanguageSelect from '../LanguageSelect';
+import TemplateSettings from '../TemplateSettings';
 import {
   toggleGrid,
   togglePixelNotify,
+  toggleMvmCtrls,
   toggleMute,
   toggleAutoZoomIn,
   toggleCompactPalette,
@@ -52,10 +54,11 @@ const SettingsItemSelect = ({
   </div>
 );
 
-function Settings() {
+const Settings = () => {
   const [
     isGridShown,
     isPixelNotifyShown,
+    isMvmCtrlsShown,
     autoZoomIn,
     compactPalette,
     isPotato,
@@ -64,9 +67,11 @@ function Settings() {
     isMuted,
     chatNotify,
     isHistoricalView,
+    templatesAvailable,
   ] = useSelector((state) => [
     state.gui.showGrid,
     state.gui.showPixelNotify,
+    state.gui.showMvmCtrls,
     state.gui.autoZoomIn,
     state.gui.compactPalette,
     state.gui.isPotato,
@@ -75,9 +80,9 @@ function Settings() {
     state.gui.mute,
     state.gui.chatNotify,
     state.canvas.isHistoricalView,
+    state.templates.available,
   ], shallowEqual);
   const dispatch = useDispatch();
-
   const audioAvailable = window.AudioContext || window.webkitAudioContext;
 
   return (
@@ -97,6 +102,14 @@ function Settings() {
         onToggle={() => dispatch(togglePixelNotify())}
       >
         {t`Show circles where pixels are placed.`}
+      </SettingsItem>
+      <SettingsItem
+        title={t`Always show Movement Controls`}
+        keyBind={c('keybinds').t`N`}
+        value={isMvmCtrlsShown}
+        onToggle={() => dispatch(toggleMvmCtrls())}
+      >
+        {t`Always show movement control buttons`}
       </SettingsItem>
       <SettingsItem
         title={t`Disable Game Sounds`}
@@ -181,8 +194,10 @@ function Settings() {
           </div>
         </div>
       )}
+      <div className="modaldivider" />
+      {(templatesAvailable) && <TemplateSettings />}
     </div>
   );
-}
+};
 
 export default React.memo(Settings);

@@ -2,17 +2,43 @@
  * parent class for Renderer
  */
 
+/* eslint-disable no-underscore-dangle */
+
+import {
+  VIEW_UPDATE_DELAY,
+} from '../core/constants';
+import { updateView } from '../store/actions';
+
 /* eslint-disable class-methods-use-this */
 
 class Renderer {
   store;
+  // object for user controls
+  controls = {
+    update() {},
+  };
+
+  // chunk loader
+  chunkLoader = null;
   // needs to be known for lazy loading THREE
   is3D = null;
-  // chunk loader must be set by subclass
-  chunkLoader = null;
+  // force renderer to rebuild whole view or
+  // to "subrender" known view next tick
+  forceNextRender = true;
+  forceNextSubrender = true;
+  // current position
+  // third value can be scale (2d) or z axis (3d)
+  _view = [0, 0, 0];
+  //
+  #storeViewTimeout = null;
 
   constructor(store) {
     this.store = store;
+    // this.loadViewFromState();
+  }
+
+  get view() {
+    return [...this._view];
   }
 
   get chunks() {
@@ -20,33 +46,65 @@ class Renderer {
   }
 
   get recChunkIds() {
-    if (!this.chunkLoader) {
-      return [];
-    }
+    if (!this.chunkLoader) return [];
     return this.chunkLoader.recChunkIds;
   }
 
   destructor() {
-    if (this.chunkLoader) {
-      this.chunkLoader.destructor();
+    this.chunkLoader?.destructor();
+    this.cancelStoreViewInState();
+  }
+
+  updateView(view) {
+    for (let i = 0; i < view.length; i += 1) {
+      this._view[i] = view[i];
     }
   }
 
-  render() {}
+  /*
+   * view is in both storea and renderer,
+   * the one in store is for UI elements and not
+   * updated in real time for performance reasons
+   */
+  loadViewFromState() {
+    if (!this.store) return;
+    this.updateView(this.store.getState().canvas.view);
+  }
+
+  cancelStoreViewInState() {
+    if (this.#storeViewTimeout) {
+      clearTimeout(this.#storeViewTimeout);
+      this.#storeViewTimeout = null;
+    }
+  }
+
+  storeViewInState() {
+    if (!this.store) return;
+    this.cancelStoreViewInState();
+    this.#storeViewTimeout = setTimeout(() => {
+      this.#storeViewTimeout = null;
+      this.store.dispatch(updateView(this.view));
+    }, VIEW_UPDATE_DELAY);
+  }
+
+  render() {
+    return this.controls.update(this.forceNextRender);
+  }
 
   renderPixel() {}
 
   updateCanvasData() {}
+
+  getPointedColor() {
+    return null;
+  }
 
   isChunkInView() {
     return true;
   }
 
   gc() {
-    if (!this.chunkLoader) {
-      return;
-    }
-    this.chunkLoader.gc(this);
+    this.chunkLoader?.gc(this);
   }
 }
 
