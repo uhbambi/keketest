@@ -7,7 +7,7 @@ import { useSelector, shallowEqual } from 'react-redux';
 import { t } from 'ttag';
 
 import useInterval from './hooks/interval';
-import { getToday, dateToString, coordsFromUrl } from '../core/utils';
+import { getToday, dateToString, coordsFromString } from '../core/utils';
 import { shardOrigin } from '../store/actions/fetch';
 
 const keptState = {
@@ -191,6 +191,9 @@ function ModCanvastools() {
       // eslint-disable-next-line max-len
       descCleanAction = t`Clean spare pixels that are surrounded by a single other color or unset pixels (VERY AGGRESSIVE ON CANVASES THAT ALLOW UNSET PIXELS (where there are two cooldowns)!)`;
       break;
+    case 'makenull':
+      // eslint-disable-next-line max-len
+      descCleanAction = t`Turn every pixel in area to 0 (YOU REALLY SHOULDN'T DO THAT ON ANY AREA THAT ISN'T ALREADY MOSTLY 0)`;
     default:
       // nothing
   }
@@ -278,8 +281,11 @@ function ModCanvastools() {
           placeholder="X_Y or URL"
           onChange={(evt) => {
             let co = evt.target.value.trim();
-            co = coordsFromUrl(co) || co;
-            evt.target.value = co;
+            co = coordsFromString(co);
+            if (co) {
+              co = co.join('_');
+              evt.target.value = co;
+            }
             keptState.coords = co;
           }}
         />
@@ -343,8 +349,11 @@ function ModCanvastools() {
           placeholder="X_Y or URL"
           onChange={(evt) => {
             let co = evt.target.value.trim();
-            co = coordsFromUrl(co) || co;
-            evt.target.value = co;
+            co = coordsFromString(co);
+            if (co) {
+              co = co.join('_');
+              evt.target.value = co;
+            }
             keptState.tlcoords = co;
           }}
         />
@@ -362,8 +371,11 @@ function ModCanvastools() {
           placeholder="X_Y or URL"
           onChange={(evt) => {
             let co = evt.target.value.trim();
-            co = coordsFromUrl(co) || co;
-            evt.target.value = co;
+            co = coordsFromString(co);
+            if (co) {
+              co = co.join('_');
+              evt.target.value = co;
+            }
             keptState.brcoords = co;
           }}
         />
@@ -420,8 +432,11 @@ function ModCanvastools() {
               placeholder="X_Y or URL"
               onChange={(evt) => {
                 let co = evt.target.value.trim();
-                co = coordsFromUrl(co) || co;
-                evt.target.value = co;
+                co = coordsFromString(co);
+                if (co) {
+                  co = co.join('_');
+                  evt.target.value = co;
+                }
                 keptState.tlrcoords = co;
               }}
             />
@@ -439,8 +454,11 @@ function ModCanvastools() {
               placeholder="X_Y or URL"
               onChange={(evt) => {
                 let co = evt.target.value.trim();
-                co = coordsFromUrl(co) || co;
-                evt.target.value = co;
+                co = coordsFromString(co);
+                if (co) {
+                  co = co.join('_');
+                  evt.target.value = co;
+                }
                 keptState.brrcoords = co;
               }}
             />
@@ -481,7 +499,7 @@ function ModCanvastools() {
           selectCleanAction(sel.options[sel.selectedIndex].value);
         }}
       >
-        {['spare', 'spareext', 'spareextu'].map((opt) => (
+        {['spare', 'spareext', 'spareextu', 'makenull'].map((opt) => (
           <option
             key={opt}
             value={opt}
@@ -507,8 +525,11 @@ function ModCanvastools() {
           placeholder="X_Y or URL"
           onChange={(evt) => {
             let co = evt.target.value.trim();
-            co = coordsFromUrl(co) || co;
-            evt.target.value = co;
+            co = coordsFromString(co);
+            if (co) {
+              co = co.join('_');
+              evt.target.value = co;
+            }
             keptState.tlccoords = co;
           }}
         />
@@ -526,8 +547,11 @@ function ModCanvastools() {
           placeholder="X_Y or URL"
           onChange={(evt) => {
             let co = evt.target.value.trim();
-            co = coordsFromUrl(co) || co;
-            evt.target.value = co;
+            co = coordsFromString(co);
+            if (co) {
+              co = co.join('_');
+              evt.target.value = co;
+            }
             keptState.brccoords = co;
           }}
         />

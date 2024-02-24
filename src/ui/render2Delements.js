@@ -113,7 +113,7 @@ export function renderOverlay(
   tiledScale,
   scaleThreshold,
 ) {
-  if (!templateLoader.ready) return;
+  if (!templateLoader.ready || scale < 0.035) return;
   const { canvasSize, canvasId } = state.canvas;
   // world coordinates of center of center chunk
   const [x, y] = centerChunk
@@ -135,14 +135,20 @@ export function renderOverlay(
   const context = $canvas.getContext('2d');
   if (!context) return;
 
+  context.imageSmoothingEnabled = false;
   context.save();
   context.scale(offscreenScale, offscreenScale);
   context.globalAlpha = state.templates.oOpacity / 100;
   for (const template of templates) {
+    if (template.width * offscreenScale < 1
+      || template.height * offscreenScale < 1
+    ) continue;
+
     const image = templateLoader.getTemplateSync(template.imageId);
     if (!image) continue;
 
-    context.drawImage(image,
+    context.drawImage(
+      image,
       template.x - x + width / 2 / offscreenScale,
       template.y - y + height / 2 / offscreenScale,
     );
@@ -175,6 +181,7 @@ export function renderSmallPOverlay(
   if (!context) return;
 
   const relScale = scale / 3;
+  context.imageSmoothingEnabled = false;
   context.save();
   context.scale(relScale, relScale);
   for (const template of templates) {
