@@ -6,7 +6,7 @@
 /* eslint-disable max-len */
 import etag from 'etag';
 
-import { getTTag, availableLangs as langs } from '../core/ttag';
+import { getTTag, availableLangs as langs } from '../middleware/ttag';
 import socketEvents from '../socket/socketEvents';
 import { getJsAssets, getCssAssets } from '../core/assets';
 import { BACKUP_URL } from '../core/config';

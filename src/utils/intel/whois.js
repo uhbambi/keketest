@@ -4,8 +4,8 @@
 
 import net from 'net';
 
-import { isIPv6, ipSubnetToHex } from './ip';
-import { OUTGOING_ADDRESS } from '../core/config';
+import { isIPv6, ipSubnetToHex } from '../ip';
+import { OUTGOING_ADDRESS } from '../../core/config';
 
 const WHOIS_PORT = 43;
 const QUERY_SUFFIX = '\r\n';

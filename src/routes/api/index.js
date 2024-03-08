@@ -1,6 +1,6 @@
 import express from 'express';
 
-import session from '../../core/session';
+import session from '../../middleware/session';
 import passport from '../../core/passport';
 import User from '../../data/User';
 

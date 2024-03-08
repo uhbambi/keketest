@@ -6,7 +6,7 @@
 import { createHash } from 'crypto';
 import etag from 'etag';
 
-import { getTTag, availableLangs as langs } from '../core/ttag';
+import { getTTag, availableLangs as langs } from '../middleware/ttag';
 import { getJsAssets, getCssAssets } from '../core/assets';
 import socketEvents from '../socket/socketEvents';
 import { BACKUP_URL } from '../core/config';

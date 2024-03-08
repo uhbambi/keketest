@@ -6,7 +6,7 @@
 /* eslint-disable max-len */
 import etag from 'etag';
 
-import { getTTag } from '../core/ttag';
+import { getTTag } from '../middleware/ttag';
 
 /* this will be set by webpack */
 import { getJsAssets } from '../core/assets';

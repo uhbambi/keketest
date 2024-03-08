@@ -15,8 +15,8 @@ import captcha from './captcha';
 import resetPassword from './reset_password';
 import api from './api';
 
-import { expressTTag } from '../core/ttag';
-import corsMiddleware from '../utils/corsMiddleware';
+import { expressTTag } from '../middleware/ttag';
+import cors from '../middleware/cors';
 import generateGlobePage from '../ssr/Globe';
 import generatePopUpPage from '../ssr/PopUp';
 import generateMainPage from '../ssr/Main';
@@ -149,7 +149,7 @@ router.use('/reset_password', resetPassword);
  * Following with CORS
  * ---------------------------------------------------------------------------
  */
-router.use(corsMiddleware);
+router.use(cors);
 
 /*
  * API calls

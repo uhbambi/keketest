@@ -274,7 +274,7 @@ Compile with source-maps and debug options (but only english language) with
 npm run build:dev
 ```
 
-[ttag](https://github.com/ttag-org/ttag/) is used for handling translations. For server-side rendering the `Accept-Language` header gets checked and the first locale used and on-the-fly translated (`src/core/ttag.js` provides the functions for it). On the client-side a seperate bundle for every language gets provided.
+[ttag](https://github.com/ttag-org/ttag/) is used for handling translations. For server-side rendering the `Accept-Language` header gets checked and the first locale used and on-the-fly translated (`src/middleware/ttag.js` provides the functions for it). On the client-side a seperate bundle for every language gets provided.
 The language definitions in `i18n/template.pot` and `i18n/template-ssr.pot` get updated when doing a full production build with all languages (`npm run build`)-
 
 To build only specific languages, you can define them with the `--langs` flag:

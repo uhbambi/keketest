@@ -6,7 +6,7 @@
 
 import assetWatcher from './core/fsWatcher';
 import canvases from './core/canvases';
-import ttag from './core/ttag';
+import ttag from './middleware/ttag';
 
 
 /* eslint-disable max-len */
