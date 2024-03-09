@@ -7,7 +7,9 @@ Official  repository of [pixelplanet.fun](http://www.pixelplanet.fun).
 
 ![videothumb](promotion/videothumb.gif)
 
-> If you want to help us translate pixelplanet.fun, look into [i18n](./i18n)
+> Our translations are hosted [on Weblate](https://hosted.weblate.org/projects/pixelplanet), information on how to contribute is available under [i18n](./i18n). We very much appreciate any help.
+
+[![Translation status](https://hosted.weblate.org/widget/pixelplanet/svg-badge.svg)](https://hosted.weblate.org/engage/pixelplanet/)
 
 To the 2nd anniversary of r/space, pixelplanet takes pixelgames to a new level. Place pixels, create pixelart and fight faction wars on pixelplanet.fun.
 Pixelplanet is a 65k x 65k large canvas that is a map of the world and can also be seen as 3d globe, you can place pixels where ever you want, build an island, take over another country with a flag or just create pixelart.
@@ -24,7 +26,7 @@ Click or tab: Place Pixel
 
 ## Build
 ### Requirements
-- [nodejs environment](https://nodejs.org/en/) (>=16)
+- [nodejs environment](https://nodejs.org/en/) (>=18)
 
 ### Building
 Checkout repository
@@ -43,19 +45,10 @@ npm run build
 
 All needed files to run it got created in `./dist`. You can copy it to wherever you want to run pixelplanet.
 
-Notes:
-
-- If you run into problems, make sure that you have rights to g++ (if not, run as root and then chown username:username -R . after build)
-
-- If `npm install` fails with "unable to connect to github.com" set:
-
-```
-git config --global url.https://github.com/.insteadOf git://github.com/
-```
-
 ## Run
 ### Requirements
-- [nodejs environment](https://nodejs.org/en/) (>=16)
+
+- [nodejs environment](https://nodejs.org/en/) (>=18)
 - [redis](https://redis.io/) or [redis-for-windows](https://github.com/redis-windows/redis-windows) as database for storìng the canvas
 - mysql or mariadb ([setup own user](https://www.digitalocean.com/community/tutorials/how-to-create-a-new-user-and-grant-permissions-in-mysql) and [create database](https://www.w3schools.com/SQl/sql_create_db.asp) for pixelplanet) for storing additional data like IP blacklist
 
