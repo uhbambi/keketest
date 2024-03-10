@@ -33,7 +33,7 @@ async function banme(req, res) {
     expires = Date.now() + 1000 * 3600 * 24 * 3;
   */
   } else if (code === 3) {
-    reason = 'Proxy lol';
+    reason = 'Tuxler or IPSharkk detected';
     expires = Date.now() + 1000 * 3600 * 24 * 14;
   } else {
     res.json({
