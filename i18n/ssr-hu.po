@@ -2,15 +2,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: \n"
-"Last-Translator: \n"
-"Language-Team: \n"
+"PO-Revision-Date: 2024-03-10 19:37+0000\n"
+"Last-Translator: Translation Team <noreply@example.com>\n"
+"Language-Team: Hungarian <https://hosted.weblate.org/projects/pixelplanet/"
+"server/hu/>\n"
 "Language: hu\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.4.2\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 5.5-dev\n"
 
 #: src/core/ChatProvider.js:434
 msgid "You can not send chat messages with proxy"
@@ -133,7 +134,7 @@ msgstr "Az e-mail cím nem lehet üres."
 
 #: src/utils/validation.js:18
 msgid "Email should be at least 5 characters long."
-msgstr "Az e-mail címnek legalább 5 karakter hosszúnak kell lennie."
+msgstr "Az e-mail címnek legalább 5 karakterből kell állnia."
 
 #: src/utils/validation.js:19
 msgid "Email can't be longer than 40 characters."
