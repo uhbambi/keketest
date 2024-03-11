@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2024-03-10 19:37+0000\n"
+"PO-Revision-Date: 2024-03-10 22:16+0000\n"
 "Last-Translator: Translation Team <noreply@example.com>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/pixelplanet/"
 "server/de/>\n"
@@ -160,7 +160,7 @@ msgstr "Name muss kleiner als 26 Zeichen sein"
 
 #: src/utils/validation.js:38
 msgid "Name contains invalid character like @, /, \\ or #"
-msgstr "Name beinhalted ungültige Zeichen wie @,/.\\ oder #"
+msgstr "Ungültige Zeichen im Namen wie @,/.\\ oder #"
 
 #: src/utils/validation.js:53
 msgid "No password given."

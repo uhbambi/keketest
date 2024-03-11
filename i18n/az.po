@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2024-03-10 21:36+0000\n"
+"PO-Revision-Date: 2024-03-10 22:16+0000\n"
 "Last-Translator: Translation Team <noreply@example.com>\n"
 "Language-Team: Azerbaijani <https://hosted.weblate.org/projects/pixelplanet/"
 "client/az/>\n"
@@ -457,7 +457,7 @@ msgstr "Bu çox vaxt aldı,yenidən yoxla."
 
 #: src/components/GlobalCaptcha.jsx:50
 msgid "You failed your captcha"
-msgstr "Captchanız uğursuz alındı"
+msgstr "Captchanızı düzgün yerinə yetirmədiniz"
 
 #: src/components/GlobalCaptcha.jsx:53
 msgid "No or invalid captcha text"
@@ -497,17 +497,12 @@ msgid ""
 "pixels than placing on a unset pixel. i.e. 4s/7s means 4s on fresh pixels "
 "and 7s on already set pixels."
 msgstr ""
-"Əsas löhvəmiz nəhəng dünya xəritəsidir, istədiyiniz yerdə pixel "
-"qoyabilərsiniz. \n"
-"istədiyiniz löhvəyə atabilərsiniz,ancaq piksellər arasında spesifik gözləmə "
-"vaxtını gözləməlisiniz.\n"
-"Ekranın yuxarısındakı \\\"Löhvə Seçimi\\\" menyusundan .\n"
-"gözləmə vaxtına və tələblərə baxa bilərsiniz. Bəzi lövhələrdə "
-"toxunulmamış\"\n"
-"\"pixellər və toxunulmuş pixellər üçün müxtəlif gözləmə vaxtları təyin edilə "
-"bilər.\"\n"
-"\"Məsələn, 4s/7s toxunulmamış piksellər üçün 4 saniyə, toxunulan piksellər "
-"üçün isə 7 saniyə çəkir\""
+"Əsas lövhəmiz nəhəng dünya xəritəsidir, istədiyiniz yerə piksel qoya "
+"bilərsiniz. Gözləmə müddətini və tələbləri Lövhə Seçimi menyusunda ("
+"yuxarıdakı qlobus düyməsi) gözdən keçirə bilərsiniz. Bəzi lövhələrdə "
+"istifadəçi tərəfindən qoyulmuş və qoyulmamış piksel arasında gözləmə müddəti "
+"dəyişikdir. Yəni 4s/7s bildirir ki, yeni piksellərdə 4 və artıq qoyulan "
+"piksellərdə 7 saniyədir."
 
 #: src/components/windows/Help.jsx:67
 msgid ""
@@ -1273,7 +1268,7 @@ msgstr "Email ən az 1 nöqtə içərməlidir"
 
 #: src/utils/validation.js:22
 msgid "Email should contain a @"
-msgstr "Emaildə @ işarəsi olmalıdır"
+msgstr "Email-də @ simvolu olmalıdır"
 
 #: src/utils/validation.js:29
 msgid "Name can't be empty."
