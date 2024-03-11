@@ -2,16 +2,17 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: \n"
-"Last-Translator: \n"
-"Language-Team: \n"
-"Language: ro_RO\n"
+"PO-Revision-Date: 2024-03-10 19:37+0000\n"
+"Last-Translator: Translation Team <noreply@example.com>\n"
+"Language-Team: Romanian <https://hosted.weblate.org/projects/pixelplanet/"
+"client/ro/>\n"
+"Language: ro\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n==0 || (n!=1 && n%100>=1 && "
-"n%100<=19) ? 1 : 2);\n"
-"X-Generator: Poedit 3.3.1\n"
+"Plural-Forms: nplurals=3; plural=n==1 ? 0 : (n==0 || (n%100 > 0 && n%100 < "
+"20)) ? 1 : 2;\n"
+"X-Generator: Weblate 5.5-dev\n"
 
 #: src/controls/keypress.js:99
 #, javascript-format
@@ -44,151 +45,138 @@ msgstr "Sunet Pornit"
 
 #: src/components/CoordinatesBox.jsx:39 src/components/GetIID.jsx:51
 #: src/controls/keypress.js:211
-msgid "Copied!"
+#, fuzzy
+msgid "Copied"
 msgstr "Copiat!"
 
 #: src/controls/keypress.js:217
 msgid "Overlay ON"
-msgstr ""
+msgstr "Overlay Activat"
 
 #: src/controls/keypress.js:218
 msgid "Overlay OFF"
-msgstr ""
+msgstr "Overlay Dezactivat"
 
 #: src/components/windows/Help.jsx:50 src/controls/keypress.js:224
 msgid "Easter Egg ON"
-msgstr ""
+msgstr "Caracteristici Ascunse Activat"
 
 #: src/components/windows/Help.jsx:49 src/controls/keypress.js:225
 msgid "Easter Egg OFF"
-msgstr ""
+msgstr "Caracteristici Ascunse Dezactivat"
 
-#: src/ui/PixelTransferController.js:70 src/ui/templateLoader.js:230
-#: src/ui/templateLoader.js:256
-msgid "Error :("
-msgstr "Eroare :("
-
-#: src/ui/PixelTransferController.js:71
-msgid "Didn't get an answer from pixelplanet. Maybe try to refresh?"
-msgstr ""
-"Nu am primit niciun răspuns de la pixelplanet. Poate încearcă să reîncarci "
-"pagina?"
-
-#: src/ui/PixelTransferController.js:103
-msgid "Invalid Canvas"
-msgstr "Canvas Invalid"
-
-#: src/ui/PixelTransferController.js:104
-msgid "This canvas doesn't exist"
-msgstr "Acest Canvas nu există."
-
-#: src/ui/PixelTransferController.js:107 src/ui/PixelTransferController.js:111
-#: src/ui/PixelTransferController.js:115
-msgid "Invalid Coordinates"
-msgstr "Coordonate invalide"
-
-#: src/ui/PixelTransferController.js:108
-msgid "x out of bounds"
-msgstr "x în afara limitelor"
-
-#: src/ui/PixelTransferController.js:112
-msgid "y out of bounds"
-msgstr "y în afara limitelor"
-
-#: src/ui/PixelTransferController.js:116
-msgid "z out of bounds"
-msgstr "z în afara limitelor"
-
-#: src/ui/PixelTransferController.js:119
-msgid "Wrong Color"
-msgstr "Culoarea greșită"
-
-#: src/ui/PixelTransferController.js:120
-msgid "Invalid color selected"
-msgstr "Culoare invalidă selectată"
-
-#: src/ui/PixelTransferController.js:123
-msgid "Just for registered Users"
-msgstr "Doar pentru Utilizatorii înregistrați"
-
-#: src/ui/PixelTransferController.js:124
-msgid "You have to be logged in to place on this canvas"
-msgstr "Trebuie să fii logat pentru a pune pe acest canvas"
-
-#: src/ui/PixelTransferController.js:127
-msgid "Place more :)"
-msgstr "Pune mai mult :)"
-
-#: src/ui/PixelTransferController.js:129
-msgid "You can not access this canvas yet. You need to place more pixels"
-msgstr "Momentan nu poți accesa acest canvas. Trebuie să pui mai mulți pixeli"
-
-#: src/ui/PixelTransferController.js:132
-msgid "Pixel protected!"
-msgstr "Pixel protejat!"
-
-#: src/ui/PixelTransferController.js:139
-msgid "Please prove that you are human"
-msgstr "Te rog să dovedești că ești om"
-
-#: src/ui/PixelTransferController.js:143
-msgid "No Proxies Allowed :("
-msgstr "Proxiurile nu sunt permise :("
-
-#: src/ui/PixelTransferController.js:144
-msgid "You are using a Proxy."
-msgstr "Tu folosești un Proxy."
-
-#: src/ui/PixelTransferController.js:147
-msgid "Not allowed"
-msgstr "Nu este permis"
-
-#: src/ui/PixelTransferController.js:148
-msgid "Just the Top10 of yesterday can place here"
-msgstr "Doar cei din Top10 ieri pot pune aici"
-
-#: src/ui/PixelTransferController.js:151
-msgid "You are weird"
-msgstr "Ești ciudat"
-
-#: src/ui/PixelTransferController.js:153
-msgid ""
-"Server got confused by your pixels. Are you playing on multiple devices?"
-msgstr "Serverul este confuz de pixelii tăi. Te joci pe mai multe dispozitive?"
-
-#: src/ui/PixelTransferController.js:156
-msgid "Banned"
-msgstr "Banat"
-
-#: src/ui/PixelTransferController.js:160
-msgid "Range Banned"
-msgstr "Range Banat"
-
-#: src/ui/PixelTransferController.js:161
-msgid "Your Internet Provider is banned from playing this game"
-msgstr "Furnizorul tău de internet este interzis din a juca acest joc"
-
-#: src/ui/PixelTransferController.js:164
+#: src/ui/PixelTransferController.js:70 src/ui/PixelTransferController.js:165
 msgid "Timeout"
 msgstr "Pauză"
 
-#: src/ui/PixelTransferController.js:166
+#: src/ui/PixelTransferController.js:72 src/ui/PixelTransferController.js:167
+#, fuzzy
 msgid ""
-"Didn't get an answer from pixelplanet. Maybe try to refresh if problem "
-"persists?"
+"Didn't get an answer from pixelplanet. Try to refresh if this problem "
+"persists."
 msgstr ""
 "Nu am primit niciun răspuns de la pixelplanet. Încearcă să dai refresh daca "
 "problema persistă?"
 
-#: src/ui/PixelTransferController.js:169
+#: src/ui/PixelTransferController.js:104
+msgid "Invalid Canvas"
+msgstr "Canvas Invalid"
+
+#: src/ui/PixelTransferController.js:105
+msgid "This canvas doesn't exist"
+msgstr "Acest Canvas nu există"
+
+#: src/ui/PixelTransferController.js:108 src/ui/PixelTransferController.js:112
+#: src/ui/PixelTransferController.js:116
+msgid "Invalid Coordinates"
+msgstr "Coordonate invalide"
+
+#: src/ui/PixelTransferController.js:109
+msgid "x out of bounds"
+msgstr "x în afara limitelor"
+
+#: src/ui/PixelTransferController.js:113
+msgid "y out of bounds"
+msgstr "y în afara limitelor"
+
+#: src/ui/PixelTransferController.js:117
+msgid "z out of bounds"
+msgstr "z în afara limitelor"
+
+#: src/ui/PixelTransferController.js:120
+msgid "Wrong Color"
+msgstr "Culoarea greșită"
+
+#: src/ui/PixelTransferController.js:121
+msgid "Invalid color selected"
+msgstr "Culoare invalidă selectată"
+
+#: src/ui/PixelTransferController.js:124
+msgid "Just for registered Users"
+msgstr "Doar pentru Utilizatorii înregistrați"
+
+#: src/ui/PixelTransferController.js:125
+msgid "You have to be logged in to place on this canvas"
+msgstr "Trebuie să fii conectat pentru a pune pe acest canvas"
+
+#: src/ui/PixelTransferController.js:128 src/ui/PixelTransferController.js:144
+#: src/ui/PixelTransferController.js:148
+msgid "Not allowed"
+msgstr "Nu este permis"
+
+#: src/ui/PixelTransferController.js:130
+#, fuzzy
+msgid "You can not access this canvas yet, because your pixel score is too low"
+msgstr "Momentan nu poți accesa acest canvas. Trebuie să pui mai mulți pixeli"
+
+#: src/ui/PixelTransferController.js:133
+#, fuzzy
+msgid "Pixel protected"
+msgstr "Pixel protejat!"
+
+#: src/ui/PixelTransferController.js:140
+msgid "Please prove that you are human"
+msgstr "Te rog să dovedești că ești om"
+
+#: src/ui/PixelTransferController.js:145
+msgid "You are using a Proxy."
+msgstr "Tu folosești un Proxy."
+
+#: src/ui/PixelTransferController.js:149
+msgid "Just the Top10 of yesterday can place here"
+msgstr "Doar cei din Top10 ieri pot pune aici"
+
+#: src/ui/PixelTransferController.js:152
+msgid "You are weird"
+msgstr "Ești ciudat"
+
+#: src/ui/PixelTransferController.js:154
+msgid ""
+"Server got confused by your pixels. Are you playing on multiple devices?"
+msgstr "Serverul este confuz de pixelii tăi. Te joci pe mai multe dispozitive?"
+
+#: src/ui/PixelTransferController.js:157
+msgid "Banned"
+msgstr "Banat"
+
+#: src/ui/PixelTransferController.js:161
+msgid "Range Banned"
+msgstr "Range Banat"
+
+#: src/ui/PixelTransferController.js:162
+#, fuzzy
+msgid "Your Internet Provider is banned from this game"
+msgstr "Furnizorul tău de internet este interzis din a juca acest joc"
+
+#: src/ui/PixelTransferController.js:170
 msgid "Weird"
 msgstr "Ciudat"
 
-#: src/ui/PixelTransferController.js:170
+#: src/ui/PixelTransferController.js:171
 msgid "Couldn't set Pixel"
 msgstr "Nu s-a putut seta pixelul"
 
-#: src/ui/PixelTransferController.js:175
+#: src/ui/PixelTransferController.js:176
 #, javascript-format
 msgid "Error ${ retCode }"
 msgstr "Eroare ${ retCode }"
@@ -201,13 +189,17 @@ msgstr "Eroare de la Canvas"
 msgid "Can't render 3D canvas, do you have WebGL2 disabled?"
 msgstr "Nu s-a putut face canvasul 3D, ai WebGL2 oprit?"
 
+#: src/ui/templateLoader.js:230 src/ui/templateLoader.js:256
+msgid "Error :("
+msgstr "Eroare :("
+
 #: src/ui/templateLoader.js:231
 msgid "Can not export more than 20 or no template!"
-msgstr ""
+msgstr "Nu se poate exporta mai mult de 20 sau nici una de șablon(e)!"
 
 #: src/ui/templateLoader.js:257
 msgid "Can not import more than 20 or no template!"
-msgstr ""
+msgstr "Nu se pot importa mai mult de 20 sau niciun șablon(e)!"
 
 #: src/components/BanInfo.jsx:136 src/store/actions/index.js:7
 msgid "OK"
@@ -348,13 +340,13 @@ msgstr "Setări"
 msgid "User Area"
 msgstr "Zonă de Utilizator"
 
-#: src/components/buttons/DownloadButton.jsx:36
-msgid "Make Screenshot"
-msgstr "Fă un Screenshot"
-
 #: src/components/buttons/GlobeButton.jsx:34
 msgid "Globe View"
 msgstr "Vedere de pe glob"
+
+#: src/components/buttons/DownloadButton.jsx:36
+msgid "Make Screenshot"
+msgstr "Fă un Screenshot"
 
 #: src/components/buttons/PalselButton.jsx:30
 msgid "Close Palette"
@@ -366,28 +358,27 @@ msgstr "Deschide Paleta"
 
 #: src/components/buttons/PencilButton.jsx:32
 msgid "History Pencil ON"
-msgstr ""
+msgstr "Creion de istorie Activat"
 
 #: src/components/buttons/PencilButton.jsx:38
 msgid "Overlay Pencil ON"
-msgstr ""
+msgstr "Creion de Overlay Activat"
 
 #: src/components/buttons/PencilButton.jsx:65
 msgid "Enable Pencil"
-msgstr ""
+msgstr "Activează Creaionul"
 
 #: src/components/buttons/PencilButton.jsx:69
-#, fuzzy
 msgid "Disable Pencil"
-msgstr "Oprește suntelele jocului"
+msgstr "Dezactivează Creionul"
 
 #: src/components/buttons/PencilButton.jsx:73
 msgid "Disable History Pencil"
-msgstr ""
+msgstr "Creion de istorie Dezactivat"
 
 #: src/components/buttons/PencilButton.jsx:77
 msgid "Disable Overlay Pencil"
-msgstr ""
+msgstr "Dezactivează Creion de Overlay"
 
 #: src/components/windows/index.js:16
 msgid "Registration"
@@ -404,55 +395,6 @@ msgstr "Chat"
 #: src/components/windows/index.js:20
 msgid "Canvas Archive"
 msgstr "Arhivă de canvas"
-
-#: src/components/BanInfo.jsx:66
-msgid "You are banned. You think it is unjustified? Check out the "
-msgstr "Ești banat. Crezi că este nejustificată? Intră pe "
-
-#: src/components/BanInfo.jsx:76
-msgid " on how to appeal."
-msgstr " la cum să dai appeal."
-
-#: src/components/BanInfo.jsx:80 src/components/Captcha.jsx:79
-#: src/components/ChangeMail.jsx:72 src/components/ChangeName.jsx:58
-#: src/components/ChangePassword.jsx:79 src/components/DeleteAccount.jsx:55
-#: src/components/GlobalCaptcha.jsx:71 src/components/LogInForm.jsx:70
-#: src/components/windows/ForgotPassword.jsx:73
-#: src/components/windows/Register.jsx:89
-msgid "Error"
-msgstr "Eroare"
-
-#: src/components/BanInfo.jsx:85 src/components/ModIIDtools.jsx:73
-msgid "Reason"
-msgstr "Motiv"
-
-#: src/components/BanInfo.jsx:91
-msgid "By Mod"
-msgstr "De Moderator"
-
-#: src/components/BanInfo.jsx:97 src/components/ModIIDtools.jsx:84
-msgid "Duration"
-msgstr "Durata"
-
-#: src/components/BanInfo.jsx:99
-msgid "Your ban expires at "
-msgstr "Banul tău expiră la "
-
-#: src/components/BanInfo.jsx:101
-msgid " which is in "
-msgstr " care este în "
-
-#: src/components/BanInfo.jsx:112
-msgid "Unbanned"
-msgstr "Nebanat"
-
-#: src/components/BanInfo.jsx:113
-msgid "Now that you have seen this message, you are no longer banned."
-msgstr "Acum că ai văzut acest mesaj, nu mai ești banat."
-
-#: src/components/BanInfo.jsx:127
-msgid "Why?"
-msgstr "De ce?"
 
 #: src/components/GlobalCaptcha.jsx:47
 msgid "You took too long, try again."
@@ -474,6 +416,15 @@ msgstr "Niciun id captcha primit"
 msgid "Unknown Captcha Error"
 msgstr "Eroare de Captcha necunoscută"
 
+#: src/components/BanInfo.jsx:80 src/components/Captcha.jsx:79
+#: src/components/ChangeMail.jsx:72 src/components/ChangeName.jsx:58
+#: src/components/ChangePassword.jsx:79 src/components/DeleteAccount.jsx:55
+#: src/components/GlobalCaptcha.jsx:71 src/components/LogInForm.jsx:70
+#: src/components/windows/ForgotPassword.jsx:73
+#: src/components/windows/Register.jsx:89
+msgid "Error"
+msgstr "Eroare"
+
 #: src/components/ChangeMail.jsx:93 src/components/ChangeName.jsx:70
 #: src/components/ChangePassword.jsx:115 src/components/DeleteAccount.jsx:68
 #: src/components/GlobalCaptcha.jsx:80 src/components/TemplateItemEdit.jsx:181
@@ -485,6 +436,46 @@ msgstr "Anulează"
 #: src/components/GlobalCaptcha.jsx:86
 msgid "Send"
 msgstr "Trimite"
+
+#: src/components/BanInfo.jsx:66
+msgid "You are banned. You think it is unjustified? Check out the "
+msgstr "Ești banat. Crezi că este nejustificată? Intră pe . "
+
+#: src/components/BanInfo.jsx:76
+msgid " on how to appeal."
+msgstr " •la cum să dai appeal."
+
+#: src/components/BanInfo.jsx:85 src/components/ModIIDtools.jsx:73
+msgid "Reason"
+msgstr "Motiv"
+
+#: src/components/BanInfo.jsx:91
+msgid "By Mod"
+msgstr "De Moderator"
+
+#: src/components/BanInfo.jsx:97 src/components/ModIIDtools.jsx:84
+msgid "Duration"
+msgstr "Durata"
+
+#: src/components/BanInfo.jsx:99
+msgid "Your ban expires at "
+msgstr "Banul tău expiră la• "
+
+#: src/components/BanInfo.jsx:101
+msgid " which is in "
+msgstr " •care este în• "
+
+#: src/components/BanInfo.jsx:112
+msgid "Unbanned"
+msgstr "Nebanat"
+
+#: src/components/BanInfo.jsx:113
+msgid "Now that you have seen this message, you are no longer banned."
+msgstr "Acum că ai văzut acest mesaj, nu mai ești banat."
+
+#: src/components/BanInfo.jsx:127
+msgid "Why?"
+msgstr "De ce?"
 
 #: src/components/windows/Help.jsx:65
 msgid "Place color pixels on a large canvas with other players online!"
@@ -524,7 +515,7 @@ msgstr "recomandat"
 
 #: src/components/windows/Help.jsx:71
 msgid "Source on "
-msgstr "Sursă pe "
+msgstr "Sursă pe• "
 
 #: src/components/windows/Help.jsx:72
 msgid "Map Data"
@@ -644,9 +635,9 @@ msgstr ""
 "${ touchSymbol } apasă lung pentru a selecta culoarea unde este cursorul"
 
 #: src/components/windows/Help.jsx:100
-#, fuzzy, javascript-format
+#, javascript-format
 msgid "Press ${ bindQ } and ${ bindE } to fly up and down"
-msgstr "Apasă ${ bindQ } și ${ bindE } pentru a da zoom în sus și în jos"
+msgstr "Apasă ${ bindQ } și ${ bindE } pentru a zbura în sus și în jos"
 
 #: src/components/windows/Help.jsx:101
 #, javascript-format
@@ -678,9 +669,10 @@ msgstr ""
 "a scoate un pixel"
 
 #: src/components/windows/Help.jsx:110
+#, fuzzy
 msgid ""
-"We thanks those artists very much, they offered their palettes to the public "
-"on"
+"We thank the following artists, who made their palettes available to the "
+"public on"
 msgstr ""
 "Noi mulțumim acești artiști foarte mult, ei ne-au oferit palete către public "
 "pe"
@@ -696,9 +688,9 @@ msgid "Credit for the Palette of the Top10 canvas goes to ${ vinikLink }."
 msgstr "Credit pentru Paleta de pe Top10 se duce la ${ vinikLink }."
 
 #: src/components/windows/Help.jsx:119
-#, fuzzy, javascript-format
+#, javascript-format
 msgid "Credit for the Palette of the 2bit canvas goes to ${ donendoLink }."
-msgstr "Credit pentru Paleta de pe Top10 se duce la ${ donendoLink }."
+msgstr "Credit pentru Paleta de pe 2bit se duce la ${ donendoLink }."
 
 #: src/components/windows/Settings.jsx:91
 msgid "Show Grid"
@@ -718,11 +710,11 @@ msgstr "Arată cercurile unde pixelii sunt puși."
 
 #: src/components/windows/Settings.jsx:107
 msgid "Always show Movement Controls"
-msgstr ""
+msgstr "Totdeauna arată Controalele de Mișcare"
 
 #: src/components/windows/Settings.jsx:112
 msgid "Always show movement control buttons"
-msgstr ""
+msgstr "Totdeauna arată butoanele Controalelor de Mișcare"
 
 #: src/components/windows/Settings.jsx:115
 msgid "Disable Game Sounds"
@@ -874,11 +866,11 @@ msgid ""
 "Select the canvas you want to use.\n"
 "Every canvas is unique and has different palettes, cooldown and "
 "requirements.\n"
-"Archive of removed canvases can be accessed here:"
+"Archived canvases can be accessed here:"
 msgstr ""
-"Selectează canvasul pe care vrei să îl folosești. Fiecare canvas este unic "
-"și are palete diferite, cooldownuri și obligații. Arhiva canvasurilor "
-"închise poate fi accesată aici:"
+"Selectează canvasul pe care vrei să îl folosești. \n"
+"Fiecare canvas este unic și are palete diferite, cooldownuri și obligații. \n"
+"Arhiva canvasurilor închise poate fi accesată aici:"
 
 #: src/components/windows/CanvasSelect.jsx:37
 msgid "Archive"
@@ -886,26 +878,25 @@ msgstr "Arhivă"
 
 #: src/components/windows/CanvasSelect.jsx:70
 msgid "Retired Canvases (history only)"
-msgstr ""
+msgstr "Convasuri retrase (doar istorie)"
 
 #: src/components/windows/Archive.jsx:9
 #, fuzzy
 msgid ""
 "While we tend to not delete canvases, some canvases are started for fun or "
-"as a request by users who currently like a meme. Those canvases can get "
-"boring after a while and after weeks of no major change and if they really "
-"aren't worth being kept active."
+"as a request by users who like a currently popular meme. Those canvases can "
+"become dull and inactive after a while, at which point there is no reason to "
+"keep them and we may decide to remove them."
 msgstr ""
-"Deși avem tendința de a nu șterge canvasurile, unele canvasuri sunt pornite "
-"pentru distracție sau ca o solicitare a utilizatorilor cărora le place în "
-"prezent un meme. Acele canvasuri pot deveni plictisitoare după un timp și "
-"după săptămâni fără schimbări majore și dacă într-adevăr nu merită să fie "
-"menținute active, decidem să le eliminăm."
+"Deși avem tendința de a nu șterge pânzele, unele pânze sunt pornite pentru "
+"distracție sau ca o solicitare a utilizatorilor cărora le place în prezent "
+"un meme. Acele pânze pot deveni plictisitoare după un timp și după săptămâni "
+"fără schimbări majore și dacă într-adevăr nu merită să fie menținute active."
 
 #: src/components/windows/Archive.jsx:10
 #, fuzzy
 msgid ""
-"Here we collect removed canvases to archive them in a proper way. Which is "
+"Here we collect removed canvases to archive them properly. Which is "
 "currently only one."
 msgstr ""
 "Aici colectăm toate canvasurile pentru a le arhiva într-o cale ca lumea "
@@ -993,6 +984,54 @@ msgstr "Reîncarcă"
 msgid "Enter Characters"
 msgstr "Pune caracterele"
 
+#: src/utils/validation.js:17
+msgid "Email can't be empty."
+msgstr "Emailul nu poate fi gol."
+
+#: src/utils/validation.js:18
+msgid "Email should be at least 5 characters long."
+msgstr "Emailul trebuie să aibă cel puțin 5 litere."
+
+#: src/utils/validation.js:19
+msgid "Email can't be longer than 40 characters."
+msgstr "Emailul nu poate avea mai mult de 40 de litere."
+
+#: src/utils/validation.js:20
+msgid "Email should at least contain a dot"
+msgstr "Emailul trebuie să conțină cel puțin un punct"
+
+#: src/utils/validation.js:22
+msgid "Email should contain a @"
+msgstr "Emailul trebuie să conțină un \"@\""
+
+#: src/utils/validation.js:29
+msgid "Name can't be empty."
+msgstr "Numele nu poate fi gol."
+
+#: src/utils/validation.js:30
+msgid "Name must be at least 2 characters long"
+msgstr "Numele trebuie să aibă cel puțin 2 litere"
+
+#: src/utils/validation.js:31
+msgid "Name must be shorter than 26 characters"
+msgstr "Numele trebuie să aibă mai puțin de 26 de litere"
+
+#: src/utils/validation.js:38
+msgid "Name contains invalid character like @, /, \\ or #"
+msgstr "Numele conține litere invalide de exemplu @,/,\\ sau #"
+
+#: src/utils/validation.js:53
+msgid "No password given."
+msgstr "Nu ai pus o parolă."
+
+#: src/utils/validation.js:56
+msgid "Password must be at least 6 characters long."
+msgstr "Parola trebuie să aibă cel puțin 6 litere."
+
+#: src/utils/validation.js:59
+msgid "Password must be shorter than 60 characters."
+msgstr "Parola trebuie să aibă mai puțin de 60 de litere."
+
 #: src/components/GetIID.jsx:44
 msgid "Get IID"
 msgstr "Primește IIDul"
@@ -1008,9 +1047,8 @@ msgid "Save"
 msgstr "Salvează"
 
 #: src/components/TemplateSettings.jsx:57
-#, fuzzy
 msgid "Templates"
-msgstr "Descarcă Templateul"
+msgstr "Șabloane"
 
 #: src/components/TemplateSettings.jsx:61
 msgid ""
@@ -1019,56 +1057,60 @@ msgid ""
 "that! Templates can show as overlay and you can draw over them. One pixel on "
 "the template, should be one pixel on the canvas."
 msgstr ""
+"V-ați săturat să trimiteți întotdeauna spam la o singură culoare? În schimb, "
+"doriți să creați artă, dar trebuie să numărați pixelii din altă imagine? "
+"Șabloanele vă pot ajuta cu asta! Șabloanele se pot afișa ca suprapunere și "
+"puteți desena peste ele. Un pixel pe șablon, ar trebui să fie un pixel pe "
+"pânză."
 
 #: src/components/TemplateSettings.jsx:65
 msgid "Enable Overlay"
-msgstr ""
+msgstr "Activează Overlay-ul"
 
 #: src/components/TemplateSettings.jsx:70
 msgid "Show templates as overlays ingame."
-msgstr ""
+msgstr "Arată șablonul ca Overlay ingame."
 
 #: src/components/TemplateSettings.jsx:73
-msgid "Small Pixels Zoom"
-msgstr ""
+#, fuzzy
+msgid "Small Pixels When Zoomed"
+msgstr "Zoom cu Pixeli Mici"
 
 #: src/components/TemplateSettings.jsx:78
 msgid "Show overlay as small individual pixels on high zoomlevels."
-msgstr ""
+msgstr "Arată Overlay-ul ca pixeli individuali mici la niveluri mari de zoom."
 
 #: src/components/TemplateSettings.jsx:85
 msgid "Overlay Opacity"
-msgstr ""
+msgstr "Opacitate de Overlay"
 
 #: src/components/TemplateSettings.jsx:99
 msgid "Opacity of Overlay in percent."
-msgstr ""
+msgstr "Opacitate de Overlay în procente."
 
 #: src/components/TemplateSettings.jsx:105
 msgid "Right-Shift Auto-Color"
-msgstr ""
+msgstr "Schift-Dreapta Auto-colorare"
 
 #: src/components/TemplateSettings.jsx:110
 msgid "Place pixels from overlay on right-shift, instead of history."
-msgstr ""
+msgstr "Pune pixeli de pe Overlay pe shift-dreapta, în loc de istoric."
 
 #: src/components/TemplateSettings.jsx:149
-#, fuzzy
 msgid "Cancel adding Template"
-msgstr "Descarcă Templateul"
+msgstr "Anulează adăugarea șablonului"
 
 #: src/components/TemplateSettings.jsx:156
-#, fuzzy
 msgid "Add Template"
-msgstr "Descarcă Templateul"
+msgstr "Încarcă Templateul"
 
 #: src/components/TemplateSettings.jsx:173
 msgid "Export enabled templates"
-msgstr ""
+msgstr "Exportă șabloanele activate"
 
 #: src/components/TemplateSettings.jsx:182
 msgid "Import templates"
-msgstr ""
+msgstr "Iportează șabloane"
 
 #: src/components/LogInArea.jsx:19
 msgid "Login to access more features and stats."
@@ -1251,54 +1293,6 @@ msgstr ""
 "Actualizări de clasament la fiecare 5 minute. Clasamentul zilnic este "
 "resetat la 2:00 AM în zona noastră de timp."
 
-#: src/utils/validation.js:17
-msgid "Email can't be empty."
-msgstr "Emailul nu poate fi gol."
-
-#: src/utils/validation.js:18
-msgid "Email should be at least 5 characters long."
-msgstr "Emailul trebuie să aibă cel puțin 5 litere."
-
-#: src/utils/validation.js:19
-msgid "Email can't be longer than 40 characters."
-msgstr "Emailul nu poate avea mai mult de 40 de litere."
-
-#: src/utils/validation.js:20
-msgid "Email should at least contain a dot"
-msgstr "Emailul trebuie să conțină cel puțin un punct"
-
-#: src/utils/validation.js:22
-msgid "Email should contain a @"
-msgstr "Emailul trebuie să conțină un @"
-
-#: src/utils/validation.js:29
-msgid "Name can't be empty."
-msgstr "Numele nu poate fi gol."
-
-#: src/utils/validation.js:30
-msgid "Name must be at least 2 characters long"
-msgstr "Numele trebuie să aibă cel puțin 2 litere"
-
-#: src/utils/validation.js:31
-msgid "Name must be shorter than 26 characters"
-msgstr "Numele trebuie să aibă mai puțin de 26 de litere"
-
-#: src/utils/validation.js:38
-msgid "Name contains invalid character like @, /, \\ or #"
-msgstr "Numele conține litere invalide de exemplu @,/,\\ sau #"
-
-#: src/utils/validation.js:53
-msgid "No password given."
-msgstr "Nu ai pus o parolă."
-
-#: src/utils/validation.js:56
-msgid "Password must be at least 6 characters long."
-msgstr "Parola trebuie să aibă cel puțin 6 litere."
-
-#: src/utils/validation.js:59
-msgid "Password must be shorter than 60 characters."
-msgstr "Parola trebuie să aibă mai puțin de 60 de litere."
-
 #: src/components/CanvasItem.jsx:29
 msgid "Online Users"
 msgstr "Utilizatori Online"
@@ -1345,57 +1339,34 @@ msgstr "Top 10 pe Clasamentul Zilnic"
 msgid "Dimensions"
 msgstr "Dimensiuni"
 
-#: src/core/chartSettings.js:30
-msgid "Top 10 Countries [pxls / day]"
-msgstr "Top 10 Țări[pixeli / zi]"
-
-#: src/core/chartSettings.js:127
-msgid "Players and Pixels per hour"
-msgstr "Jucători și pixeli pe oră"
-
-#: src/core/chartSettings.js:221
-msgid "Top 10 Players [pxls / day]"
-msgstr "Top 10 Jucători [pixeli / zi]"
-
-#: src/core/chartSettings.js:294
-msgid "Countries by Pixels Today"
-msgstr "Țări pe Pixeli Azi"
-
-#: src/core/chartSettings.js:351
-msgid "Total Pixels placed per day"
-msgstr "Pixeli puși în total pe zi"
-
 #: src/components/ModWatchtools.jsx:125 src/components/TemplateItem.jsx:54
 #: src/components/TemplateItemEdit.jsx:122
 msgid "Canvas"
 msgstr "Canvas"
 
 #: src/components/TemplateItem.jsx:57 src/components/TemplateItemEdit.jsx:141
-#, fuzzy
 msgid "Coordinates"
-msgstr "Coordonate invalide"
+msgstr "Coordonate"
 
 #: src/components/TemplateItem.jsx:71
 msgid "Edit"
-msgstr ""
+msgstr "Schimbă"
 
 #: src/components/TemplateItem.jsx:81
 msgid "Go to"
-msgstr ""
+msgstr "Mergi la"
 
 #: src/components/TemplateItemEdit.jsx:97
-#, fuzzy
 msgid "Select File"
-msgstr "Selectează limba"
+msgstr "Selectează Fișier"
 
 #: src/components/TemplateItemEdit.jsx:120
 msgid "Template Name"
-msgstr ""
+msgstr "Numele Șablon"
 
 #: src/components/TemplateItemEdit.jsx:174
-#, fuzzy
 msgid "Delete"
-msgstr "Șterge Contul"
+msgstr "Șterge"
 
 #: src/components/LogInForm.jsx:77
 msgid "Name or Email"
@@ -1426,7 +1397,8 @@ msgid "Passwords do not match."
 msgstr "Parolele nu sunt aceleași."
 
 #: src/components/ChangePassword.jsx:44
-msgid "Changed Password successfully."
+#, fuzzy
+msgid "Password successfully changed."
 msgstr "Schimbat parola cu success."
 
 #: src/components/ChangePassword.jsx:88
@@ -1450,8 +1422,8 @@ msgid ""
 "Changed Mail successfully. We sent you a verification mail,             "
 "please verify your new mail address."
 msgstr ""
-"Schimbat Mailul cu success. Am trimis un mail de verificare,             te "
-"rog să îți verifici noua adresă de mail."
+"Schimbat Mailul cu success. Am trimis un mail de verificare,………… te rog să "
+"îți verifici noua adresă de mail."
 
 #: src/components/ChangeMail.jsx:87
 msgid "New Mail"
@@ -1525,6 +1497,8 @@ msgid ""
 "Turn every pixel in area to 0 (YOU REALLY SHOULDN'T DO THAT ON ANY AREA THAT "
 "ISN'T ALREADY MOSTLY 0)"
 msgstr ""
+"Întoarce fiecare pixel din zonă la 0 (CHIAR NU TREBUIE SĂ FACI ASTA ÎN NICIO "
+"ZONA CARE NU ESTE DEJA 0)"
 
 #: src/components/ModCanvastools.jsx:207
 msgid "Status: Not running"
@@ -1543,23 +1517,20 @@ msgid "File"
 msgstr "Filă"
 
 #: src/components/ModCanvastools.jsx:273
-#, fuzzy
 msgid "Coordinates:"
-msgstr "Coordonate invalide"
+msgstr "Coordonate:"
 
 #: src/components/ModCanvastools.jsx:317
 msgid "Pixel Protection"
 msgstr "Protejare de Pixeli"
 
 #: src/components/ModCanvastools.jsx:321
-#, fuzzy
 msgid ""
 "Set protection of areas (if you need finer grained control, use protect with "
 "image upload and alpha layers)"
 msgstr ""
-"Setați protecția zonelor          (dacă ai nevoie de un control cu ​"
-"granulație mai fină,          utilizați protecția cu încărcarea imaginilor "
-"și straturi alpha)"
+"Setați protecția zonelor (dacă ai nevoie de un control cu granulație mai "
+"fină, utilizați protecția cu încărcarea imaginilor și straturi alpha)"
 
 #: src/components/ModCanvastools.jsx:341 src/components/ModCanvastools.jsx:424
 #: src/components/ModCanvastools.jsx:517 src/components/ModWatchtools.jsx:176
@@ -1667,6 +1638,26 @@ msgstr "Pune Motiv"
 msgid "(0 = infinite)"
 msgstr "(0 = infinit)"
 
+#: src/core/chartSettings.js:30
+msgid "Top 10 Countries [pxls / day]"
+msgstr "Top 10 Țări[pixeli / zi]"
+
+#: src/core/chartSettings.js:127
+msgid "Players and Pixels per hour"
+msgstr "Jucători și pixeli pe oră"
+
+#: src/core/chartSettings.js:221
+msgid "Top 10 Players [pxls / day]"
+msgstr "Top 10 Jucători [pixeli / zi]"
+
+#: src/core/chartSettings.js:294
+msgid "Countries by Pixels Today"
+msgstr "Țări pe Pixeli Azi"
+
+#: src/core/chartSettings.js:351
+msgid "Total Pixels placed per day"
+msgstr "Pixeli puși în total pe zi"
+
 #: src/components/contextmenus/UserContextMenu.jsx:49
 msgid "Ping"
 msgstr "Pingează"
@@ -1739,10 +1730,9 @@ msgid "Shift"
 msgstr "Shift"
 
 #: src/components/windows/Settings.jsx:108
-#, fuzzy
 msgctxt "keybinds"
 msgid "N"
-msgstr "Nu"
+msgstr "N"
 
 #: src/components/windows/Settings.jsx:116
 msgctxt "keybinds"
@@ -1752,7 +1742,18 @@ msgstr "M"
 #: src/components/TemplateSettings.jsx:66
 msgctxt "keybinds"
 msgid "T"
-msgstr ""
+msgstr "T"
+
+#~ msgid "Didn't get an answer from pixelplanet. Maybe try to refresh?"
+#~ msgstr ""
+#~ "Nu am primit niciun răspuns de la pixelplanet. Poate încearcă să "
+#~ "reîncarci pagina?"
+
+#~ msgid "Place more :)"
+#~ msgstr "Pune mai mult :)"
+
+#~ msgid "No Proxies Allowed :("
+#~ msgstr "Proxiurile nu sunt permise :("
 
 #~ msgid "Show Hidden Canvases"
 #~ msgstr "Arată Canvasurile Ascunse"

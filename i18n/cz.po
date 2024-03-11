@@ -2,15 +2,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: \n"
-"Last-Translator: \n"
-"Language-Team: \n"
-"Language: cs_CZ\n"
+"PO-Revision-Date: 2024-03-11 17:01+0000\n"
+"Last-Translator: Translation Team <noreply@example.com>\n"
+"Language-Team: Czech <https://hosted.weblate.org/projects/pixelplanet/client/"
+"cs/>\n"
+"Language: cz\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n>=2 && n<=4 ? 1 : 2);\n"
-"X-Generator: Poedit 3.3.1\n"
+"Plural-Forms: nplurals=3; plural=((n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2);\n"
+"X-Generator: Weblate 5.5-dev\n"
 
 #: src/controls/keypress.js:99
 #, javascript-format
@@ -19,193 +20,180 @@ msgstr "Změněno na ${ canvasName }"
 
 #: src/controls/keypress.js:184
 msgid "Grid ON"
-msgstr "Mřížka Zaplá"
+msgstr "Mřížka Zapnuta"
 
 #: src/controls/keypress.js:185
 msgid "Grid OFF"
-msgstr "Mřížka Vyplá"
+msgstr "Mřížka Vypnuta"
 
 #: src/controls/keypress.js:195
 msgid "Pixel Notify ON"
-msgstr "Oznámení na Pixely Zaplí"
+msgstr "Oznámení na Pixely Zapnuto"
 
 #: src/controls/keypress.js:196
 msgid "Pixel Notify OFF"
-msgstr "Oznámení na Pixely Vyplí"
+msgstr "Oznámení na Pixely Vypnuty"
 
 #: src/controls/keypress.js:201
 msgid "Muted Sound"
-msgstr "Ztlumenej Zvuk"
+msgstr "Zvuk Ztlumený"
 
 #: src/controls/keypress.js:202
 msgid "Unmuted Sound"
-msgstr "Zaplej Zvuk"
+msgstr "Zvuk Zaplý"
 
 #: src/components/CoordinatesBox.jsx:39 src/components/GetIID.jsx:51
 #: src/controls/keypress.js:211
-msgid "Copied!"
-msgstr "Kopírováno!"
+msgid "Copied"
+msgstr "Zkopírováno"
 
 #: src/controls/keypress.js:217
 msgid "Overlay ON"
-msgstr ""
+msgstr "Overlay Zapnutý"
 
 #: src/controls/keypress.js:218
 msgid "Overlay OFF"
-msgstr ""
+msgstr "Overlay Vypnutý"
 
 #: src/components/windows/Help.jsx:50 src/controls/keypress.js:224
 msgid "Easter Egg ON"
-msgstr ""
+msgstr "Easter Egg Zapnutý"
 
 #: src/components/windows/Help.jsx:49 src/controls/keypress.js:225
 msgid "Easter Egg OFF"
+msgstr "Easter Egg Vypnutý"
+
+#: src/ui/PixelTransferController.js:70 src/ui/PixelTransferController.js:165
+msgid "Timeout"
+msgstr "Čas vypršel"
+
+#: src/ui/PixelTransferController.js:72 src/ui/PixelTransferController.js:167
+msgid ""
+"Didn't get an answer from pixelplanet. Try to refresh if this problem "
+"persists."
 msgstr ""
+"Nezískali jsme odpověď od pixelplanet. Zkuste obnovit stránku jestli se "
+"problém bude opakovat."
 
-#: src/ui/PixelTransferController.js:70 src/ui/templateLoader.js:230
-#: src/ui/templateLoader.js:256
-msgid "Error :("
-msgstr "Chyba :("
-
-#: src/ui/PixelTransferController.js:71
-msgid "Didn't get an answer from pixelplanet. Maybe try to refresh?"
-msgstr "Nezískali jsme odpověď od pixelplanet. Zkuste obnovit stránku?"
-
-#: src/ui/PixelTransferController.js:103
+#: src/ui/PixelTransferController.js:104
 msgid "Invalid Canvas"
 msgstr "Neplatné Plátno"
 
-#: src/ui/PixelTransferController.js:104
+#: src/ui/PixelTransferController.js:105
 msgid "This canvas doesn't exist"
-msgstr "Tohle plátno neexistuje"
+msgstr "Toto plátno neexistuje"
 
-#: src/ui/PixelTransferController.js:107 src/ui/PixelTransferController.js:111
-#: src/ui/PixelTransferController.js:115
+#: src/ui/PixelTransferController.js:108 src/ui/PixelTransferController.js:112
+#: src/ui/PixelTransferController.js:116
 msgid "Invalid Coordinates"
 msgstr "Neplatné Souřadnice"
 
-#: src/ui/PixelTransferController.js:108
+#: src/ui/PixelTransferController.js:109
 msgid "x out of bounds"
 msgstr "x mimo meze"
 
-#: src/ui/PixelTransferController.js:112
+#: src/ui/PixelTransferController.js:113
 msgid "y out of bounds"
 msgstr "y mimo meze"
 
-#: src/ui/PixelTransferController.js:116
+#: src/ui/PixelTransferController.js:117
 msgid "z out of bounds"
 msgstr "z mimo meze"
 
-#: src/ui/PixelTransferController.js:119
+#: src/ui/PixelTransferController.js:120
 msgid "Wrong Color"
 msgstr "Špatná Barva"
 
-#: src/ui/PixelTransferController.js:120
+#: src/ui/PixelTransferController.js:121
 msgid "Invalid color selected"
 msgstr "Neplatná barva vybrána"
 
-#: src/ui/PixelTransferController.js:123
+#: src/ui/PixelTransferController.js:124
 msgid "Just for registered Users"
 msgstr "Pouze pro registrovaný uživatele"
 
-#: src/ui/PixelTransferController.js:124
+#: src/ui/PixelTransferController.js:125
 msgid "You have to be logged in to place on this canvas"
-msgstr "Musíte být přihlášení aby jste mohli pokládat na tomhle plátnu"
+msgstr "Musíte být přihlášení abyste mohli pokládat na tomhle plátnu"
 
-#: src/ui/PixelTransferController.js:127
-msgid "Place more :)"
-msgstr "Polož víc :)"
-
-#: src/ui/PixelTransferController.js:129
-msgid "You can not access this canvas yet. You need to place more pixels"
-msgstr ""
-"Nemůžeš získat přístup na tohle plátno zatím. Musíš položit více pixelů"
-
-#: src/ui/PixelTransferController.js:132
-msgid "Pixel protected!"
-msgstr "Chráněný pixel!"
-
-#: src/ui/PixelTransferController.js:139
-msgid "Please prove that you are human"
-msgstr "Prosím potvrďte že jste člověk"
-
-#: src/ui/PixelTransferController.js:143
-msgid "No Proxies Allowed :("
-msgstr "Není povoleno používat Proxy"
-
-#: src/ui/PixelTransferController.js:144
-msgid "You are using a Proxy."
-msgstr "Používáš proxy."
-
-#: src/ui/PixelTransferController.js:147
+#: src/ui/PixelTransferController.js:128 src/ui/PixelTransferController.js:144
+#: src/ui/PixelTransferController.js:148
 msgid "Not allowed"
 msgstr "Nepovoleno"
 
-#: src/ui/PixelTransferController.js:148
+#: src/ui/PixelTransferController.js:130
+msgid "You can not access this canvas yet, because your pixel score is too low"
+msgstr "Na toto plátno se ještě nedostaneš. Musíš položit více pixelů"
+
+#: src/ui/PixelTransferController.js:133
+msgid "Pixel protected"
+msgstr "Chráněný pixel"
+
+#: src/ui/PixelTransferController.js:140
+msgid "Please prove that you are human"
+msgstr "Prosím potvrďte že jste člověk"
+
+#: src/ui/PixelTransferController.js:145
+msgid "You are using a Proxy."
+msgstr "Používáš proxy."
+
+#: src/ui/PixelTransferController.js:149
 msgid "Just the Top10 of yesterday can place here"
 msgstr "Pouze top 10 ze včerejška můžou tady pokládat"
 
-#: src/ui/PixelTransferController.js:151
+#: src/ui/PixelTransferController.js:152
 msgid "You are weird"
-msgstr "Si divný"
+msgstr "Zmátl jsi náš systém"
 
-#: src/ui/PixelTransferController.js:153
+#: src/ui/PixelTransferController.js:154
 msgid ""
 "Server got confused by your pixels. Are you playing on multiple devices?"
-msgstr "Server byl zmatén tvejma pixelamá. Hrajeté na více zařízení?"
+msgstr "Server byl zmaten tvými pixely. Hrajete na více zařízení?"
 
-#: src/ui/PixelTransferController.js:156
+#: src/ui/PixelTransferController.js:157
 msgid "Banned"
 msgstr "Zabanován"
 
-#: src/ui/PixelTransferController.js:160
-msgid "Range Banned"
-msgstr "Rozsahově zabanován"
-
 #: src/ui/PixelTransferController.js:161
-msgid "Your Internet Provider is banned from playing this game"
-msgstr "Váš poskytovatel internetu je zakázan hrát tuhle hru"
+msgid "Range Banned"
+msgstr "Tvůj rozsah byl zabanován"
 
-#: src/ui/PixelTransferController.js:164
-msgid "Timeout"
-msgstr "Pauza"
-
-#: src/ui/PixelTransferController.js:166
-msgid ""
-"Didn't get an answer from pixelplanet. Maybe try to refresh if problem "
-"persists?"
-msgstr ""
-"Nezískali jsme odpověď od pixelplanet. Zkuste obnovit stránku jestli se "
-"problém bude opakovat?"
-
-#: src/ui/PixelTransferController.js:169
-msgid "Weird"
-msgstr "Divný"
+#: src/ui/PixelTransferController.js:162
+msgid "Your Internet Provider is banned from this game"
+msgstr "Váš poskytovatel internetu byl zabanován"
 
 #: src/ui/PixelTransferController.js:170
+msgid "Weird"
+msgstr "Podivný"
+
+#: src/ui/PixelTransferController.js:171
 msgid "Couldn't set Pixel"
 msgstr "Nemohl se položit pixel"
 
-#: src/ui/PixelTransferController.js:175
+#: src/ui/PixelTransferController.js:176
 #, javascript-format
 msgid "Error ${ retCode }"
 msgstr "Chyba ${ retCode }"
 
 #: src/ui/rendererFactory.js:31
 msgid "Canvas Error"
-msgstr "Plátnová chyba"
+msgstr "Chyba plátna"
 
 #: src/ui/rendererFactory.js:32
 msgid "Can't render 3D canvas, do you have WebGL2 disabled?"
-msgstr "Nemožnó poskytnout 3D plátno, máte WebGL2 vyplej?"
+msgstr "Nedokázali jsme vyrenderovat 3D plátno, máte vyplý WebGL2?"
+
+#: src/ui/templateLoader.js:230 src/ui/templateLoader.js:256
+msgid "Error :("
+msgstr "Chyba :("
 
 #: src/ui/templateLoader.js:231
 msgid "Can not export more than 20 or no template!"
-msgstr ""
+msgstr "Nemožno exportovat více jak 20 nebo žádnej template!"
 
 #: src/ui/templateLoader.js:257
 msgid "Can not import more than 20 or no template!"
-msgstr ""
+msgstr "Nemožno importovat více jak 20 nebo žádnej template!"
 
 #: src/components/BanInfo.jsx:136 src/store/actions/index.js:7
 msgid "OK"
@@ -233,11 +221,11 @@ msgstr "Nemohlo se připojit na server, zkuste znovu později :("
 #: src/store/actions/fetch.js:189 src/store/actions/fetch.js:208
 #: src/store/actions/fetch.js:227
 msgid "Unknown Error"
-msgstr "Neznáma chyba"
+msgstr "Neznámá chyba"
 
 #: src/store/actions/fetch.js:237
 msgid "Server answered with gibberish :("
-msgstr "Server odpověděl s nesmyslem :("
+msgstr "Server odpověděl nesmyslem :("
 
 #: src/store/middleware/notifications.js:33
 msgid "Your next pixels are ready"
@@ -249,28 +237,28 @@ msgstr "Už můžete pokládat víc na pixelplanet.fun :)"
 
 #: src/store/middleware/notifications.js:54
 msgid "mentioned you"
-msgstr "vás zmínil"
+msgstr "vás označil"
 
 #: src/store/middleware/notifications.js:58
 msgid "You have new messages in chat"
-msgstr "Máte nové zprávy v chatu"
+msgstr "Nové zprávy byly poslány do chatu"
 
 #: src/components/Converter.jsx:566 src/components/CoordinatesBox.jsx:42
 #: src/components/ModWatchtools.jsx:390 src/components/ModWatchtools.jsx:408
 msgid "Copy to Clipboard"
-msgstr "Zkopírovanó na schránku"
+msgstr "Zkopírováno do schránky"
 
 #: src/components/OnlineBox.jsx:40
 msgid "Online Users on Canvas"
-msgstr "Online Uživatele na Plátnu"
+msgstr "Online Uživatelé na Plátnu"
 
 #: src/components/OnlineBox.jsx:47
 msgid "Total Online Users"
-msgstr "Celkově Online Uživatelů"
+msgstr "Celkem online uživatelů"
 
 #: src/components/OnlineBox.jsx:55
 msgid "Pixels placed"
-msgstr "Pixelů položenó"
+msgstr "Pixelů položeno"
 
 #: src/components/buttons/CanvasSwitchButton.jsx:20
 #: src/components/windows/index.js:19
@@ -299,7 +287,7 @@ msgstr "Načítaní"
 
 #: src/components/HistorySelect.jsx:147
 msgid "Select Date above"
-msgstr "Nad Vyberte Datum"
+msgstr "Zde Vyberte Datum"
 
 #: src/components/Admintools.jsx:103 src/components/ModCanvastools.jsx:226
 #: src/components/ModWatchtools.jsx:120 src/components/Window.jsx:157
@@ -318,15 +306,15 @@ msgstr "Obnovit"
 
 #: src/components/Window.jsx:221
 msgid "Clone"
-msgstr "Klonovat"
+msgstr "Rozdvojit"
 
 #: src/components/Window.jsx:229
 msgid "Move"
-msgstr "Hejbnout"
+msgstr "Pohybovat"
 
 #: src/components/Window.jsx:252
 msgid "Maximize"
-msgstr "Maximizovat"
+msgstr "Maximalizovat"
 
 #: src/components/Window.jsx:268
 msgid "Resize"
@@ -346,13 +334,13 @@ msgstr "Nastavení"
 msgid "User Area"
 msgstr "Uživatelská Oblast"
 
+#: src/components/buttons/GlobeButton.jsx:34
+msgid "Globe View"
+msgstr "Pohled na planetu"
+
 #: src/components/buttons/DownloadButton.jsx:36
 msgid "Make Screenshot"
 msgstr "Udělat Snímek"
-
-#: src/components/buttons/GlobeButton.jsx:34
-msgid "Globe View"
-msgstr "Pohled na Zeměkouli"
 
 #: src/components/buttons/PalselButton.jsx:30
 msgid "Close Palette"
@@ -364,28 +352,27 @@ msgstr "Otevřít Paletu"
 
 #: src/components/buttons/PencilButton.jsx:32
 msgid "History Pencil ON"
-msgstr ""
+msgstr "Historická Tužka Zapnutá"
 
 #: src/components/buttons/PencilButton.jsx:38
 msgid "Overlay Pencil ON"
-msgstr ""
+msgstr "Overlay pokládání zapnuto"
 
 #: src/components/buttons/PencilButton.jsx:65
 msgid "Enable Pencil"
-msgstr ""
+msgstr "Zapnout Tužku"
 
 #: src/components/buttons/PencilButton.jsx:69
-#, fuzzy
 msgid "Disable Pencil"
-msgstr "Vypnout Zvuky Hry"
+msgstr "Vypnout Tužku"
 
 #: src/components/buttons/PencilButton.jsx:73
 msgid "Disable History Pencil"
-msgstr ""
+msgstr "Vypnout Historickou Tužku"
 
 #: src/components/buttons/PencilButton.jsx:77
 msgid "Disable Overlay Pencil"
-msgstr ""
+msgstr "Vypnout Overlay Tužku"
 
 #: src/components/windows/index.js:16
 msgid "Registration"
@@ -403,14 +390,25 @@ msgstr "Chat"
 msgid "Canvas Archive"
 msgstr "Archiv Plochy"
 
-#: src/components/BanInfo.jsx:66
-#, fuzzy
-msgid "You are banned. You think it is unjustified? Check out the "
-msgstr "Byli jste zabanovaný. Myslíte že si to nezasloužíte? Podívejte se na"
+#: src/components/GlobalCaptcha.jsx:47
+msgid "You took too long, try again."
+msgstr "Trvalo vám to až moc dlouho, zkuste znovu."
 
-#: src/components/BanInfo.jsx:76
-msgid " on how to appeal."
-msgstr "o tom jak získat unban."
+#: src/components/GlobalCaptcha.jsx:50
+msgid "You failed your captcha"
+msgstr "Nepodařila se vám captcha"
+
+#: src/components/GlobalCaptcha.jsx:53
+msgid "No or invalid captcha text"
+msgstr "Žádnej nebo neplatný captcha text"
+
+#: src/components/GlobalCaptcha.jsx:56
+msgid "No captcha id given"
+msgstr "Nebylo uvedeno captcha id"
+
+#: src/components/GlobalCaptcha.jsx:59
+msgid "Unknown Captcha Error"
+msgstr "Neznáma chyba Captcha"
 
 #: src/components/BanInfo.jsx:80 src/components/Captcha.jsx:79
 #: src/components/ChangeMail.jsx:72 src/components/ChangeName.jsx:58
@@ -420,6 +418,27 @@ msgstr "o tom jak získat unban."
 #: src/components/windows/Register.jsx:89
 msgid "Error"
 msgstr "Chyba"
+
+#: src/components/ChangeMail.jsx:93 src/components/ChangeName.jsx:70
+#: src/components/ChangePassword.jsx:115 src/components/DeleteAccount.jsx:68
+#: src/components/GlobalCaptcha.jsx:80 src/components/TemplateItemEdit.jsx:181
+#: src/components/windows/ForgotPassword.jsx:89
+#: src/components/windows/Register.jsx:133
+msgid "Cancel"
+msgstr "Zrušit"
+
+#: src/components/GlobalCaptcha.jsx:86
+msgid "Send"
+msgstr "Poslat"
+
+#: src/components/BanInfo.jsx:66
+msgid "You are banned. You think it is unjustified? Check out the "
+msgstr ""
+"Byli jste zabanovaný. Myslíte si že si to nezasloužíte? Podívejte se na "
+
+#: src/components/BanInfo.jsx:76
+msgid " on how to appeal."
+msgstr " o tom jak získat unban."
 
 #: src/components/BanInfo.jsx:85 src/components/ModIIDtools.jsx:73
 msgid "Reason"
@@ -435,11 +454,11 @@ msgstr "Trvalost"
 
 #: src/components/BanInfo.jsx:99
 msgid "Your ban expires at "
-msgstr "Váš ban skončí"
+msgstr "Váš ban skončí ve "
 
 #: src/components/BanInfo.jsx:101
 msgid " which is in "
-msgstr "Což je za"
+msgstr " Což je za "
 
 #: src/components/BanInfo.jsx:112
 msgid "Unbanned"
@@ -453,41 +472,9 @@ msgstr "Teď jak vidíte tuhle zprávu, už nemáte ban."
 msgid "Why?"
 msgstr "Proč?"
 
-#: src/components/GlobalCaptcha.jsx:47
-msgid "You took too long, try again."
-msgstr "Trvalo vám to až moc dlouho, zkuste znovu."
-
-#: src/components/GlobalCaptcha.jsx:50
-msgid "You failed your captcha"
-msgstr "Nepodařila se vám captcha"
-
-#: src/components/GlobalCaptcha.jsx:53
-msgid "No or invalid captcha text"
-msgstr "Žádnej nebo neplatný captcha text"
-
-#: src/components/GlobalCaptcha.jsx:56
-msgid "No captcha id given"
-msgstr "Nebylo uvedeno captcha id "
-
-#: src/components/GlobalCaptcha.jsx:59
-msgid "Unknown Captcha Error"
-msgstr "Neznámej Captcha Chyba"
-
-#: src/components/ChangeMail.jsx:93 src/components/ChangeName.jsx:70
-#: src/components/ChangePassword.jsx:115 src/components/DeleteAccount.jsx:68
-#: src/components/GlobalCaptcha.jsx:80 src/components/TemplateItemEdit.jsx:181
-#: src/components/windows/ForgotPassword.jsx:89
-#: src/components/windows/Register.jsx:133
-msgid "Cancel"
-msgstr "Zrušit"
-
-#: src/components/GlobalCaptcha.jsx:86
-msgid "Send"
-msgstr "Poslat"
-
 #: src/components/windows/Help.jsx:65
 msgid "Place color pixels on a large canvas with other players online!"
-msgstr "Položte barevný pixely na velkém plátnu s ostatními online hráči! "
+msgstr "Položte barevný pixely na velkém plátnu s ostatními online hráči!"
 
 #: src/components/windows/Help.jsx:66
 msgid ""
@@ -523,7 +510,7 @@ msgstr "doporučene"
 
 #: src/components/windows/Help.jsx:71
 msgid "Source on "
-msgstr "Zdroj zapnutý"
+msgstr "Zdroj zapnutý "
 
 #: src/components/windows/Help.jsx:72
 msgid "Map Data"
@@ -535,7 +522,7 @@ msgid ""
 "for orientation, can be downloaded from mega.nz here: "
 msgstr ""
 "Holá mapová data, kterou používáme, spolu s převedenými dlaždicemi "
-"OpenStreetMap pro orientaci, si můžete stáhnout z mega.nz zde:"
+"OpenStreetMap pro orientaci, si můžete stáhnout z mega.nz zde: "
 
 #: src/components/windows/Help.jsx:74
 msgid "Banned? Detected as Proxy?"
@@ -642,7 +629,7 @@ msgstr ""
 "dlouhej potisk aby jste si vybrali barvu na kterej máte myš"
 
 #: src/components/windows/Help.jsx:100
-#, fuzzy, javascript-format
+#, javascript-format
 msgid "Press ${ bindQ } and ${ bindE } to fly up and down"
 msgstr "Stiskněte ${ bindQ } a ${ bindE } aby jste letěli nahoru a dolu"
 
@@ -651,7 +638,7 @@ msgstr "Stiskněte ${ bindQ } a ${ bindE } aby jste letěli nahoru a dolu"
 msgid "${ mouseSymbol } Hold left mouse button and drag mouse to rotate"
 msgstr ""
 "${ mouseSymbol } Držte levé tlačítko myši a tahejte myš proto aby jste se "
-"točili "
+"točili"
 
 #: src/components/windows/Help.jsx:102
 #, javascript-format
@@ -678,9 +665,9 @@ msgstr ""
 
 #: src/components/windows/Help.jsx:110
 msgid ""
-"We thanks those artists very much, they offered their palettes to the public "
-"on"
-msgstr "Děkujeme těm malířům velmi moc, nabídli jejich palety pro ostatní na"
+"We thank the following artists, who made their palettes available to the "
+"public on"
+msgstr "Děkujeme těmto malířům, nabídli jejich palety pro ostatní na stránce"
 
 #: src/components/windows/Help.jsx:113
 #, javascript-format
@@ -693,7 +680,7 @@ msgid "Credit for the Palette of the Top10 canvas goes to ${ vinikLink }."
 msgstr "Čest za Top10 Paletu jde ${ vinikLink }."
 
 #: src/components/windows/Help.jsx:119
-#, fuzzy, javascript-format
+#, javascript-format
 msgid "Credit for the Palette of the 2bit canvas goes to ${ donendoLink }."
 msgstr "Čest za Top10 Paletu jde ${ donendoLink }."
 
@@ -715,11 +702,11 @@ msgstr "Ukazuje kruhy kde byli před chvilkou položený pixely."
 
 #: src/components/windows/Settings.jsx:107
 msgid "Always show Movement Controls"
-msgstr ""
+msgstr "Vždy ukázat Pohybové ovládaní"
 
 #: src/components/windows/Settings.jsx:112
 msgid "Always show movement control buttons"
-msgstr ""
+msgstr "Vždy ukázat tlačítka pohybového ovládaní"
 
 #: src/components/windows/Settings.jsx:115
 msgid "Disable Game Sounds"
@@ -816,7 +803,7 @@ msgstr "Konvertor"
 
 #: src/components/windows/UserArea.jsx:70
 msgid "Modtools"
-msgstr "Modtools"
+msgstr "Nástroje pro moderátory"
 
 #: src/components/windows/UserArea.jsx:71
 msgid "Loading..."
@@ -866,15 +853,15 @@ msgid "Submit"
 msgstr "Vytvořit"
 
 #: src/components/windows/CanvasSelect.jsx:29
-#, fuzzy
 msgid ""
 "Select the canvas you want to use.\n"
 "Every canvas is unique and has different palettes, cooldown and "
 "requirements.\n"
-"Archive of removed canvases can be accessed here:"
+"Archived canvases can be accessed here:"
 msgstr ""
-"Vyberte si plátno které chcete použít. Každý plátno je unikátní a má jinačí "
-"barvy, cooldown a požadavky. Archiv zavřených pláten můžete najít tady:"
+"Vyberte si plátno které chcete použít.↩\n"
+"Každé plátno je unikátní a má jinačí barvy, cooldown a požadavky.↩\n"
+"Archiv zavřených pláten můžete najít tady:"
 
 #: src/components/windows/CanvasSelect.jsx:37
 msgid "Archive"
@@ -882,29 +869,27 @@ msgstr "Archiv"
 
 #: src/components/windows/CanvasSelect.jsx:70
 msgid "Retired Canvases (history only)"
-msgstr ""
+msgstr "Neaktivní Plátna (pouze historie)"
 
 #: src/components/windows/Archive.jsx:9
-#, fuzzy
 msgid ""
 "While we tend to not delete canvases, some canvases are started for fun or "
-"as a request by users who currently like a meme. Those canvases can get "
-"boring after a while and after weeks of no major change and if they really "
-"aren't worth being kept active."
+"as a request by users who like a currently popular meme. Those canvases can "
+"become dull and inactive after a while, at which point there is no reason to "
+"keep them and we may decide to remove them."
 msgstr ""
-"Zatím co nemažeme plátna, nějaký plátna začali jen pro zábavů a nebo od "
-"požadavku uživatelů kdo mají rádi meme. Tamty plátna můžou začít být nudný "
-"po nějaký době a po týdnech bez žádnéj velkej změny a nemají cenu být "
-"nechaný aktivní, se rozhodujeme o tom je odstranit."
+"Protože nemažeme plátna, nějaká plátna začali jen pro zábavů a nebo od "
+"požadavku uživatelů kdo mají rádi meme. Tato plátna můžou začít být nudné po "
+"nějaký době a po týdnech bez žádné velké změny a nemá cenu je nechávat "
+"aktivní, se rozhodujeme o tom je odstranit."
 
 #: src/components/windows/Archive.jsx:10
-#, fuzzy
 msgid ""
-"Here we collect removed canvases to archive them in a proper way. Which is "
+"Here we collect removed canvases to archive them properly. Which is "
 "currently only one."
 msgstr ""
-"Tady sbíráme plátna pro to abychom je mohli archivovat ve správným způsobů "
-"(Což je zatím jenom jeden)."
+"Tady zbíráme plátna pro to abychom je mohli archivovat ve správným způsobu ("
+"Což je zatím jenom jeden)."
 
 #: src/components/windows/Archive.jsx:12
 msgid "Political Compass Canvas"
@@ -938,7 +923,7 @@ msgstr "Začněte se tady bavit"
 
 #: src/components/windows/Chat.jsx:217
 msgid "Chat here"
-msgstr "Bavte se tu"
+msgstr "Mluvte tady - dsc.gg/czechpixel"
 
 #: src/components/windows/Chat.jsx:243
 msgid "You must be logged in to chat"
@@ -978,7 +963,7 @@ msgstr "Klikněte aby jste načetli Captcha"
 
 #: src/components/Captcha.jsx:126
 msgid "Can't read? Reload:"
-msgstr "Nemůžeté to přečíst? Znovu načíst:\v"
+msgstr "Nemůžeté to přečíst? Znovu načíst:"
 
 #: src/components/Captcha.jsx:130
 msgid "Reload"
@@ -987,6 +972,54 @@ msgstr "Znovu načíst"
 #: src/components/Captcha.jsx:140
 msgid "Enter Characters"
 msgstr "Zadejte Znaky"
+
+#: src/utils/validation.js:17
+msgid "Email can't be empty."
+msgstr "Email nemůže být prázdný."
+
+#: src/utils/validation.js:18
+msgid "Email should be at least 5 characters long."
+msgstr "Email musí být aspoň 5 znaků dlouhej."
+
+#: src/utils/validation.js:19
+msgid "Email can't be longer than 40 characters."
+msgstr "Email nemůže být delší jak 40 znaků."
+
+#: src/utils/validation.js:20
+msgid "Email should at least contain a dot"
+msgstr "Email musí obsahovat tečku"
+
+#: src/utils/validation.js:22
+msgid "Email should contain a @"
+msgstr "Email musí obsahovat @"
+
+#: src/utils/validation.js:29
+msgid "Name can't be empty."
+msgstr "Jméno nemůže být prázdný."
+
+#: src/utils/validation.js:30
+msgid "Name must be at least 2 characters long"
+msgstr "Jméno musí obsahovat alespoň dva znaky"
+
+#: src/utils/validation.js:31
+msgid "Name must be shorter than 26 characters"
+msgstr "Jméno musí být menší jak 26 znaků"
+
+#: src/utils/validation.js:38
+msgid "Name contains invalid character like @, /, \\ or #"
+msgstr "Jméno obsahuje chybné znaky jako @, /, \\ nebo #"
+
+#: src/utils/validation.js:53
+msgid "No password given."
+msgstr "Nebylo zadané heslo."
+
+#: src/utils/validation.js:56
+msgid "Password must be at least 6 characters long."
+msgstr "Heslo musí obsahovat alespoň 6 znaků."
+
+#: src/utils/validation.js:59
+msgid "Password must be shorter than 60 characters."
+msgstr "Heslo musí být kratší jak 60 znaků."
 
 #: src/components/GetIID.jsx:44
 msgid "Get IID"
@@ -1003,9 +1036,8 @@ msgid "Save"
 msgstr "Uložit"
 
 #: src/components/TemplateSettings.jsx:57
-#, fuzzy
 msgid "Templates"
-msgstr "Stáhnout Šabnlonu"
+msgstr "Šablony"
 
 #: src/components/TemplateSettings.jsx:61
 msgid ""
@@ -1014,60 +1046,62 @@ msgid ""
 "that! Templates can show as overlay and you can draw over them. One pixel on "
 "the template, should be one pixel on the canvas."
 msgstr ""
+"Unavený ze spamování furt jednej barvy? Chcete raději vytvářet nějaké "
+"kresby, ale musíte počítat pixely z jinačího obrázku? Šablony vám s tímhle "
+"mohou pomoct! Šablony mohou se ukázat jako overlay a mužete na ně kreslit. "
+"Jeden pixel na šabloně by měl být jeden pixel na plátnu."
 
 #: src/components/TemplateSettings.jsx:65
 msgid "Enable Overlay"
-msgstr ""
+msgstr "Zapnout Overlay"
 
 #: src/components/TemplateSettings.jsx:70
 msgid "Show templates as overlays ingame."
-msgstr ""
+msgstr "Ukázat šablony jako overlay ve hře."
 
 #: src/components/TemplateSettings.jsx:73
-msgid "Small Pixels Zoom"
-msgstr ""
+msgid "Small Pixels When Zoomed"
+msgstr "Zoom pro malé pixely"
 
 #: src/components/TemplateSettings.jsx:78
 msgid "Show overlay as small individual pixels on high zoomlevels."
-msgstr ""
+msgstr "Ukázat overlay jako málé individuální pixely na velikých zoom levlech."
 
 #: src/components/TemplateSettings.jsx:85
 msgid "Overlay Opacity"
-msgstr ""
+msgstr "Průhlednost"
 
 #: src/components/TemplateSettings.jsx:99
 msgid "Opacity of Overlay in percent."
-msgstr ""
+msgstr "Průhlednost v procentech."
 
 #: src/components/TemplateSettings.jsx:105
 msgid "Right-Shift Auto-Color"
-msgstr ""
+msgstr "Pravý-Shift Automatické Vybarvení"
 
 #: src/components/TemplateSettings.jsx:110
 msgid "Place pixels from overlay on right-shift, instead of history."
-msgstr ""
+msgstr "Pokládat pixely z overlay na pravý shift, místo historie."
 
 #: src/components/TemplateSettings.jsx:149
-#, fuzzy
 msgid "Cancel adding Template"
-msgstr "Stáhnout Šabnlonu"
+msgstr "Zrušit přidání Šablony"
 
 #: src/components/TemplateSettings.jsx:156
-#, fuzzy
 msgid "Add Template"
-msgstr "Stáhnout Šabnlonu"
+msgstr "Přidat Šablonu"
 
 #: src/components/TemplateSettings.jsx:173
 msgid "Export enabled templates"
-msgstr ""
+msgstr "Exportovat zapnuté šablony"
 
 #: src/components/TemplateSettings.jsx:182
 msgid "Import templates"
-msgstr ""
+msgstr "Importovat šablony"
 
 #: src/components/LogInArea.jsx:19
 msgid "Login to access more features and stats."
-msgstr "Přihlaste se aby jste měli přístup k více funkcím a statistikám"
+msgstr "Přihlaste se aby jste měli přístup k více funkcím a statistikám."
 
 #: src/components/LogInArea.jsx:21
 msgid "Login with Name or Mail:"
@@ -1087,10 +1121,9 @@ msgstr "nebo registrujte se tady:"
 
 #: src/components/LogInArea.jsx:75
 msgid "Register"
-msgstr "Registrovat:"
+msgstr "Registrovat"
 
 #: src/components/UserAreaContent.jsx:62
-#, fuzzy
 msgid "Today Placed Pixels"
 msgstr "Dnešní Počet Pixelů"
 
@@ -1202,7 +1235,7 @@ msgstr "Zanechat Poměr"
 
 #: src/components/Converter.jsx:522
 msgid "Anti Aliasing"
-msgstr "Anti Aliasing"
+msgstr "Anti falšování"
 
 #: src/components/Converter.jsx:536
 msgid "Reset"
@@ -1245,55 +1278,7 @@ msgstr "Stát"
 msgid "Ranking updates every 5 min. Daily rankings get reset at midnight UTC."
 msgstr ""
 "Hodnocení se aktualizuje každých 5 min. Denní hodnocení se resetuje o "
-"půlnoci UTC"
-
-#: src/utils/validation.js:17
-msgid "Email can't be empty."
-msgstr "Email nemůže být prázdný."
-
-#: src/utils/validation.js:18
-msgid "Email should be at least 5 characters long."
-msgstr "Email musí mít aspoň 5 znaků dlouhej."
-
-#: src/utils/validation.js:19
-msgid "Email can't be longer than 40 characters."
-msgstr "Email nemůže být delší jak 40 znaků."
-
-#: src/utils/validation.js:20
-msgid "Email should at least contain a dot"
-msgstr "Email musí obsahovat tečku"
-
-#: src/utils/validation.js:22
-msgid "Email should contain a @"
-msgstr "Email musí obsahovat @"
-
-#: src/utils/validation.js:29
-msgid "Name can't be empty."
-msgstr "Jméno nemůže být prázdný."
-
-#: src/utils/validation.js:30
-msgid "Name must be at least 2 characters long"
-msgstr "Jméno musí obsahovat aspoň dva znaky"
-
-#: src/utils/validation.js:31
-msgid "Name must be shorter than 26 characters"
-msgstr "Jméno musí být menší jak 26 znaků"
-
-#: src/utils/validation.js:38
-msgid "Name contains invalid character like @, /, \\ or #"
-msgstr "Jméno obsahuje neplatný znaky jako @, /, \\ nebo #"
-
-#: src/utils/validation.js:53
-msgid "No password given."
-msgstr "Nebylo zadané heslo"
-
-#: src/utils/validation.js:56
-msgid "Password must be at least 6 characters long."
-msgstr "Heslo musí obsahovat aspoň 6 znaků."
-
-#: src/utils/validation.js:59
-msgid "Password must be shorter than 60 characters."
-msgstr "Heslo musí být kratší jak 60 znaků."
+"půlnoci UTC."
 
 #: src/components/CanvasItem.jsx:29
 msgid "Online Users"
@@ -1301,7 +1286,7 @@ msgstr "Online Uživatelů"
 
 #: src/components/CanvasItem.jsx:34
 msgid "Cooldown"
-msgstr "Cooldown"
+msgstr "Odpočet (cooldown)"
 
 #: src/components/CanvasItem.jsx:40
 msgid "Stacking till"
@@ -1341,57 +1326,34 @@ msgstr "Top 10 denní Hodnocení"
 msgid "Dimensions"
 msgstr "Rozměry"
 
-#: src/core/chartSettings.js:30
-msgid "Top 10 Countries [pxls / day]"
-msgstr "Top 10 Států [pxls / den]"
-
-#: src/core/chartSettings.js:127
-msgid "Players and Pixels per hour"
-msgstr "Hráči a Pixely za hodinu"
-
-#: src/core/chartSettings.js:221
-msgid "Top 10 Players [pxls / day]"
-msgstr "Top 10 Hráčů [pxls / den]"
-
-#: src/core/chartSettings.js:294
-msgid "Countries by Pixels Today"
-msgstr "Státy podle Pixelů Dnes"
-
-#: src/core/chartSettings.js:351
-msgid "Total Pixels placed per day"
-msgstr "Celkem Pixelů položeno denně"
-
 #: src/components/ModWatchtools.jsx:125 src/components/TemplateItem.jsx:54
 #: src/components/TemplateItemEdit.jsx:122
 msgid "Canvas"
 msgstr "Plátno"
 
 #: src/components/TemplateItem.jsx:57 src/components/TemplateItemEdit.jsx:141
-#, fuzzy
 msgid "Coordinates"
-msgstr "Neplatné Souřadnice"
+msgstr "Souřadnice"
 
 #: src/components/TemplateItem.jsx:71
 msgid "Edit"
-msgstr ""
+msgstr "Editovat"
 
 #: src/components/TemplateItem.jsx:81
 msgid "Go to"
-msgstr ""
+msgstr "Najít"
 
 #: src/components/TemplateItemEdit.jsx:97
-#, fuzzy
 msgid "Select File"
-msgstr "Vybrat Jazyk"
+msgstr "Vybrat Soubor"
 
 #: src/components/TemplateItemEdit.jsx:120
 msgid "Template Name"
-msgstr ""
+msgstr "Jméno Šablony"
 
 #: src/components/TemplateItemEdit.jsx:174
-#, fuzzy
 msgid "Delete"
-msgstr "Odstranit Účet"
+msgstr "Odstranit"
 
 #: src/components/LogInForm.jsx:77
 msgid "Name or Email"
@@ -1410,7 +1372,7 @@ msgstr ""
 
 #: src/components/UserMessages.jsx:49
 msgid "A new verification mail is getting sent to you."
-msgstr "Novej ověřující mail se vám posílá"
+msgstr "Novej ověřující mail se vám posílá."
 
 #: src/components/UserMessages.jsx:53
 msgid "Click here to request a new verification mail."
@@ -1421,8 +1383,8 @@ msgid "Passwords do not match."
 msgstr "Hesla nejsou stejná."
 
 #: src/components/ChangePassword.jsx:44
-msgid "Changed Password successfully."
-msgstr "Heslo změněnó úspěšně"
+msgid "Password successfully changed."
+msgstr "Heslo úspěšně změněno."
 
 #: src/components/ChangePassword.jsx:88
 msgid "Old Password"
@@ -1434,7 +1396,7 @@ msgstr "Nové Heslo"
 
 #: src/components/ChangePassword.jsx:103
 msgid "Confirm New Password"
-msgstr "Potvrďte Nové Heslo"
+msgstr "Potvrdit Nový Heslo"
 
 #: src/components/ChangeName.jsx:64
 msgid "New Username"
@@ -1450,7 +1412,7 @@ msgstr ""
 
 #: src/components/ChangeMail.jsx:87
 msgid "New Mail"
-msgstr "Novej Mail."
+msgstr "Novej Mail"
 
 #: src/components/DeleteAccount.jsx:66
 msgid "Yes, Delete My Account!"
@@ -1482,11 +1444,11 @@ msgstr "Nemáté žádný blokovaný uživatele"
 
 #: src/components/ModCanvastools.jsx:168
 msgid "Build image on canvas."
-msgstr "Postavit obraz na plátně"
+msgstr "Postavit obraz na plátně."
 
 #: src/components/ModCanvastools.jsx:171
 msgid "Build image and set it to protected."
-msgstr "Postavit obraz na plátně a nastavit to na chráněnej"
+msgstr "Postavit obraz na plátně a nastavit to na chráněnej."
 
 #: src/components/ModCanvastools.jsx:174
 msgid "Build image, but reset cooldown to unset-pixel cd."
@@ -1519,6 +1481,8 @@ msgid ""
 "Turn every pixel in area to 0 (YOU REALLY SHOULDN'T DO THAT ON ANY AREA THAT "
 "ISN'T ALREADY MOSTLY 0)"
 msgstr ""
+"Udělat všechny pixely v okolí na 0 (TOHLE BY JSTE FAKT NĚMELI DĚLAT NA OKOLÍ "
+"KTERÉ JEŠTĚ NENÍ PŘEVÁŽNĚ 0)"
 
 #: src/components/ModCanvastools.jsx:207
 msgid "Status: Not running"
@@ -1537,22 +1501,20 @@ msgid "File"
 msgstr "Složka"
 
 #: src/components/ModCanvastools.jsx:273
-#, fuzzy
 msgid "Coordinates:"
-msgstr "Neplatné Souřadnice"
+msgstr "Neplatné Souřadnice:"
 
 #: src/components/ModCanvastools.jsx:317
 msgid "Pixel Protection"
 msgstr "Chránění pixely"
 
 #: src/components/ModCanvastools.jsx:321
-#, fuzzy
 msgid ""
 "Set protection of areas (if you need finer grained control, use protect with "
 "image upload and alpha layers)"
 msgstr ""
-"Nastavit ochranu oblastí         (pokud potřebuješ jemnější "
-"kontrolu,         použíj ochránit s nahratí obrázku a alfa vrstvy)"
+"Nastavit ochranu oblastí (pokud potřebuješ jemnější kontrolu, použíj "
+"ochránit s nahratí obrázku a alfa vrstvy)"
 
 #: src/components/ModCanvastools.jsx:341 src/components/ModCanvastools.jsx:424
 #: src/components/ModCanvastools.jsx:517 src/components/ModWatchtools.jsx:176
@@ -1626,7 +1588,7 @@ msgstr "Zkontrolovat kdo položil v oblasti"
 
 #: src/components/ModWatchtools.jsx:144
 msgid "Interval"
-msgstr "Interval"
+msgstr "Přestávka"
 
 #: src/components/ModWatchtools.jsx:159
 msgid "IID (optional)"
@@ -1660,6 +1622,26 @@ msgstr "Vložit Důvod"
 msgid "(0 = infinite)"
 msgstr "(0 = nekonečno)"
 
+#: src/core/chartSettings.js:30
+msgid "Top 10 Countries [pxls / day]"
+msgstr "Top 10 Států [pxls / den]"
+
+#: src/core/chartSettings.js:127
+msgid "Players and Pixels per hour"
+msgstr "Hráči a Pixely za hodinu"
+
+#: src/core/chartSettings.js:221
+msgid "Top 10 Players [pxls / day]"
+msgstr "Top 10 Hráčů [pxls / den]"
+
+#: src/core/chartSettings.js:294
+msgid "Countries by Pixels Today"
+msgstr "Státy podle Pixelů Dnes"
+
+#: src/core/chartSettings.js:351
+msgid "Total Pixels placed per day"
+msgstr "Celkem Pixelů položeno denně"
+
 #: src/components/contextmenus/UserContextMenu.jsx:49
 msgid "Ping"
 msgstr "Ping"
@@ -1674,78 +1656,86 @@ msgstr "Block"
 
 #: src/components/contextmenus/ChannelContextMenu.jsx:46
 msgid "Mute"
-msgstr "Mute"
+msgstr "Umlčení"
 
 #: src/components/windows/Help.jsx:19 src/components/windows/Settings.jsx:92
 msgctxt "keybinds"
 msgid "G"
-msgstr ""
+msgstr "G"
 
 #: src/components/windows/Help.jsx:20 src/components/windows/Settings.jsx:100
 msgctxt "keybinds"
 msgid "X"
-msgstr ""
+msgstr "X"
 
 #: src/components/windows/Help.jsx:21 src/components/windows/Settings.jsx:171
 msgctxt "keybinds"
 msgid "H"
-msgstr ""
+msgstr "H"
 
 #: src/components/windows/Help.jsx:22
 msgctxt "keybinds"
 msgid "R"
-msgstr ""
+msgstr "R"
 
 #: src/components/windows/Help.jsx:23
 msgctxt "keybinds"
 msgid "Q"
-msgstr ""
+msgstr "Q"
 
 #: src/components/windows/Help.jsx:24
 msgctxt "keybinds"
 msgid "E"
-msgstr ""
+msgstr "E"
 
 #: src/components/windows/Help.jsx:25
 msgctxt "keybinds"
 msgid "W"
-msgstr ""
+msgstr "W"
 
 #: src/components/windows/Help.jsx:26
 msgctxt "keybinds"
 msgid "A"
-msgstr ""
+msgstr "A"
 
 #: src/components/windows/Help.jsx:27
 msgctxt "keybinds"
 msgid "S"
-msgstr ""
+msgstr "S"
 
 #: src/components/windows/Help.jsx:28
 msgctxt "keybinds"
 msgid "D"
-msgstr ""
+msgstr "D"
 
 #: src/components/windows/Help.jsx:35
 msgctxt "keybinds"
 msgid "Shift"
-msgstr ""
+msgstr "Shift"
 
 #: src/components/windows/Settings.jsx:108
-#, fuzzy
 msgctxt "keybinds"
 msgid "N"
-msgstr "Ne"
+msgstr "N"
 
 #: src/components/windows/Settings.jsx:116
 msgctxt "keybinds"
 msgid "M"
-msgstr ""
+msgstr "M"
 
 #: src/components/TemplateSettings.jsx:66
 msgctxt "keybinds"
 msgid "T"
-msgstr ""
+msgstr "T"
+
+#~ msgid "Didn't get an answer from pixelplanet. Maybe try to refresh?"
+#~ msgstr "Nezískali jsme odpověď od pixelplanet. Zkuste obnovit stránku?"
+
+#~ msgid "Place more :)"
+#~ msgstr "Polož víc :)"
+
+#~ msgid "No Proxies Allowed :("
+#~ msgstr "Není povoleno používat Proxy"
 
 #~ msgid "Show Hidden Canvases"
 #~ msgstr "Ukázat Skryté Plátna"

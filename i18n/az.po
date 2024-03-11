@@ -2,15 +2,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: \n"
-"Last-Translator: \n"
-"Language-Team: \n"
+"PO-Revision-Date: 2024-03-11 17:01+0000\n"
+"Last-Translator: Translation Team <noreply@example.com>\n"
+"Language-Team: Azerbaijani <https://hosted.weblate.org/projects/pixelplanet/"
+"client/az/>\n"
 "Language: az\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.2.2\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 5.5-dev\n"
 
 #: src/controls/keypress.js:99
 #, javascript-format
@@ -43,149 +44,136 @@ msgstr "Səs açıldı"
 
 #: src/components/CoordinatesBox.jsx:39 src/components/GetIID.jsx:51
 #: src/controls/keypress.js:211
-msgid "Copied!"
-msgstr "Kopyalandı!"
+msgid "Copied"
+msgstr "Kopyalandı"
 
 #: src/controls/keypress.js:217
 msgid "Overlay ON"
-msgstr ""
+msgstr "Şablon açıqdır"
 
 #: src/controls/keypress.js:218
 msgid "Overlay OFF"
-msgstr ""
+msgstr "Şablon bağlıdır"
 
 #: src/components/windows/Help.jsx:50 src/controls/keypress.js:224
 msgid "Easter Egg ON"
-msgstr ""
+msgstr "Easter Egg açıqdır"
 
 #: src/components/windows/Help.jsx:49 src/controls/keypress.js:225
 msgid "Easter Egg OFF"
-msgstr ""
+msgstr "Easter Egg bağlıdır"
 
-#: src/ui/PixelTransferController.js:70 src/ui/templateLoader.js:230
-#: src/ui/templateLoader.js:256
-msgid "Error :("
-msgstr "Xəta :("
+#: src/ui/PixelTransferController.js:70 src/ui/PixelTransferController.js:165
+msgid "Timeout"
+msgstr "Zamanaşımı"
 
-#: src/ui/PixelTransferController.js:71
-msgid "Didn't get an answer from pixelplanet. Maybe try to refresh?"
-msgstr "Pixelplanetdən cavab alınmadı.Səyifəni yeniləməyi dənəyin?"
+#: src/ui/PixelTransferController.js:72 src/ui/PixelTransferController.js:167
+#, fuzzy
+msgid ""
+"Didn't get an answer from pixelplanet. Try to refresh if this problem "
+"persists."
+msgstr "Pixelplanetdən cavab alınmadı.Səyifəni yeniləməyi yoxlayın?"
 
-#: src/ui/PixelTransferController.js:103
+#: src/ui/PixelTransferController.js:104
 msgid "Invalid Canvas"
 msgstr "Keçərsiz Löhvə"
 
-#: src/ui/PixelTransferController.js:104
+#: src/ui/PixelTransferController.js:105
 msgid "This canvas doesn't exist"
 msgstr "Bu löhvə mövcud deyil"
 
-#: src/ui/PixelTransferController.js:107 src/ui/PixelTransferController.js:111
-#: src/ui/PixelTransferController.js:115
+#: src/ui/PixelTransferController.js:108 src/ui/PixelTransferController.js:112
+#: src/ui/PixelTransferController.js:116
 msgid "Invalid Coordinates"
 msgstr "Keçərsiz koordinatlar"
 
-#: src/ui/PixelTransferController.js:108
+#: src/ui/PixelTransferController.js:109
 msgid "x out of bounds"
 msgstr "x sərhədlərinin kənarında"
 
-#: src/ui/PixelTransferController.js:112
+#: src/ui/PixelTransferController.js:113
 msgid "y out of bounds"
 msgstr "y sərhədlərinin kənarında"
 
-#: src/ui/PixelTransferController.js:116
+#: src/ui/PixelTransferController.js:117
 msgid "z out of bounds"
 msgstr "z sərhədlərinin kənarında"
 
-#: src/ui/PixelTransferController.js:119
+#: src/ui/PixelTransferController.js:120
 msgid "Wrong Color"
 msgstr "Səhv rəng"
 
-#: src/ui/PixelTransferController.js:120
+#: src/ui/PixelTransferController.js:121
 msgid "Invalid color selected"
 msgstr "Keçərsiz rənk seçildi"
 
-#: src/ui/PixelTransferController.js:123
+#: src/ui/PixelTransferController.js:124
 msgid "Just for registered Users"
 msgstr "Yalnız qeydiyyatdan keçmiş istifadəçilər üçün"
 
-#: src/ui/PixelTransferController.js:124
+#: src/ui/PixelTransferController.js:125
 msgid "You have to be logged in to place on this canvas"
 msgstr "Bu löhvəyə qoyabilmək üçün qeydiyyatdan keçməlisiniz"
 
-#: src/ui/PixelTransferController.js:127
-msgid "Place more :)"
-msgstr "Daha çox qoyun :)"
-
-#: src/ui/PixelTransferController.js:129
-msgid "You can not access this canvas yet. You need to place more pixels"
-msgstr "Bu löhvəyə hələlik ərişəbilməziniz.Daha çox pixel qoymalısınız."
-
-#: src/ui/PixelTransferController.js:132
-msgid "Pixel protected!"
-msgstr "Piksel qorunur!"
-
-#: src/ui/PixelTransferController.js:139
-msgid "Please prove that you are human"
-msgstr "Zəhmət olmasa insan olduğunuzu doğrulayın"
-
-#: src/ui/PixelTransferController.js:143
-msgid "No Proxies Allowed :("
-msgstr "Proxylərə icazə verilmir :("
-
-#: src/ui/PixelTransferController.js:144
-msgid "You are using a Proxy."
-msgstr "Siz proxy istifadə edirsiniz."
-
-#: src/ui/PixelTransferController.js:147
+#: src/ui/PixelTransferController.js:128 src/ui/PixelTransferController.js:144
+#: src/ui/PixelTransferController.js:148
 msgid "Not allowed"
 msgstr "İcazə verilmir"
 
-#: src/ui/PixelTransferController.js:148
+#: src/ui/PixelTransferController.js:130
+#, fuzzy
+msgid "You can not access this canvas yet, because your pixel score is too low"
+msgstr "Bu löhvəyə hələlik ərişəbilməziniz. Daha çox pixel qoymalısınız"
+
+#: src/ui/PixelTransferController.js:133
+msgid "Pixel protected"
+msgstr "Piksel qorunur"
+
+#: src/ui/PixelTransferController.js:140
+msgid "Please prove that you are human"
+msgstr "Zəhmət olmasa insan olduğunuzu doğrulayın"
+
+#: src/ui/PixelTransferController.js:145
+msgid "You are using a Proxy."
+msgstr "Siz proxy istifadə edirsiniz."
+
+#: src/ui/PixelTransferController.js:149
 msgid "Just the Top10 of yesterday can place here"
 msgstr "Yanlızca dünənin top 10'u bura piksel qoyabilər"
 
-#: src/ui/PixelTransferController.js:151
+#: src/ui/PixelTransferController.js:152
 msgid "You are weird"
 msgstr "Sən qəribəsən"
 
-#: src/ui/PixelTransferController.js:153
+#: src/ui/PixelTransferController.js:154
 msgid ""
 "Server got confused by your pixels. Are you playing on multiple devices?"
 msgstr ""
 "Sənin pixellərin serverin başını qarışdırdı.Birdən çox cihaz istifadə "
 "edirsən?"
 
-#: src/ui/PixelTransferController.js:156
+#: src/ui/PixelTransferController.js:157
 msgid "Banned"
 msgstr "Banlandın"
 
-#: src/ui/PixelTransferController.js:160
-msgid "Range Banned"
-msgstr "Banlandın"
-
 #: src/ui/PixelTransferController.js:161
-msgid "Your Internet Provider is banned from playing this game"
-msgstr "Sənin internet provayderin oyundan banlandı."
+msgid "Range Banned"
+msgstr "Sahə Olaraq Banlandınız"
 
-#: src/ui/PixelTransferController.js:164
-msgid "Timeout"
-msgstr "Zamanaşımı"
+#: src/ui/PixelTransferController.js:162
+#, fuzzy
+msgid "Your Internet Provider is banned from this game"
+msgstr "Sənin internet provayderin oyundan banlandı"
 
-#: src/ui/PixelTransferController.js:166
-msgid ""
-"Didn't get an answer from pixelplanet. Maybe try to refresh if problem "
-"persists?"
-msgstr "Pixelplanetdən cavab alınmadı.Səyifəni yeniləməyi yoxlayın?"
-
-#: src/ui/PixelTransferController.js:169
+#: src/ui/PixelTransferController.js:170
 msgid "Weird"
 msgstr "Dəyişik"
 
-#: src/ui/PixelTransferController.js:170
+#: src/ui/PixelTransferController.js:171
 msgid "Couldn't set Pixel"
 msgstr "Pixel ayarlanabilmədi"
 
-#: src/ui/PixelTransferController.js:175
+#: src/ui/PixelTransferController.js:176
 #, javascript-format
 msgid "Error ${ retCode }"
 msgstr "Xəta${ retCode }"
@@ -198,13 +186,17 @@ msgstr "Löhvə Xətası"
 msgid "Can't render 3D canvas, do you have WebGL2 disabled?"
 msgstr "3D löhvə renderlənəbilmədi,sizdə WebGL2 bağlıdır?"
 
+#: src/ui/templateLoader.js:230 src/ui/templateLoader.js:256
+msgid "Error :("
+msgstr "Xəta :("
+
 #: src/ui/templateLoader.js:231
 msgid "Can not export more than 20 or no template!"
-msgstr ""
+msgstr "20-dən çox və ya heç olmayan şablon xaric edilə bilməz!"
 
 #: src/ui/templateLoader.js:257
 msgid "Can not import more than 20 or no template!"
-msgstr ""
+msgstr "20-dən çox və ya heç olmayan şablon daxil edilə bilməz!"
 
 #: src/components/BanInfo.jsx:136 src/store/actions/index.js:7
 msgid "OK"
@@ -222,7 +214,7 @@ msgstr "${ ti }dəqiqə sonra yenidən dənəyin"
 #: src/store/actions/fetch.js:70
 #, javascript-format
 msgid "Connection error ${ code } :("
-msgstr "Bağlantı xətası  ${ code } :("
+msgstr "Bağlantı xətası ${ code } :("
 
 #: src/store/actions/fetch.js:103 src/store/actions/fetch.js:129
 msgid "Could not connect to server, please try again later :("
@@ -345,13 +337,13 @@ msgstr "Ayarlar"
 msgid "User Area"
 msgstr "İstifadəçi Sahəsi"
 
-#: src/components/buttons/DownloadButton.jsx:36
-msgid "Make Screenshot"
-msgstr "Ekran görüntüsü al"
-
 #: src/components/buttons/GlobeButton.jsx:34
 msgid "Globe View"
 msgstr "Dünya Görünümü"
+
+#: src/components/buttons/DownloadButton.jsx:36
+msgid "Make Screenshot"
+msgstr "Ekran görüntüsü al"
 
 #: src/components/buttons/PalselButton.jsx:30
 msgid "Close Palette"
@@ -363,28 +355,27 @@ msgstr "Palitranı bağla"
 
 #: src/components/buttons/PencilButton.jsx:32
 msgid "History Pencil ON"
-msgstr ""
+msgstr "Tarix qələmi açıqdır"
 
 #: src/components/buttons/PencilButton.jsx:38
 msgid "Overlay Pencil ON"
-msgstr ""
+msgstr "Şablon qələmi açıqdır"
 
 #: src/components/buttons/PencilButton.jsx:65
 msgid "Enable Pencil"
-msgstr ""
+msgstr "Qələmi Aç"
 
 #: src/components/buttons/PencilButton.jsx:69
-#, fuzzy
 msgid "Disable Pencil"
-msgstr "Səs Effektlərini bağla"
+msgstr "Qələmi Bağla"
 
 #: src/components/buttons/PencilButton.jsx:73
 msgid "Disable History Pencil"
-msgstr ""
+msgstr "Tarix Qələmini Bağla"
 
 #: src/components/buttons/PencilButton.jsx:77
 msgid "Disable Overlay Pencil"
-msgstr ""
+msgstr "Şablon Qələmini Bağla"
 
 #: src/components/windows/index.js:16
 msgid "Registration"
@@ -402,13 +393,25 @@ msgstr "Söhbət"
 msgid "Canvas Archive"
 msgstr "Löhvə Arxivi"
 
-#: src/components/BanInfo.jsx:66
-msgid "You are banned. You think it is unjustified? Check out the "
-msgstr "Banlandınız.Bunun haqsız olduğunu düşünürsünüz?Bura baxın"
+#: src/components/GlobalCaptcha.jsx:47
+msgid "You took too long, try again."
+msgstr "Bu çox vaxt aldı,yenidən yoxla."
 
-#: src/components/BanInfo.jsx:76
-msgid " on how to appeal."
-msgstr "necə müraciət edəbiləcəyiniz barədə."
+#: src/components/GlobalCaptcha.jsx:50
+msgid "You failed your captcha"
+msgstr "Captchanızı düzgün yerinə yetirmədiniz"
+
+#: src/components/GlobalCaptcha.jsx:53
+msgid "No or invalid captcha text"
+msgstr "captcha mətni yoxdur və ya etibarsızdır"
+
+#: src/components/GlobalCaptcha.jsx:56
+msgid "No captcha id given"
+msgstr "Heçbir captcha idsi verilmədi"
+
+#: src/components/GlobalCaptcha.jsx:59
+msgid "Unknown Captcha Error"
+msgstr "Naməlum captcha xətası"
 
 #: src/components/BanInfo.jsx:80 src/components/Captcha.jsx:79
 #: src/components/ChangeMail.jsx:72 src/components/ChangeName.jsx:58
@@ -418,6 +421,26 @@ msgstr "necə müraciət edəbiləcəyiniz barədə."
 #: src/components/windows/Register.jsx:89
 msgid "Error"
 msgstr "Xəta"
+
+#: src/components/ChangeMail.jsx:93 src/components/ChangeName.jsx:70
+#: src/components/ChangePassword.jsx:115 src/components/DeleteAccount.jsx:68
+#: src/components/GlobalCaptcha.jsx:80 src/components/TemplateItemEdit.jsx:181
+#: src/components/windows/ForgotPassword.jsx:89
+#: src/components/windows/Register.jsx:133
+msgid "Cancel"
+msgstr "Ləğv et"
+
+#: src/components/GlobalCaptcha.jsx:86
+msgid "Send"
+msgstr "Göndər"
+
+#: src/components/BanInfo.jsx:66
+msgid "You are banned. You think it is unjustified? Check out the "
+msgstr "Banlandınız. Bunun haqsız olduğunu düşünürsünüz? Bura baxın "
+
+#: src/components/BanInfo.jsx:76
+msgid " on how to appeal."
+msgstr " necə müraciət edəbiləcəyiniz barədə."
 
 #: src/components/BanInfo.jsx:85 src/components/ModIIDtools.jsx:73
 msgid "Reason"
@@ -433,11 +456,11 @@ msgstr "Müddət"
 
 #: src/components/BanInfo.jsx:99
 msgid "Your ban expires at "
-msgstr "Sizin banınız bu müddətdə bitir"
+msgstr "Sizin banınız bu müddətdə bitir "
 
 #: src/components/BanInfo.jsx:101
 msgid " which is in "
-msgstr "O da "
+msgstr " O da "
 
 #: src/components/BanInfo.jsx:112
 msgid "Unbanned"
@@ -450,38 +473,6 @@ msgstr "Siz bu mesajı gördüyünüzə görə,artıq banlı deyilsiniz."
 #: src/components/BanInfo.jsx:127
 msgid "Why?"
 msgstr "Niyə?"
-
-#: src/components/GlobalCaptcha.jsx:47
-msgid "You took too long, try again."
-msgstr "Bu çox vaxt aldı,yenidən yoxla."
-
-#: src/components/GlobalCaptcha.jsx:50
-msgid "You failed your captcha"
-msgstr "Captchanız uğursuz alındı"
-
-#: src/components/GlobalCaptcha.jsx:53
-msgid "No or invalid captcha text"
-msgstr "captcha mətni yoxdur və ya etibarsızdır"
-
-#: src/components/GlobalCaptcha.jsx:56
-msgid "No captcha id given"
-msgstr "Heçbir captcha idsi verilmədi."
-
-#: src/components/GlobalCaptcha.jsx:59
-msgid "Unknown Captcha Error"
-msgstr "Naməlum captcha xətası"
-
-#: src/components/ChangeMail.jsx:93 src/components/ChangeName.jsx:70
-#: src/components/ChangePassword.jsx:115 src/components/DeleteAccount.jsx:68
-#: src/components/GlobalCaptcha.jsx:80 src/components/TemplateItemEdit.jsx:181
-#: src/components/windows/ForgotPassword.jsx:89
-#: src/components/windows/Register.jsx:133
-msgid "Cancel"
-msgstr "Ləğv et"
-
-#: src/components/GlobalCaptcha.jsx:86
-msgid "Send"
-msgstr "Göndər"
 
 #: src/components/windows/Help.jsx:65
 msgid "Place color pixels on a large canvas with other players online!"
@@ -497,17 +488,12 @@ msgid ""
 "pixels than placing on a unset pixel. i.e. 4s/7s means 4s on fresh pixels "
 "and 7s on already set pixels."
 msgstr ""
-"Əsas löhvəmiz nəhəng dünya xəritəsidir, istədiyiniz yerdə pixel "
-"qoyabilərsiniz. \n"
-"istədiyiniz löhvəyə atabilərsiniz,ancaq piksellər arasında spesifik gözləmə "
-"vaxtını gözləməlisiniz.\n"
-"Ekranın yuxarısındakı \\\"Löhvə Seçimi\\\" menyusundan .\n"
-"gözləmə vaxtına və tələblərə baxa bilərsiniz. Bəzi lövhələrdə "
-"toxunulmamış\"\n"
-"\"pixellər və toxunulmuş pixellər üçün müxtəlif gözləmə vaxtları təyin edilə "
-"bilər.\"\n"
-"\"Məsələn, 4s/7s toxunulmamış piksellər üçün 4 saniyə, toxunulan piksellər "
-"üçün isə 7 saniyə çəkir\""
+"Əsas lövhəmiz nəhəng dünya xəritəsidir, istədiyiniz yerə piksel qoya "
+"bilərsiniz. Gözləmə müddətini və tələbləri Lövhə Seçimi menyusunda "
+"(yuxarıdakı qlobus düyməsi) gözdən keçirə bilərsiniz. Bəzi lövhələrdə "
+"istifadəçi tərəfindən qoyulmuş və qoyulmamış piksel arasında gözləmə müddəti "
+"dəyişikdir. Yəni 4s/7s bildirir ki, yeni piksellərdə 4 və artıq qoyulan "
+"piksellərdə 7 saniyədir."
 
 #: src/components/windows/Help.jsx:67
 msgid ""
@@ -527,7 +513,7 @@ msgstr "tövsiyyə edilir"
 
 #: src/components/windows/Help.jsx:71
 msgid "Source on "
-msgstr "mənbə aktivdir"
+msgstr "Mənbə aktivdir "
 
 #: src/components/windows/Help.jsx:72
 msgid "Map Data"
@@ -540,7 +526,7 @@ msgid ""
 msgstr ""
 "İstifadə etdiyimiz xəritə məlumatları, oriyentasiya üçün çevrilmiş "
 "OpenStreetMap plitələri ilə birlikdə buradan mega.nz saytından endirilə "
-"bilər:"
+"bilər: "
 
 #: src/components/windows/Help.jsx:74
 msgid "Banned? Detected as Proxy?"
@@ -555,7 +541,7 @@ msgid ""
 msgstr ""
 "Əgər proxy olaraq alğılandınızsa,amma deyilsənizsə,vəya səhvliklə "
 "banlandığınızı düşünürsünüzsə,Zəhmət olmasa bizim ${ guildedLink }'ə baxın "
-"vəya bizə IIDniz ilə birliktə mail göndərin  ${ mailLink }:"
+"vəya bizə IIDniz ilə birliktə mail göndərin ${ mailLink }:"
 
 #: src/components/windows/Help.jsx:79 src/components/windows/Help.jsx:96
 msgid "Controls"
@@ -609,14 +595,14 @@ msgstr ""
 #, javascript-format
 msgid "Drag ${ mouseSymbol } mouse or ${ touchSymbol } pan to move"
 msgstr ""
-"Siçanınızı basılı tutub dartaraq  ${ mouseSymbol } vəya ${ touchSymbol } "
+"Siçanınızı basılı tutub dartaraq ${ mouseSymbol } vəya ${ touchSymbol } "
 "ekrana basılı tutub hərəkət ettirərək lövhədə gəzinin"
 
 #: src/components/windows/Help.jsx:90
 #, javascript-format
 msgid "Scroll ${ mouseSymbol } mouse wheel or ${ touchSymbol } pinch to zoom"
 msgstr ""
-"Siçanınızın  təkərləyini ${ mouseSymbol } döndürərək vəya ${ touchSymbol } "
+"Siçanınızın təkərləyini ${ mouseSymbol } döndürərək vəya ${ touchSymbol } "
 "iki barmağınızı istifadə edərək yaxınlaşın vəya uzaqlaşın"
 
 #: src/components/windows/Help.jsx:91
@@ -652,7 +638,7 @@ msgstr ""
 "toxunaraq rəngi kopyalayın"
 
 #: src/components/windows/Help.jsx:100
-#, fuzzy, javascript-format
+#, javascript-format
 msgid "Press ${ bindQ } and ${ bindE } to fly up and down"
 msgstr "Yuxarı və aşağı getmək üçün ${ bindQ } və ${ bindE } düymələrini basın"
 
@@ -685,9 +671,10 @@ msgstr ""
 "dəfə toxunun"
 
 #: src/components/windows/Help.jsx:110
+#, fuzzy
 msgid ""
-"We thanks those artists very much, they offered their palettes to the public "
-"on"
+"We thank the following artists, who made their palettes available to the "
+"public on"
 msgstr ""
 "Həmin artistlərə çox təşəkkür edirik, palitralarını ictimaiyyətə təqdim "
 "etdilər"
@@ -703,9 +690,9 @@ msgid "Credit for the Palette of the Top10 canvas goes to ${ vinikLink }."
 msgstr "Top10 Lövhə palitrası üçün kredit ${ vinikLink }-ə gedir."
 
 #: src/components/windows/Help.jsx:119
-#, fuzzy, javascript-format
+#, javascript-format
 msgid "Credit for the Palette of the 2bit canvas goes to ${ donendoLink }."
-msgstr "Top10 Lövhə palitrası üçün kredit ${ donendoLink }-ə gedir."
+msgstr "Top10 Lövhəsinin palitrası üçün kredit ${ donendoLink }-ə gedir."
 
 #: src/components/windows/Settings.jsx:91
 msgid "Show Grid"
@@ -725,11 +712,11 @@ msgstr "Pixellər qoyulan yerlərdə dairələr göstər."
 
 #: src/components/windows/Settings.jsx:107
 msgid "Always show Movement Controls"
-msgstr ""
+msgstr "Həmişə Hərəkət Kontrollarını göstər"
 
 #: src/components/windows/Settings.jsx:112
 msgid "Always show movement control buttons"
-msgstr ""
+msgstr "Həmişə hərəkət düymələrini göstər"
 
 #: src/components/windows/Settings.jsx:115
 msgid "Disable Game Sounds"
@@ -880,11 +867,12 @@ msgid ""
 "Select the canvas you want to use.\n"
 "Every canvas is unique and has different palettes, cooldown and "
 "requirements.\n"
-"Archive of removed canvases can be accessed here:"
+"Archived canvases can be accessed here:"
 msgstr ""
-"İstifadə etmək istədiyiniz lövhəni seçin.  Hər bir lövhə unikaldır və "
-"müxtəlif palitraları, gözləmə müddəti və tələbləri var. Qapalı lövhələrin "
-"arxivinə buradan daxil olmaq olar:"
+"İstifadə etmək istədiyiniz lövhəni seçin.\n"
+"Hər bir lövhə yeganədir və cürbəcür palitraları, gözləmə müddəti və "
+"tələbləri var.\n"
+"Qapalı lövhələrin arxivinə buradan daxil olmaq olar:"
 
 #: src/components/windows/CanvasSelect.jsx:37
 msgid "Archive"
@@ -892,30 +880,30 @@ msgstr "Arxiv"
 
 #: src/components/windows/CanvasSelect.jsx:70
 msgid "Retired Canvases (history only)"
-msgstr ""
+msgstr "Ayrı Lövhələr (tək tarix)"
 
 #: src/components/windows/Archive.jsx:9
 #, fuzzy
 msgid ""
 "While we tend to not delete canvases, some canvases are started for fun or "
-"as a request by users who currently like a meme. Those canvases can get "
-"boring after a while and after weeks of no major change and if they really "
-"aren't worth being kept active."
+"as a request by users who like a currently popular meme. Those canvases can "
+"become dull and inactive after a while, at which point there is no reason to "
+"keep them and we may decide to remove them."
 msgstr ""
 "Biz lövhələri silməməyə meylli olsaq da, bəzi lövhələr əylənmək üçün və ya "
-"hazırda mem bəyənən istifadəçilərin xahişi ilə başlayır. Bu lövhələr bir "
-"müddət sonra və həftələrlə heç bir əsas dəyişikliyin olmamasından sonra "
-"cansıxıcı ola bilər və əgər onlar həqiqətən aktiv saxlanılmağa dəyməzsə, biz "
-"onları silmək qərarına gəlirik."
+"istifadəçilərin istəyi ilə meme kimi yaradılır. Bu lövhələr bir müddət sonra "
+"və həftələrlə heç bir əsas dəyişikliyin olmamasından sonra cansıxıcı ola "
+"bilər və əgər onlar həqiqətən aktiv saxlanılmağa dəyməzsə, biz onları silmək "
+"qərarına gəlirik."
 
 #: src/components/windows/Archive.jsx:10
 #, fuzzy
 msgid ""
-"Here we collect removed canvases to archive them in a proper way. Which is "
+"Here we collect removed canvases to archive them properly. Which is "
 "currently only one."
 msgstr ""
-"Burada biz həmin lövhələri düzgün şəkildə arxivləşdirmək üçün toplayırıq "
-"(bu, hazırda yalnız biridir)."
+"Burada biz silinən lövhələri düzgün bir şəkildə arxivləmək üçün yığırıq. "
+"Burada yalnız biridir."
 
 #: src/components/windows/Archive.jsx:12
 msgid "Political Compass Canvas"
@@ -961,7 +949,7 @@ msgstr "Kanal ayarları"
 
 #: src/components/windows/ForgotPassword.jsx:58
 msgid "Sent you a mail with instructions to reset your password."
-msgstr "Sizə parolunuzu sıfırlamaq üçün təlimatlar olan bir email göndərdik"
+msgstr "Sizə parolunuzu sıfırlamaq üçün təlimatlar olan bir email göndərdik."
 
 #: src/components/windows/ForgotPassword.jsx:69
 msgid "Enter your mail address and we will send you a new password:"
@@ -999,6 +987,54 @@ msgstr "Yeniləyin"
 msgid "Enter Characters"
 msgstr "Simvolları daxil edin"
 
+#: src/utils/validation.js:17
+msgid "Email can't be empty."
+msgstr "Email boş ola bilməz."
+
+#: src/utils/validation.js:18
+msgid "Email should be at least 5 characters long."
+msgstr "Email ən az 5 simvol uzunluğunda olmalıdır."
+
+#: src/utils/validation.js:19
+msgid "Email can't be longer than 40 characters."
+msgstr "Email 40 simvoldan uzun olabilməz."
+
+#: src/utils/validation.js:20
+msgid "Email should at least contain a dot"
+msgstr "Email ən az 1 nöqtə içərməlidir"
+
+#: src/utils/validation.js:22
+msgid "Email should contain a @"
+msgstr "Email-də @ simvolu olmalıdır"
+
+#: src/utils/validation.js:29
+msgid "Name can't be empty."
+msgstr "Ad boş olabilməz."
+
+#: src/utils/validation.js:30
+msgid "Name must be at least 2 characters long"
+msgstr "Ad ən az 2 simvol uzunluğunda olmalıdır"
+
+#: src/utils/validation.js:31
+msgid "Name must be shorter than 26 characters"
+msgstr "Ad 26 simvoldan qısa olmalıdır"
+
+#: src/utils/validation.js:38
+msgid "Name contains invalid character like @, /, \\ or #"
+msgstr "Ad keçərsiz simvol içərir, məsəlan @, /, \\ vəya #"
+
+#: src/utils/validation.js:53
+msgid "No password given."
+msgstr "Heçbir şifrə verilmədi."
+
+#: src/utils/validation.js:56
+msgid "Password must be at least 6 characters long."
+msgstr "Parol ən az 6 simvol uzunluğunda olmalıdır."
+
+#: src/utils/validation.js:59
+msgid "Password must be shorter than 60 characters."
+msgstr "Parol 60 simvoldan qısa olmalıdır."
+
 #: src/components/GetIID.jsx:44
 msgid "Get IID"
 msgstr "IID'yi əldə edin"
@@ -1014,9 +1050,8 @@ msgid "Save"
 msgstr "Yadda saxla"
 
 #: src/components/TemplateSettings.jsx:57
-#, fuzzy
 msgid "Templates"
-msgstr "Template yüklə"
+msgstr "Şablonlar"
 
 #: src/components/TemplateSettings.jsx:61
 msgid ""
@@ -1025,56 +1060,60 @@ msgid ""
 "that! Templates can show as overlay and you can draw over them. One pixel on "
 "the template, should be one pixel on the canvas."
 msgstr ""
+"Sadəcə bir rəng ilə boyamaqdan bezmədiniz mi? Onun yerinə sənət yaradmaq "
+"istəyirsiniz, amma ayrı bir rəsmdən pikselləri saymalısınız? Şablonlar bunda "
+"sizə kömək edə bilər! Şablonlar üst-üstə düşmə kimi görünə bilər və siz do "
+"onların üzərindən çəkə bilərsiniz. Şablonun üzərindəki 1 piksel lövhənin "
+"üzərindəki bir piksel olmalıdır."
 
 #: src/components/TemplateSettings.jsx:65
 msgid "Enable Overlay"
-msgstr ""
+msgstr "Şablonu aç"
 
 #: src/components/TemplateSettings.jsx:70
 msgid "Show templates as overlays ingame."
-msgstr ""
+msgstr "Şablonları oyun içində üst-üstə düşmə kimi göstər."
 
 #: src/components/TemplateSettings.jsx:73
-msgid "Small Pixels Zoom"
-msgstr ""
+#, fuzzy
+msgid "Small Pixels When Zoomed"
+msgstr "Böyüdəndə Kiçik Piksellər"
 
 #: src/components/TemplateSettings.jsx:78
 msgid "Show overlay as small individual pixels on high zoomlevels."
-msgstr ""
+msgstr "Şablonu yüsək böyüdülmədə kiçik fərdi piksellər kimi göstər."
 
 #: src/components/TemplateSettings.jsx:85
 msgid "Overlay Opacity"
-msgstr ""
+msgstr "Şablon Şəffaflığı"
 
 #: src/components/TemplateSettings.jsx:99
 msgid "Opacity of Overlay in percent."
-msgstr ""
+msgstr "Şablonun faiz olaraq şəffaflığı."
 
 #: src/components/TemplateSettings.jsx:105
 msgid "Right-Shift Auto-Color"
-msgstr ""
+msgstr "Sağ-Shift Avto-Rəngləmə"
 
 #: src/components/TemplateSettings.jsx:110
 msgid "Place pixels from overlay on right-shift, instead of history."
-msgstr ""
+msgstr "Tarix yerinə şablondan pikselləri sağ-shift ilə qoy."
 
 #: src/components/TemplateSettings.jsx:149
-#, fuzzy
 msgid "Cancel adding Template"
-msgstr "Template yüklə"
+msgstr "Şablon əlavə etməyi ləğv et"
 
 #: src/components/TemplateSettings.jsx:156
-#, fuzzy
 msgid "Add Template"
-msgstr "Template yüklə"
+msgstr "Şablon əlavə et"
 
 #: src/components/TemplateSettings.jsx:173
 msgid "Export enabled templates"
-msgstr ""
+msgstr "Açıq şablonları xaric et"
 
 #: src/components/TemplateSettings.jsx:182
 msgid "Import templates"
-msgstr ""
+msgstr "Şablonları daxil et"
 
 #: src/components/LogInArea.jsx:19
 msgid "Login to access more features and stats."
@@ -1098,7 +1137,7 @@ msgstr "vəya burdan qeydiyyatdan keçin:"
 
 #: src/components/LogInArea.jsx:75
 msgid "Register"
-msgstr "Qeydiyyat"
+msgstr "Qeydiyyatdan keçin"
 
 #: src/components/UserAreaContent.jsx:62
 msgid "Today Placed Pixels"
@@ -1119,7 +1158,7 @@ msgstr "Toplam Sıralama"
 #: src/components/UserAreaContent.jsx:80
 #, javascript-format
 msgid "Your name is: ${ name }"
-msgstr "Sənin adın :  ${ name }dir"
+msgstr "Sənin adın: ${ name }dir"
 
 #: src/components/UserAreaContent.jsx:86
 msgid "Log out"
@@ -1212,7 +1251,7 @@ msgstr "Nisbəti Qoru"
 
 #: src/components/Converter.jsx:522
 msgid "Anti Aliasing"
-msgstr "Anti Aliasing"
+msgstr "Kənar Yumuşaldma"
 
 #: src/components/Converter.jsx:536
 msgid "Reset"
@@ -1245,7 +1284,7 @@ msgstr "Qrafiklər"
 #: src/components/Rankings.jsx:201 src/components/Rankings.jsx:210
 #: src/components/Rankings.jsx:219
 msgid "User"
-msgstr "İstifadəçi "
+msgstr "İstifadəçi"
 
 #: src/components/Rankings.jsx:226
 msgid "Country"
@@ -1254,54 +1293,6 @@ msgstr "Ölkə"
 #: src/components/Rankings.jsx:286
 msgid "Ranking updates every 5 min. Daily rankings get reset at midnight UTC."
 msgstr "Hər 5 dəqiqədən bir Gündəlik reytinqlər gecə yarısı UTC-də sıfırlanır."
-
-#: src/utils/validation.js:17
-msgid "Email can't be empty."
-msgstr "Email boş ola bilməz."
-
-#: src/utils/validation.js:18
-msgid "Email should be at least 5 characters long."
-msgstr "Email ən az 5 simvol uzunluğunda olmalıdır."
-
-#: src/utils/validation.js:19
-msgid "Email can't be longer than 40 characters."
-msgstr "Email 40 simvoldan uzun olabilməz."
-
-#: src/utils/validation.js:20
-msgid "Email should at least contain a dot"
-msgstr "Email ən az 1 nöqtə içərməlidir"
-
-#: src/utils/validation.js:22
-msgid "Email should contain a @"
-msgstr "Emaildə @ işarəsi olmalıdır"
-
-#: src/utils/validation.js:29
-msgid "Name can't be empty."
-msgstr "Ad boş olabilməz."
-
-#: src/utils/validation.js:30
-msgid "Name must be at least 2 characters long"
-msgstr "Ad ən az 2 simvol uzunluğunda olmalıdır"
-
-#: src/utils/validation.js:31
-msgid "Name must be shorter than 26 characters"
-msgstr "Ad 26 simvoldan qısa olmalıdır"
-
-#: src/utils/validation.js:38
-msgid "Name contains invalid character like @, /, \\ or #"
-msgstr "Ad keçərsiz simvol içərir, məsəlan @, /, \\ vəya #"
-
-#: src/utils/validation.js:53
-msgid "No password given."
-msgstr "Heçbir şifrə verilmədi."
-
-#: src/utils/validation.js:56
-msgid "Password must be at least 6 characters long."
-msgstr "Parol ən az 6 simvol uzunluğunda olmalıdır."
-
-#: src/utils/validation.js:59
-msgid "Password must be shorter than 60 characters."
-msgstr "Parol 60 simvoldan qısa olmalıdır."
 
 #: src/components/CanvasItem.jsx:29
 msgid "Online Users"
@@ -1349,57 +1340,34 @@ msgstr "Top 10 Günlük Reytinq"
 msgid "Dimensions"
 msgstr "Ölçülər"
 
-#: src/core/chartSettings.js:30
-msgid "Top 10 Countries [pxls / day]"
-msgstr "Top 10 Ölkələr [pxls / gün]"
-
-#: src/core/chartSettings.js:127
-msgid "Players and Pixels per hour"
-msgstr "Saat başına oyunçular və pixellər"
-
-#: src/core/chartSettings.js:221
-msgid "Top 10 Players [pxls / day]"
-msgstr "Top 10 Oyunçular [pxls / gün]"
-
-#: src/core/chartSettings.js:294
-msgid "Countries by Pixels Today"
-msgstr "Ölkələrə görə bugün atılan pixellər"
-
-#: src/core/chartSettings.js:351
-msgid "Total Pixels placed per day"
-msgstr "Bir gün içində toplam qoyulan pixellər"
-
 #: src/components/ModWatchtools.jsx:125 src/components/TemplateItem.jsx:54
 #: src/components/TemplateItemEdit.jsx:122
 msgid "Canvas"
 msgstr "Löhvə"
 
 #: src/components/TemplateItem.jsx:57 src/components/TemplateItemEdit.jsx:141
-#, fuzzy
 msgid "Coordinates"
-msgstr "Keçərsiz koordinatlar"
+msgstr "Koordinatlar"
 
 #: src/components/TemplateItem.jsx:71
 msgid "Edit"
-msgstr ""
+msgstr "Redaktə et"
 
 #: src/components/TemplateItem.jsx:81
 msgid "Go to"
-msgstr ""
+msgstr "Get"
 
 #: src/components/TemplateItemEdit.jsx:97
-#, fuzzy
 msgid "Select File"
-msgstr "Dili seçin"
+msgstr "Faylı seçin"
 
 #: src/components/TemplateItemEdit.jsx:120
 msgid "Template Name"
-msgstr ""
+msgstr "Şablon Adı"
 
 #: src/components/TemplateItemEdit.jsx:174
-#, fuzzy
 msgid "Delete"
-msgstr "Hesabı silin"
+msgstr "Silin"
 
 #: src/components/LogInForm.jsx:77
 msgid "Name or Email"
@@ -1430,7 +1398,8 @@ msgid "Passwords do not match."
 msgstr "Parollar birbirinə uymur."
 
 #: src/components/ChangePassword.jsx:44
-msgid "Changed Password successfully."
+#, fuzzy
+msgid "Password successfully changed."
 msgstr "Parolunuz uğurla dəyişdirildi."
 
 #: src/components/ChangePassword.jsx:88
@@ -1439,7 +1408,7 @@ msgstr "Köhnə parol"
 
 #: src/components/ChangePassword.jsx:96
 msgid "New Password"
-msgstr "Yeni parol"
+msgstr "Yeni Parol"
 
 #: src/components/ChangePassword.jsx:103
 msgid "Confirm New Password"
@@ -1447,7 +1416,7 @@ msgstr "Yeni parolu doğrulayın"
 
 #: src/components/ChangeName.jsx:64
 msgid "New Username"
-msgstr "Yeni ad "
+msgstr "Yeni ad"
 
 #: src/components/ChangeMail.jsx:59
 msgid ""
@@ -1528,10 +1497,12 @@ msgid ""
 "Turn every pixel in area to 0 (YOU REALLY SHOULDN'T DO THAT ON ANY AREA THAT "
 "ISN'T ALREADY MOSTLY 0)"
 msgstr ""
+"Hər piksel ərazisini 0-a çevirin (SİZ BUNU ƏSASƏN 0 OLMAYAN ƏRAZİDƏ "
+"ETMƏMƏLİSİNİZ)"
 
 #: src/components/ModCanvastools.jsx:207
 msgid "Status: Not running"
-msgstr "Status: İşləmir "
+msgstr "Status: İşləmir"
 
 #: src/components/ModCanvastools.jsx:249
 msgid "Image Upload"
@@ -1546,22 +1517,20 @@ msgid "File"
 msgstr "Fayl"
 
 #: src/components/ModCanvastools.jsx:273
-#, fuzzy
 msgid "Coordinates:"
-msgstr "Keçərsiz koordinatlar"
+msgstr "Koordinatlar:"
 
 #: src/components/ModCanvastools.jsx:317
 msgid "Pixel Protection"
 msgstr "Pixel Qoruması"
 
 #: src/components/ModCanvastools.jsx:321
-#, fuzzy
 msgid ""
 "Set protection of areas (if you need finer grained control, use protect with "
 "image upload and alpha layers)"
 msgstr ""
-"Qoruma sahələrini ayarla         (daha yaxşı dənələnmiş kontrola ehtiyacın "
-"varsa,         şəkil yükləmə vəya alfa qatları ilə qoruma istifadə et)"
+"Qoruma sahələrini ayarla (daha yaxşı dənələnmiş kontrola ehtiyacın varsa, "
+"şəkil yükləmə və alfa qatları ilə qorumadan istifadə et)"
 
 #: src/components/ModCanvastools.jsx:341 src/components/ModCanvastools.jsx:424
 #: src/components/ModCanvastools.jsx:517 src/components/ModWatchtools.jsx:176
@@ -1671,6 +1640,26 @@ msgstr "Səbəb daxil edin"
 msgid "(0 = infinite)"
 msgstr "(0 = sonsuzluq)"
 
+#: src/core/chartSettings.js:30
+msgid "Top 10 Countries [pxls / day]"
+msgstr "Top 10 Ölkələr [pxls / gün]"
+
+#: src/core/chartSettings.js:127
+msgid "Players and Pixels per hour"
+msgstr "Saat başına oyunçular və pixellər"
+
+#: src/core/chartSettings.js:221
+msgid "Top 10 Players [pxls / day]"
+msgstr "Top 10 Oyunçular [pxls / gün]"
+
+#: src/core/chartSettings.js:294
+msgid "Countries by Pixels Today"
+msgstr "Ölkələrə görə bugün atılan pixellər"
+
+#: src/core/chartSettings.js:351
+msgid "Total Pixels placed per day"
+msgstr "Bir gün içində toplam qoyulan pixellər"
+
 #: src/components/contextmenus/UserContextMenu.jsx:49
 msgid "Ping"
 msgstr "Ping"
@@ -1743,10 +1732,9 @@ msgid "Shift"
 msgstr "Shift"
 
 #: src/components/windows/Settings.jsx:108
-#, fuzzy
 msgctxt "keybinds"
 msgid "N"
-msgstr "Yox"
+msgstr "N"
 
 #: src/components/windows/Settings.jsx:116
 msgctxt "keybinds"
@@ -1756,7 +1744,16 @@ msgstr "M"
 #: src/components/TemplateSettings.jsx:66
 msgctxt "keybinds"
 msgid "T"
-msgstr ""
+msgstr "T"
+
+#~ msgid "Didn't get an answer from pixelplanet. Maybe try to refresh?"
+#~ msgstr "Pixelplanetdən cavab alınmadı.Səyifəni yeniləməyi dənəyin?"
+
+#~ msgid "Place more :)"
+#~ msgstr "Daha çox qoyun :)"
+
+#~ msgid "No Proxies Allowed :("
+#~ msgstr "Proxylərə icazə verilmir :("
 
 #~ msgid "Show Hidden Canvases"
 #~ msgstr "Gizli Löhvələri göstərin"

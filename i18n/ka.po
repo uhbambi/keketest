@@ -2,15 +2,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: \n"
-"Last-Translator: \n"
-"Language-Team: \n"
+"PO-Revision-Date: 2024-03-11 09:27+0000\n"
+"Last-Translator: Translation Team <noreply@example.com>\n"
+"Language-Team: Georgian <https://hosted.weblate.org/projects/pixelplanet/"
+"client/ka/>\n"
 "Language: ka\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.4.2\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 5.5-dev\n"
 
 #: src/controls/keypress.js:99
 #, javascript-format
@@ -43,147 +44,136 @@ msgstr "ხმა ჩართულია"
 
 #: src/components/CoordinatesBox.jsx:39 src/components/GetIID.jsx:51
 #: src/controls/keypress.js:211
-msgid "Copied!"
+#, fuzzy
+msgid "Copied"
 msgstr "დაკოპირდა!"
 
 #: src/controls/keypress.js:217
 msgid "Overlay ON"
-msgstr ""
+msgstr "ოვერლეი ჩართულია"
 
 #: src/controls/keypress.js:218
 msgid "Overlay OFF"
-msgstr ""
+msgstr "ოვერლეი გამორთულია"
 
 #: src/components/windows/Help.jsx:50 src/controls/keypress.js:224
 msgid "Easter Egg ON"
-msgstr ""
+msgstr "სააღდგომო კვერცხი ჩართულია"
 
 #: src/components/windows/Help.jsx:49 src/controls/keypress.js:225
 msgid "Easter Egg OFF"
-msgstr ""
+msgstr "სააღდგომო კვერცხი გამორთულია"
 
-#: src/ui/PixelTransferController.js:70 src/ui/templateLoader.js:230
-#: src/ui/templateLoader.js:256
-msgid "Error :("
+#: src/ui/PixelTransferController.js:70 src/ui/PixelTransferController.js:165
+msgid "Timeout"
 msgstr "შეცდომა"
 
-#: src/ui/PixelTransferController.js:71
-msgid "Didn't get an answer from pixelplanet. Maybe try to refresh?"
+#: src/ui/PixelTransferController.js:72 src/ui/PixelTransferController.js:167
+#, fuzzy
+msgid ""
+"Didn't get an answer from pixelplanet. Try to refresh if this problem "
+"persists."
 msgstr "არ მოვიდა პასუხი პიქსელპლანეტიდან, ცადე დარეფრეშება საიტის?"
 
-#: src/ui/PixelTransferController.js:103
+#: src/ui/PixelTransferController.js:104
 msgid "Invalid Canvas"
 msgstr "არასწორი კანვასი"
 
-#: src/ui/PixelTransferController.js:104
+#: src/ui/PixelTransferController.js:105
 msgid "This canvas doesn't exist"
 msgstr "ეს კანვასი არ არსებობს"
 
-#: src/ui/PixelTransferController.js:107 src/ui/PixelTransferController.js:111
-#: src/ui/PixelTransferController.js:115
+#: src/ui/PixelTransferController.js:108 src/ui/PixelTransferController.js:112
+#: src/ui/PixelTransferController.js:116
 msgid "Invalid Coordinates"
 msgstr "არასწორი კორდინატები"
 
-#: src/ui/PixelTransferController.js:108
+#: src/ui/PixelTransferController.js:109
 msgid "x out of bounds"
 msgstr "კოორდინატი ხ არასწორია"
 
-#: src/ui/PixelTransferController.js:112
+#: src/ui/PixelTransferController.js:113
 msgid "y out of bounds"
 msgstr "კორდინატი ყ არასწორია"
 
-#: src/ui/PixelTransferController.js:116
+#: src/ui/PixelTransferController.js:117
 msgid "z out of bounds"
 msgstr "კორდინატი ზ არასწორია"
 
-#: src/ui/PixelTransferController.js:119
+#: src/ui/PixelTransferController.js:120
 msgid "Wrong Color"
 msgstr "არასწორი ფერი"
 
-#: src/ui/PixelTransferController.js:120
+#: src/ui/PixelTransferController.js:121
 msgid "Invalid color selected"
 msgstr "არასწორი ფერი არის არჩეული"
 
-#: src/ui/PixelTransferController.js:123
+#: src/ui/PixelTransferController.js:124
 msgid "Just for registered Users"
 msgstr "მარტო დარეგისტრირებული ადამიანისთვის"
 
-#: src/ui/PixelTransferController.js:124
+#: src/ui/PixelTransferController.js:125
 msgid "You have to be logged in to place on this canvas"
 msgstr "უნდა იყო აქაუნთზე შესული რომ ამ კანვასზე ითამაშო"
 
-#: src/ui/PixelTransferController.js:127
-msgid "Place more :)"
-msgstr "დასვი მეტი :)"
-
-#: src/ui/PixelTransferController.js:129
-msgid "You can not access this canvas yet. You need to place more pixels"
-msgstr "ჯერ ამ კანვასზე არ შეგიძლია შესვლა. უნდა დასვა მეტი პიქსელი"
-
-#: src/ui/PixelTransferController.js:132
-msgid "Pixel protected!"
-msgstr "პიქსელი დაპროტექტებულია!"
-
-#: src/ui/PixelTransferController.js:139
-msgid "Please prove that you are human"
-msgstr "გვანახე რომ ადამიანი ხარ"
-
-#: src/ui/PixelTransferController.js:143
-msgid "No Proxies Allowed :("
-msgstr "პროქსი არ არის დაშვებული :("
-
-#: src/ui/PixelTransferController.js:144
-msgid "You are using a Proxy."
-msgstr "შენ ხმარობ პროქსის."
-
-#: src/ui/PixelTransferController.js:147
+#: src/ui/PixelTransferController.js:128 src/ui/PixelTransferController.js:144
+#: src/ui/PixelTransferController.js:148
 msgid "Not allowed"
 msgstr "არ შეიძლება"
 
-#: src/ui/PixelTransferController.js:148
+#: src/ui/PixelTransferController.js:130
+#, fuzzy
+msgid "You can not access this canvas yet, because your pixel score is too low"
+msgstr "ჯერ ამ კანვასზე არ შეგიძლია შესვლა. უნდა დასვა მეტი პიქსელი"
+
+#: src/ui/PixelTransferController.js:133
+#, fuzzy
+msgid "Pixel protected"
+msgstr "პიქსელი დაპროტექტებულია!"
+
+#: src/ui/PixelTransferController.js:140
+msgid "Please prove that you are human"
+msgstr "გვანახე რომ ადამიანი ხარ"
+
+#: src/ui/PixelTransferController.js:145
+msgid "You are using a Proxy."
+msgstr "შენ ხმარობ პროქსის."
+
+#: src/ui/PixelTransferController.js:149
 msgid "Just the Top10 of yesterday can place here"
 msgstr "მარტო ვინც 10 ადგილას იყო გუშინ შეუძლია აქ პიქსელების დასმა"
 
-#: src/ui/PixelTransferController.js:151
+#: src/ui/PixelTransferController.js:152
 msgid "You are weird"
 msgstr "უცნაური ხარ"
 
-#: src/ui/PixelTransferController.js:153
+#: src/ui/PixelTransferController.js:154
 msgid ""
 "Server got confused by your pixels. Are you playing on multiple devices?"
 msgstr "სერვერი დაიბნა თქვენი პიქსელებით. ბევრ მოწყობილობაზე თამაშობ?"
 
-#: src/ui/PixelTransferController.js:156
+#: src/ui/PixelTransferController.js:157
 msgid "Banned"
 msgstr "აკრძალული"
 
-#: src/ui/PixelTransferController.js:160
+#: src/ui/PixelTransferController.js:161
 msgid "Range Banned"
 msgstr "აკრძალული"
 
-#: src/ui/PixelTransferController.js:161
-msgid "Your Internet Provider is banned from playing this game"
+#: src/ui/PixelTransferController.js:162
+#, fuzzy
+msgid "Your Internet Provider is banned from this game"
 msgstr "თქვენს ინტერნეტ პროვაიდერს აეკრძალა ამ თამაშის თამაში"
 
-#: src/ui/PixelTransferController.js:164
-msgid "Timeout"
-msgstr "შეცდომა"
-
-#: src/ui/PixelTransferController.js:166
-msgid ""
-"Didn't get an answer from pixelplanet. Maybe try to refresh if problem "
-"persists?"
-msgstr "არ მოვიდა პასუხი პიქსელპლანეტიდან, ცადე დარეფრეშება საიტის?"
-
-#: src/ui/PixelTransferController.js:169
+#: src/ui/PixelTransferController.js:170
 msgid "Weird"
 msgstr "უცნაური"
 
-#: src/ui/PixelTransferController.js:170
+#: src/ui/PixelTransferController.js:171
 msgid "Couldn't set Pixel"
 msgstr "Pixel-ის დაყენება ვერ მოხერხდა"
 
-#: src/ui/PixelTransferController.js:175
+#: src/ui/PixelTransferController.js:176
 #, javascript-format
 msgid "Error ${ retCode }"
 msgstr "უცნაური ${ retCode }"
@@ -196,13 +186,17 @@ msgstr "კანვასის შეცდომა"
 msgid "Can't render 3D canvas, do you have WebGL2 disabled?"
 msgstr "3D კანვასის რენდერი ვერ ხერხდება, გამორთული გაქვთ WebGL2?"
 
+#: src/ui/templateLoader.js:230 src/ui/templateLoader.js:256
+msgid "Error :("
+msgstr "შეცდომა"
+
 #: src/ui/templateLoader.js:231
 msgid "Can not export more than 20 or no template!"
-msgstr ""
+msgstr "არ შეგიძლიათ დააექსპორტოთ 20-ზე მეტი თემფლეითი!"
 
 #: src/ui/templateLoader.js:257
 msgid "Can not import more than 20 or no template!"
-msgstr ""
+msgstr "არ შეგიძლიათ დააექსპორტოთ 20-ზე მეტი თემფლეითი!"
 
 #: src/components/BanInfo.jsx:136 src/store/actions/index.js:7
 msgid "OK"
@@ -343,13 +337,13 @@ msgstr "სეთინგები"
 msgid "User Area"
 msgstr "მომხმარებლის ზონა"
 
-#: src/components/buttons/DownloadButton.jsx:36
-msgid "Make Screenshot"
-msgstr "სკრინშოტის გაკეთება"
-
 #: src/components/buttons/GlobeButton.jsx:34
 msgid "Globe View"
 msgstr "გლობუსის ნახვა"
+
+#: src/components/buttons/DownloadButton.jsx:36
+msgid "Make Screenshot"
+msgstr "სკრინშოტის გაკეთება"
 
 #: src/components/buttons/PalselButton.jsx:30
 msgid "Close Palette"
@@ -361,28 +355,27 @@ msgstr "გააღეთ პალიტრა"
 
 #: src/components/buttons/PencilButton.jsx:32
 msgid "History Pencil ON"
-msgstr ""
+msgstr "ისტორიული ფანქარი ჩართულია"
 
 #: src/components/buttons/PencilButton.jsx:38
 msgid "Overlay Pencil ON"
-msgstr ""
+msgstr "ოვერლეის ფანქარი ჩართულია"
 
 #: src/components/buttons/PencilButton.jsx:65
 msgid "Enable Pencil"
-msgstr ""
+msgstr "ფანქრის ჩართვა"
 
 #: src/components/buttons/PencilButton.jsx:69
-#, fuzzy
 msgid "Disable Pencil"
-msgstr "თამაშის ხმების გამორთვა"
+msgstr "ფანქრის გამორთვა"
 
 #: src/components/buttons/PencilButton.jsx:73
 msgid "Disable History Pencil"
-msgstr ""
+msgstr "გამორთეთ ისტორიული ფანქარი"
 
 #: src/components/buttons/PencilButton.jsx:77
 msgid "Disable Overlay Pencil"
-msgstr ""
+msgstr "გამორთეთ ოვერლეის ფანქარი"
 
 #: src/components/windows/index.js:16
 msgid "Registration"
@@ -399,56 +392,6 @@ msgstr "ჩატი"
 #: src/components/windows/index.js:20
 msgid "Canvas Archive"
 msgstr "კანვასის არქივი"
-
-#: src/components/BanInfo.jsx:66
-#, fuzzy
-msgid "You are banned. You think it is unjustified? Check out the "
-msgstr "აკრძალული ხარ. თქვენ ფიქრობთ, რომ ეს გაუმართლებელია? შეამოწმეთ "
-
-#: src/components/BanInfo.jsx:76
-msgid " on how to appeal."
-msgstr " როგორ გაასაჩივროთ."
-
-#: src/components/BanInfo.jsx:80 src/components/Captcha.jsx:79
-#: src/components/ChangeMail.jsx:72 src/components/ChangeName.jsx:58
-#: src/components/ChangePassword.jsx:79 src/components/DeleteAccount.jsx:55
-#: src/components/GlobalCaptcha.jsx:71 src/components/LogInForm.jsx:70
-#: src/components/windows/ForgotPassword.jsx:73
-#: src/components/windows/Register.jsx:89
-msgid "Error"
-msgstr "შეცდომა"
-
-#: src/components/BanInfo.jsx:85 src/components/ModIIDtools.jsx:73
-msgid "Reason"
-msgstr "მიზეზი"
-
-#: src/components/BanInfo.jsx:91
-msgid "By Mod"
-msgstr "მოდერატორის-ის მიერ"
-
-#: src/components/BanInfo.jsx:97 src/components/ModIIDtools.jsx:84
-msgid "Duration"
-msgstr "ხანგრძლივობა"
-
-#: src/components/BanInfo.jsx:99
-msgid "Your ban expires at "
-msgstr "თქვენი აკრძალვა იწურება "
-
-#: src/components/BanInfo.jsx:101
-msgid " which is in "
-msgstr " რომელიც არის  "
-
-#: src/components/BanInfo.jsx:112
-msgid "Unbanned"
-msgstr "აკრძალული აღარ ხართ"
-
-#: src/components/BanInfo.jsx:113
-msgid "Now that you have seen this message, you are no longer banned."
-msgstr "ახლა, როცა ეს შეტყობინება ნახეთ, აღარ ხართ აკრძალული."
-
-#: src/components/BanInfo.jsx:127
-msgid "Why?"
-msgstr "რატო?"
 
 #: src/components/GlobalCaptcha.jsx:47
 msgid "You took too long, try again."
@@ -470,6 +413,15 @@ msgstr "კაპტჩას ნომერი არ არის მოც�
 msgid "Unknown Captcha Error"
 msgstr "უცნობი კაპჩტას შეცდომა"
 
+#: src/components/BanInfo.jsx:80 src/components/Captcha.jsx:79
+#: src/components/ChangeMail.jsx:72 src/components/ChangeName.jsx:58
+#: src/components/ChangePassword.jsx:79 src/components/DeleteAccount.jsx:55
+#: src/components/GlobalCaptcha.jsx:71 src/components/LogInForm.jsx:70
+#: src/components/windows/ForgotPassword.jsx:73
+#: src/components/windows/Register.jsx:89
+msgid "Error"
+msgstr "შეცდომა"
+
 #: src/components/ChangeMail.jsx:93 src/components/ChangeName.jsx:70
 #: src/components/ChangePassword.jsx:115 src/components/DeleteAccount.jsx:68
 #: src/components/GlobalCaptcha.jsx:80 src/components/TemplateItemEdit.jsx:181
@@ -481,6 +433,46 @@ msgstr "გაუქმება"
 #: src/components/GlobalCaptcha.jsx:86
 msgid "Send"
 msgstr "გაგზავნა"
+
+#: src/components/BanInfo.jsx:66
+msgid "You are banned. You think it is unjustified? Check out the "
+msgstr "აკრძალული ხარ. თქვენ ფიქრობთ, რომ ეს გაუმართლებელია? შეამოწმეთ "
+
+#: src/components/BanInfo.jsx:76
+msgid " on how to appeal."
+msgstr " როგორ გაასაჩივროთ."
+
+#: src/components/BanInfo.jsx:85 src/components/ModIIDtools.jsx:73
+msgid "Reason"
+msgstr "მიზეზი"
+
+#: src/components/BanInfo.jsx:91
+msgid "By Mod"
+msgstr "მოდერატორის-ის მიერ"
+
+#: src/components/BanInfo.jsx:97 src/components/ModIIDtools.jsx:84
+msgid "Duration"
+msgstr "ხანგრძლივობა"
+
+#: src/components/BanInfo.jsx:99
+msgid "Your ban expires at "
+msgstr "თქვენი აკრძალვა იწურება "
+
+#: src/components/BanInfo.jsx:101
+msgid " which is in "
+msgstr " რომელიც არის "
+
+#: src/components/BanInfo.jsx:112
+msgid "Unbanned"
+msgstr "აკრძალული აღარ ხართ"
+
+#: src/components/BanInfo.jsx:113
+msgid "Now that you have seen this message, you are no longer banned."
+msgstr "ახლა, როცა ეს შეტყობინება ნახეთ, აღარ ხართ აკრძალული."
+
+#: src/components/BanInfo.jsx:127
+msgid "Why?"
+msgstr "რატო?"
 
 #: src/components/windows/Help.jsx:65
 msgid "Place color pixels on a large canvas with other players online!"
@@ -514,7 +506,7 @@ msgstr ""
 
 #: src/components/windows/Help.jsx:68
 msgid "Have fun!"
-msgstr "Have fun!"
+msgstr "გაერთე!"
 
 #: src/components/windows/Help.jsx:70
 msgid "recommended"
@@ -642,7 +634,7 @@ msgstr ""
 "ხანგრძლივად შეეხეთ ამჟამინდელი რა ფერიც დევს კანვასზე მაგის ასარჩევად"
 
 #: src/components/windows/Help.jsx:100
-#, fuzzy, javascript-format
+#, javascript-format
 msgid "Press ${ bindQ } and ${ bindE } to fly up and down"
 msgstr "დააჭირეთ ${ bindQ } და ${ bindE } ზევით და ქვევით ფრენისთვის"
 
@@ -677,9 +669,10 @@ msgstr ""
 "შეეხეთ პიქსელის მოსაშორებლად"
 
 #: src/components/windows/Help.jsx:110
+#, fuzzy
 msgid ""
-"We thanks those artists very much, they offered their palettes to the public "
-"on"
+"We thank the following artists, who made their palettes available to the "
+"public on"
 msgstr ""
 "ჩვენ დიდ მადლობას ვუხდით ამ არტისტებს, მათ შესთავაზეს თავიანთი პალიტრები "
 "საზოგადოებას აქ"
@@ -695,7 +688,7 @@ msgid "Credit for the Palette of the Top10 canvas goes to ${ vinikLink }."
 msgstr "ტოპ10 ტილოს პალიტრის კრედიტი გადადის ${ vinikLink }."
 
 #: src/components/windows/Help.jsx:119
-#, fuzzy, javascript-format
+#, javascript-format
 msgid "Credit for the Palette of the 2bit canvas goes to ${ donendoLink }."
 msgstr "ტოპ10 ტილოს პალიტრის კრედიტი გადადის ${ donendoLink }."
 
@@ -717,11 +710,11 @@ msgstr "აჩვენეთ წრეები, სადაც პიქს�
 
 #: src/components/windows/Settings.jsx:107
 msgid "Always show Movement Controls"
-msgstr ""
+msgstr "მოძრაობის კონტროლის სულ ჩვენება"
 
 #: src/components/windows/Settings.jsx:112
 msgid "Always show movement control buttons"
-msgstr ""
+msgstr "მოძრაობის კონტროლის ღილაკების ყოველთვის ჩვენება"
 
 #: src/components/windows/Settings.jsx:115
 msgid "Disable Game Sounds"
@@ -874,11 +867,12 @@ msgid ""
 "Select the canvas you want to use.\n"
 "Every canvas is unique and has different palettes, cooldown and "
 "requirements.\n"
-"Archive of removed canvases can be accessed here:"
+"Archived canvases can be accessed here:"
 msgstr ""
-"აირჩიეთ კანვასი, რომლის გამოყენებაც გსურთ. ყველა კანვასი უნიკალურია და აქვს "
-"სხვადასხვა პალიტრა, დროს მოცდა და მოთხოვნები. დახურული კანვასის არქივი "
-"შეგიძლიათ ნახოთ აქ:"
+"აირჩიეთ კანვასი, რომლის გამოყენებაც გსურთ. \n"
+"ყველა კანვასი უნიკალურია და აქვს სხვადასხვა პალიტრა, დროს მოცდა და "
+"მოთხოვნები. \n"
+"დახურული კანვასის არქივი შეგიძლიათ ნახოთ აქ:"
 
 #: src/components/windows/CanvasSelect.jsx:37
 msgid "Archive"
@@ -886,15 +880,15 @@ msgstr "არქივი"
 
 #: src/components/windows/CanvasSelect.jsx:70
 msgid "Retired Canvases (history only)"
-msgstr ""
+msgstr "პენსიონერი ჩარჩო (მხოლოდ ისტორია)"
 
 #: src/components/windows/Archive.jsx:9
 #, fuzzy
 msgid ""
 "While we tend to not delete canvases, some canvases are started for fun or "
-"as a request by users who currently like a meme. Those canvases can get "
-"boring after a while and after weeks of no major change and if they really "
-"aren't worth being kept active."
+"as a request by users who like a currently popular meme. Those canvases can "
+"become dull and inactive after a while, at which point there is no reason to "
+"keep them and we may decide to remove them."
 msgstr ""
 "მიუხედავად იმისა, რომ ჩვენ მიდრეკილნი ვართ არ წავშალოთ კანვასები, ზოგიერთი "
 "კანვასი დაწყებულია გასართობად ან მომხმარებლის მოთხოვნით, რომლებსაც ამჟამად "
@@ -905,11 +899,11 @@ msgstr ""
 #: src/components/windows/Archive.jsx:10
 #, fuzzy
 msgid ""
-"Here we collect removed canvases to archive them in a proper way. Which is "
+"Here we collect removed canvases to archive them properly. Which is "
 "currently only one."
 msgstr ""
-"აქ ჩვენ ვაგროვებთ ამ კანვასებს, რათა დაარქივოთ ისინი სათანადო გზით (რომელიც "
-"ამჟამად მხოლოდ ერთია)."
+"აქ ჩვენ ვაგროვებთ ამ კანვასებს, რათა დავაარქივოთ ისინი სათანადო გზით "
+"(რომელიც ამჟამად მხოლოდ ერთია)."
 
 #: src/components/windows/Archive.jsx:12
 msgid "Political Compass Canvas"
@@ -993,6 +987,54 @@ msgstr "გადატვირთვა"
 msgid "Enter Characters"
 msgstr "შეიყვანეთ სიმბოლოები"
 
+#: src/utils/validation.js:17
+msgid "Email can't be empty."
+msgstr "ელფოსტა არ შეიძლება იყოს ცარიელი."
+
+#: src/utils/validation.js:18
+msgid "Email should be at least 5 characters long."
+msgstr "ელფოსტა უნდა იყოს მინიმუმ 5 სიმბოლო."
+
+#: src/utils/validation.js:19
+msgid "Email can't be longer than 40 characters."
+msgstr "ელფოსტა არ შეიძლება იყოს 40 სიმბოლოზე მეტი."
+
+#: src/utils/validation.js:20
+msgid "Email should at least contain a dot"
+msgstr "ელფოსტა მინიმუმ წერტილს უნდა შეიცავდეს"
+
+#: src/utils/validation.js:22
+msgid "Email should contain a @"
+msgstr "ელფოსტა უნდა შეიცავდეს @"
+
+#: src/utils/validation.js:29
+msgid "Name can't be empty."
+msgstr "სახელი არ შეიძლება იყოს ცარიელი."
+
+#: src/utils/validation.js:30
+msgid "Name must be at least 2 characters long"
+msgstr "სახელი უნდა იყოს მინიმუმ 2 სიმბოლო"
+
+#: src/utils/validation.js:31
+msgid "Name must be shorter than 26 characters"
+msgstr "სახელი უნდა იყოს 26 სიმბოლოზე მოკლე"
+
+#: src/utils/validation.js:38
+msgid "Name contains invalid character like @, /, \\ or #"
+msgstr "სახელი შეიცავს არასწორ სიმბოლოს, როგორიცაა @, /, \\ ან #"
+
+#: src/utils/validation.js:53
+msgid "No password given."
+msgstr "პაროლი არ არის მოცემული."
+
+#: src/utils/validation.js:56
+msgid "Password must be at least 6 characters long."
+msgstr "პაროლი უნდა იყოს მინიმუმ 6 სიმბოლო."
+
+#: src/utils/validation.js:59
+msgid "Password must be shorter than 60 characters."
+msgstr "პაროლი უნდა იყოს 60 სიმბოლოზე ნაკლები."
+
 #: src/components/GetIID.jsx:44
 msgid "Get IID"
 msgstr "მიიღეთ IID"
@@ -1008,9 +1050,8 @@ msgid "Save"
 msgstr "შენახვა"
 
 #: src/components/TemplateSettings.jsx:57
-#, fuzzy
 msgid "Templates"
-msgstr "ჩამოტვირთეთ შაბლონი"
+msgstr "თემფლეითები"
 
 #: src/components/TemplateSettings.jsx:61
 msgid ""
@@ -1019,56 +1060,59 @@ msgid ""
 "that! Templates can show as overlay and you can draw over them. One pixel on "
 "the template, should be one pixel on the canvas."
 msgstr ""
+"დაიღალეთ ყოველთვის ერთი ფერის სპამვით? გინდათ არტი შექმნათ, მაგრამ "
+"პიქსელების დათვლა გჭირდებათ სხვა ფოტოდან? თემფლეითმა შეგიძლიათ დაგეხმაროთ "
+"მაგაში! თემფლეითებს შეუძლიათ გამოაჩინონ ოვერლეი და მარტო თქვენ შეგიძლიათ მათ "
+"ზემოდან დახატვა. ერთი პიქსელი თემფლეითზე, უნდა იყოს ერთი პიქსელი კანვასზე."
 
 #: src/components/TemplateSettings.jsx:65
 msgid "Enable Overlay"
-msgstr ""
+msgstr "ოვერლეის ჩართვა"
 
 #: src/components/TemplateSettings.jsx:70
 msgid "Show templates as overlays ingame."
-msgstr ""
+msgstr "თემფლეითების ოვერლეად გამოჩენა თამაშში."
 
 #: src/components/TemplateSettings.jsx:73
-msgid "Small Pixels Zoom"
-msgstr ""
+#, fuzzy
+msgid "Small Pixels When Zoomed"
+msgstr "პატარა პიქსელების ზუმი"
 
 #: src/components/TemplateSettings.jsx:78
 msgid "Show overlay as small individual pixels on high zoomlevels."
-msgstr ""
+msgstr "ოვერლეის პატარა ინდივიდუალურ პიქსელებად გამოჩენა შორი ზუმიდან."
 
 #: src/components/TemplateSettings.jsx:85
 msgid "Overlay Opacity"
-msgstr ""
+msgstr "ოვერლეის გამჭვირვალობა"
 
 #: src/components/TemplateSettings.jsx:99
 msgid "Opacity of Overlay in percent."
-msgstr ""
+msgstr "ოვერლეის გამჭვირვალობა პროცენტებში."
 
 #: src/components/TemplateSettings.jsx:105
 msgid "Right-Shift Auto-Color"
-msgstr ""
+msgstr "მარჯვენა-შიფტი აუტო-ფერი"
 
 #: src/components/TemplateSettings.jsx:110
 msgid "Place pixels from overlay on right-shift, instead of history."
-msgstr ""
+msgstr "დასვით პიქსელები ივერლეიდან მარჯვენა შიფტით, ისტორიის ნაცვლად."
 
 #: src/components/TemplateSettings.jsx:149
-#, fuzzy
 msgid "Cancel adding Template"
-msgstr "ჩამოტვირთეთ შაბლონი"
+msgstr "თემფლეითის დამატების შეწყვეტა"
 
 #: src/components/TemplateSettings.jsx:156
-#, fuzzy
 msgid "Add Template"
-msgstr "ჩამოტვირთეთ შაბლონი"
+msgstr "თემფლეითის დამატება"
 
 #: src/components/TemplateSettings.jsx:173
 msgid "Export enabled templates"
-msgstr ""
+msgstr "ჩართული თემფლეითების დაექსპორტება"
 
 #: src/components/TemplateSettings.jsx:182
 msgid "Import templates"
-msgstr ""
+msgstr "თემფლეითების იმპორტირება"
 
 #: src/components/LogInArea.jsx:19
 msgid "Login to access more features and stats."
@@ -1095,7 +1139,6 @@ msgid "Register"
 msgstr "რეგისტრაცია"
 
 #: src/components/UserAreaContent.jsx:62
-#, fuzzy
 msgid "Today Placed Pixels"
 msgstr "დღეს დასმული პიქსელები"
 
@@ -1252,54 +1295,6 @@ msgstr ""
 "რეიტინგის განახლება ყოველ 5 წუთში. ყოველდღიური რეიტინგები განახლდება "
 "შუაღამისას UTC."
 
-#: src/utils/validation.js:17
-msgid "Email can't be empty."
-msgstr "ელფოსტა არ შეიძლება იყოს ცარიელი."
-
-#: src/utils/validation.js:18
-msgid "Email should be at least 5 characters long."
-msgstr "ელფოსტა უნდა იყოს მინიმუმ 5 სიმბოლო."
-
-#: src/utils/validation.js:19
-msgid "Email can't be longer than 40 characters."
-msgstr "ელფოსტა არ შეიძლება იყოს 40 სიმბოლოზე მეტი."
-
-#: src/utils/validation.js:20
-msgid "Email should at least contain a dot"
-msgstr "ელფოსტა მინიმუმ წერტილს უნდა შეიცავდეს"
-
-#: src/utils/validation.js:22
-msgid "Email should contain a @"
-msgstr "ელფოსტა უნდა შეიცავდეს @"
-
-#: src/utils/validation.js:29
-msgid "Name can't be empty."
-msgstr "სახელი არ შეიძლება იყოს ცარიელი."
-
-#: src/utils/validation.js:30
-msgid "Name must be at least 2 characters long"
-msgstr "სახელი უნდა იყოს მინიმუმ 2 სიმბოლო"
-
-#: src/utils/validation.js:31
-msgid "Name must be shorter than 26 characters"
-msgstr "სახელი უნდა იყოს 26 სიმბოლოზე მოკლე"
-
-#: src/utils/validation.js:38
-msgid "Name contains invalid character like @, /, \\ or #"
-msgstr "სახელი შეიცავს არასწორ სიმბოლოს, როგორიცაა @, /, \\ ან #"
-
-#: src/utils/validation.js:53
-msgid "No password given."
-msgstr "პაროლი არ არის მოცემული."
-
-#: src/utils/validation.js:56
-msgid "Password must be at least 6 characters long."
-msgstr "პაროლი უნდა იყოს მინიმუმ 6 სიმბოლო."
-
-#: src/utils/validation.js:59
-msgid "Password must be shorter than 60 characters."
-msgstr "პაროლი უნდა იყოს 60 სიმბოლოზე ნაკლები."
-
 #: src/components/CanvasItem.jsx:29
 msgid "Online Users"
 msgstr "ონლაინ მომხმარებლები"
@@ -1346,57 +1341,34 @@ msgstr "ტოპ 10 ყოველდღიური რეიტინგი"
 msgid "Dimensions"
 msgstr "ზომები"
 
-#: src/core/chartSettings.js:30
-msgid "Top 10 Countries [pxls / day]"
-msgstr "ტოპ 10 ქვეყანა [pxls / day]"
-
-#: src/core/chartSettings.js:127
-msgid "Players and Pixels per hour"
-msgstr "მოთამაშეები და პიქსელები საათში"
-
-#: src/core/chartSettings.js:221
-msgid "Top 10 Players [pxls / day]"
-msgstr "ტოპ 10 მოთამაშე [pxls / day]"
-
-#: src/core/chartSettings.js:294
-msgid "Countries by Pixels Today"
-msgstr "ქვეყნები პიქსელების მიხედვით დღეს"
-
-#: src/core/chartSettings.js:351
-msgid "Total Pixels placed per day"
-msgstr "სულ პიქსელები განთავსებული დღეში"
-
 #: src/components/ModWatchtools.jsx:125 src/components/TemplateItem.jsx:54
 #: src/components/TemplateItemEdit.jsx:122
 msgid "Canvas"
 msgstr "კანვასი"
 
 #: src/components/TemplateItem.jsx:57 src/components/TemplateItemEdit.jsx:141
-#, fuzzy
 msgid "Coordinates"
-msgstr "არასწორი კორდინატები"
+msgstr "კორდინატები"
 
 #: src/components/TemplateItem.jsx:71
 msgid "Edit"
-msgstr ""
+msgstr "დაედითება"
 
 #: src/components/TemplateItem.jsx:81
 msgid "Go to"
-msgstr ""
+msgstr "წასვლა"
 
 #: src/components/TemplateItemEdit.jsx:97
-#, fuzzy
 msgid "Select File"
-msgstr "Აირჩიეთ ენა"
+msgstr "აირჩიეთ ფაილი"
 
 #: src/components/TemplateItemEdit.jsx:120
 msgid "Template Name"
-msgstr ""
+msgstr "თემფლეითის სახელი"
 
 #: src/components/TemplateItemEdit.jsx:174
-#, fuzzy
 msgid "Delete"
-msgstr "Ანგარიშის წაშლა"
+msgstr "წაშლა"
 
 #: src/components/LogInForm.jsx:77
 msgid "Name or Email"
@@ -1427,7 +1399,8 @@ msgid "Passwords do not match."
 msgstr "Პაროლები არ ემთხვევა."
 
 #: src/components/ChangePassword.jsx:44
-msgid "Changed Password successfully."
+#, fuzzy
+msgid "Password successfully changed."
 msgstr "პაროლი წარმატებით შეიცვალა."
 
 #: src/components/ChangePassword.jsx:88
@@ -1436,7 +1409,7 @@ msgstr "ძველი პაროლი"
 
 #: src/components/ChangePassword.jsx:96
 msgid "New Password"
-msgstr "New Password"
+msgstr "ახალი პაროლი"
 
 #: src/components/ChangePassword.jsx:103
 msgid "Confirm New Password"
@@ -1527,6 +1500,8 @@ msgid ""
 "Turn every pixel in area to 0 (YOU REALLY SHOULDN'T DO THAT ON ANY AREA THAT "
 "ISN'T ALREADY MOSTLY 0)"
 msgstr ""
+"ყველა პიქსელის ზონაში გადაქცევა 0-ზე (ეს ნამდვილად არ უნდა გააკეთო არცერთ "
+"უბანზე, რომელიც უკვე არ არის ძირითადად 0)"
 
 #: src/components/ModCanvastools.jsx:207
 msgid "Status: Not running"
@@ -1545,22 +1520,20 @@ msgid "File"
 msgstr "ფაილი"
 
 #: src/components/ModCanvastools.jsx:273
-#, fuzzy
 msgid "Coordinates:"
-msgstr "არასწორი კორდინატები"
+msgstr "კორდინატები:"
 
 #: src/components/ModCanvastools.jsx:317
 msgid "Pixel Protection"
 msgstr "პიქსელის დაცვა"
 
 #: src/components/ModCanvastools.jsx:321
-#, fuzzy
 msgid ""
 "Set protection of areas (if you need finer grained control, use protect with "
 "image upload and alpha layers)"
 msgstr ""
-"დააყენეთ უბნების დაცვა         (თუ გჭირდებათ უფრო წვრილმარცვლოვანი "
-"კონტროლი,         გამოიყენეთ დაცვა სურათის ატვირთვით და ალფა შრეებით)"
+"დააყენეთ უბნების დაცვა (თუ გჭირდებათ უფრო წვრილმარცვლოვანი კონტროლი, "
+"გამოიყენეთ დაცვა სურათის ატვირთვით და ალფა შრეებით)"
 
 #: src/components/ModCanvastools.jsx:341 src/components/ModCanvastools.jsx:424
 #: src/components/ModCanvastools.jsx:517 src/components/ModWatchtools.jsx:176
@@ -1668,6 +1641,26 @@ msgstr "შეიყვანეთ მიზეზი"
 msgid "(0 = infinite)"
 msgstr "(0 = უსასრულო)"
 
+#: src/core/chartSettings.js:30
+msgid "Top 10 Countries [pxls / day]"
+msgstr "ტოპ 10 ქვეყანა [pxls / day]"
+
+#: src/core/chartSettings.js:127
+msgid "Players and Pixels per hour"
+msgstr "მოთამაშეები და პიქსელები საათში"
+
+#: src/core/chartSettings.js:221
+msgid "Top 10 Players [pxls / day]"
+msgstr "ტოპ 10 მოთამაშე [pxls / day]"
+
+#: src/core/chartSettings.js:294
+msgid "Countries by Pixels Today"
+msgstr "ქვეყნები პიქსელების მიხედვით დღეს"
+
+#: src/core/chartSettings.js:351
+msgid "Total Pixels placed per day"
+msgstr "სულ პიქსელები განთავსებული დღეში"
+
 #: src/components/contextmenus/UserContextMenu.jsx:49
 msgid "Ping"
 msgstr "პინგი"
@@ -1687,73 +1680,81 @@ msgstr "დადუმება"
 #: src/components/windows/Help.jsx:19 src/components/windows/Settings.jsx:92
 msgctxt "keybinds"
 msgid "G"
-msgstr ""
+msgstr "გ"
 
 #: src/components/windows/Help.jsx:20 src/components/windows/Settings.jsx:100
 msgctxt "keybinds"
 msgid "X"
-msgstr ""
+msgstr "ხ"
 
 #: src/components/windows/Help.jsx:21 src/components/windows/Settings.jsx:171
 msgctxt "keybinds"
 msgid "H"
-msgstr ""
+msgstr "ჰ"
 
 #: src/components/windows/Help.jsx:22
 msgctxt "keybinds"
 msgid "R"
-msgstr ""
+msgstr "რ"
 
 #: src/components/windows/Help.jsx:23
 msgctxt "keybinds"
 msgid "Q"
-msgstr ""
+msgstr "ქ"
 
 #: src/components/windows/Help.jsx:24
 msgctxt "keybinds"
 msgid "E"
-msgstr ""
+msgstr "ე"
 
 #: src/components/windows/Help.jsx:25
 msgctxt "keybinds"
 msgid "W"
-msgstr ""
+msgstr "წ"
 
 #: src/components/windows/Help.jsx:26
 msgctxt "keybinds"
 msgid "A"
-msgstr ""
+msgstr "ა"
 
 #: src/components/windows/Help.jsx:27
 msgctxt "keybinds"
 msgid "S"
-msgstr ""
+msgstr "ს"
 
 #: src/components/windows/Help.jsx:28
 msgctxt "keybinds"
 msgid "D"
-msgstr ""
+msgstr "დ"
 
 #: src/components/windows/Help.jsx:35
 msgctxt "keybinds"
 msgid "Shift"
-msgstr ""
+msgstr "შიფტი"
 
 #: src/components/windows/Settings.jsx:108
-#, fuzzy
 msgctxt "keybinds"
 msgid "N"
-msgstr "არა"
+msgstr "ნ"
 
 #: src/components/windows/Settings.jsx:116
 msgctxt "keybinds"
 msgid "M"
-msgstr ""
+msgstr "მ"
 
 #: src/components/TemplateSettings.jsx:66
 msgctxt "keybinds"
 msgid "T"
-msgstr ""
+msgstr "ტ"
+
+#~ msgid "Didn't get an answer from pixelplanet. Maybe try to refresh?"
+#~ msgstr "არ მოვიდა პასუხი პიქსელპლანეტიდან, ცადე დარეფრეშება საიტის?"
+
+#~ msgid "Place more :)"
+#~ msgstr "დასვი მეტი :)"
+
+#~ msgid "No Proxies Allowed :("
+#~ msgstr "პროქსი არ არის დაშვებული :("
 
 #~ msgid "Show Hidden Canvases"
 #~ msgstr "დამალული კანვასის ჩვენება"
