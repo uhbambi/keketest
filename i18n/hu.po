@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2024-03-10 19:37+0000\n"
+"PO-Revision-Date: 2024-03-12 19:57+0000\n"
 "Last-Translator: Translation Team <noreply@example.com>\n"
 "Language-Team: Hungarian <https://hosted.weblate.org/projects/pixelplanet/"
 "client/hu/>\n"
@@ -44,9 +44,8 @@ msgstr "Hang"
 
 #: src/components/CoordinatesBox.jsx:39 src/components/GetIID.jsx:51
 #: src/controls/keypress.js:211
-#, fuzzy
 msgid "Copied"
-msgstr "Másolva!"
+msgstr "Másolva"
 
 #: src/controls/keypress.js:217
 msgid "Overlay ON"
@@ -69,7 +68,6 @@ msgid "Timeout"
 msgstr "Időtúllépés"
 
 #: src/ui/PixelTransferController.js:72 src/ui/PixelTransferController.js:167
-#, fuzzy
 msgid ""
 "Didn't get an answer from pixelplanet. Try to refresh if this problem "
 "persists."
@@ -124,14 +122,12 @@ msgid "Not allowed"
 msgstr "Nem megengedett"
 
 #: src/ui/PixelTransferController.js:130
-#, fuzzy
 msgid "You can not access this canvas yet, because your pixel score is too low"
 msgstr "Ehhez a vászonhoz még nem férsz hozzá. Több pixelt kell elhelyezned"
 
 #: src/ui/PixelTransferController.js:133
-#, fuzzy
 msgid "Pixel protected"
-msgstr "Védett pixel!"
+msgstr "Védett pixel"
 
 #: src/ui/PixelTransferController.js:140
 msgid "Please prove that you are human"
@@ -163,7 +159,6 @@ msgid "Range Banned"
 msgstr "Tiltott tartomány"
 
 #: src/ui/PixelTransferController.js:162
-#, fuzzy
 msgid "Your Internet Provider is banned from this game"
 msgstr "Az internetszolgáltatód nem játszhat ezzel a játékkal"
 
@@ -673,7 +668,6 @@ msgstr ""
 "érintőpadra ${ touchSymbol } a pixel eltávolításához"
 
 #: src/components/windows/Help.jsx:110
-#, fuzzy
 msgid ""
 "We thank the following artists, who made their palettes available to the "
 "public on"
@@ -865,7 +859,6 @@ msgid "Submit"
 msgstr "Küldés"
 
 #: src/components/windows/CanvasSelect.jsx:29
-#, fuzzy
 msgid ""
 "Select the canvas you want to use.\n"
 "Every canvas is unique and has different palettes, cooldown and "
@@ -886,7 +879,6 @@ msgid "Retired Canvases (history only)"
 msgstr "Nyugdíjazott vásznak (csak történelmi nézet)"
 
 #: src/components/windows/Archive.jsx:9
-#, fuzzy
 msgid ""
 "While we tend to not delete canvases, some canvases are started for fun or "
 "as a request by users who like a currently popular meme. Those canvases can "
@@ -899,7 +891,6 @@ msgstr ""
 "történik nagyobb változás, akkor már tényleg nem érdemes őket fenntartani."
 
 #: src/components/windows/Archive.jsx:10
-#, fuzzy
 msgid ""
 "Here we collect removed canvases to archive them properly. Which is "
 "currently only one."
@@ -1079,7 +1070,6 @@ msgid "Show templates as overlays ingame."
 msgstr "Sablonok megjelenítése overlay-ként a játékban."
 
 #: src/components/TemplateSettings.jsx:73
-#, fuzzy
 msgid "Small Pixels When Zoomed"
 msgstr "Kis pixeles nagyítás"
 
@@ -1406,7 +1396,6 @@ msgid "Passwords do not match."
 msgstr "A jelszó nem stimmel."
 
 #: src/components/ChangePassword.jsx:44
-#, fuzzy
 msgid "Password successfully changed."
 msgstr "Sikeresen megváltoztattad a jelszót."
 

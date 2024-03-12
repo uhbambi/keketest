@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2024-03-10 16:43+0000\n"
+"PO-Revision-Date: 2024-03-11 22:53+0000\n"
 "Last-Translator: Translation Team <noreply@example.com>\n"
 "Language-Team: Croatian <https://hosted.weblate.org/projects/pixelplanet/"
 "server/hr/>\n"
@@ -90,7 +90,7 @@ msgstr "Korisnik ne postoji u našoj bazi podataka :("
 
 #: src/routes/reset_password.js:89
 msgid "Password successfully changed."
-msgstr "Lozinka uspješno promijenjena."
+msgstr "Lozinka je uspješno promijenjena."
 
 #: src/routes/reset_password.js:108
 msgid "Invalid url :( Please check your mail again."

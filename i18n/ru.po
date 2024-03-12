@@ -2,16 +2,17 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: \n"
-"Last-Translator: \n"
-"Language-Team: \n"
+"PO-Revision-Date: 2024-03-12 19:57+0000\n"
+"Last-Translator: Translation Team <noreply@example.com>\n"
+"Language-Team: Russian <https://hosted.weblate.org/projects/pixelplanet/"
+"client/ru/>\n"
 "Language: ru\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
-"n%10<=4 && (n%100<12 || n%100>14) ? 1 : 2);\n"
-"X-Generator: Poedit 3.4.2\n"
+"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"X-Generator: Weblate 5.5-dev\n"
 
 #: src/controls/keypress.js:99
 #, javascript-format
@@ -44,9 +45,8 @@ msgstr "Звук включен"
 
 #: src/components/CoordinatesBox.jsx:39 src/components/GetIID.jsx:51
 #: src/controls/keypress.js:211
-#, fuzzy
 msgid "Copied"
-msgstr "Скопировано!"
+msgstr "Скопировано"
 
 #: src/controls/keypress.js:217
 msgid "Overlay ON"
@@ -124,16 +124,14 @@ msgid "Not allowed"
 msgstr "Не разрешено"
 
 #: src/ui/PixelTransferController.js:130
-#, fuzzy
 msgid "You can not access this canvas yet, because your pixel score is too low"
 msgstr ""
 "Вы пока не можете получить доступ к этому полотну. Вам нужно поставить "
 "больше пикселей"
 
 #: src/ui/PixelTransferController.js:133
-#, fuzzy
 msgid "Pixel protected"
-msgstr "Пиксель защищён!"
+msgstr "Пиксель защищён"
 
 #: src/ui/PixelTransferController.js:140
 msgid "Please prove that you are human"
@@ -166,7 +164,6 @@ msgid "Range Banned"
 msgstr "Область адресов забанена"
 
 #: src/ui/PixelTransferController.js:162
-#, fuzzy
 msgid "Your Internet Provider is banned from this game"
 msgstr "Вашему Интернет-провайдеру запрещено играть в эту игру"
 
@@ -679,7 +676,6 @@ msgstr ""
 "коснитесь пальцем, чтобы убрать пиксель"
 
 #: src/components/windows/Help.jsx:110
-#, fuzzy
 msgid ""
 "We thank the following artists, who made their palettes available to the "
 "public on"
@@ -872,7 +868,6 @@ msgid "Submit"
 msgstr "Отправить"
 
 #: src/components/windows/CanvasSelect.jsx:29
-#, fuzzy
 msgid ""
 "Select the canvas you want to use.\n"
 "Every canvas is unique and has different palettes, cooldown and "
@@ -893,7 +888,6 @@ msgid "Retired Canvases (history only)"
 msgstr "Списанные полотна (только история)"
 
 #: src/components/windows/Archive.jsx:9
-#, fuzzy
 msgid ""
 "While we tend to not delete canvases, some canvases are started for fun or "
 "as a request by users who like a currently popular meme. Those canvases can "
@@ -907,7 +901,6 @@ msgstr ""
 "активными."
 
 #: src/components/windows/Archive.jsx:10
-#, fuzzy
 msgid ""
 "Here we collect removed canvases to archive them properly. Which is "
 "currently only one."
@@ -1087,7 +1080,6 @@ msgid "Show templates as overlays ingame."
 msgstr "Показывать шаблоны в виде оверлея в игре."
 
 #: src/components/TemplateSettings.jsx:73
-#, fuzzy
 msgid "Small Pixels When Zoomed"
 msgstr "Оверлей в виде мелких пикселей"
 
@@ -1414,7 +1406,6 @@ msgid "Passwords do not match."
 msgstr "Пароли не совпадают."
 
 #: src/components/ChangePassword.jsx:44
-#, fuzzy
 msgid "Password successfully changed."
 msgstr "Пароль успешно изменен."
 
