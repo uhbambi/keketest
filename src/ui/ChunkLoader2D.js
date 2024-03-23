@@ -94,7 +94,7 @@ class ChunkLoader2D extends ChunkLoader {
       const incrementalChunkKey = `${historicalDate}${historicalTime}:${cx}:${cy}`;
       const incrementalChunk = this.cget(incrementalChunkKey);
       if (incrementalChunk) {
-        const incrementalColor = incrementalChunk.getColorIndex(px, false);
+        const incrementalColor = incrementalChunk.getColorIndex(px, false, true);
         incrementalChunk.timestamp = curTime;
         if (incrementalColor !== null) {
           return incrementalColor;
@@ -108,7 +108,7 @@ class ChunkLoader2D extends ChunkLoader {
       return null;
     }
     chunk.timestamp = curTime;
-    return chunk.getColorIndex(px);
+    return chunk.getColorIndex(px, true, true);
   }
 
   /*
