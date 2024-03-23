@@ -1,5 +1,6 @@
 import { TILE_SIZE } from '../core/constants';
 import Chunk from './Chunk';
+import { rgbToGray } from '../core/utils';
 
 
 class Chunk2D extends Chunk {
@@ -83,14 +84,18 @@ class Chunk2D extends Chunk {
     return x + (TILE_SIZE * y);
   }
 
-  getColorIndex(cell, nearest = true) {
+  getColorIndex(cell, nearest = true, gray = false) {
     const [x, y] = cell;
     const ctx = this.image.getContext('2d');
     const rgba = ctx.getImageData(x, y, 1, 1).data;
     if (!nearest && rgba[3] === 0) return null;
+    let rgb = rgba.slice(0, 3);
+    if (gray) {
+      rgb = rgbToGray(rgb);
+    }
     const ind = (nearest)
-      ? this.palette.getClosestIndexOfColor(rgba[0], rgba[1], rgba[2])
-      : this.palette.getIndexOfColor(rgba[0], rgba[1], rgba[2]);
+      ? this.palette.getClosestIndexOfColor(...rgb)
+      : this.palette.getIndexOfColor(...rgb);
     return ind;
   }
 
