@@ -686,8 +686,27 @@ export function getTapOrClickCenter(event) {
  * @return [g, g, g]
  */
 export function rgbToGray(rgb) {
-  const g = rgb.reduce((a, b) => a + b) / 3;
-  return [g, g, g];
+  const gray = Math.round(rgb.reduce((a, b) => a + b) / 3);
+  const [r, g, b] = rgb;
+  let lastG = gray;
+  if (r < g) {
+    if (gray < 255) lastG += 1;
+  } else if (r > g) {
+    if (gray > 0) lastG -= 1;
+  }
+  let secondG = gray;
+  if (r < b) {
+    if (gray < 255) secondG += 1;
+  } else if (r > b) {
+    if (gray > 0) secondG -= 1;
+  }
+  let firstG = gray;
+  if (g < b) {
+    if (gray < 255) firstG += 1;
+  } else if (g > b) {
+    if (gray > 0) firstG -= 1;
+  }
+  return [firstG, secondG, lastG];
 }
 
 /*
