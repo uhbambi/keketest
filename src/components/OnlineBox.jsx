@@ -7,7 +7,7 @@ import { useSelector, useDispatch, shallowEqual } from 'react-redux';
 import { FaUser, FaPaintBrush, FaFlipboard } from 'react-icons/fa';
 import { t } from 'ttag';
 
-import { toggleOnlineCanvas } from '../store/actions';
+import { toggleOnlineCanvas, toggleNoRound } from '../store/actions';
 import { numberToString } from '../core/utils';
 
 
@@ -17,12 +17,14 @@ const OnlineBox = () => {
     totalPixels,
     name,
     onlineCanvas,
+    noRound,
     canvasId,
   ] = useSelector((state) => [
     state.ranks.online,
     state.ranks.totalPixels,
     state.user.name,
     state.gui.onlineCanvas,
+    state.gui.noRound,
     state.canvas.canvasId,
   ], shallowEqual);
   const dispatch = useDispatch();
@@ -30,20 +32,25 @@ const OnlineBox = () => {
   return (
     <div
       className="onlinebox"
-      role="button"
-      tabIndex="0"
-      onClick={() => dispatch(toggleOnlineCanvas())}
     >
       {(onlineCanvas)
         ? (
           <span
             title={t`Online Users on Canvas`}
+            role="button"
+            tabIndex="0"
+            key="onlinec"
+            onClick={() => dispatch(toggleOnlineCanvas())}
           >
             {online[canvasId] || 0}<FaUser /><FaFlipboard />
           </span>
         )
         : (
           <span
+            role="button"
+            tabIndex="0"
+            key="onlinec"
+            onClick={() => dispatch(toggleOnlineCanvas())}
             title={t`Total Online Users`}
           >
             {online.total}<FaUser />
@@ -52,8 +59,15 @@ const OnlineBox = () => {
        &nbsp;
       {(name != null)
           && (
-          <span title={t`Pixels placed`}>
-            {numberToString(totalPixels)} <FaPaintBrush />
+          <span
+            role="button"
+            tabIndex="0"
+            key="onlinec"
+            onClick={() => dispatch(toggleNoRound())}
+            title={t`Pixels placed`}
+          >
+            {(noRound) ? totalPixels : numberToString(totalPixels)}
+            <FaPaintBrush />
           </span>
           )}
     </div>
