@@ -10,7 +10,6 @@ import { persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 
 import sharedReducers, {
-  CURRENT_VERSION,
   migrate,
 } from './sharedReducers';
 
@@ -35,7 +34,7 @@ import extensions from './middleware/extensions';
 const windowsPersist = persistReducer({
   key: 'wind',
   storage,
-  version: CURRENT_VERSION,
+  version: 17,
   migrate,
 }, windows);
 
