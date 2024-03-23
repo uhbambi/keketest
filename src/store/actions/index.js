@@ -63,6 +63,12 @@ export function toggleOnlineCanvas() {
   };
 }
 
+export function toggleNoRound() {
+  return {
+    type: 's/TGL_NO_ROUND',
+  };
+}
+
 export function toggleMute() {
   return {
     type: 's/TGL_MUTE',

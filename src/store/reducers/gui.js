@@ -15,6 +15,8 @@ const initialState = {
   menuOpen: false,
   // show online users per canvas instead of total
   onlineCanvas: false,
+  // show full pixel number, instead of rounded
+  noRound: false,
   // selected theme
   style: 'default',
   // properties that aren't saved
@@ -63,6 +65,13 @@ export default function gui(
       return {
         ...state,
         onlineCanvas: !state.onlineCanvas,
+      };
+    }
+
+    case 's/TGL_NO_ROUND': {
+      return {
+        ...state,
+        noRound: !state.noRound,
       };
     }
 
