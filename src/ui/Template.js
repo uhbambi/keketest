@@ -43,9 +43,10 @@ class Template {
       let o = targetData.width * 4 + 4;
       while (c < imgData.data.length) {
         for (let r = 0; r < imgData.width; r += 1) {
-          targetData.data[o] = imgData.data[c];
-          targetData.data[++o] = imgData.data[++c];
-          targetData.data[++o] = imgData.data[++c];
+          const g = (imgData.data[c] + imgData.data[++c] + imgData.data[++c]) / 3;
+          targetData.data[o] = g;
+          targetData.data[++o] = g;
+          targetData.data[++o] = g;
           targetData.data[++o] = imgData.data[++c];
           o += 1 + 2 * 4;
           c += 1;

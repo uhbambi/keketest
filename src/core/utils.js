@@ -681,6 +681,16 @@ export function getTapOrClickCenter(event) {
 }
 
 /*
+ * convert rgb to grayscale
+ * @param rgb [r, g, b]
+ * @return [g, g, g]
+ */
+export function rgbToGray(rgb) {
+  const g = rgb.reduce((a, b) => a + b) / 3;
+  return [g, g, g];
+}
+
+/*
  * check if parent window exists and
  * is accessible
  */
