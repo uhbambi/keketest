@@ -17,7 +17,6 @@ import {
   getChunkOfPixel,
   getOffsetOfPixel,
   getTapOrClickCenter,
-  rgbToGray,
 } from '../core/utils';
 import {
   HOLD_PAINT,
@@ -417,7 +416,7 @@ class PixelPainterControls {
     }
     if (state.gui.holdPaint === HOLD_PAINT.OVERLAY) {
       const { canvasId } = state.canvas;
-      const rgb = rgbToGray(templateLoader.getColorOfPixel(canvasId, ...cell));
+      const rgb = templateLoader.getColorOfPixel(canvasId, ...cell);
       if (!rgb) {
         return null;
       }
