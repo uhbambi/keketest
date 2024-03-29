@@ -71,8 +71,12 @@ function getCanvasArgs(canvas, prevCoords) {
   let view = [0, 0, DEFAULT_SCALE];
   let selectedColor = clrIgnore;
   if (prevCoords) {
-    view = prevCoords.view;
-    selectedColor = prevCoords.selectedColor;
+    if (prevCoords.view) {
+      view = prevCoords.view;
+    }
+    if (prevCoords.selectedColor) {
+      selectedColor = prevCoords.selectedColor;
+    }
   }
   const palette = new Palette(colors, 0);
   return {
@@ -189,9 +193,17 @@ export default function canvasReducer(
 
     case 'UPDATE_VIEW': {
       const { view } = action;
+      const { canvasId } = state;
       return {
         ...state,
         view: [...view],
+        prevCanvasState: {
+          ...state.prevCanvasState,
+          [canvasId]: {
+            ...state.prevCanvasState[canvasId],
+            view: [...view],
+          },
+        },
       };
     }
 
@@ -221,9 +233,18 @@ export default function canvasReducer(
     }
 
     case 'SELECT_COLOR': {
+      const { color: selectedColor } = action;
+      const { canvasId } = state;
       return {
         ...state,
-        selectedColor: action.color,
+        selectedColor,
+        prevCanvasState: {
+          ...state.prevCanvasState,
+          [canvasId]: {
+            ...state.prevCanvasState[canvasId],
+            selectedColor,
+          },
+        },
       };
     }
 

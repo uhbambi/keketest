@@ -55,13 +55,21 @@ const templatesPersist = persistReducer({
   migrate,
 }, templates);
 
+const canvasPersist = persistReducer({
+  key: 'can',
+  storage,
+  version: 1,
+  migrate,
+  whitelist: ['prevCanvasState'],
+}, canvas);
+
 export default {
   gui: guiPersist,
   ranks: ranksPersist,
   chatRead: chatReadPersist,
   templates: templatesPersist,
+  canvas: canvasPersist,
   user,
-  canvas,
   chat,
   fetching,
 };
