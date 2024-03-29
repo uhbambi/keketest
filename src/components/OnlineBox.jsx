@@ -8,7 +8,7 @@ import { FaUser, FaPaintBrush, FaFlipboard } from 'react-icons/fa';
 import { t } from 'ttag';
 
 import { toggleOnlineCanvas, toggleNoRound } from '../store/actions';
-import { numberToString } from '../core/utils';
+import { numberToString, numberToStringFull } from '../core/utils';
 
 
 const OnlineBox = () => {
@@ -66,7 +66,8 @@ const OnlineBox = () => {
             onClick={() => dispatch(toggleNoRound())}
             title={t`Pixels placed`}
           >
-            {(noRound) ? totalPixels : numberToString(totalPixels)}
+            {(noRound)
+              ? numberToStringFull(totalPixels) : numberToString(totalPixels)}
             <FaPaintBrush />
           </span>
           )}
