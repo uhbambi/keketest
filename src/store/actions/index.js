@@ -166,9 +166,15 @@ export function selectColor(color) {
 }
 
 export function selectCanvas(canvasId) {
-  return {
-    type: 's/SELECT_CANVAS',
-    canvasId: String(canvasId),
+  // key in javascript objects is always a string
+  const canvasIdString = String(canvasId);
+  return (dispatch, getState) => {
+    if (canvasIdString !== getState().canvas.canvasId) {
+      dispatch({
+        type: 's/SELECT_CANVAS',
+        canvasId: canvasIdString,
+      });
+    }
   };
 }
 
