@@ -297,16 +297,27 @@ export function numberToString(num) {
 }
 
 export function numberToStringFull(num) {
-  if (num < 0) {
-    return `${num} :-(`;
-  } if (num < 1000) {
-    return num;
-  } if (num < 1000000) {
-    return `${Math.floor(num / 1000)}.${(`00${String(num % 1000)}`).slice(-3)}`;
+  const isNegative = (num < 0);
+  const numStr = String(Math.abs(num));
+  const posDecimal = numStr.indexOf('.');
+  let final = '';
+  let i = numStr.length;
+  if (posDecimal !== -1) {
+    final = numStr.substring(posDecimal);
+    i = posDecimal;
   }
-
-  // eslint-disable-next-line max-len
-  return `${Math.floor(num / 1000000)}.${(`00${String(Math.floor(num / 1000))}`).slice(-3)}.${(`00${String(num % 1000)}`).slice(-3)}`;
+  let s = i - 3;
+  final = numStr.substring(s, i) + final;
+  i = s;
+  while (i > 0) {
+    s = i - 3;
+    final = `${numStr.substring(s, i)} ${final}`;
+    i = s;
+  }
+  if (isNegative) {
+    final = `-${final}`;
+  }
+  return final;
 }
 
 /*
