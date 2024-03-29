@@ -160,6 +160,16 @@ export default function gui(
       };
     }
 
+    case 's/SELECT_CANVAS': {
+      if (!state.holdPaint) {
+        return state;
+      }
+      return {
+        ...state,
+        holdPaint: HOLD_PAINT.OFF,
+      };
+    }
+
     case 's/SET_MOVE_U': {
       const { value } = action;
       const moveU = value;

@@ -134,6 +134,8 @@ function getViewFromURL(canvases) {
 }
 
 const initialState = {
+  // canvasId will be a string or null, it can not be a number,
+  // because of Object.keys in canvases
   canvasId: null,
   canvasIdent: 'xx',
   canvases: {},
