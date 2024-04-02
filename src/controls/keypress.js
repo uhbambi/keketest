@@ -13,16 +13,12 @@ import {
   selectCanvas,
   selectHoverColor,
   setHoldPaint,
-  selectPencilMode,
   setMoveU,
   setMoveV,
   setMoveW,
 } from '../store/actions';
-import {
-  toggleOVEnabled,
-} from '../store/actions/templates';
-import { PENCIL_MODE } from '../core/constants';
-import { notify } from '../store/actions/thunks';
+import { toggleOVEnabled } from '../store/actions/templates';
+import { notify, switchPencilMode } from '../store/actions/thunks';
 
 const charKeys = ['g', 'h', 'x', 'm', 't', 'r', 'l', '+', '-', 'b'];
 
@@ -54,28 +50,9 @@ export function createKeyUpHandler(store) {
       case 'KeyQ':
         store.dispatch(setMoveW(0));
         return;
-      case 'KeyB': {
-        let pencilMode = store.getState().gui.pencilMode + 1;
-        let bound = PENCIL_MODE.HISTORY;
-        if (window.ssv?.backupurl) bound += 1;
-        if (pencilMode >= bound) pencilMode = 0;
-        let notification = t`Pencil picks: `;
-        switch (pencilMode) {
-          case 0:
-            notification += t`Selected Color`;
-            break;
-          case 1:
-            notification += t`From Template`;
-            break;
-          case 2:
-            notification += t`From History`;
-            break;
-          default:
-        }
-        store.dispatch(selectPencilMode(pencilMode));
-        store.dispatch(notify(notification));
+      case 'KeyB':
+        store.dispatch(switchPencilMode());
         return;
-      }
       default:
     }
 
