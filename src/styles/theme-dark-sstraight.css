@@ -184,6 +184,6 @@ h3, h4 {
   color: #ecc9ff;
 }
 
-.actionbuttons:hover, .coorbox:hover, .menu > div:hover {
+.actionbuttons:hover, .onlinebox:hover, .coorbox:hover, .menu > div:hover {
   background-color: rgba(71, 71, 71, 0.8);
 }
