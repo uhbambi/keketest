@@ -55,6 +55,7 @@ export const MAX_LOADED_CHUNKS = 2000;
 export const MAX_CHUNK_AGE = 300000;
 export const GC_INTERVAL = 300000;
 
+// Mode for shift-painting or phone pencil, HISTORY has to be last
 export const PENCIL_MODE = {
   COLOR: 0,
   OVERLAY: 1,
