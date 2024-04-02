@@ -50,9 +50,6 @@ export function createKeyUpHandler(store) {
       case 'KeyQ':
         store.dispatch(setMoveW(0));
         return;
-      case 'KeyB':
-        store.dispatch(switchPencilMode());
-        return;
       default:
     }
 
@@ -127,6 +124,9 @@ export function createKeyDownHandler(store) {
         return;
       case 'KeyQ':
         store.dispatch(setMoveW(-1));
+        return;
+      case 'KeyB':
+        store.dispatch(switchPencilMode());
         return;
       default:
     }
