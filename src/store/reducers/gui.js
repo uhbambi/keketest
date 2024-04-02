@@ -1,4 +1,4 @@
-import { HOLD_PAINT } from '../../core/constants';
+import { PENCIL_MODE } from '../../core/constants';
 
 const initialState = {
   showGrid: false,
@@ -19,8 +19,10 @@ const initialState = {
   noRound: false,
   // selected theme
   style: 'default',
+  // from where the pencil takes its color from
+  pencilMode: PENCIL_MODE.COLOR,
   // properties that aren't saved
-  holdPaint: HOLD_PAINT.OFF,
+  holdPaint: false,
   easterEgg: false,
   moveU: 0,
   moveV: 0,
@@ -129,10 +131,17 @@ export default function gui(
       };
     }
 
-    case 's/SELECT_HOLD_PAINT': {
+    case 's/SET_HOLD_PAINT': {
       return {
         ...state,
         holdPaint: action.value,
+      };
+    }
+
+    case 's/SELECT_PENCIL_MODE': {
+      return {
+        ...state,
+        pencilMode: action.value,
       };
     }
 
@@ -166,7 +175,7 @@ export default function gui(
       }
       return {
         ...state,
-        holdPaint: HOLD_PAINT.OFF,
+        holdPaint: false,
       };
     }
 
@@ -210,7 +219,7 @@ export default function gui(
       return {
         ...state,
         easterEgg: false,
-        holdPaint: HOLD_PAINT.OFF,
+        holdPaint: false,
         moveU: 0,
         moveV: 0,
         moveW: 0,

@@ -7,6 +7,7 @@ import { useSelector, useDispatch, shallowEqual } from 'react-redux';
 import { c, t } from 'ttag';
 
 import SettingsItem from '../SettingsItem';
+import SettingsItemSelect from '../SettingsItemSelect';
 import LanguageSelect from '../LanguageSelect';
 import TemplateSettings from '../TemplateSettings';
 import {
@@ -20,39 +21,9 @@ import {
   togglePotatoMode,
   toggleLightGrid,
   toggleHistoricalView,
+  selectPencilMode,
   selectStyle,
 } from '../../store/actions';
-
-const SettingsItemSelect = ({
-  title, values, selected, onSelect, icon, children,
-}) => (
-  <div className="setitem">
-    <div className="setrow">
-      <h3 className="settitle">{title}</h3>
-      {(icon) && <img alt="" src={icon} />}
-      <select
-        value={selected}
-        onChange={(e) => {
-          const sel = e.target;
-          onSelect(sel.options[sel.selectedIndex].value);
-        }}
-      >
-        {
-          values.map((value) => (
-            <option
-              key={value}
-              value={value}
-            >
-              {value}
-            </option>
-          ))
-        }
-      </select>
-    </div>
-    <div className="modaldesc">{children}</div>
-    <div className="modaldivider" />
-  </div>
-);
 
 const Settings = () => {
   const [
@@ -66,6 +37,7 @@ const Settings = () => {
     selectedStyle,
     isMuted,
     chatNotify,
+    pencilMode,
     isHistoricalView,
     templatesAvailable,
   ] = useSelector((state) => [
@@ -79,11 +51,15 @@ const Settings = () => {
     state.gui.style,
     state.gui.mute,
     state.gui.chatNotify,
+    state.gui.pencilMode,
     state.canvas.isHistoricalView,
     state.templates.available,
   ], shallowEqual);
   const dispatch = useDispatch();
   const audioAvailable = window.AudioContext || window.webkitAudioContext;
+  // order according to PENCIL_MODE constant
+  const pencilModesAvailable = [t`Selected Color`, t`From Template`];
+  if (window.ssv?.backupurl) pencilModesAvailable.push(t`From History`);
 
   return (
     <div className="content">
@@ -164,17 +140,27 @@ const Settings = () => {
       >
         {t`Show Grid in white instead of black.`}
       </SettingsItem>
-      {(window.ssv && window.ssv.backupurl) && (
-      <SettingsItem
-        title={t`Historical View`}
-        value={isHistoricalView}
-        keyBind={c('keybinds').t`H`}
-        onToggle={() => dispatch(toggleHistoricalView())}
-      >
-        {t`Check out past versions of the canvas.`}
-      </SettingsItem>
+      {(window.ssv?.backupurl) && (
+        <SettingsItem
+          title={t`Historical View`}
+          value={isHistoricalView}
+          keyBind={c('keybinds').t`H`}
+          onToggle={() => dispatch(toggleHistoricalView())}
+        >
+          {t`Check out past versions of the canvas.`}
+        </SettingsItem>
       )}
-      {(window.ssv && window.ssv.availableStyles) && (
+      <SettingsItemSelect
+        title={t`Pencil Mode`}
+        values={pencilModesAvailable}
+        selected={pencilModesAvailable[pencilMode]}
+        onSelect={
+          (i) => dispatch(selectPencilMode(pencilModesAvailable.indexOf(i)))
+        }
+      >
+        {t`What the pencil should draw.`}
+      </SettingsItemSelect>
+      {(window.ssv?.availableStyles) && (
         <SettingsItemSelect
           title={t`Themes`}
           values={Object.keys(window.ssv.availableStyles)}
@@ -184,7 +170,7 @@ const Settings = () => {
           {t`How pixelplanet should look like.`}
         </SettingsItemSelect>
       )}
-      {(window.ssv && navigator.cookieEnabled && window.ssv.langs) && (
+      {(window.ssv?.langs && navigator.cookieEnabled) && (
         <div className="setitem">
           <div className="setrow">
             <h3 className="settitle">

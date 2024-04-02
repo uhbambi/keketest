@@ -48,12 +48,6 @@ export function toggleSmallPxls() {
   };
 }
 
-export function toggleRightShift() {
-  return {
-    type: 's/TGL_RIGHTSHIFT',
-  };
-}
-
 export function setOvOpacity(opacity) {
   return {
     type: 's/SET_O_OPACITY',

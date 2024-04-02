@@ -135,7 +135,7 @@ export default (store) => (next) => (action) => {
       break;
     }
 
-    case 's/SELECT_HOLD_PAINT': {
+    case 's/SET_HOLD_PAINT': {
       if (action.value) {
         const renderer = getRenderer();
         renderer.controls.holdPaintStarted?.(action.immediate);
