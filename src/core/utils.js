@@ -274,7 +274,7 @@ export function largeDurationToString(
 const postfix = ['k', 'M', 'B'];
 export function numberToString(num) {
   if (!num) {
-    return 'N/A';
+    return '0';
   }
   if (num < 1000) {
     return num;
@@ -297,6 +297,9 @@ export function numberToString(num) {
 }
 
 export function numberToStringFull(num) {
+  if (!num) {
+    return '0';
+  }
   const isNegative = (num < 0);
   const numStr = String(Math.abs(num));
   const posDecimal = numStr.indexOf('.');
