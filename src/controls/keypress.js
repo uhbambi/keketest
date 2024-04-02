@@ -29,27 +29,33 @@ export function createKeyUpHandler(store) {
      */
     switch (event.code) {
       case 'ArrowUp':
-      case 'KeyW':
-        store.dispatch(setMoveV(0));
+      case 'KeyW': {
+        if (store.getState().gui.moveV) store.dispatch(setMoveV(0));
         return;
+      }
       case 'ArrowLeft':
-      case 'KeyA':
-        store.dispatch(setMoveU(0));
+      case 'KeyA': {
+        if (store.getState().gui.moveU) store.dispatch(setMoveU(0));
         return;
+      }
       case 'ArrowDown':
-      case 'KeyS':
-        store.dispatch(setMoveV(0));
+      case 'KeyS': {
+        if (store.getState().gui.moveV) store.dispatch(setMoveV(0));
         return;
+      }
       case 'ArrowRight':
-      case 'KeyD':
-        store.dispatch(setMoveU(0));
+      case 'KeyD': {
+        if (store.getState().gui.moveU) store.dispatch(setMoveU(0));
         return;
-      case 'KeyE':
-        store.dispatch(setMoveW(0));
+      }
+      case 'KeyE': {
+        if (store.getState().gui.moveW) store.dispatch(setMoveW(0));
         return;
-      case 'KeyQ':
-        store.dispatch(setMoveW(0));
+      }
+      case 'KeyQ': {
+        if (store.getState().gui.moveW) store.dispatch(setMoveW(0));
         return;
+      }
       default:
     }
 
