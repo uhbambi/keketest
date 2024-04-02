@@ -18,9 +18,7 @@ import {
   getOffsetOfPixel,
   getTapOrClickCenter,
 } from '../core/utils';
-import {
-  HOLD_PAINT,
-} from '../core/constants';
+import { PENCIL_MODE } from '../core/constants';
 import templateLoader from '../ui/templateLoader';
 
 class PixelPainterControls {
@@ -411,16 +409,18 @@ class PixelPainterControls {
   }
 
   static getWantedColor(state, renderer, cell) {
-    if (state.gui.holdPaint === HOLD_PAINT.HISTORY) {
-      return renderer.getColorIndexOfPixel(...cell, true);
-    }
-    if (state.gui.holdPaint === HOLD_PAINT.OVERLAY) {
-      const { canvasId } = state.canvas;
-      const rgb = templateLoader.getColorOfPixel(canvasId, ...cell);
-      if (!rgb) {
-        return null;
+    if (state.gui.holdPaint) {
+      if (state.gui.pencilMode === PENCIL_MODE.HISTORY) {
+        return renderer.getColorIndexOfPixel(...cell, true);
       }
-      return state.canvas.palette.getClosestIndexOfColor(...rgb);
+      if (state.gui.pencilMode === PENCIL_MODE.OVERLAY) {
+        const { canvasId } = state.canvas;
+        const rgb = templateLoader.getColorOfPixel(canvasId, ...cell);
+        if (!rgb) {
+          return null;
+        }
+        return state.canvas.palette.getClosestIndexOfColor(...rgb);
+      }
     }
     return state.canvas.selectedColor;
   }

@@ -12,7 +12,7 @@ import {
   toggleMute,
   selectCanvas,
   selectHoverColor,
-  selectHoldPaint,
+  setHoldPaint,
   setMoveU,
   setMoveV,
   setMoveW,
@@ -20,7 +20,6 @@ import {
 import {
   toggleOVEnabled,
 } from '../store/actions/templates';
-import { HOLD_PAINT } from '../core/constants';
 import { notify } from '../store/actions/thunks';
 
 const charKeys = ['g', 'h', 'x', 'm', 't', 'r', 'l', '+', '-'];
@@ -68,7 +67,7 @@ export function createKeyUpHandler(store) {
         return;
       case 'Shift':
       case 'CapsLock':
-        store.dispatch(selectHoldPaint(HOLD_PAINT.OFF));
+        store.dispatch(setHoldPaint(false));
         break;
       default:
     }
@@ -145,20 +144,7 @@ export function createKeyDownHandler(store) {
         store.dispatch(selectHoverColor(-1));
         return;
       case 'Shift': {
-        if (event.location === KeyboardEvent.DOM_KEY_LOCATION_LEFT) {
-          // left shift
-          store.dispatch(selectHoldPaint(HOLD_PAINT.PENCIL, true));
-          return;
-        }
-        if (event.location === KeyboardEvent.DOM_KEY_LOCATION_RIGHT) {
-          // right shift
-          store.dispatch(selectHoldPaint(
-            (store.getState().templates.oRightShift)
-              ? HOLD_PAINT.OVERLAY : HOLD_PAINT.HISTORY,
-            true,
-          ));
-          return;
-        }
+        store.dispatch(setHoldPaint(true, true));
         return;
       }
       default:
