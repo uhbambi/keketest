@@ -63,6 +63,12 @@ export function toggleOnlineCanvas() {
   };
 }
 
+export function toggleDailyPxls() {
+  return {
+    type: 's/TGL_DAILY_PXLS',
+  };
+}
+
 export function toggleNoRound() {
   return {
     type: 's/TGL_NO_ROUND',
