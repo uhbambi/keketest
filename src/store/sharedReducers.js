@@ -16,7 +16,6 @@ import templates from './reducers/templates';
 import chat from './reducers/chat';
 import fetching from './reducers/fetching';
 
-export const CURRENT_VERSION = 17;
 
 export const migrate = (state, version) => {
   // eslint-disable-next-line no-underscore-dangle
@@ -31,38 +30,46 @@ export const migrate = (state, version) => {
 const guiPersist = persistReducer({
   key: 'gui',
   storage,
-  version: CURRENT_VERSION,
+  version: 19,
   migrate,
 }, gui);
 
 const ranksPersist = persistReducer({
   key: 'ranks',
   storage,
-  version: CURRENT_VERSION,
+  version: 17,
   migrate,
 }, ranks);
 
 const chatReadPersist = persistReducer({
   key: 'cr',
   storage,
-  version: CURRENT_VERSION,
+  version: 17,
   migrate,
 }, chatRead);
 
 const templatesPersist = persistReducer({
   key: 'tem',
   storage,
-  version: CURRENT_VERSION,
+  version: 17,
   migrate,
 }, templates);
+
+const canvasPersist = persistReducer({
+  key: 'can',
+  storage,
+  version: 1,
+  migrate,
+  whitelist: ['prevCanvasState'],
+}, canvas);
 
 export default {
   gui: guiPersist,
   ranks: ranksPersist,
   chatRead: chatReadPersist,
   templates: templatesPersist,
+  canvas: canvasPersist,
   user,
-  canvas,
   chat,
   fetching,
 };

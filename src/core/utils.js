@@ -274,7 +274,7 @@ export function largeDurationToString(
 const postfix = ['k', 'M', 'B'];
 export function numberToString(num) {
   if (!num) {
-    return 'N/A';
+    return '0';
   }
   if (num < 1000) {
     return num;
@@ -297,16 +297,30 @@ export function numberToString(num) {
 }
 
 export function numberToStringFull(num) {
-  if (num < 0) {
-    return `${num} :-(`;
-  } if (num < 1000) {
-    return num;
-  } if (num < 1000000) {
-    return `${Math.floor(num / 1000)}.${(`00${String(num % 1000)}`).slice(-3)}`;
+  if (!num) {
+    return '0';
   }
-
-  // eslint-disable-next-line max-len
-  return `${Math.floor(num / 1000000)}.${(`00${String(Math.floor(num / 1000))}`).slice(-3)}.${(`00${String(num % 1000)}`).slice(-3)}`;
+  const isNegative = (num < 0);
+  const numStr = String(Math.abs(num));
+  const posDecimal = numStr.indexOf('.');
+  let final = '';
+  let i = numStr.length;
+  if (posDecimal !== -1) {
+    final = numStr.substring(posDecimal);
+    i = posDecimal;
+  }
+  let s = i - 3;
+  final = numStr.substring(s, i) + final;
+  i = s;
+  while (i > 0) {
+    s = i - 3;
+    final = `${numStr.substring(s, i)} ${final}`;
+    i = s;
+  }
+  if (isNegative) {
+    final = `-${final}`;
+  }
+  return final;
 }
 
 /*
@@ -678,6 +692,35 @@ export function getTapOrClickCenter(event) {
     event.clientX,
     event.clientY,
   ];
+}
+
+/*
+ * convert rgb to grayscale
+ * @param rgb [r, g, b]
+ * @return [g, g, g]
+ */
+export function rgbToGray(rgb) {
+  const gray = Math.round(rgb.reduce((a, b) => a + b) / 3);
+  const [r, g, b] = rgb;
+  let lastG = gray;
+  if (r < g) {
+    if (gray < 255) lastG += 1;
+  } else if (r > g) {
+    if (gray > 0) lastG -= 1;
+  }
+  let secondG = gray;
+  if (r < b) {
+    if (gray < 255) secondG += 1;
+  } else if (r > b) {
+    if (gray > 0) secondG -= 1;
+  }
+  let firstG = gray;
+  if (g < b) {
+    if (gray < 255) firstG += 1;
+  } else if (g > b) {
+    if (gray > 0) firstG -= 1;
+  }
+  return [firstG, secondG, lastG];
 }
 
 /*

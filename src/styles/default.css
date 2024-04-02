@@ -255,8 +255,8 @@ tr:nth-child(even) {
 
 .win-resize {
   position: absolute;
-  bottom: -4px;
-  right: -3px;
+  bottom: -8px;
+  right: 0px;
   font-size: 22px;
   cursor: se-resize;
 }
@@ -438,8 +438,10 @@ tr:nth-child(even) {
 .onlinebox {
   left: 16px;
   bottom: 57px;
-  cursor: pointer;
   white-space: nowrap;
+}
+.onlinebox > span {
+  cursor: pointer;
 }
 
 #menubutton {
@@ -603,7 +605,7 @@ tr:nth-child(even) {
 .win-content {
   position: relative;
   width: calc(100% - 3px);
-  height: calc(100% - 28px);
+  height: calc(100% - 27px);
   overflow-y: auto;
 }
 

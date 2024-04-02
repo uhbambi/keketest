@@ -12,18 +12,15 @@ import {
   toggleMute,
   selectCanvas,
   selectHoverColor,
-  selectHoldPaint,
+  setHoldPaint,
   setMoveU,
   setMoveV,
   setMoveW,
 } from '../store/actions';
-import {
-  toggleOVEnabled,
-} from '../store/actions/templates';
-import { HOLD_PAINT } from '../core/constants';
-import { notify } from '../store/actions/thunks';
+import { toggleOVEnabled } from '../store/actions/templates';
+import { notify, switchPencilMode } from '../store/actions/thunks';
 
-const charKeys = ['g', 'h', 'x', 'm', 't', 'r', 'l', '+', '-'];
+const charKeys = ['g', 'h', 'x', 'm', 't', 'r', 'l', '+', '-', 'b'];
 
 export function createKeyUpHandler(store) {
   return (event) => {
@@ -32,27 +29,33 @@ export function createKeyUpHandler(store) {
      */
     switch (event.code) {
       case 'ArrowUp':
-      case 'KeyW':
-        store.dispatch(setMoveV(0));
+      case 'KeyW': {
+        if (store.getState().gui.moveV) store.dispatch(setMoveV(0));
         return;
+      }
       case 'ArrowLeft':
-      case 'KeyA':
-        store.dispatch(setMoveU(0));
+      case 'KeyA': {
+        if (store.getState().gui.moveU) store.dispatch(setMoveU(0));
         return;
+      }
       case 'ArrowDown':
-      case 'KeyS':
-        store.dispatch(setMoveV(0));
+      case 'KeyS': {
+        if (store.getState().gui.moveV) store.dispatch(setMoveV(0));
         return;
+      }
       case 'ArrowRight':
-      case 'KeyD':
-        store.dispatch(setMoveU(0));
+      case 'KeyD': {
+        if (store.getState().gui.moveU) store.dispatch(setMoveU(0));
         return;
-      case 'KeyE':
-        store.dispatch(setMoveW(0));
+      }
+      case 'KeyE': {
+        if (store.getState().gui.moveW) store.dispatch(setMoveW(0));
         return;
-      case 'KeyQ':
-        store.dispatch(setMoveW(0));
+      }
+      case 'KeyQ': {
+        if (store.getState().gui.moveW) store.dispatch(setMoveW(0));
         return;
+      }
       default:
     }
 
@@ -68,7 +71,7 @@ export function createKeyUpHandler(store) {
         return;
       case 'Shift':
       case 'CapsLock':
-        store.dispatch(selectHoldPaint(HOLD_PAINT.OFF));
+        store.dispatch(setHoldPaint(false));
         break;
       default:
     }
@@ -128,6 +131,9 @@ export function createKeyDownHandler(store) {
       case 'KeyQ':
         store.dispatch(setMoveW(-1));
         return;
+      case 'KeyB':
+        store.dispatch(switchPencilMode());
+        return;
       default:
     }
 
@@ -144,23 +150,9 @@ export function createKeyDownHandler(store) {
       case 'Control':
         store.dispatch(selectHoverColor(-1));
         return;
-      case 'Shift': {
-        if (event.location === KeyboardEvent.DOM_KEY_LOCATION_LEFT) {
-          // left shift
-          store.dispatch(selectHoldPaint(HOLD_PAINT.PENCIL, true));
-          return;
-        }
-        if (event.location === KeyboardEvent.DOM_KEY_LOCATION_RIGHT) {
-          // right shift
-          store.dispatch(selectHoldPaint(
-            (store.getState().templates.oRightShift)
-              ? HOLD_PAINT.OVERLAY : HOLD_PAINT.HISTORY,
-            true,
-          ));
-          return;
-        }
+      case 'Shift':
+        store.dispatch(setHoldPaint(true, true));
         return;
-      }
       default:
     }
 

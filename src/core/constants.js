@@ -59,7 +59,6 @@ export const MAX_LOADED_CHUNKS = 2000;
 export const MAX_CHUNK_AGE = 300000;
 export const GC_INTERVAL = 300000;
 
-<<<<<<< HEAD
 // TINYINT (-128 - 127)
 export const USERLVL = {
   ANONYM: 0,
@@ -92,14 +91,12 @@ export const RANGEBAN_REASONS = {
   SCRAPPING: 3,
   GLOWY: 4,
 };
-=======
-export const HOLD_PAINT = {
-  OFF: 0,
-  PENCIL: 1,
+// Mode for shift-painting or phone pencil, HISTORY has to be last
+export const PENCIL_MODE = {
+  COLOR: 0,
+  OVERLAY: 1,
   HISTORY: 2,
-  OVERLAY: 3,
 };
 
 // threshold at which zoomlevel overlay switches to small-pixel mode
 export const OVERLAY_SP_TH = 8;
->>>>>>> christmas

@@ -1,4 +1,4 @@
-import { HOLD_PAINT } from '../../core/constants';
+import { PENCIL_MODE } from '../../core/constants';
 
 const initialState = {
   showGrid: false,
@@ -15,10 +15,16 @@ const initialState = {
   menuOpen: false,
   // show online users per canvas instead of total
   onlineCanvas: false,
+  // show daily pixels instead o total pixels
+  dailyPxls: false,
+  // show full pixel number, instead of rounded
+  noRound: false,
   // selected theme
   style: 'default',
+  // from where the pencil takes its color from
+  pencilMode: PENCIL_MODE.COLOR,
   // properties that aren't saved
-  holdPaint: HOLD_PAINT.OFF,
+  holdPaint: false,
   easterEgg: false,
   moveU: 0,
   moveV: 0,
@@ -63,6 +69,20 @@ export default function gui(
       return {
         ...state,
         onlineCanvas: !state.onlineCanvas,
+      };
+    }
+
+    case 's/TGL_DAILY_PXLS': {
+      return {
+        ...state,
+        dailyPxls: !state.dailyPxls,
+      };
+    }
+
+    case 's/TGL_NO_ROUND': {
+      return {
+        ...state,
+        noRound: !state.noRound,
       };
     }
 
@@ -120,10 +140,17 @@ export default function gui(
       };
     }
 
-    case 's/SELECT_HOLD_PAINT': {
+    case 's/SET_HOLD_PAINT': {
       return {
         ...state,
         holdPaint: action.value,
+      };
+    }
+
+    case 's/SELECT_PENCIL_MODE': {
+      return {
+        ...state,
+        pencilMode: action.value,
       };
     }
 
@@ -148,6 +175,16 @@ export default function gui(
       return {
         ...state,
         paletteOpen,
+      };
+    }
+
+    case 's/SELECT_CANVAS': {
+      if (!state.holdPaint) {
+        return state;
+      }
+      return {
+        ...state,
+        holdPaint: false,
       };
     }
 
@@ -191,7 +228,7 @@ export default function gui(
       return {
         ...state,
         easterEgg: false,
-        holdPaint: HOLD_PAINT.OFF,
+        holdPaint: false,
         moveU: 0,
         moveV: 0,
         moveW: 0,

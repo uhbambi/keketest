@@ -8,75 +8,53 @@ import { TbPencil, TbPencilMinus } from 'react-icons/tb';
 import { t } from 'ttag';
 
 import useLongPress from '../hooks/useLongPress';
-import { HOLD_PAINT } from '../../core/constants';
-import { selectHoldPaint } from '../../store/actions';
-import { notify } from '../../store/actions/thunks';
+import { PENCIL_MODE } from '../../core/constants';
+import { setHoldPaint } from '../../store/actions';
+import { switchPencilMode } from '../../store/actions/thunks';
 
 const PencilButton = () => {
   const [
     holdPaint,
+    pencilMode,
     showMvmCtrls,
   ] = useSelector((state) => [
     state.gui.holdPaint,
+    state.gui.pencilMode,
     state.gui.showMvmCtrls,
   ], shallowEqual);
   const dispatch = useDispatch();
 
   const onLongPress = useCallback(() => {
-    let nextMode;
-    switch (holdPaint) {
-      case HOLD_PAINT.OFF:
-      case HOLD_PAINT.PENCIL:
-        if (window.ssv?.backupurl) {
-          nextMode = HOLD_PAINT.HISTORY;
-          dispatch(notify(t`History Pencil ON`));
-          break;
-        }
-      // eslint-disable-next-line no-fallthrough
-      case HOLD_PAINT.HISTORY: {
-        nextMode = HOLD_PAINT.OVERLAY;
-        dispatch(notify(t`Overlay Pencil ON`));
-        break;
-      }
-      // eslint-disable-next-line no-fallthrough
-      default:
-        if (holdPaint) {
-          nextMode = HOLD_PAINT.OFF;
-        } else {
-          nextMode = HOLD_PAINT.PENCIL;
-        }
+    dispatch(switchPencilMode());
+    if (!holdPaint) {
+      dispatch(setHoldPaint(true));
     }
-    dispatch(selectHoldPaint(nextMode));
   }, [holdPaint, dispatch]);
 
   const onShortPress = useCallback(() => {
-    let nextMode;
-    if (holdPaint) {
-      nextMode = HOLD_PAINT.OFF;
-    } else {
-      nextMode = HOLD_PAINT.PENCIL;
-    }
-    dispatch(selectHoldPaint(nextMode));
+    dispatch(setHoldPaint(!holdPaint));
   }, [holdPaint, dispatch]);
 
   const refCallback = useLongPress(onShortPress, onLongPress);
 
   let className = 'actionbuttons';
   let title = t`Enable Pencil`;
-  switch (holdPaint) {
-    case HOLD_PAINT.PENCIL:
-      className += ' ppencil pressed';
-      title = t`Disable Pencil`;
-      break;
-    case HOLD_PAINT.HISTORY:
-      className += ' phistory pressed';
-      title = t`Disable History Pencil`;
-      break;
-    case HOLD_PAINT.OVERLAY:
-      className += ' poverlay pressed';
-      title = t`Disable Overlay Pencil`;
-      break;
-    default:
+  if (holdPaint) {
+    switch (pencilMode) {
+      case PENCIL_MODE.COLOR:
+        className += ' ppencil pressed';
+        title = t`Disable Pencil`;
+        break;
+      case PENCIL_MODE.HISTORY:
+        className += ' phistory pressed';
+        title = t`Disable History Pencil`;
+        break;
+      case PENCIL_MODE.OVERLAY:
+        className += ' poverlay pressed';
+        title = t`Disable Overlay Pencil`;
+        break;
+      default:
+    }
   }
 
   return (

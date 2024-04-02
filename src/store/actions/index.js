@@ -63,6 +63,18 @@ export function toggleOnlineCanvas() {
   };
 }
 
+export function toggleDailyPxls() {
+  return {
+    type: 's/TGL_DAILY_PXLS',
+  };
+}
+
+export function toggleNoRound() {
+  return {
+    type: 's/TGL_NO_ROUND',
+  };
+}
+
 export function toggleMute() {
   return {
     type: 's/TGL_MUTE',
@@ -99,11 +111,18 @@ export function toggleOpenPalette() {
   };
 }
 
-export function selectHoldPaint(value, immediate) {
+export function setHoldPaint(value, immediate) {
   return {
-    type: 's/SELECT_HOLD_PAINT',
+    type: 's/SET_HOLD_PAINT',
     value,
     immediate,
+  };
+}
+
+export function selectPencilMode(value) {
+  return {
+    type: 's/SELECT_PENCIL_MODE',
+    value,
   };
 }
 
@@ -160,9 +179,15 @@ export function selectColor(color) {
 }
 
 export function selectCanvas(canvasId) {
-  return {
-    type: 's/SELECT_CANVAS',
-    canvasId: String(canvasId),
+  // key in javascript objects is always a string
+  const canvasIdString = String(canvasId);
+  return (dispatch, getState) => {
+    if (canvasIdString !== getState().canvas.canvasId) {
+      dispatch({
+        type: 's/SELECT_CANVAS',
+        canvasId: canvasIdString,
+      });
+    }
   };
 }
 

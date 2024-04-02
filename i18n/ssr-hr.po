@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2024-03-11 22:53+0000\n"
+"PO-Revision-Date: 2024-03-15 20:29+0000\n"
 "Last-Translator: Translation Team <noreply@example.com>\n"
 "Language-Team: Croatian <https://hosted.weblate.org/projects/pixelplanet/"
 "server/hr/>\n"
@@ -15,7 +15,6 @@ msgstr ""
 "X-Generator: Weblate 5.5-dev\n"
 
 #: src/core/ChatProvider.js:434
-#, fuzzy
 msgid "You can not send chat messages while using a proxy"
 msgstr "Ne možete slati chat poruke putem proxyja"
 
@@ -112,6 +111,15 @@ msgstr "Dvaput kliknite na globus za povratak."
 msgid "Loading..."
 msgstr "Učitavam..."
 
+#: src/ssr/Main.jsx:65
+msgid "PixelPlanet.Fun"
+msgstr "PixelPlanet.Fun"
+
+#: src/ssr/Main.jsx:66
+msgid "Place color pixels on an map styled canvas with other players online"
+msgstr ""
+"Postavite piksele u boji na platno u stilu karte s drugim igračima na mreži"
+
 #: src/ssr/PopUp.jsx:47
 msgid "ppfun"
 msgstr "ppfun"
@@ -119,15 +127,6 @@ msgstr "ppfun"
 #: src/ssr/PopUp.jsx:48
 msgid "PixelPlanet.Fun PopUp"
 msgstr "PixelPlanet.Fun PopUp"
-
-#: src/ssr/Main.jsx:62
-msgid "PixelPlanet.Fun"
-msgstr "PixelPlanet.Fun"
-
-#: src/ssr/Main.jsx:63
-msgid "Place color pixels on an map styled canvas with other players online"
-msgstr ""
-"Postavite piksele u boji na platno u stilu karte s drugim igračima na mreži"
 
 #: src/utils/validation.js:17
 msgid "Email can't be empty."
@@ -215,6 +214,10 @@ msgstr "Potvrdi novu lozinku"
 msgid "Submit"
 msgstr "Podnesi"
 
+#: src/routes/api/baninfo.js:32
+msgid "You are not banned"
+msgstr "Niste banani"
+
 #: src/routes/api/modtools.js:53
 msgid "You are not logged in"
 msgstr "Niste ulogirani"
@@ -226,46 +229,6 @@ msgstr "Nije vam dopušten pristup ovoj stranici"
 #: src/routes/api/modtools.js:207
 msgid "Just admins can do that"
 msgstr "To mogu samo administratori"
-
-#: src/routes/api/baninfo.js:32
-msgid "You are not banned"
-msgstr "Niste banani"
-
-#: src/routes/api/auth/change_mail.js:22 src/routes/api/auth/register.js:24
-msgid "This email provider is not allowed"
-msgstr "Ovaj pružatelj usluge e-pošte nije dopušten"
-
-#: src/routes/api/auth/register.js:31
-msgid "No Captcha given"
-msgstr "Nije data Captcha"
-
-#: src/routes/api/auth/register.js:34
-msgid "E-Mail already in use."
-msgstr "Email adresa je već u uporabi."
-
-#: src/routes/api/auth/register.js:36
-msgid "Username already in use."
-msgstr "Korisničko ime se već koristi."
-
-#: src/routes/api/auth/register.js:59
-msgid "You took too long, try again."
-msgstr "Predugo vam je trebalo, pokušajte ponovno."
-
-#: src/routes/api/auth/register.js:62
-msgid "You failed your captcha"
-msgstr "Pogrešio si s captcha"
-
-#: src/routes/api/auth/register.js:65
-msgid "Unknown Captcha Error"
-msgstr "Nepoznata Captcha pogreška"
-
-#: src/routes/api/auth/register.js:89
-msgid "Failed to create new user :("
-msgstr "Nije uspjelo stvaranje novog korisnika :("
-
-#: src/routes/api/auth/register.js:105
-msgid "Failed to establish session after register :("
-msgstr "Nije uspjelo uspostavljanje sesije nakon registracije :("
 
 #: src/routes/api/auth/verify.js:26 src/routes/api/auth/verify.js:35
 msgid "Mail verification"
@@ -303,27 +266,16 @@ msgid "Incorrect password!"
 msgstr "Netočna lozinka!"
 
 #: src/routes/api/auth/delete_account.js:46
-#, fuzzy
 msgid "Muted Users can not delete their account."
-msgstr "Isključeni korisnici ne mogu izbrisati svoj račun."
+msgstr "Utišani korisnici ne mogu izbrisati svoj račun."
+
+#: src/routes/api/auth/change_mail.js:22 src/routes/api/auth/register.js:24
+msgid "This email provider is not allowed"
+msgstr "Ovaj pružatelj usluge e-pošte nije dopušten"
 
 #: src/routes/api/auth/change_mail.js:62
-#, fuzzy
 msgid "Muted Users can not do this."
-msgstr "Isključeni korisnici to ne mogu učiniti."
-
-#: src/ssr/RedirectionPage.jsx:19
-msgid "PixelPlanet.fun Accounts"
-msgstr "PixelPlanet.fun računi"
-
-#: src/ssr/RedirectionPage.jsx:29
-msgid "You will be automatically redirected after 15s"
-msgstr "Bit ćete automatski preusmjereni nakon 15 s"
-
-#: src/ssr/RedirectionPage.jsx:30
-#, javascript-format
-msgid "Or ${ clickHere } to go back to pixelplanet"
-msgstr "Ili ${ clickHere } da se vratite na pixelplanet"
+msgstr "Utišani korisnici to ne mogu učiniti."
 
 #: src/canvasesDesc.js:20
 msgid "Earth"
@@ -366,9 +318,8 @@ msgid "Minimap"
 msgstr "Minimapa"
 
 #: src/canvasesDesc.js:32
-#, fuzzy
 msgid "Our main canvas, a huge map of the world. Place anywhere you like!"
-msgstr "Naše glavno platno, ogromna karta svijeta. Stavite gdje god želite"
+msgstr "Naše glavno platno, ogromna karta svijeta. Stavljajte gdje god želite!"
 
 #: src/canvasesDesc.js:33
 msgid ""
@@ -379,14 +330,12 @@ msgstr ""
 "teksta (osim ako je dio slike) ili slike veće od 1,5k x 1,5k piksela."
 
 #: src/canvasesDesc.js:34
-#, fuzzy
 msgid "Place Voxels on a 3D canvas with others."
-msgstr "Postavite Voxele na 3D platno s drugima"
+msgstr "Postavite Voxele na 3D platno s drugima."
 
 #: src/canvasesDesc.js:35
-#, fuzzy
 msgid "Special canvas to spread awareness of SARS-CoV2 (take the vax)."
-msgstr "Posebno platno za širenje svijesti o SARS-CoV2"
+msgstr "Posebno platno za širenje svijesti o SARS-CoV2."
 
 #: src/canvasesDesc.js:36
 msgid "Mirror of PixelZone"
@@ -409,18 +358,61 @@ msgstr ""
 "00:00 UTC."
 
 #: src/canvasesDesc.js:40
-#, fuzzy
 msgid "Only four colors. Same rules as moon!"
-msgstr "Samo četiri boje. Ista pravila kao i mjesec."
+msgstr "Samo četiri boje. Ista pravila kao i mjesec!"
 
 #: src/canvasesDesc.js:41
-#, fuzzy
 msgid ""
 "Conquer land on a smaller earth with protected ocean. Shares cooldown with "
 "earth canvas!"
 msgstr ""
 "Osvojite zemlju na manjoj zemlji sa zaštićenim oceanom. Dijeli hlađenje sa "
-"zemljanim platnom."
+"zemljanim platnom!"
+
+#: src/routes/api/auth/register.js:31
+msgid "No Captcha given"
+msgstr "Nije data Captcha"
+
+#: src/routes/api/auth/register.js:34
+msgid "E-Mail already in use."
+msgstr "Email adresa je već u uporabi."
+
+#: src/routes/api/auth/register.js:36
+msgid "Username already in use."
+msgstr "Korisničko ime se već koristi."
+
+#: src/routes/api/auth/register.js:59
+msgid "You took too long, try again."
+msgstr "Predugo vam je trebalo, pokušajte ponovno."
+
+#: src/routes/api/auth/register.js:62
+msgid "You failed your captcha"
+msgstr "Pogrešio si s captcha"
+
+#: src/routes/api/auth/register.js:65
+msgid "Unknown Captcha Error"
+msgstr "Nepoznata Captcha pogreška"
+
+#: src/routes/api/auth/register.js:89
+msgid "Failed to create new user :("
+msgstr "Nije uspjelo stvaranje novog korisnika :("
+
+#: src/routes/api/auth/register.js:105
+msgid "Failed to establish session after register :("
+msgstr "Nije uspjelo uspostavljanje sesije nakon registracije :("
+
+#: src/ssr/RedirectionPage.jsx:19
+msgid "PixelPlanet.fun Accounts"
+msgstr "PixelPlanet.fun računi"
+
+#: src/ssr/RedirectionPage.jsx:29
+msgid "You will be automatically redirected after 15s"
+msgstr "Bit ćete automatski preusmjereni nakon 15 s"
+
+#: src/ssr/RedirectionPage.jsx:30
+#, javascript-format
+msgid "Or ${ clickHere } to go back to pixelplanet"
+msgstr "Ili ${ clickHere } da se vratite na pixelplanet"
 
 #: src/core/MailProvider.js:66
 #, javascript-format

@@ -279,7 +279,7 @@ tr:nth-child(odd) {
   color: #ff49ff;
 }
 
-.actionbuttons:hover, .menu > div:hover{
+.actionbuttons:hover, .onlinebox:hover, .menu > div:hover{
   background-color: #ff1818f2; 
 }
 
