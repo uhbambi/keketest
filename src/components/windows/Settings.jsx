@@ -154,6 +154,7 @@ const Settings = () => {
         title={t`Pencil Mode`}
         values={pencilModesAvailable}
         selected={pencilModesAvailable[pencilMode]}
+        keyBind={c('keybinds').t`B`}
         onSelect={
           (i) => dispatch(selectPencilMode(pencilModesAvailable.indexOf(i)))
         }

@@ -5,11 +5,11 @@
 import React from 'react';
 
 const SettingsItemSelect = ({
-  title, values, selected, onSelect, icon, children,
+  title, keyBind, values, selected, onSelect, icon, children,
 }) => (
   <div className="setitem">
     <div className="setrow">
-      <h3 className="settitle">{title}</h3>
+      <h3 className="settitle">{title} {keyBind && <kbd>{keyBind}</kbd>}</h3>
       {(icon) && <img alt="" src={icon} />}
       <select
         value={selected}

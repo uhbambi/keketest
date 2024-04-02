@@ -605,7 +605,7 @@ tr:nth-child(even) {
 .win-content {
   position: relative;
   width: calc(100% - 3px);
-  height: calc(100% - 26px);
+  height: calc(100% - 27px);
   overflow-y: auto;
 }
 
