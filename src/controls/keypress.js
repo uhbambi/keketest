@@ -57,7 +57,7 @@ export function createKeyUpHandler(store) {
       case 'KeyB': {
         let pencilMode = store.getState().gui.pencilMode + 1;
         let bound = PENCIL_MODE.HISTORY;
-        if (window.ssv?.backupurl) bound -= 1;
+        if (window.ssv?.backupurl) bound += 1;
         if (pencilMode >= bound) pencilMode = 0;
         let notification = t`Pencil picks: `;
         switch (pencilMode) {
@@ -68,7 +68,7 @@ export function createKeyUpHandler(store) {
             notification += t`From Template`;
             break;
           case 2:
-            notification = t`From History`;
+            notification += t`From History`;
             break;
           default:
         }
