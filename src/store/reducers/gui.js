@@ -15,6 +15,8 @@ const initialState = {
   menuOpen: false,
   // show online users per canvas instead of total
   onlineCanvas: false,
+  // show daily pixels instead o total pixels
+  dailyPxls: false,
   // show full pixel number, instead of rounded
   noRound: false,
   // selected theme
@@ -67,6 +69,13 @@ export default function gui(
       return {
         ...state,
         onlineCanvas: !state.onlineCanvas,
+      };
+    }
+
+    case 's/TGL_DAILY_PXLS': {
+      return {
+        ...state,
+        dailyPxls: !state.dailyPxls,
       };
     }
 
