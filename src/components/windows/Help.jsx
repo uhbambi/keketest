@@ -88,8 +88,7 @@ const Help = () => {
         {jt`Press ${bindAUp}, ${bindALeft}, ${bindADown}, ${bindARight} to move`}<br />
         {jt`Drag ${mouseSymbol} mouse or ${touchSymbol} pan to move`}<br />
         {jt`Scroll ${mouseSymbol} mouse wheel or ${touchSymbol} pinch to zoom`}<br />
-        {jt`Hold left ${bindShift} for placing while moving mouse`}<br />
-        {jt`Hold right ${bindShift} for placing while moving mouse according to historical view`}<br />
+        {jt`Hold left ${bindShift} for pencil (to place while moving mouse)`}<br />
         {jt`${mouseSymbol} Left click or ${touchSymbol} tap to place a pixel`}<br />
         {jt`Click ${mouseSymbol} middle mouse button or ${touchSymbol} long-tap to select current hovering color`}<br />
       </div>
