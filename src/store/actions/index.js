@@ -105,11 +105,18 @@ export function toggleOpenPalette() {
   };
 }
 
-export function selectHoldPaint(value, immediate) {
+export function setHoldPaint(value, immediate) {
   return {
-    type: 's/SELECT_HOLD_PAINT',
+    type: 's/SET_HOLD_PAINT',
     value,
     immediate,
+  };
+}
+
+export function selectPencilMode(value) {
+  return {
+    type: 's/SELECT_PENCIL_MODE',
+    value,
   };
 }
 
