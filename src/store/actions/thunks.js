@@ -1,6 +1,8 @@
 /*
  * thunk actions
  */
+import { t } from 'ttag';
+
 import {
   requestStartDm,
   requestBlock,
@@ -19,11 +21,13 @@ import {
   unblockUser,
   blockingDm,
   privatize,
+  selectPencilMode,
 } from './index';
 import {
   addChatChannel,
   removeChatChannel,
 } from './socket';
+import { PENCIL_MODE } from '../../core/constants';
 
 function setApiFetching(fetching) {
   return {
@@ -211,5 +215,29 @@ export function notify(notification) {
     lastNotify = setTimeout(() => {
       dispatch(unsetNotification());
     }, 1500);
+  };
+}
+
+export function switchPencilMode() {
+  return (dispatch, getState) => {
+    let pencilMode = getState().gui.pencilMode + 1;
+    let bound = PENCIL_MODE.HISTORY;
+    if (window.ssv?.backupurl) bound += 1;
+    if (pencilMode >= bound) pencilMode = 0;
+    let notification = t`Pencil picks: `;
+    switch (pencilMode) {
+      case 0:
+        notification += t`Selected Color`;
+        break;
+      case 1:
+        notification += t`From Template`;
+        break;
+      case 2:
+        notification += t`From History`;
+        break;
+      default:
+    }
+    dispatch(selectPencilMode(pencilMode));
+    dispatch(notify(notification));
   };
 }
