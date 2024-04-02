@@ -255,8 +255,8 @@ tr:nth-child(even) {
 
 .win-resize {
   position: absolute;
-  bottom: -4px;
-  right: -3px;
+  bottom: -8px;
+  right: 0px;
   font-size: 22px;
   cursor: se-resize;
 }
