@@ -5,11 +5,10 @@ import {
   getMaxTiledZoom,
   dateToString,
 } from '../../core/utils';
-
-
 import {
   DEFAULT_SCALE,
   DEFAULT_CANVAS_ID,
+  PENCIL_MODE,
 } from '../../core/constants';
 
 /*
@@ -67,17 +66,6 @@ function getCanvasArgs(canvas, prevCoords) {
     colors,
   } = canvas;
   const is3D = !!canvas.v;
-  // get previous view if possible
-  let view = [0, 0, DEFAULT_SCALE];
-  let selectedColor = clrIgnore;
-  if (prevCoords) {
-    if (prevCoords.view) {
-      view = prevCoords.view;
-    }
-    if (prevCoords.selectedColor) {
-      selectedColor = prevCoords.selectedColor;
-    }
-  }
   const palette = new Palette(colors, 0);
   return {
     clrIgnore,
@@ -86,9 +74,10 @@ function getCanvasArgs(canvas, prevCoords) {
     canvasEndDate,
     canvasIdent,
     is3D,
-    view,
-    selectedColor,
     palette,
+    view: prevCoords?.view || [0, 0, DEFAULT_SCALE],
+    selectedColor: prevCoords?.selectedColor || clrIgnore,
+    pencilMode: prevCoords?.pencilMode || PENCIL_MODE.COLOR,
   };
 }
 
@@ -152,6 +141,8 @@ const initialState = {
   palette: new Palette([[0, 0, 0]]),
   clrIgnore: 0,
   selectedColor: 0,
+  // from where the pencil takes its color from
+  pencilMode: PENCIL_MODE.COLOR,
   // view is not up-to-date, changes are delayed compared to renderer.view
   view: [0, 0, DEFAULT_SCALE],
   isHistoricalView: false,
@@ -263,6 +254,22 @@ export default function canvasReducer(
       };
     }
 
+    case 's/SELECT_PENCIL_MODE': {
+      const pencilMode = action.value;
+      const { canvasId } = state;
+      return {
+        ...state,
+        pencilMode,
+        prevCanvasState: {
+          ...state.prevCanvasState,
+          [canvasId]: {
+            ...state.prevCanvasState[canvasId],
+            pencilMode,
+          },
+        },
+      };
+    }
+
     case 's/SELECT_CANVAS': {
       let { canvasId } = action;
       const {
@@ -283,12 +290,13 @@ export default function canvasReducer(
         canvasId,
         // reset if last canvas was retired
         isHistoricalView: (!state.canvasEndDate && state.isHistoricalView),
-        // remember view and color
+        // remember canvas specific settings
         prevCanvasState: {
           ...state.prevCanvasState,
           [prevCanvasId]: {
             view: state.view,
             selectedColor: state.selectedColor,
+            pencilMode: state.pencilMode,
           },
         },
       });

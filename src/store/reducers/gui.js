@@ -1,5 +1,3 @@
-import { PENCIL_MODE } from '../../core/constants';
-
 const initialState = {
   showGrid: false,
   showPixelNotify: false,
@@ -21,8 +19,6 @@ const initialState = {
   noRound: false,
   // selected theme
   style: 'default',
-  // from where the pencil takes its color from
-  pencilMode: PENCIL_MODE.COLOR,
   // properties that aren't saved
   holdPaint: false,
   easterEgg: false,
@@ -144,13 +140,6 @@ export default function gui(
       return {
         ...state,
         holdPaint: action.value,
-      };
-    }
-
-    case 's/SELECT_PENCIL_MODE': {
-      return {
-        ...state,
-        pencilMode: action.value,
       };
     }
 
