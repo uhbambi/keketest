@@ -410,10 +410,11 @@ class PixelPainterControls {
 
   static getWantedColor(state, renderer, cell) {
     if (state.gui.holdPaint) {
-      if (state.gui.pencilMode === PENCIL_MODE.HISTORY) {
+      const { pencilMode } = state.canvas;
+      if (pencilMode === PENCIL_MODE.HISTORY) {
         return renderer.getColorIndexOfPixel(...cell, true);
       }
-      if (state.gui.pencilMode === PENCIL_MODE.OVERLAY) {
+      if (pencilMode === PENCIL_MODE.OVERLAY) {
         const { canvasId } = state.canvas;
         const rgb = templateLoader.getColorOfPixel(canvasId, ...cell);
         if (!rgb) {

@@ -30,7 +30,7 @@ export const migrate = (state, version) => {
 const guiPersist = persistReducer({
   key: 'gui',
   storage,
-  version: 19,
+  version: 20,
   migrate,
 }, gui);
 
@@ -58,7 +58,7 @@ const templatesPersist = persistReducer({
 const canvasPersist = persistReducer({
   key: 'can',
   storage,
-  version: 1,
+  version: 2,
   migrate,
   whitelist: ['prevCanvasState'],
 }, canvas);
