@@ -220,7 +220,7 @@ export function notify(notification) {
 
 export function switchPencilMode() {
   return (dispatch, getState) => {
-    let pencilMode = getState().gui.pencilMode + 1;
+    let pencilMode = getState().canvas.pencilMode + 1;
     let bound = PENCIL_MODE.HISTORY;
     if (window.ssv?.backupurl) bound += 1;
     if (pencilMode >= bound) pencilMode = 0;

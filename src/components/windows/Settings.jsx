@@ -39,6 +39,7 @@ const Settings = () => {
     chatNotify,
     pencilMode,
     isHistoricalView,
+    canvasName,
     templatesAvailable,
   ] = useSelector((state) => [
     state.gui.showGrid,
@@ -51,8 +52,9 @@ const Settings = () => {
     state.gui.style,
     state.gui.mute,
     state.gui.chatNotify,
-    state.gui.pencilMode,
+    state.canvas.pencilMode,
     state.canvas.isHistoricalView,
+    state.canvas.canvases[state.canvas.canvasId]?.title,
     state.templates.available,
   ], shallowEqual);
   const dispatch = useDispatch();
@@ -151,7 +153,7 @@ const Settings = () => {
         </SettingsItem>
       )}
       <SettingsItemSelect
-        title={t`Pencil Mode`}
+        title={t`Pencil Mode for ${canvasName} canvas`}
         values={pencilModesAvailable}
         selected={pencilModesAvailable[pencilMode]}
         keyBind={c('keybinds').t`B`}
@@ -159,7 +161,7 @@ const Settings = () => {
           (i) => dispatch(selectPencilMode(pencilModesAvailable.indexOf(i)))
         }
       >
-        {t`What the pencil should draw.`}
+        {t`What the pencil should draw on the current canvas.`}
       </SettingsItemSelect>
       {(window.ssv?.availableStyles) && (
         <SettingsItemSelect
