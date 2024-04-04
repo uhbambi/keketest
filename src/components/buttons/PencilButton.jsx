@@ -19,7 +19,7 @@ const PencilButton = () => {
     showMvmCtrls,
   ] = useSelector((state) => [
     state.gui.holdPaint,
-    state.gui.pencilMode,
+    state.canvas.pencilMode,
     state.gui.showMvmCtrls,
   ], shallowEqual);
   const dispatch = useDispatch();
