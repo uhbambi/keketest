@@ -23,7 +23,6 @@ import renderApp from './components/App';
 import { getRenderer } from './ui/rendererFactory';
 import templateLoader from './ui/templateLoader';
 import socketClient from './socket/SocketClient';
-import { GC_INTERVAL } from './core/constants';
 
 persistStore(store, {}, () => {
   window.addEventListener('message', store.dispatch);
@@ -69,12 +68,6 @@ persistStore(store, {}, () => {
     const onKeyUp = createKeyUpHandler(store);
     document.addEventListener('keydown', onKeyDown, false);
     document.addEventListener('keyup', onKeyUp, false);
-
-    // garbage collection
-    setInterval(() => {
-      const renderer = getRenderer();
-      renderer.gc();
-    }, GC_INTERVAL);
 
     document.removeEventListener('DOMContentLoaded', onLoad);
   };
