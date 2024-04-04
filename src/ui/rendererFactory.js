@@ -11,6 +11,7 @@ import Renderer from './Renderer';
 import Renderer2D from './Renderer2D';
 import { pAlert } from '../store/actions';
 import { isWebGL2Available } from '../core/utils';
+import { GC_INTERVAL } from '../core/constants';
 
 const dummyRenderer = new Renderer();
 
@@ -54,3 +55,8 @@ export async function initRenderer(store, is3D) {
 export function getRenderer() {
   return renderer;
 }
+
+// garbage collection
+setInterval(() => {
+  renderer.gc();
+}, GC_INTERVAL);
