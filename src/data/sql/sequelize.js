@@ -62,7 +62,7 @@ export const sync = async () => {
             SELECT host FROM WhoisReferrals WHERE min <= binIp AND max >= binIp AND LENGTH(binIp) = LENGTH(min) AND checkedAt > (NOW() - INTERVAL 1 MONTH) LIMIT 1;
         END IF;
       END`,
-    RANGE_OF_IP_OI: `CREATE PROCEDURE IF NOT EXISTS RANGE_OF_IP(ip VARCHAR(39)) READS SQL DATA
+    RANGE_OF_IP_OI: `CREATE PROCEDURE IF NOT EXISTS RANGE_OF_IP_OI(ip VARCHAR(39)) READS SQL DATA
       BEGIN
         DECLARE binIp VARBINARY(8);
         DECLARE q_id INTEGER UNSIGNED;
