@@ -1,6 +1,6 @@
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2024-03-14 19:38+0000\n"
+"PO-Revision-Date: 2024-04-09 20:01+0000\n"
 "Last-Translator: Translation Team <noreply@example.com>\n"
 "Language-Team: Finnish <https://hosted.weblate.org/projects/pixelplanet/"
 "client/fi/>\n"
@@ -1684,7 +1684,7 @@ msgstr "H"
 #: src/components/windows/Settings.jsx:159
 msgctxt "keybinds"
 msgid "B"
-msgstr ""
+msgstr "B"
 
 #: src/components/windows/Help.jsx:22
 msgctxt "keybinds"

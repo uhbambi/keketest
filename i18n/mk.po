@@ -1,6 +1,6 @@
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2024-04-04 20:02+0000\n"
+"PO-Revision-Date: 2024-04-09 20:01+0000\n"
 "Last-Translator: Translation Team <noreply@example.com>\n"
 "Language-Team: Macedonian <https://hosted.weblate.org/projects/pixelplanet/"
 "client/mk/>\n"
@@ -12,7 +12,7 @@ msgstr ""
 
 #: src/store/actions/thunks.js:227
 msgid "Pencil picks: "
-msgstr ""
+msgstr "бери за моливи "
 
 #: src/components/windows/Settings.jsx:63 src/store/actions/thunks.js:230
 msgid "Selected Color"
@@ -200,7 +200,7 @@ msgstr ""
 
 #: src/ui/templateLoader.js:230 src/ui/templateLoader.js:256
 msgid "Error :("
-msgstr ""
+msgstr "Грешка :("
 
 #: src/ui/templateLoader.js:231
 msgid "Can not export more than 20 or no template!"
@@ -212,7 +212,7 @@ msgstr ""
 
 #: src/components/BanInfo.jsx:136 src/store/actions/index.js:7
 msgid "OK"
-msgstr ""
+msgstr "Добро"
 
 #: src/store/actions/fetch.js:55
 msgid "You made too many requests"
@@ -942,7 +942,7 @@ msgstr "Напишете ја својата емаил адреса и ние �
 
 #: src/utils/validation.js:17
 msgid "Email can't be empty."
-msgstr ""
+msgstr "Емаил не може да биде празен."
 
 #: src/utils/validation.js:18
 msgid "Email should be at least 5 characters long."
@@ -990,7 +990,7 @@ msgstr ""
 
 #: src/components/CanvasItem.jsx:29
 msgid "Online Users"
-msgstr ""
+msgstr "Онлајн Корисници"
 
 #: src/components/CanvasItem.jsx:34
 msgid "Cooldown"
@@ -1006,11 +1006,11 @@ msgstr ""
 
 #: src/components/CanvasItem.jsx:44
 msgid "Yes"
-msgstr ""
+msgstr "Да"
 
 #: src/components/CanvasItem.jsx:44
 msgid "No"
-msgstr ""
+msgstr "Не"
 
 #: src/components/CanvasItem.jsx:50
 msgid "Requirements"
@@ -1018,7 +1018,7 @@ msgstr ""
 
 #: src/components/CanvasItem.jsx:53
 msgid "User Account"
-msgstr ""
+msgstr "Корисники акаунт"
 
 #: src/components/CanvasItem.jsx:55
 #, javascript-format
@@ -1040,7 +1040,7 @@ msgstr ""
 
 #: src/components/GetIID.jsx:53
 msgid "Copy"
-msgstr ""
+msgstr "Копирај"
 
 #: src/components/LogInArea.jsx:19
 msgid "Login to access more features and stats."
@@ -1052,7 +1052,7 @@ msgstr ""
 
 #: src/components/LogInArea.jsx:28
 msgid "I forgot my Password."
-msgstr ""
+msgstr "Ја заборавив својата Лозинка."
 
 #: src/components/LogInArea.jsx:29
 msgid "or login with:"
@@ -1064,7 +1064,7 @@ msgstr ""
 
 #: src/components/LogInArea.jsx:75
 msgid "Register"
-msgstr ""
+msgstr "Регистрација"
 
 #: src/components/TemplateSettings.jsx:52
 msgid "Templates"
@@ -1122,11 +1122,11 @@ msgstr ""
 #: src/components/ChangePassword.jsx:109 src/components/LanguageSelect.jsx:79
 #: src/components/TemplateItemEdit.jsx:209
 msgid "Save"
-msgstr ""
+msgstr "Зачувај"
 
 #: src/components/UserAreaContent.jsx:62
 msgid "Today Placed Pixels"
-msgstr ""
+msgstr "Денеска поставени Пиксели"
 
 #: src/components/UserAreaContent.jsx:66
 msgid "Daily Rank"
@@ -1188,7 +1188,7 @@ msgstr ""
 
 #: src/components/Converter.jsx:261
 msgid "Choose Strategy"
-msgstr ""
+msgstr "Избери ја стратегијата"
 
 #: src/components/Converter.jsx:299
 msgid "Serpentine"
@@ -1224,7 +1224,7 @@ msgstr ""
 
 #: src/components/Converter.jsx:470
 msgid "Height"
-msgstr ""
+msgstr "Висина"
 
 #: src/components/Converter.jsx:509
 msgid "Keep Ratio"
@@ -1240,15 +1240,15 @@ msgstr ""
 
 #: src/components/Converter.jsx:554
 msgid "Download Template"
-msgstr ""
+msgstr "Исталирај Темплејт"
 
 #: src/components/Rankings.jsx:165
 msgid "Yesterday"
-msgstr ""
+msgstr "Вчера"
 
 #: src/components/Rankings.jsx:174
 msgid "Countries Today"
-msgstr ""
+msgstr "Држави Денеска"
 
 #: src/components/Rankings.jsx:183
 msgid "Charts"
@@ -1257,11 +1257,11 @@ msgstr ""
 #: src/components/Rankings.jsx:201 src/components/Rankings.jsx:210
 #: src/components/Rankings.jsx:219
 msgid "User"
-msgstr ""
+msgstr "Корисник"
 
 #: src/components/Rankings.jsx:226
 msgid "Country"
-msgstr ""
+msgstr "Држава"
 
 #: src/components/Rankings.jsx:286
 msgid "Ranking updates every 5 min. Daily rankings get reset at midnight UTC."
@@ -1274,7 +1274,7 @@ msgstr ""
 
 #: src/components/TemplateItem.jsx:57 src/components/TemplateItemEdit.jsx:141
 msgid "Coordinates"
-msgstr ""
+msgstr "Кординати"
 
 #: src/components/TemplateItem.jsx:71
 msgid "Edit"
@@ -1282,7 +1282,7 @@ msgstr ""
 
 #: src/components/TemplateItem.jsx:81
 msgid "Go to"
-msgstr ""
+msgstr "Иди до"
 
 #: src/components/LogInForm.jsx:77
 msgid "Name or Email"
@@ -1294,15 +1294,15 @@ msgstr ""
 
 #: src/components/TemplateItemEdit.jsx:97
 msgid "Select File"
-msgstr ""
+msgstr "Избери фајл"
 
 #: src/components/TemplateItemEdit.jsx:120
 msgid "Template Name"
-msgstr ""
+msgstr "Името на темплејтот"
 
 #: src/components/TemplateItemEdit.jsx:174
 msgid "Delete"
-msgstr ""
+msgstr "Избриши"
 
 #: src/core/chartSettings.js:30
 msgid "Top 10 Countries [pxls / day]"
@@ -1336,7 +1336,7 @@ msgstr ""
 
 #: src/components/UserMessages.jsx:53
 msgid "Click here to request a new verification mail."
-msgstr ""
+msgstr "Кликнете тука за да побарате нова верификација на емаилот."
 
 #: src/components/ModWatchtools.jsx:48
 msgid "Interval is invalid"
@@ -1402,7 +1402,7 @@ msgstr ""
 
 #: src/components/Admintools.jsx:210
 msgid "User Name"
-msgstr ""
+msgstr "Името на Корисникот"
 
 #: src/components/ModCanvastools.jsx:168
 msgid "Build image on canvas."
@@ -1453,15 +1453,15 @@ msgstr ""
 
 #: src/components/ModCanvastools.jsx:252
 msgid "File"
-msgstr ""
+msgstr "Фајл"
 
 #: src/components/ModCanvastools.jsx:273
 msgid "Coordinates:"
-msgstr ""
+msgstr "Кординати:"
 
 #: src/components/ModCanvastools.jsx:317
 msgid "Pixel Protection"
-msgstr ""
+msgstr "Пиксел Протекција"
 
 #: src/components/ModCanvastools.jsx:321
 msgid ""
@@ -1503,7 +1503,7 @@ msgstr ""
 
 #: src/components/ModIIDtools.jsx:80
 msgid "Enter Reason"
-msgstr ""
+msgstr "Напиши Причина"
 
 #: src/components/ModIIDtools.jsx:97
 msgid "(0 = infinite)"
@@ -1519,23 +1519,23 @@ msgstr ""
 
 #: src/components/ChangePassword.jsx:44
 msgid "Password successfully changed."
-msgstr ""
+msgstr "Лозинката е успешно сменета."
 
 #: src/components/ChangePassword.jsx:88
 msgid "Old Password"
-msgstr ""
+msgstr "Стара лозинка"
 
 #: src/components/ChangePassword.jsx:96
 msgid "New Password"
-msgstr ""
+msgstr "Нова лозинка"
 
 #: src/components/ChangePassword.jsx:103
 msgid "Confirm New Password"
-msgstr ""
+msgstr "Потврди ја новата лозинка"
 
 #: src/components/DeleteAccount.jsx:66
 msgid "Yes, Delete My Account!"
-msgstr ""
+msgstr "Да , избришете го мојот Акаунт!"
 
 #: src/components/ChangeMail.jsx:59
 msgid ""
@@ -1545,7 +1545,7 @@ msgstr ""
 
 #: src/components/ChangeMail.jsx:87
 msgid "New Mail"
-msgstr ""
+msgstr "Нов емаил"
 
 #: src/components/SocialSettings.jsx:35
 msgid "Block DMs"
@@ -1557,7 +1557,7 @@ msgstr ""
 
 #: src/components/SocialSettings.jsx:44
 msgid "Private"
-msgstr ""
+msgstr "Приватен"
 
 #: src/components/SocialSettings.jsx:51
 msgid "Don't show me in global stats"
@@ -1565,15 +1565,15 @@ msgstr ""
 
 #: src/components/SocialSettings.jsx:57
 msgid "Unblock Users"
-msgstr ""
+msgstr "Одблокирај корисници"
 
 #: src/components/SocialSettings.jsx:82
 msgid "You have no users blocked"
-msgstr ""
+msgstr "Ти немаш блокирано никого"
 
 #: src/components/contextmenus/UserContextMenu.jsx:49
 msgid "Ping"
-msgstr ""
+msgstr "Пинг"
 
 #: src/components/contextmenus/UserContextMenu.jsx:75
 msgid "DM"
@@ -1581,7 +1581,7 @@ msgstr ""
 
 #: src/components/contextmenus/UserContextMenu.jsx:86
 msgid "Block"
-msgstr ""
+msgstr "Блокирај"
 
 #: src/components/contextmenus/ChannelContextMenu.jsx:46
 msgid "Mute"
@@ -1590,74 +1590,74 @@ msgstr ""
 #: src/components/windows/Help.jsx:19 src/components/windows/Settings.jsx:70
 msgctxt "keybinds"
 msgid "G"
-msgstr ""
+msgstr "Г"
 
 #: src/components/windows/Help.jsx:20 src/components/windows/Settings.jsx:78
 msgctxt "keybinds"
 msgid "X"
-msgstr ""
+msgstr "Х"
 
 #: src/components/windows/Settings.jsx:86
 msgctxt "keybinds"
 msgid "N"
-msgstr ""
+msgstr "Н"
 
 #: src/components/windows/Settings.jsx:94
 msgctxt "keybinds"
 msgid "M"
-msgstr ""
+msgstr "М"
 
 #: src/components/windows/Help.jsx:21 src/components/windows/Settings.jsx:149
 msgctxt "keybinds"
 msgid "H"
-msgstr ""
+msgstr "H"
 
 #: src/components/windows/Settings.jsx:159
 msgctxt "keybinds"
 msgid "B"
-msgstr ""
+msgstr "Б"
 
 #: src/components/windows/Help.jsx:22
 msgctxt "keybinds"
 msgid "R"
-msgstr ""
+msgstr "Р"
 
 #: src/components/windows/Help.jsx:23
 msgctxt "keybinds"
 msgid "Q"
-msgstr ""
+msgstr "Љ"
 
 #: src/components/windows/Help.jsx:24
 msgctxt "keybinds"
 msgid "E"
-msgstr ""
+msgstr "Е"
 
 #: src/components/windows/Help.jsx:25
 msgctxt "keybinds"
 msgid "W"
-msgstr ""
+msgstr "Њ"
 
 #: src/components/windows/Help.jsx:26
 msgctxt "keybinds"
 msgid "A"
-msgstr ""
+msgstr "А"
 
 #: src/components/windows/Help.jsx:27
 msgctxt "keybinds"
 msgid "S"
-msgstr ""
+msgstr "С"
 
 #: src/components/windows/Help.jsx:28
 msgctxt "keybinds"
 msgid "D"
-msgstr ""
+msgstr "Д"
 
 #: src/components/windows/Help.jsx:35
 msgctxt "keybinds"
 msgid "Shift"
-msgstr ""
+msgstr "Шифт"
 
 #: src/components/TemplateSettings.jsx:61
 msgctxt "keybinds"
 msgid "T"
-msgstr ""
+msgstr "Т"
