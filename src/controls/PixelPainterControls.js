@@ -103,7 +103,7 @@ class PixelPainterControls {
       default:
     }
     if (keyword === 'default' && modeAdd) {
-      keyword = `pencil-${modeAdd}`;
+      keyword += `-${modeAdd}`;
       if (state.gui.holdPaint) {
         keyword += '-on';
       }
@@ -115,13 +115,7 @@ class PixelPainterControls {
   }
 
   updateCursor() {
-    let curCursor = getCursor(this.viewport);
-    if (curCursor.startsWith('pencil')) {
-      curCursor = 'default';
-    } else if (curCursor.startsWith('move')) {
-      curCursor = 'move';
-    }
-    this.setCursor(curCursor);
+    this.setCursor(getCursor(this.viewport));
   }
 
   onMouseDown(event) {
