@@ -10,11 +10,12 @@
 const availableCursors = {};
 
 /*
- * keywords that are available here but not in CSS standard
+ * keywords that are available here but not in CSS standard,
+ * name always starts with a legit css cursor keyword followed by '-'
  */
 const nonStandardCursors = [
-  'pencil-color', 'pencil-history', 'pencil-template',
-  'pencil-color-on', 'pencil-history-on', 'pencil-template-on',
+  'default-color', 'default-history', 'default-template',
+  'default-color-on', 'default-history-on', 'default-template-on',
   'move-color', 'move-history', 'move-template',
 ];
 
@@ -40,7 +41,7 @@ export function setCursor(keyword, element, custom = true) {
   if (cursorIsCustom) {
     cursorCss = `var(${propertyName})`;
   } else if (nonStandardCursors.includes(keyword)) {
-    cursorCss = 'default';
+    cursorCss = keyword.substring(0, keyword.indexOf('-'));
   } else {
     cursorCss = keyword;
   }
@@ -55,12 +56,11 @@ export function getCursor(element) {
   if (!cursor) return 'default';
   let indexVar = cursor.indexOf('var(');
   if (indexVar !== -1) {
-    indexVar += 4;
+    // 'var(--cursor-'
+    indexVar += 13;
     cursor = cursor.substring(indexVar, cursor.indexOf(')', indexVar));
-    if (cursor.startsWith('--cursor-')) {
-      cursor = cursor.substring(9);
-    } else {
-      return 'default';
+    if (nonStandardCursors.includes(cursor)) {
+      cursor = cursor.substring(0, cursor.indexOf('-'));
     }
   }
   return cursor;

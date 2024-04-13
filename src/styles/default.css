@@ -3,15 +3,15 @@
 :root {
   --cursor-default: default;
   --cursor-move: move;
-  --cursor-pencil-color: url(/cursors/pencil-color-1.png), default;
-  --cursor-pencil-template: url(/cursors/pencil-template-1.png), default;
-  --cursor-pencil-history: url(/cursors/pencil-history-1.png), default;
-  --cursor-move-color: url(/cursors/move-color-1.png), default;
-  --cursor-move-template: url(/cursors/move-template-1.png), default;
-  --cursor-move-history: url(/cursors/move-history-1.png), default;
-  --cursor-pencil-color-on: url(/cursors/pencil-color-on-1.png), default;
-  --cursor-pencil-template-on: url(/cursors/pencil-template-on-1.png), default;
-  --cursor-pencil-history-on: url(/cursors/pencil-history-on-1.png), default;
+  --cursor-default-color: url(/cursors/default-color-1.png), default;
+  --cursor-default-template: url(/cursors/default-template-1.png), default;
+  --cursor-default-history: url(/cursors/default-history-1.png), default;
+  --cursor-default-color-on: url(/cursors/default-color-on-1.png), default;
+  --cursor-default-template-on: url(/cursors/default-template-on-1.png), default;
+  --cursor-default-history-on: url(/cursors/default-history-on-1.png), default;
+  --cursor-move-color: url(/cursors/move-color-1.png), move;
+  --cursor-move-template: url(/cursors/move-template-1.png), move;
+  --cursor-move-history: url(/cursors/move-history-1.png), move;
 }
 
 /* --- fonts --- */
