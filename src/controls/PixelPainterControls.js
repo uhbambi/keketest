@@ -12,6 +12,7 @@ import {
   selectColor,
 } from '../store/actions';
 import pixelTransferController from '../ui/PixelTransferController';
+import { setCursor, getCursor } from './cursors';
 import {
   screenToWorld,
   getChunkOfPixel,
@@ -73,6 +74,7 @@ class PixelPainterControls {
     viewport.addEventListener('touchmove', this.onTouchMove, false);
     viewport.addEventListener('mouseout', this.onMouseOut, false);
     viewport.addEventListener('touchcancel', this.onMouseOut, false);
+    this.setCursor('default');
   }
 
   // eslint-disable-next-line class-methods-use-this
@@ -83,6 +85,36 @@ class PixelPainterControls {
     setTimeout(() => {
       this.coolDownDelta = false;
     }, delta * 1000);
+  }
+
+  setCursor(keyword) {
+    const state = this.store.getState();
+    if (keyword === 'default') {
+      switch (state.canvas.pencilMode) {
+        case PENCIL_MODE.COLOR:
+          keyword = 'pencil-color';
+          break;
+        case PENCIL_MODE.OVERLAY:
+          keyword = 'pencil-template';
+          break;
+        case PENCIL_MODE.HISTORY:
+          keyword = 'pencil-history';
+          break;
+        default:
+      }
+      if (state.gui.holdPaint && keyword !== 'default') {
+        keyword += '-on';
+      }
+    }
+    setCursor(keyword, this.viewport, this.store.getState().gui.cursor);
+  }
+
+  updateCursor() {
+    let curCursor = getCursor(this.viewport);
+    if (curCursor.startsWith('pencil')) {
+      curCursor = 'default';
+    }
+    this.setCursor(curCursor);
   }
 
   onMouseDown(event) {
@@ -96,10 +128,9 @@ class PixelPainterControls {
       this.clickTapStartTime = Date.now();
       this.clickTapStartCoords = [clientX, clientY];
       this.clickTapStartView = this.renderer.view;
-      const { viewport } = this;
       setTimeout(() => {
         if (this.isClicking) {
-          viewport.style.cursor = 'move';
+          this.setCursor('move');
         }
       }, 300);
     }
@@ -127,7 +158,7 @@ class PixelPainterControls {
           this.screenToWorld([clientX, clientY]),
         );
       }
-      this.viewport.style.cursor = 'auto';
+      this.setCursor('default');
     }
     renderer.storeViewInState();
   }
@@ -505,8 +536,8 @@ class PixelPainterControls {
   }
 
   onMouseOut() {
-    const { store, viewport } = this;
-    viewport.style.cursor = 'auto';
+    const { store } = this;
+    this.setCursor('default');
     store.dispatch(unsetHover());
     this.isClicking = false;
     this.clearTabTimeout();
