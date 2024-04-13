@@ -89,22 +89,27 @@ class PixelPainterControls {
 
   setCursor(keyword) {
     const state = this.store.getState();
-    if (keyword === 'default') {
-      switch (state.canvas.pencilMode) {
-        case PENCIL_MODE.COLOR:
-          keyword = 'pencil-color';
-          break;
-        case PENCIL_MODE.OVERLAY:
-          keyword = 'pencil-template';
-          break;
-        case PENCIL_MODE.HISTORY:
-          keyword = 'pencil-history';
-          break;
-        default:
-      }
-      if (state.gui.holdPaint && keyword !== 'default') {
+    let modeAdd;
+    switch (state.canvas.pencilMode) {
+      case PENCIL_MODE.COLOR:
+        modeAdd = 'color';
+        break;
+      case PENCIL_MODE.OVERLAY:
+        modeAdd = 'template';
+        break;
+      case PENCIL_MODE.HISTORY:
+        modeAdd = 'history';
+        break;
+      default:
+    }
+    if (keyword === 'default' && modeAdd) {
+      keyword = `pencil-${modeAdd}`;
+      if (state.gui.holdPaint) {
         keyword += '-on';
       }
+    }
+    if (keyword === 'move' && modeAdd) {
+      keyword += `-${modeAdd}`;
     }
     setCursor(keyword, this.viewport, this.store.getState().gui.cursor);
   }
@@ -113,6 +118,8 @@ class PixelPainterControls {
     let curCursor = getCursor(this.viewport);
     if (curCursor.startsWith('pencil')) {
       curCursor = 'default';
+    } else if (curCursor.startsWith('move')) {
+      curCursor = 'move';
     }
     this.setCursor(curCursor);
   }

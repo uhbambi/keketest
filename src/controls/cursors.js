@@ -15,6 +15,7 @@ const availableCursors = {};
 const nonStandardCursors = [
   'pencil-color', 'pencil-history', 'pencil-template',
   'pencil-color-on', 'pencil-history-on', 'pencil-template-on',
+  'move-color', 'move-history', 'move-template',
 ];
 
 /*
