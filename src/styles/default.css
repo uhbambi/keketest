@@ -1,14 +1,17 @@
 /* --- variables --- */
 
 :root {
-  --cursor-default: url(/cursors/default-1.svg), default;
-  --cursor-move: url(/cursors/move-1.svg), move;
-  --cursor-pencil-color: url(/cursors/pencil-color-1.svg), default;
-  --cursor-pencil-template: url(/cursors/pencil-template-1.svg), default;
-  --cursor-pencil-history: url(/cursors/pencil-history-1.svg), default;
-  --cursor-pencil-color-on: url(/cursors/pencil-color-on-1.svg), default;
-  --cursor-pencil-template-on: url(/cursors/pencil-template-on-1.svg), default;
-  --cursor-pencil-history-on: url(/cursors/pencil-history-on-1.svg), default;
+  --cursor-default: default;
+  --cursor-move: move;
+  --cursor-pencil-color: url(/cursors/pencil-color-1.png), default;
+  --cursor-pencil-template: url(/cursors/pencil-template-1.png), default;
+  --cursor-pencil-history: url(/cursors/pencil-history-1.png), default;
+  --cursor-move-color: url(/cursors/move-color-1.png), default;
+  --cursor-move-template: url(/cursors/move-template-1.png), default;
+  --cursor-move-history: url(/cursors/move-history-1.png), default;
+  --cursor-pencil-color-on: url(/cursors/pencil-color-on-1.png), default;
+  --cursor-pencil-template-on: url(/cursors/pencil-template-on-1.png), default;
+  --cursor-pencil-history-on: url(/cursors/pencil-history-on-1.png), default;
 }
 
 /* --- fonts --- */
