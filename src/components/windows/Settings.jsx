@@ -18,6 +18,7 @@ import {
   toggleAutoZoomIn,
   toggleCompactPalette,
   toggleChatNotify,
+  toggleCursor,
   togglePotatoMode,
   toggleLightGrid,
   toggleHistoricalView,
@@ -37,6 +38,7 @@ const Settings = () => {
     selectedStyle,
     isMuted,
     chatNotify,
+    cursor,
     pencilMode,
     isHistoricalView,
     canvasName,
@@ -52,6 +54,7 @@ const Settings = () => {
     state.gui.style,
     state.gui.mute,
     state.gui.chatNotify,
+    state.gui.cursor,
     state.canvas.pencilMode,
     state.canvas.isHistoricalView,
     state.canvas.canvases[state.canvas.canvasId]?.title,
@@ -141,6 +144,13 @@ const Settings = () => {
         onToggle={() => dispatch(toggleLightGrid())}
       >
         {t`Show Grid in white instead of black.`}
+      </SettingsItem>
+      <SettingsItem
+        title={t`Custom Cursor`}
+        value={cursor}
+        onToggle={() => dispatch(toggleCursor())}
+      >
+        {t`Use our custom cursor`}
       </SettingsItem>
       {(window.ssv?.backupurl) && (
         <SettingsItem

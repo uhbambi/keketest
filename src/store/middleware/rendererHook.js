@@ -53,6 +53,7 @@ export default (store) => (next) => (action) => {
     case 's/SELECT_CANVAS':
     case 's/REC_ME': {
       const renderer = getRenderer();
+      renderer.controls.updateCursor?.();
       const { is3D } = state.canvas;
 
       if (is3D === renderer.is3D) {
@@ -64,7 +65,7 @@ export default (store) => (next) => (action) => {
         initRenderer(store, is3D);
       }
 
-      // TODO this looks shade, i.e. when a nwe Renderer appears
+      // TODO this looks shady, i.e. when a nwe Renderer appears
       if (state.canvas.isHistoricalView) {
         const {
           historicalDate,
@@ -136,10 +137,11 @@ export default (store) => (next) => (action) => {
     }
 
     case 's/SET_HOLD_PAINT': {
+      const renderer = getRenderer();
       if (action.value) {
-        const renderer = getRenderer();
         renderer.controls.holdPaintStarted?.(action.immediate);
       }
+      renderer.controls.updateCursor?.();
       break;
     }
 
@@ -169,15 +171,19 @@ export default (store) => (next) => (action) => {
       break;
     }
 
+    case 's/SELECT_PENCIL_MODE':
+    case 's/TGL_CURSOR': {
+      const renderer = getRenderer();
+      renderer.controls.updateCursor?.();
+      break;
+    }
+
     case 'REC_SET_PXLS': {
       const renderer = getRenderer();
       renderer.forceNextSubrender = true;
       const { coolDownSeconds } = action;
-      if (coolDownSeconds < 0
-        && renderer && renderer.controls
-        && renderer.controls.gotCoolDownDelta
-      ) {
-        renderer.controls.gotCoolDownDelta(coolDownSeconds * -1);
+      if (coolDownSeconds < 0) {
+        renderer.controls.gotCoolDownDelta?.(coolDownSeconds * -1);
       }
       break;
     }
