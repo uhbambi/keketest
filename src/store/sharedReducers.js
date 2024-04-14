@@ -30,7 +30,7 @@ export const migrate = (state, version) => {
 const guiPersist = persistReducer({
   key: 'gui',
   storage,
-  version: 20,
+  version: 21,
   migrate,
 }, gui);
 
