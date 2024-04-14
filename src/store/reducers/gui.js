@@ -9,6 +9,7 @@ const initialState = {
   paletteOpen: true,
   mute: false,
   chatNotify: true,
+  cursor: true,
   // top-left button menu
   menuOpen: false,
   // show online users per canvas instead of total
@@ -133,6 +134,13 @@ export default function gui(
       return {
         ...state,
         easterEgg: !state.easterEgg,
+      };
+    }
+
+    case 's/TGL_CURSOR': {
+      return {
+        ...state,
+        cursor: !state.cursor,
       };
     }
 

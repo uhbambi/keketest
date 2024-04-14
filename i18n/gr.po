@@ -13,72 +13,54 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: Weblate 5.5-dev\n"
 
-#: src/controls/keypress.js:62
-msgid "Pencil picks: "
-msgstr ""
-
-#: src/components/windows/Settings.jsx:61 src/controls/keypress.js:65
-#, fuzzy
-msgid "Selected Color"
-msgstr "Επιλογή γλώσσας"
-
-#: src/components/windows/Settings.jsx:61 src/controls/keypress.js:68
-#, fuzzy
-msgid "From Template"
-msgstr "Λήψη προτύπου"
-
-#: src/components/windows/Settings.jsx:62 src/controls/keypress.js:71
-msgid "From History"
-msgstr ""
-
-#: src/controls/keypress.js:122
+#: src/controls/keypress.js:102
 #, javascript-format
 msgid "Switched to ${ canvasName }"
 msgstr "Έγινε εναλλαγή σε ${ canvasName }"
 
-#: src/controls/keypress.js:193
+#: src/controls/keypress.js:176
 msgid "Grid ON"
 msgstr "Πλέγμα Ενεργο"
 
-#: src/controls/keypress.js:194
+#: src/controls/keypress.js:177
 msgid "Grid OFF"
 msgstr "Πλέγμα Ενενεργό"
 
-#: src/controls/keypress.js:204
+#: src/controls/keypress.js:187
 msgid "Pixel Notify ON"
 msgstr "Ειδοποίηση Pixel Ενεργό"
 
-#: src/controls/keypress.js:205
+#: src/controls/keypress.js:188
 msgid "Pixel Notify OFF"
 msgstr "Ειδοποίηση Pixel Ανενεργό"
 
-#: src/controls/keypress.js:210
+#: src/controls/keypress.js:193
 msgid "Muted Sound"
 msgstr "Σίγαση ήχου"
 
-#: src/controls/keypress.js:211
+#: src/controls/keypress.js:194
 msgid "Unmuted Sound"
 msgstr "Διακοπή σίγασης ήχου"
 
 #: src/components/CoordinatesBox.jsx:39 src/components/GetIID.jsx:51
-#: src/controls/keypress.js:220
+#: src/controls/keypress.js:203
 #, fuzzy
 msgid "Copied"
 msgstr "Αντιγράφηκε!"
 
-#: src/controls/keypress.js:226
+#: src/controls/keypress.js:209
 msgid "Overlay ON"
 msgstr "Επικάλυμμα Ενεργό"
 
-#: src/controls/keypress.js:227
+#: src/controls/keypress.js:210
 msgid "Overlay OFF"
 msgstr "Επικάλυμμα Ανενεργό"
 
-#: src/components/windows/Help.jsx:50 src/controls/keypress.js:233
+#: src/components/windows/Help.jsx:50 src/controls/keypress.js:216
 msgid "Easter Egg ON"
 msgstr "Πασχαλινό Αυγό Ενεργό"
 
-#: src/components/windows/Help.jsx:49 src/controls/keypress.js:234
+#: src/components/windows/Help.jsx:49 src/controls/keypress.js:217
 msgid "Easter Egg OFF"
 msgstr ""
 
@@ -201,11 +183,29 @@ msgstr "Ειδοποίηση Pixel Ενεργό"
 msgid "Error ${ retCode }"
 msgstr "Κάτι πήγε λάθος ${ retCode }"
 
-#: src/ui/rendererFactory.js:31
+#: src/store/actions/thunks.js:227
+msgid "Pencil picks: "
+msgstr ""
+
+#: src/components/windows/Settings.jsx:66 src/store/actions/thunks.js:230
+#, fuzzy
+msgid "Selected Color"
+msgstr "Επιλογή γλώσσας"
+
+#: src/components/windows/Settings.jsx:66 src/store/actions/thunks.js:233
+#, fuzzy
+msgid "From Template"
+msgstr "Λήψη προτύπου"
+
+#: src/components/windows/Settings.jsx:67 src/store/actions/thunks.js:236
+msgid "From History"
+msgstr ""
+
+#: src/ui/rendererFactory.js:32
 msgid "Canvas Error"
 msgstr "Κάτι πήγε λάθος με τους κανβας:("
 
-#: src/ui/rendererFactory.js:32
+#: src/ui/rendererFactory.js:33
 msgid "Can't render 3D canvas, do you have WebGL2 disabled?"
 msgstr ""
 "Δεν είναι δυνατή η απόδοση του τρισδιάστατου καμβά, έχετε απενεργοποιήσει το "
@@ -387,20 +387,20 @@ msgstr "Κλείσιμο παλέτας"
 msgid "Open Palette"
 msgstr "Άνοιγμα Παλέτας"
 
-#: src/components/buttons/PencilButton.jsx:26
+#: src/components/buttons/PencilButton.jsx:41
 msgid "Enable Pencil"
 msgstr ""
 
-#: src/components/buttons/PencilButton.jsx:31
+#: src/components/buttons/PencilButton.jsx:46
 #, fuzzy
 msgid "Disable Pencil"
 msgstr "Απενεργοποιήστε τους ήχους παιχνιδιού"
 
-#: src/components/buttons/PencilButton.jsx:35
+#: src/components/buttons/PencilButton.jsx:50
 msgid "Disable History Pencil"
 msgstr ""
 
-#: src/components/buttons/PencilButton.jsx:39
+#: src/components/buttons/PencilButton.jsx:54
 msgid "Disable Overlay Pencil"
 msgstr ""
 
@@ -420,25 +420,14 @@ msgstr "Συνομιλία"
 msgid "Canvas Archive"
 msgstr "Αρχείο καμβά"
 
-#: src/components/GlobalCaptcha.jsx:47
-msgid "You took too long, try again."
-msgstr "Χρειάστηκε πολύς χρόνος, δοκιμάστε ξανά."
+#: src/components/BanInfo.jsx:66
+#, fuzzy
+msgid "You are banned. You think it is unjustified? Check out the "
+msgstr "Είστε απαγορευμένοι. Πιστεύετε ότι είναι αδικαιολόγητο; Ελέγξτε τo "
 
-#: src/components/GlobalCaptcha.jsx:50
-msgid "You failed your captcha"
-msgstr "Απέτυχες το captcha σου"
-
-#: src/components/GlobalCaptcha.jsx:53
-msgid "No or invalid captcha text"
-msgstr "Χωρίς ή μη έγκυρο κείμενο captch"
-
-#: src/components/GlobalCaptcha.jsx:56
-msgid "No captcha id given"
-msgstr "Δεν δόθηκε αναγνωριστικό captcha"
-
-#: src/components/GlobalCaptcha.jsx:59
-msgid "Unknown Captcha Error"
-msgstr "Άγνωστο σφάλμα Captcha"
+#: src/components/BanInfo.jsx:76
+msgid " on how to appeal."
+msgstr " πώς να ασκήσετε έφεση."
 
 #: src/components/BanInfo.jsx:80 src/components/Captcha.jsx:79
 #: src/components/ChangeMail.jsx:72 src/components/ChangeName.jsx:58
@@ -448,27 +437,6 @@ msgstr "Άγνωστο σφάλμα Captcha"
 #: src/components/windows/Register.jsx:89
 msgid "Error"
 msgstr "Λάθος"
-
-#: src/components/ChangeMail.jsx:93 src/components/ChangeName.jsx:70
-#: src/components/ChangePassword.jsx:115 src/components/DeleteAccount.jsx:68
-#: src/components/GlobalCaptcha.jsx:80 src/components/TemplateItemEdit.jsx:181
-#: src/components/windows/ForgotPassword.jsx:89
-#: src/components/windows/Register.jsx:133
-msgid "Cancel"
-msgstr "Ματαίωση"
-
-#: src/components/GlobalCaptcha.jsx:86
-msgid "Send"
-msgstr "Αποστολή"
-
-#: src/components/BanInfo.jsx:66
-#, fuzzy
-msgid "You are banned. You think it is unjustified? Check out the "
-msgstr "Είστε απαγορευμένοι. Πιστεύετε ότι είναι αδικαιολόγητο; Ελέγξτε τo "
-
-#: src/components/BanInfo.jsx:76
-msgid " on how to appeal."
-msgstr " πώς να ασκήσετε έφεση."
 
 #: src/components/BanInfo.jsx:85 src/components/ModIIDtools.jsx:73
 msgid "Reason"
@@ -501,6 +469,38 @@ msgstr "Τώρα που είδατε αυτό το μήνυμα, δεν είστ
 #: src/components/BanInfo.jsx:127
 msgid "Why?"
 msgstr "Γιατί;"
+
+#: src/components/GlobalCaptcha.jsx:47
+msgid "You took too long, try again."
+msgstr "Χρειάστηκε πολύς χρόνος, δοκιμάστε ξανά."
+
+#: src/components/GlobalCaptcha.jsx:50
+msgid "You failed your captcha"
+msgstr "Απέτυχες το captcha σου"
+
+#: src/components/GlobalCaptcha.jsx:53
+msgid "No or invalid captcha text"
+msgstr "Χωρίς ή μη έγκυρο κείμενο captch"
+
+#: src/components/GlobalCaptcha.jsx:56
+msgid "No captcha id given"
+msgstr "Δεν δόθηκε αναγνωριστικό captcha"
+
+#: src/components/GlobalCaptcha.jsx:59
+msgid "Unknown Captcha Error"
+msgstr "Άγνωστο σφάλμα Captcha"
+
+#: src/components/ChangeMail.jsx:93 src/components/ChangeName.jsx:70
+#: src/components/ChangePassword.jsx:115 src/components/DeleteAccount.jsx:68
+#: src/components/GlobalCaptcha.jsx:80 src/components/TemplateItemEdit.jsx:181
+#: src/components/windows/ForgotPassword.jsx:89
+#: src/components/windows/Register.jsx:133
+msgid "Cancel"
+msgstr "Ματαίωση"
+
+#: src/components/GlobalCaptcha.jsx:86
+msgid "Send"
+msgstr "Αποστολή"
 
 #: src/components/windows/Help.jsx:65
 msgid "Place color pixels on a large canvas with other players online!"
@@ -716,39 +716,39 @@ msgid "Credit for the Palette of the 2bit canvas goes to ${ donendoLink }."
 msgstr ""
 "Τα εύσημα για την Παλέτα του καμβά Top10 πηγαίνουν στο ${ donendoLink }."
 
-#: src/components/windows/Settings.jsx:67
+#: src/components/windows/Settings.jsx:72
 msgid "Show Grid"
 msgstr "Εμφάνιση πλέγματος"
 
-#: src/components/windows/Settings.jsx:72
+#: src/components/windows/Settings.jsx:77
 msgid "Turn on grid to highlight pixel borders."
 msgstr "Ενεργοποιήστε το πλέγμα για να επισημάνετε τα περιγράμματα των pixel."
 
-#: src/components/windows/Settings.jsx:75
+#: src/components/windows/Settings.jsx:80
 msgid "Show Pixel Activity"
 msgstr "Ειδοποίηση Pixel Ενεργό"
 
-#: src/components/windows/Settings.jsx:80
+#: src/components/windows/Settings.jsx:85
 msgid "Show circles where pixels are placed."
 msgstr "Εμφάνιση κύκλων όπου τοποθετούνται τα pixel."
 
-#: src/components/windows/Settings.jsx:83
+#: src/components/windows/Settings.jsx:88
 msgid "Always show Movement Controls"
 msgstr ""
 
-#: src/components/windows/Settings.jsx:88
+#: src/components/windows/Settings.jsx:93
 msgid "Always show movement control buttons"
 msgstr ""
 
-#: src/components/windows/Settings.jsx:91
+#: src/components/windows/Settings.jsx:96
 msgid "Disable Game Sounds"
 msgstr "Απενεργοποιήστε τους ήχους παιχνιδιού"
 
-#: src/components/windows/Settings.jsx:97
+#: src/components/windows/Settings.jsx:102
 msgid "All sound effects will be disabled."
 msgstr "Όλα τα ηχητικά εφέ θα απενεργοποιηθούν."
 
-#: src/components/windows/Settings.jsx:101
+#: src/components/windows/Settings.jsx:106
 msgid ""
 "Your Browser doesn't allow us to use AudioContext to play sounds. Do you "
 "have some privacy feature blocking us?"
@@ -757,19 +757,19 @@ msgstr ""
 "AudioContext για την αναπαραγωγή ήχων. Έχετε κάποια λειτουργία απορρήτου που "
 "μας αποκλείει;"
 
-#: src/components/windows/Settings.jsx:107
+#: src/components/windows/Settings.jsx:112
 msgid "Enable chat notifications"
 msgstr "Ενεργοποίηση ειδοποιήσεων συνομιλίας"
 
-#: src/components/windows/Settings.jsx:111
+#: src/components/windows/Settings.jsx:116
 msgid "Play a sound when new chat messages arrive"
 msgstr "Παίξτε έναν ήχο όταν φτάνουν νέα μηνύματα συνομιλίας"
 
-#: src/components/windows/Settings.jsx:114
+#: src/components/windows/Settings.jsx:119
 msgid "Auto Zoom In"
 msgstr "Αυτόματο ζουμ"
 
-#: src/components/windows/Settings.jsx:119
+#: src/components/windows/Settings.jsx:124
 msgid ""
 "Zoom in instead of placing a pixel when you tap the canvas and your zoom is "
 "small."
@@ -777,83 +777,67 @@ msgstr ""
 "Κάντε μεγέθυνση αντί να τοποθετήσετε ένα pixel όταν αγγίζετε τον καμβά και "
 "το ζουμ σας είναι μικρό."
 
-#: src/components/windows/Settings.jsx:122
+#: src/components/windows/Settings.jsx:127
 msgid "Compact Palette"
 msgstr "Συμπαγής παλέτα"
 
-#: src/components/windows/Settings.jsx:127
+#: src/components/windows/Settings.jsx:132
 msgid "Display Palette in a compact form that takes less screen space."
 msgstr ""
 "Εμφάνιση παλέτας σε συμπαγή μορφή που καταλαμβάνει λιγότερο χώρο στην οθόνη."
 
-#: src/components/windows/Settings.jsx:130
+#: src/components/windows/Settings.jsx:135
 msgid "Potato Mode"
 msgstr "Λειτουργία πατάτας"
 
-#: src/components/windows/Settings.jsx:134
+#: src/components/windows/Settings.jsx:139
 msgid "For when you are playing on a potato."
 msgstr "Για όταν παίζετε σε μια πατάτα."
 
-#: src/components/Converter.jsx:381 src/components/windows/Settings.jsx:137
+#: src/components/Converter.jsx:381 src/components/windows/Settings.jsx:142
 msgid "Light Grid"
 msgstr "Πλέγμα φωτός"
 
-#: src/components/windows/Settings.jsx:141
+#: src/components/windows/Settings.jsx:146
 msgid "Show Grid in white instead of black."
 msgstr "Εμφάνιση Πλέγματος σε λευκό αντί για μαύρο."
 
-#: src/components/windows/Settings.jsx:145
+#: src/components/windows/Settings.jsx:149
+msgid "Custom Cursor"
+msgstr ""
+
+#: src/components/windows/Settings.jsx:153
+msgid "Use our custom cursor"
+msgstr ""
+
+#: src/components/windows/Settings.jsx:157
 msgid "Historical View"
 msgstr "Ιστορική Προβολή"
 
-#: src/components/windows/Settings.jsx:150
+#: src/components/windows/Settings.jsx:162
 msgid "Check out past versions of the canvas."
 msgstr "Δείτε προηγούμενες εκδόσεις του καμβά."
 
-#: src/components/windows/Settings.jsx:154
-msgid "Pencil Mode"
-msgstr ""
-
-#: src/components/windows/Settings.jsx:162
-msgid "What the pencil should draw."
-msgstr ""
-
 #: src/components/windows/Settings.jsx:166
+#, fuzzy, javascript-format
+msgid "Pencil Mode for ${ canvasName } canvas"
+msgstr "Έγινε εναλλαγή σε ${ canvasName }"
+
+#: src/components/windows/Settings.jsx:174
+msgid "What the pencil should draw on the current canvas."
+msgstr ""
+
+#: src/components/windows/Settings.jsx:178
 msgid "Themes"
 msgstr "Θέματα"
 
-#: src/components/windows/Settings.jsx:171
+#: src/components/windows/Settings.jsx:183
 msgid "How pixelplanet should look like."
 msgstr "Πώς πρέπει να μοιάζει το pixelplanet."
 
-#: src/components/windows/Settings.jsx:178
+#: src/components/windows/Settings.jsx:190
 msgid "Select Language"
 msgstr "Επιλογή γλώσσας"
-
-#: src/components/windows/UserArea.jsx:36
-#: src/components/windows/UserArea.jsx:56
-msgid "Profile"
-msgstr "Προφιλ"
-
-#: src/components/windows/UserArea.jsx:59
-msgid "Statistics"
-msgstr "Στατιστικά"
-
-#: src/components/windows/UserArea.jsx:64
-msgid "Converter"
-msgstr "Μετατροπέας"
-
-#: src/components/windows/UserArea.jsx:70
-msgid "Modtools"
-msgstr "Υλικά διαχειριστή"
-
-#: src/components/windows/UserArea.jsx:71
-msgid "Loading..."
-msgstr "Φόρτωση.."
-
-#: src/components/windows/UserArea.jsx:78
-msgid "Consider joining us on Guilded:"
-msgstr "Σκεφτείτε να συμμετάσχετε μαζί μας στο Guilded:"
 
 #: src/components/windows/Register.jsx:87
 msgid "Register new account here"
@@ -893,6 +877,31 @@ msgstr "Captcha"
 #: src/components/windows/Register.jsx:127
 msgid "Submit"
 msgstr "Yπέβαλλε"
+
+#: src/components/windows/UserArea.jsx:36
+#: src/components/windows/UserArea.jsx:56
+msgid "Profile"
+msgstr "Προφιλ"
+
+#: src/components/windows/UserArea.jsx:59
+msgid "Statistics"
+msgstr "Στατιστικά"
+
+#: src/components/windows/UserArea.jsx:64
+msgid "Converter"
+msgstr "Μετατροπέας"
+
+#: src/components/windows/UserArea.jsx:70
+msgid "Modtools"
+msgstr "Υλικά διαχειριστή"
+
+#: src/components/windows/UserArea.jsx:71
+msgid "Loading..."
+msgstr "Φόρτωση.."
+
+#: src/components/windows/UserArea.jsx:78
+msgid "Consider joining us on Guilded:"
+msgstr "Σκεφτείτε να συμμετάσχετε μαζί μας στο Guilded:"
 
 #: src/components/windows/CanvasSelect.jsx:29
 #, fuzzy
@@ -1086,6 +1095,32 @@ msgstr "Αντιγραφή"
 msgid "Save"
 msgstr "Αποθήκευση"
 
+#: src/components/LogInArea.jsx:19
+msgid "Login to access more features and stats."
+msgstr ""
+"Συνδεθείτε για να αποκτήσετε πρόσβαση σε περισσότερες δυνατότητες και "
+"στατιστικά στοιχεία."
+
+#: src/components/LogInArea.jsx:21
+msgid "Login with Name or Mail:"
+msgstr "Είσοδος με όνομα ή αλληλογραφία:"
+
+#: src/components/LogInArea.jsx:28
+msgid "I forgot my Password."
+msgstr "Ξεχάσα τον κωδικό."
+
+#: src/components/LogInArea.jsx:29
+msgid "or login with:"
+msgstr "ή σύνδεση με:"
+
+#: src/components/LogInArea.jsx:70
+msgid "or register here:"
+msgstr "ή εγγραφείτε εδώ:"
+
+#: src/components/LogInArea.jsx:75
+msgid "Register"
+msgstr "Εγγραφείτε"
+
 #: src/components/TemplateSettings.jsx:52
 #, fuzzy
 msgid "Templates"
@@ -1141,32 +1176,6 @@ msgstr ""
 msgid "Import templates"
 msgstr ""
 
-#: src/components/LogInArea.jsx:19
-msgid "Login to access more features and stats."
-msgstr ""
-"Συνδεθείτε για να αποκτήσετε πρόσβαση σε περισσότερες δυνατότητες και "
-"στατιστικά στοιχεία."
-
-#: src/components/LogInArea.jsx:21
-msgid "Login with Name or Mail:"
-msgstr "Είσοδος με όνομα ή αλληλογραφία:"
-
-#: src/components/LogInArea.jsx:28
-msgid "I forgot my Password."
-msgstr "Ξεχάσα τον κωδικό."
-
-#: src/components/LogInArea.jsx:29
-msgid "or login with:"
-msgstr "ή σύνδεση με:"
-
-#: src/components/LogInArea.jsx:70
-msgid "or register here:"
-msgstr "ή εγγραφείτε εδώ:"
-
-#: src/components/LogInArea.jsx:75
-msgid "Register"
-msgstr "Εγγραφείτε"
-
 #: src/components/UserAreaContent.jsx:62
 #, fuzzy
 msgid "Today Placed Pixels"
@@ -1208,6 +1217,33 @@ msgstr "Διαγραφή λογαριασμού"
 #: src/components/UserAreaContent.jsx:126
 msgid "Social Settings"
 msgstr "Ρυθμίσεις κοινωνικής δικτύωσης"
+
+#: src/components/Rankings.jsx:165
+msgid "Yesterday"
+msgstr "Μόνο οι Top10 απο χθες μπορούν να τοποθετήσουν εδώ"
+
+#: src/components/Rankings.jsx:174
+msgid "Countries Today"
+msgstr "Χώρες σήμερα"
+
+#: src/components/Rankings.jsx:183
+msgid "Charts"
+msgstr "Διαγράμματα­"
+
+#: src/components/Rankings.jsx:201 src/components/Rankings.jsx:210
+#: src/components/Rankings.jsx:219
+msgid "User"
+msgstr "Χρήστης"
+
+#: src/components/Rankings.jsx:226
+msgid "Country"
+msgstr "Χώρα"
+
+#: src/components/Rankings.jsx:286
+msgid "Ranking updates every 5 min. Daily rankings get reset at midnight UTC."
+msgstr ""
+"Ενημερώσεις κατάταξης κάθε 5 λεπτά. Οι ημερήσιες κατατάξεις επαναφέρονται τα "
+"μεσάνυχτα UTC."
 
 #: src/components/Converter.jsx:191 src/components/ModCanvastools.jsx:230
 msgid "Choose Canvas"
@@ -1286,33 +1322,6 @@ msgstr "Επαναφορά"
 msgid "Download Template"
 msgstr "Λήψη προτύπου"
 
-#: src/components/Rankings.jsx:165
-msgid "Yesterday"
-msgstr "Μόνο οι Top10 απο χθες μπορούν να τοποθετήσουν εδώ"
-
-#: src/components/Rankings.jsx:174
-msgid "Countries Today"
-msgstr "Χώρες σήμερα"
-
-#: src/components/Rankings.jsx:183
-msgid "Charts"
-msgstr "Διαγράμματα­"
-
-#: src/components/Rankings.jsx:201 src/components/Rankings.jsx:210
-#: src/components/Rankings.jsx:219
-msgid "User"
-msgstr "Χρήστης"
-
-#: src/components/Rankings.jsx:226
-msgid "Country"
-msgstr "Χώρα"
-
-#: src/components/Rankings.jsx:286
-msgid "Ranking updates every 5 min. Daily rankings get reset at midnight UTC."
-msgstr ""
-"Ενημερώσεις κατάταξης κάθε 5 λεπτά. Οι ημερήσιες κατατάξεις επαναφέρονται τα "
-"μεσάνυχτα UTC."
-
 #: src/components/CanvasItem.jsx:29
 msgid "Online Users"
 msgstr "Ενεργοί χρήστες"
@@ -1359,6 +1368,34 @@ msgstr "Top 10 Ημερήσια Κατάταξη"
 msgid "Dimensions"
 msgstr "Διαστάσεις"
 
+#: src/core/chartSettings.js:30
+msgid "Top 10 Countries [pxls / day]"
+msgstr "Οι 10 κορυφαίες χώρες [pxls / ημέρα]"
+
+#: src/core/chartSettings.js:127
+msgid "Players and Pixels per hour"
+msgstr "Παίκτες και pixel ανά ώρα"
+
+#: src/core/chartSettings.js:221
+msgid "Top 10 Players [pxls / day]"
+msgstr "Οι 10 κορυφαίοι παίκτες [pxls / ημέρα]"
+
+#: src/core/chartSettings.js:294
+msgid "Countries by Pixels Today"
+msgstr "Χώρες ανά Pixels Σήμερα"
+
+#: src/core/chartSettings.js:351
+msgid "Total Pixels placed per day"
+msgstr "Σύνολο pixel που τοποθετούνται ανά ημέρα"
+
+#: src/components/LogInForm.jsx:77
+msgid "Name or Email"
+msgstr "Όνομα ή Mail"
+
+#: src/components/LogInForm.jsx:88
+msgid "LogIn"
+msgstr "Σύνδεση"
+
 #: src/components/ModWatchtools.jsx:125 src/components/TemplateItem.jsx:54
 #: src/components/TemplateItemEdit.jsx:122
 msgid "Canvas"
@@ -1390,14 +1427,6 @@ msgstr ""
 #, fuzzy
 msgid "Delete"
 msgstr "Διαγραφή λογαριασμού"
-
-#: src/components/LogInForm.jsx:77
-msgid "Name or Email"
-msgstr "Όνομα ή Mail"
-
-#: src/components/LogInForm.jsx:88
-msgid "LogIn"
-msgstr "Σύνδεση"
 
 #: src/components/UserMessages.jsx:28
 msgid ""
@@ -1479,26 +1508,6 @@ msgstr "Ξεμπλοκάρισμα χρηστών"
 #: src/components/SocialSettings.jsx:82
 msgid "You have no users blocked"
 msgstr "Δεν έχετε αποκλεισμένους χρήστες"
-
-#: src/core/chartSettings.js:30
-msgid "Top 10 Countries [pxls / day]"
-msgstr "Οι 10 κορυφαίες χώρες [pxls / ημέρα]"
-
-#: src/core/chartSettings.js:127
-msgid "Players and Pixels per hour"
-msgstr "Παίκτες και pixel ανά ώρα"
-
-#: src/core/chartSettings.js:221
-msgid "Top 10 Players [pxls / day]"
-msgstr "Οι 10 κορυφαίοι παίκτες [pxls / ημέρα]"
-
-#: src/core/chartSettings.js:294
-msgid "Countries by Pixels Today"
-msgstr "Χώρες ανά Pixels Σήμερα"
-
-#: src/core/chartSettings.js:351
-msgid "Total Pixels placed per day"
-msgstr "Σύνολο pixel που τοποθετούνται ανά ημέρα"
 
 #: src/components/ModCanvastools.jsx:168
 msgid "Build image on canvas."
@@ -1699,17 +1708,17 @@ msgstr "Μπλοκάρισμα"
 msgid "Mute"
 msgstr "Σίγαση"
 
-#: src/components/windows/Help.jsx:19 src/components/windows/Settings.jsx:68
+#: src/components/windows/Help.jsx:19 src/components/windows/Settings.jsx:73
 msgctxt "keybinds"
 msgid "G"
 msgstr ""
 
-#: src/components/windows/Help.jsx:20 src/components/windows/Settings.jsx:76
+#: src/components/windows/Help.jsx:20 src/components/windows/Settings.jsx:81
 msgctxt "keybinds"
 msgid "X"
 msgstr "x εκτός ορίων"
 
-#: src/components/windows/Help.jsx:21 src/components/windows/Settings.jsx:147
+#: src/components/windows/Help.jsx:21 src/components/windows/Settings.jsx:159
 msgctxt "keybinds"
 msgid "H"
 msgstr ""
@@ -1754,18 +1763,18 @@ msgctxt "keybinds"
 msgid "Shift"
 msgstr ""
 
-#: src/components/windows/Settings.jsx:84
+#: src/components/windows/Settings.jsx:89
 #, fuzzy
 msgctxt "keybinds"
 msgid "N"
 msgstr "Όχι"
 
-#: src/components/windows/Settings.jsx:92
+#: src/components/windows/Settings.jsx:97
 msgctxt "keybinds"
 msgid "M"
 msgstr ""
 
-#: src/components/windows/Settings.jsx:157
+#: src/components/windows/Settings.jsx:169
 msgctxt "keybinds"
 msgid "B"
 msgstr ""

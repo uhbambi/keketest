@@ -111,6 +111,12 @@ export function toggleOpenPalette() {
   };
 }
 
+export function toggleCursor() {
+  return {
+    type: 's/TGL_CURSOR',
+  };
+}
+
 export function setHoldPaint(value, immediate) {
   return {
     type: 's/SET_HOLD_PAINT',

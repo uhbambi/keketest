@@ -63,6 +63,10 @@ export default (store) => (next) => (action) => {
         return Math.round(c);
       }).join(',');
       const newhash = `#${canvasIdent},${viewString}`;
+      /*
+       * bug in chrome causing cursor flickering
+       * https://issues.chromium.org/issues/40719480
+       */
       window.history.replaceState(undefined, undefined, newhash);
       break;
     }
