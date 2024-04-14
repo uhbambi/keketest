@@ -9,7 +9,7 @@ const initialState = {
   paletteOpen: true,
   mute: false,
   chatNotify: true,
-  cursor: !window.chrome,
+  cursor: true,
   // top-left button menu
   menuOpen: false,
   // show online users per canvas instead of total
