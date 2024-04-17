@@ -60,7 +60,7 @@ export default (store) => (next) => (action) => {
         if (ind === 2 && !is3D) {
           c = Math.log2(c) * 10;
         }
-        return Math.round(c);
+        return Math.floor(c);
       }).join(',');
       const newhash = `#${canvasIdent},${viewString}`;
       /*
