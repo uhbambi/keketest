@@ -28,7 +28,7 @@ const CoordinatesBox = () => {
     coords = hover;
   } else {
     const [x, y, z] = view;
-    coords = (is3D ? [x, y, z] : [x, y]).map(Math.round);
+    coords = (is3D ? [x, y, z] : [x, y]).map(Math.floor);
   }
 
   return (
