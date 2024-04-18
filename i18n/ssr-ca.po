@@ -2,20 +2,20 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: \n"
-"Last-Translator: \n"
-"Language-Team: \n"
+"PO-Revision-Date: 2024-04-16 07:23+0000\n"
+"Last-Translator: Translation Team <noreply@example.com>\n"
+"Language-Team: Catalan <https://hosted.weblate.org/projects/pixelplanet/"
+"server/ca/>\n"
 "Language: ca\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.0.1\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 5.5-dev\n"
 
 #: src/core/ChatProvider.js:434
-#, fuzzy
 msgid "You can not send chat messages while using a proxy"
-msgstr "No pots enviar missatges al xat amb un proxy"
+msgstr "No pots enviar missatges al xat mentre estiguis utilitzant “proxys”"
 
 #: src/core/ChatProvider.js:436
 #, fuzzy
@@ -29,13 +29,12 @@ msgstr ""
 "mute"
 
 #: src/core/ChatProvider.js:441
-#, fuzzy
 msgid "You are banned"
-msgstr "No has iniciat sessió"
+msgstr "Has sigut vetat"
 
 #: src/core/ChatProvider.js:443
 msgid "Your Internet Provider is banned"
-msgstr ""
+msgstr "El teu proveïdor d'internet està vetat"
 
 #: src/core/ChatProvider.js:448
 #, javascript-format
@@ -58,7 +57,7 @@ msgstr "No tens accés a aquest canal"
 
 #: src/core/ChatProvider.js:490
 msgid "Your mail has to be verified in order to chat"
-msgstr "El teu correu electrònic ha de ser verificat per poder xatejar"
+msgstr "S'ha de verificar el correu electrònic per poder xatejar"
 
 #: src/core/ChatProvider.js:500
 msgid "You can't send a message this long :("
@@ -70,11 +69,11 @@ msgstr "Si us plau, utilitza el canal \"int\""
 
 #: src/core/ChatProvider.js:512
 msgid "Stop flooding."
-msgstr "Para de fer flood."
+msgstr "Calma't una mica."
 
 #: src/routes/reset_password.js:39
 msgid "You sent an empty password or invalid data :("
-msgstr "Has enviat una contrasenya buida o dades invàlides :("
+msgstr "La contrasenya o dades que has enviat són invàlides :("
 
 #: src/routes/reset_password.js:51
 msgid "This password-reset link isn't valid anymore :("
@@ -82,7 +81,7 @@ msgstr "Aquest enllaç per restablir la contrasenya ja no és vàlid :("
 
 #: src/routes/reset_password.js:62
 msgid "Your passwords do not match :("
-msgstr "Les contrasenyes són diferents :("
+msgstr "Les contrasenyes no coincideixen :("
 
 #: src/routes/reset_password.js:77
 msgid "User doesn't exist in our database :("
@@ -90,24 +89,24 @@ msgstr "L'usuari no existeix a la nostra base de dades :("
 
 #: src/routes/reset_password.js:89
 msgid "Password successfully changed."
-msgstr "La contrasenya s'ha canviat exitosament."
+msgstr "La contrasenya ha sigut reemplaçada amb èxit."
 
 #: src/routes/reset_password.js:108
 msgid "Invalid url :( Please check your mail again."
 msgstr ""
-"URL invàlida :( Si us plau comprova el teu correu electrònic un altre cop."
+"URL invàlida :( Si us plau, comprova el teu correu electrònic un altre cop."
 
 #: src/ssr/Globe.jsx:37
 msgid "PixelPlanet.Fun 3DGlobe"
-msgstr "PixelPlanet.Fun Món3D"
+msgstr "Globus 3D de PixelPlanet.Fun"
 
 #: src/ssr/Globe.jsx:38
 msgid "A 3D globe of our whole map"
-msgstr "Una bola del món en 3D del nostre mapa sencer"
+msgstr "Un globus 3D del nostre mapa sencer"
 
 #: src/ssr/Globe.jsx:51
 msgid "Double click on globe to go back."
-msgstr "Doble clic a la bola del món per tornar enrere."
+msgstr "Fes doble clic al globus per tornar i aterrar on pitgis."
 
 #: src/ssr/Globe.jsx:52
 msgid "Loading..."
@@ -115,34 +114,32 @@ msgstr "Carregant..."
 
 #: src/ssr/PopUp.jsx:47
 msgid "ppfun"
-msgstr ""
+msgstr "ppfun"
 
 #: src/ssr/PopUp.jsx:48
-#, fuzzy
 msgid "PixelPlanet.Fun PopUp"
-msgstr "PixelPlanet.fun"
+msgstr "Finestra emergent de PixelPlanet.fun"
 
 #: src/ssr/Main.jsx:65
-#, fuzzy
 msgid "PixelPlanet.Fun"
-msgstr "PixelPlanet.fun"
+msgstr "PixelPlanet.Fun"
 
 #: src/ssr/Main.jsx:66
 msgid "Place color pixels on an map styled canvas with other players online"
 msgstr ""
-"Col·loca píxels de colors en un gran llenç amb altres jugadors en línia"
+"Pinta amb píxels de colors en un gran llenç amb altres jugadors en línia"
 
 #: src/utils/validation.js:17
 msgid "Email can't be empty."
-msgstr "El correu electrònic no pot estar buit."
+msgstr "Has d'omplir el correu electrònic."
 
 #: src/utils/validation.js:18
 msgid "Email should be at least 5 characters long."
-msgstr "El correu electrònic ha de tenir com a mínim 5 caràcters."
+msgstr "El correu electrònic ha de comptar, com a mínim, amb 5 caràcters."
 
 #: src/utils/validation.js:19
 msgid "Email can't be longer than 40 characters."
-msgstr "El correu electrònic no pot tenir més de 40 caràcters."
+msgstr "El correu electrònic no pot contenir més de 40 caràcters."
 
 #: src/utils/validation.js:20
 msgid "Email should at least contain a dot"
@@ -154,20 +151,19 @@ msgstr "El correu electrònic ha de contenir una @"
 
 #: src/utils/validation.js:29
 msgid "Name can't be empty."
-msgstr "El nom no pot estar buit."
+msgstr "El nom és obligatori."
 
 #: src/utils/validation.js:30
-#, fuzzy
 msgid "Name must be at least 2 characters long"
-msgstr "El nom ha de tenir com a mínim 4 caràcters"
+msgstr "El nom ha de ser com a mínim de 2 caràcters"
 
 #: src/utils/validation.js:31
 msgid "Name must be shorter than 26 characters"
-msgstr "El nom ha de tenir menys de 26 caràcters"
+msgstr "El nom no pot tenir més de 26 caràcters"
 
 #: src/utils/validation.js:38
 msgid "Name contains invalid character like @, /, \\ or #"
-msgstr "El nom conté caràcters invalids com @  /  \\  #"
+msgstr "El nom conté caràcters invalids com:  @   /   \\   #"
 
 #: src/utils/validation.js:53
 msgid "No password given."
