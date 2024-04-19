@@ -11,6 +11,7 @@ export const selectStats = (state) => [
   state.ranks.prevTop,
   state.ranks.onlineStats,
   state.ranks.cHistStats,
+  state.ranks.cHourlyStats,
   state.ranks.histStats,
   state.ranks.pDailyStats,
   state.ranks.pHourlyStats,

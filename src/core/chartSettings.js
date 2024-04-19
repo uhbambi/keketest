@@ -281,7 +281,7 @@ export function getHistChartData(histStats) {
   };
 }
 
-export function getCPieOpts(isDarkMode) {
+export function getCPieOpts() {
   const options = {
     responsive: true,
     maintainAspectRatio: false,
@@ -290,14 +290,10 @@ export function getCPieOpts(isDarkMode) {
         display: false,
       },
       title: {
-        display: true,
-        text: t`Countries by Pixels Today`,
+        display: false,
       },
     },
   };
-  if (isDarkMode) {
-    options.plugins.title.color = '#e6e6e6';
-  }
   return options;
 }
 

@@ -15,15 +15,28 @@ const initialState = {
   online: {
     total: 0,
   },
+  // user all time
   totalRanking: [],
+  // user current day
   totalDailyRanking: [],
+  // countries current day
   dailyCRanking: [],
+  // users top 10 of previous day
   prevTop: [],
+  // amount of users online hourly for past 7 days
   onlineStats: [],
+  // countries daily past 14 days
   cHistStats: [],
+  // countries hourly last 24 hours
+  cHourlyStats: [],
+  // top 10 players daily past 14 days
   histStats: { users: [], stats: [] },
+  // amount of pixels placed daily for past 30 days
   pDailyStats: [],
+  // amount of pixels placed hourly for past 7 days
   pHourlyStats: [],
+  // cooldown changes per affected country
+  cooldownChanges: {},
 };
 
 export default function ranks(
@@ -84,26 +97,31 @@ export default function ranks(
         prevTop,
         onlineStats,
         cHistStats,
+        cHourlyStatsOrdered,
         histStats,
         pDailyStats,
         pHourlyStats,
+        cooldownChanges,
       } = action;
-      const newStats = {
+      const cHourlyStats = {};
+      for (const { cc, px } of cHourlyStatsOrdered) {
+        cHourlyStats[cc] = px;
+      }
+      const lastFetch = Date.now();
+      return {
+        ...state,
+        lastFetch,
         totalRanking,
         totalDailyRanking,
         dailyCRanking,
         prevTop,
         onlineStats,
         cHistStats,
+        cHourlyStats,
         histStats,
         pDailyStats,
         pHourlyStats,
-      };
-      const lastFetch = Date.now();
-      return {
-        ...state,
-        lastFetch,
-        ...newStats,
+        cooldownChanges: Object.entries(cooldownChanges),
       };
     }
 
