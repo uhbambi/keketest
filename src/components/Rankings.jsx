@@ -252,18 +252,18 @@ const Rankings = () => {
                   <tr key={rank.name}>
                     <td>{rank.r}</td>
                     <td><span>{rank.name}</span></td>
-                    <td>{numberToStringFull(rank.t)}</td>
+                    <td>{numberToStringFull(rank.t, '')}</td>
                     <td>{rank.dr}</td>
-                    <td>{numberToStringFull(rank.dt)}</td>
+                    <td>{numberToStringFull(rank.dt, '')}</td>
                   </tr>
                 ));
                 case 'today': return totalDailyRanking.map((rank) => (
                   <tr key={rank.name}>
                     <td>{rank.dr}</td>
                     <td><span>{rank.name}</span></td>
-                    <td>{numberToStringFull(rank.dt)}</td>
+                    <td>{numberToStringFull(rank.dt, '')}</td>
                     <td>{rank.r}</td>
-                    <td>{numberToStringFull(rank.t)}</td>
+                    <td>{numberToStringFull(rank.t, '')}</td>
                   </tr>
                 ));
                 case 'yesterday': return prevTop.map((rank, ind) => (
@@ -286,9 +286,9 @@ const Rankings = () => {
                     <td>
                       {numberToStringFull(rank.px)}
                       {(cHourlyStats[rank.cc]) && (
-                      <span className="c-last-hour">
-                        &nbsp;+{numberToString(cHourlyStats[rank.cc])}
-                      </span>
+                        <span className="c-last-hour">
+                          &nbsp;+{numberToString(cHourlyStats[rank.cc])}
+                        </span>
                       )}
                     </td>
                   </tr>

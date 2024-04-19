@@ -64,7 +64,7 @@ const UserAreaContent = () => {
       />
       <Stat
         text={t`Daily Rank`}
-        value={stats.dailyRanking}
+        value={stats.dailyRanking || 'N/A'}
         rank
       />
       <Stat
@@ -73,7 +73,7 @@ const UserAreaContent = () => {
       />
       <Stat
         text={t`Total Rank`}
-        value={stats.ranking}
+        value={stats.ranking || 'N/A'}
         rank
       />
       <div>
