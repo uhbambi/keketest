@@ -5,5 +5,8 @@
 import rankings from '../core/Ranks';
 
 export default (req, res) => {
+  res.set({
+    'Cache-Control': 'public, s-maxage=180, max-age=280',
+  });
   res.json(rankings.ranks);
 };

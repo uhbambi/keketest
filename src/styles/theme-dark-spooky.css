@@ -306,3 +306,7 @@ tr:nth-child(odd) {
 .react-toggle--checked:hover:not(.react-toggle--disabled) .react-toggle-track {
   background-color: #FFD900;
 }
+
+.c-last-hour {
+  color: lime;
+}
