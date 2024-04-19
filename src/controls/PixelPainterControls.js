@@ -180,6 +180,7 @@ class PixelPainterControls {
    * either with given colorIndex or with selected color if none is given
    */
   static placePixel(store, renderer, cell, colorIndex = null) {
+    cell = cell.map(Math.floor);
     const state = store.getState();
     if (state.canvas.isHistoricalView) {
       return;
@@ -428,10 +429,8 @@ class PixelPainterControls {
     event.stopPropagation();
     document.activeElement.blur();
 
-    const { deltaY } = event;
-    const { store } = this;
-    const { hover } = store.getState().canvas;
-    const origin = hover || null;
+    const { clientX, clientY, deltaY } = event;
+    const origin = this.screenToWorld([clientX, clientY]);
     if (deltaY < 0) {
       this.zoom(1, origin);
     }
@@ -477,7 +476,7 @@ class PixelPainterControls {
     const { store } = this;
     const state = store.getState();
     const { hover: prevHover } = state.canvas;
-    const hover = this.screenToWorld(screenCoor);
+    const hover = this.screenToWorld(screenCoor).map(Math.floor);
     const [x, y] = hover;
 
     /* out of bounds check */
@@ -549,7 +548,7 @@ class PixelPainterControls {
     if (this.renderer.viewscale < 3) {
       return;
     }
-    const coords = this.screenToWorld(center);
+    const coords = this.screenToWorld(center).map(Math.floor);
     const clrIndex = renderer.getColorIndexOfPixel(...coords);
     if (clrIndex !== null) {
       store.dispatch(selectColor(clrIndex));

@@ -172,6 +172,14 @@ a:hover {
   border-width: 1px 1px 0 1px;
 }
 
+.tab-cc-cell {
+  text-align: center;
+}
+.tab-cc-cell img {
+  height: 1em;
+  image-rendering: crisp-edges;
+}
+
 table {
   font-family: arial, sans-serif;
   border-collapse: collapse;
@@ -1130,6 +1138,11 @@ table td span {
   border-width: 2px;
   padding: 5px;
   display: inline-block;
+}
+
+.c-last-hour {
+  color: green;
+  font-size: smaller;
 }
 
 @keyframes glowing {

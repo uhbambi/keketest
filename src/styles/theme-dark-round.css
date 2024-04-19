@@ -182,3 +182,7 @@ h3, h4 {
 .actionbuttons:hover, .onlinebox:hover, .coorbox:hover, .menu > div:hover {
   background-color: #363637;
 }
+
+.c-last-hour {
+  color: lime;
+}

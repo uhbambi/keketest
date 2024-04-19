@@ -203,8 +203,8 @@ export function screenToWorld(
   const [viewX, viewY] = view;
   const { width, height } = $viewport;
   return [
-    Math.floor(((x - (width / 2)) / scale) + viewX),
-    Math.floor(((y - (height / 2)) / scale) + viewY),
+    ((x - (width / 2)) / scale) + viewX,
+    ((y - (height / 2)) / scale) + viewY,
   ];
 }
 

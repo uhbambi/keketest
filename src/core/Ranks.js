@@ -47,6 +47,8 @@ class Ranks {
     pHourlyStats: [],
     // pixels placed by day
     pDailyStats: [],
+    // cooldown changes per country affected country
+    cooldownChanges: {},
   };
 
   // if a country dominates, adjust its cooldown
@@ -105,6 +107,7 @@ class Ranks {
     if (!cHourlyStats.length || !PUNISH_DOMINATOR) {
       return;
     }
+    this.ranks.cooldownChanges = {};
     /*
      * don't punish when canvas has less than 50% of
      * daily peak activity
@@ -145,6 +148,7 @@ class Ranks {
       }
       this.#punishedCountry = leadingCountry;
       this.#punishmentFactor = punishmentFactor;
+      this.ranks.cooldownChanges[leadingCountry] = punishmentFactor;
       logger.info(
         // eslint-disable-next-line max-len
         `Punishment for dominating country ${leadingCountry} of ${punishmentFactor}`,
