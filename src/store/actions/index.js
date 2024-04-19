@@ -302,9 +302,11 @@ export function receiveStats(
     prevTop,
     onlineStats,
     cHistStats,
+    cHourlyStats: cHourlyStatsOrdered,
     histStats,
     pDailyStats,
     pHourlyStats,
+    cooldownChanges,
   } = rankings;
   return {
     type: 'REC_STATS',
@@ -314,9 +316,11 @@ export function receiveStats(
     prevTop,
     onlineStats,
     cHistStats,
+    cHourlyStatsOrdered,
     histStats,
     pDailyStats,
     pHourlyStats,
+    cooldownChanges,
   };
 }
 
