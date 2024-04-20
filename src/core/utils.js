@@ -272,9 +272,9 @@ export function largeDurationToString(
 }
 
 const postfix = ['k', 'M', 'B'];
-export function numberToString(num, zero) {
+export function numberToString(num, zero = '0') {
   if (!num) {
-    return zero || '0';
+    return zero;
   }
   if (num < 1000) {
     return num;
@@ -296,9 +296,9 @@ export function numberToString(num, zero) {
   return '';
 }
 
-export function numberToStringFull(num, zero) {
+export function numberToStringFull(num, zero = '0') {
   if (!num) {
-    return zero || '0';
+    return zero;
   }
   const isNegative = (num < 0);
   const numStr = String(Math.abs(num));

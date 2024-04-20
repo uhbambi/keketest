@@ -238,7 +238,10 @@ const Rankings = () => {
                   <tr>
                     <th>#</th>
                     <th>{t`Country`}</th>
-                    <th>Pixels <span className="c-last-hour">{t`+last hour`}</span></th>
+                    <th>
+                      Pixels&nbsp;
+                      <span className="c-last-hour">{t`+last hour`}</span>
+                    </th>
                   </tr>
                 );
                 default: return null;
@@ -252,25 +255,25 @@ const Rankings = () => {
                   <tr key={rank.name}>
                     <td>{rank.r}</td>
                     <td><span>{rank.name}</span></td>
-                    <td>{numberToStringFull(rank.t, '')}</td>
+                    <td className="c-num">{numberToStringFull(rank.t, '')}</td>
                     <td>{rank.dr}</td>
-                    <td>{numberToStringFull(rank.dt, '')}</td>
+                    <td className="c-num">{numberToStringFull(rank.dt, '')}</td>
                   </tr>
                 ));
                 case 'today': return totalDailyRanking.map((rank) => (
                   <tr key={rank.name}>
                     <td>{rank.dr}</td>
                     <td><span>{rank.name}</span></td>
-                    <td>{numberToStringFull(rank.dt, '')}</td>
+                    <td className="c-num">{numberToStringFull(rank.dt, '')}</td>
                     <td>{rank.r}</td>
-                    <td>{numberToStringFull(rank.t, '')}</td>
+                    <td className="c-num">{numberToStringFull(rank.t, '')}</td>
                   </tr>
                 ));
                 case 'yesterday': return prevTop.map((rank, ind) => (
                   <tr key={rank.name}>
                     <td>{ind + 1}</td>
                     <td><span>{rank.name}</span></td>
-                    <td>{numberToStringFull(rank.px)}</td>
+                    <td className="c-num">{numberToStringFull(rank.px)}</td>
                   </tr>
                 ));
                 case 'countries': return dailyCRanking.map((rank, ind) => (
@@ -283,9 +286,9 @@ const Rankings = () => {
                       alt={rank.cc}
                       src={`/cf/${rank.cc}.gif`}
                     /></td>
-                    <td>
+                    <td className="c-num">
                       {numberToStringFull(rank.px)}
-                      {(cHourlyStats[rank.cc]) && (
+                      {(cHourlyStats[rank.cc] > 0) && (
                         <span className="c-last-hour">
                           &nbsp;+{numberToString(cHourlyStats[rank.cc])}
                         </span>
