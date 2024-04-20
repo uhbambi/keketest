@@ -17,7 +17,7 @@ const CooldownChanges = () => {
 
   return (
     <>
-      <h3>{t`Current Cooldown Changes per Country:`}</h3>
+      <h3>{t`Current Cooldown Changes per Country`}</h3>
       <table style={{ display: 'inline' }}>
         <thead>
           <tr>
