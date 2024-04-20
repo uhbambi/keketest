@@ -3,6 +3,7 @@ import {
   getIdFromObject,
   getHistoricalCanvasSize,
   getMaxTiledZoom,
+  getToday,
   dateToString,
 } from '../../core/utils';
 import {
@@ -19,24 +20,27 @@ import {
  * @return same state with fixed historical view
  */
 function fixHistoryIfNeccessary(state) {
-  const {
-    canvasEndDate,
-    isHistoricalView,
-    is3D,
-  } = state;
+  const { canvasEndDate, is3D } = state;
+  let { isHistoricalView, historicalDate } = state;
 
-  if (is3D && isHistoricalView) {
-    state.isHistoricalView = false;
-  } else if (canvasEndDate && !isHistoricalView) {
-    state.isHistoricalView = true;
-    if (!state.historicalDate) {
-      state.historicalDate = dateToString(canvasEndDate);
+  if (is3D) {
+    isHistoricalView = false;
+  } else if (canvasEndDate) {
+    isHistoricalView = true;
+  }
+  state.isHistoricalView = isHistoricalView;
+  if (isHistoricalView) {
+    if (!historicalDate) {
+      historicalDate = dateToString(getToday());
+    }
+    if (canvasEndDate && Number(historicalDate) > Number(canvasEndDate)) {
+      historicalDate = dateToString(canvasEndDate);
+    }
+    state.historicalDate = historicalDate;
+    if (!state.historicalTime) {
       state.historicalTime = '0000';
     }
-  }
-  if (state.isHistoricalView) {
     const {
-      historicalDate,
       canvasId,
       canvasSize,
       canvases,
@@ -146,8 +150,8 @@ const initialState = {
   // view is not up-to-date, changes are delayed compared to renderer.view
   view: [0, 0, DEFAULT_SCALE],
   isHistoricalView: false,
-  historicalDate: null,
-  historicalTime: null,
+  historicalDate: dateToString(getToday()),
+  historicalTime: '0000',
   hover: null,
   // last canvas view and selectedColor
   // just used to get back to the previous state when switching canvases
