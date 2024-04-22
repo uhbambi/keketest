@@ -89,8 +89,10 @@ export const RANGEBAN_REASONS = {
   SPAMMING: 1,
   FLOODING: 2,
   SCRAPPING: 3,
-  GLOWY: 4,
+  RAIDING: 4,
+  ZOGBOTS: 5,
 };
+
 // Mode for shift-painting or phone pencil, HISTORY has to be last
 export const PENCIL_MODE = {
   COLOR: 0,

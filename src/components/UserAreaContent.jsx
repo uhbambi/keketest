@@ -25,11 +25,13 @@ const AREAS = {
   SOCIAL_SETTINGS: SocialSettings,
 };
 
-const Stat = ({ text, value, rank }) => (
+const Stat = ({
+  text, value, rank, zero,
+}) => (
   <p>
     <span className="stattext">{(rank) ? `${text}: #` : `${text}: `}</span>
     &nbsp;
-    <span className="statvalue">{numberToString(value)}</span>
+    <span className="statvalue">{numberToString(value, zero)}</span>
   </p>
 );
 
@@ -46,12 +48,17 @@ const UserAreaContent = () => {
 
   const mailreg = useSelector((state) => state.user.mailreg);
   const name = useSelector((state) => state.user.name);
-  const stats = useSelector((state) => ({
-    totalPixels: state.ranks.totalPixels,
-    dailyTotalPixels: state.ranks.dailyTotalPixels,
-    ranking: state.ranks.ranking,
-    dailyRanking: state.ranks.dailyRanking,
-  }), shallowEqual);
+  const [
+    totalPixels,
+    dailyTotalPixels,
+    ranking,
+    dailyRanking,
+  ] = useSelector((state) => [
+    state.ranks.totalPixels,
+    state.ranks.dailyTotalPixels,
+    state.ranks.ranking,
+    state.ranks.dailyRanking,
+  ], shallowEqual);
 
   const Area = AREAS[area];
 
@@ -60,20 +67,22 @@ const UserAreaContent = () => {
       <UserMessages />
       <Stat
         text={t`Today Placed Pixels`}
-        value={stats.dailyTotalPixels}
+        value={dailyTotalPixels}
       />
       <Stat
         text={t`Daily Rank`}
-        value={stats.dailyRanking}
+        value={dailyRanking}
+        zero="N/A"
         rank
       />
       <Stat
         text={t`Placed Pixels`}
-        value={stats.totalPixels}
+        value={totalPixels}
       />
       <Stat
         text={t`Total Rank`}
-        value={stats.ranking}
+        value={ranking}
+        zero="N/A"
         rank
       />
       <div>
