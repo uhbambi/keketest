@@ -20,6 +20,7 @@ class PcKeyProvider {
    * @param pcKeys comma separated list of keys
    */
   constructor(pcKeys, logger) {
+    if (!logger) logger = console;
     const keys = (pcKeys)
       ? pcKeys.split(',')
       : [];
@@ -223,6 +224,7 @@ class PcKeyProvider {
 
 class ProxyCheck {
   constructor(pcKeys, logger) {
+    if (!logger) logger = console;
     /*
      * queue of ip-checking tasks
      * [[ip, callbackFunction],...]
@@ -365,20 +367,17 @@ class ProxyCheck {
         cb(disposable);
       } else {
         // ip check
-        let allowed = true;
         let status = -2;
         let pcheck = 'N/A';
 
         if (res[value]) {
           this.logger.info(`IP ${value}: ${JSON.stringify(res[value])}`);
           const { proxy, type, city } = res[value];
-          allowed = proxy === 'no';
-          status = (allowed) ? 0 : 1;
+          status = (proxy === 'no') ? 0 : 1;
           pcheck = `${type},${city}`;
         }
 
         cb({
-          allowed,
           status,
           pcheck,
         });
@@ -393,7 +392,6 @@ class ProxyCheck {
    * @return Promise that resolves to
    * {
    *   status, 0: no proxy 1: proxy -2: any failure
-   *   allowed, boolean if ip should be allowed to place
    *   pcheck, string info of proxycheck return (like type and city)
    * }
    */

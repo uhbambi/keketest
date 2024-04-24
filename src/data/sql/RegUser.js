@@ -20,14 +20,10 @@ const RegUser = sequelize.define('User', {
     primaryKey: true,
   },
 
-  email: {
-    type: DataTypes.CHAR(40),
-    unique: true,
-  },
-
   name: {
     type: `${DataTypes.CHAR(32)} CHARSET utf8mb4 COLLATE utf8mb4_unicode_ci`,
     allowNull: false,
+    unique: true,
   },
 
   // null if only ever used external oauth
@@ -72,22 +68,22 @@ const RegUser = sequelize.define('User', {
   blockDm: {
     type: DataTypes.VIRTUAL,
     get() {
-      return !!(this.blocks & 0x01);
+      return !!(this.flags & 0x01);
     },
     set(num) {
-      const val = (num) ? (this.blocks | 0x01) : (this.blocks & ~0x01);
-      this.setDataValue('blocks', val);
+      const val = (num) ? (this.flags | 0x01) : (this.flags & ~0x01);
+      this.setDataValue('flags', val);
     },
   },
 
   priv: {
     type: DataTypes.VIRTUAL,
     get() {
-      return !!(this.blocks & 0x02);
+      return !!(this.flags & 0x02);
     },
     set(num) {
-      const val = (num) ? (this.blocks | 0x02) : (this.blocks & ~0x02);
-      this.setDataValue('blocks', val);
+      const val = (num) ? (this.flags | 0x02) : (this.flags & ~0x02);
+      this.setDataValue('flags', val);
     },
   },
 

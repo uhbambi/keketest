@@ -25,6 +25,8 @@ const IPInfo = sequelize.define('IPInfo', {
   /*
    * 0: no proxy
    * 1: proxy
+   * <0: failure
+   * null: not checked or check deleted
    */
   proxy: {
     type: DataTypes.TINYINT,
@@ -49,6 +51,7 @@ const IPInfo = sequelize.define('IPInfo', {
   checkedAt: {
     type: DataTypes.DATE,
     defaultValue: DataTypes.NOW,
+    allowNull: false,
   },
 
   /*

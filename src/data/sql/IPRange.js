@@ -37,6 +37,12 @@ const IPRange = sequelize.define('IPRange', {
     type: DataTypes.CHAR(2),
     defaultValue: 'xx',
     allowNull: false,
+    set(value) {
+      if (!value || value.length !== 2) {
+        value = 'xx';
+      }
+      this.setDataValue('country', value.toLowerCase());
+    },
   },
 
   org: {
@@ -83,7 +89,7 @@ const IPRange = sequelize.define('IPRange', {
 export async function getRangeOfIp(ip) {
   try {
     // return cidr, country, org, descr, asn, checkedAt
-    const rangeq = sequelize.query(
+    const rangeq = await sequelize.query(
       'CALL RANGE_OF_IP($1)',
       {
         bind: [ip],

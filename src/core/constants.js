@@ -68,12 +68,13 @@ export const USERLVL = {
   ADMIN: 100,
 };
 
-export const OATUH_PROVIDERS = {
-  DISCORD: 1,
-  REDDIT: 2,
-  FACEBOOK: 3,
-  GOOGLE: 4,
-  VK: 5,
+export const THREEPID_PROVIDERS = {
+  EMAIL: 1,
+  DISCORD: 2,
+  REDDIT: 3,
+  FACEBOOK: 4,
+  GOOGLE: 5,
+  VK: 6,
 };
 
 export const CHANNEL_TYPES = {

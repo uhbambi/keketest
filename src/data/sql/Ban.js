@@ -4,7 +4,13 @@ import sequelize from './sequelize';
 import { HourlyCron } from '../../utils/cron';
 import { cleanCacheForIP } from '../redis/isAllowedCache';
 
-const IPBan = sequelize.define('IPBan', {
+const Ban = sequelize.define('Ban', {
+  id: {
+    type: DataTypes.INTEGER.UNSIGNED,
+    autoIncrement: true,
+    primaryKey: true,
+  },
+
   reason: {
     type: `${DataTypes.CHAR(200)} CHARSET utf8mb4 COLLATE utf8mb4_unicode_ci`,
     allowNull: false,
@@ -28,7 +34,7 @@ const IPBan = sequelize.define('IPBan', {
 });
 
 async function cleanIpBans() {
-  const expiredIPs = await IPBan.findAll({
+  const expiredIPs = await Ban.findAll({
     attributes: [
       'ip',
     ],
@@ -46,7 +52,7 @@ async function cleanIpBans() {
   for (let i = 0; i < expiredIPs.length; i += 1) {
     ips.push(expiredIPs[i].ip);
   }
-  await IPBan.destroy({
+  await Ban.destroy({
     where: {
       ip: ips,
     },
@@ -63,8 +69,8 @@ HourlyCron.hook(cleanIpBans);
  * @param ip
  * @return boolean
  */
-export async function isIPBanned(ip) {
-  const count = await IPBan
+export async function isBanned(ip) {
+  const count = await Ban
     .count({
       where: { ip },
     });
@@ -77,7 +83,7 @@ export async function isIPBanned(ip) {
  * @return
  */
 export function getBanInfo(ip) {
-  return IPBan.findByPk(ip, {
+  return Ban.findByPk(ip, {
     attributes: ['reason', 'expires'],
     include: {
       association: 'mod',
@@ -104,7 +110,7 @@ export async function banIP(
   muid,
 ) {
   const expires = (expiresTs) ? new Date(expiresTs) : null;
-  const [, created] = await IPBan.upsert({
+  const [, created] = await Ban.upsert({
     ip,
     reason,
     expires,
@@ -121,11 +127,30 @@ export async function banIP(
  *         false if ip wasn't banned anyway
  */
 export async function unbanIP(ip) {
-  const count = await IPBan.destroy({
+  const count = await Ban.destroy({
     where: { ip },
   });
   await cleanCacheForIP(ip);
   return !!count;
 }
 
-export default IPBan;
+/*
+ * check if ThreePID is banned
+ * @param provider, tpid What tpid to look for
+ * @return boolean
+ */
+export async function isThreePidBanned(provider, tpid) {
+  const count = await Ban
+  .count({
+    include: {
+      association: 'tpids',
+      where: {
+        provider,
+         tpid,
+      },
+    },
+  });
+  return count !== 0;
+}
+
+export default Ban;

@@ -6,12 +6,12 @@ import Message from './Message';
 import UserBlock from './UserBlock';
 import IPInfo from './IPInfo';
 import IPRange from './IPRange';
-import IPBan from './IPBan';
+import Ban from './Ban';
+import WhoisReferral from './WhoisReferral';
 import IPRangeBan from './IPRangeBan';
 import IPWhitelist from './IPWhitelist';
 import IPBanHistory from './IPBanHistory';
 import IPRangeBanHistory from './IPRangeBanHistory';
-import UserBan from './UserBan';
 import UserBanHistory from './UserBanHistory';
 import UserIP from './UserIP';
 import ThreePID, { OATUH_PROVIDERS } from './ThreePID';
@@ -64,38 +64,57 @@ ThreePID.belongsTo(RegUser, {
  */
 IPRange.hasMany(IPInfo, {
   as: 'ips',
-  foreignKey: {
-    name: 'rid',
-    allowNull: false,
-  },
-  onDelete: 'CASCADE',
+  foreignKey: 'rid',
 });
 IPInfo.belongsTo(IPRange, {
   as: 'range',
 });
 
 /*
- * ip bans
+ * bans
  */
-IPBan.belongsTo(IPInfo, {
-  as: 'ipinfo',
-  foreignKey: {
-    name: 'ip',
-    allowNull: false,
-    primaryKey: true,
-  },
-  onDelete: 'CASCADE',
+// ip
+Ban.belongsToMany(IPInfo, {
+  as: 'ips',
+  through: 'IPBan',
+  foreignKey: 'bid',
 });
-IPInfo.hasOne(IPBan, {
-  as: 'ban',
+IPInfo.belongsToMany(Ban, {
+  as: 'bans',
+  through: 'IPBan',
+  foreignKey: 'ip',
 });
-IPBan.belongsTo(RegUser, {
+// tpid
+Ban.belongsToMany(ThreePID, {
+  as: 'tpids',
+  through: 'ThreePIDBan',
+  foreignKey: 'bid',
+});
+ThreePID.belongsToMany(Ban, {
+  as: 'bans',
+  through: 'ThreePIDBan',
+  foreignKey: 'tid',
+});
+// user
+Ban.belongsToMany(RegUser, {
+  as: 'users',
+  through: 'UserBan',
+  foreignKey: 'bid',
+});
+RegUser.belongsToMany(Ban, {
+  as: 'bans',
+  through: 'UserBan',
+  foreignKey: 'uid',
+});
+// mods
+Ban.belongsTo(RegUser, {
   as: 'mod',
   foreignKey: 'muid',
 });
-RegUser.hasMany(IPBan, {
-  as: 'ipBanActions',
+RegUser.hasMany(Ban, {
+  as: 'banActions',
 });
+
 /*
  * ip whitelist
  */
@@ -115,7 +134,7 @@ IPWhitelist.belongsTo(IPInfo, {
   },
   onDelete: 'CASCADE',
 });
-IPInfo.hasOne(IPBan, {
+IPInfo.hasOne(IPWhitelist, {
   as: 'whitelist',
 });
 /*
@@ -181,61 +200,6 @@ IPRangeBanHistory.belongsTo(RegUser, {
 });
 RegUser.hasMany(IPRangeBanHistory, {
   as: 'ipRangeBanHistory',
-});
-
-/*
- * User bans
- */
-UserBan.belongsToMany(ThreePID, {
-  as: 'tpids',
-  through: 'ThreePIDBan',
-  foreignKey: 'bid',
-});
-ThreePID.belongsToMany(UserBan, {
-  as: 'bans',
-  through: 'ThreePIDBan',
-  foreignKey: 'tid',
-});
-UserBan.belongsTo(RegUser, {
-  as: 'mod',
-  foreignKey: 'muid',
-});
-RegUser.hasMany(UserBan, {
-  as: 'userBanActions',
-});
-UserBan.belongsTo(RegUser, {
-  as: 'user',
-  foreignKey: 'uid',
-});
-RegUser.hasOne(UserBan, {
-  as: 'ban',
-});
-/*
- * User ban history
- */
-UserBanHistory.belongsToMany(ThreePID, {
-  as: 'tpids',
-  through: 'ThreePIDBanHistory',
-  foreignKey: 'bid',
-});
-ThreePID.belongsToMany(UserBanHistory, {
-  as: 'banHistory',
-  through: 'ThreePIDBanHistory',
-  foreignKey: 'tid',
-});
-UserBan.belongsTo(RegUser, {
-  as: 'mod',
-  foreignKey: 'muid',
-});
-RegUser.hasMany(UserBan, {
-  as: 'userBanHistory',
-});
-UserBanHistory.belongsTo(RegUser, {
-  as: 'user',
-  foreignKey: 'uid',
-});
-RegUser.hasMany(UserBanHistory, {
-  as: 'banHistory',
 });
 
 /*
@@ -305,6 +269,8 @@ export {
   UserBlock,
   IPRange,
   IPInfo,
+  Ban,
+  WhoisReferral,
   ThreePID,
   // includes
   regUserQueryInclude,

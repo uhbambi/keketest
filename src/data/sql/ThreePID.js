@@ -7,7 +7,7 @@ import { DataTypes } from 'sequelize';
 
 import sequelize from './sequelize';
 
-export { OATUH_PROVIDERS } from '../../core/constants';
+export { THREEPID_PROVIDERS } from '../../core/constants';
 
 const ThreePID = sequelize.define('ThreePID', {
   id: {
