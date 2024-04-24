@@ -4,7 +4,10 @@
  */
 import client from './client';
 import { PREFIX as CAPTCHA_PREFIX } from './captcha';
-import { PREFIX as ALLOWED_PREFIX } from './isAllowedCache';
+import {
+  PREFIX as IP_ALLOWED_PREFIX,
+  USER_PREFIX as USER_ALLOWED_PREFIX,
+} from './isAllowedCache';
 import {
   RANKED_KEY,
   DAILY_RANKED_KEY,
@@ -45,14 +48,17 @@ export default function allowPlace(
   cdIfNull,
   pxls,
 ) {
-  const isalKey = `${ALLOWED_PREFIX}:${ip}`;
+  const isalKey = `${IP_ALLOWED_PREFIX}:${ip}`;
   const captKey = (CAPTCHA_TIME >= 0) ? `${CAPTCHA_PREFIX}:${ip}` : 'nope';
   const ipCdKey = `${PREFIX}:${canvasCdId}:ip:${ip}`;
   let idCdKey;
+  let isualKey;
   if (id) {
     idCdKey = `${PREFIX}:${canvasCdId}:id:${id}`;
+    isualKey = `${USER_ALLOWED_PREFIX}:${id}`;
   } else {
     idCdKey = 'nope';
+    isualKey = 'nope';
   }
   if (!req && req !== 0) {
     req = 'nope';
@@ -63,7 +69,7 @@ export default function allowPlace(
   const dailyset = (ranked) ? DAILY_RANKED_KEY : 'nope';
   return client.placePxl(
     // eslint-disable-next-line max-len
-    isalKey, captKey, ipCdKey, idCdKey, chunkKey, rankset, dailyset, DAILY_CRANKED_KEY, PREV_DAY_TOP_KEY,
+    isalKey, isualKey, captKey, ipCdKey, idCdKey, chunkKey, rankset, dailyset, DAILY_CRANKED_KEY, PREV_DAY_TOP_KEY,
     clrIgnore, bcd, pcd, cds, cdIfNull, id, cc, req,
     ...pxls,
   );

@@ -6,7 +6,7 @@
  * req.cc -> two character country code based on cloudflare header
  */
 import { USE_XREALIP } from '../core/config';
-import { isIPv6, unpackIPv6, ipToHex } from './ip';
+import { isIPv6, unpackIPv6, ipToHex } from '../utils/intel/ip';
 
 const ipGetter = {
   get() {
@@ -17,10 +17,7 @@ const ipGetter = {
     if (!ip) {
       ip = this.connection.remoteAddress;
       if (USE_XREALIP) {
-        // eslint-disable-next-line no-console
-        console.warn(
-          `Connection not going through reverse proxy! IP: ${ip}`,
-        );
+        console.warn(`Connection not going through reverse proxy! IP: ${ip}`);
       }
     }
     if (isIPv6(ip)) {

@@ -179,7 +179,15 @@ export default async function drawByOffsets(
     }
 
     let needProxycheck;
-    [retCode, pxlCnt, wait, coolDown, needProxycheck] = await allowPlace(
+    let needUserBanCheck;
+    [
+      retCode,
+      pxlCnt,
+      wait,
+      coolDown,
+      needProxycheck,
+      needUserBanCheck
+    ] = await allowPlace(
       ip,
       userId,
       user.country,
@@ -213,6 +221,10 @@ export default async function drawByOffsets(
             // nothing
         }
       }
+    }
+
+    if (needUserBanCheck) {
+      // TODO do that
     }
 
     for (let u = 0; u < pxlCnt; u += 1) {

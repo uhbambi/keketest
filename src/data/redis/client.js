@@ -11,7 +11,7 @@ import { REDIS_URL, SHARD_NAME } from '../../core/config';
 
 const scripts = {
   placePxl: defineScript({
-    NUMBER_OF_KEYS: 9,
+    NUMBER_OF_KEYS: 10,
     SCRIPT: fs.readFileSync(path.resolve('workers', 'lua', 'placePixel.lua')),
     transformArguments(...args) {
       return args.map((a) => ((typeof a === 'string') ? a : a.toString()));
