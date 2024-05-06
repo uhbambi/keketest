@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2024-04-18 01:03+0000\n"
+"PO-Revision-Date: 2024-05-04 13:07+0000\n"
 "Last-Translator: Translation Team <noreply@example.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/pixelplanet/"
 "client/es/>\n"
@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.5-dev\n"
+"X-Generator: Weblate 5.5.3\n"
 
 #: src/controls/keypress.js:102
 #, javascript-format
@@ -86,7 +86,7 @@ msgstr "Este lienzo no existe"
 #: src/ui/PixelTransferController.js:108 src/ui/PixelTransferController.js:112
 #: src/ui/PixelTransferController.js:116
 msgid "Invalid Coordinates"
-msgstr "Coordenas Inválidas"
+msgstr "Coordenadas Inválidas"
 
 #: src/ui/PixelTransferController.js:109
 msgid "x out of bounds"
@@ -136,7 +136,7 @@ msgstr "Por favor demuestra que eres humano"
 
 #: src/ui/PixelTransferController.js:145
 msgid "You are using a Proxy."
-msgstr "Estas usando un Proxy."
+msgstr "Estas usando Proxy."
 
 #: src/ui/PixelTransferController.js:149
 msgid "Just the Top10 of yesterday can place here"
@@ -1214,24 +1214,20 @@ msgid "Charts"
 msgstr "Gráficos"
 
 #: src/components/Rankings.jsx:191
-#, fuzzy
 msgid "Total Pixels per Player"
-msgstr "Pixeles Totales colocados por día"
+msgstr "Píxeles totales por jugador"
 
 #: src/components/Rankings.jsx:192
-#, fuzzy
 msgid "Daily Pixels per Player"
-msgstr "Pixeles Totales colocados por día"
+msgstr "Píxeles diarios por jugador"
 
 #: src/components/Rankings.jsx:193
-#, fuzzy
 msgid "Top 10 Players from Yesterday"
-msgstr "Top 10 jugadores [píxeles / días]"
+msgstr "Los 10 mejores jugadores de ayer"
 
 #: src/components/Rankings.jsx:197
-#, fuzzy
 msgid "Daily Pixels per Country"
-msgstr "Jugadores y Píxeles por hora"
+msgstr "Píxeles diarios por país"
 
 #: src/components/Rankings.jsx:215 src/components/Rankings.jsx:224
 #: src/components/Rankings.jsx:233
@@ -1244,7 +1240,7 @@ msgstr "País"
 
 #: src/components/Rankings.jsx:241
 msgid "+last hour"
-msgstr ""
+msgstr "+última hora"
 
 #: src/components/Rankings.jsx:311
 msgid "Ranking updates every 5 min. Daily rankings get reset at midnight UTC."
@@ -1382,7 +1378,7 @@ msgstr "Lienzo"
 
 #: src/components/TemplateItem.jsx:57 src/components/TemplateItemEdit.jsx:141
 msgid "Coordinates"
-msgstr "Coordenas"
+msgstr "Coordenadas"
 
 #: src/components/TemplateItem.jsx:71
 msgid "Edit"
@@ -1553,7 +1549,7 @@ msgstr "Archivo"
 
 #: src/components/ModCanvastools.jsx:273
 msgid "Coordinates:"
-msgstr "Coordenas:"
+msgstr "Coordenadas:"
 
 #: src/components/ModCanvastools.jsx:317
 msgid "Pixel Protection"
@@ -1691,17 +1687,19 @@ msgstr "Pixeles Totales colocados por día"
 
 #: src/components/CooldownChanges.jsx:20
 msgid "Current Cooldown Changes per Country"
-msgstr ""
+msgstr "Cambios de tiempo de reutilización actuales por país"
 
 #: src/components/CooldownChanges.jsx:25
 msgid "Factor"
-msgstr ""
+msgstr "Factor"
 
 #: src/components/CooldownChanges.jsx:46
 msgid ""
 "Cooldown is usually automatically changed for a country that is dominating. "
 "In example in the case of a streamer raid."
 msgstr ""
+"El tiempo de reutilización generalmente cambia automáticamente para un país "
+"que domina. Por ejemplo, en el caso de una redada de streamers."
 
 #: src/components/contextmenus/UserContextMenu.jsx:49
 msgid "Ping"
