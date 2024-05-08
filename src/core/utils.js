@@ -46,8 +46,24 @@ export function clamp(n, min, max) {
  * convert YYYY-MM-DD to YYYYMMDD
  */
 export function dateToString(date) {
-  // YYYY-MM-DD
   return date.substring(0, 4) + date.substring(5, 7) + date.substring(8);
+}
+
+/*
+ * convert YYYYMMDD to YYYY-MM-DD
+ */
+export function stringToDate(dateString) {
+  if (!dateString) return '';
+  // eslint-disable-next-line max-len
+  return `${dateString.substring(0, 4)}-${dateString.substring(4, 6)}-${dateString.substring(6)}`;
+}
+
+/*
+ * convert hhmm to hh:mm
+ */
+export function stringToTime(timeString) {
+  if (!timeString) return '00:00';
+  return `${timeString.substring(0, 2)}:${timeString.substring(2)}`;
 }
 
 /*

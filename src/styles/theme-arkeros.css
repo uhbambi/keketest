@@ -6,7 +6,7 @@ tr:nth-child(odd) {
   background-color: #ffb1e1;
 }
 
-.actionbuttons, .onlinebox, .cooldownbox, #historyselect, .notifybox {
+.actionbuttons, .onlinebox, .cooldownbox, .historyselect, .notifybox {
   background: linear-gradient(0deg, #61dcea , #ffb1e1, #ecffec, #ffb1e1, #61dcea);
   border-radius: 10px;
 }

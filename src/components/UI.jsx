@@ -31,7 +31,7 @@ const UI = () => {
       <Alert />
       <MovementControls />
       {(isHistoricalView) ? (
-        <HistorySelect />
+        <HistorySelect id="historyselectfloat" />
       ) : (
         <>
           <PalselButton />
