@@ -253,12 +253,8 @@ export async function requestHistoricalTimes(day, canvasId) {
       return [];
     }
     const times = await response.json();
-    const parsedTimes = times
+    return times
       .map((a) => `${a.substring(0, 2)}:${a.substring(2)}`);
-    return [
-      '00:00',
-      ...parsedTimes,
-    ];
   } catch {
     return [];
   }
