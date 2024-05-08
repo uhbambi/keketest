@@ -6,7 +6,7 @@
 
 import { t } from 'ttag';
 
-import { dateToString } from '../../core/utils';
+import { dateToString, stringToTime } from '../../core/utils';
 
 export const shardHost = (function getShardHost() {
   if (!window.ssv
@@ -253,8 +253,7 @@ export async function requestHistoricalTimes(day, canvasId) {
       return [];
     }
     const times = await response.json();
-    return times
-      .map((a) => `${a.substring(0, 2)}:${a.substring(2)}`);
+    return times.map(stringToTime);
   } catch {
     return [];
   }

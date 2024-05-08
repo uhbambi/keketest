@@ -503,6 +503,7 @@ export async function executeProtAction(
 /*
  * Execute rollback
  * @param date in format YYYYMMdd
+ * @param time in format hhmm
  * @param ulcoor coords of upper-left corner in X_Y format
  * @param brcoor coords of bottom-right corner in X_Y format
  * @param canvasid numerical canvas id as string
@@ -510,6 +511,7 @@ export async function executeProtAction(
  */
 export async function executeRollback(
   date,
+  time,
   ulcoor,
   brcoor,
   canvasid,
@@ -525,13 +527,16 @@ export async function executeRollback(
     error = 'Invalid canvas selected';
   } else if (!date) {
     error = 'No date given';
+  } else if (!time) {
+    error = 'No time given';
   } else if (Number.isNaN(Number(date)) || date.length !== 8) {
     error = 'Invalid date';
+  } else if (Number.isNaN(Number(time)) || time.length !== 4) {
+    error = 'Invalid time';
   }
   if (error !== null) {
     return [403, error];
   }
-
 
   const parseCoords = validateCoorRange(ulcoor, brcoor, canvas.size);
   if (typeof parseCoords === 'string') {
@@ -552,6 +557,7 @@ export async function executeRollback(
     width,
     height,
     date,
+    time,
   );
   if (logger) {
     logger(

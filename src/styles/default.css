@@ -555,11 +555,7 @@ tr:nth-child(even) {
   background-color: rgba(240, 169, 169, 0.8);
 }
 
-#historyselect {
-  position: fixed;
-  top: 16px;
-  left: 0px;
-  right: 0px;
+.historyselect {
   height: 70px;
   width: 140px;
   background-color: rgba(226, 226, 226, 0.80);
@@ -572,6 +568,12 @@ tr:nth-child(even) {
   padding: 0 24px;
   margin-left: auto;
   margin-right: auto;
+}
+#historyselectfloat {
+  position: fixed;
+  top: 16px;
+  left: 0px;
+  right: 0px;
   z-index: 2;
 }
 

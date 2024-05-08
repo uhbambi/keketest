@@ -85,7 +85,7 @@ tr:nth-child(even) {
   background-color: #404040;
 }
 
-.actionbuttons, .coorbox, .onlinebox, .cooldownbox, #historyselect {
+.actionbuttons, .coorbox, .onlinebox, .cooldownbox, .historyselect {
   background-color: rgba(27, 27, 27, 0.8);
   color: #ffd4ae;
   border-radius: 15px;

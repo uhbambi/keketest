@@ -6,8 +6,8 @@
 // Tile creation is allowed to be slow
 /* eslint-disable no-await-in-loop */
 
-import fs from 'fs';
-import path from 'path';
+import http from 'http';
+import https from 'https';
 import sharp from 'sharp';
 
 import RedisCanvas from '../data/redis/RedisCanvas';
@@ -15,29 +15,82 @@ import logger from './logger';
 import { getChunkOfPixel } from './utils';
 import Palette from './Palette';
 import { TILE_SIZE } from './constants';
-import { BACKUP_DIR } from './config';
+import { BACKUP_URL } from './config';
 import canvases from './canvases';
 
-export default async function rollbackToDate(
+function fetchHistoricalPngChunk(date, time, canvasId, cx, cy, url) {
+  // to fatch full chunks from start of day, use only 'tiles' as time
+  if (time === '0000') return null;
+  // eslint-disable-next-line max-len
+  const reqUrl = url || `${BACKUP_URL}/${date.slice(0, 4)}/${date.slice(4, 6)}/${date.slice(6)}/${canvasId}/${time}/${cx}/${cy}.png`;
+  const protocol = (reqUrl.startsWith('http:')) ? http : https;
+
+  return new Promise((resolve, reject) => {
+    protocol.get(reqUrl, (res) => {
+      switch (res.statusCode) {
+        case 200: {
+          const data = [];
+          res.on('data', (chunk) => {
+            data.push(Buffer.from(chunk));
+          });
+
+          res.on('end', () => {
+            try {
+              resolve(Buffer.concat(data));
+            } catch (err) {
+              reject(new Error(
+                // eslint-disable-next-line max-len
+                `Error on parsing chunk ${date}:${time}, ${cx}/${cy} from backups: ${err.message}`,
+              ));
+            }
+          });
+          break;
+        }
+        case 404:
+          resolve(null);
+          break;
+        case 301: {
+          // only allow one redirection
+          if (res.headers.location && !url) {
+            resolve(fetchHistoricalPngChunk(
+              date, time, canvasId, cx, cy, res.headers.location,
+            ));
+            break;
+          }
+        }
+        // eslint-disable-next-line no-fallthrough
+        default: {
+          reject(new Error(
+            // eslint-disable-next-line max-len
+            `Couldn't fetch chunk ${date}:${time}, ${cx}/${cy} from backups: HTTP Error ${res.statusCode}`,
+          ));
+        }
+      }
+    }).on('error', (err) => {
+      reject(new Error(
+        // eslint-disable-next-line max-len
+        `Error on fetching chunk ${date}:${time}, ${cx}/${cy} from backups: ${err.message}`,
+      ));
+    });
+  });
+}
+
+export default async function rollbackCanvasArea(
   canvasId, // number
   x, // number
   y, // number
   width, // number
   height, // number
-  date, // string
+  date, // string YYYYMMDD
+  time, // string hhmm
 ) {
-  if (!BACKUP_DIR) {
-    return 0;
-  }
-  const dir = path.resolve(__dirname, BACKUP_DIR);
-  // eslint-disable-next-line max-len
-  const backupDir = `${dir}/${date.slice(0, 4)}/${date.slice(4, 6)}/${date.slice(6)}/${canvasId}/tiles`;
-  if (!fs.existsSync(backupDir)) {
+  if (!BACKUP_URL) {
     return 0;
   }
 
   logger.info(
-    `Rollback area ${width}/${height} to ${x}/${y}/${canvasId} to date ${date}`,
+    // eslint-disable-next-line max-len
+    `Rollback area ${width}/${height} to ${x}/${y}/${canvasId} to ${date} ${time}`,
   );
   const canvas = canvases[canvasId];
   const { colors, size } = canvas;
@@ -50,19 +103,21 @@ export default async function rollbackToDate(
   let totalPxlCnt = 0;
   logger.info(`Loading to chunks from ${ucx} / ${ucy} to ${lcx} / ${lcy} ...`);
   let empty = false;
-  let emptyBackup = false;
   let backupChunk;
   for (let cx = ucx; cx <= lcx; cx += 1) {
     for (let cy = ucy; cy <= lcy; cy += 1) {
-      let chunk = null;
-      try {
-        chunk = await RedisCanvas.getChunk(canvasId, cx, cy, TILE_SIZE ** 2);
-      } catch (error) {
-        logger.error(
-          // eslint-disable-next-line max-len
-          `Chunk ch:${canvasId}:${cx}:${cy} could not be loaded from redis, assuming empty.`,
-        );
-      }
+      let [chunk, historicalChunk, historicalIncChunk] = await Promise.all([
+        RedisCanvas.getChunk(canvasId, cx, cy, TILE_SIZE ** 2).catch(() => {
+          logger.error(
+            // eslint-disable-next-line max-len
+            `Chunk ch:${canvasId}:${cx}:${cy} could not be loaded from redis, assuming empty.`,
+          );
+          return null;
+        }),
+        fetchHistoricalPngChunk(date, 'tiles', canvasId, cx, cy),
+        fetchHistoricalPngChunk(date, time, canvasId, cx, cy),
+      ]);
+
       if (!chunk || !chunk.length) {
         chunk = new Uint8Array(TILE_SIZE * TILE_SIZE);
         empty = true;
@@ -70,22 +125,37 @@ export default async function rollbackToDate(
         chunk = new Uint8Array(chunk);
         empty = false;
       }
+
       try {
-        emptyBackup = false;
-        backupChunk = await sharp(`${backupDir}/${cx}/${cy}.png`)
-          .ensureAlpha()
-          .raw()
-          .toBuffer();
-        backupChunk = new Uint32Array(backupChunk.buffer);
-      } catch {
-        logger.info(
+        if (!historicalChunk && !historicalIncChunk) {
+          logger.info(
+            // eslint-disable-next-line max-len
+            `Backup chunk ${date}:${time}, ${cx}/${cy} could not be loaded, assuming empty.`,
+          );
+          backupChunk = null;
+        } else {
+          if (!historicalChunk) {
+            historicalChunk = historicalIncChunk;
+            historicalIncChunk = null;
+          }
+          backupChunk = await sharp(historicalChunk);
+          if (historicalIncChunk) {
+            backupChunk = await backupChunk.composite([
+              { input: historicalIncChunk, tile: true, blend: 'over' },
+            ]);
+          }
+          backupChunk = await backupChunk.ensureAlpha().raw().toBuffer();
+          backupChunk = new Uint32Array(backupChunk.buffer);
+        }
+      } catch (err) {
+        throw new Error(
           // eslint-disable-next-line max-len
-          `Backup chunk ${backupDir}/${cx}/${cy}.png could not be loaded, assuming empty.`,
+          `Error on compositing chunk ${date}:${time}, ${cx}/${cy} from backups: ${err.message}`,
         );
-        emptyBackup = true;
       }
+
       let pxlCnt = 0;
-      if (!empty || !emptyBackup) {
+      if (!empty || backupChunk) {
         // offset of chunk in image
         const cOffX = cx * TILE_SIZE + canvasMinXY - x;
         const cOffY = cy * TILE_SIZE + canvasMinXY - y;
@@ -95,8 +165,8 @@ export default async function rollbackToDate(
             const clrX = cOffX + px;
             const clrY = cOffY + py;
             if (clrX >= 0 && clrY >= 0 && clrX < width && clrY < height) {
-              const pixel = (emptyBackup)
-                ? 0 : palette.abgr.indexOf(backupChunk[cOff]);
+              const pixel = (backupChunk)
+                ? palette.abgr.indexOf(backupChunk[cOff]) : 0;
               if (pixel !== -1) {
                 chunk[cOff] = pixel;
                 pxlCnt += 1;
