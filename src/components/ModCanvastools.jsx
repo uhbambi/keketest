@@ -7,7 +7,7 @@ import { useSelector, shallowEqual } from 'react-redux';
 import { t } from 'ttag';
 
 import useInterval from './hooks/interval';
-import { coordsFromString, stringToDate, stringToTime } from '../core/utils';
+import { coordsFromString } from '../core/utils';
 import HistorySelect from './HistorySelect';
 import { shardOrigin } from '../store/actions/fetch';
 
@@ -413,22 +413,10 @@ function ModCanvastools() {
           <p>
             {
               // eslint-disable-next-line max-len
-              t`Rollback an area of the canvas to the currently selected date in historical view`
+              t`Rollback an area of the canvas to a set date and time`
             }
           </p>
           <HistorySelect />
-          <input
-            style={{
-              display: 'inline-block',
-              width: '100%',
-              maxWidth: '10em',
-            }}
-            readOnly
-            value={
-              // eslint-disable-next-line max-len
-              `${stringToDate(historicalDate)} / ${stringToTime(historicalTime)}`
-            }
-          />
           <p>
             {t`Top-left corner`}:&nbsp;
             <input
