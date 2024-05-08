@@ -25,7 +25,6 @@ export const TILE_FOLDER = path.resolve(TILE_FOLDER_REL);
 export const USE_XREALIP = !!process.env.USE_XREALIP;
 
 export const BACKUP_URL = process.env.BACKUP_URL || null;
-export const BACKUP_DIR = process.env.BACKUP_DIR || null;
 
 export const OUTGOING_ADDRESS = process.env.OUTGOING_ADDRESS || null;
 

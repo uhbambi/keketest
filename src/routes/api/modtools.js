@@ -166,13 +166,15 @@ router.post('/', upload.single('image'), async (req, res, next) => {
       res.status(ret).send(msg);
       return;
     }
-    if (req.body.rollback) {
-      // rollback is date as YYYYMMdd
+    if (req.body.rollbackdate) {
+      // rollbackdate is date as YYYYMMdd
+      // rollbacktime is time as hhmm
       const {
-        rollback, ulcoor, brcoor, canvasid,
+        rollbackdate, rollbacktime, ulcoor, brcoor, canvasid,
       } = req.body;
       const [ret, msg] = await executeRollback(
-        rollback,
+        rollbackdate,
+        rollbacktime,
         ulcoor,
         brcoor,
         canvasid,
@@ -249,6 +251,10 @@ router.use(async (req, res, next) => {
 // eslint-disable-next-line no-unused-vars
 router.use((err, req, res, next) => {
   res.status(400).send(err.message);
+  logger.error(
+    // eslint-disable-next-line max-len
+    `MODTOOLS: ${getIPFromRequest(req)} / ${req.user.id} encountered error on using modtools: ${err.message}`,
+  );
 });
 
 export default router;

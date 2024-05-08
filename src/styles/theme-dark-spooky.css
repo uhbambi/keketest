@@ -148,7 +148,7 @@ tr:nth-child(odd) {
   color: white;
 }
 
-#historyselect {
+.historyselect {
   background-color: rgba(7, 67, 178, 0.80);
   color: white;
 }

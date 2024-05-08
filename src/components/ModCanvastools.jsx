@@ -7,7 +7,8 @@ import { useSelector, shallowEqual } from 'react-redux';
 import { t } from 'ttag';
 
 import useInterval from './hooks/interval';
-import { getToday, dateToString, coordsFromString } from '../core/utils';
+import { coordsFromString } from '../core/utils';
+import HistorySelect from './HistorySelect';
 import { shardOrigin } from '../store/actions/fetch';
 
 const keptState = {
@@ -64,14 +65,15 @@ async function submitProtAction(
 
 async function submitRollback(
   date,
+  time,
   canvas,
   tlcoords,
   brcoords,
   callback,
 ) {
   const data = new FormData();
-  const timeString = dateToString(date);
-  data.append('rollback', timeString);
+  data.append('rollbackdate', date);
+  data.append('rollbacktime', time);
   data.append('canvasid', canvas);
   data.append('ulcoor', tlcoords);
   data.append('brcoor', brcoords);
@@ -139,13 +141,10 @@ async function getCleanerCancel(
 }
 
 function ModCanvastools() {
-  const maxDate = getToday();
-
   const [selectedCanvas, selectCanvas] = useState(0);
   const [imageAction, selectImageAction] = useState('build');
   const [cleanAction, selectCleanAction] = useState('spare');
   const [protAction, selectProtAction] = useState('protect');
-  const [date, selectDate] = useState(maxDate);
   const [resp, setResp] = useState(null);
   const [cleanerstats, setCleanerStats] = useState({});
   const [submitting, setSubmitting] = useState(false);
@@ -153,9 +152,13 @@ function ModCanvastools() {
   const [
     canvasId,
     canvases,
+    historicalDate,
+    historicalTime,
   ] = useSelector((state) => [
     state.canvas.canvasId,
     state.canvas.canvases,
+    state.canvas.historicalDate,
+    state.canvas.historicalTime,
   ], shallowEqual);
 
   useEffect(() => {
@@ -408,18 +411,12 @@ function ModCanvastools() {
           <div className="modaldivider" />
           <h3>{t`Rollback to Date`}</h3>
           <p>
-            {t`Rollback an area of the canvas to a set date (00:00 UTC)`}
+            {
+              // eslint-disable-next-line max-len
+              t`Rollback an area of the canvas to a set date and time`
+            }
           </p>
-          <input
-            type="date"
-            value={date}
-            pattern="\d{4}-\d{2}-\d{2}"
-            min={canvases[selectedCanvas].sd}
-            max={maxDate}
-            onChange={(evt) => {
-              selectDate(evt.target.value);
-            }}
-          />
+          <HistorySelect />
           <p>
             {t`Top-left corner`}:&nbsp;
             <input
@@ -472,7 +469,8 @@ function ModCanvastools() {
               }
               setSubmitting(true);
               submitRollback(
-                date,
+                historicalDate,
+                historicalTime,
                 selectedCanvas,
                 keptState.tlrcoords,
                 keptState.brrcoords,
