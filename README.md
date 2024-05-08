@@ -81,7 +81,6 @@ Configuration takes place in the environment variables that are defined in ecosy
 | LOG_MYSQL         | if sql queries should get logged      | 0                         |
 | USE_XREALIP       | see ngins / CDN  section              | 1                         |
 | BACKUP_URL        | url of backup server (see Backup)     | "http://localhost"        |
-| BACKUP_DIR        | mounted directory of backup server    | "/mnt/backup/"            |
 | HOURLY_EVENT      | run hourly void event on main canvas  | 1                         |
 | USE_MAILER        | enable to use mail sevicse            | 0                         |
 | MAIL_ADDRESS      | email address for sending mails       | "noreply@pixelplanet.fun" |
@@ -246,9 +245,8 @@ Note:
 
 ![historicalview](promotion/historicalview.gif)
 
-Pixelplanet is able to let the user browse through the past with those backups. For this you need to define `BACKUP_URL` and `BACKUP_DIR` in your ecosystem.yml for pixelplanet.
-`BACKUP_URL` is the URL where the backup folder is available. You have to let another server serve those files or use nginx.
-`BACKUP_DIR` is the full path of the local directory where the backup is located (whats set as `BACKUP_DIRECTORY` in the command of the backup.js).
+Pixelplanet is able to let the user browse through the past with those backups. For this you need to define `BACKUP_URL` in your ecosystem.yml for pixelplanet.
+`BACKUP_URL` is the URL where the backup folder is available. You have to let another server serve those files or use nginx. `autoindex` should be on, cause the server is parsing the folder index to get the available backup times.
 
 ## 3D canvas
 
