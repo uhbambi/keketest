@@ -2,14 +2,15 @@
  * ModCanvastools
  */
 
-import React, { useState, useEffect } from 'react';
-import { useSelector, shallowEqual } from 'react-redux';
+import React, { useState } from 'react';
+import { useSelector, shallowEqual, useDispatch } from 'react-redux';
 import { t } from 'ttag';
 
 import useInterval from './hooks/interval';
 import { coordsFromString } from '../core/utils';
 import HistorySelect from './HistorySelect';
 import { shardOrigin } from '../store/actions/fetch';
+import { selectCanvas } from '../store/actions';
 
 const keptState = {
   coords: '',
@@ -141,7 +142,6 @@ async function getCleanerCancel(
 }
 
 function ModCanvastools() {
-  const [selectedCanvas, selectCanvas] = useState(0);
   const [imageAction, selectImageAction] = useState('build');
   const [cleanAction, selectCleanAction] = useState('spare');
   const [protAction, selectProtAction] = useState('protect');
@@ -161,9 +161,7 @@ function ModCanvastools() {
     state.canvas.historicalTime,
   ], shallowEqual);
 
-  useEffect(() => {
-    selectCanvas(canvasId);
-  }, [canvasId]);
+  const dispatch = useDispatch();
 
   let descAction;
   switch (imageAction) {
@@ -232,10 +230,10 @@ function ModCanvastools() {
       )}
       <p>{t`Choose Canvas`}:&nbsp;
         <select
-          value={selectedCanvas}
+          value={canvasId}
           onChange={(e) => {
             const sel = e.target;
-            selectCanvas(sel.options[sel.selectedIndex].value);
+            dispatch(selectCanvas(sel.options[sel.selectedIndex].value));
           }}
         >
           {Object.keys(canvases).filter((c) => !canvases[c].v).map((canvas) => (
@@ -303,7 +301,7 @@ function ModCanvastools() {
           setSubmitting(true);
           submitImageAction(
             imageAction,
-            selectedCanvas,
+            canvasId,
             keptState.coords,
             (ret) => {
               setSubmitting(false);
@@ -393,7 +391,7 @@ function ModCanvastools() {
           setSubmitting(true);
           submitProtAction(
             protAction,
-            selectedCanvas,
+            canvasId,
             keptState.tlcoords,
             keptState.brcoords,
             (ret) => {
@@ -471,7 +469,7 @@ function ModCanvastools() {
               submitRollback(
                 historicalDate,
                 historicalTime,
-                selectedCanvas,
+                canvasId,
                 keptState.tlrcoords,
                 keptState.brrcoords,
                 (ret) => {
@@ -564,7 +562,7 @@ function ModCanvastools() {
           setSubmitting(true);
           submitCanvasCleaner(
             cleanAction,
-            selectedCanvas,
+            canvasId,
             keptState.tlccoords,
             keptState.brccoords,
             (ret) => {
@@ -574,7 +572,7 @@ function ModCanvastools() {
                 method: cleanAction,
                 tl: keptState.tlccoords,
                 br: keptState.brccoords,
-                canvasId: selectedCanvas,
+                canvasId,
               });
               setSubmitting(false);
               setResp(ret);

@@ -3,13 +3,14 @@
  * Tools to check who placed what where
  */
 
-import React, { useState, useEffect } from 'react';
-import { useSelector, shallowEqual } from 'react-redux';
+import React, { useState } from 'react';
+import { useSelector, shallowEqual, useDispatch } from 'react-redux';
 import { t } from 'ttag';
 
 import copyTextToClipboard from '../utils/clipboard';
 import { parseInterval, coordsFromString } from '../core/utils';
 import { shardOrigin } from '../store/actions/fetch';
+import { selectCanvas } from '../store/actions';
 
 const keepState = {
   tlcoords: '',
@@ -77,7 +78,6 @@ async function submitWatchAction(
 }
 
 function ModWatchtools() {
-  const [selectedCanvas, selectCanvas] = useState(0);
   const [sortAsc, setSortAsc] = useState(true);
   const [sortBy, setSortBy] = useState(0);
   const [table, setTable] = useState({});
@@ -92,9 +92,7 @@ function ModWatchtools() {
     state.canvas.canvases,
   ], shallowEqual);
 
-  useEffect(() => {
-    selectCanvas(canvasId);
-  }, [canvasId]);
+  const dispatch = useDispatch();
 
   const {
     columns, types, rows, ts,
@@ -124,10 +122,10 @@ function ModWatchtools() {
         <p>{t`Check who placed in an area`}</p>
         <p>{t`Canvas`}:&nbsp;
           <select
-            value={selectedCanvas}
+            value={canvasId}
             onChange={(e) => {
               const sel = e.target;
-              selectCanvas(sel.options[sel.selectedIndex].value);
+              dispatch(selectCanvas(sel.options[sel.selectedIndex].value));
             }}
           >
             {Object.keys(canvases)
@@ -225,7 +223,7 @@ function ModWatchtools() {
             setSubmitting(true);
             submitWatchAction(
               'all',
-              selectedCanvas,
+              canvasId,
               keepState.tlcoords,
               keepState.brcoords,
               keepState.interval,
@@ -257,7 +255,7 @@ function ModWatchtools() {
             setSubmitting(true);
             submitWatchAction(
               'summary',
-              selectedCanvas,
+              canvasId,
               keepState.tlcoords,
               keepState.brcoords,
               keepState.interval,
@@ -334,7 +332,7 @@ function ModWatchtools() {
                         }
                         case 'clr': {
                           const cid = (cidColumn > 0)
-                            ? row[cidColumn] : selectedCanvas;
+                            ? row[cidColumn] : canvasId;
                           const rgb = canvases[cid]
                           && canvases[cid].colors
                           && canvases[cid].colors[val];
@@ -351,7 +349,7 @@ function ModWatchtools() {
                         }
                         case 'coord': {
                           const cid = (cidColumn > 0)
-                            ? row[cidColumn] : selectedCanvas;
+                            ? row[cidColumn] : canvasId;
                           const ident = canvases[cid] && canvases[cid].ident;
                           const coords = `./#${ident},${val},47`;
                           return (
