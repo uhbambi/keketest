@@ -18,11 +18,7 @@ import {
 async function validate(email, name, password, captcha, captchaid, t, gettext) {
   const errors = [];
   const emailerror = gettext(validateEMail(email));
-  if (emailerror) {
-    errors.push(emailerror);
-  } else if (await checkIfMailDisposable(email)) {
-    errors.push(t`This email provider is not allowed`);
-  }
+  if (emailerror) errors.push(emailerror);
   const nameerror = validateName(name);
   if (nameerror) errors.push(nameerror);
   const passworderror = gettext(validatePassword(password));
@@ -65,6 +61,10 @@ export default async (req, res) => {
         errors.push(t`Unknown Captcha Error`);
         break;
     }
+  }
+
+  if (!errors.length && await checkIfMailDisposable(email)) {
+    errors.push(t`This email provider is not allowed`);
   }
 
   if (errors.length > 0) {
