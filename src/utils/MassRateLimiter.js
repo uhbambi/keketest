@@ -17,12 +17,27 @@ class MassRateLimiter {
    * blockTime time a client is blocked once limit is triggered
    */
   blockTime;
+  /*
+   * every instance should clean up in the same interval
+   */
+  static cleaners = [];
+  static cleaningInterval = 0;
 
   constructor(blockTime) {
     this.triggers = new Map();
     this.blockTime = blockTime;
     this.clearOld = this.clearOld.bind(this);
-    setInterval(this.clearOld, 60 * 1000);
+    MassRateLimiter.cleaners.push(this.clearOld);
+  }
+
+  destructor() {
+    MassRateLimiter.cleaners.splice(
+      MassRateLimiter.cleaners.indexOf(this.clearOld), 1,
+    );
+  }
+
+  static runCleaners() {
+    MassRateLimiter.cleaners.forEach((s) => s());
   }
 
   clearOld() {
@@ -92,5 +107,9 @@ class MassRateLimiter {
     }
   }
 }
+
+MassRateLimiter.cleaningInterval = setInterval(
+  MassRateLimiter.runCleaners, 60 * 1000,
+);
 
 export default MassRateLimiter;

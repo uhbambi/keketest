@@ -16,9 +16,6 @@ async function startDm(req, res) {
   const errors = [];
   const query = {};
   if (userId) {
-    if (userId && Number.isNaN(userId)) {
-      errors.push('Invalid userId');
-    }
     query.id = userId;
   }
   if (userName) {

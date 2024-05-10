@@ -5,6 +5,8 @@ import passport from '../../core/passport';
 import logger from '../../core/logger';
 import User from '../../data/User';
 import { getIPFromRequest } from '../../utils/ip';
+import MassRateLimiter from '../../utils/MassRateLimiter';
+import { HOUR } from '../../core/constants';
 
 import me from './me';
 import auth from './auth';
@@ -20,7 +22,13 @@ import getiid from './getiid';
 import shards from './shards';
 import banme from './banme';
 
+const rateLimiter = new MassRateLimiter(HOUR);
+
 const router = express.Router();
+
+function onRateLimitTrigger(userId) {
+  logger.warn(`User ${userId} triggered API RateLimit.`);
+}
 
 // set cache-control
 router.use((req, res, next) => {
@@ -85,6 +93,21 @@ router.use(async (req, res, next) => {
   next();
 });
 
+router.get('/chathistory', chatHistory);
+
+router.get('/me', me);
+
+router.use((req, res, next) => {
+  const userId = req.user.id;
+  if (userId && rateLimiter.tick(userId, 3000, null, onRateLimitTrigger)) {
+    throw new Error(
+      // eslint-disable-next-line
+      'You are doing too many things too fast. Cool down a bit and come back later.',
+    );
+  }
+  next();
+});
+
 router.post('/startdm', startDm);
 
 router.post('/leavechan', leaveChan);
@@ -94,10 +117,6 @@ router.post('/block', block);
 router.post('/blockdm', blockdm);
 
 router.post('/privatize', privatize);
-
-router.get('/chathistory', chatHistory);
-
-router.get('/me', me);
 
 router.post('/banme', banme);
 
