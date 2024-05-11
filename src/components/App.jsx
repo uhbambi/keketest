@@ -12,6 +12,7 @@ import CoordinatesBox from './CoordinatesBox';
 import CanvasSwitchButton from './buttons/CanvasSwitchButton';
 import OnlineBox from './OnlineBox';
 import ChatButton from './buttons/ChatButton';
+import ESCButton from './buttons/ESCButton';
 import Menu from './Menu';
 import UI from './UI';
 import ExpandMenuButton from './buttons/ExpandMenuButton';
@@ -22,6 +23,21 @@ const iconContextValue = { style: { verticalAlign: 'middle' } };
 const App = () => (
   <>
     <Style />
+    <img
+      alt="Gay Flag"
+      style={{
+        position: 'absolute', top: 0, left: 0, width: '15%',
+      }}
+      src="homo.png"
+    />
+    <img
+      alt="Gay Flag"
+      style={{
+        position: 'absolute', bottom: 0, right: 0, width: '15%',
+      }}
+      src="trans.png"
+    />
+    <ESCButton />
     <IconContext.Provider value={iconContextValue}>
       <CanvasSwitchButton />
       <Menu />
