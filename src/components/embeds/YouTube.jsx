@@ -19,13 +19,14 @@ function getIdFromURL(url) {
   return url.substring(vPos, vEnd);
 }
 
-const YouTube = ({ url }) => {
+const YouTube = ({ url, paddingBottom }) => {
   const id = getIdFromURL(url);
   if (!id) {
     return null;
   }
+
   return (
-    <div className="vemb" style={{ paddingBottom: '56.25%' }}>
+    <div className="vemb" style={(paddingBottom) ? { paddingBottom } : {}}>
       <iframe
         className="vembc"
         src={`https://www.youtube.com/embed/${id}`}
