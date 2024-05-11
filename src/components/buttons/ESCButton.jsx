@@ -31,9 +31,9 @@ const ESCButton = () => {
         position: 'absolute',
         bottom: 4,
         left: '50%',
-        marginLeft: -27,
         width: 150,
         maxWidth: '50%',
+        transform: 'translateX(-50%)',
       }}
       role="button"
       title="Watch the Eurovision Song Contest 2024"
@@ -61,7 +61,9 @@ const ESCButton = () => {
       <img
         alt="Eurovision Songonctest"
         style={{
-          background: '#ffffffe3', cursor: 'pointer',
+          background: '#ffffffe3',
+          cursor: 'pointer',
+          boxShadow: 'rgba(240, 46, 170, 0.4) 5px 5px, rgba(240, 46, 170, 0.3) 10px 10px, rgba(240, 46, 170, 0.2) 15px 15px, rgba(240, 46, 170, 0.1) 20px 20px, rgba(240, 46, 170, 0.05) 25px 25px',
         }}
         src="esc.svg"
       />
