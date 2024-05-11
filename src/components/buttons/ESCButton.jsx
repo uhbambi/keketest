@@ -28,8 +28,12 @@ const ESCButton = () => {
   return (
     <div
       style={{
-        position: 'absolute', bottom: 4, left: '50%', marginLeft: -27,
-        width: 150, maxWidth: '50%',
+        position: 'absolute',
+        bottom: 4,
+        left: '50%',
+        marginLeft: -27,
+        width: 150,
+        maxWidth: '50%',
       }}
       role="button"
       title="Watch the Eurovision Song Contest 2024"

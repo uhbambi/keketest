@@ -20,12 +20,14 @@ const Player = () => {
       width: '100%',
       height: '100%',
       background: '#150c00',
-    }}>
-    <div style={{
-      position: 'relative',
-      top: '50%',
-      transform: 'translateY(-50%)'
-    }}>
+    }}
+    >
+      <div style={{
+        position: 'relative',
+        top: '50%',
+        transform: 'translateY(-50%)',
+      }}
+      >
         <Embed url={uri} />
       </div>
     </div>
