@@ -279,10 +279,13 @@ tr:nth-child(even) {
 
 .win-resize {
   position: absolute;
-  bottom: -8px;
-  right: 0px;
+  bottom: -1px;
+  right: -1px;
   font-size: 22px;
   cursor: se-resize;
+  height: 25px;
+  width: 25px;
+  text-align: right;
 }
 
 .chat-container {
@@ -623,15 +626,17 @@ tr:nth-child(even) {
 
 .modal-content {
   position: relative;
-  width: calc(100% - 3px);
+  width: calc(100% - 4px);
   height: calc(100% - 50px);
+  left: 2px;
   overflow-y: auto;
 }
 
 .win-content {
   position: relative;
-  width: calc(100% - 3px);
+  width: calc(100% - 4px);
   height: calc(100% - 27px);
+  left: 2px;
   overflow-y: auto;
 }
 
