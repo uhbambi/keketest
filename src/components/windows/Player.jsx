@@ -1,6 +1,7 @@
 /* eslint-disable max-len */
 
 import React, { useContext } from 'react';
+import { t } from 'ttag';
 
 import WindowContext from '../context/window';
 import EMBEDS from '../embeds';
@@ -12,7 +13,10 @@ const Player = () => {
   const desc = getLinkDesc(uri);
 
   const embedObj = EMBEDS[desc];
-  const Embed = embedObj?.[0];
+  if (!embedObj?.[1](uri)) {
+    return <p>{t`This URL is not supported by our Media Player`}</p>;
+  }
+  const Embed = embedObj[0];
 
   return (
     <div style={{

@@ -5,6 +5,7 @@
 import { useCallback, useContext } from 'react';
 import { useDispatch } from 'react-redux';
 
+import { updateExistingPopUp } from '../../core/popUps';
 import { isPopUp, buildPopUpUrl } from '../windows/popUpAvailable';
 import { openWindow } from '../../store/actions/windows';
 import WindowContext from '../context/window';
@@ -59,7 +60,19 @@ function useLink() {
       args = null,
     } = options;
 
-    if (options.target === 'popup') {
+    const isMain = !isPopUp();
+    const { target } = options;
+
+    // if reusing existing windows, first try popups
+    if (options.reuse && updateExistingPopUp(windowType, args)) {
+      return;
+    }
+
+    // open new popup if target is popup or target
+    // is new window and we are in a popup already
+    if (options.target === 'popup'
+      || (!isMain && target === 'blank')
+    ) {
       // open as popup
       openWindowPopUp(
         windowType,
@@ -72,44 +85,16 @@ function useLink() {
       return;
     }
 
-    const {
-      title = '',
-    } = options;
+    const { title = '' } = options;
 
-    const isMain = !isPopUp();
-
-    if (options.target === 'blank' && isMain) {
-      // open as new window
-      const {
-        cloneable = true,
-      } = options;
-
+    if (isMain && target === 'fullscreen' || target === 'blank') {
       dispatch(openWindow(
         windowType.toUpperCase(),
+        !!options.reuse,
         title,
         args,
-        false,
-        cloneable,
-        xPos,
-        yPos,
-        width,
-        height,
-      ));
-      return;
-    }
-
-    if (options.target === 'fullscreen' && isMain) {
-      // open as fullscreen modal
-      const {
-        cloneable = true,
-      } = options;
-
-      dispatch(openWindow(
-        windowType.toUpperCase(),
-        title,
-        args,
-        true,
-        cloneable,
+        (target === 'fullscreen'),
+        options.cloneable || !options.reuse,
         xPos,
         yPos,
         width,

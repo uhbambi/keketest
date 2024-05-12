@@ -2,30 +2,6 @@
  * Actions that are exclusively used by windows
  */
 
-export function openWindow(
-  windowType,
-  title = '',
-  args = null,
-  fullscreen = false,
-  cloneable = true,
-  xPos = null,
-  yPos = null,
-  width = null,
-  height = null,
-) {
-  return {
-    type: 'OPEN_WIN',
-    windowType,
-    title,
-    args,
-    fullscreen,
-    cloneable,
-    xPos,
-    yPos,
-    width,
-    height,
-  };
-}
 
 export function setWindowArgs(
   windowId,
@@ -138,11 +114,62 @@ export function hideAllWindowTypes(
   };
 }
 
+export function openWindow(
+  windowType,
+  reuseExistingWindow = false,
+  title = '',
+  args = null,
+  fullscreen = false,
+  cloneable = true,
+  xPos = null,
+  yPos = null,
+  width = null,
+  height = null,
+) {
+  return (dispatch, getState) => {
+    if (reuseExistingWindow) {
+      // open in existing window of same type
+      const state = getState().windows;
+      const existingWin = state.windows.find(
+        (win) => win.windowType === windowType
+        && (state.showWindows || win.fullscreen),
+      );
+      if (existingWin) {
+        if (existingWin.hidden) {
+          dispatch(hideAllWindowTypes(windowType, false));
+        }
+        const { windowId } = existingWin;
+        if (title && title !== existingWin.title) {
+          dispatch(setWindowTitle(windowId, title));
+        }
+        dispatch(setWindowArgs(windowId, args));
+        dispatch(focusWindow(windowId));
+        return;
+      }
+      // if we tend to reuse a window type, it makes no sense to be cloneable
+      cloneable = false;
+    }
+    dispatch({
+      type: 'OPEN_WIN',
+      windowType,
+      title,
+      args,
+      fullscreen,
+      cloneable,
+      xPos,
+      yPos,
+      width,
+      height,
+    });
+  };
+}
+
 export function openChatWindow() {
   const width = 350;
   const height = 350;
   return openWindow(
     'CHAT',
+    false,
     '',
     null,
     false,

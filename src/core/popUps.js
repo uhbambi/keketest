@@ -2,59 +2,66 @@
  * keeping track of open popups
  */
 import { unload } from '../store/actions';
+import { buildPopUpUrl } from '../components/windows/popUpAvailable';
 
-class PopUps {
-  constructor() {
-    this.wins = [];
-    this.origin = window.location.origin;
-    window.addEventListener('beforeunload', () => {
-      this.dispatch(unload());
-    });
-  }
+const wins = [];
 
-  add(win) {
-    const pos = this.wins.indexOf(win);
-    if (pos === -1) {
-      this.wins.push(win);
-    }
-  }
-
-  remove(win) {
-    const pos = this.wins.indexOf(win);
-    if (~pos) this.wins.splice(pos, 1);
-  }
-
-  /*
-   * send message to all popups
-   * except the ignore one
-   */
-  dispatch(msg, ignore = null) {
-    const { wins } = this;
-    try {
-      for (let i = 0; i < wins.length; i += 1) {
-        const win = wins[i];
-        if (win.closed) {
-          wins.splice(i, 1);
-          i -= 1;
-          continue;
-        }
-        if (win !== ignore) {
-          win.postMessage(msg, this.origin);
-        }
-      }
-    } catch {
-      return false;
-    }
-    return true;
-  }
-
-  closeAll() {
-    while (this.wins.length) {
-      const win = this.wins.pop();
-      win.close();
-    }
+export function addPopUp(win) {
+  const pos = wins.indexOf(win);
+  if (pos === -1) {
+    wins.push(win);
   }
 }
 
-const popUps = new PopUps();
-export default popUps;
+export function removePopUp(win) {
+  const pos = wins.indexOf(win);
+  if (~pos) wins.splice(pos, 1);
+}
+
+export function closeAllPopUps() {
+  while (wins.length) {
+    const win = wins.pop();
+    win.close();
+  }
+}
+
+export function dispatchToPopUps(msg, ignore = null) {
+  try {
+    for (let i = 0; i < wins.length; i += 1) {
+      const win = wins[i];
+      if (win.closed) {
+        wins.splice(i, 1);
+        i -= 1;
+        continue;
+      }
+      if (win !== ignore) {
+        win.postMessage(msg, window.location.origin);
+      }
+    }
+  } catch {
+    return false;
+  }
+  return true;
+}
+
+export function updateExistingPopUp(windowType, args) {
+  const win = wins.find(
+    (w) => !w.closed
+      && w.location.pathname.split('/')[1]?.toUpperCase() === windowType,
+  );
+  if (win) {
+    win.location = buildPopUpUrl(windowType, args);
+    win.focus();
+    return true;
+  }
+  return false;
+}
+
+export function hasPopUps() {
+  return wins.length;
+}
+
+window.addEventListener('beforeunload', () => {
+  dispatchToPopUps(unload());
+});
+

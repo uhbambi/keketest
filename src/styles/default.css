@@ -901,10 +901,12 @@ table td span {
 }
 .ebex {
   vertical-align: middle;
+  cursor: pointer;
   color: #4646ff;
 }
 .ebcl {
   vertical-align: middle;
+  cursor: pointer;
   color: red;
 }
 .ping {
