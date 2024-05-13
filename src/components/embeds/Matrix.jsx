@@ -2,27 +2,13 @@
 
 import React from 'react';
 
-const Matrix = ({ url }) => {
+import DirectLinkMedia from './DirectLinkMedia';
+
+const Matrix = ({ url, fill }) => {
   const cleanUrl = url.substring(0, url.indexOf('?type='));
-  if (url.includes('?type=video')) {
-    return (
-      <div className="vemb">
-        <video
-          className="vembc"
-          controls
-          autoPlay
-          src={cleanUrl}
-        />
-      </div>
-    );
-  }
-  return (
-    <img
-      alt={`Matrix ${cleanUrl}`}
-      src={cleanUrl}
-      style={{ maxWidth: '100%' }}
-    />
-  );
+  const type = (url.includes('?type=video')) ? 'video' : 'image';
+  const Embed = DirectLinkMedia[0];
+  return <Embed url={cleanUrl} fill={fill} type={type} />;
 };
 
 export default [

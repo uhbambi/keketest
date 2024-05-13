@@ -5,23 +5,23 @@ import usePostMessage from '../hooks/postMessage';
 
 const urlStr = '/status/';
 
-const Twitter = ({ url }) => {
+const Twitter = ({ url, fill }) => {
   const [frameHeight, setFrameHeight] = useState(200);
+  const [frameWidth, setFrameWidth] = useState(500);
   const iFrameRef = useRef(null);
 
   usePostMessage(iFrameRef,
     (data) => {
       try {
-        if (data['twttr.embed']
-          && data['twttr.embed'].method === 'twttr.private.resize'
-          && data['twttr.embed'].params.length
-          && data['twttr.embed'].params[0].height
+        if (data['twttr.embed']?.method === 'twttr.private.resize'
+          && data['twttr.embed'].params?.[0]?.height
         ) {
+          setFrameWidth(data['twttr.embed'].params[0].width);
           setFrameHeight(data['twttr.embed'].params[0].height);
         }
       } catch {
         // eslint-disable-next-line no-console
-        console.error(`Could not read postMessage from frame: ${data}`);
+        console.error('Could not read postMessage from frame', data);
       }
     },
   );
@@ -34,25 +34,34 @@ const Twitter = ({ url }) => {
   }
 
   return (
-    <iframe
-      ref={iFrameRef}
+    <div
       style={{
-        width: '100%',
-        height: frameHeight,
+        textAlign: 'center',
+        height: fill && '100%',
+        alignContent: fill && 'center',
       }}
-      src={
+    >
+      <iframe
+        ref={iFrameRef}
+        style={{
+          width: frameWidth,
+          height: frameHeight,
+          borderRadius: 12,
+        }}
+        src={
+          // eslint-disable-next-line max-len
+          `https://platform.twitter.com/embed/Tweet.html?dnt=true&embedId=twitter-widget-&frame=false&hideCard=false&hideThread=true&id=${tid}&theme=light`
+        }
+        frameBorder="0"
+        referrerPolicy="no-referrer"
+        allow="autoplay; picture-in-picture"
+        scrolling="no"
         // eslint-disable-next-line max-len
-        `https://platform.twitter.com/embed/Tweet.html?dnt=true&embedId=twitter-widget-&frame=false&hideCard=false&hideThread=true&id=${tid}&theme=light&width=550px`
-      }
-      frameBorder="0"
-      referrerPolicy="no-referrer"
-      allow="autoplay; picture-in-picture"
-      scrolling="no"
-      // eslint-disable-next-line max-len
-      // sandbox="allow-scripts allow-modals allow-forms allow-popups allow-same-origin allow-presentation"
-      allowFullScreen
-      title="Embedded twitter"
-    />
+        sandbox="allow-scripts allow-modals allow-forms allow-popups allow-same-origin allow-presentation"
+        allowFullScreen
+        title="Embedded twitter"
+      />
+    </div>
   );
 };
 

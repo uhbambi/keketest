@@ -20,6 +20,8 @@ const titleAllowed = [
   'matrix.pixelplanet.fun',
   'youtube',
   'youtu.be',
+  'bitchute',
+  'tiktok',
   't.me',
 ];
 
@@ -67,7 +69,7 @@ const MdLink = ({ href, title, refEmbed }) => {
         {parsedTitle}
       </a>
       {(embedAvailable) && (
-        <>
+        <span className="embbtn">
           &nbsp;
           {(embedObj[3])
             && (
@@ -111,7 +113,7 @@ const MdLink = ({ href, title, refEmbed }) => {
                 />
               )}
           </span>
-        </>
+          </span>
       )}
       {showEmbed && embedAvailable && (
         (refEmbed && refEmbed.current)

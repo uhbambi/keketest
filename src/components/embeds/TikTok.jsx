@@ -1,4 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
+
+import { stripQuery } from '../../core/utils';
 
 function getUserFromUrl(url) {
   let aPos = url.indexOf('/@');
@@ -13,42 +15,38 @@ function getUserFromUrl(url) {
   return url.substring(aPos, bPos);
 }
 
-const TikTok = ({ url }) => {
-  const [embedCode, setEmbedCode] = useState(null);
-
-  useEffect(() => {
-    async function fetchData() {
-      // eslint-disable-next-line max-len
-      const tkurl = `${window.location.protocol}//www.tiktok.com/oembed?url=${encodeURIComponent(url)}`;
-      const resp = await fetch(tkurl);
-      const embedData = await resp.json();
-      if (embedData.html) {
-        setEmbedCode(embedData.html);
-      }
-    }
-    fetchData();
-  }, [url]);
-
-  if (!embedCode) {
-    return <div>LOADING</div>;
-  }
+const TikTok = ({ url, fill }) => {
+  let tid = stripQuery(url);
+  tid = tid.substring(tid.lastIndexOf('/'));
 
   return (
-    <iframe
+    <div
       style={{
-        width: '100%',
-        height: 756,
+        textAlign: 'center',
+        height: fill && '100%',
+        alignContent: fill && 'center',
       }}
-      srcDoc={embedCode}
-      frameBorder="0"
-      referrerPolicy="no-referrer"
-      allow="autoplay; picture-in-picture"
-      scrolling="no"
-      // eslint-disable-next-line max-len
-      sandbox="allow-scripts allow-modals allow-forms allow-popups allow-same-origin allow-presentation"
-      allowFullScreen
-      title="Embedded tiktok"
-    />
+    >
+      <iframe
+        style={{
+          borderRadius: 5,
+          height: 768,
+          width: 320,
+        }}
+        src={
+        // eslint-disable-next-line max-len
+        `https://www.tiktok.com/embed/v2/${tid}`
+      }
+        frameBorder="0"
+        referrerPolicy="no-referrer"
+        allow="autoplay"
+        scrolling="no"
+        // eslint-disable-next-line max-len
+        sandbox="allow-scripts allow-modals allow-forms allow-popups allow-same-origin allow-presentation"
+        allowFullScreen
+        title="Embedded tiktok"
+      />
+    </div>
   );
 };
 

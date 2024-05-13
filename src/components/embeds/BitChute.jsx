@@ -3,17 +3,11 @@ import React from 'react';
 import DirectLinkEmbed from './DirectLinkEmbed';
 
 function getIdFromURL(url) {
-  let vPos = -1;
-  if (url.includes('youtube')) {
-    vPos = url.indexOf('v=');
-  }
-  if (url.includes('youtu.be')) {
-    vPos = url.indexOf('e/');
-  }
+  let vPos = url.indexOf('/video/');
   if (vPos === -1) {
     return null;
   }
-  vPos += 2;
+  vPos += 7;
   let vEnd;
   for (vEnd = vPos;
     vEnd < url.length && !['&', '?', '/'].includes(url[vEnd]);
@@ -21,7 +15,7 @@ function getIdFromURL(url) {
   return url.substring(vPos, vEnd);
 }
 
-const YouTube = ({ url, fill }) => {
+const BitChute = ({ url, fill }) => {
   const id = getIdFromURL(url);
   if (!id) {
     return null;
@@ -29,15 +23,15 @@ const YouTube = ({ url, fill }) => {
   const Embed = DirectLinkEmbed[0];
   return (
     <Embed
-      url={`https://www.youtube.com/embed/${id}?autoplay=1`}
+      url={`https://www.bitchute.com/embed/${id}`}
       fill={fill}
     />
   );
 };
 
 export default [
-  React.memo(YouTube),
+  React.memo(BitChute),
   getIdFromURL,
   getIdFromURL,
-  '/embico/youtube.png',
+  '/embico/bitchute.png',
 ];

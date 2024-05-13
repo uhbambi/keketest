@@ -20,20 +20,13 @@ const Player = () => {
 
   return (
     <div style={{
-      position: 'relative',
-      width: '100%',
-      height: '100%',
-      background: '#150c00',
+      position: 'absolute',
+      inset: 0,
+      backgroundColor: '#270f0f',
+      overflow: 'auto',
     }}
     >
-      <div style={{
-        position: 'relative',
-        top: '50%',
-        transform: 'translateY(-50%)',
-      }}
-      >
-        <Embed url={uri} />
-      </div>
+      <Embed url={uri} fill />
     </div>
   );
 };

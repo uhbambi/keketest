@@ -404,6 +404,10 @@ tr:nth-child(even) {
   background: #c2bebc26;
 }
 
+.embbtn {
+  font-size: 16px;
+}
+
 .cvimg {
   max-width: 20%;
   opacity: 0.3;
@@ -1123,21 +1127,6 @@ table td span {
 
 .modal.show, .Alert.show, .overlay.show, .window.show {
   opacity: 1;
-}
-
-.vemb {
-  overflow: hidden;
-  position: relative;
-  height: 0;
-  padding-bottom: 66%;
-}
-
-.vembc {
-  left: 0;
-  top: 0;
-  height: 100%;
-  width: 100%;
-  position: absolute;
 }
 
 .respbox {
