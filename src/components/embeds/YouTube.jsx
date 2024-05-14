@@ -4,16 +4,21 @@ import DirectLinkEmbed from './DirectLinkEmbed';
 
 function getIdFromURL(url) {
   let vPos = -1;
+  let corLength = 2;
   if (url.includes('youtube')) {
-    vPos = url.indexOf('v=');
-  }
-  if (url.includes('youtu.be')) {
+    if (url.includes('/shorts/')) {
+      vPos = url.indexOf('/shorts/');
+      corLength = 8;
+    } else {
+      vPos = url.indexOf('v=');
+    }
+  } else if (url.includes('youtu.be')) {
     vPos = url.indexOf('e/');
   }
   if (vPos === -1) {
     return null;
   }
-  vPos += 2;
+  vPos += corLength;
   let vEnd;
   for (vEnd = vPos;
     vEnd < url.length && !['&', '?', '/'].includes(url[vEnd]);
@@ -31,6 +36,7 @@ const YouTube = ({ url, fill }) => {
     <Embed
       url={`https://www.youtube.com/embed/${id}?autoplay=1`}
       fill={fill}
+      aspectRatio={url.includes('/shorts/') && '177.77%'}
     />
   );
 };

@@ -1,6 +1,6 @@
 import React from 'react';
 
-const DirectLinkEmbed = ({ url, fill }) => {
+const DirectLinkEmbed = ({ url, fill, aspectRatio }) => {
   const iFrame = (
     <iframe
       style={{
@@ -11,7 +11,7 @@ const DirectLinkEmbed = ({ url, fill }) => {
       src={url}
       frameBorder="0"
       referrerPolicy="no-referrer"
-      allow="autoplay; picture-in-picture"
+      allow="autoplay; picture-in-picture; encrypted-media"
       scrolling="no"
       // eslint-disable-next-line max-len
       sandbox="allow-scripts allow-modals allow-forms allow-popups allow-same-origin allow-presentation"
@@ -26,7 +26,7 @@ const DirectLinkEmbed = ({ url, fill }) => {
         position: 'relative',
         height: 0,
         width: '100%',
-        paddingBottom: '56.35%',
+        paddingBottom: aspectRatio || '56.35%',
       }}
     >
       {iFrame}

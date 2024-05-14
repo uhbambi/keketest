@@ -39,6 +39,5 @@ export default {
   'cdn.discord.com': DirectLinkMedia,
   't.me': Telegram,
   twitter: Twitter,
-  'nitter.net': Twitter,
   odysee: Odysee,
 };
