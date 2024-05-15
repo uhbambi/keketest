@@ -266,7 +266,7 @@ msgid "You have new messages in chat"
 msgstr ""
 
 #: src/components/Converter.jsx:566 src/components/CoordinatesBox.jsx:42
-#: src/components/ModWatchtools.jsx:390 src/components/ModWatchtools.jsx:408
+#: src/components/ModWatchtools.jsx:388 src/components/ModWatchtools.jsx:406
 msgid "Copy to Clipboard"
 msgstr "Буферы ивдмæ Къопи ис"
 
@@ -278,7 +278,7 @@ msgstr ""
 msgid "Total Online Users"
 msgstr ""
 
-#: src/components/OnlineBox.jsx:84 src/components/UserAreaContent.jsx:71
+#: src/components/OnlineBox.jsx:84 src/components/UserAreaContent.jsx:79
 msgid "Placed Pixels"
 msgstr "Равæрды Пикселтæ"
 
@@ -291,15 +291,15 @@ msgid "Total"
 msgstr "Иумæйæг"
 
 #: src/components/buttons/CanvasSwitchButton.jsx:20
-#: src/components/windows/index.js:19
+#: src/components/windows/index.js:20
 msgid "Canvas Selection"
 msgstr "Четæны Равзæрст"
 
-#: src/components/buttons/ChatButton.jsx:88
+#: src/components/buttons/ChatButton.jsx:79
 msgid "Close Chat"
 msgstr "Чаты Сæхгæнын"
 
-#: src/components/buttons/ChatButton.jsx:88
+#: src/components/buttons/ChatButton.jsx:79
 msgid "Open Chat"
 msgstr "Чаты Бакæнын"
 
@@ -311,18 +311,18 @@ msgstr "Меню Сæхгæнын"
 msgid "Open Menu"
 msgstr "Меню Бакæнын"
 
-#: src/components/HistorySelect.jsx:146
+#: src/components/HistorySelect.jsx:156
 #, fuzzy
 msgid "Loading"
 msgstr "Æрбавгæд..."
 
-#: src/components/HistorySelect.jsx:147
+#: src/components/HistorySelect.jsx:157
 #, fuzzy
 msgid "Select Date above"
 msgstr "Æвзаджы Равзарын"
 
-#: src/components/Admintools.jsx:103 src/components/ModCanvastools.jsx:226
-#: src/components/ModWatchtools.jsx:120 src/components/Window.jsx:157
+#: src/components/Admintools.jsx:103 src/components/ModCanvastools.jsx:227
+#: src/components/ModWatchtools.jsx:118 src/components/Window.jsx:157
 #: src/components/Window.jsx:260
 #: src/components/contextmenus/ChannelContextMenu.jsx:59
 msgid "Close"
@@ -354,16 +354,16 @@ msgid "Resize"
 msgstr ""
 
 #: src/components/BanInfo.jsx:75 src/components/buttons/HelpButton.jsx:20
-#: src/components/windows/index.js:13
+#: src/components/windows/index.js:14
 msgid "Help"
 msgstr "Æххуыс"
 
 #: src/components/buttons/SettingsButton.jsx:21
-#: src/components/windows/index.js:14
+#: src/components/windows/index.js:15
 msgid "Settings"
 msgstr "Рæвдзгæнæнтæ"
 
-#: src/components/buttons/LogInButton.jsx:20 src/components/windows/index.js:15
+#: src/components/buttons/LogInButton.jsx:20 src/components/windows/index.js:16
 msgid "User Area"
 msgstr "Пайдагæнæджы Облæст"
 
@@ -374,6 +374,14 @@ msgstr "Скриншоты Саразын"
 #: src/components/buttons/GlobeButton.jsx:34
 msgid "Globe View"
 msgstr "Глобалон бакаст"
+
+#: src/components/buttons/PalselButton.jsx:30
+msgid "Close Palette"
+msgstr "Палитры Сæхгæнын"
+
+#: src/components/buttons/PalselButton.jsx:30
+msgid "Open Palette"
+msgstr "Палитры Бакæнын"
 
 #: src/components/buttons/PencilButton.jsx:41
 msgid "Enable Pencil"
@@ -392,31 +400,27 @@ msgstr ""
 msgid "Disable Overlay Pencil"
 msgstr ""
 
-#: src/components/buttons/PalselButton.jsx:30
-msgid "Close Palette"
-msgstr "Палитры Сæхгæнын"
-
-#: src/components/buttons/PalselButton.jsx:30
-msgid "Open Palette"
-msgstr "Палитры Бакæнын"
-
-#: src/components/windows/index.js:16
+#: src/components/windows/index.js:17
 #, fuzzy
 msgid "Registration"
 msgstr "Регистраци"
 
-#: src/components/windows/index.js:17
+#: src/components/windows/index.js:18
 #, fuzzy
 msgid "Forgot Password"
 msgstr "Паролы мæ ферох."
 
-#: src/components/windows/index.js:18
+#: src/components/windows/index.js:19
 msgid "Chat"
 msgstr "Чат"
 
-#: src/components/windows/index.js:20
+#: src/components/windows/index.js:21
 msgid "Canvas Archive"
 msgstr "Четæны Архив"
+
+#: src/components/windows/index.js:22
+msgid "Player"
+msgstr ""
 
 #: src/components/GlobalCaptcha.jsx:47
 msgid "You took too long, try again."
@@ -874,8 +878,8 @@ msgid "Captcha"
 msgstr ""
 
 #: src/components/Admintools.jsx:154 src/components/Admintools.jsx:238
-#: src/components/ModCanvastools.jsx:312 src/components/ModCanvastools.jsx:403
-#: src/components/ModCanvastools.jsx:486 src/components/ModCanvastools.jsx:587
+#: src/components/ModCanvastools.jsx:313 src/components/ModCanvastools.jsx:404
+#: src/components/ModCanvastools.jsx:482 src/components/ModCanvastools.jsx:583
 #: src/components/ModIIDtools.jsx:135
 #: src/components/windows/ForgotPassword.jsx:84
 #: src/components/windows/Register.jsx:127
@@ -964,6 +968,10 @@ msgstr "Ды чаты бацу дарын"
 #: src/components/windows/Chat.jsx:273
 msgid "Channel settings"
 msgstr "Къаналы рæвдзгæнæнтæ"
+
+#: src/components/windows/Player.jsx:17
+msgid "This URL is not supported by our Media Player"
+msgstr ""
 
 #: src/components/windows/ForgotPassword.jsx:58
 msgid "Sent you a mail with instructions to reset your password."
@@ -1124,47 +1132,6 @@ msgstr ""
 msgid "Import templates"
 msgstr ""
 
-#: src/components/UserAreaContent.jsx:62
-msgid "Today Placed Pixels"
-msgstr "Абонон Равæрды Пикселтæ"
-
-#: src/components/UserAreaContent.jsx:66
-msgid "Daily Rank"
-msgstr "Алыбоны Рейтинг"
-
-#: src/components/UserAreaContent.jsx:75
-msgid "Total Rank"
-msgstr "Иумæйаг Рейтинг"
-
-#: src/components/UserAreaContent.jsx:80
-#, javascript-format
-msgid "Your name is: ${ name }"
-msgstr "Дæ ном: ${ name }"
-
-#: src/components/UserAreaContent.jsx:86
-msgid "Log out"
-msgstr "Рахиз"
-
-#: src/components/UserAreaContent.jsx:93
-msgid "Change Username"
-msgstr "Пайдæгæнæджы ном Аивын"
-
-#: src/components/UserAreaContent.jsx:103
-msgid "Change Mail"
-msgstr "Електронон Посты Аивын"
-
-#: src/components/UserAreaContent.jsx:112
-msgid "Change Password"
-msgstr "Паролы Аивын"
-
-#: src/components/UserAreaContent.jsx:119
-msgid "Delete Account"
-msgstr "Аккаунты Адард кæн"
-
-#: src/components/UserAreaContent.jsx:126
-msgid "Social Settings"
-msgstr "Социалон Рæвдзгæнæнтæ"
-
 #: src/components/LogInArea.jsx:19
 msgid "Login to access more features and stats."
 msgstr "Бацу цæмæй бацæуæн райсын баххæстаг функци кæнæ статистикмæ."
@@ -1189,58 +1156,48 @@ msgstr "кæнæ регистраци ам:"
 msgid "Register"
 msgstr "Регистраци"
 
-#: src/components/Rankings.jsx:168
-msgid "Yesterday"
-msgstr ""
+#: src/components/UserAreaContent.jsx:69
+msgid "Today Placed Pixels"
+msgstr "Абонон Равæрды Пикселтæ"
 
-#: src/components/Rankings.jsx:177
-msgid "Countries Today"
-msgstr ""
+#: src/components/UserAreaContent.jsx:73
+msgid "Daily Rank"
+msgstr "Алыбоны Рейтинг"
 
-#: src/components/Rankings.jsx:186 src/components/Rankings.jsx:203
-msgid "Charts"
-msgstr ""
+#: src/components/UserAreaContent.jsx:83
+msgid "Total Rank"
+msgstr "Иумæйаг Рейтинг"
 
-#: src/components/Rankings.jsx:191
-#, fuzzy
-msgid "Total Pixels per Player"
-msgstr "Æрбынтон пикселтæ"
+#: src/components/UserAreaContent.jsx:89
+#, javascript-format
+msgid "Your name is: ${ name }"
+msgstr "Дæ ном: ${ name }"
 
-#: src/components/Rankings.jsx:192
-#, fuzzy
-msgid "Daily Pixels per Player"
-msgstr "Æрбынтон пикселтæ"
+#: src/components/UserAreaContent.jsx:95
+msgid "Log out"
+msgstr "Рахиз"
 
-#: src/components/Rankings.jsx:193
-msgid "Top 10 Players from Yesterday"
-msgstr ""
+#: src/components/UserAreaContent.jsx:102
+msgid "Change Username"
+msgstr "Пайдæгæнæджы ном Аивын"
 
-#: src/components/Rankings.jsx:197
-#, fuzzy
-msgid "Daily Pixels per Country"
-msgstr "Равæрды Пикселтæ"
+#: src/components/UserAreaContent.jsx:112
+msgid "Change Mail"
+msgstr "Електронон Посты Аивын"
 
-#: src/components/Rankings.jsx:215 src/components/Rankings.jsx:224
-#: src/components/Rankings.jsx:233
-#, fuzzy
-msgid "User"
-msgstr "Пайдагæнæджы Облæст"
+#: src/components/UserAreaContent.jsx:121
+msgid "Change Password"
+msgstr "Паролы Аивын"
 
-#: src/components/CooldownChanges.jsx:24 src/components/Rankings.jsx:240
-msgid "Country"
-msgstr ""
+#: src/components/UserAreaContent.jsx:128
+msgid "Delete Account"
+msgstr "Аккаунты Адард кæн"
 
-#: src/components/Rankings.jsx:241
-msgid "+last hour"
-msgstr ""
+#: src/components/UserAreaContent.jsx:135
+msgid "Social Settings"
+msgstr "Социалон Рæвдзгæнæнтæ"
 
-#: src/components/Rankings.jsx:311
-msgid "Ranking updates every 5 min. Daily rankings get reset at midnight UTC."
-msgstr ""
-"Рейтинг ногæй алы 5 минуты. Æрвылбойнон рейтингтæ æппар æмбисæхсæвы "
-"æппæтдунеон координаты рæстæджыл."
-
-#: src/components/Converter.jsx:191 src/components/ModCanvastools.jsx:230
+#: src/components/Converter.jsx:191 src/components/ModCanvastools.jsx:231
 msgid "Choose Canvas"
 msgstr "Четæны Равзар"
 
@@ -1317,6 +1274,57 @@ msgstr "Ногæй"
 msgid "Download Template"
 msgstr "Шаблоны Равæр"
 
+#: src/components/Rankings.jsx:168
+msgid "Yesterday"
+msgstr ""
+
+#: src/components/Rankings.jsx:177
+msgid "Countries Today"
+msgstr ""
+
+#: src/components/Rankings.jsx:186 src/components/Rankings.jsx:203
+msgid "Charts"
+msgstr ""
+
+#: src/components/Rankings.jsx:191
+#, fuzzy
+msgid "Total Pixels per Player"
+msgstr "Æрбынтон пикселтæ"
+
+#: src/components/Rankings.jsx:192
+#, fuzzy
+msgid "Daily Pixels per Player"
+msgstr "Æрбынтон пикселтæ"
+
+#: src/components/Rankings.jsx:193
+msgid "Top 10 Players from Yesterday"
+msgstr ""
+
+#: src/components/Rankings.jsx:197
+#, fuzzy
+msgid "Daily Pixels per Country"
+msgstr "Равæрды Пикселтæ"
+
+#: src/components/Rankings.jsx:215 src/components/Rankings.jsx:224
+#: src/components/Rankings.jsx:233
+#, fuzzy
+msgid "User"
+msgstr "Пайдагæнæджы Облæст"
+
+#: src/components/CooldownChanges.jsx:24 src/components/Rankings.jsx:240
+msgid "Country"
+msgstr ""
+
+#: src/components/Rankings.jsx:243
+msgid "+last hour"
+msgstr ""
+
+#: src/components/Rankings.jsx:314
+msgid "Ranking updates every 5 min. Daily rankings get reset at midnight UTC."
+msgstr ""
+"Рейтинг ногæй алы 5 минуты. Æрвылбойнон рейтингтæ æппар æмбисæхсæвы "
+"æппæтдунеон координаты рæстæджыл."
+
 #: src/components/CanvasItem.jsx:29
 #, fuzzy
 msgid "Online Users"
@@ -1365,7 +1373,16 @@ msgstr "Алыбоны Рейтинг"
 msgid "Dimensions"
 msgstr "Бæрцтæ"
 
-#: src/components/ModWatchtools.jsx:125 src/components/TemplateItem.jsx:54
+#: src/components/TemplateItemEdit.jsx:97
+#, fuzzy
+msgid "Select File"
+msgstr "Æвзаджы Равзарын"
+
+#: src/components/TemplateItemEdit.jsx:120
+msgid "Template Name"
+msgstr ""
+
+#: src/components/ModWatchtools.jsx:123 src/components/TemplateItem.jsx:54
 #: src/components/TemplateItemEdit.jsx:122
 #, fuzzy
 msgid "Canvas"
@@ -1376,44 +1393,18 @@ msgstr "Четæны Равзар"
 msgid "Coordinates"
 msgstr "Æнæраст Координаттæ"
 
-#: src/components/TemplateItem.jsx:71
-msgid "Edit"
-msgstr ""
-
-#: src/components/TemplateItem.jsx:81
-msgid "Go to"
-msgstr ""
-
-#: src/components/TemplateItemEdit.jsx:97
-#, fuzzy
-msgid "Select File"
-msgstr "Æвзаджы Равзарын"
-
-#: src/components/TemplateItemEdit.jsx:120
-msgid "Template Name"
-msgstr ""
-
 #: src/components/TemplateItemEdit.jsx:174
 #, fuzzy
 msgid "Delete"
 msgstr "Аккаунты Адард кæн"
 
-#: src/components/UserMessages.jsx:28
-#, fuzzy
-msgid ""
-"Please verify your mail address or your account could get deleted after a "
-"few days."
-msgstr ""
-"Табуафси сфидар дæ адрис електронон пост&nbsp;\n"
-"кæнæ дæ аккаунт чи зоны адард цалдæр бон фæстæ."
+#: src/components/LogInForm.jsx:77
+msgid "Name or Email"
+msgstr "Ном кæнæ Електронон пост"
 
-#: src/components/UserMessages.jsx:49
-msgid "A new verification mail is getting sent to you."
-msgstr "Æгъгъæд дæ араст ног фыстæг бæлвырдгæнæнимæ."
-
-#: src/components/UserMessages.jsx:53
-msgid "Click here to request a new verification mail."
-msgstr "Ныкъкъæрцц ам, цæмæй æрфæрс ног фыстæг бæлвырдгæнæнимæ."
+#: src/components/LogInForm.jsx:88
+msgid "LogIn"
+msgstr "Бацу"
 
 #: src/components/ChangePassword.jsx:21
 msgid "Passwords do not match."
@@ -1453,6 +1444,23 @@ msgstr ""
 msgid "New Mail"
 msgstr "Ног Парол"
 
+#: src/components/UserMessages.jsx:28
+#, fuzzy
+msgid ""
+"Please verify your mail address or your account could get deleted after a "
+"few days."
+msgstr ""
+"Табуафси сфидар дæ адрис електронон пост&nbsp;\n"
+"кæнæ дæ аккаунт чи зоны адард цалдæр бон фæстæ."
+
+#: src/components/UserMessages.jsx:49
+msgid "A new verification mail is getting sent to you."
+msgstr "Æгъгъæд дæ араст ног фыстæг бæлвырдгæнæнимæ."
+
+#: src/components/UserMessages.jsx:53
+msgid "Click here to request a new verification mail."
+msgstr "Ныкъкъæрцц ам, цæмæй æрфæрс ног фыстæг бæлвырдгæнæнимæ."
+
 #: src/components/DeleteAccount.jsx:66
 msgid "Yes, Delete My Account!"
 msgstr "О, Мæ Аккаунт Адард кæн!"
@@ -1482,76 +1490,68 @@ msgstr "Пайдагæнæжы Хъоды айс"
 msgid "You have no users blocked"
 msgstr "Фæхъоды пайдагæнæджытæ æнæ ард"
 
-#: src/components/LogInForm.jsx:77
-msgid "Name or Email"
-msgstr "Ном кæнæ Електронон пост"
-
-#: src/components/LogInForm.jsx:88
-msgid "LogIn"
-msgstr "Бацу"
-
-#: src/components/ModCanvastools.jsx:168
+#: src/components/ModCanvastools.jsx:169
 msgid "Build image on canvas."
 msgstr "Сурæт четæныл сараз."
 
-#: src/components/ModCanvastools.jsx:171
+#: src/components/ModCanvastools.jsx:172
 msgid "Build image and set it to protected."
 msgstr "Сурæты сфæлдис æмæ равæр йæ хъахъхъæнæн."
 
-#: src/components/ModCanvastools.jsx:174
+#: src/components/ModCanvastools.jsx:175
 msgid "Build image, but reset cooldown to unset-pixel cd."
 msgstr ""
 "Сурæты сфæлдис, фæлæ раппар цалцæджы рæстæг æнæравæрон пикселы æнгом-дискмæ."
 
-#: src/components/ModCanvastools.jsx:184
+#: src/components/ModCanvastools.jsx:185
 msgid "Clean spare pixels that are surrounded by unset pixels"
 msgstr ""
 
-#: src/components/ModCanvastools.jsx:188
+#: src/components/ModCanvastools.jsx:189
 msgid ""
 "Clean spare pixels that are surrounded by unset pixels and up to 1 other set "
 "pixels"
 msgstr ""
 
-#: src/components/ModCanvastools.jsx:192
+#: src/components/ModCanvastools.jsx:193
 msgid ""
 "Clean spare pixels that are surrounded by a single other color or unset "
 "pixels (VERY AGGRESSIVE ON CANVASES THAT ALLOW UNSET PIXELS (where there are "
 "two cooldowns)!)"
 msgstr ""
 
-#: src/components/ModCanvastools.jsx:196
+#: src/components/ModCanvastools.jsx:197
 msgid ""
 "Turn every pixel in area to 0 (YOU REALLY SHOULDN'T DO THAT ON ANY AREA THAT "
 "ISN'T ALREADY MOSTLY 0)"
 msgstr ""
 
-#: src/components/ModCanvastools.jsx:207
+#: src/components/ModCanvastools.jsx:208
 msgid "Status: Not running"
 msgstr ""
 
-#: src/components/ModCanvastools.jsx:249
+#: src/components/ModCanvastools.jsx:250
 msgid "Image Upload"
 msgstr "Сурæты Байдзаг"
 
-#: src/components/ModCanvastools.jsx:250
+#: src/components/ModCanvastools.jsx:251
 msgid "Upload images to canvas"
 msgstr "Сурæт четæныл байдзаг"
 
-#: src/components/ModCanvastools.jsx:252
+#: src/components/ModCanvastools.jsx:253
 msgid "File"
 msgstr "Файл"
 
-#: src/components/ModCanvastools.jsx:273
+#: src/components/ModCanvastools.jsx:274
 #, fuzzy
 msgid "Coordinates:"
 msgstr "Æнæраст Координаттæ"
 
-#: src/components/ModCanvastools.jsx:317
+#: src/components/ModCanvastools.jsx:318
 msgid "Pixel Protection"
 msgstr "Пикселы Хъахъхъæд"
 
-#: src/components/ModCanvastools.jsx:321
+#: src/components/ModCanvastools.jsx:322
 #, fuzzy
 msgid ""
 "Set protection of areas (if you need finer grained control, use protect with "
@@ -1560,34 +1560,35 @@ msgstr ""
 "Облæсты хъахъхъæд равæр         (дæ хъæуы куы дырыс цæстдарддæр,         "
 "хъахъхъæды спайда æрбавгæд сурæтимæ æмæ алфæ-цъар)"
 
-#: src/components/ModCanvastools.jsx:341 src/components/ModCanvastools.jsx:424
-#: src/components/ModCanvastools.jsx:517 src/components/ModWatchtools.jsx:176
+#: src/components/ModCanvastools.jsx:342 src/components/ModCanvastools.jsx:419
+#: src/components/ModCanvastools.jsx:513 src/components/ModWatchtools.jsx:174
 msgid "Top-left corner"
 msgstr ""
 
-#: src/components/ModCanvastools.jsx:363 src/components/ModCanvastools.jsx:446
-#: src/components/ModCanvastools.jsx:539 src/components/ModWatchtools.jsx:198
+#: src/components/ModCanvastools.jsx:364 src/components/ModCanvastools.jsx:441
+#: src/components/ModCanvastools.jsx:535 src/components/ModWatchtools.jsx:196
 msgid "Bottom-right corner"
 msgstr ""
 
-#: src/components/ModCanvastools.jsx:409
+#: src/components/ModCanvastools.jsx:410
 msgid "Rollback to Date"
 msgstr "Датæмæ Тулæй"
 
-#: src/components/ModCanvastools.jsx:411
-msgid "Rollback an area of the canvas to a set date (00:00 UTC)"
+#: src/components/ModCanvastools.jsx:414
+#, fuzzy
+msgid "Rollback an area of the canvas to a set date and time"
 msgstr "Облæст четæны тулæй æрæвæрд датæмæ (00:00 UTC)"
 
-#: src/components/ModCanvastools.jsx:492
+#: src/components/ModCanvastools.jsx:488
 #, fuzzy
 msgid "Canvas Cleaner"
 msgstr "Четæны Равзæрст"
 
-#: src/components/ModCanvastools.jsx:494
+#: src/components/ModCanvastools.jsx:490
 msgid "Apply a filter to clean trash in large canvas areas."
 msgstr ""
 
-#: src/components/ModCanvastools.jsx:605
+#: src/components/ModCanvastools.jsx:601
 msgid "Stop Cleaner"
 msgstr ""
 
@@ -1623,30 +1624,38 @@ msgstr "Пайдагæнæджы ном бакæн нæуæг мод"
 msgid "User Name"
 msgstr "Пайдагæнæджы Ном"
 
-#: src/components/ModWatchtools.jsx:48
+#: src/components/ModWatchtools.jsx:49
 #, fuzzy
 msgid "Interval is invalid"
 msgstr "Æнæраст Четæн"
 
-#: src/components/ModWatchtools.jsx:124
+#: src/components/ModWatchtools.jsx:122
 msgid "Check who placed in an area"
 msgstr ""
 
-#: src/components/ModWatchtools.jsx:144
+#: src/components/ModWatchtools.jsx:142
 msgid "Interval"
 msgstr ""
 
-#: src/components/ModWatchtools.jsx:159
+#: src/components/ModWatchtools.jsx:157
 msgid "IID (optional)"
 msgstr ""
 
-#: src/components/ModWatchtools.jsx:249
+#: src/components/ModWatchtools.jsx:247
 #, fuzzy
 msgid "Get Pixels"
 msgstr "Равæрды Пикселтæ"
 
-#: src/components/ModWatchtools.jsx:281
+#: src/components/ModWatchtools.jsx:279
 msgid "Get Users"
+msgstr ""
+
+#: src/components/TemplateItem.jsx:71
+msgid "Edit"
+msgstr ""
+
+#: src/components/TemplateItem.jsx:81
+msgid "Go to"
 msgstr ""
 
 #: src/components/ModIIDtools.jsx:20
@@ -1717,6 +1726,18 @@ msgstr "Фæхъоды кæн"
 #: src/components/contextmenus/ChannelContextMenu.jsx:46
 msgid "Mute"
 msgstr "Фæбынæй кæн"
+
+#: src/components/MdLink.jsx:93
+msgid "Open in PopUp"
+msgstr ""
+
+#: src/components/MdLink.jsx:104
+msgid "Hide Embed"
+msgstr ""
+
+#: src/components/MdLink.jsx:110
+msgid "Show Embedded"
+msgstr ""
 
 #: src/components/windows/Help.jsx:19 src/components/windows/Settings.jsx:73
 msgctxt "keybinds"

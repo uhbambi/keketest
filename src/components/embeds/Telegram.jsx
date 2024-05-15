@@ -5,8 +5,9 @@ import usePostMessage from '../hooks/postMessage';
 
 const urlStr = 't.me/';
 
-const Telegram = ({ url }) => {
+const Telegram = ({ url, fill }) => {
   const [frameHeight, setFrameHeight] = useState(200);
+  const [frameWidth, setFrameWidth] = useState('100%');
   const iFrameRef = useRef(null);
 
   usePostMessage(iFrameRef,
@@ -14,13 +15,12 @@ const Telegram = ({ url }) => {
       try {
         const pdata = JSON.parse(data);
         if (pdata.event === 'resize') {
-          if (pdata.height) {
-            setFrameHeight(pdata.height);
-          }
+          if (pdata.width) setFrameWidth(pdata.width);
+          if (pdata.height) setFrameHeight(pdata.height);
         }
       } catch {
         // eslint-disable-next-line no-console
-        console.error(`Could not read postMessage from frame: ${data}`);
+        console.error('Could not read postMessage from frame', data);
       }
     },
   );
@@ -32,24 +32,36 @@ const Telegram = ({ url }) => {
     userPost = userPost.substring(0, sslash);
   }
 
-  return (
+  const iFrame = (
     <iframe
       ref={iFrameRef}
       style={{
-        width: '100%',
+        width: frameWidth,
+        minWidth: '100%',
         height: frameHeight,
       }}
       src={`https://t.me/${userPost}?embed=1`}
       frameBorder="0"
       referrerPolicy="no-referrer"
-      allow="autoplay; picture-in-picture"
+      allow="autoplay"
       scrolling="no"
-      // eslint-disable-next-line max-len
+    // eslint-disable-next-line max-len
       sandbox="allow-scripts allow-modals allow-forms allow-popups allow-same-origin allow-presentation"
       allowFullScreen
       title="Embedded telegram"
     />
   );
+
+  return (fill) ? (
+    <div
+      style={{
+        height: fill && '100%',
+        alignContent: fill && 'center',
+      }}
+    >
+      {iFrame}
+    </div>
+  ) : iFrame;
 };
 
 export default [

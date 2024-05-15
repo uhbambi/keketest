@@ -3,6 +3,9 @@ import express from 'express';
 import session from '../../middleware/session';
 import passport from '../../core/passport';
 import User from '../../data/User';
+import MassRateLimiter from '../../utils/MassRateLimiter';
+import logger from '../../core/logger';
+import { HOUR } from '../../core/constants';
 
 import me from './me';
 import auth from './auth';
@@ -18,7 +21,13 @@ import getiid from './getiid';
 import shards from './shards';
 import banme from './banme';
 
+const rateLimiter = new MassRateLimiter(HOUR);
+
 const router = express.Router();
+
+function onRateLimitTrigger(userId) {
+  logger.warn(`User ${userId} triggered API RateLimit.`);
+}
 
 // set cache-control
 router.use((req, res, next) => {
@@ -76,11 +85,9 @@ router.get('/chathistory', chatHistory);
 
 router.get('/me', me);
 
-router.use('/auth', auth);
-
 router.get('/baninfo', baninfo);
 
-router.post('/banme', banme);
+router.use('/auth', auth);
 
 /*
  * TODO: test if this works,
@@ -90,6 +97,14 @@ router.use((req, res, next) => {
     const { t } = req.ttag;
     const error = new Error(t`You are not logged in`);
     error.status = 401;
+    throw error;
+  } else if (rateLimiter.tick(req.user.id, 3000, null, onRateLimitTrigger)) {
+    const { t } = req.ttag;
+    const error = new Error(
+      // eslint-disable-next-line
+      t`You are doing too many things too fast. Cool down a bit and come back later.`,
+    );
+    error.status = 429;
     throw error;
   }
   next();
@@ -109,10 +124,11 @@ router.post('/blockdm', blockdm);
 
 router.post('/privatize', privatize);
 
+router.post('/banme', banme);
+
 /*
  * error handling
  */
-
 // eslint-disable-next-line no-unused-vars
 router.use((err, req, res, next) => {
   res.status(err.status || 400).json({

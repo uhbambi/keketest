@@ -279,10 +279,13 @@ tr:nth-child(even) {
 
 .win-resize {
   position: absolute;
-  bottom: -8px;
-  right: 0px;
+  bottom: -1px;
+  right: -1px;
   font-size: 22px;
   cursor: se-resize;
+  height: 25px;
+  width: 25px;
+  text-align: right;
 }
 
 .chat-container {
@@ -399,6 +402,10 @@ tr:nth-child(even) {
 
 .cvbtn:hover {
   background: #c2bebc26;
+}
+
+.embbtn {
+  font-size: 16px;
 }
 
 .cvimg {
@@ -623,15 +630,17 @@ tr:nth-child(even) {
 
 .modal-content {
   position: relative;
-  width: calc(100% - 3px);
+  width: calc(100% - 4px);
   height: calc(100% - 50px);
+  left: 2px;
   overflow-y: auto;
 }
 
 .win-content {
   position: relative;
-  width: calc(100% - 3px);
+  width: calc(100% - 4px);
   height: calc(100% - 27px);
+  left: 2px;
   overflow-y: auto;
 }
 
@@ -901,10 +910,12 @@ table td span {
 }
 .ebex {
   vertical-align: middle;
+  cursor: pointer;
   color: #4646ff;
 }
 .ebcl {
   vertical-align: middle;
+  cursor: pointer;
   color: red;
 }
 .ping {
@@ -1116,21 +1127,6 @@ table td span {
 
 .modal.show, .Alert.show, .overlay.show, .window.show {
   opacity: 1;
-}
-
-.vemb {
-  overflow: hidden;
-  position: relative;
-  height: 0;
-  padding-bottom: 66%;
-}
-
-.vembc {
-  left: 0;
-  top: 0;
-  height: 100%;
-  width: 100%;
-  position: absolute;
 }
 
 .respbox {

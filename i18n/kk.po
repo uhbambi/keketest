@@ -261,7 +261,7 @@ msgid "You have new messages in chat"
 msgstr "Чатқа жаңа хаттар келді"
 
 #: src/components/Converter.jsx:566 src/components/CoordinatesBox.jsx:42
-#: src/components/ModWatchtools.jsx:390 src/components/ModWatchtools.jsx:408
+#: src/components/ModWatchtools.jsx:388 src/components/ModWatchtools.jsx:406
 msgid "Copy to Clipboard"
 msgstr "Алмасу буферіне көшіру"
 
@@ -273,7 +273,7 @@ msgstr "Желідегі қолданушылар (кенепте)"
 msgid "Total Online Users"
 msgstr "Желідегі қолданушылар (жалпы)"
 
-#: src/components/OnlineBox.jsx:84 src/components/UserAreaContent.jsx:71
+#: src/components/OnlineBox.jsx:84 src/components/UserAreaContent.jsx:79
 msgid "Placed Pixels"
 msgstr "Салған пикселдерім"
 
@@ -286,15 +286,15 @@ msgid "Total"
 msgstr "Жалпы"
 
 #: src/components/buttons/CanvasSwitchButton.jsx:20
-#: src/components/windows/index.js:19
+#: src/components/windows/index.js:20
 msgid "Canvas Selection"
 msgstr "Кеңеп таңдау"
 
-#: src/components/buttons/ChatButton.jsx:88
+#: src/components/buttons/ChatButton.jsx:79
 msgid "Close Chat"
 msgstr "Чатты жабу"
 
-#: src/components/buttons/ChatButton.jsx:88
+#: src/components/buttons/ChatButton.jsx:79
 msgid "Open Chat"
 msgstr "Чатты ашу"
 
@@ -306,16 +306,16 @@ msgstr "Мәзірді жабу"
 msgid "Open Menu"
 msgstr "Мәзірді ашу"
 
-#: src/components/HistorySelect.jsx:146
+#: src/components/HistorySelect.jsx:156
 msgid "Loading"
 msgstr "Жүктелуде"
 
-#: src/components/HistorySelect.jsx:147
+#: src/components/HistorySelect.jsx:157
 msgid "Select Date above"
 msgstr "Жоғарыдан күнді таңдаңыз"
 
-#: src/components/Admintools.jsx:103 src/components/ModCanvastools.jsx:226
-#: src/components/ModWatchtools.jsx:120 src/components/Window.jsx:157
+#: src/components/Admintools.jsx:103 src/components/ModCanvastools.jsx:227
+#: src/components/ModWatchtools.jsx:118 src/components/Window.jsx:157
 #: src/components/Window.jsx:260
 #: src/components/contextmenus/ChannelContextMenu.jsx:59
 msgid "Close"
@@ -346,16 +346,16 @@ msgid "Resize"
 msgstr "Өлшемін өзгерту"
 
 #: src/components/BanInfo.jsx:75 src/components/buttons/HelpButton.jsx:20
-#: src/components/windows/index.js:13
+#: src/components/windows/index.js:14
 msgid "Help"
 msgstr "Көмек"
 
 #: src/components/buttons/SettingsButton.jsx:21
-#: src/components/windows/index.js:14
+#: src/components/windows/index.js:15
 msgid "Settings"
 msgstr "Баптаулар"
 
-#: src/components/buttons/LogInButton.jsx:20 src/components/windows/index.js:15
+#: src/components/buttons/LogInButton.jsx:20 src/components/windows/index.js:16
 msgid "User Area"
 msgstr "Қолданушы аймағы"
 
@@ -366,6 +366,14 @@ msgstr "Скриншот түсіру"
 #: src/components/buttons/GlobeButton.jsx:34
 msgid "Globe View"
 msgstr "Глобус көрінісі"
+
+#: src/components/buttons/PalselButton.jsx:30
+msgid "Close Palette"
+msgstr "Палитраны жабу"
+
+#: src/components/buttons/PalselButton.jsx:30
+msgid "Open Palette"
+msgstr "Палитраны ашу"
 
 #: src/components/buttons/PencilButton.jsx:41
 msgid "Enable Pencil"
@@ -383,29 +391,25 @@ msgstr "Тарихи қарындаш ошірілді"
 msgid "Disable Overlay Pencil"
 msgstr "Үлгі бойынша қарындаш өшірілді"
 
-#: src/components/buttons/PalselButton.jsx:30
-msgid "Close Palette"
-msgstr "Палитраны жабу"
-
-#: src/components/buttons/PalselButton.jsx:30
-msgid "Open Palette"
-msgstr "Палитраны ашу"
-
-#: src/components/windows/index.js:16
+#: src/components/windows/index.js:17
 msgid "Registration"
 msgstr "Тіркелу"
 
-#: src/components/windows/index.js:17
+#: src/components/windows/index.js:18
 msgid "Forgot Password"
 msgstr "Құпиясөзді ұмыту"
 
-#: src/components/windows/index.js:18
+#: src/components/windows/index.js:19
 msgid "Chat"
 msgstr "Чат"
 
-#: src/components/windows/index.js:20
+#: src/components/windows/index.js:21
 msgid "Canvas Archive"
 msgstr "Кенептер мұрағаты"
+
+#: src/components/windows/index.js:22
+msgid "Player"
+msgstr ""
 
 #: src/components/GlobalCaptcha.jsx:47
 msgid "You took too long, try again."
@@ -873,8 +877,8 @@ msgid "Captcha"
 msgstr "Captcha"
 
 #: src/components/Admintools.jsx:154 src/components/Admintools.jsx:238
-#: src/components/ModCanvastools.jsx:312 src/components/ModCanvastools.jsx:403
-#: src/components/ModCanvastools.jsx:486 src/components/ModCanvastools.jsx:587
+#: src/components/ModCanvastools.jsx:313 src/components/ModCanvastools.jsx:404
+#: src/components/ModCanvastools.jsx:482 src/components/ModCanvastools.jsx:583
 #: src/components/ModIIDtools.jsx:135
 #: src/components/windows/ForgotPassword.jsx:84
 #: src/components/windows/Register.jsx:127
@@ -961,6 +965,10 @@ msgstr "Чатта жазу үшін тіркелуіңіз керек"
 #: src/components/windows/Chat.jsx:273
 msgid "Channel settings"
 msgstr "Арна баптаулары"
+
+#: src/components/windows/Player.jsx:17
+msgid "This URL is not supported by our Media Player"
+msgstr ""
 
 #: src/components/windows/ForgotPassword.jsx:58
 msgid "Sent you a mail with instructions to reset your password."
@@ -1123,47 +1131,6 @@ msgstr "Қосылған үлгілерді экспорттау"
 msgid "Import templates"
 msgstr "Үлгілерді импорттау"
 
-#: src/components/UserAreaContent.jsx:62
-msgid "Today Placed Pixels"
-msgstr "Бүгін салған пикселдерім"
-
-#: src/components/UserAreaContent.jsx:66
-msgid "Daily Rank"
-msgstr "Күнделікті рейтиң"
-
-#: src/components/UserAreaContent.jsx:75
-msgid "Total Rank"
-msgstr "Жалпы рейтиң"
-
-#: src/components/UserAreaContent.jsx:80
-#, javascript-format
-msgid "Your name is: ${ name }"
-msgstr "Сіздің атыңыз: ${ name }"
-
-#: src/components/UserAreaContent.jsx:86
-msgid "Log out"
-msgstr "Шығу"
-
-#: src/components/UserAreaContent.jsx:93
-msgid "Change Username"
-msgstr "Қолданушы атын өзгерту"
-
-#: src/components/UserAreaContent.jsx:103
-msgid "Change Mail"
-msgstr "Поштаны өзгерту"
-
-#: src/components/UserAreaContent.jsx:112
-msgid "Change Password"
-msgstr "Құпиясөзді өзгерту"
-
-#: src/components/UserAreaContent.jsx:119
-msgid "Delete Account"
-msgstr "Тіркелгіні жою"
-
-#: src/components/UserAreaContent.jsx:126
-msgid "Social Settings"
-msgstr "Әлеуметтік баптаулар"
-
 #: src/components/LogInArea.jsx:19
 msgid "Login to access more features and stats."
 msgstr "Көбірек мүмкіндіктер мен статистикаға қол жеткізу үшін кіріңіз."
@@ -1188,58 +1155,48 @@ msgstr "немесе осында тіркелу:"
 msgid "Register"
 msgstr "Тіркелу"
 
-#: src/components/Rankings.jsx:168
-msgid "Yesterday"
-msgstr "Кеше"
+#: src/components/UserAreaContent.jsx:69
+msgid "Today Placed Pixels"
+msgstr "Бүгін салған пикселдерім"
 
-#: src/components/Rankings.jsx:177
-msgid "Countries Today"
-msgstr "Бүгінгі елдер"
+#: src/components/UserAreaContent.jsx:73
+msgid "Daily Rank"
+msgstr "Күнделікті рейтиң"
 
-#: src/components/Rankings.jsx:186 src/components/Rankings.jsx:203
-msgid "Charts"
-msgstr "Графиктер"
+#: src/components/UserAreaContent.jsx:83
+msgid "Total Rank"
+msgstr "Жалпы рейтиң"
 
-#: src/components/Rankings.jsx:191
-#, fuzzy
-msgid "Total Pixels per Player"
-msgstr "Күніне барлық пиксел саны"
+#: src/components/UserAreaContent.jsx:89
+#, javascript-format
+msgid "Your name is: ${ name }"
+msgstr "Сіздің атыңыз: ${ name }"
 
-#: src/components/Rankings.jsx:192
-#, fuzzy
-msgid "Daily Pixels per Player"
-msgstr "Күніне барлық пиксел саны"
+#: src/components/UserAreaContent.jsx:95
+msgid "Log out"
+msgstr "Шығу"
 
-#: src/components/Rankings.jsx:193
-#, fuzzy
-msgid "Top 10 Players from Yesterday"
-msgstr "Ең белсенді 10 ойыншы [пикс / күніне]"
+#: src/components/UserAreaContent.jsx:102
+msgid "Change Username"
+msgstr "Қолданушы атын өзгерту"
 
-#: src/components/Rankings.jsx:197
-#, fuzzy
-msgid "Daily Pixels per Country"
-msgstr "Сағатына ойыншылар мен пикселдер"
+#: src/components/UserAreaContent.jsx:112
+msgid "Change Mail"
+msgstr "Поштаны өзгерту"
 
-#: src/components/Rankings.jsx:215 src/components/Rankings.jsx:224
-#: src/components/Rankings.jsx:233
-msgid "User"
-msgstr "Қолданушы"
+#: src/components/UserAreaContent.jsx:121
+msgid "Change Password"
+msgstr "Құпиясөзді өзгерту"
 
-#: src/components/CooldownChanges.jsx:24 src/components/Rankings.jsx:240
-msgid "Country"
-msgstr "Ел"
+#: src/components/UserAreaContent.jsx:128
+msgid "Delete Account"
+msgstr "Тіркелгіні жою"
 
-#: src/components/Rankings.jsx:241
-msgid "+last hour"
-msgstr ""
+#: src/components/UserAreaContent.jsx:135
+msgid "Social Settings"
+msgstr "Әлеуметтік баптаулар"
 
-#: src/components/Rankings.jsx:311
-msgid "Ranking updates every 5 min. Daily rankings get reset at midnight UTC."
-msgstr ""
-"Рейтиң 5 минут сайын жаңартылады. Күнделікті рейтиңдер UTC бойынша түн "
-"ортасында арылтады."
-
-#: src/components/Converter.jsx:191 src/components/ModCanvastools.jsx:230
+#: src/components/Converter.jsx:191 src/components/ModCanvastools.jsx:231
 msgid "Choose Canvas"
 msgstr "Кеңеп таңдауға"
 
@@ -1316,6 +1273,57 @@ msgstr "Қалпына келтіру"
 msgid "Download Template"
 msgstr "Үлгіні жүктеп алу"
 
+#: src/components/Rankings.jsx:168
+msgid "Yesterday"
+msgstr "Кеше"
+
+#: src/components/Rankings.jsx:177
+msgid "Countries Today"
+msgstr "Бүгінгі елдер"
+
+#: src/components/Rankings.jsx:186 src/components/Rankings.jsx:203
+msgid "Charts"
+msgstr "Графиктер"
+
+#: src/components/Rankings.jsx:191
+#, fuzzy
+msgid "Total Pixels per Player"
+msgstr "Күніне барлық пиксел саны"
+
+#: src/components/Rankings.jsx:192
+#, fuzzy
+msgid "Daily Pixels per Player"
+msgstr "Күніне барлық пиксел саны"
+
+#: src/components/Rankings.jsx:193
+#, fuzzy
+msgid "Top 10 Players from Yesterday"
+msgstr "Ең белсенді 10 ойыншы [пикс / күніне]"
+
+#: src/components/Rankings.jsx:197
+#, fuzzy
+msgid "Daily Pixels per Country"
+msgstr "Сағатына ойыншылар мен пикселдер"
+
+#: src/components/Rankings.jsx:215 src/components/Rankings.jsx:224
+#: src/components/Rankings.jsx:233
+msgid "User"
+msgstr "Қолданушы"
+
+#: src/components/CooldownChanges.jsx:24 src/components/Rankings.jsx:240
+msgid "Country"
+msgstr "Ел"
+
+#: src/components/Rankings.jsx:243
+msgid "+last hour"
+msgstr ""
+
+#: src/components/Rankings.jsx:314
+msgid "Ranking updates every 5 min. Daily rankings get reset at midnight UTC."
+msgstr ""
+"Рейтиң 5 минут сайын жаңартылады. Күнделікті рейтиңдер UTC бойынша түн "
+"ортасында арылтады."
+
 #: src/components/CanvasItem.jsx:29
 msgid "Online Users"
 msgstr "Желідегі қолданушылар"
@@ -1362,23 +1370,6 @@ msgstr "Күнделікті рейтиңнің бірінші ондығына 
 msgid "Dimensions"
 msgstr "Өлшемі"
 
-#: src/components/ModWatchtools.jsx:125 src/components/TemplateItem.jsx:54
-#: src/components/TemplateItemEdit.jsx:122
-msgid "Canvas"
-msgstr "Кенеп"
-
-#: src/components/TemplateItem.jsx:57 src/components/TemplateItemEdit.jsx:141
-msgid "Coordinates"
-msgstr "Координаттар"
-
-#: src/components/TemplateItem.jsx:71
-msgid "Edit"
-msgstr "Өзгерту"
-
-#: src/components/TemplateItem.jsx:81
-msgid "Go to"
-msgstr "Бару"
-
 #: src/components/TemplateItemEdit.jsx:97
 msgid "Select File"
 msgstr "Файл таңдаңыз"
@@ -1387,24 +1378,26 @@ msgstr "Файл таңдаңыз"
 msgid "Template Name"
 msgstr "Үлгінің аты"
 
+#: src/components/ModWatchtools.jsx:123 src/components/TemplateItem.jsx:54
+#: src/components/TemplateItemEdit.jsx:122
+msgid "Canvas"
+msgstr "Кенеп"
+
+#: src/components/TemplateItem.jsx:57 src/components/TemplateItemEdit.jsx:141
+msgid "Coordinates"
+msgstr "Координаттар"
+
 #: src/components/TemplateItemEdit.jsx:174
 msgid "Delete"
 msgstr "Жою"
 
-#: src/components/UserMessages.jsx:28
-msgid ""
-"Please verify your mail address or your account could get deleted after a "
-"few days."
-msgstr ""
-"Тіркелгіңіз бірнеше күннен кейін жойылмас үшін эл. поштаңызды растаңыз."
+#: src/components/LogInForm.jsx:77
+msgid "Name or Email"
+msgstr "Қолданушы аты не эл. пошта"
 
-#: src/components/UserMessages.jsx:49
-msgid "A new verification mail is getting sent to you."
-msgstr "Сізге жаңа растау хаты жіберілді."
-
-#: src/components/UserMessages.jsx:53
-msgid "Click here to request a new verification mail."
-msgstr "Жаңа растау хатын сұрау үшін осында басыңыз."
+#: src/components/LogInForm.jsx:88
+msgid "LogIn"
+msgstr "Кіру"
 
 #: src/components/ChangePassword.jsx:21
 msgid "Passwords do not match."
@@ -1442,6 +1435,21 @@ msgstr ""
 msgid "New Mail"
 msgstr "Жаңа пошта"
 
+#: src/components/UserMessages.jsx:28
+msgid ""
+"Please verify your mail address or your account could get deleted after a "
+"few days."
+msgstr ""
+"Тіркелгіңіз бірнеше күннен кейін жойылмас үшін эл. поштаңызды растаңыз."
+
+#: src/components/UserMessages.jsx:49
+msgid "A new verification mail is getting sent to you."
+msgstr "Сізге жаңа растау хаты жіберілді."
+
+#: src/components/UserMessages.jsx:53
+msgid "Click here to request a new verification mail."
+msgstr "Жаңа растау хатын сұрау үшін осында басыңыз."
+
 #: src/components/DeleteAccount.jsx:66
 msgid "Yes, Delete My Account!"
 msgstr "Иә, тіркелгім жойылсын!"
@@ -1470,31 +1478,23 @@ msgstr "Қолданушы блоктаудан шығару"
 msgid "You have no users blocked"
 msgstr "Ешкімді блоктаған жоқсыз"
 
-#: src/components/LogInForm.jsx:77
-msgid "Name or Email"
-msgstr "Қолданушы аты не эл. пошта"
-
-#: src/components/LogInForm.jsx:88
-msgid "LogIn"
-msgstr "Кіру"
-
-#: src/components/ModCanvastools.jsx:168
+#: src/components/ModCanvastools.jsx:169
 msgid "Build image on canvas."
 msgstr "Кенепте сурет құру."
 
-#: src/components/ModCanvastools.jsx:171
+#: src/components/ModCanvastools.jsx:172
 msgid "Build image and set it to protected."
 msgstr "Сурет құрып, оны қорғау."
 
-#: src/components/ModCanvastools.jsx:174
+#: src/components/ModCanvastools.jsx:175
 msgid "Build image, but reset cooldown to unset-pixel cd."
 msgstr "Сурет құрып, оның пикселдері үшін күту уақытын боялмағандай орнату."
 
-#: src/components/ModCanvastools.jsx:184
+#: src/components/ModCanvastools.jsx:185
 msgid "Clean spare pixels that are surrounded by unset pixels"
 msgstr "Айналасында боялмаған пикселдері бар артық пикселдерді өшіру"
 
-#: src/components/ModCanvastools.jsx:188
+#: src/components/ModCanvastools.jsx:189
 msgid ""
 "Clean spare pixels that are surrounded by unset pixels and up to 1 other set "
 "pixels"
@@ -1502,7 +1502,7 @@ msgstr ""
 "Айналасында боялмаған пикселдері немесе 1 боялған пикселі бар артық "
 "пикселдерді өшіру"
 
-#: src/components/ModCanvastools.jsx:192
+#: src/components/ModCanvastools.jsx:193
 msgid ""
 "Clean spare pixels that are surrounded by a single other color or unset "
 "pixels (VERY AGGRESSIVE ON CANVASES THAT ALLOW UNSET PIXELS (where there are "
@@ -1511,7 +1511,7 @@ msgstr ""
 "Айналасында бір түсті фоны немесе боялмаған пикселдері бар артық пикселдерді "
 "өшіру (ЕКІ КҮТУ УАҚЫТЫ БАР КЕНЕПТЕРДЕ ӨТЕ АГРЕССИВТІ!)"
 
-#: src/components/ModCanvastools.jsx:196
+#: src/components/ModCanvastools.jsx:197
 msgid ""
 "Turn every pixel in area to 0 (YOU REALLY SHOULDN'T DO THAT ON ANY AREA THAT "
 "ISN'T ALREADY MOSTLY 0)"
@@ -1519,31 +1519,31 @@ msgstr ""
 "Аймақтағы әрбір пикселді 0-ге айналдырыңыз (СІЗ ШЫНЫНДА ОСЫ КЕЗ КЕЛГЕН "
 "АЙМАҚТА ОЛАРДЫ ЖАСАУ КЕРЕК)"
 
-#: src/components/ModCanvastools.jsx:207
+#: src/components/ModCanvastools.jsx:208
 msgid "Status: Not running"
 msgstr "Күйі: өшірулі"
 
-#: src/components/ModCanvastools.jsx:249
+#: src/components/ModCanvastools.jsx:250
 msgid "Image Upload"
 msgstr "Сурет жүктеу"
 
-#: src/components/ModCanvastools.jsx:250
+#: src/components/ModCanvastools.jsx:251
 msgid "Upload images to canvas"
 msgstr "Кенепке сурет жүктеп салу"
 
-#: src/components/ModCanvastools.jsx:252
+#: src/components/ModCanvastools.jsx:253
 msgid "File"
 msgstr "Файл"
 
-#: src/components/ModCanvastools.jsx:273
+#: src/components/ModCanvastools.jsx:274
 msgid "Coordinates:"
 msgstr "Координаттар:"
 
-#: src/components/ModCanvastools.jsx:317
+#: src/components/ModCanvastools.jsx:318
 msgid "Pixel Protection"
 msgstr "Пиксел қорғалуы"
 
-#: src/components/ModCanvastools.jsx:321
+#: src/components/ModCanvastools.jsx:322
 msgid ""
 "Set protection of areas (if you need finer grained control, use protect with "
 "image upload and alpha layers)"
@@ -1551,34 +1551,35 @@ msgstr ""
 "Аймақтың қорғалуын баптау (дәлірек басқару керек болса, альфа арнасы бар "
 "суретті жүктеп, оны қорғаңыз)"
 
-#: src/components/ModCanvastools.jsx:341 src/components/ModCanvastools.jsx:424
-#: src/components/ModCanvastools.jsx:517 src/components/ModWatchtools.jsx:176
+#: src/components/ModCanvastools.jsx:342 src/components/ModCanvastools.jsx:419
+#: src/components/ModCanvastools.jsx:513 src/components/ModWatchtools.jsx:174
 msgid "Top-left corner"
 msgstr "Жоғарғы сол жақ бұрыш"
 
-#: src/components/ModCanvastools.jsx:363 src/components/ModCanvastools.jsx:446
-#: src/components/ModCanvastools.jsx:539 src/components/ModWatchtools.jsx:198
+#: src/components/ModCanvastools.jsx:364 src/components/ModCanvastools.jsx:441
+#: src/components/ModCanvastools.jsx:535 src/components/ModWatchtools.jsx:196
 msgid "Bottom-right corner"
 msgstr "Төменгі оң жақ бұрыш"
 
-#: src/components/ModCanvastools.jsx:409
+#: src/components/ModCanvastools.jsx:410
 msgid "Rollback to Date"
 msgstr "Күнге дейін шегіндіру"
 
-#: src/components/ModCanvastools.jsx:411
-msgid "Rollback an area of the canvas to a set date (00:00 UTC)"
+#: src/components/ModCanvastools.jsx:414
+#, fuzzy
+msgid "Rollback an area of the canvas to a set date and time"
 msgstr ""
 "Кенептегі аймақты таңдалған күн мен уақытқа дейін шегіндіру (00:00 UTC)"
 
-#: src/components/ModCanvastools.jsx:492
+#: src/components/ModCanvastools.jsx:488
 msgid "Canvas Cleaner"
 msgstr "Кенеп тазартқыш"
 
-#: src/components/ModCanvastools.jsx:494
+#: src/components/ModCanvastools.jsx:490
 msgid "Apply a filter to clean trash in large canvas areas."
 msgstr "Кенептің үлкен аймақтарын қоқыстан тазарту үшін сүзгі қолдану."
 
-#: src/components/ModCanvastools.jsx:605
+#: src/components/ModCanvastools.jsx:601
 msgid "Stop Cleaner"
 msgstr "Тазартқышты тоқтату"
 
@@ -1614,29 +1615,37 @@ msgstr "Жаңа модератордың атын енгізіңіз"
 msgid "User Name"
 msgstr "Қолданушы аты"
 
-#: src/components/ModWatchtools.jsx:48
+#: src/components/ModWatchtools.jsx:49
 msgid "Interval is invalid"
 msgstr "Жарамсыз интервал"
 
-#: src/components/ModWatchtools.jsx:124
+#: src/components/ModWatchtools.jsx:122
 msgid "Check who placed in an area"
 msgstr "Аймақта кім салғанын тексеру"
 
-#: src/components/ModWatchtools.jsx:144
+#: src/components/ModWatchtools.jsx:142
 msgid "Interval"
 msgstr "Интервал"
 
-#: src/components/ModWatchtools.jsx:159
+#: src/components/ModWatchtools.jsx:157
 msgid "IID (optional)"
 msgstr "IID (міндетті емес)"
 
-#: src/components/ModWatchtools.jsx:249
+#: src/components/ModWatchtools.jsx:247
 msgid "Get Pixels"
 msgstr "Пикселдерді алу"
 
-#: src/components/ModWatchtools.jsx:281
+#: src/components/ModWatchtools.jsx:279
 msgid "Get Users"
 msgstr "Қолданушыларды алу"
+
+#: src/components/TemplateItem.jsx:71
+msgid "Edit"
+msgstr "Өзгерту"
+
+#: src/components/TemplateItem.jsx:81
+msgid "Go to"
+msgstr "Бару"
 
 #: src/components/ModIIDtools.jsx:20
 msgid "You must enter a duration"
@@ -1703,6 +1712,18 @@ msgstr "Блоктау"
 #: src/components/contextmenus/ChannelContextMenu.jsx:46
 msgid "Mute"
 msgstr "Үнсіз ету"
+
+#: src/components/MdLink.jsx:93
+msgid "Open in PopUp"
+msgstr ""
+
+#: src/components/MdLink.jsx:104
+msgid "Hide Embed"
+msgstr ""
+
+#: src/components/MdLink.jsx:110
+msgid "Show Embedded"
+msgstr ""
 
 #: src/components/windows/Help.jsx:19 src/components/windows/Settings.jsx:73
 msgctxt "keybinds"

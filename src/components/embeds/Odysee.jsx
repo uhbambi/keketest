@@ -6,6 +6,7 @@
 import React from 'react';
 
 import { stripQuery } from '../../core/utils';
+import DirectLinkEmbed from './DirectLinkEmbed';
 
 function stripCol(str) {
   const posCol = str.lastIndexOf(':');
@@ -17,7 +18,7 @@ function stripCol(str) {
 
 const urlStr = '/@';
 
-const Odysee = ({ url }) => {
+const Odysee = ({ url, fill, maxHeight }) => {
   let oid;
   let posA = url.indexOf(urlStr);
   if (posA !== -1) {
@@ -31,21 +32,13 @@ const Odysee = ({ url }) => {
   }
   oid = stripCol(stripQuery(oid));
 
+  const Embed = DirectLinkEmbed[0];
   return (
-    <div className="vemb" style={{ paddingBottom: '56.25%' }}>
-      <iframe
-        className="vembc"
-        src={`https://odysee.com/$/embed/${oid}`}
-        frameBorder="0"
-        referrerPolicy="no-referrer"
-        allow="autoplay; picture-in-picture"
-        scrolling="no"
-        // eslint-disable-next-line max-len
-        sandbox="allow-scripts allow-modals allow-forms allow-popups allow-same-origin allow-presentation"
-        allowFullScreen
-        title="Embedded odysee"
-      />
-    </div>
+    <Embed
+      url={`https://odysee.com/$/embed/${oid}`}
+      fill={fill}
+      maxHeight={maxHeight}
+    />
   );
 };
 

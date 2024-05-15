@@ -4,11 +4,12 @@
  *
  */
 import TikTok from './TikTok';
-import YouTube from './YouTube';
-import Matrix from './Matrix';
 import Telegram from './Telegram';
 import Twitter from './Twitter';
+import YouTube from './YouTube';
+import Matrix from './Matrix';
 import Odysee from './Odysee';
+import BitChute from './BitChute';
 import DirectLinkMedia from './DirectLinkMedia';
 
 /*
@@ -26,6 +27,7 @@ export default {
   tiktok: TikTok,
   youtube: YouTube,
   'youtu.be': YouTube,
+  bitchute: BitChute,
   'matrix.pixelplanet.fun': Matrix,
   'i.4cdn.org': DirectLinkMedia,
   'i.imgur': DirectLinkMedia,
@@ -37,6 +39,5 @@ export default {
   'cdn.discord.com': DirectLinkMedia,
   't.me': Telegram,
   twitter: Twitter,
-  'nitter.net': Twitter,
   odysee: Odysee,
 };

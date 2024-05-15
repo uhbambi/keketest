@@ -261,7 +261,7 @@ msgid "You have new messages in chat"
 msgstr "Imate nove poruke u chatu"
 
 #: src/components/Converter.jsx:566 src/components/CoordinatesBox.jsx:42
-#: src/components/ModWatchtools.jsx:390 src/components/ModWatchtools.jsx:408
+#: src/components/ModWatchtools.jsx:388 src/components/ModWatchtools.jsx:406
 msgid "Copy to Clipboard"
 msgstr "Kopirati u međuspremnik"
 
@@ -273,7 +273,7 @@ msgstr "Online korisnici na platnu"
 msgid "Total Online Users"
 msgstr "Ukupno online korisnika"
 
-#: src/components/OnlineBox.jsx:84 src/components/UserAreaContent.jsx:71
+#: src/components/OnlineBox.jsx:84 src/components/UserAreaContent.jsx:79
 msgid "Placed Pixels"
 msgstr "Postavljeni pixeli"
 
@@ -286,15 +286,15 @@ msgid "Total"
 msgstr "Ukupno"
 
 #: src/components/buttons/CanvasSwitchButton.jsx:20
-#: src/components/windows/index.js:19
+#: src/components/windows/index.js:20
 msgid "Canvas Selection"
 msgstr "Odabir platna"
 
-#: src/components/buttons/ChatButton.jsx:88
+#: src/components/buttons/ChatButton.jsx:79
 msgid "Close Chat"
 msgstr "Zatvori chat"
 
-#: src/components/buttons/ChatButton.jsx:88
+#: src/components/buttons/ChatButton.jsx:79
 msgid "Open Chat"
 msgstr "Otvorite Chat"
 
@@ -306,16 +306,16 @@ msgstr "Zatvori izbornik"
 msgid "Open Menu"
 msgstr "Otvori izbornik"
 
-#: src/components/HistorySelect.jsx:146
+#: src/components/HistorySelect.jsx:156
 msgid "Loading"
 msgstr "Učitavanje"
 
-#: src/components/HistorySelect.jsx:147
+#: src/components/HistorySelect.jsx:157
 msgid "Select Date above"
 msgstr "Označite datum iznad"
 
-#: src/components/Admintools.jsx:103 src/components/ModCanvastools.jsx:226
-#: src/components/ModWatchtools.jsx:120 src/components/Window.jsx:157
+#: src/components/Admintools.jsx:103 src/components/ModCanvastools.jsx:227
+#: src/components/ModWatchtools.jsx:118 src/components/Window.jsx:157
 #: src/components/Window.jsx:260
 #: src/components/contextmenus/ChannelContextMenu.jsx:59
 msgid "Close"
@@ -346,16 +346,16 @@ msgid "Resize"
 msgstr "Promjena veličine"
 
 #: src/components/BanInfo.jsx:75 src/components/buttons/HelpButton.jsx:20
-#: src/components/windows/index.js:13
+#: src/components/windows/index.js:14
 msgid "Help"
 msgstr "Pomoć"
 
 #: src/components/buttons/SettingsButton.jsx:21
-#: src/components/windows/index.js:14
+#: src/components/windows/index.js:15
 msgid "Settings"
 msgstr "Postavke"
 
-#: src/components/buttons/LogInButton.jsx:20 src/components/windows/index.js:15
+#: src/components/buttons/LogInButton.jsx:20 src/components/windows/index.js:16
 msgid "User Area"
 msgstr "Korisničko područje"
 
@@ -366,6 +366,14 @@ msgstr "Napravite snimak zaslona"
 #: src/components/buttons/GlobeButton.jsx:34
 msgid "Globe View"
 msgstr "Pogled na globus"
+
+#: src/components/buttons/PalselButton.jsx:30
+msgid "Close Palette"
+msgstr "Zatvori paletu"
+
+#: src/components/buttons/PalselButton.jsx:30
+msgid "Open Palette"
+msgstr "Otvorite paletu"
 
 #: src/components/buttons/PencilButton.jsx:41
 msgid "Enable Pencil"
@@ -383,29 +391,25 @@ msgstr "Ugasi Povijest Olovku"
 msgid "Disable Overlay Pencil"
 msgstr "Ugasi Šablon Olovku"
 
-#: src/components/buttons/PalselButton.jsx:30
-msgid "Close Palette"
-msgstr "Zatvori paletu"
-
-#: src/components/buttons/PalselButton.jsx:30
-msgid "Open Palette"
-msgstr "Otvorite paletu"
-
-#: src/components/windows/index.js:16
+#: src/components/windows/index.js:17
 msgid "Registration"
 msgstr "Registracija"
 
-#: src/components/windows/index.js:17
+#: src/components/windows/index.js:18
 msgid "Forgot Password"
 msgstr "Zaboravili ste lozinku"
 
-#: src/components/windows/index.js:18
+#: src/components/windows/index.js:19
 msgid "Chat"
 msgstr "Chat"
 
-#: src/components/windows/index.js:20
+#: src/components/windows/index.js:21
 msgid "Canvas Archive"
 msgstr "Arhiva platna"
+
+#: src/components/windows/index.js:22
+msgid "Player"
+msgstr ""
 
 #: src/components/GlobalCaptcha.jsx:47
 msgid "You took too long, try again."
@@ -867,8 +871,8 @@ msgid "Captcha"
 msgstr "Captcha"
 
 #: src/components/Admintools.jsx:154 src/components/Admintools.jsx:238
-#: src/components/ModCanvastools.jsx:312 src/components/ModCanvastools.jsx:403
-#: src/components/ModCanvastools.jsx:486 src/components/ModCanvastools.jsx:587
+#: src/components/ModCanvastools.jsx:313 src/components/ModCanvastools.jsx:404
+#: src/components/ModCanvastools.jsx:482 src/components/ModCanvastools.jsx:583
 #: src/components/ModIIDtools.jsx:135
 #: src/components/windows/ForgotPassword.jsx:84
 #: src/components/windows/Register.jsx:127
@@ -956,6 +960,10 @@ msgstr "Za chat morate biti prijavljeni"
 #: src/components/windows/Chat.jsx:273
 msgid "Channel settings"
 msgstr "Postavke kanala"
+
+#: src/components/windows/Player.jsx:17
+msgid "This URL is not supported by our Media Player"
+msgstr ""
 
 #: src/components/windows/ForgotPassword.jsx:58
 msgid "Sent you a mail with instructions to reset your password."
@@ -1116,47 +1124,6 @@ msgstr "Izvoz omogućenih šablona"
 msgid "Import templates"
 msgstr "Uvoz šablona"
 
-#: src/components/UserAreaContent.jsx:62
-msgid "Today Placed Pixels"
-msgstr "Današnji postavljeni pikseli"
-
-#: src/components/UserAreaContent.jsx:66
-msgid "Daily Rank"
-msgstr "Dnevni rank"
-
-#: src/components/UserAreaContent.jsx:75
-msgid "Total Rank"
-msgstr "Ukupni rank"
-
-#: src/components/UserAreaContent.jsx:80
-#, javascript-format
-msgid "Your name is: ${ name }"
-msgstr "Vaše ime je: ${ name }"
-
-#: src/components/UserAreaContent.jsx:86
-msgid "Log out"
-msgstr "Odjavite se"
-
-#: src/components/UserAreaContent.jsx:93
-msgid "Change Username"
-msgstr "Promjena korisničkog imena"
-
-#: src/components/UserAreaContent.jsx:103
-msgid "Change Mail"
-msgstr "Promjena pošte"
-
-#: src/components/UserAreaContent.jsx:112
-msgid "Change Password"
-msgstr "Promjena pošte"
-
-#: src/components/UserAreaContent.jsx:119
-msgid "Delete Account"
-msgstr "Izbriši račun"
-
-#: src/components/UserAreaContent.jsx:126
-msgid "Social Settings"
-msgstr "Promjena lozinke"
-
 #: src/components/LogInArea.jsx:19
 msgid "Login to access more features and stats."
 msgstr "Prijavite se za pristup dodatnim značajkama i statistikama."
@@ -1181,57 +1148,48 @@ msgstr "ili se registrirajte ovdje:"
 msgid "Register"
 msgstr "Registracija"
 
-#: src/components/Rankings.jsx:168
-msgid "Yesterday"
-msgstr "Jučer"
+#: src/components/UserAreaContent.jsx:69
+msgid "Today Placed Pixels"
+msgstr "Današnji postavljeni pikseli"
 
-#: src/components/Rankings.jsx:177
-msgid "Countries Today"
-msgstr "Države danas"
+#: src/components/UserAreaContent.jsx:73
+msgid "Daily Rank"
+msgstr "Dnevni rank"
 
-#: src/components/Rankings.jsx:186 src/components/Rankings.jsx:203
-msgid "Charts"
-msgstr "Dijagrami"
+#: src/components/UserAreaContent.jsx:83
+msgid "Total Rank"
+msgstr "Ukupni rank"
 
-#: src/components/Rankings.jsx:191
-#, fuzzy
-msgid "Total Pixels per Player"
-msgstr "Ukupno postavljenih piksela po danu"
+#: src/components/UserAreaContent.jsx:89
+#, javascript-format
+msgid "Your name is: ${ name }"
+msgstr "Vaše ime je: ${ name }"
 
-#: src/components/Rankings.jsx:192
-#, fuzzy
-msgid "Daily Pixels per Player"
-msgstr "Ukupno postavljenih piksela po danu"
+#: src/components/UserAreaContent.jsx:95
+msgid "Log out"
+msgstr "Odjavite se"
 
-#: src/components/Rankings.jsx:193
-#, fuzzy
-msgid "Top 10 Players from Yesterday"
-msgstr "10 najboljih igrača [pxls / dan]"
+#: src/components/UserAreaContent.jsx:102
+msgid "Change Username"
+msgstr "Promjena korisničkog imena"
 
-#: src/components/Rankings.jsx:197
-#, fuzzy
-msgid "Daily Pixels per Country"
-msgstr "Igrači i pikseli po satu"
+#: src/components/UserAreaContent.jsx:112
+msgid "Change Mail"
+msgstr "Promjena pošte"
 
-#: src/components/Rankings.jsx:215 src/components/Rankings.jsx:224
-#: src/components/Rankings.jsx:233
-msgid "User"
-msgstr "Korisnik"
+#: src/components/UserAreaContent.jsx:121
+msgid "Change Password"
+msgstr "Promjena pošte"
 
-#: src/components/CooldownChanges.jsx:24 src/components/Rankings.jsx:240
-msgid "Country"
-msgstr "Država"
+#: src/components/UserAreaContent.jsx:128
+msgid "Delete Account"
+msgstr "Izbriši račun"
 
-#: src/components/Rankings.jsx:241
-msgid "+last hour"
-msgstr ""
+#: src/components/UserAreaContent.jsx:135
+msgid "Social Settings"
+msgstr "Promjena lozinke"
 
-#: src/components/Rankings.jsx:311
-msgid "Ranking updates every 5 min. Daily rankings get reset at midnight UTC."
-msgstr ""
-"Poredak se ažurira svakih 5 minuta. Dnevni poredak se resetira u ponoć UTC."
-
-#: src/components/Converter.jsx:191 src/components/ModCanvastools.jsx:230
+#: src/components/Converter.jsx:191 src/components/ModCanvastools.jsx:231
 msgid "Choose Canvas"
 msgstr "Izbriši račun"
 
@@ -1308,6 +1266,56 @@ msgstr "Resetiraj"
 msgid "Download Template"
 msgstr "Preuzmite šablon"
 
+#: src/components/Rankings.jsx:168
+msgid "Yesterday"
+msgstr "Jučer"
+
+#: src/components/Rankings.jsx:177
+msgid "Countries Today"
+msgstr "Države danas"
+
+#: src/components/Rankings.jsx:186 src/components/Rankings.jsx:203
+msgid "Charts"
+msgstr "Dijagrami"
+
+#: src/components/Rankings.jsx:191
+#, fuzzy
+msgid "Total Pixels per Player"
+msgstr "Ukupno postavljenih piksela po danu"
+
+#: src/components/Rankings.jsx:192
+#, fuzzy
+msgid "Daily Pixels per Player"
+msgstr "Ukupno postavljenih piksela po danu"
+
+#: src/components/Rankings.jsx:193
+#, fuzzy
+msgid "Top 10 Players from Yesterday"
+msgstr "10 najboljih igrača [pxls / dan]"
+
+#: src/components/Rankings.jsx:197
+#, fuzzy
+msgid "Daily Pixels per Country"
+msgstr "Igrači i pikseli po satu"
+
+#: src/components/Rankings.jsx:215 src/components/Rankings.jsx:224
+#: src/components/Rankings.jsx:233
+msgid "User"
+msgstr "Korisnik"
+
+#: src/components/CooldownChanges.jsx:24 src/components/Rankings.jsx:240
+msgid "Country"
+msgstr "Država"
+
+#: src/components/Rankings.jsx:243
+msgid "+last hour"
+msgstr ""
+
+#: src/components/Rankings.jsx:314
+msgid "Ranking updates every 5 min. Daily rankings get reset at midnight UTC."
+msgstr ""
+"Poredak se ažurira svakih 5 minuta. Dnevni poredak se resetira u ponoć UTC."
+
 #: src/components/CanvasItem.jsx:29
 msgid "Online Users"
 msgstr "Online korisnici"
@@ -1354,23 +1362,6 @@ msgstr "Top 10 dnevni poredak"
 msgid "Dimensions"
 msgstr "Dimenzije"
 
-#: src/components/ModWatchtools.jsx:125 src/components/TemplateItem.jsx:54
-#: src/components/TemplateItemEdit.jsx:122
-msgid "Canvas"
-msgstr "Platno"
-
-#: src/components/TemplateItem.jsx:57 src/components/TemplateItemEdit.jsx:141
-msgid "Coordinates"
-msgstr "Koordinate"
-
-#: src/components/TemplateItem.jsx:71
-msgid "Edit"
-msgstr "Uredi"
-
-#: src/components/TemplateItem.jsx:81
-msgid "Go to"
-msgstr "Idi do"
-
 #: src/components/TemplateItemEdit.jsx:97
 msgid "Select File"
 msgstr "Odaberi datoteku"
@@ -1379,25 +1370,26 @@ msgstr "Odaberi datoteku"
 msgid "Template Name"
 msgstr "Ime šablona"
 
+#: src/components/ModWatchtools.jsx:123 src/components/TemplateItem.jsx:54
+#: src/components/TemplateItemEdit.jsx:122
+msgid "Canvas"
+msgstr "Platno"
+
+#: src/components/TemplateItem.jsx:57 src/components/TemplateItemEdit.jsx:141
+msgid "Coordinates"
+msgstr "Koordinate"
+
 #: src/components/TemplateItemEdit.jsx:174
 msgid "Delete"
 msgstr "Izbriši"
 
-#: src/components/UserMessages.jsx:28
-msgid ""
-"Please verify your mail address or your account could get deleted after a "
-"few days."
-msgstr ""
-"Potvrdite svoju adresu e-pošte ili bi vaš račun mogao biti izbrisan nakon "
-"nekoliko dana."
+#: src/components/LogInForm.jsx:77
+msgid "Name or Email"
+msgstr "Ime ili email"
 
-#: src/components/UserMessages.jsx:49
-msgid "A new verification mail is getting sent to you."
-msgstr "Dobivate novu e-poruku za potvrdu."
-
-#: src/components/UserMessages.jsx:53
-msgid "Click here to request a new verification mail."
-msgstr "Kliknite ovdje da zatražite novu e-poštu za potvrdu."
+#: src/components/LogInForm.jsx:88
+msgid "LogIn"
+msgstr "Prijava"
 
 #: src/components/ChangePassword.jsx:21
 msgid "Passwords do not match."
@@ -1435,6 +1427,22 @@ msgstr ""
 msgid "New Mail"
 msgstr "Nova pošta"
 
+#: src/components/UserMessages.jsx:28
+msgid ""
+"Please verify your mail address or your account could get deleted after a "
+"few days."
+msgstr ""
+"Potvrdite svoju adresu e-pošte ili bi vaš račun mogao biti izbrisan nakon "
+"nekoliko dana."
+
+#: src/components/UserMessages.jsx:49
+msgid "A new verification mail is getting sent to you."
+msgstr "Dobivate novu e-poruku za potvrdu."
+
+#: src/components/UserMessages.jsx:53
+msgid "Click here to request a new verification mail."
+msgstr "Kliknite ovdje da zatražite novu e-poštu za potvrdu."
+
 #: src/components/DeleteAccount.jsx:66
 msgid "Yes, Delete My Account!"
 msgstr "Da, izbriši moj račun!"
@@ -1463,31 +1471,23 @@ msgstr "Odblokiraj korisnike"
 msgid "You have no users blocked"
 msgstr "Nemate blokiranih korisnika"
 
-#: src/components/LogInForm.jsx:77
-msgid "Name or Email"
-msgstr "Ime ili email"
-
-#: src/components/LogInForm.jsx:88
-msgid "LogIn"
-msgstr "Prijava"
-
-#: src/components/ModCanvastools.jsx:168
+#: src/components/ModCanvastools.jsx:169
 msgid "Build image on canvas."
 msgstr "Izgradite sliku na platnu."
 
-#: src/components/ModCanvastools.jsx:171
+#: src/components/ModCanvastools.jsx:172
 msgid "Build image and set it to protected."
 msgstr "Izgradite sliku i postavite je na zaštićenu."
 
-#: src/components/ModCanvastools.jsx:174
+#: src/components/ModCanvastools.jsx:175
 msgid "Build image, but reset cooldown to unset-pixel cd."
 msgstr "Izgradite sliku, ali vratite vrijeme hlađenja na unset-pixel cd."
 
-#: src/components/ModCanvastools.jsx:184
+#: src/components/ModCanvastools.jsx:185
 msgid "Clean spare pixels that are surrounded by unset pixels"
 msgstr "Očistite rezervne piksele koji su okruženi nepostavljenim pikselima"
 
-#: src/components/ModCanvastools.jsx:188
+#: src/components/ModCanvastools.jsx:189
 msgid ""
 "Clean spare pixels that are surrounded by unset pixels and up to 1 other set "
 "pixels"
@@ -1495,7 +1495,7 @@ msgstr ""
 "Očisti rezervne piksele koji su okruženi nepostavljenim pikselima i do 1 "
 "drugim postavljenim pikselima"
 
-#: src/components/ModCanvastools.jsx:192
+#: src/components/ModCanvastools.jsx:193
 msgid ""
 "Clean spare pixels that are surrounded by a single other color or unset "
 "pixels (VERY AGGRESSIVE ON CANVASES THAT ALLOW UNSET PIXELS (where there are "
@@ -1505,7 +1505,7 @@ msgstr ""
 "nepostavljenim pikselima (VRLO AGRESIVNO NA PLATNIMA KOJA DOPUŠTAJU "
 "NEPOSTAVLJENE PIKSELE (gdje postoje dva hlađenja)!)"
 
-#: src/components/ModCanvastools.jsx:196
+#: src/components/ModCanvastools.jsx:197
 msgid ""
 "Turn every pixel in area to 0 (YOU REALLY SHOULDN'T DO THAT ON ANY AREA THAT "
 "ISN'T ALREADY MOSTLY 0)"
@@ -1513,31 +1513,31 @@ msgstr ""
 "Okrenite svaki piksel u području na 0 (TO STVARNO NE BISTE SMIJELI RADITI NA "
 "BILO KOJEM PODRUČJU KOJE VEĆ NIJE VEĆINOM 0)"
 
-#: src/components/ModCanvastools.jsx:207
+#: src/components/ModCanvastools.jsx:208
 msgid "Status: Not running"
 msgstr "Status: Ne radi"
 
-#: src/components/ModCanvastools.jsx:249
+#: src/components/ModCanvastools.jsx:250
 msgid "Image Upload"
 msgstr "Prijenos slike"
 
-#: src/components/ModCanvastools.jsx:250
+#: src/components/ModCanvastools.jsx:251
 msgid "Upload images to canvas"
 msgstr "Prenesite slike na platno"
 
-#: src/components/ModCanvastools.jsx:252
+#: src/components/ModCanvastools.jsx:253
 msgid "File"
 msgstr "Datoteka"
 
-#: src/components/ModCanvastools.jsx:273
+#: src/components/ModCanvastools.jsx:274
 msgid "Coordinates:"
 msgstr "Koordinate:"
 
-#: src/components/ModCanvastools.jsx:317
+#: src/components/ModCanvastools.jsx:318
 msgid "Pixel Protection"
 msgstr "Zaštita piksela"
 
-#: src/components/ModCanvastools.jsx:321
+#: src/components/ModCanvastools.jsx:322
 msgid ""
 "Set protection of areas (if you need finer grained control, use protect with "
 "image upload and alpha layers)"
@@ -1545,33 +1545,34 @@ msgstr ""
 "Postavite zaštitu područja (ako vam je potrebna preciznija kontrola, "
 "koristite zaštitu s učitavanjem slike i alfa slojevima)"
 
-#: src/components/ModCanvastools.jsx:341 src/components/ModCanvastools.jsx:424
-#: src/components/ModCanvastools.jsx:517 src/components/ModWatchtools.jsx:176
+#: src/components/ModCanvastools.jsx:342 src/components/ModCanvastools.jsx:419
+#: src/components/ModCanvastools.jsx:513 src/components/ModWatchtools.jsx:174
 msgid "Top-left corner"
 msgstr "Gornji lijevi kut"
 
-#: src/components/ModCanvastools.jsx:363 src/components/ModCanvastools.jsx:446
-#: src/components/ModCanvastools.jsx:539 src/components/ModWatchtools.jsx:198
+#: src/components/ModCanvastools.jsx:364 src/components/ModCanvastools.jsx:441
+#: src/components/ModCanvastools.jsx:535 src/components/ModWatchtools.jsx:196
 msgid "Bottom-right corner"
 msgstr "Donji desni kut"
 
-#: src/components/ModCanvastools.jsx:409
+#: src/components/ModCanvastools.jsx:410
 msgid "Rollback to Date"
 msgstr "Rollback na datum"
 
-#: src/components/ModCanvastools.jsx:411
-msgid "Rollback an area of the canvas to a set date (00:00 UTC)"
+#: src/components/ModCanvastools.jsx:414
+#, fuzzy
+msgid "Rollback an area of the canvas to a set date and time"
 msgstr "Rollback područje platna na postavljeni datum (00:00 UTC)"
 
-#: src/components/ModCanvastools.jsx:492
+#: src/components/ModCanvastools.jsx:488
 msgid "Canvas Cleaner"
 msgstr "Sredstvo za čišćenje platna"
 
-#: src/components/ModCanvastools.jsx:494
+#: src/components/ModCanvastools.jsx:490
 msgid "Apply a filter to clean trash in large canvas areas."
 msgstr "Primijenite filtar za čišćenje smeća na velikim površinama platna."
 
-#: src/components/ModCanvastools.jsx:605
+#: src/components/ModCanvastools.jsx:601
 msgid "Stop Cleaner"
 msgstr "Zaustavi čistača"
 
@@ -1607,29 +1608,37 @@ msgstr "Unesite korisničko ime novog Mod"
 msgid "User Name"
 msgstr "Korisničko ime"
 
-#: src/components/ModWatchtools.jsx:48
+#: src/components/ModWatchtools.jsx:49
 msgid "Interval is invalid"
 msgstr "Interval je nevažeći"
 
-#: src/components/ModWatchtools.jsx:124
+#: src/components/ModWatchtools.jsx:122
 msgid "Check who placed in an area"
 msgstr "Provjerite tko je postavljao u neko područje"
 
-#: src/components/ModWatchtools.jsx:144
+#: src/components/ModWatchtools.jsx:142
 msgid "Interval"
 msgstr "Intervall"
 
-#: src/components/ModWatchtools.jsx:159
+#: src/components/ModWatchtools.jsx:157
 msgid "IID (optional)"
 msgstr "IID (izborno)"
 
-#: src/components/ModWatchtools.jsx:249
+#: src/components/ModWatchtools.jsx:247
 msgid "Get Pixels"
 msgstr "Nabavite piksele"
 
-#: src/components/ModWatchtools.jsx:281
+#: src/components/ModWatchtools.jsx:279
 msgid "Get Users"
 msgstr "Dobiti korisnike"
+
+#: src/components/TemplateItem.jsx:71
+msgid "Edit"
+msgstr "Uredi"
+
+#: src/components/TemplateItem.jsx:81
+msgid "Go to"
+msgstr "Idi do"
 
 #: src/components/ModIIDtools.jsx:20
 msgid "You must enter a duration"
@@ -1696,6 +1705,18 @@ msgstr "Blokiraj"
 #: src/components/contextmenus/ChannelContextMenu.jsx:46
 msgid "Mute"
 msgstr "Isključi zvuk"
+
+#: src/components/MdLink.jsx:93
+msgid "Open in PopUp"
+msgstr ""
+
+#: src/components/MdLink.jsx:104
+msgid "Hide Embed"
+msgstr ""
+
+#: src/components/MdLink.jsx:110
+msgid "Show Embedded"
+msgstr ""
 
 #: src/components/windows/Help.jsx:19 src/components/windows/Settings.jsx:73
 msgctxt "keybinds"

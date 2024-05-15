@@ -5,6 +5,7 @@
 export const argsTypes = {
   USERAREA: ['activeTab'],
   CHAT: ['chatChannel'],
+  PLAYER: ['uri'],
 };
 
 const availablePopups = [
@@ -16,6 +17,7 @@ const availablePopups = [
   'ARCHIVE',
   'REGISTER',
   'FORGOT_PASSWORD',
+  'PLAYER',
 ];
 
 export function isPopUp() {

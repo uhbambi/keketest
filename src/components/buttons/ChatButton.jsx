@@ -2,9 +2,7 @@
  *
  */
 
-import React, {
-  useState, useEffect,
-} from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch, shallowEqual } from 'react-redux';
 import { MdForum } from 'react-icons/md';
 import { t } from 'ttag';
@@ -13,29 +11,22 @@ import {
   hideAllWindowTypes,
   openChatWindow,
 } from '../../store/actions/windows';
-
-/*
- * return [ chatOpen, chatHidden ]
- *   chatOpen: if any chat window or modal is open
- *   chatHidden: if any chat windows are hidden
- */
-const selectChatWindowStatus = (state) => [
-  state.windows.windows.some((win) => win.windowType === 'CHAT'
-    && win.hidden === false && (state.windows.showWindows || win.fullscreen)),
-  state.windows.windows.some((win) => win.windowType === 'CHAT'
-    && win.hidden === true) && state.windows.showWindows,
-];
+import {
+  selectChatWindowStatus,
+} from '../../store/selectors/windows';
 
 const ChatButton = () => {
   const [unreadAny, setUnreadAny] = useState(false);
 
   const dispatch = useDispatch();
 
+  /*
+   * [ chatOpen: if any chat window or modal is open,
+   *   chatHidden: if any chat windows are hidden ]
+   */
   const [chatOpen, chatHidden] = useSelector(
-    selectChatWindowStatus,
-    shallowEqual,
+    selectChatWindowStatus, shallowEqual,
   );
-
   const chatNotify = useSelector((state) => state.gui.chatNotify);
   const channels = useSelector((state) => state.chat.channels);
   const [unread, mute] = useSelector((state) => [

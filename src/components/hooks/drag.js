@@ -42,10 +42,20 @@ function useDrag(elRef, startHandler, diffHandler) {
       document.removeEventListener('mouseup', stopDrag);
       document.removeEventListener('touchcancel', stopDrag);
       document.removeEventListener('touchend', stopDrag);
+
+      for (const i of document.getElementsByTagName('iframe')) {
+        i.style.removeProperty('pointer-events');
+        i.style.removeProperty('touch-action');
+      }
     };
     document.addEventListener('mouseup', stopDrag);
     document.addEventListener('touchcancel', stopDrag);
     document.addEventListener('touchend', stopDrag);
+
+    for (const i of document.getElementsByTagName('iframe')) {
+      i.style['pointer-events'] = 'none';
+      i.style['touch-action'] = 'none';
+    }
   }, [startHandler, diffHandler]);
 
   useEffect(() => {

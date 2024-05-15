@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2024-03-11 22:53+0000\n"
+"PO-Revision-Date: 2024-05-10 18:23+0000\n"
 "Last-Translator: Translation Team <noreply@example.com>\n"
 "Language-Team: Azerbaijani <https://hosted.weblate.org/projects/pixelplanet/"
 "client/az/>\n"
@@ -11,28 +11,28 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.5-dev\n"
+"X-Generator: Weblate 5.5.4\n"
 
 #: src/controls/keypress.js:102
 #, javascript-format
 msgid "Switched to ${ canvasName }"
-msgstr "${ canvasName } lövhəsinə keçildi"
+msgstr "${ canvasName } taxtasına keçildi"
 
 #: src/controls/keypress.js:176
 msgid "Grid ON"
-msgstr "Tor aktivdir"
+msgstr "Tor qoşuldu"
 
 #: src/controls/keypress.js:177
 msgid "Grid OFF"
-msgstr "Tor bağlıdır"
+msgstr "Tor bağlandı"
 
 #: src/controls/keypress.js:187
 msgid "Pixel Notify ON"
-msgstr "Piksel Bildirimi aktivdir"
+msgstr "Piksel bildirişi qoşuldu"
 
 #: src/controls/keypress.js:188
 msgid "Pixel Notify OFF"
-msgstr "Piksel Bildirimi bağlıdır"
+msgstr "Piksel bildirişi bağlandı"
 
 #: src/controls/keypress.js:193
 msgid "Muted Sound"
@@ -45,42 +45,42 @@ msgstr "Səs açıldı"
 #: src/components/CoordinatesBox.jsx:39 src/components/GetIID.jsx:51
 #: src/controls/keypress.js:203
 msgid "Copied"
-msgstr "Kopyalandı"
+msgstr "Köçürüldü"
 
 #: src/controls/keypress.js:209
 msgid "Overlay ON"
-msgstr "Şablon açıqdır"
+msgstr "Şablon qoşuldu"
 
 #: src/controls/keypress.js:210
 msgid "Overlay OFF"
-msgstr "Şablon bağlıdır"
+msgstr "Şablon bağlandı"
 
 #: src/components/windows/Help.jsx:50 src/controls/keypress.js:216
 msgid "Easter Egg ON"
-msgstr "Easter Egg açıqdır"
+msgstr "Easter Egg qoşuldu"
 
 #: src/components/windows/Help.jsx:49 src/controls/keypress.js:217
 msgid "Easter Egg OFF"
-msgstr "Easter Egg bağlıdır"
+msgstr "Easter Egg bağlandı"
 
 #: src/ui/PixelTransferController.js:70 src/ui/PixelTransferController.js:165
 msgid "Timeout"
 msgstr "Zamanaşımı"
 
 #: src/ui/PixelTransferController.js:72 src/ui/PixelTransferController.js:167
-#, fuzzy
 msgid ""
 "Didn't get an answer from pixelplanet. Try to refresh if this problem "
 "persists."
-msgstr "Pixelplanetdən cavab alınmadı.Səyifəni yeniləməyi yoxlayın?"
+msgstr ""
+"Pixelplanetdən yanıd alınmadı. Əgər sorun davam edirsə səhifəni yeniləyin."
 
 #: src/ui/PixelTransferController.js:104
 msgid "Invalid Canvas"
-msgstr "Keçərsiz Löhvə"
+msgstr "Keçərsiz taxta"
 
 #: src/ui/PixelTransferController.js:105
 msgid "This canvas doesn't exist"
-msgstr "Bu löhvə mövcud deyil"
+msgstr "Bu taxta mövcud deyil"
 
 #: src/ui/PixelTransferController.js:108 src/ui/PixelTransferController.js:112
 #: src/ui/PixelTransferController.js:116
@@ -89,7 +89,7 @@ msgstr "Keçərsiz koordinatlar"
 
 #: src/ui/PixelTransferController.js:109
 msgid "x out of bounds"
-msgstr "x sərhədlərinin kənarında"
+msgstr "x sərhədlərinin keçib"
 
 #: src/ui/PixelTransferController.js:113
 msgid "y out of bounds"
@@ -263,7 +263,7 @@ msgid "You have new messages in chat"
 msgstr "Sizin söhbətdə yeni mesajlarınız var"
 
 #: src/components/Converter.jsx:566 src/components/CoordinatesBox.jsx:42
-#: src/components/ModWatchtools.jsx:390 src/components/ModWatchtools.jsx:408
+#: src/components/ModWatchtools.jsx:388 src/components/ModWatchtools.jsx:406
 msgid "Copy to Clipboard"
 msgstr "Löhvəyə kopyalayın"
 
@@ -275,7 +275,7 @@ msgstr "Löhvədəki onlayn istifadəçilər"
 msgid "Total Online Users"
 msgstr "Toplam onlayn istifadəçilər"
 
-#: src/components/OnlineBox.jsx:84 src/components/UserAreaContent.jsx:71
+#: src/components/OnlineBox.jsx:84 src/components/UserAreaContent.jsx:79
 msgid "Placed Pixels"
 msgstr "Qoyulan Piksellər"
 
@@ -288,15 +288,15 @@ msgid "Total"
 msgstr "Toplam"
 
 #: src/components/buttons/CanvasSwitchButton.jsx:20
-#: src/components/windows/index.js:19
+#: src/components/windows/index.js:20
 msgid "Canvas Selection"
 msgstr "Löhvə Seçimi"
 
-#: src/components/buttons/ChatButton.jsx:88
+#: src/components/buttons/ChatButton.jsx:79
 msgid "Close Chat"
 msgstr "Söhbəti bağla"
 
-#: src/components/buttons/ChatButton.jsx:88
+#: src/components/buttons/ChatButton.jsx:79
 msgid "Open Chat"
 msgstr "Söhbəti aç"
 
@@ -308,16 +308,16 @@ msgstr "Menuyu bağla"
 msgid "Open Menu"
 msgstr "Menuyu aç"
 
-#: src/components/HistorySelect.jsx:146
+#: src/components/HistorySelect.jsx:156
 msgid "Loading"
 msgstr "Yüklənir"
 
-#: src/components/HistorySelect.jsx:147
+#: src/components/HistorySelect.jsx:157
 msgid "Select Date above"
 msgstr "Tarixi seçin"
 
-#: src/components/Admintools.jsx:103 src/components/ModCanvastools.jsx:226
-#: src/components/ModWatchtools.jsx:120 src/components/Window.jsx:157
+#: src/components/Admintools.jsx:103 src/components/ModCanvastools.jsx:227
+#: src/components/ModWatchtools.jsx:118 src/components/Window.jsx:157
 #: src/components/Window.jsx:260
 #: src/components/contextmenus/ChannelContextMenu.jsx:59
 msgid "Close"
@@ -348,16 +348,16 @@ msgid "Resize"
 msgstr "Ölçünü dəyişdir"
 
 #: src/components/BanInfo.jsx:75 src/components/buttons/HelpButton.jsx:20
-#: src/components/windows/index.js:13
+#: src/components/windows/index.js:14
 msgid "Help"
 msgstr "Yardım"
 
 #: src/components/buttons/SettingsButton.jsx:21
-#: src/components/windows/index.js:14
+#: src/components/windows/index.js:15
 msgid "Settings"
 msgstr "Ayarlar"
 
-#: src/components/buttons/LogInButton.jsx:20 src/components/windows/index.js:15
+#: src/components/buttons/LogInButton.jsx:20 src/components/windows/index.js:16
 msgid "User Area"
 msgstr "İstifadəçi Sahəsi"
 
@@ -368,6 +368,14 @@ msgstr "Ekran görüntüsü al"
 #: src/components/buttons/GlobeButton.jsx:34
 msgid "Globe View"
 msgstr "Dünya Görünümü"
+
+#: src/components/buttons/PalselButton.jsx:30
+msgid "Close Palette"
+msgstr "Palitranı aç"
+
+#: src/components/buttons/PalselButton.jsx:30
+msgid "Open Palette"
+msgstr "Palitranı bağla"
 
 #: src/components/buttons/PencilButton.jsx:41
 msgid "Enable Pencil"
@@ -385,29 +393,25 @@ msgstr "Tarix Qələmini Bağla"
 msgid "Disable Overlay Pencil"
 msgstr "Şablon Qələmini Bağla"
 
-#: src/components/buttons/PalselButton.jsx:30
-msgid "Close Palette"
-msgstr "Palitranı aç"
-
-#: src/components/buttons/PalselButton.jsx:30
-msgid "Open Palette"
-msgstr "Palitranı bağla"
-
-#: src/components/windows/index.js:16
+#: src/components/windows/index.js:17
 msgid "Registration"
 msgstr "Qeydiyyat"
 
-#: src/components/windows/index.js:17
+#: src/components/windows/index.js:18
 msgid "Forgot Password"
 msgstr "Şifrəyi unut"
 
-#: src/components/windows/index.js:18
+#: src/components/windows/index.js:19
 msgid "Chat"
 msgstr "Söhbət"
 
-#: src/components/windows/index.js:20
+#: src/components/windows/index.js:21
 msgid "Canvas Archive"
 msgstr "Löhvə Arxivi"
+
+#: src/components/windows/index.js:22
+msgid "Player"
+msgstr ""
 
 #: src/components/GlobalCaptcha.jsx:47
 msgid "You took too long, try again."
@@ -876,8 +880,8 @@ msgid "Captcha"
 msgstr "Captcha"
 
 #: src/components/Admintools.jsx:154 src/components/Admintools.jsx:238
-#: src/components/ModCanvastools.jsx:312 src/components/ModCanvastools.jsx:403
-#: src/components/ModCanvastools.jsx:486 src/components/ModCanvastools.jsx:587
+#: src/components/ModCanvastools.jsx:313 src/components/ModCanvastools.jsx:404
+#: src/components/ModCanvastools.jsx:482 src/components/ModCanvastools.jsx:583
 #: src/components/ModIIDtools.jsx:135
 #: src/components/windows/ForgotPassword.jsx:84
 #: src/components/windows/Register.jsx:127
@@ -966,6 +970,10 @@ msgstr "Chata mesaj yazabilmək üçün daxil olmalısınız"
 #: src/components/windows/Chat.jsx:273
 msgid "Channel settings"
 msgstr "Kanal ayarları"
+
+#: src/components/windows/Player.jsx:17
+msgid "This URL is not supported by our Media Player"
+msgstr ""
 
 #: src/components/windows/ForgotPassword.jsx:58
 msgid "Sent you a mail with instructions to reset your password."
@@ -1126,47 +1134,6 @@ msgstr "Açıq şablonları xaric et"
 msgid "Import templates"
 msgstr "Şablonları daxil et"
 
-#: src/components/UserAreaContent.jsx:62
-msgid "Today Placed Pixels"
-msgstr "Bugün qoyulan piksellər"
-
-#: src/components/UserAreaContent.jsx:66
-msgid "Daily Rank"
-msgstr "Günlük Sıralama"
-
-#: src/components/UserAreaContent.jsx:75
-msgid "Total Rank"
-msgstr "Toplam Sıralama"
-
-#: src/components/UserAreaContent.jsx:80
-#, javascript-format
-msgid "Your name is: ${ name }"
-msgstr "Sənin adın: ${ name }dir"
-
-#: src/components/UserAreaContent.jsx:86
-msgid "Log out"
-msgstr "Çıxış edin"
-
-#: src/components/UserAreaContent.jsx:93
-msgid "Change Username"
-msgstr "Adı dəyişdirin"
-
-#: src/components/UserAreaContent.jsx:103
-msgid "Change Mail"
-msgstr "Maili dəyişdirin"
-
-#: src/components/UserAreaContent.jsx:112
-msgid "Change Password"
-msgstr "Şifrəni dəyişdirin"
-
-#: src/components/UserAreaContent.jsx:119
-msgid "Delete Account"
-msgstr "Hesabı silin"
-
-#: src/components/UserAreaContent.jsx:126
-msgid "Social Settings"
-msgstr "Sosial Ayarlar"
-
 #: src/components/LogInArea.jsx:19
 msgid "Login to access more features and stats."
 msgstr "Daha çox məlumata sahib olmaq üçün daxil olun."
@@ -1191,56 +1158,48 @@ msgstr "vəya burdan qeydiyyatdan keçin:"
 msgid "Register"
 msgstr "Qeydiyyatdan keçin"
 
-#: src/components/Rankings.jsx:168
-msgid "Yesterday"
-msgstr "Dünən"
+#: src/components/UserAreaContent.jsx:69
+msgid "Today Placed Pixels"
+msgstr "Bugün qoyulan piksellər"
 
-#: src/components/Rankings.jsx:177
-msgid "Countries Today"
-msgstr "Bugünkü Ölkələr"
+#: src/components/UserAreaContent.jsx:73
+msgid "Daily Rank"
+msgstr "Günlük Sıralama"
 
-#: src/components/Rankings.jsx:186 src/components/Rankings.jsx:203
-msgid "Charts"
-msgstr "Qrafiklər"
+#: src/components/UserAreaContent.jsx:83
+msgid "Total Rank"
+msgstr "Toplam Sıralama"
 
-#: src/components/Rankings.jsx:191
-#, fuzzy
-msgid "Total Pixels per Player"
-msgstr "Bir gün içində toplam qoyulan pixellər"
+#: src/components/UserAreaContent.jsx:89
+#, javascript-format
+msgid "Your name is: ${ name }"
+msgstr "Sənin adın: ${ name }dir"
 
-#: src/components/Rankings.jsx:192
-#, fuzzy
-msgid "Daily Pixels per Player"
-msgstr "Bir gün içində toplam qoyulan pixellər"
+#: src/components/UserAreaContent.jsx:95
+msgid "Log out"
+msgstr "Çıxış edin"
 
-#: src/components/Rankings.jsx:193
-#, fuzzy
-msgid "Top 10 Players from Yesterday"
-msgstr "Top 10 Oyunçular [pxls / gün]"
+#: src/components/UserAreaContent.jsx:102
+msgid "Change Username"
+msgstr "Adı dəyişdirin"
 
-#: src/components/Rankings.jsx:197
-#, fuzzy
-msgid "Daily Pixels per Country"
-msgstr "Saat başına oyunçular və pixellər"
+#: src/components/UserAreaContent.jsx:112
+msgid "Change Mail"
+msgstr "Maili dəyişdirin"
 
-#: src/components/Rankings.jsx:215 src/components/Rankings.jsx:224
-#: src/components/Rankings.jsx:233
-msgid "User"
-msgstr "İstifadəçi"
+#: src/components/UserAreaContent.jsx:121
+msgid "Change Password"
+msgstr "Şifrəni dəyişdirin"
 
-#: src/components/CooldownChanges.jsx:24 src/components/Rankings.jsx:240
-msgid "Country"
-msgstr "Ölkə"
+#: src/components/UserAreaContent.jsx:128
+msgid "Delete Account"
+msgstr "Hesabı silin"
 
-#: src/components/Rankings.jsx:241
-msgid "+last hour"
-msgstr ""
+#: src/components/UserAreaContent.jsx:135
+msgid "Social Settings"
+msgstr "Sosial Ayarlar"
 
-#: src/components/Rankings.jsx:311
-msgid "Ranking updates every 5 min. Daily rankings get reset at midnight UTC."
-msgstr "Hər 5 dəqiqədən bir Gündəlik reytinqlər gecə yarısı UTC-də sıfırlanır."
-
-#: src/components/Converter.jsx:191 src/components/ModCanvastools.jsx:230
+#: src/components/Converter.jsx:191 src/components/ModCanvastools.jsx:231
 msgid "Choose Canvas"
 msgstr "Lövhə seçin"
 
@@ -1317,6 +1276,55 @@ msgstr "Sıfırla"
 msgid "Download Template"
 msgstr "Template yüklə"
 
+#: src/components/Rankings.jsx:168
+msgid "Yesterday"
+msgstr "Dünən"
+
+#: src/components/Rankings.jsx:177
+msgid "Countries Today"
+msgstr "Bugünkü Ölkələr"
+
+#: src/components/Rankings.jsx:186 src/components/Rankings.jsx:203
+msgid "Charts"
+msgstr "Qrafiklər"
+
+#: src/components/Rankings.jsx:191
+#, fuzzy
+msgid "Total Pixels per Player"
+msgstr "Bir gün içində toplam qoyulan pixellər"
+
+#: src/components/Rankings.jsx:192
+#, fuzzy
+msgid "Daily Pixels per Player"
+msgstr "Bir gün içində toplam qoyulan pixellər"
+
+#: src/components/Rankings.jsx:193
+#, fuzzy
+msgid "Top 10 Players from Yesterday"
+msgstr "Top 10 Oyunçular [pxls / gün]"
+
+#: src/components/Rankings.jsx:197
+#, fuzzy
+msgid "Daily Pixels per Country"
+msgstr "Saat başına oyunçular və pixellər"
+
+#: src/components/Rankings.jsx:215 src/components/Rankings.jsx:224
+#: src/components/Rankings.jsx:233
+msgid "User"
+msgstr "İstifadəçi"
+
+#: src/components/CooldownChanges.jsx:24 src/components/Rankings.jsx:240
+msgid "Country"
+msgstr "Ölkə"
+
+#: src/components/Rankings.jsx:243
+msgid "+last hour"
+msgstr ""
+
+#: src/components/Rankings.jsx:314
+msgid "Ranking updates every 5 min. Daily rankings get reset at midnight UTC."
+msgstr "Hər 5 dəqiqədən bir Gündəlik reytinqlər gecə yarısı UTC-də sıfırlanır."
+
 #: src/components/CanvasItem.jsx:29
 msgid "Online Users"
 msgstr "Onlayn Istifadəçilər"
@@ -1363,23 +1371,6 @@ msgstr "Top 10 Günlük Reytinq"
 msgid "Dimensions"
 msgstr "Ölçülər"
 
-#: src/components/ModWatchtools.jsx:125 src/components/TemplateItem.jsx:54
-#: src/components/TemplateItemEdit.jsx:122
-msgid "Canvas"
-msgstr "Löhvə"
-
-#: src/components/TemplateItem.jsx:57 src/components/TemplateItemEdit.jsx:141
-msgid "Coordinates"
-msgstr "Koordinatlar"
-
-#: src/components/TemplateItem.jsx:71
-msgid "Edit"
-msgstr "Redaktə et"
-
-#: src/components/TemplateItem.jsx:81
-msgid "Go to"
-msgstr "Get"
-
 #: src/components/TemplateItemEdit.jsx:97
 msgid "Select File"
 msgstr "Faylı seçin"
@@ -1388,25 +1379,26 @@ msgstr "Faylı seçin"
 msgid "Template Name"
 msgstr "Şablon Adı"
 
+#: src/components/ModWatchtools.jsx:123 src/components/TemplateItem.jsx:54
+#: src/components/TemplateItemEdit.jsx:122
+msgid "Canvas"
+msgstr "Löhvə"
+
+#: src/components/TemplateItem.jsx:57 src/components/TemplateItemEdit.jsx:141
+msgid "Coordinates"
+msgstr "Koordinatlar"
+
 #: src/components/TemplateItemEdit.jsx:174
 msgid "Delete"
 msgstr "Silin"
 
-#: src/components/UserMessages.jsx:28
-msgid ""
-"Please verify your mail address or your account could get deleted after a "
-"few days."
-msgstr ""
-"Zəhmət olmasa email adresinizi doğrulayın,yoxsa hesabınız bir neçə gün sonra "
-"silinəbilər."
+#: src/components/LogInForm.jsx:77
+msgid "Name or Email"
+msgstr "Ad vəya Email"
 
-#: src/components/UserMessages.jsx:49
-msgid "A new verification mail is getting sent to you."
-msgstr "Yeni bir doğrulama maili sizə göndərilir."
-
-#: src/components/UserMessages.jsx:53
-msgid "Click here to request a new verification mail."
-msgstr "Yeni doğrulama maili tələb etmək üçün bura basın."
+#: src/components/LogInForm.jsx:88
+msgid "LogIn"
+msgstr "Daxil olun"
 
 #: src/components/ChangePassword.jsx:21
 msgid "Passwords do not match."
@@ -1444,6 +1436,22 @@ msgstr ""
 msgid "New Mail"
 msgstr "Yeni Email"
 
+#: src/components/UserMessages.jsx:28
+msgid ""
+"Please verify your mail address or your account could get deleted after a "
+"few days."
+msgstr ""
+"Zəhmət olmasa email adresinizi doğrulayın,yoxsa hesabınız bir neçə gün sonra "
+"silinəbilər."
+
+#: src/components/UserMessages.jsx:49
+msgid "A new verification mail is getting sent to you."
+msgstr "Yeni bir doğrulama maili sizə göndərilir."
+
+#: src/components/UserMessages.jsx:53
+msgid "Click here to request a new verification mail."
+msgstr "Yeni doğrulama maili tələb etmək üçün bura basın."
+
 #: src/components/DeleteAccount.jsx:66
 msgid "Yes, Delete My Account!"
 msgstr "Bəli,Hesabımı silin!"
@@ -1472,31 +1480,23 @@ msgstr "İstifadəçinin blokunu aç"
 msgid "You have no users blocked"
 msgstr "Heçbir istifadəçiyi bloklamamısınız"
 
-#: src/components/LogInForm.jsx:77
-msgid "Name or Email"
-msgstr "Ad vəya Email"
-
-#: src/components/LogInForm.jsx:88
-msgid "LogIn"
-msgstr "Daxil olun"
-
-#: src/components/ModCanvastools.jsx:168
+#: src/components/ModCanvastools.jsx:169
 msgid "Build image on canvas."
 msgstr "Lövhədə şəkil yarat."
 
-#: src/components/ModCanvastools.jsx:171
+#: src/components/ModCanvastools.jsx:172
 msgid "Build image and set it to protected."
 msgstr "Şəkil yarat və onu qorumaya al."
 
-#: src/components/ModCanvastools.jsx:174
+#: src/components/ModCanvastools.jsx:175
 msgid "Build image, but reset cooldown to unset-pixel cd."
 msgstr "Şəkil yaradın, lakin gözləmə müddətini sıfırla."
 
-#: src/components/ModCanvastools.jsx:184
+#: src/components/ModCanvastools.jsx:185
 msgid "Clean spare pixels that are surrounded by unset pixels"
 msgstr "Qurulmamış pixellərlə əhatə olunmuş pixelləri təmizləyin"
 
-#: src/components/ModCanvastools.jsx:188
+#: src/components/ModCanvastools.jsx:189
 msgid ""
 "Clean spare pixels that are surrounded by unset pixels and up to 1 other set "
 "pixels"
@@ -1504,7 +1504,7 @@ msgstr ""
 "Qurulmamış pixellər və 1-ə qədər digər təyin edilmiş pixellərlə əhatə "
 "olunmuş pixelləri təmizləyin"
 
-#: src/components/ModCanvastools.jsx:192
+#: src/components/ModCanvastools.jsx:193
 msgid ""
 "Clean spare pixels that are surrounded by a single other color or unset "
 "pixels (VERY AGGRESSIVE ON CANVASES THAT ALLOW UNSET PIXELS (where there are "
@@ -1514,7 +1514,7 @@ msgstr ""
 "təmizləyin (QURULMUŞ PİXELLƏRƏ İCAZƏ VERƏN LÖHVƏLƏRDƏ ÇOX AQRESSİVDİR (iki "
 "gözləmə müddəti olanlarda)!)"
 
-#: src/components/ModCanvastools.jsx:196
+#: src/components/ModCanvastools.jsx:197
 msgid ""
 "Turn every pixel in area to 0 (YOU REALLY SHOULDN'T DO THAT ON ANY AREA THAT "
 "ISN'T ALREADY MOSTLY 0)"
@@ -1522,31 +1522,31 @@ msgstr ""
 "Hər piksel ərazisini 0-a çevirin (SİZ BUNU ƏSASƏN 0 OLMAYAN ƏRAZİDƏ "
 "ETMƏMƏLİSİNİZ)"
 
-#: src/components/ModCanvastools.jsx:207
+#: src/components/ModCanvastools.jsx:208
 msgid "Status: Not running"
 msgstr "Status: İşləmir"
 
-#: src/components/ModCanvastools.jsx:249
+#: src/components/ModCanvastools.jsx:250
 msgid "Image Upload"
 msgstr "Şəkil yükləyin"
 
-#: src/components/ModCanvastools.jsx:250
+#: src/components/ModCanvastools.jsx:251
 msgid "Upload images to canvas"
 msgstr "Lövhəyə şəkil yükləyin"
 
-#: src/components/ModCanvastools.jsx:252
+#: src/components/ModCanvastools.jsx:253
 msgid "File"
 msgstr "Fayl"
 
-#: src/components/ModCanvastools.jsx:273
+#: src/components/ModCanvastools.jsx:274
 msgid "Coordinates:"
 msgstr "Koordinatlar:"
 
-#: src/components/ModCanvastools.jsx:317
+#: src/components/ModCanvastools.jsx:318
 msgid "Pixel Protection"
 msgstr "Pixel Qoruması"
 
-#: src/components/ModCanvastools.jsx:321
+#: src/components/ModCanvastools.jsx:322
 msgid ""
 "Set protection of areas (if you need finer grained control, use protect with "
 "image upload and alpha layers)"
@@ -1554,35 +1554,36 @@ msgstr ""
 "Qoruma sahələrini ayarla (daha yaxşı dənələnmiş kontrola ehtiyacın varsa, "
 "şəkil yükləmə və alfa qatları ilə qorumadan istifadə et)"
 
-#: src/components/ModCanvastools.jsx:341 src/components/ModCanvastools.jsx:424
-#: src/components/ModCanvastools.jsx:517 src/components/ModWatchtools.jsx:176
+#: src/components/ModCanvastools.jsx:342 src/components/ModCanvastools.jsx:419
+#: src/components/ModCanvastools.jsx:513 src/components/ModWatchtools.jsx:174
 msgid "Top-left corner"
 msgstr "Sol-üst künc"
 
-#: src/components/ModCanvastools.jsx:363 src/components/ModCanvastools.jsx:446
-#: src/components/ModCanvastools.jsx:539 src/components/ModWatchtools.jsx:198
+#: src/components/ModCanvastools.jsx:364 src/components/ModCanvastools.jsx:441
+#: src/components/ModCanvastools.jsx:535 src/components/ModWatchtools.jsx:196
 msgid "Bottom-right corner"
 msgstr "Sağ-alt künc"
 
-#: src/components/ModCanvastools.jsx:409
+#: src/components/ModCanvastools.jsx:410
 msgid "Rollback to Date"
 msgstr "Bu müddətə qaytarın"
 
-#: src/components/ModCanvastools.jsx:411
-msgid "Rollback an area of the canvas to a set date (00:00 UTC)"
+#: src/components/ModCanvastools.jsx:414
+#, fuzzy
+msgid "Rollback an area of the canvas to a set date and time"
 msgstr ""
 "Tarix təyin etmək üçün lövhənin müəyyən bir sahəsini rollbackləyin (00:00 "
 "UTC)"
 
-#: src/components/ModCanvastools.jsx:492
+#: src/components/ModCanvastools.jsx:488
 msgid "Canvas Cleaner"
 msgstr "Löhvə Təmizləyicisi"
 
-#: src/components/ModCanvastools.jsx:494
+#: src/components/ModCanvastools.jsx:490
 msgid "Apply a filter to clean trash in large canvas areas."
 msgstr "Böyük lövhə sahələrində zibilləri təmizləmək üçün filtr tətbiq edin."
 
-#: src/components/ModCanvastools.jsx:605
+#: src/components/ModCanvastools.jsx:601
 msgid "Stop Cleaner"
 msgstr "Təmizləyiciyi dayandırın"
 
@@ -1618,29 +1619,37 @@ msgstr "Yeni modun istifadəçi adını daxil edin"
 msgid "User Name"
 msgstr "Istifadəçi adı"
 
-#: src/components/ModWatchtools.jsx:48
+#: src/components/ModWatchtools.jsx:49
 msgid "Interval is invalid"
 msgstr "İnterval keçərsizdir"
 
-#: src/components/ModWatchtools.jsx:124
+#: src/components/ModWatchtools.jsx:122
 msgid "Check who placed in an area"
 msgstr "Kimin bu bölgədə pixel qoyduğunu yoxlayın"
 
-#: src/components/ModWatchtools.jsx:144
+#: src/components/ModWatchtools.jsx:142
 msgid "Interval"
 msgstr "İnterval"
 
-#: src/components/ModWatchtools.jsx:159
+#: src/components/ModWatchtools.jsx:157
 msgid "IID (optional)"
 msgstr "IID(istəyə bağlıdır)"
 
-#: src/components/ModWatchtools.jsx:249
+#: src/components/ModWatchtools.jsx:247
 msgid "Get Pixels"
 msgstr "Pixelləri əldə edin"
 
-#: src/components/ModWatchtools.jsx:281
+#: src/components/ModWatchtools.jsx:279
 msgid "Get Users"
 msgstr "İstifadəçiləri əldə edin"
+
+#: src/components/TemplateItem.jsx:71
+msgid "Edit"
+msgstr "Redaktə et"
+
+#: src/components/TemplateItem.jsx:81
+msgid "Go to"
+msgstr "Get"
 
 #: src/components/ModIIDtools.jsx:20
 msgid "You must enter a duration"
@@ -1707,6 +1716,18 @@ msgstr "Blokla"
 #: src/components/contextmenus/ChannelContextMenu.jsx:46
 msgid "Mute"
 msgstr "Sustur"
+
+#: src/components/MdLink.jsx:93
+msgid "Open in PopUp"
+msgstr ""
+
+#: src/components/MdLink.jsx:104
+msgid "Hide Embed"
+msgstr ""
+
+#: src/components/MdLink.jsx:110
+msgid "Show Embedded"
+msgstr ""
 
 #: src/components/windows/Help.jsx:19 src/components/windows/Settings.jsx:73
 msgctxt "keybinds"

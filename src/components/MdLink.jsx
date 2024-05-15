@@ -6,10 +6,13 @@
 import React, { useState } from 'react';
 import ReactDOM from 'react-dom';
 import { HiArrowsExpand, HiStop } from 'react-icons/hi';
+import { HiWindow } from 'react-icons/hi2';
+import { t } from 'ttag';
 
 import { getLinkDesc } from '../core/utils';
 import EMBEDS from './embeds';
 import { isPopUp } from './windows/popUpAvailable';
+import useLink from './hooks/link';
 
 const titleAllowed = [
   'odysee',
@@ -17,6 +20,8 @@ const titleAllowed = [
   'matrix.pixelplanet.fun',
   'youtube',
   'youtu.be',
+  'bitchute',
+  'tiktok',
   't.me',
 ];
 
@@ -24,6 +29,8 @@ const MdLink = ({ href, title, refEmbed }) => {
   const [showEmbed, setShowEmbed] = useState(false);
 
   const desc = getLinkDesc(href);
+
+  const link = useLink();
 
   // treat pixelplanet links separately
   if (desc === window.location.hostname && href.includes('/#')) {
@@ -62,7 +69,7 @@ const MdLink = ({ href, title, refEmbed }) => {
         {parsedTitle}
       </a>
       {(embedAvailable) && (
-        <>
+        <span className="embbtn">
           &nbsp;
           {(embedObj[3])
             && (
@@ -77,27 +84,41 @@ const MdLink = ({ href, title, refEmbed }) => {
             />
             )}
           <span
-            style={{ cursor: 'pointer' }}
+            onClick={(evt) => {
+              evt.stopPropagation();
+              link('PLAYER', {
+                reuse: true,
+                target: 'blank',
+                args: { uri: href },
+              });
+            }}
+            title={t`Open in PopUp`}
+          >
+            <HiWindow className="ebex" />
+          </span>
+          <span
             onClick={() => setShowEmbed(!showEmbed)}
           >
             {(showEmbed)
               ? (
                 <HiStop
                   className="ebcl"
+                  title={t`Hide Embed`}
                 />
               )
               : (
                 <HiArrowsExpand
                   className="ebex"
+                  title={t`Show Embedded`}
                 />
               )}
           </span>
-        </>
+          </span>
       )}
       {showEmbed && embedAvailable && (
         (refEmbed && refEmbed.current)
           ? ReactDOM.createPortal(
-            <Embed url={href} />,
+            <Embed url={href} maxHeight={300} />,
             refEmbed.current,
           ) : (
             <Embed url={href} />

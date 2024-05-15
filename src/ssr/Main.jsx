@@ -48,7 +48,7 @@ function generateMainPage(req) {
   const headScript = `(function(){window.ssv=JSON.parse('${ssvR}');let hostPart = window.location.host.split('.'); if (hostPart.length > 2) hostPart.shift(); hostPart = hostPart.join('.'); if (window.ssv.shard && window.location.host !== 'fuckyouarkeros.fun') hostPart = window.location.protocol + '//' + window.ssv.shard + '.' + hostPart; else hostPart = ''; window.me=fetch(hostPart + '/api/me',{credentials:'include'})})();`;
   const scriptHash = createHash('sha256').update(headScript).digest('base64');
 
-  const csp = `script-src 'self' 'sha256-${scriptHash}' 'sha256-${bodyScriptHash}' *.tiktok.com *.ttwstatic.com; worker-src 'self' blob:;`;
+  const csp = `script-src 'self' 'sha256-${scriptHash}' 'sha256-${bodyScriptHash}'; worker-src 'self' blob:;`;
 
   const mainEtag = etag(scripts.concat(ssvR).join('_'), { weak: true });
   if (req.headers['if-none-match'] === mainEtag) {

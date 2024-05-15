@@ -29,6 +29,17 @@ export const selectActiveWindowIds = createSelector(
   },
 );
 
+export const selectChatWindowStatus = createSelector(
+  selectWindows,
+  selectShowWindows,
+  (windows, showWindows) => [
+    windows.some((win) => win.windowType === 'CHAT'
+      && win.hidden === false && (showWindows || win.fullscreen)),
+    windows.some((win) => win.windowType === 'CHAT'
+      && win.hidden === true) && showWindows,
+  ],
+);
+
 /*
  * function factory returning a selector for given windowId
  * use useMemo to cache result

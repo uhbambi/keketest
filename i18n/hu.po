@@ -262,7 +262,7 @@ msgid "You have new messages in chat"
 msgstr "Új üzeneteid vannak a chaten"
 
 #: src/components/Converter.jsx:566 src/components/CoordinatesBox.jsx:42
-#: src/components/ModWatchtools.jsx:390 src/components/ModWatchtools.jsx:408
+#: src/components/ModWatchtools.jsx:388 src/components/ModWatchtools.jsx:406
 msgid "Copy to Clipboard"
 msgstr "Vágólapra másolás"
 
@@ -274,7 +274,7 @@ msgstr "Online felhasználók a vásznon"
 msgid "Total Online Users"
 msgstr "Összes online felhasználó"
 
-#: src/components/OnlineBox.jsx:84 src/components/UserAreaContent.jsx:71
+#: src/components/OnlineBox.jsx:84 src/components/UserAreaContent.jsx:79
 msgid "Placed Pixels"
 msgstr "Elhelyezett Pixelek"
 
@@ -287,15 +287,15 @@ msgid "Total"
 msgstr "Összes"
 
 #: src/components/buttons/CanvasSwitchButton.jsx:20
-#: src/components/windows/index.js:19
+#: src/components/windows/index.js:20
 msgid "Canvas Selection"
 msgstr "Vászon kiválasztása"
 
-#: src/components/buttons/ChatButton.jsx:88
+#: src/components/buttons/ChatButton.jsx:79
 msgid "Close Chat"
 msgstr "Chat bezárása"
 
-#: src/components/buttons/ChatButton.jsx:88
+#: src/components/buttons/ChatButton.jsx:79
 msgid "Open Chat"
 msgstr "Chat kinyitása"
 
@@ -307,16 +307,16 @@ msgstr "Menü bezárása"
 msgid "Open Menu"
 msgstr "Menü kinyitása"
 
-#: src/components/HistorySelect.jsx:146
+#: src/components/HistorySelect.jsx:156
 msgid "Loading"
 msgstr "Betöltés"
 
-#: src/components/HistorySelect.jsx:147
+#: src/components/HistorySelect.jsx:157
 msgid "Select Date above"
 msgstr "Válassz a fenti dátumokból"
 
-#: src/components/Admintools.jsx:103 src/components/ModCanvastools.jsx:226
-#: src/components/ModWatchtools.jsx:120 src/components/Window.jsx:157
+#: src/components/Admintools.jsx:103 src/components/ModCanvastools.jsx:227
+#: src/components/ModWatchtools.jsx:118 src/components/Window.jsx:157
 #: src/components/Window.jsx:260
 #: src/components/contextmenus/ChannelContextMenu.jsx:59
 msgid "Close"
@@ -347,16 +347,16 @@ msgid "Resize"
 msgstr "Átméretezés"
 
 #: src/components/BanInfo.jsx:75 src/components/buttons/HelpButton.jsx:20
-#: src/components/windows/index.js:13
+#: src/components/windows/index.js:14
 msgid "Help"
 msgstr "Segítség"
 
 #: src/components/buttons/SettingsButton.jsx:21
-#: src/components/windows/index.js:14
+#: src/components/windows/index.js:15
 msgid "Settings"
 msgstr "Beállítások"
 
-#: src/components/buttons/LogInButton.jsx:20 src/components/windows/index.js:15
+#: src/components/buttons/LogInButton.jsx:20 src/components/windows/index.js:16
 msgid "User Area"
 msgstr "Felhasználói terület"
 
@@ -367,6 +367,14 @@ msgstr "Képernyőkép készítése"
 #: src/components/buttons/GlobeButton.jsx:34
 msgid "Globe View"
 msgstr "Földgömb nézet"
+
+#: src/components/buttons/PalselButton.jsx:30
+msgid "Close Palette"
+msgstr "Paletta bezárása"
+
+#: src/components/buttons/PalselButton.jsx:30
+msgid "Open Palette"
+msgstr "Paletta kinyitása"
 
 #: src/components/buttons/PencilButton.jsx:41
 msgid "Enable Pencil"
@@ -384,29 +392,25 @@ msgstr "Történelmi ceruza kikapcsolása"
 msgid "Disable Overlay Pencil"
 msgstr "Overlay ceruza kikapcsolása"
 
-#: src/components/buttons/PalselButton.jsx:30
-msgid "Close Palette"
-msgstr "Paletta bezárása"
-
-#: src/components/buttons/PalselButton.jsx:30
-msgid "Open Palette"
-msgstr "Paletta kinyitása"
-
-#: src/components/windows/index.js:16
+#: src/components/windows/index.js:17
 msgid "Registration"
 msgstr "Regisztrálás"
 
-#: src/components/windows/index.js:17
+#: src/components/windows/index.js:18
 msgid "Forgot Password"
 msgstr "Elfelejtett jelszó"
 
-#: src/components/windows/index.js:18
+#: src/components/windows/index.js:19
 msgid "Chat"
 msgstr "Chat"
 
-#: src/components/windows/index.js:20
+#: src/components/windows/index.js:21
 msgid "Canvas Archive"
 msgstr "Vászonarchívum"
+
+#: src/components/windows/index.js:22
+msgid "Player"
+msgstr ""
 
 #: src/components/GlobalCaptcha.jsx:47
 msgid "You took too long, try again."
@@ -876,8 +880,8 @@ msgid "Captcha"
 msgstr "Captcha"
 
 #: src/components/Admintools.jsx:154 src/components/Admintools.jsx:238
-#: src/components/ModCanvastools.jsx:312 src/components/ModCanvastools.jsx:403
-#: src/components/ModCanvastools.jsx:486 src/components/ModCanvastools.jsx:587
+#: src/components/ModCanvastools.jsx:313 src/components/ModCanvastools.jsx:404
+#: src/components/ModCanvastools.jsx:482 src/components/ModCanvastools.jsx:583
 #: src/components/ModIIDtools.jsx:135
 #: src/components/windows/ForgotPassword.jsx:84
 #: src/components/windows/Register.jsx:127
@@ -966,6 +970,10 @@ msgstr "Be kell jelentkezned a csevegéshez"
 #: src/components/windows/Chat.jsx:273
 msgid "Channel settings"
 msgstr "Csatorna beállítások"
+
+#: src/components/windows/Player.jsx:17
+msgid "This URL is not supported by our Media Player"
+msgstr ""
 
 #: src/components/windows/ForgotPassword.jsx:58
 msgid "Sent you a mail with instructions to reset your password."
@@ -1127,47 +1135,6 @@ msgstr "Bekapcsolt sablonok exportálása"
 msgid "Import templates"
 msgstr "Sablonok importálása"
 
-#: src/components/UserAreaContent.jsx:62
-msgid "Today Placed Pixels"
-msgstr "Mai elhelyezett pixelek"
-
-#: src/components/UserAreaContent.jsx:66
-msgid "Daily Rank"
-msgstr "Napi helyezés"
-
-#: src/components/UserAreaContent.jsx:75
-msgid "Total Rank"
-msgstr "Összesített helyezés"
-
-#: src/components/UserAreaContent.jsx:80
-#, javascript-format
-msgid "Your name is: ${ name }"
-msgstr "A neved: ${ name }"
-
-#: src/components/UserAreaContent.jsx:86
-msgid "Log out"
-msgstr "Kijelentkezés"
-
-#: src/components/UserAreaContent.jsx:93
-msgid "Change Username"
-msgstr "Felhasználónév megváltoztatása"
-
-#: src/components/UserAreaContent.jsx:103
-msgid "Change Mail"
-msgstr "E-mail cím megváltoztatása"
-
-#: src/components/UserAreaContent.jsx:112
-msgid "Change Password"
-msgstr "Jelszó megváltoztatása"
-
-#: src/components/UserAreaContent.jsx:119
-msgid "Delete Account"
-msgstr "Fiók törlése"
-
-#: src/components/UserAreaContent.jsx:126
-msgid "Social Settings"
-msgstr "Szociális beállítások"
-
 #: src/components/LogInArea.jsx:19
 msgid "Login to access more features and stats."
 msgstr "További funkciók és statisztikák eléréséhez jelentkezz be."
@@ -1192,58 +1159,48 @@ msgstr "vagy regisztrálj itt:"
 msgid "Register"
 msgstr "Regisztráció"
 
-#: src/components/Rankings.jsx:168
-msgid "Yesterday"
-msgstr "Tegnap"
+#: src/components/UserAreaContent.jsx:69
+msgid "Today Placed Pixels"
+msgstr "Mai elhelyezett pixelek"
 
-#: src/components/Rankings.jsx:177
-msgid "Countries Today"
-msgstr "Országok ma"
+#: src/components/UserAreaContent.jsx:73
+msgid "Daily Rank"
+msgstr "Napi helyezés"
 
-#: src/components/Rankings.jsx:186 src/components/Rankings.jsx:203
-msgid "Charts"
-msgstr "Diagramok"
+#: src/components/UserAreaContent.jsx:83
+msgid "Total Rank"
+msgstr "Összesített helyezés"
 
-#: src/components/Rankings.jsx:191
-#, fuzzy
-msgid "Total Pixels per Player"
-msgstr "Naponta elhelyezett pixelek száma"
+#: src/components/UserAreaContent.jsx:89
+#, javascript-format
+msgid "Your name is: ${ name }"
+msgstr "A neved: ${ name }"
 
-#: src/components/Rankings.jsx:192
-#, fuzzy
-msgid "Daily Pixels per Player"
-msgstr "Naponta elhelyezett pixelek száma"
+#: src/components/UserAreaContent.jsx:95
+msgid "Log out"
+msgstr "Kijelentkezés"
 
-#: src/components/Rankings.jsx:193
-#, fuzzy
-msgid "Top 10 Players from Yesterday"
-msgstr "Top 10 játékos [pixelek / nap]"
+#: src/components/UserAreaContent.jsx:102
+msgid "Change Username"
+msgstr "Felhasználónév megváltoztatása"
 
-#: src/components/Rankings.jsx:197
-#, fuzzy
-msgid "Daily Pixels per Country"
-msgstr "Játékosok és pixelek óránként"
+#: src/components/UserAreaContent.jsx:112
+msgid "Change Mail"
+msgstr "E-mail cím megváltoztatása"
 
-#: src/components/Rankings.jsx:215 src/components/Rankings.jsx:224
-#: src/components/Rankings.jsx:233
-msgid "User"
-msgstr "Felhasználó"
+#: src/components/UserAreaContent.jsx:121
+msgid "Change Password"
+msgstr "Jelszó megváltoztatása"
 
-#: src/components/CooldownChanges.jsx:24 src/components/Rankings.jsx:240
-msgid "Country"
-msgstr "Ország"
+#: src/components/UserAreaContent.jsx:128
+msgid "Delete Account"
+msgstr "Fiók törlése"
 
-#: src/components/Rankings.jsx:241
-msgid "+last hour"
-msgstr ""
+#: src/components/UserAreaContent.jsx:135
+msgid "Social Settings"
+msgstr "Szociális beállítások"
 
-#: src/components/Rankings.jsx:311
-msgid "Ranking updates every 5 min. Daily rankings get reset at midnight UTC."
-msgstr ""
-"A rangsor 5 percenként frissül. A napi ranglisták pedig UTC idő szerint "
-"éjfélkor."
-
-#: src/components/Converter.jsx:191 src/components/ModCanvastools.jsx:230
+#: src/components/Converter.jsx:191 src/components/ModCanvastools.jsx:231
 msgid "Choose Canvas"
 msgstr "Vászon kiválasztása"
 
@@ -1320,6 +1277,57 @@ msgstr "Visszaállítás"
 msgid "Download Template"
 msgstr "Sablon letöltése"
 
+#: src/components/Rankings.jsx:168
+msgid "Yesterday"
+msgstr "Tegnap"
+
+#: src/components/Rankings.jsx:177
+msgid "Countries Today"
+msgstr "Országok ma"
+
+#: src/components/Rankings.jsx:186 src/components/Rankings.jsx:203
+msgid "Charts"
+msgstr "Diagramok"
+
+#: src/components/Rankings.jsx:191
+#, fuzzy
+msgid "Total Pixels per Player"
+msgstr "Naponta elhelyezett pixelek száma"
+
+#: src/components/Rankings.jsx:192
+#, fuzzy
+msgid "Daily Pixels per Player"
+msgstr "Naponta elhelyezett pixelek száma"
+
+#: src/components/Rankings.jsx:193
+#, fuzzy
+msgid "Top 10 Players from Yesterday"
+msgstr "Top 10 játékos [pixelek / nap]"
+
+#: src/components/Rankings.jsx:197
+#, fuzzy
+msgid "Daily Pixels per Country"
+msgstr "Játékosok és pixelek óránként"
+
+#: src/components/Rankings.jsx:215 src/components/Rankings.jsx:224
+#: src/components/Rankings.jsx:233
+msgid "User"
+msgstr "Felhasználó"
+
+#: src/components/CooldownChanges.jsx:24 src/components/Rankings.jsx:240
+msgid "Country"
+msgstr "Ország"
+
+#: src/components/Rankings.jsx:243
+msgid "+last hour"
+msgstr ""
+
+#: src/components/Rankings.jsx:314
+msgid "Ranking updates every 5 min. Daily rankings get reset at midnight UTC."
+msgstr ""
+"A rangsor 5 percenként frissül. A napi ranglisták pedig UTC idő szerint "
+"éjfélkor."
+
 #: src/components/CanvasItem.jsx:29
 msgid "Online Users"
 msgstr "Elérhető felhasználók"
@@ -1366,23 +1374,6 @@ msgstr "Top 10 napi rangsor"
 msgid "Dimensions"
 msgstr "Méretek"
 
-#: src/components/ModWatchtools.jsx:125 src/components/TemplateItem.jsx:54
-#: src/components/TemplateItemEdit.jsx:122
-msgid "Canvas"
-msgstr "Vásznak"
-
-#: src/components/TemplateItem.jsx:57 src/components/TemplateItemEdit.jsx:141
-msgid "Coordinates"
-msgstr "Koordináták"
-
-#: src/components/TemplateItem.jsx:71
-msgid "Edit"
-msgstr "Szerkesztés"
-
-#: src/components/TemplateItem.jsx:81
-msgid "Go to"
-msgstr "Menj oda"
-
 #: src/components/TemplateItemEdit.jsx:97
 msgid "Select File"
 msgstr "Fájl kiválasztása"
@@ -1391,25 +1382,26 @@ msgstr "Fájl kiválasztása"
 msgid "Template Name"
 msgstr "Sablon neve"
 
+#: src/components/ModWatchtools.jsx:123 src/components/TemplateItem.jsx:54
+#: src/components/TemplateItemEdit.jsx:122
+msgid "Canvas"
+msgstr "Vásznak"
+
+#: src/components/TemplateItem.jsx:57 src/components/TemplateItemEdit.jsx:141
+msgid "Coordinates"
+msgstr "Koordináták"
+
 #: src/components/TemplateItemEdit.jsx:174
 msgid "Delete"
 msgstr "Törlés"
 
-#: src/components/UserMessages.jsx:28
-msgid ""
-"Please verify your mail address or your account could get deleted after a "
-"few days."
-msgstr ""
-"Kérlek erősítsd meg az e-mail címedet, különben a fiókod néhány napon belül "
-"törlésre kerülhet."
+#: src/components/LogInForm.jsx:77
+msgid "Name or Email"
+msgstr "Név vagy e-mail cím"
 
-#: src/components/UserMessages.jsx:49
-msgid "A new verification mail is getting sent to you."
-msgstr "Új ellenőrző e-mailt küldünk neked."
-
-#: src/components/UserMessages.jsx:53
-msgid "Click here to request a new verification mail."
-msgstr "Kattints ide, ha új ellenőrző levelet szeretnél kérni."
+#: src/components/LogInForm.jsx:88
+msgid "LogIn"
+msgstr "Bejelentkezés"
 
 #: src/components/ChangePassword.jsx:21
 msgid "Passwords do not match."
@@ -1447,6 +1439,22 @@ msgstr ""
 msgid "New Mail"
 msgstr "Új e-mail cím"
 
+#: src/components/UserMessages.jsx:28
+msgid ""
+"Please verify your mail address or your account could get deleted after a "
+"few days."
+msgstr ""
+"Kérlek erősítsd meg az e-mail címedet, különben a fiókod néhány napon belül "
+"törlésre kerülhet."
+
+#: src/components/UserMessages.jsx:49
+msgid "A new verification mail is getting sent to you."
+msgstr "Új ellenőrző e-mailt küldünk neked."
+
+#: src/components/UserMessages.jsx:53
+msgid "Click here to request a new verification mail."
+msgstr "Kattints ide, ha új ellenőrző levelet szeretnél kérni."
+
 #: src/components/DeleteAccount.jsx:66
 msgid "Yes, Delete My Account!"
 msgstr "Igen, töröld a fiókomat!"
@@ -1475,33 +1483,25 @@ msgstr "Felhasználók letiltásának feloldása"
 msgid "You have no users blocked"
 msgstr "Nincsenek letiltott felhasználóid"
 
-#: src/components/LogInForm.jsx:77
-msgid "Name or Email"
-msgstr "Név vagy e-mail cím"
-
-#: src/components/LogInForm.jsx:88
-msgid "LogIn"
-msgstr "Bejelentkezés"
-
-#: src/components/ModCanvastools.jsx:168
+#: src/components/ModCanvastools.jsx:169
 msgid "Build image on canvas."
 msgstr "Kép építése a vászonra."
 
-#: src/components/ModCanvastools.jsx:171
+#: src/components/ModCanvastools.jsx:172
 msgid "Build image and set it to protected."
 msgstr "Kép építése és védelembe helyezése."
 
-#: src/components/ModCanvastools.jsx:174
+#: src/components/ModCanvastools.jsx:175
 msgid "Build image, but reset cooldown to unset-pixel cd."
 msgstr ""
 "Kép építése, de állítsa vissza a töltési időt a nem beállított pixeles "
 "töltési időre."
 
-#: src/components/ModCanvastools.jsx:184
+#: src/components/ModCanvastools.jsx:185
 msgid "Clean spare pixels that are surrounded by unset pixels"
 msgstr "A nem beállított pixelekkel körülvett tartalék pixelek megtisztítása"
 
-#: src/components/ModCanvastools.jsx:188
+#: src/components/ModCanvastools.jsx:189
 msgid ""
 "Clean spare pixels that are surrounded by unset pixels and up to 1 other set "
 "pixels"
@@ -1509,7 +1509,7 @@ msgstr ""
 "Tisztítsa meg azokat a pixeleket, amelyeken nem beállított pixelek és "
 "legfeljebb 1 másik beállított pixel által körülvett tartalék pixelek vannak"
 
-#: src/components/ModCanvastools.jsx:192
+#: src/components/ModCanvastools.jsx:193
 msgid ""
 "Clean spare pixels that are surrounded by a single other color or unset "
 "pixels (VERY AGGRESSIVE ON CANVASES THAT ALLOW UNSET PIXELS (where there are "
@@ -1519,7 +1519,7 @@ msgstr ""
 "beállított pixelek vesznek körül (NAGYON AGGRESSZÍV AZOKON A VÁSZONOKON, "
 "AMELYEK MEGENGEDIK A NEM BEÁLLÍTOTT PIXELEKET (ahol két töltési idő van)!)"
 
-#: src/components/ModCanvastools.jsx:196
+#: src/components/ModCanvastools.jsx:197
 msgid ""
 "Turn every pixel in area to 0 (YOU REALLY SHOULDN'T DO THAT ON ANY AREA THAT "
 "ISN'T ALREADY MOSTLY 0)"
@@ -1527,31 +1527,31 @@ msgstr ""
 "A terület minden pixelét állítsd 0-ra (TÉNYLEG NEM KELL EZT MEGCSINÁLNOD "
 "SEMMELYIK TERÜLETEN, AMELYIK NEM TELJESEN 0)"
 
-#: src/components/ModCanvastools.jsx:207
+#: src/components/ModCanvastools.jsx:208
 msgid "Status: Not running"
 msgstr "Állapot: Nem fut"
 
-#: src/components/ModCanvastools.jsx:249
+#: src/components/ModCanvastools.jsx:250
 msgid "Image Upload"
 msgstr "Képfeltöltés"
 
-#: src/components/ModCanvastools.jsx:250
+#: src/components/ModCanvastools.jsx:251
 msgid "Upload images to canvas"
 msgstr "Képek feltöltése a vászonra"
 
-#: src/components/ModCanvastools.jsx:252
+#: src/components/ModCanvastools.jsx:253
 msgid "File"
 msgstr "Fájl"
 
-#: src/components/ModCanvastools.jsx:273
+#: src/components/ModCanvastools.jsx:274
 msgid "Coordinates:"
 msgstr "Koordináták:"
 
-#: src/components/ModCanvastools.jsx:317
+#: src/components/ModCanvastools.jsx:318
 msgid "Pixel Protection"
 msgstr "Pixel védelem"
 
-#: src/components/ModCanvastools.jsx:321
+#: src/components/ModCanvastools.jsx:322
 msgid ""
 "Set protection of areas (if you need finer grained control, use protect with "
 "image upload and alpha layers)"
@@ -1559,34 +1559,35 @@ msgstr ""
 "Területek védelmének beállítása (ha finomabb ellenőrzésre van szükséged, "
 "használd a képfeltöltéssel és az alfa rétegekkel való védelmet)"
 
-#: src/components/ModCanvastools.jsx:341 src/components/ModCanvastools.jsx:424
-#: src/components/ModCanvastools.jsx:517 src/components/ModWatchtools.jsx:176
+#: src/components/ModCanvastools.jsx:342 src/components/ModCanvastools.jsx:419
+#: src/components/ModCanvastools.jsx:513 src/components/ModWatchtools.jsx:174
 msgid "Top-left corner"
 msgstr "Bal felső sarok"
 
-#: src/components/ModCanvastools.jsx:363 src/components/ModCanvastools.jsx:446
-#: src/components/ModCanvastools.jsx:539 src/components/ModWatchtools.jsx:198
+#: src/components/ModCanvastools.jsx:364 src/components/ModCanvastools.jsx:441
+#: src/components/ModCanvastools.jsx:535 src/components/ModWatchtools.jsx:196
 msgid "Bottom-right corner"
 msgstr "Jobb alsó sarok"
 
-#: src/components/ModCanvastools.jsx:409
+#: src/components/ModCanvastools.jsx:410
 msgid "Rollback to Date"
 msgstr "Visszaállítás egy dátumra"
 
-#: src/components/ModCanvastools.jsx:411
-msgid "Rollback an area of the canvas to a set date (00:00 UTC)"
+#: src/components/ModCanvastools.jsx:414
+#, fuzzy
+msgid "Rollback an area of the canvas to a set date and time"
 msgstr ""
 "A vászon egy területének visszaállítása egy meghatározott dátumra (00:00 UTC)"
 
-#: src/components/ModCanvastools.jsx:492
+#: src/components/ModCanvastools.jsx:488
 msgid "Canvas Cleaner"
 msgstr "Vászon tisztító"
 
-#: src/components/ModCanvastools.jsx:494
+#: src/components/ModCanvastools.jsx:490
 msgid "Apply a filter to clean trash in large canvas areas."
 msgstr "Használj szűrőt a nagy vászonfelületeken lévő szemét megtisztításához."
 
-#: src/components/ModCanvastools.jsx:605
+#: src/components/ModCanvastools.jsx:601
 msgid "Stop Cleaner"
 msgstr "Tisztítás leállítása"
 
@@ -1622,29 +1623,37 @@ msgstr "Add meg az új moderátor felhasználónevét"
 msgid "User Name"
 msgstr "Felhasználó neve"
 
-#: src/components/ModWatchtools.jsx:48
+#: src/components/ModWatchtools.jsx:49
 msgid "Interval is invalid"
 msgstr "Érvénytelen intervallum"
 
-#: src/components/ModWatchtools.jsx:124
+#: src/components/ModWatchtools.jsx:122
 msgid "Check who placed in an area"
 msgstr "Ellenőrizd, ki rajzolt ezen a területen"
 
-#: src/components/ModWatchtools.jsx:144
+#: src/components/ModWatchtools.jsx:142
 msgid "Interval"
 msgstr "Intervallum"
 
-#: src/components/ModWatchtools.jsx:159
+#: src/components/ModWatchtools.jsx:157
 msgid "IID (optional)"
 msgstr "IID (opcionális)"
 
-#: src/components/ModWatchtools.jsx:249
+#: src/components/ModWatchtools.jsx:247
 msgid "Get Pixels"
 msgstr "Pixelek lekérése"
 
-#: src/components/ModWatchtools.jsx:281
+#: src/components/ModWatchtools.jsx:279
 msgid "Get Users"
 msgstr "Felhasználók lekérése"
+
+#: src/components/TemplateItem.jsx:71
+msgid "Edit"
+msgstr "Szerkesztés"
+
+#: src/components/TemplateItem.jsx:81
+msgid "Go to"
+msgstr "Menj oda"
 
 #: src/components/ModIIDtools.jsx:20
 msgid "You must enter a duration"
@@ -1711,6 +1720,18 @@ msgstr "Blokkolás"
 #: src/components/contextmenus/ChannelContextMenu.jsx:46
 msgid "Mute"
 msgstr "Némít"
+
+#: src/components/MdLink.jsx:93
+msgid "Open in PopUp"
+msgstr ""
+
+#: src/components/MdLink.jsx:104
+msgid "Hide Embed"
+msgstr ""
+
+#: src/components/MdLink.jsx:110
+msgid "Show Embedded"
+msgstr ""
 
 #: src/components/windows/Help.jsx:19 src/components/windows/Settings.jsx:73
 msgctxt "keybinds"

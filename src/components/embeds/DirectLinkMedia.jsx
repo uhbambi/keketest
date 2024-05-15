@@ -16,13 +16,26 @@ const imageExts = [
   'gif',
 ];
 
-const DirectLinkMedia = ({ url }) => {
+const DirectLinkMedia = ({
+  url, fill, maxHeight, type,
+}) => {
   const ext = getExt(url);
-  if (videoExts.includes(ext)) {
+  if (type === 'video' || videoExts.includes(ext)) {
     return (
-      <div className="vemb">
+      <div
+        style={{
+          textAlign: 'center',
+          overflow: 'hidden',
+          height: fill && '100%',
+        }}
+      >
         <video
-          className="vembc"
+          style={{
+            maxWidth: '100%',
+            maxHeight: maxHeight || '100%',
+            height: fill && '100%',
+            width: fill && '100%',
+          }}
           controls
           autoPlay
           src={url}
@@ -31,13 +44,26 @@ const DirectLinkMedia = ({ url }) => {
       </div>
     );
   }
+
   return (
-    <img
-      alt={`Matrix ${url}`}
-      src={url}
-      style={{ maxWidth: '100%' }}
-      referrerPolicy="no-referrer"
-    />
+    <div
+      style={{
+        textAlign: 'center',
+        overflow: 'hidden',
+        height: fill && '100%',
+        alignContent: fill && 'center',
+      }}
+    >
+      <img
+        alt={`${url}`}
+        src={url}
+        style={{
+          maxWidth: '100%',
+          maxHeight: maxHeight || '100%',
+        }}
+        referrerPolicy="no-referrer"
+      />
+    </div>
   );
 };
 

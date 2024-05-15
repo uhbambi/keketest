@@ -221,7 +221,7 @@ msgstr "Nejsi přihlášenej"
 msgid "You are not allowed to access this page"
 msgstr "Nejste povolen na tuhle stránků"
 
-#: src/routes/api/modtools.js:207
+#: src/routes/api/modtools.js:209
 msgid "Just admins can do that"
 msgstr "Pouze admini to můžou dělat"
 
@@ -229,33 +229,33 @@ msgstr "Pouze admini to můžou dělat"
 msgid "You are not banned"
 msgstr "Nejste zabanován"
 
-#: src/routes/api/auth/change_mail.js:22 src/routes/api/auth/register.js:24
-msgid "This email provider is not allowed"
-msgstr "Tenhle dodavatel emailů tu není povolen"
-
-#: src/routes/api/auth/register.js:31
+#: src/routes/api/auth/register.js:27
 msgid "No Captcha given"
 msgstr "Žádna zadaná Captcha"
 
-#: src/routes/api/auth/register.js:34
+#: src/routes/api/auth/register.js:30
 msgid "E-Mail already in use."
 msgstr "E-mail je už používán."
 
-#: src/routes/api/auth/register.js:36
+#: src/routes/api/auth/register.js:32
 msgid "Username already in use."
 msgstr "Jméno je už používáno."
 
-#: src/routes/api/auth/register.js:59
+#: src/routes/api/auth/register.js:55
 msgid "You took too long, try again."
 msgstr "Trvalo vám to příliš dlouho, zkuste znovu."
 
-#: src/routes/api/auth/register.js:62
+#: src/routes/api/auth/register.js:58
 msgid "You failed your captcha"
 msgstr "Nepodařila se vám captcha"
 
-#: src/routes/api/auth/register.js:65
+#: src/routes/api/auth/register.js:61
 msgid "Unknown Captcha Error"
 msgstr "Neznáma chyba Captcha"
+
+#: src/routes/api/auth/change_mail.js:22 src/routes/api/auth/register.js:67
+msgid "This email provider is not allowed"
+msgstr "Tenhle dodavatel emailů tu není povolen"
 
 #: src/routes/api/auth/register.js:89
 msgid "Failed to create new user :("

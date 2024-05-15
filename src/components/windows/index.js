@@ -7,6 +7,7 @@ import Register from './Register';
 import CanvasSelect from './CanvasSelect';
 import Archive from './Archive';
 import Chat from './Chat';
+import Player from './Player';
 import ForgotPassword from './ForgotPassword';
 
 export default {
@@ -18,6 +19,7 @@ export default {
   CHAT: [Chat, t`Chat`],
   CANVAS_SELECTION: [CanvasSelect, t`Canvas Selection`],
   ARCHIVE: [Archive, t`Canvas Archive`],
+  PLAYER: [Player, t`Player`],
   /* other windows */
 };
 
