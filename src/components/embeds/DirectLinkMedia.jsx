@@ -16,7 +16,9 @@ const imageExts = [
   'gif',
 ];
 
-const DirectLinkMedia = ({ url, fill, type }) => {
+const DirectLinkMedia = ({
+  url, fill, maxHeight, type,
+}) => {
   const ext = getExt(url);
   if (type === 'video' || videoExts.includes(ext)) {
     return (
@@ -30,7 +32,7 @@ const DirectLinkMedia = ({ url, fill, type }) => {
         <video
           style={{
             maxWidth: '100%',
-            maxHeight: '100%',
+            maxHeight: maxHeight || '100%',
             height: fill && '100%',
             width: fill && '100%',
           }}
@@ -55,7 +57,10 @@ const DirectLinkMedia = ({ url, fill, type }) => {
       <img
         alt={`${url}`}
         src={url}
-        style={{ maxWidth: '100%', maxHeight: '100%' }}
+        style={{
+          maxWidth: '100%',
+          maxHeight: maxHeight || '100%',
+        }}
         referrerPolicy="no-referrer"
       />
     </div>

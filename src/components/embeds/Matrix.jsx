@@ -4,11 +4,18 @@ import React from 'react';
 
 import DirectLinkMedia from './DirectLinkMedia';
 
-const Matrix = ({ url, fill }) => {
+const Matrix = ({ url, fill, maxHeight }) => {
   const cleanUrl = url.substring(0, url.indexOf('?type='));
   const type = (url.includes('?type=video')) ? 'video' : 'image';
   const Embed = DirectLinkMedia[0];
-  return <Embed url={cleanUrl} fill={fill} type={type} />;
+  return (
+    <Embed
+      url={cleanUrl}
+      fill={fill}
+      type={type}
+      maxHeight={maxHeight}
+    />
+  );
 };
 
 export default [

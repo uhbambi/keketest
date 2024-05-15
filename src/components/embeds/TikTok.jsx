@@ -17,7 +17,7 @@ function getUserFromUrl(url) {
 
 const TikTok = ({ url, fill }) => {
   let tid = stripQuery(url);
-  tid = tid.substring(tid.lastIndexOf('/'));
+  tid = tid.substring(tid.lastIndexOf('/') + 1);
 
   return (
     <div

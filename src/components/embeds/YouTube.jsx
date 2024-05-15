@@ -26,7 +26,7 @@ function getIdFromURL(url) {
   return url.substring(vPos, vEnd);
 }
 
-const YouTube = ({ url, fill }) => {
+const YouTube = ({ url, fill, maxHeight }) => {
   const id = getIdFromURL(url);
   if (!id) {
     return null;
@@ -35,8 +35,9 @@ const YouTube = ({ url, fill }) => {
   return (
     <Embed
       url={`https://www.youtube.com/embed/${id}?autoplay=1`}
+      maxHeight={maxHeight}
       fill={fill}
-      aspectRatio={url.includes('/shorts/') && '177.77%'}
+      aspectRatio={url.includes('/shorts/') ? 177.77 : undefined}
     />
   );
 };

@@ -15,7 +15,7 @@ function getIdFromURL(url) {
   return url.substring(vPos, vEnd);
 }
 
-const BitChute = ({ url, fill }) => {
+const BitChute = ({ url, fill, maxHeight }) => {
   const id = getIdFromURL(url);
   if (!id) {
     return null;
@@ -24,6 +24,7 @@ const BitChute = ({ url, fill }) => {
   return (
     <Embed
       url={`https://www.bitchute.com/embed/${id}`}
+      maxHeight={maxHeight}
       fill={fill}
     />
   );

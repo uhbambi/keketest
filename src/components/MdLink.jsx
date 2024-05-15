@@ -118,7 +118,7 @@ const MdLink = ({ href, title, refEmbed }) => {
       {showEmbed && embedAvailable && (
         (refEmbed && refEmbed.current)
           ? ReactDOM.createPortal(
-            <Embed url={href} />,
+            <Embed url={href} maxHeight={300} />,
             refEmbed.current,
           ) : (
             <Embed url={href} />

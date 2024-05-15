@@ -1,6 +1,8 @@
 import React from 'react';
 
-const DirectLinkEmbed = ({ url, fill, aspectRatio }) => {
+const DirectLinkEmbed = ({
+  url, fill, maxHeight, aspectRatio = 56.35,
+}) => {
   const iFrame = (
     <iframe
       style={{
@@ -26,7 +28,11 @@ const DirectLinkEmbed = ({ url, fill, aspectRatio }) => {
         position: 'relative',
         height: 0,
         width: '100%',
-        paddingBottom: aspectRatio || '56.35%',
+        paddingBottom: (maxHeight)
+          ? `min(${aspectRatio}%, ${maxHeight}px)` : `${aspectRatio}%`,
+        maxWidth: (maxHeight) && maxHeight * 100 / aspectRatio,
+        left: (maxHeight) && '50%',
+        transform: (maxHeight) && 'translateX(-50%)',
       }}
     >
       {iFrame}
