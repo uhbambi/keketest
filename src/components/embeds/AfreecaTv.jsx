@@ -4,14 +4,10 @@ import DirectLinkEmbed from './DirectLinkEmbed';
 
 function getIdFromURL(url) {
   let searchTerm;
-  if (url.includes('youtube')) {
-    if (url.includes('/shorts/')) {
-      searchTerm = '/shorts/';
-    } else {
-      searchTerm = 'v=';
-    }
-  } else if (url.includes('youtu.be')) {
-    searchTerm = 'e/';
+  if (url.includes('play.afreecatv')) {
+    searchTerm = '.com/';
+  } else if (url.includes('vod.afreecatv')) {
+    searchTerm = '/player/';
   }
   if (!searchTerm) {
     return null;
@@ -28,25 +24,31 @@ function getIdFromURL(url) {
   return url.substring(vPos, vEnd);
 }
 
-const YouTube = ({ url, fill, maxHeight }) => {
+const AfreecaTv = ({ url, fill, maxHeight }) => {
   const id = getIdFromURL(url);
   if (!id) {
     return null;
   }
+  let embedUrl;
+  if (url.includes('vod.afreecatv')) {
+    // eslint-disable-next-line max-len
+    embedUrl = `https://vod.afreecatv.com/player/${id}/embed?autoPlay=true&showChat=true`;
+  } else {
+    embedUrl = `https://play.afreecatv.com/${id}/embed`;
+  }
   const Embed = DirectLinkEmbed[0];
   return (
     <Embed
-      url={`https://www.youtube.com/embed/${id}?autoplay=1`}
+      url={embedUrl}
       maxHeight={maxHeight}
       fill={fill}
-      aspectRatio={url.includes('/shorts/') ? 177.77 : undefined}
     />
   );
 };
 
 export default [
-  React.memo(YouTube),
+  React.memo(AfreecaTv),
   getIdFromURL,
   getIdFromURL,
-  '/embico/youtube.png',
+  '/embico/afreecatv.png',
 ];
