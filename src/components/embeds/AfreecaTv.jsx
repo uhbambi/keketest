@@ -6,11 +6,8 @@ function getIdFromURL(url) {
   let searchTerm;
   if (url.includes('play.afreecatv')) {
     searchTerm = '.com/';
-  } else if (url.includes('vod.afreecatv')) {
+  } else {
     searchTerm = '/player/';
-  }
-  if (!searchTerm) {
-    return null;
   }
   let vPos = url.indexOf(searchTerm);
   if (vPos === -1) {

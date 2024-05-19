@@ -10,11 +10,8 @@ function getIdFromURL(url) {
     } else {
       searchTerm = 'v=';
     }
-  } else if (url.includes('youtu.be')) {
+  } else {
     searchTerm = 'e/';
-  }
-  if (!searchTerm) {
-    return null;
   }
   let vPos = url.indexOf(searchTerm);
   if (vPos === -1) {
