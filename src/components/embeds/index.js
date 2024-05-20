@@ -10,6 +10,8 @@ import YouTube from './YouTube';
 import Matrix from './Matrix';
 import Odysee from './Odysee';
 import BitChute from './BitChute';
+import AfreecaTv from './AfreecaTv';
+import TwitchTv from './TwitchTv';
 import DirectLinkMedia from './DirectLinkMedia';
 
 /*
@@ -40,4 +42,7 @@ export default {
   't.me': Telegram,
   twitter: Twitter,
   odysee: Odysee,
+  'vod.afreecatv': AfreecaTv,
+  'play.afreecatv': AfreecaTv,
+  'twitch.tv': TwitchTv,
 };

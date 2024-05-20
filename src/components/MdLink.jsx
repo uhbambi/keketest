@@ -23,6 +23,9 @@ const titleAllowed = [
   'bitchute',
   'tiktok',
   't.me',
+  'play.afreecatv',
+  'vod.afreecatv',
+  'twitch.tv',
 ];
 
 const MdLink = ({ href, title, refEmbed }) => {
