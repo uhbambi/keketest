@@ -55,6 +55,10 @@ const GlobalCaptcha = ({ close }) => {
             case 4:
               errorText = t`No captcha id given`;
               break;
+            case 5:
+              window.location.reload();
+              errorText = t`Please refresh the website`;
+              break;
             default:
               errorText = t`Unknown Captcha Error`;
           }

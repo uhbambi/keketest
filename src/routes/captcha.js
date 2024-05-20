@@ -27,7 +27,7 @@ export default (req, res) => {
     }
 
     const ip = getIPFromRequest(req);
-    setCaptchaSolution(text, id);
+    setCaptchaSolution(text, id, ip);
     logger.info(`Captchas: ${ip} got captcha with text: ${text}`);
 
     res.set({
