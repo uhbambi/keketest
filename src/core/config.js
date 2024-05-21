@@ -94,5 +94,7 @@ export const auth = {
 export const CAPTCHA_TIME = parseInt(process.env.CAPTCHA_TIME, 10) || 30;
 // time during which the user can solve a captcha in seconds
 export const CAPTCHA_TIMEOUT = parseInt(process.env.CAPTCHA_TIMEOUT, 10) || 120;
+// time in which an ip is marked as trusted in hours
+export const TRUSTED_TIME = parseInt(process.env.TRUSTED_TIME, 10) || 48;
 
 export const SESSION_SECRET = process.env.SESSION_SECRET || 'dummy';

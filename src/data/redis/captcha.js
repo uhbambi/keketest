@@ -9,11 +9,15 @@ import { getIPv6Subnet } from '../../utils/ip';
 import {
   CAPTCHA_TIME,
   CAPTCHA_TIMEOUT,
+  TRUSTED_TIME,
 } from '../../core/config';
 
-const TTL_CACHE = CAPTCHA_TIME * 60; // seconds
+const TTL_CACHE = CAPTCHA_TIME * 60; // minutes to seconds
+const TTL_TRUSTED = TRUSTED_TIME * 60 * 60; // hours to seconds
 
 export const PREFIX = 'human';
+export const SOLUTION_PREFIX = 'capt';
+export const TRUSTED_PREFIX = 'trus';
 
 /*
  * chars that are so similar that we allow them to get mixed up
@@ -65,6 +69,32 @@ function evaluateResult(captchaText, userText) {
 }
 
 /*
+ * mark ip as trusted
+ * @param ip
+ */
+export async function markTrusted(ip) {
+  try {
+    const key = `${TRUSTED_PREFIX}:${getIPv6Subnet(ip)}`;
+    await client.set(key, '', {
+      EX: TTL_TRUSTED,
+    });
+  } catch (err) {
+    logger.error(`Error setting IP Trusted: ${err.message}`);
+  }
+}
+
+/*
+ * check if ip is trusted
+ * @param ip
+ * @return boolean
+ */
+export async function isTrusted(ip) {
+  const key = `${TRUSTED_PREFIX}:${getIPv6Subnet(ip)}`;
+  const ttl = await client.ttl(key);
+  return ttl > 0;
+}
+
+/*
  * set captcha solution
  *
  * @param text Solution of captcha
@@ -73,14 +103,17 @@ function evaluateResult(captchaText, userText) {
 export async function setCaptchaSolution(
   text,
   captchaid,
+  ip,
 ) {
   try {
-    await client.set(`capt:${captchaid}`, text, {
+    if (!await isTrusted(ip)) {
+      text = 'untrusted';
+    }
+    await client.set(`${SOLUTION_PREFIX}:${captchaid}`, text, {
       EX: CAPTCHA_TIMEOUT,
     });
-  } catch (error) {
-    // eslint-disable-next-line no-console
-    console.error(error);
+  } catch (err) {
+    logger.error(`Error setting Captcha Solution: ${err.message}`);
   }
 }
 
@@ -109,7 +142,11 @@ export async function checkCaptchaSolution(
   if (!captchaid) {
     return 4;
   }
-  const solution = await client.getDel(`capt:${captchaid}`);
+  const solution = await client.getDel(`${SOLUTION_PREFIX}:${captchaid}`);
+  if (solution === 'untrusted') {
+    logger.info(`CAPTCHA solution for ${ip} rejected, ip is not trusted`);
+    return 5;
+  }
   if (solution) {
     if (evaluateResult(solution, text)) {
       if (Math.random() < 0.1) {
