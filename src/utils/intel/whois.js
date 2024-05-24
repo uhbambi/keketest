@@ -4,7 +4,7 @@
 
 import net from 'net';
 
-import { isIPv6, ipSubnetToHex } from '../ip';
+import { isIPv6, ipSubnetToHex } from './ip';
 import { OUTGOING_ADDRESS } from '../../core/config';
 
 const WHOIS_PORT = 43;
@@ -15,72 +15,60 @@ const WHOIS_TIMEOUT = 10000;
  * parse whois return into fields
  */
 function parseSimpleWhois(whois) {
-  let data = {
-    groups: {},
-  };
-  const groups = [{}];
-  const text = [];
+  const groups = [];
   const lines = whois.split('\n');
+
   let lastLabel;
+  let group = {};
 
   for (let i = 0; i < lines.length; i += 1) {
     let line = lines[i].trim();
-    if (line.startsWith('%') || line.startsWith('#')) {
-      /*
-       * detect if an ASN or IP has multiple WHOIS results,
-       * and only care about first one
-       */
-      if (line.includes('# end')) {
-        break;
-      } else if (!lines.includes('# start')) {
-        text.push(line);
-      }
+
+    if ((!line || line.startsWith('# end') || line.startsWith('% end'))
+      && Object.keys(group).length
+    ) {
+      groups.push(group);
+      group = {};
       continue;
     }
-    if (line) {
-      // strip network prefix for rwhois
-      if (line.startsWith('network:')) {
-        line = line.slice(8);
-      }
 
-      const sep = line.indexOf(':');
-      if (~sep) {
-        const label = line.slice(0, sep).toLowerCase();
-        lastLabel = label;
-        const value = line.slice(sep + 1).trim();
-        // 1) Filter out unnecessary info, 2) then detect if the label is already added to group
-        if (value.includes('---')) {
-          // do nothing with useless data
-        } else if (groups[groups.length - 1][label]) {
-          groups[groups.length - 1][label] += `\n${value}`;
-        } else {
-          groups[groups.length - 1][label] = value;
-        }
+    if (!line || line.startsWith('#') || line.startsWith('%')) {
+      continue;
+    }
+
+    // strip network prefix for rwhois
+    if (line.startsWith('network:')) {
+      line = line.slice(8);
+    }
+
+    const sep = line.indexOf(':');
+    let label;
+    let value;
+    if (sep !== -1) {
+      label = line.substring(0, sep).toLowerCase();
+      lastLabel = label;
+      value = line.substring(sep + 1).trim();
+    } else {
+      label = lastLabel;
+      value = line;
+    }
+
+    if (!value || value.includes('---')) {
+      continue;
+    }
+
+    if (group[label]) {
+      if (Array.isArray(group[label])) {
+        group[label].push(value);
       } else {
-        groups[groups.length - 1][lastLabel] += `\n${line}`;
+        group[label] = [group[label], value];
       }
-    } else if (Object.keys(groups[groups.length - 1]).length) {
-      // if empty line, means another info group starts
-      groups.push({});
+    } else {
+      group[label] = value;
     }
   }
 
-  groups.forEach((group) => {
-    if (group.role) {
-      const role = group.role.replaceAll(' ', '-').toLowerCase();
-      delete group.role;
-      data.groups[role] = group;
-    } else {
-      data = {
-        ...group,
-        ...data,
-      };
-    }
-  });
-
-  data.text = text.join('\n');
-
-  return data;
+  return groups;
 }
 
 /*
@@ -94,31 +82,34 @@ function parseWhois(ip, whoisReturn) {
   if (!whoisReturn) {
     return data;
   }
-  const whoisData = parseSimpleWhois(whoisReturn);
+  const whoisGroups = parseSimpleWhois(whoisReturn);
+  let whoisData = {};
+  whoisGroups.forEach((g) => {
+    whoisData = { ...whoisData, ...g };
+  });
 
   let range = whoisData.inetnum || whoisData.inet6num || whoisData.cidr
       || whoisData.netrange || whoisData.route || whoisData.route6
       || whoisData['ip-network'] || whoisData['auth-area'];
   range = ipSubnetToHex(range, ip);
   if (range) data.range = range;
+
   let org = whoisData['org-name']
     || whoisData.organization
     || whoisData.orgname
     || whoisData.descr
-    || whoisData['mnt-by'];
-  if (!org) {
-    const contactGroup = Object.keys(whoisData.groups).find(
-      (g) => whoisData.groups[g].address,
-    );
-    if (contactGroup) {
-      [org] = whoisData.groups[contactGroup].address.split('\n');
-    } else {
-      org = whoisData.owner || whoisData['mnt-by'];
-    }
-  }
+    || whoisData['mnt-by']
+    || whoisData.person
+    || whoisData.owner
+    || whoisData.address;
+  if (Array.isArray(org)) [org] = org;
+  if (org?.endsWith('-MNT')) org = org.slice(0, -4);
   if (org) data.org = org;
-  const descr = whoisData.netname || whoisData.descr;
+
+  let descr = whoisData.netname || whoisData.descr;
+  if (Array.isArray(descr)) [descr] = descr;
   if (descr) data.descr = descr;
+
   let asn = whoisData.asn
     || whoisData.origin
     || whoisData.originas
@@ -146,12 +137,13 @@ function parseWhois(ip, whoisReturn) {
       }
     }
   }
-  const country = whoisData.country
-    || whoisData.organisation?.Country
-    || whoisData['country-code'];
+
+  let country = whoisData.country || whoisData['country-code'];
+  if (Array.isArray(country)) [country] = country;
   if (country) {
     data.country = country.slice(0, 2).toLowerCase();
   }
+
   return data;
 }
 
@@ -273,7 +265,6 @@ export default async function whoisIp(ip, options) {
       prevHost = host;
       host = ref;
     } catch (err) {
-      // eslint-disable-next-line no-console
       logger.error(`WHOIS ${ip} ${host}: ${err.message}`);
       host = prevHost;
       break;
@@ -283,7 +274,6 @@ export default async function whoisIp(ip, options) {
 
   let result = parseWhois(ip, whoisResult);
   if (!result.range) {
-    // eslint-disable-next-line no-console
     logger.error(`WHOIS ${ip} ${host}: This host gives incomplete results.`);
     host = prevHost;
   }
@@ -295,6 +285,18 @@ export default async function whoisIp(ip, options) {
     }
     result = { ...pastWhois, ...result };
   }
+
+  if (!result.asn && host !== 'whois.ripe.net') {
+    /*
+     * if we don't have any asn, query ripe once,
+     * this is sometimes needed for afrnic
+     */
+    const asnQResult = parseWhois(ip,
+      await singleWhoisQuery(`-r ${ip}`, 'whois.ripe.net'),
+    );
+    if (asnQResult.asn) result.asn = asnQResult.asn;
+  }
+
   result.ip = ip;
   return result;
 }

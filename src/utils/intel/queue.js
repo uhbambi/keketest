@@ -8,7 +8,7 @@ let interval = null;
 function cleanQueues() {
   const now = Date.now();
   for (const key in queues) {
-    queues[key] = queues[key].filter(([,,ts]) => !ts || ts > now);
+    queues[key] = queues[key].filter(([,, ts]) => !ts || ts > now);
     console.log(`Reduced queue ${key} to ${queues[key].length}`);
   }
 }

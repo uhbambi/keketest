@@ -28,7 +28,7 @@ export function cacheIpAllowed(ip, status) {
 export async function getCacheIpAllowed(ip) {
   try {
     const key = `${PREFIX}:${ip}`;
-    let cache = await client.get(key);
+    const cache = await client.get(key);
     if (!cache) {
       return null;
     }
@@ -65,7 +65,7 @@ export function cacheUserAllowed(uid, status) {
 export async function getCacheUserAllowed(uid) {
   try {
     const key = `${USER_PREFIX}:${uid}`;
-    let cache = await client.get(key);
+    const cache = await client.get(key);
     if (!cache) {
       return null;
     }

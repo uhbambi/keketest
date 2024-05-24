@@ -4,7 +4,9 @@
 import Sequelize, { QueryTypes, Op } from 'sequelize';
 
 import sequelize from './sql/sequelize';
-import { IPInfo, IPRange, WhoisReferral, Ban } from './sql';import {
+import {
+  IPInfo, IPRange, WhoisReferral, Ban,
+} from './sql'; import {
   cacheIpAllowed,
   getCacheIpAllowed,
   cacheUserAllowed,
@@ -38,7 +40,7 @@ export async function getStoredCcAndPc(ip) {
       try {
         await IPInfo.update({
           rid: ccandpc.rid,
-        },{
+        }, {
           where: { ip: Sequelize.fn('IP_TO_BIN', ip) },
         });
       } catch (err) {
@@ -92,7 +94,7 @@ export async function getStoredIpAllowance(ip) {
       try {
         await IPInfo.update({
           rid: ipall.rid,
-        },{
+        }, {
           where: { ip: Sequelize.fn('IP_TO_BIN', ip) },
         });
       } catch (err) {
@@ -173,7 +175,7 @@ export async function getUserBans(uid) {
   }
 }
 
-export async function getStoredUserAllowance(uid){
+export async function getStoredUserAllowance(uid) {
   const userBans = await getUserBans(uid);
   return !userBans.length;
 }
@@ -236,7 +238,9 @@ export async function storeWhoisReferral(host, range) {
  * @param whoisReturn object that whois returns
  */
 async function storeOnlyWhois(whoisReturn) {
-  const { range, org, descr, asn, country } = whoisReturn;
+  const {
+    range, org, descr, asn, country,
+  } = whoisReturn;
   let tries = 0;
   while (true) {
     try {
@@ -266,7 +270,7 @@ async function storeOnlyWhois(whoisReturn) {
             max: Sequelize.fn('UNHEX', range[1]),
           }],
         },
-        limit: 1
+        limit: 1,
       });
       tries += 1;
     }
@@ -279,12 +283,14 @@ async function storeOnlyWhois(whoisReturn) {
  * @param whoisReturn object that whois returns
  */
 export async function storeWhois(ip, whoisReturn) {
-  const { range, org, descr, asn,country } = whoisReturn;
+  const {
+    range, org, descr, asn, country,
+  } = whoisReturn;
   try {
     const rid = await storeOnlyWhois(whoisReturn);
     await IPInfo.update({
       rid,
-    },{
+    }, {
       where: {
         ip: Sequelize.fn('IP_TO_BIN', ip),
       },

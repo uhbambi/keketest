@@ -141,15 +141,15 @@ export async function unbanIP(ip) {
  */
 export async function isThreePidBanned(provider, tpid) {
   const count = await Ban
-  .count({
-    include: {
-      association: 'tpids',
-      where: {
-        provider,
-         tpid,
+    .count({
+      include: {
+        association: 'tpids',
+        where: {
+          provider,
+          tpid,
+        },
       },
-    },
-  });
+    });
   return count !== 0;
 }
 

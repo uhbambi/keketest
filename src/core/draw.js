@@ -186,7 +186,7 @@ export default async function drawByOffsets(
       wait,
       coolDown,
       needProxycheck,
-      needUserBanCheck
+      needUserBanCheck,
     ] = await allowPlace(
       ip,
       userId,
