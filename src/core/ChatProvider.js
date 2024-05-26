@@ -567,7 +567,7 @@ export class ChatProvider {
         );
       }
     }
-    logger.info(`Muted user ${userPing}`);
+    logger.info(`${initiator} muted user ${userPing}`);
     return null;
   }
 
