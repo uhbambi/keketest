@@ -13,21 +13,7 @@ import { setPixelByOffset } from './setPixel';
 import isIPAllowed from './isAllowed';
 import canvases from './canvases';
 
-import milkConsumptionPerCountry from '../milk.json';
-
 import { THREE_CANVAS_HEIGHT, THREE_TILE_SIZE, TILE_SIZE } from './constants';
-
-const max = 430.76;
-const exponent = 10;
-const divider = Math.log(exponent + 1);
-function getMilkFactor(countryCode) {
-  const milkConsumptionOfCountry = milkConsumptionPerCountry[countryCode] || 0;
-  const factor = Math.log(
-    (milkConsumptionOfCountry / max * exponent) + 1,
-  ) / divider;
-  // factor is from 0 to 1
-  return 1 - factor / 2;
-}
 
 let coolDownFactor = 1;
 socketEvents.on('setCoolDownFactor', (newFac) => {
@@ -137,7 +123,6 @@ export default async function drawByOffsets(
       ? 0.0 : coolDownFactor;
 
     factor *= rankings.getCountryCoolDownFactor(user.country);
-    factor *= getMilkFactor(user.country);
 
     const bcd = Math.floor(canvas.bcd * factor);
     const pcd = Math.floor((canvas.pcd) ? canvas.pcd * factor : bcd);
