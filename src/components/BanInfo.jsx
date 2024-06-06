@@ -129,12 +129,7 @@ const BanInfo = ({ close }) => {
             &nbsp;
           </React.Fragment>
         )}
-        <button
-          type="submit"
-          onClick={close}
-        >
-          {t`OK`}
-        </button>
+        <button type="submit" onClick={close}>{t`OK`}</button>
       </p>
     </div>
   );

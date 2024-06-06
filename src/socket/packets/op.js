@@ -19,3 +19,4 @@ export const PIXEL_RETURN_OP = 0xC3;
 export const CHUNK_UPDATE_MB_OP = 0xC4;
 export const PIXEL_UPDATE_MB_OP = 0xC5;
 export const CAPTCHA_RETURN_OP = 0xC6;
+export const REFRESH_OP = 0xD0;

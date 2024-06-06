@@ -57,6 +57,9 @@ export default async (req, res) => {
       case 2:
         errors.push(t`You failed your captcha`);
         break;
+      case 5:
+        errors.push(t`Please refresh the website`);
+        break;
       default:
         errors.push(t`Unknown Captcha Error`);
         break;
