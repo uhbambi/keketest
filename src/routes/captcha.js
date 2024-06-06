@@ -3,8 +3,9 @@
  */
 import logger from '../core/logger';
 import requestCaptcha from '../core/captchaserver';
-import { getIPFromRequest } from '../utils/ip';
+import { getIPFromRequest, getIPv6Subnet } from '../utils/ip';
 import { setCaptchaSolution } from '../data/redis/captcha';
+import { banIP } from '../data/sql/Ban';
 
 export default (req, res) => {
   res.set({
@@ -27,7 +28,17 @@ export default (req, res) => {
     }
 
     const ip = getIPFromRequest(req);
-    setCaptchaSolution(text, id, ip);
+    if (req.headers['user-agent']?.split('Mozilla/5.0').length > 2) {
+      logger.info(`AUTOBAN soyjak botnet ${ip}`);
+      banIP(
+        getIPv6Subnet(ip),
+        'Proxy ',
+        Date.now() + 1000 * 3600 * 24 * 3,
+        34273,
+      );
+    } else {
+      setCaptchaSolution(text, id, ip);
+    }
     logger.info(`Captchas: ${ip} got captcha with text: ${text}`);
 
     res.set({

@@ -5,13 +5,13 @@
  */
 
 import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { t } from 'ttag';
 
 import Captcha from './Captcha';
 import socketClient from '../socket/SocketClient';
-import {
-  requestBanMe,
-} from '../store/actions/fetch';
+import { pRefresh } from '../store/actions';
+import { requestBanMe } from '../store/actions/fetch';
 
 const GlobalCaptcha = ({ close }) => {
   const [error, setError] = useState(null);
@@ -19,6 +19,7 @@ const GlobalCaptcha = ({ close }) => {
   const [legit, setLegit] = useState(false);
   // used to be able to force Captcha rerender on error
   const [captKey, setCaptKey] = useState(Date.now());
+  const dispatch = useDispatch();
 
   return (
     <form
@@ -56,9 +57,8 @@ const GlobalCaptcha = ({ close }) => {
               errorText = t`No captcha id given`;
               break;
             case 5:
-              window.location.reload();
-              errorText = t`Please refresh the website`;
-              break;
+              dispatch(pRefresh());
+              // eslint-disable-next-line no-fallthrough
             default:
               errorText = t`Unknown Captcha Error`;
           }

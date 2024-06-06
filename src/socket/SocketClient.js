@@ -21,6 +21,7 @@ import {
   COOLDOWN_OP,
   CHANGE_ME_OP,
   CAPTCHA_RETURN_OP,
+  REFRESH_OP,
 } from './packets/op';
 import {
   socketOpen,
@@ -31,9 +32,8 @@ import {
   addChatChannel,
   removeChatChannel,
 } from '../store/actions/socket';
-import {
-  fetchMe,
-} from '../store/actions/thunks';
+import { pRefresh } from '../store/actions';
+import { fetchMe } from '../store/actions/thunks';
 import { shardHost } from '../store/actions/fetch';
 
 class SocketClient {
@@ -306,6 +306,10 @@ class SocketClient {
         if (~pos) {
           this.reqQueue.splice(pos, 1)[0][1](hydrateCaptchaReturn(data));
         }
+        break;
+      }
+      case REFRESH_OP: {
+        this.store.dispatch(pRefresh());
         break;
       }
       default:

@@ -15,6 +15,10 @@ export function pAlert(
   };
 }
 
+export function pRefresh() {
+  return pAlert(t`Change Happened`, t`Please refresh the website`, 'refresh');
+}
+
 export function closeAlert() {
   return {
     type: 'CLOSE_ALERT',

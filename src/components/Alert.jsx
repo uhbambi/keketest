@@ -8,6 +8,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import GlobalCaptcha from './GlobalCaptcha';
 import BanInfo from './BanInfo';
 import Overlay from './Overlay';
+import RefreshPrompt from './RefreshPrompt';
 import { closeAlert } from '../store/actions';
 
 const Alert = () => {
@@ -42,6 +43,9 @@ const Alert = () => {
     case 'ban':
       Content = BanInfo;
       break;
+    case 'refresh':
+      Content = RefreshPrompt;
+      break;
     default:
       // nothing
   }
@@ -74,10 +78,7 @@ const Alert = () => {
         {(Content) ? (
           <Content close={close} />
         ) : (
-          <button
-            type="button"
-            onClick={close}
-          >{btn}</button>
+          <button type="button" onClick={close}>{btn}</button>
         )}
       </div>
       )
