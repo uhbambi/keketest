@@ -73,6 +73,10 @@ class SocketClient {
   connect() {
     this.readyState = WebSocket.CONNECTING;
     if (this.ws) {
+      /*
+       * TODO there seems to be no return for ages now,
+       * needs testing if there even should be one
+       */
       console.log('WebSocket already open, not starting');
     }
     this.timeLastConnecting = Date.now();

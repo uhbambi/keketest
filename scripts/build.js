@@ -22,6 +22,7 @@ let doBuildClient = false;
 let parallel = false;
 let recursion = false;
 let onlyValidate = false;
+let development = false;
 for (let i = 0; i < process.argv.length; i += 1) {
   switch (process.argv[i]) {
     case '--langs': {
@@ -43,6 +44,9 @@ for (let i = 0; i < process.argv.length; i += 1) {
       break;
     case '--validate':
       onlyValidate = true;
+      break;
+    case '--dev':
+      development = true;
       break;
     default:
       // nothing
@@ -318,7 +322,7 @@ async function buildClientsSync(avlangs) {
     const lang = avlangs[i];
     console.log(`Build client for locale ${lang}...`);
     await compile(clientConfig({
-      development: false,
+      development,
       analyze: false,
       extract: false,
       locale: lang,
@@ -397,7 +401,7 @@ async function build() {
     if (!recursion) {
       console.log('Building one client package...');
       await compile(clientConfig({
-        development: false,
+        development,
         analyze: false,
         extract: (langs === 'all'),
         locale: avlangs.shift(),

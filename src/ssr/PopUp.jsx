@@ -53,7 +53,7 @@ function generatePopUpPage(req) {
         />
         <link rel="icon" href="/favicon.ico" type="image/x-icon" />
         <link rel="apple-touch-icon" href="apple-touch-icon.png" />
-        <script>window.ssv=JSON.parse('${ssvR}');window.me=fetch('${shard || ''}/api/me',{credentials:'include'})</script>
+        <script>/* @license magnet:?xt=urn:btih:0b31508aeb0634b347b8270c7bee4d411b5d4109&dn=agpl-3.0.txt AGPL-3.0-or-later */\n(function(){window.ssv=JSON.parse('${ssvR}');let hostPart = window.location.host.split('.'); if (hostPart.length > 2) hostPart.shift(); hostPart = hostPart.join('.'); if (window.ssv.shard && window.location.host !== 'fuckyouarkeros.fun') hostPart = window.location.protocol + '//' + window.ssv.shard + '.' + hostPart; else hostPart = ''; window.me=fetch(hostPart + '/api/me',{credentials:'include'})})();\n/* @license-end */</script>
         <link rel="stylesheet" type="text/css" id="globcss" href="${getCssAssets().default}" />
       </head>
       <body>
