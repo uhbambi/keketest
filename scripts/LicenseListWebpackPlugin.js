@@ -171,7 +171,7 @@ class LicenseListWebpackPlugin {
   publicPathOverride;
   processOutput;
   sourcesDir = 'sources';
-  static srcExtsRegexp = /^.*\.(js|ts|jsx|coffee|lua)$/;
+  static srcExtsRegexp = /^.*\.(js|ts|jsx|coffee|lua|mjs)$/;
   static filesToCopy = ['license', 'copying', 'authors', 'code_of_conduct'];
   static filePathCleanUpRegEx = /^([.\/]*node_modules|\.)\//;
   static modulePathCleanUpRegEx = /^([.\/]*node_modules\/[^\/]*|\.)\//;

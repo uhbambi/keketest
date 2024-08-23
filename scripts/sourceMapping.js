@@ -82,6 +82,12 @@ module.exports = {
   'react-chartjs-2': {
     sources: 'tag',
   },
+  'chart.js': {
+    sources: 'tag',
+  },
+  'image-q': {
+    sources: 'branch:master',
+  },
   'css-loader': {
     sources: 'tag',
   },
@@ -99,6 +105,9 @@ module.exports = {
   },
   'passport-oauth2': {
     sources: 'tag',
+  },
+  'passport-reddit': {
+    sources: 'tag'
   },
   'passport-strategy': {
     sources: 'branch:master',
