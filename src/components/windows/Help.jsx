@@ -39,6 +39,7 @@ const Help = () => {
   const donendoLink = <a href="https://lospec.com/palette-list/lava-gb">Do-Nendo</a>;
   const guildedLink = <a href="/guilded">guilded</a>;
   const mailLink = <a href={`mailto:${window.ssv.contactAddress}`}>{window.ssv.contactAddress}</a>;
+  const agplLink = <a href="http://www.gnu.org/licenses/agpl-3.0.html">AGPLv3</a>;
 
   const dispatch = useDispatch();
   const easterEgg = useSelector((state) => state.gui.easterEgg);
@@ -68,8 +69,8 @@ const Help = () => {
         {t`Have fun!`}
       </p>
       <p className="modalinfo">Guilded ({t`recommended`}): <a href="./guilded" target="_blank" rel="noopener noreferrer">{t`Invited to Chat`}</a></p>
-      <p className="modalinfo">{t`Source for pixelplanet on `}<a href="https://git.pixelplanet.fun" target="_blank" rel="noopener noreferrer">git.pixelplanet.fun</a></p>
-      <p className="modalinfo">{t`We are Libre Software, `}<a href="/legal" target="_blank" rel="noopener noreferrer">{t`check compliance here`}</a></p>
+      <p className="modalinfo">{t`Source for pixelplanet on `}<a href="https://git.pixelplanet.fun" target="_blank" rel="noopener noreferrer">git.pixelplanet.fun</a>.</p>
+      <p className="modalinfo">{jt`We are Libre Software under the ${agplLink}, `}<a href="/legal/summarized.html" target="_blank" rel="noopener noreferrer">{t`check compliance here`}</a>.</p>
       <h3>{t`Map Data`}</h3>
       <p>{t`The bare map data that we use, together with converted OpenStreetMap tiles for orientation, can be downloaded from mega.nz here: `}<a href="https://mega.nz/#!JpkBwAbJ!EnSLlZmKv3kEBE0HDhakTgAZZycD3ELjduajJxPGaXo">pixelplanetmap.zip</a> (422MB)</p>
       <h3>{t`Banned? Detected as Proxy?`}</h3>

@@ -139,8 +139,43 @@ module.exports = ({
         htmlFilename: 'index.html',
         outputDir: path.join('..', 'legal'),
         includeLicenseFiles: true,
-        // includeSourceFiles: true,
         override: sourceMapping,
+        /*
+         * build a second summarized html output,
+         * because LibreJS doesn't understand this and we still want it
+         * TODO: replace it with the mergeByChunnkName option once LibreJS
+         *       supports it
+         */
+        processOutput: (out) => {
+          let secondOut = [...out].map((buildObj) => {
+            const newBuildObj = {
+              ...buildObj,
+              scripts: [],
+            }
+            buildObj.scripts.forEach((scriptObj) => {
+              let targetInd = newBuildObj.scripts.findIndex(
+                (s) => s.name === scriptObj.name,
+              );
+              if (targetInd === -1) {
+                newBuildObj.scripts.push({ ...scriptObj, url: null });
+              } else {
+                newBuildObj.scripts[targetInd] = LicenseListWebpackPlugin
+                  .deepMergeNamedArrays(
+                    newBuildObj.scripts[targetInd],
+                    { ...scriptObj, url: null },
+                   );
+              }
+            });
+            return newBuildObj;
+          });
+          secondOut = LicenseListWebpackPlugin.summarizeOutput(secondOut);
+          secondOut = LicenseListWebpackPlugin.generateHTML(secondOut);
+          fs.writeFileSync(
+            path.resolve('dist', 'public', 'legal', 'summarized.html'),
+            secondOut,
+          );
+          return out;
+        },
       }),
       // Webpack Bundle Analyzer
       // https://github.com/th0r/webpack-bundle-analyzer

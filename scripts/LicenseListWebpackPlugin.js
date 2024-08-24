@@ -106,43 +106,6 @@ function escapeQuotes(string) {
   return string.split('"').join('&quot;');
 }
 
-/*
- * merge two nested objects that have arrays with { name, ...} elements
- * accoding to their name
- */
-function deepMergeNamedArrays(obj1, obj2) {
-  if (Array.isArray(obj1) && Array.isArray(obj2)) {
-    for (let val2 of obj2) {
-      const val1 = obj1.find(
-        (val) => val.name && val.name === val2.name && val.url === val2.url
-      );
-      if (val1) {
-        deepMergeNamedArrays(val1, val2);
-      } else {
-        obj1.push(val2);
-      }
-    }
-  } else {
-    for (let key in obj2) {
-      if (obj2.hasOwnProperty(key)) {
-        if (obj2[key] instanceof Object && obj1[key] instanceof Object) {
-          obj1[key] = deepMergeNamedArrays(obj1[key], obj2[key]);
-        } else {
-          obj1[key] = obj2[key];
-        }
-      }
-    }
-  }
-  return obj1;
-}
-
-/*
- * check if two arrays with { name, ...} elemenns are equal
- */
-function deepCompareNamedArrays(obj1, obj2) {
-  
-}
-
 class LicenseListWebpackPlugin {
   chunkIdToName = {};
   chunkNameToJsAsset = {};
@@ -322,48 +285,97 @@ class LicenseListWebpackPlugin {
     return `https://${repository}`;
   }
 
-  summarizeOutput() {
-    const { scriptsOutput } = this;
+  /*
+   * merge two nested objects that have arrays with { name, ...} elements
+   * accoding to their name
+   */
+  static deepMergeNamedArrays(obj1, obj2) {
+    let ret;
+    if (Array.isArray(obj1) && Array.isArray(obj2)) {
+      ret = [ ...obj1 ];
+      for (let val2 of obj2) {
+        const ind1 = obj1.findIndex(
+          (val) => val.name && val.name === val2.name && val.url === val2.url
+        );
+        if (ind1 === -1) {
+          ret.push(val2)
+        } else {
+          ret[ind1] = LicenseListWebpackPlugin.deepMergeNamedArrays(
+            obj1[ind1], val2,
+          );
+        } 
+      }
+    } else if (obj1 instanceof Object && obj2 instanceof Object) {
+      ret = { ...obj1 };
+      for (let key in obj2) {
+        if (obj2.hasOwnProperty(key)) {
+          ret[key] = LicenseListWebpackPlugin.deepMergeNamedArrays(
+            obj1[key], obj2[key],
+          );
+        }
+      }
+    } else {
+      ret = obj2;
+    }
+    return ret;
+  }
+
+  /*
+   * summarices output object, stores all scripts from modules into the
+   * script rows and sorts alphabethically
+   */
+  static summarizeOutput(output, logger = console) {
     const modulesWithoutSources = [];
 
-    scriptsOutput.sort(
-      (a, b) => a.name.split('.').length - b.name.split('.').length || a.name.localeCompare(b.name),
-    );
+    return [...output]
+      .sort((a, b) => a.name.localeCompare(b.name))
+      .map((buildObj) => ({
+        ...buildObj,
+        scripts: [...buildObj.scripts]
+          .sort(
+            (a, b) => a.name.split('.').length - b.name.split('.').length 
+              || a.name.localeCompare(b.name),
+          ).map((scriptObj) => {
+            const sources = [];
+            const licenses = [];
+            return {
+              ...scriptObj,
+              assets: [...scriptObj.assets]
+                .sort((a, b) => a.name.localeCompare(b.name)),
+              modules: [...scriptObj.modules]
+                .sort((a, b) => a.name.localeCompare(b.name))
+                .map((module) => {
+                  if (!module.sources.length
+                    && !modulesWithoutSources.includes(module.name)
+                  ) {
+                    modulesWithoutSources.push(module.name);
+                  }
+                  module.sources.forEach((s) => {
+                    if (!sources.some((l) => l.url === s.url)) {
+                      sources.push(s);
+                    }
+                  });
+                  module.licenses.forEach((s) => {
+                    if (!licenses.some((l) => l.name === s.name)) {
+                      licenses.push(s);
+                    }
+                  });
+                  return {
+                    ...module,
+                    sources: [...module.sources]
+                      .sort((a, b) => a.name.localeCompare(b.name)),
+                    licenses: [...module.licenses]
+                      .sort((a, b) => a.name.localeCompare(b.name)),
+                  };
+                }),
+                sources,
+                licenses,
+            };
+          }),
+      }));
 
-    /*
-     * Sort modules and sources in alphabethical order and merge all sources
-     * and licenses of modules to create an overall columns
-    */
-    for (const scriptObj of scriptsOutput) {
-      const sources = [];
-      const licenses = [];
-      scriptObj.sources = sources;
-      scriptObj.licenses = licenses;
-
-      scriptObj.modules.sort((a, b) => a.name.localeCompare(b.name));
-
-      for (const module of scriptObj.modules) {
-        if (!module.sources.length && !modulesWithoutSources.includes(module.name)) {
-          modulesWithoutSources.push(module.name);
-        }
-
-        module.sources.sort((a, b) => a.name.localeCompare(b.name));
-        module.sourceFiles.sort((a, b) => a.name.localeCompare(b.name));
-
-        module.sources.forEach((s) => {
-          if (!sources.some((l) => l.url === s.url)) {
-            sources.push(s);
-          }
-        });
-        module.licenses.forEach((s) => {
-          if (!licenses.some((l) => l.name === s.name)) {
-            licenses.push(s);
-          }
-        });
-      }
-    }
     if (modulesWithoutSources.length) {
-      this.logger.info(`The following Modules have no Sources: ${modulesWithoutSources.join(', ')}`);
+      logger.info(`The following Modules have no Sources: ${modulesWithoutSources.join(', ')}`);
     }
   }
 
@@ -981,24 +993,24 @@ class LicenseListWebpackPlugin {
 
       const previousOutput = readJSONFile(weblabelsJsonFile);
       if (previousOutput) {
-        this.output = deepMergeNamedArrays(this.output, previousOutput);
+        this.output = LicenseListWebpackPlugin.deepMergeNamedArrays(this.output, previousOutput);
       }
-      this.summarizeOutput();
+      this.output = LicenseListWebpackPlugin.summarizeOutput(this.output, this.logger);
 
       // generate the output file
       if (this.processOutput) {
         this.output = this.processOutput(this.output);
       }
 
-      if (this.outputHtmlFilename) {
-        fs.writeFileSync(
-          path.join(this.outputPath, this.outputHtmlFilename), LicenseListWebpackPlugin.generateHTML(this.output),
-        );
-      }
-
-      if (typeof this.output !== 'string') {
+      if (typeof this.output !== 'string'){
+        if (this.outputHtmlFilename) {
+          fs.writeFileSync(
+            path.join(this.outputPath, this.outputHtmlFilename), LicenseListWebpackPlugin.generateHTML(this.output),
+          );
+        }
         this.output = JSON.stringify(this.output);
       }
+
       fs.writeFileSync(weblabelsJsonFile, this.output);
 
       callback();

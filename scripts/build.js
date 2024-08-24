@@ -423,6 +423,7 @@ async function build() {
         console.log('-----------------------------');
         await createImages();
       }
+      console.log('-----------------------------');
     }
 
     if (parallel) {

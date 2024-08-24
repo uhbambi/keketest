@@ -150,10 +150,8 @@ module.exports = ({
       new LicenseListWebpackPlugin({
         name: 'Server Scripts',
         id: 'server-licenses',
-        htmlFilename: 'index.html',
         outputDir: path.join('public', 'legal'),
         includeLicenseFiles: true,
-        // includeSourceFiles: true,
         override: sourceMapping,
       }),
     ],
