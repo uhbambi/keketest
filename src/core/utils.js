@@ -128,13 +128,17 @@ export function getHistoricalCanvasSize(
 ) {
   if (historicalDate && historicalSizes) {
     let i = historicalSizes.length;
+    let chosenSize = canvasSize;
+    let chosenDate = Infinity;
     while (i > 0) {
       i -= 1;
-      const [date, size] = historicalSizes[i];
-      if (historicalDate <= date) {
-        return size;
+      const [cutoffDate, size] = historicalSizes[i];
+      if (historicalDate <= cutoffDate && cutoffDate < chosenDate) {
+        chosenSize = size;
+        chosenDate = cutoffDate;
       }
     }
+    return chosenSize;
   }
   return canvasSize;
 }
