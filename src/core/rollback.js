@@ -12,7 +12,7 @@ import sharp from 'sharp';
 
 import RedisCanvas from '../data/redis/RedisCanvas';
 import logger from './logger';
-import { getChunkOfPixel } from './utils';
+import { getChunkOfPixel, getHistoricalCanvasSize } from './utils';
 import Palette from './Palette';
 import { TILE_SIZE } from './constants';
 import { BACKUP_URL } from './config';
@@ -94,8 +94,12 @@ export default async function rollbackCanvasArea(
   );
   const canvas = canvases[canvasId];
   const { colors, size } = canvas;
+  const histSize = getHistoricalCanvasSize(
+    date, size, canvas.historicalSizes,
+  );
   const palette = new Palette(colors);
   const canvasMinXY = -(size / 2);
+  const histChunkOffset = (histSize - size) / TILE_SIZE / 2;
 
   const [ucx, ucy] = getChunkOfPixel(size, x, y);
   const [lcx, lcy] = getChunkOfPixel(size, x + width, y + height);
@@ -106,6 +110,9 @@ export default async function rollbackCanvasArea(
   let backupChunk;
   for (let cx = ucx; cx <= lcx; cx += 1) {
     for (let cy = ucy; cy <= lcy; cy += 1) {
+      const histCx = cx + histChunkOffset;
+      const histCy = cy + histChunkOffset;
+
       let [chunk, historicalChunk, historicalIncChunk] = await Promise.all([
         RedisCanvas.getChunk(canvasId, cx, cy, TILE_SIZE ** 2).catch(() => {
           logger.error(
@@ -114,8 +121,8 @@ export default async function rollbackCanvasArea(
           );
           return null;
         }),
-        fetchHistoricalPngChunk(date, 'tiles', canvasId, cx, cy),
-        fetchHistoricalPngChunk(date, time, canvasId, cx, cy),
+        fetchHistoricalPngChunk(date, 'tiles', canvasId, histCx, histCy),
+        fetchHistoricalPngChunk(date, time, canvasId, histCx, histCy),
       ]);
 
       if (!chunk || !chunk.length) {
@@ -130,7 +137,7 @@ export default async function rollbackCanvasArea(
         if (!historicalChunk && !historicalIncChunk) {
           logger.info(
             // eslint-disable-next-line max-len
-            `Backup chunk ${date}:${time}, ${cx}/${cy} could not be loaded, assuming empty.`,
+            `Backup chunk ${date}:${time}, ${histCx}/${histCy} could not be loaded, assuming empty.`,
           );
           backupChunk = null;
         } else {
