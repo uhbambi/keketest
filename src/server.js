@@ -71,7 +71,8 @@ server.on('upgrade', wsupgrade);
 app.use(compression({
   level: 3,
   filter: (req, res) => {
-    if (res.getHeader('Content-Type') === 'application/octet-stream') {
+    const contentType = res.getHeader('Content-Type');
+    if (contentType === 'application/octet-stream') {
       return true;
     }
     return compression.filter(req, res);

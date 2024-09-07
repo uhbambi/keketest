@@ -1,5 +1,6 @@
 /*
- * creation of captchas
+ * Creation of Captchas in a Worker
+ * This is equivalent to the creation of JS Challenges in challengeserver.js
  */
 
 import path from 'path';
@@ -27,10 +28,7 @@ const captchaQueue = [];
  */
 function requestCaptcha(cb) {
   worker.postMessage('createCaptcha');
-  captchaQueue.push([
-    Date.now(),
-    cb,
-  ]);
+  captchaQueue.push([Date.now(), cb]);
 }
 
 /*
@@ -54,8 +52,9 @@ worker.on('message', (msg) => {
 function clearOldQueue() {
   const now = Date.now();
   if (captchaQueue.length
-    && now - captchaQueue[0][0] > MAX_WAIT) {
-    logger.warn('Captchas: Queue can not keep up!');
+    && now - captchaQueue[0][0] > MAX_WAIT
+  ) {
+    logger.warn('CAPTCHAS Queue can not keep up!');
     captchaQueue.forEach((task) => {
       try {
         task[1]('TIMEOUT');

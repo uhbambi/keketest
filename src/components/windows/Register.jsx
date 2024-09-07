@@ -32,6 +32,7 @@ function validate(name, email, password, confirmPassword) {
 
 const Register = () => {
   const [submitting, setSubmitting] = useState('');
+  const [ready, setReady] = useState(false);
   const [errors, setErrors] = useState([]);
   // used to be able to force Captcha rerender on error
   const [captKey, setCaptKey] = useState(Date.now());
@@ -42,7 +43,7 @@ const Register = () => {
 
   const handleSubmit = async (evt) => {
     evt.preventDefault();
-    if (submitting) {
+    if (submitting || !ready) {
       return;
     }
 
@@ -52,6 +53,7 @@ const Register = () => {
     const confirmPassword = evt.target.confirmpassword.value;
     const captcha = evt.target.captcha.value;
     const captchaid = evt.target.captchaid.value;
+    const challengeSolution = evt.target.challengesolution.value;
 
     const valErrors = validate(name, email, password, confirmPassword);
     if (valErrors.length > 0) {
@@ -66,6 +68,7 @@ const Register = () => {
       password,
       captcha,
       captchaid,
+      challengeSolution,
     );
     setSubmitting(false);
     if (respErrors) {
@@ -122,9 +125,14 @@ const Register = () => {
           placeholder={t`Confirm Password`}
         />
         <h3>{t`Captcha`}:</h3>
-        <Captcha autoload={false} width={60} key={captKey} />
+        <Captcha
+          autoload={false}
+          width={60}
+          key={captKey}
+          onReadyStateChange={setReady}
+        />
         <button type="submit">
-          {(submitting) ? '...' : t`Submit`}
+          {(submitting || !ready) ? '...' : t`Submit`}
         </button>
         <button
           type="button"

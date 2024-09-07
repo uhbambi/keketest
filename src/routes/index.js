@@ -12,6 +12,7 @@ import tiles from './tiles';
 import chunks from './chunks';
 import adminapi from './adminapi';
 import captcha from './captcha';
+import challenge from './challenge';
 import resetPassword from './reset_password';
 import api from './api';
 
@@ -181,6 +182,11 @@ router.get('/history', history);
  * serve captcha
  */
 router.get('/captcha.svg', captcha);
+
+/*
+ * serve js challenge
+ */
+router.get('/challenge.js', challenge);
 
 
 export default router;

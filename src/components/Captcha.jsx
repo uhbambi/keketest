@@ -6,7 +6,7 @@
 
 /* eslint-disable jsx-a11y/no-autofocus */
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { t } from 'ttag';
 
 import { IoReloadCircleSharp } from 'react-icons/io5';
@@ -19,8 +19,9 @@ async function getUrlAndId() {
   });
   if (resp.ok) {
     const captchaid = resp.headers.get('captcha-id');
+    const challengeNeeded = resp.headers.get('challenge-needed') === '1';
     const svgBlob = await resp.blob();
-    return [URL.createObjectURL(svgBlob), captchaid];
+    return [URL.createObjectURL(svgBlob), captchaid, challengeNeeded];
   }
   return null;
 }
@@ -37,12 +38,18 @@ const floatStyle = {
  * autoload: Load captcha immediately and autofocus input textbox
  * width: width of the captcha image
  */
-const Captcha = ({ autoload, width, setLegit }) => {
+const Captcha = ({
+  autoload, width, setLegit, onReadyStateChange,
+}) => {
   const [captchaData, setCaptchaData] = useState({});
+  const [challengeSolution, setChallengeSolution] = useState(null);
   const [errors, setErrors] = useState([]);
   const [imgLoaded, setImgLoaded] = useState(false);
 
-  const reloadCaptcha = async () => {
+  const reloadCaptcha = useCallback(async () => {
+    /*
+     * load Cahptcha
+     */
     if (imgLoaded) {
       setImgLoaded(false);
     }
@@ -51,9 +58,24 @@ const Captcha = ({ autoload, width, setLegit }) => {
       setErrors([t`Could not load captcha`]);
       return;
     }
-    const [svgUrl, captchaid] = captchaResponse;
+    const [svgUrl, captchaid, challengeNeeded] = captchaResponse;
+
+    /*
+     * solve JS Challenge in Worker on first load
+     */
+    if (challengeNeeded && challengeSolution === null) {
+      const worker = new Worker('/challenge.js');
+      // TODO Timeout
+      worker.onmessage = (e) => {
+        setChallengeSolution(e.data);
+        worker.terminate();
+      };
+      // empty string for waiting
+      setChallengeSolution('');
+    }
+
     setCaptchaData({ url: svgUrl, id: captchaid });
-  };
+  }, [imgLoaded, challengeSolution]);
 
   useEffect(() => {
     if (autoload) {
@@ -62,6 +84,12 @@ const Captcha = ({ autoload, width, setLegit }) => {
   // intentionally only executed on first render
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  useEffect(() => {
+    if (onReadyStateChange) {
+      onReadyStateChange(challengeSolution !== '' && !!captchaData.id);
+    }
+  }, [challengeSolution, captchaData.id, onReadyStateChange]);
 
   const contWidth = width || 100;
 
@@ -152,6 +180,11 @@ const Captcha = ({ autoload, width, setLegit }) => {
         }}
       />
       <input type="hidden" name="captchaid" value={captchaData.id || '0'} />
+      <input
+        type="hidden"
+        name="challengesolution"
+        value={challengeSolution || ''}
+      />
     </>
   );
 };

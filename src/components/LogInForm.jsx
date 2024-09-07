@@ -72,6 +72,7 @@ const LogInForm = () => {
       <input
         value={nameoremail}
         style={inputStyles}
+        name="username"
         onChange={(evt) => setNameOrEmail(evt.target.value)}
         type="text"
         placeholder={t`Name or Email`}
@@ -79,6 +80,7 @@ const LogInForm = () => {
       <input
         value={password}
         style={inputStyles}
+        name="password"
         onChange={(evt) => setPassword(evt.target.value)}
         type="password"
         placeholder={t`Password`}

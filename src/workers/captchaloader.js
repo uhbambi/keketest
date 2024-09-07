@@ -1,5 +1,5 @@
 /*
- * worker thread for creating captchas
+ * worker thread for creating Captchas
  */
 
 /* eslint-disable no-console */
@@ -15,7 +15,7 @@ const FONT_FOLDER = 'captchaFonts';
 
 if (isMainThread) {
   throw new Error(
-    'Tilewriter is run as a worker thread, not as own process',
+    'CaptchaLoader is run as a worker thread, not as own process',
   );
 }
 
@@ -55,7 +55,7 @@ parentPort.on('message', (msg) => {
   } catch (error) {
     console.warn(
       // eslint-disable-next-line max-len
-      `Captchas: Error on createCaptcha: ${error.message}`,
+      `CAPTCHAS: Error on createCaptcha: ${error.message}`,
     );
     parentPort.postMessage(['Failure!']);
   }

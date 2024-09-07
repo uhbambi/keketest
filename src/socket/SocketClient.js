@@ -188,7 +188,7 @@ class SocketClient {
    * @param solution text
    * @return promise that resolves when response arrives
    */
-  sendCaptchaSolution(solution, captchaid) {
+  sendCaptchaSolution(solution, captchaid, challengeSolution) {
     return new Promise((resolve, reject) => {
       let id;
       const queueObj = ['cs', (arg) => {
@@ -201,8 +201,12 @@ class SocketClient {
         if (~pos) this.reqQueue.splice(pos, 1);
         reject(new Error('Timeout'));
       }, 20000);
+      const args = [solution, captchaid];
+      if (challengeSolution) {
+        args.push(challengeSolution);
+      }
       this.sendWhenReady(
-        `cs,${JSON.stringify([solution, captchaid])}`,
+        `cs,${JSON.stringify(args)}`,
       );
     });
   }

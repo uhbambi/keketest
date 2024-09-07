@@ -129,10 +129,23 @@ module.exports = ({
 
     externals: [
       nodeExternals({
-        // passport-reddit is an ESM module
-        // bundle it, then we don't have to import it
-        allowlist: [ /^passport-/ ],
+        // passport-reddit and watrs are ESM modules
+        // bundle them, then we don't have to import them
+        allowlist: [/^passport-/ , /^watr$/],
       }),
+      // the ./src/funcs folder does not get bundled, but copied
+      // into dist/workers/funcs instead to allow overriding
+      function ({ context, request }, callback) {
+        const funcPathInd = request.indexOf('/funcs/');
+        if (request.startsWith('.') && funcPathInd !== -1) {
+          const prefix = context.endsWith(path.join('src', 'workers'))
+            ? '.' : './workers';
+          return callback(
+            null, `commonjs ${prefix}${request.substring(funcPathInd)}`,
+          );
+        }
+        callback();
+      },
     ],
 
     plugins: [

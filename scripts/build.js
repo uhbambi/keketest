@@ -182,6 +182,8 @@ function cleanUpBeforeBuild(doBuildServer, doBuildClient) {
     fs.rmSync(assetPath, { recursive: true, force: true });
     const legalPath = path.join(distDir, 'public', 'legal');
     fs.rmSync(legalPath, { recursive: true, force: true });
+    const captchaFontsPath = path.join(distDir, 'captchaFonts');
+    fs.rmSync(captchaFontsPath, { recursive: true, force: true });
   }
   // copy necessary files
   if (doBuildServer) {
@@ -213,6 +215,12 @@ function cleanUpBeforeBuild(doBuildServer, doBuildClient) {
     fs.cpSync(
       path.join(parentDir, 'src', 'data', 'redis', 'lua'),
       path.join(distDir, 'workers', 'lua'),
+      { recursive: true },
+    );
+    // ./src/funcs get shipped seperately to allow overriding
+    fs.cpSync(
+      path.join(parentDir, 'src', 'funcs'),
+      path.join(distDir, 'workers', 'funcs'),
       { recursive: true },
     );
     fs.copyFileSync(

@@ -3,48 +3,48 @@
  */
 import logger from '../core/logger';
 import requestCaptcha from '../core/captchaserver';
-import { getIPFromRequest, getIPv6Subnet } from '../utils/ip';
-import { setCaptchaSolution } from '../data/redis/captcha';
-import { banIP } from '../data/sql/Ban';
+import { getIPFromRequest } from '../utils/ip';
+import { setCaptchaSolution, isTrusted } from '../data/redis/captcha';
 
-export default (req, res) => {
+async function captcha(req, res) {
   res.set({
-    'Access-Control-Expose-Headers': 'captcha-id',
+    'Access-Control-Expose-Headers': 'captcha-id, challenge-needed',
     'Cache-Control': 'no-cache, no-store, must-revalidate',
   });
 
-  requestCaptcha((err, text, data, id) => {
-    if (res.writableEnded) {
-      throw new Error('ENOR');
-    }
+  const ip = getIPFromRequest(req);
+
+  try {
+    const [trusted, [err, text, data, id]] = await Promise.all([
+      isTrusted(ip, req.headers['user-agent']),
+      new Promise((resolve) => {
+        requestCaptcha((...args) => resolve(args));
+      }),
+    ]);
 
     if (err) {
-      res.status(503);
-      res.send(
-        // eslint-disable-next-line max-len
-        '<html><body><h1>Captchaserver: 503 Server Error</h1>Captchas are accessible via *.svp paths</body></html>',
-      );
-      return;
+      throw new Error(err);
     }
-
-    const ip = getIPFromRequest(req);
-    if (req.headers['user-agent']?.split('Mozilla/5.0').length > 2) {
-      logger.info(`AUTOBAN soyjak botnet ${ip}`);
-      banIP(
-        getIPv6Subnet(ip),
-        'Proxy ',
-        Date.now() + 1000 * 3600 * 24 * 3,
-        34273,
-      );
-    } else {
-      setCaptchaSolution(text, id, ip);
-    }
-    logger.info(`Captchas: ${ip} got captcha with text: ${text}`);
+    setCaptchaSolution(text, id);
+    logger.info(`CAPTCHA ${ip} got captcha with text: ${text}`);
 
     res.set({
       'Content-Type': 'image/svg+xml',
       'Captcha-Id': id,
+      'Challenge-Needed': trusted ? '0' : '1',
     });
     res.end(data);
-  });
-};
+  } catch (err) {
+    if (!res.writableEnded) {
+      res.status(503);
+      res.set({ 'Content-Type': 'text/html; charset=utf-8' });
+      res.send(
+        // eslint-disable-next-line max-len
+        '<html><body><h1>Captchaserver: 503 Server Error</h1>Maybe try it later again</body></html>',
+      );
+    }
+    logger.warn(err.message);
+  }
+}
+
+export default captcha;

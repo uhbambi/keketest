@@ -5,7 +5,8 @@
 
 import logger from '../../core/logger';
 import client from './client';
-import { getIPv6Subnet } from '../../utils/ip';
+import { getIPv6Subnet, isIPv6 } from '../../utils/ip';
+import { simpleHash } from '../../core/utils';
 import {
   CAPTCHA_TIME,
   CAPTCHA_TIMEOUT,
@@ -14,10 +15,13 @@ import {
 
 const TTL_CACHE = CAPTCHA_TIME * 60; // minutes to seconds
 const TTL_TRUSTED = TRUSTED_TIME * 60 * 60; // hours to seconds
+const CHALLENGE_TIMEOUT = CAPTCHA_TIMEOUT * 3;
 
 export const PREFIX = 'human';
 export const SOLUTION_PREFIX = 'capt';
 export const TRUSTED_PREFIX = 'trus';
+export const CHALLENGE_PREFIX = 'chal';
+export const CHALLENGE_IP_MAP_KEY = 'chip';
 
 /*
  * chars that are so similar that we allow them to get mixed up
@@ -69,12 +73,13 @@ function evaluateResult(captchaText, userText) {
 }
 
 /*
- * mark ip as trusted
+ * mark client as trusted
  * @param ip
+ * @param ua User-Agent string
  */
-export async function markTrusted(ip) {
+export async function markTrusted(ip, ua) {
   try {
-    const key = `${TRUSTED_PREFIX}:${getIPv6Subnet(ip)}`;
+    const key = `${TRUSTED_PREFIX}:${getIPv6Subnet(ip)}:${simpleHash(ua)}`;
     await client.set(key, '', {
       EX: TTL_TRUSTED,
     });
@@ -84,14 +89,80 @@ export async function markTrusted(ip) {
 }
 
 /*
- * check if ip is trusted
+ * check if client is trusted
  * @param ip
+ * @param ua User-Agent string
  * @return boolean
  */
-export async function isTrusted(ip) {
-  const key = `${TRUSTED_PREFIX}:${getIPv6Subnet(ip)}`;
+export async function isTrusted(ip, ua) {
+  const key = `${TRUSTED_PREFIX}:${getIPv6Subnet(ip)}:${simpleHash(ua)}`;
   const ttl = await client.ttl(key);
   return ttl > 0;
+}
+
+/*
+ * set challenge solution for IP
+ * @param text challenge solution
+ * @param ip
+ * @param ua User-Agent string
+ */
+export async function setChallengeSolution(text, ip, ua) {
+  try {
+    const key = `${CHALLENGE_PREFIX}:${text}`;
+    await client.set(key, `${getIPv6Subnet(ip)},${simpleHash(ua)}`, {
+      EX: CHALLENGE_TIMEOUT,
+    });
+  } catch (err) {
+    logger.error(`Error setting JS Challenge: ${err.message}`);
+  }
+}
+
+/*
+ * check challenge solution for IP
+ * @param text challenge solution
+ * @param ip
+ * @param ua User-Agent string
+ * @return boolean
+ */
+export async function checkChallengeSolution(text, ip, ua) {
+  ip = getIPv6Subnet(ip);
+  const key = `${CHALLENGE_PREFIX}:${text}`;
+  const storedClient = await client.getDel(key);
+  if (!storedClient) {
+    return false;
+  }
+  const [storedIp, storeadUaHash] = storedClient.split(',');
+  if (storeadUaHash !== simpleHash(ua)) {
+    logger.log(`CHALLENGE ${ip} failed User-Agent didn't match: ${ua}`);
+    return false;
+  }
+  if (storedIp !== ip) {
+    if (isIPv6(ip) !== isIPv6(storedIp)) {
+      /*
+      * sometimes browsers on dual stack send one request through IPv4 and
+      * another through IPv6, so we allow one deviation
+      */
+      let ipMapping = await client.hGet(CHALLENGE_IP_MAP_KEY, storedIp);
+      if (!ipMapping) {
+        logger.log(`CHALLENGE Different IP stack: ${storedIp} -> ${ip}`);
+        await client.hSet(CHALLENGE_IP_MAP_KEY, storedIp, ip);
+        ipMapping = storedIp;
+      }
+      if (ip !== ipMapping) {
+        // TODO check how many people this kicks out and either relax it or add
+        // a seperate REST api for solving js challenges
+        // eslint-disable-next-line max-len
+        logger.log(`CHALLENGE failing mapping: ${storedIp} -> ${ip} != ${ipMapping}`);
+        return false;
+      }
+    } else {
+      logger.log(`CHALLENGE ip failed didn't match: ${storedIp} -> ${ip}`);
+      return false;
+    }
+  }
+  logger.info(`CHALLENGE ${ip} successfully solved challenge ${text}`);
+  await markTrusted(ip, ua);
+  return true;
 }
 
 /*
@@ -103,12 +174,8 @@ export async function isTrusted(ip) {
 export async function setCaptchaSolution(
   text,
   captchaid,
-  ip,
 ) {
   try {
-    if (!await isTrusted(ip)) {
-      text = 'untrusted';
-    }
     await client.set(`${SOLUTION_PREFIX}:${captchaid}`, text, {
       EX: CAPTCHA_TIMEOUT,
     });
@@ -122,9 +189,10 @@ export async function setCaptchaSolution(
  *
  * @param text Solution of captcha
  * @param ip
+ * @param ua User-Agent string
  * @param onetime If the captcha is just one time or should be remembered
- * @param wrongCallback function that gets called when captcha got solved wrong
- *   for this ip
+ * @param captchaid Id of the captcha
+ * @param challenge result of the JS challenge
  * @return 0 if solution right
  *         1 if timed out
  *         2 if wrong
@@ -132,9 +200,10 @@ export async function setCaptchaSolution(
 export async function checkCaptchaSolution(
   text,
   ip,
+  ua,
   onetime,
   captchaid,
-  wrongCallback = null,
+  challengeSolution,
 ) {
   if (!text || text.length > 10) {
     return 3;
@@ -142,9 +211,14 @@ export async function checkCaptchaSolution(
   if (!captchaid) {
     return 4;
   }
-  const solution = await client.getDel(`${SOLUTION_PREFIX}:${captchaid}`);
-  if (solution === 'untrusted') {
-    logger.info(`CAPTCHA solution for ${ip} rejected, ip is not trusted`);
+  const [solution, trusted] = await Promise.all([
+    client.getDel(`${SOLUTION_PREFIX}:${captchaid}`),
+    (challengeSolution)
+      ? checkChallengeSolution(challengeSolution, ip, ua) : isTrusted(ip, ua),
+  ]);
+  if (!trusted) {
+    logger.info(`CHALLENGE ${ip} failed trust (${challengeSolution})`);
+    // TODO change to 6 when deployed long enough
     return 5;
   }
   if (solution) {
@@ -165,9 +239,6 @@ export async function checkCaptchaSolution(
     logger.info(
       `CAPTCHA ${ip} got captcha wrong (${text} instead of ${solution})`,
     );
-    if (wrongCallback) {
-      wrongCallback(text, solution);
-    }
     return 2;
   }
   logger.info(`CAPTCHA ${ip}:${captchaid} timed out`);

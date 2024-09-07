@@ -79,6 +79,7 @@ class SocketServer {
       ws.canvasId = null;
       const { user } = req;
       ws.user = user;
+      ws.userAgent = req.headers['user-agent'];
       ws.chunkCnt = 0;
 
       const { ip } = user;
@@ -494,12 +495,9 @@ class SocketServer {
         }
         case 'cs': {
           // captcha solution
-          const [solution, captchaid] = val;
+          const [solution, captchaid, challengeSolution] = val;
           const ret = await checkCaptchaSolution(
-            solution,
-            ip,
-            false,
-            captchaid,
+            solution, ip, ws.userAgent, false, captchaid, challengeSolution,
           );
           ws.send(dehydrateCaptchaReturn(ret));
           break;

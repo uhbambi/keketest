@@ -11,8 +11,7 @@ import { getTTag, availableLangs as langs } from '../core/ttag';
 import { getJsAssets, getCssAssets } from '../core/assets';
 import socketEvents from '../socket/socketEvents';
 import { BACKUP_URL, CONTACT_ADDRESS } from '../core/config';
-import { getHostFromRequest, getIPFromRequest } from '../utils/ip';
-import { markTrusted } from '../data/redis/captcha';
+import { getHostFromRequest } from '../utils/ip';
 
 /*
  *  (function(){a = async () => {await fetch('/api/banme', {method: 'POST', credentials: 'include', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({code: 3})})}; new WebSocket('ws://127.0.0.1:1701/tuxler').onopen = a; new WebSocket('ws://127.0.0.1:1700/tuxler').onopen = a;})()
@@ -62,8 +61,6 @@ function generateMainPage(req) {
   const scriptHash = hashScript(headScript);
 
   const csp = `script-src 'self' ${scriptHash} ${bodyScriptHash} *.tiktok.com *.ttwstatic.com; worker-src 'self' blob:;`;
-
-  markTrusted(getIPFromRequest(req));
 
   const mainEtag = etag(scripts.concat(ssvR).join('_'), { weak: true });
   if (req.headers['if-none-match'] === mainEtag) {

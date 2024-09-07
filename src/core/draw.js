@@ -182,6 +182,10 @@ export default async function drawByOffsets(
       cdIfNull = 0;
     }
 
+    if (req === 1 && !user.regUser?.verified) {
+      throw new Error(17);
+    }
+
     let needProxycheck;
     [retCode, pxlCnt, wait, coolDown, needProxycheck] = await allowPlace(
       ip,

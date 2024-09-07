@@ -313,13 +313,16 @@ export function requestLogin(nameoremail, password) {
   );
 }
 
-export function requestRegistration(name, email, password, captcha, captchaid) {
-  return makeAPIPOSTRequest(
-    '/api/auth/register',
-    {
-      name, email, password, captcha, captchaid,
-    },
-  );
+export function requestRegistration(
+  name, email, password, captcha, captchaid, challengeSolution,
+) {
+  const body = {
+    name, email, password, captcha, captchaid,
+  };
+  if (challengeSolution) {
+    body.cs = challengeSolution;
+  }
+  return makeAPIPOSTRequest('/api/auth/register', body);
 }
 
 export function requestNewPassword(email) {
