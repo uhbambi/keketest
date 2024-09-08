@@ -115,4 +115,7 @@ module.exports = {
   'passport-vkontakte': {
     sources: 'https://github.com/stevebest/%{name}/archive/refs/tags/%{version}.tar.gz',
   },
+  'watr': {
+    sources: 'branch:master',
+  },
 };

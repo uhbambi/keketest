@@ -11,6 +11,7 @@ import { getIPFromRequest, getHostFromRequest } from '../utils/ip';
 import {
   REG_CANVAS_OP,
   PIXEL_UPDATE_OP,
+  OLD_PIXEL_UPDATE_OP,
   REG_CHUNK_OP,
   REG_MCHUNKS_OP,
   DEREG_CHUNK_OP,
@@ -24,6 +25,7 @@ import {
   hydrateDeRegMChunks,
   hydratePixelUpdate,
   dehydrateChangeMe,
+  dehydrateRefresh,
   dehydrateOnlineCounter,
   dehydrateCoolDown,
   dehydratePixelReturn,
@@ -610,6 +612,10 @@ class SocketServer {
           hydrateDeRegMChunks(buffer, (chunkid) => {
             this.deleteChunk(chunkid, ws);
           });
+          break;
+        }
+        case OLD_PIXEL_UPDATE_OP: {
+          ws.send(dehydrateRefresh());
           break;
         }
         default:

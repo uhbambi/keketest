@@ -12,13 +12,14 @@ async function challenge(req, res) {
     'Content-Type': 'application/javascript; charset=UTF-8',
   });
 
-  requestChallenge((error, solution, data) => {
+  const ip = getIPFromRequest(req);
+
+  requestChallenge(async (error, solution, data) => {
     try {
       if (error) {
         throw new Error(error);
       }
 
-      const ip = getIPFromRequest(req);
       setChallengeSolution(solution, ip, req.headers['user-agent']);
       logger.info(`CHALLENGE ${ip} got challenge with solution: ${solution}`);
       res.end(data);

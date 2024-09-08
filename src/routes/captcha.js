@@ -2,7 +2,7 @@
  * route providing captcha
  */
 import logger from '../core/logger';
-import requestCaptcha from '../core/captchaserver';
+import { requestCaptcha } from '../core/captchaserver';
 import { getIPFromRequest } from '../utils/ip';
 import { setCaptchaSolution, isTrusted } from '../data/redis/captcha';
 

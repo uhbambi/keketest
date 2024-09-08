@@ -8,9 +8,10 @@
 
 import React, { useState, useEffect, useCallback } from 'react';
 import { t } from 'ttag';
-
 import { IoReloadCircleSharp } from 'react-icons/io5';
+
 import { shardOrigin } from '../store/actions/fetch';
+import { getRandomString } from '../core/utils';
 
 async function getUrlAndId() {
   const url = `${shardOrigin}/captcha.svg`;
@@ -64,7 +65,7 @@ const Captcha = ({
      * solve JS Challenge in Worker on first load
      */
     if (challengeNeeded && challengeSolution === null) {
-      const worker = new Worker('/challenge.js');
+      const worker = new Worker(`/challenge.js?cb=${getRandomString()}`);
       // TODO Timeout
       worker.onmessage = (e) => {
         setChallengeSolution(e.data);

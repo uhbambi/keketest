@@ -182,6 +182,8 @@ function cleanUpBeforeBuild(doBuildServer, doBuildClient) {
     fs.rmSync(assetPath, { recursive: true, force: true });
     const legalPath = path.join(distDir, 'public', 'legal');
     fs.rmSync(legalPath, { recursive: true, force: true });
+  }
+  if (doBuildServer) {
     const captchaFontsPath = path.join(distDir, 'captchaFonts');
     fs.rmSync(captchaFontsPath, { recursive: true, force: true });
   }
@@ -201,10 +203,11 @@ function cleanUpBeforeBuild(doBuildServer, doBuildClient) {
       );
     });
     // copy folder to dist directory
-    [
-      'public',
-      path.join('deployment', 'captchaFonts'),
-    ].forEach((d) => {
+    const dirsToDirectlyCopy = ['public'];
+    if (!fs.existsSync(path.join(parentDir, 'overrides', 'captchaFonts'))) {
+      dirsToDirectlyCopy.push(path.join('deployment', 'captchaFonts'));
+    }
+    dirsToDirectlyCopy.forEach((d) => {
       fs.cpSync(
         path.join(parentDir, d),
         path.join(distDir, path.basename(d)),

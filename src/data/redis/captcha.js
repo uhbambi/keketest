@@ -22,6 +22,7 @@ export const SOLUTION_PREFIX = 'capt';
 export const TRUSTED_PREFIX = 'trus';
 export const CHALLENGE_PREFIX = 'chal';
 export const CHALLENGE_IP_MAP_KEY = 'chip';
+export const CAPTCHA_FONT_KEY = 'cfont';
 
 /*
  * chars that are so similar that we allow them to get mixed up
@@ -73,6 +74,36 @@ function evaluateResult(captchaText, userText) {
 }
 
 /*
+ * store captcha fonts
+ * @param Array of font filenames
+ */
+export async function setCaptchaFonts(captchaFonts) {
+  try {
+    if (!captchaFonts.length) {
+      return;
+    }
+    await client.set(CAPTCHA_FONT_KEY, JSON.stringify(captchaFonts));
+  } catch (err) {
+    logger.error(`Error storing captcha fonts: ${err.message}`);
+  }
+}
+
+/*
+ * get stored captcha fonts
+ * @return Array of font filenames
+ */
+export async function getCaptchaFonts() {
+  try {
+    const fonts = await client.get(CAPTCHA_FONT_KEY);
+    if (!fonts) return [];
+    return JSON.parse(fonts);
+  } catch (err) {
+    logger.error(`Error getting captcha fonts: ${err.message}`);
+    return [];
+  }
+}
+
+/*
  * mark client as trusted
  * @param ip
  * @param ua User-Agent string
@@ -118,6 +149,30 @@ export async function setChallengeSolution(text, ip, ua) {
 }
 
 /*
+ * force captchas on everyone
+ */
+export async function resetAllCaptchas() {
+  let amount = 0;
+  for await (const key of client.scanIterator({
+    TYPE: 'string',
+    MATCH: `${TRUSTED_PREFIX}:*`,
+    COUNT: 100,
+  })) {
+    amount += 1;
+    await client.unlink(key);
+  }
+  for await (const key of client.scanIterator({
+    TYPE: 'string',
+    MATCH: `${PREFIX}:*`,
+    COUNT: 100,
+  })) {
+    amount += 1;
+    await client.unlink(key);
+  }
+  return amount;
+}
+
+/*
  * check challenge solution for IP
  * @param text challenge solution
  * @param ip
@@ -133,7 +188,7 @@ export async function checkChallengeSolution(text, ip, ua) {
   }
   const [storedIp, storeadUaHash] = storedClient.split(',');
   if (storeadUaHash !== simpleHash(ua)) {
-    logger.log(`CHALLENGE ${ip} failed User-Agent didn't match: ${ua}`);
+    logger.info(`CHALLENGE ${ip} failed User-Agent didn't match: ${ua}`);
     return false;
   }
   if (storedIp !== ip) {
@@ -144,19 +199,19 @@ export async function checkChallengeSolution(text, ip, ua) {
       */
       let ipMapping = await client.hGet(CHALLENGE_IP_MAP_KEY, storedIp);
       if (!ipMapping) {
-        logger.log(`CHALLENGE Different IP stack: ${storedIp} -> ${ip}`);
+        logger.info(`CHALLENGE Different IP stack: ${storedIp} -> ${ip}`);
         await client.hSet(CHALLENGE_IP_MAP_KEY, storedIp, ip);
-        ipMapping = storedIp;
+        ipMapping = ip;
       }
       if (ip !== ipMapping) {
         // TODO check how many people this kicks out and either relax it or add
         // a seperate REST api for solving js challenges
         // eslint-disable-next-line max-len
-        logger.log(`CHALLENGE failing mapping: ${storedIp} -> ${ip} != ${ipMapping}`);
+        logger.info(`CHALLENGE failing mapping: ${storedIp} -> ${ip} != ${ipMapping}`);
         return false;
       }
     } else {
-      logger.log(`CHALLENGE ip failed didn't match: ${storedIp} -> ${ip}`);
+      logger.info(`CHALLENGE ip failed didn't match: ${storedIp} -> ${ip}`);
       return false;
     }
   }

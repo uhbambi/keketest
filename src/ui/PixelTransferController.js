@@ -169,7 +169,7 @@ class PixelTransferController {
       case 17:
         errorTitle = t`Just for verified Users`;
         // eslint-disable-next-line max-len
-        msg = t`You have to be logged in and mail verified to place on this canvas`;
+        msg = t`Only verified Users are currently allowed to play.`;
         break;
       default:
         errorTitle = t`Weird`;

@@ -16,8 +16,12 @@ import canvases from './canvases';
 import { THREE_CANVAS_HEIGHT, THREE_TILE_SIZE, TILE_SIZE } from './constants';
 
 let coolDownFactor = 1;
+let needVerification = false;
 socketEvents.on('setCoolDownFactor', (newFac) => {
   coolDownFactor = newFac;
+});
+socketEvents.on('setVerificationRequirement', (req) => {
+  needVerification = req;
 });
 
 /*
@@ -182,7 +186,7 @@ export default async function drawByOffsets(
       cdIfNull = 0;
     }
 
-    if (req === 1 && !user.regUser?.verified) {
+    if (needVerification && !user.regUser?.verified) {
       throw new Error(17);
     }
 

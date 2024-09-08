@@ -14,6 +14,7 @@ import sequelize from './data/sql/sequelize';
 import { connect as connectRedis } from './data/redis/client';
 import routes from './routes';
 import chatProvider from './core/ChatProvider';
+import { loadCaptchaFontsFromRedis } from './core/captchaserver';
 import rpgEvent from './core/RpgEvent';
 import canvasCleaner from './core/CanvasCleaner';
 
@@ -91,13 +92,14 @@ sequelize.sync({ alter: { drop: false } })
   .then(async () => {
     chatProvider.initialize();
     startAllCanvasLoops();
+    loadCaptchaFontsFromRedis();
     usersocket.initialize();
     apisocket.initialize();
     canvasCleaner.initialize();
     // start http server
     const startServer = () => {
       server.listen(PORT, HOST, () => {
-        logger.log(
+        logger.info(
           'info',
           `HTTP Server listening on port ${PORT}`,
         );

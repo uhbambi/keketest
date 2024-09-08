@@ -1,13 +1,16 @@
+/* eslint-disable max-len */
+
 function createChallenge(randomInt, randomStr, compileWat) {
   const solution = randomInt(0xFFFFFFFF);
-  // eslint-disable-next-line max-len
   const wat = `(module (func (export "run") (result i32) i32.const ${solution}))`;
   const buffer = compileWat(wat);
 
-  const data = `w = new Uint8Array([${buffer.toString()}]);
-  WebAssembly.instantiate(w).then(wasmModule => {
-    postMessage(wasmModule.instance.exports.run());
-  });`;
+  const data = `/* @license magnet:?xt=urn:btih:0b31508aeb0634b347b8270c7bee4d411b5d4109&dn=agpl-3.0.txt AGPL-3.0-or-later */
+w = new Uint8Array([${buffer.toString()}]);
+WebAssembly.instantiate(w).then(wasmModule => {
+  postMessage(wasmModule.instance.exports.run());
+});
+/* @license-end */`;
 
   return {
     solution,

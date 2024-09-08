@@ -23,6 +23,7 @@ import {
   getModList,
   removeMod,
   makeMod,
+  executeQuickAction,
 } from '../../core/adminfunctions';
 
 
@@ -245,6 +246,11 @@ router.post('/', async (req, res, next) => {
       const ret = await makeMod(req.body.makemod);
       res.status(200);
       res.json(ret);
+      return;
+    }
+    if (req.body.quickaction) {
+      const ret = await executeQuickAction(req.body.quickaction, aLogger);
+      res.status(200).send(ret);
       return;
     }
     next();

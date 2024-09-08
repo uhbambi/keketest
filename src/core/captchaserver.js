@@ -3,17 +3,66 @@
  * This is equivalent to the creation of JS Challenges in challengeserver.js
  */
 
+import fs from 'fs';
 import path from 'path';
 import { Worker } from 'worker_threads';
 
 import logger from './logger';
+import socketEvents from '../socket/socketEvents';
+import { getCaptchaFonts, setCaptchaFonts } from '../data/redis/captcha';
+import { DailyCron } from '../utils/cron';
 
 const MAX_WAIT = 30 * 1000;
+const FONT_FOLDER = path.resolve('captchaFonts');
 
 /*
  * worker thread
  */
 const worker = new Worker(path.resolve('workers', 'captchaloader.js'));
+
+/*
+ * set captcha fonts according to stored fonts in redis
+ */
+export async function loadCaptchaFontsFromRedis() {
+  const fonts = await getCaptchaFonts();
+  worker.postMessage(`setCaptchaFonts,${JSON.stringify(fonts)}`);
+}
+
+/*
+ * update captcha fonts
+ */
+socketEvents.on('setCaptchaFonts', async (fontFilenames) => {
+  worker.postMessage(`setCaptchaFonts,${JSON.stringify(fontFilenames)}`);
+});
+
+/*
+ * roll new captcha fonts
+ */
+export async function rollCaptchaFonts() {
+  const fontFilenames = fs.readdirSync(FONT_FOLDER)
+    .filter((e) => e.endsWith('.ttf') || e.endsWith('.otf'));
+  const choosenFonts = [];
+  let i = Math.min(fontFilenames.length, 3);
+  while (i >= 0) {
+    i -= 1;
+    choosenFonts.push(fontFilenames[
+      Math.floor(Math.random() * fontFilenames.length)
+    ]);
+  }
+  await setCaptchaFonts(choosenFonts);
+  logger.info(`CAPTCHAS: Rolled new fonts: ${choosenFonts.join(',')}`);
+  socketEvents.broadcastCaptchaFonts(choosenFonts);
+  return choosenFonts;
+}
+
+/*
+ * roll daily by chance
+ */
+DailyCron.hook(() => {
+  if (socketEvents.amIImportant() && Math.random() > 0.5) {
+    rollCaptchaFonts();
+  }
+});
 
 /*
  * queue of captcha-generation tasks
@@ -26,7 +75,7 @@ const captchaQueue = [];
  * calls callback with arguments:
  *  (error, captcha.text, captcha.svgdata, captcha.id)
  */
-function requestCaptcha(cb) {
+export function requestCaptcha(cb) {
   worker.postMessage('createCaptcha');
   captchaQueue.push([Date.now(), cb]);
 }
@@ -67,5 +116,3 @@ function clearOldQueue() {
 }
 
 setInterval(clearOldQueue, MAX_WAIT);
-
-export default requestCaptcha;

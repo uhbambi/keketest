@@ -16,7 +16,8 @@ import { RegUser } from '../data/sql';
 import {
   cleanCacheForIP,
 } from '../data/redis/isAllowedCache';
-import { forceCaptcha } from '../data/redis/captcha';
+import { forceCaptcha, resetAllCaptchas } from '../data/redis/captcha';
+import { rollCaptchaFonts } from './captchaserver';
 import {
   isWhitelisted,
   whitelistIP,
@@ -74,6 +75,31 @@ export async function executeIPAction(action, ips, logger = null) {
     }
   }
   return out;
+}
+
+export async function executeQuickAction(action, logger = null) {
+  if (logger) logger(action);
+
+  switch (action) {
+    case 'rollcaptchafonts': {
+      const fonts = await rollCaptchaFonts();
+      return `Rolled captcha fonts: ${fonts.join(',')}`;
+    }
+    case 'resetcaptchas': {
+      const amount = await resetAllCaptchas();
+      return `Reset ${amount} Captchas and JS Challenges!`;
+    }
+    case 'enableverify': {
+      socketEvents.broadcastVerificationRequirement(true);
+      return 'Enabled Verification Requirement';
+    }
+    case 'disableverify': {
+      socketEvents.broadcastVerificationRequirement(false);
+      return 'Disabled Verification Requirement';
+    }
+    default:
+      throw new Error('Unknown quick action!');
+  }
 }
 
 /*
@@ -634,4 +660,3 @@ export async function makeMod(name) {
     throw new Error('Couldn\'t remove Mod from user');
   }
 }
-

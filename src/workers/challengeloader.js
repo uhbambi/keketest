@@ -16,9 +16,7 @@ if (isMainThread) {
   );
 }
 
-const randomStr = () => {
-  return 'a' + Math.random().toString(36).substring(2, 8);
-};
+const randomStr = () => `a${Math.random().toString(36).substring(2, 8)}`;
 
 parentPort.on('message', (msg) => {
   try {

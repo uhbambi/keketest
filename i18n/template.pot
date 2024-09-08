@@ -157,14 +157,22 @@ msgid "Your Internet Provider is banned from this game"
 msgstr ""
 
 #: src/ui/PixelTransferController.js:170
+msgid "Just for verified Users"
+msgstr ""
+
+#: src/ui/PixelTransferController.js:172
+msgid "Only verified Users are currently allowed to play."
+msgstr ""
+
+#: src/ui/PixelTransferController.js:175
 msgid "Weird"
 msgstr ""
 
-#: src/ui/PixelTransferController.js:171
+#: src/ui/PixelTransferController.js:176
 msgid "Couldn't set Pixel"
 msgstr ""
 
-#: src/ui/PixelTransferController.js:176
+#: src/ui/PixelTransferController.js:181
 #, javascript-format
 msgid "Error ${ retCode }"
 msgstr ""
@@ -328,7 +336,7 @@ msgstr ""
 msgid "Select Date above"
 msgstr ""
 
-#: src/components/Admintools.jsx:103
+#: src/components/Admintools.jsx:115
 #: src/components/ModCanvastools.jsx:227
 #: src/components/ModWatchtools.jsx:118
 #: src/components/Window.jsx:157
@@ -429,36 +437,40 @@ msgstr ""
 msgid "Player"
 msgstr ""
 
-#: src/components/GlobalCaptcha.jsx:48
+#: src/components/GlobalCaptcha.jsx:50
 msgid "You took too long, try again."
 msgstr ""
 
-#: src/components/GlobalCaptcha.jsx:51
+#: src/components/GlobalCaptcha.jsx:53
 msgid "You failed your captcha"
 msgstr ""
 
-#: src/components/GlobalCaptcha.jsx:54
+#: src/components/GlobalCaptcha.jsx:56
 msgid "No or invalid captcha text"
 msgstr ""
 
-#: src/components/GlobalCaptcha.jsx:57
+#: src/components/GlobalCaptcha.jsx:59
 msgid "No captcha id given"
 msgstr ""
 
-#: src/components/GlobalCaptcha.jsx:63
+#: src/components/GlobalCaptcha.jsx:62
+msgid "Your Browser looks shady"
+msgstr ""
+
+#: src/components/GlobalCaptcha.jsx:68
 msgid "Unknown Captcha Error"
 msgstr ""
 
 #: src/components/BanInfo.jsx:80
-#: src/components/Captcha.jsx:79
+#: src/components/Captcha.jsx:108
 #: src/components/ChangeMail.jsx:72
 #: src/components/ChangeName.jsx:58
 #: src/components/ChangePassword.jsx:79
 #: src/components/DeleteAccount.jsx:55
-#: src/components/GlobalCaptcha.jsx:75
+#: src/components/GlobalCaptcha.jsx:80
 #: src/components/LogInForm.jsx:70
 #: src/components/windows/ForgotPassword.jsx:73
-#: src/components/windows/Register.jsx:89
+#: src/components/windows/Register.jsx:92
 msgid "Error"
 msgstr ""
 
@@ -466,15 +478,15 @@ msgstr ""
 #: src/components/ChangeName.jsx:70
 #: src/components/ChangePassword.jsx:115
 #: src/components/DeleteAccount.jsx:68
-#: src/components/GlobalCaptcha.jsx:84
+#: src/components/GlobalCaptcha.jsx:94
 #: src/components/RefreshPrompt.jsx:16
 #: src/components/TemplateItemEdit.jsx:181
 #: src/components/windows/ForgotPassword.jsx:89
-#: src/components/windows/Register.jsx:133
+#: src/components/windows/Register.jsx:141
 msgid "Cancel"
 msgstr ""
 
-#: src/components/GlobalCaptcha.jsx:90
+#: src/components/GlobalCaptcha.jsx:100
 msgid "Send"
 msgstr ""
 
@@ -860,47 +872,47 @@ msgstr ""
 msgid "Consider joining us on Guilded:"
 msgstr ""
 
-#: src/components/windows/Register.jsx:87
+#: src/components/windows/Register.jsx:90
 msgid "Register new account here"
 msgstr ""
 
-#: src/components/windows/Register.jsx:92
-#: src/components/windows/Register.jsx:98
+#: src/components/windows/Register.jsx:95
+#: src/components/windows/Register.jsx:101
 msgid "Name"
 msgstr ""
 
 #: src/components/windows/ForgotPassword.jsx:80
-#: src/components/windows/Register.jsx:100
-#: src/components/windows/Register.jsx:106
+#: src/components/windows/Register.jsx:103
+#: src/components/windows/Register.jsx:109
 msgid "Email"
 msgstr ""
 
 #: src/components/ChangeMail.jsx:80
 #: src/components/DeleteAccount.jsx:62
-#: src/components/LogInForm.jsx:84
-#: src/components/windows/Register.jsx:108
-#: src/components/windows/Register.jsx:114
+#: src/components/LogInForm.jsx:86
+#: src/components/windows/Register.jsx:111
+#: src/components/windows/Register.jsx:117
 msgid "Password"
 msgstr ""
 
-#: src/components/windows/Register.jsx:116
-#: src/components/windows/Register.jsx:122
+#: src/components/windows/Register.jsx:119
+#: src/components/windows/Register.jsx:125
 msgid "Confirm Password"
 msgstr ""
 
-#: src/components/windows/Register.jsx:124
+#: src/components/windows/Register.jsx:127
 msgid "Captcha"
 msgstr ""
 
-#: src/components/Admintools.jsx:154
-#: src/components/Admintools.jsx:238
+#: src/components/Admintools.jsx:164
+#: src/components/Admintools.jsx:311
 #: src/components/ModCanvastools.jsx:313
 #: src/components/ModCanvastools.jsx:404
 #: src/components/ModCanvastools.jsx:482
 #: src/components/ModCanvastools.jsx:583
 #: src/components/ModIIDtools.jsx:135
 #: src/components/windows/ForgotPassword.jsx:84
-#: src/components/windows/Register.jsx:127
+#: src/components/windows/Register.jsx:135
 msgid "Submit"
 msgstr ""
 
@@ -981,36 +993,36 @@ msgstr ""
 msgid "Enter your mail address and we will send you a new password:"
 msgstr ""
 
-#: src/components/Captcha.jsx:51
-#: src/components/Captcha.jsx:107
+#: src/components/Captcha.jsx:59
+#: src/components/Captcha.jsx:136
 msgid "Could not load captcha"
 msgstr ""
 
-#: src/components/Captcha.jsx:71
+#: src/components/Captcha.jsx:100
 msgid "Type the characters from the following image:"
 msgstr ""
 
-#: src/components/Captcha.jsx:74
+#: src/components/Captcha.jsx:103
 msgid "Tip: Not case-sensitive; I and l are the same"
 msgstr ""
 
-#: src/components/Captcha.jsx:116
+#: src/components/Captcha.jsx:145
 msgid "Load Captcha"
 msgstr ""
 
-#: src/components/Captcha.jsx:121
+#: src/components/Captcha.jsx:150
 msgid "Click to Load Captcha"
 msgstr ""
 
-#: src/components/Captcha.jsx:126
+#: src/components/Captcha.jsx:155
 msgid "Can't read? Reload:"
 msgstr ""
 
-#: src/components/Captcha.jsx:130
+#: src/components/Captcha.jsx:159
 msgid "Reload"
 msgstr ""
 
-#: src/components/Captcha.jsx:140
+#: src/components/Captcha.jsx:169
 msgid "Enter Characters"
 msgstr ""
 
@@ -1400,11 +1412,11 @@ msgstr ""
 msgid "Delete"
 msgstr ""
 
-#: src/components/LogInForm.jsx:77
+#: src/components/LogInForm.jsx:78
 msgid "Name or Email"
 msgstr ""
 
-#: src/components/LogInForm.jsx:88
+#: src/components/LogInForm.jsx:90
 msgid "LogIn"
 msgstr ""
 
@@ -1583,38 +1595,6 @@ msgstr ""
 msgid "Stop Cleaner"
 msgstr ""
 
-#: src/components/Admintools.jsx:109
-msgid "IP Actions"
-msgstr ""
-
-#: src/components/Admintools.jsx:111
-msgid "Do stuff with IPs (one IP per line)"
-msgstr ""
-
-#: src/components/Admintools.jsx:158
-msgid "Manage Moderators"
-msgstr ""
-
-#: src/components/Admintools.jsx:160
-msgid "Remove Moderator"
-msgstr ""
-
-#: src/components/Admintools.jsx:193
-msgid "There are no mods"
-msgstr ""
-
-#: src/components/Admintools.jsx:198
-msgid "Assign new Mod"
-msgstr ""
-
-#: src/components/Admintools.jsx:201
-msgid "Enter UserName of new Mod"
-msgstr ""
-
-#: src/components/Admintools.jsx:210
-msgid "User Name"
-msgstr ""
-
 #: src/components/ModWatchtools.jsx:49
 msgid "Interval is invalid"
 msgstr ""
@@ -1637,6 +1617,63 @@ msgstr ""
 
 #: src/components/ModWatchtools.jsx:279
 msgid "Get Users"
+msgstr ""
+
+#: src/components/Admintools.jsx:121
+msgid "IP Actions"
+msgstr ""
+
+#: src/components/Admintools.jsx:123
+msgid "Do stuff with IPs (one IP per line)"
+msgstr ""
+
+#: src/components/Admintools.jsx:169
+#: src/components/Admintools.jsx:240
+msgid "Quick Actions"
+msgstr ""
+
+#: src/components/Admintools.jsx:174
+#: src/components/Admintools.jsx:245
+msgid "Reset Captchas of ALL Users"
+msgstr ""
+
+#: src/components/Admintools.jsx:181
+#: src/components/Admintools.jsx:252
+msgid "Roll different Captcha Fonts"
+msgstr ""
+
+#: src/components/Admintools.jsx:191
+#: src/components/Admintools.jsx:262
+msgid "Require Verification to Place"
+msgstr ""
+
+#: src/components/Admintools.jsx:198
+#: src/components/Admintools.jsx:269
+msgid "Stop requiring Verification to Place"
+msgstr ""
+
+#: src/components/Admintools.jsx:203
+msgid "Manage Moderators"
+msgstr ""
+
+#: src/components/Admintools.jsx:205
+msgid "Remove Moderator"
+msgstr ""
+
+#: src/components/Admintools.jsx:236
+msgid "There are no mods"
+msgstr ""
+
+#: src/components/Admintools.jsx:273
+msgid "Assign new Mod"
+msgstr ""
+
+#: src/components/Admintools.jsx:276
+msgid "Enter UserName of new Mod"
+msgstr ""
+
+#: src/components/Admintools.jsx:285
+msgid "User Name"
 msgstr ""
 
 #: src/components/ModIIDtools.jsx:20

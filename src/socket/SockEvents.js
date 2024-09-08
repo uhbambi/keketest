@@ -215,6 +215,7 @@ class SocketEvents extends EventEmitter {
     );
   }
 
+
   /*
    * broadcast Removing chat channel from user
    * @param userId numerical id of user
@@ -226,6 +227,22 @@ class SocketEvents extends EventEmitter {
     channelId,
   ) {
     this.emit('remChatChannel', userId, channelId);
+  }
+
+  /*
+   * broadcast change of fonts used by captcha
+   * @param fontFilenames Array of filenams
+   */
+  broadcastCaptchaFonts(fontFilenames) {
+    this.emit('setCaptchaFonts', fontFilenames);
+  }
+
+  /*
+   * broadcast whether or not users have to be verified to place
+   * @param required boolean
+   */
+  broadcastVerificationRequirement(required) {
+    this.emit('setVerificationRequirement', required);
   }
 
   /*
