@@ -73,6 +73,10 @@ class SocketClient {
   connect() {
     this.readyState = WebSocket.CONNECTING;
     if (this.ws) {
+      /*
+       * TODO there seems to be no return for ages now,
+       * needs testing if there even should be one
+       */
       console.log('WebSocket already open, not starting');
     }
     this.timeLastConnecting = Date.now();
@@ -184,7 +188,7 @@ class SocketClient {
    * @param solution text
    * @return promise that resolves when response arrives
    */
-  sendCaptchaSolution(solution, captchaid) {
+  sendCaptchaSolution(solution, captchaid, challengeSolution) {
     return new Promise((resolve, reject) => {
       let id;
       const queueObj = ['cs', (arg) => {
@@ -197,8 +201,12 @@ class SocketClient {
         if (~pos) this.reqQueue.splice(pos, 1);
         reject(new Error('Timeout'));
       }, 20000);
+      const args = [solution, captchaid];
+      if (challengeSolution) {
+        args.push(challengeSolution);
+      }
       this.sendWhenReady(
-        `cs,${JSON.stringify([solution, captchaid])}`,
+        `cs,${JSON.stringify(args)}`,
       );
     });
   }

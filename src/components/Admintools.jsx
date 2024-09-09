@@ -2,7 +2,7 @@
  * Admintools
  */
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { t } from 'ttag';
 
 import { shardOrigin } from '../store/actions/fetch';
@@ -23,9 +23,7 @@ async function submitIPAction(
   callback(await resp.text());
 }
 
-async function getModList(
-  callback,
-) {
+async function getModList(callback) {
   const data = new FormData();
   data.append('modlist', true);
   const resp = await fetch(`${shardOrigin}/api/modtools`, {
@@ -40,10 +38,7 @@ async function getModList(
   }
 }
 
-async function submitRemMod(
-  userId,
-  callback,
-) {
+async function submitRemMod(userId, callback) {
   const data = new FormData();
   data.append('remmod', userId);
   const resp = await fetch(`${shardOrigin}/api/modtools`, {
@@ -54,10 +49,7 @@ async function submitRemMod(
   callback(resp.ok, await resp.text());
 }
 
-async function submitMakeMod(
-  userName,
-  callback,
-) {
+async function submitMakeMod(userName, callback) {
   const data = new FormData();
   data.append('makemod', userName);
   const resp = await fetch(`${shardOrigin}/api/modtools`, {
@@ -72,6 +64,17 @@ async function submitMakeMod(
   }
 }
 
+async function submitQuickAction(action, callback) {
+  const data = new FormData();
+  data.append('quickaction', action);
+  const resp = await fetch(`${shardOrigin}/api/modtools`, {
+    credentials: 'include',
+    method: 'POST',
+    body: data,
+  });
+  callback(await resp.text());
+}
+
 
 function Admintools() {
   const [iPAction, selectIPAction] = useState('iidtoip');
@@ -84,6 +87,15 @@ function Admintools() {
   useEffect(() => {
     getModList((mods) => setModList(mods));
   }, []);
+
+  const reqQuickAction = useCallback((action) => () => {
+    if (submitting) return;
+    setSubmitting(true);
+    submitQuickAction(action, (ret) => {
+      setResp(ret);
+      setSubmitting(false);
+    });
+  }, [submitting]);
 
   return (
     <div className="content">
@@ -137,9 +149,7 @@ function Admintools() {
         <button
           type="button"
           onClick={() => {
-            if (submitting) {
-              return;
-            }
+            if (submitting) return;
             setSubmitting(true);
             submitIPAction(
               iPAction,
@@ -155,6 +165,41 @@ function Admintools() {
         </button>
         <br />
         <div className="modaldivider" />
+
+        <h3>{t`Quick Actions`}</h3>
+        <button
+          type="button"
+          onClick={reqQuickAction('resetcaptchas')}
+        >
+          {(submitting) ? '...' : t`Reset Captchas of ALL Users`}
+        </button>
+        <br />
+        <button
+          type="button"
+          onClick={reqQuickAction('rollcaptchafonts')}
+        >
+          {(submitting) ? '...' : t`Roll different Captcha Fonts`}
+        </button>
+        <br />
+        {/* eslint-disable-next-line max-len */}
+        Note: Verification requirement resets when server restarts. And you don&apos;t know its status unless you try it. Greeting, hf
+        <br />
+        <button
+          type="button"
+          onClick={reqQuickAction('enableverify')}
+        >
+          {(submitting) ? '...' : t`Require Verification to Place`}
+        </button>
+        <br />
+        <button
+          type="button"
+          onClick={reqQuickAction('disableverify')}
+        >
+          {(submitting) ? '...' : t`Stop requiring Verification to Place`}
+        </button>
+        <br />
+        <div className="modaldivider" />
+
         <h3>{t`Manage Moderators`}</h3>
         <p>
           {t`Remove Moderator`}
@@ -169,9 +214,7 @@ function Admintools() {
                 tabIndex={0}
                 key={mod[0]}
                 onClick={() => {
-                  if (submitting) {
-                    return;
-                  }
+                  if (submitting) return;
                   setSubmitting(true);
                   submitRemMod(mod[0], (success, ret) => {
                     if (success) {
@@ -193,7 +236,39 @@ function Admintools() {
             <p>{t`There are no mods`}</p>
           )}
         <br />
-
+        <div className="modaldivider" />
+        <h3>{t`Quick Actions`}</h3>
+        <button
+          type="button"
+          onClick={reqQuickAction('resetcaptchas')}
+        >
+          {(submitting) ? '...' : t`Reset Captchas of ALL Users`}
+        </button>
+        <br />
+        <button
+          type="button"
+          onClick={reqQuickAction('rollcaptchafonts')}
+        >
+          {(submitting) ? '...' : t`Roll different Captcha Fonts`}
+        </button>
+        <br />
+        {/* eslint-disable-next-line max-len */}
+        Note: Verification requirement resets when server restarts. And you don&apos;t know its status unless you try it. Greeting, hf
+        <br />
+        <button
+          type="button"
+          onClick={reqQuickAction('enableverify')}
+        >
+          {(submitting) ? '...' : t`Require Verification to Place`}
+        </button>
+        <br />
+        <button
+          type="button"
+          onClick={reqQuickAction('disableverify')}
+        >
+          {(submitting) ? '...' : t`Stop requiring Verification to Place`}
+        </button>
+        <br />
         <p>
           {t`Assign new Mod`}
         </p>
@@ -217,9 +292,7 @@ function Admintools() {
         <button
           type="button"
           onClick={() => {
-            if (submitting) {
-              return;
-            }
+            if (submitting) return;
             setSubmitting(true);
             submitMakeMod(
               modName,
@@ -237,8 +310,6 @@ function Admintools() {
         >
           {(submitting) ? '...' : t`Submit`}
         </button>
-        <br />
-        <div className="modaldivider" />
         <br />
       </div>
     </div>

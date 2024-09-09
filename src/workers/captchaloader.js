@@ -1,5 +1,5 @@
 /*
- * worker thread for creating captchas
+ * worker thread for creating Captchas
  */
 
 /* eslint-disable no-console */
@@ -11,19 +11,33 @@ import { isMainThread, parentPort } from 'worker_threads';
 
 import { getRandomString } from '../core/utils';
 
-const FONT_FOLDER = 'captchaFonts';
+const FONT_FOLDER = path.resolve(__dirname, '..', 'captchaFonts');
 
 if (isMainThread) {
   throw new Error(
-    'Tilewriter is run as a worker thread, not as own process',
+    'CaptchaLoader is run as a worker thread, not as own process',
   );
 }
 
-const font = fs.readdirSync(path.resolve(__dirname, '..', FONT_FOLDER))
-  .filter((e) => e.endsWith('.ttf') || e.endsWith('.otf'))
-  .map((e) => ppfunCaptcha.loadFont(
-    path.resolve(__dirname, '..', FONT_FOLDER, e),
-  ));
+let font;
+
+function setCaptchaFonts(fontFilenames) {
+  let newFont = fontFilenames
+    .map((f) => path.join(FONT_FOLDER, f))
+    .filter((f) => fs.existsSync(f));
+  /*
+   * default to first three files, if none others defined
+   */
+  if (!newFont.length) {
+    newFont = fs.readdirSync(FONT_FOLDER)
+      .filter((e) => e.endsWith('.ttf') || e.endsWith('.otf'))
+      .slice(0, 3)
+      .map((f) => path.join(FONT_FOLDER, f));
+  }
+  font = newFont.map((f) => ppfunCaptcha.loadFont(f));
+  // eslint-disable-next-line max-len
+  console.info(`CAPTCHAS: change fonts to ${newFont.map((f) => f.slice(-15)).join(',')}`);
+}
 
 function createCaptcha() {
   return ppfunCaptcha.create({
@@ -43,6 +57,9 @@ function createCaptcha() {
 parentPort.on('message', (msg) => {
   try {
     if (msg === 'createCaptcha') {
+      if (!font?.length) {
+        throw new Error('No Fonts Loaded');
+      }
       const captcha = createCaptcha();
       const captchaid = getRandomString();
       parentPort.postMessage([
@@ -51,11 +68,27 @@ parentPort.on('message', (msg) => {
         captcha.data,
         captchaid,
       ]);
+      return;
+    }
+
+    const comma = msg.indexOf(',');
+    if (comma === -1) {
+      throw new Error('No comma');
+    }
+    const key = msg.slice(0, comma);
+    const val = JSON.parse(msg.slice(comma + 1));
+    switch (key) {
+      case 'setCaptchaFonts': {
+        setCaptchaFonts(val);
+        break;
+      }
+      default:
+        // nothing
     }
   } catch (error) {
     console.warn(
       // eslint-disable-next-line max-len
-      `Captchas: Error on createCaptcha: ${error.message}`,
+      `CAPTCHAS: Error on ${msg}: ${error.message}`,
     );
     parentPort.postMessage(['Failure!']);
   }

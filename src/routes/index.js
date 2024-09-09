@@ -12,6 +12,7 @@ import tiles from './tiles';
 import chunks from './chunks';
 import adminapi from './adminapi';
 import captcha from './captcha';
+import challenge from './challenge';
 import resetPassword from './reset_password';
 import api from './api';
 
@@ -48,6 +49,12 @@ router.use('/tiles', tiles);
  */
 router.use(express.static(path.join(__dirname, 'public'), {
   maxAge: 12 * MONTH,
+  extensions: ['html'],
+  setHeaders: (res, reqPath) => {
+    if (reqPath.includes('/legal')) {
+      res.setHeader('Cache-Control', `public, max-age=${3 * 24 * 3600}`);
+    }
+  },
 }));
 
 /*
@@ -177,6 +184,11 @@ router.get('/history', history);
  * serve captcha
  */
 router.get('/captcha.svg', captcha);
+
+/*
+ * serve js challenge
+ */
+router.get('/challenge.js', challenge);
 
 
 export default router;

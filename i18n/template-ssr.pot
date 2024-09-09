@@ -42,19 +42,19 @@ msgstr ""
 msgid "You don't have access to this channel"
 msgstr ""
 
-#: src/core/ChatProvider.js:490
+#: src/core/ChatProvider.js:492
 msgid "Your mail has to be verified in order to chat"
 msgstr ""
 
-#: src/core/ChatProvider.js:500
+#: src/core/ChatProvider.js:502
 msgid "You can't send a message this long :("
 msgstr ""
 
-#: src/core/ChatProvider.js:504
+#: src/core/ChatProvider.js:506
 msgid "Please use int channel"
 msgstr ""
 
-#: src/core/ChatProvider.js:512
+#: src/core/ChatProvider.js:514
 msgid "Stop flooding."
 msgstr ""
 
@@ -106,11 +106,11 @@ msgstr ""
 msgid "PixelPlanet.Fun PopUp"
 msgstr ""
 
-#: src/ssr/Main.jsx:65
-msgid "PixelPlanet.Fun"
+#: src/ssr/Main.jsx:77
+msgid "PixelPlanet"
 msgstr ""
 
-#: src/ssr/Main.jsx:66
+#: src/ssr/Main.jsx:78
 msgid "Place color pixels on an map styled canvas with other players online"
 msgstr ""
 
@@ -204,57 +204,20 @@ msgstr ""
 msgid "Submit"
 msgstr ""
 
-#: src/routes/api/modtools.js:53
+#: src/routes/api/modtools.js:54
 msgid "You are not logged in"
 msgstr ""
 
-#: src/routes/api/modtools.js:65
+#: src/routes/api/modtools.js:66
 msgid "You are not allowed to access this page"
 msgstr ""
 
-#: src/routes/api/modtools.js:209
+#: src/routes/api/modtools.js:210
 msgid "Just admins can do that"
 msgstr ""
 
 #: src/routes/api/baninfo.js:32
 msgid "You are not banned"
-msgstr ""
-
-#: src/routes/api/auth/register.js:27
-msgid "No Captcha given"
-msgstr ""
-
-#: src/routes/api/auth/register.js:30
-msgid "E-Mail already in use."
-msgstr ""
-
-#: src/routes/api/auth/register.js:32
-msgid "Username already in use."
-msgstr ""
-
-#: src/routes/api/auth/register.js:55
-msgid "You took too long, try again."
-msgstr ""
-
-#: src/routes/api/auth/register.js:58
-msgid "You failed your captcha"
-msgstr ""
-
-#: src/routes/api/auth/register.js:61
-msgid "Unknown Captcha Error"
-msgstr ""
-
-#: src/routes/api/auth/change_mail.js:22
-#: src/routes/api/auth/register.js:67
-msgid "This email provider is not allowed"
-msgstr ""
-
-#: src/routes/api/auth/register.js:89
-msgid "Failed to create new user :("
-msgstr ""
-
-#: src/routes/api/auth/register.js:105
-msgid "Failed to establish session after register :("
 msgstr ""
 
 #: src/routes/api/auth/verify.js:26
@@ -270,6 +233,51 @@ msgstr ""
 msgid ""
 "Your mail verification code is invalid or already expired :(, please "
 "request a new one."
+msgstr ""
+
+#: src/routes/api/auth/register.js:30
+msgid "No Captcha given"
+msgstr ""
+
+#: src/routes/api/auth/register.js:34
+msgid "E-Mail already in use."
+msgstr ""
+
+#: src/routes/api/auth/register.js:36
+msgid "Username already in use."
+msgstr ""
+
+#: src/routes/api/auth/register.js:60
+msgid "You took too long, try again."
+msgstr ""
+
+#: src/routes/api/auth/register.js:63
+msgid "You failed your captcha"
+msgstr ""
+
+#: src/routes/api/auth/register.js:66
+msgid "Please refresh the website"
+msgstr ""
+
+#: src/routes/api/auth/register.js:69
+msgid "Your Browser looks shady"
+msgstr ""
+
+#: src/routes/api/auth/register.js:72
+msgid "Unknown Captcha Error"
+msgstr ""
+
+#: src/routes/api/auth/change_mail.js:22
+#: src/routes/api/auth/register.js:78
+msgid "This email provider is not allowed"
+msgstr ""
+
+#: src/routes/api/auth/register.js:100
+msgid "Failed to create new user :("
+msgstr ""
+
+#: src/routes/api/auth/register.js:116
+msgid "Failed to establish session after register :("
 msgstr ""
 
 #: src/routes/api/auth/logout.js:11

@@ -14,6 +14,7 @@ import { sync as syncSql } from './data/sql/sequelize';
 import { connect as connectRedis } from './data/redis/client';
 import routes from './routes';
 import chatProvider from './core/ChatProvider';
+import { loadCaptchaFontsFromRedis } from './core/captchaserver';
 import rpgEvent from './core/RpgEvent';
 import canvasCleaner from './core/CanvasCleaner';
 
@@ -71,7 +72,8 @@ server.on('upgrade', wsupgrade);
 app.use(compression({
   level: 3,
   filter: (req, res) => {
-    if (res.getHeader('Content-Type') === 'application/octet-stream') {
+    const contentType = res.getHeader('Content-Type');
+    if (contentType === 'application/octet-stream') {
       return true;
     }
     return compression.filter(req, res);
@@ -90,13 +92,14 @@ syncSql()
   .then(async () => {
     chatProvider.initialize();
     startAllCanvasLoops();
+    loadCaptchaFontsFromRedis();
     usersocket.initialize();
     apisocket.initialize();
     canvasCleaner.initialize();
     // start http server
     const startServer = () => {
       server.listen(PORT, HOST, () => {
-        logger.log(
+        logger.info(
           'info',
           `HTTP Server listening on port ${PORT}`,
         );

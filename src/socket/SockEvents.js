@@ -239,7 +239,7 @@ class SocketEvents extends EventEmitter {
     );
   }
 
-  /**
+  /*
    * broadcast Removing chat channel from user
    * @param userId numerical id of user
    * @param channelId numerical id of chat channel
@@ -252,7 +252,23 @@ class SocketEvents extends EventEmitter {
     this.emit('remChatChannel', userId, channelId);
   }
 
-  /**
+  /*
+   * broadcast change of fonts used by captcha
+   * @param fontFilenames Array of filenams
+   */
+  broadcastCaptchaFonts(fontFilenames) {
+    this.emit('setCaptchaFonts', fontFilenames);
+  }
+
+  /*
+   * broadcast whether or not users have to be verified to place
+   * @param required boolean
+   */
+  broadcastVerificationRequirement(required) {
+    this.emit('setVerificationRequirement', required);
+  }
+
+  /*
    * trigger rate limit of ip
    * @param ip
    * @param blockTime in ms

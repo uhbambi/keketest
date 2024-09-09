@@ -15,7 +15,9 @@ import {
   checkCaptchaSolution,
 } from '../../../data/redis/captcha';
 
-async function validate(email, name, password, captcha, captchaid, t, gettext) {
+async function validate(
+  email, name, password, captcha, captchaid, challengeSolution, t, gettext,
+) {
   const errors = [];
   const emailerror = gettext(validateEMail(email));
   if (emailerror) errors.push(emailerror);
@@ -24,7 +26,9 @@ async function validate(email, name, password, captcha, captchaid, t, gettext) {
   const passworderror = gettext(validatePassword(password));
   if (passworderror) errors.push(passworderror);
 
-  if (!captcha || !captchaid) errors.push(t`No Captcha given`);
+  if (!captcha || !captchaid || !challengeSolution) {
+    errors.push(t`No Captcha given`);
+  }
 
   let reguser = await RegUser.findOne({ where: { email } });
   if (reguser) errors.push(t`E-Mail already in use.`);
@@ -36,17 +40,18 @@ async function validate(email, name, password, captcha, captchaid, t, gettext) {
 
 export default async (req, res) => {
   const {
-    email, name, password, captcha, captchaid,
+    email, name, password, captcha, captchaid, cs: challengeSolution,
   } = req.body;
   const { t, gettext } = req.ttag;
   const errors = await validate(
-    email, name, password, captcha, captchaid, t, gettext,
+    email, name, password, captcha, captchaid, challengeSolution, t, gettext,
   );
 
   const ip = getIPFromRequest(req);
+  const userAgent = req.headers['user-agent'];
   if (!errors.length) {
     const captchaPass = await checkCaptchaSolution(
-      captcha, ip, true, captchaid,
+      captcha, ip, userAgent, true, captchaid, challengeSolution,
     );
     switch (captchaPass) {
       case 0:
@@ -59,6 +64,9 @@ export default async (req, res) => {
         break;
       case 5:
         errors.push(t`Please refresh the website`);
+        break;
+      case 6:
+        errors.push(t`Your Browser looks shady`);
         break;
       default:
         errors.push(t`Unknown Captcha Error`);

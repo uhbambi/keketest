@@ -46,12 +46,12 @@ msgstr ""
 msgid "Overlay OFF"
 msgstr ""
 
-#: src/components/windows/Help.jsx:50
+#: src/components/windows/Help.jsx:51
 #: src/controls/keypress.js:216
 msgid "Easter Egg ON"
 msgstr ""
 
-#: src/components/windows/Help.jsx:49
+#: src/components/windows/Help.jsx:50
 #: src/controls/keypress.js:217
 msgid "Easter Egg OFF"
 msgstr ""
@@ -157,14 +157,22 @@ msgid "Your Internet Provider is banned from this game"
 msgstr ""
 
 #: src/ui/PixelTransferController.js:170
+msgid "Just for verified Users"
+msgstr ""
+
+#: src/ui/PixelTransferController.js:172
+msgid "Only verified Users are currently allowed to play."
+msgstr ""
+
+#: src/ui/PixelTransferController.js:175
 msgid "Weird"
 msgstr ""
 
-#: src/ui/PixelTransferController.js:171
+#: src/ui/PixelTransferController.js:176
 msgid "Couldn't set Pixel"
 msgstr ""
 
-#: src/ui/PixelTransferController.js:176
+#: src/ui/PixelTransferController.js:181
 #, javascript-format
 msgid "Error ${ retCode }"
 msgstr ""
@@ -209,9 +217,17 @@ msgstr ""
 msgid "Can not import more than 20 or no template!"
 msgstr ""
 
-#: src/components/BanInfo.jsx:136
+#: src/components/BanInfo.jsx:132
 #: src/store/actions/index.js:7
 msgid "OK"
+msgstr ""
+
+#: src/store/actions/index.js:19
+msgid "Change Happened"
+msgstr ""
+
+#: src/store/actions/index.js:19
+msgid "Please refresh the website"
 msgstr ""
 
 #: src/store/actions/fetch.js:55
@@ -320,7 +336,7 @@ msgstr ""
 msgid "Select Date above"
 msgstr ""
 
-#: src/components/Admintools.jsx:103
+#: src/components/Admintools.jsx:115
 #: src/components/ModCanvastools.jsx:227
 #: src/components/ModWatchtools.jsx:118
 #: src/components/Window.jsx:157
@@ -421,36 +437,40 @@ msgstr ""
 msgid "Player"
 msgstr ""
 
-#: src/components/GlobalCaptcha.jsx:47
+#: src/components/GlobalCaptcha.jsx:50
 msgid "You took too long, try again."
 msgstr ""
 
-#: src/components/GlobalCaptcha.jsx:50
+#: src/components/GlobalCaptcha.jsx:53
 msgid "You failed your captcha"
 msgstr ""
 
-#: src/components/GlobalCaptcha.jsx:53
+#: src/components/GlobalCaptcha.jsx:56
 msgid "No or invalid captcha text"
 msgstr ""
 
-#: src/components/GlobalCaptcha.jsx:56
+#: src/components/GlobalCaptcha.jsx:59
 msgid "No captcha id given"
 msgstr ""
 
-#: src/components/GlobalCaptcha.jsx:59
+#: src/components/GlobalCaptcha.jsx:62
+msgid "Your Browser looks shady"
+msgstr ""
+
+#: src/components/GlobalCaptcha.jsx:68
 msgid "Unknown Captcha Error"
 msgstr ""
 
 #: src/components/BanInfo.jsx:80
-#: src/components/Captcha.jsx:79
+#: src/components/Captcha.jsx:108
 #: src/components/ChangeMail.jsx:72
 #: src/components/ChangeName.jsx:58
 #: src/components/ChangePassword.jsx:79
 #: src/components/DeleteAccount.jsx:55
-#: src/components/GlobalCaptcha.jsx:71
+#: src/components/GlobalCaptcha.jsx:80
 #: src/components/LogInForm.jsx:70
 #: src/components/windows/ForgotPassword.jsx:73
-#: src/components/windows/Register.jsx:89
+#: src/components/windows/Register.jsx:92
 msgid "Error"
 msgstr ""
 
@@ -458,14 +478,15 @@ msgstr ""
 #: src/components/ChangeName.jsx:70
 #: src/components/ChangePassword.jsx:115
 #: src/components/DeleteAccount.jsx:68
-#: src/components/GlobalCaptcha.jsx:80
+#: src/components/GlobalCaptcha.jsx:94
+#: src/components/RefreshPrompt.jsx:16
 #: src/components/TemplateItemEdit.jsx:181
 #: src/components/windows/ForgotPassword.jsx:89
-#: src/components/windows/Register.jsx:133
+#: src/components/windows/Register.jsx:141
 msgid "Cancel"
 msgstr ""
 
-#: src/components/GlobalCaptcha.jsx:86
+#: src/components/GlobalCaptcha.jsx:100
 msgid "Send"
 msgstr ""
 
@@ -511,11 +532,15 @@ msgstr ""
 msgid "Why?"
 msgstr ""
 
-#: src/components/windows/Help.jsx:65
-msgid "Place color pixels on a large canvas with other players online!"
+#: src/components/RefreshPrompt.jsx:14
+msgid "Refresh"
 msgstr ""
 
 #: src/components/windows/Help.jsx:66
+msgid "Place color pixels on a large canvas with other players online!"
+msgstr ""
+
+#: src/components/windows/Help.jsx:67
 msgid ""
 "Our main canvas is a huge worldmap, you can place wherever you like, but "
 "you will have to wait a specific Cooldown between pixels. You can check out "
@@ -525,39 +550,53 @@ msgid ""
 "and 7s on already set pixels."
 msgstr ""
 
-#: src/components/windows/Help.jsx:67
+#: src/components/windows/Help.jsx:68
 msgid ""
 "Higher zoomlevels take some time to update, the 3D globe gets updated at "
 "least once per day."
 msgstr ""
 
-#: src/components/windows/Help.jsx:68
+#: src/components/windows/Help.jsx:69
 msgid "Have fun!"
 msgstr ""
 
-#: src/components/windows/Help.jsx:70
+#: src/components/windows/Help.jsx:71
 msgid "recommended"
 msgstr ""
 
 #: src/components/windows/Help.jsx:71
-msgid "Source on "
+#: src/components/windows/UserArea.jsx:79
+msgid "Invited to Chat"
 msgstr ""
 
 #: src/components/windows/Help.jsx:72
-msgid "Map Data"
+msgid "Source for pixelplanet on "
 msgstr ""
 
 #: src/components/windows/Help.jsx:73
+#, javascript-format
+msgid "We are Libre Software under the ${ agplLink }, "
+msgstr ""
+
+#: src/components/windows/Help.jsx:73
+msgid "check compliance here"
+msgstr ""
+
+#: src/components/windows/Help.jsx:74
+msgid "Map Data"
+msgstr ""
+
+#: src/components/windows/Help.jsx:75
 msgid ""
 "The bare map data that we use, together with converted OpenStreetMap tiles "
 "for orientation, can be downloaded from mega.nz here: "
 msgstr ""
 
-#: src/components/windows/Help.jsx:74
+#: src/components/windows/Help.jsx:76
 msgid "Banned? Detected as Proxy?"
 msgstr ""
 
-#: src/components/windows/Help.jsx:76
+#: src/components/windows/Help.jsx:78
 #, javascript-format
 msgid ""
 "If you got detected as proxy, but you are none, or think that you got "
@@ -565,127 +604,127 @@ msgid ""
 "to ${ mailLink } and include the following IID:"
 msgstr ""
 
-#: src/components/windows/Help.jsx:79
-#: src/components/windows/Help.jsx:95
+#: src/components/windows/Help.jsx:81
+#: src/components/windows/Help.jsx:97
 msgid "Controls"
 msgstr ""
 
-#: src/components/windows/Help.jsx:81
-msgid "Click a color in palette to select it"
-msgstr ""
-
-#: src/components/windows/Help.jsx:82
-#, javascript-format
-msgid "Press ${ bindG } to toggle grid"
-msgstr ""
-
 #: src/components/windows/Help.jsx:83
-#, javascript-format
-msgid "Press ${ bindX } to toggle showing of pixel activity"
+msgid "Click a color in palette to select it"
 msgstr ""
 
 #: src/components/windows/Help.jsx:84
 #, javascript-format
-msgid "Press ${ bindH } to toggle historical view"
+msgid "Press ${ bindG } to toggle grid"
 msgstr ""
 
 #: src/components/windows/Help.jsx:85
 #, javascript-format
-msgid "Press ${ bindR } to copy coordinates"
+msgid "Press ${ bindX } to toggle showing of pixel activity"
 msgstr ""
 
 #: src/components/windows/Help.jsx:86
 #, javascript-format
-msgid "Press ${ bindQ } or ${ bindE } to zoom"
+msgid "Press ${ bindH } to toggle historical view"
 msgstr ""
 
 #: src/components/windows/Help.jsx:87
-#: src/components/windows/Help.jsx:97
+#, javascript-format
+msgid "Press ${ bindR } to copy coordinates"
+msgstr ""
+
+#: src/components/windows/Help.jsx:88
+#, javascript-format
+msgid "Press ${ bindQ } or ${ bindE } to zoom"
+msgstr ""
+
+#: src/components/windows/Help.jsx:89
+#: src/components/windows/Help.jsx:99
 #, javascript-format
 msgid "Press ${ bindW }, ${ bindA }, ${ bindS }, ${ bindD } to move"
 msgstr ""
 
-#: src/components/windows/Help.jsx:88
-#: src/components/windows/Help.jsx:98
+#: src/components/windows/Help.jsx:90
+#: src/components/windows/Help.jsx:100
 #, javascript-format
 msgid "Press ${ bindAUp }, ${ bindALeft }, ${ bindADown }, ${ bindARight } to move"
 msgstr ""
 
-#: src/components/windows/Help.jsx:89
+#: src/components/windows/Help.jsx:91
 #, javascript-format
 msgid "Drag ${ mouseSymbol } mouse or ${ touchSymbol } pan to move"
 msgstr ""
 
-#: src/components/windows/Help.jsx:90
+#: src/components/windows/Help.jsx:92
 #, javascript-format
 msgid "Scroll ${ mouseSymbol } mouse wheel or ${ touchSymbol } pinch to zoom"
 msgstr ""
 
-#: src/components/windows/Help.jsx:91
+#: src/components/windows/Help.jsx:93
 #, javascript-format
 msgid "Hold left ${ bindShift } for pencil (to place while moving mouse)"
 msgstr ""
 
-#: src/components/windows/Help.jsx:92
-#: src/components/windows/Help.jsx:103
+#: src/components/windows/Help.jsx:94
+#: src/components/windows/Help.jsx:105
 #, javascript-format
 msgid "${ mouseSymbol } Left click or ${ touchSymbol } tap to place a pixel"
 msgstr ""
 
-#: src/components/windows/Help.jsx:93
-#: src/components/windows/Help.jsx:105
+#: src/components/windows/Help.jsx:95
+#: src/components/windows/Help.jsx:107
 #, javascript-format
 msgid ""
 "Click ${ mouseSymbol } middle mouse button or ${ touchSymbol } long-tap to "
 "select current hovering color"
 msgstr ""
 
-#: src/components/windows/Help.jsx:99
+#: src/components/windows/Help.jsx:101
 #, javascript-format
 msgid "Press ${ bindQ } and ${ bindE } to fly up and down"
 msgstr ""
 
-#: src/components/windows/Help.jsx:100
+#: src/components/windows/Help.jsx:102
 #, javascript-format
 msgid "${ mouseSymbol } Hold left mouse button and drag mouse to rotate"
 msgstr ""
 
-#: src/components/windows/Help.jsx:101
+#: src/components/windows/Help.jsx:103
 #, javascript-format
 msgid ""
 "${ mouseSymbol } Scroll mouse wheel or hold ${ mouseSymbol } middle mouse "
 "button and drag to zoom"
 msgstr ""
 
-#: src/components/windows/Help.jsx:102
+#: src/components/windows/Help.jsx:104
 #, javascript-format
 msgid "${ mouseSymbol } Right click and drag mouse to pan"
 msgstr ""
 
-#: src/components/windows/Help.jsx:104
+#: src/components/windows/Help.jsx:106
 #, javascript-format
 msgid ""
 "${ mouseSymbol } Right click or ${ touchSymbol } double-tap to remove a "
 "pixel"
 msgstr ""
 
-#: src/components/windows/Help.jsx:109
+#: src/components/windows/Help.jsx:111
 msgid ""
 "We thank the following artists, who made their palettes available to the "
 "public on"
 msgstr ""
 
-#: src/components/windows/Help.jsx:112
+#: src/components/windows/Help.jsx:114
 #, javascript-format
 msgid "Credit for the Palette of the Moon goes to ${ starhouseLink }."
 msgstr ""
 
-#: src/components/windows/Help.jsx:115
+#: src/components/windows/Help.jsx:117
 #, javascript-format
 msgid "Credit for the Palette of the Top10 canvas goes to ${ vinikLink }."
 msgstr ""
 
-#: src/components/windows/Help.jsx:118
+#: src/components/windows/Help.jsx:120
 #, javascript-format
 msgid "Credit for the Palette of the 2bit canvas goes to ${ donendoLink }."
 msgstr ""
@@ -833,47 +872,47 @@ msgstr ""
 msgid "Consider joining us on Guilded:"
 msgstr ""
 
-#: src/components/windows/Register.jsx:87
+#: src/components/windows/Register.jsx:90
 msgid "Register new account here"
 msgstr ""
 
-#: src/components/windows/Register.jsx:92
-#: src/components/windows/Register.jsx:98
+#: src/components/windows/Register.jsx:95
+#: src/components/windows/Register.jsx:101
 msgid "Name"
 msgstr ""
 
 #: src/components/windows/ForgotPassword.jsx:80
-#: src/components/windows/Register.jsx:100
-#: src/components/windows/Register.jsx:106
+#: src/components/windows/Register.jsx:103
+#: src/components/windows/Register.jsx:109
 msgid "Email"
 msgstr ""
 
 #: src/components/ChangeMail.jsx:80
 #: src/components/DeleteAccount.jsx:62
-#: src/components/LogInForm.jsx:84
-#: src/components/windows/Register.jsx:108
-#: src/components/windows/Register.jsx:114
+#: src/components/LogInForm.jsx:86
+#: src/components/windows/Register.jsx:111
+#: src/components/windows/Register.jsx:117
 msgid "Password"
 msgstr ""
 
-#: src/components/windows/Register.jsx:116
-#: src/components/windows/Register.jsx:122
+#: src/components/windows/Register.jsx:119
+#: src/components/windows/Register.jsx:125
 msgid "Confirm Password"
 msgstr ""
 
-#: src/components/windows/Register.jsx:124
+#: src/components/windows/Register.jsx:127
 msgid "Captcha"
 msgstr ""
 
-#: src/components/Admintools.jsx:154
-#: src/components/Admintools.jsx:238
+#: src/components/Admintools.jsx:164
+#: src/components/Admintools.jsx:311
 #: src/components/ModCanvastools.jsx:313
 #: src/components/ModCanvastools.jsx:404
 #: src/components/ModCanvastools.jsx:482
 #: src/components/ModCanvastools.jsx:583
 #: src/components/ModIIDtools.jsx:135
 #: src/components/windows/ForgotPassword.jsx:84
-#: src/components/windows/Register.jsx:127
+#: src/components/windows/Register.jsx:135
 msgid "Submit"
 msgstr ""
 
@@ -954,36 +993,36 @@ msgstr ""
 msgid "Enter your mail address and we will send you a new password:"
 msgstr ""
 
-#: src/components/Captcha.jsx:51
-#: src/components/Captcha.jsx:107
+#: src/components/Captcha.jsx:59
+#: src/components/Captcha.jsx:136
 msgid "Could not load captcha"
 msgstr ""
 
-#: src/components/Captcha.jsx:71
+#: src/components/Captcha.jsx:100
 msgid "Type the characters from the following image:"
 msgstr ""
 
-#: src/components/Captcha.jsx:74
+#: src/components/Captcha.jsx:103
 msgid "Tip: Not case-sensitive; I and l are the same"
 msgstr ""
 
-#: src/components/Captcha.jsx:116
+#: src/components/Captcha.jsx:145
 msgid "Load Captcha"
 msgstr ""
 
-#: src/components/Captcha.jsx:121
+#: src/components/Captcha.jsx:150
 msgid "Click to Load Captcha"
 msgstr ""
 
-#: src/components/Captcha.jsx:126
+#: src/components/Captcha.jsx:155
 msgid "Can't read? Reload:"
 msgstr ""
 
-#: src/components/Captcha.jsx:130
+#: src/components/Captcha.jsx:159
 msgid "Reload"
 msgstr ""
 
-#: src/components/Captcha.jsx:140
+#: src/components/Captcha.jsx:169
 msgid "Enter Characters"
 msgstr ""
 
@@ -1342,14 +1381,6 @@ msgstr ""
 msgid "Dimensions"
 msgstr ""
 
-#: src/components/TemplateItemEdit.jsx:97
-msgid "Select File"
-msgstr ""
-
-#: src/components/TemplateItemEdit.jsx:120
-msgid "Template Name"
-msgstr ""
-
 #: src/components/ModWatchtools.jsx:123
 #: src/components/TemplateItem.jsx:54
 #: src/components/TemplateItemEdit.jsx:122
@@ -1361,16 +1392,46 @@ msgstr ""
 msgid "Coordinates"
 msgstr ""
 
+#: src/components/TemplateItem.jsx:71
+msgid "Edit"
+msgstr ""
+
+#: src/components/TemplateItem.jsx:81
+msgid "Go to"
+msgstr ""
+
+#: src/components/TemplateItemEdit.jsx:97
+msgid "Select File"
+msgstr ""
+
+#: src/components/TemplateItemEdit.jsx:120
+msgid "Template Name"
+msgstr ""
+
 #: src/components/TemplateItemEdit.jsx:174
 msgid "Delete"
 msgstr ""
 
-#: src/components/LogInForm.jsx:77
+#: src/components/LogInForm.jsx:78
 msgid "Name or Email"
 msgstr ""
 
-#: src/components/LogInForm.jsx:88
+#: src/components/LogInForm.jsx:90
 msgid "LogIn"
+msgstr ""
+
+#: src/components/UserMessages.jsx:28
+msgid ""
+"Please verify your mail address or your account could get deleted after a "
+"few days."
+msgstr ""
+
+#: src/components/UserMessages.jsx:49
+msgid "A new verification mail is getting sent to you."
+msgstr ""
+
+#: src/components/UserMessages.jsx:53
+msgid "Click here to request a new verification mail."
 msgstr ""
 
 #: src/components/ChangePassword.jsx:21
@@ -1405,20 +1466,6 @@ msgstr ""
 
 #: src/components/ChangeMail.jsx:87
 msgid "New Mail"
-msgstr ""
-
-#: src/components/UserMessages.jsx:28
-msgid ""
-"Please verify your mail address or your account could get deleted after a "
-"few days."
-msgstr ""
-
-#: src/components/UserMessages.jsx:49
-msgid "A new verification mail is getting sent to you."
-msgstr ""
-
-#: src/components/UserMessages.jsx:53
-msgid "Click here to request a new verification mail."
 msgstr ""
 
 #: src/components/DeleteAccount.jsx:66
@@ -1548,38 +1595,6 @@ msgstr ""
 msgid "Stop Cleaner"
 msgstr ""
 
-#: src/components/Admintools.jsx:109
-msgid "IP Actions"
-msgstr ""
-
-#: src/components/Admintools.jsx:111
-msgid "Do stuff with IPs (one IP per line)"
-msgstr ""
-
-#: src/components/Admintools.jsx:158
-msgid "Manage Moderators"
-msgstr ""
-
-#: src/components/Admintools.jsx:160
-msgid "Remove Moderator"
-msgstr ""
-
-#: src/components/Admintools.jsx:193
-msgid "There are no mods"
-msgstr ""
-
-#: src/components/Admintools.jsx:198
-msgid "Assign new Mod"
-msgstr ""
-
-#: src/components/Admintools.jsx:201
-msgid "Enter UserName of new Mod"
-msgstr ""
-
-#: src/components/Admintools.jsx:210
-msgid "User Name"
-msgstr ""
-
 #: src/components/ModWatchtools.jsx:49
 msgid "Interval is invalid"
 msgstr ""
@@ -1604,12 +1619,61 @@ msgstr ""
 msgid "Get Users"
 msgstr ""
 
-#: src/components/TemplateItem.jsx:71
-msgid "Edit"
+#: src/components/Admintools.jsx:121
+msgid "IP Actions"
 msgstr ""
 
-#: src/components/TemplateItem.jsx:81
-msgid "Go to"
+#: src/components/Admintools.jsx:123
+msgid "Do stuff with IPs (one IP per line)"
+msgstr ""
+
+#: src/components/Admintools.jsx:169
+#: src/components/Admintools.jsx:240
+msgid "Quick Actions"
+msgstr ""
+
+#: src/components/Admintools.jsx:174
+#: src/components/Admintools.jsx:245
+msgid "Reset Captchas of ALL Users"
+msgstr ""
+
+#: src/components/Admintools.jsx:181
+#: src/components/Admintools.jsx:252
+msgid "Roll different Captcha Fonts"
+msgstr ""
+
+#: src/components/Admintools.jsx:191
+#: src/components/Admintools.jsx:262
+msgid "Require Verification to Place"
+msgstr ""
+
+#: src/components/Admintools.jsx:198
+#: src/components/Admintools.jsx:269
+msgid "Stop requiring Verification to Place"
+msgstr ""
+
+#: src/components/Admintools.jsx:203
+msgid "Manage Moderators"
+msgstr ""
+
+#: src/components/Admintools.jsx:205
+msgid "Remove Moderator"
+msgstr ""
+
+#: src/components/Admintools.jsx:236
+msgid "There are no mods"
+msgstr ""
+
+#: src/components/Admintools.jsx:273
+msgid "Assign new Mod"
+msgstr ""
+
+#: src/components/Admintools.jsx:276
+msgid "Enter UserName of new Mod"
+msgstr ""
+
+#: src/components/Admintools.jsx:285
+msgid "User Name"
 msgstr ""
 
 #: src/components/ModIIDtools.jsx:20
@@ -1678,15 +1742,15 @@ msgstr ""
 msgid "Mute"
 msgstr ""
 
-#: src/components/MdLink.jsx:93
+#: src/components/MdLink.jsx:98
 msgid "Open in PopUp"
 msgstr ""
 
-#: src/components/MdLink.jsx:104
+#: src/components/MdLink.jsx:109
 msgid "Hide Embed"
 msgstr ""
 
-#: src/components/MdLink.jsx:110
+#: src/components/MdLink.jsx:115
 msgid "Show Embedded"
 msgstr ""
 

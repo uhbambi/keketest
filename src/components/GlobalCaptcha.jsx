@@ -17,6 +17,7 @@ const GlobalCaptcha = ({ close }) => {
   const [error, setError] = useState(null);
   const [submitting, setSubmitting] = useState(false);
   const [legit, setLegit] = useState(false);
+  const [ready, setReady] = useState(false);
   // used to be able to force Captcha rerender on error
   const [captKey, setCaptKey] = useState(Date.now());
   const dispatch = useDispatch();
@@ -26,7 +27,7 @@ const GlobalCaptcha = ({ close }) => {
       onSubmit={async (e) => {
         e.preventDefault();
         const text = e.target.captcha.value.slice(0, 6);
-        if (submitting || !text) {
+        if (submitting || !text || !ready) {
           return;
         }
         // detect suspiciously solved captcha
@@ -35,11 +36,12 @@ const GlobalCaptcha = ({ close }) => {
         }
         // ----
         const captchaid = e.target.captchaid.value;
+        const challengeSolution = e.target.challengesolution.value;
         let errorText;
         try {
           setSubmitting(true);
           const retCode = await socketClient
-            .sendCaptchaSolution(text, captchaid);
+            .sendCaptchaSolution(text, captchaid, challengeSolution);
           switch (retCode) {
             case 0:
               close();
@@ -55,6 +57,9 @@ const GlobalCaptcha = ({ close }) => {
               break;
             case 4:
               errorText = t`No captcha id given`;
+              break;
+            case 6:
+              errorText = t`Your Browser looks shady`;
               break;
             case 5:
               dispatch(pRefresh());
@@ -75,7 +80,12 @@ const GlobalCaptcha = ({ close }) => {
           <span>{t`Error`}</span>:&nbsp;{error}
         </p>
       )}
-      <Captcha autoload key={captKey} setLegit={setLegit} />
+      <Captcha
+        autoload
+        key={captKey}
+        onReadyStateChange={setReady}
+        setLegit={setLegit}
+      />
       <p>
         <button
           type="button"
@@ -87,7 +97,7 @@ const GlobalCaptcha = ({ close }) => {
         <button
           type="submit"
         >
-          {(submitting) ? '...' : t`Send`}
+          {(submitting || !ready) ? '...' : t`Send`}
         </button>
       </p>
     </form>

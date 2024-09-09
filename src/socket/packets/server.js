@@ -4,6 +4,7 @@
 import {
   CAPTCHA_RETURN_OP,
   CHANGE_ME_OP,
+  REFRESH_OP,
   CHUNK_UPDATE_MB_OP,
   COOLDOWN_OP,
   ONLINE_COUNTER_OP,
@@ -137,6 +138,13 @@ export function hydrateChunkUpdateMB(data) {
  */
 export function dehydrateChangeMe() {
   return Buffer.from([CHANGE_ME_OP]);
+}
+
+/*
+ * returns buffer with only OP_CODE
+ */
+export function dehydrateRefresh() {
+  return Buffer.from([REFRESH_OP]);
 }
 
 /*

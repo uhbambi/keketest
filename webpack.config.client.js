@@ -7,6 +7,8 @@ const path = require('path');
 const process = require('process');
 const webpack = require('webpack');
 const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
+const sourceMapping = require('./scripts/sourceMapping');
+const LicenseListWebpackPlugin = require('./scripts/LicenseListWebpackPlugin');
 
 /*
  * make sure we build in root dir
@@ -18,7 +20,6 @@ module.exports = ({
   analyze,
   locale = 'en',
   extract,
-  clean = true,
   readonly,
 }) => {
   const ttag = {
@@ -63,7 +64,6 @@ module.exports = ({
         ? '[name].[chunkhash:8].js'
         : `[name].${locale}.[chunkhash:8].js`,
       chunkFilename: `[name].${locale}.[chunkhash:8].js`,
-      clean,
     },
 
     resolve: {
@@ -114,7 +114,7 @@ module.exports = ({
                 plugins: babelPlugins,
               },
             },
-            path.resolve('scripts/TtagNonCacheableLoader.js'),
+            path.resolve('scripts', 'TtagNonCacheableLoader.js'),
           ],
           include: [
             path.resolve('src'),
@@ -133,7 +133,50 @@ module.exports = ({
         'process.env.NODE_ENV': development ? '"development"' : '"production"',
         'process.env.BROWSER': true,
       }),
-
+      // Output license informations
+      new LicenseListWebpackPlugin({
+        name: 'Client Scripts',
+        htmlFilename: 'index.html',
+        outputDir: path.join('..', 'legal'),
+        includeLicenseFiles: true,
+        override: sourceMapping,
+        /*
+         * build a second summarized html output,
+         * because LibreJS doesn't understand this and we still want it
+         * TODO: replace it with the mergeByChunnkName option once LibreJS
+         *       supports it
+         */
+        processOutput: (out) => {
+          let secondOut = [...out].map((buildObj) => {
+            const newBuildObj = {
+              ...buildObj,
+              scripts: [],
+            }
+            buildObj.scripts.forEach((scriptObj) => {
+              let targetInd = newBuildObj.scripts.findIndex(
+                (s) => s.name === scriptObj.name,
+              );
+              if (targetInd === -1) {
+                newBuildObj.scripts.push({ ...scriptObj, url: null });
+              } else {
+                newBuildObj.scripts[targetInd] = LicenseListWebpackPlugin
+                  .deepMergeNamedArrays(
+                    newBuildObj.scripts[targetInd],
+                    { ...scriptObj, url: null },
+                   );
+              }
+            });
+            return newBuildObj;
+          });
+          secondOut = LicenseListWebpackPlugin.summarizeOutput(secondOut);
+          secondOut = LicenseListWebpackPlugin.generateHTML(secondOut);
+          fs.writeFileSync(
+            path.resolve('dist', 'public', 'legal', 'summarized.html'),
+            secondOut,
+          );
+          return out;
+        },
+      }),
       // Webpack Bundle Analyzer
       // https://github.com/th0r/webpack-bundle-analyzer
       ...analyze ? [new BundleAnalyzerPlugin({ analyzerPort: 8889 })] : [],

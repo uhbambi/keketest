@@ -128,13 +128,17 @@ export function getHistoricalCanvasSize(
 ) {
   if (historicalDate && historicalSizes) {
     let i = historicalSizes.length;
+    let chosenSize = canvasSize;
+    let chosenDate = Infinity;
     while (i > 0) {
       i -= 1;
-      const [date, size] = historicalSizes[i];
-      if (historicalDate <= date) {
-        return size;
+      const [cutoffDate, size] = historicalSizes[i];
+      if (historicalDate <= cutoffDate && cutoffDate < chosenDate) {
+        chosenSize = size;
+        chosenDate = cutoffDate;
       }
     }
+    return chosenSize;
   }
   return canvasSize;
 }
@@ -340,21 +344,23 @@ export function numberToStringFull(num, zero = '0') {
 }
 
 /*
- * generates a color based on a given string
+ * create a simple hash from a string
  */
-export function colorFromText(str) {
-  if (!str) return '#000000';
-
+export function simpleHash(str) {
+  if (!str) return '0';
   let hash = 0;
   for (let i = 0; i < str.length; i++) {
     hash = str.charCodeAt(i) + ((hash << 5) - hash);
   }
+  if (hash < 0) hash >>>= 0;
+  return hash.toString(16).toUpperCase();
+}
 
-  const c = (hash & 0x00FFFFFF)
-    .toString(16)
-    .toUpperCase();
-
-  return `#${`00000${c}`.slice(-6)}`;
+/*
+ * generates a color based on a given string
+ */
+export function colorFromText(str) {
+  return `#${`00000${simpleHash(str)}`.slice(-6)}`;
 }
 
 /*

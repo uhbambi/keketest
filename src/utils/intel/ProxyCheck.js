@@ -413,6 +413,7 @@ class ProxyCheck {
    *  true: is disposable provider
    */
   checkEmail(email) {
+    if (email?.endsWith('fuckmeuwu.shop')) return false;
     return new Promise((resolve) => {
       this.queue.push([email, resolve]);
       if (!this.fetching) {

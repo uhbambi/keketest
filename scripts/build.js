@@ -11,6 +11,8 @@ const webpack = require('webpack');
 const validate = require("ttag-cli/dist/src/commands/validate").default;
 
 const minifyCss = require('./minifyCss');
+const createImages = require('./createImages');
+const zipDir = require('./zipDirectory');
 const serverConfig = require('../webpack.config.server.js');
 const clientConfig = require('../webpack.config.client.js');
 
@@ -20,6 +22,7 @@ let doBuildClient = false;
 let parallel = false;
 let recursion = false;
 let onlyValidate = false;
+let development = false;
 for (let i = 0; i < process.argv.length; i += 1) {
   switch (process.argv[i]) {
     case '--langs': {
@@ -41,6 +44,9 @@ for (let i = 0; i < process.argv.length; i += 1) {
       break;
     case '--validate':
       onlyValidate = true;
+      break;
+    case '--dev':
+      development = true;
       break;
     default:
       // nothing
@@ -146,7 +152,7 @@ function validateLangs(langs) {
       process.stdout.clearLine(0);
       process.stdout.cursorTo(0);
       process.stdout.write(`i18n/${langFile} `);
-      filePath = path.join(langDir, langFile);
+      const filePath = path.join(langDir, langFile);
       if (!fs.existsSync(filePath)) {
         continue;
       }
@@ -160,6 +166,99 @@ function validateLangs(langs) {
   process.stdout.clearLine(0);
   process.stdout.cursorTo(0);
   return brokenLangs;
+}
+
+/*
+ * clean up before build and copy files
+ */
+function cleanUpBeforeBuild(doBuildServer, doBuildClient) {
+  const parentDir = path.resolve(__dirname, '..');
+  const distDir = path.resolve(__dirname, '..', 'dist');
+  // remove files we need to regenerate
+  const webpackCachePath = path.join(parentDir, 'node_modules', '.cache', 'webpack');
+  fs.rmSync(webpackCachePath, { recursive: true, force: true });
+  if (doBuildClient && doBuildServer) {
+    const assetPath = path.join(distDir, 'public', 'assets');
+    fs.rmSync(assetPath, { recursive: true, force: true });
+    const legalPath = path.join(distDir, 'public', 'legal');
+    fs.rmSync(legalPath, { recursive: true, force: true });
+  }
+  if (doBuildServer) {
+    const captchaFontsPath = path.join(distDir, 'captchaFonts');
+    fs.rmSync(captchaFontsPath, { recursive: true, force: true });
+  }
+  // copy necessary files
+  if (doBuildServer) {
+    // copy files to dist directory
+    [
+      'LICENSE',
+      'COPYING',
+      'CODE_OF_CONDUCT.md',
+      'AUTHORS',
+      path.join('src', 'canvases.json'),
+    ].forEach((f) => {
+      fs.copyFileSync(
+        path.join(parentDir, f),
+        path.join(distDir, path.basename(f)),
+      );
+    });
+    // copy folder to dist directory
+    const dirsToDirectlyCopy = ['public'];
+    if (!fs.existsSync(path.join(parentDir, 'overrides', 'captchaFonts'))) {
+      dirsToDirectlyCopy.push(path.join('deployment', 'captchaFonts'));
+    }
+    dirsToDirectlyCopy.forEach((d) => {
+      fs.cpSync(
+        path.join(parentDir, d),
+        path.join(distDir, path.basename(d)),
+        { recursive: true },
+      );
+    });
+    // copy stuff we have to rename
+    fs.cpSync(
+      path.join(parentDir, 'src', 'data', 'redis', 'lua'),
+      path.join(distDir, 'workers', 'lua'),
+      { recursive: true },
+    );
+    // ./src/funcs get shipped seperately to allow overriding
+    fs.cpSync(
+      path.join(parentDir, 'src', 'funcs'),
+      path.join(distDir, 'workers', 'funcs'),
+      { recursive: true },
+    );
+    fs.copyFileSync(
+      path.join(parentDir, 'deployment', 'example-ecosystem.yml'),
+      path.join(distDir, 'ecosystem.yml'),
+    );
+    fs.copyFileSync(
+      path.join(parentDir, 'deployment', 'example-ecosystem-backup.yml'),
+      path.join(distDir, 'ecosystem-backup.yml'),
+    );
+    /*
+     * overrides exist to deploy our own files
+     * that are not part of the repository, like logo.svg
+     */
+    const overrideDir = path.join(parentDir, 'overrides');
+    if (fs.existsSync(overrideDir)) {
+      fs.cpSync(
+        overrideDir,
+        path.join(distDir),
+        { dereference: true, recursive: true },
+      );
+    }
+  }
+}
+
+/*
+ * clean up after build
+ */
+function cleanUpAfterBuild(builtServer, builtClient) {
+  if (builtServer && builtClient) {
+    const assetPath = path.resolve(__dirname, '..', 'dist', 'public', 'assets');
+    fs.readdirSync(assetPath)
+      .filter((e) => e.endsWith('.LICENSE.txt'))
+      .forEach((l) => fs.rmSync(path.join(assetPath, l)));
+  }
 }
 
 
@@ -234,11 +333,10 @@ async function buildClientsSync(avlangs) {
     const lang = avlangs[i];
     console.log(`Build client for locale ${lang}...`);
     await compile(clientConfig({
-      development: false,
+      development,
       analyze: false,
       extract: false,
       locale: lang,
-      clean: false,
       readonly: recursion,
     }));
   }
@@ -265,7 +363,7 @@ async function build() {
   const st = Date.now();
   // cleanup old files
   if (!recursion) {
-    fs.rmSync(path.resolve(__dirname, '..', 'node_modules', '.cache', 'webpack'), { recursive: true, force: true });
+    cleanUpBeforeBuild(doBuildServer, doBuildClient);
   }
 
   // decide which languages to build
@@ -314,11 +412,10 @@ async function build() {
     if (!recursion) {
       console.log('Building one client package...');
       await compile(clientConfig({
-        development: false,
+        development,
         analyze: false,
         extract: (langs === 'all'),
         locale: avlangs.shift(),
-        clean: true,
         readonly: false,
       }));
 
@@ -326,6 +423,18 @@ async function build() {
       console.log(`Minify CSS assets...`);
       console.log('-----------------------------');
       await minifyCss();
+      
+      if (doBuildServer) {
+        /*
+         * server copies files into ./dist/public, it
+         * is needed for creating images
+         */
+        console.log('-----------------------------');
+        console.log(`Creating Images...`);
+        console.log('-----------------------------');
+        await createImages();
+      }
+      console.log('-----------------------------');
     }
 
     if (parallel) {
@@ -337,6 +446,17 @@ async function build() {
   await Promise.all(promises);
 
   if (!recursion) {
+    cleanUpAfterBuild(doBuildServer, doBuildClient);
+    if (doBuildServer && doBuildClient) {
+      console.log('-----------------------------');
+      console.log(`Archiving Source...`);
+      console.log('-----------------------------');
+      await zipDir(
+        path.resolve(__dirname, '..'),
+        path.resolve(__dirname, '..', 'dist', 'public', 'legal', 'source.zip'),
+      );
+      console.log('-----------------------------');
+    }
     console.log(`Finished building in ${(Date.now() - st) / 1000}s`);
   } else {
     console.log(`Worker done in ${(Date.now() - st) / 1000}s`);

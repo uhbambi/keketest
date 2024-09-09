@@ -11,6 +11,7 @@ import { getIPFromRequest, getHostFromRequest } from '../utils/ip';
 import {
   REG_CANVAS_OP,
   PIXEL_UPDATE_OP,
+  OLD_PIXEL_UPDATE_OP,
   REG_CHUNK_OP,
   REG_MCHUNKS_OP,
   DEREG_CHUNK_OP,
@@ -24,6 +25,7 @@ import {
   hydrateDeRegMChunks,
   hydratePixelUpdate,
   dehydrateChangeMe,
+  dehydrateRefresh,
   dehydrateOnlineCounter,
   dehydrateCoolDown,
   dehydratePixelReturn,
@@ -77,6 +79,7 @@ class SocketServer {
       ws.canvasId = null;
       const { user } = req;
       ws.user = user;
+      ws.userAgent = req.headers['user-agent'];
       ws.chunkCnt = 0;
 
       const { ip } = user;
@@ -498,12 +501,9 @@ class SocketServer {
         }
         case 'cs': {
           // captcha solution
-          const [solution, captchaid] = val;
+          const [solution, captchaid, challengeSolution] = val;
           const ret = await checkCaptchaSolution(
-            solution,
-            ip,
-            false,
-            captchaid,
+            solution, ip, ws.userAgent, false, captchaid, challengeSolution,
           );
           ws.send(dehydrateCaptchaReturn(ret));
           break;
@@ -616,6 +616,10 @@ class SocketServer {
           hydrateDeRegMChunks(buffer, (chunkid) => {
             this.deleteChunk(chunkid, ws);
           });
+          break;
+        }
+        case OLD_PIXEL_UPDATE_OP: {
+          ws.send(dehydrateRefresh());
           break;
         }
         default:

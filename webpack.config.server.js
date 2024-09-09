@@ -8,7 +8,8 @@ const process = require('process');
 const webpack = require('webpack');
 const nodeExternals = require('webpack-node-externals');
 const GeneratePackageJsonPlugin = require('generate-package-json-webpack-plugin');
-const CopyPlugin = require('copy-webpack-plugin');
+const sourceMapping = require('./scripts/sourceMapping');
+const LicenseListWebpackPlugin = require('./scripts/LicenseListWebpackPlugin');
 
 const pkg = require('./package.json');
 
@@ -18,6 +19,7 @@ process.chdir(__dirname);
 const basePackageValues = {
   name: pkg.name,
   version: pkg.version,
+  license: pkg.license,
   private: true,
   engines: pkg.engines,
   scripts: {
@@ -127,10 +129,23 @@ module.exports = ({
 
     externals: [
       nodeExternals({
-        // passport-reddit is an ESM module
-        // bundle it, then we don't have to import it
-        allowlist: [ /^passport-/ ],
+        // passport-reddit and watrs are ESM modules
+        // bundle them, then we don't have to import them
+        allowlist: [/^passport-/ , /^watr$/],
       }),
+      // the ./src/funcs folder does not get bundled, but copied
+      // into dist/workers/funcs instead to allow overriding
+      function ({ context, request }, callback) {
+        const funcPathInd = request.indexOf('/funcs/');
+        if (request.startsWith('.') && funcPathInd !== -1) {
+          const prefix = context.endsWith(path.join('src', 'workers'))
+            ? '.' : './workers';
+          return callback(
+            null, `commonjs ${prefix}${request.substring(funcPathInd)}`,
+          );
+        }
+        callback();
+      },
     ],
 
     plugins: [
@@ -144,34 +159,13 @@ module.exports = ({
         // provided by node itself
         excludeDependencies: ['node:buffer'],
       }),
-      new CopyPlugin({
-        patterns: [
-          {
-            from: path.resolve('public'),
-            to: path.resolve('dist', 'public'),
-          },
-          path.resolve('src', 'canvases.json'),
-          path.resolve('LICENSE'),
-          path.resolve('COPYING'),
-          path.resolve('CODE_OF_CONDUCT.md'),
-          path.resolve('AUTHORS'),
-          {
-            from: path.resolve('deployment', 'example-ecosystem.yml'),
-            to: path.resolve('dist', 'ecosystem.yml'),
-          },
-          {
-            from: path.resolve('deployment', 'example-ecosystem-backup.yml'),
-            to: path.resolve('dist', 'ecosystem-backup.yml'),
-          },
-          {
-            from: path.resolve('deployment', 'captchaFonts'),
-            to: path.resolve('dist', 'captchaFonts'),
-          },
-          {
-            from: path.resolve('src', 'data', 'redis', 'lua'),
-            to: path.resolve('dist', 'workers', 'lua'),
-          },
-        ],
+      // Output license informations
+      new LicenseListWebpackPlugin({
+        name: 'Server Scripts',
+        id: 'server-licenses',
+        outputDir: path.join('public', 'legal'),
+        includeLicenseFiles: true,
+        override: sourceMapping,
       }),
     ],
 
