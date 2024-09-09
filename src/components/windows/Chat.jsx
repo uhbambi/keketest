@@ -214,6 +214,7 @@ const Chat = () => {
               autoComplete="off"
               maxLength="200"
               type="text"
+              className="chtipt"
               placeholder={t`Chat here`}
             />
             <button
