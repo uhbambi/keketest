@@ -16,7 +16,7 @@ import {
 } from '../../../data/redis/captcha';
 
 async function validate(
-  email, name, password, captcha, captchaid, challengeSolution, t, gettext,
+  email, name, password, captcha, captchaid, t, gettext,
 ) {
   const errors = [];
   const emailerror = gettext(validateEMail(email));
@@ -26,7 +26,7 @@ async function validate(
   const passworderror = gettext(validatePassword(password));
   if (passworderror) errors.push(passworderror);
 
-  if (!captcha || !captchaid || !challengeSolution) {
+  if (!captcha || !captchaid) {
     errors.push(t`No Captcha given`);
   }
 
@@ -44,7 +44,7 @@ export default async (req, res) => {
   } = req.body;
   const { t, gettext } = req.ttag;
   const errors = await validate(
-    email, name, password, captcha, captchaid, challengeSolution, t, gettext,
+    email, name, password, captcha, captchaid, t, gettext,
   );
 
   const ip = getIPFromRequest(req);
