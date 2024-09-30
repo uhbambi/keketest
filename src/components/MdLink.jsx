@@ -4,7 +4,7 @@
  * Links are assumed to start with protocol (http:// etc.)
  */
 import React, { useState } from 'react';
-import ReactDOM from 'react-dom';
+import { createPortal } from 'react-dom';
 import { HiArrowsExpand, HiStop } from 'react-icons/hi';
 import { HiWindow } from 'react-icons/hi2';
 import { t } from 'ttag';
@@ -120,7 +120,7 @@ const MdLink = ({ href, title, refEmbed }) => {
       )}
       {showEmbed && embedAvailable && (
         (refEmbed && refEmbed.current)
-          ? ReactDOM.createPortal(
+          ? createPortal(
             <Embed url={href} maxHeight={300} />,
             refEmbed.current,
           ) : (
