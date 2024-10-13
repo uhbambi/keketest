@@ -6,7 +6,6 @@ const fs = require('fs');
 const path = require('path');
 const process = require('process');
 const webpack = require('webpack');
-const nodeExternals = require('webpack-node-externals');
 const GeneratePackageJsonPlugin = require('generate-package-json-webpack-plugin');
 const sourceMapping = require('./scripts/sourceMapping');
 const LicenseListWebpackPlugin = require('./scripts/LicenseListWebpackPlugin');
@@ -125,19 +124,9 @@ module.exports = ({
         'ws': 'commonjs ws',
         'compression': 'commonjs compression',
         'redis': 'commonjs redis',
+        'winston': 'commonjs winston',
+        'winston-daily-rotate-file': 'commonjs winston-daily-rotate-file',
       },
-      /*
-      nodeExternals({
-        // ESM modules that can't be imported with require()
-        // bundle them, then we don't have to import them
-        allowlist: [
-          /^passport-/,
-          'watr',
-          'multer','append-field', 'fs-temp', 'random-path', 'base32-encode',
-          'to-data-view', 'murmur-32', 'encode-utf8', 'fmix', 'has-own-property',
-        ],
-      }),
-      */
       // the ./src/funcs folder does not get bundled, but copied
       // into dist/workers/funcs instead to allow overriding
       function ({ context, request }, callback) {

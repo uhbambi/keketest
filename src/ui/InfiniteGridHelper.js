@@ -10,7 +10,7 @@
 import {
   Mesh,
   Color,
-  PlaneBufferGeometry,
+  PlaneGeometry,
   ShaderMaterial,
   DoubleSide,
 } from 'three';
@@ -23,7 +23,7 @@ export default class InfiniteGridHelper extends Mesh {
 
     distance = distance || 8000;
     const planeAxes = axes.substring(0, 2);
-    const geometry = new PlaneBufferGeometry(2, 2, 1, 1);
+    const geometry = new PlaneGeometry(2, 2, 1, 1);
     const material = new ShaderMaterial({
 
       side: DoubleSide,

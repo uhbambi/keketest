@@ -11,15 +11,16 @@ import {
   AmbientLight,
   DirectionalLight,
   FogExp2,
-  BoxBufferGeometry,
+  BoxGeometry,
   MeshBasicMaterial,
   Mesh,
   Raycaster,
-  PlaneBufferGeometry,
+  PlaneGeometry,
   MeshLambertMaterial,
   WebGLRenderer,
 } from 'three';
-import Sky from './Sky';
+
+import { Sky } from 'three/examples/jsm/objects/Sky';
 
 import InfiniteGridHelper from './InfiniteGridHelper';
 import VoxelPainterControls from '../controls/VoxelPainterControls';
@@ -123,7 +124,7 @@ class Renderer3D extends Renderer {
     uniforms.sunPosition.value.set(400000, 400000, 400000);
 
     // hover helper
-    const rollOverGeo = new BoxBufferGeometry(1, 1, 1);
+    const rollOverGeo = new BoxGeometry(1, 1, 1);
     const rollOverMaterial = new MeshBasicMaterial({
       color: 0xff0000,
       opacity: 0.5,
@@ -138,7 +139,7 @@ class Renderer3D extends Renderer {
     scene.add(gridHelper);
 
     // Plane Floor
-    const geometry = new PlaneBufferGeometry(1024, 1024);
+    const geometry = new PlaneGeometry(1024, 1024);
     geometry.rotateX(-Math.PI / 2);
     const plane = new Mesh(
       geometry,
@@ -150,7 +151,7 @@ class Renderer3D extends Renderer {
     this.plane.position.y = -0.1;
 
     // Out of bounds plane
-    const oobGeometry = new PlaneBufferGeometry(
+    const oobGeometry = new PlaneGeometry(
       THREE_TILE_SIZE,
       THREE_TILE_SIZE,
     );
