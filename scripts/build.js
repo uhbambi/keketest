@@ -174,7 +174,7 @@ function validateLangs(langs) {
 function cleanUpBeforeBuild(doBuildServer, doBuildClient) {
   const parentDir = path.resolve(__dirname, '..');
   const distDir = path.resolve(__dirname, '..', 'dist');
-  fs.mkdirSync(distDir);
+  if (!fs.existsSync(distDir)) fs.mkdirSync(distDir);
   // remove files we need to regenerate
   const webpackCachePath = path.join(parentDir, 'node_modules', '.cache', 'webpack');
   fs.rmSync(webpackCachePath, { recursive: true, force: true });

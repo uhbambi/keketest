@@ -19,7 +19,9 @@ const assetDir = path.join(__dirname, 'public', ASSET_DIR);
  *     [...]
  *   css:
  *     default: "/assets/default.234234.css",
- *     dark-round: "/assets/dark-round.234233324.css",
+ *     [...]
+ *   themes:
+ *     dark-round: "/assets/theme-dark-round.234233324.css",
  *     [...]
  * }
  */
@@ -32,6 +34,7 @@ function checkAssets() {
   const parsedAssets = {
     js: {},
     css: {},
+    themes: {},
   };
   const assetFiles = fs.readdirSync(assetDir);
   const mtimes = {};
@@ -73,8 +76,16 @@ function checkAssets() {
         break;
       }
       case 'css': {
-        // Format: [dark-]name.[timestamp].js
-        parsedAssets.css[parts[0]] = relPath;
+        const [name] = parts;
+        if (name.startsWith('theme-')) {
+          parsedAssets.themes[name.substring(6)] = relPath;
+        } else {
+          if (name === 'default') {
+            parsedAssets.themes[name] = relPath;
+          }
+          // Format: [dark-]name.[timestamp].js
+          parsedAssets.css[name] = relPath;
+        }
         break;
       }
       default:
@@ -130,4 +141,8 @@ export function getJsAssets(name, lang) {
 
 export function getCssAssets() {
   return assets.css;
+}
+
+export function getThemeCssAssets() {
+  return assets.themes;
 }

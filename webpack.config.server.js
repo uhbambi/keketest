@@ -102,20 +102,6 @@ module.exports = ({
           },
         },
         {
-          test: /\.css/,
-          use: [
-            {
-              loader: 'css-loader',
-              options: {
-                importLoaders: 1,
-                sourceMap: false,
-                modules: false,
-              },
-            },
-            'clean-css-loader',
-          ],
-        },
-        {
           test: [/\.po$/],
           loader: path.resolve('scripts/TtagPoLoader.js'),
         },
@@ -127,12 +113,31 @@ module.exports = ({
       node: true,
     },
 
-    externals: [
+    externals: [{
+        'sharp': 'commonjs sharp',
+        'bcrypt': 'commonjs bcrypt',
+        'utf-8-validate': 'commonjs utf-8-validate',
+        'bufferutil': 'commonjs bufferutil',
+        'sequelize': 'commonjs sequelize',
+        'mysql2': 'commonjs mysql2',
+        'express': 'commonjs express',
+        'ppfun-captcha': 'commonjs ppfun-captcha',
+        'ws': 'commonjs ws',
+        'compression': 'commonjs compression',
+        'redis': 'commonjs redis',
+      },
+      /*
       nodeExternals({
-        // passport-reddit and watrs are ESM modules
+        // ESM modules that can't be imported with require()
         // bundle them, then we don't have to import them
-        allowlist: [/^passport-/ , /^watr$/],
+        allowlist: [
+          /^passport-/,
+          'watr',
+          'multer','append-field', 'fs-temp', 'random-path', 'base32-encode',
+          'to-data-view', 'murmur-32', 'encode-utf8', 'fmix', 'has-own-property',
+        ],
       }),
+      */
       // the ./src/funcs folder does not get bundled, but copied
       // into dist/workers/funcs instead to allow overriding
       function ({ context, request }, callback) {
@@ -157,7 +162,10 @@ module.exports = ({
       new GeneratePackageJsonPlugin(basePackageValues, {
         sourcePackageFilenames: [ path.resolve('package.json') ],
         // provided by node itself
-        excludeDependencies: ['node:buffer'],
+        excludeDependencies: [
+          'node:fs', 'node:path', 'node:stream',
+          'node:buffer', 'node:util', 'node:os',
+        ],
       }),
       // Output license informations
       new LicenseListWebpackPlugin({
