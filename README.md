@@ -245,8 +245,6 @@ To build only specific languages, you can define them with the `--langs` flag:
 npm run build -- --langs de,gr
 ```
 
-You can use `npm run babel-node ./utils/script.js` to execute a script with local babel (path always relative to the root directory).
-
 ## Hourly Event
 
 Hourly event is an MMORPG style event that launches once in two hours where users have to fight against a growing void that starts at a random position at the main canvas. If they complete it successfully, the whole canvas will have half cooldown for a few minutes.

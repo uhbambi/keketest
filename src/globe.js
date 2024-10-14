@@ -16,7 +16,9 @@ import {
 } from 'three';
 
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
-import { TrackballControls } from 'three/examples/jsm/controls/TrackballControls';
+import {
+  TrackballControls,
+} from 'three/examples/jsm/controls/TrackballControls';
 
 
 function checkMaterial(object) {

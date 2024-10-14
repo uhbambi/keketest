@@ -2,7 +2,7 @@
  * Provide translation serverside
  */
 import { TTag } from 'ttag';
-import { parse as parseCookie} from 'cookie';
+import { parse as parseCookie } from 'cookie';
 
 import assetWatcher from './fsWatcher';
 import { getLangsOfJsAsset } from './assets';

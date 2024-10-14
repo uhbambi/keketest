@@ -219,7 +219,7 @@ export async function executeIIDAction(
  */
 export async function executeImageAction(
   action,
-  file,
+  buffer,
   coords,
   canvasid,
   logger = null,
@@ -229,6 +229,9 @@ export async function executeImageAction(
   }
   if (!canvasid) {
     return [403, 'canvasid not defined'];
+  }
+  if (!buffer) {
+    return [403, 'No file given'];
   }
 
   const splitCoords = coords.trim().split('_');
@@ -266,7 +269,7 @@ export async function executeImageAction(
   const wipe = (action === 'wipe');
 
   try {
-    const { data, info } = await sharp(file.buffer)
+    const { data, info } = await sharp(buffer)
       .ensureAlpha()
       .raw()
       .toBuffer({ resolveWithObject: true });
