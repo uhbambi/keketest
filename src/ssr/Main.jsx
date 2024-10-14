@@ -8,7 +8,7 @@ import etag from 'etag';
 import canvases from '../core/canvases';
 import hashScript from '../utils/scriptHash';
 import { getTTag, availableLangs as langs } from '../middleware/ttag';
-import { getJsAssets, getCssAssets } from '../core/assets';
+import { getJsAssets, getThemeCssAssets } from '../core/assets';
 import socketEvents from '../socket/socketEvents';
 import { BACKUP_URL, CONTACT_ADDRESS } from '../core/config';
 import { getHostFromRequest } from '../utils/ip';
@@ -42,7 +42,7 @@ function generateMainPage(req) {
   const shard = (host.startsWith(`${socketEvents.thisShard}.`))
     ? null : socketEvents.lowestActiveShard;
   const ssv = {
-    availableStyles: getCssAssets(),
+    availableStyles: getThemeCssAssets(),
     langs,
     backupurl: BACKUP_URL,
     contactAddress: CONTACT_ADDRESS,
@@ -84,7 +84,7 @@ function generateMainPage(req) {
         <link rel="icon" href="/favicon.ico" type="image/x-icon" />
         <link rel="apple-touch-icon" href="apple-touch-icon.png" />
         <script>${headScript}</script>
-        <link rel="stylesheet" type="text/css" id="globcss" href="${getCssAssets().default}" />
+        <link rel="stylesheet" type="text/css" id="globcss" href="${getThemeCssAssets().default}" />
       </head>
       <body>
         <div id="app"></div>

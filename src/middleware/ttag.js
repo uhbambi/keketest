@@ -2,7 +2,7 @@
  * Provide translation serverside
  */
 import { TTag } from 'ttag';
-import cookie from 'cookie';
+import { parse as parseCookie} from 'cookie';
 
 import assetWatcher from './fsWatcher';
 import { getLangsOfJsAsset } from './assets';
@@ -93,7 +93,7 @@ function languageFromLocalisation(localisation) {
  * the Accept-Language header
  */
 export function expressTTag(req, res, next) {
-  const cookies = cookie.parse(req.headers.cookie || '');
+  const cookies = parseCookie(req.headers.cookie || '');
   const language = cookies.plang || req.headers['accept-language'];
   let lang = languageFromLocalisation(language);
   if (!ttags[lang]) {

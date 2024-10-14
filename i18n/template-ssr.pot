@@ -220,21 +220,6 @@ msgstr ""
 msgid "You are not banned"
 msgstr ""
 
-#: src/routes/api/auth/verify.js:26
-#: src/routes/api/auth/verify.js:35
-msgid "Mail verification"
-msgstr ""
-
-#: src/routes/api/auth/verify.js:27
-msgid "You are now verified :)"
-msgstr ""
-
-#: src/routes/api/auth/verify.js:35
-msgid ""
-"Your mail verification code is invalid or already expired :(, please "
-"request a new one."
-msgstr ""
-
 #: src/routes/api/auth/register.js:30
 msgid "No Captcha given"
 msgstr ""
@@ -278,6 +263,21 @@ msgstr ""
 
 #: src/routes/api/auth/register.js:116
 msgid "Failed to establish session after register :("
+msgstr ""
+
+#: src/routes/api/auth/verify.js:26
+#: src/routes/api/auth/verify.js:35
+msgid "Mail verification"
+msgstr ""
+
+#: src/routes/api/auth/verify.js:27
+msgid "You are now verified :)"
+msgstr ""
+
+#: src/routes/api/auth/verify.js:35
+msgid ""
+"Your mail verification code is invalid or already expired :(, please "
+"request a new one."
 msgstr ""
 
 #: src/routes/api/auth/logout.js:11

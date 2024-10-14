@@ -6,7 +6,6 @@ const fs = require('fs');
 const path = require('path');
 const process = require('process');
 const webpack = require('webpack');
-const nodeExternals = require('webpack-node-externals');
 const GeneratePackageJsonPlugin = require('generate-package-json-webpack-plugin');
 const sourceMapping = require('./scripts/sourceMapping');
 const LicenseListWebpackPlugin = require('./scripts/LicenseListWebpackPlugin');
@@ -102,20 +101,6 @@ module.exports = ({
           },
         },
         {
-          test: /\.css/,
-          use: [
-            {
-              loader: 'css-loader',
-              options: {
-                importLoaders: 1,
-                sourceMap: false,
-                modules: false,
-              },
-            },
-            'clean-css-loader',
-          ],
-        },
-        {
           test: [/\.po$/],
           loader: path.resolve('scripts/TtagPoLoader.js'),
         },
@@ -127,12 +112,21 @@ module.exports = ({
       node: true,
     },
 
-    externals: [
-      nodeExternals({
-        // passport-reddit and watrs are ESM modules
-        // bundle them, then we don't have to import them
-        allowlist: [/^passport-/ , /^watr$/],
-      }),
+    externals: [{
+        'sharp': 'commonjs sharp',
+        'bcrypt': 'commonjs bcrypt',
+        'utf-8-validate': 'commonjs utf-8-validate',
+        'bufferutil': 'commonjs bufferutil',
+        'sequelize': 'commonjs sequelize',
+        'mysql2': 'commonjs mysql2',
+        'express': 'commonjs express',
+        'ppfun-captcha': 'commonjs ppfun-captcha',
+        'ws': 'commonjs ws',
+        'compression': 'commonjs compression',
+        'redis': 'commonjs redis',
+        'winston': 'commonjs winston',
+        'winston-daily-rotate-file': 'commonjs winston-daily-rotate-file',
+      },
       // the ./src/funcs folder does not get bundled, but copied
       // into dist/workers/funcs instead to allow overriding
       function ({ context, request }, callback) {
@@ -157,7 +151,10 @@ module.exports = ({
       new GeneratePackageJsonPlugin(basePackageValues, {
         sourcePackageFilenames: [ path.resolve('package.json') ],
         // provided by node itself
-        excludeDependencies: ['node:buffer'],
+        excludeDependencies: [
+          'node:fs', 'node:path', 'node:stream',
+          'node:buffer', 'node:util', 'node:os',
+        ],
       }),
       // Output license informations
       new LicenseListWebpackPlugin({

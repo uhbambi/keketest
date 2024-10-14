@@ -3,9 +3,15 @@
  */
 
 import {
-  applyMiddleware, createStore, combineReducers,
+  /*
+   * redux wants us to use the redux-toolkit really hard,
+   * we do not want that, it abstracts too much away,
+   * if there should ever arise a necessity to use the redux toolkit,
+   * we shall switch to a different librry or make our own
+   */
+  applyMiddleware, combineReducers, legacy_createStore as createStore,
 } from 'redux';
-import thunk from 'redux-thunk';
+import { thunk } from 'redux-thunk';
 import { persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 

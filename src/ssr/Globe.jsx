@@ -9,9 +9,7 @@ import etag from 'etag';
 import { getTTag } from '../middleware/ttag';
 
 /* this will be set by webpack */
-import { getJsAssets } from '../core/assets';
-
-import globeCss from '../styles/globe.css';
+import { getJsAssets, getCssAssets } from '../core/assets';
 
 /*
  * generates string with html of globe page
@@ -43,7 +41,7 @@ function generateGlobePage(req) {
         />
         <link rel="icon" href="/favicon.ico" type="image/x-icon" />
         <link rel="apple-touch-icon" href="apple-touch-icon.png" />
-        <style key="globe" id="globe">${globeCss}</style>
+        <link rel="stylesheet" type="text/css" id="globcss" href="${getCssAssets().globe}" />
       </head>
       <body>
         <div id="webgl" />

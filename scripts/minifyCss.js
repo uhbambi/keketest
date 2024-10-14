@@ -19,8 +19,7 @@ const assetdir = path.resolve(__dirname, '..', 'dist', 'public', 'assets');
 const builddir = path.resolve(__dirname, '..', 'dist');
 
 const FOLDER = path.resolve(__dirname, '..', 'src', 'styles');
-const FILES = fs.readdirSync(FOLDER).filter((e) => e.startsWith('theme-'));
-FILES.push('default.css');
+const FILES = fs.readdirSync(FOLDER).filter((e) => e.endsWith('.css'));
 
 async function minifyCss() {
   console.log('Minifying css');
@@ -43,9 +42,6 @@ async function minifyCss() {
     console.log('\x1b[33m%s\x1b[0m', `Minified ${file} by ${Math.round(output.stats.efficiency * 100)}%`);
     const hash = crypto.createHash('md5').update(output.styles).digest('hex');
     let key = file.substr(0, file.indexOf('.'));
-    if (key.startsWith('theme-')) {
-      key = key.substr(6);
-    }
     const filename = `${key}.${hash.substr(0, 8)}.css`;
     fs.writeFileSync(path.resolve(assetdir, filename), output.styles, 'utf8');
   });

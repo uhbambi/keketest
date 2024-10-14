@@ -648,6 +648,8 @@ class LicenseListWebpackPlugin {
       } else {
         spdxLicenseExpression = licenses['type'];
       }
+    } else {
+      return [];
     }
     const parsedSpdxLicenses = this.parseSpdxLicenseExpression(
       spdxLicenseExpression, `module ${packageJson['name']}`,

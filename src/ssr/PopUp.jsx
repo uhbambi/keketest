@@ -8,7 +8,7 @@ import etag from 'etag';
 
 import { getTTag, availableLangs as langs } from '../middleware/ttag';
 import socketEvents from '../socket/socketEvents';
-import { getJsAssets, getCssAssets } from '../core/assets';
+import { getJsAssets, getThemeCssAssets } from '../core/assets';
 import { BACKUP_URL } from '../core/config';
 import { getHostFromRequest } from '../utils/ip';
 
@@ -24,7 +24,7 @@ function generatePopUpPage(req) {
   const shard = (host.startsWith(`${socketEvents.thisShard}.`))
     ? null : socketEvents.lowestActiveShard;
   const ssvR = JSON.stringify({
-    availableStyles: getCssAssets(),
+    availableStyles: getThemeCssAssets(),
     langs,
     backupurl: BACKUP_URL,
     shard,
@@ -54,7 +54,7 @@ function generatePopUpPage(req) {
         <link rel="icon" href="/favicon.ico" type="image/x-icon" />
         <link rel="apple-touch-icon" href="apple-touch-icon.png" />
         <script>/* @license magnet:?xt=urn:btih:0b31508aeb0634b347b8270c7bee4d411b5d4109&dn=agpl-3.0.txt AGPL-3.0-or-later */\n(function(){window.ssv=JSON.parse('${ssvR}');let hostPart = window.location.host.split('.'); if (hostPart.length > 2) hostPart.shift(); hostPart = hostPart.join('.'); if (window.ssv.shard && window.location.host !== 'fuckyouarkeros.fun') hostPart = window.location.protocol + '//' + window.ssv.shard + '.' + hostPart; else hostPart = ''; window.me=fetch(hostPart + '/api/me',{credentials:'include'})})();\n/* @license-end */</script>
-        <link rel="stylesheet" type="text/css" id="globcss" href="${getCssAssets().default}" />
+        <link rel="stylesheet" type="text/css" id="globcss" href="${getThemeCssAssets().default}" />
       </head>
       <body>
         <div id="app" class="popup">

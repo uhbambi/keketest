@@ -24,6 +24,11 @@ const charKeys = ['g', 'h', 'x', 'm', 't', 'r', 'l', '+', '-', 'b'];
 
 export function createKeyUpHandler(store) {
   return (event) => {
+    // ignore key presses if it is the chat input
+    if (event.target.className === 'chtipt') {
+      return;
+    }
+
     /*
      * key locations
      */
