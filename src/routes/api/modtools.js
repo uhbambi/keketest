@@ -5,7 +5,7 @@
  */
 
 import express from 'express';
-import multer from 'multer';
+import fileUpload from 'express-fileupload';
 
 import CanvasCleaner from '../../core/CanvasCleaner';
 import chatProvider from '../../core/ChatProvider';
@@ -29,16 +29,19 @@ import {
 
 const router = express.Router();
 
-/*
- * multer middleware for getting POST parameters
- * into req.file (if file) and req.body for text
- */
 router.use(express.urlencoded({ extended: true }));
-const upload = multer({
+/*
+ * parse multipart/form-data
+ * ordinary fields will be under req.body[name]
+ * files will be under req.files[name]
+ */
+router.use(fileUpload({
   limits: {
     fileSize: 5 * 1024 * 1024,
+    fields: 50,
+    files: 1,
   },
-});
+}));
 
 
 /*
@@ -74,7 +77,7 @@ router.use(async (req, res, next) => {
 /*
  * Post for mod + admin
  */
-router.post('/', upload.single('image'), async (req, res, next) => {
+router.post('/', async (req, res, next) => {
   const aLogger = (text) => {
     const timeString = new Date().toLocaleTimeString();
     // eslint-disable-next-line max-len
@@ -154,7 +157,7 @@ router.post('/', upload.single('image'), async (req, res, next) => {
       const { imageaction, coords, canvasid } = req.body;
       const [ret, msg] = await executeImageAction(
         imageaction,
-        req.file,
+        req.files?.image?.data,
         coords,
         canvasid,
         aLogger,
