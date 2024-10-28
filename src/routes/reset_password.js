@@ -9,7 +9,7 @@ import logger from '../core/logger';
 import getPasswordResetHtml from '../ssr/PasswordReset';
 import { validateEMail } from '../utils/validation';
 import { checkCode } from '../data/redis/mailCodes';
-import { RegUser } from '../data/sql';
+import { getUserByEmail } from '../data/sql/RegUser';
 
 
 const router = express.Router();
@@ -66,7 +66,7 @@ router.post('/', async (req, res) => {
   }
 
   // set password
-  const reguser = await RegUser.findOne({ where: { email } });
+  const reguser = await getUserByEmail(email, true);
   if (!reguser) {
     // eslint-disable-next-line max-len
     logger.error(`${email} from PasswordReset page does not exist in database`);

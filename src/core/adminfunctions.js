@@ -607,7 +607,7 @@ export async function executeRollback(
  */
 export async function getModList() {
   const mods = await RegUser.findAll({
-    where: Sequelize.where(Sequelize.literal('roles & 1'), '!=', 0),
+    where: { userlvl: USERLVL.MOD},
     attributes: ['id', 'name'],
     raw: true,
   });

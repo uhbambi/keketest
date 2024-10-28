@@ -1,7 +1,9 @@
 import Sequelize from 'sequelize';
 
 import logger from '../../../core/logger';
-import { RegUser } from '../../../data/sql';
+import {
+  createNewUser, getUsersByNameOrEmail, THREEPID_PROVIDERS,
+} from '../../../data/sql/RegUser';
 import mailProvider from '../../../core/MailProvider';
 import getMe from '../../../core/me';
 import { getIPFromRequest, getHostFromRequest } from '../../../utils/ip';
@@ -11,16 +13,12 @@ import {
   validateName,
   validatePassword,
 } from '../../../utils/validation';
-import {
-  checkCaptchaSolution,
-} from '../../../data/redis/captcha';
+import { checkCaptchaSolution } from '../../../data/redis/captcha';
 
 async function validate(
   email, name, password, captcha, captchaid, t, gettext,
 ) {
   const errors = [];
-  const emailerror = gettext(validateEMail(email));
-  if (emailerror) errors.push(emailerror);
   const nameerror = validateName(name);
   if (nameerror) errors.push(nameerror);
   const passworderror = gettext(validatePassword(password));
@@ -29,11 +27,19 @@ async function validate(
   if (!captcha || !captchaid) {
     errors.push(t`No Captcha given`);
   }
+  if (email) {
+    const emailerror = gettext(validateEMail(email));
+    if (emailerror) errors.push(emailerror);
+  }
 
-  let reguser = await RegUser.findOne({ where: { email } });
-  if (reguser) errors.push(t`E-Mail already in use.`);
-  reguser = await RegUser.findOne({ where: { name } });
-  if (reguser) errors.push(t`Username already in use.`);
+  const regusers = await getUsersByNameOrEmail(name, email, true);
+  if (regusers.length) {
+    if (regusers[0].email === email) {
+      errors.push(t`E-Mail already in use.`);
+    } else {
+      errors.push(t`Username already in use.`);
+    }
+  }
 
   return errors;
 }
@@ -86,13 +92,15 @@ export default async (req, res) => {
     return;
   }
 
-  const newuser = await RegUser.create({
-    email,
-    name,
-    password,
-    verificationReqAt: Sequelize.literal('CURRENT_TIMESTAMP'),
-    lastLogIn: Sequelize.literal('CURRENT_TIMESTAMP'),
-  });
+  let tpid;
+  if (email) {
+    tpid = {
+      provider: THREEPID_PROVIDERS.EMAIL,
+      tpid: email,
+      veified: false,
+    };
+  }
+  const newuser = await createNewUser(name, password, email);
 
   if (!newuser) {
     res.status(500);
@@ -118,7 +126,9 @@ export default async (req, res) => {
       return;
     }
     const host = getHostFromRequest(req);
-    mailProvider.sendVerifyMail(email, name, host, lang);
+    if (email) {
+      mailProvider.sendVerifyMail(email, name, host, lang);
+    }
     res.status(200);
     res.json({
       success: true,

@@ -4,16 +4,18 @@
  *
  */
 
-import Sequelize, { DataTypes, QueryTypes } from 'sequelize';
+import { randomUUID } from 'crypto';
+import Sequelize, { DataTypes, QueryTypes, Op } from 'sequelize';
 
 import sequelize from './sequelize';
 import { generateHash } from '../../utils/hash';
-import { USERLVL } from '../../core/constants';
+import { USERLVL, THREEPID_PROVIDERS } from '../../core/constants';
+import { CHANNEL_TYPES } from './Channel';
 
-export { USERLVL } from '../../core/constants';
+export { USERLVL, THREEPID_PROVIDERS } from '../../core/constants';
 
 
-const RegUser = sequelize.define('User', {
+const User = sequelize.define('User', {
   id: {
     type: DataTypes.INTEGER.UNSIGNED,
     autoIncrement: true,
@@ -51,19 +53,15 @@ const RegUser = sequelize.define('User', {
     defaultValue: 0,
   },
 
-  /*
-   * when email verification got requested,
-   * NULL means successfully verified
-   */
-  verificationReqAt: {
-    type: DataTypes.DATE,
-  },
-
   createdAt: {
     type: DataTypes.DATE,
     defaultValue: DataTypes.NOW,
     allowNull: false,
   },
+
+  /*
+   * virtual
+   */
 
   blockDm: {
     type: DataTypes.VIRTUAL,
@@ -86,21 +84,33 @@ const RegUser = sequelize.define('User', {
       this.setDataValue('flags', val);
     },
   },
+});
 
-  verified: {
-    type: DataTypes.VIRTUAL,
-    get() {
-      return (this.verificationReqAt === null);
-    },
-    set(value) {
-      if (value) {
-        this.setDataValue('verificationReqAt', null);
-      } else {
-        this.setDataValue('verificationReqAt', new Date());
-      }
+/*
+ * includes for user on ordinary login
+ */
+const loginInclude = [{
+  association: 'channels',
+  where: {
+    type: {
+      [Op.not]: CHANNEL_TYPES.DM,
     },
   },
-});
+}, {
+  association: 'dms',
+  where: {
+    type: CHANNEL_TYPES.DM,
+  },
+  include: [{
+    association: 'users',
+    attributes: ['id', 'name'],
+  }],
+}, {
+  association: 'blocked',
+  attributes: ['id', 'name'],
+}, {
+  association: 'tpids',
+}];
 
 export async function name2Id(name) {
   try {
@@ -126,7 +136,7 @@ export async function findIdByNameOrId(searchString) {
   }
   id = parseInt(searchString, 10);
   if (!Number.isNaN(id)) {
-    const user = await RegUser.findByPk(id, {
+    const user = await User.findByPk(id, {
       attributes: ['name'],
       raw: true,
     });
@@ -143,7 +153,7 @@ export async function getNamesToIds(ids) {
     return idToNameMap;
   }
   try {
-    const result = await RegUser.findAll({
+    const result = await User.findAll({
       attributes: ['id', 'name'],
       where: {
         id: ids,
@@ -160,6 +170,221 @@ export async function getNamesToIds(ids) {
 }
 
 /*
+ * get user by id
+ * @param id
+ * @return user object or null if not found
+ */
+export async function findUserById(id) {
+  if (!id) {
+    return null;
+  }
+  try {
+    return await User.findByPk(id, { include: loginInclude });
+  } catch (err) {
+    console.error(`SQL Error on findUserById: ${err.message}`);
+    return null;
+  }
+}
+
+/*
+ * get User by email
+ * @param email
+ * @param populate
+ * @return user object or null if not found (limited if populate is unset)
+ */
+export function getUserByEmail(email, populate) {
+  return getUserByTpid(THREEPID_PROVIDERS.EMAIL, email, populate);
+}
+
+/*
+ * get User by tpid
+ * @param provider
+ * @param tpid
+ * @param populate
+ * @return user object or null if not found (limited if populate is unset)
+ */
+export async function getUserByTpid(provider, tpid, populate) {
+  if (!tpid || !provider) {
+    return null;
+  }
+  try {
+    if (populate) {
+      return await User.findOne({
+        include: [
+          loginInclude.filter((i) => i.association !== 'tpids'), {
+            association: 'tpids',
+            where: {
+              provider,
+              tpid,
+            },
+            required: false,
+            right: true,
+          },
+        ],
+      });
+    }
+    return await User.findOne({
+      include: {
+        association: 'tpids',
+        where: {
+          provider,
+          tpid,
+        },
+        required: false,
+        right: true,
+      },
+      raw: true,
+    });
+  } catch (err) {
+    console.error(`SQL Error on getUserByEmail: ${err.message}`);
+    return null;
+  }
+}
+
+/*
+ * check if name is taken and if it is,
+ * modify it till we find a name that is available
+ * @param name
+ * @return unique name
+ */
+export async function getNameThatIsNotTaken(name) {
+  let limit = 5;
+  let user = await User.findOne({
+    attributes: [ 'id' ],
+    where: { name },
+    raw: true,
+  });
+  while (user) {
+    limit -= 1;
+    if (!limit) {
+      return randomUUID().split('-').join('');
+    }
+    // eslint-disable-next-line max-len
+    name = `${name.substring(0, 15)}-${Math.random().toString(36).substring(2, 10)}`;
+    // eslint-disable-next-line no-await-in-loop
+    user = await User.findOne({
+      attributes: [ 'id' ],
+      where: { name },
+      raw: true,
+    });
+  }
+  return name;
+}
+
+/*
+ * verify a users email
+ * @param email
+ * @return name if successful, otherwise false
+ */
+export async function verifyEmail(email) {
+  if (!email) {
+    return false;
+  }
+  try {
+    const user = await User.findOne({
+      include: {
+        association: 'tpids',
+        where: {
+          provider: THREEPID_PROVIDERS.EMAIL,
+          tpid: email,
+        },
+      },
+    });
+    if (!user) {
+      return false;
+    }
+    const promises = [
+      user.tpids.find(
+        (t) => (t.provider === THREEPID_PROVIDERS.EMAIL && t.tpid === email),
+      ).update({ verified: true }),
+    ];
+    if (user.userlvl === USERLVL.REGISTERED) {
+      promises.push(user.update({ userlvl: USERLVL.VERIFIED }));
+    }
+    await Promise.all(promises);
+    return user.name;
+  } catch (err) {
+    console.error(`SQL Error on verifyEmail: ${err.message}`);
+    return false;
+  }
+}
+
+/*
+ * get Users by name or email
+ * @param name (or either name or email if email not given)
+ * @param email (optional)
+ * @param populate boolean
+ * @return array of user objects (limited if populate is unset)
+ */
+export async function getUsersByNameOrEmail(name, email, populate) {
+  if (!name) {
+    return [];
+  }
+  if (!email) {
+    email = name;
+  }
+  try {
+    if (populate) {
+      return await User.findAll({
+        where: {
+          [Op.or]: [{
+            name
+          }, {
+            '$tpids.provider$': THREEPID_PROVIDERS.EMAIL,
+            '$tpids.tpid$': email,
+          }],
+        },
+        include: [
+          loginInclude.filter((i) => i.association !== 'tpids'), {
+            association: 'tpids',
+            right: true,
+          },
+        ],
+      });
+    }
+    return await User.findAll({
+      where: {
+        [Op.or]: [{
+          name
+        }, {
+          '$tpids.provider$': THREEPID_PROVIDERS.EMAIL,
+          '$tpids.tpid$': email,
+        }],
+      },
+      include: {
+        association: 'tpids',
+        right: true,
+      },
+      raw: true,
+    });
+  } catch (err) {
+    console.error(`SQL Error on getUsersByNameOrEmail: ${err.message}`);
+    return [];
+  }
+}
+
+/*
+ * create new User
+ * @param name
+ * @param [password]
+ * @param [tpid] object with { provider, tpid, verified }
+ * @return user object or null if not successful
+ */
+export async function createNewUser(name, password, tpid) {
+  const query = { name };
+  if (password) query.password = password;
+  if (tpid) query.tpids = [tpid];
+  try {
+    return await User.create(query, {
+      include: loginInclude,
+    });
+  } catch (err) {
+    console.error(`SQL Error on createNewUser: ${err.message}`);
+    return null;
+  }
+}
+
+/*
  * take array of objects that include user ids and add
  * user informations if user is not private
  * @param rawRanks array of {id: userId, ...} objects
@@ -169,7 +394,7 @@ export async function populateIdObj(rawRanks) {
     return rawRanks;
   }
   const uids = rawRanks.map((r) => r.id);
-  const userData = await RegUser.findAll({
+  const userData = await User.findAll({
     attributes: [
       'id',
       'name',
@@ -198,4 +423,4 @@ export async function populateIdObj(rawRanks) {
   return rawRanks;
 }
 
-export default RegUser;
+export default User;

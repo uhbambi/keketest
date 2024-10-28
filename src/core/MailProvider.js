@@ -11,7 +11,7 @@ import { getTTag } from './ttag';
 import { codeExists, checkCode, setCode } from '../data/redis/mailCodes';
 import socketEvents from '../socket/socketEvents';
 import { USE_MAILER, MAIL_ADDRESS } from './config';
-import { RegUser, USERLVL } from '../data/sql';
+import { getUserByEmail, verifyEmail, USERLVL } from '../data/sql/RegUser';
 
 export class MailProvider {
   constructor() {
@@ -121,7 +121,7 @@ export class MailProvider {
       return t`We already sent you a mail with instructions. Please wait before requesting another mail.`;
     }
 
-    const reguser = await RegUser.findOne({ where: { email: to } });
+    const reguser = await getUserByEmail(to);
     if (!reguser) {
       logger.info(
         `Password reset mail for ${to} requested by ${ip} - mail not found`,
@@ -143,33 +143,12 @@ export class MailProvider {
     if (!ret) {
       return false;
     }
-    const reguser = await RegUser.findOne({ where: { email } });
-    if (!reguser) {
+    const name = await verifyEmail(email);
+    if (!name) {
       logger.error(`${email} does not exist in database`);
-      return false;
     }
-    await reguser.update({
-      userlvl: USERLVL.VERIFIED,
-      verificationReqAt: null,
-    });
-    return reguser.name;
+    return name;
   }
-
-  /*
-   * we do not use this right now
-  static cleanUsers() {
-    // delete users that require verification for more than 4 days
-    RegUser.destroy({
-      where: {
-        verificationReqAt: {
-          [Sequelize.Op.lt]:
-            Sequelize.literal('CURRENT_TIMESTAMP - INTERVAL 4 DAY'),
-        },
-        userlvl: USERLVL.REGISTERED,
-      },
-    });
-  }
-  */
 }
 
 const mailProvider = new MailProvider();

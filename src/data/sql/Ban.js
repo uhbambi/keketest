@@ -20,6 +20,17 @@ const Ban = sequelize.define('Ban', {
   },
 
   /*
+   * from lowest to highest bit:
+   * 0: banned from placing in game
+   * 1: banned from chat
+   */
+  flags: {
+    type: DataTypes.TINYINT,
+    allowNull: false,
+    defaultValue: 0,
+  },
+
+  /*
    * NULL if infinite
    */
   expires: {
@@ -30,6 +41,32 @@ const Ban = sequelize.define('Ban', {
     type: DataTypes.DATE,
     defaultValue: DataTypes.NOW,
     allowNull: false,
+  },
+
+  /*
+   * virtual
+   */
+
+  gameban: {
+    type: DataTypes.VIRTUAL,
+    get() {
+      return !!(this.flags & 0x01);
+    },
+    set(num) {
+      const val = (num) ? (this.flags | 0x01) : (this.flags & ~0x01);
+      this.setDataValue('flags', val);
+    },
+  },
+
+  chatban: {
+    type: DataTypes.VIRTUAL,
+    get() {
+      return !!(this.flags & 0x02);
+    },
+    set(num) {
+      const val = (num) ? (this.flags | 0x02) : (this.flags & ~0x02);
+      this.setDataValue('flags', val);
+    },
   },
 });
 

@@ -8,9 +8,8 @@
 
 /* eslint-disable no-underscore-dangle */
 
-import {
-  RegUser, IPInfo, USERLVL, regUserQueryInclude,
-} from './sql';
+import { IPInfo, USERLVL } from './sql';
+import { findUserById } from './sql/RegUser';
 import { touch as touchUserIP } from './sql/UserIP';
 import { setCoolDown, getCoolDown } from './redis/cooldown';
 import { getUserRanks } from './redis/ranks';
@@ -151,13 +150,9 @@ class User {
     if (values.regUser) {
       this.regUser = values.regUser;
     } else if (values.id) {
-      promises.push(RegUser.findByPk(values.id, {
-        include: regUserQueryInclude,
-      }).then((regUser) => {
-        if (regUser) {
-          this.regUser = regUser;
-        }
-      }));
+      promises.push(findUserById(values.id)
+        .then((regUser) => { this.regUser = regUser; }),
+      );
     }
     if (values.ipInfo) {
       this.ipInfo = values.ipInfo;

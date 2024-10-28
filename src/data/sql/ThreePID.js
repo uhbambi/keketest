@@ -22,7 +22,12 @@ const ThreePID = sequelize.define('ThreePID', {
   },
 
   tpid: {
-    type: DataTypes.CHAR(20),
+    type: DataTypes.CHAR(40),
+    allowNull: false,
+  },
+
+  verified: {
+    type: DataTypes.BOOLEAN,
     allowNull: false,
   },
 
@@ -31,6 +36,17 @@ const ThreePID = sequelize.define('ThreePID', {
     defaultValue: DataTypes.NOW,
     allowNull: false,
   },
+
+  createdAt: {
+    type: DataTypes.DATE,
+    defaultValue: DataTypes.NOW,
+    allowNull: false,
+  },
+}, {
+  indexes: [{
+    unique: true,
+    fields: ['provider', 'tpid'],
+  }],
 });
 
 export default ThreePID;

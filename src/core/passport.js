@@ -14,8 +14,15 @@ import VkontakteStrategy from 'passport-vkontakte/lib/strategy';
 import { sanitizeName } from '../utils/validation';
 import logger from './logger';
 import {
-  RegUser, ThreePID, USERLVL, OATUH_PROVIDERS, regUserQueryInclude as include,
+  ThreePID, USERLVL, THREEPID_PROVIDERS,
 } from '../data/sql';
+import {
+  getUsersByNameOrEmail,
+  getUsersByEmail,
+  getUserByTpid,
+  getNameThatIsNotTaken,
+  createNewUser,
+} from '../data/sql/RegUser';
 import User from '../data/User';
 import { auth } from './config';
 import { compareToHash } from '../utils/hash';
@@ -41,23 +48,20 @@ passport.use(new JsonStrategy({
   usernameProp: 'nameoremail',
   passwordProp: 'password',
 }, async (nameoremail, password, done) => {
-  // Decide if email or name by the occurrence of @
-  // this is why we don't allow @ in usernames
-  // NOTE: could allow @ in the future by making an OR query,
-  // but i guess nobody really cares.
-  //  https://sequelize.org/master/manual/querying.html
-  const query = (nameoremail.indexOf('@') !== -1)
-    ? { email: nameoremail }
-    : { name: nameoremail };
-  const reguser = await RegUser.findOne({
-    include,
-    where: query,
-  });
-  if (!reguser) {
+  const regusers = await getUsersByNameOrEmail(nameoremail, null, true);
+  if (!regusers.length) {
     done(new Error('Name or Email does not exist!'));
     return;
   }
-  if (!compareToHash(password, reguser.password)) {
+  const reguser = regusers.find((u) => compareToHash(password, u.password));
+  if (!reguser) {
+    if (regusers.find((u) => u.password === 'hacked')) {
+      done(new Error(
+        // eslint-disable-next-line max-len
+        'This email / password combination got hacked on a different platform and leaked. To protect this account, the password has been reset. Please use the "Forgot my password" function below to set a new password. In the future, consider to use different passwords on different websites to avoid one leak affecting the others, Thank You.',
+      ));
+      return;
+    }
     done(new Error('Incorrect password!'));
     return;
   }
@@ -77,7 +81,11 @@ passport.use(new JsonStrategy({
  */
 async function oauthLogin(providerString, name, email = null, tpid = null) {
   name = sanitizeName(name);
-  const provider = OATUH_PROVIDERS[providerString];
+  if (email?.length > 40) {
+    email = null;
+  }
+
+  let provider = THREEPID_PROVIDERS[providerString];
   if (!provider) {
     throw new Error(`Can not login with ${providerString}`);
   }
@@ -87,72 +95,63 @@ async function oauthLogin(providerString, name, email = null, tpid = null) {
       `${provider} didn't give us enoguh information to log you in, maybe you don't have an email set in their account?`,
     );
   }
+
   let reguser;
-  if (tpid) {
-    await RegUser.findOne({
-      include: [
-        ...include,
-        {
-          association: 'tp',
-          where: { provider, tpid },
-          required: true,
-        },
-      ],
-    });
+  // try with associated email
+  if (email) {
+    reguser = await getUsersByEmail(email, true);
   }
-  if (!reguser && email) {
-    reguser = await RegUser.findOne({
-      include,
-      where: { email },
-    });
-    if (reguser && tpid) {
-      await ThreePID.create({
-        uid: reguser.id,
-        provider,
-        tpid,
-      }, {
-        raw: true,
-      });
-    }
+  // try wwith threepid
+  if (!reguser && tpid) {
+    reguser = await getUserByTpid(provider, tpid, true);
   }
+  // create new user
   if (!reguser) {
-    reguser = await RegUser.findOne({
-      where: { name },
-      raw: true,
-    });
-    while (reguser) {
-      // name is taken by someone else
-      // eslint-disable-next-line max-len
-      name = `${name.substring(0, 15)}-${Math.random().toString(36).substring(2, 10)}`;
-      // eslint-disable-next-line no-await-in-loop
-      reguser = await RegUser.findOne({
-        where: { name },
-        raw: true,
-      });
-    }
+    name = await getNameThatIsNotTaken();
     logger.info(
       // eslint-disable-next-line max-len
       `Create new user from ${providerString} oauth login ${email} / ${name} / ${tpid}`,
     );
-    if (tpid) {
-      reguser = await RegUser.create({
-        email,
-        name,
-        userlvl: USERLVL.VERIFIED,
-        tp: [{ provider, tpid }],
-      }, {
-        include: [{
-          association: 'tp',
-        }],
-      });
-    } else {
-      reguser = await RegUser.create({
-        email,
-        name,
-        userlvl: USERLVL.VERIFIED,
-      });
+    reguser = await createNewUser(name, null, null);
+    if (!reguser) {
+      throw new Error('Could not create user');
     }
   }
+
+  // upsert tpids
+  const promises = [];
+  let needReload = false;
+  if (tpid) {
+    if (!reguser.tpids.find(
+      (t) => (t.provider === provider && t.tpid === tpid),
+    )) {
+      needReload = true;
+    }
+    promises.push(ThreePID.upsert({
+      uid: reguser.id,
+      provider,
+      tpid,
+      verified: true,
+      lastSeen: new Date(),
+    }));
+  }
+  if (email && (!tpid || !reguser.tpids.find(
+    (t) => (t.provider === THREEPID_PROVIDERS.EMAIL && t.tpid === email),
+  ))) {
+    needReload = true;
+    promises.push(ThreePID.upsert({
+      uid: reguser.id,
+      provider: THREEPID_PROVIDERS.EMAIL,
+      tpid: email,
+      verified: true,
+      lastSeen: new Date(),
+    }));
+  }
+  await Promise.all(promises);
+  if (needReload) {
+    await reguser.reload();
+  }
+
   const user = new User();
   await user.initialize({ regUser: reguser });
   return user;
@@ -168,9 +167,9 @@ passport.use(new FacebookStrategy({
   profileFields: ['displayName', 'email'],
 }, async (req, accessToken, refreshToken, profile, done) => {
   try {
-    const { displayName: name, emails } = profile;
+    const { displayName: name, emails, id } = profile;
     const email = emails[0].value;
-    const user = await oauthLogin('FACEBOOK', name, email);
+    const user = await oauthLogin('FACEBOOK', name, email, id);
     done(null, user);
   } catch (err) {
     done(err);
@@ -203,9 +202,9 @@ passport.use(new GoogleStrategy({
   proxy: true,
 }, async (accessToken, refreshToken, profile, done) => {
   try {
-    const { displayName: name, emails } = profile;
+    const { displayName: name, emails, id } = profile;
     const email = emails[0].value;
-    const user = await oauthLogin('GOOGLE', name, email);
+    const user = await oauthLogin('GOOGLE', name, email, id);
     done(null, user);
   } catch (err) {
     done(err);
@@ -242,7 +241,7 @@ passport.use(new VkontakteStrategy({
   profileFields: ['displayName', 'email'],
 }, async (accessToken, refreshToken, params, profile, done) => {
   try {
-    const { displayName: name } = profile;
+    const { displayName: name, id } = profile;
     const { email } = params;
     if (!email) {
       throw new Error(
@@ -250,7 +249,7 @@ passport.use(new VkontakteStrategy({
         'Sorry, you can not use vk login with an account that does not have a verified email set.',
       );
     }
-    const user = await oauthLogin('VK', name, email);
+    const user = await oauthLogin('VK', name, email, id);
     done(null, user);
   } catch (err) {
     done(err);

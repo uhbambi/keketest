@@ -14,7 +14,7 @@ import IPBanHistory from './IPBanHistory';
 import IPRangeBanHistory from './IPRangeBanHistory';
 import UserBanHistory from './UserBanHistory';
 import UserIP from './UserIP';
-import ThreePID, { OATUH_PROVIDERS } from './ThreePID';
+import ThreePID, { THREEPID_PROVIDERS } from './ThreePID';
 
 /*
  * Channels
@@ -233,32 +233,6 @@ RegUser.belongsToMany(RegUser, {
   foreignKey: 'buid',
 });
 
-/*
- * includes for RegUsert
- * that should be available on ordinary
- * login
- */
-const regUserQueryInclude = [{
-  association: 'channels',
-  where: {
-    type: {
-      [Op.not]: CHANNEL_TYPES.DM,
-    },
-  },
-}, {
-  association: 'dms',
-  where: {
-    type: CHANNEL_TYPES.DM,
-  },
-  include: [{
-    association: 'users',
-    attributes: ['id', 'name'],
-  }],
-}, {
-  association: 'blocked',
-  attributes: ['id', 'name'],
-}];
-
 export {
   // Models
   IPWhitelist,
@@ -272,10 +246,8 @@ export {
   Ban,
   WhoisReferral,
   ThreePID,
-  // includes
-  regUserQueryInclude,
   // constants
   USERLVL,
-  OATUH_PROVIDERS,
+  THREEPID_PROVIDERS,
   CHANNEL_TYPES,
 };

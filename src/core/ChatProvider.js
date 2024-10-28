@@ -153,7 +153,6 @@ export class ChatProvider {
       defaults: {
         name,
         userlvl: USERLVL.VERIFIED,
-        email: 'info@example.com',
       },
       raw: true,
     });
@@ -167,7 +166,6 @@ export class ChatProvider {
       defaults: {
         name,
         userlvl: USERLVL.VERIFIED,
-        email: 'event@example.com',
       },
       raw: true,
     });
@@ -181,7 +179,6 @@ export class ChatProvider {
       defaults: {
         name,
         userlvl: USERLVL.VERIFIED,
-        email: 'event@example.com',
       },
       raw: true,
     });

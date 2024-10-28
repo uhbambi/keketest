@@ -1,8 +1,8 @@
 import express from 'express';
 
 import logger from '../core/logger';
-import { RegUser } from '../data/sql';
-import { USERLVL } from '../core/constants';
+import { THREEPID_PROVIDERS, USERLVL } from '../data/sql';
+import { getUsersByNameOrEmail, findUserById } from '../data/sql/RegUser';
 import { getIPFromRequest } from '../utils/ip';
 import { compareToHash } from '../utils/hash';
 import { APISOCKET_KEY } from '../core/config';
@@ -52,18 +52,13 @@ router.post('/checklogin', async (req, res) => {
       'userlvl',
     ],
   };
-  let userString;
-  if (req.body.name) {
-    query.where = { name: req.body.name };
-    userString = req.body.name;
-  } else if (req.body.email) {
-    query.where = { email: req.body.email };
-    userString = req.body.email;
+  let regusers;
+  if (req.body.name || req.body.email) {
+    regusers = await getUsersByNameOrEmail(req.body.name, req.body.email, true);
   } else if (req.body.id) {
-    query.where = { id: req.body.id };
-    userString = String(req.body.id);
+    regusers = await findUserById(req.body.id);
   } else {
-    errors.push('No name or email given');
+    errors.push('No name or email or idgiven');
   }
 
   if (errors.length) {
@@ -75,25 +70,31 @@ router.post('/checklogin', async (req, res) => {
     return;
   }
 
-  const reguser = await RegUser.findOne(query);
-  if (!reguser) {
+  if (!regusers) {
     res.json({
       success: false,
-      errors: [`User ${userString} does not exist`],
+      // eslint-disable-next-line max-len
+      errors: [`User ${req.body.name}, ${req.body.email}, ${req.body.id} does not exist`],
     });
     return;
   }
 
-  if (!compareToHash(password, reguser.password)) {
+  if (!Array.isArray(regusers)) regusers = [regusers];
+  const reguser = regusers.find((u) => compareToHash(password, u.password));
+  if (!reguser) {
     logger.info(
       `ADMINAPI: User ${reguser.name} / ${reguser.id} entered wrong password`,
     );
     res.json({
       success: false,
-      errors: [`Password wrong for user ${userString}`],
+      errors: [`Password wrong for user ${reguser.name} / ${reguser.id}`],
     });
     return;
   }
+
+  let email = reguser.tpids.find(
+    (t) => t.provider === THREEPID_PROVIDERS.EMAIL,
+  )?.tpid || null;
 
   logger.info(`ADMINAPI: User ${reguser.name} / ${reguser.id} got logged in`);
   res.json({
@@ -101,7 +102,7 @@ router.post('/checklogin', async (req, res) => {
     userdata: {
       id: reguser.id,
       name: reguser.name,
-      email: reguser.email,
+      email,
       verified: reguser.userlvl >= USERLVL.VERIFIED,
     },
   });
@@ -120,11 +121,7 @@ router.post('/userdata', async (req, res) => {
     });
     return;
   }
-  const reguser = await RegUser.findOne({
-    where: {
-      id,
-    },
-  });
+  const reguser = await findUserById(id);
   if (!reguser) {
     res.json({
       success: false,
@@ -133,12 +130,16 @@ router.post('/userdata', async (req, res) => {
     return;
   }
 
+  let email = reguser.tpids.find(
+    (t) => t.provider === THREEPID_PROVIDERS.EMAIL,
+  )?.tpid || null;
+
   res.json({
     success: true,
     userdata: {
       id: reguser.id,
       name: reguser.name,
-      email: reguser.email,
+      email,
     },
   });
 });
