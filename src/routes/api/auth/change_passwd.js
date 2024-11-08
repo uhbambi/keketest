@@ -2,7 +2,8 @@
  * request password change
  */
 
-
+import logger from '../../../core/logger';
+import { getIPFromRequest } from '../../../utils/ip';
 import { validatePassword } from '../../../utils/validation';
 import { compareToHash } from '../../../utils/hash';
 
@@ -44,6 +45,9 @@ export default async (req, res) => {
     });
     return;
   }
+
+  // eslint-disable-next-line max-len
+  logger.info(`AUTH: Changed password for user ${user.regUser.name}(${user.id}) by ${getIPFromRequest(req)}`);
 
   await user.regUser.update({ password: newPassword });
 

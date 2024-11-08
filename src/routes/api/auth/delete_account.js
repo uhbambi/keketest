@@ -2,6 +2,8 @@
  * request password change
  */
 
+import logger from '../../../core/logger';
+import { getIPFromRequest } from '../../../utils/ip';
 import socketEvents from '../../../socket/socketEvents';
 import { RegUser } from '../../../data/sql';
 import { validatePassword } from '../../../utils/validation';
@@ -57,6 +59,8 @@ export default async (req, res) => {
     return;
   }
 
+  // eslint-disable-next-line max-len
+  logger.info(`AUTH: Deleted user ${user.regUser.name}(${user.id}) by ${getIPFromRequest(req)}`);
 
   req.logout((err) => {
     if (err) {

@@ -2,7 +2,8 @@
  * request password change
  */
 
-
+import logger from '../../../core/logger';
+import { getIPFromRequest } from '../../../utils/ip';
 import socketEvents from '../../../socket/socketEvents';
 import { RegUser } from '../../../data/sql';
 import { validateName } from '../../../utils/validation';
@@ -40,6 +41,9 @@ export default async (req, res) => {
     });
     return;
   }
+
+  // eslint-disable-next-line max-len
+  logger.info(`AUTH: Changed name for user ${user.regUser.name}(${user.id}) to ${name} by ${getIPFromRequest(req)}`);
 
   await user.regUser.update({ name });
 
