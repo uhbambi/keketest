@@ -57,6 +57,13 @@ passport.use(new JsonStrategy({
     return;
   }
   if (!compareToHash(password, reguser.password)) {
+    if (reguser.password === 'hacked') {
+      done(new Error(
+        // eslint-disable-next-line max-len
+        'This email / password combination got hacked on a different platform and leaked. To protect this account, the password has been reset. Please use the "Forgot my password" function below to set a new password. In the future, consider to use different passwords on different websites to avoid one leak affecting the others, Thank You.',
+      ));
+      return;
+    }
     done(new Error('Incorrect password!'));
     return;
   }
