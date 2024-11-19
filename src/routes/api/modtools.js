@@ -111,7 +111,7 @@ router.post('/', async (req, res, next) => {
     }
     if (req.body.watchaction) {
       const {
-        watchaction, ulcoor, brcoor, time, iid, canvasid,
+        watchaction, ulcoor, brcoor, time, iid, canvasid, maxrows,
       } = req.body;
       const ret = await executeWatchAction(
         watchaction,
@@ -120,6 +120,7 @@ router.post('/', async (req, res, next) => {
         time,
         iid,
         canvasid,
+        maxrows,
       );
       res.status(200).json(ret);
       return;
