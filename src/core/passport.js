@@ -60,7 +60,7 @@ passport.use(new JsonStrategy({
     if (reguser.password === 'hacked') {
       done(new Error(
         // eslint-disable-next-line max-len
-        'This email / password combination got hacked on a different platform and leaked. To protect this account, the password has been reset. Please use the "Forgot my password" function below to set a new password. In the future, consider to use different passwords on different websites to avoid one leak affecting the others, Thank You.',
+        'This email / password combination got leaked. Either by a different platform that got hacked or by malware infecting this user. To protect this account, the password has been reset. Please use the "Forgot my password" function below to set a new password. In the future, consider to use unique passwords and do not run shady software, Thank You.',
       ));
       return;
     }

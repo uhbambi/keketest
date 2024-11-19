@@ -115,7 +115,7 @@ export async function getIIDSummary(
 export async function getIIDPixels(
   iid,
   time,
-  maxRows = 300,
+  maxRows,
 ) {
   const filterIP = await getIPofIID(iid);
   if (!filterIP) {
@@ -145,7 +145,7 @@ export async function getIIDPixels(
     return `Could not parse logfile: ${err.message}`;
   }
 
-  const pixelF = (pixels.length > maxRows)
+  const pixelF = (maxRows && pixels.length > maxRows)
     ? pixels.slice(maxRows * -1)
     : pixels;
 
@@ -305,7 +305,7 @@ export async function getPixelsFromArea(
   yBR,
   time,
   iid,
-  maxRows = 300,
+  maxRows,
 ) {
   const pixels = [];
   const uids = [];
@@ -349,7 +349,7 @@ export async function getPixelsFromArea(
   const uid2Name = await getNamesToIds(uids);
   const ip2Id = await getIdsToIps(ips);
 
-  const pixelF = (pixels.length > maxRows)
+  const pixelF = (maxRows && pixels.length > maxRows)
     ? pixels.slice(maxRows * -1)
     : pixels;
 
