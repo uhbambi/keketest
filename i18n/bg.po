@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2024-05-04 13:07+0000\n"
+"PO-Revision-Date: 2024-11-16 02:17+0000\n"
 "Last-Translator: Translation Team <noreply@example.com>\n"
 "Language-Team: Bulgarian <https://hosted.weblate.org/projects/pixelplanet/"
 "client/bg/>\n"
@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.5.3\n"
+"X-Generator: Poedit 3.5\n"
 
 #: src/controls/keypress.js:102
 #, javascript-format
@@ -181,7 +181,7 @@ msgstr "Грешка ${ retCode }"
 
 #: src/store/actions/thunks.js:227
 msgid "Pencil picks: "
-msgstr "Моливът избира: "
+msgstr "Избор на молив: "
 
 #: src/components/windows/Settings.jsx:66 src/store/actions/thunks.js:230
 msgid "Selected Color"
@@ -189,11 +189,11 @@ msgstr "Избран цвят"
 
 #: src/components/windows/Settings.jsx:66 src/store/actions/thunks.js:233
 msgid "From Template"
-msgstr "От шаблон"
+msgstr "Шаблон"
 
 #: src/components/windows/Settings.jsx:67 src/store/actions/thunks.js:236
 msgid "From History"
-msgstr "От история"
+msgstr "История"
 
 #: src/ui/rendererFactory.js:32
 msgid "Canvas Error"
@@ -220,13 +220,12 @@ msgid "OK"
 msgstr "Добре"
 
 #: src/store/actions/index.js:19
-#, fuzzy
 msgid "Change Happened"
-msgstr "Смяна на потребителско име"
+msgstr "Случи се промяна"
 
 #: src/store/actions/index.js:19
 msgid "Please refresh the website"
-msgstr ""
+msgstr "Моля обновете уебсайта"
 
 #: src/store/actions/fetch.js:55
 msgid "You made too many requests"
@@ -266,7 +265,7 @@ msgstr "Вече можете да поставяте повече на pixelpla
 
 #: src/store/middleware/notifications.js:54
 msgid "mentioned you"
-msgstr "Ви споменаха"
+msgstr "ви споменаха"
 
 #: src/store/middleware/notifications.js:58
 msgid "You have new messages in chat"
@@ -376,11 +375,11 @@ msgstr "Изглед на глобус"
 
 #: src/components/buttons/PalselButton.jsx:30
 msgid "Close Palette"
-msgstr "Затвори палитрата"
+msgstr "Затваряне на палитра"
 
 #: src/components/buttons/PalselButton.jsx:30
 msgid "Open Palette"
-msgstr "Отвори палитрата"
+msgstr "Отваряне на палитра"
 
 #: src/components/buttons/SettingsButton.jsx:21
 #: src/components/windows/index.js:15
@@ -397,11 +396,11 @@ msgstr "Изключване на молив"
 
 #: src/components/buttons/PencilButton.jsx:50
 msgid "Disable History Pencil"
-msgstr "Изключване на историческият молив"
+msgstr "Изключване на исторически молив"
 
 #: src/components/buttons/PencilButton.jsx:54
 msgid "Disable Overlay Pencil"
-msgstr "Изключване на Овърлей молива"
+msgstr "Изключване на Овърлей молив"
 
 #: src/components/windows/index.js:17
 msgid "Registration"
@@ -421,7 +420,7 @@ msgstr "Архив на платната"
 
 #: src/components/windows/index.js:22
 msgid "Player"
-msgstr ""
+msgstr "Играч"
 
 #: src/components/GlobalCaptcha.jsx:48
 msgid "You took too long, try again."
@@ -491,7 +490,7 @@ msgstr "Вашият бан изтича на "
 
 #: src/components/BanInfo.jsx:101
 msgid " which is in "
-msgstr " което е в "
+msgstr " което е на "
 
 #: src/components/BanInfo.jsx:112
 msgid "Unbanned"
@@ -507,7 +506,7 @@ msgstr "Защо?"
 
 #: src/components/RefreshPrompt.jsx:14
 msgid "Refresh"
-msgstr ""
+msgstr "Обновяване"
 
 #: src/components/windows/Help.jsx:65
 msgid "Place color pixels on a large canvas with other players online!"
@@ -987,7 +986,7 @@ msgstr "Настройки на канала"
 
 #: src/components/windows/Player.jsx:17
 msgid "This URL is not supported by our Media Player"
-msgstr ""
+msgstr "Този URL адрес не се поддържа от нашия Media Player"
 
 #: src/components/windows/ForgotPassword.jsx:58
 msgid "Sent you a mail with instructions to reset your password."
@@ -1184,7 +1183,7 @@ msgstr "Дневна редица"
 
 #: src/components/UserAreaContent.jsx:83
 msgid "Total Rank"
-msgstr "Общ ранг"
+msgstr "Обща редица"
 
 #: src/components/UserAreaContent.jsx:89
 #, javascript-format
@@ -1193,19 +1192,19 @@ msgstr "Вашето име е: ${ name }"
 
 #: src/components/UserAreaContent.jsx:95
 msgid "Log out"
-msgstr "Излизане от профил"
+msgstr "Излизане от профила Ви"
 
 #: src/components/UserAreaContent.jsx:102
 msgid "Change Username"
-msgstr "Смяна на потребителско име"
+msgstr "Промяна на потребителското име"
 
 #: src/components/UserAreaContent.jsx:112
 msgid "Change Mail"
-msgstr "Смяна на имейл"
+msgstr "Промяна на имейл адреса"
 
 #: src/components/UserAreaContent.jsx:121
 msgid "Change Password"
-msgstr "Смяна на парола"
+msgstr "Промяна на паролата"
 
 #: src/components/UserAreaContent.jsx:128
 msgid "Delete Account"
@@ -1306,15 +1305,15 @@ msgstr "Диаграми"
 
 #: src/components/Rankings.jsx:191
 msgid "Total Pixels per Player"
-msgstr "Общо пиксели сложени днес на Човек"
+msgstr "Общо пиксели сложени на Играч"
 
 #: src/components/Rankings.jsx:192
 msgid "Daily Pixels per Player"
-msgstr "Дневни пиксели сложени днес на Човек"
+msgstr "Дневни пиксели сложени днес на Играч"
 
 #: src/components/Rankings.jsx:193
 msgid "Top 10 Players from Yesterday"
-msgstr "Топ 10 играчи от вчера"
+msgstr "Топ 10 Играчи от Вчера"
 
 #: src/components/Rankings.jsx:197
 msgid "Daily Pixels per Country"
@@ -1420,15 +1419,15 @@ msgstr "Име или имейл"
 
 #: src/components/LogInForm.jsx:88
 msgid "LogIn"
-msgstr "Влизане"
+msgstr "Вписване"
 
 #: src/components/UserMessages.jsx:28
 msgid ""
 "Please verify your mail address or your account could get deleted after a "
 "few days."
 msgstr ""
-"Моля потвърдете си имейл адреса или Вашият акаунт може да бъде изтрит след "
-"няколко дни."
+"Моля, проверете имейл адреса си, в противен случай акаунтът Ви може да бъде "
+"изтрит след няколко дни."
 
 #: src/components/UserMessages.jsx:49
 msgid "A new verification mail is getting sent to you."
@@ -1591,7 +1590,6 @@ msgid "Rollback to Date"
 msgstr "Rollback-ване до дата"
 
 #: src/components/ModCanvastools.jsx:414
-#, fuzzy
 msgid "Rollback an area of the canvas to a set date and time"
 msgstr "Rollback-ване на зона от платното, до избрана дата (00:00 UTC)"
 
@@ -1733,15 +1731,15 @@ msgstr "Заглуши"
 
 #: src/components/MdLink.jsx:98
 msgid "Open in PopUp"
-msgstr ""
+msgstr "Отваряне в PopUp прозорец"
 
 #: src/components/MdLink.jsx:109
 msgid "Hide Embed"
-msgstr ""
+msgstr "Скриване на вграждането"
 
 #: src/components/MdLink.jsx:115
 msgid "Show Embedded"
-msgstr ""
+msgstr "Покажи вграденото"
 
 #: src/components/windows/Help.jsx:19 src/components/windows/Settings.jsx:73
 msgctxt "keybinds"
