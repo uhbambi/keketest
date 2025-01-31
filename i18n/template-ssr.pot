@@ -82,28 +82,20 @@ msgstr ""
 msgid "Invalid url :( Please check your mail again."
 msgstr ""
 
-#: src/ssr/Globe.jsx:37
+#: src/ssr/Globe.jsx:35
 msgid "PixelPlanet.Fun 3DGlobe"
 msgstr ""
 
-#: src/ssr/Globe.jsx:38
+#: src/ssr/Globe.jsx:36
 msgid "A 3D globe of our whole map"
 msgstr ""
 
-#: src/ssr/Globe.jsx:51
+#: src/ssr/Globe.jsx:49
 msgid "Double click on globe to go back."
 msgstr ""
 
-#: src/ssr/Globe.jsx:52
+#: src/ssr/Globe.jsx:50
 msgid "Loading..."
-msgstr ""
-
-#: src/ssr/PopUp.jsx:47
-msgid "ppfun"
-msgstr ""
-
-#: src/ssr/PopUp.jsx:48
-msgid "PixelPlanet.Fun PopUp"
 msgstr ""
 
 #: src/ssr/Main.jsx:77
@@ -112,6 +104,14 @@ msgstr ""
 
 #: src/ssr/Main.jsx:78
 msgid "Place color pixels on an map styled canvas with other players online"
+msgstr ""
+
+#: src/ssr/PopUp.jsx:47
+msgid "ppfun"
+msgstr ""
+
+#: src/ssr/PopUp.jsx:48
+msgid "PixelPlanet.Fun PopUp"
 msgstr ""
 
 #: src/utils/validation.js:17
@@ -204,15 +204,15 @@ msgstr ""
 msgid "Submit"
 msgstr ""
 
-#: src/routes/api/modtools.js:54
+#: src/routes/api/modtools.js:57
 msgid "You are not logged in"
 msgstr ""
 
-#: src/routes/api/modtools.js:66
+#: src/routes/api/modtools.js:69
 msgid "You are not allowed to access this page"
 msgstr ""
 
-#: src/routes/api/modtools.js:210
+#: src/routes/api/modtools.js:214
 msgid "Just admins can do that"
 msgstr ""
 
@@ -252,7 +252,7 @@ msgstr ""
 msgid "Unknown Captcha Error"
 msgstr ""
 
-#: src/routes/api/auth/change_mail.js:22
+#: src/routes/api/auth/change_mail.js:23
 #: src/routes/api/auth/register.js:78
 msgid "This email provider is not allowed"
 msgstr ""
@@ -280,32 +280,32 @@ msgid ""
 "request a new one."
 msgstr ""
 
-#: src/routes/api/auth/logout.js:11
+#: src/routes/api/auth/logout.js:14
 msgid "You are not even logged in."
 msgstr ""
 
-#: src/routes/api/auth/delete_account.js:65
-#: src/routes/api/auth/logout.js:20
+#: src/routes/api/auth/delete_account.js:69
+#: src/routes/api/auth/logout.js:26
 msgid "Server error when logging out."
 msgstr ""
 
-#: src/routes/api/auth/change_mail.js:44
-#: src/routes/api/auth/change_passwd.js:34
-#: src/routes/api/auth/delete_account.js:36
+#: src/routes/api/auth/change_mail.js:45
+#: src/routes/api/auth/change_passwd.js:35
+#: src/routes/api/auth/delete_account.js:38
 msgid "You are not authenticated."
 msgstr ""
 
-#: src/routes/api/auth/change_mail.js:53
-#: src/routes/api/auth/change_passwd.js:43
-#: src/routes/api/auth/delete_account.js:55
+#: src/routes/api/auth/change_mail.js:54
+#: src/routes/api/auth/change_passwd.js:44
+#: src/routes/api/auth/delete_account.js:57
 msgid "Incorrect password!"
 msgstr ""
 
-#: src/routes/api/auth/delete_account.js:46
+#: src/routes/api/auth/delete_account.js:48
 msgid "Muted Users can not delete their account."
 msgstr ""
 
-#: src/routes/api/auth/change_mail.js:62
+#: src/routes/api/auth/change_mail.js:63
 msgid "Muted Users can not do this."
 msgstr ""
 
