@@ -43,7 +43,17 @@ function ChatMessage({
       <div className="msgcont">
         <span className={className}>
           {(!isInfo && !isEvent) && (
-            <React.Fragment key="name">
+            <span
+              key="name"
+              role="button"
+              tabIndex={-1}
+              style={{
+                cursor: 'pointer',
+              }}
+              onClick={(event) => {
+                openCm(event.clientX, event.clientY, name, uid);
+              }}
+            >
               <img
                 className="chatflag"
                 alt=""
@@ -54,19 +64,13 @@ function ChatMessage({
                 className="chatname"
                 style={{
                   color: setBrightness(colorFromText(name), isDarkMode),
-                  cursor: 'pointer',
                 }}
-                role="button"
                 title={name}
-                tabIndex={-1}
-                onClick={(event) => {
-                  openCm(event.clientX, event.clientY, name, uid);
-                }}
               >
                 {name}
               </span>
               {': '}
-            </React.Fragment>
+            </span>
           )}
           <MarkdownParagraph refEmbed={refEmbed} pArray={pArray} />
         </span>
