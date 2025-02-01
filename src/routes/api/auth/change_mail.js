@@ -4,8 +4,9 @@
 
 import mailProvider from '../../../core/MailProvider';
 
+import logger from '../../../core/logger';
+import { getIPFromRequest, getHostFromRequest } from '../../../utils/ip';
 import { validatePassword, validateEMail } from '../../../utils/validation';
-import { getHostFromRequest } from '../../../utils/ip';
 import { compareToHash } from '../../../utils/hash';
 import { checkIfMuted } from '../../../data/redis/chat';
 import { checkIfMailDisposable } from '../../../core/isAllowed';
@@ -62,6 +63,10 @@ export default async (req, res) => {
   if (userlvl <= USERLVL.VERIFIED && userlvl > USERLVL.REGISTERED) {
     userlvl = USERLVL.REGISTERED;
   }
+
+  // eslint-disable-next-line max-len
+  logger.info(`AUTH: Changed mail for user ${regUser.name}(${user.id}) from ${regUser.email} to ${email} by ${getIPFromRequest(req)}`);
+
   await regUser.update({
     email,
     userlvl,

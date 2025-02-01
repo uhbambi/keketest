@@ -2,9 +2,15 @@
  * logout
  */
 
+import logger from '../../../core/logger';
+import { getIPFromRequest } from '../../../utils/ip';
+
 export default async (req, res) => {
   const { user } = req;
   const { t } = req.ttag;
+
+  // eslint-disable-next-line max-len
+  logger.info(`AUTH: Logged out user ${user.regUser.name}(${user.id}) by ${getIPFromRequest(req)}`);
 
   req.logout((err) => {
     if (err) {

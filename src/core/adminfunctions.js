@@ -328,10 +328,19 @@ export async function executeWatchAction(
   time,
   iid,
   canvasid,
+  maxrows,
 ) {
   if (!canvasid) {
     return { info: 'canvasid not defined' };
   }
+
+  maxrows = parseInt(maxrows, 10);
+  if (!maxrows || maxrows < 1) {
+    maxrows = 300;
+  } else if (maxrows > 10000) {
+    maxrows = 10000;
+  }
+
   const ts = parseInt(time, 10);
   const canvas = canvases[canvasid];
   let error = null;
@@ -362,6 +371,7 @@ export async function executeWatchAction(
         'getIIDPixels',
         iid,
         time,
+        maxrows,
       );
     }
     if (typeof ret === 'string') {
@@ -403,6 +413,7 @@ export async function executeWatchAction(
       x, y, u, v,
       time,
       iid,
+      maxrows,
     );
   }
   if (typeof ret === 'string') {

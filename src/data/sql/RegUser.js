@@ -129,20 +129,30 @@ export async function name2Id(name) {
   }
 }
 
+export async function id2Name(id) {
+  const user = await User.findByPk(id, {
+    attributes: ['name'],
+    raw: true,
+  });
+  if (user) {
+    return user.name;
+  }
+  return null;
+}
+
 export async function findIdByNameOrId(searchString) {
-  let id = await name2Id(searchString);
+  let id;
+  if (!Number.isNaN(Number(searchString))) {
+    id = parseInt(searchString, 10);
+    const name = await id2Name(id);
+    if (name) {
+      return { name, id };
+    }
+  }
+
+  id = await name2Id(searchString);
   if (id) {
     return { name: searchString, id };
-  }
-  id = parseInt(searchString, 10);
-  if (!Number.isNaN(id)) {
-    const user = await User.findByPk(id, {
-      attributes: ['name'],
-      raw: true,
-    });
-    if (user) {
-      return { name: user.name, id };
-    }
   }
   return null;
 }
