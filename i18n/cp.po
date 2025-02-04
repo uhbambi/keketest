@@ -118,7 +118,7 @@ msgstr "Πρέπει να είσαι συνδεδεμένος για να βάλ
 #: src/ui/PixelTransferController.js:128 src/ui/PixelTransferController.js:144
 #: src/ui/PixelTransferController.js:148
 msgid "Not allowed"
-msgstr "εν επιτρέπεται"
+msgstr "Εν επιτρέπεται"
 
 #: src/ui/PixelTransferController.js:130
 msgid "You can not access this canvas yet, because your pixel score is too low"
@@ -239,7 +239,7 @@ msgstr "Τώρα μπορείς να βάλεις περίτου στο pixelpla
 
 #: src/store/middleware/notifications.js:54
 msgid "mentioned you"
-msgstr "ανέφερε σε"
+msgstr "Ανέφερε σε"
 
 #: src/store/middleware/notifications.js:58
 msgid "You have new messages in chat"
@@ -316,7 +316,7 @@ msgstr "Κίνηση"
 
 #: src/components/Window.jsx:252
 msgid "Maximize"
-msgstr "μεγιστοποιώ"
+msgstr "Μεγιστοποιώ"
 
 #: src/components/Window.jsx:268
 msgid "Resize"
@@ -325,7 +325,7 @@ msgstr "Αλλαγή μεγέθους"
 #: src/components/BanInfo.jsx:75 src/components/buttons/HelpButton.jsx:20
 #: src/components/windows/index.js:13
 msgid "Help"
-msgstr "βοηθά"
+msgstr "Βοηθά"
 
 #: src/components/buttons/SettingsButton.jsx:21
 #: src/components/windows/index.js:14
@@ -439,7 +439,7 @@ msgstr "Είσαι αποκλεισμένος. Νομίζεις ότι εν αδ
 
 #: src/components/BanInfo.jsx:76
 msgid " on how to appeal."
-msgstr "για το πώς να κάνεις εφεση ( appeal )"
+msgstr "Για το πώς να κάνεις εφεση ( appeal )"
 
 #: src/components/BanInfo.jsx:85 src/components/ModIIDtools.jsx:73
 msgid "Reason"
@@ -459,7 +459,7 @@ msgstr "Η απαγόρευσή σου τελειώνει στις"
 
 #: src/components/BanInfo.jsx:101
 msgid " which is in "
-msgstr "το οποιο είναι στεις"
+msgstr "Το οποιο είναι στεις"
 
 #: src/components/BanInfo.jsx:112
 msgid "Unbanned"
@@ -1086,7 +1086,7 @@ msgstr "Μιτσιά Πιξελς οταν κάμεις ζουμ μέσα"
 
 #: src/components/TemplateSettings.jsx:78
 msgid "Show overlay as small individual pixels on high zoomlevels."
-msgstr "είξε την επικάλυψη σαν μιτσιά μιτσιά pixels άμα ζουμάρεις πολλά."
+msgstr "Δείξε την επικάλυψη σαν μιτσιά μιτσιά pixels άμα ζουμάρεις πολλά."
 
 #: src/components/TemplateSettings.jsx:85
 msgid "Overlay Opacity"

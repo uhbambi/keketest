@@ -116,7 +116,7 @@ msgstr "PixelPlanet"
 #: src/ssr/Main.jsx:75
 msgid "Place color pixels on an map styled canvas with other players online"
 msgstr ""
-"βάλε χρωματιστα πίξελς πάς σε έναν χάρτη για να παίξεις με άλλους παίκτες"
+"Bάλε χρωματιστα πίξελς πάς σε έναν χάρτη για να παίξεις με άλλους παίκτες"
 
 #: src/ssr/PopUp.jsx:47
 msgid "ppfun"
