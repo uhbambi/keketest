@@ -49,6 +49,9 @@ router.use(fileUpload({
  */
 router.use(async (req, res, next) => {
   if (!req.user) {
+    logger.warn(
+      `MODTOOLS> ${req.user.ip} tried to access modtools without login`,
+    );
     const { t } = req.ttag;
     next(new Error(t`You are not logged in`));
     return;
@@ -60,6 +63,12 @@ router.use(async (req, res, next) => {
     const { t } = req.ttag;
     next(new Error(t`You are not allowed to access this page`));
     return;
+  }
+
+  if (!req.body?.cleanerstat) {
+    logger.info(
+      `MODTOOLS> access ${req.user.regUser.name}[${req.user.id}] -  ${reg.user.ip}`,
+    );
   }
   next();
 });
@@ -85,7 +94,9 @@ router.post('/', async (req, res, next) => {
   };
 
   const bLogger = (text) => {
-    logger.info(`IID> ${req.user.name}[${req.user.id}]> ${text}`);
+    logger.info(
+      `MODTOOLS>IID>${req.user.regUser.name}[${req.user.id}]> ${text}`,
+    );
   };
 
   try {
@@ -104,6 +115,8 @@ router.post('/', async (req, res, next) => {
       const {
         watchaction, ulcoor, brcoor, time, iid, canvasid, maxrows,
       } = req.body;
+      // eslint-disable-next-line max-len
+      logger.info(`MODTOOLS>WATCH>${req.user.regUser.name}[${req.user.id}]> ${watchaction} ${ulcoor} ${brcoor} ${time} ${iid}`);
       const ret = await executeWatchAction(
         watchaction,
         ulcoor,
@@ -263,7 +276,7 @@ router.use((err, req, res, next) => {
   res.status(400).send(err.message);
   logger.error(
     // eslint-disable-next-line max-len
-    `MODTOOLS: ${getIPFromRequest(req)} / ${req.user.id} encountered error on using modtools: ${err.message}`,
+    `MODTOOLS> ${getIPFromRequest(req)} / ${req.user.id} encountered error on using modtools: ${err.message}`,
   );
 });
 

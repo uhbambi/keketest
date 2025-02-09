@@ -30,6 +30,20 @@ const defaultCanvasForCountry = {};
   }
 }());
 
+const basedQuotes = [
+  ['Do not use Discord', 'Discord is bad, you should not use it', '/memes/discord.png', 'image', 380, 379],
+  ['#ShillForChina', 'Taiwan is a part of China', '/memes/china.png', 'image', 512, 341],
+  ['Donald J. Trump', 'When Elon Musk came to the White House asking me for help on all of his many subsidized projects, wether it&#39;s electric cars that don&#39;t drive long enough, driverless cars that crash, or rocketships to nowhere, without which subsidies he&#39;d be worthless, and telling me how he was a big Trump fan and Republican, I could have said, &#34;drop to your knees and beg&#34;, and he would have done it...', '/memes/trump.png', 'image', 397, 399],
+  ['Donald J. Trump', 'Why would Kim Jong-un insult me by calling me &#34;old,&#34; when i would NEVER call him &#34;short and fat?&#34; Oh well, I try so hard to be his friend - and maybe someday that will happen!', '/memes/trump.png', 'image', 397, 399],
+  ['Joe Biden', 'If you have a problem figuring out whether you&#39;re for me or Trump, then you ain&#39;t Black.', '/memes/biden.png', 'image', 400, 400],
+  ['Joe Biden', 'Transgender Americans shape our Nation&#39;s soul', '/memes/biden.png', 'image', 400, 400],
+  ['Vladimir Putin', 'To forgive the terrorists is up to God, but to send them there is up to us.', '/memes/putin.png', 'image', 1004, 1005],
+  ['Alexander G. Lukashenko', 'It&#39;s better to be a dictator than gay.', '/memes/luka.png', 'image', 665, 658],
+  ['ILLIT', 'ILLIT - EZPZ', '/memes/illit1.mp4', 'video', 720, 1280],
+  ['Candace Owens', 'What is antisemitism?', '/memes/owens1.mp4', 'video', 640, 360],
+  ['Candace Owens', 'Antisemite of the year 2024', '/memes/owens2.mp4', 'video', 640, 360],
+];
+
 /*
  * Generates string with html of main page
  * @param countryCoords Cell with coordinates of client country
@@ -39,6 +53,7 @@ const defaultCanvasForCountry = {};
 function generateMainPage(req) {
   const { lang } = req;
   const host = getHostFromRequest(req, false);
+  const proto = req.headers['x-forwarded-proto'] || 'http';
   const shard = (host.startsWith(`${socketEvents.thisShard}.`))
     ? null : socketEvents.lowestActiveShard;
   const ssv = {
@@ -69,31 +84,52 @@ function generateMainPage(req) {
 
   const { t } = getTTag(lang);
 
-  const html = `
-    <!doctype html>
-    <html lang="${lang}">
-      <head>
-        <meta charset="UTF-8" />
-        <title>${t`PixelPlanet`}</title>
-        <meta name="description" content="${t`Place color pixels on an map styled canvas with other players online`}" />
-        <meta name="google" content="nopagereadaloud" />
-        <meta name="theme-color" content="#cae3ff" />
-        <meta name="viewport"
-          content="user-scalable=no, width=device-width, initial-scale=1.0, maximum-scale=1.0"
-        />
-        <link rel="icon" href="/favicon.ico" type="image/x-icon" />
-        <link rel="apple-touch-icon" href="apple-touch-icon.png" />
-        <script>${headScript}</script>
-        <link rel="stylesheet" type="text/css" id="globcss" href="${getThemeCssAssets().default}" />
-      </head>
-      <body>
-        <div id="app"></div>
-        <script>${bodyScript}</script>
-        ${scripts.map((script) => `<script src="${script}"></script>`).join('')}
-        <a data-jslicense="1" style="display: none;" href="/legal">JavaScript license information</a>
-      </body>
-    </html>
-  `;
+  let description;
+  let title;
+  let media;
+  let type;
+  let width;
+  let height;
+  if (req.headers['user-agent']?.includes('https://discordapp.com')) {
+    [description, title, media, type, width, height] = basedQuotes[Math.floor(Math.random() * basedQuotes.length)];
+  } else {
+    description = t`Place color pixels on an map styled canvas with other players online`;
+    title = t`PixelPlanet`;
+    media = '/apple-touch-icon.png';
+    type = 'image';
+    width = 256;
+    height = 256;
+  }
+
+  const html = `<!doctype html>
+<html lang="${lang}">
+  <head>
+    <meta charset="UTF-8" />
+    <title>${title}</title>
+    <meta name="description" property="og:description" content="${description}" />
+    <meta property="og:type" content="${(type === 'video') ? 'video.other' : 'website'}" />
+    <meta property="og:site_name" content="${host}" />
+    <meta property="og:title" content="${title}" />
+    <meta property="og:${type}" content="${proto}://${host}${media}" />
+    <meta property="og:${type}:secure_url" content="https://${host}${media}" />
+    <meta property="og:${type}:width" content="${width}" />
+    <meta property="og:${type}:height" content="${height}" />${(type === 'video') ? `
+    <meta property="og:video:type" content="video/mp4" />` : ''}
+    <meta name="google" content="nopagereadaloud" />
+    <meta name="theme-color" content="#cae3ff" />
+    <meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+    <link rel="icon" href="/favicon.ico" type="image/x-icon" />
+    <link rel="apple-touch-icon" href="apple-touch-icon.png" />
+    <script>${headScript}</script>
+    <link rel="stylesheet" type="text/css" id="globcss" href="${getThemeCssAssets().default}" />
+  </head>
+  <body>
+    <div id="app"></div>
+    <script>${bodyScript}</script>
+    ${scripts.map((script) => `<script src="${script}"></script>`).join('')}
+    <a data-jslicense="1" style="display: none;" href="/legal">JavaScript license information</a>
+  </body>
+</html>`;
 
   return { html, csp, etag: mainEtag };
 }
