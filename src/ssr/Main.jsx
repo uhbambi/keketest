@@ -91,7 +91,7 @@ function generateMainPage(req) {
   let width;
   let height;
   if (req.headers['user-agent']?.includes('https://discordapp.com')) {
-    [description, title, media, type, width, height] = basedQuotes[Math.floor(Math.random() * basedQuotes.length)];
+    [title, description, media, type, width, height] = basedQuotes[Math.floor(Math.random() * basedQuotes.length)];
   } else {
     description = t`Place color pixels on an map styled canvas with other players online`;
     title = t`PixelPlanet`;
@@ -106,10 +106,11 @@ function generateMainPage(req) {
   <head>
     <meta charset="UTF-8" />
     <title>${title}</title>
-    <meta name="description" property="og:description" content="${description}" />
+    <meta name="description" content="${description}" />
     <meta property="og:type" content="${(type === 'video') ? 'video.other' : 'website'}" />
     <meta property="og:site_name" content="${host}" />
     <meta property="og:title" content="${title}" />
+    <meta property="og:description" content="${description}" />
     <meta property="og:${type}" content="${proto}://${host}${media}" />
     <meta property="og:${type}:secure_url" content="https://${host}${media}" />
     <meta property="og:${type}:width" content="${width}" />
