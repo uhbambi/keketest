@@ -54,7 +54,7 @@
     "passport-json": "^1.2.0",
     "passport-reddit": "^1.1.0",
     "passport-vkontakte": "^0.5.0",
-    "ppfun-captcha": "^1.7.1",
+    "ppfun-captcha": "^1.7.2",
     "react": "^18.2.0",
     "react-chartjs-2": "^5.2.0",
     "react-dom": "^18.2.0",
