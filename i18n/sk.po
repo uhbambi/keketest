@@ -842,11 +842,11 @@ msgstr "Rozhodli sme sa to archivovať ako timelapse s bezstratovo kódovaným w
 
 #: src/components/windows/Chat.jsx:180
 msgid "Start chatting here"
-msgstr "Začni rozprávať tu - discord.me/slovakiappf"
+msgstr "Začni rozprávať tu"
 
 #: src/components/windows/Chat.jsx:217
 msgid "Chat here"
-msgstr "Rozprávajte tu - discord.me/slovakiappf"
+msgstr "Rozprávajte tu"
 
 #: src/components/windows/Chat.jsx:243
 msgid "You must be logged in to chat"
