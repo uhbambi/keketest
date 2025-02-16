@@ -129,6 +129,19 @@ const Captcha = ({
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [captchaData.svg]);
 
+  const stopAnimation = useCallback(() => {
+    if (!animationRunning) {
+      return;
+    }
+    setAnimationRunning(false);
+    for (const id of Object.keys(captchaData.transforms)) {
+      /*
+       * heavily assume that first child is trnsformAnimate
+       */
+      document.getElementById(id).firstChild?.remove();
+    }
+  }, [animationRunning, captchaData.transforms]);
+
   const checkAnimationProgress = useCallback(() => {
     if (animationRunning && captchaData.transforms) {
       const firstId = Object.keys(captchaData.transforms)[0];
@@ -229,18 +242,8 @@ const Captcha = ({
           min="0"
           max="360"
           value={animationProgress}
-          onMouseDown={() => {
-            if (!animationRunning) {
-              return;
-            }
-            setAnimationRunning(false);
-            for (const id of Object.keys(captchaData.transforms)) {
-              /*
-               * heavily assume that first child is trnsformAnimate
-               */
-              document.getElementById(id).firstChild?.remove();
-            }
-          }}
+          onMouseDown={stopAnimation}
+          onTouchStart={stopAnimation}
           onChange={(evt) => {
             const { value } = evt.target;
             for (const [id, vals] of Object.entries(captchaData.transforms)) {
