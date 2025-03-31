@@ -5,7 +5,7 @@
 
 import logger from '../../core/logger';
 import client from './client';
-import { getIPv6Subnet, isIPv6 } from '../../utils/ip';
+import { getIPv6Subnet } from '../../utils/ip';
 import { simpleHash } from '../../core/utils';
 import {
   CAPTCHA_TIME,
@@ -192,26 +192,21 @@ export async function checkChallengeSolution(text, ip, ua) {
     return false;
   }
   if (storedIp !== ip) {
-    if (isIPv6(ip) !== isIPv6(storedIp)) {
-      /*
-      * sometimes browsers on dual stack send one request through IPv4 and
-      * another through IPv6, so we allow one deviation
-      */
-      let ipMapping = await client.hGet(CHALLENGE_IP_MAP_KEY, storedIp);
-      if (!ipMapping) {
-        logger.info(`CHALLENGE Different IP stack: ${storedIp} -> ${ip}`);
-        await client.hSet(CHALLENGE_IP_MAP_KEY, storedIp, ip);
-        ipMapping = ip;
-      }
-      if (ip !== ipMapping) {
-        // TODO check how many people this kicks out and either relax it or add
-        // a seperate REST api for solving js challenges
-        // eslint-disable-next-line max-len
-        logger.info(`CHALLENGE failing mapping: ${storedIp} -> ${ip} != ${ipMapping}`);
-        return false;
-      }
-    } else {
-      logger.info(`CHALLENGE ip failed didn't match: ${storedIp} -> ${ip}`);
+    /*
+    * sometimes browsers on dual stack send one request through IPv4 and
+    * another through IPv6, so we allow one deviation
+    */
+    let ipMapping = await client.hGet(CHALLENGE_IP_MAP_KEY, storedIp);
+    if (!ipMapping) {
+      logger.info(`CHALLENGE map different IP: ${storedIp} -> ${ip}`);
+      await client.hSet(CHALLENGE_IP_MAP_KEY, storedIp, ip);
+      ipMapping = ip;
+    }
+    if (ip !== ipMapping) {
+      // TODO check how many people this kicks out and either relax it or add
+      // a seperate REST api for solving js challenges
+      // eslint-disable-next-line max-len
+      logger.info(`CHALLENGE failing mapping: ${storedIp} -> ${ip} != ${ipMapping}`);
       return false;
     }
   }
@@ -273,8 +268,7 @@ export async function checkCaptchaSolution(
   ]);
   if (!trusted) {
     logger.info(`CHALLENGE ${ip} failed trust (${challengeSolution})`);
-    // TODO change to 6 when deployed long enough
-    return 5;
+    return 6;
   }
   if (solution) {
     if (evaluateResult(solution, text)) {
