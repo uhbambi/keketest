@@ -420,8 +420,13 @@ class ProxyCheck {
    *  true: is disposable provider
    */
   checkEmail(email) {
-    if (email?.endsWith('fuckmeuwu.shop')) return true;
-    if (email?.endsWith('pixelplanet.cyou')) return true;
+    if (!email) return false;
+    if (email.endsWith('fuckmeuwu.shop')) return true;
+    const domain = email.substring(email.lastIndexOf('@') + 1);
+    const tld = domain.substring(domain.lastIndexOf('.') + 1);
+    if (tld === 'sbs' || tld === 'cyou') {
+      return true;
+    }
     return new Promise((resolve) => {
       this.queue.push([email, resolve]);
       if (!this.fetching) {
