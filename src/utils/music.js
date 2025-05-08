@@ -1,9 +1,11 @@
 /*
  * play notes visible on canvas
- * 
+ *
  * This never went anywhere, because all methods of detecting a notesheet were
  * too expensive. And doing them only on buttom press would be annoying:
  */
+
+/* eslint-disable */
 
 import { TILE_SIZE } from '../core/constants';
 import { getTileOfPixel, getCornerOfChunk } from '../core/utils';
@@ -56,14 +58,16 @@ class ChunkScanner {
     this.cy = cy;
     this.cw = cw;
     this.ch = ch;
-    this.callback = callback
+    this.callback = callback;
     this.cIter = 0;
     this.running = true;
     this.scan(callback);
   }
 
   async scanChunk() {
-    const { cIter, cx, cy, cw, ch } = this;
+    const {
+      cIter, cx, cy, cw, ch,
+    } = this;
     if (cIter >= this.amountChunks || !this.running) {
       return;
     }
@@ -78,9 +82,9 @@ class ChunkScanner {
       const xLow = (xCor > this.x) ? 0 : (this.x - xCor);
       const yLow = (yCor > this.y) ? 0 : (this.y - yCor);
       const xHigh = (xCor + TILE_SIZE <= this.u) ? TILE_SIZE
-      : (this.u - xCor + 1);
+        : (this.u - xCor + 1);
       const yHigh = (yCor + TILE_SIZE <= this.v) ? TILE_SIZE
-      : (this.v - yCor + 1);
+        : (this.v - yCor + 1);
       for (let xc = xLow; xc < xHigh; xc += 1) {
         for (let yc = yLow; yc < yHigh; yc += 1) {
           // eslint-disable-next-line no-await-in-loop
@@ -201,7 +205,7 @@ export async function parseNotes(renderer) {
   const CHUNK_RENDER_RADIUS_Y = Math.ceil(
     viewportHeight / TILE_SIZE / 2 / scale,
   );
-  const canvasSize = renderer.store.getState().canvas.canvasSize;
+  const { canvasSize } = renderer.store.getState().canvas;
   const [xc, yc] = getTileOfPixel(1, [x, y], canvasSize);
 
   let chunk;
@@ -210,7 +214,7 @@ export async function parseNotes(renderer) {
     dx <= CHUNK_RENDER_RADIUS_X;
     dx += 1
   ) {
-    for(
+    for (
       let dy = -CHUNK_RENDER_RADIUS_Y;
       dy <= CHUNK_RENDER_RADIUS_Y;
       dy += 1
@@ -224,7 +228,6 @@ export async function parseNotes(renderer) {
       }
 
       chunk = chunkLoader.getChunk(chunkLoader.canvasMaxTiledZoom, cx, cy, false);
-      
     }
   }
 }

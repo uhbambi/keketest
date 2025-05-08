@@ -14,6 +14,8 @@ import MovementControls from './buttons/MovementControls';
 import Palette from './Palette';
 import Alert from './Alert';
 import HistorySelect from './HistorySelect';
+import VDay from './VDay';
+import useDate from './hooks/useDate';
 
 const UI = () => {
   const [
@@ -25,6 +27,8 @@ const UI = () => {
     state.canvas.is3D,
     state.user.isOnMobile,
   ], shallowEqual);
+
+  const [day, month] = useDate();
 
   return (
     <>
@@ -41,6 +45,7 @@ const UI = () => {
           <CoolDownBox />
         </>
       )}
+      {(day === 9 && month === 5) && <VDay />}
       <NotifyBox />
     </>
   );
