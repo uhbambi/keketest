@@ -20,6 +20,8 @@ class SocketEvents extends EventEmitter {
     this.onlineCounter = {
       total: 0,
     };
+    // array of IPs that are online
+    this.onlineIPs = [];
   }
 
   // eslint-disable-next-line class-methods-use-this
@@ -274,13 +276,33 @@ class SocketEvents extends EventEmitter {
   }
 
   /*
-   * broadcast online counter
-   * @param online Object of total and canvas online users
-   *   (see this.onlineCounter)
+   * receive information about online users
+   * @param online Object with information of online users
+   *   {
+   *     canvasId1: [IP1, IP2, IP2, ...],
+   *     ...
+   *   }
    */
-  broadcastOnlineCounter(online) {
-    this.onlineCounter = online;
-    this.emit('onlineCounter', online);
+  setOnlineUsers(onlineData) {
+    const newOnlineCounter = {};
+    const newOnlineIPs = [];
+    for (const [canvasId, ipList] of Object.entries(onlineData)) {
+      newOnlineCounter[canvasId] = ipList.length;
+      for (const ip of ipList) {
+        if (!newOnlineIPs.includes(ip)) {
+          newOnlineIPs.push(ip);
+        }
+      }
+    }
+    newOnlineCounter.total = newOnlineIPs.length;
+    this.onlineCounter = newOnlineCounter;
+    this.onlineIPs = newOnlineIPs;
+
+    this.broadcastOnlineCounter();
+  }
+
+  broadcastOnlineCounter() {
+    this.emit('onlineCounter', this.onlineCounter);
   }
 }
 

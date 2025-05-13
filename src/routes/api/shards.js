@@ -11,7 +11,18 @@ async function shards(req, res, next) {
       });
       return;
     }
-    res.status(200).json(socketEvents.shardOnlineCounters);
+    const { shardsData } = socketEvents;
+    if (!shardsData) {
+      res.status(404).json({ errors: ['Shards are not configured.'] });
+      return;
+    }
+    const sanitizedShardsData = {};
+    socketEvents.shardsData.forEach(([shard, amountOnlineIps]) => {
+      sanitizedShardsData[shard] = {
+        online: amountOnlineIps,
+      };
+    });
+    res.status(200).json(sanitizedShardsData);
   } catch (err) {
     next(err);
   }

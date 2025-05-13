@@ -54,7 +54,7 @@ class SocketServer {
 
     this.broadcastPixelBuffer = this.broadcastPixelBuffer.bind(this);
     this.reloadUser = this.reloadUser.bind(this);
-    this.onlineCounterBroadcast = this.onlineCounterBroadcast.bind(this);
+    this.getOnlineUsers = this.getOnlineUsers.bind(this);
     this.checkHealth = this.checkHealth.bind(this);
   }
 
@@ -179,7 +179,7 @@ class SocketServer {
 
     // when changing interval, remember that online counter gets used as ping
     // for binary sharded channels in MessageBroker.js
-    setInterval(this.onlineCounterBroadcast, 20 * 1000);
+    setInterval(this.getOnlineUsers, 20 * 1000);
     setInterval(this.checkHealth, 15 * 1000);
   }
 
@@ -402,11 +402,21 @@ class SocketServer {
     return promises;
   }
 
-  onlineCounterBroadcast() {
+  /*
+   * Create object with informations of online users and give it
+   * to socketEvents.
+   * Is run periodically to update online counters. We have to send lists of
+   * IPs around to filter out duplicates.
+   */
+  getOnlineUsers() {
     try {
+      /*
+       * {
+       *   canvasId: [127.0.0.1, 127.0.0.2, ...],
+       *   ...
+       * }
+       */
       const online = {};
-      online.total = ipCounter.amount() || 0;
-      const ipsPerCanvas = {};
       const it = this.wss.clients.keys();
       let client = it.next();
       while (!client.done) {
@@ -417,23 +427,18 @@ class SocketServer {
           const { canvasId } = ws;
           const { ip } = ws.user;
           // only count unique IPs per canvas
-          if (!ipsPerCanvas[canvasId]) {
-            ipsPerCanvas[canvasId] = [ip];
-          } else if (ipsPerCanvas[canvasId].includes(ip)) {
+          if (!online[canvasId]) {
+            online[canvasId] = [ip];
+          } else if (online[canvasId].includes(ip)) {
             client = it.next();
             continue;
           } else {
-            ipsPerCanvas[canvasId].push(ip);
+            online[canvasId].push(ip);
           }
-          //--
-          if (!online[canvasId]) {
-            online[canvasId] = 0;
-          }
-          online[canvasId] += 1;
         }
         client = it.next();
       }
-      socketEvents.broadcastOnlineCounter(online);
+      socketEvents.setOnlineUsers(online);
     } catch (err) {
       logger.error(`WebSocket online broadcast error: ${err.message}`);
     }
