@@ -13,6 +13,7 @@ import { validateCoorRange } from '../utils/validation';
 import CanvasCleaner from './CanvasCleaner';
 import socketEvents from '../socket/socketEvents';
 import { RegUser } from '../data/sql';
+import { giveEveryoneAFish } from './Fishing';
 import {
   cleanCacheForIP,
 } from '../data/redis/isAllowedCache';
@@ -96,6 +97,10 @@ export async function executeQuickAction(action, logger = null) {
     case 'disableverify': {
       socketEvents.broadcastVerificationRequirement(false);
       return 'Disabled Verification Requirement';
+    }
+    case 'givefishes': {
+      giveEveryoneAFish();
+      return 'Gave Fishes to everyone';
     }
     default:
       throw new Error('Unknown quick action!');

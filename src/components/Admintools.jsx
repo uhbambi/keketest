@@ -181,6 +181,13 @@ function Admintools() {
           {(submitting) ? '...' : t`Roll different Captcha Fonts`}
         </button>
         <br />
+        <button
+          type="button"
+          onClick={reqQuickAction('givefishes')}
+        >
+          {(submitting) ? '...' : t`Give Everyone A Fish`}
+        </button>
+        <br />
         {/* eslint-disable-next-line max-len */}
         Note: Verification requirement resets when server restarts. And you don&apos;t know its status unless you try it. Greeting, hf
         <br />

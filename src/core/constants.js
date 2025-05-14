@@ -76,25 +76,25 @@ export const FISH_TYPES = [
     name: 'Northern Pike', common: 50, minSize: 1, maxSize: 6,
   },
   {
-    name: 'Walleye', common: 50, minSize: 2, maxSize: 5,
+    name: 'Walleye', common: 50, minSize: 1, maxSize: 5,
   },
   {
-    name: 'Common Carp', common: 50, minSize: 3, maxSize: 7,
+    name: 'Common Carp', common: 50, minSize: 1, maxSize: 7,
   },
   {
-    name: 'Largemouth Bass', common: 50, minSize: 4, maxSize: 15,
+    name: 'Largemouth Bass', common: 50, minSize: 1, maxSize: 10,
   },
   {
-    name: 'Smallmouth Bass', common: 50, minSize: 2, maxSize: 6,
+    name: 'Smallmouth Bass', common: 50, minSize: 1, maxSize: 6,
   },
   {
-    name: 'Striped Bass', common: 50, minSize: 5, maxSize: 12,
+    name: 'Striped Bass', common: 50, minSize: 1, maxSize: 12,
   },
   {
     name: 'Muskellunge', common: 50, minSize: 6, maxSize: 14,
   },
   {
-    name: 'Flathead Catphish', common: 50, minSize: 8, maxSize: 18,
+    name: 'Flathead Catphish', common: 50, minSize: 4, maxSize: 15,
   },
   {
     name: 'Chinook Salmon', common: 50, minSize: 6, maxSize: 14,
@@ -103,28 +103,28 @@ export const FISH_TYPES = [
     name: 'Lake Sturgeon', common: 50, minSize: 10, maxSize: 20,
   },
   {
-    name: 'Blue Catphish', common: 50, minSize: 12, maxSize: 25,
+    name: 'Blue Catphish', common: 50, minSize: 12, maxSize: 22,
   },
   {
-    name: 'Nile Perch', common: 50, minSize: 15, maxSize: 25,
+    name: 'Nile Perch', common: 50, minSize: 1, maxSize: 20,
   },
   {
-    name: 'Atlantic Cod', common: 50, minSize: 10, maxSize: 20,
+    name: 'Atlantic Cod', common: 50, minSize: 1, maxSize: 20,
   },
   {
-    name: 'Goliath Grouper', common: 50, minSize: 15, maxSize: 25,
+    name: 'Goliath Grouper', common: 20, minSize: 15, maxSize: 20,
   },
   {
-    name: 'Swordphish', common: 50, minSize: 20, maxSize: 25,
+    name: 'Swordphish', common: 10, minSize: 20, maxSize: 25,
   },
   {
-    name: 'Albino Catphish', common: 50, minSize: 10, maxSize: 25,
+    name: 'Albino Catphish', common: 14, minSize: 10, maxSize: 25,
   },
   {
-    name: 'Golden Trout', common: 50, minSize: 1, maxSize: 25,
+    name: 'Golden Trout', common: 20, minSize: 1, maxSize: 25,
   },
   {
-    name: 'Black Marlin', common: 50, minSize: 20, maxSize: 25,
+    name: 'Black Marlin', common: 10, minSize: 15, maxSize: 25,
   },
 ];
 export const FISH_BONUS_MAX_DURATION = 90 * 60 * 1000;
