@@ -1,0 +1,103 @@
+/*
+ * Modifiers for coolodwn
+ * IP modifiers have to be set by timer.
+ * Country modifiers are permanent.
+ */
+import socketEvents from '../socket/socketEvents';
+
+/*
+ * {country: factor, ...}
+ */
+const countries = {};
+/*
+ * { ip: factor, ...}
+ */
+const ips = {};
+/*
+ * [[ip, timeoutEnd, factor], ...]
+ */
+let ipTimers = [];
+
+let timeout = null;
+let timeoutEnd = null;
+
+export function getAllCountryCooldownFactors() {
+  return countries;
+}
+
+export function resetAllCountryCooldownFactors() {
+  for (const country of Object.keys(countries)) {
+    delete countries[country];
+  }
+}
+
+export function resetCountryCooldownFactor(country) {
+  delete countries[country];
+}
+
+export function setCountryCooldownFactor(country, factor) {
+  if (factor === 1.0) {
+    delete countries[country];
+  } else {
+    countries[country] = factor;
+  }
+}
+
+function checkTimers() {
+  const now = Date.now();
+  const leftTimers = [];
+  let nextTimer;
+  for (const timer of ipTimers) {
+    const [, endTime] = timer;
+    if (endTime > now) {
+      leftTimers.push(timer);
+      if (!nextTimer || endTime < nextTimer) {
+        nextTimer = endTime;
+      }
+    }
+  }
+  ipTimers = leftTimers;
+
+  for (const ip of Object.keys(ips)) {
+    let newFactor = 1.0;
+    ipTimers.forEach(([ipn,, factor]) => {
+      if (ipn === ip && factor > newFactor) {
+        newFactor = factor;
+      }
+    });
+    if (newFactor === 1.0) {
+      delete ips[ip];
+    } else {
+      ips[ip] = newFactor;
+    }
+  }
+
+  if (nextTimer) {
+    timeout = setTimeout(checkTimers, nextTimer - now);
+    timeoutEnd = nextTimer;
+  }
+}
+
+export function setIPCooldownFactor(ip, factor, endTime) {
+  if (!ips[ip] || ips[ip] < factor) {
+    ips[ip] = factor;
+  }
+  ipTimers.push([ip, endTime, factor]);
+  if (!timeoutEnd || endTime < timeoutEnd) {
+    if (timeout) {
+      clearTimeout(timeout);
+    }
+    timeout = setTimeout(checkTimers, endTime - Date.now());
+    timeoutEnd = endTime;
+  }
+}
+
+export function getAmountOfIPCooldownModifications() {
+  return Object.keys(ips).length;
+}
+
+export function getCooldownFactor(country, ip) {
+  return (countries[country] || 1.0) * (ips[ip] || 1.0);
+}
+
+socketEvents.on('ipCooldownModifier', setIPCooldownFactor);

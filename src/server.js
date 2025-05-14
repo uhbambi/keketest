@@ -16,6 +16,7 @@ import routes from './routes';
 import chatProvider from './core/ChatProvider';
 import { loadCaptchaFontsFromRedis } from './core/captchaserver';
 import rpgEvent from './core/RpgEvent';
+import { initialize as initializeFishing } from './core/Fishing';
 import canvasCleaner from './core/CanvasCleaner';
 
 import socketEvents from './socket/socketEvents';
@@ -23,7 +24,7 @@ import SocketServer from './socket/SocketServer';
 import APISocketServer from './socket/APISocketServer';
 
 import {
-  PORT, HOST, HOURLY_EVENT,
+  PORT, HOST, HOURLY_EVENT, FISHING,
 } from './core/config';
 import { SECOND } from './core/constants';
 
@@ -131,5 +132,8 @@ sequelize.sync({ alter: { drop: false } })
     rankings.initialize();
     if (HOURLY_EVENT) {
       rpgEvent.initialize();
+    }
+    if (FISHING) {
+      initializeFishing();
     }
   });

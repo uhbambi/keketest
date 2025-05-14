@@ -9,6 +9,7 @@ import {
   DEREG_MCHUNKS_OP,
   PING_OP,
   PIXEL_UPDATE_OP,
+  FISH_CATCHED_OP,
 } from './op';
 
 /*
@@ -88,6 +89,22 @@ export function hydratePixelReturn(data) {
  */
 export function hydrateCaptchaReturn(data) {
   return data.getUint8(1);
+}
+
+/*
+ * @return type, size of fish
+ */
+export function hydrateFishAppears(data) {
+  const type = data.getUint8(1);
+  const size = data.getUint16(2) / 100;
+  return [type, size];
+}
+
+/*
+ * @return boolean whether or not we catched fish
+ */
+export function hydrateFishCatched(data) {
+  return data.getUint8(1) !== 0;
 }
 
 /*
@@ -186,4 +203,11 @@ export function dehydratePixelUpdate(i, j, pixels) {
     view.setUint8(cnt += 2, color);
   }
   return buffer;
+}
+
+/*
+ * @return boolean whether or not we catched fish
+ */
+export function dehydrateCatchFish() {
+  return new Uint8Array([FISH_CATCHED_OP]).buffer;
 }

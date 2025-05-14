@@ -502,6 +502,43 @@ class MessageBroker extends SocketEvents {
     threshold -= 30000;
     this.csReq = this.csReq.filter((r) => r.ts > threshold);
   }
+
+  /**
+   * make fish appear for a user of specific IP, connection
+   * needs to be chosen randomly
+   * @param ip ip as a string
+   * @param type number of fish type
+   * @param size size of fish in kg
+   */
+  sendFish(ip, type, size) {
+    const shardsWithIp = [];
+    for (const [shardName,, onlineData] of this.shardsData) {
+      for (const ipList of Object.values(onlineData)) {
+        if (ipList.includes(ip)) {
+          shardsWithIp.push(shardName);
+          break;
+        }
+      }
+    }
+    const shardName = shardsWithIp[
+      Math.floor(Math.random() * shardsWithIp.length)
+    ];
+    if (shardName === this.thisShard) {
+      super.emit('sendFish', ip, type, size);
+    } else {
+      this.publisher.publish(
+        `${LISTEN_PREFIX}:${shardName}`,
+        `sendFish,${JSON.stringify([ip, type, size])}`,
+      );
+    }
+  }
+
+  /*
+   * catched fish shall only be sent on current shard
+   */
+  catchedFish(user, ip, type, size) {
+    super.emit('catchedFish', user, ip, type, size);
+  }
 }
 
 export default MessageBroker;

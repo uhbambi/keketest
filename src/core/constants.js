@@ -64,3 +64,68 @@ export const PENCIL_MODE = {
 
 // threshold at which zoomlevel overlay switches to small-pixel mode
 export const OVERLAY_SP_TH = 8;
+
+// fish types available for fishing
+// sizes range from 1 to 25, in order to allow more, the utils function to
+// calculate the duration needs to be adjusted
+export const FISH_TYPES = [
+  {
+    name: 'Channel Catphish', common: 50, minSize: 1, maxSize: 5,
+  },
+  {
+    name: 'Northern Pike', common: 50, minSize: 1, maxSize: 6,
+  },
+  {
+    name: 'Walleye', common: 50, minSize: 2, maxSize: 5,
+  },
+  {
+    name: 'Common Carp', common: 50, minSize: 3, maxSize: 7,
+  },
+  {
+    name: 'Largemouth Bass', common: 50, minSize: 4, maxSize: 15,
+  },
+  {
+    name: 'Smallmouth Bass', common: 50, minSize: 2, maxSize: 6,
+  },
+  {
+    name: 'Striped Bass', common: 50, minSize: 5, maxSize: 12,
+  },
+  {
+    name: 'Muskellunge', common: 50, minSize: 6, maxSize: 14,
+  },
+  {
+    name: 'Flathead Catphish', common: 50, minSize: 8, maxSize: 18,
+  },
+  {
+    name: 'Chinook Salmon', common: 50, minSize: 6, maxSize: 14,
+  },
+  {
+    name: 'Lake Sturgeon', common: 50, minSize: 10, maxSize: 20,
+  },
+  {
+    name: 'Blue Catphish', common: 50, minSize: 12, maxSize: 25,
+  },
+  {
+    name: 'Nile Perch', common: 50, minSize: 15, maxSize: 25,
+  },
+  {
+    name: 'Atlantic Cod', common: 50, minSize: 10, maxSize: 20,
+  },
+  {
+    name: 'Goliath Grouper', common: 50, minSize: 15, maxSize: 25,
+  },
+  {
+    name: 'Swordphish', common: 50, minSize: 20, maxSize: 25,
+  },
+  {
+    name: 'Albino Catphish', common: 50, minSize: 10, maxSize: 25,
+  },
+  {
+    name: 'Golden Trout', common: 50, minSize: 1, maxSize: 25,
+  },
+  {
+    name: 'Black Marlin', common: 50, minSize: 20, maxSize: 25,
+  },
+];
+export const FISH_BONUS_MAX_DURATION = 90 * 60 * 1000;
+export const FISH_BONUS_CD_FACTOR = 0.5;

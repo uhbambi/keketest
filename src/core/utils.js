@@ -3,6 +3,7 @@ import {
   TILE_SIZE,
   THREE_TILE_SIZE,
   TILE_ZOOM_LEVEL,
+  FISH_BONUS_MAX_DURATION,
 } from './constants';
 
 /**
@@ -758,6 +759,13 @@ export function parentExists() {
   } catch {
     return false;
   }
+}
+
+/**
+ * calculate duration of reduced cooldown for fish caught
+ */
+export function calculateFishBonusDuration(size) {
+  return (size - 1) / (25 - 1) * FISH_BONUS_MAX_DURATION;
 }
 
 export function bufferToBase64(array) {

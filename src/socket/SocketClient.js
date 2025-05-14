@@ -7,12 +7,15 @@ import {
   hydrateOnlineCounter,
   hydrateCoolDown,
   hydrateCaptchaReturn,
+  hydrateFishAppears,
+  hydrateFishCatched,
   dehydrateRegCanvas,
   dehydrateRegChunk,
   dehydrateRegMChunks,
   dehydrateDeRegMChunks,
   dehydratePixelUpdate,
   dehydratePing,
+  dehydrateCatchFish,
 } from './packets/client';
 import {
   PIXEL_UPDATE_OP,
@@ -22,6 +25,8 @@ import {
   CHANGE_ME_OP,
   CAPTCHA_RETURN_OP,
   REFRESH_OP,
+  FISH_APPEARS_OP,
+  FISH_CATCHED_OP,
 } from './packets/op';
 import {
   socketOpen,
@@ -32,7 +37,7 @@ import {
   addChatChannel,
   removeChatChannel,
 } from '../store/actions/socket';
-import { pRefresh } from '../store/actions';
+import { pRefresh, fishAppears } from '../store/actions';
 import { fetchMe } from '../store/actions/thunks';
 import { shardHost } from '../store/actions/fetch';
 
@@ -233,6 +238,26 @@ class SocketClient {
     });
   }
 
+  /*
+   * send attempt to catch fish
+   */
+  sendCatchFish() {
+    return new Promise((resolve, reject) => {
+      let id;
+      const queueObj = ['fc', (arg) => {
+        resolve(arg);
+        clearTimeout(id);
+      }];
+      this.reqQueue.push(queueObj);
+      id = setTimeout(() => {
+        const pos = this.reqQueue.indexOf(queueObj);
+        if (~pos) this.reqQueue.splice(pos, 1);
+        reject(new Error('Timeout'));
+      }, 20000);
+      this.sendWhenReady(dehydrateCatchFish());
+    });
+  }
+
   sendChatMessage(message, channelId) {
     this.sendWhenReady(
       `cm,${JSON.stringify([message, channelId])}`,
@@ -318,6 +343,17 @@ class SocketClient {
       }
       case REFRESH_OP: {
         this.store.dispatch(pRefresh());
+        break;
+      }
+      case FISH_APPEARS_OP: {
+        this.store.dispatch(fishAppears(...hydrateFishAppears(data)));
+        break;
+      }
+      case FISH_CATCHED_OP: {
+        const pos = this.reqQueue.findIndex((q) => q[0] === 'fc');
+        if (~pos) {
+          this.reqQueue.splice(pos, 1)[0][1](hydrateFishCatched(data));
+        }
         break;
       }
       default:

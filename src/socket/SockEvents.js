@@ -86,7 +86,7 @@ class SocketEvents extends EventEmitter {
     });
   }
 
-  /*
+  /**
    * broadcast pixel message via websocket
    * @param canvasId number ident of canvas
    * @param chunkid number id consisting of i,j chunk coordinates
@@ -104,7 +104,7 @@ class SocketEvents extends EventEmitter {
     this.emit('chunkUpdate', canvasId, [i, j]);
   }
 
-  /*
+  /**
    * chunk updates from event, image upload, etc.
    * everything that's not a pixelUpdate and changes chunks
    * @param canvasId
@@ -117,7 +117,7 @@ class SocketEvents extends EventEmitter {
     this.emit('chunkUpdate', canvasId, chunk);
   }
 
-  /*
+  /**
    * ask other shards to send email for us,
    * only used when USE_MAILER is false
    * @param type type of mail to send
@@ -127,7 +127,7 @@ class SocketEvents extends EventEmitter {
     this.emit('mail', ...args);
   }
 
-  /*
+  /**
    * received Chat message on own websocket
    * @param user User Instance that sent the message
    * @param message text message
@@ -141,7 +141,7 @@ class SocketEvents extends EventEmitter {
     this.emit('recvChatMessage', user, message, channelId);
   }
 
-  /*
+  /**
    * set cooldownfactor
    * (used by RpgEvent)
    * @param fac factor by which cooldown changes globally
@@ -150,7 +150,7 @@ class SocketEvents extends EventEmitter {
     this.emit('setCoolDownFactor', fac);
   }
 
-  /*
+  /**
    * broadcast chat message to all users in channel
    * @param name chatname
    * @param message Message to send
@@ -198,7 +198,7 @@ class SocketEvents extends EventEmitter {
     );
   }
 
-  /*
+  /**
    * broadcast Assigning chat channel to user
    * @param userId numerical id of user
    * @param channelId numerical id of chat channel
@@ -231,7 +231,7 @@ class SocketEvents extends EventEmitter {
     this.emit('remChatChannel', userId, channelId);
   }
 
-  /*
+  /**
    * broadcast change of fonts used by captcha
    * @param fontFilenames Array of filenams
    */
@@ -239,7 +239,7 @@ class SocketEvents extends EventEmitter {
     this.emit('setCaptchaFonts', fontFilenames);
   }
 
-  /*
+  /**
    * broadcast whether or not users have to be verified to place
    * @param required boolean
    */
@@ -247,7 +247,7 @@ class SocketEvents extends EventEmitter {
     this.emit('setVerificationRequirement', required);
   }
 
-  /*
+  /**
    * trigger rate limit of ip
    * @param ip
    * @param blockTime in ms
@@ -256,9 +256,9 @@ class SocketEvents extends EventEmitter {
     this.emit('rateLimitTrigger', ip, blockTime);
   }
 
-  /*
+  /**
    * broadcast ranking list updates
-   * @param {
+   * @param rankings {
    *   dailyRanking?: daily pixel raking top 100,
    *   ranking?: total pixel ranking top 100,
    *   prevTop?: top 10 of the previous day,
@@ -275,10 +275,9 @@ class SocketEvents extends EventEmitter {
     this.emit('reloadUser', name);
   }
 
-  /*
+  /**
    * receive information about online users
-   * @param online Object with information of online users
-   *   {
+   * @param online {
    *     canvasId1: [IP1, IP2, IP2, ...],
    *     ...
    *   }
@@ -301,8 +300,35 @@ class SocketEvents extends EventEmitter {
     this.broadcastOnlineCounter();
   }
 
+  /*
+   * broadcast online counter
+   */
   broadcastOnlineCounter() {
     this.emit('onlineCounter', this.onlineCounter);
+  }
+
+  /**
+   * change cooldown of specific ip temporary
+   * @param ip ip string
+   * @param factor factor to multiple cooldown with
+   * @param endTime timestamp until which the modifier applies
+   */
+  broadcastIPCooldownModifier(ip, factor, endTime) {
+    this.emit('ipCooldownModifier', ip, factor, endTime);
+  }
+
+  /**
+   * make fish appear for a user of specific IP
+   * @param ip ip as a string
+   * @param type number of fish type
+   * @param size size of fish in kg
+   */
+  sendFish(ip, type, size) {
+    this.emit('sendFish', ip, type, size);
+  }
+
+  catchedFish(user, ip, type, size) {
+    this.emit('catchedFish', user, ip, type, size);
   }
 }
 

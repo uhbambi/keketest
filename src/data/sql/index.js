@@ -5,6 +5,7 @@ import UserChannel from './UserChannel';
 import Message from './Message';
 import UserBlock from './UserBlock';
 import IPInfo from './IPInfo';
+import Fish from './Fish';
 
 /*
  * User Channel access
@@ -43,4 +44,5 @@ export {
   Message,
   UserBlock,
   IPInfo,
+  Fish,
 };

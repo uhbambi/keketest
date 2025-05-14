@@ -24,6 +24,7 @@ import sharedReducers, {
  */
 import windows from './reducers/windows';
 import alert from './reducers/alert';
+import fish from './reducers/fish';
 
 /*
  * middleware
@@ -48,6 +49,7 @@ const reducers = combineReducers({
   ...sharedReducers,
   windows: windowsPersist,
   alert,
+  fish,
 });
 
 const store = createStore(

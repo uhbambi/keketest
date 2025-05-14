@@ -8,7 +8,7 @@ import {
 import logger, { pixelLogger } from './logger';
 import allowPlace from '../data/redis/cooldown';
 import socketEvents from '../socket/socketEvents';
-import rankings from './Ranks';
+import { getCooldownFactor } from './CooldownModifiers';
 import { setPixelByOffset } from './setPixel';
 import isIPAllowed from './isAllowed';
 import canvases from './canvases';
@@ -126,7 +126,7 @@ export default async function drawByOffsets(
     let factor = (isAdmin || (user.userlvl > 0 && pixels[0][1] < clrIgnore))
       ? 0.0 : coolDownFactor;
 
-    factor *= rankings.getCountryCoolDownFactor(user.country);
+    factor *= getCooldownFactor(user.country, user.ip);
 
     const bcd = Math.floor(canvas.bcd * factor);
     const pcd = Math.floor((canvas.pcd) ? canvas.pcd * factor : bcd);

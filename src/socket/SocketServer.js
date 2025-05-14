@@ -16,6 +16,7 @@ import {
   REG_MCHUNKS_OP,
   DEREG_CHUNK_OP,
   DEREG_MCHUNKS_OP,
+  FISH_CATCHED_OP,
 } from './packets/op';
 import {
   hydrateRegCanvas,
@@ -30,6 +31,8 @@ import {
   dehydrateCoolDown,
   dehydratePixelReturn,
   dehydrateCaptchaReturn,
+  dehydrateFishAppears,
+  dehydrateFishCatched,
 } from './packets/server';
 import socketEvents from './socketEvents';
 import chatProvider, { ChatProvider } from '../core/ChatProvider';
@@ -174,6 +177,33 @@ class SocketServer {
       const amount = this.killAllWsByUerIp(ip);
       if (amount) {
         logger.warn(`Killed ${amount} connections for RateLimit`);
+      }
+    });
+
+    /*
+     * chose a random connection of ip to send a fish to
+     */
+    socketEvents.on('sendFish', (ip, type, size) => {
+      let connectionIndex = Math.floor(Math.random() * ipCounter.get(ip));
+      let chosenWs;
+      const it = this.wss.clients.keys();
+      let client = it.next();
+      while (!client.done) {
+        const ws = client.value;
+        if (ws.readyState === WebSocket.OPEN
+          && ws.user?.ip === ip && ws.chunkCnt > 1
+        ) {
+          chosenWs = ws;
+          if (connectionIndex <= 0) {
+            break;
+          }
+          connectionIndex -= 1;
+        }
+        client = it.next();
+      }
+      if (chosenWs) {
+        chosenWs.sentFish = [Date.now(), type, size];
+        chosenWs.send(dehydrateFishAppears(type, size));
       }
     });
 
@@ -617,6 +647,23 @@ class SocketServer {
           hydrateDeRegMChunks(buffer, (chunkid) => {
             this.deleteChunk(chunkid, ws);
           });
+          break;
+        }
+        case FISH_CATCHED_OP: {
+          const { sentFish } = ws;
+          let catched = false;
+          if (sentFish) {
+            delete ws.sentFish;
+            const [timeSent, type, size] = sentFish;
+            if (timeSent > Date.now() - 18000) {
+              catched = true;
+              socketEvents.catchedFish(ws.user, ip, type, size);
+            }
+          }
+          ws.send(dehydrateFishCatched(catched));
+          if (!catched) {
+            logger.info(`FISHING: ${ip} clicked too late for a fish`);
+          }
           break;
         }
         case OLD_PIXEL_UPDATE_OP: {

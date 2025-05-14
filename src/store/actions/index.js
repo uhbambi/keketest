@@ -433,6 +433,28 @@ export function initTimer() {
   };
 }
 
+export function catchedFish(success) {
+  return {
+    type: 'FISH_CATCHED',
+    success,
+  };
+}
+
+export function fishAppears(type, size) {
+  return (dispatch) => {
+    dispatch({
+      type: 'FISH_APPEARS',
+      fishType: type,
+      size,
+    });
+    setTimeout(() => {
+      dispatch({
+        type: 'FISH_VANISHES',
+      });
+    }, 22000);
+  };
+}
+
 export function blockUser(userId, userName) {
   return {
     type: 's/BLOCK_USER',

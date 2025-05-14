@@ -1,5 +1,5 @@
 /*
- * This is an even that happens all 2h,
+ * This is an event that happens all 2h,
  * if the users complete, they will get rewarded by half the cooldown sitewide
  *
  */
