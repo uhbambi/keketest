@@ -15,6 +15,7 @@ import IPRangeBanHistory from './IPRangeBanHistory';
 import UserBanHistory from './UserBanHistory';
 import UserIP from './UserIP';
 import ThreePID, { THREEPID_PROVIDERS } from './ThreePID';
+import Fish from './Fish';
 
 /*
  * Channels
@@ -246,6 +247,7 @@ export {
   Ban,
   WhoisReferral,
   ThreePID,
+  Fish,
   // constants
   USERLVL,
   THREEPID_PROVIDERS,

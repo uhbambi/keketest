@@ -23,7 +23,6 @@ import {
   hydratePixelUpdateMB,
   hydrateChunkUpdateMB,
   dehydratePixelUpdate,
-  dehydrateOnlineCounter,
   dehydratePixelUpdateMB,
   dehydrateChunkUpdateMB,
 } from './packets/server';
@@ -74,8 +73,13 @@ class MessageBroker extends SocketEvents {
     this.shards = {};
     /*
      * online counter of all shards including ourself
+     * [
+     *   [shardName, amountOnlineIps, {canvasId1: [IP1, IP2, ...], ...}],
+     *   ...,
+     * }
      */
-    this.shardOnlineCounters = [];
+    this.shardsData = [];
+
     this.publisher = {
       publish: () => {},
     };
@@ -92,18 +96,18 @@ class MessageBroker extends SocketEvents {
      * important main shard does tasks like running RpgEvent
      * or updating rankings
      */
-    return !this.shardOnlineCounters[0]
-      || this.shardOnlineCounters[0][0] === this.thisShard;
+    return !this.shardsData[0]
+      || this.shardsData[0][0] === this.thisShard;
   }
 
   get lowestActiveShard() {
     let lowest = 0;
     let lShard = null;
-    this.shardOnlineCounters.forEach((shardData) => {
+    this.shardsData.forEach((shardData) => {
       const [shard, cnt] = shardData;
-      if (cnt.total < lowest || !lShard) {
+      if (cnt < lowest || !lShard) {
         lShard = shard;
-        lowest = cnt.total;
+        lowest = cnt;
       }
     });
     return lShard || this.thisShard;
@@ -151,15 +155,17 @@ class MessageBroker extends SocketEvents {
       }
       const comma = message.indexOf(',');
       /*
-       * any message in the form of 'shard:type,JSONArrayData'
-       * straight emitted as socket event
+       * messages in the form of 'shard:type,JSONArrayData'
        */
       if (~comma) {
         const key = message.slice(message.indexOf(':') + 1, comma);
-        console.log('CLUSTER: Broadcast', key);
         const val = JSON.parse(message.slice(comma + 1));
+        /*
+         * if type is a cross-shard request, remember the originating shard
+         * in csReq, to be able to answer
+         * shard:req:reqtype,[channelId, ...args]
+         */
         if (key.startsWith('req:')) {
-          // cross-shard requests
           const shard = message.slice(0, message.indexOf(':'));
           const id = val[0];
           this.csReq.push({
@@ -168,6 +174,17 @@ class MessageBroker extends SocketEvents {
             ts: Date.now(),
           });
         }
+        /*
+         * online data update of shard
+         */
+        if (key === 'onlineShardData') {
+          const shard = message.slice(0, message.indexOf(':'));
+          this.updateShardOnlineData(shard, ...val);
+          return;
+        }
+        /*
+         * emit as socket event
+         */
         super.emit(key, ...val);
         return;
       }
@@ -214,7 +231,7 @@ class MessageBroker extends SocketEvents {
     }
   }
 
-  /**
+  /*
    * requests that go over all shards and combine responses from all
    */
   req(type, ...args) {
@@ -223,7 +240,7 @@ class MessageBroker extends SocketEvents {
         + Math.floor(Math.random() * 100000).toString();
       const chankey = `res:${chan}`;
       let id;
-      let amountOtherShards = this.shardOnlineCounters.length;
+      let amountOtherShards = this.shardsData.length;
       let ret = null;
       const callback = (retn) => {
         amountOtherShards -= 1;
@@ -267,25 +284,31 @@ class MessageBroker extends SocketEvents {
     }
   }
 
-  updateShardOnlineCounter(shard, cnt) {
-    const shardCounter = this.shardOnlineCounters.find(
+  updateShardOnlineData(shard, onlineData) {
+    let amountOnlineIPs = 0;
+    for (const ipList of Object.values(onlineData)) {
+      amountOnlineIPs += ipList.length;
+    }
+
+    const shardCounter = this.shardsData.find(
       (c) => c[0] === shard,
     );
     if (!shardCounter) {
-      this.shardOnlineCounters.push([shard, cnt]);
-      this.shardOnlineCounters.sort((a, b) => a[0].localeCompare(b[0]));
+      this.shardsData.push([shard, amountOnlineIPs, onlineData]);
+      this.shardsData.sort((a, b) => a[0].localeCompare(b[0]));
     } else {
-      shardCounter[1] = cnt;
+      shardCounter[1] = amountOnlineIPs;
+      shardCounter[2] = onlineData;
     }
     this.sumOnlineCounters();
   }
 
-  removeShardFromOnlienCounter(shard) {
-    const counterIndex = this.shardOnlineCounters.findIndex(
+  removeShardFromOnlineData(shard) {
+    const counterIndex = this.shardsData.findIndex(
       (c) => c[0] === shard,
     );
     if (~counterIndex) {
-      this.shardOnlineCounters.splice(counterIndex, 1);
+      this.shardsData.splice(counterIndex, 1);
     }
   }
 
@@ -310,7 +333,7 @@ class MessageBroker extends SocketEvents {
         }
         case ONLINE_COUNTER_OP: {
           const cnt = hydrateOnlineCounter(buffer);
-          this.updateShardOnlineCounter(shard, cnt);
+          this.updateShardOnlineData(shard, cnt);
           // use online counter as ping for binary shard channel
           this.pings[shard] = Date.now();
           break;
@@ -324,20 +347,40 @@ class MessageBroker extends SocketEvents {
     }
   }
 
+  /*
+   * create onlineCounter object out of shardsData
+   */
   sumOnlineCounters() {
-    const newCounter = {};
-    this.shardOnlineCounters.forEach((shardData) => {
-      const [, cnt] = shardData;
-      Object.keys(cnt).forEach((canv) => {
-        const num = cnt[canv];
-        if (newCounter[canv]) {
-          newCounter[canv] += num;
+    const newOnlineCounter = {};
+    const newOnlineIPs = [];
+
+    const onlineDataSum = {};
+    this.shardsData.forEach((shardData) => {
+      for (const [canvasId, ipList] of Object.entries(shardData[2])) {
+        const ipListSum = onlineDataSum[canvasId];
+        if (ipListSum) {
+          for (const ip of ipList) {
+            if (!ipListSum.includes(ip)) {
+              ipListSum.push(ip);
+            }
+          }
         } else {
-          newCounter[canv] = num;
+          onlineDataSum[canvasId] = [...ipList];
         }
-      });
+      }
     });
-    this.onlineCounter = newCounter;
+
+    for (const [canvasId, ipList] of Object.entries(onlineDataSum)) {
+      newOnlineCounter[canvasId] = ipList.length;
+      for (const ip of ipList) {
+        if (!newOnlineIPs.includes(ip)) {
+          newOnlineIPs.push(ip);
+        }
+      }
+    }
+    newOnlineCounter.total = newOnlineIPs.length;
+    this.onlineCounter = newOnlineCounter;
+    this.onlineIPs = newOnlineIPs;
   }
 
   /*
@@ -398,12 +441,17 @@ class MessageBroker extends SocketEvents {
     super.emit('chunkUpdate', canvasId, chunk);
   }
 
-  broadcastOnlineCounter(online) {
-    this.updateShardOnlineCounter(this.thisShard, online);
-    // send our online counter to other shards
-    const buffer = dehydrateOnlineCounter(online);
-    this.publisher.publish(this.thisShard, buffer);
-    // send total counter to our players
+  /*
+   * receive information about online users
+   * @param online Object with information of online users
+   *   {
+   *     canvasId1: [IP1, IP2, IP2, ...],
+   *     ...
+   *   }
+   */
+  setOnlineUsers(onlineData) {
+    this.updateShardOnlineData(this.thisShard, onlineData);
+    this.emit('onlineShardData', onlineData);
     super.emit('onlineCounter', this.onlineCounter);
   }
 
@@ -415,7 +463,7 @@ class MessageBroker extends SocketEvents {
       for (const [shard, timeLastPing] of Object.entries(shards)) {
         if (timeLastPing < threshold) {
           console.log(`CLUSTER: Shard ${shard} disconnected`);
-          this.removeShardFromOnlienCounter(shard);
+          this.removeShardFromOnlineData(shard);
           // eslint-disable-next-line no-await-in-loop
           await this.subscriber.unsubscribe(shard);
           delete pings[shard];
@@ -439,7 +487,7 @@ class MessageBroker extends SocketEvents {
           } else {
             console.warn(`CLUSTER: Binary channel to shard ${channel} broken`);
             // will connect again on next broadcast of shard
-            this.removeShardFromOnlienCounter(channel);
+            this.removeShardFromOnlineData(channel);
             delete shards[channel];
           }
         }
@@ -454,6 +502,43 @@ class MessageBroker extends SocketEvents {
     // clean up dead shard requests
     threshold -= 30000;
     this.csReq = this.csReq.filter((r) => r.ts > threshold);
+  }
+
+  /**
+   * make fish appear for a user of specific IP, connection
+   * needs to be chosen randomly
+   * @param ip ip as a string
+   * @param type number of fish type
+   * @param size size of fish in kg
+   */
+  sendFish(ip, type, size) {
+    const shardsWithIp = [];
+    for (const [shardName,, onlineData] of this.shardsData) {
+      for (const ipList of Object.values(onlineData)) {
+        if (ipList.includes(ip)) {
+          shardsWithIp.push(shardName);
+          break;
+        }
+      }
+    }
+    const shardName = shardsWithIp[
+      Math.floor(Math.random() * shardsWithIp.length)
+    ];
+    if (shardName === this.thisShard) {
+      super.emit('sendFish', ip, type, size);
+    } else {
+      this.publisher.publish(
+        `${LISTEN_PREFIX}:${shardName}`,
+        `sendFish,${JSON.stringify([ip, type, size])}`,
+      );
+    }
+  }
+
+  /*
+   * catched fish shall only be sent on current shard
+   */
+  catchedFish(user, ip, type, size) {
+    super.emit('catchedFish', user, ip, type, size);
   }
 }
 

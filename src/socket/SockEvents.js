@@ -25,6 +25,8 @@ class SocketEvents extends EventEmitter {
     this.onlineCounter = {
       total: 0,
     };
+    // array of IPs that are online
+    this.onlineIPs = [];
   }
 
   // eslint-disable-next-line class-methods-use-this
@@ -252,7 +254,7 @@ class SocketEvents extends EventEmitter {
     this.emit('remChatChannel', userId, channelId);
   }
 
-  /*
+  /**
    * broadcast change of fonts used by captcha
    * @param fontFilenames Array of filenams
    */
@@ -260,7 +262,7 @@ class SocketEvents extends EventEmitter {
     this.emit('setCaptchaFonts', fontFilenames);
   }
 
-  /*
+  /**
    * broadcast whether or not users have to be verified to place
    * @param required boolean
    */
@@ -268,7 +270,7 @@ class SocketEvents extends EventEmitter {
     this.emit('setVerificationRequirement', required);
   }
 
-  /*
+  /**
    * trigger rate limit of ip
    * @param ip
    * @param blockTime in ms
@@ -279,7 +281,7 @@ class SocketEvents extends EventEmitter {
 
   /**
    * broadcast ranking list updates
-   * @param {
+   * @param rankings {
    *   dailyRanking?: daily pixel raking top 100,
    *   ranking?: total pixel ranking top 100,
    *   prevTop?: top 10 of the previous day,
@@ -297,13 +299,59 @@ class SocketEvents extends EventEmitter {
   }
 
   /**
-   * broadcast online counter
-   * @param online Object of total and canvas online users
-   *   (see this.onlineCounter)
+   * receive information about online users
+   * @param online {
+   *     canvasId1: [IP1, IP2, IP2, ...],
+   *     ...
+   *   }
    */
-  broadcastOnlineCounter(online) {
-    this.onlineCounter = online;
-    this.emit('onlineCounter', online);
+  setOnlineUsers(onlineData) {
+    const newOnlineCounter = {};
+    const newOnlineIPs = [];
+    for (const [canvasId, ipList] of Object.entries(onlineData)) {
+      newOnlineCounter[canvasId] = ipList.length;
+      for (const ip of ipList) {
+        if (!newOnlineIPs.includes(ip)) {
+          newOnlineIPs.push(ip);
+        }
+      }
+    }
+    newOnlineCounter.total = newOnlineIPs.length;
+    this.onlineCounter = newOnlineCounter;
+    this.onlineIPs = newOnlineIPs;
+
+    this.broadcastOnlineCounter();
+  }
+
+  /*
+   * broadcast online counter
+   */
+  broadcastOnlineCounter() {
+    this.emit('onlineCounter', this.onlineCounter);
+  }
+
+  /**
+   * change cooldown of specific ip temporary
+   * @param ip ip string
+   * @param factor factor to multiple cooldown with
+   * @param endTime timestamp until which the modifier applies
+   */
+  broadcastIPCooldownModifier(ip, factor, endTime) {
+    this.emit('ipCooldownModifier', ip, factor, endTime);
+  }
+
+  /**
+   * make fish appear for a user of specific IP
+   * @param ip ip as a string
+   * @param type number of fish type
+   * @param size size of fish in kg
+   */
+  sendFish(ip, type, size) {
+    this.emit('sendFish', ip, type, size);
+  }
+
+  catchedFish(user, ip, type, size) {
+    this.emit('catchedFish', user, ip, type, size);
   }
 }
 

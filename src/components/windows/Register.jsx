@@ -127,7 +127,7 @@ const Register = () => {
         <h3>{t`Captcha`}:</h3>
         <Captcha
           autoload={false}
-          width={60}
+          width={85}
           key={captKey}
           onReadyStateChange={setReady}
         />

@@ -18,6 +18,11 @@ import {
   getHourlyPixelStats,
   getDailyPixelStats,
 } from '../data/redis/ranks';
+import {
+  getAllCountryCooldownFactors,
+  resetCountryCooldownFactor,
+  setCountryCooldownFactor,
+} from './CooldownModifiers';
 import socketEvents from '../socket/socketEvents';
 import logger from './logger';
 
@@ -107,7 +112,8 @@ class Ranks {
     if (!cHourlyStats.length || !PUNISH_DOMINATOR) {
       return;
     }
-    this.ranks.cooldownChanges = {};
+    let newPunishedCountry = null;
+    let newPunishmentFactor = 1.0;
     /*
      * don't punish when canvas has less than 50% of
      * daily peak activity
@@ -119,51 +125,49 @@ class Ranks {
         maxActivity = e;
       }
     });
-    if (pHourlyStats[0] < maxActivity * 0.5) {
-      this.#punishedCountry = null;
-      this.#punishmentFactor = 1.0;
-      return;
+    if (pHourlyStats[0] >= maxActivity * 0.5) {
+      let outnumbered = 0;
+      const { cc: leadingCountry } = cHourlyStats[0];
+      let { px: margin } = cHourlyStats[0];
+      for (let i = 1; i < cHourlyStats.length; i += 1) {
+        margin -= cHourlyStats[i].px;
+        if (margin < 0) {
+          break;
+        }
+        outnumbered += 1;
+      }
+      /*
+      * if the leading country places more pixels
+      * than the fellowing 2+ countries after,
+      * 20% gets added to their cooldown for every country
+      * after the first. Ceiled at 200%
+      */
+      if (outnumbered > 2) {
+        let punishmentFactor = 1 + 0.25 * (outnumbered - 2);
+        if (punishmentFactor > 3) {
+          punishmentFactor = 3;
+        }
+        newPunishedCountry = leadingCountry;
+        newPunishmentFactor = punishmentFactor;
+        logger.info(
+          // eslint-disable-next-line max-len
+          `Punishment for dominating country ${leadingCountry} of ${punishmentFactor}`,
+        );
+      }
     }
 
-    let outnumbered = 0;
-    const { cc: leadingCountry } = cHourlyStats[0];
-    let { px: margin } = cHourlyStats[0];
-    for (let i = 1; i < cHourlyStats.length; i += 1) {
-      margin -= cHourlyStats[i].px;
-      if (margin < 0) {
-        break;
+    if (this.#punishedCountry !== newPunishedCountry
+      || this.#punishmentFactor !== newPunishmentFactor
+    ) {
+      if (this.newPunishedCountry === null) {
+        resetCountryCooldownFactor(this.#punishedCountry);
+      } else {
+        setCountryCooldownFactor(newPunishedCountry, newPunishmentFactor);
       }
-      outnumbered += 1;
+      this.#punishedCountry = newPunishedCountry;
+      this.#punishmentFactor = newPunishmentFactor;
     }
-    /*
-     * if the leading country places more pixels
-     * than the fellowing 2+ countries after,
-     * 20% gets added to their cooldown for every country
-     * after the first. Ceiled at 200%
-     */
-    if (outnumbered > 2) {
-      let punishmentFactor = 1 + 0.25 * (outnumbered - 2);
-      if (punishmentFactor > 3) {
-        punishmentFactor = 3;
-      }
-      this.#punishedCountry = leadingCountry;
-      this.#punishmentFactor = punishmentFactor;
-      this.ranks.cooldownChanges[leadingCountry] = punishmentFactor;
-      logger.info(
-        // eslint-disable-next-line max-len
-        `Punishment for dominating country ${leadingCountry} of ${punishmentFactor}`,
-      );
-      return;
-    }
-    this.#punishedCountry = null;
-    this.#punishmentFactor = 1.0;
-  }
-
-  getCountryCoolDownFactor(country) {
-    if (this.#punishedCountry === country) {
-      return this.#punishmentFactor;
-    }
-    return 1.0;
+    this.ranks.cooldownChanges = getAllCountryCooldownFactors();
   }
 
   static async updateRanking() {

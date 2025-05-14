@@ -54,6 +54,8 @@ export const LOG_MYSQL = parseInt(process.env.LOG_MYSQL, 10) || false;
 
 // do hourly event
 export const HOURLY_EVENT = parseInt(process.env.HOURLY_EVENT, 10) || false;
+// do fishing events
+export const FISHING = parseInt(process.env.FISHING, 10) || false;
 
 // Accounts
 export const APISOCKET_KEY = process.env.APISOCKET_KEY || null;

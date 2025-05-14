@@ -59,7 +59,7 @@ export async function rollCaptchaFonts() {
  * roll daily by chance
  */
 DailyCron.hook(() => {
-  if (socketEvents.amIImportant() && Math.random() > 0.5) {
+  if (socketEvents.important && Math.random() > 0.5) {
     rollCaptchaFonts();
   }
 });

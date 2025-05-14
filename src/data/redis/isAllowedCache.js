@@ -8,7 +8,7 @@ import client from './client';
 export const PREFIX = 'isal';
 export const USER_PREFIX = 'isual';
 export const MAIL_PREFIX = 'ised';
-const CACHE_DURATION = 14 * 24 * 3600;
+const CACHE_DURATION = 3 * 24 * 3600;
 const USER_CACHE_DURATION = 24 * 3600;
 const MAIL_CACHE_DURATION = 7 * 24 * 3600;
 

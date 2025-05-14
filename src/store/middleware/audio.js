@@ -87,6 +87,20 @@ export default (store) => (next) => (action) => {
           gainNode.gain.setTargetAtTime(0, currentTime, 0.1);
           oscillatorNode.connect(gainNode);
           gainNode.connect(context.destination);
+        } else if (action.alertType === 'info') {
+          oscillatorNode.type = 'sine';
+          oscillatorNode.detune.value = -500;
+          oscillatorNode.start(currentTime);
+          oscillatorNode.frequency.setValueAtTime(1000, currentTime);
+          oscillatorNode.frequency.exponentialRampToValueAtTime(
+            600,
+            currentTime + 0.01,
+          );
+          oscillatorNode.stop(currentTime + 0.1);
+          gainNode.gain.setValueAtTime(0.5, currentTime);
+          gainNode.gain.setTargetAtTime(0, currentTime, 0.1);
+          oscillatorNode.connect(gainNode);
+          gainNode.connect(context.destination);
         } else {
           oscillatorNode.type = 'sine';
           oscillatorNode.detune.value = -900;

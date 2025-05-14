@@ -21,3 +21,5 @@ export const CHUNK_UPDATE_MB_OP = 0xC4;
 export const PIXEL_UPDATE_MB_OP = 0xC5;
 export const CAPTCHA_RETURN_OP = 0xC6;
 export const REFRESH_OP = 0xD0;
+export const FISH_APPEARS_OP = 0x50;
+export const FISH_CATCHED_OP = 0x51;

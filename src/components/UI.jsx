@@ -14,17 +14,24 @@ import MovementControls from './buttons/MovementControls';
 import Palette from './Palette';
 import Alert from './Alert';
 import HistorySelect from './HistorySelect';
+import VDay from './VDay';
+import Fish from './Fish';
+import useDate from './hooks/useDate';
 
 const UI = () => {
   const [
     isHistoricalView,
     is3D,
     isOnMobile,
+    hasFish,
   ] = useSelector((state) => [
     state.canvas.isHistoricalView,
     state.canvas.is3D,
     state.user.isOnMobile,
+    state.fish.type !== null,
   ], shallowEqual);
+
+  const [day, month] = useDate();
 
   return (
     <>
@@ -41,7 +48,9 @@ const UI = () => {
           <CoolDownBox />
         </>
       )}
+      {(day === 9 && month === 5) && <VDay />}
       <NotifyBox />
+      {(hasFish && <Fish />)}
     </>
   );
 };
