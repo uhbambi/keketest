@@ -59,13 +59,13 @@ function checkTimers() {
   ipTimers = leftTimers;
 
   for (const ip of Object.keys(ips)) {
-    let newFactor = 1.0;
+    let newFactor;
     ipTimers.forEach(([ipn,, factor]) => {
-      if (ipn === ip && factor > newFactor) {
+      if (ipn === ip && (!newFactor || factor > newFactor)) {
         newFactor = factor;
       }
     });
-    if (newFactor === 1.0) {
+    if (!newFactor || newFactor === 1.0) {
       delete ips[ip];
     } else {
       ips[ip] = newFactor;
