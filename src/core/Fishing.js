@@ -96,7 +96,7 @@ function catchedFish(user, ip, type, size) {
   const duration = calculateFishBonusDuration(size);
   logger.info(
     // eslint-disable-next-line max-len
-    `FISHING: ${user.id} ${ip} catched a fish with ${size} kg, earning ${duration}ms of lower cd`,
+    `FISHING: ${user.id} ${ip} caught a fish with ${size} kg, earning ${duration}ms of lower cd`,
   );
   const userString = (user.id)
     ? `@[${escapeMd(user.name)}](${user.id})` : 'A player';
@@ -104,7 +104,7 @@ function catchedFish(user, ip, type, size) {
     chatProvider.broadcastChatMessage(
       EVENT_USER_NAME,
       // eslint-disable-next-line max-len
-      `${userString} catched a phish! It's a ${FISH_TYPES[type].name} with ${size}kg`,
+      `${userString} caught a phish! It's a ${FISH_TYPES[type].name} with ${size}kg`,
       chatProvider.enChannelId,
       chatProvider.eventUserId,
     );
