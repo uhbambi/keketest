@@ -73,8 +73,11 @@ function checkTimers() {
   }
 
   if (nextTimer) {
-    timeout = setTimeout(checkTimers, nextTimer - now);
+    timeout = setTimeout(checkTimers, Math.max(nextTimer - now, 3000));
     timeoutEnd = nextTimer;
+  } else {
+    timeout = null;
+    timeoutEnd = null;
   }
 }
 
@@ -84,10 +87,8 @@ export function setIPCooldownFactor(ip, factor, endTime) {
   }
   ipTimers.push([ip, endTime, factor]);
   if (!timeoutEnd || endTime < timeoutEnd) {
-    if (timeout) {
-      clearTimeout(timeout);
-    }
-    timeout = setTimeout(checkTimers, endTime - Date.now());
+    clearTimeout(timeout);
+    timeout = setTimeout(checkTimers, Math.max(endTime - Date.now(), 3000));
     timeoutEnd = endTime;
   }
 }
