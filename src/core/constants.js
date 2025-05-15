@@ -126,6 +126,9 @@ export const FISH_TYPES = [
   {
     name: 'Black Marlin', common: 10, minSize: 15, maxSize: 25,
   },
+  {
+    name: 'Anchovy', common: 400, minSize: 0.05, maxSize: 0.10,
+  },
 ];
 export const FISH_BONUS_MAX_DURATION = 90 * 60 * 1000;
 export const FISH_BONUS_CD_FACTOR = 0.5;
