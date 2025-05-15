@@ -765,7 +765,7 @@ export function parentExists() {
  * calculate duration of reduced cooldown for fish caught
  */
 export function calculateFishBonusDuration(size) {
-  return (size - 1) / (25 - 1) * FISH_BONUS_MAX_DURATION;
+  return Math.floor(size / 25 * FISH_BONUS_MAX_DURATION);
 }
 
 export function bufferToBase64(array) {

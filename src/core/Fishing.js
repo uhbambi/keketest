@@ -119,6 +119,20 @@ function catchedFish(user, ip, type, size) {
   );
 }
 
+export function giveEveryoneAFish() {
+  const { onlineIPs: fishers } = socketEvents;
+  logger.info('FISHING: Give everyone a fish');
+
+  for (const ip of fishers) {
+    const [type, size] = chooseFish();
+    logger.info(
+      // eslint-disable-next-line max-len
+      `FISHING: Selected for IP ${ip}, type: ${FISH_TYPES[type].name}, size: ${size}kg`,
+    );
+    socketEvents.sendFish(ip, type, size);
+  }
+}
+
 export function initialize() {
   totalWeight = 0;
   FISH_TYPES.forEach((fish) => {

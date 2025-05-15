@@ -14,7 +14,7 @@ export default function fish(state = initialState, action) {
     case 'FISH_APPEARS': {
       const { fishType: type, size } = action;
       // 5 - 30 depending on size
-      const screenSize = 5 + (size - 1) / (25 - 1) * 25;
+      const screenSize = Math.ceil(5 + size / 25 * 25);
       const screenPosX = Math.floor(Math.random() * (100 - screenSize));
       const screenPosY = Math.floor(Math.random() * (100 - screenSize));
       const screenRotation = Math.floor(Math.random() * 360);
