@@ -327,6 +327,16 @@ class SocketEvents extends EventEmitter {
     this.emit('sendFish', ip, type, size);
   }
 
+  /**
+   * register caught fish for storing in database and cooldown modifier
+   */
+  registerCatchedFish(user, ip, type, size) {
+    this.emit('registerCatchedFish', user, ip, type, size);
+  }
+
+  /**
+   * broadcast caught fish to all connections of ip
+   */
   catchedFish(user, ip, type, size) {
     this.emit('catchedFish', user, ip, type, size);
   }

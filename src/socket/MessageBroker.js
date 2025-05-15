@@ -534,10 +534,10 @@ class MessageBroker extends SocketEvents {
   }
 
   /*
-   * catched fish shall only be sent on current shard
+   * registering caught fish only happens on one shard
    */
-  catchedFish(user, ip, type, size) {
-    super.emit('catchedFish', user, ip, type, size);
+  registerCatchedFish(user, ip, type, size) {
+    super.emit('registerCatchedFish', user, ip, type, size);
   }
 }
 

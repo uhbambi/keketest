@@ -1088,6 +1088,36 @@ table td span {
   background-color: #d2d2d2cc;
 }
 
+.fishlist {
+  font-size: 16px;
+}
+
+.profilefish {
+  display: inline-block;
+  border-radius: 1em;
+  margin: 2px;
+  padding: 4px;
+}
+
+.profilefish-img {
+  height: 1em;
+}
+
+.puferfish-size {
+  font-weight: bold;
+}
+
+.fishdisplay-title {
+  font-size: 24px;
+  border-radius: 1em;
+  margin: 2px;
+  padding: 4px;
+}
+
+.fishdisplay-img {
+  width: 100%;
+}
+
 #mvmctrls {
   transition: opacity 0.25s ease;
   opacity: 0;

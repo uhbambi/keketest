@@ -17,6 +17,13 @@ const initialState = {
   notification: null,
   // 1: Admin, 2: Mod, 0: ordinary user
   userlvl: 0,
+  /*
+   * can be: {
+   *   type, size,
+   *   screenSize, screenPosX, screenPosY, screenRotation,
+   * }
+   */
+  fish: {},
 };
 
 export default function user(
@@ -165,6 +172,31 @@ export default function user(
         mailreg,
       };
     }
+
+    case 'FISH_APPEARS': {
+      const { fishType: type, size } = action;
+      // 5 - 30 depending on size
+      const screenSize = Math.ceil(5 + size / 25 * 25);
+      const fish = {
+        type,
+        size,
+        screenSize,
+        screenPosX: Math.floor(Math.random() * (100 - screenSize)),
+        screenPosY: Math.floor(Math.random() * (100 - screenSize)),
+        screenRotation: Math.floor(Math.random() * 360),
+      };
+      return {
+        ...state,
+        fish,
+      };
+    }
+
+    case 'FISH_CATCHED':
+    case 'FISH_VANISHES':
+      return {
+        ...state,
+        fish: {},
+      };
 
     default:
       return state;

@@ -104,7 +104,10 @@ export function hydrateFishAppears(data) {
  * @return boolean whether or not we catched fish
  */
 export function hydrateFishCatched(data) {
-  return data.getUint8(1) !== 0;
+  const success = data.getUint8(1) !== 0;
+  const type = data.getUint8(2);
+  const size = data.getUint16(3) / 100;
+  return [success, type, size];
 }
 
 /*

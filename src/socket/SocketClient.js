@@ -37,7 +37,7 @@ import {
   addChatChannel,
   removeChatChannel,
 } from '../store/actions/socket';
-import { pRefresh, fishAppears } from '../store/actions';
+import { pRefresh, fishAppears, catchedFish } from '../store/actions';
 import { fetchMe } from '../store/actions/thunks';
 import { shardHost } from '../store/actions/fetch';
 
@@ -242,20 +242,7 @@ class SocketClient {
    * send attempt to catch fish
    */
   sendCatchFish() {
-    return new Promise((resolve, reject) => {
-      let id;
-      const queueObj = ['fc', (arg) => {
-        resolve(arg);
-        clearTimeout(id);
-      }];
-      this.reqQueue.push(queueObj);
-      id = setTimeout(() => {
-        const pos = this.reqQueue.indexOf(queueObj);
-        if (~pos) this.reqQueue.splice(pos, 1);
-        reject(new Error('Timeout'));
-      }, 20000);
-      this.sendWhenReady(dehydrateCatchFish());
-    });
+    this.sendWhenReady(dehydrateCatchFish());
   }
 
   sendChatMessage(message, channelId) {
@@ -350,10 +337,7 @@ class SocketClient {
         break;
       }
       case FISH_CATCHED_OP: {
-        const pos = this.reqQueue.findIndex((q) => q[0] === 'fc');
-        if (~pos) {
-          this.reqQueue.splice(pos, 1)[0][1](hydrateFishCatched(data));
-        }
+        this.store.dispatch(catchedFish(...hydrateFishCatched(data)));
         break;
       }
       default:

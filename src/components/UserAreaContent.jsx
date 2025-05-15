@@ -7,6 +7,7 @@ import { useSelector, shallowEqual, useDispatch } from 'react-redux';
 import { t } from 'ttag';
 
 import UserMessages from './UserMessages';
+import FishList from './FishList';
 import ChangePassword from './ChangePassword';
 import ChangeName from './ChangeName';
 import ChangeMail from './ChangeMail';
@@ -85,6 +86,7 @@ const UserAreaContent = () => {
         zero="N/A"
         rank
       />
+      <FishList />
       <div>
         <p>{t`Your name is: ${name}`}</p>(
         <span

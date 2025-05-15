@@ -8,6 +8,7 @@ import CanvasSelect from './CanvasSelect';
 import Archive from './Archive';
 import Chat from './Chat';
 import Player from './Player';
+import FishDisplay from './FishDisplay';
 import ForgotPassword from './ForgotPassword';
 
 export default {
@@ -20,6 +21,7 @@ export default {
   CANVAS_SELECTION: [CanvasSelect, t`Canvas Selection`],
   ARCHIVE: [Archive, t`Canvas Archive`],
   PLAYER: [Player, t`Player`],
+  FISH_DISPLAY: [FishDisplay, t`Fish Display`],
   /* other windows */
 };
 

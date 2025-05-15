@@ -28,7 +28,7 @@ const UI = () => {
     state.canvas.isHistoricalView,
     state.canvas.is3D,
     state.user.isOnMobile,
-    state.fish.type !== null,
+    state.user.fish.size,
   ], shallowEqual);
 
   const [day, month] = useDate();

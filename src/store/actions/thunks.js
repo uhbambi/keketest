@@ -10,6 +10,7 @@ import {
   requestPrivatize,
   requestLeaveChan,
   requestRankings,
+  requestProfile,
   requestChatMessages,
   requestMe,
 } from './fetch';
@@ -84,6 +85,15 @@ export function fetchStats() {
     const rankings = await requestRankings();
     if (!rankings.errors) {
       dispatch(receiveStats(rankings));
+    }
+  };
+}
+
+export function fetchProfile() {
+  return async (dispatch) => {
+    const profile = await requestProfile();
+    if (!profile.errors) {
+      dispatch({ type: 'REC_PROFILE', profile });
     }
   };
 }

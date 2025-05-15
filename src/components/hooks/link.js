@@ -6,7 +6,9 @@ import { useCallback, useContext } from 'react';
 import { useDispatch } from 'react-redux';
 
 import { updateExistingPopUp } from '../../core/popUps';
-import { isPopUp, buildPopUpUrl } from '../windows/popUpAvailable';
+import availablePopups, {
+  isPopUp, buildPopUpUrl,
+} from '../windows/popUpAvailable';
 import { openWindow } from '../../store/actions/windows';
 import WindowContext from '../context/window';
 
@@ -71,8 +73,9 @@ function useLink() {
     // open new popup if target is popup or target
     // is new window and we are in a popup already
     if (options.target === 'popup'
-      || (!isMain && target === 'blank')
-    ) {
+      || (
+        !isMain && target === 'blank' && availablePopups.includes(windowType)
+      )) {
       // open as popup
       openWindowPopUp(
         windowType,
@@ -87,7 +90,7 @@ function useLink() {
 
     const { title = '' } = options;
 
-    if (isMain && target === 'fullscreen' || target === 'blank') {
+    if (isMain && (target === 'fullscreen' || target === 'blank')) {
       dispatch(openWindow(
         windowType.toUpperCase(),
         !!options.reuse,

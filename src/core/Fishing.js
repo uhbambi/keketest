@@ -92,7 +92,7 @@ function runEventLoop() {
   setTimeout(runEventLoop, 300000);
 }
 
-function catchedFish(user, ip, type, size) {
+function registerCatchedFish(user, ip, type, size) {
   const duration = calculateFishBonusDuration(size);
   logger.info(
     // eslint-disable-next-line max-len
@@ -142,4 +142,4 @@ export function initialize() {
   logger.info('FISHING: fishing enabled');
 }
 
-socketEvents.on('catchedFish', catchedFish);
+socketEvents.on('registerCatchedFish', registerCatchedFish);
