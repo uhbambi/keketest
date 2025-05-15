@@ -1,4 +1,4 @@
-import Sequelize, { DataTypes } from 'sequelize';
+import { DataTypes } from 'sequelize';
 import sequelize from './sequelize';
 
 import RegUser from './RegUser';
@@ -49,10 +49,7 @@ export async function getFishesOfUser(uid) {
       attributes: [
         'type',
         'size',
-        [
-          Sequelize.fn('UNIX_TIMESTAMP', Sequelize.col('createdAt')),
-          'ts',
-        ],
+        'createdAt',
       ],
       where: { uid },
       order: [['createdAt', 'DESC']],
@@ -61,8 +58,8 @@ export async function getFishesOfUser(uid) {
     let i = fishModels.length;
     while (i > 0) {
       i -= 1;
-      const { type, size, ts } = fishModels[i];
-      fishes.push({ type, size, ts });
+      const { type, size, createdAt } = fishModels[i];
+      fishes.push({ type, size, ts: createdAt.getTime() });
     }
   } catch {
     // nothing
