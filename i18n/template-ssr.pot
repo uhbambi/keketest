@@ -98,20 +98,20 @@ msgstr ""
 msgid "Loading..."
 msgstr ""
 
-#: src/ssr/PopUp.jsx:47
-msgid "ppfun"
-msgstr ""
-
-#: src/ssr/PopUp.jsx:48
-msgid "PixelPlanet.Fun PopUp"
-msgstr ""
-
 #: src/ssr/Main.jsx:90
 msgid "Place color pixels on an map styled canvas with other players online"
 msgstr ""
 
 #: src/ssr/Main.jsx:91
 msgid "PixelPlanet"
+msgstr ""
+
+#: src/ssr/PopUp.jsx:47
+msgid "ppfun"
+msgstr ""
+
+#: src/ssr/PopUp.jsx:48
+msgid "PixelPlanet.Fun PopUp"
 msgstr ""
 
 #: src/utils/validation.js:17
@@ -204,6 +204,10 @@ msgstr ""
 msgid "Submit"
 msgstr ""
 
+#: src/routes/api/baninfo.js:32
+msgid "You are not banned"
+msgstr ""
+
 #: src/routes/api/modtools.js:57
 msgid "You are not logged in"
 msgstr ""
@@ -214,10 +218,6 @@ msgstr ""
 
 #: src/routes/api/modtools.js:224
 msgid "Just admins can do that"
-msgstr ""
-
-#: src/routes/api/baninfo.js:32
-msgid "You are not banned"
 msgstr ""
 
 #: src/routes/api/auth/register.js:30
@@ -265,6 +265,15 @@ msgstr ""
 msgid "Failed to establish session after register :("
 msgstr ""
 
+#: src/routes/api/auth/logout.js:14
+msgid "You are not even logged in."
+msgstr ""
+
+#: src/routes/api/auth/delete_account.js:69
+#: src/routes/api/auth/logout.js:26
+msgid "Server error when logging out."
+msgstr ""
+
 #: src/routes/api/auth/verify.js:26
 #: src/routes/api/auth/verify.js:35
 msgid "Mail verification"
@@ -278,15 +287,6 @@ msgstr ""
 msgid ""
 "Your mail verification code is invalid or already expired :(, please "
 "request a new one."
-msgstr ""
-
-#: src/routes/api/auth/logout.js:14
-msgid "You are not even logged in."
-msgstr ""
-
-#: src/routes/api/auth/delete_account.js:69
-#: src/routes/api/auth/logout.js:26
-msgid "Server error when logging out."
 msgstr ""
 
 #: src/routes/api/auth/change_mail.js:45
