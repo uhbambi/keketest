@@ -2,13 +2,13 @@
  *
  */
 
-import React, { Suspense, useCallback, useContext } from 'react';
+import React, {
+  Suspense, useCallback, useContext, useEffect,
+} from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { t } from 'ttag';
 
-import {
-  fetchStats,
-} from '../../store/actions/thunks';
+import { fetchStats, fetchProfile } from '../../store/actions/thunks';
 import WindowContext from '../context/window';
 import useInterval from '../hooks/interval';
 import LogInArea from '../LogInArea';
@@ -27,6 +27,7 @@ const UserArea = () => {
   const name = useSelector((state) => state.user.name);
   const userlvl = useSelector((state) => state.user.userlvl);
   const lastStatsFetch = useSelector((state) => state.ranks.lastFetch);
+  const lastProfileFetch = useSelector((state) => state.profile.lastFetch);
 
   const {
     args,
@@ -50,6 +51,13 @@ const UserArea = () => {
       dispatch(fetchStats());
     }
   }, 300000);
+
+  useEffect(() => {
+    if (Date.now() - 600000 > lastProfileFetch) {
+      dispatch(fetchProfile());
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <div style={{ textAlign: 'center' }}>

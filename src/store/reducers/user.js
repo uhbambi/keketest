@@ -18,6 +18,13 @@ const initialState = {
   isOnMobile: false,
   // small notifications for received cooldown
   notification: null,
+  /*
+   * can be: {
+   *   type, size,
+   *   screenSize, screenPosX, screenPosY, screenRotation,
+   * }
+   */
+  fish: {},
 };
 
 export default function user(
@@ -166,6 +173,31 @@ export default function user(
         mailreg,
       };
     }
+
+    case 'FISH_APPEARS': {
+      const { fishType: type, size } = action;
+      // 10 - 40 depending on size
+      const screenSize = Math.ceil(10 + size / 25 * 30);
+      const fish = {
+        type,
+        size,
+        screenSize,
+        screenPosX: Math.floor(Math.random() * (100 - screenSize)),
+        screenPosY: Math.floor(Math.random() * (100 - screenSize)),
+        screenRotation: Math.floor(Math.random() * 360),
+      };
+      return {
+        ...state,
+        fish,
+      };
+    }
+
+    case 'FISH_CATCHED':
+    case 'FISH_VANISHES':
+      return {
+        ...state,
+        fish: {},
+      };
 
     default:
       return state;

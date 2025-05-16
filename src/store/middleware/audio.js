@@ -268,6 +268,81 @@ export default (store) => (next) => (action) => {
         break;
       }
 
+      case 'FISH_APPEARS': {
+        /*
+         * TODO: this one is generated using DeepSeek, make an own one
+         */
+
+        // Create noise buffer (like water movement)
+        const bufferSize = context.sampleRate * 0.5;
+        const noiseBuffer = context.createBuffer(
+          1, bufferSize, context.sampleRate,
+        );
+        const output = noiseBuffer.getChannelData(0);
+
+        // Generate pink noise (more natural than white noise)
+        for (let i = 0; i < bufferSize; i++) {
+          // eslint-disable-next-line max-len
+          output[i] = (Math.random() * 2 - 1) * (1 - (i / bufferSize)) ** 1.5;
+        }
+
+        // Create three bubbles in sequence
+        for (let i = 0; i < 3; i++) {
+          const time = context.currentTime + i * 0.22;
+
+          // Noise source (water sound)
+          const noise = context.createBufferSource();
+          noise.buffer = noiseBuffer;
+
+          // Tone source (bubble resonance)
+          const tone = context.createOscillator();
+          tone.type = 'sine';
+          tone.frequency.setValueAtTime(150 + Math.random() * 30, time);
+          tone.frequency.exponentialRampToValueAtTime(50, time + 0.4);
+
+          // Create filters for watery effect
+          const bandpass = context.createBiquadFilter();
+          bandpass.type = 'bandpass';
+          bandpass.frequency.setValueAtTime(300 + Math.random() * 200, time);
+          bandpass.Q.value = 1;
+
+          const lowpass = context.createBiquadFilter();
+          lowpass.type = 'lowpass';
+          lowpass.frequency.setValueAtTime(800, time);
+          lowpass.frequency.exponentialRampToValueAtTime(200, time + 0.4);
+
+          // Envelopes
+          const noiseEnv = context.createGain();
+          noiseEnv.gain.setValueAtTime(0, time);
+          noiseEnv.gain.linearRampToValueAtTime(0.7, time + 0.05);
+          noiseEnv.gain.exponentialRampToValueAtTime(0.001, time + 0.3);
+
+          const toneEnv = context.createGain();
+          toneEnv.gain.setValueAtTime(0, time);
+          toneEnv.gain.linearRampToValueAtTime(0.4, time + 0.1);
+          toneEnv.gain.exponentialRampToValueAtTime(0.001, time + 0.5);
+
+          // Connect nodes
+          noise.connect(bandpass).connect(lowpass).connect(noiseEnv);
+          tone.connect(toneEnv);
+
+          // Merge and control volume
+          const merger = context.createGain();
+          merger.gain.value = 0.4;
+
+          noiseEnv.connect(merger);
+          toneEnv.connect(merger);
+          merger.connect(context.destination);
+
+          // Start/stop
+          noise.start(time);
+          tone.start(time);
+          noise.stop(time + 0.5);
+          tone.stop(time + 0.7);
+        }
+        break;
+      }
+
       default:
         // nothing
     }

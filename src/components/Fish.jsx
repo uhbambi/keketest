@@ -4,9 +4,8 @@
  */
 import { t } from 'ttag';
 import React, { useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 
-import { pAlert, catchedFish } from '../store/actions';
 import socketClient from '../socket/SocketClient';
 import { FISH_TYPES } from '../core/constants';
 
@@ -14,39 +13,11 @@ import { FISH_TYPES } from '../core/constants';
 
 const Fish = () => {
   const [submitting, setSubmitting] = useState(false);
-  const fish = useSelector((state) => state.fish);
-  const dispatch = useDispatch();
+  const fish = useSelector((state) => state.user.fish);
 
   const {
-    type, size, screenPosX, screenPosY, screenSize, screenRotation,
+    type, screenPosX, screenPosY, screenSize, screenRotation,
   } = fish;
-
-  const catchFish = async () => {
-    if (submitting) {
-      return;
-    }
-    setSubmitting(true);
-    let catched = false;
-    try {
-      catched = await socketClient.sendCatchFish();
-    } catch {
-      // nothing
-    }
-    dispatch(catchedFish(catched));
-    if (catched) {
-      dispatch(pAlert(
-        t`Phish!`,
-        t`You catched a Phish! It is a ${FISH_TYPES[type].name} with ${size}kg! As a bonus, your cooldown is reduced.`,
-        'info',
-      ));
-    } else {
-      dispatch(pAlert(
-        t`No Phish!`,
-        t`Oh no, the phish escaped. Better luck next time!`,
-        'error',
-      ));
-    }
-  };
 
   return (
     /* eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions */
@@ -56,14 +27,20 @@ const Fish = () => {
         top: `${screenPosY}%`,
         left: `${screenPosX}%`,
         width: `${screenSize}%`,
-        transform: `rotate(${screenRotation}deg)`,
+        '--current-angle': `${screenRotation}deg`,
+        transform: 'rotate(var(--current-angle))',
+        animation: 'sway 3s ease-in-out infinite',
         filter: 'drop-shadow(5px 5px 10px rgba(0, 0, 0, 0.5))',
         cursor: 'pointer',
         zIndex: 9,
       }}
       src={`phishes/${FISH_TYPES[type].name.toLowerCase().split(' ').join('')}.webp`}
       alt={t`A Phish!`}
-      onClick={catchFish}
+      onClick={() => {
+        if (submitting) return;
+        setSubmitting(true);
+        socketClient.sendCatchFish();
+      }}
     />
   );
 };

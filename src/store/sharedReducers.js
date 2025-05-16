@@ -15,6 +15,7 @@ import canvas from './reducers/canvas';
 import templates from './reducers/templates';
 import chat from './reducers/chat';
 import fetching from './reducers/fetching';
+import profile from './reducers/profile';
 
 
 export const migrate = (state, version) => {
@@ -63,12 +64,20 @@ const canvasPersist = persistReducer({
   whitelist: ['prevCanvasState'],
 }, canvas);
 
+const profilePersist = persistReducer({
+  key: 'prof',
+  storage,
+  version: 2,
+  migrate,
+}, profile);
+
 export default {
   gui: guiPersist,
   ranks: ranksPersist,
   chatRead: chatReadPersist,
   templates: templatesPersist,
   canvas: canvasPersist,
+  profile: profilePersist,
   user,
   chat,
   fetching,

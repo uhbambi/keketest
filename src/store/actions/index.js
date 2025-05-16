@@ -1,5 +1,7 @@
 import { t } from 'ttag';
 
+import { FISH_TYPES } from '../../core/constants';
+
 export function pAlert(
   title,
   message,
@@ -296,9 +298,7 @@ export function receiveMe(
   };
 }
 
-export function receiveStats(
-  rankings,
-) {
+export function receiveStats(rankings) {
   const {
     ranking: totalRanking,
     dailyRanking: totalDailyRanking,
@@ -433,19 +433,34 @@ export function initTimer() {
   };
 }
 
-export function catchedFish(success) {
-  return {
-    type: 'FISH_CATCHED',
-    success,
+export function catchedFish(success, type, size) {
+  return (dispatch, getState) => {
+    if (getState().user.fish.size) {
+      if (success) {
+        dispatch(pAlert(
+          t`Phish!`,
+          // eslint-disable-next-line max-len
+          t`You caught a Phish! It is a ${FISH_TYPES[type].name} with ${size}kg! As a bonus, your cooldown is reduced.`,
+          'info',
+        ));
+      } else {
+        dispatch(pAlert(
+          t`No Phish!`,
+          t`Oh no, the phish escaped. Better luck next time!`,
+          'error',
+        ));
+      }
+    }
+    dispatch({
+      type: 'FISH_CATCHED', success, fishType: type, size,
+    });
   };
 }
 
 export function fishAppears(type, size) {
   return (dispatch) => {
     dispatch({
-      type: 'FISH_APPEARS',
-      fishType: type,
-      size,
+      type: 'FISH_APPEARS', fishType: type, size,
     });
     setTimeout(() => {
       dispatch({

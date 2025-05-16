@@ -193,7 +193,7 @@ class SocketServer {
       while (!client.done) {
         const ws = client.value;
         if (ws.readyState === WebSocket.OPEN
-          && ws.user?.ip === ip && ws.chunkCnt > 1
+          && ws.user.ip === ip && ws.chunkCnt > 1
         ) {
           chosenWs = ws;
           if (connectionIndex <= 0) {
@@ -207,6 +207,15 @@ class SocketServer {
         chosenWs.sentFish = [Date.now(), type, size];
         chosenWs.send(dehydrateFishAppears(type, size));
       }
+    });
+
+    socketEvents.on('catchedFish', (ip, type, size) => {
+      const buffer = dehydrateFishCatched(true, type, size);
+      this.wss.clients.forEach(async (ws) => {
+        if (ws.user.ip === ip) {
+          ws.send(buffer);
+        }
+      });
     });
 
     // when changing interval, remember that online counter gets used as ping
@@ -408,10 +417,10 @@ class SocketServer {
   }
 
   reloadUser(name) {
+    const buffer = dehydrateChangeMe();
     this.wss.clients.forEach(async (ws) => {
       if (ws.user.name === name) {
         await ws.user.reload();
-        const buffer = dehydrateChangeMe();
         ws.send(buffer);
       }
     });
@@ -655,19 +664,19 @@ class SocketServer {
         }
         case FISH_CATCHED_OP: {
           const { sentFish } = ws;
-          let catched = false;
           if (sentFish) {
             delete ws.sentFish;
             const [timeSent, type, size] = sentFish;
             if (timeSent > Date.now() - 18000) {
-              catched = true;
-              socketEvents.catchedFish(ws.user, ip, type, size);
+              // broadcast to all connections of ip
+              socketEvents.catchedFish(ip, type, size);
+              // register ourselves to store it in database
+              socketEvents.registerCatchedFish(ws.user, ip, type, size);
+              break;
             }
           }
-          ws.send(dehydrateFishCatched(catched));
-          if (!catched) {
-            logger.info(`FISHING: ${ip} clicked too late for a fish`);
-          }
+          ws.send(dehydrateFishCatched(false, 0, 0));
+          logger.info(`FISHING: ${ip} clicked too late for a fish`);
           break;
         }
         case OLD_PIXEL_UPDATE_OP: {

@@ -244,10 +244,10 @@ export function dehydrateChunkUpdateMB(canvasId, [i, j]) {
 }
 
 
-/*
+/**
  * returns buffer with only OP_CODE
  * @param type integer of type of fish
- * @param size of fish in kg with two digit precision (<650)
+ * @param size of fish in kg with two digit precision
  */
 export function dehydrateFishAppears(type, size) {
   const buffer = Buffer.allocUnsafe(1 + 1 + 2);
@@ -257,10 +257,17 @@ export function dehydrateFishAppears(type, size) {
   return buffer;
 }
 
-/*
+/**
  * returns buffer with only OP_CODE
- * @param catched boolean if catched or not
+ * @param catched boolean if caught or not
+ * @param type integer of type of fish
+ * @param size of fish in kg with two digit precision
  */
-export function dehydrateFishCatched(catched) {
-  return Buffer.from([FISH_CATCHED_OP, (catched) ? 1 : 0]);
+export function dehydrateFishCatched(catched, type, size) {
+  const buffer = Buffer.allocUnsafe(1 + 1 + 1 + 2);
+  buffer.writeUint8(FISH_CATCHED_OP, 0);
+  buffer.writeUInt8((catched) ? 1 : 0, 1);
+  buffer.writeUint8(type, 2);
+  buffer.writeUint16BE(size * 100, 3);
+  return buffer;
 }

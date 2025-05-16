@@ -19,6 +19,7 @@ import modtools from './modtools';
 import baninfo from './baninfo';
 import getiid from './getiid';
 import shards from './shards';
+import profile from './profile';
 import banme from './banme';
 
 const rateLimiter = new MassRateLimiter(HOUR);
@@ -110,9 +111,7 @@ router.use((req, res, next) => {
   next();
 });
 
-/*
- * require registered user after this point
- */
+router.get('/profile', profile);
 
 router.post('/startdm', startDm);
 

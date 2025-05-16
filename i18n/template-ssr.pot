@@ -204,6 +204,10 @@ msgstr ""
 msgid "Submit"
 msgstr ""
 
+#: src/routes/api/baninfo.js:32
+msgid "You are not banned"
+msgstr ""
+
 #: src/routes/api/modtools.js:57
 msgid "You are not logged in"
 msgstr ""
@@ -216,8 +220,90 @@ msgstr ""
 msgid "Just admins can do that"
 msgstr ""
 
-#: src/routes/api/baninfo.js:32
-msgid "You are not banned"
+#: src/canvasesDesc.js:20
+msgid "Earth"
+msgstr ""
+
+#: src/canvasesDesc.js:21
+msgid "Moon"
+msgstr ""
+
+#: src/canvasesDesc.js:22
+msgid "3D Canvas"
+msgstr ""
+
+#: src/canvasesDesc.js:23
+msgid "Coronavirus"
+msgstr ""
+
+#: src/canvasesDesc.js:24
+msgid "PixelZone"
+msgstr ""
+
+#: src/canvasesDesc.js:25
+msgid "PixelCanvas"
+msgstr ""
+
+#: src/canvasesDesc.js:26
+msgid "1bit"
+msgstr ""
+
+#: src/canvasesDesc.js:27
+msgid "Top10"
+msgstr ""
+
+#: src/canvasesDesc.js:28
+msgid "2bit"
+msgstr ""
+
+#: src/canvasesDesc.js:29
+msgid "Minimap"
+msgstr ""
+
+#: src/canvasesDesc.js:32
+msgid "Our main canvas, a huge map of the world. Place anywhere you like!"
+msgstr ""
+
+#: src/canvasesDesc.js:33
+msgid ""
+"Moon canvas. Safe space for art. No flags or large text (unless part of "
+"art) or art larger than 1.5k x 1.5k pixels."
+msgstr ""
+
+#: src/canvasesDesc.js:34
+msgid "Place Voxels on a 3D canvas with others."
+msgstr ""
+
+#: src/canvasesDesc.js:35
+msgid "Special canvas to spread awareness of SARS-CoV2 (take the vax)."
+msgstr ""
+
+#: src/canvasesDesc.js:36
+msgid "Mirror of PixelZone"
+msgstr ""
+
+#: src/canvasesDesc.js:37
+msgid "Mirror of PixelCanvas"
+msgstr ""
+
+#: src/canvasesDesc.js:38
+msgid "Black and White canvas"
+msgstr ""
+
+#: src/canvasesDesc.js:39
+msgid ""
+"A canvas for the most active players from the the previous day. Daily "
+"ranking updates at 00:00 UTC."
+msgstr ""
+
+#: src/canvasesDesc.js:40
+msgid "Only four colors. Same rules as moon!"
+msgstr ""
+
+#: src/canvasesDesc.js:41
+msgid ""
+"Conquer land on a smaller earth with protected ocean. Shares cooldown with "
+"earth canvas!"
 msgstr ""
 
 #: src/routes/api/auth/register.js:30
@@ -320,92 +406,6 @@ msgstr ""
 #: src/ssr/RedirectionPage.jsx:30
 #, javascript-format
 msgid "Or ${ clickHere } to go back to pixelplanet"
-msgstr ""
-
-#: src/canvasesDesc.js:20
-msgid "Earth"
-msgstr ""
-
-#: src/canvasesDesc.js:21
-msgid "Moon"
-msgstr ""
-
-#: src/canvasesDesc.js:22
-msgid "3D Canvas"
-msgstr ""
-
-#: src/canvasesDesc.js:23
-msgid "Coronavirus"
-msgstr ""
-
-#: src/canvasesDesc.js:24
-msgid "PixelZone"
-msgstr ""
-
-#: src/canvasesDesc.js:25
-msgid "PixelCanvas"
-msgstr ""
-
-#: src/canvasesDesc.js:26
-msgid "1bit"
-msgstr ""
-
-#: src/canvasesDesc.js:27
-msgid "Top10"
-msgstr ""
-
-#: src/canvasesDesc.js:28
-msgid "2bit"
-msgstr ""
-
-#: src/canvasesDesc.js:29
-msgid "Minimap"
-msgstr ""
-
-#: src/canvasesDesc.js:32
-msgid "Our main canvas, a huge map of the world. Place anywhere you like!"
-msgstr ""
-
-#: src/canvasesDesc.js:33
-msgid ""
-"Moon canvas. Safe space for art. No flags or large text (unless part of "
-"art) or art larger than 1.5k x 1.5k pixels."
-msgstr ""
-
-#: src/canvasesDesc.js:34
-msgid "Place Voxels on a 3D canvas with others."
-msgstr ""
-
-#: src/canvasesDesc.js:35
-msgid "Special canvas to spread awareness of SARS-CoV2 (take the vax)."
-msgstr ""
-
-#: src/canvasesDesc.js:36
-msgid "Mirror of PixelZone"
-msgstr ""
-
-#: src/canvasesDesc.js:37
-msgid "Mirror of PixelCanvas"
-msgstr ""
-
-#: src/canvasesDesc.js:38
-msgid "Black and White canvas"
-msgstr ""
-
-#: src/canvasesDesc.js:39
-msgid ""
-"A canvas for the most active players from the the previous day. Daily "
-"ranking updates at 00:00 UTC."
-msgstr ""
-
-#: src/canvasesDesc.js:40
-msgid "Only four colors. Same rules as moon!"
-msgstr ""
-
-#: src/canvasesDesc.js:41
-msgid ""
-"Conquer land on a smaller earth with protected ocean. Shares cooldown with "
-"earth canvas!"
 msgstr ""
 
 #: src/core/MailProvider.js:66

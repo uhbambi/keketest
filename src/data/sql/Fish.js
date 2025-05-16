@@ -42,4 +42,29 @@ export async function storeFish(uid, type, size) {
   }
 }
 
+export async function getFishesOfUser(uid) {
+  const fishes = [];
+  try {
+    const fishModels = await Fish.findAll({
+      attributes: [
+        'type',
+        'size',
+        'createdAt',
+      ],
+      where: { uid },
+      order: [['createdAt', 'DESC']],
+      raw: true,
+    });
+    let i = fishModels.length;
+    while (i > 0) {
+      i -= 1;
+      const { type, size, createdAt } = fishModels[i];
+      fishes.push({ type, size, ts: createdAt.getTime() });
+    }
+  } catch {
+    // nothing
+  }
+  return fishes;
+}
+
 export default Fish;
