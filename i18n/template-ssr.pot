@@ -98,20 +98,20 @@ msgstr ""
 msgid "Loading..."
 msgstr ""
 
-#: src/ssr/Main.jsx:90
-msgid "Place color pixels on an map styled canvas with other players online"
-msgstr ""
-
-#: src/ssr/Main.jsx:91
-msgid "PixelPlanet"
-msgstr ""
-
 #: src/ssr/PopUp.jsx:47
 msgid "ppfun"
 msgstr ""
 
 #: src/ssr/PopUp.jsx:48
 msgid "PixelPlanet.Fun PopUp"
+msgstr ""
+
+#: src/ssr/Main.jsx:90
+msgid "Place color pixels on an map styled canvas with other players online"
+msgstr ""
+
+#: src/ssr/Main.jsx:91
+msgid "PixelPlanet"
 msgstr ""
 
 #: src/utils/validation.js:17
@@ -220,108 +220,6 @@ msgstr ""
 msgid "Just admins can do that"
 msgstr ""
 
-#: src/routes/api/auth/register.js:30
-msgid "No Captcha given"
-msgstr ""
-
-#: src/routes/api/auth/register.js:34
-msgid "E-Mail already in use."
-msgstr ""
-
-#: src/routes/api/auth/register.js:36
-msgid "Username already in use."
-msgstr ""
-
-#: src/routes/api/auth/register.js:60
-msgid "You took too long, try again."
-msgstr ""
-
-#: src/routes/api/auth/register.js:63
-msgid "You failed your captcha"
-msgstr ""
-
-#: src/routes/api/auth/register.js:66
-msgid "Please refresh the website"
-msgstr ""
-
-#: src/routes/api/auth/register.js:69
-msgid "Your Browser looks shady"
-msgstr ""
-
-#: src/routes/api/auth/register.js:72
-msgid "Unknown Captcha Error"
-msgstr ""
-
-#: src/routes/api/auth/change_mail.js:23
-#: src/routes/api/auth/register.js:78
-msgid "This email provider is not allowed"
-msgstr ""
-
-#: src/routes/api/auth/register.js:100
-msgid "Failed to create new user :("
-msgstr ""
-
-#: src/routes/api/auth/register.js:116
-msgid "Failed to establish session after register :("
-msgstr ""
-
-#: src/routes/api/auth/logout.js:14
-msgid "You are not even logged in."
-msgstr ""
-
-#: src/routes/api/auth/delete_account.js:69
-#: src/routes/api/auth/logout.js:26
-msgid "Server error when logging out."
-msgstr ""
-
-#: src/routes/api/auth/verify.js:26
-#: src/routes/api/auth/verify.js:35
-msgid "Mail verification"
-msgstr ""
-
-#: src/routes/api/auth/verify.js:27
-msgid "You are now verified :)"
-msgstr ""
-
-#: src/routes/api/auth/verify.js:35
-msgid ""
-"Your mail verification code is invalid or already expired :(, please "
-"request a new one."
-msgstr ""
-
-#: src/routes/api/auth/change_mail.js:45
-#: src/routes/api/auth/change_passwd.js:35
-#: src/routes/api/auth/delete_account.js:38
-msgid "You are not authenticated."
-msgstr ""
-
-#: src/routes/api/auth/change_mail.js:54
-#: src/routes/api/auth/change_passwd.js:44
-#: src/routes/api/auth/delete_account.js:57
-msgid "Incorrect password!"
-msgstr ""
-
-#: src/routes/api/auth/delete_account.js:48
-msgid "Muted Users can not delete their account."
-msgstr ""
-
-#: src/routes/api/auth/change_mail.js:63
-msgid "Muted Users can not do this."
-msgstr ""
-
-#: src/ssr/RedirectionPage.jsx:19
-msgid "PixelPlanet.fun Accounts"
-msgstr ""
-
-#: src/ssr/RedirectionPage.jsx:29
-msgid "You will be automatically redirected after 15s"
-msgstr ""
-
-#: src/ssr/RedirectionPage.jsx:30
-#, javascript-format
-msgid "Or ${ clickHere } to go back to pixelplanet"
-msgstr ""
-
 #: src/canvasesDesc.js:20
 msgid "Earth"
 msgstr ""
@@ -406,6 +304,108 @@ msgstr ""
 msgid ""
 "Conquer land on a smaller earth with protected ocean. Shares cooldown with "
 "earth canvas!"
+msgstr ""
+
+#: src/routes/api/auth/register.js:30
+msgid "No Captcha given"
+msgstr ""
+
+#: src/routes/api/auth/register.js:34
+msgid "E-Mail already in use."
+msgstr ""
+
+#: src/routes/api/auth/register.js:36
+msgid "Username already in use."
+msgstr ""
+
+#: src/routes/api/auth/register.js:60
+msgid "You took too long, try again."
+msgstr ""
+
+#: src/routes/api/auth/register.js:63
+msgid "You failed your captcha"
+msgstr ""
+
+#: src/routes/api/auth/register.js:66
+msgid "Please refresh the website"
+msgstr ""
+
+#: src/routes/api/auth/register.js:69
+msgid "Your Browser looks shady"
+msgstr ""
+
+#: src/routes/api/auth/register.js:72
+msgid "Unknown Captcha Error"
+msgstr ""
+
+#: src/routes/api/auth/change_mail.js:23
+#: src/routes/api/auth/register.js:78
+msgid "This email provider is not allowed"
+msgstr ""
+
+#: src/routes/api/auth/register.js:100
+msgid "Failed to create new user :("
+msgstr ""
+
+#: src/routes/api/auth/register.js:116
+msgid "Failed to establish session after register :("
+msgstr ""
+
+#: src/routes/api/auth/verify.js:26
+#: src/routes/api/auth/verify.js:35
+msgid "Mail verification"
+msgstr ""
+
+#: src/routes/api/auth/verify.js:27
+msgid "You are now verified :)"
+msgstr ""
+
+#: src/routes/api/auth/verify.js:35
+msgid ""
+"Your mail verification code is invalid or already expired :(, please "
+"request a new one."
+msgstr ""
+
+#: src/routes/api/auth/logout.js:14
+msgid "You are not even logged in."
+msgstr ""
+
+#: src/routes/api/auth/delete_account.js:69
+#: src/routes/api/auth/logout.js:26
+msgid "Server error when logging out."
+msgstr ""
+
+#: src/routes/api/auth/change_mail.js:45
+#: src/routes/api/auth/change_passwd.js:35
+#: src/routes/api/auth/delete_account.js:38
+msgid "You are not authenticated."
+msgstr ""
+
+#: src/routes/api/auth/change_mail.js:54
+#: src/routes/api/auth/change_passwd.js:44
+#: src/routes/api/auth/delete_account.js:57
+msgid "Incorrect password!"
+msgstr ""
+
+#: src/routes/api/auth/delete_account.js:48
+msgid "Muted Users can not delete their account."
+msgstr ""
+
+#: src/routes/api/auth/change_mail.js:63
+msgid "Muted Users can not do this."
+msgstr ""
+
+#: src/ssr/RedirectionPage.jsx:19
+msgid "PixelPlanet.fun Accounts"
+msgstr ""
+
+#: src/ssr/RedirectionPage.jsx:29
+msgid "You will be automatically redirected after 15s"
+msgstr ""
+
+#: src/ssr/RedirectionPage.jsx:30
+#, javascript-format
+msgid "Or ${ clickHere } to go back to pixelplanet"
 msgstr ""
 
 #: src/core/MailProvider.js:66

@@ -175,8 +175,8 @@ export default function user(
 
     case 'FISH_APPEARS': {
       const { fishType: type, size } = action;
-      // 5 - 30 depending on size
-      const screenSize = Math.ceil(5 + size / 25 * 25);
+      // 10 - 40 depending on size
+      const screenSize = Math.ceil(10 + size / 25 * 30);
       const fish = {
         type,
         size,

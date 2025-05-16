@@ -1097,6 +1097,21 @@ table td span {
   border-radius: 1em;
   margin: 2px;
   padding: 4px;
+  cursor: pointer;
+}
+
+.profilefish:hover {
+  opacity: 0.8;
+}
+
+.expandbtn {
+  background-color: rgb(0, 18, 98);
+  color: #e6e6e6;
+  cursor: pointer;
+}
+
+.expandbtn:hover {
+  opacity: 0.8;
 }
 
 .profilefish-img {
@@ -1116,6 +1131,11 @@ table td span {
 
 .fishdisplay-img {
   width: 100%;
+}
+
+@keyframes sway {
+  0% 100% { transform: rotate(var(--current-angle)) rotate(-14deg); }
+  50% { transform: rotate(var(--current-angle)) rotate(14deg); }
 }
 
 #mvmctrls {

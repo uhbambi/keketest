@@ -177,6 +177,14 @@ msgstr ""
 msgid "Error ${ retCode }"
 msgstr ""
 
+#: src/ui/rendererFactory.js:32
+msgid "Canvas Error"
+msgstr ""
+
+#: src/ui/rendererFactory.js:33
+msgid "Can't render 3D canvas, do you have WebGL2 disabled?"
+msgstr ""
+
 #: src/store/actions/thunks.js:237
 msgid "Pencil picks: "
 msgstr ""
@@ -194,14 +202,6 @@ msgstr ""
 #: src/components/windows/Settings.jsx:67
 #: src/store/actions/thunks.js:246
 msgid "From History"
-msgstr ""
-
-#: src/ui/rendererFactory.js:32
-msgid "Canvas Error"
-msgstr ""
-
-#: src/ui/rendererFactory.js:33
-msgid "Can't render 3D canvas, do you have WebGL2 disabled?"
 msgstr ""
 
 #: src/ui/templateLoader.js:230
@@ -326,9 +326,12 @@ msgstr ""
 msgid "Total"
 msgstr ""
 
-#: src/components/buttons/CanvasSwitchButton.jsx:20
-#: src/components/windows/index.js:21
-msgid "Canvas Selection"
+#: src/components/buttons/ChatButton.jsx:79
+msgid "Close Chat"
+msgstr ""
+
+#: src/components/buttons/ChatButton.jsx:79
+msgid "Open Chat"
 msgstr ""
 
 #: src/components/buttons/ExpandMenuButton.jsx:22
@@ -339,12 +342,21 @@ msgstr ""
 msgid "Open Menu"
 msgstr ""
 
-#: src/components/buttons/ChatButton.jsx:79
-msgid "Close Chat"
+#: src/components/buttons/CanvasSwitchButton.jsx:20
+#: src/components/windows/index.js:21
+msgid "Canvas Selection"
 msgstr ""
 
-#: src/components/buttons/ChatButton.jsx:79
-msgid "Open Chat"
+#: src/components/HistorySelect.jsx:156
+msgid "Loading"
+msgstr ""
+
+#: src/components/HistorySelect.jsx:157
+msgid "Select Date above"
+msgstr ""
+
+#: src/components/Fish.jsx:38
+msgid "A Phish!"
 msgstr ""
 
 #: src/components/Admintools.jsx:115
@@ -380,38 +392,6 @@ msgstr ""
 msgid "Resize"
 msgstr ""
 
-#: src/components/HistorySelect.jsx:156
-msgid "Loading"
-msgstr ""
-
-#: src/components/HistorySelect.jsx:157
-msgid "Select Date above"
-msgstr ""
-
-#: src/components/Fish.jsx:36
-msgid "A Phish!"
-msgstr ""
-
-#: src/components/BanInfo.jsx:75
-#: src/components/buttons/HelpButton.jsx:20
-#: src/components/windows/index.js:15
-msgid "Help"
-msgstr ""
-
-#: src/components/buttons/SettingsButton.jsx:21
-#: src/components/windows/index.js:16
-msgid "Settings"
-msgstr ""
-
-#: src/components/buttons/LogInButton.jsx:20
-#: src/components/windows/index.js:17
-msgid "User Area"
-msgstr ""
-
-#: src/components/buttons/DownloadButton.jsx:36
-msgid "Make Screenshot"
-msgstr ""
-
 #: src/components/buttons/GlobeButton.jsx:34
 msgid "Globe View"
 msgstr ""
@@ -440,6 +420,26 @@ msgstr ""
 msgid "Disable Overlay Pencil"
 msgstr ""
 
+#: src/components/BanInfo.jsx:75
+#: src/components/buttons/HelpButton.jsx:20
+#: src/components/windows/index.js:15
+msgid "Help"
+msgstr ""
+
+#: src/components/buttons/SettingsButton.jsx:21
+#: src/components/windows/index.js:16
+msgid "Settings"
+msgstr ""
+
+#: src/components/buttons/LogInButton.jsx:20
+#: src/components/windows/index.js:17
+msgid "User Area"
+msgstr ""
+
+#: src/components/buttons/DownloadButton.jsx:36
+msgid "Make Screenshot"
+msgstr ""
+
 #: src/components/windows/index.js:18
 msgid "Registration"
 msgstr ""
@@ -464,28 +464,12 @@ msgstr ""
 msgid "Fish Display"
 msgstr ""
 
-#: src/components/GlobalCaptcha.jsx:50
-msgid "You took too long, try again."
+#: src/components/BanInfo.jsx:66
+msgid "You are banned. You think it is unjustified? Check out the "
 msgstr ""
 
-#: src/components/GlobalCaptcha.jsx:53
-msgid "You failed your captcha"
-msgstr ""
-
-#: src/components/GlobalCaptcha.jsx:56
-msgid "No or invalid captcha text"
-msgstr ""
-
-#: src/components/GlobalCaptcha.jsx:59
-msgid "No captcha id given"
-msgstr ""
-
-#: src/components/GlobalCaptcha.jsx:62
-msgid "Your Browser looks shady"
-msgstr ""
-
-#: src/components/GlobalCaptcha.jsx:68
-msgid "Unknown Captcha Error"
+#: src/components/BanInfo.jsx:76
+msgid " on how to appeal."
 msgstr ""
 
 #: src/components/BanInfo.jsx:80
@@ -499,30 +483,6 @@ msgstr ""
 #: src/components/windows/ForgotPassword.jsx:73
 #: src/components/windows/Register.jsx:92
 msgid "Error"
-msgstr ""
-
-#: src/components/ChangeMail.jsx:93
-#: src/components/ChangeName.jsx:70
-#: src/components/ChangePassword.jsx:115
-#: src/components/DeleteAccount.jsx:68
-#: src/components/GlobalCaptcha.jsx:94
-#: src/components/RefreshPrompt.jsx:16
-#: src/components/TemplateItemEdit.jsx:181
-#: src/components/windows/ForgotPassword.jsx:89
-#: src/components/windows/Register.jsx:141
-msgid "Cancel"
-msgstr ""
-
-#: src/components/GlobalCaptcha.jsx:100
-msgid "Send"
-msgstr ""
-
-#: src/components/BanInfo.jsx:66
-msgid "You are banned. You think it is unjustified? Check out the "
-msgstr ""
-
-#: src/components/BanInfo.jsx:76
-msgid " on how to appeal."
 msgstr ""
 
 #: src/components/BanInfo.jsx:85
@@ -563,122 +523,44 @@ msgstr ""
 msgid "Refresh"
 msgstr ""
 
-#: src/components/windows/Settings.jsx:72
-msgid "Show Grid"
+#: src/components/ChangeMail.jsx:93
+#: src/components/ChangeName.jsx:70
+#: src/components/ChangePassword.jsx:115
+#: src/components/DeleteAccount.jsx:68
+#: src/components/GlobalCaptcha.jsx:94
+#: src/components/RefreshPrompt.jsx:16
+#: src/components/TemplateItemEdit.jsx:181
+#: src/components/windows/ForgotPassword.jsx:89
+#: src/components/windows/Register.jsx:141
+msgid "Cancel"
 msgstr ""
 
-#: src/components/windows/Settings.jsx:77
-msgid "Turn on grid to highlight pixel borders."
+#: src/components/GlobalCaptcha.jsx:50
+msgid "You took too long, try again."
 msgstr ""
 
-#: src/components/windows/Settings.jsx:80
-msgid "Show Pixel Activity"
+#: src/components/GlobalCaptcha.jsx:53
+msgid "You failed your captcha"
 msgstr ""
 
-#: src/components/windows/Settings.jsx:85
-msgid "Show circles where pixels are placed."
+#: src/components/GlobalCaptcha.jsx:56
+msgid "No or invalid captcha text"
 msgstr ""
 
-#: src/components/windows/Settings.jsx:88
-msgid "Always show Movement Controls"
+#: src/components/GlobalCaptcha.jsx:59
+msgid "No captcha id given"
 msgstr ""
 
-#: src/components/windows/Settings.jsx:93
-msgid "Always show movement control buttons"
+#: src/components/GlobalCaptcha.jsx:62
+msgid "Your Browser looks shady"
 msgstr ""
 
-#: src/components/windows/Settings.jsx:96
-msgid "Disable Game Sounds"
+#: src/components/GlobalCaptcha.jsx:68
+msgid "Unknown Captcha Error"
 msgstr ""
 
-#: src/components/windows/Settings.jsx:102
-msgid "All sound effects will be disabled."
-msgstr ""
-
-#: src/components/windows/Settings.jsx:106
-msgid ""
-"Your Browser doesn't allow us to use AudioContext to play sounds. Do you "
-"have some privacy feature blocking us?"
-msgstr ""
-
-#: src/components/windows/Settings.jsx:112
-msgid "Enable chat notifications"
-msgstr ""
-
-#: src/components/windows/Settings.jsx:116
-msgid "Play a sound when new chat messages arrive"
-msgstr ""
-
-#: src/components/windows/Settings.jsx:119
-msgid "Auto Zoom In"
-msgstr ""
-
-#: src/components/windows/Settings.jsx:124
-msgid ""
-"Zoom in instead of placing a pixel when you tap the canvas and your zoom is "
-"small."
-msgstr ""
-
-#: src/components/windows/Settings.jsx:127
-msgid "Compact Palette"
-msgstr ""
-
-#: src/components/windows/Settings.jsx:132
-msgid "Display Palette in a compact form that takes less screen space."
-msgstr ""
-
-#: src/components/windows/Settings.jsx:135
-msgid "Potato Mode"
-msgstr ""
-
-#: src/components/windows/Settings.jsx:139
-msgid "For when you are playing on a potato."
-msgstr ""
-
-#: src/components/Converter.jsx:381
-#: src/components/windows/Settings.jsx:142
-msgid "Light Grid"
-msgstr ""
-
-#: src/components/windows/Settings.jsx:146
-msgid "Show Grid in white instead of black."
-msgstr ""
-
-#: src/components/windows/Settings.jsx:149
-msgid "Custom Cursor"
-msgstr ""
-
-#: src/components/windows/Settings.jsx:153
-msgid "Use our custom cursor"
-msgstr ""
-
-#: src/components/windows/Settings.jsx:157
-msgid "Historical View"
-msgstr ""
-
-#: src/components/windows/Settings.jsx:162
-msgid "Check out past versions of the canvas."
-msgstr ""
-
-#: src/components/windows/Settings.jsx:166
-#, javascript-format
-msgid "Pencil Mode for ${ canvasName } canvas"
-msgstr ""
-
-#: src/components/windows/Settings.jsx:174
-msgid "What the pencil should draw on the current canvas."
-msgstr ""
-
-#: src/components/windows/Settings.jsx:178
-msgid "Themes"
-msgstr ""
-
-#: src/components/windows/Settings.jsx:183
-msgid "How pixelplanet should look like."
-msgstr ""
-
-#: src/components/windows/Settings.jsx:190
-msgid "Select Language"
+#: src/components/GlobalCaptcha.jsx:100
+msgid "Send"
 msgstr ""
 
 #: src/components/windows/Help.jsx:66
@@ -874,6 +756,124 @@ msgstr ""
 msgid "Credit for the Palette of the 2bit canvas goes to ${ donendoLink }."
 msgstr ""
 
+#: src/components/windows/Settings.jsx:72
+msgid "Show Grid"
+msgstr ""
+
+#: src/components/windows/Settings.jsx:77
+msgid "Turn on grid to highlight pixel borders."
+msgstr ""
+
+#: src/components/windows/Settings.jsx:80
+msgid "Show Pixel Activity"
+msgstr ""
+
+#: src/components/windows/Settings.jsx:85
+msgid "Show circles where pixels are placed."
+msgstr ""
+
+#: src/components/windows/Settings.jsx:88
+msgid "Always show Movement Controls"
+msgstr ""
+
+#: src/components/windows/Settings.jsx:93
+msgid "Always show movement control buttons"
+msgstr ""
+
+#: src/components/windows/Settings.jsx:96
+msgid "Disable Game Sounds"
+msgstr ""
+
+#: src/components/windows/Settings.jsx:102
+msgid "All sound effects will be disabled."
+msgstr ""
+
+#: src/components/windows/Settings.jsx:106
+msgid ""
+"Your Browser doesn't allow us to use AudioContext to play sounds. Do you "
+"have some privacy feature blocking us?"
+msgstr ""
+
+#: src/components/windows/Settings.jsx:112
+msgid "Enable chat notifications"
+msgstr ""
+
+#: src/components/windows/Settings.jsx:116
+msgid "Play a sound when new chat messages arrive"
+msgstr ""
+
+#: src/components/windows/Settings.jsx:119
+msgid "Auto Zoom In"
+msgstr ""
+
+#: src/components/windows/Settings.jsx:124
+msgid ""
+"Zoom in instead of placing a pixel when you tap the canvas and your zoom is "
+"small."
+msgstr ""
+
+#: src/components/windows/Settings.jsx:127
+msgid "Compact Palette"
+msgstr ""
+
+#: src/components/windows/Settings.jsx:132
+msgid "Display Palette in a compact form that takes less screen space."
+msgstr ""
+
+#: src/components/windows/Settings.jsx:135
+msgid "Potato Mode"
+msgstr ""
+
+#: src/components/windows/Settings.jsx:139
+msgid "For when you are playing on a potato."
+msgstr ""
+
+#: src/components/Converter.jsx:381
+#: src/components/windows/Settings.jsx:142
+msgid "Light Grid"
+msgstr ""
+
+#: src/components/windows/Settings.jsx:146
+msgid "Show Grid in white instead of black."
+msgstr ""
+
+#: src/components/windows/Settings.jsx:149
+msgid "Custom Cursor"
+msgstr ""
+
+#: src/components/windows/Settings.jsx:153
+msgid "Use our custom cursor"
+msgstr ""
+
+#: src/components/windows/Settings.jsx:157
+msgid "Historical View"
+msgstr ""
+
+#: src/components/windows/Settings.jsx:162
+msgid "Check out past versions of the canvas."
+msgstr ""
+
+#: src/components/windows/Settings.jsx:166
+#, javascript-format
+msgid "Pencil Mode for ${ canvasName } canvas"
+msgstr ""
+
+#: src/components/windows/Settings.jsx:174
+msgid "What the pencil should draw on the current canvas."
+msgstr ""
+
+#: src/components/windows/Settings.jsx:178
+msgid "Themes"
+msgstr ""
+
+#: src/components/windows/Settings.jsx:183
+msgid "How pixelplanet should look like."
+msgstr ""
+
+#: src/components/windows/Settings.jsx:190
+msgid "Select Language"
+msgstr ""
+
 #: src/components/windows/UserArea.jsx:37
 #: src/components/windows/UserArea.jsx:64
 msgid "Profile"
@@ -897,22 +897,6 @@ msgstr ""
 
 #: src/components/windows/UserArea.jsx:86
 msgid "Consider joining us on Guilded:"
-msgstr ""
-
-#: src/components/windows/CanvasSelect.jsx:29
-msgid ""
-"Select the canvas you want to use.\n"
-"Every canvas is unique and has different palettes, cooldown and "
-"requirements.\n"
-"Archived canvases can be accessed here:"
-msgstr ""
-
-#: src/components/windows/CanvasSelect.jsx:37
-msgid "Archive"
-msgstr ""
-
-#: src/components/windows/CanvasSelect.jsx:70
-msgid "Retired Canvases (history only)"
 msgstr ""
 
 #: src/components/windows/Register.jsx:90
@@ -957,6 +941,22 @@ msgstr ""
 #: src/components/windows/ForgotPassword.jsx:84
 #: src/components/windows/Register.jsx:135
 msgid "Submit"
+msgstr ""
+
+#: src/components/windows/CanvasSelect.jsx:29
+msgid ""
+"Select the canvas you want to use.\n"
+"Every canvas is unique and has different palettes, cooldown and "
+"requirements.\n"
+"Archived canvases can be accessed here:"
+msgstr ""
+
+#: src/components/windows/CanvasSelect.jsx:37
+msgid "Archive"
+msgstr ""
+
+#: src/components/windows/CanvasSelect.jsx:70
+msgid "Retired Canvases (history only)"
 msgstr ""
 
 #: src/components/windows/Archive.jsx:9
@@ -1012,22 +1012,6 @@ msgstr ""
 msgid "Channel settings"
 msgstr ""
 
-#: src/components/windows/FishDisplay.jsx:35
-msgid "Size"
-msgstr ""
-
-#: src/components/windows/FishDisplay.jsx:40
-msgid "Date of catch"
-msgstr ""
-
-#: src/components/windows/ForgotPassword.jsx:58
-msgid "Sent you a mail with instructions to reset your password."
-msgstr ""
-
-#: src/components/windows/ForgotPassword.jsx:69
-msgid "Enter your mail address and we will send you a new password:"
-msgstr ""
-
 #: src/components/Captcha.jsx:66
 msgid "Could not load captcha"
 msgstr ""
@@ -1058,6 +1042,30 @@ msgstr ""
 
 #: src/components/Captcha.jsx:273
 msgid "Enter Characters"
+msgstr ""
+
+#: src/components/windows/ForgotPassword.jsx:58
+msgid "Sent you a mail with instructions to reset your password."
+msgstr ""
+
+#: src/components/windows/ForgotPassword.jsx:69
+msgid "Enter your mail address and we will send you a new password:"
+msgstr ""
+
+#: src/components/windows/FishDisplay.jsx:35
+msgid "Size"
+msgstr ""
+
+#: src/components/windows/FishDisplay.jsx:40
+msgid "Date of catch"
+msgstr ""
+
+#: src/components/GetIID.jsx:44
+msgid "Get IID"
+msgstr ""
+
+#: src/components/GetIID.jsx:53
+msgid "Copy"
 msgstr ""
 
 #: src/utils/validation.js:17
@@ -1166,14 +1174,6 @@ msgstr ""
 
 #: src/components/TemplateSettings.jsx:165
 msgid "Import templates"
-msgstr ""
-
-#: src/components/GetIID.jsx:44
-msgid "Get IID"
-msgstr ""
-
-#: src/components/GetIID.jsx:53
-msgid "Copy"
 msgstr ""
 
 #: src/components/LogInArea.jsx:19
@@ -1434,14 +1434,6 @@ msgstr ""
 msgid "Go to"
 msgstr ""
 
-#: src/components/LogInForm.jsx:78
-msgid "Name or Email"
-msgstr ""
-
-#: src/components/LogInForm.jsx:90
-msgid "LogIn"
-msgstr ""
-
 #: src/components/TemplateItemEdit.jsx:97
 msgid "Select File"
 msgstr ""
@@ -1452,6 +1444,14 @@ msgstr ""
 
 #: src/components/TemplateItemEdit.jsx:174
 msgid "Delete"
+msgstr ""
+
+#: src/components/LogInForm.jsx:78
+msgid "Name or Email"
+msgstr ""
+
+#: src/components/LogInForm.jsx:90
+msgid "LogIn"
 msgstr ""
 
 #: src/components/UserMessages.jsx:28
@@ -1466,6 +1466,18 @@ msgstr ""
 
 #: src/components/UserMessages.jsx:53
 msgid "Click here to request a new verification mail."
+msgstr ""
+
+#: src/components/FishList.jsx:23
+msgid "Phishes"
+msgstr ""
+
+#: src/components/FishList.jsx:61
+msgid "Retract"
+msgstr ""
+
+#: src/components/FishList.jsx:61
+msgid "Expand"
 msgstr ""
 
 #: src/components/ChangePassword.jsx:21
@@ -1486,10 +1498,6 @@ msgstr ""
 
 #: src/components/ChangePassword.jsx:103
 msgid "Confirm New Password"
-msgstr ""
-
-#: src/components/FishList.jsx:21
-msgid "Phishes"
 msgstr ""
 
 #: src/components/ChangeName.jsx:64
@@ -1532,67 +1540,6 @@ msgstr ""
 
 #: src/components/SocialSettings.jsx:82
 msgid "You have no users blocked"
-msgstr ""
-
-#: src/components/Admintools.jsx:121
-msgid "IP Actions"
-msgstr ""
-
-#: src/components/Admintools.jsx:123
-msgid "Do stuff with IPs (one IP per line)"
-msgstr ""
-
-#: src/components/Admintools.jsx:169
-#: src/components/Admintools.jsx:247
-msgid "Quick Actions"
-msgstr ""
-
-#: src/components/Admintools.jsx:174
-#: src/components/Admintools.jsx:252
-msgid "Reset Captchas of ALL Users"
-msgstr ""
-
-#: src/components/Admintools.jsx:181
-#: src/components/Admintools.jsx:259
-msgid "Roll different Captcha Fonts"
-msgstr ""
-
-#: src/components/Admintools.jsx:188
-msgid "Give Everyone A Fish"
-msgstr ""
-
-#: src/components/Admintools.jsx:198
-#: src/components/Admintools.jsx:269
-msgid "Require Verification to Place"
-msgstr ""
-
-#: src/components/Admintools.jsx:205
-#: src/components/Admintools.jsx:276
-msgid "Stop requiring Verification to Place"
-msgstr ""
-
-#: src/components/Admintools.jsx:210
-msgid "Manage Moderators"
-msgstr ""
-
-#: src/components/Admintools.jsx:212
-msgid "Remove Moderator"
-msgstr ""
-
-#: src/components/Admintools.jsx:243
-msgid "There are no mods"
-msgstr ""
-
-#: src/components/Admintools.jsx:280
-msgid "Assign new Mod"
-msgstr ""
-
-#: src/components/Admintools.jsx:283
-msgid "Enter UserName of new Mod"
-msgstr ""
-
-#: src/components/Admintools.jsx:292
-msgid "User Name"
 msgstr ""
 
 #: src/components/ModCanvastools.jsx:169
@@ -1694,6 +1641,67 @@ msgstr ""
 msgid "Stop Cleaner"
 msgstr ""
 
+#: src/components/Admintools.jsx:121
+msgid "IP Actions"
+msgstr ""
+
+#: src/components/Admintools.jsx:123
+msgid "Do stuff with IPs (one IP per line)"
+msgstr ""
+
+#: src/components/Admintools.jsx:169
+#: src/components/Admintools.jsx:247
+msgid "Quick Actions"
+msgstr ""
+
+#: src/components/Admintools.jsx:174
+#: src/components/Admintools.jsx:252
+msgid "Reset Captchas of ALL Users"
+msgstr ""
+
+#: src/components/Admintools.jsx:181
+#: src/components/Admintools.jsx:259
+msgid "Roll different Captcha Fonts"
+msgstr ""
+
+#: src/components/Admintools.jsx:188
+msgid "Give Everyone A Fish"
+msgstr ""
+
+#: src/components/Admintools.jsx:198
+#: src/components/Admintools.jsx:269
+msgid "Require Verification to Place"
+msgstr ""
+
+#: src/components/Admintools.jsx:205
+#: src/components/Admintools.jsx:276
+msgid "Stop requiring Verification to Place"
+msgstr ""
+
+#: src/components/Admintools.jsx:210
+msgid "Manage Moderators"
+msgstr ""
+
+#: src/components/Admintools.jsx:212
+msgid "Remove Moderator"
+msgstr ""
+
+#: src/components/Admintools.jsx:243
+msgid "There are no mods"
+msgstr ""
+
+#: src/components/Admintools.jsx:280
+msgid "Assign new Mod"
+msgstr ""
+
+#: src/components/Admintools.jsx:283
+msgid "Enter UserName of new Mod"
+msgstr ""
+
+#: src/components/Admintools.jsx:292
+msgid "User Name"
+msgstr ""
+
 #: src/components/ModWatchtools.jsx:49
 msgid "Interval is invalid"
 msgstr ""
@@ -1768,6 +1776,10 @@ msgid ""
 "In example in the case of a streamer raid."
 msgstr ""
 
+#: src/components/contextmenus/ChannelContextMenu.jsx:46
+msgid "Mute"
+msgstr ""
+
 #: src/components/contextmenus/UserContextMenu.jsx:49
 msgid "Ping"
 msgstr ""
@@ -1778,10 +1790,6 @@ msgstr ""
 
 #: src/components/contextmenus/UserContextMenu.jsx:86
 msgid "Block"
-msgstr ""
-
-#: src/components/contextmenus/ChannelContextMenu.jsx:46
-msgid "Mute"
 msgstr ""
 
 #: src/components/MdLink.jsx:98
@@ -1808,25 +1816,10 @@ msgctxt "keybinds"
 msgid "X"
 msgstr ""
 
-#: src/components/windows/Settings.jsx:89
-msgctxt "keybinds"
-msgid "N"
-msgstr ""
-
-#: src/components/windows/Settings.jsx:97
-msgctxt "keybinds"
-msgid "M"
-msgstr ""
-
 #: src/components/windows/Help.jsx:21
 #: src/components/windows/Settings.jsx:159
 msgctxt "keybinds"
 msgid "H"
-msgstr ""
-
-#: src/components/windows/Settings.jsx:169
-msgctxt "keybinds"
-msgid "B"
 msgstr ""
 
 #: src/components/windows/Help.jsx:22
@@ -1867,6 +1860,21 @@ msgstr ""
 #: src/components/windows/Help.jsx:35
 msgctxt "keybinds"
 msgid "Shift"
+msgstr ""
+
+#: src/components/windows/Settings.jsx:89
+msgctxt "keybinds"
+msgid "N"
+msgstr ""
+
+#: src/components/windows/Settings.jsx:97
+msgctxt "keybinds"
+msgid "M"
+msgstr ""
+
+#: src/components/windows/Settings.jsx:169
+msgctxt "keybinds"
+msgid "B"
 msgstr ""
 
 #: src/components/TemplateSettings.jsx:61

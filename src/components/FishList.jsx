@@ -1,7 +1,7 @@
 /*
  * List of caught fishes inside profile
  */
-import React from 'react';
+import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { t } from 'ttag';
 import useLink from './hooks/link';
@@ -10,16 +10,18 @@ import { setBrightness, colorFromText } from '../core/utils';
 import { FISH_TYPES } from '../core/constants';
 
 const FishList = () => {
+  const [expanded, setExpanded] = useState(false);
   const fishes = useSelector((state) => state.profile.fishes);
   const link = useLink();
   if (!fishes.length) {
     return null;
   }
+  const sliceTill = (expanded) ? fishes.length : 4;
 
   return (
     <p className="fishlist">
       <span className="stattext">{t`Phishes`}:</span>
-      {fishes.map(({ type, size, ts }) => {
+      {fishes.slice(0, sliceTill).map(({ type, size, ts }) => {
         const { name } = FISH_TYPES[type];
         const shortname = name.toLowerCase().split(' ').join('');
         const backgroundColor = setBrightness(colorFromText(shortname), false);
@@ -28,7 +30,6 @@ const FishList = () => {
             key={ts}
             style={{
               backgroundColor,
-              cursor: 'pointer',
             }}
             className="profilefish"
             title={name}
@@ -53,6 +54,19 @@ const FishList = () => {
           </span>
         );
       })}
+      {(fishes.length > 4) && (
+        <span
+          key="expand"
+          className="profilefish expandbtn"
+          title={(expanded) ? t`Retract` : t`Expand`}
+          onClick={(evt) => {
+            evt.stopPropagation();
+            setExpanded(!expanded);
+          }}
+        >
+          <span>{(expanded) ? '◄' : '►'}</span>
+        </span>
+      )}
     </p>
   );
 };
