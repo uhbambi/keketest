@@ -40,6 +40,8 @@ const FishList = () => {
                 target: 'blank',
                 args: { type, size, ts },
                 title: name,
+                width: 385,
+                height: 445,
               });
             }}
           >

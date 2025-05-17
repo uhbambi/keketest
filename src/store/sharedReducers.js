@@ -64,21 +64,14 @@ const canvasPersist = persistReducer({
   whitelist: ['prevCanvasState'],
 }, canvas);
 
-const profilePersist = persistReducer({
-  key: 'prof',
-  storage,
-  version: 2,
-  migrate,
-}, profile);
-
 export default {
   gui: guiPersist,
   ranks: ranksPersist,
   chatRead: chatReadPersist,
   templates: templatesPersist,
   canvas: canvasPersist,
-  profile: profilePersist,
   user,
   chat,
   fetching,
+  profile,
 };

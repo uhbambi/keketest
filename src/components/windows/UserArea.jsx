@@ -24,7 +24,7 @@ const Converter = React.lazy(() => import(/* webpackChunkName: "converter" */ '.
 const Modtools = React.lazy(() => import(/* webpackChunkName: "modtools" */ '../Modtools'));
 
 const UserArea = () => {
-  const name = useSelector((state) => state.user.name);
+  const id = useSelector((state) => state.user.id);
   const userlvl = useSelector((state) => state.user.userlvl);
   const lastStatsFetch = useSelector((state) => state.ranks.lastFetch);
   const lastProfileFetch = useSelector((state) => state.profile.lastFetch);
@@ -53,17 +53,17 @@ const UserArea = () => {
   }, 300000);
 
   useEffect(() => {
-    if (Date.now() - 600000 > lastProfileFetch) {
+    if (id && Date.now() - 600000 > lastProfileFetch) {
       dispatch(fetchProfile());
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [lastProfileFetch, id]);
 
   return (
     <div style={{ textAlign: 'center' }}>
       <Tabs activeTab={activeTab} setActiveTab={setActiveTab}>
         <div label={t`Profile`}>
-          {(name) ? <UserAreaContent /> : <LogInArea />}
+          {(id) ? <UserAreaContent /> : <LogInArea />}
         </div>
         <div label={t`Statistics`}>
           <Suspense fallback={<div>Loading...</div>}>
