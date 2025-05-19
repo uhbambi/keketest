@@ -147,9 +147,8 @@ class Ranks {
     if (this.#punishedCountry !== newPunishedCountry
       || this.#punishmentFactor !== newPunishmentFactor
     ) {
-      if (this.newPunishedCountry === null) {
-        resetCountryCooldownFactor(this.#punishedCountry);
-      } else {
+      resetCountryCooldownFactor(this.#punishedCountry);
+      if (newPunishedCountry) {
         setCountryCooldownFactor(newPunishedCountry, newPunishmentFactor);
       }
       this.#punishedCountry = newPunishedCountry;
