@@ -42,7 +42,7 @@ function runEventLoop() {
     return;
   }
 
-  const amountOfFishes = 5 - getAmountOfIPCooldownModifications();
+  const amountOfFishes = 4 - getAmountOfIPCooldownModifications();
   if (amountOfFishes <= 0) {
     setTimeout(runEventLoop, 180000);
     logger.info('FISHING: no fishes to give out');
