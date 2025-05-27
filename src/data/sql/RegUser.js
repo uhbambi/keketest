@@ -22,8 +22,11 @@ const User = sequelize.define('User', {
     primaryKey: true,
   },
 
+  // STRING is VARCHAR, CHAR is CHAR
   name: {
-    type: `${DataTypes.CHAR(32)} CHARSET utf8mb4 COLLATE utf8mb4_unicode_ci`,
+    type: DataTypes.STRING(32),
+    charset: 'utf8mb4',
+    collate: 'utf8mb4_unicode_ci',
     allowNull: false,
     unique: true,
   },
@@ -37,7 +40,7 @@ const User = sequelize.define('User', {
   },
 
   userlvl: {
-    type: DataTypes.TINYINT,
+    type: DataTypes.TINYINT.UNSIGNED,
     allowNull: false,
     defaultValue: USERLVL.REGISTERED,
   },
@@ -48,7 +51,7 @@ const User = sequelize.define('User', {
    * 1: priv (if account is private)
    */
   flags: {
-    type: DataTypes.TINYINT,
+    type: DataTypes.TINYINT.UNSIGNED,
     allowNull: false,
     defaultValue: 0,
   },
@@ -221,13 +224,12 @@ export async function getUserByTpid(provider, tpid, populate) {
     if (populate) {
       return await User.findOne({
         include: [
-          loginInclude.filter((i) => i.association !== 'tpids'), {
+          ...loginInclude.filter((i) => i.association !== 'tpids'), {
             association: 'tpids',
             where: {
               provider,
               tpid,
             },
-            required: false,
             right: true,
           },
         ],
@@ -240,7 +242,6 @@ export async function getUserByTpid(provider, tpid, populate) {
           provider,
           tpid,
         },
-        required: false,
         right: true,
       },
       raw: true,
@@ -345,7 +346,7 @@ export async function getUsersByNameOrEmail(name, email, populate) {
           }],
         },
         include: [
-          loginInclude.filter((i) => i.association !== 'tpids'), {
+          ...loginInclude.filter((i) => i.association !== 'tpids'), {
             association: 'tpids',
             right: true,
           },
@@ -357,8 +358,8 @@ export async function getUsersByNameOrEmail(name, email, populate) {
         [Op.or]: [{
           name
         }, {
-          '$tpids.provider$': THREEPID_PROVIDERS.EMAIL,
-          '$tpids.tpid$': email,
+          [Sequelize.col('tpids.provider')]: THREEPID_PROVIDERS.EMAIL,
+          [Sequelize.col('tpids.tpid')]: email,
         }],
       },
       include: {
@@ -366,6 +367,7 @@ export async function getUsersByNameOrEmail(name, email, populate) {
         right: true,
       },
       raw: true,
+      nested: true,
     });
   } catch (err) {
     console.error(`SQL Error on getUsersByNameOrEmail: ${err.message}`);

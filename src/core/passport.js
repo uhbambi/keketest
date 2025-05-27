@@ -23,6 +23,7 @@ import {
   getNameThatIsNotTaken,
   createNewUser,
 } from '../data/sql/RegUser';
+import { addTpid, setEmail } from '../data/sql/ThreePID';
 import User from '../data/User';
 import { auth } from './config';
 import { compareToHash } from '../utils/hash';
@@ -73,7 +74,7 @@ passport.use(new JsonStrategy({
 
 /**
  * OAuth SignIns, either mail or tpid has to be given
- * @param provider one out of the possible OATUH_PROVIDERS enums
+ * @param providerString one out of the possible OATUH_PROVIDERS enums
  * @param name name of thid party account
  * @param email email
  * @param tpid id of third party account
@@ -107,7 +108,7 @@ async function oauthLogin(providerString, name, email = null, tpid = null) {
   }
   // create new user
   if (!reguser) {
-    name = await getNameThatIsNotTaken();
+    name = await getNameThatIsNotTaken(name);
     logger.info(
       // eslint-disable-next-line max-len
       `Create new user from ${providerString} oauth login ${email} / ${name} / ${tpid}`,
@@ -127,25 +128,13 @@ async function oauthLogin(providerString, name, email = null, tpid = null) {
     )) {
       needReload = true;
     }
-    promises.push(ThreePID.upsert({
-      uid: reguser.id,
-      provider,
-      tpid,
-      verified: true,
-      lastSeen: new Date(),
-    }));
+    promises.push(addTpid(reguser.id, provider, tpid));
   }
   if (email && (!tpid || !reguser.tpids.find(
     (t) => (t.provider === THREEPID_PROVIDERS.EMAIL && t.tpid === email),
   ))) {
     needReload = true;
-    promises.push(ThreePID.upsert({
-      uid: reguser.id,
-      provider: THREEPID_PROVIDERS.EMAIL,
-      tpid: email,
-      verified: true,
-      lastSeen: new Date(),
-    }));
+    promises.push(setEmail(reguser.id, email, true));
   }
   await Promise.all(promises);
   if (needReload) {

@@ -33,7 +33,7 @@ import {
   getInfoToIp,
   getIPofIID,
   getIIDofIP,
-} from '../data/sql/IPInfo';
+} from '../data/sql/IP';
 import {
   getIIDSummary,
   getIIDPixels,

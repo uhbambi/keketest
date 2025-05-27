@@ -1,7 +1,7 @@
 import { DataTypes } from 'sequelize';
 import sequelize from './sequelize';
 
-const IPRangeBanHistory = sequelize.define('IPRangeBanHistory', {
+const RangeBanHistory = sequelize.define('RangeBanHistory', {
   id: {
     type: DataTypes.INTEGER.UNSIGNED,
     autoIncrement: true,
@@ -22,6 +22,11 @@ const IPRangeBanHistory = sequelize.define('IPRangeBanHistory', {
     type: DataTypes.DATE,
     allowNull: false,
   },
+
+  liftedAt: {
+    type: DataTypes.DATE,
+    defaultValue: DataTypes.NOW,
+  },
 });
 
-export default IPRangeBanHistory;
+export default RangeBanHistory;

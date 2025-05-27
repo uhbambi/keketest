@@ -7,7 +7,7 @@ import {
 } from '../../utils/ip';
 import {
   getIIDofIP,
-} from '../../data/sql/IPInfo';
+} from '../../data/sql/IP';
 
 async function getiid(req, res, next) {
   try {

@@ -1,8 +1,8 @@
-import Sequelize, { DataTypes } from 'sequelize';
+import Sequelize, { DataTypes, Op } from 'sequelize';
 
 import sequelize from './sequelize';
 
-const IPInfo = sequelize.define('IPInfo', {
+const IP = sequelize.define('IP', {
   /*
    * Store both 32bit IPv4 and first half of 128bit IPv6
    * (only the first 64bit of a v6 is usually assigned
@@ -23,60 +23,65 @@ const IPInfo = sequelize.define('IPInfo', {
   },
 
   /*
-   * 0: no proxy
-   * 1: proxy
-   * <0: failure
-   * null: not checked or check deleted
+   * time of last whois
    */
-  proxy: {
-    type: DataTypes.TINYINT,
-  },
-
-  /*
-   * extra information from
-   * proxycheck
-   */
-  pcheck: {
-    type: `${DataTypes.STRING(60)} CHARSET utf8mb4 COLLATE utf8mb4_unicode_ci`,
-    set(value) {
-      if (value) {
-        this.setDataValue('pcheck', value.slice(0, 60));
-      }
-    },
-  },
-
-  /*
-   * time of last proxycheck
-   */
-  checkedAt: {
+  lastSeen: {
     type: DataTypes.DATE,
     defaultValue: DataTypes.NOW,
     allowNull: false,
   },
-
-  /*
-   * virtual field to get a boolean for proxy,
-   * is not set in database
-   */
-  isProxy: {
-    type: DataTypes.VIRTUAL,
-    get() {
-      return (this.proxy === 1);
-    },
-    set() {
-      throw new Error(
-        'Do not try to set the `isProxy` value! Set proxy instead',
-      );
-    },
-  },
 });
+
+export async function getIPIntel(ip) {
+  try {
+    const ipIntel= await IP.findOne({
+      attributes: [
+        'uuid',
+        [Sequelize.fn('CONCAT',
+          Sequelize.fn('BIN_TO_IP', Sequelize.col('$range.min$')),
+          '/',
+          Sequelize.col('range.mask')
+        ), 'cidr'],
+        [Sequelize.col('range.country'), 'country'],
+        [Sequelize.col('range.org'), 'org'],
+        [Sequelize.col('range.descr'), 'descr'],
+        [Sequelize.col('range.asn'), 'asn'],
+        [Sequelize.col('proxy.isProxy'), 'isProxy'],
+        [Sequelize.col('proxy.type'), 'type'],
+        [Sequelize.col('proxy.operator'), 'operator'],
+        [Sequelize.col('proxy.devices'), 'devices'],
+        [Sequelize.col('range.checkedAt'), 'lastWhois'],
+        [Sequelize.col('proxy.checkedAt'), 'lastProxyCheck'],
+      ],
+      where: { ip: Sequelize.fn('IP_TO_BIN', ip) },
+      include: [{
+        association: 'range',
+        attributes: [],
+        where: {
+          // min: { [Op.lte]: Sequelize.fn('IP_TO_BIN', ip) },
+          // max: { [Op.gte]: Sequelize.fn('IP_TO_BIN', ip) },
+          checkedAt: { [Op.gt]: Sequelize.literal('NOW() - INTERVAL 30 DAY') },
+        },
+      }, {
+        association: 'proxy',
+        attributes: [],
+        where: {
+          checkedAt: { [Op.gt]: Sequelize.literal('NOW() - INTERVAL 3 DAY') },
+        },
+      }],
+      raw: true,
+    });
+  } catch (error) {
+    console.error(`SQL Error on getIPIntel: ${error.message}`);
+  }
+}
 
 export async function getIPofIID(uuid) {
   if (!uuid) {
     return null;
   }
   try {
-    const result = await IPInfo.findOne({
+    const result = await IP.findOne({
       attributes: [
         [Sequelize.fn('BIN_TO_IP', Sequelize.col('ip')), 'ip'],
       ],
@@ -94,7 +99,7 @@ export async function getIPofIID(uuid) {
 
 export async function getIIDofIP(ip) {
   try {
-    const result = await IPInfo.findOne({
+    const result = await IP.findOne({
       attributes: [
         [Sequelize.fn('BIN_TO_UUID', Sequelize.col('uuid')), 'uuid'],
       ],
@@ -116,7 +121,7 @@ export async function getIdsToIps(ips) {
     return ipToIdMap;
   }
   try {
-    const result = await IPInfo.findAll({
+    const result = await IP.findAll({
       attributes: [
         [Sequelize.fn('BIN_TO_IP', Sequelize.col('ip')), 'ip'],
         [Sequelize.fn('BIN_TO_UUID', Sequelize.col('uuid')), 'uuid'],
@@ -134,7 +139,7 @@ export async function getIdsToIps(ips) {
 }
 
 export async function getInfoToIp(ip) {
-  return IPInfo.findByPk(Sequelize.fn('IP_TO_BIN', ip));
+  return IP.findByPk(Sequelize.fn('IP_TO_BIN', ip));
 }
 
 export async function getInfoToIps(ips) {
@@ -143,7 +148,7 @@ export async function getInfoToIps(ips) {
     return ipToIdMap;
   }
   try {
-    const result = await IPInfo.findAll({
+    const result = await IP.findAll({
       attributes: [
         [Sequelize.fn('BIN_TO_IP', Sequelize.col('ip')), 'ip'],
         [Sequelize.fn('BIN_TO_UUID', Sequelize.col('uuid')), 'uuid'],
@@ -164,4 +169,4 @@ export async function getInfoToIps(ips) {
   return ipToIdMap;
 }
 
-export default IPInfo;
+export default IP;

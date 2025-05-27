@@ -1,19 +1,25 @@
-import { DataTypes } from 'sequelize';
+import Sequelize, { DataTypes } from 'sequelize';
 import sequelize from './sequelize';
 
-const IPBanHistory = sequelize.define('IPBanHistory', {
-  id: {
-    type: DataTypes.INTEGER.UNSIGNED,
-    autoIncrement: true,
+const BanHistory = sequelize.define('IPBanHistory', {
+  uuid: {
+    type: 'BINARY(16)',
+    defaultValue: Sequelize.literal('UUID_TO_BIN(UUID())'),
+    allowNull: false,
     primaryKey: true,
   },
 
   reason: {
-    type: `${DataTypes.CHAR(200)} CHARSET utf8mb4 COLLATE utf8mb4_unicode_ci`,
+    type: DataTypes.STRING(200),
+    charset: 'utf8mb4',
+    collate: 'utf8mb4_unicode_ci',
     allowNull: false,
-    set(value) {
-      this.setDataValue('reason', value.slice(0, 200));
-    },
+  },
+
+  flags: {
+    type: DataTypes.TINYINT.UNSIGNED,
+    allowNull: false,
+    defaultValue: 0,
   },
 
   started: {
@@ -25,6 +31,11 @@ const IPBanHistory = sequelize.define('IPBanHistory', {
     type: DataTypes.DATE,
     allowNull: false,
   },
+
+  liftedAt: {
+    type: DataTypes.DATE,
+    defaultValue: DataTypes.NOW,
+  },
 });
 
-export default IPBanHistory;
+export default BanHistory;

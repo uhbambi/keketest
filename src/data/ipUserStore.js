@@ -5,8 +5,9 @@ import Sequelize, { QueryTypes, Op } from 'sequelize';
 
 import sequelize from './sql/sequelize';
 import {
-  IPInfo, IPRange, WhoisReferral, Ban,
-} from './sql'; import {
+  IP, Range, WhoisReferral, Ban,
+} from './sql';
+import {
   cacheIpAllowed,
   getCacheIpAllowed,
   cacheUserAllowed,
@@ -38,7 +39,7 @@ export async function getStoredCcAndPc(ip) {
     console.log('CCANDPC', ccandpc);
     if (ccandpc.needsLink) {
       try {
-        await IPInfo.update({
+        await IP.update({
           rid: ccandpc.rid,
         }, {
           where: { ip: Sequelize.fn('IP_TO_BIN', ip) },
@@ -92,7 +93,7 @@ export async function getStoredIpAllowance(ip) {
     console.log('IPALLOW', ipall);
     if (ipall.needsLink) {
       try {
-        await IPInfo.update({
+        await IP.update({
           rid: ipall.rid,
         }, {
           where: { ip: Sequelize.fn('IP_TO_BIN', ip) },
@@ -202,7 +203,7 @@ export async function getCachedUserAllowance(uid) {
 export async function storePc(ip, pcReturn, rid = null) {
   const { status, pcheck } = pcReturn;
   try {
-    await IPInfo.upsert({
+    await IP.upsert({
       ip: Sequelize.fn('IP_TO_BIN', ip),
       proxy: status,
       pcheck,
@@ -244,7 +245,7 @@ async function storeOnlyWhois(whoisReturn) {
   let tries = 0;
   while (true) {
     try {
-      const { id } = await IPRange.create({
+      const { id } = await Range.create({
         min: Sequelize.fn('UNHEX', range[0]),
         max: Sequelize.fn('UNHEX', range[1]),
         mask: range[2],
@@ -262,7 +263,7 @@ async function storeOnlyWhois(whoisReturn) {
       }
       // eslint-disable-next-line max-len
       console.warn(`SQL Error on storeOnlyWhois: ${err.message}, ${range}, assume that whois already exists and delete it`);
-      await IPRange.delete({
+      await Range.delete({
         where: {
           [Op.or]: [{
             min: Sequelize.fn('UNHEX', range[0]),
@@ -288,7 +289,7 @@ export async function storeWhois(ip, whoisReturn) {
   } = whoisReturn;
   try {
     const rid = await storeOnlyWhois(whoisReturn);
-    await IPInfo.update({
+    await IP.update({
       rid,
     }, {
       where: {
@@ -312,7 +313,7 @@ export async function storeWhoisAndPc(ip, whoisAndPc) {
   } = whoisAndPc;
   try {
     const rid = await storeOnlyWhois(whoisAndPc);
-    await IPInfo.upsert({
+    await IP.upsert({
       ip: Sequelize.fn('IP_TO_BIN', ip),
       proxy: status,
       pcheck,

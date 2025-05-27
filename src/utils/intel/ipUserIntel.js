@@ -2,12 +2,12 @@
  * Get various data of IP and User and check if it is allowed to use site
  * or check if Email is dispoable
  * does proxycheck and check bans and whitelists
- * write IPInfo and UserIP to database
+ * write IP and UserIP to database
  */
 import { getIPv6Subnet } from '../utils/ip';
 import whois from '../utils/whois';
 import ProxyCheck from '../utils/ProxyCheck';
-import { IPInfo } from '../data/sql';
+import { IP } from '../data/sql';
 import { updateLastIp } from '../data/sql/UserIP';
 import { isIPBanned } from '../data/sql/IPBan';
 import { isWhitelisted } from '../data/sql/Whitelist';
@@ -58,9 +58,9 @@ async function userIpUpdate(userIpData) {
 /*
  * save information of ip into database
  */
-async function saveIPInfo(ip, whoisRet, allowed, info, options) {
+async function saveIP(ip, whoisRet, allowed, info, options) {
   try {
-    await IPInfo.upsert({
+    await IP.upsert({
       ...whoisRet,
       ip,
       proxy: allowed,
@@ -136,7 +136,7 @@ async function withoutCache(f, ip, ipKey, options) {
 
   await Promise.all([
     caPromise,
-    saveIPInfo(ipKey, whoisRet, status, pcheck, options),
+    saveIP(ipKey, whoisRet, status, pcheck, options),
   ]);
 
   return {

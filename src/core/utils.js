@@ -768,6 +768,10 @@ export function calculateFishBonusDuration(size) {
   return Math.floor(size / 25 * FISH_BONUS_MAX_DURATION);
 }
 
+/**
+ * base64 operations
+ */
+
 export function bufferToBase64(array) {
   return new Promise((resolve) => {
     const blob = new Blob([array]);

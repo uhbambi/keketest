@@ -8,7 +8,7 @@
 
 /* eslint-disable no-underscore-dangle */
 
-import { IPInfo, USERLVL } from './sql';
+import { IP, USERLVL } from './sql';
 import { findUserById } from './sql/RegUser';
 import { touch as touchUserIP } from './sql/UserIP';
 import { setCoolDown, getCoolDown } from './redis/cooldown';
@@ -141,7 +141,7 @@ class User {
    * @param values object with one or more:
    *   id userId as number
    *   regUser as sequelize instance
-   *   ipSub as string to initialize IPInfoj
+   *   ipSub as string to initialize IPj
    *   ipInfo as sequelize instance
    * @return promise
    */
@@ -157,7 +157,7 @@ class User {
     if (values.ipInfo) {
       this.ipInfo = values.ipInfo;
     } else if (values.ipSub) {
-      promises.push(IPInfo.findByPk(values.ipSub, {
+      promises.push(IP.findByPk(values.ipSub, {
         raw: true,
       }).then((ipInfo) => {
         if (ipInfo) {

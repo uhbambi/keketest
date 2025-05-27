@@ -5,8 +5,8 @@
 import logger from './logger';
 import whoisIp from '../utils/whois';
 import { rangeToString } from '../utils/ip';
-import { setWhoisIdToIp } from '../data/sql/IPInfo';
-import { getRangeOfIp, saveIpRange } from '../data/sql/IPRange';
+import { setWhoisIdToIp } from '../data/sql/IP';
+import { getRangeOfIp, saveIpRange } from '../data/sql/Range';
 import { saveWhoisReferral } from '../data/sql/WhoisReferral';
 
 /*
@@ -18,7 +18,7 @@ export default async function cachedWhoisIp(ip) {
   const rangeq = await getRangeOfIp(ip);
   console.log('WHOIS RANGEQ:', rangeq);
   // TODO: i don't think that it's returned like this
-  // TODO: make sure data is purged after a month with IPInfo associations
+  // TODO: make sure data is purged after a month with IP associations
   if (rangeq?.cidr) {
     return rangeq;
   }

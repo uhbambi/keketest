@@ -7,7 +7,7 @@ import {
   getIdsToIps,
   getInfoToIps,
   getIPofIID,
-} from '../data/sql/IPInfo';
+} from '../data/sql/IP';
 import { getIPv6Subnet } from '../utils/ip';
 
 

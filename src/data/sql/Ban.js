@@ -1,18 +1,28 @@
-import { DataTypes, Op } from 'sequelize';
-import sequelize from './sequelize';
+import Sequelize, { DataTypes, Op } from 'sequelize';
 
+import sequelize from './sequelize';
 import { HourlyCron } from '../../utils/cron';
 import { cleanCacheForIP } from '../redis/isAllowedCache';
+import BanHistory from './BanHistory';
+import IPBan from './association_models/IPBan';
+import UserBan from './association_models/UserBan';
+import ThreePIDBan from './association_models/ThreePIDBan';
+import IPBanHistory from './association_models/IPBanHistory';
+import UserBanHistory from './association_models/UserBanHistory';
+import ThreePIDBanHistory from './association_models/ThreePIDBanHistory';
 
 const Ban = sequelize.define('Ban', {
-  id: {
-    type: DataTypes.INTEGER.UNSIGNED,
-    autoIncrement: true,
+  uuid: {
+    type: 'BINARY(16)',
+    defaultValue: Sequelize.literal('UUID_TO_BIN(UUID())'),
+    allowNull: false,
     primaryKey: true,
   },
 
   reason: {
-    type: `${DataTypes.CHAR(200)} CHARSET utf8mb4 COLLATE utf8mb4_unicode_ci`,
+    type: DataTypes.STRING(200),
+    charset: 'utf8mb4',
+    collate: 'utf8mb4_unicode_ci',
     allowNull: false,
     set(value) {
       this.setDataValue('reason', value.slice(0, 200));
@@ -25,7 +35,7 @@ const Ban = sequelize.define('Ban', {
    * 1: banned from chat
    */
   flags: {
-    type: DataTypes.TINYINT,
+    type: DataTypes.TINYINT.UNSIGNED,
     allowNull: false,
     defaultValue: 0,
   },
@@ -70,38 +80,135 @@ const Ban = sequelize.define('Ban', {
   },
 });
 
-async function cleanIpBans() {
-  const expiredIPs = await Ban.findAll({
-    attributes: [
-      'ip',
-    ],
-    where: {
-      expires: {
-        [Op.lte]: new Date(),
-      },
-    },
-    raw: true,
-  });
-  if (!expiredIPs.length) {
+/**
+ * Lift multiple Bans
+ * @param bans Array of Ban model instances
+ * @param [modUid] user id of mod that lifted the bans
+ */
+async function removeBans(bans, modUid) {
+  if (!bans.length) {
     return;
   }
-  const ips = [];
-  for (let i = 0; i < expiredIPs.length; i += 1) {
-    ips.push(expiredIPs[i].ip);
-  }
-  await Ban.destroy({
-    where: {
-      ip: ips,
-    },
-  });
-  for (let i = 0; i < ips.length; i += 1) {
-    // eslint-disable-next-line no-await-in-loop
-    await cleanCacheForIP(ips[i]);
+  const banUuids = bans.map((b) => b.uuid);
+
+  const transaction = await sequelize.transaction();
+
+  try {
+    if (modUid) {
+      await BanHistory.bulkCreate(bans.map((ban) => ({
+        uuid: ban.uuid,
+        reason: ban.reason,
+        flags: ban.flags,
+        started: ban.createdAt,
+        ended: ban.expires,
+        muid: ban.muid,
+        liftedAt: null,
+      })), {
+        transaction,
+      });
+    } else {
+      await BanHistory.bulkCreate(bans.map((ban) => ({
+        uuid: ban.uuid,
+        reason: ban.reason,
+        flags: ban.flags,
+        started: ban.createdAt,
+        ended: ban.expires,
+        muid: ban.muid,
+        lmuid: modUid,
+      })), {
+        transaction,
+      });
+    }
+
+    /* ips */
+    let rows = await IPBan.findAll({
+      attributes: [
+        'buuid', 'ip',
+        [Sequelize.fn('BIN_TO_IP', Sequelize.col('ip')), 'ipString'],
+      ],
+      where: { buuid: banUuids },
+      raw: true,
+      transaction,
+    });
+    const clearedIPs = rows.map((r) => r.ipString);
+
+    if (rows.length) {
+      await IPBanHistory.bulkCreate(rows.map((row) => ({
+        buuid: row.buuid, ip: row.ip,
+      })), { transaction });
+    }
+    /* users */
+    rows = await UserBan.findAll({
+      attributes: [ 'buuid', 'uid' ],
+      where: { buuid: banUuids },
+      raw: true,
+      transaction,
+    });
+    const clearedUserIds = rows.map((r) => r.uid);
+
+    if (rows.length) {
+      await UserBanHistory.bulkCreate(rows.map((row) => ({
+        buuid: row.buuid, uid: row.uid,
+      })), { transaction });
+    }
+    /* ThreePIDs */
+    rows = await ThreePIDBan.findAll({
+      attributes: [ 'buuid', 'tid' ],
+      where: { buuid: banUuids },
+      raw: true,
+      transaction,
+    });
+
+    if (rows.length) {
+      await ThreePIDBanHistory.bulkCreate(rows.map((row) => ({
+        buuid: row.buuid, uid: row.tid,
+      })), { transaction });
+    }
+
+    /* ban destruction will cascade to junction tables */
+    await Ban.destroy({
+      where: { buuid: banUuids },
+      transaction,
+    });
+
+    for (let i = 0; i < clearedIPs.length; i += 1) {
+      // eslint-disable-next-line no-await-in-loop
+      await cleanCacheForIP(clearedIPs[i]);
+    }
+
+    await transaction.commit();
+  } catch (error) {
+    await transaction.rollback();
+    throw error;
   }
 }
-HourlyCron.hook(cleanIpBans);
 
 /*
+ * periodically check for expired bans and remove them if expired
+ */
+async function cleanBans() {
+  try {
+    const expiredBans = await Ban.findAll({
+      attributes: ['uuid', 'reason', 'flags', 'expires', 'createdAt', 'muid'],
+      where: {
+        expires: { [Op.lte]: new Date() },
+      },
+      raw: true,
+    });
+
+    if (!expiredBans.length) {
+      return 0;
+    }
+    await removeBans(expiredBans);
+    return expiredBans.length;
+  } catch (error) {
+    console.error(`SQL Error on cleanBans: ${error.message}`);
+    return null;
+  }
+}
+HourlyCron.hook(cleanBans);
+
+/**
  * check if ip is banned
  * @param ip
  * @return boolean
@@ -114,7 +221,7 @@ export async function isBanned(ip) {
   return count !== 0;
 }
 
-/*
+/**
  * get information of ban
  * @param ip
  * @return
@@ -134,7 +241,7 @@ export function getBanInfo(ip) {
   });
 }
 
-/*
+/**
  * ban ip
  * @param ip
  * @return true if banned
@@ -157,7 +264,7 @@ export async function banIP(
   return created;
 }
 
-/*
+/**
  * unban ip
  * @param ip
  * @return true if unbanned,
@@ -171,7 +278,7 @@ export async function unbanIP(ip) {
   return !!count;
 }
 
-/*
+/**
  * check if ThreePID is banned
  * @param provider, tpid What tpid to look for
  * @return boolean

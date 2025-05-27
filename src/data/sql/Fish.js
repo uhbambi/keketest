@@ -19,9 +19,12 @@ const Fish = sequelize.define('Fish', {
     type: DataTypes.FLOAT,
     allowNull: false,
   },
-}, {
-  timestamps: true,
-  updatedAt: false,
+
+  createdAt: {
+    type: DataTypes.DATE,
+    defaultValue: DataTypes.NOW,
+    allowNull: false,
+  },
 });
 
 Fish.belongsTo(RegUser, {

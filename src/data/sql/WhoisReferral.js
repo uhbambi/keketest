@@ -2,9 +2,9 @@ import Sequelize, { DataTypes, QueryTypes } from 'sequelize';
 import sequelize from './sequelize';
 
 /*
- * Information of whois hosts responsible for IPRanges,
+ * Information of whois hosts responsible for Ranges,
  * min and max are the upper and lower bound of IPs within the range,
- * stored in the same 64bit format as IP in IPInfo.js
+ * stored in the same 64bit format as IP in IP.js
  *
  * Will be kept indefinitelly, updated regularly
  */

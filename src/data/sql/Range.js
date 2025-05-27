@@ -5,11 +5,11 @@ import sequelize from './sequelize';
 /*
  * Information of IP Ranges from whois,
  * min and max are the upper and lower bound of IPs within the range,
- * stored in the same 64bit format as IP in IPInfo.js
+ * stored in the same 64bit format as IP in IP.js
  *
  * Will be kept indefinitelly, updated regularly
  */
-const IPRange = sequelize.define('IPRange', {
+const RangeData = sequelize.define('Range', {
   id: {
     type: DataTypes.INTEGER.UNSIGNED,
     autoIncrement: true,
@@ -38,7 +38,7 @@ const IPRange = sequelize.define('IPRange', {
     defaultValue: 'xx',
     allowNull: false,
     set(value) {
-      if (!value || value.length !== 2) {
+      if (value.length !== 2) {
         value = 'xx';
       }
       this.setDataValue('country', value.toLowerCase());
@@ -46,14 +46,18 @@ const IPRange = sequelize.define('IPRange', {
   },
 
   org: {
-    type: `${DataTypes.STRING(60)} CHARSET utf8mb4 COLLATE utf8mb4_unicode_ci`,
+    type: DataTypes.STRING(60),
+    charset: 'utf8mb4',
+    collate: 'utf8mb4_unicode_ci',
     set(value) {
       this.setDataValue('org', value.slice(0, 60));
     },
   },
 
   descr: {
-    type: `${DataTypes.STRING(60)} CHARSET utf8mb4 COLLATE utf8mb4_unicode_ci`,
+    type: DataTypes.STRING(60),
+    charset: 'utf8mb4',
+    collate: 'utf8mb4_unicode_ci',
     set(value) {
       this.setDataValue('descr', value.slice(0, 60));
     },
@@ -72,7 +76,7 @@ const IPRange = sequelize.define('IPRange', {
 
 /**
  * Checks if range that includes ip exists,
- * If it exists, updates the IPInfos table to associate the IP to this ranges
+ * If it exists, updates the IPs table to associate the IP to this ranges
  * Procedure got declared in ./sequelize.js
  * @param ip as string
  * @return {
@@ -115,7 +119,7 @@ export async function saveIpRange(whoisData) {
     range, country, org, descr, asn,
   } = whoisData;
   try {
-    const [rangeq] = await IPRange.upsert({
+    const [rangeq] = await RangeData.upsert({
       min: Sequelize.fn('UNHEX', range[0]),
       max: Sequelize.fn('UNHEX', range[1]),
       mask: range[2],
@@ -132,4 +136,4 @@ export async function saveIpRange(whoisData) {
   return null;
 }
 
-export default IPRange;
+export default RangeData;
