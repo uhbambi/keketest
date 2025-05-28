@@ -50,7 +50,7 @@ const RangeData = sequelize.define('Range', {
     charset: 'utf8mb4',
     collate: 'utf8mb4_unicode_ci',
     set(value) {
-      this.setDataValue('org', value.slice(0, 60));
+      if (value) this.setDataValue('org', value.slice(0, 60));
     },
   },
 
@@ -59,7 +59,7 @@ const RangeData = sequelize.define('Range', {
     charset: 'utf8mb4',
     collate: 'utf8mb4_unicode_ci',
     set(value) {
-      this.setDataValue('descr', value.slice(0, 60));
+      if (value) this.setDataValue('descr', value.slice(0, 60));
     },
   },
 
@@ -67,73 +67,10 @@ const RangeData = sequelize.define('Range', {
     type: DataTypes.INTEGER.UNSIGNED,
   },
 
-  checkedAt: {
+  expires: {
     type: DataTypes.DATE,
-    defaultValue: DataTypes.NOW,
     allowNull: false,
   },
 });
-
-/**
- * Checks if range that includes ip exists,
- * If it exists, updates the IPs table to associate the IP to this ranges
- * Procedure got declared in ./sequelize.js
- * @param ip as string
- * @return {
- *   wid as number,
- *   cidr as string,
- *   asn as number,
- *   cuntry as two letter lowercase code,
- *   org as string,
- *   descr as string,
- * } if exists or {
- *   host as string (whois host to query)
- * } if whois host is known or null if not
- */
-export async function getRangeOfIp(ip) {
-  try {
-    // return cidr, country, org, descr, asn, checkedAt
-    const rangeq = await sequelize.query(
-      'CALL RANGE_OF_IP($1)',
-      {
-        bind: [ip],
-        type: QueryTypes.SELECT,
-        raw: true,
-        plain: true,
-      },
-    );
-    return rangeq;
-  } catch (err) {
-    console.error(`SQL Error on getRangeOfIp: ${err.message}`);
-  }
-  return null;
-}
-
-/**
- * Save whois data to range
- * @param whoisData
- * @return id if successful, null if not
- */
-export async function saveIpRange(whoisData) {
-  const {
-    range, country, org, descr, asn,
-  } = whoisData;
-  try {
-    const [rangeq] = await RangeData.upsert({
-      min: Sequelize.fn('UNHEX', range[0]),
-      max: Sequelize.fn('UNHEX', range[1]),
-      mask: range[2],
-      country,
-      org,
-      descr,
-      asn,
-      checkedAt: new Date(),
-    });
-    return rangeq.id;
-  } catch (err) {
-    console.error(`SQL Error on saveIpRange: ${err.message}`);
-  }
-  return null;
-}
 
 export default RangeData;

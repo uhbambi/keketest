@@ -37,9 +37,8 @@ const WhoisReferral = sequelize.define('WhoisReferral', {
     allowNull: false,
   },
 
-  checkedAt: {
+  expires: {
     type: DataTypes.DATE,
-    defaultValue: DataTypes.NOW,
     allowNull: false,
   },
 });
@@ -59,22 +58,6 @@ export async function getWhoisReferraloOfIp(ip) {
     return rangeq?.host;
   } catch (err) {
     console.error(`SQL Error on getRangeOfIp: ${err.message}`);
-  }
-  return null;
-}
-
-export async function saveWhoisReferral(range, host) {
-  try {
-    const [rangeq] = await WhoisReferral.upsert({
-      min: Sequelize.fn('UNHEX', range[0]),
-      max: Sequelize.fn('UNHEX', range[1]),
-      mask: range[2],
-      host,
-      checkedAt: new Date(),
-    });
-    return rangeq.id;
-  } catch (err) {
-    console.error(`SQL Error on saveIpRange: ${err.message}`);
   }
   return null;
 }
