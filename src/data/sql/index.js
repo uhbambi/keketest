@@ -2,9 +2,10 @@ import { Op } from 'sequelize';
 import RegUser, { USERLVL } from './RegUser';
 import Channel, { CHANNEL_TYPES } from './Channel';
 import Message from './Message';
+import Session from './Session';
 import IP from './IP';
 import ProxyData from './ProxyData';
-import Range from './Range';
+import RangeData from './Range';
 import Ban from './Ban';
 import BanHistory from './BanHistory';
 import WhoisReferral from './WhoisReferral';
@@ -56,6 +57,21 @@ RegUser.belongsToMany(IP, {
 });
 
 /*
+ * user sessions
+ */
+Session.belongsTo(RegUser, {
+  as: 'user',
+  foreignKey: {
+    name: 'uid',
+    allowNull: false,
+  },
+  onDelete: 'CASCADE',
+});
+RegUser.hasMany(Session, {
+  as: 'sessions',
+});
+
+/*
  * proxy information of ip
  */
 ProxyData.belongsTo(IP, {
@@ -67,7 +83,7 @@ ProxyData.belongsTo(IP, {
   },
   onDelete: 'CASCADE',
 });
-Range.hasOne(RangeBan, {
+RangeData.hasOne(RangeBan, {
   as: 'proxy',
 });
 
@@ -85,12 +101,12 @@ RegUser.hasMany(ThreePID, {
 /*
  * ip range with whois info for ip
  */
-IP.belongsTo(Range, {
+IP.belongsTo(RangeData, {
   as: 'range',
   foreignKey: 'rid',
 });
 
-Range.hasMany(IP, {
+RangeData.hasMany(IP, {
   as: 'ips',
 });
 /*
@@ -213,7 +229,7 @@ IP.hasOne(IPWhitelist, {
 /*
  * range ban
  */
-RangeBan.belongsTo(Range, {
+RangeBan.belongsTo(RangeData, {
   as: 'iprange',
   foreignKey: {
     name: 'rid',
@@ -222,7 +238,7 @@ RangeBan.belongsTo(Range, {
   },
   onDelete: 'CASCADE',
 });
-Range.hasOne(RangeBan, {
+RangeData.hasOne(RangeBan, {
   as: 'bans',
 });
 RangeBan.belongsTo(RegUser, {
@@ -230,13 +246,13 @@ RangeBan.belongsTo(RegUser, {
   foreignKey: 'muid',
 });
 RegUser.hasMany(RangeBan, {
-  as: 'ipRangeBanActions',
+  as: 'rangeBanActions',
 });
 
 /*
  * ip range ban history
  */
-RangeBanHistory.belongsTo(Range, {
+RangeBanHistory.belongsTo(RangeData, {
   as: 'iprange',
   foreignKey: {
     name: 'rid',
@@ -244,7 +260,7 @@ RangeBanHistory.belongsTo(Range, {
   },
   onDelete: 'CASCADE',
 });
-Range.hasMany(RangeBanHistory, {
+RangeData.hasMany(RangeBanHistory, {
   as: 'banHistory',
 });
 RangeBanHistory.belongsTo(RegUser, {
@@ -252,7 +268,7 @@ RangeBanHistory.belongsTo(RegUser, {
   foreignKey: 'muid',
 });
 RegUser.hasMany(RangeBanHistory, {
-  as: 'ipRangeBanActionHistory',
+  as: 'rangeBanActionHistory',
 });
 RangeBanHistory.belongsTo(RegUser, {
   as: 'lmod',
@@ -301,7 +317,7 @@ export {
   UserChannel,
   Message,
   UserBlock,
-  Range,
+  RangeData,
   IP,
   Ban,
   WhoisReferral,

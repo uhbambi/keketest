@@ -42,7 +42,6 @@
     "etag": "^1.8.1",
     "express": "^4.17.2",
     "express-fileupload": "^1.5.1",
-    "express-session": "^1.17.2",
     "image-q": "^4.0.0",
     "js-file-download": "^0.4.12",
     "morgan": "^1.10.0",

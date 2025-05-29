@@ -90,9 +90,9 @@ const User = sequelize.define('User', {
 });
 
 /*
- * includes for user on ordinary login
+ * includes for user used in requests
  */
-const loginInclude = [{
+export const loginInclude = [{
   association: 'channels',
   where: {
     type: {

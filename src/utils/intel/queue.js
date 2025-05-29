@@ -13,7 +13,7 @@ function cleanQueues() {
   }
 }
 
-/*
+/**
  * run async function with a queue and keep result around for some time,
  * Meaning that if function is already run with the same arguments, reuse it.
  * @param func async function
@@ -44,7 +44,7 @@ export function queueWithDelay(func, gracePeriod = 5000) {
   };
 }
 
-/*
+/**
  * run async function with a queue.
  * Meaning that if function is already run with the same arguments, reuse it.
  * @param func async function

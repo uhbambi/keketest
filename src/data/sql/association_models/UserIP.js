@@ -9,10 +9,12 @@ import sequelize from './sequelize';
 
 const UserIP = sequelize.define('UserIP', {
   ua: {
-    type: DataTypes.CHAR(200),
+    type: DataTypes.STRING(200),
     set(value) {
-      const URIencode = encodeURIComponent(value);
-      this.setDataValue('ua', URIencode.slice(0, 200));
+      if (value) {
+        const URIencode = encodeURIComponent(value);
+        this.setDataValue('ua', URIencode.slice(0, 200));
+      }
     },
   },
 

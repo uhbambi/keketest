@@ -100,5 +100,10 @@ export const CAPTCHA_TIME = parseInt(process.env.CAPTCHA_TIME, 10) || 30;
 export const CAPTCHA_TIMEOUT = parseInt(process.env.CAPTCHA_TIMEOUT, 10) || 120;
 // time in which an ip is marked as trusted in hours
 export const TRUSTED_TIME = parseInt(process.env.TRUSTED_TIME, 10) || 48;
-
-export const SESSION_SECRET = process.env.SESSION_SECRET || 'dummy';
+// duration WHOIS data is stored in hours
+export const WHOIS_DURATION = parseInt(process.env.WHOIS_DURATION, 10) || 240;
+// duration ProxyCheck data is stored in hours
+// eslint-disable-next-line max-len
+export const PROXYCHECK_DURATION = parseInt(process.env.PROXYCHECK_DURATION, 10) || 72;
+// duration a session is active in hours
+export const SESSION_DURATION = parseInt(process.env.SESSION_DURATION, 10) || 720;

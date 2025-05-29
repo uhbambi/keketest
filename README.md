@@ -58,7 +58,6 @@ Configuration takes place in the environment variables that are defined in ecosy
 | ADMIN_IDS         | Ids of users with Admin rights        | "1,12,3"                  |
 | CAPTCHA_TIME      | time in minutes between captchas      | 30                        |
 |                   |  0: always captcha -1: never captcha  |                           |
-| SESSION_SECRET    | random sting for express sessions     | "ayylmao"                 |
 | LOG_MYSQL         | if sql queries should get logged      | 0                         |
 | USE_XREALIP       | see ngins / CDN  section              | 1                         |
 | BACKUP_URL        | url of backup server (see Backup)     | "http://localhost"        |

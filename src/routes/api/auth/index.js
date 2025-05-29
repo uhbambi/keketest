@@ -3,6 +3,7 @@ import express from 'express';
 import logger from '../../../core/logger';
 import { getHostFromRequest } from '../../../utils/ip';
 import passport from '../../../core/passport';
+import { ensureLoggedIn, openSession } from '../../../middleware/session';
 
 import register from './register';
 import verify from './verify';
@@ -30,35 +31,42 @@ const router = express.Router();
  * third party logon
  */
 
+router.use(passport.initialize());
+
+const openSessionOnReturn = async (req, res) => {
+  await openSession(req, res, req.user);
+  res.redirect('/');
+};
+
 router.get('/facebook', passport.authenticate('facebook',
   { scope: ['email'] }));
 router.get('/facebook/return', passport.authenticate('facebook', {
-  successRedirect: '/',
-}));
+  session: false,
+}), openSessionOnReturn);
 
 router.get('/discord', passport.authenticate('discord',
   { scope: ['identify', 'email'] }));
 router.get('/discord/return', passport.authenticate('discord', {
-  successRedirect: '/',
-}));
+  session: false,
+}), openSessionOnReturn);
 
 router.get('/google', passport.authenticate('google',
   { scope: ['email', 'profile'] }));
 router.get('/google/return', passport.authenticate('google', {
-  successRedirect: '/',
-}));
+  session: false,
+}), openSessionOnReturn);
 
 router.get('/vk', passport.authenticate('vkontakte',
   { scope: ['email'] }));
 router.get('/vk/return', passport.authenticate('vkontakte', {
-  successRedirect: '/',
-}));
+  session: false,
+}), openSessionOnReturn);
 
 router.get('/reddit', passport.authenticate('reddit',
   { duration: 'temporary', state: 'foo' }));
 router.get('/reddit/return', passport.authenticate('reddit', {
-  successRedirect: '/',
-}));
+  session: false,
+}), openSessionOnReturn);
 
 // eslint-disable-next-line no-unused-vars
 router.use((err, req, res, next) => {
@@ -81,25 +89,20 @@ router.post('/restore_password', restore_password);
 
 router.post('/register', register);
 
-router.post('/local', passport.authenticate('json'), async (req, res) => {
+router.post('/local', passport.authenticate('json', {
+  session: false,
+}), async (req, res) => {
   const { user } = req;
-  const me = await getMe(user, req.lang);
+  await openSession(req, res, user);
   logger.info(`User ${user.id} logged in with mail/password.`);
+  const me = await getMe(user, req.lang);
   res.json({
     success: true,
     me,
   });
 });
 
-router.use((req, res, next) => {
-  if (!req.user.isRegistered) {
-    const { t } = req.ttag;
-    const error = new Error(t`You are not logged in`);
-    error.status = 401;
-    throw error;
-  }
-  next();
-});
+router.use(ensureLoggedIn);
 
 /*
  * require registered user after this point

@@ -367,32 +367,35 @@ class ProxyCheck {
         cb(disposable);
       } else {
         // ip check
-        let status = -2;
-        let pcheck = 'N/A';
 
         if (res[value]) {
           this.logger.info(`IP ${value}: ${JSON.stringify(res[value])}`);
-          const { proxy, type, city } = res[value];
-          status = (proxy === 'no') ? 0 : 1;
-          pcheck = `${type},${city}`;
+          const result = res[value];
+          cb({
+            isProxy: result.proxy !== 'no',
+            type: result.type || null,
+            operator: result.operator?.name || null,
+            city: result.city || null,
+            devices: result.devices?.address || 1,
+          });
+        } else {
+          this.logger.error(`IP ${value} could not be checked for proxy.`);
+          cb(null);
         }
-
-        cb({
-          status,
-          pcheck,
-        });
       }
     }
     setTimeout(this.checkFromQueue, 10);
   }
 
-  /*
+  /**
    * check if ip is proxy in queue
-   * @param ip
-   * @return Promise that resolves to
-   * {
-   *   status, 0: no proxy 1: proxy -2: any failure
-   *   pcheck, string info of proxycheck return (like type and city)
+   * @param ip as string
+   * @return Promise null | {
+   *   isProxy: true or false,
+   *   type: Residential, Wireless, VPN, SOCKS,...,
+   *   operator: name of proxy operator if available,
+   *   city: name of city,
+   *   devices: amount of devices using this ip,
    * }
    */
   checkIp(ip) {
@@ -404,7 +407,7 @@ class ProxyCheck {
     });
   }
 
-  /*
+  /**
    * same as for ip
    * @param email
    * @return Promise that resolves to

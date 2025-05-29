@@ -24,8 +24,6 @@ export const TILE_SIZE = 256;
 // how much to scale for a new tiled zoomlevel
 export const TILE_ZOOM_LEVEL = 2;
 
-export const COOKIE_SESSION_NAME = 'ppfun.session';
-
 export const SECOND = 1000;
 export const MINUTE = 60 * SECOND;
 export const HOUR = 60 * MINUTE;

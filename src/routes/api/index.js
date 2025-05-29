@@ -1,7 +1,6 @@
 import express from 'express';
 
-import session from '../../middleware/session';
-import passport from '../../core/passport';
+import { verifySession } from '../../middleware/session';
 import User from '../../data/User';
 import MassRateLimiter from '../../utils/MassRateLimiter';
 import logger from '../../core/logger';
@@ -48,22 +47,7 @@ router.get('/getiid', getiid);
 /*
  * get user session
  */
-router.use(session);
-
-/*
- * at this point we could use the session id to get
- * stuff without having to verify the whole user,
- * which would avoid SQL requests
-*/
-
-/*
- * passport authenticate
- * and deserialize
- * (makes that sql request to map req.user.regUser)
- * After this point it is assumes that user.regUser is set if user.id is too
- */
-router.use(passport.initialize());
-router.use(passport.session());
+router.use(verifySession);
 
 /*
  * modtools
@@ -130,6 +114,9 @@ router.post('/banme', banme);
  */
 // eslint-disable-next-line no-unused-vars
 router.use((err, req, res, next) => {
+  if (res.headersSent) {
+    return next(err);
+  }
   res.status(err.status || 400).json({
     errors: [err.message],
   });

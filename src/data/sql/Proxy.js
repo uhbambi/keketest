@@ -21,7 +21,7 @@ const ProxyData = sequelize.define('Proxy', {
   type: {
     type: DataTypes.STRING(20),
     set(value) {
-      this.setDataValue('type', value.slice(0, 20));
+      if (value) this.setDataValue('type', value.slice(0, 20));
     },
   },
 
@@ -29,6 +29,15 @@ const ProxyData = sequelize.define('Proxy', {
    * operator of vpn if available
    */
   operator: {
+    type: DataTypes.STRING(60),
+    charset: 'utf8mb4',
+    collate: 'utf8mb4_unicode_ci',
+  },
+
+  /*
+   * city of ip
+   */
+  city: {
     type: DataTypes.STRING(60),
     charset: 'utf8mb4',
     collate: 'utf8mb4_unicode_ci',
@@ -46,9 +55,8 @@ const ProxyData = sequelize.define('Proxy', {
   /*
    * time of last proxycheck
    */
-  checkedAt: {
+  expires: {
     type: DataTypes.DATE,
-    defaultValue: DataTypes.NOW,
     allowNull: false,
   },
 });

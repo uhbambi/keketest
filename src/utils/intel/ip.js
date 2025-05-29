@@ -70,7 +70,7 @@ export function ipToHex(ip) {
 }
 
 /**
- * Parse IPv4 string to Number and IPv6 string to 2xNumbers (first 64bit)
+ * Parse IPv4 string to Number and IPv6 string to BigInt of first 64bit
  * @param ipString ip string
  * @return numerical IP (Number or BigInt)
  */
@@ -276,4 +276,33 @@ export function ipSubnetToHex(subnet, ip) {
     [ranges] = ranges;
   }
   return ranges;
+}
+
+/**
+ * Get a tiny subnet that includes ip, this is used as stand-in, to
+ * store a placeholder range, for ips that we do not know nothing about
+ * @param ip as tring
+ * @return [start, end, mask] start and end as hex and mask part of CIDR
+ *          Array of same if ip isn't given and there could be multiple
+ */
+export function getLowHexSubnetOfIp(ip) {
+  let start = ipToNum(ip);
+  if (!start) {
+    return null;
+  }
+  let mask;
+  let end;
+  if (typeof start === 'bigint') {
+    // IPv6
+    mask = 56;
+    const bitmask = (0xFFFFFFFFFFFFFFFFn >> BigInt(mask));
+    start &= (~bitmask & 0xFFFFFFFFFFFFFFFFn);
+    end = start | bitmask;
+  } else {
+    mask = 24;
+    const bitmask = (0xFFFFFFFF >>> mask);
+    start = (start & ~bitmask) >>> 0;
+    end = (start | bitmask) >>> 0;
+  }
+  return [numToHex(start), numToHex(end), mask];
 }

@@ -4,20 +4,14 @@
 
 import express from 'express';
 
-import session from '../middleware/session';
-import passport from '../core/passport';
-import User from '../data/User';
+import { verifySession } from '../middleware/session';
 import { expressTTag } from '../middleware/ttag';
 
 const router = express.Router();
 
-router.use(session);
-
-router.use(passport.initialize());
-router.use(passport.session());
+router.use(verifySession);
 
 router.use(expressTTag);
-
 
 function authenticateClient(req) {
   return new Promise(
@@ -26,8 +20,6 @@ function authenticateClient(req) {
         let user;
         if (req.user) {
           user = req.user;
-        } else {
-          user = new User(req);
         }
         user.ttag = req.ttag;
         user.lang = req.lang;

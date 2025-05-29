@@ -28,19 +28,6 @@ import User from '../data/User';
 import { auth } from './config';
 import { compareToHash } from '../utils/hash';
 
-passport.serializeUser((user, done) => {
-  done(null, user.id);
-});
-
-passport.deserializeUser(async (req, id, done) => {
-  const user = new User(req);
-  try {
-    await user.initialize({ id });
-    done(null, user);
-  } catch (err) {
-    done(err, user);
-  }
-});
 
 /**
  * Sign in locally

@@ -11,7 +11,7 @@ const WHOIS_PORT = 43;
 const QUERY_SUFFIX = '\r\n';
 const WHOIS_TIMEOUT = 10000;
 
-/*
+/**
  * parse whois return into fields
  */
 function parseSimpleWhois(whois) {
@@ -71,7 +71,7 @@ function parseSimpleWhois(whois) {
   return groups;
 }
 
-/*
+/**
  * parse whois return
  * @param ip ip string
  * @param whois whois return
@@ -147,7 +147,7 @@ function parseWhois(ip, whoisReturn) {
   return data;
 }
 
-/*
+/**
  * send a raw whois query to server
  * @param query
  * @param hostInput host with or without port
@@ -225,7 +225,7 @@ function checkForReferral(
  * whois ip
  * @param ip ip as string
  * @param host whois host (optional)
- * @returns {
+ * @returns null | {
  *   range as [start: hex, end: hex, mask: number],
  *   org as string,
  *   descr as string,
@@ -233,70 +233,83 @@ function checkForReferral(
  *   country as two letter lowercase code,
  *   referralHost as string,
  *   referralRange as [start: hex, end: hex, mask: number],
+ *   originHost
  * }
  */
 export default async function whoisIp(ip, options) {
   let host = options?.host || 'whois.iana.org';
+  const originHost = host;
   const logger = options?.logger || console;
-  let whoisResult;
-  let prevResult;
-  let prevHost;
-  let refCnt = 0;
-  while (refCnt < 5) {
-    let queryPrefix = '';
-    if (host === 'whois.arin.net') {
-      queryPrefix = '+ n';
-    } else if (host === 'whois.ripe.net') {
-      /*
-       * flag to not return personal information, otherwise
-       * RIPE is gonna rate limit and ban
-       */
-      queryPrefix = '-r';
-    }
 
-    try {
-      // eslint-disable-next-line no-await-in-loop
-      whoisResult = await singleWhoisQuery(`${queryPrefix} ${ip}`, host);
-      const ref = checkForReferral(whoisResult);
-      if (!ref) {
+  try {
+    let whoisResult;
+    let prevResult;
+    let prevHost;
+    let refCnt = 0;
+    while (refCnt < 5) {
+      let queryPrefix = '';
+      if (host === 'whois.arin.net') {
+        queryPrefix = '+ n';
+      } else if (host === 'whois.ripe.net') {
+        /*
+        * flag to not return personal information, otherwise
+        * RIPE is gonna rate limit and ban
+        */
+        queryPrefix = '-r';
+      }
+
+      try {
+        // eslint-disable-next-line no-await-in-loop
+        whoisResult = await singleWhoisQuery(`${queryPrefix} ${ip}`, host);
+        const ref = checkForReferral(whoisResult);
+        if (!ref) {
+          break;
+        }
+        prevResult = whoisResult;
+        prevHost = host;
+        host = ref;
+      } catch (err) {
+        logger.error(`WHOIS Error ${ip} ${host}: ${err.message}`);
+        host = prevHost;
         break;
       }
-      prevResult = whoisResult;
-      prevHost = host;
-      host = ref;
-    } catch (err) {
-      logger.error(`WHOIS ${ip} ${host}: ${err.message}`);
+      refCnt += 1;
+    }
+
+    let result = parseWhois(ip, whoisResult);
+    if (!result.range) {
+      logger.error(
+        `WHOIS Error ${ip} ${host}: This host gives incomplete results.`,
+      );
       host = prevHost;
-      break;
     }
-    refCnt += 1;
-  }
-
-  let result = parseWhois(ip, whoisResult);
-  if (!result.range) {
-    logger.error(`WHOIS ${ip} ${host}: This host gives incomplete results.`);
-    host = prevHost;
-  }
-  if (prevResult) {
-    const pastWhois = parseWhois(ip, prevResult);
-    if (host && pastWhois.range) {
-      result.referralHost = host;
-      result.referralRange = pastWhois.range;
+    if (prevResult) {
+      const pastWhois = parseWhois(ip, prevResult);
+      if (host && host !== originHost && pastWhois.range) {
+        result.referralHost = host;
+        result.referralRange = pastWhois.range;
+      }
+      result = { ...pastWhois, ...result };
     }
-    result = { ...pastWhois, ...result };
-  }
 
-  if (!result.asn && host !== 'whois.ripe.net') {
-    /*
-     * if we don't have any asn, query ripe once,
-     * this is sometimes needed for afrnic
-     */
-    const asnQResult = parseWhois(ip,
-      await singleWhoisQuery(`-r ${ip}`, 'whois.ripe.net'),
-    );
-    if (asnQResult.asn) result.asn = asnQResult.asn;
-  }
+    if (!result.asn && host !== 'whois.ripe.net') {
+      /*
+      * if we don't have any asn, query ripe once,
+      * this is sometimes needed for afrnic
+      */
+      const asnQResult = parseWhois(ip,
+        await singleWhoisQuery(`-r ${ip}`, 'whois.ripe.net'),
+      );
+      if (asnQResult.asn) result.asn = asnQResult.asn;
+    }
 
-  result.ip = ip;
-  return result;
+    if (!result.range) {
+      throw new Error('Got no results');
+    }
+
+    return result;
+  } catch (error) {
+    logger.error(`WHOIS Error: ${error.message}`);
+    return null;
+  }
 }
