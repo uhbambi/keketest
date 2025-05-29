@@ -27,12 +27,6 @@ const Fish = sequelize.define('Fish', {
   },
 });
 
-Fish.belongsTo(RegUser, {
-  as: 'user',
-  foreignKey: 'uid',
-  onDelete: 'cascade',
-});
-
 export async function storeFish(uid, type, size) {
   try {
     await Fish.create({
@@ -40,8 +34,8 @@ export async function storeFish(uid, type, size) {
       type,
       size,
     });
-  } catch {
-    // nothing
+  } catch (error) {
+    console.error(`SQL Error on storeFish: ${error.message}`);
   }
 }
 
@@ -64,8 +58,8 @@ export async function getFishesOfUser(uid) {
       const { type, size, createdAt } = fishModels[i];
       fishes.push({ type, size, ts: createdAt.getTime() });
     }
-  } catch {
-    // nothing
+  } catch (error) {
+    console.error(`SQL Error on getFishesOfUser: ${error.message}`);
   }
   return fishes;
 }

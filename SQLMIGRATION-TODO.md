@@ -1,5 +1,10 @@
 # SQL Migration
 
+deleted redis stuff:
+'isal:*' - isAllowed cache
+'isual:*' - isUserAllowed cache, i think that didn't get used yet
+'ised:*' - mail provider disposable, i think didn't get used yet
+
 User Table:
 
 verified -> if != 0 -> userlvl = 20

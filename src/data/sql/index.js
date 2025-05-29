@@ -1,5 +1,5 @@
 import { Op } from 'sequelize';
-import RegUser, { USERLVL } from './RegUser';
+import User, { USERLVL } from './User';
 import Channel, { CHANNEL_TYPES } from './Channel';
 import Message from './Message';
 import Session from './Session';
@@ -29,28 +29,40 @@ import ThreePIDBanHistory from './association_models/ThreePIDBanHistory';
  * (two belongsToMany associations to make it possible
  * to get both channels and dms in the same query with different includes)
  */
-RegUser.belongsToMany(Channel, {
+User.belongsToMany(Channel, {
   as: 'channels',
   through: UserChannel,
 });
-RegUser.belongsToMany(Channel, {
+User.belongsToMany(Channel, {
   as: 'dms',
   through: UserChannel,
 });
-Channel.belongsToMany(RegUser, {
+Channel.belongsToMany(User, {
   as: 'users',
   through: UserChannel,
 });
 
 /*
+ * Fish
+ */
+Fish.belongsTo(User, {
+  as: 'user',
+  foreignKey: {
+    name: 'uid',
+    allowNull: false,
+  },
+  onDelete: 'CASCADE',
+});
+
+/*
  * ip informations of user
  */
-IP.belongsToMany(RegUser, {
+IP.belongsToMany(User, {
   as: 'users',
   through: UserIP,
   foreignKey: 'ip',
 });
-RegUser.belongsToMany(IP, {
+User.belongsToMany(IP, {
   as: 'ips',
   through: UserIP,
   foreignKey: 'uid',
@@ -59,7 +71,7 @@ RegUser.belongsToMany(IP, {
 /*
  * user sessions
  */
-Session.belongsTo(RegUser, {
+Session.belongsTo(User, {
   as: 'user',
   foreignKey: {
     name: 'uid',
@@ -67,7 +79,7 @@ Session.belongsTo(RegUser, {
   },
   onDelete: 'CASCADE',
 });
-RegUser.hasMany(Session, {
+User.hasMany(Session, {
   as: 'sessions',
 });
 
@@ -90,11 +102,11 @@ RangeData.hasOne(RangeBan, {
 /*
  * third party ids for oauth login
  */
-ThreePID.belongsTo(RegUser, {
+ThreePID.belongsTo(User, {
   as: 'user',
   foreignKey: 'uid',
 });
-RegUser.hasMany(ThreePID, {
+User.hasMany(ThreePID, {
   as: 'tpids',
 });
 
@@ -134,22 +146,22 @@ ThreePID.belongsToMany(Ban, {
   foreignKey: 'tid',
 });
 // user
-Ban.belongsToMany(RegUser, {
+Ban.belongsToMany(User, {
   as: 'users',
   through: UserBan,
   foreignKey: 'buuid',
 });
-RegUser.belongsToMany(Ban, {
+User.belongsToMany(Ban, {
   as: 'bans',
   through: UserBan,
   foreignKey: 'uid',
 });
 // mods
-Ban.belongsTo(RegUser, {
+Ban.belongsTo(User, {
   as: 'mod',
   foreignKey: 'muid',
 });
-RegUser.hasMany(Ban, {
+User.hasMany(Ban, {
   as: 'banActions',
 });
 /*
@@ -177,40 +189,40 @@ ThreePID.belongsToMany(BanHistory, {
   foreignKey: 'tid',
 });
 // user
-BanHistory.belongsToMany(RegUser, {
+BanHistory.belongsToMany(User, {
   as: 'users',
   through: UserBanHistory,
   foreignKey: 'buuid',
 });
-RegUser.belongsToMany(BanHistory, {
+User.belongsToMany(BanHistory, {
   as: 'banHistory',
   through: UserBanHistory,
   foreignKey: 'uid',
 });
 // mods
-BanHistory.belongsTo(RegUser, {
+BanHistory.belongsTo(User, {
   as: 'mod',
   foreignKey: 'muid',
 });
-RegUser.hasMany(BanHistory, {
+User.hasMany(BanHistory, {
   as: 'banActionHistory',
 });
-BanHistory.belongsTo(RegUser, {
+BanHistory.belongsTo(User, {
   as: 'lmod',
   foreignKey: 'lmuid',
 });
-RegUser.hasMany(BanHistory, {
+User.hasMany(BanHistory, {
   as: 'banLiftingHistory',
 });
 
 /*
  * ip whitelist
  */
-IPWhitelist.belongsTo(RegUser, {
+IPWhitelist.belongsTo(User, {
   as: 'mod',
   foreignKey: 'muid',
 });
-RegUser.hasMany(IPWhitelist, {
+User.hasMany(IPWhitelist, {
   as: 'ipWhitelistActions',
 });
 IPWhitelist.belongsTo(IP, {
@@ -241,11 +253,11 @@ RangeBan.belongsTo(RangeData, {
 RangeData.hasOne(RangeBan, {
   as: 'bans',
 });
-RangeBan.belongsTo(RegUser, {
+RangeBan.belongsTo(User, {
   as: 'mod',
   foreignKey: 'muid',
 });
-RegUser.hasMany(RangeBan, {
+User.hasMany(RangeBan, {
   as: 'rangeBanActions',
 });
 
@@ -263,18 +275,18 @@ RangeBanHistory.belongsTo(RangeData, {
 RangeData.hasMany(RangeBanHistory, {
   as: 'banHistory',
 });
-RangeBanHistory.belongsTo(RegUser, {
+RangeBanHistory.belongsTo(User, {
   as: 'mod',
   foreignKey: 'muid',
 });
-RegUser.hasMany(RangeBanHistory, {
+User.hasMany(RangeBanHistory, {
   as: 'rangeBanActionHistory',
 });
-RangeBanHistory.belongsTo(RegUser, {
+RangeBanHistory.belongsTo(User, {
   as: 'lmod',
   foreignKey: 'lmuid',
 });
-RegUser.hasMany(RangeBanHistory, {
+User.hasMany(RangeBanHistory, {
   as: 'rangeBanLiftingHistory',
 });
 
@@ -286,7 +298,7 @@ Message.belongsTo(Channel, {
   foreignKey: 'cid',
   onDelete: 'CASCADE',
 });
-Message.belongsTo(RegUser, {
+Message.belongsTo(User, {
   as: 'user',
   foreignKey: 'uid',
   onDelete: 'CASCADE',
@@ -298,12 +310,12 @@ Message.belongsTo(RegUser, {
  * uid: User that blocks
  * buid: User that is blocked
  */
-RegUser.belongsToMany(RegUser, {
+User.belongsToMany(User, {
   as: 'blocked',
   through: UserBlock,
   foreignKey: 'uid',
 });
-RegUser.belongsToMany(RegUser, {
+User.belongsToMany(User, {
   as: 'blockedBy',
   through: UserBlock,
   foreignKey: 'buid',
@@ -312,7 +324,7 @@ RegUser.belongsToMany(RegUser, {
 export {
   // Models
   IPWhitelist,
-  RegUser,
+  User,
   Channel,
   UserChannel,
   Message,

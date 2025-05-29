@@ -1,5 +1,5 @@
 /*
- * password hashing
+ * Cryptographic hashing
  */
 
 import bcrypt from 'bcrypt';

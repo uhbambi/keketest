@@ -2,7 +2,7 @@ import Sequelize, { DataTypes, Op } from 'sequelize';
 
 import sequelize from './sequelize';
 import { generateToken, generateTokenHash } from '../../utils/hash';
-import { loginInclude } from './RegUser';
+import { loginInclude } from './User';
 import { HOUR } from '../../cores/constants';
 import { SESSION_DURATION } from '../../core/config';
 
@@ -62,6 +62,8 @@ export async function resolveSession(token) {
         association: 'user',
         include: loginInclude,
       },
+      raw: true,
+      nested: true,
     });
     if (session) {
       return session.user;
