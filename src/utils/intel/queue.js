@@ -2,44 +2,48 @@
  * Convert async functions to queue
  */
 
-const queues = {};
-let interval = null;
-
-function cleanQueues() {
-  const now = Date.now();
-  for (const key in queues) {
-    queues[key] = queues[key].filter(([,, ts]) => !ts || ts > now);
-    console.log(`Reduced queue ${key} to ${queues[key].length}`);
-  }
-}
-
 /**
- * run async function with a queue and keep result around for some time,
+ * run async function with a queue and keep result around for some time.
  * Meaning that if function is already run with the same arguments, reuse it.
  * @param func async function
+ * @param gracePeriod period the result should be cached
  * @return new async function
  */
-export function queueWithDelay(func, gracePeriod = 5000) {
-  const queue = [];
-  queues[func.name] = queue;
-  if (!interval) {
-    interval = setInterval(cleanQueues, 5000);
-  }
+export function queue(func, gracePeriod = 5000) {
+  let queue = [];
+  let lastCleanTs = 0;
 
   return (...args) => {
     const ident = args.join('-');
+    const currentTs = Date.now();
+    /* clean outdated requests */
+    if (lastCleanTs < currentTs - gracePeriod) {
+      queue = queue.filter(([,, ts]) => !ts || ts > currentTs);
+      console.log(`Reduced queue ${func.name} to ${queue.length}`);
+      lastCleanTs = currentTs;
+    }
+    /* try to find equal request */
     const runReq = queue.find((q) => q[0] === ident);
     if (runReq) {
       return runReq[1];
     }
-    let queueObject;
+    /* queue new request */
+    let queueObject = [ident];
     const promise = new Promise((res, rej) => {
       func(...args).then(res).catch(rej).finally(() => {
         queueObject.push(Date.now() + gracePeriod);
       });
     });
-    queueObject = [ident, promise];
-    queue.push(queueObject);
+    /*
+     * Pushing the promise will happen before the finally() can push the
+     * timestamp, even if the async function returns instantly.
+     * However, i did not find any confirmation of this in specs yet, so we
+     * check for queueObject.length and don't queue if it already returned.
+     */
+    if (queueObject.length === 1) {
+      queueObject.push(promise);
+      queue.push(queueObject);
+    }
     return promise;
   };
 }
@@ -50,7 +54,7 @@ export function queueWithDelay(func, gracePeriod = 5000) {
  * @param func async function
  * @return new async function
  */
-export function queue(func) {
+export function queueWithoutGracePeriod(func) {
   const queue = [];
 
   return (...args) => {

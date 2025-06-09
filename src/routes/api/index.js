@@ -1,6 +1,6 @@
 import express from 'express';
 
-import { verifySession } from '../../middleware/session';
+import { verifySession, ensureLoggedIn } from '../../middleware/session';
 import User from '../../data/User';
 import MassRateLimiter from '../../utils/MassRateLimiter';
 import logger from '../../core/logger';
@@ -45,7 +45,7 @@ router.get('/shards', shards);
 router.get('/getiid', getiid);
 
 /*
- * get user session
+ * get user session if available
  */
 router.use(verifySession);
 
@@ -75,15 +75,15 @@ router.get('/baninfo', baninfo);
 router.use('/auth', auth);
 
 /*
- * TODO: test if this works,
+ * only with session
+ */
+router.use(ensureLoggedIn);
+
+/*
+ * rate limit per user
  */
 router.use((req, res, next) => {
-  if (!req.user.isRegistered) {
-    const { t } = req.ttag;
-    const error = new Error(t`You are not logged in`);
-    error.status = 401;
-    throw error;
-  } else if (rateLimiter.tick(req.user.id, 3000, null, onRateLimitTrigger)) {
+  if (rateLimiter.tick(req.user.id, 3000, null, onRateLimitTrigger)) {
     const { t } = req.ttag;
     const error = new Error(
       // eslint-disable-next-line

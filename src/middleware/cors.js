@@ -9,6 +9,10 @@ export default (req, res, next) => {
     return;
   }
   const { origin } = req.headers;
+  if (!origin || origin === 'null') {
+    next();
+    return;
+  }
 
   const host = origin.slice(origin.indexOf('//') + 2);
   /*

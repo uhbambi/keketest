@@ -1,8 +1,9 @@
 import Sequelize, { DataTypes, Op } from 'sequelize';
 
 import sequelize from './sequelize';
-import { getLowHexSubnetOfIp } from '../../utils/intel/ip';
+import { getLowHexSubnetOfIP } from '../../utils/intel/ip';
 import RangeData from './Range';
+import ProxyData from './Proxy';
 import WhoisReferral from './WhoisReferral';
 import { WHOIS_DURATION, PROXYCHECK_DURATION } from '../../core/config';
 
@@ -33,60 +34,91 @@ const IP = sequelize.define('IP', {
   },
 });
 
-
 /**
  * Get basic values to check if an ip is allows, may throw Error
- * @param ip as string
- * @return null | {
+ * @param ipString ip as string
+ * @return {
+ *   lastSeen,
  *   isWhitelisted,
  *   isBanned,
  *   isProxy,
  *   country: two letter country code,
- *   checkedAt: Date object for when whois expires,
+ *   whoisExpires: Date object for when whois expires,
  *   proxyCheckExpires: Date object for when proxycheck expires,
  * }
  */
-export async function getIPAllowance(ip) {
-  const ipAllowance = await IP.findOne({
-    attributes: [
-      [Sequelize.literal('whitelist.ip IS NOT NULL'), 'isWhitelisted'],
-      [Sequelize.literal('bans.ip IS NOT NULL'), 'isBanned'],
-      [Sequelize.col('proxy.isProxy'), 'isProxy'],
-      [Sequelize.col('range.country'), 'country'],
-      [Sequelize.col('range.expires'), 'whoisExpires'],
-      [Sequelize.col('proxy.expires'), 'proxyCheckExpires'],
-    ],
-    where: { ip: Sequelize.fn('IP_TO_BIN', ip) },
-    include: [{
-      association: 'range',
-      attributes: [],
-      where: {
-        expires: { [Op.lt]: Sequelize.fn('NOW') },
-      },
-    }, {
-      association: 'proxy',
-      attributes: [],
-      where: {
-        expires: { [Op.lt]: Sequelize.fn('NOW') },
-      },
-    }, {
-      association: 'whitelist',
-      attributes: [],
-    }, {
-      association: 'bans',
-      attributes: [],
-      limit: 1,
-    }],
-    raw: true,
-  });
-  console.log('TODO IP ALLOWANCE', JSON.stringify(ipAllowance));
+export async function getIPAllowance(ipString) {
+  let ipAllowance;
+  try {
+    ipAllowance = await IP.findOne({
+      attributes: [
+        'lastSeen',
+        [Sequelize.literal('whitelist.ip IS NOT NULL'), 'isWhitelisted'],
+        [Sequelize.literal('bans.ip IS NOT NULL'), 'isBanned'],
+        [Sequelize.col('proxy.isProxy'), 'isProxy'],
+        [Sequelize.col('range.country'), 'country'],
+        [Sequelize.col('range.expires'), 'whoisExpires'],
+        [Sequelize.col('proxy.expires'), 'proxyCheckExpires'],
+      ],
+      where: { ip: Sequelize.fn('IP_TO_BIN', ipString) },
+      include: [{
+        association: 'range',
+        attributes: [],
+        where: {
+          expires: { [Op.gt]: Sequelize.fn('NOW') },
+        },
+      }, {
+        association: 'proxy',
+        attributes: [],
+        where: {
+          expires: { [Op.gt]: Sequelize.fn('NOW') },
+        },
+      }, {
+        association: 'whitelist',
+        attributes: [],
+      }, {
+        association: 'bans',
+        attributes: [],
+        limit: 1,
+      }],
+      raw: true,
+    });
+    console.log('TODO IP ALLOWANCE', JSON.stringify(ipAllowance));
+  } catch (error) {
+    console.error(`SQL Error on getIPAllowance: ${error.message}`);
+  }
+
+  /* making sure defaults are sane */
+  if (!ipAllowance) {
+    ipAllowance = {
+      isWhitelisted: false,
+      isBanned: false,
+    };
+  }
+  ipAllowance.isProxy ??= false;
+  ipAllowance.country ??= 'xx';
+  /*
+   * if an sql error occured above, it might be possible for the IP to get
+   * stuck in a isWhitelisted: false, isBanned: false state, as fetching
+   * whois and proxycheck will not refresh those values (nor should it do that,
+   * unless there is ever an issue justifying it).
+   */
+  const currentDate = new Date();
+  ipAllowance.lastSeen ??= currentDate;
+  ipAllowance.whoisExpires ??= currentDate;
+  ipAllowance.proxyCheckExpires ??= currentDate;
+
   return ipAllowance;
 }
 
 /**
- * Save ip information
- * @param ip as string
+ * Save ip information. If woisData or pcData aren't available, don't save
+ * the specific one. Data objects need to have an expiration date.
+ * If whoisData has an rid, don't write new whois data, but use that rid
+ * @param ipString ip as string
  * @param whoisData null | {
+ *   [rid]: id of range,
+ *   expires: Date object when data expires,
  *   range as [start: hex, end: hex, mask: number],
  *   org as string,
  *   descr as string,
@@ -96,92 +128,65 @@ export async function getIPAllowance(ip) {
  *   referralRange as [start: hex, end: hex, mask: number],
  * }
  * @param pcData null | {
+ *   expires: Date object when data expires,
  *   isProxy: true or false,
  *   type: Residential, Wireless, VPN, SOCKS,...,
  *   operator: name of proxy operator if available,
  *   city: name of city,
  *   devices: amount of devices using this ip,
+ *   subnetDevices: amount of devices in this subnet,
  * }
  * @return success boolean
  */
-export async function saveIPIntel(ip, whoisData, pcData) {
+export async function saveIPIntel(ipString, whoisData, pcData) {
   try {
-    let whoisExpires = WHOIS_DURATION * 3600 * 1000;
-    let proxyCheckExpires = PROXYCHECK_DURATION * 3600 * 1000;
-
-    if (!whoisData) {
-      const placeholderRange = getLowHexSubnetOfIp(ip);
-      if (!placeholderRange) {
-        throw new Error(`${ip} is not valid`);
-      }
-      whoisData = {
-        range: placeholderRange,
-      };
-      whoisExpires = 24 * 3600 * 1000;
-    }
-
-    if (!pcData) {
-      pcData = {
-        isProxy: false,
-      },
-      proxyCheckExpires = 12 * 3600 * 1000;
-    }
-
-    const nowTs = Date.now();
-    whoisExpires = new Date(nowTs + whoisExpires);
-    proxyCheckExpires = new Date(nowTs + proxyCheckExpires);
-    const promises = [];
-
     const transaction = await sequelize.transaction();
 
-    const {
-      range, org, descr, country, asn, referralHost, referralRange,
-    } = whoisData;
-
     try {
-      if (referralRange && referralHost) {
-        promises.push(WhoisReferral.upsert({
-          min: Sequelize.fn('UNHEX', referralRange[0]),
-          max: Sequelize.fn('UNHEX', referralRange[1]),
-          mask: referralRange[2],
-          host: referralHost,
+      const promises = [];
+      let { rid } = whoisData;
+
+      if (whoisData && !rid) {
+        const {
+          range, org, descr, country, asn, referralHost, referralRange,
           expires: whoisExpires,
-        }, { returning: false, transaction }));
+        } = whoisData;
+
+        if (referralRange && referralHost) {
+          promises.push(WhoisReferral.upsert({
+            min: Sequelize.fn('UNHEX', referralRange[0]),
+            max: Sequelize.fn('UNHEX', referralRange[1]),
+            mask: referralRange[2],
+            host: referralHost,
+            expires: whoisExpires,
+          }, { returning: false, transaction }));
+        }
+
+        promises.push(RangeData.upsert({
+          min: Sequelize.fn('UNHEX', range[0]),
+          max: Sequelize.fn('UNHEX', range[1]),
+          mask: range[2],
+          country,
+          org,
+          descr,
+          asn,
+          expires: whoisExpires,
+        }, { transaction }));
+
+        const whoisResult = await Promise.all(promises);
+        rid = whoisResult[whoisResult.length - 1][0].id;
       }
 
-      promises.push(RangeData.upsert({
-        min: Sequelize.fn('UNHEX', range[0]),
-        max: Sequelize.fn('UNHEX', range[1]),
-        mask: range[2],
-        country,
-        org,
-        descr,
-        asn,
-        expires: whoisExpires,
-      }, { transaction }));
+      const ipModel = await IP.upsert({
+        rid,
+        ip: Sequelize.fn('IP_TO_BIN', ipString),
+      }, { returning: false, transaction });
 
-      let result = await Promise.all(promises);
-      const rid = result[result.length - 1][0].id;
-      const {
-        isProxy, type, operator, city, devices,
-      } = pcData;
-
-      result = await IP.upsert({
-        ip: Sequelize.fn('IP_TO_BIN', ip),
-      }, {
-        include: [{
-          association: 'proxy',
-        }],
-        transaction,
-      });
-
-      const proxy = {
-        isProxy, type, operator, city, devices, expires: proxyCheckExpires,
-      };
-      if (result.proxy) {
-        await result.setProxy(proxy, { transaction });
-      } else {
-        await result.createProxy(proxy, { transaction });
+      if (pcData) {
+        await ProxyData.upsert({
+          ...pcData,
+          ip: Sequelize.fn('IP_TO_BIN', ipString),
+        }, { returning: false, transaction });
       }
 
       await transaction.commit();
@@ -196,51 +201,17 @@ export async function saveIPIntel(ip, whoisData, pcData) {
   return false;
 }
 
-export async function getIPIntel(ip) {
+/**
+ * update lastSeen timestamps of IP
+ * @param ipString ip as string
+ */
+export async function touchIP(ipString) {
   try {
-    const ipIntel= await IP.findOne({
-      attributes: [
-        'uuid',
-        [Sequelize.literal('whitelist.ip IS NOT NULL'), 'isWhitelisted'],
-        [Sequelize.fn('CONCAT',
-          Sequelize.fn('BIN_TO_IP', Sequelize.col('$range.min$')),
-          '/',
-          Sequelize.col('range.mask')
-        ), 'cidr'],
-        [Sequelize.col('range.country'), 'country'],
-        [Sequelize.col('range.org'), 'org'],
-        [Sequelize.col('range.descr'), 'descr'],
-        [Sequelize.col('range.asn'), 'asn'],
-        [Sequelize.col('proxy.isProxy'), 'isProxy'],
-        [Sequelize.col('proxy.type'), 'type'],
-        [Sequelize.col('proxy.operator'), 'operator'],
-        [Sequelize.col('proxy.devices'), 'devices'],
-        [Sequelize.col('range.checkedAt'), 'lastWhois'],
-        [Sequelize.col('proxy.checkedAt'), 'lastProxyCheck'],
-      ],
-      where: { ip: Sequelize.fn('IP_TO_BIN', ip) },
-      include: [{
-        association: 'range',
-        attributes: [],
-        where: {
-          // min: { [Op.lte]: Sequelize.fn('IP_TO_BIN', ip) },
-          // max: { [Op.gte]: Sequelize.fn('IP_TO_BIN', ip) },
-          checkedAt: { [Op.gt]: Sequelize.literal('NOW() - INTERVAL 30 DAY') },
-        },
-      }, {
-        association: 'proxy',
-        attributes: [],
-        where: {
-          checkedAt: { [Op.gt]: Sequelize.literal('NOW() - INTERVAL 3 DAY') },
-        },
-      }, {
-        association: 'whitelist',
-        attributes: [],
-      }],
-      raw: true,
-    });
+    await IP.update({ lastSeen: Sequelize.fn('NOW') }, {
+      where: { ip: Sequelize.fn('IP_TO_BIN', ipString) },
+    })
   } catch (error) {
-    console.error(`SQL Error on getIPIntel: ${error.message}`);
+    console.error(`SQL Error on touchIP: ${error.message}`);
   }
 }
 
@@ -258,11 +229,11 @@ export async function getIPofIID(uuid) {
       },
       raw: true,
     });
-    return result.ip;
+    return result?.ip;
   } catch (err) {
     console.error(`SQL Error on getIPofIID: ${err.message}`);
-    return null;
   }
+  return null;
 }
 
 export async function getIIDofIP(ip) {
@@ -279,8 +250,8 @@ export async function getIIDofIP(ip) {
     return result?.uuid;
   } catch (err) {
     console.error(`SQL Error on getIIDofIP: ${err.message}`);
-    return null;
   }
+  return null;
 }
 
 export async function getIdsToIps(ips) {
@@ -300,14 +271,51 @@ export async function getIdsToIps(ips) {
     result.forEach((obj) => {
       ipToIdMap.set(obj.ip, obj.uuid);
     });
-  } catch (err) {
-    console.error(`SQL Error on getIdsToIps: ${err.message}`);
+  } catch (error) {
+    console.error(`SQL Error on getIdsToIps: ${error.message}`);
   }
   return ipToIdMap;
 }
 
-export async function getInfoToIp(ip) {
-  return IP.findByPk(Sequelize.fn('IP_TO_BIN', ip));
+/**
+ * get basic informations of ip
+ * @param ipString ip as string
+ */
+export async function getInfoToIp(ipString) {
+  try {
+    const result = await IP.findOne({
+      attributes: [
+        [Sequelize.fn('BIN_TO_IP', Sequelize.col('ip')), 'ip'],
+        [Sequelize.fn('BIN_TO_UUID', Sequelize.col('uuid')), 'uuid'],
+        [Sequelize.col('range.country'), 'country'],
+        [Sequelize.fn('CONCAT',
+          Sequelize.fn('BIN_TO_IP', Sequelize.col('$range.min$')),
+          '/',
+          Sequelize.col('range.mask')
+        ), 'cidr'],
+        [Sequelize.col('range.org'), 'org'],
+        [Sequelize.col('proxy.type'), 'pcheck'],
+      ],
+      include: [{
+        association: 'range',
+        attributes: [],
+        where: {
+          expires: { [Op.gt]: Sequelize.fn('NOW') },
+        },
+      }, {
+        association: 'proxy',
+        attributes: [],
+        where: {
+          expires: { [Op.gt]: Sequelize.fn('NOW') },
+        },
+      }],
+      where: { ip: Sequelize.fn('IP_TO_BIN', ipString) },
+      raw: true,
+    });
+  } catch (error) {
+    console.error(`SQL Error on getInfoToIp: ${error.message}`);
+  }
+  return null;
 }
 
 export async function getInfoToIps(ips) {
@@ -320,19 +328,36 @@ export async function getInfoToIps(ips) {
       attributes: [
         [Sequelize.fn('BIN_TO_IP', Sequelize.col('ip')), 'ip'],
         [Sequelize.fn('BIN_TO_UUID', Sequelize.col('uuid')), 'uuid'],
-        'country',
-        'cidr',
-        'org',
-        'pcheck',
+        [Sequelize.col('range.country'), 'country'],
+        [Sequelize.fn('CONCAT',
+          Sequelize.fn('BIN_TO_IP', Sequelize.col('$range.min$')),
+          '/',
+          Sequelize.col('range.mask')
+        ), 'cidr'],
+        [Sequelize.col('range.org'), 'org'],
+        [Sequelize.col('proxy.type'), 'pcheck'],
       ],
+      include: [{
+        association: 'range',
+        attributes: [],
+        where: {
+          expires: { [Op.gt]: Sequelize.fn('NOW') },
+        },
+      }, {
+        association: 'proxy',
+        attributes: [],
+        where: {
+          expires: { [Op.gt]: Sequelize.fn('NOW') },
+        },
+      }],
       where: { ip: ips.map((ip) => Sequelize.fn('IP_TO_BIN', ip)) },
       raw: true,
     });
     result.forEach((obj) => {
       ipToIdMap.set(obj.ip, obj);
     });
-  } catch {
-    // nothing
+  } catch (error) {
+    console.error(`SQL Error on getIdsToIps: ${error.message}`);
   }
   return ipToIdMap;
 }

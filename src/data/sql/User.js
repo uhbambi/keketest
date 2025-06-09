@@ -9,9 +9,9 @@ import Sequelize, { DataTypes, QueryTypes, Op } from 'sequelize';
 
 import sequelize from './sequelize';
 import { generateHash } from '../../utils/hash';
+import UserIP from './UserIP';
 import { USERLVL, THREEPID_PROVIDERS } from '../../core/constants';
 import { CHANNEL_TYPES } from './Channel';
-
 export { USERLVL, THREEPID_PROVIDERS } from '../../core/constants';
 
 
@@ -54,6 +54,12 @@ const User = sequelize.define('User', {
     type: DataTypes.TINYINT.UNSIGNED,
     allowNull: false,
     defaultValue: 0,
+  },
+
+  lastSeen: {
+    type: DataTypes.DATE,
+    defaultValue: DataTypes.NOW,
+    allowNull: false,
   },
 
   createdAt: {
@@ -115,10 +121,29 @@ export const loginInclude = [{
   association: 'tpids',
 }];
 
+/**
+ * update lastSeen timestamps of User
+ * @param id user id
+ * @param ipString ip as string
+ */
+export async function touchUser(id, ipString) {
+  try {
+    await User.update({ lastSeen: Sequelize.fn('NOW') }, {
+      where: { id },
+    })
+    await UserIP.upsert({
+      uid: id,
+      ip: Sequelize.fn('IP_TO_BIN', ipString),
+    });
+  } catch (error) {
+    console.error(`SQL Error on touchUser: ${error.message}`);
+  }
+}
+
 export async function name2Id(name) {
   try {
     const userq = await sequelize.query(
-      'SELECT id FROM Users WHERE name = $1',
+      'SELECT id FROM Users WHERE name = ?',
       {
         bind: [name],
         type: QueryTypes.SELECT,
@@ -375,7 +400,7 @@ export async function getUsersByNameOrEmail(name, email, populate) {
   }
 }
 
-/*
+/**
  * create new User
  * @param name
  * @param [password]

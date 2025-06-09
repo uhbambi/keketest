@@ -10,7 +10,7 @@
 
 import { IP, USERLVL } from './sql';
 import { findUserById } from './sql/RegUser';
-import { touch as touchUserIP } from './sql/UserIP';
+import UserIP from './sql/UserIP';
 import { setCoolDown, getCoolDown } from './redis/cooldown';
 import { getUserRanks } from './redis/ranks';
 import {
@@ -194,16 +194,6 @@ class User {
 
   getWait(canvasId) {
     return getCoolDown(this.ipSub, this.id, canvasId);
-  }
-
-  /*
-   * update lastSeen timestamp and userAgent
-   */
-  async touch() {
-    if (!this.id || this.ip === '127.0.0.1') {
-      return false;
-    }
-    return touchUserIP(this.id, this.ip, this.ua);
   }
 
   isAllowed(disableCache = false) {

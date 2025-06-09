@@ -377,6 +377,7 @@ class ProxyCheck {
             operator: result.operator?.name || null,
             city: result.city || null,
             devices: result.devices?.address || 1,
+            subnetDevices: result.devices?.subnet || 1,
           });
         } else {
           this.logger.error(`IP ${value} could not be checked for proxy.`);
@@ -396,6 +397,7 @@ class ProxyCheck {
    *   operator: name of proxy operator if available,
    *   city: name of city,
    *   devices: amount of devices using this ip,
+   *   subnetDevices: amount of devices in this subnet,
    * }
    */
   checkIp(ip) {

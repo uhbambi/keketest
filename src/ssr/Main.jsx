@@ -11,14 +11,14 @@ import { getTTag, availableLangs as langs } from '../middleware/ttag';
 import { getJsAssets, getThemeCssAssets } from '../core/assets';
 import socketEvents from '../socket/socketEvents';
 import { BACKUP_URL, CONTACT_ADDRESS } from '../core/config';
-import { getHostFromRequest } from '../utils/ip';
+import { getHostFromRequest } from '../utils/intel/ip';
 
 const defaultCanvasForCountry = {};
 (function populateDefaultCanvases() {
   for (const [canvasId, canvas] of Object.entries(canvases)) {
     canvas.dcc?.forEach(
       (country) => {
-        defaultCanvasForCountry[country.toUpperCase()] = canvasId;
+        defaultCanvasForCountry[country.toLowerCase()] = canvasId;
       },
     );
   }
@@ -45,7 +45,7 @@ const basedQuotes = [
  * @return [html, csp] html and content-security-policy value for mainpage
  */
 function generateMainPage(req) {
-  const { lang } = req;
+  const { lang, ip } = req;
   const host = getHostFromRequest(req, false);
   const proto = req.headers['x-forwarded-proto'] || 'http';
   const shard = (host.startsWith(`${socketEvents.thisShard}.`))
@@ -60,7 +60,7 @@ function generateMainPage(req) {
   };
 
   // country specific default canvas
-  const dc = defaultCanvasForCountry[req.headers['cf-ipcountry'] || 'XX'];
+  const dc = defaultCanvasForCountry[ip.country];
   if (dc) ssv.dc = dc;
 
   const ssvR = JSON.stringify(ssv);

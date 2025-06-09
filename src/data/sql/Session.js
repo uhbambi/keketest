@@ -4,9 +4,14 @@ import sequelize from './sequelize';
 import { generateToken, generateTokenHash } from '../../utils/hash';
 import { loginInclude } from './User';
 import { HOUR } from '../../cores/constants';
-import { SESSION_DURATION } from '../../core/config';
 
 const Session = sequelize.define('Session', {
+  id: {
+    type: DataTypes.BIGINT.UNSIGNED,
+    autoIncrement: true,
+    primaryKey: true,
+  },
+
   token: {
     type: DataTypes.CHAR(38),
     allowNull: false,
@@ -15,22 +20,47 @@ const Session = sequelize.define('Session', {
 
   expires: {
     type: DataTypes.DATE,
-    allowNull: false,
   },
 });
 
 /**
  * create session for a user
  * @param uid id of user
+ * @param durationHours how long session is valid in hours or null for permanent
  * @return null | session Model instance
  */
-export async function createSession(uid) {
+export async function createSession(uid, durationHours) {
+  if (durationHours !== null && !durationHours) {
+    /*
+     * if we have a duration of 0, which would be a cookie that deletes on
+     * browser close, we still store it for 30 days, cause we don't know when
+     * a browser closes
+     */
+    durationHours = 720;
+  }
+
   try {
+    /* limit the amount of open sessions a user can have */
+    const openSessions = await Session.count({ where: { uid } });
+    if (openSessions > 100) {
+      await Session.destroy({
+        where: {
+          id: {
+            [Op.in]: Sequelize.literal(
+              // eslint-disable-next-line max-len
+              '(SELECT id FROM Sessions WHERE uid = ? ORDER BY id ASC LIMIT 10)',
+              { bind: [uid] },
+            ),
+          },
+        },
+      });
+    }
+
     const token = generateToken();
     const session = await Session.create({
       uid,
       token,
-      expires: new Date(Date.now() + SESSION_DURATION * HOUR),
+      expires: durationHours && Date(Date.now() + durationHours * HOUR),
     }, {
       raw: true,
     });
@@ -41,6 +71,25 @@ export async function createSession(uid) {
     console.error(`SQL Error on createSession: ${error.message}`);
   }
   return null;
+}
+
+/**
+ * remove session
+ * @param token
+ * @return boolean success
+ */
+export async function removeSession(token) {
+  if (!token) {
+    return false;
+  }
+  try {
+    const count = await Session.destroy({
+      where: { token: generateTokenHash(token) },
+    });
+    return count !== 0;
+  } catch (error) {
+    console.error(`SQL Error on removeSession: ${error.message}`);
+  }
 }
 
 /**
@@ -56,7 +105,10 @@ export async function resolveSession(token) {
     const session = await Session.findOne({
       where: {
         token: generateTokenHash(token),
-        expires: { [Op.lt]: Sequelize.fn('NOW') },
+        [Op.or]: [
+          { expires: { [Op.gt]: Sequelize.fn('NOW') } },
+          { expires: null },
+        ],
       },
       include: {
         association: 'user',

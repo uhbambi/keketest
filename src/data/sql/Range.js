@@ -1,6 +1,7 @@
-import Sequelize, { DataTypes, QueryTypes } from 'sequelize';
+import Sequelize, { DataTypes, Op } from 'sequelize';
 
 import sequelize from './sequelize';
+import { sanitizeIPString, ipToHex } from '../../utils/intel/ip';
 
 /*
  * Information of IP Ranges from whois,
@@ -72,5 +73,58 @@ const RangeData = sequelize.define('Range', {
     allowNull: false,
   },
 });
+
+/**
+ * look up range of IP, return is euqal to whoisData,
+ * but with additional range id and expires date
+ * @param ipString ip as string
+ * @return null | {
+ *   rid: id of range,
+ *   expires: Date object when data expires,
+ *   range as [start: hex, end: hex, mask: number],
+ *   org as string,
+ *   descr as string,
+ *   asn as unsigned 32bit integer,
+ *   country as two letter lowercase code,
+ *   referralHost as string,
+ *   referralRange as [start: hex, end: hex, mask: number],
+ * }
+ */
+export async function getRangeOfIP(ipString) {
+  try {
+    const range = await Range.findOne({
+      attributes: [
+        'mask', 'country', 'org', 'descr', 'asn', 'expires',
+        ['id', 'rid'],
+        [Sequelize.fn('BIN_TO_IP', Sequelize.col('min')), 'min'],
+        [Sequelize.fn('BIN_TO_IP', Sequelize.col('min')), 'max'],
+      ],
+      where: {
+        min: { [Op.lte]: Sequelize.fn('IP_TO_BIN', ipString) },
+        max: { [Op.gte]: Sequelize.fn('IP_TO_BIN', ipString) },
+        expires: { [Op.gt]: Sequelize.literal('NOW() - INTERVAL 20 DAY') },
+      },
+      raw: true,
+    })
+    if (range) {
+      return {
+        rid: range.rid,
+        expires: range.expires,
+        range: [
+          ipToHex(sanitizeIPString(range.min)),
+          ipToHex(sanitizeIPString(range.min)),
+          range.mask,
+        ],
+        org: range.org,
+        descr: range.descr,
+        asn: range.asn,
+        country: range.country,
+      }
+    }
+  } catch (error) {
+    console.error(`SQL Error on getRangeOfIP: ${error.message}`);
+  }
+  return null;
+}
 
 export default RangeData;

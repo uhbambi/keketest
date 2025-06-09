@@ -30,6 +30,76 @@ const sequelize = new Sequelize(MYSQL_DATABASE, MYSQL_USER, MYSQL_PW, {
   },
 });
 
+/**
+ * replacer for JSON.stringify
+ * this is set by JSON.stringify to the current object we are in
+ * @param key
+ * @param value
+ * @return parsed value
+ */
+function jsonReplacer(key, value) {
+  if (key) {
+    /* get this[k], because value is already stringified */
+    const originalValue = this[key];
+    let modifier;
+    if (originalValue instanceof Date) {
+      modifier = 'ts';
+      value = originalValue.getTime();
+    }
+    /* if we need more than only Date, add here */
+    if (modifier) {
+      value = `ts(${value})`;
+    }
+  }
+  return value;
+}
+
+/**
+ * reviver for JSON.parse
+ * @param key
+ * @param value
+ * @param context { source: original string before parsing }
+ * @return parsed value
+ */
+function jsonReviver(key, value, context) {
+  if (context && typeof value === 'string' && value.endsWith(')')) {
+    let openingBreaket = value.indexOf('(');
+    if (openingBreaket !== -1) {
+      const parsedValue = value.substring(openingBreaket + 1, value.length - 1);
+      const modifier = value.substring(0, openingBreaket);
+      switch (modifier) {
+        case 'ts':
+          return new Date(Number(parsedValue));
+        /* if we need more than only Date, add here */
+        default:
+          // nothing
+      }
+    }
+  }
+  return value;
+}
+
+/**
+ * convert a raw sequelize object into a json string
+ * @param rawObject the object resulting of a { raw: true, nested: true } call
+ * @return json string
+ */
+export function sequelizeRawToJson(rawObject) {
+  return JSON.stringify(rawObject, jsonReplacer);
+}
+
+/**
+ * convert a json string to a sequlize raw object
+ * @param json
+ * @return raw sequelize object
+ */
+export function jsonToSequelizeRaw(json) {
+  return JSON.parse(json, jsonReviver);
+}
+
+/*
+ * estabish database connection
+ */
 export const sync = async () => {
   await sequelize.sync({ alter: { drop: true } });
 

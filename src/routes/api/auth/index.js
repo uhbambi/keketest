@@ -93,7 +93,18 @@ router.post('/local', passport.authenticate('json', {
   session: false,
 }), async (req, res) => {
   const { user } = req;
-  await openSession(req, res, user);
+
+  /* session duration, null for permanent */
+  let { durationHours } = req.body;
+  if (durationHours !== null) {
+    durationHours = parseInt(durationHours, 10);
+    if (Number.isNaN(durationHours)) {
+      // default to 30 days if gibberish
+      durationHours = 720;
+    }
+  }
+
+  await openSession(req, res, user, durationHours);
   logger.info(`User ${user.id} logged in with mail/password.`);
   const me = await getMe(user, req.lang);
   res.json({

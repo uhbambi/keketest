@@ -51,17 +51,6 @@ class MessageBroker extends SocketEvents {
   constructor() {
     super();
     /*
-     * currently running cross-shard requests,
-     * are tracked in order to only send them to receiving
-     * shard
-     * [{
-     *   id: request id,
-     *   shard: requesting shard name,
-     *   ts: timestamp of request,
-     * },...]
-     */
-    this.csReq = [];
-    /*
      * channel keepalive pings
      * { [channelName]: lastPingTimestamp }
      */
@@ -161,18 +150,14 @@ class MessageBroker extends SocketEvents {
         const key = message.slice(message.indexOf(':') + 1, comma);
         const val = JSON.parse(message.slice(comma + 1));
         /*
-         * if type is a cross-shard request, remember the originating shard
-         * in csReq, to be able to answer
+         * if type is a cross-shard request, remember the originating shard,
+         * by adding it to values
          * shard:req:reqtype,[channelId, ...args]
          */
         if (key.startsWith('req:')) {
-          const shard = message.slice(0, message.indexOf(':'));
-          const id = val[0];
-          this.csReq.push({
-            id,
-            shard,
-            ts: Date.now(),
-          });
+          const shardName = message.slice(0, message.indexOf(':'));
+          /* insert after channelId */
+          val.splice(1, 0, shardName);
         }
         /*
          * online data update of shard
@@ -234,7 +219,7 @@ class MessageBroker extends SocketEvents {
   /*
    * requests that go over all shards and combine responses from all
    */
-  req(type, ...args) {
+  reqAll(type, ...args) {
     return new Promise((resolve, reject) => {
       const chan = Math.floor(Math.random() * 100000).toString()
         + Math.floor(Math.random() * 100000).toString();
@@ -268,20 +253,19 @@ class MessageBroker extends SocketEvents {
     });
   }
 
-  res(chan, ret) {
-    // only response to requesting shard
-    const csre = this.csReq.find((r) => r.id === chan);
-    // eslint-disable-next-line
-    console.log(`CLUSTER send res:${chan} to shard ${csre && csre.shard}`);
-    if (csre) {
-      this.publisher.publish(
-        `${LISTEN_PREFIX}:${csre.shard}`,
-        `res:${chan},${JSON.stringify([ret])}`,
-      );
-      this.csReq = this.csReq.filter((r) => r.id !== chan);
-    } else {
-      super.emit(`res:${chan}`, ret);
-    }
+  /* shardName got added in onShardBCMessage */
+  onReq(type, cb) {
+    this.on(`req:${type}`, async (chan, shardName, ...args) => {
+      const ret = await cb(...args);
+      if (shardName === this.thisShard) {
+        super.emit(`res:${chan}`, ret);
+      } else {
+        this.publisher.publish(
+          `${LISTEN_PREFIX}:${shardName}`,
+          `res:${chan},${JSON.stringify([ret])}`,
+        );
+      }
+    });
   }
 
   updateShardOnlineData(shard, onlineData) {
@@ -456,7 +440,7 @@ class MessageBroker extends SocketEvents {
   }
 
   async checkHealth() {
-    let threshold = Date.now() - 30000;
+    const threshold = Date.now() - 30000;
     const { shards, pings } = this;
     try {
       // remove disconnected shards
@@ -499,9 +483,6 @@ class MessageBroker extends SocketEvents {
     this.publisher.publish(BROADCAST_CHAN, this.thisShard);
     // ping to own text listener channel
     this.publisher.publish(`${LISTEN_PREFIX}:${this.thisShard}`, 'ping');
-    // clean up dead shard requests
-    threshold -= 30000;
-    this.csReq = this.csReq.filter((r) => r.ts > threshold);
   }
 
   /**

@@ -11,7 +11,7 @@ async function leaveChan(req, res) {
   const channelId = parseInt(req.body.channelId, 10);
   const { user } = req;
 
-  if (channelId && Number.isNaN(channelId)) {
+  if (Number.isNaN(channelId)) {
     res.status(400).json({
       errors: ['Invalid channelId'],
     });

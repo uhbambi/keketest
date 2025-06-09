@@ -10,7 +10,7 @@ import { getTTag, availableLangs as langs } from '../middleware/ttag';
 import socketEvents from '../socket/socketEvents';
 import { getJsAssets, getThemeCssAssets } from '../core/assets';
 import { BACKUP_URL } from '../core/config';
-import { getHostFromRequest } from '../utils/ip';
+import { getHostFromRequest } from '../utils/intel/ip';
 
 
 /*

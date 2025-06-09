@@ -1,168 +1,159 @@
 /*
- * Tools for investigation IP and EMail addresses
+ * utils for informations regarding ip and email
  */
-
-import socketEvents from '../socket/socketEvents';
-
-import { queue, queueWithDelay } from './queue';
-import {
-  getStoredCcAndPc,
-  getStoredIpAllowance,
-  getCachedIpAllowance,
-  getStoredUserAllowance,
-  getCachedUserAllowance,
-  storePc,
-  storeWhois,
-  storeWhoisAndPc,
-  storeWhoisReferral,
-} from '../../data/ipUserStore';
 import ProxyCheck from './ProxyCheck';
 import whois from './whois';
-import { proxyLogger as logger } from './logger';
-import { USE_PROXYCHECK, PROXYCHECK_KEY } from '../../core/config';
+import socketEvents from '../socket/socketEvents';
+import { getLowHexSubnetOfIP } from './ip';
+import { getRangeOfIP } from '../../data/sql/Range';
+import { getWhoisHostOfIP } from '../../data/sql/WhoisReferral';
+import { saveIPIntel } from '../../data/sql/IP';
+import { queue } from './queue';
+import {
+  USE_PROXYCHECK, PROXYCHECK_KEY, WHOIS_DURATION, PROXYCHECK_DURATION,
+} from '../../core/config';
 
-let checker = () => ({ status: 0, pcheck: 'dummy' });
-let mailChecker = () => false;
+let proxyChecker = () => null;
+let mailChecker = () => null;
 
 if (USE_PROXYCHECK && PROXYCHECK_KEY) {
-  const pc = new ProxyCheck(PROXYCHECK_KEY, logger);
-  checker = pc.checkIp;
+  const pc = new ProxyCheck(PROXYCHECK_KEY);
+  proxyChecker = pc.checkIp;
   mailChecker = pc.checkEmail;
 }
 
-async function doProxyCheck(ip, rid) {
-  const pcReturn = await checker(ip);
-  storePc(ip, pcReturn, rid);
-  return pcReturn;
-}
-
-async function doWhois(ip, whoisHost) {
-  const whoisOptions = {};
-  if (whoisHost) whoisOptions.host = whoisHost;
-
-  const whoisReturn = await whois(ip, whoisHost);
-  if (whoisReturn.referralHost !== whoisHost) {
-    storeWhoisReferral(whoisReturn.referralHost, whoisReturn.referralRange);
+/**
+ * get whois informatino of IP, lookup SQL for data first
+ * return is euqal to whoisData, but with optional additional range id and
+ * expires date
+ * @param ipString ip as string
+ * @return null | {
+ *   [rid]: id of range,
+ *   [expires]: Date object when data expires,
+ *   range as [start: hex, end: hex, mask: number],
+ *   org as string,
+ *   descr as string,
+ *   asn as unsigned 32bit integer,
+ *   country as two letter lowercase code,
+ *   referralHost as string,
+ *   referralRange as [start: hex, end: hex, mask: number],
+ * }
+ */
+async function whoisWithStorage(ipString) {
+  /* request range from SQL first */
+  let whoisData = await getRangeOfIP(ipString);
+  if (whoisData) {
+    return whoisData;
   }
-  storeWhois(ip, whoisReturn);
-  return whoisReturn;
+  const whoisOptions = {};
+  /* check if we have a whois server stored */
+  const host = await getWhoisHostOfIP(ipString);
+  if (host) whoisOptions.host = host;
+  whoisData = await whois(ipString, whoisOptions);
+  return whoisData;
 }
 
-async function doWhoisAndProxyCheck(ip, whoisHost) {
-  const whoisOptions = {};
-  if (whoisHost) whoisOptions.host = whoisHost;
+/**
+ * Get IP intel (whois and proxycheck)
+ * @param ipString ip as string
+ * @param whoisNeeded if we shouldfetch whois
+ * @param proxyCheckNeeded if we should fetch proxycheck
+ * @return Promise<[null | {
+ *   expires: Date object when data expires,
+ *   range as [start: hex, end: hex, mask: number],
+ *   org as string,
+ *   descr as string,
+ *   asn as unsigned 32bit integer,
+ *   country as two letter lowercase code,
+ *   referralHost as string,
+ *   referralRange as [start: hex, end: hex, mask: number],
+ * }, null | {
+ *   expires: Date object when data expires,
+ *   isProxy: true or false,
+ *   type: Residential, Wireless, VPN, SOCKS,...,
+ *   operator: name of proxy operator if available,
+ *   city: name of city,
+ *   devices: amount of devices using this ip,
+ *   subnetDevices: amount of devices in this subnet,
+ * }]>
+ */
+export const getIPIntel = queue(async function getIPIntel(
+  ipString, whoisNeeded, proxyCheckNeeded,
+) {
+  /* if neither whois or proxycheck needed are given, get both */
+  // eslint-disable-next-line eqeqeq
+  if (whoisNeeded == null && proxyCheckNeeded == null) {
+    whoisNeeded = true;
+    proxyCheckNeeded = true;
+  }
 
-  const [
-    pcReturn,
-    whoisReturn,
-  ] = await Promise.all([
-    checker(ip),
-    whois(ip, whoisOptions),
+  let [ whoisData, proxyCheckData ] = await Promise.all([
+    (whoisNeeded) ? whoisWithStorage(ipString) : null,
+    (proxyCheckNeeded) ? proxyChecker(ipString) : null,
   ]);
-  if (whoisReturn.referralHost !== whoisHost) {
-    storeWhoisReferral(whoisReturn.referralHost, whoisReturn.referralRange);
-  }
-  const ret = {
-    ...pcReturn,
-    ...whoisReturn,
-  };
-  storeWhoisAndPc(ip, ret);
-  return ret;
-}
 
-// queues with 5s grace period
-const doQueuedProxyCheck = queueWithDelay(doProxyCheck);
-const doQueuedWhois = queueWithDelay(doWhois);
-const doQueuedWhoisAndProxyCheck = queueWithDelay(doWhoisAndProxyCheck);
-// ordinary queues
-const getQueuedStoredCcAndPc = queue(getStoredCcAndPc);
-const getQueuedCachedIpAllowance = queue(getCachedIpAllowance);
-const getQueuedCachedUserAllowance = queue(getCachedUserAllowance);
+  const nowTs = Date.now();
 
-/*
- * get country code of ip,
- * populate intel data when needed
- * @param ip IP as string
- * @return two letter country code
- */
-export async function getCc(ip) {
-  const {
-    country,
-    proxy,
-    rid,
-    whoisHost,
-  } = await getQueuedStoredCcAndPc(ip);
-  if (country) {
-    if (proxy === null) {
-      doQueuedProxyCheck(ip, rid);
+  /* if we couldn't fetch something, store placeholder */
+  if (whoisNeeded && !whoisData) {
+    const placeholderRange = getLowHexSubnetOfIP(ipString);
+    if (!placeholderRange) {
+      console.error(`${ipString} is not valid`);
+    } else {
+      whoisData = {
+        range: placeholderRange,
+        expires: new Date(nowTs + 24 * 3600 * 1000),
+      };
     }
-    return country;
   }
-  let vals;
-  if (proxy === null) {
-    vals = await doQueuedWhoisAndProxyCheck(ip, whoisHost);
+  if (proxyCheckNeeded && !proxyCheckData) {
+    proxyCheckData = {
+      isProxy: false,
+      expires: new Date(nowTs + 12 * 3600 * 1000),
+    };
   }
-  vals = await doWhois(ip, whoisHost);
-  return vals.country || 'xx';
-}
+
+  /* add expiration if not set */
+  if (whoisData && !whoisData.expires) {
+    whoisData.expires = new Date(nowTs + WHOIS_DURATION * 3600 * 1000);
+  }
+  if (proxyCheckData && !proxyCheckData.expires) {
+    proxyCheckData.expires = new Date(
+      nowTs + PROXYCHECK_DURATION * 3600 * 1000,
+    );
+  }
+
+  /* we don't have to await that */
+  saveIPIntel(ipString, whoisData, proxyCheckData);
+
+  /* make sure data is sane */
+  const currentDate = new Date();
+  if (proxyCheckData) proxyCheckData.expires ??= currentDate;
+  if (whoisData) {
+    if (whoisData.rid) {
+      delete whoisData.rid;
+    }
+    proxyCheckData.expires ??= currentDate;
+  }
+
+  return [ whoisData, proxyCheckData];
+});
 
 /*
- * check if ip is allowed
- * @param IPas string
- * @param cached if we get value from redis cache
- * @return status
- *   -3: not yet checked
- *   -2: proxycheck failure
- *   -1: whitelisted
- *    0: allowed, no proxy
- *    1: is proxy
- *    2: is banned
- *    3: is rangebanned
+ * the following is for shards,
+ * only the main shard shall handle proxycheck and whois requests, other shards
+ * request it from him and wait for an answer.
  */
-export async function getIpAllowance(ip, cached = true) {
-  let isall;
-  if (cached) {
-    isall = await getQueuedCachedIpAllowance(ip);
-  } else {
-    isall = await getStoredIpAllowance(ip),
+
+/* answer on request if main shard */
+socketEvents.onReq('ipintel', (...args) => {
+  if (socketEvents.important) {
+    return getIPIntel(...args);
   }
-  const {
-    status,
-    proxy,
-    rid,
-    whoisHost,
-  } = isall;
-  if (proxy === null && rid === null) {
-    doQueuedWhoisAndProxyCheck(ip, whoisHost);
-  } else if (rid === null) {
-    doQueuedWhois(ip, whoisHost);
-  } else if (proxy === null) {
-    doQueuedProxyCheck(ip, rid);
-  }
-  return status;
-}
+});
 
-/*
- * check if user is allowed (not banned)
- * @param uid user id as number
- * @param cached if we get value from redis cache
- * @return true if allowed, false if banned
- */
-export async function getUserAllowance(uid, cached = true) {
-  if (cached) {
-    return getQueuedCachedUserAllowance(uid);
-  }
-  return getStoredUserAllowance(uid);
-}
-
-export async function getIpUserIntel() {
-}
-
-export async function isIpUserAllowed() {
-}
-
-export function seenIP() {
-}
-
-export function seenIpUser() {
-}
+/* send request */
+// eslint-disable-next-line max-len
+export const getIPIntelOverShards = queue(async function getIPIntelOverShards(...args) {
+  socketEvents.req('ipintel', ...args)
+});

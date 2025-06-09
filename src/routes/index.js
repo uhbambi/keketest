@@ -1,7 +1,6 @@
 /**
  *
  */
-
 import express from 'express';
 import path from 'path';
 
@@ -18,6 +17,7 @@ import api from './api';
 
 import { expressTTag } from '../middleware/ttag';
 import cors from '../middleware/cors';
+import { parseIP } from '../middleware/ip';
 import generateGlobePage from '../ssr/Globe';
 import generatePopUpPage from '../ssr/PopUp';
 import generateMainPage from '../ssr/Main';
@@ -42,22 +42,6 @@ router.get(
 router.use('/tiles', tiles);
 
 /*
- * public folder
- * (this should be served with nginx or other webserver)
- * TODO: do we really do a filesystem check for every single request
- * that isn't chunks or tiles and rely on fallthrough?
- */
-router.use(express.static(path.join(__dirname, 'public'), {
-  maxAge: 12 * MONTH,
-  extensions: ['html'],
-  setHeaders: (res, reqPath) => {
-    if (reqPath.includes('/legal')) {
-      res.setHeader('Cache-Control', `public, max-age=${3 * 24 * 3600}`);
-    }
-  },
-}));
-
-/*
  * Redirect to guilded
  */
 router.use('/guilded', (req, res) => {
@@ -69,11 +53,10 @@ router.use('/guilded', (req, res) => {
  */
 router.use('/adminapi', adminapi);
 
-/*
- * Following with translations
- * ---------------------------------------------------------------------------
- */
+/* translations */
 router.use(expressTTag);
+/* ip */
+router.use(parseIP);
 
 //
 // 3D Globe (react generated)
@@ -190,5 +173,18 @@ router.get('/captcha.svg', captcha);
  */
 router.get('/challenge.js', challenge);
 
+/*
+ * public folder
+ * (this should be served with nginx or other webserver)
+ */
+router.use(express.static(path.join(__dirname, 'public'), {
+  maxAge: 12 * MONTH,
+  extensions: ['html'],
+  setHeaders: (res, reqPath) => {
+    if (reqPath.includes('/legal')) {
+      res.setHeader('Cache-Control', `public, max-age=${3 * 24 * 3600}`);
+    }
+  },
+}));
 
 export default router;

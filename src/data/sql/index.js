@@ -11,7 +11,7 @@ import BanHistory from './BanHistory';
 import WhoisReferral from './WhoisReferral';
 import RangeBan from './RangeBan';
 import RangeBanHistory from './RangeBanHistory';
-import IPWhitelist from './IPWhitelist';
+import ProxyWhitelist from './ProxyWhitelist';
 import ThreePID, { THREEPID_PROVIDERS } from './ThreePID';
 import Fish from './Fish';
 import UserIP from './association_models/UserIP';
@@ -218,14 +218,14 @@ User.hasMany(BanHistory, {
 /*
  * ip whitelist
  */
-IPWhitelist.belongsTo(User, {
+ProxyWhitelist.belongsTo(User, {
   as: 'mod',
   foreignKey: 'muid',
 });
-User.hasMany(IPWhitelist, {
+User.hasMany(ProxyWhitelist, {
   as: 'ipWhitelistActions',
 });
-IPWhitelist.belongsTo(IP, {
+ProxyWhitelist.belongsTo(IP, {
   as: 'ipinfo',
   foreignKey: {
     name: 'ip',
@@ -234,7 +234,7 @@ IPWhitelist.belongsTo(IP, {
   },
   onDelete: 'CASCADE',
 });
-IP.hasOne(IPWhitelist, {
+IP.hasOne(ProxyWhitelist, {
   as: 'whitelist',
 });
 
@@ -323,7 +323,7 @@ User.belongsToMany(User, {
 
 export {
   // Models
-  IPWhitelist,
+  ProxyWhitelist,
   User,
   Channel,
   UserChannel,

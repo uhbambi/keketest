@@ -105,5 +105,3 @@ export const WHOIS_DURATION = parseInt(process.env.WHOIS_DURATION, 10) || 240;
 // duration ProxyCheck data is stored in hours
 // eslint-disable-next-line max-len
 export const PROXYCHECK_DURATION = parseInt(process.env.PROXYCHECK_DURATION, 10) || 72;
-// duration a session is active in hours
-export const SESSION_DURATION = parseInt(process.env.SESSION_DURATION, 10) || 720;

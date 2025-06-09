@@ -1,8 +1,6 @@
 import { DataTypes } from 'sequelize';
 import sequelize from './sequelize';
 
-import RegUser from './RegUser';
-
 const Fish = sequelize.define('Fish', {
   id: {
     type: DataTypes.INTEGER.UNSIGNED,

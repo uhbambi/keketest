@@ -363,7 +363,7 @@ export async function executeWatchAction(
   let ret;
   if (!ulcoor && !brcoor && iid) {
     if (action === 'summary') {
-      ret = await socketEvents.req(
+      ret = await socketEvents.reqAll(
         'watch',
         'getIIDSummary',
         iid,
@@ -371,7 +371,7 @@ export async function executeWatchAction(
       );
     }
     if (action === 'all') {
-      ret = await socketEvents.req(
+      ret = await socketEvents.reqAll(
         'watch',
         'getIIDPixels',
         iid,
@@ -401,7 +401,7 @@ export async function executeWatchAction(
   }
 
   if (action === 'summary') {
-    ret = await socketEvents.req(
+    ret = await socketEvents.reqAll(
       'watch',
       'getSummaryFromArea',
       canvasid,
@@ -411,7 +411,7 @@ export async function executeWatchAction(
     );
   }
   if (action === 'all') {
-    ret = await socketEvents.req(
+    ret = await socketEvents.reqAll(
       'watch',
       'getPixelsFromArea',
       canvasid,

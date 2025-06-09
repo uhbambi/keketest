@@ -1,60 +1,178 @@
 /*
- * express middleware to add IP related getters to Request object
- * req.ip -> ip as string, IPv6 cut to 64bit block
- * req.ipHex -> ip as hex string
- * req.ipNum -> ip as BigInt if IPv6 and Number if IPv4
- * req.cc -> two character country code based on cloudflare header
+ * express middlewares for handling ip information
  */
 import { USE_XREALIP } from '../core/config';
-import { isIPv6, unpackIPv6, ipToHex } from '../utils/intel/ip';
+import { sanitizeIPString, ipToHex } from '../utils/intel/ip';
+import { getIPIntelOverShards } from '../utils/intel';
+import { getIPAllowance, touchIP } from '../data/sql/IP';
 
-const ipGetter = {
-  get() {
-    let ip;
+class IP {
+  /* expressjs request object */
+  #req;
+  /*
+   * {
+   *   lastSeen,
+   *   isWhitelisted,
+   *   isBanned,
+   *   isProxy,
+   *   country: two letter country code,
+   *   whoisExpires: Date object for when whois expires,
+   *   proxyCheckExpires: Date object for when proxycheck expires,
+   * }
+   */
+  #allowance;
+  /* null | boolean */
+  isProxy = null;
+  /* null | boolean */
+  isBanned = null;
+
+  constructor(req) {
+    this.#req = req;
+  }
+
+  /**
+   * @return ip as string, IPv6 cut to 64bit block
+   */
+  get ipString () {
+    const req = this.#req;
+    let ipString;
     if (USE_XREALIP) {
-      ip = this.headers['x-real-ip'];
+      ipString = req.headers['x-real-ip'];
     }
-    if (!ip) {
-      ip = this.connection.remoteAddress;
+    if (!ipString) {
+      ipString = req.connection.remoteAddress;
       if (USE_XREALIP) {
-        console.warn(`Connection not going through reverse proxy! IP: ${ip}`);
+        console.warn(
+          `Connection not going through reverse proxy! IP: ${ipString}`,
+        );
       }
     }
-    if (isIPv6(ip)) {
-      ip = `${unpackIPv6(ip).slice(0, 4).join(':')}::`;
-    }
-    this.ip = ip;
-    return ip;
-  },
-};
+    ipString = sanitizeIPString(ipString);
+    delete this.ipString;
+    this.ipString = ipString;
+    return ipString;
+  }
 
-const ipHexGetter = {
-  get() {
-    return ipToHex(this.ip);
-  },
-};
+  /**
+   * @return ip as hex string, IPv6 cut to 64bit block
+   */
+  get ipHex() {
+    return ipToHex(this.ipString);
+  }
 
-const ipNumGetter = {
-  get() {
+  /**
+   * @return ip as Number (IPv4) or BigInt (IPv6)
+   */
+  get ipNum() {
     const ipHex = `0x${this.ipHex}`;
     return (ipHex.lengh > 10) ? BigInt(ipHex) : Number(ipHex);
-  },
-};
+  }
 
-const ccGetter = {
-  get() {
-    if (!USE_XREALIP) {
-      return 'xx';
-    }
-    const cc = this.headers['cf-ipcountry'];
+  /**
+   * @return lower case two letter country code of ip if given by header
+   */
+  get country() {
+    const cc = this.#req.headers['cf-ipcountry'];
     return (cc) ? cc.toLowerCase() : 'xx';
-  },
-};
+  }
 
-export default (req, res, next) => {
-  Object.defineProperty(req, 'ip', ipGetter);
-  Object.defineProperty(req, 'ipHex', ipHexGetter);
-  Object.defineProperty(req, 'ipNum', ipNumGetter);
-  Object.defineProperty(req, 'cc', ccGetter);
+  toString() {
+    return this.ipString;
+  }
+
+  toHex() {
+    return this.ipHex;
+  }
+
+  toNum() {
+    return this.ipNum;
+  }
+
+  /**
+   * update lastSeen timestamps of IP
+   * @return Promise<>
+   */
+  touch() {
+    if (!this.allowance
+      || this.allowance.lastSeen.getTime() > Date.now() - 10 * 60 * 1000
+    ) {
+      return;
+    }
+    return touchIP(this.ipString);
+  }
+
+  /**
+   * fetch allowance data of ip
+   * @param refresh whether we should refetch it, even if we have it already
+   * @return { isBanned, isProxy }
+   */
+  async getIPAllowance(refresh = false) {
+    const currentTs = Date.now();
+
+    if (!this.#allowance || refresh
+      || this.#allowance.whoisExpires.getTime() < currentTs
+      || this.#allowance.proxyCheckExpires.getTime() < currentTs
+    ) {
+      const { ipString } = this;
+      const allowance = await getIPAllowance(ipString);
+      const needWhois = allowance.whoisExpires.getTime() < currentTs;
+      const needProxyCheck = allowance.proxyCheckExpires.getTime() < currentTs;
+      if (needWhois || needProxyCheck) {
+        try {
+          const [
+            whoisData, proxyCheckData,
+          ] = await getIPIntelOverShards(ipString);
+
+          if (whoisData) {
+            allowance.whoisExpires = whoisData.expires;
+            allowance.country = whoisData.country || 'xx';
+          }
+
+          if (proxyCheckData) {
+            allowance.proxyCheckExpires = proxyCheckData.expires;
+            allowance.isProxy = proxyCheckData.isProxy;
+          }
+
+        } catch (error) {
+          console.error(`IP Error on getIPAllowance: ${error.message}`);
+        }
+      }
+
+      /* prefer whois for country code over headers: overwrite getter */
+      if (allowance.country && allowance.country !== 'xx') {
+        delete this.country;
+        this.country = allowance.country;
+      }
+
+      this.isBanned = allowance.isBanned;
+      this.isProxy = !allowance.isWhitelisted && allowance.isProxy;
+      this.#allowance = allowance;
+    }
+    return {
+      isBanned: this.isBanned,
+      isProxy: this.isProxy,
+    }
+  }
+}
+
+/*
+ * express middleware to add IP object to request
+ */
+export function parseIP(req, res, next) {
+  req.ip = new IP(req);
   next();
-};
+}
+
+/*
+ * express middleware to resolve IP allowance in a promise under req.promise,
+ * must be called after parseIP.
+ * Promise can be resolved by './promises.js' middleware.
+ * This has the purpose to allow other actions to happen while we wait.
+ */
+export async function ipAllowancePromisified(req, res, next) {
+  if (!req.promise) {
+    req.promise = [];
+  }
+  req.promise.push(req.ip.getIPAllowance());
+  next();
+}

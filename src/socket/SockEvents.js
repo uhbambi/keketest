@@ -80,14 +80,18 @@ class SocketEvents extends EventEmitter {
     });
   }
 
-  res(chan, ret) {
-    this.emit(`res:${chan}`, ret);
+  /**
+   * request for all shards that expect a response,
+   * since we don't have shards here, it's the same as this.req()
+   */
+  reqAll(...args) {
+    return this.req(...args);
   }
 
   onReq(type, cb) {
     this.on(`req:${type}`, async (chan, ...args) => {
       const ret = await cb(...args);
-      this.res(chan, ret);
+      this.emit(`res:${chan}`, ret);
     });
   }
 

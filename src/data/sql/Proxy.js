@@ -53,6 +53,15 @@ const ProxyData = sequelize.define('Proxy', {
   },
 
   /*
+   * how many devices were seen using this subnet, approximated by proxycheck.io
+   */
+  subnetDevices: {
+    type: DataTypes.INTEGER.UNSIGNED,
+    defaultValue: 1,
+    allowNull: false,
+  },
+
+  /*
    * time of last proxycheck
    */
   expires: {

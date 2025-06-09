@@ -12,14 +12,19 @@ export { CHANNEL_TYPES } from '../../core/constants';
 
 const Channel = sequelize.define('Channel', {
   id: {
-    type: DataTypes.INTEGER.UNSIGNED,
+    type: DataTypes.BIGINT.UNSIGNED,
     autoIncrement: true,
     primaryKey: true,
   },
 
   name: {
-    type: `${DataTypes.CHAR(32)} CHARSET utf8mb4 COLLATE utf8mb4_unicode_ci`,
+    type: DataTypes.STRING(32),
+    charset: 'utf8mb4',
+    collate: 'utf8mb4_unicode_ci',
     allowNull: true,
+    set(value) {
+      this.setDataValue('name', value.slice(0, 32));
+    },
   },
 
   type: {
@@ -38,16 +43,6 @@ const Channel = sequelize.define('Channel', {
     type: DataTypes.DATE,
     defaultValue: DataTypes.NOW,
     allowNull: false,
-  },
-
-  lastTs: {
-    type: DataTypes.VIRTUAL,
-    get() {
-      return new Date(this.lastMessage).valueOf();
-    },
-    set(value) {
-      this.setDataValue('lastMessage', new Date(value));
-    },
   },
 });
 

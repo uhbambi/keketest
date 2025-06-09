@@ -1,4 +1,4 @@
-import Sequelize, { DataTypes, QueryTypes } from 'sequelize';
+import Sequelize, { DataTypes, QueryTypes, Op } from 'sequelize';
 import sequelize from './sequelize';
 
 /*
@@ -43,21 +43,27 @@ const WhoisReferral = sequelize.define('WhoisReferral', {
   },
 });
 
-export async function getWhoisReferraloOfIp(ip) {
+/**
+ * Get whois server for ip
+ * @param ipString ip as string
+ * @return null | host
+ */
+export async function getWhoisHostOfIP(ipString) {
   try {
-    // return cidr, country, org, descr, asn, checkedAt
-    const rangeq = sequelize.query(
-      'CALL WHOIS_REFERRAL_OF_IP($1)',
-      {
-        bind: [ip],
-        type: QueryTypes.SELECT,
-        raw: true,
-        plain: true,
+    const range = await Range.findOne({
+      attributes: [ 'host' ],
+      where: {
+        min: { [Op.lte]: Sequelize.fn('IP_TO_BIN', ipString) },
+        max: { [Op.gte]: Sequelize.fn('IP_TO_BIN', ipString) },
+        expires: { [Op.gt]: Sequelize.fn('NOW') },
       },
-    );
-    return rangeq?.host;
-  } catch (err) {
-    console.error(`SQL Error on getRangeOfIp: ${err.message}`);
+      raw: true,
+    })
+    if (range) {
+      return range.host;
+    }
+  } catch (error) {
+    console.error(`SQL Error on getRangeOfIP: ${error.message}`);
   }
   return null;
 }

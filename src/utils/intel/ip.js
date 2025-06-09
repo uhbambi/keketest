@@ -70,6 +70,18 @@ export function ipToHex(ip) {
 }
 
 /**
+ * Sanitize IP in string form
+ * @param ipString ip as string
+ * @return sanitized ip as string
+ */
+export function sanitizeIPString(ipString) {
+  if (isIPv6(ipString)) {
+    ipString = `${unpackIPv6(ipString).slice(0, 4).join(':')}::`;
+  }
+  return ipString;
+}
+
+/**
  * Parse IPv4 string to Number and IPv6 string to BigInt of first 64bit
  * @param ipString ip string
  * @return numerical IP (Number or BigInt)
@@ -120,7 +132,7 @@ function numToHex(num) {
  * @param hex IP as 64bit hex for IPv6 and 32bit hex for IPv4
  * @return ip as string
  */
-export function hexToIp(hex) {
+export function hexToIP(hex) {
   let ip = '';
   if (hex.length === 8) {
     // IPv4
@@ -151,7 +163,7 @@ export function rangeToString(range) {
   if (!range) {
     return undefined;
   }
-  return `${hexToIp(range[0])}/${range[2]}`;
+  return `${hexToIP(range[0])}/${range[2]}`;
 }
 
 /**
@@ -285,7 +297,7 @@ export function ipSubnetToHex(subnet, ip) {
  * @return [start, end, mask] start and end as hex and mask part of CIDR
  *          Array of same if ip isn't given and there could be multiple
  */
-export function getLowHexSubnetOfIp(ip) {
+export function getLowHexSubnetOfIP(ip) {
   let start = ipToNum(ip);
   if (!start) {
     return null;

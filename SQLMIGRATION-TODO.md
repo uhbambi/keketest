@@ -18,6 +18,8 @@ redditid -> if != NULL -> ThreePIDs add uid, discordid, provider = 2
 delete discordid
 delete redditid
 
+add a dropdown for expiration: Browser close, 30 days, 1 year, forevers
+
 # rwhois
 
 Error on WHOIS 69.178.112.123 rwhois.gci.net:4321: no rwhois support

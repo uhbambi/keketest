@@ -6,7 +6,7 @@ import { DataTypes } from 'sequelize';
 import sequelize from './sequelize';
 
 
-const IPWhitelist = sequelize.define('IPWhitelist', {
+const ProxyWhitelist = sequelize.define('ProxyWhitelist', {
   reason: {
     type: DataTypes.STRING(200),
     charset: 'utf8mb4',
@@ -30,7 +30,7 @@ const IPWhitelist = sequelize.define('IPWhitelist', {
  * @return boolean
  */
 export async function isWhitelisted(ip) {
-  const count = await IPWhitelist
+  const count = await ProxyWhitelist
     .count({
       where: { ip },
     });
@@ -44,7 +44,7 @@ export async function isWhitelisted(ip) {
  *         false if it was already whitelisted
  */
 export async function whitelistIP(ip) {
-  const [, created] = await IPWhitelist.findOrCreate({
+  const [, created] = await ProxyWhitelist.findOrCreate({
     where: { ip },
   });
   return created;
@@ -57,10 +57,10 @@ export async function whitelistIP(ip) {
  *         false if ip wasn't whitelisted anyway
  */
 export async function unwhitelistIP(ip) {
-  const count = await IPWhitelist.destroy({
+  const count = await ProxyWhitelist.destroy({
     where: { ip },
   });
-  return !!count;
+  return count !== 0;
 }
 
-export default IPWhitelist;
+export default ProxyWhitelist;
