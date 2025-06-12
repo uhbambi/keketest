@@ -4,7 +4,11 @@
 import { USE_XREALIP } from '../core/config';
 import { sanitizeIPString, ipToHex } from '../utils/intel/ip';
 import { getIPIntelOverShards } from '../utils/intel';
+import { queue } from '../utils/intel/queue';
 import { getIPAllowance, touchIP } from '../data/sql/IP';
+import { parseListOfBans } from '../data/sql/Ban';
+
+const getIPAllowanceQueued = queue(getIPAllowance);
 
 class IP {
   /* expressjs request object */
@@ -25,6 +29,17 @@ class IP {
   isProxy = null;
   /* null | boolean */
   isBanned = null;
+  /* null | boolean */
+  isMuted = null;
+  /* timestamp when whois expires */
+  whoisExpiresTs = 0;
+  /* timestamp when proxycheck expires */
+  proxyCheckExpiresTs = 0;
+  /*
+   * timestamp when ban should be rechecked,
+   * null means to never recheck (so if not banned or perma banned)
+   */
+  banRecheckTs = null;
 
   constructor(req) {
     this.#req = req;
@@ -33,7 +48,7 @@ class IP {
   /**
    * @return ip as string, IPv6 cut to 64bit block
    */
-  get ipString () {
+  get ipString() {
     const req = this.#req;
     let ipString;
     if (USE_XREALIP) {
@@ -104,24 +119,27 @@ class IP {
   /**
    * fetch allowance data of ip
    * @param refresh whether we should refetch it, even if we have it already
-   * @return { isBanned, isProxy }
+   * @return { isBanned, isProxy, isMuted }
    */
   async getIPAllowance(refresh = false) {
     const currentTs = Date.now();
 
     if (!this.#allowance || refresh
-      || this.#allowance.whoisExpires.getTime() < currentTs
-      || this.#allowance.proxyCheckExpires.getTime() < currentTs
+      || this.whoisExpiresTs < currentTs
+      || this.proxyCheckExpiresTs < currentTs
+      || (this.banRecheckTs !== null && this.banRecheckTs < currentTs)
     ) {
       const { ipString } = this;
-      const allowance = await getIPAllowance(ipString);
+      const allowance = await getIPAllowanceQueued(ipString);
+
+      /* fetch whois and proxycheck if needed */
       const needWhois = allowance.whoisExpires.getTime() < currentTs;
       const needProxyCheck = allowance.proxyCheckExpires.getTime() < currentTs;
       if (needWhois || needProxyCheck) {
         try {
           const [
             whoisData, proxyCheckData,
-          ] = await getIPIntelOverShards(ipString);
+          ] = await getIPIntelOverShards(ipString, needWhois, needProxyCheck);
 
           if (whoisData) {
             allowance.whoisExpires = whoisData.expires;
@@ -144,14 +162,20 @@ class IP {
         this.country = allowance.country;
       }
 
-      this.isBanned = allowance.isBanned;
+      const [isBanned, isMuted, banRecheckTs] = parseListOfBans(allowance.bans);
+      this.isBanned = isBanned;
+      this.isMuted = isMuted;
+      this.banRecheckTs = banRecheckTs;
+      this.whoisExpiresTs = allowance.whoisExpires.getTime();
+      this.proxyCheckExpiresTs = allowance.proxyCheckExpires.getTime();
       this.isProxy = !allowance.isWhitelisted && allowance.isProxy;
       this.#allowance = allowance;
     }
     return {
       isBanned: this.isBanned,
       isProxy: this.isProxy,
-    }
+      isMute: this.isMuted,
+    };
   }
 }
 

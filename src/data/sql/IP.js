@@ -40,8 +40,8 @@ const IP = sequelize.define('IP', {
  * @return {
  *   lastSeen,
  *   isWhitelisted,
- *   isBanned,
  *   isProxy,
+ *   bans: [ { expires, flags } ],
  *   country: two letter country code,
  *   whoisExpires: Date object for when whois expires,
  *   proxyCheckExpires: Date object for when proxycheck expires,
@@ -54,7 +54,6 @@ export async function getIPAllowance(ipString) {
       attributes: [
         'lastSeen',
         [Sequelize.literal('whitelist.ip IS NOT NULL'), 'isWhitelisted'],
-        [Sequelize.literal('bans.ip IS NOT NULL'), 'isBanned'],
         [Sequelize.col('proxy.isProxy'), 'isProxy'],
         [Sequelize.col('range.country'), 'country'],
         [Sequelize.col('range.expires'), 'whoisExpires'],
@@ -78,10 +77,16 @@ export async function getIPAllowance(ipString) {
         attributes: [],
       }, {
         association: 'bans',
-        attributes: [],
-        limit: 1,
+        attributes: [ 'expires', 'flags' ],
+        where: {
+          [Op.or]: [
+            { expires: { [Op.gt]: Sequelize.fn('NOW') } },
+            { expires: null },
+          ],
+        },
       }],
       raw: true,
+      nested: true,
     });
     console.log('TODO IP ALLOWANCE', JSON.stringify(ipAllowance));
   } catch (error) {
@@ -92,7 +97,7 @@ export async function getIPAllowance(ipString) {
   if (!ipAllowance) {
     ipAllowance = {
       isWhitelisted: false,
-      isBanned: false,
+      bans: [],
     };
   }
   ipAllowance.isProxy ??= false;
@@ -330,7 +335,7 @@ export async function getInfoToIps(ips) {
         [Sequelize.fn('BIN_TO_UUID', Sequelize.col('uuid')), 'uuid'],
         [Sequelize.col('range.country'), 'country'],
         [Sequelize.fn('CONCAT',
-          Sequelize.fn('BIN_TO_IP', Sequelize.col('$range.min$')),
+          Sequelize.fn('BIN_TO_IP', Sequelize.col('range.min')),
           '/',
           Sequelize.col('range.mask')
         ), 'cidr'],

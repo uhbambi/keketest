@@ -118,7 +118,14 @@ export const loginInclude = [{
   association: 'blocked',
   attributes: ['id', 'name'],
 }, {
+  association: 'bans',
+  attributes: [],
+  limit: 1,
+}, {
   association: 'tpids',
+  include: [{
+    association: 'bans',
+  }],
 }];
 
 /**
@@ -207,77 +214,72 @@ export async function getNamesToIds(ids) {
   return idToNameMap;
 }
 
-/*
- * get user by id
+/**
+ * get User by id
  * @param id
- * @return user object or null if not found
+ * @return [{ id, name, password, userlvl }, ... ]
  */
 export async function findUserById(id) {
   if (!id) {
     return null;
   }
   try {
-    return await User.findByPk(id, { include: loginInclude });
+    return await User.findByPk(id, {
+      attributes: [ 'id', 'name', 'password', 'userlvl' ],
+      raw: true,
+    });
   } catch (err) {
     console.error(`SQL Error on findUserById: ${err.message}`);
     return null;
   }
 }
 
-/*
+/**
  * get User by email
  * @param email
- * @param populate
- * @return user object or null if not found (limited if populate is unset)
+ * @return limited user object or null if not found
  */
-export function getUserByEmail(email, populate) {
-  return getUserByTpid(THREEPID_PROVIDERS.EMAIL, email, populate);
+export function getUserByEmail(email) {
+  return getUserByTpid(THREEPID_PROVIDERS.EMAIL, email)
 }
 
-/*
+/**
  * get User by tpid
  * @param provider
  * @param tpid
- * @param populate
- * @return user object or null if not found (limited if populate is unset)
+ * @return limited user object or null if not found
  */
-export async function getUserByTpid(provider, tpid, populate) {
+export async function getUserByTpid(provider, tpid) {
   if (!tpid || !provider) {
     return null;
   }
   try {
-    if (populate) {
-      return await User.findOne({
-        include: [
-          ...loginInclude.filter((i) => i.association !== 'tpids'), {
-            association: 'tpids',
-            where: {
-              provider,
-              tpid,
-            },
-            right: true,
-          },
-        ],
-      });
-    }
     return await User.findOne({
+      attributes: ['id', 'name', 'password', 'userlvl'],
       include: {
         association: 'tpids',
         where: {
           provider,
-          tpid,
+          [Op.or]: [
+            { tpid },
+            {
+              [Op.not]: { normalizedTpid: null },
+              normalizedTpid: Sequelize.fn('NORMALIZE_TPID', provider, tpid),
+            },
+          ],
         },
-        right: true,
+        required: true,
       },
       raw: true,
+      nested: true,
     });
   } catch (err) {
-    console.error(`SQL Error on getUserByEmail: ${err.message}`);
+    console.error(`SQL Error on getUserByTpid: ${err.message}`);
     return null;
   }
 }
 
-/*
+/**
  * check if name is taken and if it is,
  * modify it till we find a name that is available
  * @param name
@@ -307,7 +309,7 @@ export async function getNameThatIsNotTaken(name) {
   return name;
 }
 
-/*
+/**
  * verify a users email
  * @param email
  * @return name if successful, otherwise false
@@ -320,6 +322,7 @@ export async function verifyEmail(email) {
     const user = await User.findOne({
       include: {
         association: 'tpids',
+        required: true,
         where: {
           provider: THREEPID_PROVIDERS.EMAIL,
           tpid: email,
@@ -330,9 +333,7 @@ export async function verifyEmail(email) {
       return false;
     }
     const promises = [
-      user.tpids.find(
-        (t) => (t.provider === THREEPID_PROVIDERS.EMAIL && t.tpid === email),
-      ).update({ verified: true }),
+      user.tpids[0].update({ verified: true }),
     ];
     if (user.userlvl === USERLVL.REGISTERED) {
       promises.push(user.update({ userlvl: USERLVL.VERIFIED }));
@@ -345,14 +346,14 @@ export async function verifyEmail(email) {
   }
 }
 
-/*
+/**
  * get Users by name or email
  * @param name (or either name or email if email not given)
  * @param email (optional)
  * @param populate boolean
- * @return array of user objects (limited if populate is unset)
+ * @return [{ id, name, password, userlvl, byEmail }, ... ] | null on error
  */
-export async function getUsersByNameOrEmail(name, email, populate) {
+export async function getUsersByNameOrEmail(name, email) {
   if (!name) {
     return [];
   }
@@ -360,43 +361,25 @@ export async function getUsersByNameOrEmail(name, email, populate) {
     email = name;
   }
   try {
-    if (populate) {
-      return await User.findAll({
-        where: {
-          [Op.or]: [{
-            name
-          }, {
-            '$tpids.provider$': THREEPID_PROVIDERS.EMAIL,
-            '$tpids.tpid$': email,
-          }],
-        },
-        include: [
-          ...loginInclude.filter((i) => i.association !== 'tpids'), {
-            association: 'tpids',
-            right: true,
-          },
-        ],
-      });
-    }
     return await User.findAll({
+      attributes: [ 'id', 'name', 'password', 'userlvl', [
+        Sequelize.literal('tpids.tpid IS NOT NULL'), 'byEMail',
+      ]],
       where: {
-        [Op.or]: [{
-          name
-        }, {
+        [Op.or]: [{ name }, {
           [Sequelize.col('tpids.provider')]: THREEPID_PROVIDERS.EMAIL,
           [Sequelize.col('tpids.tpid')]: email,
         }],
       },
       include: {
         association: 'tpids',
-        right: true,
+        attributes: [],
       },
       raw: true,
-      nested: true,
     });
   } catch (err) {
     console.error(`SQL Error on getUsersByNameOrEmail: ${err.message}`);
-    return [];
+    return null;
   }
 }
 
@@ -404,24 +387,20 @@ export async function getUsersByNameOrEmail(name, email, populate) {
  * create new User
  * @param name
  * @param [password]
- * @param [tpid] object with { provider, tpid, verified }
- * @return user object or null if not successful
+ * @return limited user object or null if not successful
  */
-export async function createNewUser(name, password, tpid) {
+export async function createNewUser(name, password) {
   const query = { name };
   if (password) query.password = password;
-  if (tpid) query.tpids = [tpid];
   try {
-    return await User.create(query, {
-      include: loginInclude,
-    });
-  } catch (err) {
-    console.error(`SQL Error on createNewUser: ${err.message}`);
+    return await User.create(query, { raw: true } );
+  } catch (error) {
+    console.error(`SQL Error on createNewUser: ${error.message}`);
     return null;
   }
 }
 
-/*
+/**
  * take array of objects that include user ids and add
  * user informations if user is not private
  * @param rawRanks array of {id: userId, ...} objects

@@ -81,6 +81,61 @@ const Ban = sequelize.define('Ban', {
 });
 
 /**
+ * Given a list of bans, determine if we are banned or muted or both,
+ * and what is the best time to re-check
+ * @param bans [ { expires, flags,... },... ]
+ * @return [ isBanned, isMuted, banRecheckTs ]
+ */
+export function parseListOfBans(bans) {
+  let isBanned = false;
+  let isMuted = false;
+  let banRecheckTs = null;
+
+  if (bans.length) {
+    let gamebanExpiresTs = 0;
+    let mutebanExpiresTs = 0;
+    let i = bans.length;
+    while (i > 0) {
+      i -= 1;
+      const { expires, flags } = bans[i];
+      if (flags & 0x01) {
+        isBanned = true;
+        if (gamebanExpiresTs !== null) {
+          if (expires === null) {
+            gamebanExpiresTs = null;
+          } else {
+            const expiresTs = expires.getTime();
+            if (expiresTs > gamebanExpiresTs) {
+              gamebanExpiresTs = expires
+            }
+          }
+        }
+      } else if (flags & 0x02) {
+        isMuted = true;
+        if (mutebanExpiresTs !== null) {
+          if (expires === null) {
+            mutebanExpiresTs = null;
+          } else {
+            const expiresTs = expires.getTime();
+            if (expiresTs > mutebanExpiresTs) {
+              mutebanExpiresTs = expires
+            }
+          }
+        }
+      }
+    }
+    if (!gamebanExpiresTs && mutebanExpiresTs) {
+      banRecheckTs = mutebanExpiresTs;
+    } else if (gamebanExpiresTs && !mutebanExpiresTs) {
+      banRecheckTs = gamebanExpiresTs;
+    } else if (gamebanExpiresTs && mutebanExpiresTs) {
+      banRecheckTs = Math.min(gamebanExpiresTs, mutebanExpiresTs);
+    }
+  }
+  return [isBanned, isMuted, banRecheckTs];
+}
+
+/**
  * Lift multiple Bans
  * @param bans Array of Ban model instances
  * @param [modUid] user id of mod that lifted the bans
@@ -209,35 +264,36 @@ async function cleanBans() {
 HourlyCron.hook(cleanBans);
 
 /**
- * check if ip is banned
- * @param ip
- * @return boolean
- */
-export async function isBanned(ip) {
-  const count = await Ban
-    .count({
-      where: { ip },
-    });
-  return count !== 0;
-}
-
-/**
  * get information of ban
- * @param ip
+ * @param ipString ip as string
+ * @param userId user id or null
  * @return
  */
-export function getBanInfo(ip) {
-  return Ban.findByPk(ip, {
-    attributes: ['reason', 'expires'],
-    include: {
-      association: 'mod',
-      attributes: [
-        'id',
-        'name',
+export async function getBanInfo(ipString, userId) {
+  const bans = await Ban.findAll({
+    attributes: [ 'uuid', 'reason', 'expires' ],
+    where: {
+      [Op.or]: [
+        { [Sequelize.col('tpids.uid')]: userId },
+        { [Sequelize.col('users.id')]: userId },
       ],
     },
+    include: [{
+      association: 'mod',
+      attributes: [ 'id', 'name' ],
+    }, {
+      association: 'users',
+      attributes: [],
+    }, {
+      association: 'tpids',
+      attributes: [],
+    }],
     raw: true,
-    nest: true,
+    nested: true,
+  });
+  bans.forEach((ban) => {
+    ban.expiresTs = ban.expires.getTime();
+    delete ban.expires;
   });
 }
 

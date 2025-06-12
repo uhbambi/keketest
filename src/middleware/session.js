@@ -16,10 +16,7 @@ import { getHostFromRequest } from '../utils/intel/ip';
 async function resolveSessionOfRequest(req) {
   const cookies = parseCookie(req.headers.cookie || '');
   const token = cookies['ppfun.session'];
-  const user = await resolveSession(token);
-  if (user) {
-    req.user = user;
-  }
+  req.user = await resolveSession(token);
 }
 
 /*
@@ -66,18 +63,22 @@ export function ensureLoggedIn(req, res, next) {
  * Open a new session, set cookie and store it, NOT a middleware
  * @param req express request object
  * @param res express response object
- * @param user user data
+ * @param userId user id
  * @param durationHours how long session is valid in hours or null for permanent
  * @return boolean if successful
  */
-export async function openSession(req, res, user, durationHours = 720) {
+export async function openSession(req, res, userId, durationHours = 720) {
   const domain = getHostFromRequest(req, false, true);
 
-  const session = await createSession(user.id, durationHours);
-  if (!session) {
+  const token = await createSession(userId, durationHours);
+  if (!token) {
     return false;
   }
-  const { token } = session;
+  const user = await resolveSession(token);
+  if (!user) {
+    return false;
+  }
+  req.user = user;
 
   const cookieOptions = { domain, httpOnly: true, secure: false };
 
@@ -109,5 +110,6 @@ export async function closeSession(req, res, user) {
   const token = cookies['ppfun.session'];
   const success = await removeSession(token);
   res.cookie('ppfun.session', token, { domain, httpOnly: true, secure: false });
+  if (req.user) delete req.user;
   return success;
 }

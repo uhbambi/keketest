@@ -4,6 +4,7 @@ import sequelize from './sequelize';
 import { generateToken, generateTokenHash } from '../../utils/hash';
 import { loginInclude } from './User';
 import { HOUR } from '../../cores/constants';
+import { CHANNEL_TYPES } from './Channel';
 
 const Session = sequelize.define('Session', {
   id: {
@@ -27,7 +28,7 @@ const Session = sequelize.define('Session', {
  * create session for a user
  * @param uid id of user
  * @param durationHours how long session is valid in hours or null for permanent
- * @return null | session Model instance
+ * @return null | token session token
  */
 export async function createSession(uid, durationHours) {
   if (durationHours !== null && !durationHours) {
@@ -59,13 +60,13 @@ export async function createSession(uid, durationHours) {
     const token = generateToken();
     const session = await Session.create({
       uid,
-      token,
+      token: generateTokenHash(token),
       expires: durationHours && Date(Date.now() + durationHours * HOUR),
     }, {
       raw: true,
     });
     if (session) {
-      return session;
+      return token;
     }
   } catch (error) {
     console.error(`SQL Error on createSession: ${error.message}`);
@@ -95,7 +96,20 @@ export async function removeSession(token) {
 /**
  * resolve a session for a given token
  * @param token
- * @return null | user data
+ * @return null | {
+ *   id,
+ *   name,
+ *   password,
+ *   userlvl,
+ *   flags,
+ *   lastSeen,
+ *   createdAt,
+ *   blocked: [ { id, name }, ...],
+ *   channels: [
+ *     { id, name, type, lastMessage }, ...
+ *     { id, name, type, lastMessage, users: [ {id, name} ]] }, ...
+ *   ],
+ * }
  */
 export async function resolveSession(token) {
   if (!token) {
@@ -112,7 +126,37 @@ export async function resolveSession(token) {
       },
       include: {
         association: 'user',
-        include: loginInclude,
+        attributes: {
+          include: [
+            [
+              Sequelize.literal(
+                // eslint-disable-next-line max-len
+                'EXISTS(SELECT 1 FROM UserBans INNER JOIN Bans AS ub ON UserBans.buuid = ub.uuid WHERE UserBans.uid = User.id AND (ub.expires IS NULL OR ub.expires > NOW()))' +
+                ' OR ' +
+                // eslint-disable-next-line max-len
+                'EXISTS(SELECT 1 FROM ThreePIDBans INNER JOIN Bans AS tb on ThreePIDBans.buuid = tb.uuid INNER JOIN ThreePIDs ON ThreePIDBans.tid = ThreePIDs.id WHERE ThreePIDs.uid = User.id AND (tb.expires IS NULL OR tb.expires > NOW()))',
+              ), 'isBanned',
+            ], [
+              Sequelize.literal(
+                'EXISTS(SELECT 1 FROM ThreePIDs WHERE ThreePIDs.uid = User.id AND ThreePIDs.provider = 1)',
+              ), 'mailreg',
+            ],
+          ],
+        },
+        include: [{
+          association: 'channels',
+          include: [{
+            association: 'users',
+            attributes: ['id', 'name'],
+            where: {
+              id: { [Op.ne]: Sequelize.col('User.id') },
+              [Sequelize.col('channels.type')]: CHANNEL_TYPES.DM,
+            },
+          }],
+        }, {
+          association: 'blocked',
+          attributes: ['id', 'name'],
+        }],
       },
       raw: true,
       nested: true,

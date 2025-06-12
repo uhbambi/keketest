@@ -7,7 +7,7 @@ import logger from '../core/logger';
 import canvases from '../core/canvases';
 import MassRateLimiter from '../utils/MassRateLimiter';
 import Counter from '../utils/Counter';
-import { getIPFromRequest, getHostFromRequest } from '../utils/ip';
+import { getHostFromRequest } from '../utils/intel/ip';
 import {
   REG_CANVAS_OP,
   PIXEL_UPDATE_OP,
@@ -39,7 +39,6 @@ import chatProvider, { ChatProvider } from '../core/ChatProvider';
 import authenticateClient from './authenticateClient';
 import drawByOffsets from '../core/draw';
 import { HOUR } from '../core/constants';
-import isIPAllowed from '../core/ipUserIntel';
 import { checkCaptchaSolution } from '../data/redis/captcha';
 
 
@@ -80,18 +79,18 @@ class SocketServer {
       ws.timeLastMsg = Date.now();
       ws.connectedTs = ws.timeLastMsg;
       ws.canvasId = null;
-      const { user } = req;
-      ws.user = user;
-      ws.userAgent = req.headers['user-agent'];
       ws.chunkCnt = 0;
-
-      const { ip } = user;
+      /* populate data from request */
+      const { user, ip } = req;
+      ws.user = user;
+      ws.ip = ip;
+      ws.userAgent = req.headers['user-agent'];
 
       ws.send(dehydrateOnlineCounter(socketEvents.onlineCounter));
 
       ws.on('error', (e) => {
         // eslint-disable-next-line max-len
-        logger.error(`WebSocket Client Error for ${ws.user.name}: ${e.message}`);
+        logger.error(`WebSocket Client Error for ${ws.user?.name}: ${e.message}`);
       });
 
       ws.on('close', () => {
@@ -108,10 +107,6 @@ class SocketServer {
           this.onTextMessage(message, ws);
         }
       });
-    });
-
-    socketEvents.on('useripinfo', (userIpInfo) => {
-
     });
 
     socketEvents.on('onlineCounter', (online) => {
@@ -193,7 +188,7 @@ class SocketServer {
       while (!client.done) {
         const ws = client.value;
         if (ws.readyState === WebSocket.OPEN
-          && ws.user.ip === ip && ws.chunkCnt > 1
+          && ws.ip.ipString === ip && ws.chunkCnt > 1
         ) {
           chosenWs = ws;
           if (connectionIndex <= 0) {
@@ -212,7 +207,7 @@ class SocketServer {
     socketEvents.on('catchedFish', (ip, type, size) => {
       const buffer = dehydrateFishCatched(true, type, size);
       this.wss.clients.forEach(async (ws) => {
-        if (ws.user.ip === ip) {
+        if (ws.ip.ipString === ip) {
           ws.send(buffer);
         }
       });
@@ -232,10 +227,9 @@ class SocketServer {
   }
 
   async handleUpgrade(request, socket, head) {
-    const { headers } = request;
-    const ip = getIPFromRequest(request);
-    // trigger proxycheck TODO DO WE REMOVE THIS????
-    isIPAllowed(ip);
+    await authenticateClient(request);
+    const { headers, user } = request;
+    const { ipString: ip} = request.ip;
     /*
      * rate limit
      */
@@ -275,14 +269,6 @@ class SocketServer {
     }
     ipCounter.add(ip);
 
-    const user = await authenticateClient(request);
-    if (!user) {
-      socket.write('HTTP/1.1 401 Unauthorized\r\n\r\n');
-      socket.destroy();
-      return;
-    }
-    user.isAllowed();
-    request.user = user;
     this.wss.handleUpgrade(request, socket, head, (ws) => {
       this.wss.emit('connection', ws, request);
     });
@@ -320,7 +306,7 @@ class SocketServer {
           if (err) {
             logger.error(
               // eslint-disable-next-line max-len
-              `WebSocket broadcast error on ${ws.user && ws.user.ip} : ${err.message}`,
+              `WebSocket broadcast error on ${ws.ip.ipString} : ${err.message}`,
             );
           }
         });
@@ -380,7 +366,7 @@ class SocketServer {
       return 0;
     }
     for (const [chunkid, clients] of this.CHUNK_CLIENTS.entries()) {
-      const newClients = clients.filter((ws) => ws.user.ip !== ip);
+      const newClients = clients.filter((ws) => ws.ip.ipString !== ip);
       if (clients.length !== newClients.length) {
         this.CHUNK_CLIENTS.set(chunkid, newClients);
       }
@@ -392,7 +378,7 @@ class SocketServer {
     while (!client.done) {
       const ws = client.value;
       if (ws.readyState === WebSocket.OPEN
-        && ws.user?.ip === ip
+        && ws.ip.ipString === ip
       ) {
         /*
          * we deleted all registered chunks above
@@ -435,7 +421,7 @@ class SocketServer {
           ws.readyState === WebSocket.OPEN
           && ts > ws.timeLastMsg
         ) {
-          logger.info(`Killing dead websocket from ${ws.user.ip}`);
+          logger.info(`Killing dead websocket from ${ws.ip.ipString}`);
           ws.terminate();
           resolve();
         }
@@ -467,16 +453,15 @@ class SocketServer {
         if (ws.readyState === WebSocket.OPEN
           && ws.user && ws.canvasId !== null
         ) {
-          const { canvasId } = ws;
-          const { ip } = ws.user;
+          const { canvasId, ip: { ipString } } = ws;
           // only count unique IPs per canvas
           if (!online[canvasId]) {
-            online[canvasId] = [ip];
-          } else if (online[canvasId].includes(ip)) {
+            online[canvasId] = [ipString];
+          } else if (online[canvasId].includes(ipString)) {
             client = it.next();
             continue;
           } else {
-            online[canvasId].push(ip);
+            online[canvasId].push(ipString);
           }
         }
         client = it.next();
@@ -488,10 +473,10 @@ class SocketServer {
   }
 
   async onTextMessage(text, ws) {
-    const { ip } = ws.user;
+    const { ipString } = ws.ip;
     // rate limit
     const isLimited = rateLimiter.tick(
-      ip,
+      ipString,
       1000,
       'text message spam',
       SocketServer.onRateLimitTrigger,
@@ -547,7 +532,8 @@ class SocketServer {
           // captcha solution
           const [solution, captchaid, challengeSolution] = val;
           const ret = await checkCaptchaSolution(
-            solution, ip, ws.userAgent, false, captchaid, challengeSolution,
+            solution, ipString, ws.userAgent, false,
+            captchaid, challengeSolution,
           );
           ws.send(dehydrateCaptchaReturn(ret));
           break;
@@ -557,13 +543,13 @@ class SocketServer {
       }
     } catch (err) {
       // eslint-disable-next-line max-len
-      logger.error(`Got invalid ws text message ${text} from ${ws.user.ip}, with error: ${err.message}`);
+      logger.error(`Got invalid ws text message ${text} from ${ipString}, with error: ${err.message}`);
     }
   }
 
   async onBinaryMessage(buffer, ws) {
     try {
-      const { ip } = ws.user;
+      const { ipString } = ws.ip;
       const opcode = buffer[0];
 
       // rate limit
@@ -577,7 +563,7 @@ class SocketServer {
         reason = 'deregister chunk spam';
       }
       const isLimited = rateLimiter.tick(
-        ip,
+        ipString,
         limiterDeltaTime,
         reason,
         SocketServer.onRateLimitTrigger,
@@ -592,7 +578,7 @@ class SocketServer {
           const { canvasId, connectedTs } = ws;
 
           if (canvasId === null) {
-            logger.info(`Closing websocket without canvas from ${ip}`);
+            logger.info(`Closing websocket without canvas from ${ipString}`);
             ws.close();
             return;
           }
@@ -608,6 +594,7 @@ class SocketServer {
             retCode,
           } = await drawByOffsets(
             ws.user,
+            ws.ip,
             canvasId,
             i, j,
             pixels,
@@ -615,7 +602,7 @@ class SocketServer {
           );
 
           if (retCode > 9 && retCode !== 13) {
-            rateLimiter.add(ip, 800);
+            rateLimiter.add(ipString, 800);
           }
 
           ws.send(dehydratePixelReturn(
@@ -669,14 +656,13 @@ class SocketServer {
             const [timeSent, type, size] = sentFish;
             if (timeSent > Date.now() - 18000) {
               // broadcast to all connections of ip
-              socketEvents.catchedFish(ip, type, size);
+              socketEvents.catchedFish(ipString, type, size);
               // register ourselves to store it in database
-              socketEvents.registerCatchedFish(ws.user, ip, type, size);
+              socketEvents.registerCatchedFish(ws.user, ipString, type, size);
               break;
             }
           }
           ws.send(dehydrateFishCatched(false, 0, 0));
-          logger.info(`FISHING: ${ip} clicked too late for a fish`);
           break;
         }
         case OLD_PIXEL_UPDATE_OP: {
@@ -693,8 +679,8 @@ class SocketServer {
 
   pushChunk(chunkid, ws) {
     if (ws.chunkCnt === 20000) {
-      const { ip } = ws.user;
-      SocketServer.onRateLimitTrigger(ip, HOUR, 'too much subscribed');
+      const { ipString } = ws.ip;
+      SocketServer.onRateLimitTrigger(ipString, HOUR, 'too much subscribed');
       return;
     }
     ws.chunkCnt += 1;

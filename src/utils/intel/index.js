@@ -155,5 +155,5 @@ socketEvents.onReq('ipintel', (...args) => {
 /* send request */
 // eslint-disable-next-line max-len
 export const getIPIntelOverShards = queue(async function getIPIntelOverShards(...args) {
-  socketEvents.req('ipintel', ...args)
+  return await socketEvents.req('ipintel', ...args)
 });

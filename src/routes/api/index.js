@@ -49,23 +49,6 @@ router.get('/getiid', getiid);
  */
 router.use(verifySession);
 
-/*
- * modtools
- * (does not take urlencoded bodies)
- */
-router.use('/modtools', modtools);
-
-/*
- * create unregistered user by request if
- * not logged in
- */
-router.use(async (req, res, next) => {
-  if (!req.user) {
-    req.user = new User(req);
-  }
-  next();
-});
-
 router.get('/chathistory', chatHistory);
 
 router.get('/me', me);
@@ -73,6 +56,8 @@ router.get('/me', me);
 router.get('/baninfo', baninfo);
 
 router.use('/auth', auth);
+
+router.use('/modtools', modtools);
 
 /*
  * only with session

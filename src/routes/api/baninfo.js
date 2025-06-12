@@ -2,13 +2,9 @@
  *
  */
 import {
-  getIPFromRequest,
-  getIPv6Subnet,
-} from '../../utils/ip';
-import {
   getBanInfo,
   unbanIP,
-} from '../../data/sql/IPBan';
+} from '../../data/sql/Ban';
 import {
   getCacheAllowed,
   cleanCacheForIP,
@@ -16,13 +12,9 @@ import {
 
 async function baninfo(req, res, next) {
   try {
-    const { t } = req.ttag;
+    const { t, user, ip: { ipString }} = req.ttag;
 
-    const ip = getIPv6Subnet(
-      getIPFromRequest(req),
-    );
-
-    const info = await getBanInfo(ip);
+    const info = await getBanInfo(ipString, user?.id);
 
     if (!info) {
       const cache = await getCacheAllowed(ip);

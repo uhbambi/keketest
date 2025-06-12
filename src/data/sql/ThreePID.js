@@ -62,17 +62,20 @@ const ThreePID = sequelize.define('ThreePID', {
 });
 
 /**
- * add a tpid
+ * upsert a tpid
  * @param uid user id
  * @param provider THREEPID_PROVIDERS
  * @param tpid threepid string
  * @param verified whether or not verified (should only be used for emaill
  */
-export async function addTpid(uid, provider, tpid, verified = null) {
+export async function addOrReplaceTpid(uid, provider, tpid, verified = null) {
   try {
-    await ThreePID.upsert({ uid, provider, tpid, verified });
+    const query = { uid, provider, tpid, lastSeen: Date.now() };
+    if (verified) query.verified = true;
+
+    await ThreePID.upsert(query, { returning: false });
   } catch (error) {
-    console.error(`SQL Error on addTpid: ${error.message}`);
+    console.error(`SQL Error on addOrReplaceTpid: ${error.message}`);
     return false;
   }
   return true;
@@ -83,35 +86,60 @@ export async function addTpid(uid, provider, tpid, verified = null) {
  * @param uid user id
  * @param email email string
  * @param verified whether or not the email got verified
+ * @param return boolean if email got set, null if email already exists for
+ *   different user
  */
 export async function setEmail(uid, email, verified = false) {
   try {
     const existingEmail = await ThreePID.findOne({
       where: {
         provider: THREEPID_PROVIDERS.EMAIL,
-        normalizedTpid: Sequelize.fn('NORMALIZE_TPID', 1, email),
+        normalizedTpid: Sequelize.fn(
+          'NORMALIZE_TPID', THREEPID_PROVIDERS.EMAIL, email,
+        ),
       },
       raw: true,
     });
-    if (existingEmail) {
-      await Promise.all([
-        ThreePIDHistory.create({
-          uid: existingEmail.uid,
-          provider: THREEPID_PROVIDERS.EMAIL,
-          tpid: existingEmail.email,
-          verified: existingEmail.verified,
-          createdAt: existingEmail.createdAt,
-        }),
-        ThreePID.destroy({
-          where: { id: existingEmail.id },
-        }),
-      ]);
+    if (existingEmail?.uid !== uid) {
+      return null;
+    }
+
+    const transaction = await sequelize.transaction();
+
+    try {
+      if (existingEmail) {
+        await Promise.all([
+          ThreePIDHistory.create({
+            uid: existingEmail.uid,
+            provider: THREEPID_PROVIDERS.EMAIL,
+            tpid: existingEmail.email,
+            verified: existingEmail.verified,
+            createdAt: existingEmail.createdAt,
+          }), { transaction },
+          ThreePID.destroy({
+            where: { id: existingEmail.id },
+            transaction,
+          }),
+        ]);
+      }
+
+      await ThreePID.create({
+        uid,
+        provider: THREEPID_PROVIDERS.EMAIL,
+        tpid: email,
+        verified: verified,
+      }, { transaction });
+
+      await transaction.commit();
+    } catch (error) {
+      await transaction.rollback();
+      throw error;
     }
   } catch (error) {
     console.error(`SQL Error on setEmail: ${error.message}`);
     return false;
   }
-  return addTpid(uid, THREEPID_PROVIDERS.EMAIL, email, verified);
+  return true;
 }
 
 export default ThreePID;

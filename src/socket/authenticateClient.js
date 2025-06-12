@@ -4,27 +4,24 @@
 
 import express from 'express';
 
-import { verifySession } from '../middleware/session';
+import { verifySessionPromisified } from '../middleware/session';
+import { ipAllowancePromisified } from '../middleware/ip';
+import promises from '../middleware/promises';
 import { expressTTag } from '../middleware/ttag';
 
 const router = express.Router();
 
-router.use(verifySession);
+router.use(verifySessionPromisified);
+router.use(ipAllowancePromisified);
 
 router.use(expressTTag);
+
+router.use(promises);
 
 function authenticateClient(req) {
   return new Promise(
     ((resolve) => {
-      router(req, {}, async () => {
-        let user;
-        if (req.user) {
-          user = req.user;
-        }
-        user.ttag = req.ttag;
-        user.lang = req.lang;
-        resolve(user);
-      });
+      router(req, {}, resolve);
     }),
   );
 }

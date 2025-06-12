@@ -66,6 +66,7 @@ setInterval(() => {
  */
 export default async function drawByOffsets(
   user,
+  ip,
   canvasId,
   i,
   j,
@@ -77,19 +78,19 @@ export default async function drawByOffsets(
   let retCode = 0;
   let pxlCnt = 0;
   let rankedPxlCnt = 0;
-  const { ipSub: ip } = user;
+  const { ipString } = ip;
 
   try {
     const startTime = Date.now();
 
-    if (curReqIPs.has(ip)) {
+    if (curReqIPs.has(ipString)) {
       // already setting a pixel somewhere
       logger.warn(
         `Got simultaneous requests from ${user.ip}`,
       );
       throw new Error(13);
     }
-    curReqIPs.set(ip, startTime);
+    curReqIPs.set(ipString, startTime);
 
     const canvas = canvases[canvasId];
     if (!canvas || canvas.ed) {
@@ -113,6 +114,14 @@ export default async function drawByOffsets(
       // y out of bounds
       // (we don't have to check for <0 because it is received as uint)
       throw new Error(3);
+    }
+
+    const { isBanned, isProxy } = await ip.getIPAllowance();
+    if (isProxy) {
+      throw new Error(11);
+    }
+    if (isBanned || user.isBanned) {
+      throw new Error(14);
     }
 
     const isAdmin = (user.userlvl >= USERLVL.ADMIN);
@@ -186,19 +195,15 @@ export default async function drawByOffsets(
       throw new Error(17);
     }
 
-    let needProxycheck;
-    let needUserBanCheck;
     [
       retCode,
       pxlCnt,
       wait,
       coolDown,
-      needProxycheck,
-      needUserBanCheck,
     ] = await allowPlace(
-      ip,
+      ipString,
       userId,
-      user.country,
+      ip.country,
       ranked,
       canvasId,
       canvas.linkcd ?? canvasId,
@@ -210,30 +215,6 @@ export default async function drawByOffsets(
       cdIfNull,
       pxlOffsets,
     );
-
-    if (needProxycheck) {
-      const pc = await isIPAllowed(ip, { disableCache: true });
-      if (pc.status > 0) {
-        pxlCnt = 0;
-        switch (pc.status) {
-          case 1:
-            // proxy
-            throw new Error(11);
-          case 2:
-            // banned
-            throw new Error(14);
-          case 3:
-            // range banned
-            throw new Error(15);
-          default:
-            // nothing
-        }
-      }
-    }
-
-    if (needUserBanCheck) {
-      // TODO do that
-    }
 
     for (let u = 0; u < pxlCnt; u += 1) {
       const [offset, color] = pixels[u];
@@ -259,7 +240,7 @@ export default async function drawByOffsets(
   }
 
   if (retCode !== 13) {
-    curReqIPs.delete(ip);
+    curReqIPs.delete(ipString);
   }
 
   return {

@@ -1,12 +1,14 @@
 import Sequelize from 'sequelize';
 
 import logger from '../../../core/logger';
+import { createNewUser, getUsersByNameOrEmail } from '../../../data/sql/User';
 import {
-  createNewUser, getUsersByNameOrEmail, THREEPID_PROVIDERS,
-} from '../../../data/sql/RegUser';
+  addOrReplaceTpid, THREEPID_PROVIDERS,
+} from '../../../data/sql/ThreePID';
 import mailProvider from '../../../core/MailProvider';
 import getMe from '../../../core/me';
-import { getIPFromRequest, getHostFromRequest } from '../../../utils/ip';
+import { openSession } from '../../../middleware/session';
+import { getHostFromRequest } from '../../../utils/intel/ip';
 import { checkIfMailDisposable } from '../../../core/ipUserIntel';
 import {
   validateEMail,
@@ -27,14 +29,14 @@ async function validate(
   if (!captcha || !captchaid) {
     errors.push(t`No Captcha given`);
   }
-  if (email) {
-    const emailerror = gettext(validateEMail(email));
-    if (emailerror) errors.push(emailerror);
-  }
+  const emailerror = gettext(validateEMail(email));
+  if (emailerror) errors.push(emailerror);
 
-  const regusers = await getUsersByNameOrEmail(name, email, true);
-  if (regusers.length) {
-    if (regusers[0].email === email) {
+  const users = await getUsersByNameOrEmail(name, email);
+  if (!users) {
+    errors.push(t`Please try again.`);
+  } else if (users.length) {
+    if (users[0].byEMail) {
       errors.push(t`E-Mail already in use.`);
     } else {
       errors.push(t`Username already in use.`);
@@ -53,17 +55,17 @@ export default async (req, res) => {
     email, name, password, captcha, captchaid, t, gettext,
   );
 
-  const ip = getIPFromRequest(req);
+  const { ip } = req;
   const userAgent = req.headers['user-agent'];
   if (!errors.length) {
     const captchaPass = await checkCaptchaSolution(
-      captcha, ip, userAgent, true, captchaid, challengeSolution,
+      captcha, ip.ipString, userAgent, true, captchaid, challengeSolution,
     );
     switch (captchaPass) {
       case 0:
         break;
       case 1:
-        errors.push(t`You took too long, try again.`);
+        errors.push(t`You took too long, try again`);
         break;
       case 2:
         errors.push(t`You failed your captcha`);
@@ -84,6 +86,16 @@ export default async (req, res) => {
     errors.push(t`This email provider is not allowed`);
   }
 
+  if (!errors.length) {
+    const { isBanned, isProxy } = await ip.getIPAllowance();
+    if (isProxy) {
+      errors.push(t`You can not register an account with a proxy`);
+    }
+    if (isBanned) {
+      errors.push(t`You can not register an account while you are banned`);
+    }
+  }
+
   if (errors.length > 0) {
     res.status(400);
     res.json({
@@ -93,16 +105,8 @@ export default async (req, res) => {
   }
 
   let tpid;
-  if (email) {
-    tpid = {
-      provider: THREEPID_PROVIDERS.EMAIL,
-      tpid: email,
-      veified: false,
-    };
-  }
-  const newuser = await createNewUser(name, password, email);
-
-  if (!newuser) {
+  const user = await createNewUser(name, password, email);
+  if (!user) {
     res.status(500);
     res.json({
       errors: [t`Failed to create new user :(`],
@@ -110,29 +114,25 @@ export default async (req, res) => {
     return;
   }
 
-  logger.info(`Created new user ${name} ${email} ${ip}`);
+  /*
+   * we could allow registering without email if we change validation and
+   * put this under an if
+   */
+  await addOrReplaceTpid(user.id, THREEPID_PROVIDERS.EMAIL, email);
 
-  const { user, lang } = req;
-  user.setRegUser(newuser);
-  const me = await getMe(user, lang);
+  logger.info(`Created new user ${name} ${email} ${ip.ipString}`);
 
-  await req.logIn(user, (err) => {
-    if (err) {
-      logger.warn(`Login after register error: ${err.message}`);
-      res.status(500);
-      res.json({
-        errors: [t`Failed to establish session after register :(`],
-      });
-      return;
-    }
-    const host = getHostFromRequest(req);
-    if (email) {
-      mailProvider.sendVerifyMail(email, name, host, lang);
-    }
-    res.status(200);
-    res.json({
-      success: true,
-      me,
-    });
+  await openSession(req, res, user.id, 720);
+  const me = await getMe(req.user, req.lang);
+
+  const host = getHostFromRequest(req);
+  if (email) {
+    mailProvider.sendVerifyMail(email, name, host, req.lang);
+  }
+
+  res.status(200);
+  res.json({
+    success: true,
+    me,
   });
 };

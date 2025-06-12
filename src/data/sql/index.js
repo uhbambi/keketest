@@ -33,10 +33,6 @@ User.belongsToMany(Channel, {
   as: 'channels',
   through: UserChannel,
 });
-User.belongsToMany(Channel, {
-  as: 'dms',
-  through: UserChannel,
-});
 Channel.belongsToMany(User, {
   as: 'users',
   through: UserChannel,

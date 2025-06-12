@@ -52,11 +52,11 @@ router.post('/checklogin', async (req, res) => {
       'userlvl',
     ],
   };
-  let regusers;
+  let users;
   if (req.body.name || req.body.email) {
-    regusers = await getUsersByNameOrEmail(req.body.name, req.body.email, true);
+    users = await getUsersByNameOrEmail(req.body.name, req.body.email);
   } else if (req.body.id) {
-    regusers = await findUserById(req.body.id);
+    users = [await findUserById(req.body.id)];
   } else {
     errors.push('No name or email or idgiven');
   }
@@ -70,40 +70,34 @@ router.post('/checklogin', async (req, res) => {
     return;
   }
 
-  if (!regusers) {
+  if (!users) {
     res.json({
       success: false,
       // eslint-disable-next-line max-len
-      errors: [`User ${req.body.name}, ${req.body.email}, ${req.body.id} does not exist`],
+      errors: [`User ${req.body.name}, ${req.body.email}, ${req.body.id} could not be fetched`],
     });
     return;
   }
 
-  if (!Array.isArray(regusers)) regusers = [regusers];
-  const reguser = regusers.find((u) => compareToHash(password, u.password));
-  if (!reguser) {
+  const user = users.find((u) => compareToHash(password, u.password));
+  if (!user) {
     logger.info(
-      `ADMINAPI: User ${reguser.name} / ${reguser.id} entered wrong password`,
+      `ADMINAPI: User ${user.name} / ${user.id} entered wrong password`,
     );
     res.json({
       success: false,
-      errors: [`Password wrong for user ${reguser.name} / ${reguser.id}`],
+      errors: [`Password wrong for user ${user.name} / ${user.id}`],
     });
     return;
   }
 
-  let email = reguser.tpids.find(
-    (t) => t.provider === THREEPID_PROVIDERS.EMAIL,
-  )?.tpid || null;
-
-  logger.info(`ADMINAPI: User ${reguser.name} / ${reguser.id} got logged in`);
+  logger.info(`ADMINAPI: User ${user.name} / ${user.id} got logged in`);
   res.json({
     success: true,
     userdata: {
-      id: reguser.id,
-      name: reguser.name,
-      email,
-      verified: reguser.userlvl >= USERLVL.VERIFIED,
+      id: user.id,
+      name: user.name,
+      verified: user.userlvl >= USERLVL.VERIFIED,
     },
   });
 });

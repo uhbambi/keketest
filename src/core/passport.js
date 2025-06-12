@@ -23,7 +23,7 @@ import {
   getNameThatIsNotTaken,
   createNewUser,
 } from '../data/sql/RegUser';
-import { addTpid, setEmail } from '../data/sql/ThreePID';
+import { addOrReplaceTpid, setEmail } from '../data/sql/ThreePID';
 import User from '../data/User';
 import { auth } from './config';
 import { compareToHash } from '../utils/hash';
@@ -36,26 +36,24 @@ passport.use(new JsonStrategy({
   usernameProp: 'nameoremail',
   passwordProp: 'password',
 }, async (nameoremail, password, done) => {
-  const regusers = await getUsersByNameOrEmail(nameoremail, null, true);
-  if (!regusers.length) {
+  const users = await getUsersByNameOrEmail(nameoremail, null);
+  if (!users || !users.length) {
     done(new Error('Name or Email does not exist!'));
     return;
   }
-  const reguser = regusers.find((u) => compareToHash(password, u.password));
-  if (!reguser) {
-    if (regusers.find((u) => u.password === 'hacked')) {
+  const user = users.find((u) => compareToHash(password, u.password));
+  if (!user) {
+    if (users.find((u) => u.password === 'hacked')) {
       done(new Error(
         // eslint-disable-next-line max-len
-        'This email / password combination got hacked on a different platform and leaked. To protect this account, the password has been reset. Please use the "Forgot my password" function below to set a new password. In the future, consider to use different passwords on different websites to avoid one leak affecting the others, Thank You.',
+        'This email / password combination got hacked on a different platform and leaked. To protect this account, the password has been reset. Please use the "Forgot my password" function below to set a new password. In the future, consider not installing Malware, Thank You.',
       ));
       return;
     }
     done(new Error('Incorrect password!'));
     return;
   }
-  const user = new User();
-  await user.initialize({ regUser: reguser });
-  user.touch();
+  /* this is NOT a full user instance, only { id, name, password, userlvl } */
   done(null, user);
 }));
 
@@ -84,52 +82,41 @@ async function oauthLogin(providerString, name, email = null, tpid = null) {
     );
   }
 
-  let reguser;
+  let user;
   // try with associated email
   if (email) {
-    reguser = await getUsersByEmail(email, true);
+    user = await getUsersByEmail(email);
   }
   // try wwith threepid
-  if (!reguser && tpid) {
-    reguser = await getUserByTpid(provider, tpid, true);
+  if (!user && tpid) {
+    user = await getUserByTpid(provider, tpid);
   }
   // create new user
-  if (!reguser) {
+  if (!user) {
     name = await getNameThatIsNotTaken(name);
     logger.info(
       // eslint-disable-next-line max-len
       `Create new user from ${providerString} oauth login ${email} / ${name} / ${tpid}`,
     );
-    reguser = await createNewUser(name, null, null);
-    if (!reguser) {
+    user = await createNewUser(name, null);
+    if (!user) {
       throw new Error('Could not create user');
     }
   }
 
   // upsert tpids
   const promises = [];
-  let needReload = false;
   if (tpid) {
-    if (!reguser.tpids.find(
-      (t) => (t.provider === provider && t.tpid === tpid),
-    )) {
-      needReload = true;
-    }
-    promises.push(addTpid(reguser.id, provider, tpid));
+    promises.push(addOrReplaceTpid(user.id, provider, tpid));
   }
-  if (email && (!tpid || !reguser.tpids.find(
-    (t) => (t.provider === THREEPID_PROVIDERS.EMAIL && t.tpid === email),
-  ))) {
-    needReload = true;
-    promises.push(setEmail(reguser.id, email, true));
+  if (email) {
+    promises.push(
+      addOrReplaceTpid(user.id, THREEPID_PROVIDERS.EMAIL, email, true,
+    ));
   }
   await Promise.all(promises);
-  if (needReload) {
-    await reguser.reload();
-  }
 
-  const user = new User();
-  await user.initialize({ regUser: reguser });
+  /* this is NOT a full user instance, only { id, name, password, userlvl } */
   return user;
 }
 

@@ -34,7 +34,10 @@ const router = express.Router();
 router.use(passport.initialize());
 
 const openSessionOnReturn = async (req, res) => {
-  await openSession(req, res, req.user);
+  /* this is NOT a full user instance, only { id, name, password, userlvl } */
+  const { user } = req;
+  /* openSession() turns req.user into a full user object */
+  await openSession(req, res, user.id, 720);
   res.redirect('/');
 };
 
@@ -92,6 +95,7 @@ router.post('/register', register);
 router.post('/local', passport.authenticate('json', {
   session: false,
 }), async (req, res) => {
+  /* this is NOT a full user instance, only { id, name, password, userlvl } */
   const { user } = req;
 
   /* session duration, null for permanent */
@@ -104,9 +108,10 @@ router.post('/local', passport.authenticate('json', {
     }
   }
 
-  await openSession(req, res, user, durationHours);
+  /* openSession() turns req.user into a full user object */
+  await openSession(req, res, user.id, durationHours);
   logger.info(`User ${user.id} logged in with mail/password.`);
-  const me = await getMe(user, req.lang);
+  const me = await getMe(req.user, req.lang);
   res.json({
     success: true,
     me,
