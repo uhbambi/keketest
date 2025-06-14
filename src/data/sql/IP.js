@@ -43,8 +43,8 @@ const IP = sequelize.define('IP', {
  *   isProxy,
  *   bans: [ { expires, flags } ],
  *   country: two letter country code,
- *   whoisExpires: Date object for when whois expires,
- *   proxyCheckExpires: Date object for when proxycheck expires,
+ *   whoisExpiresTs: timestamp for when whois expires,
+ *   proxyCheckExpiresTs: timestamp for when proxycheck expires,
  * }
  */
 export async function getIPAllowance(ipString) {
@@ -88,6 +88,17 @@ export async function getIPAllowance(ipString) {
       raw: true,
       nested: true,
     });
+    if (ipAllowance) {
+      if (ipAllowance.whoisExpires) {
+        ipAllowance.whoisExpiresTs = ipAllowance.whoisExpires.getTime();
+        delete ipAllowance.whoisExpires;
+      }
+      if (ipAllowance.proxyCheckExpires) {
+        // eslint-disable-next-line max-len
+        ipAllowance.proxyCheckExpiresTS = ipAllowance.proxyCheckExpires.getTime();
+        delete ipAllowance.proxyCheckExpires;
+      }
+    }
     console.log('TODO IP ALLOWANCE', JSON.stringify(ipAllowance));
   } catch (error) {
     console.error(`SQL Error on getIPAllowance: ${error.message}`);
@@ -108,10 +119,10 @@ export async function getIPAllowance(ipString) {
    * whois and proxycheck will not refresh those values (nor should it do that,
    * unless there is ever an issue justifying it).
    */
-  const currentDate = new Date();
-  ipAllowance.lastSeen ??= currentDate;
-  ipAllowance.whoisExpires ??= currentDate;
-  ipAllowance.proxyCheckExpires ??= currentDate;
+  const currentTs = Date.now();
+  ipAllowance.lastSeen ??= currentTs;
+  ipAllowance.whoisExpires ??= currentTs;
+  ipAllowance.proxyCheckExpires ??= currentTs;
 
   return ipAllowance;
 }
@@ -123,7 +134,7 @@ export async function getIPAllowance(ipString) {
  * @param ipString ip as string
  * @param whoisData null | {
  *   [rid]: id of range,
- *   expires: Date object when data expires,
+ *   expiresTs: timestamp when data expires,
  *   range as [start: hex, end: hex, mask: number],
  *   org as string,
  *   descr as string,
@@ -133,7 +144,7 @@ export async function getIPAllowance(ipString) {
  *   referralRange as [start: hex, end: hex, mask: number],
  * }
  * @param pcData null | {
- *   expires: Date object when data expires,
+ *   expiresTs: timestamp when data expires,
  *   isProxy: true or false,
  *   type: Residential, Wireless, VPN, SOCKS,...,
  *   operator: name of proxy operator if available,
@@ -154,7 +165,7 @@ export async function saveIPIntel(ipString, whoisData, pcData) {
       if (whoisData && !rid) {
         const {
           range, org, descr, country, asn, referralHost, referralRange,
-          expires: whoisExpires,
+          expiresTs: whoisExpiresTs,
         } = whoisData;
 
         if (referralRange && referralHost) {
@@ -163,7 +174,7 @@ export async function saveIPIntel(ipString, whoisData, pcData) {
             max: Sequelize.fn('UNHEX', referralRange[1]),
             mask: referralRange[2],
             host: referralHost,
-            expires: whoisExpires,
+            expires: new Date(whoisExpiresTs),
           }, { returning: false, transaction }));
         }
 
@@ -175,7 +186,7 @@ export async function saveIPIntel(ipString, whoisData, pcData) {
           org,
           descr,
           asn,
-          expires: whoisExpires,
+          expires: new Date(whoisExpiresTs),
         }, { transaction }));
 
         const whoisResult = await Promise.all(promises);
@@ -188,10 +199,14 @@ export async function saveIPIntel(ipString, whoisData, pcData) {
       }, { returning: false, transaction });
 
       if (pcData) {
-        await ProxyData.upsert({
+        const query = {
           ...pcData,
           ip: Sequelize.fn('IP_TO_BIN', ipString),
-        }, { returning: false, transaction });
+        };
+        query['expires'] = new Date(query.expiresTs);
+        delete query.expires;
+
+        await ProxyData.upsert(query, { returning: false, transaction });
       }
 
       await transaction.commit();

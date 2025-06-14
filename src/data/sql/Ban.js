@@ -110,7 +110,8 @@ export function parseListOfBans(bans) {
             }
           }
         }
-      } else if (flags & 0x02) {
+      }
+      if (flags & 0x02) {
         isMuted = true;
         if (mutebanExpiresTs !== null) {
           if (expires === null) {

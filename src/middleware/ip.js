@@ -31,10 +31,6 @@ class IP {
   isBanned = null;
   /* null | boolean */
   isMuted = null;
-  /* timestamp when whois expires */
-  whoisExpiresTs = 0;
-  /* timestamp when proxycheck expires */
-  proxyCheckExpiresTs = 0;
   /*
    * timestamp when ban should be rechecked,
    * null means to never recheck (so if not banned or perma banned)
@@ -125,16 +121,16 @@ class IP {
     const currentTs = Date.now();
 
     if (!this.#allowance || refresh
-      || this.whoisExpiresTs < currentTs
-      || this.proxyCheckExpiresTs < currentTs
+      || this.allowance.whoisExpiresTs < currentTs
+      || this.allowance.proxyCheckExpiresTs < currentTs
       || (this.banRecheckTs !== null && this.banRecheckTs < currentTs)
     ) {
       const { ipString } = this;
       const allowance = await getIPAllowanceQueued(ipString);
 
       /* fetch whois and proxycheck if needed */
-      const needWhois = allowance.whoisExpires.getTime() < currentTs;
-      const needProxyCheck = allowance.proxyCheckExpires.getTime() < currentTs;
+      const needWhois = allowance.whoisExpiresTs < currentTs;
+      const needProxyCheck = allowance.proxyCheckExpiresTs < currentTs;
       if (needWhois || needProxyCheck) {
         try {
           const [
@@ -142,12 +138,12 @@ class IP {
           ] = await getIPIntelOverShards(ipString, needWhois, needProxyCheck);
 
           if (whoisData) {
-            allowance.whoisExpires = whoisData.expires;
+            allowance.whoisExpiresTs = whoisData.expiresTs;
             allowance.country = whoisData.country || 'xx';
           }
 
           if (proxyCheckData) {
-            allowance.proxyCheckExpires = proxyCheckData.expires;
+            allowance.proxyCheckExpiresTs = proxyCheckData.expiresTs;
             allowance.isProxy = proxyCheckData.isProxy;
           }
 
@@ -166,8 +162,6 @@ class IP {
       this.isBanned = isBanned;
       this.isMuted = isMuted;
       this.banRecheckTs = banRecheckTs;
-      this.whoisExpiresTs = allowance.whoisExpires.getTime();
-      this.proxyCheckExpiresTs = allowance.proxyCheckExpires.getTime();
       this.isProxy = !allowance.isWhitelisted && allowance.isProxy;
       this.#allowance = allowance;
     }

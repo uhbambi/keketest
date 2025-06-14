@@ -29,7 +29,7 @@ if (USE_PROXYCHECK && PROXYCHECK_KEY) {
  * @param ipString ip as string
  * @return null | {
  *   [rid]: id of range,
- *   [expires]: Date object when data expires,
+ *   [expiresTs]: timestamp when data expires,
  *   range as [start: hex, end: hex, mask: number],
  *   org as string,
  *   descr as string,
@@ -43,6 +43,10 @@ async function whoisWithStorage(ipString) {
   /* request range from SQL first */
   let whoisData = await getRangeOfIP(ipString);
   if (whoisData) {
+    if (whoisData.expires) {
+      whoisData['expiresTs'] = whoisData.expires.getTime();
+      delete whoisData.expires;
+    }
     return whoisData;
   }
   const whoisOptions = {};
@@ -59,7 +63,7 @@ async function whoisWithStorage(ipString) {
  * @param whoisNeeded if we shouldfetch whois
  * @param proxyCheckNeeded if we should fetch proxycheck
  * @return Promise<[null | {
- *   expires: Date object when data expires,
+ *   expiresTs: timestamp when data expires,
  *   range as [start: hex, end: hex, mask: number],
  *   org as string,
  *   descr as string,
@@ -68,7 +72,7 @@ async function whoisWithStorage(ipString) {
  *   referralHost as string,
  *   referralRange as [start: hex, end: hex, mask: number],
  * }, null | {
- *   expires: Date object when data expires,
+ *   expiresTs: timestamp when data expires,
  *   isProxy: true or false,
  *   type: Residential, Wireless, VPN, SOCKS,...,
  *   operator: name of proxy operator if available,
@@ -102,38 +106,30 @@ export const getIPIntel = queue(async function getIPIntel(
     } else {
       whoisData = {
         range: placeholderRange,
-        expires: new Date(nowTs + 24 * 3600 * 1000),
+        expiresTs: nowTs + 24 * 3600 * 1000,
       };
     }
   }
   if (proxyCheckNeeded && !proxyCheckData) {
     proxyCheckData = {
       isProxy: false,
-      expires: new Date(nowTs + 12 * 3600 * 1000),
+      expiresTs: nowTs + 12 * 3600 * 1000,
     };
   }
 
   /* add expiration if not set */
-  if (whoisData && !whoisData.expires) {
-    whoisData.expires = new Date(nowTs + WHOIS_DURATION * 3600 * 1000);
+  if (whoisData && !whoisData.expiresTs) {
+    whoisData.expiresTs = nowTs + WHOIS_DURATION * 3600 * 1000;
   }
-  if (proxyCheckData && !proxyCheckData.expires) {
-    proxyCheckData.expires = new Date(
-      nowTs + PROXYCHECK_DURATION * 3600 * 1000,
-    );
+  if (proxyCheckData && !proxyCheckData.expiresTs) {
+    proxyCheckData.expiresTs = nowTs + PROXYCHECK_DURATION * 3600 * 1000;
   }
 
   /* we don't have to await that */
   saveIPIntel(ipString, whoisData, proxyCheckData);
 
-  /* make sure data is sane */
-  const currentDate = new Date();
-  if (proxyCheckData) proxyCheckData.expires ??= currentDate;
-  if (whoisData) {
-    if (whoisData.rid) {
-      delete whoisData.rid;
-    }
-    proxyCheckData.expires ??= currentDate;
+  if (whoisData?.rid) {
+    delete whoisData.rid;
   }
 
   return [ whoisData, proxyCheckData];
