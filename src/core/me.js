@@ -22,31 +22,20 @@ export default async function getMe(user, lang) {
   /* [[id, name], ...] */
   const blocked = [];
   /* { id: [name, type, lastTs, dmu] } */
-  const channels = { ...chatProvider.getDefaultChannels(lang) };
+  let channels = { ...chatProvider.getDefaultChannels(lang) };
   const canvases = getLocalizedCanvases(lang);
 
   if (user) {
     const { data } = user;
     ({
       id, name, userlvl, mailreg,
-    }) = data;
+    } = data);
     blockDm = !!(data.flags & 0x01);
     priv = !!(data.flags & 0x02);
-
-    const userChannels = data.channels;
-    let i = userChannels.length;
-    while (i > 0) {
-      i -= 1;
-      const { id: cid, name, type, lastMessage, users } = userChannels[i];
-      const channel = [ name, type, lastMessage.getTime() ];
-      /* if its a DM, users is populated */
-      if (users.length) {
-        const dmPartner = users[0];
-        channel.push([dmPartner.id, dmPartner.name]);
-        channel[0] = dmPartner.name;
-      }
-      channels[cid] = channel;
-    }
+    channels = {
+      ...channels,
+      ...user.channels,
+    };
   } else {
     id = 0;
     name = null;

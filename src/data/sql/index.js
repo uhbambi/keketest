@@ -26,16 +26,16 @@ import ThreePIDBanHistory from './association_models/ThreePIDBanHistory';
 
 /*
  * Channels
- * (two belongsToMany associations to make it possible
- * to get both channels and dms in the same query with different includes)
  */
 User.belongsToMany(Channel, {
   as: 'channels',
   through: UserChannel,
+  foreignKey: 'uid',
 });
 Channel.belongsToMany(User, {
   as: 'users',
   through: UserChannel,
+  foreignKey: 'cid',
 });
 
 /*

@@ -108,10 +108,10 @@ export async function removeSession(token) {
  *   bans: [ { expires, flags }, ... ],
  *   tpids: [ { tpid, provider }, ... ],
  *   blocked: [ { id, name }, ...],
- *   channels: [
- *     { id, name, type, lastMessage }, ...
- *     { id, name, type, lastMessage, users: [ {id, name} ]] }, ...
- *   ],
+ *   channels: {
+ *     cid: [ name, type, lastTs, [dmuid] ],
+ *     ...
+ *   },
  * }
  */
 export async function resolveSession(token) {
@@ -173,7 +173,7 @@ export async function resolveSession(token) {
     if (session) {
       /* rearrange values */
       const { user } = session;
-      const { tpids } = user;
+      const { tpids, channels } = user;
       user.mailreg = false;
       let i = tpids.length;
       while (i > 0) {
@@ -187,6 +187,21 @@ export async function resolveSession(token) {
           user.bans.push(bans);
         }
         delete tpid.bans;
+      }
+
+      user.channels = {};
+      i = channels.length;
+      while (i > 0) {
+        i -= 1;
+        const { id: cid, name, type, lastMessage, users } = channels[i];
+        const channel = [name, type, lastMessage.getTime()];
+        /* if its a DM, users is populated */
+        if (users.length) {
+          const dmPartner = users[0]
+          channel.push(dmPartner.id);
+          channel[0] = dmPartner.name;
+        }
+        user.channels[cid] = channel;
       }
 
       return user;

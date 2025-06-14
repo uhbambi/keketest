@@ -156,17 +156,17 @@ class SocketEvents extends EventEmitter {
   }
 
   /**
-   * received Chat message on own websocket
-   * @param user User Instance that sent the message
+   * received Chat message on own websocket, will be consumed by chatProvider
+   * and then send by sendMessage
+   * @param user user object
+   * @param ip ip object
    * @param message text message
    * @param channelId numerical channel id
+   * @param lang language code
+   * @param ttag ttag instance to be able to send localized error messages
    */
-  recvChatMessage(
-    user,
-    message,
-    channelId,
-  ) {
-    this.emit('recvChatMessage', user, message, channelId);
+  recvChatMessage(user, ip, message, channelId, lang, ttag) {
+    this.emit('recvChatMessage', user, ip, message, channelId, lang, ttag);
   }
 
   /**

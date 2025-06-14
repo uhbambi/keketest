@@ -406,12 +406,12 @@ class MessageBroker extends SocketEvents {
     }
   }
 
-  recvChatMessage(
-    user,
-    message,
-    channelId,
-  ) {
-    super.emit('recvChatMessage', user, message, channelId);
+  /*
+   * not serializable, will be consumed by ChatProvider and then broadcasted
+   * with sendMessage
+   */
+  recvChatMessage(user, ip, message, channelId, lang, ttag) {
+    super.emit('recvChatMessage', user, ip, message, channelId, lang, ttag);
   }
 
   broadcastChunkUpdate(

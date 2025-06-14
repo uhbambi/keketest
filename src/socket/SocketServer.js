@@ -82,9 +82,11 @@ class SocketServer {
       ws.canvasId = null;
       ws.chunkCnt = 0;
       /* populate data from request */
-      const { user, ip } = req;
+      const { user, ip, lang, ttag } = req;
       ws.user = user;
       ws.ip = ip;
+      ws.lang = lang;
+      ws.ttag = ttag;
       ws.userAgent = req.headers['user-agent'];
 
       ws.send(dehydrateOnlineCounter(socketEvents.onlineCounter));
@@ -145,7 +147,7 @@ class SocketServer {
       )}`;
       const clientArray = [];
       this.wss.clients.forEach((ws) => {
-        if (ws.user && chatProvider.userHasChannelAccess(ws.user, channelId)) {
+        if (chatProvider.userHasChannelAccess(ws.user, ws.lang, channelId)) {
           clientArray.push(ws);
         }
       });
@@ -324,25 +326,6 @@ class SocketServer {
     SocketServer.broadcastSelected(clientArray, data);
   }
 
-  /*
-   * keep in mind that a user could
-   * be connected from multiple devices
-   */
-  findWsByUserId(userId) {
-    const it = this.wss.clients.keys();
-    let client = it.next();
-    while (!client.done) {
-      const ws = client.value;
-      if (ws.readyState === WebSocket.OPEN
-        && ws.user?.id === userId
-      ) {
-        return ws;
-      }
-      client = it.next();
-    }
-    return null;
-  }
-
   findAllWsByUerId(userId) {
     const clients = [];
     const it = this.wss.clients.keys();
@@ -496,35 +479,12 @@ class SocketServer {
         case 'cm': {
           // chat message
           const message = val[0].trim();
-          if (!user.isRegistered || !message) {
+          if (!user || !message) {
             return;
           }
-          const channelId = val[1];
-          /*
-           * if DM channel, make sure that other user has DM open
-           * (needed because we allow user to leave one-sided
-           *  and auto-join on message)
-           */
-          const dmUserId = chatProvider.checkIfDm(user, channelId);
-          if (dmUserId) {
-            const dmWs = this.findWsByUserId(dmUserId);
-            if (!dmWs
-              || !chatProvider.userHasChannelAccess(dmWs.user, channelId)
-            ) {
-              // TODO this is really ugly
-              // DMS have to be rethought
-              if (!user.addedDM) user.addedDM = [];
-              if (!user.addedDM.includes(dmUserId)) {
-                await ChatProvider.addUserToChannel(
-                  dmUserId,
-                  channelId,
-                  [user.name, 1, Date.now(), user.id],
-                );
-                user.addedDM.push(dmUserId);
-              }
-            }
-          }
-          socketEvents.recvChatMessage(user, message, channelId);
+          socketEvents.recvChatMessage(
+            user, ws.ip, message, val[1], ws.lang, ws.ttag,
+          );
           break;
         }
         case 'cs': {

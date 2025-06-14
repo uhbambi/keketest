@@ -20,7 +20,10 @@ delete redditid
 
 add a dropdown for expiration: Browser close, 30 days, 1 year, forevers
 
-# rwhois
+When a user leaves a DM channel, the channel shall be deleted.
+Same if the last person leaves a group chat.
+
+# rwhois tests
 
 Error on WHOIS 69.178.112.123 rwhois.gci.net:4321: no rwhois support
 Error on WHOIS 50.7.93.84 rwhois.fdcservers.net:4321: no rwhois support

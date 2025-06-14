@@ -26,10 +26,10 @@ class User {
    *   bans: [ { expires, flags }, ... ],
    *   tpids: [ { tpid, provider }, ... ],
    *   blocked: [ { id, name }, ...],
-   *   channels: [
-   *     { id, name, type, lastMessage }, ...
-   *     { id, name, type, lastMessage, users: [ {id, name} ]] }, ...
-   *   ],
+   *   channels: {
+   *     cid: [ name, type, lastTs, [dmuid] ],
+   *     ...
+   *   },
    * }
    */
   #data;
@@ -64,6 +64,14 @@ class User {
       return;
     }
     return touchUser(this.id, ipString);
+  }
+
+  hasChannel(cid) {
+    return !!this.#data.channels[cid];
+  }
+
+  getChannel(cid) {
+    return this.#data.channels[cid];
   }
 
   refresh() {

@@ -18,14 +18,6 @@ const scripts = {
     },
     transformReply(arr) { return arr.map((r) => Number(r)); },
   }),
-  allowedChat: defineScript({
-    NUMBER_OF_KEYS: 3,
-    SCRIPT: fs.readFileSync(path.resolve('workers', 'lua', 'allowedChat.lua')),
-    transformArguments(...args) {
-      return args.map((a) => ((typeof a === 'string') ? a : a.toString()));
-    },
-    transformReply(arr) { return arr.map((r) => Number(r)); },
-  }),
   getUserRanks: defineScript({
     NUMBER_OF_KEYS: 2,
     SCRIPT: fs.readFileSync(path.resolve('workers', 'lua', 'getUserRanks.lua')),

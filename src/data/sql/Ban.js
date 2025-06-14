@@ -84,6 +84,8 @@ const Ban = sequelize.define('Ban', {
  * Given a list of bans, determine if we are banned or muted or both,
  * and what is the best time to re-check
  * @param bans [ { expires, flags,... },... ]
+ * isBanned and isMuted are false or true if perma banned and timestamp
+ * otherwise
  * @return [ isBanned, isMuted, banRecheckTs ]
  */
 export function parseListOfBans(bans) {
@@ -92,45 +94,46 @@ export function parseListOfBans(bans) {
   let banRecheckTs = null;
 
   if (bans.length) {
-    let gamebanExpiresTs = 0;
-    let mutebanExpiresTs = 0;
     let i = bans.length;
     while (i > 0) {
       i -= 1;
       const { expires, flags } = bans[i];
       if (flags & 0x01) {
-        isBanned = true;
-        if (gamebanExpiresTs !== null) {
+        if (isBanned !== true) {
           if (expires === null) {
-            gamebanExpiresTs = null;
+            isBanned = true;
           } else {
             const expiresTs = expires.getTime();
-            if (expiresTs > gamebanExpiresTs) {
-              gamebanExpiresTs = expires
+            if (isBanned === false || expiresTs > isBanned) {
+              isBanned = expiresTs;
             }
           }
         }
       }
       if (flags & 0x02) {
-        isMuted = true;
-        if (mutebanExpiresTs !== null) {
+        if (isMuted !== true) {
           if (expires === null) {
-            mutebanExpiresTs = null;
+            isMuted = true;
           } else {
             const expiresTs = expires.getTime();
-            if (expiresTs > mutebanExpiresTs) {
-              mutebanExpiresTs = expires
+            if (isMuted === false || expiresTs > isMuted) {
+              isMuted = expiresTs;
             }
           }
         }
       }
     }
-    if (!gamebanExpiresTs && mutebanExpiresTs) {
-      banRecheckTs = mutebanExpiresTs;
-    } else if (gamebanExpiresTs && !mutebanExpiresTs) {
-      banRecheckTs = gamebanExpiresTs;
-    } else if (gamebanExpiresTs && mutebanExpiresTs) {
-      banRecheckTs = Math.min(gamebanExpiresTs, mutebanExpiresTs);
+
+    const isBannedIsInteger = Number.isInteger(isBanned);
+    const isMutedIsInteger = Number.isInteger(isMuted);
+    if (isBannedIsInteger || isMutedIsInteger) {
+      if (isBannedIsInteger && isMutedIsInteger) {
+        banRecheckTs = Math.min(isBanned, isMuted);
+      } else if (isBannedIsInteger) {
+        banRecheckTs = isBanned;
+      } else {
+        banRecheckTs = isMuted;
+      }
     }
   }
   return [isBanned, isMuted, banRecheckTs];

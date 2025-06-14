@@ -122,7 +122,7 @@ export default async function drawByOffsets(
       throw new Error(11);
     }
     if (!isBanned && user) {
-      ({ isBanned }) = await user.getAllowance();
+      ({ isBanned } = await user.getAllowance());
     }
     if (isBanned) {
       throw new Error(14);
