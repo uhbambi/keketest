@@ -138,10 +138,12 @@ export async function touchUser(id, ipString) {
     await User.update({ lastSeen: Sequelize.fn('NOW') }, {
       where: { id },
     })
-    await UserIP.upsert({
-      uid: id,
-      ip: Sequelize.fn('IP_TO_BIN', ipString),
-    });
+    if (ipString) {
+      await UserIP.upsert({
+        uid: id,
+        ip: Sequelize.fn('IP_TO_BIN', ipString),
+      });
+    }
   } catch (error) {
     console.error(`SQL Error on touchUser: ${error.message}`);
   }

@@ -3,7 +3,7 @@ import Sequelize, { DataTypes, Op } from 'sequelize';
 import sequelize from './sequelize';
 import { generateToken, generateTokenHash } from '../../utils/hash';
 import { loginInclude } from './User';
-import { HOUR } from '../../cores/constants';
+import { HOUR, THREEPID_PROVIDERS } from '../../cores/constants';
 import { CHANNEL_TYPES } from './Channel';
 
 const Session = sequelize.define('Session', {
@@ -104,6 +104,9 @@ export async function removeSession(token) {
  *   flags,
  *   lastSeen,
  *   createdAt,
+ *   mailreg,
+ *   bans: [ { expires, flags }, ... ],
+ *   tpids: [ { tpid, provider }, ... ],
  *   blocked: [ { id, name }, ...],
  *   channels: [
  *     { id, name, type, lastMessage }, ...
@@ -126,23 +129,6 @@ export async function resolveSession(token) {
       },
       include: {
         association: 'user',
-        attributes: {
-          include: [
-            [
-              Sequelize.literal(
-                // eslint-disable-next-line max-len
-                'EXISTS(SELECT 1 FROM UserBans INNER JOIN Bans AS ub ON UserBans.buuid = ub.uuid WHERE UserBans.uid = User.id AND (ub.expires IS NULL OR ub.expires > NOW()))' +
-                ' OR ' +
-                // eslint-disable-next-line max-len
-                'EXISTS(SELECT 1 FROM ThreePIDBans INNER JOIN Bans AS tb on ThreePIDBans.buuid = tb.uuid INNER JOIN ThreePIDs ON ThreePIDBans.tid = ThreePIDs.id WHERE ThreePIDs.uid = User.id AND (tb.expires IS NULL OR tb.expires > NOW()))',
-              ), 'isBanned',
-            ], [
-              Sequelize.literal(
-                'EXISTS(SELECT 1 FROM ThreePIDs WHERE ThreePIDs.uid = User.id AND ThreePIDs.provider = 1)',
-              ), 'mailreg',
-            ],
-          ],
-        },
         include: [{
           association: 'channels',
           include: [{
@@ -154,6 +140,28 @@ export async function resolveSession(token) {
             },
           }],
         }, {
+          association: 'bans',
+          attributes: [ 'expires', 'flags' ],
+          where: {
+            [Op.or]: [
+              { expires: { [Op.gt]: Sequelize.fn('NOW') } },
+              { expires: null },
+            ],
+          },
+        }, {
+          association: 'tpids',
+          attributes: [ 'tpid', 'provider' ],
+          include: {
+            association: 'bans',
+            attributes: [ 'expires', 'flags' ],
+            where: {
+              [Op.or]: [
+                { expires: { [Op.gt]: Sequelize.fn('NOW') } },
+                { expires: null },
+              ],
+            },
+          },
+        }, {
           association: 'blocked',
           attributes: ['id', 'name'],
         }],
@@ -161,8 +169,27 @@ export async function resolveSession(token) {
       raw: true,
       nested: true,
     });
+
     if (session) {
-      return session.user;
+      /* rearrange values */
+      const { user } = session;
+      const { tpids } = user;
+      user.mailreg = false;
+      let i = tpids.length;
+      while (i > 0) {
+        i -= 1;
+        const tpid = tpids[i];
+        const { provider, bans } = tpid;
+        if (provider === THREEPID_PROVIDERS.EMAIL) {
+          user.mailreg = true;
+        }
+        if (bans.length) {
+          user.bans.push(bans);
+        }
+        delete tpid.bans;
+      }
+
+      return user;
     }
   } catch (error) {
     console.error(`SQL Error on resolveSession: ${error.message}`);

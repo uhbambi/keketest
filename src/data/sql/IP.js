@@ -120,7 +120,7 @@ export async function getIPAllowance(ipString) {
    * unless there is ever an issue justifying it).
    */
   const currentTs = Date.now();
-  ipAllowance.lastSeen ??= currentTs;
+  ipAllowance.lastSeen ??= new Date();
   ipAllowance.whoisExpires ??= currentTs;
   ipAllowance.proxyCheckExpires ??= currentTs;
 

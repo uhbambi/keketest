@@ -117,7 +117,7 @@ class IP {
    * @param refresh whether we should refetch it, even if we have it already
    * @return { isBanned, isProxy, isMuted }
    */
-  async getIPAllowance(refresh = false) {
+  async getAllowance(refresh = false) {
     const currentTs = Date.now();
 
     if (!this.#allowance || refresh

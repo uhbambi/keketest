@@ -51,7 +51,8 @@ setInterval(() => {
  *
  * By Offset is preferred on server side
  * This gets used by websocket pixel placing requests
- * @param user user that can be registered, but doesn't have to
+ * @param user user object or null
+ * @param ip ip object
  * @param canvasId
  * @param i Chunk coordinates
  * @param j
@@ -86,7 +87,7 @@ export default async function drawByOffsets(
     if (curReqIPs.has(ipString)) {
       // already setting a pixel somewhere
       logger.warn(
-        `Got simultaneous requests from ${user.ip}`,
+        `Got simultaneous requests from ${ipString}`,
       );
       throw new Error(13);
     }
@@ -116,26 +117,29 @@ export default async function drawByOffsets(
       throw new Error(3);
     }
 
-    const { isBanned, isProxy } = await ip.getIPAllowance();
+    let { isBanned, isProxy } = await ip.getAllowance();
     if (isProxy) {
       throw new Error(11);
     }
-    if (isBanned || user.isBanned) {
+    if (!isBanned && user) {
+      ({ isBanned }) = await user.getAllowance();
+    }
+    if (isBanned) {
       throw new Error(14);
     }
 
-    const isAdmin = (user.userlvl >= USERLVL.ADMIN);
+    const isAdmin = (user?.userlvl >= USERLVL.ADMIN);
     const req = (isAdmin) ? null : canvas.req;
     const clrIgnore = canvas.cli || 0;
     let factor = (isAdmin
-      || (user.userlvl >= USERLVL.MOD && pixels[0][1] < clrIgnore))
+      || (user?.userlvl >= USERLVL.MOD && pixels[0][1] < clrIgnore))
       ? 0.0 : coolDownFactor;
 
-    factor *= getCooldownFactor(user.country, user.ip);
+    factor *= getCooldownFactor(ip.country, ipString);
 
     const bcd = Math.floor(canvas.bcd * factor);
     const pcd = Math.floor((canvas.pcd) ? canvas.pcd * factor : bcd);
-    const userId = user.id;
+    const userId = user?.id || 0;
     const pxlOffsets = [];
 
     /*
@@ -149,7 +153,7 @@ export default async function drawByOffsets(
       const [x, y, z] = getPixelFromChunkOffset(i, j, offset, canvasSize, is3d);
       pixelLogger.info(
         // eslint-disable-next-line max-len
-        `${startTime} ${user.ip} ${userId} ${canvasId} ${x} ${y} ${z} ${color}`,
+        `${startTime} ${ipString} ${userId} ${canvasId} ${x} ${y} ${z} ${color}`,
       );
 
       const maxSize = (is3d) ? tileSize * tileSize * THREE_CANVAS_HEIGHT
@@ -162,7 +166,7 @@ export default async function drawByOffsets(
       // admins and mods can place unset pixels
       if (color >= canvas.colors.length
         || (color < clrIgnore
-          && user.userlvl < USERLVL.MOD
+          && user?.userlvl < USERLVL.MOD
           && !(canvas.v && color === 0))
       ) {
         // color out of bounds
@@ -191,7 +195,7 @@ export default async function drawByOffsets(
       cdIfNull = 0;
     }
 
-    if (needVerification && !user.regUser?.verified) {
+    if (needVerification && user?.userlvl < USERLVL.VERIFIED) {
       throw new Error(17);
     }
 
@@ -229,7 +233,7 @@ export default async function drawByOffsets(
     if (duration > 5000) {
       logger.warn(
         // eslint-disable-next-line max-len
-        `Long response time of ${duration}ms for placing ${pxlCnt} pixels for user ${user.id || user.ip}`,
+        `Long response time of ${duration}ms for placing ${pxlCnt} pixels for user ${user?.id || ipString}`,
       );
     }
   } catch (e) {

@@ -1,7 +1,7 @@
 /**
  *
- * Userdata that gets sent to the client on
- * various api endpoints.
+ * Userdata that gets sent to the client on various api endpoints.
+ * This should be the most basic data in order to run the game.
  *
  */
 import getLocalizedCanvases from '../canvasesDesc';
@@ -12,13 +12,6 @@ import chatProvider from './ChatProvider';
 
 
 export default async function getMe(user, lang) {
-  const [
-    totalPixels,
-    dailyTotalPixels,
-    ranking,
-    dailyRanking,
-  ] = await getUserRanks(user.id);
-
   let id;
   let name;
   let userlvl;
@@ -33,13 +26,14 @@ export default async function getMe(user, lang) {
   const canvases = getLocalizedCanvases(lang);
 
   if (user) {
+    const { data } = user;
     ({
       id, name, userlvl, mailreg,
-    }) = user;
-    blockDm = !!(user.flags & 0x01);
-    priv = !!(user.flags & 0x02);
+    }) = data;
+    blockDm = !!(data.flags & 0x01);
+    priv = !!(data.flags & 0x02);
 
-    const userChannels = user.channels;
+    const userChannels = data.channels;
     let i = userChannels.length;
     while (i > 0) {
       i -= 1;
@@ -62,15 +56,28 @@ export default async function getMe(user, lang) {
     priv = false;
   }
 
-  const messages = [];
-  // eslint-disable-next-line max-len
-  if (USE_MAILER && userlvl >= USERLVL.REGISTERED && userlvl < USERLVL.VERIFIED) {
-    messages.push('not_verified');
-  }
-
-  return {
+  const me = {
     id, name, userlvl, mailreg, blockDm, priv,
     channels, blocked, canvases,
-    totalPixels, dailyTotalPixels, ranking, dailyRanking,
+  };
+
+  if (user) {
+    const [
+      totalPixels,
+      dailyTotalPixels,
+      ranking,
+      dailyRanking,
+    ] = await getUserRanks(user.id);
+    me.totalPixels = totalPixels;
+    me.dailyTotalPixels = dailyTotalPixels;
+    me.ranking = ranking;
+    me.dailyRanking = dailyRanking;
   }
+
+  // eslint-disable-next-line max-len
+  if (USE_MAILER && userlvl >= USERLVL.REGISTERED && userlvl < USERLVL.VERIFIED) {
+    me['messages'] = ['not_verified']
+  }
+
+  return me;
 }

@@ -87,7 +87,7 @@ export default async (req, res) => {
   }
 
   if (!errors.length) {
-    const { isBanned, isProxy } = await ip.getIPAllowance();
+    const { isBanned, isProxy } = await ip.getAllowance();
     if (isProxy) {
       errors.push(t`You can not register an account with a proxy`);
     }

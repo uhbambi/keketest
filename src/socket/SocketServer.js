@@ -40,6 +40,7 @@ import authenticateClient from './authenticateClient';
 import drawByOffsets from '../core/draw';
 import { HOUR } from '../core/constants';
 import { checkCaptchaSolution } from '../data/redis/captcha';
+import { getCoolDown } from '../data/redis/cooldown';
 
 
 const ipCounter = new Counter();
@@ -333,8 +334,7 @@ class SocketServer {
     while (!client.done) {
       const ws = client.value;
       if (ws.readyState === WebSocket.OPEN
-        && ws.user
-        && ws.user.id === userId
+        && ws.user?.id === userId
       ) {
         return ws;
       }
@@ -350,8 +350,7 @@ class SocketServer {
     while (!client.done) {
       const ws = client.value;
       if (ws.readyState === WebSocket.OPEN
-        && ws.user
-        && ws.user.id === userId
+        && ws.user?.id === userId
       ) {
         clients.push(ws);
       }
@@ -405,8 +404,8 @@ class SocketServer {
   reloadUser(name) {
     const buffer = dehydrateChangeMe();
     this.wss.clients.forEach(async (ws) => {
-      if (ws.user.name === name) {
-        await ws.user.reload();
+      if (ws.user?.name === name) {
+        await ws.user.refresh();
         ws.send(buffer);
       }
     });
@@ -622,7 +621,7 @@ class SocketServer {
           }
           ws.canvasId = canvasId;
           if (canvases[canvasId].ed) return;
-          const wait = await ws.user.getWait(canvasId);
+          const wait = await getCoolDown(ipString, ws.user?.id, canvasId);
           ws.send(dehydrateCoolDown(wait));
           break;
         }

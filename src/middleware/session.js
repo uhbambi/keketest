@@ -7,7 +7,90 @@ import { HOUR } from '../cores/constants';
 import {
   resolveSession, createSession, removeSession,
 } from '../data/sql/Session';
+import { parseListOfBans } from '../data/sql/Ban';
 import { getHostFromRequest } from '../utils/intel/ip';
+import { touchUser } from '../data/sql/User';
+
+class User {
+  id;
+  /*
+   * {
+   *   id,
+   *   name,
+   *   password,
+   *   userlvl,
+   *   flags,
+   *   lastSeen,
+   *   createdAt,
+   *   mailreg,
+   *   bans: [ { expires, flags }, ... ],
+   *   tpids: [ { tpid, provider }, ... ],
+   *   blocked: [ { id, name }, ...],
+   *   channels: [
+   *     { id, name, type, lastMessage }, ...
+   *     { id, name, type, lastMessage, users: [ {id, name} ]] }, ...
+   *   ],
+   * }
+   */
+  #data;
+  /* session token */
+  #token;
+  /* null | boolean */
+  isBanned = null;
+  /* null | boolean */
+  isMuted = null;
+  /*
+   * timestamp when ban should be rechecked,
+   * null means to never recheck (so if not banned or perma banned)
+   */
+  banRecheckTs = null;
+
+  constructor(data, token) {
+    this.id = data.id;
+    this.#token = token;
+    this.#data = data;
+    const [isBanned, isMuted, banRecheckTs] = parseListOfBans(data.bans);
+    this.isBanned = isBanned;
+    this.isMuted = isMuted;
+    this.banRecheckTs = banRecheckTs;
+  }
+
+  get data() {
+    return this.#data;
+  }
+
+  touch(ipString) {
+    if (this.#data.lastSeen.getTime() > Date.now() - 10 * 60 * 1000) {
+      return;
+    }
+    return touchUser(this.id, ipString);
+  }
+
+  refresh() {
+    return this.getAllowance(true);
+  }
+
+  /**
+   * fetch allowance data of user
+   * @param refresh whether we should refetch it, weven if we have it already
+   * @return { isBanned, isMuted }
+   */
+  async getAllowance(refresh = false) {
+    if (refresh
+      || (this.banRecheckTs !== null && this.banRecheckTs < Date.now())
+    ) {
+      const data = await resolveSession(this.token);
+      if (data) {
+        this.#data = data;
+        const [isBanned, isMuted, banRecheckTs] = parseListOfBans(data.bans);
+        this.isBanned = isBanned;
+        this.isMuted = isMuted;
+        this.banRecheckTs = banRecheckTs;
+      }
+    }
+    return { isBanned: this.isBanned, isMuted: this.isMuted };
+  }
+}
 
 /**
  * resolve session of request by session cookie and add user object if possible
@@ -16,7 +99,12 @@ import { getHostFromRequest } from '../utils/intel/ip';
 async function resolveSessionOfRequest(req) {
   const cookies = parseCookie(req.headers.cookie || '');
   const token = cookies['ppfun.session'];
-  req.user = await resolveSession(token);
+  const userData = await resolveSession(token);
+  if (!userData) {
+    delete req.user
+  } else {
+    req.user = new User(userData);
+  }
 }
 
 /*
@@ -74,11 +162,12 @@ export async function openSession(req, res, userId, durationHours = 720) {
   if (!token) {
     return false;
   }
-  const user = await resolveSession(token);
-  if (!user) {
+  const userData = await resolveSession(token);
+  if (!userData) {
+    delete req.user;
     return false;
   }
-  req.user = user;
+  req.user = new User(userData);
 
   const cookieOptions = { domain, httpOnly: true, secure: false };
 
@@ -110,6 +199,6 @@ export async function closeSession(req, res, user) {
   const token = cookies['ppfun.session'];
   const success = await removeSession(token);
   res.cookie('ppfun.session', token, { domain, httpOnly: true, secure: false });
-  if (req.user) delete req.user;
+  delete req.user;
   return success;
 }
