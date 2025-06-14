@@ -9,7 +9,8 @@ import { DataTypes } from 'sequelize';
 import sequelize from './sequelize';
 import { UserChannel } from './association_models/UserChannel';
 
-export { CHANNEL_TYPES } from '../../core/constants';
+import { CHANNEL_TYPES } from '../../core/constants';
+export { CHANNEL_TYPES };
 
 const Channel = sequelize.define('Channel', {
   id: {
@@ -58,6 +59,18 @@ export async function addUserToChannel(uid, cid) {
     console.error(`SQL Error on addUserToChannel: ${error.message}`);
   }
   return false;
+}
+
+
+/**
+ * find or create a default channel
+ * @param name name of channel
+ */
+export function getDefaultChannel(name) {
+  return Channel.findOrCreate({
+    where: { name, type: CHANNEL_TYPES.PUBLIC },
+    raw: true,
+  });
 }
 
 export default Channel;

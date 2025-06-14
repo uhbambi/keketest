@@ -112,6 +112,10 @@ class IP {
     return touchIP(this.ipString);
   }
 
+  refresh() {
+    return this.getAllowance(true);
+  }
+
   /**
    * fetch allowance data of ip
    * @param refresh whether we should refetch it, even if we have it already

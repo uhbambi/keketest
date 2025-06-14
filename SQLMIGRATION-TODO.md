@@ -23,6 +23,8 @@ add a dropdown for expiration: Browser close, 30 days, 1 year, forevers
 When a user leaves a DM channel, the channel shall be deleted.
 Same if the last person leaves a group chat.
 
+socketEvents.reloadUser needs to be changed from name to id
+
 # rwhois tests
 
 Error on WHOIS 69.178.112.123 rwhois.gci.net:4321: no rwhois support

@@ -296,10 +296,15 @@ class SocketEvents extends EventEmitter {
   }
 
   /**
-   * reload user on websocket to get changes
+   * reload user / ip on websocket to get changes
+   * @param local whether we only update server side, or if we tell the client
+   *   to update es well
    */
-  reloadUser(name) {
-    this.emit('reloadUser', name);
+  reloadUser(userId, local) {
+    this.emit('reloadUser', userId);
+  }
+  reloadIP(ipString, local) {
+    this.emit('reloadIP', ipString);
   }
 
   /**

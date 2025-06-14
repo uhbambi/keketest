@@ -6,6 +6,7 @@ import { cleanCacheForIP } from '../redis/isAllowedCache';
 import BanHistory from './BanHistory';
 import IPBan from './association_models/IPBan';
 import UserBan from './association_models/UserBan';
+import ThreePID from './ThreePID';
 import ThreePIDBan from './association_models/ThreePIDBan';
 import IPBanHistory from './association_models/IPBanHistory';
 import UserBanHistory from './association_models/UserBanHistory';
@@ -57,7 +58,7 @@ const Ban = sequelize.define('Ban', {
    * virtual
    */
 
-  gameban: {
+  ban: {
     type: DataTypes.VIRTUAL,
     get() {
       return !!(this.flags & 0x01);
@@ -68,7 +69,7 @@ const Ban = sequelize.define('Ban', {
     },
   },
 
-  chatban: {
+  mute: {
     type: DataTypes.VIRTUAL,
     get() {
       return !!(this.flags & 0x02);
@@ -145,9 +146,7 @@ export function parseListOfBans(bans) {
  * @param [modUid] user id of mod that lifted the bans
  */
 async function removeBans(bans, modUid) {
-  if (!bans.length) {
-    return;
-  }
+  if (!Array.isArray(bans)) bans = [bans];
   const banUuids = bans.map((b) => b.uuid);
 
   const transaction = await sequelize.transaction();
@@ -262,10 +261,36 @@ async function cleanBans() {
     return expiredBans.length;
   } catch (error) {
     console.error(`SQL Error on cleanBans: ${error.message}`);
-    return null;
   }
+  return null;
 }
 HourlyCron.hook(cleanBans);
+
+/**
+ * unban
+ * @param buuid uuid of ban
+ * @param [modUid] user id of mod that lifted the bans
+ * @return boolean success
+ */
+export async function unbanByUuid(uuid, modUid) {
+  try {
+    const banModel = await Ban.findOne({
+      attributes: ['uuid', 'reason', 'flags', 'expires', 'createdAt', 'muid'],
+      where: {
+        uuid: Sequelize.fn('UUID_TO_BIN', uuid),
+      },
+      raw: true,
+    });
+    if (!banModel) {
+      return false;
+    }
+    await removeBans(banModel, modUid);
+    return true;
+  } catch (error) {
+    console.error(`SQL Error on unban: ${error.message}`);
+  }
+  return false;
+}
 
 /**
  * get information of ban
@@ -302,26 +327,145 @@ export async function getBanInfo(ipString, userId) {
 }
 
 /**
- * ban ip
- * @param ip
- * @return true if banned
- *         false if already banned
+ * ban
+ * @param userIds Array of user ids
+ * @param ipStrings Array of ipStrings
+ * @param mute boolean if muting
+ * @param ban boolean if banning
+ * @param reason reasoning as string
+ * @param duration duration in seconds
+ * @param muid id of the mod that bans
+ * @return boolean success
  */
-export async function banIP(
-  ip,
-  reason,
-  expiresTs,
-  muid,
+export async function ban(
+  userIds, ipStrings, mute, ban, reason, duration, muid = null,
 ) {
-  const expires = (expiresTs) ? new Date(expiresTs) : null;
-  const [, created] = await Ban.upsert({
-    ip,
-    reason,
-    expires,
-    muid,
-  });
-  await cleanCacheForIP(ip);
-  return created;
+  try {
+    const transaction = await sequelize.transaction();
+
+    try {
+      const banModel = await Ban.create({
+        reason, muid, ban, mute,
+        expires: (duration) ? new Date(Date.now() + duration * 1000) : null,
+      }, { transaction });
+      const buuid = banModel.uuid;
+
+      const promises = []
+      /* userIds is either null or an Array or a sinlge userId */
+      if (userIds) {
+        const threePIDs = await ThreePID.findAll({
+          where: { uid: userIds },
+          raw: true
+        });
+        if (threePIDs.length) {
+          promises.push(ThreePIDBan.bulkCreate(threePIDs.map(
+            (tpid) => ({ buuid, tid: tpid.id }),
+          ), { returning: false, transaction }));
+        }
+        if (Array.isArray(userIds)) {
+          if (userIds.length) {
+            promises.push(UserBan.bulkCreate(userIds.map(
+              (uid) => ({ buuid, uid }),
+            ), { returning: false, transaction }));
+          }
+        } else {
+          promises.push(UserBan.create({ uid: userIds, buuid },
+          { returning: false, transaction }));
+        }
+      }
+
+      if (ipStrings) {
+        if (Array.isArray(ipStrings)) {
+          if (ipStrings.length) {
+            promises.push(IPBan.bulkCreate(ipStrings.map(
+              (ip) => ({ buuid, ip: Sequelize.fn('IP_TO_BIN', ip) }),
+            ), { returning: false, transaction }));
+          }
+        } else {
+          promises.push(IPBan.create({
+            buuid, ip: Sequelize.fn('IP_TO_BIN', ipStrings),
+          }, { returning: false, transaction }));
+        }
+      }
+      await Promise.all(promises);
+      await transaction.commit();
+      return true;
+    } catch (error) {
+      await transaction.rollback();
+      throw error;
+    }
+  } catch (error) {
+    console.error(`SQL Error on ban: ${error.message}`);
+  }
+  return false;
+}
+
+/**
+ * unban by user and/or ip
+ * @param userIds Array of user ids
+ * @param ipStrings Array of ipStrings
+ * @param mute boolean if unmuting
+ * @param ban boolean if unbanning
+ * @param muid id of the mod that bans
+ * @return boolean success
+ */
+export async function unban(userIds, ipStrings, mute, ban, muid = null) {
+  try {
+    const where = {};
+    const include = [];
+
+    if (userIds) {
+      where[Op.or] = [
+        { [Sequelize.col('tpids.uid')]: userIds },
+        { [Sequelize.col('users.id')]: userIds },
+      ]
+      include.push({
+        association: 'tpids',
+        attributes: [],
+      });
+      include.push({
+        association: 'users',
+        attributes: [],
+      });
+    }
+
+    if (ipStrings) {
+      if (Array.isArray(ipStrings)) {
+        ipStrings.map((ip) => Sequelize.fn('IP_TO_BIN', ip));
+      } else {
+        ipStrings = Sequelize.fn('IP_TO_BIN', ipStrings);
+      }
+
+      if (where[Op.or]) {
+        where[Op.or].push({ [Sequelize.col('ips.ip')]: ipStrings });
+      } else {
+        where[Sequelize.col('ips.ip')] = ipStrings;
+      }
+      include.push({
+        association: 'ips',
+        attributes: [],
+      });
+    }
+
+    if (!mute || !ban) {
+      where['flags'] = (ban) ? 0x01 : 0x02;
+    }
+
+    const bans = await Ban.findAll({
+      attributes: ['uuid', 'reason', 'flags', 'expires', 'createdAt', 'muid'],
+      where, include,
+      raw: true,
+    });
+
+    if (!bans.length) {
+      return 0;
+    }
+    await removeBans(bans, muid);
+    return bans.length;
+  } catch (error) {
+    console.error(`SQL Error on unban: ${error.message}`);
+  }
+  return null;
 }
 
 /**

@@ -142,11 +142,29 @@ export async function touchUser(id, ipString) {
       await UserIP.upsert({
         uid: id,
         ip: Sequelize.fn('IP_TO_BIN', ipString),
+        lastSeen: Sequelize.fn('NOW'),
       });
     }
   } catch (error) {
     console.error(`SQL Error on touchUser: ${error.message}`);
   }
+}
+
+/**
+ * find or create a dummmy user. This is used for bot users.
+ * @param name name of user
+ */
+export async function getDummyUser(name) {
+  const dummy = await User.findOrCreate({
+    attributes: [ 'id' ],
+    where: { name },
+    defaults: {
+      name,
+      userlvl: USERLVL.VERIFIED,
+    },
+    raw: true,
+  });
+  return dummy[0].id;
 }
 
 export async function name2Id(name) {

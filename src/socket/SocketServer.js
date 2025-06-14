@@ -57,6 +57,7 @@ class SocketServer {
 
     this.broadcastPixelBuffer = this.broadcastPixelBuffer.bind(this);
     this.reloadUser = this.reloadUser.bind(this);
+    this.reloadIP = this.reloadIP.bind(this);
     this.getOnlineUsers = this.getOnlineUsers.bind(this);
     this.checkHealth = this.checkHealth.bind(this);
   }
@@ -93,7 +94,7 @@ class SocketServer {
 
       ws.on('error', (e) => {
         // eslint-disable-next-line max-len
-        logger.error(`WebSocket Client Error for ${ws.user?.name}: ${e.message}`);
+        logger.error(`WebSocket Client Error for ${ws.user?.data.name}: ${e.message}`);
       });
 
       ws.on('close', () => {
@@ -118,6 +119,7 @@ class SocketServer {
     });
     socketEvents.on('pixelUpdate', this.broadcastPixelBuffer);
     socketEvents.on('reloadUser', this.reloadUser);
+    socketEvents.on('reloadIP', this.reloadIP);
 
     socketEvents.on('suChatMessage', (
       userId,
@@ -384,12 +386,30 @@ class SocketServer {
     }
   }
 
-  reloadUser(name) {
+  reloadUser(userId, local) {
     const buffer = dehydrateChangeMe();
     this.wss.clients.forEach(async (ws) => {
-      if (ws.user?.name === name) {
+      if (ws.readyState === WebSocket.OPEN
+        && ws.user?.id === userId
+      ) {
         await ws.user.refresh();
-        ws.send(buffer);
+        if (!local) {
+          ws.send(buffer);
+        }
+      }
+    });
+  }
+
+  reloadIP(ipString, local) {
+    const buffer = dehydrateChangeMe();
+    this.wss.clients.forEach(async (ws) => {
+      if ( ws.readyState === WebSocket.OPEN
+        && ws.ip.ipString === ipString
+      ) {
+        await ws.ip.refresh();
+        if (!local) {
+          ws.send(buffer);
+        }
       }
     });
   }

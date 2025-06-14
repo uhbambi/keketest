@@ -13,6 +13,7 @@ import { touchUser } from '../data/sql/User';
 
 class User {
   id;
+  userlvl;
   /*
    * {
    *   id,
@@ -47,6 +48,7 @@ class User {
 
   constructor(data, token) {
     this.id = data.id;
+    this.userlvl = data.userlvl;
     this.#token = token;
     this.#data = data;
     const [isBanned, isMuted, banRecheckTs] = parseListOfBans(data.bans);
@@ -89,6 +91,7 @@ class User {
     ) {
       const data = await resolveSession(this.token);
       if (data) {
+        this.userlvl = data.userlvl;
         this.#data = data;
         const [isBanned, isMuted, banRecheckTs] = parseListOfBans(data.bans);
         this.isBanned = isBanned;

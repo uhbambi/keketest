@@ -3,15 +3,14 @@
  */
 import logger from './logger';
 import RateLimiter from '../utils/RateLimiter';
-import {
-  Channel, RegUser, UserChannel, Message, USERLVL,
-} from '../data/sql';
-import { findIdByNameOrId } from '../data/sql/RegUser';
-import { banIP } from '../data/sql/IPBan';
-import { addUserToChannel } from '../data/sql/Channel';
+import { UserChannel, Message, USERLVL } from '../data/sql';
+import User, { findIdByNameOrId, getDummyUser } from '../data/sql/User';
+import Channel, {
+  addUserToChannel, getDefaultChannel,
+} from '../data/sql/Channel';
 import ChatMessageBuffer from './ChatMessageBuffer';
 import socketEvents from '../socket/socketEvents';
-import isIPAllowed from './ipUserIntel';
+import { ban, unban } from './ban';
 import {
   mutec, unmutec,
   unmutecAll, listMutec,
@@ -95,21 +94,12 @@ export class ChatProvider {
     for (let i = 0; i < CHAT_CHANNELS.length; i += 1) {
       const { name } = CHAT_CHANNELS[i];
       // eslint-disable-next-line no-await-in-loop
-      const channel = await Channel.findOrCreate({
-        where: { name },
-        defaults: {
-          name,
-        },
-      });
+      const channel = await getDefaultChannel(name);
       const { id, type, lastTs } = channel[0];
       if (name === 'en') {
         this.enChannelId = id;
       }
-      this.defaultChannels[id] = [
-        name,
-        type,
-        lastTs,
-      ];
+      this.defaultChannels[id] = [name, type, lastTs];
       this.publicChannelIds.push(id);
     }
     // find or create non-english lang channels
@@ -120,60 +110,15 @@ export class ChatProvider {
         continue;
       }
       // eslint-disable-next-line no-await-in-loop
-      const channel = await Channel.findOrCreate({
-        where: { name },
-        defaults: {
-          name,
-        },
-      });
+      const channel = await getDefaultChannel(name);
       const { id, type, lastTs } = channel[0];
-      this.langChannels[name] = {
-        id,
-        type,
-        lastTs,
-      };
+      this.langChannels[name] = { id, type, lastTs };
       this.publicChannelIds.push(id);
     }
     // find or create default users
-    let name = INFO_USER_NAME;
-    const infoUser = await RegUser.findOrCreate({
-      attributes: [
-        'id',
-      ],
-      where: { name },
-      defaults: {
-        name,
-        userlvl: USERLVL.VERIFIED,
-      },
-      raw: true,
-    });
-    this.infoUserId = infoUser[0].id;
-    name = EVENT_USER_NAME;
-    const eventUser = await RegUser.findOrCreate({
-      attributes: [
-        'id',
-      ],
-      where: { name },
-      defaults: {
-        name,
-        userlvl: USERLVL.VERIFIED,
-      },
-      raw: true,
-    });
-    this.eventUserId = eventUser[0].id;
-    name = APISOCKET_USER_NAME;
-    const apiSocketUser = await RegUser.findOrCreate({
-      attributes: [
-        'id',
-      ],
-      where: { name },
-      defaults: {
-        name,
-        userlvl: USERLVL.VERIFIED,
-      },
-      raw: true,
-    });
-    this.apiSocketUserId = apiSocketUser[0].id;
+    this.infoUserId = await getDummyUser(INFO_USER_NAME);
+    this.eventUserId = await getDummyUser(EVENT_USER_NAME);
+    this.apiSocketUserId = await getDummyUser(APISOCKET_USER_NAME);
   }
 
   getDefaultChannels(lang) {
@@ -248,6 +193,7 @@ export class ChatProvider {
             {
               printChannel: channelId,
               initiator,
+              muid: user.id,
             },
           );
         }
@@ -257,6 +203,7 @@ export class ChatProvider {
             printChannel: channelId,
             initiator,
             duration: timeMin,
+            muid: user.id,
           },
         );
       }
@@ -267,6 +214,7 @@ export class ChatProvider {
           {
             printChannel: channelId,
             initiator,
+            muid: user.id,
           },
         );
 
@@ -372,18 +320,20 @@ export class ChatProvider {
     const { name } = user.data;
     const { ipString, country } = ip;
 
-    if (name.trim() === ''
-      || (this.autobanPhrase && message.includes(this.autobanPhrase))
-    ) {
-      if (!user.banned) {
-        /* TODO */
-        banIP(ipString, 'CHATBAN', 0, 1);
-        mute(id);
-        logger.info(`CHAT AUTOBANNED: ${ipString}`);
-        user.banned = true;
-      }
-      return 'nope';
+    if (!user.rateLimiter) {
+      user.rateLimiter = new RateLimiter(20, 15, true);
     }
+    const waitLeft = user.rateLimiter.tick();
+    if (waitLeft) {
+      const waitTime = Math.floor(waitLeft / 1000);
+      // eslint-disable-next-line max-len
+      return t`You are sending messages too fast, you have to wait ${waitTime}s :(`;
+    }
+
+    if (!this.userHasChannelAccess(user, lang, channelId)) {
+      return t`You don\'t have access to this channel`;
+    }
+
     let { isBanned, isMuted, isProxy } = await user.getAllowance();
     if (isProxy) {
       return t`You can not send chat messages while using a proxy`;
@@ -416,18 +366,14 @@ export class ChatProvider {
       return this.adminCommands(message, channelId, user);
     }
 
-    if (!user.rateLimiter) {
-      user.rateLimiter = new RateLimiter(20, 15, true);
-    }
-    const waitLeft = user.rateLimiter.tick();
-    if (waitLeft) {
-      const waitTime = Math.floor(waitLeft / 1000);
-      // eslint-disable-next-line max-len
-      return t`You are sending messages too fast, you have to wait ${waitTime}s :(`;
-    }
-
-    if (!this.userHasChannelAccess(user, lang, channelId)) {
-      return t`You don\'t have access to this channel`;
+    if (name.trim() === ''
+      || (this.autobanPhrase && message.includes(this.autobanPhrase))
+    ) {
+      user.isBanned = true;
+      /* this will both ban and mute */
+      ban(user.id, ipString, true, true, 'CHATBAN');
+      logger.info(`CHAT AUTOBANNED: ${ipString}`);
+      return 'nope';
     }
 
     let displayCountry = country;
@@ -498,6 +444,7 @@ export class ChatProvider {
     const timeMin = opts.duration || null;
     const initiator = opts.initiator || null;
     const printChannel = opts.printChannel || null;
+    const muid = opts.muid || null;
 
     const searchResult = await findIdByNameOrId(nameOrId);
     if (!searchResult) {
@@ -506,7 +453,7 @@ export class ChatProvider {
     const { name, id } = searchResult;
     const userPing = `@[${escapeMd(name)}](${id})`;
 
-    mute(id, timeMin);
+    ban(id, null, true, false, 'mute', timeMin && timeMin * 60, muid);
     if (printChannel) {
       if (timeMin) {
         this.broadcastChatMessage(
@@ -535,6 +482,7 @@ export class ChatProvider {
   async unmute(nameOrId, opts) {
     const initiator = opts.initiator || null;
     const printChannel = opts.printChannel || null;
+    const muid = opts.muid || null;
 
     const searchResult = await findIdByNameOrId(nameOrId);
     if (!searchResult) {
@@ -543,7 +491,7 @@ export class ChatProvider {
     const { name, id } = searchResult;
     const userPing = `@[${escapeMd(name)}](${id})`;
 
-    const succ = await unmute(id);
+    const succ = await unban(id, null, true, false, muid);
     if (!succ) {
       return `User ${userPing} is not muted`;
     }
