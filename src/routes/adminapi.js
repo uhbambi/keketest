@@ -3,7 +3,6 @@ import express from 'express';
 import logger from '../core/logger';
 import { THREEPID_PROVIDERS, USERLVL } from '../data/sql';
 import { getUsersByNameOrEmail, findUserById } from '../data/sql/RegUser';
-import { getIPFromRequest } from '../utils/ip';
 import { compareToHash } from '../utils/hash';
 import { APISOCKET_KEY } from '../core/config';
 
@@ -17,8 +16,7 @@ router.use(async (req, res, next) => {
   if (!headers.authorization
     || !APISOCKET_KEY
     || headers.authorization !== `Bearer ${APISOCKET_KEY}`) {
-    const ip = getIPFromRequest(req);
-    logger.warn(`API adminapi request from ${ip} rejected`);
+    logger.warn(`API adminapi request from ${req.ip.ipString} rejected`);
     res.status(401);
     res.json({
       success: false,
@@ -47,7 +45,6 @@ router.post('/checklogin', async (req, res) => {
     attributes: [
       'id',
       'name',
-      'email',
       'password',
       'userlvl',
     ],
@@ -115,8 +112,8 @@ router.post('/userdata', async (req, res) => {
     });
     return;
   }
-  const reguser = await findUserById(id);
-  if (!reguser) {
+  const user = await findUserById(id);
+  if (!user) {
     res.json({
       success: false,
       errors: ['No such user'],
@@ -124,16 +121,12 @@ router.post('/userdata', async (req, res) => {
     return;
   }
 
-  let email = reguser.tpids.find(
-    (t) => t.provider === THREEPID_PROVIDERS.EMAIL,
-  )?.tpid || null;
-
   res.json({
     success: true,
     userdata: {
-      id: reguser.id,
-      name: reguser.name,
-      email,
+      id: user.id,
+      name: user.name,
+      verified: user.userlvl >= USERLVL.VERIFIED,
     },
   });
 });

@@ -1,5 +1,9 @@
 # Routes
 
+TODO: This document is outdated, might get updated again at some point.
+Everything under /api should be a json api and oauth should have its own
+subfolder.
+
 ## No user or IP parsing neccessary:
 
 ```

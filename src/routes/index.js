@@ -48,15 +48,15 @@ router.use('/guilded', (req, res) => {
   res.redirect(GUILDED_INVITE);
 });
 
-/*
- * adminapi
- */
-router.use('/adminapi', adminapi);
-
 /* translations */
 router.use(expressTTag);
 /* ip */
 router.use(parseIP);
+
+/*
+ * adminapi
+ */
+router.use('/adminapi', adminapi);
 
 //
 // 3D Globe (react generated)

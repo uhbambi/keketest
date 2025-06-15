@@ -293,10 +293,28 @@ export async function getUserByTpid(provider, tpid) {
       raw: true,
       nested: true,
     });
-  } catch (err) {
-    console.error(`SQL Error on getUserByTpid: ${err.message}`);
-    return null;
+  } catch (error) {
+    console.error(`SQL Error on getUserByTpid: ${error.message}`);
   }
+  return null;
+}
+
+/**
+ * set password of user
+ * @param id user id
+ * @param password (in clear text, we hash it here)
+ * @return boolean if successful
+ */
+export async function setPasswordOfUser(id, password) {
+  try {
+    const [rows] = await User.update({ password }, {
+      where: { id },
+    });
+    return rows > 0;
+  } catch (error) {
+    console.error(`SQL Error on getUserByTpid: ${error.message}`);
+  }
+  return false;
 }
 
 /**
