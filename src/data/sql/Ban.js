@@ -293,37 +293,84 @@ export async function unbanByUuid(uuid, modUid) {
 }
 
 /**
- * get information of ban
- * @param ipString ip as string
- * @param userId user id or null
- * @return
+ * get all bans for ips or user ids
+ * @param userIds Array of user ids
+ * @param ipStrings Array of ipStrings
+ * @param mute boolean if muting
+ * @param ban boolean if banning
+ * @return [{
+ *   uuid, reason, flags, expires, createdAt, muid,
+ *   mod: {
+ *     id, name,
+ *   }
+ * }, ...],
  */
-export async function getBanInfo(ipString, userId) {
-  const bans = await Ban.findAll({
-    attributes: [ 'uuid', 'reason', 'expires' ],
-    where: {
-      [Op.or]: [
-        { [Sequelize.col('tpids.uid')]: userId },
-        { [Sequelize.col('users.id')]: userId },
-      ],
-    },
-    include: [{
+export async function getBanInfos(
+  ipStrings, userIds, mute = true, ban = true,
+) {
+  if (!ban && !mute) {
+    return [];
+  }
+
+  try {
+    const nestedOr = [];
+    const where = {
+      [Op.and]: [{
+        [Op.or]: [
+          { expires: { [Op.gt]: Sequelize.fn('NOW') } },
+          { expires: null },
+        ],
+      }, {
+        [Op.or]: nestedOr,
+      }],
+    };
+    if (!mute || !ban) {
+      where[Op.and].push({flags: (ban) ? 0x01 : 0x02 });
+    }
+
+    const include = [{
       association: 'mod',
       attributes: [ 'id', 'name' ],
-    }, {
-      association: 'users',
-      attributes: [],
-    }, {
-      association: 'tpids',
-      attributes: [],
-    }],
-    raw: true,
-    nested: true,
-  });
-  bans.forEach((ban) => {
-    ban.expiresTs = ban.expires.getTime();
-    delete ban.expires;
-  });
+    }];
+
+    if (userIds) {
+      nestedOr.push({ [Sequelize.col('tpids.uid')]: userIds });
+      nestedOr.push({ [Sequelize.col('users.id')]: userIds });
+      include.push({
+        association: 'tpids',
+        attributes: [],
+      });
+      include.push({
+        association: 'users',
+        attributes: [],
+      });
+    }
+
+    if (ipStrings) {
+      if (Array.isArray(ipStrings)) {
+        ipStrings.map((ip) => Sequelize.fn('IP_TO_BIN', ip));
+      } else {
+        ipStrings = Sequelize.fn('IP_TO_BIN', ipStrings);
+      }
+      nestedOr.push({ [Sequelize.col('ips.ip')]: ipStrings });
+      include.push({
+        association: 'ips',
+        attributes: [],
+      });
+    }
+
+    const bans = await Ban.findAll({
+      attributes: ['uuid', 'reason', 'flags', 'expires', 'createdAt', 'muid'],
+      where, include,
+      raw: true,
+      nested: true,
+    });
+
+    return bans;
+  } catch (error) {
+    console.error(`SQL Error on getBanInfos: ${error.message}`);
+  }
+  return [];
 }
 
 /**
@@ -411,52 +458,7 @@ export async function ban(
  */
 export async function unban(userIds, ipStrings, mute, ban, muid = null) {
   try {
-    const where = {};
-    const include = [];
-
-    if (userIds) {
-      where[Op.or] = [
-        { [Sequelize.col('tpids.uid')]: userIds },
-        { [Sequelize.col('users.id')]: userIds },
-      ]
-      include.push({
-        association: 'tpids',
-        attributes: [],
-      });
-      include.push({
-        association: 'users',
-        attributes: [],
-      });
-    }
-
-    if (ipStrings) {
-      if (Array.isArray(ipStrings)) {
-        ipStrings.map((ip) => Sequelize.fn('IP_TO_BIN', ip));
-      } else {
-        ipStrings = Sequelize.fn('IP_TO_BIN', ipStrings);
-      }
-
-      if (where[Op.or]) {
-        where[Op.or].push({ [Sequelize.col('ips.ip')]: ipStrings });
-      } else {
-        where[Sequelize.col('ips.ip')] = ipStrings;
-      }
-      include.push({
-        association: 'ips',
-        attributes: [],
-      });
-    }
-
-    if (!mute || !ban) {
-      where['flags'] = (ban) ? 0x01 : 0x02;
-    }
-
-    const bans = await Ban.findAll({
-      attributes: ['uuid', 'reason', 'flags', 'expires', 'createdAt', 'muid'],
-      where, include,
-      raw: true,
-    });
-
+    const bans = await getBanInfos(userIds, ipStrings, mute, ban);
     if (!bans.length) {
       return 0;
     }
@@ -466,39 +468,6 @@ export async function unban(userIds, ipStrings, mute, ban, muid = null) {
     console.error(`SQL Error on unban: ${error.message}`);
   }
   return null;
-}
-
-/**
- * unban ip
- * @param ip
- * @return true if unbanned,
- *         false if ip wasn't banned anyway
- */
-export async function unbanIP(ip) {
-  const count = await Ban.destroy({
-    where: { ip },
-  });
-  await cleanCacheForIP(ip);
-  return !!count;
-}
-
-/**
- * check if ThreePID is banned
- * @param provider, tpid What tpid to look for
- * @return boolean
- */
-export async function isThreePidBanned(provider, tpid) {
-  const count = await Ban
-    .count({
-      include: {
-        association: 'tpids',
-        where: {
-          provider,
-          tpid,
-        },
-      },
-    });
-  return count !== 0;
 }
 
 export default Ban;

@@ -10,6 +10,7 @@ import { MdTouchApp } from 'react-icons/md';
 
 import GetIID from '../GetIID';
 import useLongPress from '../hooks/useLongPress';
+import copyTextToClipboard from '../../utils/clipboard';
 import { toggleEasterEgg } from '../../store/actions';
 import { notify } from '../../store/actions/thunks';
 
@@ -43,6 +44,7 @@ const Help = () => {
 
   const dispatch = useDispatch();
   const easterEgg = useSelector((state) => state.gui.easterEgg);
+  const userId = useSelector((state) => state.user.id);
 
   const onLongPress = useCallback(() => {
     dispatch(toggleEasterEgg());
@@ -75,9 +77,37 @@ const Help = () => {
       <p>{t`The bare map data that we use, together with converted OpenStreetMap tiles for orientation, can be downloaded from mega.nz here: `}<a href="https://mega.nz/#!JpkBwAbJ!EnSLlZmKv3kEBE0HDhakTgAZZycD3ELjduajJxPGaXo">pixelplanetmap.zip</a> (422MB)</p>
       <h3>{t`Banned? Detected as Proxy?`}</h3>
       <div>
-        <p>{jt`If you got detected as proxy, but you are none, or think that you got wrongfully banned, please go to our ${guildedLink} or send us an e-mail to ${mailLink} and include the following IID:`}</p>
+        <p>{jt`If you got detected as proxy, but you aren't using one, or think that you got wrongfully banned, please go to our ${guildedLink} or send us an e-mail to ${mailLink} and, in case of a ban, include the BID you got in the ban message.`}</p>
+        <p>{t`If you get asked for it, provide the following:`}</p>
         <GetIID />
       </div>
+      <h3>{t`Identifiers`}</h3>
+        <p>{t`If you talk to moderators or administrators, you might get asked for one of the following identifiers:`}</p>
+        <p>IID</p>
+        <GetIID />
+        {(userId > 0) && (
+          <React.Fragment>
+            <p>UUID</p>
+            <p>
+              <input
+                style={{
+                  display: 'inline-block',
+                  width: '100%',
+                  maxWidth: '18em',
+                }}
+                readOnly
+                value={userId}
+              />
+              <button
+                type="button"
+                onClick={() => {
+                  copyTextToClipboard(userId);
+                  dispatch(notify(t`Copied`));
+                }}
+              >{t`Copy`}</button>
+            </p>
+          </React.Fragment>
+        )}
       <h3>2D {t`Controls`}</h3>
       <div style={{ lineHeight: 1.5 }}>
         {t`Click a color in palette to select it`}<br />

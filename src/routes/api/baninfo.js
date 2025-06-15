@@ -1,45 +1,27 @@
 /*
  *
  */
-import {
-  getBanInfo,
-  unbanIP,
-} from '../../data/sql/Ban';
-import {
-  getCacheAllowed,
-  cleanCacheForIP,
-} from '../../data/redis/isAllowedCache';
+import { getBanInfos } from '../../data/sql/Ban';
 
-async function baninfo(req, res, next) {
-  try {
-    const { t, user, ip: { ipString }} = req.ttag;
+async function baninfo(req, res) {
+  const { t, user, ip: { ipString }} = req.ttag;
 
-    const info = await getBanInfo(ipString, user?.id);
+  const bans = await getBanInfos(ipString, user?.id);
 
-    if (!info) {
-      const cache = await getCacheAllowed(ip);
-      if (cache && cache.status === 2) {
-        cleanCacheForIP(ip);
-      }
-      throw new Error(t`You are not banned`);
-    }
-    let sleft = (info.expires)
-      ? Math.round((info.expires.getTime() - Date.now()) / 1000)
-      : 0;
-
-    if (info.expires && sleft < 3) {
-      await unbanIP(ip);
-      sleft = -1;
-    }
-
-    res.status(200).json({
-      reason: info.reason,
-      sleft,
-      mod: `${info.mod.name} (${info.mod.id})`,
-    });
-  } catch (err) {
-    next(err);
+  if (!bans.length) {
+    throw new Error(t`You are not banned`);
   }
+
+  const infos = bans.map((ban) => ({
+    uuid: ban.uuid,
+    reason: ban.reason,
+    /* null if permanent */
+    sleft: ban.expires
+      && Math.ceil((ban.expires.getTime() - Date.now()) / 1000),
+    mod: `${ban.mod.name} (${ban.mod.id})`,
+  }));
+
+  res.status(200).json(infos);
 }
 
 export default baninfo;
