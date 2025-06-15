@@ -57,4 +57,4 @@ const ThreePIDHistory = sequelize.define('ThreePIDHistory', {
   }],
 });
 
-export default ThreePIDHistory
+export default ThreePIDHistory;

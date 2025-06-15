@@ -4,7 +4,7 @@
 import { getBanInfos } from '../../data/sql/Ban';
 
 async function baninfo(req, res) {
-  const { t, user, ip: { ipString }} = req.ttag;
+  const { t, user, ip: { ipString } } = req.ttag;
 
   const bans = await getBanInfos(ipString, user?.id);
 

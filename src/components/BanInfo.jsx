@@ -41,7 +41,7 @@ const BanInfo = ({ close }) => {
     while (i > 0) {
       i -= 1;
       const ban = infos[i];
-      ban['expires'] = ban.sleft && new Date(
+      ban.expires = ban.sleft && new Date(
         Date.now() + ban.sleft * 1000,
       ).toLocaleString();
     }
@@ -49,14 +49,14 @@ const BanInfo = ({ close }) => {
   }, []);
 
   const countDown = useCallback(() => {
-    if (bans.length){
+    if (bans.length) {
       const newBans = [];
       let i = bans.length;
       while (i > 0) {
         i -= 1;
         const ban = bans[i];
         if (ban.sleft) {
-          let sleft = ban.sleft - 1;
+          const sleft = ban.sleft - 1;
           if (sleft <= 0) {
             continue;
           }
@@ -95,7 +95,7 @@ const BanInfo = ({ close }) => {
           <span>{t`Error`}</span>:&nbsp;{error}
         </p>
       ))}
-      {bans.map(({reason, mod, sleft, expires, uuid}, index) => (
+      {bans.map(({ reason, mod, sleft, expires, uuid }, index) => (
         <React.Fragment key={reason + sleft}>
           <h3>{t`Reason`}:</h3>
           <p>{reason}</p>

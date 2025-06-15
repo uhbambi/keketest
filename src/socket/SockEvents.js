@@ -303,6 +303,7 @@ class SocketEvents extends EventEmitter {
   reloadUser(userId, local) {
     this.emit('reloadUser', userId);
   }
+
   reloadIP(ipString, local) {
     this.emit('reloadIP', ipString);
   }

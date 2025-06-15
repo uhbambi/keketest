@@ -105,7 +105,7 @@ export async function getRangeOfIP(ipString) {
         expires: { [Op.gt]: Sequelize.literal('NOW() - INTERVAL 20 DAY') },
       },
       raw: true,
-    })
+    });
     if (range) {
       return {
         rid: range.rid,
@@ -119,7 +119,7 @@ export async function getRangeOfIP(ipString) {
         descr: range.descr,
         asn: range.asn,
         country: range.country,
-      }
+      };
     }
   } catch (error) {
     console.error(`SQL Error on getRangeOfIP: ${error.message}`);

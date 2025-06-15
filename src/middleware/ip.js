@@ -150,7 +150,6 @@ class IP {
             allowance.proxyCheckExpiresTs = proxyCheckData.expiresTs;
             allowance.isProxy = proxyCheckData.isProxy;
           }
-
         } catch (error) {
           console.error(`IP Error on getIPAllowance: ${error.message}`);
         }

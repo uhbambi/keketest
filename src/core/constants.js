@@ -95,7 +95,7 @@ export const RANGEBAN_REASONS = {
 export const USER_FLAGS = {
   BLOCK_DM: 0,
   PRIV: 1,
-}
+};
 
 // Mode for shift-painting or phone pencil, HISTORY has to be last
 export const PENCIL_MODE = {

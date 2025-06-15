@@ -8,7 +8,7 @@ import logger from '../../core/logger';
 import socketEvents from '../../socket/socketEvents';
 import { CHANNEL_TYPES } from '../../core/constants';
 import {
-  deleteChannel, amountOfUsersInChannel, removeUserFromChannel
+  deleteChannel, amountOfUsersInChannel, removeUserFromChannel,
 } from '../../data/sql/Channel';
 
 async function leaveChan(req, res) {

@@ -141,7 +141,7 @@ export async function resolveSession(token) {
           }],
         }, {
           association: 'bans',
-          attributes: [ 'expires', 'flags' ],
+          attributes: ['expires', 'flags'],
           where: {
             [Op.or]: [
               { expires: { [Op.gt]: Sequelize.fn('NOW') } },
@@ -150,10 +150,10 @@ export async function resolveSession(token) {
           },
         }, {
           association: 'tpids',
-          attributes: [ 'tpid', 'provider' ],
+          attributes: ['tpid', 'provider'],
           include: {
             association: 'bans',
-            attributes: [ 'expires', 'flags' ],
+            attributes: ['expires', 'flags'],
             where: {
               [Op.or]: [
                 { expires: { [Op.gt]: Sequelize.fn('NOW') } },
@@ -197,7 +197,7 @@ export async function resolveSession(token) {
         const channel = [name, type, lastMessage.getTime()];
         /* if its a DM, users is populated */
         if (users.length) {
-          const dmPartner = users[0]
+          const dmPartner = users[0];
           channel.push(dmPartner.id);
           channel[0] = dmPartner.name;
         }

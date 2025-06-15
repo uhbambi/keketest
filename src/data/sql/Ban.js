@@ -197,7 +197,7 @@ async function removeBans(bans, modUid) {
     }
     /* users */
     rows = await UserBan.findAll({
-      attributes: [ 'buuid', 'uid' ],
+      attributes: ['buuid', 'uid'],
       where: { buuid: banUuids },
       raw: true,
       transaction,
@@ -211,7 +211,7 @@ async function removeBans(bans, modUid) {
     }
     /* ThreePIDs */
     rows = await ThreePIDBan.findAll({
-      attributes: [ 'buuid', 'tid' ],
+      attributes: ['buuid', 'tid'],
       where: { buuid: banUuids },
       raw: true,
       transaction,
@@ -325,12 +325,12 @@ export async function getBanInfos(
       }],
     };
     if (!mute || !ban) {
-      where[Op.and].push({flags: (ban) ? 0x01 : 0x02 });
+      where[Op.and].push({ flags: (ban) ? 0x01 : 0x02 });
     }
 
     const include = [{
       association: 'mod',
-      attributes: [ 'id', 'name' ],
+      attributes: ['id', 'name'],
     }];
 
     if (userIds) {
@@ -400,12 +400,12 @@ export async function ban(
       }, { transaction });
       const buuid = banModel.uuid;
 
-      const promises = []
+      const promises = [];
       /* userIds is either null or an Array or a sinlge userId */
       if (userIds) {
         const threePIDs = await ThreePID.findAll({
           where: { uid: userIds },
-          raw: true
+          raw: true,
         });
         if (threePIDs.length) {
           promises.push(ThreePIDBan.bulkCreate(threePIDs.map(
@@ -420,7 +420,7 @@ export async function ban(
           }
         } else {
           promises.push(UserBan.create({ uid: userIds, buuid },
-          { returning: false, transaction }));
+            { returning: false, transaction }));
         }
       }
 

@@ -59,7 +59,7 @@ export default async (req, res) => {
     return;
   }
 
-  let { userlvl } = user;
+  const { userlvl } = user;
   if (userlvl <= USERLVL.VERIFIED && userlvl > USERLVL.REGISTERED) {
     await setUserLvl(user.id, USERLVL.REGISTERED);
   }

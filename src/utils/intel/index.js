@@ -44,7 +44,7 @@ async function whoisWithStorage(ipString) {
   let whoisData = await getRangeOfIP(ipString);
   if (whoisData) {
     if (whoisData.expires) {
-      whoisData['expiresTs'] = whoisData.expires.getTime();
+      whoisData.expiresTs = whoisData.expires.getTime();
       delete whoisData.expires;
     }
     return whoisData;
@@ -81,9 +81,9 @@ async function whoisWithStorage(ipString) {
  *   subnetDevices: amount of devices in this subnet,
  * }]>
  */
-export const getIPIntel = queue(async function getIPIntel(
+export const getIPIntel = queue(async (
   ipString, whoisNeeded, proxyCheckNeeded,
-) {
+) => {
   /* if neither whois or proxycheck needed are given, get both */
   // eslint-disable-next-line eqeqeq
   if (whoisNeeded == null && proxyCheckNeeded == null) {
@@ -91,7 +91,7 @@ export const getIPIntel = queue(async function getIPIntel(
     proxyCheckNeeded = true;
   }
 
-  let [ whoisData, proxyCheckData ] = await Promise.all([
+  let [whoisData, proxyCheckData] = await Promise.all([
     (whoisNeeded) ? whoisWithStorage(ipString) : null,
     (proxyCheckNeeded) ? proxyChecker(ipString) : null,
   ]);
@@ -132,12 +132,12 @@ export const getIPIntel = queue(async function getIPIntel(
     delete whoisData.rid;
   }
 
-  return [ whoisData, proxyCheckData];
+  return [whoisData, proxyCheckData];
 });
 
 const disposableEmailDomainCache = {};
 
-export const checkMail = queue(async function checkMail(email) {
+export const checkMail = queue(async (email) => {
   if (!email) {
     return false;
   }
@@ -146,7 +146,7 @@ export const checkMail = queue(async function checkMail(email) {
   if (tld === 'sbs' || tld === 'cyou' || domain === 'fuckmeuwu.shop') {
     return true;
   }
-  const cache = disposableEmailDomainCache[domain]
+  const cache = disposableEmailDomainCache[domain];
   if (cache) {
     return cache;
   }
@@ -177,11 +177,7 @@ socketEvents.onReq('mailintel', (...args) => {
 
 /* send request */
 // eslint-disable-next-line max-len
-export const getIPIntelOverShards = queue(async function getIPIntelOverShards(...args) {
-  return await socketEvents.req('ipintel', ...args);
-});
+export const getIPIntelOverShards = queue(async (...args) => await socketEvents.req('ipintel', ...args));
 
 // eslint-disable-next-line max-len
-export const checkMailOverShards = queue(async function checkMailOverShards(...args) {
-  return await socketEvents.req('mailintel', ...args);
-});
+export const checkMailOverShards = queue(async (...args) => await socketEvents.req('mailintel', ...args));

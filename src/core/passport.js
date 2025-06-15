@@ -22,7 +22,7 @@ import {
   getUserByTpid,
   getNameThatIsNotTaken,
   createNewUser,
-  setUserLvl
+  setUserLvl,
 } from '../data/sql/User';
 import { addOrReplaceTpid } from '../data/sql/ThreePID';
 import User from '../data/User';
@@ -72,7 +72,7 @@ async function oauthLogin(providerString, name, email = null, tpid = null) {
     email = null;
   }
 
-  let provider = THREEPID_PROVIDERS[providerString];
+  const provider = THREEPID_PROVIDERS[providerString];
   if (!provider) {
     throw new Error(`Can not login with ${providerString}`);
   }
@@ -116,7 +116,7 @@ async function oauthLogin(providerString, name, email = null, tpid = null) {
   if (email) {
     promises.push(
       addOrReplaceTpid(user.id, THREEPID_PROVIDERS.EMAIL, email, true,
-    ));
+      ));
   }
   await Promise.all(promises);
 

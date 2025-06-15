@@ -71,7 +71,7 @@ class APISocketServer {
   async handleUpgrade(request, socket, head) {
     await authenticateAPIClient(request);
     const { headers } = request;
-    const { ipString: ip} = request.ip;
+    const { ipString: ip } = request.ip;
 
     if (!headers.authorization
       || !APISOCKET_KEY

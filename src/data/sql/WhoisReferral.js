@@ -51,14 +51,14 @@ const WhoisReferral = sequelize.define('WhoisReferral', {
 export async function getWhoisHostOfIP(ipString) {
   try {
     const range = await Range.findOne({
-      attributes: [ 'host' ],
+      attributes: ['host'],
       where: {
         min: { [Op.lte]: Sequelize.fn('IP_TO_BIN', ipString) },
         max: { [Op.gte]: Sequelize.fn('IP_TO_BIN', ipString) },
         expires: { [Op.gt]: Sequelize.fn('NOW') },
       },
       raw: true,
-    })
+    });
     if (range) {
       return range.host;
     }

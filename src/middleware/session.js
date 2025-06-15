@@ -124,7 +124,7 @@ async function resolveSessionOfRequest(req) {
   const token = cookies['ppfun.session'];
   const userData = await resolveSession(token);
   if (!userData) {
-    delete req.user
+    delete req.user;
   } else {
     req.user = new User(userData);
   }
@@ -203,7 +203,7 @@ export async function openSession(req, res, userId, durationHours = 720) {
    * closing the browser
    */
   if (durationHours) {
-    cookieOptions['expires'] = Date.now(durationHours * HOUR);
+    cookieOptions.expires = Date.now(durationHours * HOUR);
   }
 
   res.cookie('ppfun.session', token, cookieOptions);

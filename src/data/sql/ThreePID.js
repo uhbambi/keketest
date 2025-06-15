@@ -9,6 +9,7 @@ import sequelize from './sequelize';
 import ThreePIDHistory from './ThreePIDHistory';
 
 import { THREEPID_PROVIDERS } from '../../core/constants';
+
 export { THREEPID_PROVIDERS };
 
 const ThreePID = sequelize.define('ThreePID', {
@@ -92,7 +93,7 @@ export async function getEmailOfUser(uid) {
       raw: true,
     });
     if (tpid) {
-      return tpid['tpid'];
+      return tpid.tpid;
     }
   } catch (error) {
     console.error(`SQL Error on getEmailOfUser: ${error.message}`);
@@ -156,7 +157,7 @@ export async function setEmail(uid, email, verified = false) {
         uid,
         provider: THREEPID_PROVIDERS.EMAIL,
         tpid: email,
-        verified: verified,
+        verified,
       }, { transaction });
 
       await transaction.commit();

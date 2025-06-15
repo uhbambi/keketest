@@ -234,7 +234,7 @@ class SocketServer {
   async handleUpgrade(request, socket, head) {
     await authenticateClient(request);
     const { headers, user } = request;
-    const { ipString: ip} = request.ip;
+    const { ipString: ip } = request.ip;
     /*
      * rate limit
      */
@@ -403,7 +403,7 @@ class SocketServer {
   reloadIP(ipString, local) {
     const buffer = dehydrateChangeMe();
     this.wss.clients.forEach(async (ws) => {
-      if ( ws.readyState === WebSocket.OPEN
+      if (ws.readyState === WebSocket.OPEN
         && ws.ip.ipString === ipString
       ) {
         await ws.ip.refresh();

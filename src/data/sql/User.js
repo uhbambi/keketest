@@ -12,7 +12,8 @@ import { generateHash } from '../../utils/hash';
 import UserIP from './UserIP';
 import { USERLVL, THREEPID_PROVIDERS, USER_FLAGS } from '../../core/constants';
 import { CHANNEL_TYPES, deleteAllDMChannelsOfUser } from './Channel';
-export { USERLVL, THREEPID_PROVIDERS, USER_FLAGS }
+
+export { USERLVL, THREEPID_PROVIDERS, USER_FLAGS };
 
 
 const User = sequelize.define('User', {
@@ -111,7 +112,7 @@ export async function touchUser(id, ipString) {
   try {
     await User.update({ lastSeen: Sequelize.fn('NOW') }, {
       where: { id },
-    })
+    });
     if (ipString) {
       await UserIP.upsert({
         uid: id,
@@ -130,7 +131,7 @@ export async function touchUser(id, ipString) {
  */
 export async function getDummyUser(name) {
   const dummy = await User.findOrCreate({
-    attributes: [ 'id' ],
+    attributes: ['id'],
     where: { name },
     defaults: {
       name,
@@ -219,7 +220,7 @@ export async function findUserById(id) {
   }
   try {
     return await User.findByPk(id, {
-      attributes: [ 'id', 'name', 'password', 'flags', 'userlvl' ],
+      attributes: ['id', 'name', 'password', 'flags', 'userlvl'],
       raw: true,
     });
   } catch (error) {
@@ -240,15 +241,15 @@ export async function findUserByIdOrName(id, name) {
   }
   const where = {};
   if (id) {
-    where['id'] = id;
+    where.id = id;
   }
   if (name) {
-    where['name'] = name;
+    where.name = name;
   }
   try {
     return await User.findOne({
       where,
-      attributes: [ 'id', 'name', 'password', 'flags', 'userlvl' ],
+      attributes: ['id', 'name', 'password', 'flags', 'userlvl'],
       raw: true,
     });
   } catch (error) {
@@ -268,11 +269,11 @@ export async function setFlagOfUser(id, index, value) {
     const mask = 0x01 << index;
     if (value) {
       await User.update({
-        flags: Sequelize.literal(`flags | ?`)
+        flags: Sequelize.literal('flags | ?'),
       }, { where: { id }, returning: false });
     } else {
       await User.update({
-        flags: Sequelize.literal(`flags & ~(?)`)
+        flags: Sequelize.literal('flags & ~(?)'),
       }, { where: { id }, returning: false });
     }
   } catch (error) {
@@ -286,7 +287,7 @@ export async function setFlagOfUser(id, index, value) {
  * @return limited user object or null if not found
  */
 export function getUserByEmail(email) {
-  return getUserByTpid(THREEPID_PROVIDERS.EMAIL, email)
+  return getUserByTpid(THREEPID_PROVIDERS.EMAIL, email);
 }
 
 /**
@@ -335,7 +336,7 @@ export async function getUserByTpid(provider, tpid) {
 export async function getNameThatIsNotTaken(name) {
   let limit = 5;
   let user = await User.findOne({
-    attributes: [ 'id' ],
+    attributes: ['id'],
     where: { name },
     raw: true,
   });
@@ -348,7 +349,7 @@ export async function getNameThatIsNotTaken(name) {
     name = `${name.substring(0, 15)}-${Math.random().toString(36).substring(2, 10)}`;
     // eslint-disable-next-line no-await-in-loop
     user = await User.findOne({
-      attributes: [ 'id' ],
+      attributes: ['id'],
       where: { name },
       raw: true,
     });
@@ -409,7 +410,7 @@ export async function getUsersByNameOrEmail(name, email) {
   }
   try {
     return await User.findAll({
-      attributes: [ 'id', 'name', 'password', 'flags', 'userlvl', [
+      attributes: ['id', 'name', 'password', 'flags', 'userlvl', [
         Sequelize.literal('tpids.tpid IS NOT NULL'), 'byEMail',
       ]],
       where: {
@@ -442,7 +443,7 @@ export async function createNewUser(
   const query = { name, userlvl };
   if (password) query.password = password;
   try {
-    return await User.create(query, { raw: true } );
+    return await User.create(query, { raw: true });
   } catch (error) {
     console.error(`SQL Error on createNewUser: ${error.message}`);
     return null;
@@ -504,7 +505,7 @@ export async function deleteUser(id, password) {
     if (dmChannels === null) {
       throw new Error('Could not destroy DM channels');
     }
-    await User.destroy({ where: { id }});
+    await User.destroy({ where: { id } });
     return { dmChannels };
   } catch (error) {
     console.error(`SQL Error on deleteUser: ${error.message}`);

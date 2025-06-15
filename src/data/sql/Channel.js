@@ -10,6 +10,7 @@ import sequelize from './sequelize';
 import { UserChannel } from './association_models/UserChannel';
 
 import { CHANNEL_TYPES } from '../../core/constants';
+
 export { CHANNEL_TYPES };
 
 const Channel = sequelize.define('Channel', {
@@ -90,9 +91,9 @@ export async function findDMChannel(uidA, uidB) {
         group: ['Channel.id'],
         having: Sequelize.where(
           Sequelize.fn('COUNT', Sequelize.col('users.id')),
-          { [Op.eq]: 2 }
-        )
-      }
+          { [Op.eq]: 2 },
+        ),
+      },
     });
     if (channel) {
       return channel.id;
@@ -122,7 +123,7 @@ export async function createDMChannel(uidA, uidB) {
     }, { transaction });
     cid = channel.id;
     await UserChannel.bulkCreate([
-      { uid: uidA, cid }, { uid: uidB, cid }
+      { uid: uidA, cid }, { uid: uidB, cid },
     ], { transaction });
 
     return cid;
@@ -157,7 +158,7 @@ export async function deleteDMChannel(uidA, uidB) {
  */
 export async function deleteChannel(id) {
   try {
-    const rows = await Channel.destroy({ where: { id }});
+    const rows = await Channel.destroy({ where: { id } });
     return rows > 0;
   } catch (error) {
     console.error(`SQL Error on deleteChannel: ${error.message}`);
@@ -205,14 +206,14 @@ export async function removeUserFromChannel(uid, cid) {
 export async function deleteAllDMChannelsOfUser(uid) {
   try {
     const rows = await Channel.findAll({
-      attributes: ['id' ],
+      attributes: ['id'],
       where: {
         type: CHANNEL_TYPES.DM,
         [Sequelize.col('User.id')]: uid,
       },
       include: {
         association: 'users',
-        attributes: [ 'id' ],
+        attributes: ['id'],
       },
       raw: true,
       nested: true,
@@ -229,7 +230,7 @@ export async function deleteAllDMChannelsOfUser(uid) {
         uidB: r.users.filter((u) => u.id !== uid)[0].id,
       };
     });
-    await Channel.destroy({ where: { id: cids }});
+    await Channel.destroy({ where: { id: cids } });
     return dmChannels;
   } catch (error) {
     console.error(`SQL Error on deleteAllDMChannelsOfUser: ${error.message}`);

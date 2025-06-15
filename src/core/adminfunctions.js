@@ -623,7 +623,7 @@ export async function executeRollback(
  */
 export async function getModList() {
   const mods = await RegUser.findAll({
-    where: { userlvl: USERLVL.MOD},
+    where: { userlvl: USERLVL.MOD },
     attributes: ['id', 'name'],
     raw: true,
   });

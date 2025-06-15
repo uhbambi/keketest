@@ -63,7 +63,7 @@ function jsonReplacer(key, value) {
  */
 function jsonReviver(key, value, context) {
   if (context && typeof value === 'string' && value.endsWith(')')) {
-    let openingBreaket = value.indexOf('(');
+    const openingBreaket = value.indexOf('(');
     if (openingBreaket !== -1) {
       const parsedValue = value.substring(openingBreaket + 1, value.length - 1);
       const modifier = value.substring(0, openingBreaket);

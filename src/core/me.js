@@ -8,7 +8,7 @@ import getLocalizedCanvases from '../canvasesDesc';
 import { USERLVL } from '../data/sql';
 import { getUserRanks } from './redis/ranks';
 import { USE_MAILER } from './config';
-import { USER_FLAGS } from './constants'
+import { USER_FLAGS } from './constants';
 import chatProvider from './ChatProvider';
 
 
@@ -66,7 +66,7 @@ export default async function getMe(user, lang) {
 
   // eslint-disable-next-line max-len
   if (USE_MAILER && userlvl >= USERLVL.REGISTERED && userlvl < USERLVL.VERIFIED) {
-    me['messages'] = ['not_verified']
+    me.messages = ['not_verified'];
   }
 
   return me;

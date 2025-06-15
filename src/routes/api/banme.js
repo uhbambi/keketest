@@ -6,7 +6,7 @@ import logger from '../../core/logger';
 import { ban } from '../../core/ban';
 
 async function banme(req, res) {
-  const { body: { code }, ip: { ipString} } = req;
+  const { body: { code }, ip: { ipString } } = req;
 
   // eslint-disable-next-line max-len
   logger.info(`AUTOBAN ${code} - ${ipString} of user ${req.user?.id} with ua "${req.headers['user-agent']}"`);

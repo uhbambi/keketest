@@ -82,32 +82,32 @@ const Help = () => {
         <GetIID />
       </div>
       <h3>{t`Identifiers`}</h3>
-        <p>{t`If you talk to moderators or administrators, you might get asked for one of the following identifiers:`}</p>
-        <p>IID</p>
-        <GetIID />
-        {(userId > 0) && (
-          <React.Fragment>
-            <p>UUID</p>
-            <p>
-              <input
-                style={{
-                  display: 'inline-block',
-                  width: '100%',
-                  maxWidth: '18em',
-                }}
-                readOnly
-                value={userId}
-              />
-              <button
-                type="button"
-                onClick={() => {
-                  copyTextToClipboard(userId);
-                  dispatch(notify(t`Copied`));
-                }}
-              >{t`Copy`}</button>
-            </p>
-          </React.Fragment>
-        )}
+      <p>{t`If you talk to moderators or administrators, you might get asked for one of the following identifiers:`}</p>
+      <p>IID</p>
+      <GetIID />
+      {(userId > 0) && (
+      <>
+        <p>UUID</p>
+        <p>
+          <input
+            style={{
+              display: 'inline-block',
+              width: '100%',
+              maxWidth: '18em',
+            }}
+            readOnly
+            value={userId}
+          />
+          <button
+            type="button"
+            onClick={() => {
+              copyTextToClipboard(userId);
+              dispatch(notify(t`Copied`));
+            }}
+          >{t`Copy`}</button>
+        </p>
+      </>
+      )}
       <h3>2D {t`Controls`}</h3>
       <div style={{ lineHeight: 1.5 }}>
         {t`Click a color in palette to select it`}<br />

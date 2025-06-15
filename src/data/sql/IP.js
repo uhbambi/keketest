@@ -77,7 +77,7 @@ export async function getIPAllowance(ipString) {
         attributes: [],
       }, {
         association: 'bans',
-        attributes: [ 'expires', 'flags' ],
+        attributes: ['expires', 'flags'],
         where: {
           [Op.or]: [
             { expires: { [Op.gt]: Sequelize.fn('NOW') } },
@@ -203,7 +203,7 @@ export async function saveIPIntel(ipString, whoisData, pcData) {
           ...pcData,
           ip: Sequelize.fn('IP_TO_BIN', ipString),
         };
-        query['expires'] = new Date(query.expiresTs);
+        query.expires = new Date(query.expiresTs);
         delete query.expires;
 
         await ProxyData.upsert(query, { returning: false, transaction });
@@ -229,7 +229,7 @@ export async function touchIP(ipString) {
   try {
     await IP.update({ lastSeen: Sequelize.fn('NOW') }, {
       where: { ip: Sequelize.fn('IP_TO_BIN', ipString) },
-    })
+    });
   } catch (error) {
     console.error(`SQL Error on touchIP: ${error.message}`);
   }
@@ -316,7 +316,7 @@ export async function getInfoToIp(ipString) {
         [Sequelize.fn('CONCAT',
           Sequelize.fn('BIN_TO_IP', Sequelize.col('$range.min$')),
           '/',
-          Sequelize.col('range.mask')
+          Sequelize.col('range.mask'),
         ), 'cidr'],
         [Sequelize.col('range.org'), 'org'],
         [Sequelize.col('proxy.type'), 'pcheck'],
@@ -357,7 +357,7 @@ export async function getInfoToIps(ips) {
         [Sequelize.fn('CONCAT',
           Sequelize.fn('BIN_TO_IP', Sequelize.col('range.min')),
           '/',
-          Sequelize.col('range.mask')
+          Sequelize.col('range.mask'),
         ), 'cidr'],
         [Sequelize.col('range.org'), 'org'],
         [Sequelize.col('proxy.type'), 'pcheck'],

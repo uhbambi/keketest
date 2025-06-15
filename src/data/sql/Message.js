@@ -80,7 +80,7 @@ export async function getMessagesForChannel(cid, limit) {
       order: [['createdAt', 'DESC']],
       raw: true,
     });
-    return models.map(({name, message, flag, uid, ts}) => [
+    return models.map(({ name, message, flag, uid, ts }) => [
       name, message, flag, uid, ts,
     ]);
   } catch (error) {
