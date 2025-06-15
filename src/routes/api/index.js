@@ -59,6 +59,8 @@ router.use('/auth', auth);
 
 router.use('/modtools', modtools);
 
+router.post('/banme', banme);
+
 /*
  * only with session
  */
@@ -91,8 +93,6 @@ router.post('/block', block);
 router.post('/blockdm', blockdm);
 
 router.post('/privatize', privatize);
-
-router.post('/banme', banme);
 
 /*
  * error handling

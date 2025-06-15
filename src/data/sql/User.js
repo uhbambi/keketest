@@ -10,9 +10,9 @@ import Sequelize, { DataTypes, QueryTypes, Op } from 'sequelize';
 import sequelize from './sequelize';
 import { generateHash } from '../../utils/hash';
 import UserIP from './UserIP';
-import { USERLVL, THREEPID_PROVIDERS } from '../../core/constants';
-import { CHANNEL_TYPES } from './Channel';
-export { USERLVL, THREEPID_PROVIDERS } from '../../core/constants';
+import { USERLVL, THREEPID_PROVIDERS, USER_FLAGS } from '../../core/constants';
+import { CHANNEL_TYPES, deleteAllDMChannelsOfUser } from './Channel';
+export { USERLVL, THREEPID_PROVIDERS, USER_FLAGS }
 
 
 const User = sequelize.define('User', {
@@ -46,7 +46,7 @@ const User = sequelize.define('User', {
   },
 
   /*
-   * from lowest to highest bit:
+   * from lowest to highest bit, see USER_FLAGS:
    * 0: blockDm (if account blocks all DMs)
    * 1: priv (if account is private)
    */
@@ -66,32 +66,6 @@ const User = sequelize.define('User', {
     type: DataTypes.DATE,
     defaultValue: DataTypes.NOW,
     allowNull: false,
-  },
-
-  /*
-   * virtual
-   */
-
-  blockDm: {
-    type: DataTypes.VIRTUAL,
-    get() {
-      return !!(this.flags & 0x01);
-    },
-    set(num) {
-      const val = (num) ? (this.flags | 0x01) : (this.flags & ~0x01);
-      this.setDataValue('flags', val);
-    },
-  },
-
-  priv: {
-    type: DataTypes.VIRTUAL,
-    get() {
-      return !!(this.flags & 0x02);
-    },
-    set(num) {
-      const val = (num) ? (this.flags | 0x02) : (this.flags & ~0x02);
-      this.setDataValue('flags', val);
-    },
   },
 });
 
@@ -236,7 +210,7 @@ export async function getNamesToIds(ids) {
 
 /**
  * get User by id
- * @param id
+ * @param id user id
  * @return [{ id, name, password, userlvl }, ... ]
  */
 export async function findUserById(id) {
@@ -245,12 +219,64 @@ export async function findUserById(id) {
   }
   try {
     return await User.findByPk(id, {
-      attributes: [ 'id', 'name', 'password', 'userlvl' ],
+      attributes: [ 'id', 'name', 'password', 'flags', 'userlvl' ],
       raw: true,
     });
-  } catch (err) {
-    console.error(`SQL Error on findUserById: ${err.message}`);
+  } catch (error) {
+    console.error(`SQL Error on findUserById: ${error.message}`);
+  }
+  return null;
+}
+
+/**
+ * get User by id or name
+ * @param id user id
+ * @param name user name
+ * @return [{ id, name, password, userlvl }, ... ]
+ */
+export async function findUserByIdOrName(id, name) {
+  if (!id && !name) {
     return null;
+  }
+  const where = {};
+  if (id) {
+    where['id'] = id;
+  }
+  if (name) {
+    where['name'] = name;
+  }
+  try {
+    return await User.findOne({
+      where,
+      attributes: [ 'id', 'name', 'password', 'flags', 'userlvl' ],
+      raw: true,
+    });
+  } catch (error) {
+    console.error(`SQL Error on findUserByIdOrName: ${error.message}`);
+  }
+  return null;
+}
+
+/**
+ * set one bit in flags of user
+ * @param id user id
+ * @param index index of flag (see order in Model definition up there)
+ * @param value 0 or 1, true or false
+ */
+export async function setFlagOfUser(id, index, value) {
+  try {
+    const mask = 0x01 << index;
+    if (value) {
+      await User.update({
+        flags: Sequelize.literal(`flags | ?`)
+      }, { where: { id }, returning: false });
+    } else {
+      await User.update({
+        flags: Sequelize.literal(`flags & ~(?)`)
+      }, { where: { id }, returning: false });
+    }
+  } catch (error) {
+    console.error(`SQL Error on setFlagOfUser: ${error.message}`);
   }
 }
 
@@ -275,7 +301,7 @@ export async function getUserByTpid(provider, tpid) {
   }
   try {
     return await User.findOne({
-      attributes: ['id', 'name', 'password', 'userlvl'],
+      attributes: ['id', 'name', 'password', 'flags', 'userlvl'],
       include: {
         association: 'tpids',
         where: {
@@ -295,26 +321,9 @@ export async function getUserByTpid(provider, tpid) {
     });
   } catch (error) {
     console.error(`SQL Error on getUserByTpid: ${error.message}`);
+    throw error;
   }
   return null;
-}
-
-/**
- * set password of user
- * @param id user id
- * @param password (in clear text, we hash it here)
- * @return boolean if successful
- */
-export async function setPasswordOfUser(id, password) {
-  try {
-    const [rows] = await User.update({ password }, {
-      where: { id },
-    });
-    return rows > 0;
-  } catch (error) {
-    console.error(`SQL Error on getUserByTpid: ${error.message}`);
-  }
-  return false;
 }
 
 /**
@@ -377,7 +386,7 @@ export async function verifyEmail(email) {
       promises.push(user.update({ userlvl: USERLVL.VERIFIED }));
     }
     await Promise.all(promises);
-    return user.name;
+    return user.id;
   } catch (err) {
     console.error(`SQL Error on verifyEmail: ${err.message}`);
     return false;
@@ -400,7 +409,7 @@ export async function getUsersByNameOrEmail(name, email) {
   }
   try {
     return await User.findAll({
-      attributes: [ 'id', 'name', 'password', 'userlvl', [
+      attributes: [ 'id', 'name', 'password', 'flags', 'userlvl', [
         Sequelize.literal('tpids.tpid IS NOT NULL'), 'byEMail',
       ]],
       where: {
@@ -427,13 +436,78 @@ export async function getUsersByNameOrEmail(name, email) {
  * @param [password]
  * @return limited user object or null if not successful
  */
-export async function createNewUser(name, password) {
-  const query = { name };
+export async function createNewUser(
+  name, password, userlvl = USERLVL.REGISTERED,
+) {
+  const query = { name, userlvl };
   if (password) query.password = password;
   try {
     return await User.create(query, { raw: true } );
   } catch (error) {
     console.error(`SQL Error on createNewUser: ${error.message}`);
+    return null;
+  }
+}
+
+/**
+ * set userlvl
+ * @param id user id
+ * @param userlvl user level
+ */
+export async function setUserLvl(id, userlvl) {
+  try {
+    await User.update({ userlvl }, { where: { id }, returning: false });
+  } catch (error) {
+    console.error(`SQL Error on setUserLvl: ${error.message}`);
+  }
+}
+
+/**
+ * set name
+ * @param id user id
+ * @param name name
+ */
+export async function setName(id, userlvl) {
+  try {
+    await User.update({ name }, { where: { id }, returning: false });
+  } catch (error) {
+    return false;
+  }
+  return true;
+}
+
+/**
+ * set password
+ * @param id user id
+ * @param password password in cleartext (we hash it here)
+ */
+export async function setPassword(id, password) {
+  try {
+    await User.update({ password }, { where: { id }, returning: false });
+  } catch (error) {
+    console.error(`SQL Error on setPassword: ${error.message}`);
+    return false;
+  }
+  return true;
+}
+
+/**
+ * delete user
+ * @param id user id
+ * @return {
+ *   dmChannels: [{ cid, uidA, uidB }, ...] destroyed channels
+ * }
+ */
+export async function deleteUser(id, password) {
+  try {
+    const dmChannels = await deleteAllDMChannelsOfUser(id);
+    if (dmChannels === null) {
+      throw new Error('Could not destroy DM channels');
+    }
+    await User.destroy({ where: { id }});
+    return { dmChannels };
+  } catch (error) {
+    console.error(`SQL Error on deleteUser: ${error.message}`);
     return null;
   }
 }

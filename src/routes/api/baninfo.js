@@ -13,7 +13,7 @@ async function baninfo(req, res) {
   }
 
   const infos = bans.map((ban) => ({
-    uuid: ban.uuid,
+    uuid: ban.buuid,
     reason: ban.reason,
     /* null if permanent */
     sleft: ban.expires

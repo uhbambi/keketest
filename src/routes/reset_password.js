@@ -9,7 +9,7 @@ import logger from '../core/logger';
 import getPasswordResetHtml from '../ssr/PasswordReset';
 import { validateEMail } from '../utils/validation';
 import { checkCode } from '../data/redis/mailCodes';
-import { getUserByEmail, setPasswordOfUser } from '../data/sql/User';
+import { getUserByEmail, setPassword } from '../data/sql/User';
 
 
 const router = express.Router();
@@ -79,7 +79,7 @@ router.post('/', async (req, res) => {
     res.status(400).send(html);
     return;
   }
-  await setPasswordOfUser(userdata.id, pass);
+  await setPassword(userdata.id, pass);
 
   logger.info(`Changed password of ${email} via password reset form`);
   const html = getPasswordResetHtml(

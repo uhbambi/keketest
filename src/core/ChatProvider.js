@@ -5,9 +5,7 @@ import logger from './logger';
 import RateLimiter from '../utils/RateLimiter';
 import { UserChannel, Message, USERLVL } from '../data/sql';
 import User, { findIdByNameOrId, getDummyUser } from '../data/sql/User';
-import Channel, {
-  addUserToChannel, getDefaultChannel,
-} from '../data/sql/Channel';
+import Channel, { getDefaultChannel } from '../data/sql/Channel';
 import ChatMessageBuffer from './ChatMessageBuffer';
 import socketEvents from '../socket/socketEvents';
 import { ban, unban } from './ban';
@@ -136,24 +134,6 @@ export class ChatProvider {
       ...langChannel,
       ...this.defaultChannels,
     };
-  }
-
-  /**
-   * add a user to an existing channel
-   * @param userId user id
-   * @param channelId channel id
-   * @param channelArray [name, type, lastTs, [dmuid]]
-   */
-  static async addUserToChannel(userId, channelId, channelArray) {
-    const created = await addUserToChannel(userId, channelId);
-
-    if (created) {
-      socketEvents.broadcastAddChatChannel(
-        userId,
-        channelId,
-        channelArray,
-      );
-    }
   }
 
   /**
@@ -371,7 +351,7 @@ export class ChatProvider {
     ) {
       user.isBanned = true;
       /* this will both ban and mute */
-      ban(user.id, ipString, true, true, 'CHATBAN');
+      ban(ipString, user.id, true, true, 'CHATBAN');
       logger.info(`CHAT AUTOBANNED: ${ipString}`);
       return 'nope';
     }
@@ -453,7 +433,7 @@ export class ChatProvider {
     const { name, id } = searchResult;
     const userPing = `@[${escapeMd(name)}](${id})`;
 
-    ban(id, null, true, false, 'mute', timeMin && timeMin * 60, muid);
+    ban(null, id, true, false, 'mute', timeMin && timeMin * 60, muid);
     if (printChannel) {
       if (timeMin) {
         this.broadcastChatMessage(
@@ -491,7 +471,7 @@ export class ChatProvider {
     const { name, id } = searchResult;
     const userPing = `@[${escapeMd(name)}](${id})`;
 
-    const succ = await unban(id, null, true, false, muid);
+    const succ = await unban(null, id, true, false, muid);
     if (!succ) {
       return `User ${userPing} is not muted`;
     }

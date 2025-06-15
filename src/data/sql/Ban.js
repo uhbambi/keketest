@@ -360,7 +360,10 @@ export async function getBanInfos(
     }
 
     const bans = await Ban.findAll({
-      attributes: ['uuid', 'reason', 'flags', 'expires', 'createdAt', 'muid'],
+      attributes: [
+        'uuid', 'reason', 'flags', 'expires', 'createdAt', 'muid',
+        [Sequelize.fn('BIN_TO_UUID', Sequelize.col('uuid')), 'buuid'],
+      ],
       where, include,
       raw: true,
       nested: true,
@@ -385,7 +388,7 @@ export async function getBanInfos(
  * @return boolean success
  */
 export async function ban(
-  userIds, ipStrings, mute, ban, reason, duration, muid = null,
+  ipStrings, userIds, mute, ban, reason, duration, muid = null,
 ) {
   try {
     const transaction = await sequelize.transaction();
@@ -456,7 +459,7 @@ export async function ban(
  * @param muid id of the mod that bans
  * @return boolean success
  */
-export async function unban(userIds, ipStrings, mute, ban, muid = null) {
+export async function unban(ipStrings, userIds, mute, ban, muid = null) {
   try {
     const bans = await getBanInfos(userIds, ipStrings, mute, ban);
     if (!bans.length) {

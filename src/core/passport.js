@@ -18,12 +18,13 @@ import {
 } from '../data/sql';
 import {
   getUsersByNameOrEmail,
-  getUsersByEmail,
+  getUserByEmail,
   getUserByTpid,
   getNameThatIsNotTaken,
   createNewUser,
-} from '../data/sql/RegUser';
-import { addOrReplaceTpid, setEmail } from '../data/sql/ThreePID';
+  setUserLvl
+} from '../data/sql/User';
+import { addOrReplaceTpid } from '../data/sql/ThreePID';
 import User from '../data/User';
 import { auth } from './config';
 import { compareToHash } from '../utils/hash';
@@ -82,10 +83,11 @@ async function oauthLogin(providerString, name, email = null, tpid = null) {
     );
   }
 
+  const promises = [];
   let user;
   // try with associated email
   if (email) {
-    user = await getUsersByEmail(email);
+    user = await getUserByEmail(email);
   }
   // try wwith threepid
   if (!user && tpid) {
@@ -102,10 +104,12 @@ async function oauthLogin(providerString, name, email = null, tpid = null) {
     if (!user) {
       throw new Error('Could not create user');
     }
+  } else if (email && user.userlvl === USERLVL.REGISTERED) {
+    /* if oauth is known by mail, ensure that userlvl is VERIFIED */
+    promises.push(setUserLvl(user.id, USERLVL.VERIFIED));
   }
 
   // upsert tpids
-  const promises = [];
   if (tpid) {
     promises.push(addOrReplaceTpid(user.id, provider, tpid));
   }

@@ -61,6 +61,10 @@ class User {
     return this.#data;
   }
 
+  get name() {
+    return this.#data.name;
+  }
+
   touch(ipString) {
     if (this.#data.lastSeen.getTime() > Date.now() - 10 * 60 * 1000) {
       return;
@@ -74,6 +78,14 @@ class User {
 
   getChannel(cid) {
     return this.#data.channels[cid];
+  }
+
+  removeChannel(cid) {
+    delete this.#data.channels[cid];
+  }
+
+  addChannel(cid, channelArray) {
+    this.#data.channels[cid] = channelArray;
   }
 
   refresh() {
@@ -198,18 +210,25 @@ export async function openSession(req, res, userId, durationHours = 720) {
   return true;
 }
 
+export function clearCookie(req, res) {
+  const domain = getHostFromRequest(req, false, true);
+  res.clearCookie('ppfun.session', {
+    domain, httpOnly: true, secure: false,
+  });
+}
+
 /**
  * Close a session and remove cookie, NOT a middleware
  * @param req express request object
  * @param res express response object
  * @return boolean if successful
  */
-export async function closeSession(req, res, user) {
+export async function closeSession(req, res) {
   const domain = getHostFromRequest(req, false, true);
   const cookies = parseCookie(req.headers.cookie || '');
   const token = cookies['ppfun.session'];
   const success = await removeSession(token);
-  res.cookie('ppfun.session', token, { domain, httpOnly: true, secure: false });
+  clearCookie(req, res);
   delete req.user;
   return success;
 }

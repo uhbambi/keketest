@@ -3,26 +3,18 @@
  */
 
 import logger from '../../../core/logger';
-import { getIPFromRequest } from '../../../utils/ip';
+import { closeSession } from '../../../middleware/session';
 
 export default async (req, res) => {
   const { user } = req;
-  const { t } = req.ttag;
 
   // eslint-disable-next-line max-len
-  logger.info(`AUTH: Logged out user ${user.regUser.name}(${user.id}) by ${getIPFromRequest(req)}`);
+  logger.info(`AUTH: Logged out user ${user.name}(${user.id}) by ${req.ip.ipString}`);
 
-  req.logout((err) => {
-    if (err) {
-      res.status(500);
-      res.json({
-        errors: [t`Server error when logging out.`],
-      });
-      return;
-    }
-    res.status(200);
-    res.json({
-      success: true,
-    });
+  await closeSession(req, res);
+
+  res.status(200);
+  res.json({
+    success: true,
   });
 };

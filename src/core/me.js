@@ -8,6 +8,7 @@ import getLocalizedCanvases from '../canvasesDesc';
 import { USERLVL } from '../data/sql';
 import { getUserRanks } from './redis/ranks';
 import { USE_MAILER } from './config';
+import { USER_FLAGS } from './constants'
 import chatProvider from './ChatProvider';
 
 
@@ -30,8 +31,8 @@ export default async function getMe(user, lang) {
     ({
       id, name, userlvl, mailreg,
     } = data);
-    blockDm = !!(data.flags & 0x01);
-    priv = !!(data.flags & 0x02);
+    blockDm = !!(data.flags & (0x01 << USER_FLAGS.BLOCK_DM));
+    priv = !!(data.flags & (0x01 << USER_FLAGS.PRIV));
     channels = {
       ...channels,
       ...user.channels,

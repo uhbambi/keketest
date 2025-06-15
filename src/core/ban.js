@@ -37,12 +37,12 @@ function notifyUserIpChanges(userIds, ipStrings) {
  * @param muid id of the mod that bans
  */
 export async function ban(
-  userIds, ipStrings, mute, ban, reason, ...args
+  ipStrings, userIds, mute, ban, reason, ...args
 ) {
   if ((!mute && !ban) || !reason) {
     return false;
   }
-  const result = await ban(userIds, ipStrings, mute, ban, reason, ...args);
+  const result = await ban(ipStrings, userIds, mute, ban, reason, ...args);
   notifyUserIpChanges(userIds, ipStrings);
   return result;
 }
@@ -57,11 +57,11 @@ export async function ban(
  * @param muid id of the mod that bans
  * @return boolean success
  */
-export async function unban(userIds, ipStrings, mute, ban, ...args) {
+export async function unban(ipStrings, userIds, mute, ban, ...args) {
   if (!mute && !ban) {
     return 0;
   }
-  const result = await unbanQuery(userIds, ipStrings, mute, ban, ...args);
+  const result = await unbanQuery(ipStrings, userIds, mute, ban, ...args);
   notifyUserIpChanges(userIds, ipStrings);
   return result;
 }

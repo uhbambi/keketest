@@ -9,7 +9,7 @@ import mailProvider from '../../../core/MailProvider';
 import getMe from '../../../core/me';
 import { openSession } from '../../../middleware/session';
 import { getHostFromRequest } from '../../../utils/intel/ip';
-import { checkIfMailDisposable } from '../../../core/ipUserIntel';
+import { checkMailOverShards } from '../../../utils/intel';
 import {
   validateEMail,
   validateName,
@@ -82,7 +82,7 @@ export default async (req, res) => {
     }
   }
 
-  if (!errors.length && await checkIfMailDisposable(email)) {
+  if (!errors.length && await checkMailOverShards(email)) {
     errors.push(t`This email provider is not allowed`);
   }
 
@@ -105,7 +105,7 @@ export default async (req, res) => {
   }
 
   let tpid;
-  const user = await createNewUser(name, password, email);
+  const user = await createNewUser(name, password);
   if (!user) {
     res.status(500);
     res.json({

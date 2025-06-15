@@ -3,21 +3,20 @@
  */
 
 import logger from '../../core/logger';
-import { banIP } from '../../data/sql/IPBan';
+import { ban } from '../../core/ban';
 import { getIPv6Subnet, getIPFromRequest } from '../../utils/ip';
 
 async function banme(req, res) {
-  const { code } = req.body;
+  const { body: { code }, ip: { ipString} } = req;
 
-  const ip = getIPFromRequest(req);
   // eslint-disable-next-line max-len
-  logger.info(`AUTOBAN ${code} - ${ip} of user ${req.user.id} with ua "${req.headers['user-agent']}"`);
+  logger.info(`AUTOBAN ${code} - ${ipString} of user ${req.user?.id} with ua "${req.headers['user-agent']}"`);
 
   let reason = 'AUTOBAN';
-  let expires = 0;
+  let duration = 0;
   if (code === 1) {
     reason = 'Userscript Bot';
-    expires = Date.now() + 1000 * 3600 * 24 * 14;
+    duration = 3600 * 24 * 14;
   /*
    * ignore it for now to collect data manually
    *
@@ -34,19 +33,14 @@ async function banme(req, res) {
   */
   } else if (code === 3) {
     reason = 'Proxy Malware detected';
-    expires = Date.now() + 1000 * 3600 * 24 * 14;
+    duration = 3600 * 24 * 14;
   } else {
     res.json({
       status: 'nope',
     });
     return;
   }
-  await banIP(
-    getIPv6Subnet(ip),
-    reason,
-    expires,
-    1,
-  );
+  await ban(ipString, req.user?.id, false, true, reason, duration);
   res.json({
     status: 'ok',
   });

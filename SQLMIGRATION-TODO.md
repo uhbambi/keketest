@@ -21,10 +21,7 @@ delete redditid
 
 add a dropdown for expiration: Browser close, 30 days, 1 year, forevers
 
-When a user leaves a DM channel, the channel shall be deleted.
-Same if the last person leaves a group chat.
-
-socketEvents.reloadUser needs to be changed from name to id
+Avoid DataTypes.BIGINT.UNSIGNED or make it return sane
 
 # rwhois tests
 

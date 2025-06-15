@@ -10,18 +10,14 @@ import { validateEMail } from '../../../utils/validation';
 
 export default async (req, res) => {
   const { email, token } = req.query;
-  const { lang } = req;
-  const { t } = req.ttag;
+  const { lang, ttag: { t } } = req;
 
   const host = getHostFromRequest(req);
   const error = validateEMail(email);
   if (!error) {
-    const name = await MailProvider.verify(email, token);
-    if (name) {
-      // notify websocket to reconnect user
-      // that's a bit counter productive because it directly links to the websocket
-      socketEvents.reloadUser(name);
-      // ---
+    const userId = await MailProvider.verify(email, token);
+    if (userId) {
+      socketEvents.reloadUser(userId);
       const index = getHtml(
         t`Mail verification`,
         t`You are now verified :)`,

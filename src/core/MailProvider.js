@@ -11,7 +11,7 @@ import { getTTag } from './ttag';
 import { codeExists, checkCode, setCode } from '../data/redis/mailCodes';
 import socketEvents from '../socket/socketEvents';
 import { USE_MAILER, MAIL_ADDRESS } from './config';
-import { getUserByEmail, verifyEmail, USERLVL } from '../data/sql/RegUser';
+import { getUserByEmail, verifyEmail, USERLVL } from '../data/sql/User';
 
 export class MailProvider {
   constructor() {
@@ -121,8 +121,8 @@ export class MailProvider {
       return t`We already sent you a mail with instructions. Please wait before requesting another mail.`;
     }
 
-    const reguser = await getUserByEmail(to);
-    if (!reguser) {
+    const userdata = await getUserByEmail(to);
+    if (!userdata) {
       logger.info(
         `Password reset mail for ${to} requested by ${ip} - mail not found`,
       );
@@ -143,11 +143,11 @@ export class MailProvider {
     if (!ret) {
       return false;
     }
-    const name = await verifyEmail(email);
-    if (!name) {
+    const userId = await verifyEmail(email);
+    if (!userId) {
       logger.error(`${email} does not exist in database`);
     }
-    return name;
+    return userId;
   }
 }
 

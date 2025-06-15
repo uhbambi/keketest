@@ -135,6 +135,27 @@ export const getIPIntel = queue(async function getIPIntel(
   return [ whoisData, proxyCheckData];
 });
 
+const disposableEmailDomainCache = {};
+
+export const checkMail = queue(async function checkMail(email) {
+  if (!email) {
+    return false;
+  }
+  const domain = email.substring(email.lastIndexOf('@') + 1);
+  const tld = domain.substring(domain.lastIndexOf('.') + 1);
+  if (tld === 'sbs' || tld === 'cyou' || domain === 'fuckmeuwu.shop') {
+    return true;
+  }
+  const cache = disposableEmailDomainCache[domain]
+  if (cache) {
+    return cache;
+  }
+  const isDisposable = await mailChecker(email);
+  if (isDisposable) {
+    disposableEmailDomainCache[domain] = true;
+  }
+});
+
 /*
  * the following is for shards,
  * only the main shard shall handle proxycheck and whois requests, other shards
@@ -148,8 +169,19 @@ socketEvents.onReq('ipintel', (...args) => {
   }
 });
 
+socketEvents.onReq('mailintel', (...args) => {
+  if (socketEvents.important) {
+    return getIPIntel(...args);
+  }
+});
+
 /* send request */
 // eslint-disable-next-line max-len
 export const getIPIntelOverShards = queue(async function getIPIntelOverShards(...args) {
-  return await socketEvents.req('ipintel', ...args)
+  return await socketEvents.req('ipintel', ...args);
+});
+
+// eslint-disable-next-line max-len
+export const checkMailOverShards = queue(async function checkMailOverShards(...args) {
+  return await socketEvents.req('mailintel', ...args);
 });

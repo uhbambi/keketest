@@ -6,7 +6,11 @@
 
 import logger from '../../core/logger';
 import socketEvents from '../../socket/socketEvents';
-import { RegUser, UserBlock, Channel } from '../../data/sql';
+import { findUserByIdOrName } from '../../data/sql/User';
+import { deleteDMChannel } from '../../data/sql/Channel';
+import {
+  blockUser, unblockUser,
+} from '../../data/sql/association_models/UserBlock';
 
 async function block(req, res) {
   let userId = parseInt(req.body.userId, 10);
@@ -20,13 +24,9 @@ async function block(req, res) {
     if (userId && Number.isNaN(userId)) {
       errors.push('Invalid userId');
     }
-    query.id = userId;
   }
   if (typeof blocking !== 'boolean') {
     errors.push('Not defined if blocking or unblocking');
-  }
-  if (userName) {
-    query.name = userName;
   }
   if (!userName && !userId) {
     errors.push('No userId or userName defined');
@@ -42,14 +42,8 @@ async function block(req, res) {
     return;
   }
 
-  const targetUser = await RegUser.findOne({
-    where: query,
-    attributes: [
-      'id',
-      'name',
-    ],
-    raw: true,
-  });
+  const targetUser = findUserByIdOrName(userId, userName);
+
   if (!targetUser) {
     res.status(401);
     res.json({
@@ -62,48 +56,14 @@ async function block(req, res) {
 
   let ret;
   if (blocking) {
-    ret = await UserBlock.findOrCreate({
-      where: {
-        uid: user.id,
-        buid: userId,
-      },
-      raw: true,
-      attributes: ['uid'],
-    });
+    ret = await blockUser(user.id, userId);
+    const dmChannelId = await deleteDMChannel(user.id, userId);
+    if (dmChannelId) {
+      socketEvents.broadcastRemoveChatChannel(user.id, dmChannelId);
+      socketEvents.broadcastRemoveChatChannel(userId, dmChannelId);
+    }
   } else {
-    ret = await UserBlock.destroy({
-      where: {
-        uid: user.id,
-        buid: userId,
-      },
-    });
-  }
-
-  /*
-   * delete possible dm channel
-   */
-  let dmu1id;
-  let dmu2id;
-  if (user.id > userId) {
-    dmu1id = userId;
-    dmu2id = user.id;
-  } else {
-    dmu1id = user.id;
-    dmu2id = userId;
-  }
-
-  const channel = await Channel.findOne({
-    where: {
-      type: 1,
-      dmu1id,
-      dmu2id,
-    },
-  });
-  if (channel) {
-    const channelId = channel.id;
-    channel.destroy();
-    socketEvents.broadcastRemoveChatChannel(user.id, channelId);
-    socketEvents.broadcastRemoveChatChannel(userId, channelId);
+    ret = await unblockUser(user.id, userId);
   }
 
   if (ret) {

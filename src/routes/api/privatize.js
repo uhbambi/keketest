@@ -4,6 +4,8 @@
  *
  */
 import logger from '../../core/logger';
+import { setFlagOfUser } from '../../data/sql/User';
+import { USER_FLAGS } from '../../core/constants';
 
 async function privatize(req, res) {
   const { priv } = req.body;
@@ -16,13 +18,9 @@ async function privatize(req, res) {
     return;
   }
 
-  logger.info(
-    `User ${user.name} set private status to ${priv}`,
-  );
+  logger.info(`User ${user.name} set private status to ${priv}`);
 
-  await user.regUser.update({
-    priv,
-  });
+  await setFlagOfUser(user.id, USER_FLAGS.PRIV, priv);
 
   res.json({
     status: 'ok',

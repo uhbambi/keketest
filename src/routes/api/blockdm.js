@@ -5,6 +5,9 @@
  */
 import logger from '../../core/logger';
 import socketEvents from '../../socket/socketEvents';
+import { setFlagOfUser } from '../../data/sql/User';
+import { deleteAllDMChannelsOfUser } from '../../data/sql/Channel';
+import { USER_FLAGS } from '../../core/constants';
 
 async function blockdm(req, res) {
   const { block } = req.body;
@@ -17,26 +20,17 @@ async function blockdm(req, res) {
     return;
   }
 
-  logger.info(
-    `User ${user.name} (un)blocked all dms`,
-  );
+  logger.info(`User ${user.name} (un)blocked all dms`);
 
-  await user.regUser.update({
-    blockDm: block,
-  });
+  await setFlagOfUser(user.id, USER_FLAGS.BLOCK_DM, block);
 
-  /*
-   * remove all dm channels
-   */
-  const channels = user.regUser.channel;
-  for (let i = 0; i < channels.length; i += 1) {
-    const channel = channels[i];
-    if (channel.type === 1) {
-      const channelId = channel.id;
-      const { dmu1id, dmu2id } = channel;
-      channel.destroy();
-      socketEvents.broadcastRemoveChatChannel(dmu1id, channelId);
-      socketEvents.broadcastRemoveChatChannel(dmu2id, channelId);
+  if (block) {
+    const dmChannels = await deleteAllDMChannelsOfUser(user.id);
+    if (dmChannels?.length > 0) {
+      dmChannels.forEach(({ cid, uidA, uidB }) => {
+        socketEvents.broadcastRemoveChatChannel(uidA, cid);
+        socketEvents.broadcastRemoveChatChannel(uidB, cid);
+      });
     }
   }
 

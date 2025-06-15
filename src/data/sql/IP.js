@@ -256,14 +256,19 @@ export async function getIPofIID(uuid) {
   return null;
 }
 
-export async function getIIDofIP(ip) {
+/**
+ * get IID of ip (which is just the uuid in this table)
+ * @param ipString ip as String
+ * @return null | uuid as String
+ */
+export async function getIIDofIP(ipString) {
   try {
     const result = await IP.findOne({
       attributes: [
         [Sequelize.fn('BIN_TO_UUID', Sequelize.col('uuid')), 'uuid'],
       ],
       where: {
-        ip: Sequelize.fn('IP_TO_BIN', ip),
+        ip: Sequelize.fn('IP_TO_BIN', ipString),
       },
       raw: true,
     });

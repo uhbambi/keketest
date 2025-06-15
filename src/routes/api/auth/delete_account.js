@@ -3,12 +3,11 @@
  */
 
 import logger from '../../../core/logger';
-import { getIPFromRequest } from '../../../utils/ip';
 import socketEvents from '../../../socket/socketEvents';
-import { RegUser } from '../../../data/sql';
 import { validatePassword } from '../../../utils/validation';
-import { checkIfMuted } from '../../../data/redis/chat';
 import { compareToHash } from '../../../utils/hash';
+import { deleteUser } from '../../../data/sql/User';
+import { clearCookie } from '../../../middleware/session';
 
 function validate(password, gettext) {
   const errors = [];
@@ -34,16 +33,7 @@ export default async (req, res) => {
   const { user } = req;
   const { id, name } = user;
 
-  const mutedTtl = await checkIfMuted(id);
-  if (mutedTtl !== -2) {
-    res.status(403);
-    res.json({
-      errors: [t`Muted Users can not delete their account.`],
-    });
-    return;
-  }
-
-  const currentPassword = user.regUser.password;
+  const currentPassword = user.data.password;
   if (!currentPassword || !compareToHash(password, currentPassword)) {
     res.status(400);
     res.json({
@@ -53,24 +43,29 @@ export default async (req, res) => {
   }
 
   // eslint-disable-next-line max-len
-  logger.info(`AUTH: Deleted user ${user.regUser.name}(${user.id}) by ${getIPFromRequest(req)}`);
+  logger.info(`AUTH: Deleted user ${user.name}(${user.id}) by ${req.ip.ipString}`);
 
-  req.logout((err) => {
-    if (err) {
-      res.status(500);
-      res.json({
-        errors: [t`Server error when logging out.`],
-      });
-      return;
-    }
-
-    RegUser.destroy({ where: { id } });
-
-    socketEvents.reloadUser(name);
-
-    res.status(200);
+  const ret = await deleteUser(user.id);
+  if (!ret) {
+    res.status(500);
     res.json({
-      success: true,
+      errors: [t`Server error when deleting user.`],
     });
+    return;
+  }
+  const { dmChannels } = ret;
+  if (dmChannels.length > 0) {
+    dmChannels.forEach(({ cid, uidA, uidB }) => {
+      socketEvents.broadcastRemoveChatChannel(uidA, cid);
+      socketEvents.broadcastRemoveChatChannel(uidB, cid);
+    });
+  }
+  clearCookie(req, res);
+
+  socketEvents.reloadUser(user.id);
+
+  res.status(200);
+  res.json({
+    success: true,
   });
 };

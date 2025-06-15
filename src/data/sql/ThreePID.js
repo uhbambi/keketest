@@ -81,6 +81,25 @@ export async function addOrReplaceTpid(uid, provider, tpid, verified = null) {
   return true;
 }
 
+export async function getEmailOfUser(uid) {
+  try {
+    const tpid = await ThreePID.findOne({
+      attributes: ['tpid'],
+      where: {
+        uid,
+        provider: THREEPID_PROVIDERS.EMAIL,
+      },
+      raw: true,
+    });
+    if (tpid) {
+      return tpid['tpid'];
+    }
+  } catch (error) {
+    console.error(`SQL Error on getEmailOfUser: ${error.message}`);
+  }
+  return null;
+}
+
 /**
  * set email of user
  * @param uid user id
@@ -91,33 +110,43 @@ export async function addOrReplaceTpid(uid, provider, tpid, verified = null) {
  */
 export async function setEmail(uid, email, verified = false) {
   try {
-    const existingEmail = await ThreePID.findOne({
-      where: {
-        provider: THREEPID_PROVIDERS.EMAIL,
-        normalizedTpid: Sequelize.fn(
-          'NORMALIZE_TPID', THREEPID_PROVIDERS.EMAIL, email,
-        ),
-      },
-      raw: true,
-    });
-    if (existingEmail?.uid !== uid) {
+    const [existingEmail, existingUserEmail] = await Promise.all([
+      ThreePID.findOne({
+        attributes: ['uid'],
+        where: {
+          provider: THREEPID_PROVIDERS.EMAIL,
+          normalizedTpid: Sequelize.fn(
+            'NORMALIZE_TPID', THREEPID_PROVIDERS.EMAIL, email,
+          ),
+        },
+        raw: true,
+      }),
+      ThreePID.findOne({
+        where: {
+          uid,
+          provider: THREEPID_PROVIDERS.EMAIL,
+        },
+        raw: true,
+      }),
+    ]);
+    if (existingEmail) {
       return null;
     }
 
     const transaction = await sequelize.transaction();
 
     try {
-      if (existingEmail) {
+      if (existingUserEmail) {
         await Promise.all([
           ThreePIDHistory.create({
-            uid: existingEmail.uid,
+            uid: existingUserEmail.uid,
             provider: THREEPID_PROVIDERS.EMAIL,
-            tpid: existingEmail.email,
-            verified: existingEmail.verified,
-            createdAt: existingEmail.createdAt,
+            tpid: existingUserEmail.email,
+            verified: existingUserEmail.verified,
+            createdAt: existingUserEmail.createdAt,
           }), { transaction },
           ThreePID.destroy({
-            where: { id: existingEmail.id },
+            where: { id: existingUserEmail.id },
             transaction,
           }),
         ]);
