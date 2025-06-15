@@ -18,7 +18,7 @@ async function baninfo(req, res) {
     /* null if permanent */
     sleft: ban.expires
       && Math.ceil((ban.expires.getTime() - Date.now()) / 1000),
-    mod: `${ban.mod.name} (${ban.mod.id})`,
+    mod: ban.mod && `${ban.mod.name} (${ban.mod.id})`,
   }));
 
   res.status(200).json(infos);
