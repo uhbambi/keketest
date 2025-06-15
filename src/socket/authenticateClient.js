@@ -5,12 +5,13 @@
 import express from 'express';
 
 import { verifySessionPromisified } from '../middleware/session';
-import { ipAllowancePromisified } from '../middleware/ip';
+import { parseIP, ipAllowancePromisified } from '../middleware/ip';
 import promises from '../middleware/promises';
 import { expressTTag } from '../middleware/ttag';
 
 const router = express.Router();
 
+router.use(parseIP);
 router.use(verifySessionPromisified);
 router.use(ipAllowancePromisified);
 

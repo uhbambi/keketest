@@ -4,7 +4,6 @@
 
 import logger from '../../core/logger';
 import { ban } from '../../core/ban';
-import { getIPv6Subnet, getIPFromRequest } from '../../utils/ip';
 
 async function banme(req, res) {
   const { body: { code }, ip: { ipString} } = req;

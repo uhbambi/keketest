@@ -116,6 +116,7 @@ function parseWhois(ip, whoisReturn) {
     || whoisData['aut-num'];
   if (asn) {
     // use only first ASN from possible list
+    // eslint-disable-next-line prefer-destructuring
     asn = asn.split(',')[0].split('\n')[0];
     // only number
     if (asn.startsWith('AS')) {
@@ -130,8 +131,8 @@ function parseWhois(ip, whoisReturn) {
       }
     } else {
       // asdot
-      const p1 = parseInt(asn.slice(0, dotIndex));
-      const p2 = parseInt(asn.slice(dotIndex + 1));
+      const p1 = parseInt(asn.slice(0, dotIndex), 10);
+      const p2 = parseInt(asn.slice(dotIndex + 1), 10);
       if (!Number.isNaN(p1) && !Number.isNaN(p2)) {
         data.asn = (p1 << 16) | p2;
       }

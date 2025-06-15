@@ -3,7 +3,6 @@
  */
 
 import logger from '../../../core/logger';
-import { getIPFromRequest } from '../../../utils/ip';
 import { validatePassword } from '../../../utils/validation';
 import { compareToHash } from '../../../utils/hash';
 import { setPassword } from '../../../data/sql/User';

@@ -18,6 +18,7 @@ import { setPixelByCoords } from '../core/setPixel';
 import logger from '../core/logger';
 import { APISOCKET_KEY } from '../core/config';
 import { checkIfMuted } from '../data/redis/chat';
+import authenticateAPIClient from './authenticateAPIClient';
 
 
 class APISocketServer {
@@ -67,9 +68,10 @@ class APISocketServer {
     setInterval(this.ping, 45 * 1000);
   }
 
-  handleUpgrade(request, socket, head) {
+  async handleUpgrade(request, socket, head) {
+    await authenticateAPIClient(request);
     const { headers } = request;
-    const ip = getIPFromRequest(request);
+    const { ipString: ip} = request.ip;
 
     if (!headers.authorization
       || !APISOCKET_KEY

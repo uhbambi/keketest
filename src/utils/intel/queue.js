@@ -10,7 +10,7 @@
  * @return new async function
  */
 export function queue(func, gracePeriod = 5000) {
-  let queue = [];
+  let funcQueue = [];
   let lastCleanTs = 0;
 
   return (...args) => {
@@ -18,17 +18,17 @@ export function queue(func, gracePeriod = 5000) {
     const currentTs = Date.now();
     /* clean outdated requests */
     if (lastCleanTs < currentTs - gracePeriod) {
-      queue = queue.filter(([,, ts]) => !ts || ts > currentTs);
-      console.log(`Reduced queue ${func.name} to ${queue.length}`);
+      funcQueue = funcQueue.filter(([,, ts]) => !ts || ts > currentTs);
+      console.log(`Reduced queue ${func.name} to ${funcQueue.length}`);
       lastCleanTs = currentTs;
     }
     /* try to find equal request */
-    const runReq = queue.find((q) => q[0] === ident);
+    const runReq = funcQueue.find((q) => q[0] === ident);
     if (runReq) {
       return runReq[1];
     }
     /* queue new request */
-    let queueObject = [ident];
+    const queueObject = [ident];
     const promise = new Promise((res, rej) => {
       func(...args).then(res).catch(rej).finally(() => {
         queueObject.push(Date.now() + gracePeriod);
@@ -42,7 +42,7 @@ export function queue(func, gracePeriod = 5000) {
      */
     if (queueObject.length === 1) {
       queueObject.push(promise);
-      queue.push(queueObject);
+      funcQueue.push(queueObject);
     }
     return promise;
   };
@@ -55,22 +55,20 @@ export function queue(func, gracePeriod = 5000) {
  * @return new async function
  */
 export function queueWithoutGracePeriod(func) {
-  const queue = [];
+  const funcQueue = [];
 
   return (...args) => {
     const ident = args.join('-');
-    const runReq = queue.find((q) => q[0] === ident);
+    const runReq = funcQueue.find((q) => q[0] === ident);
     if (runReq) {
       return runReq[1];
     }
     const promise = new Promise((res, rej) => {
       func(...args).then(res).catch(rej).finally(() => {
-        queue.splice(queue.findIndex((q) => q[0] === ident), 1);
+        funcQueue.splice(funcQueue.findIndex((q) => q[0] === ident), 1);
       });
     });
-    queue.push([ident, promise]);
+    funcQueue.push([ident, promise]);
     return promise;
   };
 }
-
-export default queue;

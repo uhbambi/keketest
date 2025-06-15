@@ -367,7 +367,7 @@ class ProxyCheck {
         cb(disposable);
       } else {
         // ip check
-
+        // eslint-disable-next-line no-lonely-if
         if (res[value]) {
           this.logger.info(`IP ${value}: ${JSON.stringify(res[value])}`);
           const result = res[value];

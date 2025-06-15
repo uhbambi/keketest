@@ -1,13 +1,7 @@
 /*
  * tell user his own IID
  */
-import {
-  getIPFromRequest,
-  getIPv6Subnet,
-} from '../../utils/ip';
-import {
-  getIIDofIP,
-} from '../../data/sql/IP';
+import { getIIDofIP } from '../../data/sql/IP';
 
 async function getiid(req, res, next) {
   try {

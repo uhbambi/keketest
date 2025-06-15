@@ -19,7 +19,6 @@ async function block(req, res) {
   const { user } = req;
 
   const errors = [];
-  const query = {};
   if (userId) {
     if (userId && Number.isNaN(userId)) {
       errors.push('Invalid userId');

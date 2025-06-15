@@ -46,7 +46,7 @@ export async function blockUser(uid, buid) {
  * @param buid id of user who is blocked
  * @return boolnea if successful
  */
-export async function blockUser(uid, buid) {
+export async function unblockUser(uid, buid) {
   try {
     const rows = await UserBlock.destroy({ where: { uid, buid } });
     return rows > 0;

@@ -51,7 +51,7 @@ async function wsupgrade(request, socket, head) {
     if (pathname === '/ws') {
       await usersocket.handleUpgrade(request, socket, head);
     } else if (pathname === '/mcws') {
-      apisocket.handleUpgrade(request, socket, head);
+      await apisocket.handleUpgrade(request, socket, head);
     } else {
       socket.write('HTTP/1.1 404 Not found\r\n\r\n');
       socket.destroy();
