@@ -56,6 +56,7 @@ const Chat = () => {
     setArgs({
       chatChannel: Number(cid),
     });
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dispatch]);
 
   const addToInput = useCallback((msg) => {
@@ -100,18 +101,20 @@ const Chat = () => {
     if (channels[chatChannel] && !messages[chatChannel] && !fetching) {
       dispatch(fetchChatMessages(chatChannel));
     }
-  }, [channels, messages, chatChannel]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [channels, messages, chatChannel, fetching]);
 
   useEffect(() => {
     if (channels[chatChannel]) {
       const channelName = channels[chatChannel][0];
       setTitle(`Chan: ${channelName}`);
     }
-  }, [chatChannel]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [chatChannel, channels]);
 
   useLayoutEffect(() => {
     stayScrolled();
-  }, [channelMessages.length]);
+  }, [channelMessages.length, stayScrolled]);
 
   useEffect(() => {
     setTimeout(() => {
@@ -126,6 +129,7 @@ const Chat = () => {
       bl.push(blocked[i][0]);
     }
     setBlockedIds(bl);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [blocked.length]);
 
   function handleSubmit(evt) {
@@ -149,7 +153,8 @@ const Chat = () => {
         setChannel(cids[0]);
       }
     }
-  }, [channels]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [channels, chatChannel]);
 
   return (
     <div

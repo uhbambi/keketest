@@ -33,6 +33,11 @@ import WindowContext from './context/window';
 import COMPONENTS from './windows';
 import popUpTypes from './windows/popUpAvailable';
 
+/*
+ * disabled for id and dispatch
+ */
+/* eslint-disable react-hooks/exhaustive-deps */
+
 const Window = ({ id }) => {
   const [render, setRender] = useState(false);
 
@@ -86,12 +91,14 @@ const Window = ({ id }) => {
     width, height,
   } = position;
 
+  const shown = !render && hidden;
+
   useDrag(
     titleBarRef,
     focus,
     useCallback((xDiff, yDiff) => dispatch(
       moveWindow(id, xDiff, yDiff),
-    ), [fullscreen, !render && hidden]),
+    ), [fullscreen, shown]),
   );
 
   useDrag(
@@ -99,7 +106,7 @@ const Window = ({ id }) => {
     focus,
     useCallback((xDiff, yDiff) => dispatch(
       resizeWindow(id, xDiff, yDiff),
-    ), [fullscreen, !render && hidden]),
+    ), [fullscreen, shown]),
   );
 
   const onTransitionEnd = useCallback(() => {
