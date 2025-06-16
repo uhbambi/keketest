@@ -35,7 +35,7 @@ import {
   dehydrateFishCatched,
 } from './packets/server';
 import socketEvents from './socketEvents';
-import chatProvider, { ChatProvider } from '../core/ChatProvider';
+import chatProvider from '../core/ChatProvider';
 import authenticateClient from './authenticateClient';
 import drawByOffsets from '../core/draw';
 import { HOUR } from '../core/constants';
@@ -108,7 +108,7 @@ class SocketServer {
           this.onBinaryMessage(data, ws);
         } else {
           const message = data.toString();
-          this.onTextMessage(message, ws);
+          SocketServer.onTextMessage(message, ws);
         }
       });
     });
@@ -233,13 +233,12 @@ class SocketServer {
 
   async handleUpgrade(request, socket, head) {
     await authenticateClient(request);
-    const { headers, user } = request;
-    const { ipString: ip } = request.ip;
+    const { headers, ip: { ipString } } = request;
     /*
      * rate limit
      */
     const isLimited = rateLimiter.tick(
-      ip,
+      ipString,
       3000,
       'connection attempts',
       SocketServer.onRateLimitTrigger,
@@ -258,7 +257,7 @@ class SocketServer {
       || !`.${origin.slice(origin.indexOf('//') + 2)}`.endsWith(host)
     ) {
       // eslint-disable-next-line max-len
-      logger.info(`Rejected CORS request on websocket from ${ip} via ${headers.origin}, expected ${getHostFromRequest(request, false, true)}`);
+      logger.info(`Rejected CORS request on websocket from ${ipString} via ${headers.origin}, expected ${getHostFromRequest(request, false, true)}`);
       socket.write('HTTP/1.1 403 Forbidden\r\n\r\n');
       socket.destroy();
       return;
@@ -266,13 +265,13 @@ class SocketServer {
     /*
      * Limiting socket connections per ip
      */
-    if (ipCounter.get(ip) > 50) {
-      SocketServer.onRateLimitTrigger(ip, HOUR, 'too many connections');
+    if (ipCounter.get(ipString) > 50) {
+      SocketServer.onRateLimitTrigger(ipString, HOUR, 'too many connections');
       socket.write('HTTP/1.1 403 Forbidden\r\n\r\n');
       socket.destroy();
       return;
     }
-    ipCounter.add(ip);
+    ipCounter.add(ipString);
 
     this.wss.handleUpgrade(request, socket, head, (ws) => {
       this.wss.emit('connection', ws, request);
@@ -474,7 +473,7 @@ class SocketServer {
     }
   }
 
-  async onTextMessage(text, ws) {
+  static async onTextMessage(text, ws) {
     const { ipString } = ws.ip;
     // rate limit
     const isLimited = rateLimiter.tick(

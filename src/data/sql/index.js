@@ -1,10 +1,9 @@
-import { Op } from 'sequelize';
 import User, { USERLVL } from './User';
 import Channel, { CHANNEL_TYPES } from './Channel';
 import Message from './Message';
 import Session from './Session';
 import IP from './IP';
-import ProxyData from './ProxyData';
+import ProxyData from './Proxy';
 import RangeData from './Range';
 import Ban from './Ban';
 import BanHistory from './BanHistory';

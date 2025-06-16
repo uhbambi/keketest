@@ -37,12 +37,13 @@ function notifyUserIpChanges(userIds, ipStrings) {
  * @param muid id of the mod that bans
  */
 export async function ban(
+  // eslint-disable-next-line no-shadow
   ipStrings, userIds, mute, ban, reason, ...args
 ) {
   if ((!mute && !ban) || !reason) {
     return false;
   }
-  const result = await ban(ipStrings, userIds, mute, ban, reason, ...args);
+  const result = await banQuery(ipStrings, userIds, mute, ban, reason, ...args);
   notifyUserIpChanges(userIds, ipStrings);
   return result;
 }
@@ -57,7 +58,10 @@ export async function ban(
  * @param muid id of the mod that bans
  * @return boolean success
  */
-export async function unban(ipStrings, userIds, mute, ban, ...args) {
+export async function unban(
+  // eslint-disable-next-line no-shadow
+  ipStrings, userIds, mute, ban, ...args
+) {
   if (!mute && !ban) {
     return 0;
   }

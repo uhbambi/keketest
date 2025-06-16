@@ -33,8 +33,6 @@ import Renderer from './Renderer';
 import ChunkLoader from './ChunkLoader2D';
 import pixelNotify from './PixelNotify';
 
-const LOG_FRAC = Math.log2(TILE_ZOOM_LEVEL);
-
 class Renderer2D extends Renderer {
   canvasId = null;
   viewscale = 0;

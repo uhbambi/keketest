@@ -1,5 +1,3 @@
-import Sequelize from 'sequelize';
-
 import logger from '../../../core/logger';
 import { createNewUser, getUsersByNameOrEmail } from '../../../data/sql/User';
 import {
@@ -104,7 +102,6 @@ export default async (req, res) => {
     return;
   }
 
-  let tpid;
   const user = await createNewUser(name, password);
   if (!user) {
     res.status(500);

@@ -3,9 +3,9 @@
  */
 import logger from './logger';
 import RateLimiter from '../utils/RateLimiter';
-import { UserChannel, Message, USERLVL } from '../data/sql';
-import User, { findIdByNameOrId, getDummyUser } from '../data/sql/User';
-import Channel, { getDefaultChannel } from '../data/sql/Channel';
+import { USERLVL } from '../data/sql';
+import { findIdByNameOrId, getDummyUser } from '../data/sql/User';
+import { getDefaultChannel } from '../data/sql/Channel';
 import ChatMessageBuffer from './ChatMessageBuffer';
 import socketEvents from '../socket/socketEvents';
 import { ban, unban } from './ban';
@@ -15,7 +15,7 @@ import {
   isCountryMuted,
 } from '../data/redis/chat';
 import { escapeMd } from './utils';
-import ttags from './ttag';
+import ttags from '../middleware/ttag';
 
 import { USE_MAILER } from './config';
 import {
@@ -292,9 +292,6 @@ export class ChatProvider {
    * @return error message if unsuccessful, otherwise null
    */
   async sendMessage(user, ip, message, channelId, lang, ttag) {
-    if (!user) {
-      return;
-    }
     const { id } = user;
     const { t } = ttag;
     const { name } = user.data;
@@ -314,6 +311,7 @@ export class ChatProvider {
       return t`You don\'t have access to this channel`;
     }
 
+    // eslint-disable-next-line prefer-const
     let { isBanned, isMuted, isProxy } = await user.getAllowance();
     if (isProxy) {
       return t`You can not send chat messages while using a proxy`;

@@ -273,6 +273,10 @@ router.use(async (req, res, next) => {
 
 // eslint-disable-next-line no-unused-vars
 router.use((err, req, res, next) => {
+  if (res.headersSent) {
+    next(err);
+    return;
+  }
   res.status(400).send(err.message);
   logger.error(
     // eslint-disable-next-line max-len

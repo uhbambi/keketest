@@ -12,12 +12,9 @@ import WebSocket from 'ws';
 import socketEvents from './socketEvents';
 import { dehydrateOnlineCounter } from './packets/server';
 import chatProvider from '../core/ChatProvider';
-import { RegUser } from '../data/sql';
-import { getIPFromRequest } from '../utils/ip';
 import { setPixelByCoords } from '../core/setPixel';
 import logger from '../core/logger';
 import { APISOCKET_KEY } from '../core/config';
-import { checkIfMuted } from '../data/redis/chat';
 import authenticateAPIClient from './authenticateAPIClient';
 
 
@@ -186,24 +183,6 @@ class APISocketServer {
     return chanReply;
   }
 
-  static async getFlagOfUser(userId) {
-    try {
-      const reguser = await RegUser.findOne({
-        attributes: ['flag'],
-        where: {
-          id: userId,
-        },
-      });
-      if (!reguser) {
-        throw new Error('User not found');
-      }
-      return reguser.flag;
-    } catch {
-      logger.info(`Flag to user ${userId} could not be determined`);
-    }
-    return null;
-  }
-
   async onTextMessage(message, ws) {
     try {
       const packet = JSON.parse(message);
@@ -242,13 +221,6 @@ class APISocketServer {
         const [name, id, msg, country, channelId] = packet;
         const uid = id || chatProvider.apiSocketUserId;
         /*
-         * don't send if muted
-         */
-        const mutedTtl = await checkIfMuted(uid);
-        if (mutedTtl !== -2) {
-          return;
-        }
-        /*
          * do not send message back up ws that sent it
          */
         chatProvider.broadcastChatMessage(
@@ -268,12 +240,6 @@ class APISocketServer {
           true,
           ws,
         );
-        return;
-      }
-      if (command === 'getflag') {
-        const [uid] = packet;
-        const flag = await APISocketServer.getFlagOfUser(uid);
-        ws.send(JSON.stringify(['flag', uid, flag]));
         return;
       }
       logger.info(`Received unknown api-ws message ${message}`);

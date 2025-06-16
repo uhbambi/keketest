@@ -1,7 +1,6 @@
 import express from 'express';
 
 import { verifySession, ensureLoggedIn } from '../../middleware/session';
-import User from '../../data/User';
 import MassRateLimiter from '../../utils/MassRateLimiter';
 import logger from '../../core/logger';
 import { HOUR } from '../../core/constants';
@@ -100,7 +99,8 @@ router.post('/privatize', privatize);
 // eslint-disable-next-line no-unused-vars
 router.use((err, req, res, next) => {
   if (res.headersSent) {
-    return next(err);
+    next(err);
+    return;
   }
   res.status(err.status || 400).json({
     errors: [err.message],

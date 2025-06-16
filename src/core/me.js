@@ -6,7 +6,7 @@
  */
 import getLocalizedCanvases from '../canvasesDesc';
 import { USERLVL } from '../data/sql';
-import { getUserRanks } from './redis/ranks';
+import { getUserRanks } from '../data/redis/ranks';
 import { USE_MAILER } from './config';
 import { USER_FLAGS } from './constants';
 import chatProvider from './ChatProvider';

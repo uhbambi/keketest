@@ -2,7 +2,7 @@
  * express middlewares for handling user sessions
  */
 import { parse as parseCookie } from 'cookie';
-import { HOUR } from '../cores/constants';
+import { HOUR } from '../core/constants';
 
 import {
   resolveSession, createSession, removeSession,
@@ -67,7 +67,7 @@ class User {
 
   touch(ipString) {
     if (this.#data.lastSeen.getTime() > Date.now() - 10 * 60 * 1000) {
-      return;
+      return null;
     }
     return touchUser(this.id, ipString);
   }
@@ -144,7 +144,7 @@ export async function verifySession(req, res, next) {
  * Promise can be resolved by './promises.js' middleware.
  * This has the purpose to allow other actions to happen while we wait for SQL.
  */
-export async function verifySessionPromisified(req, res, next) {
+export async function verifySessionPromisified(req) {
   if (!req.promise) {
     req.promise = [];
   }
@@ -224,7 +224,6 @@ export function clearCookie(req, res) {
  * @return boolean if successful
  */
 export async function closeSession(req, res) {
-  const domain = getHostFromRequest(req, false, true);
   const cookies = parseCookie(req.headers.cookie || '');
   const token = cookies['ppfun.session'];
   const success = await removeSession(token);

@@ -2,7 +2,7 @@
  * timers and cron for account related actions
  */
 
-import { populateIdObj } from '../data/sql/RegUser';
+import { populateIdObj } from '../data/sql/User';
 import {
   getRanks,
   resetDailyRanks,

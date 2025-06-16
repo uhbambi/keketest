@@ -1,7 +1,7 @@
 import express from 'express';
 
 import logger from '../../../core/logger';
-import { getHostFromRequest } from '../../../utils/ip';
+import { getHostFromRequest } from '../../../utils/intel/ip';
 import passport from '../../../core/passport';
 import { ensureLoggedIn, openSession } from '../../../middleware/session';
 
@@ -73,6 +73,10 @@ router.get('/reddit/return', passport.authenticate('reddit', {
 
 // eslint-disable-next-line no-unused-vars
 router.use((err, req, res, next) => {
+  if (res.headersSent) {
+    next(err);
+    return;
+  }
   const host = getHostFromRequest(req);
   logger.info(`Authentication error: ${err.message}`);
   const index = getHtml(

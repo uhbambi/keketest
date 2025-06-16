@@ -3,7 +3,7 @@
  */
 import ProxyCheck from './ProxyCheck';
 import whois from './whois';
-import socketEvents from '../socket/socketEvents';
+import socketEvents from '../../socket/socketEvents';
 import { getLowHexSubnetOfIP } from './ip';
 import { getRangeOfIP } from '../../data/sql/Range';
 import { getWhoisHostOfIP } from '../../data/sql/WhoisReferral';
@@ -154,6 +154,7 @@ export const checkMail = queue(async (email) => {
   if (isDisposable) {
     disposableEmailDomainCache[domain] = true;
   }
+  return isDisposable;
 });
 
 /*
@@ -167,17 +168,19 @@ socketEvents.onReq('ipintel', (...args) => {
   if (socketEvents.important) {
     return getIPIntel(...args);
   }
+  return null;
 });
 
 socketEvents.onReq('mailintel', (...args) => {
   if (socketEvents.important) {
-    return getIPIntel(...args);
+    return checkMail(...args);
   }
+  return null;
 });
 
 /* send request */
 // eslint-disable-next-line max-len
-export const getIPIntelOverShards = queue(async (...args) => await socketEvents.req('ipintel', ...args));
+export const getIPIntelOverShards = queue((...args) => socketEvents.req('ipintel', ...args));
 
 // eslint-disable-next-line max-len
-export const checkMailOverShards = queue(async (...args) => await socketEvents.req('mailintel', ...args));
+export const checkMailOverShards = queue((...args) => socketEvents.req('mailintel', ...args));

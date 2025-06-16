@@ -31,7 +31,6 @@ export default async (req, res) => {
   }
 
   const { user } = req;
-  const { id, name } = user;
 
   const currentPassword = user.data.password;
   if (!currentPassword || !compareToHash(password, currentPassword)) {

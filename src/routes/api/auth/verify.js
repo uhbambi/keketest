@@ -4,7 +4,7 @@
 
 import socketEvents from '../../../socket/socketEvents';
 import getHtml from '../../../ssr/RedirectionPage';
-import { getHostFromRequest } from '../../../utils/ip';
+import { getHostFromRequest } from '../../../utils/intel/ip';
 import { MailProvider } from '../../../core/MailProvider';
 import { validateEMail } from '../../../utils/validation';
 

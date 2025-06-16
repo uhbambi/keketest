@@ -2,8 +2,7 @@ import Sequelize, { DataTypes, Op } from 'sequelize';
 
 import sequelize from './sequelize';
 import { generateToken, generateTokenHash } from '../../utils/hash';
-import { loginInclude } from './User';
-import { HOUR, THREEPID_PROVIDERS } from '../../cores/constants';
+import { HOUR, THREEPID_PROVIDERS } from '../../core/constants';
 import { CHANNEL_TYPES } from './Channel';
 
 const Session = sequelize.define('Session', {
@@ -91,6 +90,7 @@ export async function removeSession(token) {
   } catch (error) {
     console.error(`SQL Error on removeSession: ${error.message}`);
   }
+  return false;
 }
 
 /**

@@ -13,9 +13,7 @@ import VkontakteStrategy from 'passport-vkontakte/lib/strategy';
 
 import { sanitizeName } from '../utils/validation';
 import logger from './logger';
-import {
-  ThreePID, USERLVL, THREEPID_PROVIDERS,
-} from '../data/sql';
+import { USERLVL, THREEPID_PROVIDERS } from '../data/sql';
 import {
   getUsersByNameOrEmail,
   getUserByEmail,
@@ -25,7 +23,6 @@ import {
   setUserLvl,
 } from '../data/sql/User';
 import { addOrReplaceTpid } from '../data/sql/ThreePID';
-import User from '../data/User';
 import { auth } from './config';
 import { compareToHash } from '../utils/hash';
 

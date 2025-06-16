@@ -36,7 +36,6 @@ const BanInfo = ({ close }) => {
       setErrors(infos.errors);
       return;
     }
-    const parsed = [];
     let i = infos.length;
     while (i > 0) {
       i -= 1;
@@ -46,7 +45,7 @@ const BanInfo = ({ close }) => {
       ).toLocaleString();
     }
     setBans(infos);
-  }, []);
+  }, [submitting]);
 
   const countDown = useCallback(() => {
     if (bans.length) {
@@ -70,7 +69,7 @@ const BanInfo = ({ close }) => {
         setBans(newBans);
       }
     }
-  }, [bans]);
+  }, [bans, handleSubmit]);
 
   useInterval(countDown, 1000);
 

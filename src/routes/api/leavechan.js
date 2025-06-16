@@ -31,7 +31,7 @@ async function leaveChan(req, res) {
   }
   const type = channel[1];
 
-  if (channel.type === CHANNEL_TYPES.DM) {
+  if (type === CHANNEL_TYPES.DM) {
     /* if one user leaves a DM, delete the channel */
     const uidB = channel[3];
     if (uidB) {
@@ -40,7 +40,7 @@ async function leaveChan(req, res) {
         socketEvents.broadcastRemoveChatChannel(uidB, channelId);
       }
     }
-  } else if (channel.type === CHANNEL_TYPES.GROUP) {
+  } else if (type === CHANNEL_TYPES.GROUP) {
     await removeUserFromChannel(user.id, channelId);
     const userAmount = await amountOfUsersInChannel(channelId);
     /* delete the group channel if it is empty */

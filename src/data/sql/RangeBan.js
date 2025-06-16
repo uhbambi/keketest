@@ -2,7 +2,7 @@ import { DataTypes, Op } from 'sequelize';
 
 import sequelize from './sequelize';
 import { HourlyCron } from '../../utils/cron';
-import IPRangeBanHistory from './IPRangeBanHistory';
+import RangeBanHistory from './RangeBanHistory';
 
 export { RANGEBAN_REASONS } from '../../core/constants';
 
@@ -28,14 +28,14 @@ const RangeBan = sequelize.define('RangeBan', {
  * @param bans Array of Ban model instances
  * @param [modUid] user id of mod that lifted the bans
  */
-async function removeIPRangeBans(bans, modUid) {
+async function removeRangeBans(bans, modUid) {
   if (!bans.length) {
     return;
   }
   const transaction = await sequelize.transaction();
   try {
     if (modUid) {
-      await IPRangeBanHistory.bulkCreate(bans.map((ban) => ({
+      await RangeBanHistory.bulkCreate(bans.map((ban) => ({
         reason: ban.reason,
         started: ban.createdAt,
         ended: ban.expires,
@@ -45,7 +45,7 @@ async function removeIPRangeBans(bans, modUid) {
         transaction,
       });
     } else {
-      await IPRangeBanHistory.bulkCreate(bans.map((ban) => ({
+      await RangeBanHistory.bulkCreate(bans.map((ban) => ({
         reason: ban.reason,
         started: ban.createdAt,
         ended: ban.expires,
@@ -84,7 +84,7 @@ async function cleanIPRangeBans() {
     if (!expiredBans.length) {
       return 0;
     }
-    await removeIPRangeBans(expiredBans);
+    await removeRangeBans(expiredBans);
     return expiredBans.length;
   } catch (error) {
     console.error(`SQL Error on cleanIPRangeBans: ${error.message}`);

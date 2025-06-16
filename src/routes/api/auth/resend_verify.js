@@ -3,7 +3,7 @@
  */
 
 import mailProvider from '../../../core/MailProvider';
-import { getHostFromRequest } from '../../../utils/ip';
+import { getHostFromRequest } from '../../../utils/intel/ip';
 import { USERLVL } from '../../../data/sql';
 import { getEmailOfUser } from '../../../data/sql/ThreePID';
 

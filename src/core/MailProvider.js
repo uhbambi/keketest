@@ -7,11 +7,11 @@
 import nodemailer from 'nodemailer';
 
 import logger from './logger';
-import { getTTag } from './ttag';
+import { getTTag } from '../middleware/ttag';
 import { codeExists, checkCode, setCode } from '../data/redis/mailCodes';
 import socketEvents from '../socket/socketEvents';
 import { USE_MAILER, MAIL_ADDRESS } from './config';
-import { getUserByEmail, verifyEmail, USERLVL } from '../data/sql/User';
+import { getUserByEmail, verifyEmail } from '../data/sql/User';
 
 export class MailProvider {
   constructor() {

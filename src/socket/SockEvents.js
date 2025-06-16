@@ -91,6 +91,9 @@ class SocketEvents extends EventEmitter {
   onReq(type, cb) {
     this.on(`req:${type}`, async (chan, ...args) => {
       const ret = await cb(...args);
+      if (ret === null) {
+        return;
+      }
       this.emit(`res:${chan}`, ret);
     });
   }
@@ -301,11 +304,11 @@ class SocketEvents extends EventEmitter {
    *   to update es well
    */
   reloadUser(userId, local) {
-    this.emit('reloadUser', userId);
+    this.emit('reloadUser', userId, local);
   }
 
   reloadIP(ipString, local) {
-    this.emit('reloadIP', ipString);
+    this.emit('reloadIP', ipString, local);
   }
 
   /**

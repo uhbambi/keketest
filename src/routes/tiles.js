@@ -82,6 +82,10 @@ router.use(async (req, res) => {
  */
 // eslint-disable-next-line no-unused-vars
 router.use((err, req, res, next) => {
+  if (res.headersSent) {
+    next(err);
+    return;
+  }
   res.status(400).end();
 });
 

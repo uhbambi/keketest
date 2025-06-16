@@ -9,9 +9,9 @@ import Sequelize, { DataTypes, QueryTypes, Op } from 'sequelize';
 
 import sequelize from './sequelize';
 import { generateHash } from '../../utils/hash';
-import UserIP from './UserIP';
+import UserIP from './association_models/UserIP';
 import { USERLVL, THREEPID_PROVIDERS, USER_FLAGS } from '../../core/constants';
-import { CHANNEL_TYPES, deleteAllDMChannelsOfUser } from './Channel';
+import { deleteAllDMChannelsOfUser } from './Channel';
 
 export { USERLVL, THREEPID_PROVIDERS, USER_FLAGS };
 
@@ -69,39 +69,6 @@ const User = sequelize.define('User', {
     allowNull: false,
   },
 });
-
-/*
- * includes for user used in requests
- */
-export const loginInclude = [{
-  association: 'channels',
-  where: {
-    type: {
-      [Op.not]: CHANNEL_TYPES.DM,
-    },
-  },
-}, {
-  association: 'dms',
-  where: {
-    type: CHANNEL_TYPES.DM,
-  },
-  include: [{
-    association: 'users',
-    attributes: ['id', 'name'],
-  }],
-}, {
-  association: 'blocked',
-  attributes: ['id', 'name'],
-}, {
-  association: 'bans',
-  attributes: [],
-  limit: 1,
-}, {
-  association: 'tpids',
-  include: [{
-    association: 'bans',
-  }],
-}];
 
 /**
  * update lastSeen timestamps of User
@@ -269,25 +236,16 @@ export async function setFlagOfUser(id, index, value) {
     const mask = 0x01 << index;
     if (value) {
       await User.update({
-        flags: Sequelize.literal('flags | ?'),
+        flags: Sequelize.literal('flags | ?', mask),
       }, { where: { id }, returning: false });
     } else {
       await User.update({
-        flags: Sequelize.literal('flags & ~(?)'),
+        flags: Sequelize.literal('flags & ~(?)', mask),
       }, { where: { id }, returning: false });
     }
   } catch (error) {
     console.error(`SQL Error on setFlagOfUser: ${error.message}`);
   }
-}
-
-/**
- * get User by email
- * @param email
- * @return limited user object or null if not found
- */
-export function getUserByEmail(email) {
-  return getUserByTpid(THREEPID_PROVIDERS.EMAIL, email);
 }
 
 /**
@@ -324,7 +282,15 @@ export async function getUserByTpid(provider, tpid) {
     console.error(`SQL Error on getUserByTpid: ${error.message}`);
     throw error;
   }
-  return null;
+}
+
+/**
+ * get User by email
+ * @param email
+ * @return limited user object or null if not found
+ */
+export function getUserByEmail(email) {
+  return getUserByTpid(THREEPID_PROVIDERS.EMAIL, email);
 }
 
 /**
@@ -468,7 +434,7 @@ export async function setUserLvl(id, userlvl) {
  * @param id user id
  * @param name name
  */
-export async function setName(id, userlvl) {
+export async function setName(id, name) {
   try {
     await User.update({ name }, { where: { id }, returning: false });
   } catch (error) {
@@ -499,7 +465,7 @@ export async function setPassword(id, password) {
  *   dmChannels: [{ cid, uidA, uidB }, ...] destroyed channels
  * }
  */
-export async function deleteUser(id, password) {
+export async function deleteUser(id) {
   try {
     const dmChannels = await deleteAllDMChannelsOfUser(id);
     if (dmChannels === null) {
@@ -538,7 +504,10 @@ export async function populateIdObj(rawRanks) {
     ],
     where: {
       id: uids,
-      priv: false,
+      flags: {
+        [Sequelize.Op.bitwiseAnd]: 0x01 << USER_FLAGS.PRIV,
+        [Sequelize.Op.ne]: 0,
+      },
     },
     raw: true,
   });

@@ -11,7 +11,6 @@ import { USERLVL } from '../data/sql';
 import socketEvents from '../socket/socketEvents';
 import { getCooldownFactor } from './CooldownModifiers';
 import { setPixelByOffset } from './setPixel';
-import isIPAllowed from './ipUserIntel';
 import canvases from './canvases';
 
 import { THREE_CANVAS_HEIGHT, THREE_TILE_SIZE, TILE_SIZE } from './constants';
@@ -117,6 +116,7 @@ export default async function drawByOffsets(
       throw new Error(3);
     }
 
+    // eslint-disable-next-line prefer-const
     let { isBanned, isProxy } = await ip.getAllowance();
     if (isProxy) {
       throw new Error(11);

@@ -7,7 +7,7 @@
 import Sequelize, { DataTypes, Op } from 'sequelize';
 
 import sequelize from './sequelize';
-import { UserChannel } from './association_models/UserChannel';
+import UserChannel from './association_models/UserChannel';
 
 import { CHANNEL_TYPES } from '../../core/constants';
 
@@ -126,8 +126,8 @@ export async function createDMChannel(uidA, uidB) {
       { uid: uidA, cid }, { uid: uidB, cid },
     ], { transaction });
 
-    return cid;
     await transaction.commit();
+    return cid;
   } catch (error) {
     await transaction.rollback();
     throw error;
@@ -143,8 +143,10 @@ export async function createDMChannel(uidA, uidB) {
 export async function deleteDMChannel(uidA, uidB) {
   try {
     const channelId = await findDMChannel(uidA, uidB);
-    const rows = await Channel.destroy({ where: { id: channelId } });
-    return channelId;
+    if (channelId) {
+      await Channel.destroy({ where: { id: channelId } });
+      return channelId;
+    }
   } catch (error) {
     console.error(`SQL Error on deleteDMChannel: ${error.message}`);
   }
@@ -236,7 +238,6 @@ export async function deleteAllDMChannelsOfUser(uid) {
     console.error(`SQL Error on deleteAllDMChannelsOfUser: ${error.message}`);
     return null;
   }
-  return [];
 }
 
 /**

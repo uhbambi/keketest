@@ -107,7 +107,7 @@ class IP {
     if (!this.allowance
       || this.allowance.lastSeen.getTime() > Date.now() - 10 * 60 * 1000
     ) {
-      return;
+      return null;
     }
     return touchIP(this.ipString);
   }

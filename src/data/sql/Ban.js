@@ -2,7 +2,6 @@ import Sequelize, { DataTypes, Op } from 'sequelize';
 
 import sequelize from './sequelize';
 import { HourlyCron } from '../../utils/cron';
-import { cleanCacheForIP } from '../redis/isAllowedCache';
 import BanHistory from './BanHistory';
 import IPBan from './association_models/IPBan';
 import UserBan from './association_models/UserBan';
@@ -153,25 +152,25 @@ async function removeBans(bans, modUid) {
 
   try {
     if (modUid) {
-      await BanHistory.bulkCreate(bans.map((ban) => ({
-        uuid: ban.uuid,
-        reason: ban.reason,
-        flags: ban.flags,
-        started: ban.createdAt,
-        ended: ban.expires,
-        muid: ban.muid,
+      await BanHistory.bulkCreate(bans.map((b) => ({
+        uuid: b.uuid,
+        reason: b.reason,
+        flags: b.flags,
+        started: b.createdAt,
+        ended: b.expires,
+        muid: b.muid,
         liftedAt: null,
       })), {
         transaction,
       });
     } else {
-      await BanHistory.bulkCreate(bans.map((ban) => ({
-        uuid: ban.uuid,
-        reason: ban.reason,
-        flags: ban.flags,
-        started: ban.createdAt,
-        ended: ban.expires,
-        muid: ban.muid,
+      await BanHistory.bulkCreate(bans.map((b) => ({
+        uuid: b.uuid,
+        reason: b.reason,
+        flags: b.flags,
+        started: b.createdAt,
+        ended: b.expires,
+        muid: b.muid,
         lmuid: modUid,
       })), {
         transaction,
@@ -188,7 +187,6 @@ async function removeBans(bans, modUid) {
       raw: true,
       transaction,
     });
-    const clearedIPs = rows.map((r) => r.ipString);
 
     if (rows.length) {
       await IPBanHistory.bulkCreate(rows.map((row) => ({
@@ -202,7 +200,6 @@ async function removeBans(bans, modUid) {
       raw: true,
       transaction,
     });
-    const clearedUserIds = rows.map((r) => r.uid);
 
     if (rows.length) {
       await UserBanHistory.bulkCreate(rows.map((row) => ({
@@ -228,11 +225,6 @@ async function removeBans(bans, modUid) {
       where: { buuid: banUuids },
       transaction,
     });
-
-    for (let i = 0; i < clearedIPs.length; i += 1) {
-      // eslint-disable-next-line no-await-in-loop
-      await cleanCacheForIP(clearedIPs[i]);
-    }
 
     await transaction.commit();
   } catch (error) {
@@ -297,7 +289,7 @@ export async function unbanByUuid(uuid, modUid) {
  * @param userIds Array of user ids
  * @param ipStrings Array of ipStrings
  * @param mute boolean if muting
- * @param ban boolean if banning
+ * @param bans boolean if banning
  * @return [{
  *   uuid, reason, flags, expires, createdAt, muid,
  *   mod: {
@@ -306,6 +298,7 @@ export async function unbanByUuid(uuid, modUid) {
  * }, ...],
  */
 export async function getBanInfos(
+  // eslint-disable-next-line no-shadow
   ipStrings, userIds, mute = true, ban = true,
 ) {
   if (!ban && !mute) {
@@ -388,6 +381,7 @@ export async function getBanInfos(
  * @return boolean success
  */
 export async function ban(
+  // eslint-disable-next-line no-shadow
   ipStrings, userIds, mute, ban, reason, duration, muid = null,
 ) {
   try {
@@ -459,7 +453,10 @@ export async function ban(
  * @param muid id of the mod that bans
  * @return boolean success
  */
-export async function unban(ipStrings, userIds, mute, ban, muid = null) {
+export async function unban(
+  // eslint-disable-next-line no-shadow
+  ipStrings, userIds, mute, ban, muid = null,
+) {
   try {
     const bans = await getBanInfos(userIds, ipStrings, mute, ban);
     if (!bans.length) {

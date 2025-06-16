@@ -1,11 +1,9 @@
 import Sequelize, { DataTypes, Op } from 'sequelize';
 
 import sequelize from './sequelize';
-import { getLowHexSubnetOfIP } from '../../utils/intel/ip';
 import RangeData from './Range';
 import ProxyData from './Proxy';
 import WhoisReferral from './WhoisReferral';
-import { WHOIS_DURATION, PROXYCHECK_DURATION } from '../../core/config';
 
 const IP = sequelize.define('IP', {
   /*
@@ -193,7 +191,7 @@ export async function saveIPIntel(ipString, whoisData, pcData) {
         rid = whoisResult[whoisResult.length - 1][0].id;
       }
 
-      const ipModel = await IP.upsert({
+      await IP.upsert({
         rid,
         ip: Sequelize.fn('IP_TO_BIN', ipString),
       }, { returning: false, transaction });
@@ -308,7 +306,7 @@ export async function getIdsToIps(ips) {
  */
 export async function getInfoToIp(ipString) {
   try {
-    const result = await IP.findOne({
+    return await IP.findOne({
       attributes: [
         [Sequelize.fn('BIN_TO_IP', Sequelize.col('ip')), 'ip'],
         [Sequelize.fn('BIN_TO_UUID', Sequelize.col('uuid')), 'uuid'],

@@ -1,8 +1,8 @@
 import express from 'express';
 
 import logger from '../core/logger';
-import { THREEPID_PROVIDERS, USERLVL } from '../data/sql';
-import { getUsersByNameOrEmail, findUserById } from '../data/sql/RegUser';
+import { USERLVL } from '../data/sql';
+import { getUsersByNameOrEmail, findUserById } from '../data/sql/User';
 import { compareToHash } from '../utils/hash';
 import { APISOCKET_KEY } from '../core/config';
 
@@ -41,14 +41,6 @@ router.post('/checklogin', async (req, res) => {
     errors.push('No password given');
   }
 
-  const query = {
-    attributes: [
-      'id',
-      'name',
-      'password',
-      'userlvl',
-    ],
-  };
   let users;
   if (req.body.name || req.body.email) {
     users = await getUsersByNameOrEmail(req.body.name, req.body.email);

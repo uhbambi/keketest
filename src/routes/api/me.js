@@ -3,7 +3,6 @@
  */
 
 import getMe from '../../core/me';
-import { touch } from '../../middleware/touch';
 
 export default async (req, res, next) => {
   const { ip, user, lang } = req;

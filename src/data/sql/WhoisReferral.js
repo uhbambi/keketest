@@ -1,4 +1,4 @@
-import Sequelize, { DataTypes, QueryTypes, Op } from 'sequelize';
+import Sequelize, { DataTypes, Op } from 'sequelize';
 import sequelize from './sequelize';
 
 /*
@@ -67,3 +67,5 @@ export async function getWhoisHostOfIP(ipString) {
   }
   return null;
 }
+
+export default WhoisReferral;

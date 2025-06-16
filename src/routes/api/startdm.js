@@ -5,8 +5,7 @@
  */
 import logger from '../../core/logger';
 import socketEvents from '../../socket/socketEvents';
-import { ChatProvider } from '../../core/ChatProvider';
-import { isUserBlockedBy } from '../../data/sql/UserBlock';
+import { isUserBlockedBy } from '../../data/sql/association_models/UserBlock';
 import { findUserByIdOrName } from '../../data/sql/User';
 import { createDMChannel } from '../../data/sql/Channel';
 import { USER_FLAGS } from '../../core/constants';

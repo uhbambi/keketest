@@ -257,6 +257,9 @@ class MessageBroker extends SocketEvents {
   onReq(type, cb) {
     this.on(`req:${type}`, async (chan, shardName, ...args) => {
       const ret = await cb(...args);
+      if (ret === null) {
+        return;
+      }
       if (shardName === this.thisShard) {
         super.emit(`res:${chan}`, ret);
       } else {

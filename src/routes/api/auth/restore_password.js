@@ -5,7 +5,7 @@
 import logger from '../../../core/logger';
 import mailProvider from '../../../core/MailProvider';
 import { validateEMail } from '../../../utils/validation';
-import { getHostFromRequest } from '../../../utils/ip';
+import { getHostFromRequest } from '../../../utils/intel/ip';
 
 async function validate(email, gettext) {
   const errors = [];
