@@ -2,11 +2,15 @@ import Sequelize, { DataTypes } from 'sequelize';
 import sequelize from './sequelize';
 
 const BanHistory = sequelize.define('IPBanHistory', {
+  id: {
+    type: DataTypes.BIGINT.UNSIGNED,
+    primaryKey: true,
+  },
+
   uuid: {
     type: 'BINARY(16)',
-    defaultValue: Sequelize.literal('UUID_TO_BIN(UUID())'),
     allowNull: false,
-    primaryKey: true,
+    unique: true,
   },
 
   reason: {

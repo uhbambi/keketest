@@ -13,11 +13,16 @@ import UserBanHistory from './association_models/UserBanHistory';
 import ThreePIDBanHistory from './association_models/ThreePIDBanHistory';
 
 const Ban = sequelize.define('Ban', {
-  uuid: {
-    type: 'BINARY(16)',
-    defaultValue: Sequelize.literal('UUID_TO_BIN(UUID())'),
-    allowNull: false,
+  id: {
+    type: DataTypes.BIGINT.UNSIGNED,
+    autoIncrement: true,
     primaryKey: true,
+  },
+
+  uuid: {
+    type: 'BINARY(16) GENERATED ALWAYS AS (UUID_TO_BIN(UUID())) STORED',
+    unique: true,
+    allowNull: false,
   },
 
   reason: {
@@ -147,13 +152,14 @@ export function parseListOfBans(bans) {
  */
 async function removeBans(bans, modUid) {
   if (!Array.isArray(bans)) bans = [bans];
-  const banUuids = bans.map((b) => b.uuid);
+  const banIds = bans.map((b) => b.id);
 
   const transaction = await sequelize.transaction();
 
   try {
     if (modUid) {
       await BanHistory.bulkCreate(bans.map((b) => ({
+        id: b.id,
         uuid: b.uuid,
         reason: b.reason,
         flags: b.flags,
@@ -166,6 +172,7 @@ async function removeBans(bans, modUid) {
       });
     } else {
       await BanHistory.bulkCreate(bans.map((b) => ({
+        id: b.id,
         uuid: b.uuid,
         reason: b.reason,
         flags: b.flags,
@@ -180,50 +187,47 @@ async function removeBans(bans, modUid) {
 
     /* ips */
     let rows = await IPBan.findAll({
-      attributes: [
-        'buuid', 'ip',
-        [Sequelize.fn('BIN_TO_IP', Sequelize.col('ip')), 'ipString'],
-      ],
-      where: { buuid: banUuids },
+      attributes: ['bid', 'ip'],
+      where: { uuid: banIds },
       raw: true,
       transaction,
     });
 
     if (rows.length) {
       await IPBanHistory.bulkCreate(rows.map((row) => ({
-        buuid: row.buuid, ip: row.ip,
+        bid: row.bid, ip: row.ip,
       })), { transaction });
     }
     /* users */
     rows = await UserBan.findAll({
-      attributes: ['buuid', 'uid'],
-      where: { buuid: banUuids },
+      attributes: ['bid', 'uid'],
+      where: { bid: banIds },
       raw: true,
       transaction,
     });
 
     if (rows.length) {
       await UserBanHistory.bulkCreate(rows.map((row) => ({
-        buuid: row.buuid, uid: row.uid,
+        bid: row.bid, uid: row.uid,
       })), { transaction });
     }
     /* ThreePIDs */
     rows = await ThreePIDBan.findAll({
-      attributes: ['buuid', 'tid'],
-      where: { buuid: banUuids },
+      attributes: ['bid', 'tid'],
+      where: { bid: banIds },
       raw: true,
       transaction,
     });
 
     if (rows.length) {
       await ThreePIDBanHistory.bulkCreate(rows.map((row) => ({
-        buuid: row.buuid, uid: row.tid,
+        bid: row.bid, uid: row.tid,
       })), { transaction });
     }
 
     /* ban destruction will cascade to junction tables */
     await Ban.destroy({
-      where: { buuid: banUuids },
+      where: { bid: banIds },
       transaction,
     });
 
@@ -240,7 +244,9 @@ async function removeBans(bans, modUid) {
 async function cleanBans() {
   try {
     const expiredBans = await Ban.findAll({
-      attributes: ['uuid', 'reason', 'flags', 'expires', 'createdAt', 'muid'],
+      attributes: [
+        'id', 'uuid', 'reason', 'flags', 'expires', 'createdAt', 'muid',
+      ],
       where: {
         expires: { [Op.lte]: new Date() },
       },
@@ -268,7 +274,9 @@ HourlyCron.hook(cleanBans);
 export async function unbanByUuid(uuid, modUid) {
   try {
     const banModel = await Ban.findOne({
-      attributes: ['uuid', 'reason', 'flags', 'expires', 'createdAt', 'muid'],
+      attributes: [
+        'id', 'uuid', 'reason', 'flags', 'expires', 'createdAt', 'muid',
+      ],
       where: {
         uuid: Sequelize.fn('UUID_TO_BIN', uuid),
       },
@@ -373,7 +381,7 @@ export async function getBanInfos(
 
     const bans = await Ban.findAll({
       attributes: [
-        'uuid', 'reason', 'flags', 'expires', 'createdAt', 'muid',
+        'id', 'uuid', 'reason', 'flags', 'expires', 'createdAt', 'muid',
         [Sequelize.fn('BIN_TO_UUID', Sequelize.col('uuid')), 'buuid'],
       ],
       where, include,
@@ -412,7 +420,7 @@ export async function ban(
         reason, muid, ban, mute,
         expires: (duration) ? new Date(Date.now() + duration * 1000) : null,
       }, { transaction });
-      const buuid = banModel.uuid;
+      const bid = banModel.id;
 
       const promises = [];
       /* userIds is either null or an Array or a sinlge userId */
@@ -423,17 +431,17 @@ export async function ban(
         });
         if (threePIDs.length) {
           promises.push(ThreePIDBan.bulkCreate(threePIDs.map(
-            (tpid) => ({ buuid, tid: tpid.id }),
+            (tpid) => ({ bid, tid: tpid.id }),
           ), { returning: false, transaction }));
         }
         if (Array.isArray(userIds)) {
           if (userIds.length) {
             promises.push(UserBan.bulkCreate(userIds.map(
-              (uid) => ({ buuid, uid }),
+              (uid) => ({ bid, uid }),
             ), { returning: false, transaction }));
           }
         } else {
-          promises.push(UserBan.create({ uid: userIds, buuid },
+          promises.push(UserBan.create({ uid: userIds, bid },
             { returning: false, transaction }));
         }
       }
@@ -454,12 +462,12 @@ export async function ban(
         if (Array.isArray(ipStrings)) {
           if (ipStrings.length) {
             promises.push(IPBan.bulkCreate(ipStrings.map(
-              (ip) => ({ buuid, ip: Sequelize.fn('IP_TO_BIN', ip) }),
+              (ip) => ({ bid, ip: Sequelize.fn('IP_TO_BIN', ip) }),
             ), { returning: false, transaction }));
           }
         } else {
           promises.push(IPBan.create({
-            buuid, ip: Sequelize.fn('IP_TO_BIN', ipStrings),
+            bid, ip: Sequelize.fn('IP_TO_BIN', ipStrings),
           }, { returning: false, transaction }));
         }
       }

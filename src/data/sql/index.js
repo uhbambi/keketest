@@ -82,7 +82,7 @@ User.hasMany(Session, {
  * proxy information of ip
  */
 ProxyData.belongsTo(IP, {
-  as: 'ip',
+  as: 'ipinfo',
   foreignKey: {
     name: 'ip',
     allowNull: false,
@@ -122,7 +122,7 @@ RangeData.hasMany(IP, {
 Ban.belongsToMany(IP, {
   as: 'ips',
   through: IPBan,
-  foreignKey: 'buuid',
+  foreignKey: 'bid',
 });
 IP.belongsToMany(Ban, {
   as: 'bans',
@@ -133,7 +133,7 @@ IP.belongsToMany(Ban, {
 Ban.belongsToMany(ThreePID, {
   as: 'tpids',
   through: ThreePIDBan,
-  foreignKey: 'buuid',
+  foreignKey: 'bid',
 });
 ThreePID.belongsToMany(Ban, {
   as: 'bans',
@@ -144,7 +144,7 @@ ThreePID.belongsToMany(Ban, {
 Ban.belongsToMany(User, {
   as: 'users',
   through: UserBan,
-  foreignKey: 'buuid',
+  foreignKey: 'bid',
 });
 User.belongsToMany(Ban, {
   as: 'bans',
@@ -165,7 +165,7 @@ User.hasMany(Ban, {
 BanHistory.belongsToMany(IP, {
   as: 'ips',
   through: IPBanHistory,
-  foreignKey: 'buuid',
+  foreignKey: 'bid',
 });
 IP.belongsToMany(BanHistory, {
   as: 'banHistory',
@@ -176,7 +176,7 @@ IP.belongsToMany(BanHistory, {
 BanHistory.belongsToMany(ThreePID, {
   as: 'tpids',
   through: ThreePIDBanHistory,
-  foreignKey: 'buuid',
+  foreignKey: 'bid',
 });
 ThreePID.belongsToMany(BanHistory, {
   as: 'banHistory',
@@ -187,7 +187,7 @@ ThreePID.belongsToMany(BanHistory, {
 BanHistory.belongsToMany(User, {
   as: 'users',
   through: UserBanHistory,
-  foreignKey: 'buuid',
+  foreignKey: 'bid',
 });
 User.belongsToMany(BanHistory, {
   as: 'banHistory',

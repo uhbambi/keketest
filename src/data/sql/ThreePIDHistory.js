@@ -25,11 +25,7 @@ const ThreePIDHistory = sequelize.define('ThreePIDHistory', {
   },
 
   normalizedTpid: {
-    // eslint-disable-next-line max-len
-    type: 'VARCHAR(80) GENERATED ALWAYS AS (NORMALIZE_TPID(provider, tpid)) STORED',
-    set() {
-      throw new Error('Do not try to set normalizedTpid. It is generated');
-    },
+    type: DataTypes.STRING(80),
   },
 
   verified: {

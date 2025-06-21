@@ -20,9 +20,10 @@ const IP = sequelize.define('IP', {
   },
 
   uuid: {
-    type: 'BINARY(16)',
-    defaultValue: Sequelize.literal('UUID_TO_BIN(UUID())'),
+    type: DataTypes.CHAR(36),
+    defaultValue: DataTypes.UUIDV4,
     allowNull: false,
+    unique: true,
   },
 
   lastSeen: {

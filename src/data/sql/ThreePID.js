@@ -32,9 +32,6 @@ const ThreePID = sequelize.define('ThreePID', {
   normalizedTpid: {
     // eslint-disable-next-line max-len
     type: 'VARCHAR(80) GENERATED ALWAYS AS (NORMALIZE_TPID(provider, tpid)) STORED',
-    set() {
-      throw new Error('Do not try to set normalizedTpid. It is generated');
-    },
   },
 
   verified: {
