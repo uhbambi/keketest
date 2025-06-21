@@ -30,8 +30,14 @@ const ThreePID = sequelize.define('ThreePID', {
   },
 
   normalizedTpid: {
+    /*
+     * this is NORMALIZE_TPID function inlined, which removes . and +string
+     * from emails.
+     * We can't use the function itself, cause generated columns do not allow
+     * that.
+     */
     // eslint-disable-next-line max-len
-    type: 'VARCHAR(80) GENERATED ALWAYS AS (NORMALIZE_TPID(provider, tpid)) STORED',
+    type: 'VARCHAR(80) GENERATED ALWAYS AS (CASE WHEN provider != 1 THEN NULL WHEN LOCATE(\'@\', tpid) = 0 THEN NULL ELSE LOWER(CONCAT(REPLACE(SUBSTRING_INDEX(SUBSTRING_INDEX(tpid, \'@\', 1), \'+\', 1), \'.\', \'\'),\'@\',(SUBSTRING_INDEX(tpid, \'@\', -1)))) END) STORED',
   },
 
   verified: {

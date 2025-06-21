@@ -1,4 +1,5 @@
 import Sequelize, { DataTypes, Op } from 'sequelize';
+import crypto from 'crypto';
 
 import sequelize from './sequelize';
 import RangeData from './Range';
@@ -20,10 +21,12 @@ const IP = sequelize.define('IP', {
   },
 
   uuid: {
-    type: DataTypes.CHAR(36),
-    defaultValue: DataTypes.UUIDV4,
+    type: 'BINARY(16)',
     allowNull: false,
     unique: true,
+    defaultValue: () => {
+      return crypto.randomBytes(16);
+    }
   },
 
   lastSeen: {

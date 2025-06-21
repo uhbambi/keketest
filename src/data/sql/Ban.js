@@ -1,4 +1,5 @@
 import Sequelize, { DataTypes, Op } from 'sequelize';
+import crypto from 'crypto';
 
 import sequelize from './sequelize';
 import { HourlyCron } from '../../utils/cron';
@@ -20,9 +21,12 @@ const Ban = sequelize.define('Ban', {
   },
 
   uuid: {
-    type: 'BINARY(16) GENERATED ALWAYS AS (UUID_TO_BIN(UUID())) STORED',
-    unique: true,
+    type: 'BINARY(16)',
     allowNull: false,
+    unique: true,
+    defaultValue: () => {
+      return crypto.randomBytes(16);
+    }
   },
 
   reason: {

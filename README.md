@@ -26,7 +26,13 @@ Click or tab: Place Pixel
 
 - [nodejs environment](https://nodejs.org/en/) (>=18)
 - [redis](https://redis.io/) or [redis-for-windows](https://github.com/redis-windows/redis-windows) in version **6.2.0 or above** as database for storìng the canvas
-- mysql or mariadb ([setup own user](https://www.digitalocean.com/community/tutorials/how-to-create-a-new-user-and-grant-permissions-in-mysql) and [create database](https://www.w3schools.com/SQl/sql_create_db.asp) for pixelplanet) for storing additional data like IP blacklist
+- mysql or mariadb ([setup own user](https://www.digitalocean.com/community/tutorials/how-to-create-a-new-user-and-grant-permissions-in-mysql) and [create database](https://www.w3schools.com/SQl/sql_create_db.asp) for pixelplanet), in example:
+
+```
+CREATE DATABASE pixelplanet;
+CREATE USER 'pixelplanet'@'localhost' IDENTIFIED BY 'sqlpassword';
+GRANT ALL PRIVILEGES ON pixelplanet.* TO 'pixelplanet'@'localhost';
+```
 
 ### Download
 

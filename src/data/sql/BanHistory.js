@@ -1,7 +1,7 @@
 import Sequelize, { DataTypes } from 'sequelize';
 import sequelize from './sequelize';
 
-const BanHistory = sequelize.define('IPBanHistory', {
+const BanHistory = sequelize.define('BanHistory', {
   id: {
     type: DataTypes.BIGINT.UNSIGNED,
     primaryKey: true,
