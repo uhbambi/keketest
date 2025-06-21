@@ -2,7 +2,7 @@
  * webpack loader that reads po files
  */
 
-import parser from 'ttag-cli/dist/src/lib/parser';
+import parser from 'ttag-cli/dist/src/lib/parser.js';
 
 export default function (source) {
   if (this.cacheable) this.cacheable();

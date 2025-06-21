@@ -8,8 +8,10 @@ import assetWatcher from '../core/fsWatcher.js';
 import { getLangsOfJsAsset } from '../core/assets.js';
 import lccc from '../../i18n/lccc.json';
 
-// eslint-disable-next-line max-len
-const localeImports = require.context('../../i18n', false, /^\.[/\\]ssr-.+\.po$/);
+const localeImports = import.meta.webpackContext('../../i18n', {
+  recursive: false,
+  regExp: /^\.[/\\]ssr-.+\.po$/,
+});
 
 const ttags = {};
 
