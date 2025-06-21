@@ -144,11 +144,12 @@ export async function verifySession(req, res, next) {
  * Promise can be resolved by './promises.js' middleware.
  * This has the purpose to allow other actions to happen while we wait for SQL.
  */
-export async function verifySessionPromisified(req) {
+export async function verifySessionPromisified(req, res, next) {
   if (!req.promise) {
     req.promise = [];
   }
   req.promise.push(resolveSessionOfRequest(req));
+  next();
 }
 
 /*

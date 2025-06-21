@@ -5,7 +5,7 @@
 /* eslint-disable no-console */
 
 import { persistReducer } from 'redux-persist';
-import storage from 'redux-persist/lib/storage/index.js';
+import storage from 'redux-persist/es/storage/index.js';
 
 import gui from './reducers/gui.js';
 import ranks from './reducers/ranks.js';

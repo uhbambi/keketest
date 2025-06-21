@@ -13,7 +13,7 @@ import {
 } from 'redux';
 import { thunk } from 'redux-thunk';
 import { persistReducer } from 'redux-persist';
-import storage from 'redux-persist/lib/storage/index.js';
+import storage from 'redux-persist/es/storage/index.js';
 
 import sharedReducers, {
   migrate,

@@ -8,5 +8,7 @@ export default async (req, res, next) => {
     await Promise.all(req.promise);
     delete req.promise;
   }
+  /* TODO */
+  console.log('promises');
   next();
 };

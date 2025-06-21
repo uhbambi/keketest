@@ -103,8 +103,8 @@ class IP {
    * @return Promise<>
    */
   touch() {
-    if (!this.allowance
-      || this.allowance.lastSeen.getTime() > Date.now() - 10 * 60 * 1000
+    if (!this.#allowance
+      || this.#allowance.lastSeen.getTime() > Date.now() - 10 * 60 * 1000
     ) {
       return null;
     }
@@ -124,8 +124,8 @@ class IP {
     const currentTs = Date.now();
 
     if (!this.#allowance || refresh
-      || this.allowance.whoisExpiresTs < currentTs
-      || this.allowance.proxyCheckExpiresTs < currentTs
+      || this.#allowance.whoisExpiresTs < currentTs
+      || this.#allowance.proxyCheckExpiresTs < currentTs
       || (this.banRecheckTs !== null && this.banRecheckTs < currentTs)
     ) {
       const { ipString } = this;
@@ -192,6 +192,6 @@ export async function ipAllowancePromisified(req, res, next) {
   if (!req.promise) {
     req.promise = [];
   }
-  req.promise.push(req.ip.getIPAllowance());
+  req.promise.push(req.ip.getAllowance());
   next();
 }
