@@ -8,20 +8,20 @@ import React, {
 import { useSelector, useDispatch } from 'react-redux';
 import { t } from 'ttag';
 
-import { fetchStats, fetchProfile } from '../../store/actions/thunks';
-import WindowContext from '../context/window';
-import useInterval from '../hooks/interval';
-import LogInArea from '../LogInArea';
-import Tabs from '../Tabs';
-import UserAreaContent from '../UserAreaContent';
-import { USERLVL } from '../../core/constants';
+import { fetchStats, fetchProfile } from '../../store/actions/thunks.js';
+import WindowContext from '../context/window.js';
+import useInterval from '../hooks/interval.js';
+import LogInArea from '../LogInArea.jsx';
+import Tabs from '../Tabs.jsx';
+import UserAreaContent from '../UserAreaContent.jsx';
+import { USERLVL } from '../../core/constants.js';
 
 // eslint-disable-next-line max-len
-const Rankings = React.lazy(() => import(/* webpackChunkName: "stats" */ '../Rankings'));
+const Rankings = React.lazy(() => import(/* webpackChunkName: "stats" */ '../Rankings.jsx'));
 // eslint-disable-next-line max-len
-const Converter = React.lazy(() => import(/* webpackChunkName: "converter" */ '../Converter'));
+const Converter = React.lazy(() => import(/* webpackChunkName: "converter" */ '../Converter.jsx'));
 // eslint-disable-next-line max-len
-const Modtools = React.lazy(() => import(/* webpackChunkName: "modtools" */ '../Modtools'));
+const Modtools = React.lazy(() => import(/* webpackChunkName: "modtools" */ '../Modtools.jsx'));
 
 const UserArea = () => {
   const id = useSelector((state) => state.user.id);

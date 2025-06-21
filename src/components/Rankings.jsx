@@ -21,9 +21,9 @@ import {
 } from 'chart.js';
 import { Line, Pie } from 'react-chartjs-2';
 
-import { numberToString, numberToStringFull } from '../core/utils';
-import { selectIsDarkMode } from '../store/selectors/gui';
-import { selectStats } from '../store/selectors/ranks';
+import { numberToString, numberToStringFull } from '../core/utils.js';
+import { selectIsDarkMode } from '../store/selectors/gui.js';
+import { selectStats } from '../store/selectors/ranks.js';
 import {
   getCHistChartOpts,
   getCHistChartData,
@@ -35,8 +35,8 @@ import {
   getCPieData,
   getPDailyStatsOpts,
   getPDailyStatsData,
-} from '../core/chartSettings';
-import CooldownChanges from './CooldownChanges';
+} from '../core/chartSettings.js';
+import CooldownChanges from './CooldownChanges.jsx';
 
 ChartJS.register(
   CategoryScale,

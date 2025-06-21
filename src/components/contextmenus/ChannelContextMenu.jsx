@@ -9,10 +9,10 @@ import { t } from 'ttag';
 import {
   muteChatChannel,
   unmuteChatChannel,
-} from '../../store/actions';
+} from '../../store/actions/index.js';
 import {
   setLeaveChannel,
-} from '../../store/actions/thunks';
+} from '../../store/actions/thunks.js';
 
 /*
  * args: {

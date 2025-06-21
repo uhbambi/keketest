@@ -2,11 +2,11 @@
  * verify mail address
  */
 
-import socketEvents from '../../../socket/socketEvents';
-import getHtml from '../../../ssr/RedirectionPage';
-import { getHostFromRequest } from '../../../utils/intel/ip';
-import { MailProvider } from '../../../core/MailProvider';
-import { validateEMail } from '../../../utils/validation';
+import socketEvents from '../../../socket/socketEvents.js';
+import getHtml from '../../../ssr/RedirectionPage.jsx';
+import { getHostFromRequest } from '../../../utils/intel/ip.js';
+import { MailProvider } from '../../../core/MailProvider.js';
+import { validateEMail } from '../../../utils/validation.js';
 
 export default async (req, res) => {
   const { email, token } = req.query;

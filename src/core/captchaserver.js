@@ -7,10 +7,10 @@ import fs from 'fs';
 import path from 'path';
 import { Worker } from 'worker_threads';
 
-import logger from './logger';
-import socketEvents from '../socket/socketEvents';
-import { getCaptchaFonts, setCaptchaFonts } from '../data/redis/captcha';
-import { DailyCron } from '../utils/cron';
+import logger from './logger.js';
+import socketEvents from '../socket/socketEvents.js';
+import { getCaptchaFonts, setCaptchaFonts } from '../data/redis/captcha.js';
+import { DailyCron } from '../utils/cron.js';
 
 const MAX_WAIT = 30 * 1000;
 const FONT_FOLDER = path.resolve('captchaFonts');

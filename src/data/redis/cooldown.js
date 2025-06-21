@@ -2,15 +2,15 @@
  * redis script for cooldown calculation
  * this does not set any pixels itself, see lua/placePixel.lua
  */
-import client from './client';
-import { PREFIX as CAPTCHA_PREFIX } from './captcha';
+import client from './client.js';
+import { PREFIX as CAPTCHA_PREFIX } from './captcha.js';
 import {
   RANKED_KEY,
   DAILY_RANKED_KEY,
   DAILY_CRANKED_KEY,
   PREV_DAY_TOP_KEY,
-} from './ranks';
-import { CAPTCHA_TIME } from '../../core/config';
+} from './ranks.js';
+import { CAPTCHA_TIME } from '../../core/config.js';
 
 const PREFIX = 'cd';
 

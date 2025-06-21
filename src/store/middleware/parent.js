@@ -4,8 +4,8 @@
 
 /* eslint-disable no-console */
 
-import { parentExists } from '../../core/utils';
-import { load, unload } from '../actions';
+import { parentExists } from '../../core/utils.js';
+import { load, unload } from '../actions/index.js';
 
 const { origin } = window.location;
 

@@ -4,7 +4,7 @@
  *
  */
 
-import logger from './logger';
+import logger from './logger.js';
 import {
   nextEvent,
   setNextEvent,
@@ -13,14 +13,14 @@ import {
   getEventArea,
   clearOldEvent,
   CANVAS_ID,
-} from '../data/redis/Event';
-import Void from './Void';
-import { protectCanvasArea } from './Image';
-import { setPixelByOffset } from './setPixel';
-import { TILE_SIZE, EVENT_USER_NAME } from './constants';
-import socketEvents from '../socket/socketEvents';
-import chatProvider from './ChatProvider';
-import canvases from './canvases';
+} from '../data/redis/Event.js';
+import Void from './Void.js';
+import { protectCanvasArea } from './Image.js';
+import { setPixelByOffset } from './setPixel.js';
+import { TILE_SIZE, EVENT_USER_NAME } from './constants.js';
+import socketEvents from '../socket/socketEvents.js';
+import chatProvider from './ChatProvider.js';
+import canvases from './canvases.js';
 
 // if there are more than USER_THRESHOLD users,
 // void will not appear

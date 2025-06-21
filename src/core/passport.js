@@ -8,12 +8,12 @@ import JsonStrategy from 'passport-json';
 import GoogleStrategy from 'passport-google-oauth2';
 import DiscordStrategy from 'passport-discord';
 import FacebookStrategy from 'passport-facebook';
-import RedditStrategy from 'passport-reddit/lib/passport-reddit/strategy';
-import VkontakteStrategy from 'passport-vkontakte/lib/strategy';
+import RedditStrategy from 'passport-reddit/lib/passport-reddit/strategy.js';
+import VkontakteStrategy from 'passport-vkontakte/lib/strategy.js';
 
-import { sanitizeName } from '../utils/validation';
-import logger from './logger';
-import { USERLVL, THREEPID_PROVIDERS } from '../data/sql';
+import { sanitizeName } from '../utils/validation.js';
+import logger from './logger.js';
+import { USERLVL, THREEPID_PROVIDERS } from '../data/sql/index.js';
 import {
   getUsersByNameOrEmail,
   getUserByEmail,
@@ -21,10 +21,10 @@ import {
   getNameThatIsNotTaken,
   createNewUser,
   setUserLvl,
-} from '../data/sql/User';
-import { addOrReplaceTpid } from '../data/sql/ThreePID';
-import { auth } from './config';
-import { compareToHash } from '../utils/hash';
+} from '../data/sql/User.js';
+import { addOrReplaceTpid } from '../data/sql/ThreePID.js';
+import { auth } from './config.js';
+import { compareToHash } from '../utils/hash.js';
 
 
 /**

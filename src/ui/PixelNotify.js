@@ -5,7 +5,7 @@
  *
  */
 
-import { clamp, worldToScreen } from '../core/utils';
+import { clamp, worldToScreen } from '../core/utils.js';
 
 
 class PixelNotify {

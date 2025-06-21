@@ -6,7 +6,7 @@ import React from 'react';
 import { FaCog } from 'react-icons/fa';
 import { t } from 'ttag';
 
-import useLink from '../hooks/link';
+import useLink from '../hooks/link.js';
 
 
 const SettingsButton = () => {

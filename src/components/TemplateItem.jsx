@@ -6,9 +6,9 @@ import React, { useRef, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { t } from 'ttag';
 
-import templateLoader from '../ui/templateLoader';
-import { changeTemplate } from '../store/actions/templates';
-import { selectCanvas, setViewCoordinates } from '../store/actions';
+import templateLoader from '../ui/templateLoader.js';
+import { changeTemplate } from '../store/actions/templates.js';
+import { selectCanvas, setViewCoordinates } from '../store/actions/index.js';
 
 const TemplateItem = ({
   enabled, title, canvasId, x, y, width, height, imageId, startEditing,

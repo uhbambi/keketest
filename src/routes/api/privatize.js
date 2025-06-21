@@ -3,9 +3,9 @@
  * block all private messages
  *
  */
-import logger from '../../core/logger';
-import { setFlagOfUser } from '../../data/sql/User';
-import { USER_FLAGS } from '../../core/constants';
+import logger from '../../core/logger.js';
+import { setFlagOfUser } from '../../data/sql/User.js';
+import { USER_FLAGS } from '../../core/constants.js';
 
 async function privatize(req, res) {
   const { priv } = req.body;

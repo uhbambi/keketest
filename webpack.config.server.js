@@ -2,15 +2,19 @@
  * webpack config to build server files
  */
 
-const fs = require('fs');
-const path = require('path');
-const process = require('process');
-const webpack = require('webpack');
-const GeneratePackageJsonPlugin = require('generate-package-json-webpack-plugin');
-const sourceMapping = require('./scripts/sourceMapping');
-const LicenseListWebpackPlugin = require('./scripts/LicenseListWebpackPlugin');
+import fs from 'fs';
+import path from 'path';
+import process from 'process';
+import webpack from 'webpack';
+import GeneratePackageJsonPlugin from 'generate-package-json-webpack-plugin';
+import LicenseListWebpackPlugin from './scripts/LicenseListWebpackPlugin.cjs';
+import sourceMapping from './scripts/sourceMapping.js';
 
-const pkg = require('./package.json');
+const pkg = JSON.parse(
+  fs.readFileSync(path.resolve(import.meta.dirname, './package.json')),
+);
+
+const __dirname = import.meta.dirname;
 
 // make sure we build in root dir
 process.chdir(__dirname);
@@ -40,7 +44,7 @@ const babelPlugins = [
   ['ttag', ttag],
 ];
 
-module.exports = ({
+export default ({
   development, extract,
 }) => {
   /*

@@ -3,11 +3,11 @@
  * block all private messages
  *
  */
-import logger from '../../core/logger';
-import socketEvents from '../../socket/socketEvents';
-import { setFlagOfUser } from '../../data/sql/User';
-import { deleteAllDMChannelsOfUser } from '../../data/sql/Channel';
-import { USER_FLAGS } from '../../core/constants';
+import logger from '../../core/logger.js';
+import socketEvents from '../../socket/socketEvents.js';
+import { setFlagOfUser } from '../../data/sql/User.js';
+import { deleteAllDMChannelsOfUser } from '../../data/sql/Channel.js';
+import { USER_FLAGS } from '../../core/constants.js';
 
 async function blockdm(req, res) {
   const { block } = req.body;

@@ -3,8 +3,8 @@
  */
 import React from 'react';
 
-import MdLink from './MdLink';
-import MdMention from './MdMention';
+import MdLink from './MdLink.jsx';
+import MdMention from './MdMention.jsx';
 
 // eslint-disable-next-line max-len
 export const MarkdownParagraph = React.memo(({ pArray, refEmbed }) => pArray.map((part) => {

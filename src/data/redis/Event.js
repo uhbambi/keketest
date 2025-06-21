@@ -8,9 +8,9 @@ import { commandOptions } from 'redis';
 // its ok if its slow
 /* eslint-disable no-await-in-loop */
 
-import client from './client';
-import logger from '../../core/logger';
-import RedisCanvas from './RedisCanvas';
+import client from './client.js';
+import logger from '../../core/logger.js';
+import RedisCanvas from './RedisCanvas.js';
 
 const EVENT_SUCCESS_KEY = 'evt:succ';
 const EVENT_TIMESTAMP_KEY = 'evt:time';

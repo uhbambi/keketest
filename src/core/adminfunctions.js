@@ -7,35 +7,35 @@
 
 import sharp from 'sharp';
 
-import { validateCoorRange } from '../utils/validation';
-import CanvasCleaner from './CanvasCleaner';
-import socketEvents from '../socket/socketEvents';
-import { USERLVL } from '../data/sql';
-import { giveEveryoneAFish } from './Fishing';
-import { forceCaptcha, resetAllCaptchas } from '../data/redis/captcha';
-import { rollCaptchaFonts } from './captchaserver';
-import { getBanInfos } from '../data/sql/Ban';
-import { ban, unban, whitelist, unwhitelist } from './ban';
+import { validateCoorRange } from '../utils/validation.js';
+import CanvasCleaner from './CanvasCleaner.js';
+import socketEvents from '../socket/socketEvents.js';
+import { USERLVL } from '../data/sql/index.js';
+import { giveEveryoneAFish } from './Fishing.js';
+import { forceCaptcha, resetAllCaptchas } from '../data/redis/captcha.js';
+import { rollCaptchaFonts } from './captchaserver.js';
+import { getBanInfos } from '../data/sql/Ban.js';
+import { ban, unban, whitelist, unwhitelist } from './ban.js';
 import {
   getInfoToIp,
   getIPofIID,
   getIIDofIP,
-} from '../data/sql/IP';
+} from '../data/sql/IP.js';
 import {
   getUserInfos, setUserLvl, getUserByUserLvl, name2Id,
-} from '../data/sql/User';
+} from '../data/sql/User.js';
 import {
   getIIDSummary,
   getIIDPixels,
   getSummaryFromArea,
   getPixelsFromArea,
-} from './parsePixelLog';
-import canvases from './canvases';
+} from './parsePixelLog.js';
+import canvases from './canvases.js';
 import {
   imageABGR2Canvas,
   protectCanvasArea,
-} from './Image';
-import rollbackCanvasArea from './rollback';
+} from './Image.js';
+import rollbackCanvasArea from './rollback.js';
 
 /*
  * Execute IP based actions (banning, whitelist, etc.)

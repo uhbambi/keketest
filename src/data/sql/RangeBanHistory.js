@@ -1,5 +1,5 @@
 import { DataTypes } from 'sequelize';
-import sequelize from './sequelize';
+import sequelize from './sequelize.js';
 
 const RangeBanHistory = sequelize.define('RangeBanHistory', {
   id: {

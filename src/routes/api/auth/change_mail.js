@@ -2,16 +2,16 @@
  * request mail change
  */
 
-import mailProvider from '../../../core/MailProvider';
+import mailProvider from '../../../core/MailProvider.js';
 
-import logger from '../../../core/logger';
-import { getHostFromRequest } from '../../../utils/intel/ip';
-import { validatePassword, validateEMail } from '../../../utils/validation';
-import { compareToHash } from '../../../utils/hash';
-import { checkMailOverShards } from '../../../utils/intel';
-import { setEmail } from '../../../data/sql/ThreePID';
-import { setUserLvl } from '../../../data/sql/User';
-import { USERLVL } from '../../../core/constants';
+import logger from '../../../core/logger.js';
+import { getHostFromRequest } from '../../../utils/intel/ip.js';
+import { validatePassword, validateEMail } from '../../../utils/validation.js';
+import { compareToHash } from '../../../utils/hash.js';
+import { checkMailOverShards } from '../../../utils/intel/index.js';
+import { setEmail } from '../../../data/sql/ThreePID.js';
+import { setUserLvl } from '../../../data/sql/User.js';
+import { USERLVL } from '../../../core/constants.js';
 
 async function validate(email, password, t, gettext) {
   const errors = [];

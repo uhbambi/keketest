@@ -1,7 +1,7 @@
 /*
  * mapping of package to source for LicenseListWebpackPlugin
  */
-module.exports = {
+const mapping = {
   './src': {
     sources: './source.zip',
     moduleSourceTemplate: 'branch:master',
@@ -119,3 +119,5 @@ module.exports = {
     sources: 'branch:master',
   },
 };
+
+export default mapping;

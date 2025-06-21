@@ -1,6 +1,6 @@
 import React from 'react';
 
-import DirectLinkEmbed from './DirectLinkEmbed';
+import DirectLinkEmbed from './DirectLinkEmbed.jsx';
 
 function getIdFromURL(url) {
   let searchTerm;

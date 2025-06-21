@@ -1,9 +1,9 @@
 import Sequelize, { DataTypes, Op } from 'sequelize';
 
-import sequelize from './sequelize';
-import { generateToken, generateTokenHash } from '../../utils/hash';
-import { HOUR, THREEPID_PROVIDERS } from '../../core/constants';
-import { CHANNEL_TYPES } from './Channel';
+import sequelize from './sequelize.js';
+import { generateToken, generateTokenHash } from '../../utils/hash.js';
+import { HOUR, THREEPID_PROVIDERS } from '../../core/constants.js';
+import { CHANNEL_TYPES } from './Channel.js';
 
 const Session = sequelize.define('Session', {
   id: {

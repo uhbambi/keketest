@@ -5,14 +5,14 @@
  * if it reaches the TARGET_RADIUS size, the event is lost
  *
  */
-import socketEvents from '../socket/socketEvents';
+import socketEvents from '../socket/socketEvents.js';
 import {
   hydratePixelUpdate,
-} from '../socket/packets/server';
-import { setPixelByOffset } from './setPixel';
-import { TILE_SIZE } from './constants';
-import { CANVAS_ID } from '../data/redis/Event';
-import canvases from './canvases';
+} from '../socket/packets/server.js';
+import { setPixelByOffset } from './setPixel.js';
+import { TILE_SIZE } from './constants.js';
+import { CANVAS_ID } from '../data/redis/Event.js';
+import canvases from './canvases.js';
 
 const TARGET_RADIUS = 62;
 

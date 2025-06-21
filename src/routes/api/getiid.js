@@ -1,7 +1,7 @@
 /*
  * tell user his own IID
  */
-import { getIIDofIP } from '../../data/sql/IP';
+import { getIIDofIP } from '../../data/sql/IP.js';
 
 async function getiid(req, res, next) {
   try {

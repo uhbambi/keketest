@@ -5,11 +5,11 @@
 
 import express from 'express';
 
-import logger from '../core/logger';
-import getPasswordResetHtml from '../ssr/PasswordReset';
-import { validateEMail } from '../utils/validation';
-import { checkCode } from '../data/redis/mailCodes';
-import { getUserByEmail, setPassword } from '../data/sql/User';
+import logger from '../core/logger.js';
+import getPasswordResetHtml from '../ssr/PasswordReset.jsx';
+import { validateEMail } from '../utils/validation.js';
+import { checkCode } from '../data/redis/mailCodes.js';
+import { getUserByEmail, setPassword } from '../data/sql/User.js';
 
 
 const router = express.Router();

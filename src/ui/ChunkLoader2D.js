@@ -2,20 +2,20 @@
  * Fetching and storing of 2D chunks
  */
 
-import ChunkLoader from './ChunkLoader';
-import Chunk from './Chunk2D';
-import { TILE_SIZE, TILE_ZOOM_LEVEL } from '../core/constants';
-import { shardOrigin } from '../store/actions/fetch';
+import ChunkLoader from './ChunkLoader.js';
+import Chunk from './Chunk2D.js';
+import { TILE_SIZE, TILE_ZOOM_LEVEL } from '../core/constants.js';
+import { shardOrigin } from '../store/actions/fetch.js';
 import {
   loadingTiles,
   loadImage,
-} from './loadImage';
+} from './loadImage.js';
 import {
   getMaxTiledZoom,
   getCellInsideChunk,
   getChunkOfPixel,
   getHistoricalCanvasSize,
-} from '../core/utils';
+} from '../core/utils.js';
 
 class ChunkLoader2D extends ChunkLoader {
   canvasMaxTiledZoom;

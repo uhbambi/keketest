@@ -5,7 +5,7 @@
 import React from 'react';
 import { t } from 'ttag';
 
-import { THREE_CANVAS_HEIGHT } from '../core/constants';
+import { THREE_CANVAS_HEIGHT } from '../core/constants.js';
 
 
 const CanvasItem = ({

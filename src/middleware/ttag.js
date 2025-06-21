@@ -4,8 +4,8 @@
 import { TTag } from 'ttag';
 import { parse as parseCookie } from 'cookie';
 
-import assetWatcher from '../core/fsWatcher';
-import { getLangsOfJsAsset } from '../core/assets';
+import assetWatcher from '../core/fsWatcher.js';
+import { getLangsOfJsAsset } from '../core/assets.js';
 import lccc from '../../i18n/lccc.json';
 
 // eslint-disable-next-line max-len

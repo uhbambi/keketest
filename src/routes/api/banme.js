@@ -2,8 +2,8 @@
  * report that user should be banned
  */
 
-import logger from '../../core/logger';
-import { ban } from '../../core/ban';
+import logger from '../../core/logger.js';
+import { ban } from '../../core/ban.js';
 
 async function banme(req, res) {
   const { body: { code }, ip: { ipString } } = req;

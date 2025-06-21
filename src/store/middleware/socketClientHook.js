@@ -3,7 +3,7 @@
  *
  */
 
-import SocketClient from '../../socket/SocketClient';
+import SocketClient from '../../socket/SocketClient.js';
 
 export default (store) => (next) => (action) => {
   switch (action.type) {

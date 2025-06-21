@@ -7,10 +7,10 @@
 import express from 'express';
 import fileUpload from 'express-fileupload';
 
-import CanvasCleaner from '../../core/CanvasCleaner';
-import chatProvider from '../../core/ChatProvider';
-import { escapeMd } from '../../core/utils';
-import logger, { modtoolsLogger } from '../../core/logger';
+import CanvasCleaner from '../../core/CanvasCleaner.js';
+import chatProvider from '../../core/ChatProvider.js';
+import { escapeMd } from '../../core/utils.js';
+import logger, { modtoolsLogger } from '../../core/logger.js';
 import {
   executeIPAction,
   executeIIDAction,
@@ -23,8 +23,8 @@ import {
   removeMod,
   makeMod,
   executeQuickAction,
-} from '../../core/adminfunctions';
-import { USERLVL } from '../../data/sql';
+} from '../../core/adminfunctions.js';
+import { USERLVL } from '../../data/sql/index.js';
 
 
 const router = express.Router();

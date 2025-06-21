@@ -9,8 +9,8 @@ import path from 'path';
 import ppfunCaptcha from 'ppfun-captcha';
 import { isMainThread, parentPort } from 'worker_threads';
 
-import { getRandomString } from '../core/utils';
-import filter from '../funcs/captchaFilter';
+import { getRandomString } from '../core/utils.js';
+import filter from '../funcs/captchaFilter.js';
 
 const FONT_FOLDER = path.resolve(__dirname, '..', 'captchaFonts');
 

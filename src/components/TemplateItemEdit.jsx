@@ -8,8 +8,8 @@ import React, {
 import { useSelector, shallowEqual } from 'react-redux';
 import { t } from 'ttag';
 
-import templateLoader from '../ui/templateLoader';
-import { coordsFromString } from '../core/utils';
+import templateLoader from '../ui/templateLoader.js';
+import { coordsFromString } from '../core/utils.js';
 
 const TemplateItemEdit = ({
   title: initTitle,

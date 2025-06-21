@@ -3,8 +3,8 @@
 import React from 'react';
 import { t } from 'ttag';
 
-import LogInForm from './LogInForm';
-import useLink from './hooks/link';
+import LogInForm from './LogInForm.jsx';
+import useLink from './hooks/link.js';
 
 const logoStyle = {
   marginRight: 5,

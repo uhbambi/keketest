@@ -4,12 +4,12 @@
  *
  */
 
-import logger from '../../core/logger';
-import socketEvents from '../../socket/socketEvents';
-import { CHANNEL_TYPES } from '../../core/constants';
+import logger from '../../core/logger.js';
+import socketEvents from '../../socket/socketEvents.js';
+import { CHANNEL_TYPES } from '../../core/constants.js';
 import {
   deleteChannel, amountOfUsersInChannel, removeUserFromChannel,
-} from '../../data/sql/Channel';
+} from '../../data/sql/Channel.js';
 
 async function leaveChan(req, res) {
   const channelId = parseInt(req.body.channelId, 10);

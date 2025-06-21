@@ -4,27 +4,27 @@
 import express from 'express';
 import path from 'path';
 
-import ranking from './ranking';
-import voidl from './void';
-import history from './history';
-import tiles from './tiles';
-import chunks from './chunks';
-import adminapi from './adminapi';
-import captcha from './captcha';
-import challenge from './challenge';
-import resetPassword from './reset_password';
-import api from './api';
+import ranking from './ranking.js';
+import voidl from './void.js';
+import history from './history.js';
+import tiles from './tiles.js';
+import chunks from './chunks.js';
+import adminapi from './adminapi.js';
+import captcha from './captcha.js';
+import challenge from './challenge.js';
+import resetPassword from './reset_password.js';
+import api from './api/index.js';
 
-import { expressTTag } from '../middleware/ttag';
-import cors from '../middleware/cors';
-import { parseIP } from '../middleware/ip';
-import generateGlobePage from '../ssr/Globe';
-import generatePopUpPage from '../ssr/PopUp';
-import generateMainPage from '../ssr/Main';
+import { expressTTag } from '../middleware/ttag.js';
+import cors from '../middleware/cors.js';
+import { parseIP } from '../middleware/ip.js';
+import generateGlobePage from '../ssr/Globe.jsx';
+import generatePopUpPage from '../ssr/PopUp.jsx';
+import generateMainPage from '../ssr/Main.jsx';
 
-import AVAILABLE_POPUPS from '../components/windows/popUpAvailable';
-import { MONTH } from '../core/constants';
-import { GUILDED_INVITE } from '../core/config';
+import AVAILABLE_POPUPS from '../components/windows/popUpAvailable.js';
+import { MONTH } from '../core/constants.js';
+import { GUILDED_INVITE } from '../core/config.js';
 
 const router = express.Router();
 

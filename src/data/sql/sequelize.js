@@ -8,7 +8,7 @@ import Sequelize from 'sequelize';
 
 import {
   MYSQL_HOST, MYSQL_DATABASE, MYSQL_USER, MYSQL_PW, LOG_MYSQL,
-} from '../../core/config';
+} from '../../core/config.js';
 
 const sequelize = new Sequelize(MYSQL_DATABASE, MYSQL_USER, MYSQL_PW, {
   host: MYSQL_HOST,

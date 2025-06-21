@@ -3,16 +3,16 @@
  * Usage for Markdown is in ../MdLink.js
  *
  */
-import TikTok from './TikTok';
-import Telegram from './Telegram';
-import Twitter from './Twitter';
-import YouTube from './YouTube';
-import Matrix from './Matrix';
-import Odysee from './Odysee';
-import BitChute from './BitChute';
-import AfreecaTv from './AfreecaTv';
-import TwitchTv from './TwitchTv';
-import DirectLinkMedia from './DirectLinkMedia';
+import TikTok from './TikTok.jsx';
+import Telegram from './Telegram.jsx';
+import Twitter from './Twitter.jsx';
+import YouTube from './YouTube.jsx';
+import Matrix from './Matrix.jsx';
+import Odysee from './Odysee.jsx';
+import BitChute from './BitChute.jsx';
+import AfreecaTv from './AfreecaTv.jsx';
+import TwitchTv from './TwitchTv.jsx';
+import DirectLinkMedia from './DirectLinkMedia.jsx';
 
 /*
  * key is the domain (with .com and www. stripped)

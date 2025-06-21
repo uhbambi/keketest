@@ -4,7 +4,7 @@ import {
   THREE_TILE_SIZE,
   TILE_ZOOM_LEVEL,
   FISH_BONUS_MAX_DURATION,
-} from './constants';
+} from './constants.js';
 
 /**
  * http://stackoverflow.com/questions/4467539/javascript-modulo-not-behaving

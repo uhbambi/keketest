@@ -3,11 +3,11 @@
  */
 import WebSocket from 'ws';
 
-import logger from '../core/logger';
-import canvases from '../core/canvases';
-import MassRateLimiter from '../utils/MassRateLimiter';
-import Counter from '../utils/Counter';
-import { getHostFromRequest } from '../utils/intel/ip';
+import logger from '../core/logger.js';
+import canvases from '../core/canvases.js';
+import MassRateLimiter from '../utils/MassRateLimiter.js';
+import Counter from '../utils/Counter.js';
+import { getHostFromRequest } from '../utils/intel/ip.js';
 import {
   REG_CANVAS_OP,
   PIXEL_UPDATE_OP,
@@ -17,7 +17,7 @@ import {
   DEREG_CHUNK_OP,
   DEREG_MCHUNKS_OP,
   FISH_CATCHED_OP,
-} from './packets/op';
+} from './packets/op.js';
 import {
   hydrateRegCanvas,
   hydrateRegChunk,
@@ -33,14 +33,14 @@ import {
   dehydrateCaptchaReturn,
   dehydrateFishAppears,
   dehydrateFishCatched,
-} from './packets/server';
-import socketEvents from './socketEvents';
-import chatProvider from '../core/ChatProvider';
-import authenticateClient from './authenticateClient';
-import drawByOffsets from '../core/draw';
-import { HOUR } from '../core/constants';
-import { checkCaptchaSolution } from '../data/redis/captcha';
-import { getCoolDown } from '../data/redis/cooldown';
+} from './packets/server.js';
+import socketEvents from './socketEvents.js';
+import chatProvider from '../core/ChatProvider.js';
+import authenticateClient from './authenticateClient.js';
+import drawByOffsets from '../core/draw.js';
+import { HOUR } from '../core/constants.js';
+import { checkCaptchaSolution } from '../data/redis/captcha.js';
+import { getCoolDown } from '../data/redis/cooldown.js';
 
 
 const ipCounter = new Counter();

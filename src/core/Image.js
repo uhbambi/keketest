@@ -7,12 +7,12 @@
 // Tile creation is allowed to be slow
 /* eslint-disable no-await-in-loop */
 
-import RedisCanvas from '../data/redis/RedisCanvas';
-import logger from './logger';
-import { getChunkOfPixel } from './utils';
-import { TILE_SIZE } from './constants';
-import canvases from './canvases';
-import Palette from './Palette';
+import RedisCanvas from '../data/redis/RedisCanvas.js';
+import logger from './logger.js';
+import { getChunkOfPixel } from './utils.js';
+import { TILE_SIZE } from './constants.js';
+import canvases from './canvases.js';
+import Palette from './Palette.js';
 
 
 /*

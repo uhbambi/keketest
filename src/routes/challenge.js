@@ -1,9 +1,9 @@
 /*
  * route providing javascript challenge
  */
-import logger from '../core/logger';
-import requestChallenge from '../core/challengeserver';
-import { setChallengeSolution } from '../data/redis/captcha';
+import logger from '../core/logger.js';
+import requestChallenge from '../core/challengeserver.js';
+import { setChallengeSolution } from '../data/redis/captcha.js';
 
 async function challenge(req, res) {
   res.set({

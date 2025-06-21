@@ -2,8 +2,8 @@
  * storing Event data
  */
 
-import client from './client';
-import logger from '../../core/logger';
+import client from './client.js';
+import logger from '../../core/logger.js';
 
 const DATA_KEY = 'clr:dat';
 const STAT_KEY = 'clr:sta';

@@ -6,12 +6,12 @@
 
 import nodemailer from 'nodemailer';
 
-import logger from './logger';
-import { getTTag } from '../middleware/ttag';
-import { codeExists, checkCode, setCode } from '../data/redis/mailCodes';
-import socketEvents from '../socket/socketEvents';
-import { USE_MAILER, MAIL_ADDRESS } from './config';
-import { getUserByEmail, verifyEmail } from '../data/sql/User';
+import logger from './logger.js';
+import { getTTag } from '../middleware/ttag.js';
+import { codeExists, checkCode, setCode } from '../data/redis/mailCodes.js';
+import socketEvents from '../socket/socketEvents.js';
+import { USE_MAILER, MAIL_ADDRESS } from './config.js';
+import { getUserByEmail, verifyEmail } from '../data/sql/User.js';
 
 export class MailProvider {
   constructor() {

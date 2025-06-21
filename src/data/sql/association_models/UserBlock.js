@@ -2,7 +2,7 @@
  * Junction table for User -> Blocked User
  */
 
-import sequelize from '../sequelize';
+import sequelize from '../sequelize.js';
 
 const UserBlock = sequelize.define('UserBlock', {});
 

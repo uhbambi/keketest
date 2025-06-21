@@ -5,7 +5,7 @@ import EventEmitter from 'events';
 
 import {
   dehydratePixelUpdate,
-} from './packets/server';
+} from './packets/server.js';
 
 class SocketEvents extends EventEmitter {
   isCluster = false;

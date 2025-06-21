@@ -5,10 +5,10 @@
 
 import Sequelize, { DataTypes } from 'sequelize';
 
-import sequelize from './sequelize';
-import ThreePIDHistory from './ThreePIDHistory';
+import sequelize from './sequelize.js';
+import ThreePIDHistory from './ThreePIDHistory.js';
 
-import { THREEPID_PROVIDERS } from '../../core/constants';
+import { THREEPID_PROVIDERS } from '../../core/constants.js';
 
 export { THREEPID_PROVIDERS };
 

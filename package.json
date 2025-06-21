@@ -4,8 +4,9 @@
   "license": "AGPL-3.0-or-later",
   "private": true,
   "engines": {
-    "node": ">=18"
+    "node": ">=20"
   },
+  "type": "module",
   "description": "Unlimited planet canvas for placing pixels",
   "homepage": "https://git.pixelplanet.fun/ppfun/pixelplanet",
   "author": "HF <hf@pixelplanet.fun>",

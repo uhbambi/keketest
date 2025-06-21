@@ -1,12 +1,12 @@
 /*
  * express middlewares for handling ip information
  */
-import { USE_XREALIP } from '../core/config';
-import { sanitizeIPString, ipToHex } from '../utils/intel/ip';
-import { getIPIntelOverShards } from '../utils/intel';
-import { queue } from '../utils/intel/queue';
-import { getIPAllowance, touchIP } from '../data/sql/IP';
-import { parseListOfBans } from '../data/sql/Ban';
+import { USE_XREALIP } from '../core/config.js';
+import { sanitizeIPString, ipToHex } from '../utils/intel/ip.js';
+import { getIPIntelOverShards } from '../utils/intel/index.js';
+import { queue } from '../utils/intel/queue.js';
+import { getIPAllowance, touchIP } from '../data/sql/IP.js';
+import { parseListOfBans } from '../data/sql/Ban.js';
 
 const getIPAllowanceQueued = queue(getIPAllowance);
 

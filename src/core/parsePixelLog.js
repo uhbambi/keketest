@@ -1,13 +1,13 @@
 import fs from 'fs';
 import readline from 'readline';
 
-import { PIXELLOGGER_PREFIX } from './logger';
-import { getNamesToIds } from '../data/sql/User';
+import { PIXELLOGGER_PREFIX } from './logger.js';
+import { getNamesToIds } from '../data/sql/User.js';
 import {
   getIdsToIps,
   getInfoToIps,
   getIPofIID,
-} from '../data/sql/IP';
+} from '../data/sql/IP.js';
 
 function parseFile(cb) {
   const date = new Date();

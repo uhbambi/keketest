@@ -1,7 +1,7 @@
 /*
  *
  */
-import { getBanInfos } from '../../data/sql/Ban';
+import { getBanInfos } from '../../data/sql/Ban.js';
 
 async function baninfo(req, res) {
   const { t, user, ip: { ipString } } = req.ttag;

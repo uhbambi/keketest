@@ -3,7 +3,7 @@
  * returns chat messages of given channel
  *
  */
-import chatProvider from '../../core/ChatProvider';
+import chatProvider from '../../core/ChatProvider.js';
 
 async function chatHistory(req, res) {
   let { cid, limit } = req.query;

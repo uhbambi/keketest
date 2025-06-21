@@ -9,9 +9,9 @@ import { t } from 'ttag';
 
 import {
   dateToString, getToday, stringToDate, stringToTime,
-} from '../core/utils';
-import { selectHistoricalTime } from '../store/actions';
-import { requestHistoricalTimes } from '../store/actions/fetch';
+} from '../core/utils.js';
+import { selectHistoricalTime } from '../store/actions/index.js';
+import { requestHistoricalTimes } from '../store/actions/fetch.js';
 
 const TIME_CACHE = new Map();
 

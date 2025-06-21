@@ -1,7 +1,7 @@
 /*
  * express middleware to set CORS Headers
  */
-import { CORS_HOSTS } from '../core/config';
+import { CORS_HOSTS } from '../core/config.js';
 
 export default (req, res, next) => {
   if (!CORS_HOSTS || !req.headers.origin) {

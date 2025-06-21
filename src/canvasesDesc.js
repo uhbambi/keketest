@@ -4,9 +4,9 @@
  *
  */
 
-import assetWatcher from './core/fsWatcher';
-import canvases from './core/canvases';
-import ttag from './middleware/ttag';
+import assetWatcher from './core/fsWatcher.js';
+import canvases from './core/canvases.js';
+import ttag from './middleware/ttag.js';
 
 
 /* eslint-disable max-len */

@@ -1,6 +1,6 @@
 import { t } from 'ttag';
 
-import { FISH_TYPES } from '../../core/constants';
+import { FISH_TYPES } from '../../core/constants.js';
 
 export function pAlert(
   title,

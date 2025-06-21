@@ -7,9 +7,9 @@
 import fs from 'fs';
 import express from 'express';
 
-import canvases from '../core/canvases';
-import { getMaxTiledZoom } from '../core/utils';
-import { TILE_FOLDER } from '../core/config';
+import canvases from '../core/canvases.js';
+import { getMaxTiledZoom } from '../core/utils.js';
+import { TILE_FOLDER } from '../core/config.js';
 
 
 const router = express.Router();

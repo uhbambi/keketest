@@ -10,10 +10,10 @@ import { t } from 'ttag';
 import {
   hideAllWindowTypes,
   openChatWindow,
-} from '../../store/actions/windows';
+} from '../../store/actions/windows.js';
 import {
   selectChatWindowStatus,
-} from '../../store/selectors/windows';
+} from '../../store/selectors/windows.js';
 
 const ChatButton = () => {
   const [unreadAny, setUnreadAny] = useState(false);

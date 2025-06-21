@@ -7,22 +7,22 @@ import { persistStore } from 'redux-persist';
 import {
   createKeyDownHandler,
   createKeyUpHandler,
-} from './controls/keypress';
+} from './controls/keypress.js';
 import {
   initTimer,
   urlChange,
   setMobile,
   windowResize,
-} from './store/actions';
+} from './store/actions/index.js';
 import {
   fetchMe,
-} from './store/actions/thunks';
-import pixelTransferController from './ui/PixelTransferController';
-import store from './store/store';
-import renderApp from './components/App';
-import { getRenderer } from './ui/rendererFactory';
-import templateLoader from './ui/templateLoader';
-import socketClient from './socket/SocketClient';
+} from './store/actions/thunks.js';
+import pixelTransferController from './ui/PixelTransferController.js';
+import store from './store/store.js';
+import renderApp from './components/App.jsx';
+import { getRenderer } from './ui/rendererFactory.js';
+import templateLoader from './ui/templateLoader.js';
+import socketClient from './socket/SocketClient.js';
 
 persistStore(store, {}, () => {
   window.addEventListener('message', store.dispatch);

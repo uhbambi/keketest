@@ -1,4 +1,4 @@
-import { USERLVL } from '../../core/constants';
+import { USERLVL } from '../../core/constants.js';
 
 const initialState = {
   id: null,

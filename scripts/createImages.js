@@ -3,10 +3,14 @@
  * Creates images needed for pixelplanet out of svg files
  */
 
-const fs = require('fs');
-const path = require('path');
-const sharp = require("sharp");
-const ico= require("sharp-ico");
+import fs from 'fs';
+import path from 'path';
+import sharp from 'sharp';
+import ico from 'sharp-ico';
+
+import { fileURLToPath } from 'url';
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const svgLogo = path.resolve(__dirname, '..', 'dist', 'public', 'logo.svg');
 const targetIco = path.resolve(__dirname, '..', 'dist', 'public', 'favicon.ico');
@@ -31,4 +35,4 @@ async function createImages() {
   console.log('Created apple-touch-icon.png');
 }
 
-module.exports = createImages;
+export default createImages;

@@ -1,11 +1,11 @@
 import React, { useRef } from 'react';
 import { createPortal } from 'react-dom';
 
-import UserContextMenu from './UserContextMenu';
-import ChannelContextMenu from './ChannelContextMenu';
+import UserContextMenu from './UserContextMenu.jsx';
+import ChannelContextMenu from './ChannelContextMenu.jsx';
 import {
   useClickOutside,
-} from '../hooks/clickOutside';
+} from '../hooks/clickOutside.js';
 
 export const types = {
   USER: UserContextMenu,

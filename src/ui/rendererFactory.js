@@ -7,11 +7,11 @@
 
 import { t } from 'ttag';
 
-import Renderer from './Renderer';
-import Renderer2D from './Renderer2D';
-import { pAlert } from '../store/actions';
-import { isWebGL2Available } from '../core/utils';
-import { GC_INTERVAL } from '../core/constants';
+import Renderer from './Renderer.js';
+import Renderer2D from './Renderer2D.js';
+import { pAlert } from '../store/actions/index.js';
+import { isWebGL2Available } from '../core/utils.js';
+import { GC_INTERVAL } from '../core/constants.js';
 
 const dummyRenderer = new Renderer();
 
@@ -37,7 +37,7 @@ export async function initRenderer(store, is3D) {
         renderer = dummyRenderer;
       } else {
         /* eslint-disable-next-line max-len */
-        const module = await import(/* webpackChunkName: "voxel" */ './Renderer3D');
+        const module = await import(/* webpackChunkName: "voxel" */ './Renderer3D.js');
         const Renderer3D = module.default;
         renderer = new Renderer3D(store);
       }

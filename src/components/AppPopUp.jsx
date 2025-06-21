@@ -7,8 +7,8 @@ import { Provider } from 'react-redux';
 import { createRoot } from 'react-dom/client';
 import { IconContext } from 'react-icons';
 
-import Style from './Style';
-import UIPopUp from './UIPopUp';
+import Style from './Style.jsx';
+import UIPopUp from './UIPopUp.jsx';
 
 const iconContextValue = { style: { verticalAlign: 'middle' } };
 

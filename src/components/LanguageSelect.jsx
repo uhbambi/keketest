@@ -8,7 +8,7 @@
  */
 import React, { useState, useEffect } from 'react';
 import { t } from 'ttag';
-import { MONTH } from '../core/constants';
+import { MONTH } from '../core/constants.js';
 
 function LanguageSelect() {
   const [langSel, setLangSel] = useState(window.ssv.lang);

@@ -4,10 +4,10 @@
 
 import express from 'express';
 
-import { verifySessionPromisified } from '../middleware/session';
-import { parseIP, ipAllowancePromisified } from '../middleware/ip';
-import promises from '../middleware/promises';
-import { expressTTag } from '../middleware/ttag';
+import { verifySessionPromisified } from '../middleware/session.js';
+import { parseIP, ipAllowancePromisified } from '../middleware/ip.js';
+import promises from '../middleware/promises.js';
+import { expressTTag } from '../middleware/ttag.js';
 
 const router = express.Router();
 

@@ -7,7 +7,7 @@
 import { createLogger, format, transports } from 'winston';
 import DailyRotateFile from 'winston-daily-rotate-file';
 
-import { SHARD_NAME } from './config';
+import { SHARD_NAME } from './config.js';
 
 export const PIXELLOGGER_PREFIX = (SHARD_NAME)
   ? `./log/pixels-${SHARD_NAME}-` : './log/pixels-';

@@ -2,20 +2,20 @@
  * webpack config for client files
  */
 
-const fs = require('fs');
-const path = require('path');
-const process = require('process');
-const webpack = require('webpack');
-const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
-const sourceMapping = require('./scripts/sourceMapping');
-const LicenseListWebpackPlugin = require('./scripts/LicenseListWebpackPlugin');
+import fs from 'fs';
+import path from 'path';
+import process from 'process';
+import webpack from 'webpack';
+import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
+import sourceMapping from './scripts/sourceMapping.js';
+import LicenseListWebpackPlugin from './scripts/LicenseListWebpackPlugin.cjs';
 
 /*
  * make sure we build in root dir
  */
-process.chdir(__dirname);
+process.chdir(import.meta.dirname);
 
-module.exports = ({
+export default ({
   development,
   analyze,
   locale = 'en',

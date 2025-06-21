@@ -7,7 +7,7 @@
  */
 
 import { DataTypes } from 'sequelize';
-import sequelize from '../sequelize';
+import sequelize from '../sequelize.js';
 
 const UserChannel = sequelize.define('UserChannel', {
   lastRead: {

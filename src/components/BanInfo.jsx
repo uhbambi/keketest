@@ -6,14 +6,14 @@ import React, { useState, useCallback } from 'react';
 import { useDispatch } from 'react-redux';
 import { t } from 'ttag';
 
-import useInterval from './hooks/interval';
-import useLink from './hooks/link';
-import { notify } from '../store/actions/thunks';
-import copyTextToClipboard from '../utils/clipboard';
+import useInterval from './hooks/interval.js';
+import useLink from './hooks/link.js';
+import { notify } from '../store/actions/thunks.js';
+import copyTextToClipboard from '../utils/clipboard.js';
 import {
   largeDurationToString,
-} from '../core/utils';
-import { requestBanInfo } from '../store/actions/fetch';
+} from '../core/utils.js';
+import { requestBanInfo } from '../store/actions/fetch.js';
 
 
 const BanInfo = ({ close }) => {

@@ -1,29 +1,29 @@
 import express from 'express';
 
-import logger from '../../../core/logger';
-import { getHostFromRequest } from '../../../utils/intel/ip';
-import passport from '../../../core/passport';
-import { ensureLoggedIn, openSession } from '../../../middleware/session';
+import logger from '../../../core/logger.js';
+import { getHostFromRequest } from '../../../utils/intel/ip.js';
+import passport from '../../../core/passport.js';
+import { ensureLoggedIn, openSession } from '../../../middleware/session.js';
 
-import register from './register';
-import verify from './verify';
-import logout from './logout';
+import register from './register.js';
+import verify from './verify.js';
+import logout from './logout.js';
 // eslint-disable-next-line camelcase
-import resend_verify from './resend_verify';
+import resend_verify from './resend_verify.js';
 // eslint-disable-next-line camelcase
-import change_passwd from './change_passwd';
+import change_passwd from './change_passwd.js';
 // eslint-disable-next-line camelcase
-import delete_account from './delete_account';
+import delete_account from './delete_account.js';
 // eslint-disable-next-line camelcase
-import change_name from './change_name';
+import change_name from './change_name.js';
 // eslint-disable-next-line camelcase
-import change_mail from './change_mail';
+import change_mail from './change_mail.js';
 // eslint-disable-next-line camelcase
-import restore_password from './restore_password';
+import restore_password from './restore_password.js';
 
-import getHtml from '../../../ssr/RedirectionPage';
+import getHtml from '../../../ssr/RedirectionPage.jsx';
 
-import getMe from '../../../core/me';
+import getMe from '../../../core/me.js';
 
 const router = express.Router();
 

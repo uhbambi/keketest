@@ -9,8 +9,8 @@ import { t } from 'ttag';
 import {
   startDm,
   setUserBlock,
-} from '../../store/actions/thunks';
-import { escapeMd } from '../../core/utils';
+} from '../../store/actions/thunks.js';
+import { escapeMd } from '../../core/utils.js';
 
 /*
  * args: {

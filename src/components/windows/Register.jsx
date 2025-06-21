@@ -6,13 +6,13 @@ import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { t } from 'ttag';
 
-import Captcha from '../Captcha';
+import Captcha from '../Captcha.jsx';
 import {
   validateEMail, validateName, validatePassword,
-} from '../../utils/validation';
-import { requestRegistration } from '../../store/actions/fetch';
-import { loginUser } from '../../store/actions';
-import useLink from '../hooks/link';
+} from '../../utils/validation.js';
+import { requestRegistration } from '../../store/actions/fetch.js';
+import { loginUser } from '../../store/actions/index.js';
+import useLink from '../hooks/link.js';
 
 
 function validate(name, email, password, confirmPassword) {

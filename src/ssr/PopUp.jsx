@@ -6,11 +6,11 @@
 /* eslint-disable max-len */
 import etag from 'etag';
 
-import { getTTag, availableLangs as langs } from '../middleware/ttag';
-import socketEvents from '../socket/socketEvents';
-import { getJsAssets, getThemeCssAssets } from '../core/assets';
-import { BACKUP_URL } from '../core/config';
-import { getHostFromRequest } from '../utils/intel/ip';
+import { getTTag, availableLangs as langs } from '../middleware/ttag.js';
+import socketEvents from '../socket/socketEvents.js';
+import { getJsAssets, getThemeCssAssets } from '../core/assets.js';
+import { BACKUP_URL } from '../core/config.js';
+import { getHostFromRequest } from '../utils/intel/ip.js';
 
 
 /*

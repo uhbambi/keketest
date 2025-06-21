@@ -13,7 +13,7 @@ import {
   requestProfile,
   requestChatMessages,
   requestMe,
-} from './fetch';
+} from './fetch.js';
 import {
   pAlert,
   receiveStats,
@@ -23,12 +23,12 @@ import {
   blockingDm,
   privatize,
   selectPencilMode,
-} from './index';
+} from './index.js';
 import {
   addChatChannel,
   removeChatChannel,
-} from './socket';
-import { PENCIL_MODE } from '../../core/constants';
+} from './socket.js';
+import { PENCIL_MODE } from '../../core/constants.js';
 
 function setApiFetching(fetching) {
   return {

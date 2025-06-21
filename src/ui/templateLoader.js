@@ -4,7 +4,7 @@
 
 import { t } from 'ttag';
 
-import FileStorage from '../utils/FileStorage';
+import FileStorage from '../utils/FileStorage.js';
 import {
   removeTemplate,
   listTemplate,
@@ -12,10 +12,10 @@ import {
   changeTemplate,
   templatesReady,
   receivedTemplate,
-} from '../store/actions/templates';
-import { pAlert } from '../store/actions';
-import { bufferToBase64, base64ToBuffer } from '../core/utils';
-import Template from './Template';
+} from '../store/actions/templates.js';
+import { pAlert } from '../store/actions/index.js';
+import { bufferToBase64, base64ToBuffer } from '../core/utils.js';
+import Template from './Template.js';
 
 const STORE_NAME = 'templates';
 

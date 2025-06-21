@@ -1,5 +1,5 @@
-import { TILE_SIZE } from '../core/constants';
-import Chunk from './Chunk';
+import { TILE_SIZE } from '../core/constants.js';
+import Chunk from './Chunk.js';
 
 
 class Chunk2D extends Chunk {

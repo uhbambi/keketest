@@ -1,10 +1,10 @@
 import Sequelize, { DataTypes, Op } from 'sequelize';
 import crypto from 'crypto';
 
-import sequelize from './sequelize';
-import RangeData from './Range';
-import ProxyData from './Proxy';
-import WhoisReferral from './WhoisReferral';
+import sequelize from './sequelize.js';
+import RangeData from './Range.js';
+import ProxyData from './Proxy.js';
+import WhoisReferral from './WhoisReferral.js';
 
 const IP = sequelize.define('IP', {
   /*
@@ -24,9 +24,7 @@ const IP = sequelize.define('IP', {
     type: 'BINARY(16)',
     allowNull: false,
     unique: 'uuid',
-    defaultValue: () => {
-      return crypto.randomBytes(16);
-    }
+    defaultValue: () => crypto.randomBytes(16),
   },
 
   lastSeen: {
@@ -56,7 +54,7 @@ export async function getIPAllowance(ipString) {
       attributes: [
         'lastSeen',
         /* TODO IMPORTANT */
-        //[Sequelize.col('whitelist.wip'), 'isWhitelisted'],
+        // [Sequelize.col('whitelist.wip'), 'isWhitelisted'],
         [Sequelize.col('proxy.isProxy'), 'isProxy'],
         [Sequelize.col('range.country'), 'country'],
         [Sequelize.col('range.expires'), 'whoisExpires'],
@@ -75,10 +73,10 @@ export async function getIPAllowance(ipString) {
         where: {
           expires: { [Op.gt]: Sequelize.fn('NOW') },
         },
-      }, {/*
+      }, { /*
         association: 'whitelist',
         attributes: [['ip', 'wip']],
-      }, {*/
+      }, { */
         association: 'bans',
         attributes: ['expires', 'flags'],
         where: {

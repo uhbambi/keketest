@@ -4,13 +4,13 @@
  *
  */
 
-import logger from '../../core/logger';
-import socketEvents from '../../socket/socketEvents';
-import { findUserByIdOrName } from '../../data/sql/User';
-import { deleteDMChannel } from '../../data/sql/Channel';
+import logger from '../../core/logger.js';
+import socketEvents from '../../socket/socketEvents.js';
+import { findUserByIdOrName } from '../../data/sql/User.js';
+import { deleteDMChannel } from '../../data/sql/Channel.js';
 import {
   blockUser, unblockUser,
-} from '../../data/sql/association_models/UserBlock';
+} from '../../data/sql/association_models/UserBlock.js';
 
 async function block(req, res) {
   let userId = parseInt(req.body.userId, 10);

@@ -6,10 +6,10 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 
-import HelpButton from './buttons/HelpButton';
-import SettingsButton from './buttons/SettingsButton';
-import LogInButton from './buttons/LogInButton';
-import DownloadButton from './buttons/DownloadButton';
+import HelpButton from './buttons/HelpButton.jsx';
+import SettingsButton from './buttons/SettingsButton.jsx';
+import LogInButton from './buttons/LogInButton.jsx';
+import DownloadButton from './buttons/DownloadButton.jsx';
 
 const Menu = () => {
   const [render, setRender] = useState(false);

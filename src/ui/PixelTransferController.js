@@ -5,14 +5,14 @@
 import { t } from 'ttag';
 import {
   pAlert,
-} from '../store/actions';
+} from '../store/actions/index.js';
 import {
   setPixelsFetching,
   receivePlacePixels,
-} from '../store/actions/socket';
+} from '../store/actions/socket.js';
 import {
   notify,
-} from '../store/actions/thunks';
+} from '../store/actions/thunks.js';
 
 class PixelTransferController {
   constructor() {

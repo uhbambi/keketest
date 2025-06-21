@@ -3,7 +3,7 @@
  * it just buffers the most recent 200 messages for each channel
  *
  */
-import { storeMessage, getMessagesForChannel } from '../data/sql/Message';
+import { storeMessage, getMessagesForChannel } from '../data/sql/Message.js';
 
 const MAX_BUFFER_TIME = 600000;
 

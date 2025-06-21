@@ -2,10 +2,10 @@
  * request password change
  */
 
-import logger from '../../../core/logger';
-import { validatePassword } from '../../../utils/validation';
-import { compareToHash } from '../../../utils/hash';
-import { setPassword } from '../../../data/sql/User';
+import logger from '../../../core/logger.js';
+import { validatePassword } from '../../../utils/validation.js';
+import { compareToHash } from '../../../utils/hash.js';
+import { setPassword } from '../../../data/sql/User.js';
 
 function validate(newPassword, gettext) {
   const errors = [];

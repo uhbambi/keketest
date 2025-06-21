@@ -6,10 +6,10 @@
 
 import Sequelize, { DataTypes, Op } from 'sequelize';
 
-import sequelize from './sequelize';
-import UserChannel from './association_models/UserChannel';
+import sequelize from './sequelize.js';
+import UserChannel from './association_models/UserChannel.js';
 
-import { CHANNEL_TYPES } from '../../core/constants';
+import { CHANNEL_TYPES } from '../../core/constants.js';
 
 export { CHANNEL_TYPES };
 

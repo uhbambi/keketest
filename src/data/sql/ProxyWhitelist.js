@@ -1,5 +1,5 @@
 import Sequelize, { DataTypes } from 'sequelize';
-import sequelize from './sequelize';
+import sequelize from './sequelize.js';
 
 
 const ProxyWhitelist = sequelize.define('ProxyWhitelist', {

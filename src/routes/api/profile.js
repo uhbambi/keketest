@@ -1,7 +1,7 @@
 /*
  * get profile information of user
  */
-import { getFishesOfUser } from '../../data/sql/Fish';
+import { getFishesOfUser } from '../../data/sql/Fish.js';
 
 export default async (req, res) => {
   const { user } = req;

@@ -4,12 +4,12 @@
  * This should be the most basic data in order to run the game.
  *
  */
-import getLocalizedCanvases from '../canvasesDesc';
-import { USERLVL } from '../data/sql';
-import { getUserRanks } from '../data/redis/ranks';
-import { USE_MAILER } from './config';
-import { USER_FLAGS } from './constants';
-import chatProvider from './ChatProvider';
+import getLocalizedCanvases from '../canvasesDesc.js';
+import { USERLVL } from '../data/sql/index.js';
+import { getUserRanks } from '../data/redis/ranks.js';
+import { USE_MAILER } from './config.js';
+import { USER_FLAGS } from './constants.js';
+import chatProvider from './ChatProvider.js';
 
 
 export default async function getMe(user, lang) {

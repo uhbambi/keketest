@@ -5,13 +5,13 @@
 /* eslint-disable max-len */
 import etag from 'etag';
 
-import canvases from '../core/canvases';
-import hashScript from '../utils/scriptHash';
-import { getTTag, availableLangs as langs } from '../middleware/ttag';
-import { getJsAssets, getThemeCssAssets } from '../core/assets';
-import socketEvents from '../socket/socketEvents';
-import { BACKUP_URL, CONTACT_ADDRESS } from '../core/config';
-import { getHostFromRequest } from '../utils/intel/ip';
+import canvases from '../core/canvases.js';
+import hashScript from '../utils/scriptHash.js';
+import { getTTag, availableLangs as langs } from '../middleware/ttag.js';
+import { getJsAssets, getThemeCssAssets } from '../core/assets.js';
+import socketEvents from '../socket/socketEvents.js';
+import { BACKUP_URL, CONTACT_ADDRESS } from '../core/config.js';
+import { getHostFromRequest } from '../utils/intel/ip.js';
 
 const defaultCanvasForCountry = {};
 (function populateDefaultCanvases() {

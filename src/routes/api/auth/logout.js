@@ -2,8 +2,8 @@
  * logout
  */
 
-import logger from '../../../core/logger';
-import { closeSession } from '../../../middleware/session';
+import logger from '../../../core/logger.js';
+import { closeSession } from '../../../middleware/session.js';
 
 export default async (req, res) => {
   const { user } = req;

@@ -9,13 +9,13 @@
 
 import WebSocket from 'ws';
 
-import socketEvents from './socketEvents';
-import { dehydrateOnlineCounter } from './packets/server';
-import chatProvider from '../core/ChatProvider';
-import { setPixelByCoords } from '../core/setPixel';
-import logger from '../core/logger';
-import { APISOCKET_KEY } from '../core/config';
-import authenticateAPIClient from './authenticateAPIClient';
+import socketEvents from './socketEvents.js';
+import { dehydrateOnlineCounter } from './packets/server.js';
+import chatProvider from '../core/ChatProvider.js';
+import { setPixelByCoords } from '../core/setPixel.js';
+import logger from '../core/logger.js';
+import { APISOCKET_KEY } from '../core/config.js';
+import authenticateAPIClient from './authenticateAPIClient.js';
 
 
 class APISocketServer {

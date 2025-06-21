@@ -4,8 +4,8 @@
 import fs from 'fs';
 import path from 'path';
 
-import logger from './logger';
-import { ASSET_DIR } from './config';
+import logger from './logger.js';
+import { ASSET_DIR } from './config.js';
 
 class FsWatcher {
   #path;

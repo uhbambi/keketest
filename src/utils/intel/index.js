@@ -1,17 +1,17 @@
 /*
  * utils for informations regarding ip and email
  */
-import ProxyCheck from './ProxyCheck';
-import whois from './whois';
-import socketEvents from '../../socket/socketEvents';
-import { getLowHexSubnetOfIP } from './ip';
-import { getRangeOfIP } from '../../data/sql/Range';
-import { getWhoisHostOfIP } from '../../data/sql/WhoisReferral';
-import { saveIPIntel } from '../../data/sql/IP';
-import { queue } from './queue';
+import ProxyCheck from './ProxyCheck.js';
+import whois from './whois.js';
+import socketEvents from '../../socket/socketEvents.js';
+import { getLowHexSubnetOfIP } from './ip.js';
+import { getRangeOfIP } from '../../data/sql/Range.js';
+import { getWhoisHostOfIP } from '../../data/sql/WhoisReferral.js';
+import { saveIPIntel } from '../../data/sql/IP.js';
+import { queue } from './queue.js';
 import {
   USE_PROXYCHECK, PROXYCHECK_KEY, WHOIS_DURATION, PROXYCHECK_DURATION,
-} from '../../core/config';
+} from '../../core/config.js';
 
 let proxyChecker = () => null;
 let mailChecker = () => null;

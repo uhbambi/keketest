@@ -3,12 +3,14 @@
  * starts a DM session
  *
  */
-import logger from '../../core/logger';
-import socketEvents from '../../socket/socketEvents';
-import { isUserBlockedBy } from '../../data/sql/association_models/UserBlock';
-import { findUserByIdOrName } from '../../data/sql/User';
-import { createDMChannel } from '../../data/sql/Channel';
-import { USER_FLAGS } from '../../core/constants';
+import logger from '../../core/logger.js';
+import socketEvents from '../../socket/socketEvents.js';
+import {
+  isUserBlockedBy,
+} from '../../data/sql/association_models/UserBlock.js';
+import { findUserByIdOrName } from '../../data/sql/User.js';
+import { createDMChannel } from '../../data/sql/Channel.js';
+import { USER_FLAGS } from '../../core/constants.js';
 
 async function startDm(req, res) {
   let userId = parseInt(req.body.userId, 10);

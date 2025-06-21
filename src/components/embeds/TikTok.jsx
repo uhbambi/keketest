@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { stripQuery } from '../../core/utils';
+import { stripQuery } from '../../core/utils.js';
 
 function getUserFromUrl(url) {
   let aPos = url.indexOf('/@');

@@ -9,7 +9,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { BiChalkboard } from 'react-icons/bi';
 import { t } from 'ttag';
 
-import { openWindowPopUp } from './hooks/link';
+import { openWindowPopUp } from './hooks/link.js';
 import {
   moveWindow,
   removeWindow,
@@ -21,17 +21,17 @@ import {
   setWindowTitle,
   setWindowArgs,
   changeWindowType,
-} from '../store/actions/windows';
+} from '../store/actions/windows.js';
 import {
   makeSelectWindowById,
   makeSelectWindowPosById,
   makeSelectWindowArgs,
   selectShowWindows,
-} from '../store/selectors/windows';
-import useDrag from './hooks/drag';
-import WindowContext from './context/window';
-import COMPONENTS from './windows';
-import popUpTypes from './windows/popUpAvailable';
+} from '../store/selectors/windows.js';
+import useDrag from './hooks/drag.js';
+import WindowContext from './context/window.js';
+import COMPONENTS from './windows/index.js';
+import popUpTypes from './windows/popUpAvailable.js';
 
 /*
  * disabled for id and dispatch

@@ -7,8 +7,8 @@
 import React, { useState } from 'react';
 import { t } from 'ttag';
 
-import { parseInterval } from '../core/utils';
-import { shardOrigin } from '../store/actions/fetch';
+import { parseInterval } from '../core/utils.js';
+import { shardOrigin } from '../store/actions/fetch.js';
 
 async function submitIIDAction(
   action,

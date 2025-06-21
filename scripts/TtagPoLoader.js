@@ -2,9 +2,9 @@
  * webpack loader that reads po files
  */
 
-const parser = require("ttag-cli/dist/src/lib/parser");
+import parser from 'ttag-cli/dist/src/lib/parser';
 
-module.exports = function (source) {
+export default function (source) {
   if (this.cacheable) this.cacheable();
   const includeFuzzy = this.getOptions().includeFuzzy;
 
@@ -24,7 +24,7 @@ module.exports = function (source) {
     }
   }
 
-  value = JSON.stringify(poData)
+  const value = JSON.stringify(poData)
     .replace(/\u2028/g, '\\u2028')
     .replace(/\u2029/g, '\\u2029');
 

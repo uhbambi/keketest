@@ -2,7 +2,7 @@
 
 import React from 'react';
 
-import DirectLinkMedia from './DirectLinkMedia';
+import DirectLinkMedia from './DirectLinkMedia.jsx';
 
 const Matrix = ({ url, fill, maxHeight }) => {
   const cleanUrl = url.substring(0, url.indexOf('?type='));

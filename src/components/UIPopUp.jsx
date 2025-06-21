@@ -5,14 +5,16 @@
 import React, { useMemo } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
-import { selectWindowType, selectWindowArgs } from '../store/selectors/popup';
+import {
+  selectWindowType, selectWindowArgs,
+} from '../store/selectors/popup.js';
 import {
   setWindowArgs,
   setWindowTitle,
   changeWindowType,
-} from '../store/actions/popup';
-import WindowContext from './context/window';
-import COMPONENTS from './windows';
+} from '../store/actions/popup.js';
+import WindowContext from './context/window.js';
+import COMPONENTS from './windows/index.js';
 
 const UIPopUp = () => {
   const windowType = useSelector(selectWindowType);

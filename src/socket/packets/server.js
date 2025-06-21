@@ -13,7 +13,7 @@ import {
   PIXEL_UPDATE_OP,
   FISH_APPEARS_OP,
   FISH_CATCHED_OP,
-} from './op';
+} from './op.js';
 
 /*
  * data in hydrate function is a nodejs Buffer

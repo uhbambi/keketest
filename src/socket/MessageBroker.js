@@ -11,13 +11,13 @@
 
 /* eslint-disable no-console */
 
-import { SHARD_NAME } from '../core/config';
-import SocketEvents from './SockEvents';
+import { SHARD_NAME } from '../core/config.js';
+import SocketEvents from './SockEvents.js';
 import {
   ONLINE_COUNTER_OP,
   PIXEL_UPDATE_MB_OP,
   CHUNK_UPDATE_MB_OP,
-} from './packets/op';
+} from './packets/op.js';
 import {
   hydrateOnlineCounter,
   hydratePixelUpdateMB,
@@ -25,9 +25,9 @@ import {
   dehydratePixelUpdate,
   dehydratePixelUpdateMB,
   dehydrateChunkUpdateMB,
-} from './packets/server';
-import { pubsub } from '../data/redis/client';
-import { combineObjects } from '../core/utils';
+} from './packets/server.js';
+import { pubsub } from '../data/redis/client.js';
+import { combineObjects } from '../core/utils.js';
 
 /*
  * channel that all shards share and listen to

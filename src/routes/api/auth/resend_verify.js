@@ -2,10 +2,10 @@
  * request resend of verification mail
  */
 
-import mailProvider from '../../../core/MailProvider';
-import { getHostFromRequest } from '../../../utils/intel/ip';
-import { USERLVL } from '../../../data/sql';
-import { getEmailOfUser } from '../../../data/sql/ThreePID';
+import mailProvider from '../../../core/MailProvider.js';
+import { getHostFromRequest } from '../../../utils/intel/ip.js';
+import { USERLVL } from '../../../data/sql/index.js';
+import { getEmailOfUser } from '../../../data/sql/ThreePID.js';
 
 export default async (req, res) => {
   const { user, lang, ttag: { t } } = req;

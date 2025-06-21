@@ -9,11 +9,11 @@ import {
   // fetching of preLoad chunk triggers rerender already
   // lets keep this out for now, until needed
   // preLoadedBigChunk,
-} from '../store/actions';
+} from '../store/actions/index.js';
 import {
   MAX_LOADED_CHUNKS,
   MAX_CHUNK_AGE,
-} from '../core/constants';
+} from '../core/constants.js';
 
 /* eslint-disable class-methods-use-this */
 

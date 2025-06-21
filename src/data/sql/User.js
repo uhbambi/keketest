@@ -7,11 +7,13 @@
 import { randomUUID } from 'crypto';
 import Sequelize, { DataTypes, QueryTypes, Op } from 'sequelize';
 
-import sequelize from './sequelize';
-import { generateHash } from '../../utils/hash';
-import UserIP from './association_models/UserIP';
-import { USERLVL, THREEPID_PROVIDERS, USER_FLAGS } from '../../core/constants';
-import { deleteAllDMChannelsOfUser } from './Channel';
+import sequelize from './sequelize.js';
+import { generateHash } from '../../utils/hash.js';
+import UserIP from './association_models/UserIP.js';
+import {
+  USERLVL, THREEPID_PROVIDERS, USER_FLAGS,
+} from '../../core/constants.js';
+import { deleteAllDMChannelsOfUser } from './Channel.js';
 
 export { USERLVL, THREEPID_PROVIDERS, USER_FLAGS };
 

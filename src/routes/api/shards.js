@@ -1,7 +1,7 @@
 /*
  * print information for shards
  */
-import socketEvents from '../../socket/socketEvents';
+import socketEvents from '../../socket/socketEvents.js';
 
 async function shards(req, res, next) {
   try {

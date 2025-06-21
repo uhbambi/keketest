@@ -1,5 +1,5 @@
 import Sequelize, { DataTypes, Op } from 'sequelize';
-import sequelize from './sequelize';
+import sequelize from './sequelize.js';
 
 /*
  * Information of whois hosts responsible for Ranges,

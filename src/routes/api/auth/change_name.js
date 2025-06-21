@@ -2,10 +2,10 @@
  * request password change
  */
 
-import logger from '../../../core/logger';
-import socketEvents from '../../../socket/socketEvents';
-import { setName } from '../../../data/sql/User';
-import { validateName } from '../../../utils/validation';
+import logger from '../../../core/logger.js';
+import socketEvents from '../../../socket/socketEvents.js';
+import { setName } from '../../../data/sql/User.js';
+import { validateName } from '../../../utils/validation.js';
 
 async function validate(oldname, name, t, gettext) {
   if (oldname === name) return t`You already have that name.`;

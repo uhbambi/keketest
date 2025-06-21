@@ -9,19 +9,19 @@ import useStayScrolled from 'react-stay-scrolled';
 import { useSelector, useDispatch } from 'react-redux';
 import { t } from 'ttag';
 
-import WindowContext from '../context/window';
-import useLink from '../hooks/link';
-import ContextMenu from '../contextmenus';
-import ChatMessage from '../ChatMessage';
-import ChannelDropDown from '../contextmenus/ChannelDropDown';
+import WindowContext from '../context/window.js';
+import useLink from '../hooks/link.js';
+import ContextMenu from '../contextmenus/index.jsx';
+import ChatMessage from '../ChatMessage.jsx';
+import ChannelDropDown from '../contextmenus/ChannelDropDown.jsx';
 
 import {
   markChannelAsRead,
   sendChatMessage,
-} from '../../store/actions';
+} from '../../store/actions/index.js';
 import {
   fetchChatMessages,
-} from '../../store/actions/thunks';
+} from '../../store/actions/thunks.js';
 
 
 const Chat = () => {

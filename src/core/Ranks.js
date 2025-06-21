@@ -2,7 +2,7 @@
  * timers and cron for account related actions
  */
 
-import { populateIdObj } from '../data/sql/User';
+import { populateIdObj } from '../data/sql/User.js';
 import {
   getRanks,
   resetDailyRanks,
@@ -17,18 +17,18 @@ import {
   storeHourlyPixelsPlaced,
   getHourlyPixelStats,
   getDailyPixelStats,
-} from '../data/redis/ranks';
+} from '../data/redis/ranks.js';
 import {
   getAllCountryCooldownFactors,
   resetCountryCooldownFactor,
   setCountryCooldownFactor,
-} from './CooldownModifiers';
-import socketEvents from '../socket/socketEvents';
-import logger from './logger';
+} from './CooldownModifiers.js';
+import socketEvents from '../socket/socketEvents.js';
+import logger from './logger.js';
 
-import { MINUTE } from './constants';
-import { PUNISH_DOMINATOR } from './config';
-import { DailyCron, HourlyCron } from '../utils/cron';
+import { MINUTE } from './constants.js';
+import { PUNISH_DOMINATOR } from './config.js';
+import { DailyCron, HourlyCron } from '../utils/cron.js';
 
 class Ranks {
   ranks = {

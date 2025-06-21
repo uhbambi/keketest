@@ -1,14 +1,14 @@
 import React, { useRef } from 'react';
 import { useSelector } from 'react-redux';
 
-import { MarkdownParagraph } from './Markdown';
+import { MarkdownParagraph } from './Markdown.jsx';
 import {
   colorFromText,
   setBrightness,
   getDateTimeString,
-} from '../core/utils';
-import { selectIsDarkMode } from '../store/selectors/gui';
-import { parseParagraph } from '../core/MarkdownParser';
+} from '../core/utils.js';
+import { selectIsDarkMode } from '../store/selectors/gui.js';
+import { parseParagraph } from '../core/MarkdownParser.js';
 
 
 

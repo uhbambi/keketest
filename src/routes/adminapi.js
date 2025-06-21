@@ -1,10 +1,10 @@
 import express from 'express';
 
-import logger from '../core/logger';
-import { USERLVL } from '../data/sql';
-import { getUsersByNameOrEmail, findUserById } from '../data/sql/User';
-import { compareToHash } from '../utils/hash';
-import { APISOCKET_KEY } from '../core/config';
+import logger from '../core/logger.js';
+import { USERLVL } from '../data/sql/index.js';
+import { getUsersByNameOrEmail, findUserById } from '../data/sql/User.js';
+import { compareToHash } from '../utils/hash.js';
+import { APISOCKET_KEY } from '../core/config.js';
 
 const router = express.Router();
 

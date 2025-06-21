@@ -1,29 +1,29 @@
 /*
  * class for chat communications
  */
-import logger from './logger';
-import RateLimiter from '../utils/RateLimiter';
-import { USERLVL } from '../data/sql';
-import { findIdByNameOrId, getDummyUser } from '../data/sql/User';
-import { getDefaultChannel } from '../data/sql/Channel';
-import ChatMessageBuffer from './ChatMessageBuffer';
-import socketEvents from '../socket/socketEvents';
-import { ban, unban } from './ban';
+import logger from './logger.js';
+import RateLimiter from '../utils/RateLimiter.js';
+import { USERLVL } from '../data/sql/index.js';
+import { findIdByNameOrId, getDummyUser } from '../data/sql/User.js';
+import { getDefaultChannel } from '../data/sql/Channel.js';
+import ChatMessageBuffer from './ChatMessageBuffer.js';
+import socketEvents from '../socket/socketEvents.js';
+import { ban, unban } from './ban.js';
 import {
   mutec, unmutec,
   unmutecAll, listMutec,
   isCountryMuted,
-} from '../data/redis/chat';
-import { escapeMd } from './utils';
-import ttags from '../middleware/ttag';
+} from '../data/redis/chat.js';
+import { escapeMd } from './utils.js';
+import ttags from '../middleware/ttag.js';
 
-import { USE_MAILER } from './config';
+import { USE_MAILER } from './config.js';
 import {
   CHAT_CHANNELS,
   EVENT_USER_NAME,
   INFO_USER_NAME,
   APISOCKET_USER_NAME,
-} from './constants';
+} from './constants.js';
 
 function getUserFromMd(mdUserLink) {
   let mdUser = mdUserLink.trim();
@@ -401,7 +401,7 @@ export class ChatProvider {
     }
 
     logger.info(
-      `Received chat message ${message} from ${name} / ${req.ip.ipString}`,
+      `Received chat message ${message} from ${name} / ${ip.ipString}`,
     );
     this.broadcastChatMessage(
       name,

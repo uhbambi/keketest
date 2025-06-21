@@ -1,24 +1,24 @@
 import express from 'express';
 
-import { verifySession, ensureLoggedIn } from '../../middleware/session';
-import MassRateLimiter from '../../utils/MassRateLimiter';
-import logger from '../../core/logger';
-import { HOUR } from '../../core/constants';
+import { verifySession, ensureLoggedIn } from '../../middleware/session.js';
+import MassRateLimiter from '../../utils/MassRateLimiter.js';
+import logger from '../../core/logger.js';
+import { HOUR } from '../../core/constants.js';
 
-import me from './me';
-import auth from './auth';
-import chatHistory from './chathistory';
-import startDm from './startdm';
-import leaveChan from './leavechan';
-import block from './block';
-import blockdm from './blockdm';
-import privatize from './privatize';
-import modtools from './modtools';
-import baninfo from './baninfo';
-import getiid from './getiid';
-import shards from './shards';
-import profile from './profile';
-import banme from './banme';
+import me from './me.js';
+import auth from './auth/index.js';
+import chatHistory from './chathistory.js';
+import startDm from './startdm.js';
+import leaveChan from './leavechan.js';
+import block from './block.js';
+import blockdm from './blockdm.js';
+import privatize from './privatize.js';
+import modtools from './modtools.js';
+import baninfo from './baninfo.js';
+import getiid from './getiid.js';
+import shards from './shards.js';
+import profile from './profile.js';
+import banme from './banme.js';
 
 const rateLimiter = new MassRateLimiter(HOUR);
 

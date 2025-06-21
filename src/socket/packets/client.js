@@ -10,7 +10,7 @@ import {
   PING_OP,
   PIXEL_UPDATE_OP,
   FISH_CATCHED_OP,
-} from './op';
+} from './op.js';
 
 /*
 * data in hydrate functions is DataView

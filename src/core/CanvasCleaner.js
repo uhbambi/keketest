@@ -8,18 +8,18 @@ import {
   getData,
   setStatus,
   getStatus,
-} from '../data/redis/CanvasCleaner';
-import RedisCanvas from '../data/redis/RedisCanvas';
+} from '../data/redis/CanvasCleaner.js';
+import RedisCanvas from '../data/redis/RedisCanvas.js';
 import {
   getChunkOfPixel,
   getCornerOfChunk,
-} from './utils';
-import { setPixelByOffset } from './setPixel';
+} from './utils.js';
+import { setPixelByOffset } from './setPixel.js';
 import {
   TILE_SIZE,
-} from './constants';
-import logger from './logger';
-import canvases from './canvases';
+} from './constants.js';
+import logger from './logger.js';
+import canvases from './canvases.js';
 
 const METHODS = {
   /*

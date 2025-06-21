@@ -16,7 +16,7 @@ import {
   dehydratePixelUpdate,
   dehydratePing,
   dehydrateCatchFish,
-} from './packets/client';
+} from './packets/client.js';
 import {
   PIXEL_UPDATE_OP,
   PIXEL_RETURN_OP,
@@ -27,7 +27,7 @@ import {
   REFRESH_OP,
   FISH_APPEARS_OP,
   FISH_CATCHED_OP,
-} from './packets/op';
+} from './packets/op.js';
 import {
   socketOpen,
   socketClose,
@@ -36,10 +36,10 @@ import {
   receiveChatMessage,
   addChatChannel,
   removeChatChannel,
-} from '../store/actions/socket';
-import { pRefresh, fishAppears, catchedFish } from '../store/actions';
-import { fetchMe } from '../store/actions/thunks';
-import { shardHost } from '../store/actions/fetch';
+} from '../store/actions/socket.js';
+import { pRefresh, fishAppears, catchedFish } from '../store/actions/index.js';
+import { fetchMe } from '../store/actions/thunks.js';
+import { shardHost } from '../store/actions/fetch.js';
 
 class SocketClient {
   store = null;

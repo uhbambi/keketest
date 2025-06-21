@@ -2,10 +2,10 @@
  * request password reset mail
  */
 
-import logger from '../../../core/logger';
-import mailProvider from '../../../core/MailProvider';
-import { validateEMail } from '../../../utils/validation';
-import { getHostFromRequest } from '../../../utils/intel/ip';
+import logger from '../../../core/logger.js';
+import mailProvider from '../../../core/MailProvider.js';
+import { validateEMail } from '../../../utils/validation.js';
+import { getHostFromRequest } from '../../../utils/intel/ip.js';
 
 async function validate(email, gettext) {
   const errors = [];

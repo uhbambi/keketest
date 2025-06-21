@@ -2,14 +2,14 @@
  * express middlewares for handling user sessions
  */
 import { parse as parseCookie } from 'cookie';
-import { HOUR } from '../core/constants';
+import { HOUR } from '../core/constants.js';
 
 import {
   resolveSession, createSession, removeSession,
-} from '../data/sql/Session';
-import { parseListOfBans } from '../data/sql/Ban';
-import { getHostFromRequest } from '../utils/intel/ip';
-import { touchUser } from '../data/sql/User';
+} from '../data/sql/Session.js';
+import { parseListOfBans } from '../data/sql/Ban.js';
+import { getHostFromRequest } from '../utils/intel/ip.js';
+import { touchUser } from '../data/sql/User.js';
 
 class User {
   id;

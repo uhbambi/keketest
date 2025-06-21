@@ -1,11 +1,11 @@
 /*
  * wraper for ban and whitelist that notices websocket for updates
  */
-import { ban as banQuery, unban as unbanQuery } from '../data/sql/Ban';
+import { ban as banQuery, unban as unbanQuery } from '../data/sql/Ban.js';
 import {
   whitelist as whitelistQuery, unwhitelist as unwhitelistQuery,
-} from '../data/sql/ProxyWhitelist';
-import socketEvents from '../socket/socketEvents';
+} from '../data/sql/ProxyWhitelist.js';
+import socketEvents from '../socket/socketEvents.js';
 
 /**
  * notice sockets that users / ips changed

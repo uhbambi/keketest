@@ -11,7 +11,7 @@
 
 import EventEmitter from 'events';
 
-import { getRenderer } from '../../ui/rendererFactory';
+import { getRenderer } from '../../ui/rendererFactory.js';
 
 let isActive = false;
 

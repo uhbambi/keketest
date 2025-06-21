@@ -4,7 +4,7 @@
  */
 const filtered = {};
 
-module.exports = function (source) {
+export default function (source) {
   if (filtered.hasOwnProperty(this.resourcePath)) {
     if (filtered[this.resourcePath]) {
       this.cacheable(false);

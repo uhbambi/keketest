@@ -16,13 +16,12 @@ import { spawn } from 'child_process';
 import path from 'path';
 import { createClient } from 'redis';
 
-
 import {
   createPngBackup,
   incrementalBackupRedis,
   updateBackupRedis,
-} from './core/tilesBackup';
-import canvases from './core/canvases';
+} from './core/tilesBackup.js';
+import canvases from './core/canvases.js';
 
 /*
  * use low cpu priority

@@ -8,10 +8,10 @@ import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { t } from 'ttag';
 
-import Captcha from './Captcha';
-import socketClient from '../socket/SocketClient';
-import { pRefresh } from '../store/actions';
-import { requestBanMe } from '../store/actions/fetch';
+import Captcha from './Captcha.jsx';
+import socketClient from '../socket/SocketClient.js';
+import { pRefresh } from '../store/actions/index.js';
+import { requestBanMe } from '../store/actions/fetch.js';
 
 const GlobalCaptcha = ({ close }) => {
   const [error, setError] = useState(null);

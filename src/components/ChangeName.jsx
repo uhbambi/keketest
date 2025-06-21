@@ -6,9 +6,9 @@ import React, { useState } from 'react';
 import { t } from 'ttag';
 import { useDispatch } from 'react-redux';
 
-import { validateName } from '../utils/validation';
-import { requestNameChange } from '../store/actions/fetch';
-import { setName } from '../store/actions';
+import { validateName } from '../utils/validation.js';
+import { requestNameChange } from '../store/actions/fetch.js';
+import { setName } from '../store/actions/index.js';
 
 
 function validate(name) {

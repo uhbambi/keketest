@@ -10,7 +10,7 @@ import { useSelector } from 'react-redux';
 import { MdChat } from 'react-icons/md';
 import { FaUserFriends } from 'react-icons/fa';
 
-import { useConditionalClickOutside } from '../hooks/clickOutside';
+import { useConditionalClickOutside } from '../hooks/clickOutside.js';
 
 const ChannelDropDown = ({
   setChatChannel,

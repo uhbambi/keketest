@@ -1,7 +1,7 @@
 /*
  * set URL and queries in popup window
  */
-import { buildPopUpUrl } from '../../components/windows/popUpAvailable';
+import { buildPopUpUrl } from '../../components/windows/popUpAvailable.js';
 
 function setFullTitle(windowType, title) {
   const name = windowType[0] + windowType.substring(1).toLowerCase();

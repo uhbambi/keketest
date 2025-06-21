@@ -1,17 +1,17 @@
 import Sequelize, { DataTypes, Op } from 'sequelize';
 import crypto from 'crypto';
 
-import sequelize from './sequelize';
-import { HourlyCron } from '../../utils/cron';
-import BanHistory from './BanHistory';
-import { getIPsofIIDs } from './IP';
-import IPBan from './association_models/IPBan';
-import UserBan from './association_models/UserBan';
-import ThreePID from './ThreePID';
-import ThreePIDBan from './association_models/ThreePIDBan';
-import IPBanHistory from './association_models/IPBanHistory';
-import UserBanHistory from './association_models/UserBanHistory';
-import ThreePIDBanHistory from './association_models/ThreePIDBanHistory';
+import sequelize from './sequelize.js';
+import { HourlyCron } from '../../utils/cron.js';
+import BanHistory from './BanHistory.js';
+import { getIPsofIIDs } from './IP.js';
+import IPBan from './association_models/IPBan.js';
+import UserBan from './association_models/UserBan.js';
+import ThreePID from './ThreePID.js';
+import ThreePIDBan from './association_models/ThreePIDBan.js';
+import IPBanHistory from './association_models/IPBanHistory.js';
+import UserBanHistory from './association_models/UserBanHistory.js';
+import ThreePIDBanHistory from './association_models/ThreePIDBanHistory.js';
 
 const Ban = sequelize.define('Ban', {
   id: {
@@ -24,9 +24,7 @@ const Ban = sequelize.define('Ban', {
     type: 'BINARY(16)',
     allowNull: false,
     unique: 'uuid',
-    defaultValue: () => {
-      return crypto.randomBytes(16);
-    }
+    defaultValue: () => crypto.randomBytes(16),
   },
 
   reason: {
@@ -267,7 +265,7 @@ async function cleanBans() {
   }
   return null;
 }
-//HourlyCron.hook(cleanBans);
+// HourlyCron.hook(cleanBans);
 
 /**
  * unban

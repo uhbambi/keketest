@@ -1,19 +1,21 @@
-import logger from '../../../core/logger';
-import { createNewUser, getUsersByNameOrEmail } from '../../../data/sql/User';
+import logger from '../../../core/logger.js';
+import {
+  createNewUser, getUsersByNameOrEmail,
+} from '../../../data/sql/User.js';
 import {
   addOrReplaceTpid, THREEPID_PROVIDERS,
-} from '../../../data/sql/ThreePID';
-import mailProvider from '../../../core/MailProvider';
-import getMe from '../../../core/me';
-import { openSession } from '../../../middleware/session';
-import { getHostFromRequest } from '../../../utils/intel/ip';
-import { checkMailOverShards } from '../../../utils/intel';
+} from '../../../data/sql/ThreePID.js';
+import mailProvider from '../../../core/MailProvider.js';
+import getMe from '../../../core/me.js';
+import { openSession } from '../../../middleware/session.js';
+import { getHostFromRequest } from '../../../utils/intel/ip.js';
+import { checkMailOverShards } from '../../../utils/intel/index.js';
 import {
   validateEMail,
   validateName,
   validatePassword,
-} from '../../../utils/validation';
-import { checkCaptchaSolution } from '../../../data/redis/captcha';
+} from '../../../utils/validation.js';
+import { checkCaptchaSolution } from '../../../data/redis/captcha.js';
 
 async function validate(
   email, name, password, captcha, captchaid, t, gettext,

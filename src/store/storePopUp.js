@@ -12,15 +12,15 @@ import { thunk } from 'redux-thunk';
 /*
  * reducers
  */
-import sharedReducers from './sharedReducers';
-import popup from './reducers/popup';
+import sharedReducers from './sharedReducers.js';
+import popup from './reducers/popup.js';
 
 /*
  * middleware
  */
-import parent from './middleware/parent';
-import socketClientHook from './middleware/socketClientHookPopUp';
-import title from './middleware/titlePopUp';
+import parent from './middleware/parent.js';
+import socketClientHook from './middleware/socketClientHookPopUp.js';
+import title from './middleware/titlePopUp.js';
 
 const reducers = combineReducers({
   ...sharedReducers,

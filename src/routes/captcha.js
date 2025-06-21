@@ -1,9 +1,9 @@
 /*
  * route providing captcha
  */
-import logger from '../core/logger';
-import { requestCaptcha } from '../core/captchaserver';
-import { setCaptchaSolution, isTrusted } from '../data/redis/captcha';
+import logger from '../core/logger.js';
+import { requestCaptcha } from '../core/captchaserver.js';
+import { setCaptchaSolution, isTrusted } from '../data/redis/captcha.js';
 
 async function captcha(req, res) {
   res.set({

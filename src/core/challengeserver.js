@@ -6,7 +6,7 @@
 import path from 'path';
 import { Worker } from 'worker_threads';
 
-import logger from './logger';
+import logger from './logger.js';
 
 const MAX_WAIT = 30 * 1000;
 

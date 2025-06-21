@@ -3,14 +3,14 @@
  * check for captcha requirement
  */
 
-import logger from '../../core/logger';
-import client from './client';
-import { simpleHash } from '../../core/utils';
+import logger from '../../core/logger.js';
+import client from './client.js';
+import { simpleHash } from '../../core/utils.js';
 import {
   CAPTCHA_TIME,
   CAPTCHA_TIMEOUT,
   TRUSTED_TIME,
-} from '../../core/config';
+} from '../../core/config.js';
 
 const TTL_CACHE = CAPTCHA_TIME * 60; // minutes to seconds
 const TTL_TRUSTED = TRUSTED_TIME * 60 * 60; // hours to seconds

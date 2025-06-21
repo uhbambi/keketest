@@ -13,11 +13,11 @@ import {
   BufferAttribute,
 } from 'three';
 
-import Chunk from './Chunk';
+import Chunk from './Chunk.js';
 import {
   THREE_TILE_SIZE,
   THREE_CANVAS_HEIGHT,
-} from '../core/constants';
+} from '../core/constants.js';
 
 
 const faceDirs = [

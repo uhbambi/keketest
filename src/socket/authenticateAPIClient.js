@@ -4,7 +4,7 @@
 
 import express from 'express';
 
-import { parseIP } from '../middleware/ip';
+import { parseIP } from '../middleware/ip.js';
 
 const router = express.Router();
 

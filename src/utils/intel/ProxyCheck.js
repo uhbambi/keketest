@@ -6,7 +6,7 @@
 
 import https from 'https';
 
-import { HourlyCron } from '../cron';
+import { HourlyCron } from '../cron.js';
 
 const HYSTERESIS = 60;
 

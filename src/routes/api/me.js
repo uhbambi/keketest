@@ -2,7 +2,7 @@
  * send initial data to player
  */
 
-import getMe from '../../core/me';
+import getMe from '../../core/me.js';
 
 export default async (req, res, next) => {
   const { ip, user, lang } = req;

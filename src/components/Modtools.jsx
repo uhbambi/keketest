@@ -5,11 +5,11 @@
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 
-import Canvastools from './ModCanvastools';
-import Admintools from './Admintools';
-import Watchtools from './ModWatchtools';
-import IIDTools from './ModIIDtools';
-import { USERLVL } from '../core/constants';
+import Canvastools from './ModCanvastools.jsx';
+import Admintools from './Admintools.jsx';
+import Watchtools from './ModWatchtools.jsx';
+import IIDTools from './ModIIDtools.jsx';
+import { USERLVL } from '../core/constants.js';
 
 
 const CONTENT = {

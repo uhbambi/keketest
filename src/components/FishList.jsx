@@ -4,10 +4,10 @@
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { t } from 'ttag';
-import useLink from './hooks/link';
+import useLink from './hooks/link.js';
 
-import { setBrightness, colorFromText } from '../core/utils';
-import { FISH_TYPES } from '../core/constants';
+import { setBrightness, colorFromText } from '../core/utils.js';
+import { FISH_TYPES } from '../core/constants.js';
 
 const FishList = () => {
   const [expanded, setExpanded] = useState(false);

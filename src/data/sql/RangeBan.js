@@ -1,10 +1,10 @@
 import { DataTypes, Op } from 'sequelize';
 
-import sequelize from './sequelize';
-import { HourlyCron } from '../../utils/cron';
-import RangeBanHistory from './RangeBanHistory';
+import sequelize from './sequelize.js';
+import { HourlyCron } from '../../utils/cron.js';
+import RangeBanHistory from './RangeBanHistory.js';
 
-export { RANGEBAN_REASONS } from '../../core/constants';
+export { RANGEBAN_REASONS } from '../../core/constants.js';
 
 const RangeBan = sequelize.define('RangeBan', {
   reason: {

@@ -1,7 +1,7 @@
 import Sequelize, { DataTypes, Op } from 'sequelize';
 
-import sequelize from './sequelize';
-import { sanitizeIPString, ipToHex } from '../../utils/intel/ip';
+import sequelize from './sequelize.js';
+import { sanitizeIPString, ipToHex } from '../../utils/intel/ip.js';
 
 /*
  * Information of IP Ranges from whois,

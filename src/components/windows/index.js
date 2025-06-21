@@ -1,15 +1,15 @@
 import { t } from 'ttag';
 
-import Help from './Help';
-import Settings from './Settings';
-import UserArea from './UserArea';
-import Register from './Register';
-import CanvasSelect from './CanvasSelect';
-import Archive from './Archive';
-import Chat from './Chat';
-import Player from './Player';
-import FishDisplay from './FishDisplay';
-import ForgotPassword from './ForgotPassword';
+import Help from './Help.jsx';
+import Settings from './Settings.jsx';
+import UserArea from './UserArea.jsx';
+import Register from './Register.jsx';
+import CanvasSelect from './CanvasSelect.jsx';
+import Archive from './Archive.jsx';
+import Chat from './Chat.jsx';
+import Player from './Player.jsx';
+import FishDisplay from './FishDisplay.jsx';
+import ForgotPassword from './ForgotPassword.jsx';
 
 export default {
   HELP: [Help, t`Help`],

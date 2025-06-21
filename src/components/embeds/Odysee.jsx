@@ -5,8 +5,8 @@
  */
 import React from 'react';
 
-import { stripQuery } from '../../core/utils';
-import DirectLinkEmbed from './DirectLinkEmbed';
+import { stripQuery } from '../../core/utils.js';
+import DirectLinkEmbed from './DirectLinkEmbed.jsx';
 
 function stripCol(str) {
   const posCol = str.lastIndexOf(':');

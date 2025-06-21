@@ -6,7 +6,7 @@ import React from 'react';
 import { MdPerson } from 'react-icons/md';
 import { t } from 'ttag';
 
-import useLink from '../hooks/link';
+import useLink from '../hooks/link.js';
 
 const LogInButton = () => {
   const link = useLink();

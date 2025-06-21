@@ -16,8 +16,8 @@ import {
   toggleOnlineCanvas,
   toggleNoRound,
   toggleDailyPxls,
-} from '../store/actions';
-import { numberToString, numberToStringFull } from '../core/utils';
+} from '../store/actions/index.js';
+import { numberToString, numberToStringFull } from '../core/utils.js';
 
 
 const OnlineBox = () => {

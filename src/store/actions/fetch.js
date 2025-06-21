@@ -6,7 +6,7 @@
 
 import { t } from 'ttag';
 
-import { dateToString, stringToTime } from '../../core/utils';
+import { dateToString, stringToTime } from '../../core/utils.js';
 
 export const shardHost = (function getShardHost() {
   if (!window.ssv

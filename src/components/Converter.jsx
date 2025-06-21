@@ -13,10 +13,10 @@ import {
   scaleImage,
   quantizeImage,
   addGrid,
-} from '../utils/imageFilters';
-import { fileToCanvas } from '../utils/imageFiles';
-import printGIMPPalette from '../core/exportGPL';
-import { copyCanvasToClipboard } from '../utils/clipboard';
+} from '../utils/imageFilters.js';
+import { fileToCanvas } from '../utils/imageFiles.js';
+import printGIMPPalette from '../core/exportGPL.js';
+import { copyCanvasToClipboard } from '../utils/clipboard.js';
 
 
 function downloadOutput() {

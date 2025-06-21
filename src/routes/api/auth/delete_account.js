@@ -2,12 +2,12 @@
  * request password change
  */
 
-import logger from '../../../core/logger';
-import socketEvents from '../../../socket/socketEvents';
-import { validatePassword } from '../../../utils/validation';
-import { compareToHash } from '../../../utils/hash';
-import { deleteUser } from '../../../data/sql/User';
-import { clearCookie } from '../../../middleware/session';
+import logger from '../../../core/logger.js';
+import socketEvents from '../../../socket/socketEvents.js';
+import { validatePassword } from '../../../utils/validation.js';
+import { compareToHash } from '../../../utils/hash.js';
+import { deleteUser } from '../../../data/sql/User.js';
+import { clearCookie } from '../../../middleware/session.js';
 
 function validate(password, gettext) {
   const errors = [];

@@ -9,15 +9,15 @@ import { useSelector, useDispatch, shallowEqual } from 'react-redux';
 import fileDownload from 'js-file-download';
 import { c, t } from 'ttag';
 
-import TemplateItem from './TemplateItem';
-import TemplateItemEdit from './TemplateItemEdit';
-import SettingsItem from './SettingsItem';
-import templateLoader from '../ui/templateLoader';
+import TemplateItem from './TemplateItem.jsx';
+import TemplateItemEdit from './TemplateItemEdit.jsx';
+import SettingsItem from './SettingsItem.jsx';
+import templateLoader from '../ui/templateLoader.js';
 import {
   toggleOVEnabled,
   toggleSmallPxls,
   setOvOpacity,
-} from '../store/actions/templates';
+} from '../store/actions/templates.js';
 
 
 const TemplateSettings = () => {

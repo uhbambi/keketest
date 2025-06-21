@@ -5,9 +5,9 @@
  */
 
 import etag from 'etag';
-import RedisCanvas from '../data/redis/RedisCanvas';
-import logger from '../core/logger';
-import socketEvents from '../socket/socketEvents';
+import RedisCanvas from '../data/redis/RedisCanvas.js';
+import logger from '../core/logger.js';
+import socketEvents from '../socket/socketEvents.js';
 
 const chunkEtags = new Map();
 socketEvents.on('chunkUpdate', (canvasId, [i, j]) => {

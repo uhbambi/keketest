@@ -6,17 +6,17 @@ import React, { useState, useCallback } from 'react';
 import { useSelector, shallowEqual, useDispatch } from 'react-redux';
 import { t } from 'ttag';
 
-import UserMessages from './UserMessages';
-import FishList from './FishList';
-import ChangePassword from './ChangePassword';
-import ChangeName from './ChangeName';
-import ChangeMail from './ChangeMail';
-import DeleteAccount from './DeleteAccount';
-import SocialSettings from './SocialSettings';
-import { logoutUser } from '../store/actions';
-import { requestLogOut } from '../store/actions/fetch';
+import UserMessages from './UserMessages.jsx';
+import FishList from './FishList.jsx';
+import ChangePassword from './ChangePassword.jsx';
+import ChangeName from './ChangeName.jsx';
+import ChangeMail from './ChangeMail.jsx';
+import DeleteAccount from './DeleteAccount.jsx';
+import SocialSettings from './SocialSettings.jsx';
+import { logoutUser } from '../store/actions/index.js';
+import { requestLogOut } from '../store/actions/fetch.js';
 
-import { numberToString } from '../core/utils';
+import { numberToString } from '../core/utils.js';
 
 const AREAS = {
   CHANGE_NAME: ChangeName,

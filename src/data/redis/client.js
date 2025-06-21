@@ -7,7 +7,7 @@ import path from 'path';
 import { createClient, defineScript } from 'redis';
 import { isMainThread } from 'worker_threads';
 
-import { REDIS_URL, SHARD_NAME, BACKUP_URL } from '../../core/config';
+import { REDIS_URL, SHARD_NAME, BACKUP_URL } from '../../core/config.js';
 
 const scripts = {
   placePxl: defineScript({

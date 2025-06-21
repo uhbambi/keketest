@@ -11,14 +11,14 @@ import {
   MAX_SCALE,
   OVERLAY_SP_TH,
   BACKGROUND_CLR_HEX,
-} from '../core/constants';
+} from '../core/constants.js';
 
 import {
   getTileOfPixel,
   getPixelFromChunkOffset,
   getMaxTiledZoom,
   clamp,
-} from '../core/utils';
+} from '../core/utils.js';
 
 import {
   renderGrid,
@@ -26,12 +26,12 @@ import {
   renderPotatoPlaceholder,
   renderOverlay,
   renderSmallPOverlay,
-} from './render2Delements';
-import PixelPainterControls from '../controls/PixelPainterControls';
+} from './render2Delements.js';
+import PixelPainterControls from '../controls/PixelPainterControls.js';
 
-import Renderer from './Renderer';
-import ChunkLoader from './ChunkLoader2D';
-import pixelNotify from './PixelNotify';
+import Renderer from './Renderer.js';
+import ChunkLoader from './ChunkLoader2D.js';
+import pixelNotify from './PixelNotify.js';
 
 class Renderer2D extends Renderer {
   canvasId = null;

@@ -6,13 +6,13 @@
 
 import { isMainThread, parentPort } from 'worker_threads';
 
-import { connect as connectRedis } from '../data/redis/client';
+import { connect as connectRedis } from '../data/redis/client.js';
 import {
   createZoomTileFromChunk,
   createZoomedTile,
   createTexture,
   initializeTiles,
-} from '../core/Tile';
+} from '../core/Tile.js';
 
 if (isMainThread) {
   throw new Error(

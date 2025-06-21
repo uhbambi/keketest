@@ -6,8 +6,8 @@ import React from 'react';
 import { useSelector, shallowEqual, useDispatch } from 'react-redux';
 import { t } from 'ttag';
 
-import copy from '../utils/clipboard';
-import { notify } from '../store/actions/thunks';
+import copy from '../utils/clipboard.js';
+import { notify } from '../store/actions/thunks.js';
 
 
 function renderCoordinates(cell) {

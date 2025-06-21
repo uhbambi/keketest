@@ -4,16 +4,18 @@
 
 import {
   getPixelFromChunkOffset,
-} from './utils';
-import logger, { pixelLogger } from './logger';
-import allowPlace from '../data/redis/cooldown';
-import { USERLVL } from '../data/sql';
-import socketEvents from '../socket/socketEvents';
-import { getCooldownFactor } from './CooldownModifiers';
-import { setPixelByOffset } from './setPixel';
-import canvases from './canvases';
+} from './utils.js';
+import logger, { pixelLogger } from './logger.js';
+import allowPlace from '../data/redis/cooldown.js';
+import { USERLVL } from '../data/sql/index.js';
+import socketEvents from '../socket/socketEvents.js';
+import { getCooldownFactor } from './CooldownModifiers.js';
+import { setPixelByOffset } from './setPixel.js';
+import canvases from './canvases.js';
 
-import { THREE_CANVAS_HEIGHT, THREE_TILE_SIZE, TILE_SIZE } from './constants';
+import {
+  THREE_CANVAS_HEIGHT, THREE_TILE_SIZE, TILE_SIZE,
+} from './constants.js';
 
 let coolDownFactor = 1;
 let needVerification = false;

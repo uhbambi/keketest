@@ -8,11 +8,11 @@ import { c, t, jt } from 'ttag';
 import { GiMouse } from 'react-icons/gi';
 import { MdTouchApp } from 'react-icons/md';
 
-import GetIID from '../GetIID';
-import useLongPress from '../hooks/useLongPress';
-import copyTextToClipboard from '../../utils/clipboard';
-import { toggleEasterEgg } from '../../store/actions';
-import { notify } from '../../store/actions/thunks';
+import GetIID from '../GetIID.jsx';
+import useLongPress from '../hooks/useLongPress.js';
+import copyTextToClipboard from '../../utils/clipboard.js';
+import { toggleEasterEgg } from '../../store/actions/index.js';
+import { notify } from '../../store/actions/thunks.js';
 
 /* eslint-disable max-len */
 
