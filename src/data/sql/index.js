@@ -90,8 +90,9 @@ ProxyData.belongsTo(IP, {
   },
   onDelete: 'CASCADE',
 });
-RangeData.hasOne(RangeBan, {
+IP.hasOne(ProxyData, {
   as: 'proxy',
+  foreignKey: 'ip',
 });
 
 /*
@@ -231,6 +232,7 @@ ProxyWhitelist.belongsTo(IP, {
 });
 IP.hasOne(ProxyWhitelist, {
   as: 'whitelist',
+  foreignKey: 'ip',
 });
 
 /*
@@ -247,6 +249,7 @@ RangeBan.belongsTo(RangeData, {
 });
 RangeData.hasOne(RangeBan, {
   as: 'bans',
+  foreignKey: 'rid',
 });
 RangeBan.belongsTo(User, {
   as: 'mod',

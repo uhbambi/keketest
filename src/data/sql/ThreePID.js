@@ -58,9 +58,11 @@ const ThreePID = sequelize.define('ThreePID', {
 }, {
   indexes: [{
     unique: true,
+    name: 'ptpid',
     fields: ['provider', 'tpid'],
   }, {
     unique: true,
+    name: 'pntpid',
     fields: ['provider', 'normalizedTpid'],
   }],
 });

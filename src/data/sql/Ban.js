@@ -23,7 +23,7 @@ const Ban = sequelize.define('Ban', {
   uuid: {
     type: 'BINARY(16)',
     allowNull: false,
-    unique: true,
+    unique: 'uuid',
     defaultValue: () => {
       return crypto.randomBytes(16);
     }
@@ -267,7 +267,7 @@ async function cleanBans() {
   }
   return null;
 }
-HourlyCron.hook(cleanBans);
+//HourlyCron.hook(cleanBans);
 
 /**
  * unban

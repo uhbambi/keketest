@@ -46,9 +46,11 @@ const ThreePIDHistory = sequelize.define('ThreePIDHistory', {
 }, {
   indexes: [{
     unique: true,
+    name: 'ptpid',
     fields: ['provider', 'tpid'],
   }, {
     unique: true,
+    name: 'pntpid',
     fields: ['provider', 'normalizedTpid'],
   }],
 });

@@ -29,7 +29,7 @@ const User = sequelize.define('User', {
     charset: 'utf8mb4',
     collate: 'utf8mb4_unicode_ci',
     allowNull: false,
-    unique: true,
+    unique: 'name',
   },
 
   // null if only ever used external oauth

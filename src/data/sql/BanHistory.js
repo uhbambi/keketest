@@ -10,7 +10,7 @@ const BanHistory = sequelize.define('BanHistory', {
   uuid: {
     type: 'BINARY(16)',
     allowNull: false,
-    unique: true,
+    unique: 'uuid',
   },
 
   reason: {

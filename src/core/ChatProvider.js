@@ -401,7 +401,7 @@ export class ChatProvider {
     }
 
     logger.info(
-      `Received chat message ${message} from ${name} / ${user.ip}`,
+      `Received chat message ${message} from ${name} / ${req.ip.ipString}`,
     );
     this.broadcastChatMessage(
       name,

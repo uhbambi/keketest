@@ -17,13 +17,13 @@ const WhoisReferral = sequelize.define('WhoisReferral', {
 
   min: {
     type: 'VARBINARY(8)',
-    unique: true,
+    unique: 'min',
     allowNull: false,
   },
 
   max: {
     type: 'VARBINARY(8)',
-    unique: true,
+    unique: 'max',
     allowNull: false,
   },
 

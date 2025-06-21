@@ -23,7 +23,7 @@ const IP = sequelize.define('IP', {
   uuid: {
     type: 'BINARY(16)',
     allowNull: false,
-    unique: true,
+    unique: 'uuid',
     defaultValue: () => {
       return crypto.randomBytes(16);
     }
@@ -55,7 +55,8 @@ export async function getIPAllowance(ipString) {
     ipAllowance = await IP.findOne({
       attributes: [
         'lastSeen',
-        [Sequelize.literal('whitelist.ip IS NOT NULL'), 'isWhitelisted'],
+        /* TODO IMPORTANT */
+        //[Sequelize.col('whitelist.wip'), 'isWhitelisted'],
         [Sequelize.col('proxy.isProxy'), 'isProxy'],
         [Sequelize.col('range.country'), 'country'],
         [Sequelize.col('range.expires'), 'whoisExpires'],
@@ -74,10 +75,10 @@ export async function getIPAllowance(ipString) {
         where: {
           expires: { [Op.gt]: Sequelize.fn('NOW') },
         },
-      }, {
+      }, {/*
         association: 'whitelist',
-        attributes: [],
-      }, {
+        attributes: [['ip', 'wip']],
+      }, {*/
         association: 'bans',
         attributes: ['expires', 'flags'],
         where: {
@@ -88,7 +89,7 @@ export async function getIPAllowance(ipString) {
         },
       }],
       raw: true,
-      nested: true,
+      nest: true,
     });
     if (ipAllowance) {
       if (ipAllowance.whoisExpires) {
@@ -101,7 +102,6 @@ export async function getIPAllowance(ipString) {
         delete ipAllowance.proxyCheckExpires;
       }
     }
-    console.log('TODO IP ALLOWANCE', JSON.stringify(ipAllowance));
   } catch (error) {
     console.error(`SQL Error on getIPAllowance: ${error.message}`);
   }
@@ -125,6 +125,7 @@ export async function getIPAllowance(ipString) {
   ipAllowance.lastSeen ??= new Date();
   ipAllowance.whoisExpires ??= currentTs;
   ipAllowance.proxyCheckExpires ??= currentTs;
+  console.log('TODO IP ALLOWANCE', JSON.stringify(ipAllowance));
 
   return ipAllowance;
 }

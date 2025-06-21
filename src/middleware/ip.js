@@ -59,8 +59,7 @@ class IP {
       }
     }
     ipString = sanitizeIPString(ipString);
-    delete this.ipString;
-    this.ipString = ipString;
+    Object.defineProperty(this, 'ipString', { value: ipString });
     return ipString;
   }
 
@@ -157,8 +156,7 @@ class IP {
 
       /* prefer whois for country code over headers: overwrite getter */
       if (allowance.country && allowance.country !== 'xx') {
-        delete this.country;
-        this.country = allowance.country;
+        Object.defineProperty(this, 'country', { value: allowance.country });
       }
 
       const [isBanned, isMuted, banRecheckTs] = parseListOfBans(allowance.bans);
@@ -180,7 +178,7 @@ class IP {
  * express middleware to add IP object to request
  */
 export function parseIP(req, res, next) {
-  req.ip = new IP(req);
+  Object.defineProperty(req, 'ip', { value: new IP(req) });
   next();
 }
 

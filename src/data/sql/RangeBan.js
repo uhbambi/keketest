@@ -91,6 +91,6 @@ async function cleanIPRangeBans() {
     return null;
   }
 }
-HourlyCron.hook(cleanIPRangeBans);
+// HourlyCron.hook(cleanIPRangeBans);
 
 export default RangeBan;
