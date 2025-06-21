@@ -14,9 +14,8 @@ import path from 'path';
 import CleanCSS from 'clean-css';
 import crypto from 'crypto';
 
-import { fileURLToPath } from 'url';
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+const __filename = import.meta.filename;
+const __dirname = import.meta.dirname;
 
 const buildTs = Date.now();
 const assetdir = path.resolve(__dirname, '..', 'dist', 'public', 'assets');
