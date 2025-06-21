@@ -233,6 +233,11 @@ export async function touchIP(ipString) {
   }
 }
 
+/**
+ * get IP of IID (which is just the uuid in this table)
+ * @param uuid IID as String
+ * @return null | uuid as String
+ */
 export async function getIPofIID(uuid) {
   if (!uuid) {
     return null;
@@ -255,7 +260,7 @@ export async function getIPofIID(uuid) {
 }
 
 /**
- * get IID of ip (which is just the uuid in this table)
+ * get IID of IP (which is just the uuid in this table)
  * @param ipString ip as String
  * @return null | uuid as String
  */
@@ -273,6 +278,34 @@ export async function getIIDofIP(ipString) {
     return result?.uuid;
   } catch (err) {
     console.error(`SQL Error on getIIDofIP: ${err.message}`);
+  }
+  return null;
+}
+
+/**
+ * get IPs of IIDs (which is just the uuid in this table)
+ * @param uuid Array of IID strings
+ * @return Array of IPs
+ */
+export async function getIPsofIIDs(uuids) {
+  if (!uuids?.length) {
+    return null;
+  }
+  try {
+    const result = await IP.findAll({
+      attributes: [
+        [Sequelize.fn('BIN_TO_IP', Sequelize.col('ip')), 'ip'],
+      ],
+      where: {
+        uuid: uuids.map((uuid) => Sequelize.fn('UUID_TO_BIN', uuid)),
+      },
+      raw: true,
+    });
+    if (result) {
+      return result.map((m) => m.ip);
+    }
+  } catch (err) {
+    console.error(`SQL Error on getIPsofIIDs: ${err.message}`);
   }
   return null;
 }
@@ -302,13 +335,20 @@ export async function getIdsToIps(ips) {
 
 /**
  * get basic informations of ip
- * @param ipString ip as string
+ * @param ipOrIid ip as string or uuid
  */
-export async function getInfoToIp(ipString) {
+export async function getInfoToIp(ipOrIid) {
   try {
+    let where;
+    if (ipOrIid.includes('-')) {
+      /* uuid */
+      where = { uuid: Sequelize.fn('UUID_TO_BIN', ipOrIid) };
+    } else {
+      where = { ip: Sequelize.fn('IP_TO_BIN', ipOrIid) };
+    }
     return await IP.findOne({
       attributes: [
-        [Sequelize.fn('BIN_TO_IP', Sequelize.col('ip')), 'ip'],
+        [Sequelize.fn('BIN_TO_IP', Sequelize.col('ip')), 'ipString'],
         [Sequelize.fn('BIN_TO_UUID', Sequelize.col('uuid')), 'uuid'],
         [Sequelize.col('range.country'), 'country'],
         [Sequelize.fn('CONCAT',
@@ -317,7 +357,11 @@ export async function getInfoToIp(ipString) {
           Sequelize.col('range.mask'),
         ), 'cidr'],
         [Sequelize.col('range.org'), 'org'],
-        [Sequelize.col('proxy.type'), 'pcheck'],
+        [Sequelize.col('range.descr'), 'descr'],
+        [Sequelize.col('range.asn'), 'asn'],
+        [Sequelize.col('proxy.type'), 'type'],
+        [Sequelize.col('proxy.isProxy'), 'isProxy'],
+        [Sequelize.literal('whitelist.ip IS NOT NULL'), 'isWhitelisted'],
       ],
       include: [{
         association: 'range',
@@ -331,8 +375,11 @@ export async function getInfoToIp(ipString) {
         where: {
           expires: { [Op.gt]: Sequelize.fn('NOW') },
         },
+      }, {
+        association: 'whitelist',
+        attributes: [],
       }],
-      where: { ip: Sequelize.fn('IP_TO_BIN', ipString) },
+      where,
       raw: true,
     });
   } catch (error) {

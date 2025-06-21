@@ -116,7 +116,6 @@ export async function name2Id(name) {
       {
         bind: [name],
         type: QueryTypes.SELECT,
-        raw: true,
         plain: true,
       },
     );
@@ -420,13 +419,16 @@ export async function createNewUser(
  * set userlvl
  * @param id user id
  * @param userlvl user level
+ * @return boolean success
  */
 export async function setUserLvl(id, userlvl) {
   try {
     await User.update({ userlvl }, { where: { id }, returning: false });
+    return true;
   } catch (error) {
     console.error(`SQL Error on setUserLvl: ${error.message}`);
   }
+  return false;
 }
 
 /**
@@ -477,6 +479,41 @@ export async function deleteUser(id) {
     console.error(`SQL Error on deleteUser: ${error.message}`);
     return null;
   }
+}
+
+/**
+ * get basic information of user
+ * @param userlvl userlevel
+ * @return { id, name }
+ */
+export async function getUserByUserLvl(userlvl) {
+  try {
+    return await User.findAll({
+      where: { userlvl },
+      attributes: ['name', 'id'],
+      raw: true,
+    });
+  } catch (error) {
+    console.error(`SQL Error on getUserByUserlvl: ${error.message}`);
+  }
+  return null;
+}
+
+/**
+ * get basic information of user
+ * @param userId id of user
+ * @return { name , flags, userlvl }
+ */
+export async function getUserInfos(userId) {
+  try {
+    return await User.findByPk(userId, {
+      attributes: ['name', 'flags', 'userlvl'],
+      raw: true,
+    });
+  } catch (error) {
+    console.error(`SQL Error on getUserInfos: ${error.message}`);
+  }
+  return null;
 }
 
 /**

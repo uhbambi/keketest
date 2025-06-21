@@ -348,7 +348,7 @@ export class ChatProvider {
     ) {
       user.isBanned = true;
       /* this will both ban and mute */
-      ban(ipString, user.id, true, true, 'CHATBAN');
+      ban(ipString, user.id, null, true, true, 'CHATBAN');
       logger.info(`CHAT AUTOBANNED: ${ipString}`);
       return 'nope';
     }
@@ -430,7 +430,7 @@ export class ChatProvider {
     const { name, id } = searchResult;
     const userPing = `@[${escapeMd(name)}](${id})`;
 
-    ban(null, id, true, false, 'mute', timeMin && timeMin * 60, muid);
+    ban(null, id, null, true, false, 'mute', timeMin && timeMin * 60, muid);
     if (printChannel) {
       if (timeMin) {
         this.broadcastChatMessage(
@@ -468,7 +468,7 @@ export class ChatProvider {
     const { name, id } = searchResult;
     const userPing = `@[${escapeMd(name)}](${id})`;
 
-    const succ = await unban(null, id, true, false, muid);
+    const succ = await unban(null, id, null, null, true, false, muid);
     if (!succ) {
       return `User ${userPing} is not muted`;
     }

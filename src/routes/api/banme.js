@@ -39,7 +39,7 @@ async function banme(req, res) {
     });
     return;
   }
-  await ban(ipString, req.user?.id, false, true, reason, duration);
+  await ban(ipString, req.user?.id, null, false, true, reason, duration);
   res.json({
     status: 'ok',
   });

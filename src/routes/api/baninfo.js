@@ -6,7 +6,7 @@ import { getBanInfos } from '../../data/sql/Ban';
 async function baninfo(req, res) {
   const { t, user, ip: { ipString } } = req.ttag;
 
-  const bans = await getBanInfos(ipString, user?.id);
+  const bans = await getBanInfos(ipString, user?.id, null, null);
 
   if (!bans.length) {
     throw new Error(t`You are not banned`);

@@ -3,6 +3,7 @@ import Sequelize, { DataTypes, Op } from 'sequelize';
 import sequelize from './sequelize';
 import { HourlyCron } from '../../utils/cron';
 import BanHistory from './BanHistory';
+import { getIPsofIIDs } from './IP';
 import IPBan from './association_models/IPBan';
 import UserBan from './association_models/UserBan';
 import ThreePID from './ThreePID';
@@ -288,18 +289,21 @@ export async function unbanByUuid(uuid, modUid) {
  * get all bans for ips or user ids
  * @param userIds Array of user ids
  * @param ipStrings Array of ipStrings
+ * @param ipUuids Array of ip uuids (IID)
+ * @param banUuids Array of ban uuids (UID)
  * @param mute boolean if muting
  * @param bans boolean if banning
  * @return [{
  *   uuid, reason, flags, expires, createdAt, muid,
  *   mod: {
  *     id, name,
- *   }
+ *   },
+ *   ...
  * }, ...],
  */
 export async function getBanInfos(
   // eslint-disable-next-line no-shadow
-  ipStrings, userIds, mute = true, ban = true,
+  ipStrings, userIds, ipUuids, banUuids, mute = true, ban = true,
 ) {
   if (!ban && !mute) {
     return [];
@@ -317,6 +321,7 @@ export async function getBanInfos(
         [Op.or]: nestedOr,
       }],
     };
+    /* TODO allow to find by bit */
     if (!mute || !ban) {
       where[Op.and].push({ flags: (ban) ? 0x01 : 0x02 });
     }
@@ -324,32 +329,46 @@ export async function getBanInfos(
     const include = [{
       association: 'mod',
       attributes: ['id', 'name'],
+    }, {
+      association: 'ips',
+      attributes: [
+        [Sequelize.fn('BIN_TO_IP', Sequelize.col('ip')), 'ipString'],
+      ],
+    }, {
+      association: 'users',
+      attributes: ['id'],
+    }, {
+      association: 'tpids',
+      attributes: ['tpid', 'uid'],
     }];
 
-    if (userIds) {
-      nestedOr.push({ [Sequelize.col('tpids.uid')]: userIds });
-      nestedOr.push({ [Sequelize.col('users.id')]: userIds });
-      include.push({
-        association: 'tpids',
-        attributes: [],
-      });
-      include.push({
-        association: 'users',
-        attributes: [],
-      });
-    }
-
-    if (ipStrings) {
+    if (ipStrings?.length) {
       if (Array.isArray(ipStrings)) {
         ipStrings.map((ip) => Sequelize.fn('IP_TO_BIN', ip));
       } else {
         ipStrings = Sequelize.fn('IP_TO_BIN', ipStrings);
       }
       nestedOr.push({ [Sequelize.col('ips.ip')]: ipStrings });
-      include.push({
-        association: 'ips',
-        attributes: [],
-      });
+    }
+
+    if (ipUuids?.length) {
+      nestedOr.push({ [Sequelize.col('ips.uuid')]: ipUuids });
+    }
+
+    if (userIds > 0) {
+      nestedOr.push({ [Sequelize.col('tpids.uid')]: userIds });
+      nestedOr.push({ [Sequelize.col('users.id')]: userIds });
+    }
+
+    if (banUuids?.length) {
+      if (!Array.isArray(banUuids)) banUuids = [banUuids];
+      banUuids.forEach((uuid) => nestedOr.push(
+        { uuid: Sequelize.fn('UUID_TO_BIN', uuid) },
+      ));
+    }
+
+    if (!nestedOr.length) {
+      return [];
     }
 
     const bans = await Ban.findAll({
@@ -373,6 +392,7 @@ export async function getBanInfos(
  * ban
  * @param userIds Array of user ids
  * @param ipStrings Array of ipStrings
+ * @param ipUuids Array of ip uuids (IID)
  * @param mute boolean if muting
  * @param ban boolean if banning
  * @param reason reasoning as string
@@ -382,7 +402,7 @@ export async function getBanInfos(
  */
 export async function ban(
   // eslint-disable-next-line no-shadow
-  ipStrings, userIds, mute, ban, reason, duration, muid = null,
+  ipStrings, userIds, ipUuids, mute, ban, reason, duration, muid = null,
 ) {
   try {
     const transaction = await sequelize.transaction();
@@ -396,7 +416,7 @@ export async function ban(
 
       const promises = [];
       /* userIds is either null or an Array or a sinlge userId */
-      if (userIds) {
+      if (userIds > 0) {
         const threePIDs = await ThreePID.findAll({
           where: { uid: userIds },
           raw: true,
@@ -418,6 +438,18 @@ export async function ban(
         }
       }
 
+      if (ipUuids?.length) {
+        const mappedIPStrings = await getIPsofIIDs(ipUuids);
+        if (Array.isArray(ipStrings)) {
+          ipStrings = ipStrings.concat(mappedIPStrings);
+        } else if (ipStrings) {
+          mappedIPStrings.push(ipStrings);
+          ipStrings = mappedIPStrings;
+        } else {
+          ipStrings = mappedIPStrings;
+        }
+      }
+
       if (ipStrings) {
         if (Array.isArray(ipStrings)) {
           if (ipStrings.length) {
@@ -431,9 +463,10 @@ export async function ban(
           }, { returning: false, transaction }));
         }
       }
+
       await Promise.all(promises);
       await transaction.commit();
-      return true;
+      return [ipStrings || [], userIds || []];
     } catch (error) {
       await transaction.rollback();
       throw error;
@@ -441,33 +474,57 @@ export async function ban(
   } catch (error) {
     console.error(`SQL Error on ban: ${error.message}`);
   }
-  return false;
+  return [[], []];
 }
 
 /**
  * unban by user and/or ip
  * @param userIds Array of user ids
  * @param ipStrings Array of ipStrings
+ * @param ipUuids Array of ip uuids (IID)
+ * @param banUuids Array of ban uuids (UID)
  * @param mute boolean if unmuting
  * @param ban boolean if unbanning
  * @param muid id of the mod that bans
- * @return boolean success
+ * @return [ ipStrings, userIds ] affected users / ips
  */
 export async function unban(
   // eslint-disable-next-line no-shadow
-  ipStrings, userIds, mute, ban, muid = null,
+  ipStrings, userIds, ipUuids, banUuids, mute, ban, muid = null,
 ) {
+  const unbannedUserIds = [];
+  const unbannedIpStrings = [];
+
   try {
-    const bans = await getBanInfos(userIds, ipStrings, mute, ban);
+    const bans = await getBanInfos(
+      ipStrings, userIds, ipUuids, banUuids, mute, ban,
+    );
     if (!bans.length) {
-      return 0;
+      return [unbannedIpStrings, unbannedUserIds];
     }
     await removeBans(bans, muid);
-    return bans.length;
+    bans.forEach((b) => {
+      b.users.forEach(({ id: uid }) => {
+        if (!unbannedUserIds.includes(uid)) {
+          unbannedUserIds.push(uid);
+        }
+      });
+      b.tpids.forEach(({ uid }) => {
+        if (!unbannedUserIds.includes(uid)) {
+          unbannedUserIds.push(uid);
+        }
+      });
+      b.ips.forEach(({ ipString }) => {
+        if (!unbannedIpStrings.includes(ipString)) {
+          unbannedIpStrings.push(ipString);
+        }
+      });
+    });
+    return [unbannedIpStrings, unbannedUserIds];
   } catch (error) {
     console.error(`SQL Error on unban: ${error.message}`);
   }
-  return null;
+  return [unbannedIpStrings, unbannedUserIds];
 }
 
 export default Ban;
