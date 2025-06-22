@@ -407,7 +407,7 @@ export async function createNewUser(
   const query = { name, userlvl };
   if (password) query.password = password;
   try {
-    return await User.create(query, { raw: true });
+    return await User.create(query);
   } catch (error) {
     console.error(`SQL Error on createNewUser: ${error.message}`);
     return null;

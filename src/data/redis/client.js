@@ -42,8 +42,12 @@ const scripts = {
 };
 
 (() => {
-  const dirname = (typeof import.meta.url === 'string')
-    ? import.meta.dirname : __dirname;
+  let dirname;
+  if (process.env.NODE_ENV) {
+    dirname = __dirname;
+  } else {
+    dirname = import.meta.dirname;
+  }
 
   const scriptIdent = Object.keys(scripts);
   let i = scriptIdent.length;

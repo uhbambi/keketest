@@ -1,4 +1,4 @@
-import Sequelize, { QueryTypes, DataTypes, Op } from 'sequelize';
+import { QueryTypes, DataTypes } from 'sequelize';
 
 import sequelize, { nestQuery } from './sequelize.js';
 import { generateToken, generateTokenHash } from '../../utils/hash.js';
@@ -48,24 +48,22 @@ export async function createSession(uid, durationHours) {
     /* limit the amount of open sessions a user can have */
     const openSessions = await Session.count({ where: { uid } });
     if (openSessions > 100) {
-      await Session.destroy({
-        where: {
-          id: {
-            [Op.in]: Sequelize.literal(
-              // eslint-disable-next-line max-len
-              '(SELECT id FROM Sessions WHERE uid = ? ORDER BY id ASC LIMIT 10)',
-              { bind: [uid] },
-            ),
-          },
-        },
-      });
+      await sequelize.query(
+        // eslint-disable-next-line max-len
+        `DELETE t FROM Sessions t JOIN (
+  SELECT id FROM Sessions WHERE uid = :uid ORDER BY id ASC LIMIT 10
+) AS oldest ON t.id = oldest.id`, {
+          replacements: { uid },
+          raw: true,
+          type: QueryTypes.DELETE,
+        });
     }
 
     const token = generateToken();
     const session = await Session.create({
       uid,
       token: generateTokenHash(token),
-      expires: durationHours && Date(Date.now() + durationHours * HOUR),
+      expires: durationHours && new Date(Date.now() + durationHours * HOUR),
     }, {
       raw: true,
     });
@@ -141,11 +139,11 @@ bu.id AS 'blocked.id', bu.name AS 'blocked.name' FROM Users u
   LEFT JOIN Users bu ON bu.id = ub.buid
   LEFT JOIN UserChannels ucm ON ucm.uid =u.id
   LEFT JOIN Channels c ON c.id = ucm.cid
-  LEFT JOIN UserChannels ucmd ON ucmd.cid = c.id AND c.type = :dmType AND ucmd.uid != u.id
+  LEFT JOIN UserChannels ucmd ON ucmd.cid = c.id AND c.type = ${CHANNEL_TYPES.DM} AND ucmd.uid != u.id
   LEFT JOIN Users ucu ON ucu.id = ucmd.uid
 WHERE s.token = :token`, {
         /* eslint-enable max-len */
-        replacements: { token, dmType: CHANNEL_TYPES.DM },
+        replacements: { token },
         raw: true,
         type: QueryTypes.SELECT,
       });

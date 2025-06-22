@@ -6,19 +6,6 @@ deleted redis stuff:
 'ised:*' - mail provider disposable, i think didn't get used yet
 'chip' - HSET for challenge ip mapping, it's stored different now
 
-User Table:
-
-verified -> if != 0 -> userlvl = 20
-roles -> if 1 -> userlvl = 100
-delete verified
-delete roles
-
-check threepid associations and all logins
-discordid -> if != NULL -> ThreePIDs add uid, discordid, provider = 1
-redditid -> if != NULL -> ThreePIDs add uid, discordid, provider = 2
-delete discordid
-delete redditid
-
 add a dropdown for expiration: Browser close, 30 days, 1 year, forevers
 
 Avoid DataTypes.BIGINT.UNSIGNED or make it return sane
