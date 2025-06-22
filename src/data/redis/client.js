@@ -42,17 +42,20 @@ const scripts = {
 };
 
 (() => {
+  const dirname = (typeof import.meta.url === 'string')
+    ? import.meta.dirname : __dirname;
+
   const scriptIdent = Object.keys(scripts);
   let i = scriptIdent.length;
   while (i > 0) {
     i -= 1;
     const name = scriptIdent[i];
     let filepath = path.resolve(
-      __dirname || import.meta.dirname, 'workers', 'lua', `${name}.lua`,
+      dirname, 'workers', 'lua', `${name}.lua`,
     );
     if (!fs.existsSync(filepath)) {
       filepath = path.resolve(
-        __dirname || import.meta.dirname, 'lua', `${name}.lua`,
+        dirname, 'lua', `${name}.lua`,
       );
     }
     scripts[name] = defineScript({

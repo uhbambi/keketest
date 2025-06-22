@@ -52,10 +52,24 @@ export async function getIPAllowance(ipString) {
   let ipAllowance;
   try {
     ipAllowance = await sequelize.query(
-      // eslint-disable-next-line max-len
-      'SELECT COALESCE(i.lastSeen, NOW() - INTERVAL 5 MINUTE) as lastSeen, COALESCE(p.isProxy, 0) AS isProxy, w.ip IS NOT NULL AS isWhitelisted, COALESCE(r.country, \'xx\') AS country, COALESCE(r.expires, NOW() - INTERVAL 5 MINUTE) AS whoisExpires, COALESCE(p.expires, NOW() - INTERVAL 5 MINUTE) AS proxyCheckExpires, b.expires AS \'bans.expires\', b.flags AS \'bans.flags\' FROM IPs i LEFT JOIN ProxyWhitelists w ON w.ip = i.ip LEFT JOIN Proxies p ON p.ip = i.ip AND p.expires > NOW() LEFT JOIN Ranges r ON r.id = i.rid AND r.expires > NOW() LEFT JOIN IPBans ib ON ib.ip = i.ip LEFT JOIN Bans b ON b.id = ib.bid AND (b.expires > NOW() OR b.expires IS NULL) WHERE i.ip = IP_TO_BIN(:ipString)',
-      { replacements: { ipString }, raw: true, type: QueryTypes.SELECT },
-    );
+      /* eslint-disable max-len */
+      `SELECT COALESCE(i.lastSeen, NOW() - INTERVAL 5 MINUTE) as lastSeen,
+COALESCE(p.isProxy, 0) AS isProxy, w.ip IS NOT NULL AS isWhitelisted,
+COALESCE(r.country, 'xx') AS country,
+COALESCE(r.expires, NOW() - INTERVAL 5 MINUTE) AS whoisExpires,
+COALESCE(p.expires, NOW() - INTERVAL 5 MINUTE) AS proxyCheckExpires,
+b.expires AS 'bans.expires', b.flags AS 'bans.flags' FROM IPs i
+  LEFT JOIN ProxyWhitelists w ON w.ip = i.ip
+  LEFT JOIN Proxies p ON p.ip = i.ip AND p.expires > NOW()
+  LEFT JOIN Ranges r ON r.id = i.rid AND r.expires > NOW()
+  LEFT JOIN IPBans ib ON ib.ip = i.ip
+  LEFT JOIN Bans b ON b.id = ib.bid AND (b.expires > NOW() OR b.expires IS NULL)
+WHERE i.ip = IP_TO_BIN(:ipString)`, {
+      /* eslint-enable max-len */
+        replacements: { ipString },
+        raw: true,
+        type: QueryTypes.SELECT,
+      });
     ipAllowance = nestQuery(ipAllowance);
 
     if (ipAllowance) {

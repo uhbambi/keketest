@@ -1,6 +1,6 @@
-import Sequelize, { DataTypes, Op } from 'sequelize';
+import Sequelize, { QueryTypes, DataTypes, Op } from 'sequelize';
 
-import sequelize from './sequelize.js';
+import sequelize, { nestQuery } from './sequelize.js';
 import { generateToken, generateTokenHash } from '../../utils/hash.js';
 import { HOUR, THREEPID_PROVIDERS } from '../../core/constants.js';
 import { CHANNEL_TYPES } from './Channel.js';
@@ -124,87 +124,56 @@ export async function resolveSession(token) {
     return null;
   }
   try {
-    const session = await Session.findOne({
-      where: {
-        token: generateTokenHash(token),
-        [Op.or]: [
-          { expires: { [Op.gt]: Sequelize.fn('NOW') } },
-          { expires: null },
-        ],
-      },
-      include: {
-        association: 'user',
-        include: [{
-          association: 'channels',
-          include: [{
-            association: 'users',
-            attributes: ['id', 'name'],
-            where: {
-              id: { [Op.ne]: '$user.id$' },
-              '$channels.type$': CHANNEL_TYPES.DM,
-            },
-          }],
-        }, {
-          association: 'bans',
-          attributes: ['expires', 'flags'],
-          where: {
-            [Op.or]: [
-              { expires: { [Op.gt]: Sequelize.fn('NOW') } },
-              { expires: null },
-            ],
-          },
-        }, {
-          association: 'tpids',
-          attributes: ['tpid', 'provider'],
-          include: {
-            association: 'bans',
-            attributes: ['expires', 'flags'],
-            where: {
-              [Op.or]: [
-                { expires: { [Op.gt]: Sequelize.fn('NOW') } },
-                { expires: null },
-              ],
-            },
-          },
-        }, {
-          association: 'blocked',
-          attributes: ['id', 'name'],
-        }],
-      },
-      raw: true,
-      nest: true,
-    });
+    let user = await sequelize.query(
+      /* eslint-disable max-len */
+      `SELECT u.id, u.name, u.password, u.userlvl, u.flags, u.lastSeen, u.createdAt,
+t.tpid AS 'tpids.tpid', t.provider AS 'tpids.provider',
+b.expires AS 'bans.expires', b.flags AS 'bans.flags',
+c.id AS 'channels.cid', c.\`type\` AS 'channels.type', c.lastMessage AS 'channels.lastDate',
+ucmd.uid AS 'channels.dmuid', ucu.name AS 'channels.dmuname',
+bu.id AS 'blocked.id', bu.name AS 'blocked.name' FROM Users u
+  INNER JOIN Sessions s ON s.uid = u.id
+  LEFT JOIN ThreePIDs t ON t.uid = u.id
+  LEFT JOIN ThreePIDBans tbm ON tbm.tid = t.id
+  LEFT JOIN UserBans ubm ON ubm.uid =u.id
+  LEFT JOIN Bans b ON b.id = ubm.bid  OR b.id = tbm.bid
+  LEFT JOIN UserBlocks ub ON ub.uid = u.id
+  LEFT JOIN Users bu ON bu.id = ub.buid
+  LEFT JOIN UserChannels ucm ON ucm.uid =u.id
+  LEFT JOIN Channels c ON c.id = ucm.cid
+  LEFT JOIN UserChannels ucmd ON ucmd.cid = c.id AND c.type = :dmType AND ucmd.uid != u.id
+  LEFT JOIN Users ucu ON ucu.id = ucmd.uid
+WHERE s.token = :token`, {
+        /* eslint-enable max-len */
+        replacements: { token, dmType: CHANNEL_TYPES.DM },
+        raw: true,
+        type: QueryTypes.SELECT,
+      });
+    user = nestQuery(user);
 
-    if (session) {
+    if (user) {
       /* rearrange values */
-      const { user } = session;
       const { tpids, channels } = user;
       user.mailreg = false;
       let i = tpids.length;
       while (i > 0) {
         i -= 1;
-        const tpid = tpids[i];
-        const { provider, bans } = tpid;
-        if (provider === THREEPID_PROVIDERS.EMAIL) {
+        if (tpids[i].provider === THREEPID_PROVIDERS.EMAIL) {
           user.mailreg = true;
+          break;
         }
-        if (bans.length) {
-          user.bans.push(bans);
-        }
-        delete tpid.bans;
       }
 
       user.channels = {};
       i = channels.length;
       while (i > 0) {
         i -= 1;
-        const { id: cid, name, type, lastMessage, users } = channels[i];
-        const channel = [name, type, lastMessage.getTime()];
-        /* if its a DM, users is populated */
-        if (users.length) {
-          const dmPartner = users[0];
-          channel.push(dmPartner.id);
-          channel[0] = dmPartner.name;
+        const { id: cid, name, type, lastDate, dmuid, dmuname } = channels[i];
+        const channel = [name, type, lastDate.getTime()];
+        /* if its a dm, this is set */
+        if (dmuid) {
+          channel.push(dmuid);
+          channel[0] = dmuname;
         }
         user.channels[cid] = channel;
       }
