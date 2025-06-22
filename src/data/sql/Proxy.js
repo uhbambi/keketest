@@ -8,6 +8,10 @@ const ProxyData = sequelize.define('Proxy', {
    * store when an ip is a proxy, primary key is ip,
    * which is also the foreign key, defined in ./index.js
    */
+  ip: {
+    type: 'VARBINARY(8)',
+    primaryKey: true,
+  },
 
   isProxy: {
     type: DataTypes.BOOLEAN,

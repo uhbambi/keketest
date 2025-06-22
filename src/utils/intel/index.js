@@ -12,6 +12,7 @@ import { queue } from './queue.js';
 import {
   USE_PROXYCHECK, PROXYCHECK_KEY, WHOIS_DURATION, PROXYCHECK_DURATION,
 } from '../../core/config.js';
+import { DO_NOTHING } from '../../core/constants.js';
 
 let proxyChecker = () => null;
 let mailChecker = () => null;
@@ -166,16 +167,18 @@ export const checkMail = queue(async (email) => {
 /* answer on request if main shard */
 socketEvents.onReq('ipintel', (...args) => {
   if (socketEvents.important) {
+    console.log('PROXYCHECK ARGS', args);
     return getIPIntel(...args);
   }
-  return null;
+  return DO_NOTHING;
 });
 
 socketEvents.onReq('mailintel', (...args) => {
   if (socketEvents.important) {
+    console.log('MAILINTEL ARGS', args);
     return checkMail(...args);
   }
-  return null;
+  return DO_NOTHING;
 });
 
 /* send request */

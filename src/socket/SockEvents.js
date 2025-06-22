@@ -6,6 +6,7 @@ import EventEmitter from 'events';
 import {
   dehydratePixelUpdate,
 } from './packets/server.js';
+import { DO_NOTHING } from '../core/constants.js';
 
 class SocketEvents extends EventEmitter {
   isCluster = false;
@@ -91,7 +92,7 @@ class SocketEvents extends EventEmitter {
   onReq(type, cb) {
     this.on(`req:${type}`, async (chan, ...args) => {
       const ret = await cb(...args);
-      if (ret === null) {
+      if (ret === DO_NOTHING) {
         return;
       }
       this.emit(`res:${chan}`, ret);

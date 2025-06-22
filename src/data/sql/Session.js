@@ -6,6 +6,11 @@ import { HOUR, THREEPID_PROVIDERS } from '../../core/constants.js';
 import { CHANNEL_TYPES } from './Channel.js';
 
 const Session = sequelize.define('Session', {
+  uid: {
+    type: DataTypes.INTEGER.UNSIGNED,
+    allowNull: false,
+  },
+
   id: {
     type: DataTypes.BIGINT.UNSIGNED,
     autoIncrement: true,
@@ -135,8 +140,8 @@ export async function resolveSession(token) {
             association: 'users',
             attributes: ['id', 'name'],
             where: {
-              id: { [Op.ne]: Sequelize.col('User.id') },
-              [Sequelize.col('channels.type')]: CHANNEL_TYPES.DM,
+              id: { [Op.ne]: '$user.id$' },
+              '$channels.type$': CHANNEL_TYPES.DM,
             },
           }],
         }, {
@@ -167,7 +172,7 @@ export async function resolveSession(token) {
         }],
       },
       raw: true,
-      nested: true,
+      nest: true,
     });
 
     if (session) {

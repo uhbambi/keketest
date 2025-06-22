@@ -1,3 +1,4 @@
+import sequelize, { sync } from './sequelize.js';
 import User, { USERLVL } from './User.js';
 import Channel, { CHANNEL_TYPES } from './Channel.js';
 import Message from './Message.js';
@@ -68,14 +69,12 @@ User.belongsToMany(IP, {
  */
 Session.belongsTo(User, {
   as: 'user',
-  foreignKey: {
-    name: 'uid',
-    allowNull: false,
-  },
+  foreignKey: 'uid',
   onDelete: 'CASCADE',
 });
 User.hasMany(Session, {
   as: 'sessions',
+  foreignKey: 'uid',
 });
 
 /*
@@ -83,11 +82,7 @@ User.hasMany(Session, {
  */
 ProxyData.belongsTo(IP, {
   as: 'ipinfo',
-  foreignKey: {
-    name: 'ip',
-    allowNull: false,
-    primaryKey: true,
-  },
+  foreignKey: 'ip',
   onDelete: 'CASCADE',
 });
 IP.hasOne(ProxyData, {
@@ -104,6 +99,7 @@ ThreePID.belongsTo(User, {
 });
 User.hasMany(ThreePID, {
   as: 'tpids',
+  foreignKey: 'uid',
 });
 
 /*
@@ -223,11 +219,7 @@ User.hasMany(ProxyWhitelist, {
 });
 ProxyWhitelist.belongsTo(IP, {
   as: 'ipinfo',
-  foreignKey: {
-    name: 'ip',
-    allowNull: false,
-    primaryKey: true,
-  },
+  foreignKey: 'ip',
   onDelete: 'CASCADE',
 });
 IP.hasOne(ProxyWhitelist, {
@@ -320,6 +312,8 @@ User.belongsToMany(User, {
 });
 
 export {
+  sync,
+  sequelize,
   // Models
   ProxyWhitelist,
   User,

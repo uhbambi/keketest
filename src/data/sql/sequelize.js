@@ -23,12 +23,100 @@ const sequelize = new Sequelize(MYSQL_DATABASE, MYSQL_USER, MYSQL_PW, {
     acquire: 10000,
   },
   // eslint-disable-next-line no-console
-  logging: (LOG_MYSQL) ? (...msg) => console.info(msg) : false,
+  logging: (LOG_MYSQL) ? (sql) => console.info(sql) : false,
   dialectOptions: {
     connectTimeout: 10000,
     multipleStatements: true,
   },
 });
+
+/**
+ * nest raw queries
+ * Sequelize raw: true queries return association as table.column names,
+ * and if we make sure that we only do this form on M:N associations, we can
+ * nest the results
+ * @param query query return object, which is an array
+ * @param primaryKey any key that is unique to nest for, if null, nest all
+ * @return nested query
+ */
+export function nestQuery(query, primaryKey) {
+  if (!query?.length) {
+    return null;
+  }
+  const ret = [];
+
+  const mainColumns = [];
+  const nestedColumns = [];
+  const columns = Object.keys(query[0]);
+  let i = columns.length;
+  while (i > 0) {
+    i -= 1;
+    const k = columns[i];
+    const seperator = k.indexOf('.');
+    if (seperator === -1) {
+      mainColumns.push(k);
+    } else {
+      nestedColumns.push(
+        [k.substring(0, seperator), k.substring(seperator + 1)],
+      );
+    }
+  }
+
+  i = query.length;
+  while (i > 0) {
+    i -= 1;
+    const row = query[i];
+
+    let target;
+    if (primaryKey) {
+      const primary = row[primaryKey];
+      target = ret.findOne(
+        (r) => r[primaryKey].toString() === primary.toString(),
+      );
+    } else {
+      // eslint-disable-next-line prefer-destructuring
+      target = ret[0];
+    }
+
+    if (!target) {
+      target = {};
+      mainColumns.forEach((k) => {
+        target[k] = row[k];
+      });
+      nestedColumns.forEach(([k]) => {
+        target[k] = [];
+      });
+      ret.push(target);
+    }
+
+    const nestedObj = {};
+    const notNullObj = {};
+    let u = nestedColumns.length;
+    while (u > 0) {
+      u -= 1;
+      const [k, v] = nestedColumns[u];
+      if (!nestedObj[k]) {
+        nestedObj[k] = {};
+      }
+      const value = row[`${k}.${v}`];
+      const obj = nestedObj[k];
+      obj[v] = value;
+      if (value !== null) {
+        notNullObj[k] = obj;
+      }
+    }
+
+    const notNullKeys = Object.keys(notNullObj);
+    u = notNullKeys.length;
+    while (u > 0) {
+      u -= 1;
+      const k = notNullKeys[u];
+      target[k].push(nestedObj[k]);
+    }
+  }
+
+  return (ret.length === 1) ? ret[0] : ret;
+}
 
 /**
  * replacer for JSON.stringify
@@ -100,8 +188,10 @@ export function jsonToSequelizeRaw(json) {
 /*
  * estabish database connection
  */
-export const sync = async () => {
-  await sequelize.sync({ alter: { drop: true } });
+export const sync = async (alter = true) => {
+  if (alter) {
+    await sequelize.sync({ alter: { drop: true } });
+  }
 
   /*
    * custom functions (for IP_BIN explenation, look into IP_Info comments)
@@ -134,14 +224,30 @@ BEGIN
   END IF;
   RETURN (LOWER(CONCAT(REPLACE(SUBSTRING_INDEX(SUBSTRING_INDEX(tip, '@', 1), '+', 1), '.', ''),'@',(SUBSTRING_INDEX(tip, '@', -1)))));
 END`,
+    UUID_TO_BIN: `CREATE FUNCTION IF NOT EXISTS UUID_TO_BIN(uuid CHAR(36)) RETURNS BINARY(16) DETERMINISTIC
+BEGIN
+  RETURN UNHEX(REPLACE(uuid, '-', ''));
+END`,
+    BIN_TO_UUID: `CREATE FUNCTION IF NOT EXISTS BIN_TO_UUID(bin_uuid BINARY(16)) RETURNS CHAR(36) DETERMINISTIC
+BEGIN
+    DECLARE hex_uuid CHAR(32);
+    SET hex_uuid = HEX(bin_uuid);
+    RETURN LOWER(CONCAT(
+        SUBSTR(hex_uuid, 1, 8), '-',
+        SUBSTR(hex_uuid, 9, 4), '-',
+        SUBSTR(hex_uuid, 13, 4), '-',
+        SUBSTR(hex_uuid, 17, 4), '-',
+        SUBSTR(hex_uuid, 21, 12)
+    ));
+END`,
     RANGE_OF_IP: `CREATE PROCEDURE IF NOT EXISTS RANGE_OF_IP(ip VARCHAR(39)) READS SQL DATA
 BEGIN
   DECLARE binIp VARBINARY(8);
   SET binIp = IP_TO_BIN(ip);
-  SELECT id as wid, CONCAT(BIN_TO_IP(min), '/', mask) AS cidr, country, org, descr, asn FROM Ranges WHERE min <= binIp AND max >= binIp AND LENGTH(binIP) = LENGTH(min) AND checkedAt > (NOW() - INTERVAL 1 MONTH) LIMIT 1;
+  SELECT id as wid, CONCAT(BIN_TO_IP(min), '/', mask) AS cidr, country, org, descr, asn FROM Ranges WHERE min <= binIp AND max >= binIp AND LENGTH(binIP) = LENGTH(min) AND expires > NOW() LIMIT 1;
   IF FOUND_ROWS() = 0
     THEN
-      SELECT host FROM WhoisReferrals WHERE min <= binIp AND max >= binIp AND LENGTH(binIp) = LENGTH(min) AND checkedAt > (NOW() - INTERVAL 1 MONTH) LIMIT 1;
+      SELECT host FROM WhoisReferrals WHERE min <= binIp AND max >= binIp AND LENGTH(binIp) = LENGTH(min) AND expires > NOW() LIMIT 1;
   END IF;
 END`,
     RANGE_OF_IP_OI: `CREATE PROCEDURE IF NOT EXISTS RANGE_OF_IP_OI(ip VARCHAR(39)) MODIFIES SQL DATA
@@ -154,37 +260,14 @@ BEGIN
   DECLARE q_asn VARCHAR(12);
   DECLARE whois_host VARCHAR(60);
   SET binIp = IP_TO_BIN(ip);
-  SELECT id, CONCAT(BIN_TO_IP(min), '/', mask), country, org, descr, asn FROM Ranges WHERE min <= binIp AND max >= binIp AND LENGTH(binIp) = LENGTH(min) AND checkedAt > (NOW() - INTERVAL 1 MONTH) LIMIT 1 INTO q_id, q_cidr, q_country, q_org, q_descr, q_asn;
+  SELECT id, CONCAT(BIN_TO_IP(min), '/', mask), country, org, descr, asn FROM Ranges WHERE min <= binIp AND max >= binIp AND LENGTH(binIp) = LENGTH(min) AND expires > NOW() LIMIT 1 INTO q_id, q_cidr, q_country, q_org, q_descr, q_asn;
   IF q_id IS NULL
     THEN
-      SELECT host FROM WhoisReferrals WHERE min <= binIp AND max >= binIp AND LENGTH(binIp) = LENGTH(min) AND checkedAt > (NOW() - INTERVAL 1 MONTH) LIMIT 1 INTO whois_host;
+      SELECT host FROM WhoisReferrals WHERE min <= binIp AND max >= binIp AND LENGTH(binIp) = LENGTH(min) AND expires > NOW() LIMIT 1 INTO whois_host;
     ELSE
       INSERT INTO IPs (ip, uuid, rid) VALUES (binIP, UUID_TO_BIN(UUID()), q_id) ON DUPLICATE KEY UPDATE rid = q_id;
   END IF;
   SELECT q_cidr AS cidr, q_country AS country, q_org AS org, q_descr AS descr, q_asn AS asn, whois_host;
-END`,
-    CC_AND_PC_OF_IP: `CREATE PROCEDURE IF NOT EXISTS CC_AND_PC_OF_IP(ip VARCHAR(39)) READS SQL DATA
-BEGIN
-  DECLARE binIp VARBINARY(8);
-  DECLARE q_country CHAR(2);
-  DECLARE q_proxy TINYINT;
-  DECLARE q_checkedAt DATETIME;
-  DECLARE q_needs_link TINYINT;
-  DECLARE q_rid INTEGER UNSIGNED;
-  DECLARE q_whois_host VARCHAR(60);
-  SET binIp = IP_TO_BIN(ip);
-  SELECT rid, proxy, checkedAt, country FROM IPs i
-    LEFT JOIN Ranges r ON i.rid = r.id
-  WHERE i.ip = binIp LIMIT 1 INTO q_rid, q_proxy, q_checkedAt, q_country;
-  IF q_rid IS NULL THEN
-    SELECT id, country FROM Ranges WHERE min <= binIp AND max >= binIp AND LENGTH(binIp) = LENGTH(min) LIMIT 1 INTO q_rid, q_country;
-    IF q_rid IS NULL THEN
-      SELECT host FROM WhoisReferrals WHERE min <= binIp AND max >= binIP AND LENGTH(binIp) = LENGTH(min) LIMIT 1 INTO q_whois_host;
-    ELSEIF q_checkedAt IS NOT NULL THEN
-      SET q_needs_link = 1;
-    END IF;
-  END IF;
-  SELECT q_country AS country, q_proxy AS proxy, q_needs_link AS needsLink, q_rid AS rid, q_whois_host AS whoisHost;
 END`,
     GET_USER_ALLOWANCE: `CREATE PROCEDURE IF NOT EXISTS GET_USER_ALLOWANCE(uid INTEGER UNSIGNED) READS SQL DATA
 BEGIN
@@ -200,13 +283,32 @@ BEGIN
 END`,
   };
 
+  const isMariaDB = (await sequelize.query('SELECT VERSION() AS version'))[0][0].version.includes('MariaDB');
+  if (!isMariaDB) {
+    /* those functions are native to MySQL 8+ */
+    delete functions.UUID_TO_BIN;
+    delete functions.BIN_TO_UUID;
+  }
+
+  const promises = [];
   for (const name of Object.keys(functions)) {
-    try {
-      // eslint-disable-next-line no-await-in-loop
-      await sequelize.query(functions[name], { raw: true });
-    } catch (err) {
-      throw new Error(`Error on creating SQL Function ${name}: ${err.message}`);
+    if (alter) {
+      if (functions[name].includes('PROCEDURE')) {
+        promises.push(sequelize.query(`DROP PROCEDURE IF EXISTS ${name}`,
+          { raw: true },
+        ));
+      } else if (functions[name].includes('FUNCTION')) {
+        promises.push(sequelize.query(`DROP FUNCTION IF EXISTS ${name}`,
+          { raw: true },
+        ));
+      }
     }
+    promises.push(sequelize.query(functions[name], { raw: true }));
+  }
+  try {
+    await Promise.all(promises);
+  } catch (err) {
+    throw new Error(`Error on creating SQL Function: ${err.message}`);
   }
 };
 

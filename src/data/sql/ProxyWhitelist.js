@@ -3,6 +3,11 @@ import sequelize from './sequelize.js';
 
 
 const ProxyWhitelist = sequelize.define('ProxyWhitelist', {
+  ip: {
+    type: 'VARBINARY(8)',
+    primaryKey: true,
+  },
+
   reason: {
     type: DataTypes.STRING(200),
     charset: 'utf8mb4',

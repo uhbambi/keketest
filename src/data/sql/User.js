@@ -114,12 +114,8 @@ export async function getDummyUser(name) {
 export async function name2Id(name) {
   try {
     const userq = await sequelize.query(
-      'SELECT id FROM Users WHERE name = ?',
-      {
-        bind: [name],
-        type: QueryTypes.SELECT,
-        plain: true,
-      },
+      'SELECT id FROM Users WHERE name = :name',
+      { replacements: { name }, type: QueryTypes.SELECT, plain: true },
     );
     return userq.id;
   } catch {
@@ -382,13 +378,14 @@ export async function getUsersByNameOrEmail(name, email) {
       ]],
       where: {
         [Op.or]: [{ name }, {
-          [Sequelize.col('tpids.provider')]: THREEPID_PROVIDERS.EMAIL,
-          [Sequelize.col('tpids.tpid')]: email,
+          '$tpids.provider$': THREEPID_PROVIDERS.EMAIL,
+          '$tpids.tpid$': email,
         }],
       },
       include: {
         association: 'tpids',
         attributes: [],
+        required: false,
       },
       raw: true,
     });

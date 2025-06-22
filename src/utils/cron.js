@@ -30,6 +30,10 @@ class Cron {
     this.timeout = setTimeout(this.checkForExecution, msToNextFullHour);
   }
 
+  destructor() {
+    clearTimeout(this.timeout);
+  }
+
   checkForExecution() {
     this.timeout = setTimeout(this.checkForExecution, HOUR);
     const curDate = new Date();

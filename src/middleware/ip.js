@@ -10,7 +10,7 @@ import { parseListOfBans } from '../data/sql/Ban.js';
 
 const getIPAllowanceQueued = queue(getIPAllowance);
 
-class IP {
+export class IP {
   /* expressjs request object */
   #req;
   /*

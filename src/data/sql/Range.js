@@ -92,7 +92,7 @@ const RangeData = sequelize.define('Range', {
  */
 export async function getRangeOfIP(ipString) {
   try {
-    const range = await Range.findOne({
+    const range = await RangeData.findOne({
       attributes: [
         'mask', 'country', 'org', 'descr', 'asn', 'expires',
         ['id', 'rid'],

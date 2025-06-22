@@ -233,8 +233,6 @@ class SocketServer {
 
   async handleUpgrade(request, socket, head) {
     await authenticateClient(request);
-    /*TOD */
-    console.log('ws authenticated');
     const { headers, ip: { ipString } } = request;
     /*
      * rate limit

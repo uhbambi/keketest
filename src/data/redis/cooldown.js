@@ -60,7 +60,7 @@ export default function allowPlace(
   const cc = country || 'xx';
   const rankset = RANKED_KEY;
   const dailyset = (ranked) ? DAILY_RANKED_KEY : 'nope';
-  return client.placePxl(
+  return client.placePixel(
     // eslint-disable-next-line max-len
     captKey, ipCdKey, idCdKey, chunkKey, rankset, dailyset, DAILY_CRANKED_KEY, PREV_DAY_TOP_KEY,
     clrIgnore, bcd, pcd, cds, cdIfNull, id, cc, req,

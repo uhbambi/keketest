@@ -22,8 +22,6 @@ router.use(promises);
 function authenticateClient(req) {
   return new Promise(
     (resolve) => {
-      /* TODO */
-      console.log('ws connection');
       router(req, {}, resolve);
     },
   );

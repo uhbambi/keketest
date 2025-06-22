@@ -28,6 +28,7 @@ import {
 } from './packets/server.js';
 import { pubsub } from '../data/redis/client.js';
 import { combineObjects } from '../core/utils.js';
+import { DO_NOTHING } from '../core/constants.js';
 
 /*
  * channel that all shards share and listen to
@@ -257,7 +258,7 @@ class MessageBroker extends SocketEvents {
   onReq(type, cb) {
     this.on(`req:${type}`, async (chan, shardName, ...args) => {
       const ret = await cb(...args);
-      if (ret === null) {
+      if (ret === DO_NOTHING) {
         return;
       }
       if (shardName === this.thisShard) {

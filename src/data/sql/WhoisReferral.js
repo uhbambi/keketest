@@ -50,7 +50,7 @@ const WhoisReferral = sequelize.define('WhoisReferral', {
  */
 export async function getWhoisHostOfIP(ipString) {
   try {
-    const range = await Range.findOne({
+    const range = await WhoisReferral.findOne({
       attributes: ['host'],
       where: {
         min: { [Op.lte]: Sequelize.fn('IP_TO_BIN', ipString) },
@@ -63,7 +63,7 @@ export async function getWhoisHostOfIP(ipString) {
       return range.host;
     }
   } catch (error) {
-    console.error(`SQL Error on getRangeOfIP: ${error.message}`);
+    console.error(`SQL Error on getWhoisHostOfIP: ${error.message}`);
   }
   return null;
 }

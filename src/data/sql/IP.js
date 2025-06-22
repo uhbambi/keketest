@@ -1,10 +1,11 @@
-import Sequelize, { DataTypes, Op } from 'sequelize';
+import Sequelize, { DataTypes, QueryTypes, Op } from 'sequelize';
 import crypto from 'crypto';
 
-import sequelize from './sequelize.js';
+import sequelize, { nestQuery } from './sequelize.js';
 import RangeData from './Range.js';
 import ProxyData from './Proxy.js';
 import WhoisReferral from './WhoisReferral.js';
+import { USE_PROXYCHECK } from '../../core/config.js';
 
 const IP = sequelize.define('IP', {
   /*
@@ -50,80 +51,43 @@ const IP = sequelize.define('IP', {
 export async function getIPAllowance(ipString) {
   let ipAllowance;
   try {
-    ipAllowance = await IP.findOne({
-      attributes: [
-        'lastSeen',
-        /* TODO IMPORTANT */
-        // [Sequelize.col('whitelist.wip'), 'isWhitelisted'],
-        [Sequelize.col('proxy.isProxy'), 'isProxy'],
-        [Sequelize.col('range.country'), 'country'],
-        [Sequelize.col('range.expires'), 'whoisExpires'],
-        [Sequelize.col('proxy.expires'), 'proxyCheckExpires'],
-      ],
-      where: { ip: Sequelize.fn('IP_TO_BIN', ipString) },
-      include: [{
-        association: 'range',
-        attributes: [],
-        where: {
-          expires: { [Op.gt]: Sequelize.fn('NOW') },
-        },
-      }, {
-        association: 'proxy',
-        attributes: [],
-        where: {
-          expires: { [Op.gt]: Sequelize.fn('NOW') },
-        },
-      }, { /*
-        association: 'whitelist',
-        attributes: [['ip', 'wip']],
-      }, { */
-        association: 'bans',
-        attributes: ['expires', 'flags'],
-        where: {
-          [Op.or]: [
-            { expires: { [Op.gt]: Sequelize.fn('NOW') } },
-            { expires: null },
-          ],
-        },
-      }],
-      raw: true,
-      nest: true,
-    });
+    ipAllowance = await sequelize.query(
+      // eslint-disable-next-line max-len
+      'SELECT COALESCE(i.lastSeen, NOW() - INTERVAL 5 MINUTE) as lastSeen, COALESCE(p.isProxy, 0) AS isProxy, w.ip IS NOT NULL AS isWhitelisted, COALESCE(r.country, \'xx\') AS country, COALESCE(r.expires, NOW() - INTERVAL 5 MINUTE) AS whoisExpires, COALESCE(p.expires, NOW() - INTERVAL 5 MINUTE) AS proxyCheckExpires, b.expires AS \'bans.expires\', b.flags AS \'bans.flags\' FROM IPs i LEFT JOIN ProxyWhitelists w ON w.ip = i.ip LEFT JOIN Proxies p ON p.ip = i.ip AND p.expires > NOW() LEFT JOIN Ranges r ON r.id = i.rid AND r.expires > NOW() LEFT JOIN IPBans ib ON ib.ip = i.ip LEFT JOIN Bans b ON b.id = ib.bid AND (b.expires > NOW() OR b.expires IS NULL) WHERE i.ip = IP_TO_BIN(:ipString)',
+      { replacements: { ipString }, raw: true, type: QueryTypes.SELECT },
+    );
+    ipAllowance = nestQuery(ipAllowance);
+
     if (ipAllowance) {
-      if (ipAllowance.whoisExpires) {
-        ipAllowance.whoisExpiresTs = ipAllowance.whoisExpires.getTime();
-        delete ipAllowance.whoisExpires;
-      }
-      if (ipAllowance.proxyCheckExpires) {
-        // eslint-disable-next-line max-len
-        ipAllowance.proxyCheckExpiresTS = ipAllowance.proxyCheckExpires.getTime();
-        delete ipAllowance.proxyCheckExpires;
-      }
+      ipAllowance.isProxy = ipAllowance.isProxy === 1;
+      ipAllowance.isWhitelisted = ipAllowance.isWhitelisted === 1;
+      ipAllowance.whoisExpiresTs = ipAllowance.whoisExpires.getTime();
+      // eslint-disable-next-line max-len
+      ipAllowance.proxyCheckExpiresTs = ipAllowance.proxyCheckExpires.getTime();
+      delete ipAllowance.whoisExpires;
+      delete ipAllowance.proxyCheckExpires;
     }
   } catch (error) {
     console.error(`SQL Error on getIPAllowance: ${error.message}`);
   }
 
-  /* making sure defaults are sane */
   if (!ipAllowance) {
+    const expiredTs = Date.now() - 10 * 3600 * 1000;
+
     ipAllowance = {
       isWhitelisted: false,
       bans: [],
+      country: 'xx',
+      isProxy: false,
+      lastSeen: new Date(),
+      whoisExpiresTs: expiredTs,
+      proxyCheckExpiresTs: expiredTs,
     };
   }
-  ipAllowance.isProxy ??= false;
-  ipAllowance.country ??= 'xx';
-  /*
-   * if an sql error occured above, it might be possible for the IP to get
-   * stuck in a isWhitelisted: false, isBanned: false state, as fetching
-   * whois and proxycheck will not refresh those values (nor should it do that,
-   * unless there is ever an issue justifying it).
-   */
-  const currentTs = Date.now();
-  ipAllowance.lastSeen ??= new Date();
-  ipAllowance.whoisExpires ??= currentTs;
-  ipAllowance.proxyCheckExpires ??= currentTs;
-  console.log('TODO IP ALLOWANCE', JSON.stringify(ipAllowance));
+
+  if (!USE_PROXYCHECK) {
+    ipAllowance.proxyCheckExpiresTs = Infinity;
+  }
 
   return ipAllowance;
 }
@@ -205,7 +169,7 @@ export async function saveIPIntel(ipString, whoisData, pcData) {
           ip: Sequelize.fn('IP_TO_BIN', ipString),
         };
         query.expires = new Date(query.expiresTs);
-        delete query.expires;
+        delete query.expiresTs;
 
         await ProxyData.upsert(query, { returning: false, transaction });
       }
