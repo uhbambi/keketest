@@ -5,11 +5,11 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
-import GlobalCaptcha from './GlobalCaptcha';
-import BanInfo from './BanInfo';
-import Overlay from './Overlay';
-import RefreshPrompt from './RefreshPrompt';
-import { closeAlert } from '../store/actions';
+import GlobalCaptcha from './GlobalCaptcha.jsx';
+import BanInfo from './BanInfo.jsx';
+import Overlay from './Overlay.jsx';
+import RefreshPrompt from './RefreshPrompt.jsx';
+import { closeAlert } from '../store/actions/index.js';
 
 const Alert = () => {
   const [render, setRender] = useState(false);

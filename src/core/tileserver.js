@@ -7,16 +7,16 @@ import fs from 'fs';
 import path from 'path';
 import { Worker } from 'worker_threads';
 
-import logger from './logger';
-import canvases from './canvases';
-import socketEvents from '../socket/socketEvents';
+import logger from './logger.js';
+import canvases from './canvases.js';
+import socketEvents from '../socket/socketEvents.js';
 
-import { TILE_FOLDER } from './config';
+import { TILE_FOLDER } from './config.js';
 import {
   TILE_SIZE,
   TILE_ZOOM_LEVEL,
-} from './constants';
-import { mod, getMaxTiledZoom } from './utils';
+} from './constants.js';
+import { mod, getMaxTiledZoom } from './utils.js';
 
 
 const CanvasUpdaters = {};

@@ -6,9 +6,9 @@ import React, { useCallback } from 'react';
 import { useDispatch, useSelector, shallowEqual } from 'react-redux';
 import { t } from 'ttag';
 
-import CanvasItem from '../CanvasItem';
-import { selectCanvas } from '../../store/actions';
-import useLink from '../hooks/link';
+import CanvasItem from '../CanvasItem.jsx';
+import { selectCanvas } from '../../store/actions/index.js';
+import useLink from '../hooks/link.js';
 
 
 const CanvasSelect = () => {

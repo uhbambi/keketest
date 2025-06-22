@@ -10,13 +10,13 @@ import http from 'http';
 import https from 'https';
 import sharp from 'sharp';
 
-import RedisCanvas from '../data/redis/RedisCanvas';
-import logger from './logger';
-import { getChunkOfPixel, getHistoricalCanvasSize } from './utils';
-import Palette from './Palette';
-import { TILE_SIZE } from './constants';
-import { BACKUP_URL } from './config';
-import canvases from './canvases';
+import RedisCanvas from '../data/redis/RedisCanvas.js';
+import logger from './logger.js';
+import { getChunkOfPixel, getHistoricalCanvasSize } from './utils.js';
+import Palette from './Palette.js';
+import { TILE_SIZE } from './constants.js';
+import { BACKUP_URL } from './config.js';
+import canvases from './canvases.js';
 
 function fetchHistoricalPngChunk(date, time, canvasId, cx, cy, url) {
   // to fatch full chunks from start of day, use only 'tiles' as time

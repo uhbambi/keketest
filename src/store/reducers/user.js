@@ -1,9 +1,12 @@
+import { USERLVL } from '../../core/constants.js';
+
 const initialState = {
   id: null,
   name: null,
   wait: null,
   coolDown: null, // ms
   lastCoolDownEnd: null,
+  userlvl: USERLVL.ANONYM,
   // messages are sent by api/me, like not_verified status
   messages: [],
   mailreg: false,
@@ -15,8 +18,6 @@ const initialState = {
   isOnMobile: false,
   // small notifications for received cooldown
   notification: null,
-  // 1: Admin, 2: Mod, 0: ordinary user
-  userlvl: 0,
   /*
    * can be: {
    *   type, size,
@@ -110,7 +111,7 @@ export default function user(
         mailreg: false,
         blockDm: false,
         priv: false,
-        userlvl: 0,
+        userlvl: USERLVL.ANONYM,
       };
     }
 

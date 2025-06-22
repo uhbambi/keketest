@@ -10,14 +10,15 @@ import {
   TILE_SIZE,
   MAX_SCALE,
   OVERLAY_SP_TH,
-} from '../core/constants';
+  BACKGROUND_CLR_HEX,
+} from '../core/constants.js';
 
 import {
   getTileOfPixel,
   getPixelFromChunkOffset,
   getMaxTiledZoom,
   clamp,
-} from '../core/utils';
+} from '../core/utils.js';
 
 import {
   renderGrid,
@@ -25,12 +26,12 @@ import {
   renderPotatoPlaceholder,
   renderOverlay,
   renderSmallPOverlay,
-} from './render2Delements';
-import PixelPainterControls from '../controls/PixelPainterControls';
+} from './render2Delements.js';
+import PixelPainterControls from '../controls/PixelPainterControls.js';
 
-import Renderer from './Renderer';
-import ChunkLoader from './ChunkLoader2D';
-import pixelNotify from './PixelNotify';
+import Renderer from './Renderer.js';
+import ChunkLoader from './ChunkLoader2D.js';
+import pixelNotify from './PixelNotify.js';
 
 class Renderer2D extends Renderer {
   canvasId = null;
@@ -376,7 +377,7 @@ class Renderer2D extends Renderer {
     if (scale > this.scaleThreshold) relScale = 1.0;
     // scale
     context.save();
-    context.fillStyle = '#C4C4C4';
+    context.fillStyle = BACKGROUND_CLR_HEX;
     context.scale(relScale, relScale);
     // decide if we update the timestamps of accessed chunks
     const curTime = Date.now();
@@ -626,7 +627,7 @@ class Renderer2D extends Renderer {
     const CHUNK_RENDER_RADIUS_Y = Math.ceil(height / TILE_SIZE / 2 / scale);
 
     context.save();
-    context.fillStyle = '#C4C4C4';
+    context.fillStyle = BACKGROUND_CLR_HEX;
     // clear canvas and do nothing if no time selected
     if (!historicalDate || !historicalTime) {
       context.fillRect(0, 0, this.canvas.width, this.canvas.height);

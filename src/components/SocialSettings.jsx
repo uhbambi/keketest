@@ -10,8 +10,8 @@ import {
   setBlockingDm,
   setPrivatize,
   setUserBlock,
-} from '../store/actions/thunks';
-import SettingsItem from './SettingsItem';
+} from '../store/actions/thunks.js';
+import SettingsItem from './SettingsItem.jsx';
 
 const selectBlocks = (state) => [
   state.chat.blocked,

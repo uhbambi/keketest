@@ -5,12 +5,12 @@
 import { useCallback, useContext } from 'react';
 import { useDispatch } from 'react-redux';
 
-import { updateExistingPopUp } from '../../core/popUps';
+import { updateExistingPopUp } from '../../core/popUps.js';
 import availablePopups, {
   isPopUp, buildPopUpUrl,
-} from '../windows/popUpAvailable';
-import { openWindow } from '../../store/actions/windows';
-import WindowContext from '../context/window';
+} from '../windows/popUpAvailable.js';
+import { openWindow } from '../../store/actions/windows.js';
+import WindowContext from '../context/window.js';
 
 function openPopUp(url, xPos, yPos, width, height) {
   let left;

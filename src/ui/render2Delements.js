@@ -3,9 +3,9 @@
  *
  */
 
-import templateLoader from './templateLoader';
-import { screenToWorld, worldToScreen } from '../core/utils';
-import { TILE_SIZE } from '../core/constants';
+import templateLoader from './templateLoader.js';
+import { screenToWorld, worldToScreen } from '../core/utils.js';
+import { TILE_SIZE } from '../core/constants.js';
 
 const PLACEHOLDER_SIZE = 1.2;
 const PLACEHOLDER_BORDER = 1;

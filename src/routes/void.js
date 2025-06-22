@@ -2,7 +2,7 @@
  * send information about next void
  */
 
-import rpgEvent from '../core/RpgEvent';
+import rpgEvent from '../core/RpgEvent.js';
 
 export default (req, res) => {
   res.set({

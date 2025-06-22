@@ -12,9 +12,9 @@ import React, {
 import { t } from 'ttag';
 import { IoReloadCircleSharp } from 'react-icons/io5';
 
-import useInterval from './hooks/interval';
-import { shardOrigin } from '../store/actions/fetch';
-import { getRandomString } from '../core/utils';
+import useInterval from './hooks/interval.js';
+import { shardOrigin } from '../store/actions/fetch.js';
+import { getRandomString } from '../core/utils.js';
 
 async function getUrlAndId() {
   const url = `${shardOrigin}/captcha.svg`;

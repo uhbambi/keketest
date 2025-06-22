@@ -13,10 +13,10 @@ import fs from 'fs';
 import path from 'path';
 import sharp from 'sharp';
 
-import RedisCanvas from '../data/redis/RedisCanvas';
-import Palette from './Palette';
-import { getMaxTiledZoom } from './utils';
-import { TILE_SIZE, TILE_ZOOM_LEVEL } from './constants';
+import RedisCanvas from '../data/redis/RedisCanvas.js';
+import Palette from './Palette.js';
+import { getMaxTiledZoom } from './utils.js';
+import { TILE_SIZE, TILE_ZOOM_LEVEL } from './constants.js';
 
 /*
  * Deletes a subtile from a tile (paints it in color 0),

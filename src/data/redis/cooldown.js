@@ -2,16 +2,15 @@
  * redis script for cooldown calculation
  * this does not set any pixels itself, see lua/placePixel.lua
  */
-import client from './client';
-import { PREFIX as CAPTCHA_PREFIX } from './captcha';
-import { PREFIX as ALLOWED_PREFIX } from './isAllowedCache';
+import client from './client.js';
+import { PREFIX as CAPTCHA_PREFIX } from './captcha.js';
 import {
   RANKED_KEY,
   DAILY_RANKED_KEY,
   DAILY_CRANKED_KEY,
   PREV_DAY_TOP_KEY,
-} from './ranks';
-import { CAPTCHA_TIME } from '../../core/config';
+} from './ranks.js';
+import { CAPTCHA_TIME } from '../../core/config.js';
 
 const PREFIX = 'cd';
 
@@ -30,7 +29,7 @@ const PREFIX = 'cd';
  * @return see lua/placePixel.lua
  */
 export default function allowPlace(
-  ip,
+  ipString,
   id,
   country,
   ranked,
@@ -45,9 +44,9 @@ export default function allowPlace(
   cdIfNull,
   pxls,
 ) {
-  const isalKey = `${ALLOWED_PREFIX}:${ip}`;
-  const captKey = (CAPTCHA_TIME >= 0) ? `${CAPTCHA_PREFIX}:${ip}` : 'nope';
-  const ipCdKey = `${PREFIX}:${canvasCdId}:ip:${ip}`;
+  const captKey = (CAPTCHA_TIME >= 0)
+    ? `${CAPTCHA_PREFIX}:${ipString}` : 'nope';
+  const ipCdKey = `${PREFIX}:${canvasCdId}:ip:${ipString}`;
   let idCdKey;
   if (id) {
     idCdKey = `${PREFIX}:${canvasCdId}:id:${id}`;
@@ -61,9 +60,9 @@ export default function allowPlace(
   const cc = country || 'xx';
   const rankset = RANKED_KEY;
   const dailyset = (ranked) ? DAILY_RANKED_KEY : 'nope';
-  return client.placePxl(
+  return client.placePixel(
     // eslint-disable-next-line max-len
-    isalKey, captKey, ipCdKey, idCdKey, chunkKey, rankset, dailyset, DAILY_CRANKED_KEY, PREV_DAY_TOP_KEY,
+    captKey, ipCdKey, idCdKey, chunkKey, rankset, dailyset, DAILY_CRANKED_KEY, PREV_DAY_TOP_KEY,
     clrIgnore, bcd, pcd, cds, cdIfNull, id, cc, req,
     ...pxls,
   );

@@ -4,12 +4,14 @@
 import { TTag } from 'ttag';
 import { parse as parseCookie } from 'cookie';
 
-import assetWatcher from './fsWatcher';
-import { getLangsOfJsAsset } from './assets';
+import assetWatcher from '../core/fsWatcher.js';
+import { getLangsOfJsAsset } from '../core/assets.js';
 import lccc from '../../i18n/lccc.json';
 
-// eslint-disable-next-line max-len
-const localeImports = require.context('../../i18n', false, /^\.[/\\]ssr-.+\.po$/);
+const localeImports = import.meta.webpackContext('../../i18n', {
+  recursive: false,
+  regExp: /^\.[/\\]ssr-.+\.po$/,
+});
 
 const ttags = {};
 
@@ -19,15 +21,6 @@ function loadTtags() {
   const langs = localeImports.keys();
   const jsLangs = getLangsOfJsAsset('client');
   availableLangs.length = 0;
-
-  if (jsLangs.includes('en')) {
-    if (!ttags.en) {
-      ttags.en = new TTag();
-    }
-    availableLangs.push(['en', 'gb']);
-  } else if (ttags.en) {
-    delete ttags.en;
-  }
 
   for (let i = 0; i < langs.length; i += 1) {
     const file = langs[i];
@@ -49,6 +42,15 @@ function loadTtags() {
     } else if (ttags[lang]) {
       delete ttags[lang];
     }
+  }
+
+  if (jsLangs.includes('en') || !availableLangs.length) {
+    if (!ttags.en) {
+      ttags.en = new TTag();
+    }
+    availableLangs.push(['en', 'gb']);
+  } else if (ttags.en) {
+    delete ttags.en;
   }
 }
 

@@ -2,7 +2,7 @@
 
 import React from 'react';
 
-import { getExt } from '../../core/utils';
+import { getExt } from '../../core/utils.js';
 
 const videoExts = [
   'webm',

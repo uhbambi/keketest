@@ -71,9 +71,6 @@ export default function ranks(
 
     case 's/REC_ME':
     case 's/LOGIN': {
-      if (!action.totalPixels) {
-        return state;
-      }
       const {
         totalPixels,
         dailyTotalPixels,

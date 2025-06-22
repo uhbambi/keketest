@@ -7,9 +7,9 @@
 import fs from 'fs';
 import express from 'express';
 
-import canvases from '../core/canvases';
-import { getMaxTiledZoom } from '../core/utils';
-import { TILE_FOLDER } from '../core/config';
+import canvases from '../core/canvases.js';
+import { getMaxTiledZoom } from '../core/utils.js';
+import { TILE_FOLDER } from '../core/config.js';
 
 
 const router = express.Router();
@@ -82,6 +82,10 @@ router.use(async (req, res) => {
  */
 // eslint-disable-next-line no-unused-vars
 router.use((err, req, res, next) => {
+  if (res.headersSent) {
+    next(err);
+    return;
+  }
   res.status(400).end();
 });
 

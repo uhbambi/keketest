@@ -7,8 +7,8 @@ import { t } from 'ttag';
 
 import {
   validateEMail, validatePassword,
-} from '../utils/validation';
-import { requestMailChange } from '../store/actions/fetch';
+} from '../utils/validation.js';
+import { requestMailChange } from '../store/actions/fetch.js';
 
 function validate(email, password) {
   const errors = [];

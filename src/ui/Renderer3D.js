@@ -22,22 +22,23 @@ import {
 
 import { Sky } from 'three/examples/jsm/objects/Sky';
 
-import InfiniteGridHelper from './InfiniteGridHelper';
-import VoxelPainterControls from '../controls/VoxelPainterControls';
-import Renderer from './Renderer';
-import ChunkLoader from './ChunkLoader3D';
+import InfiniteGridHelper from './InfiniteGridHelper.js';
+import VoxelPainterControls from '../controls/VoxelPainterControls.js';
+import Renderer from './Renderer.js';
+import ChunkLoader from './ChunkLoader3D.js';
 import {
   getChunkOfPixel,
   getOffsetOfPixel,
-} from '../core/utils';
+} from '../core/utils.js';
 import {
   THREE_TILE_SIZE,
-} from '../core/constants';
+  BACKGROUND_CLR_HEX,
+} from '../core/constants.js';
 import {
   setHover,
   unsetHover,
-} from '../store/actions';
-import pixelTransferController from './PixelTransferController';
+} from '../store/actions/index.js';
+import pixelTransferController from './PixelTransferController.js';
 
 const renderDistance = 150;
 
@@ -158,7 +159,7 @@ class Renderer3D extends Renderer {
     oobGeometry.rotateX(-Math.PI / 2);
     oobGeometry.translate(THREE_TILE_SIZE / 2, 0.2, THREE_TILE_SIZE / 2);
     const oobMaterial = new MeshLambertMaterial({
-      color: '#C4C4C4',
+      color: BACKGROUND_CLR_HEX,
     });
     this.oobGeometry = oobGeometry;
     this.oobMaterial = oobMaterial;

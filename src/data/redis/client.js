@@ -7,36 +7,25 @@ import path from 'path';
 import { createClient, defineScript } from 'redis';
 import { isMainThread } from 'worker_threads';
 
-import { REDIS_URL, SHARD_NAME, BACKUP_URL } from '../../core/config';
+import { REDIS_URL, SHARD_NAME, BACKUP_URL } from '../../core/config.js';
 
 const scripts = {
-  placePxl: defineScript({
-    NUMBER_OF_KEYS: 9,
-    SCRIPT: fs.readFileSync(path.resolve('workers', 'lua', 'placePixel.lua')),
+  placePixel: {
+    NUMBER_OF_KEYS: 8,
     transformArguments(...args) {
       return args.map((a) => ((typeof a === 'string') ? a : a.toString()));
     },
     transformReply(arr) { return arr.map((r) => Number(r)); },
-  }),
-  allowedChat: defineScript({
-    NUMBER_OF_KEYS: 3,
-    SCRIPT: fs.readFileSync(path.resolve('workers', 'lua', 'allowedChat.lua')),
-    transformArguments(...args) {
-      return args.map((a) => ((typeof a === 'string') ? a : a.toString()));
-    },
-    transformReply(arr) { return arr.map((r) => Number(r)); },
-  }),
-  getUserRanks: defineScript({
+  },
+  getUserRanks: {
     NUMBER_OF_KEYS: 2,
-    SCRIPT: fs.readFileSync(path.resolve('workers', 'lua', 'getUserRanks.lua')),
     transformArguments(...args) {
       return args.map((a) => ((typeof a === 'string') ? a : a.toString()));
     },
     transformReply(arr) { return arr.map((r) => Number(r)); },
-  }),
-  zmRankRev: defineScript({
+  },
+  zmRankRev: {
     NUMBER_OF_KEYS: 1,
-    SCRIPT: fs.readFileSync(path.resolve('workers', 'lua', 'zmRankRev.lua')),
     transformArguments(key, uids) {
       return [
         key,
@@ -49,8 +38,36 @@ const scripts = {
         return rank || null;
       });
     },
-  }),
+  },
 };
+
+(() => {
+  let dirname;
+  if (process.env.NODE_ENV) {
+    dirname = __dirname;
+  } else {
+    dirname = import.meta.dirname;
+  }
+
+  const scriptIdent = Object.keys(scripts);
+  let i = scriptIdent.length;
+  while (i > 0) {
+    i -= 1;
+    const name = scriptIdent[i];
+    let filepath = path.resolve(
+      dirname, 'workers', 'lua', `${name}.lua`,
+    );
+    if (!fs.existsSync(filepath)) {
+      filepath = path.resolve(
+        dirname, 'lua', `${name}.lua`,
+      );
+    }
+    scripts[name] = defineScript({
+      ...scripts[name],
+      SCRIPT: fs.readFileSync(filepath),
+    });
+  }
+})();
 
 const client = createClient(REDIS_URL.startsWith('redis://')
   ? {

@@ -4,16 +4,16 @@
 
 import { persistStore } from 'redux-persist';
 
-import { parentExists } from './core/utils';
-import store from './store/storePopUp';
+import { parentExists } from './core/utils.js';
+import store from './store/storePopUp.js';
 import {
   urlChange,
-} from './store/actions';
+} from './store/actions/index.js';
 import {
   fetchMe,
-} from './store/actions/thunks';
-import SocketClient from './socket/SocketClient';
-import renderAppPopUp from './components/AppPopUp';
+} from './store/actions/thunks.js';
+import SocketClient from './socket/SocketClient.js';
+import renderAppPopUp from './components/AppPopUp.jsx';
 
 persistStore(store, {}, () => {
   window.addEventListener('message', store.dispatch);

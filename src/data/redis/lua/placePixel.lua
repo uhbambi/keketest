@@ -3,7 +3,6 @@
 -- Does not set pixels directly. Pixels are set in batches
 -- in RedisCanvas.js
 -- Keys:
---   isAllowed: 'isal:ip' (proxycheck, blacklist, whitelist)
 --   isHuman 'human:ip' captcha needed when expired,
 --     'nope' if no captcha should be checked
 --   ipCD: 'cd:canvasId:ip:ip'
@@ -33,34 +32,15 @@
 --     2: amount of successfully set pixels
 --     3: total cooldown of user
 --     4: added cooldown of last pixel
---     5: if we have to update isAllowed( proxycheck)
+--     5: if we have to update isIpAllowed(proxycheck)
+--     6: if we have to update isUserAllowed(user bans)
 --   }
-local ret = {0, 0, 0, 0, 0}
+local ret = {0, 0, 0, 0}
 -- check if captcha is needed
-if KEYS[2] ~= "nope" and not redis.call('get', KEYS[2]) then
+if KEYS[1] ~= "nope" and not redis.call('get', KEYS[1]) then
   -- captcha
   ret[1] = 10
   return ret
-end
--- check if isAllowed
-local ia = redis.call('get', KEYS[1])
-if not ia then
-  ret[5] = 1
-else
-  ia = tonumber(ia)
-  if ia > 0 then
-    if ia == 1 then
-      -- proxy
-      ret[1] = 11
-    elseif ia == 2 then
-      -- banned
-      ret[1] = 14
-    elseif ia == 3 then
-      -- range banned
-      ret[1] = 15
-    end
-    return ret
-  end
 end
 -- check if requirements for canvas met
 if ARGV[8] ~= "nope" then
@@ -70,7 +50,7 @@ if ARGV[8] ~= "nope" then
     return ret;
   end
   if ARGV[8] == "top" then
-    local pr = redis.call('zrank', KEYS[9], ARGV[6])
+    local pr = redis.call('zrank', KEYS[8], ARGV[6])
     if not pr or pr > 9 then
       -- not in yesterdays top 10
       ret[1] = 12;
@@ -79,7 +59,7 @@ if ARGV[8] ~= "nope" then
   else
     local req = tonumber(ARGV[8])
     if req > 0 then
-      local sc = tonumber(redis.call('zscore', KEYS[6], ARGV[6]))
+      local sc = tonumber(redis.call('zscore', KEYS[5], ARGV[6]))
       if not sc or sc < req then
         -- not enough pxls placed
         ret[1] = 7;
@@ -89,12 +69,12 @@ if ARGV[8] ~= "nope" then
   end
 end
 -- get cooldown of user
-local cd = redis.call('pttl', KEYS[3])
+local cd = redis.call('pttl', KEYS[2])
 if cd < 0 then
   cd = tonumber(ARGV[5])
 end
-if KEYS[4] ~= "nope" then
-  local icd = redis.call('pttl', KEYS[4])
+if KEYS[3] ~= "nope" then
+  local icd = redis.call('pttl', KEYS[3])
   if icd > cd then
     cd = icd
   end
@@ -109,7 +89,7 @@ local cds = tonumber(ARGV[4])
 for c = 9,#ARGV do
   local off = tonumber(ARGV[c]) * 8
   -- get color of pixel on canvas
-  local sclr = redis.call('bitfield', KEYS[5], 'get', 'u8', off)
+  local sclr = redis.call('bitfield', KEYS[4], 'get', 'u8', off)
   sclr = sclr[1]
   -- check if protected (protected is last bit in u8)
   if sclr >= 128 then
@@ -137,19 +117,19 @@ end
 if pxlcnt > 0 then
   -- set cooldown
   if cd > 0 then
-    redis.call('set', KEYS[3], '', 'px', cd)
-    if KEYS[4] ~= "nope" then
-      redis.call('set', KEYS[4], '', 'px', cd)
+    redis.call('set', KEYS[2], '', 'px', cd)
+    if KEYS[3] ~= "nope" then
+      redis.call('set', KEYS[3], '', 'px', cd)
     end
   end
   -- increment pixelcount
-  if KEYS[7] ~= 'nope' then
+  if KEYS[6] ~= 'nope' then
+    redis.call('zincrby', KEYS[5], pxlcnt, ARGV[6])
     redis.call('zincrby', KEYS[6], pxlcnt, ARGV[6])
-    redis.call('zincrby', KEYS[7], pxlcnt, ARGV[6])
   end
   -- increase country stats
   if ARGV[7] ~= 'xx' then
-    redis.call('zincrby', KEYS[8], pxlcnt, ARGV[7])
+    redis.call('zincrby', KEYS[7], pxlcnt, ARGV[7])
   end
 end
 

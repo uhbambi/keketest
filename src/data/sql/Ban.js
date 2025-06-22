@@ -1,150 +1,540 @@
-import { DataTypes, Op } from 'sequelize';
-import sequelize from './sequelize';
+import Sequelize, { DataTypes, Op } from 'sequelize';
+import crypto from 'crypto';
 
-import RegUser from './RegUser';
-import { HourlyCron } from '../../utils/cron';
-import { cleanCacheForIP } from '../redis/isAllowedCache';
+import sequelize from './sequelize.js';
+import { HourlyCron } from '../../utils/cron.js';
+import BanHistory from './BanHistory.js';
+import { getIPsofIIDs } from './IP.js';
+import IPBan from './association_models/IPBan.js';
+import UserBan from './association_models/UserBan.js';
+import ThreePID from './ThreePID.js';
+import ThreePIDBan from './association_models/ThreePIDBan.js';
+import IPBanHistory from './association_models/IPBanHistory.js';
+import UserBanHistory from './association_models/UserBanHistory.js';
+import ThreePIDBanHistory from './association_models/ThreePIDBanHistory.js';
 
 const Ban = sequelize.define('Ban', {
-  ip: {
-    type: DataTypes.CHAR(39),
-    allowNull: false,
+  id: {
+    type: DataTypes.BIGINT.UNSIGNED,
+    autoIncrement: true,
     primaryKey: true,
   },
 
-  reason: {
-    type: `${DataTypes.CHAR(200)} CHARSET utf8mb4 COLLATE utf8mb4_unicode_ci`,
+  uuid: {
+    type: 'BINARY(16)',
     allowNull: false,
+    unique: 'uuid',
+    defaultValue: () => crypto.randomBytes(16),
+  },
+
+  reason: {
+    type: DataTypes.STRING(200),
+    charset: 'utf8mb4',
+    collate: 'utf8mb4_unicode_ci',
+    allowNull: false,
+    set(value) {
+      this.setDataValue('reason', value.slice(0, 200));
+    },
   },
 
   /*
-   * expiration time,
+   * from lowest to highest bit:
+   * 0: banned from placing in game
+   * 1: banned from chat
+   */
+  flags: {
+    type: DataTypes.TINYINT.UNSIGNED,
+    allowNull: false,
+    defaultValue: 0,
+  },
+
+  /*
    * NULL if infinite
    */
   expires: {
     type: DataTypes.DATE,
   },
 
-  /*
-   * uid of mod who made the ban
-   */
-  muid: {
-    type: DataTypes.INTEGER.UNSIGNED,
+  createdAt: {
+    type: DataTypes.DATE,
+    defaultValue: DataTypes.NOW,
     allowNull: false,
   },
-}, {
-  timestamps: true,
-  updatedAt: false,
 
-  setterMethods: {
-    reason(value) {
-      this.setDataValue('reason', value.slice(0, 200));
+  /*
+   * virtual
+   */
+
+  ban: {
+    type: DataTypes.VIRTUAL,
+    get() {
+      return !!(this.flags & 0x01);
+    },
+    set(num) {
+      const val = (num) ? (this.flags | 0x01) : (this.flags & ~0x01);
+      this.setDataValue('flags', val);
+    },
+  },
+
+  mute: {
+    type: DataTypes.VIRTUAL,
+    get() {
+      return !!(this.flags & 0x02);
+    },
+    set(num) {
+      const val = (num) ? (this.flags | 0x02) : (this.flags & ~0x02);
+      this.setDataValue('flags', val);
     },
   },
 });
 
-Ban.belongsTo(RegUser, {
-  as: 'mod',
-  foreignKey: 'muid',
-});
-
-async function cleanBans() {
-  const expiredIPs = await Ban.findAll({
-    attributes: [
-      'ip',
-    ],
-    where: {
-      expires: {
-        [Op.lte]: new Date(),
-      },
-    },
-    raw: true,
-  });
-  const ips = [];
-  for (let i = 0; i < expiredIPs.length; i += 1) {
-    ips.push(expiredIPs[i].ip);
-  }
-  await Ban.destroy({
-    where: {
-      ip: ips,
-    },
-  });
-  for (let i = 0; i < ips.length; i += 1) {
-    // eslint-disable-next-line no-await-in-loop
-    await cleanCacheForIP(ips[i]);
-  }
-}
-HourlyCron.hook(cleanBans);
-
-/*
- * check if ip is whitelisted
- * @param ip
- * @return boolean
+/**
+ * Given a list of bans, determine if we are banned or muted or both,
+ * and what is the best time to re-check
+ * @param bans [ { expires, flags,... },... ]
+ * isBanned and isMuted are false or true if perma banned and timestamp
+ * otherwise
+ * @return [ isBanned, isMuted, banRecheckTs ]
  */
-export async function isIPBanned(ip) {
-  const count = await Ban
-    .count({
-      where: { ip },
+export function parseListOfBans(bans) {
+  let isBanned = false;
+  let isMuted = false;
+  let banRecheckTs = null;
+
+  if (bans.length) {
+    let i = bans.length;
+    while (i > 0) {
+      i -= 1;
+      const { expires, flags } = bans[i];
+      if (flags & 0x01) {
+        if (isBanned !== true) {
+          if (expires === null) {
+            isBanned = true;
+          } else {
+            const expiresTs = expires.getTime();
+            if (isBanned === false || expiresTs > isBanned) {
+              isBanned = expiresTs;
+            }
+          }
+        }
+      }
+      if (flags & 0x02) {
+        if (isMuted !== true) {
+          if (expires === null) {
+            isMuted = true;
+          } else {
+            const expiresTs = expires.getTime();
+            if (isMuted === false || expiresTs > isMuted) {
+              isMuted = expiresTs;
+            }
+          }
+        }
+      }
+    }
+
+    const isBannedIsInteger = Number.isInteger(isBanned);
+    const isMutedIsInteger = Number.isInteger(isMuted);
+    if (isBannedIsInteger || isMutedIsInteger) {
+      if (isBannedIsInteger && isMutedIsInteger) {
+        banRecheckTs = Math.min(isBanned, isMuted);
+      } else if (isBannedIsInteger) {
+        banRecheckTs = isBanned;
+      } else {
+        banRecheckTs = isMuted;
+      }
+    }
+  }
+  return [isBanned, isMuted, banRecheckTs];
+}
+
+/**
+ * Lift multiple Bans
+ * @param bans Array of Ban model instances
+ * @param [modUid] user id of mod that lifted the bans
+ */
+async function removeBans(bans, modUid) {
+  if (!Array.isArray(bans)) bans = [bans];
+  const banIds = bans.map((b) => b.id);
+
+  const transaction = await sequelize.transaction();
+
+  try {
+    if (modUid) {
+      await BanHistory.bulkCreate(bans.map((b) => ({
+        id: b.id,
+        uuid: b.uuid,
+        reason: b.reason,
+        flags: b.flags,
+        started: b.createdAt,
+        ended: b.expires,
+        muid: b.muid,
+        liftedAt: null,
+      })), {
+        transaction,
+      });
+    } else {
+      await BanHistory.bulkCreate(bans.map((b) => ({
+        id: b.id,
+        uuid: b.uuid,
+        reason: b.reason,
+        flags: b.flags,
+        started: b.createdAt,
+        ended: b.expires,
+        muid: b.muid,
+        lmuid: modUid,
+      })), {
+        transaction,
+      });
+    }
+
+    /* ips */
+    let rows = await IPBan.findAll({
+      attributes: ['bid', 'ip'],
+      where: { uuid: banIds },
+      raw: true,
+      transaction,
     });
-  return count !== 0;
+
+    if (rows.length) {
+      await IPBanHistory.bulkCreate(rows.map((row) => ({
+        bid: row.bid, ip: row.ip,
+      })), { transaction });
+    }
+    /* users */
+    rows = await UserBan.findAll({
+      attributes: ['bid', 'uid'],
+      where: { bid: banIds },
+      raw: true,
+      transaction,
+    });
+
+    if (rows.length) {
+      await UserBanHistory.bulkCreate(rows.map((row) => ({
+        bid: row.bid, uid: row.uid,
+      })), { transaction });
+    }
+    /* ThreePIDs */
+    rows = await ThreePIDBan.findAll({
+      attributes: ['bid', 'tid'],
+      where: { bid: banIds },
+      raw: true,
+      transaction,
+    });
+
+    if (rows.length) {
+      await ThreePIDBanHistory.bulkCreate(rows.map((row) => ({
+        bid: row.bid, uid: row.tid,
+      })), { transaction });
+    }
+
+    /* ban destruction will cascade to junction tables */
+    await Ban.destroy({
+      where: { bid: banIds },
+      transaction,
+    });
+
+    await transaction.commit();
+  } catch (error) {
+    await transaction.rollback();
+    throw error;
+  }
 }
 
 /*
- * get information of ban
- * @param ip
- * @return
+ * periodically check for expired bans and remove them if expired
  */
-export function getBanInfo(ip) {
-  return Ban.findByPk(ip, {
-    attributes: ['reason', 'expires'],
-    include: {
-      model: RegUser,
-      as: 'mod',
+async function cleanBans() {
+  try {
+    const expiredBans = await Ban.findAll({
       attributes: [
-        'id',
-        'name',
+        'id', 'uuid', 'reason', 'flags', 'expires', 'createdAt', 'muid',
       ],
-    },
-    raw: true,
-    nest: true,
-  });
+      where: {
+        expires: { [Op.lte]: new Date() },
+      },
+      raw: true,
+    });
+
+    if (!expiredBans.length) {
+      return 0;
+    }
+    await removeBans(expiredBans);
+    return expiredBans.length;
+  } catch (error) {
+    console.error(`SQL Error on cleanBans: ${error.message}`);
+  }
+  return null;
+}
+// HourlyCron.hook(cleanBans);
+
+/**
+ * unban
+ * @param buuid uuid of ban
+ * @param [modUid] user id of mod that lifted the bans
+ * @return boolean success
+ */
+export async function unbanByUuid(uuid, modUid) {
+  try {
+    const banModel = await Ban.findOne({
+      attributes: [
+        'id', 'uuid', 'reason', 'flags', 'expires', 'createdAt', 'muid',
+      ],
+      where: {
+        uuid: Sequelize.fn('UUID_TO_BIN', uuid),
+      },
+      raw: true,
+    });
+    if (!banModel) {
+      return false;
+    }
+    await removeBans(banModel, modUid);
+    return true;
+  } catch (error) {
+    console.error(`SQL Error on unban: ${error.message}`);
+  }
+  return false;
 }
 
-/*
- * ban ip
- * @param ip
- * @return true if banned
- *         false if already banned
+/**
+ * get all bans for ips or user ids
+ * @param userIds Array of user ids
+ * @param ipStrings Array of ipStrings
+ * @param ipUuids Array of ip uuids (IID)
+ * @param banUuids Array of ban uuids (UID)
+ * @param mute boolean if muting
+ * @param bans boolean if banning
+ * @return [{
+ *   uuid, reason, flags, expires, createdAt, muid,
+ *   mod: {
+ *     id, name,
+ *   },
+ *   ...
+ * }, ...],
  */
-export async function banIP(
-  ip,
-  reason,
-  expiresTs,
-  muid,
+export async function getBanInfos(
+  // eslint-disable-next-line no-shadow
+  ipStrings, userIds, ipUuids, banUuids, mute = true, ban = true,
 ) {
-  const expires = (expiresTs) ? new Date(expiresTs).toISOString() : null;
-  const [, created] = await Ban.upsert({
-    ip,
-    reason,
-    expires,
-    muid,
-  });
-  await cleanCacheForIP(ip);
-  return created;
+  if (!ban && !mute) {
+    return [];
+  }
+
+  try {
+    const nestedOr = [];
+    const where = {
+      [Op.and]: [{
+        [Op.or]: [
+          { expires: { [Op.gt]: Sequelize.fn('NOW') } },
+          { expires: null },
+        ],
+      }, {
+        [Op.or]: nestedOr,
+      }],
+    };
+    /* TODO allow to find by bit */
+    if (!mute || !ban) {
+      where[Op.and].push({ flags: (ban) ? 0x01 : 0x02 });
+    }
+
+    const include = [{
+      association: 'mod',
+      attributes: ['id', 'name'],
+    }, {
+      association: 'ips',
+      attributes: [
+        [Sequelize.fn('BIN_TO_IP', Sequelize.col('ip')), 'ipString'],
+      ],
+    }, {
+      association: 'users',
+      attributes: ['id'],
+    }, {
+      association: 'tpids',
+      attributes: ['tpid', 'uid'],
+    }];
+
+    if (ipStrings?.length) {
+      if (Array.isArray(ipStrings)) {
+        ipStrings.map((ip) => Sequelize.fn('IP_TO_BIN', ip));
+      } else {
+        ipStrings = Sequelize.fn('IP_TO_BIN', ipStrings);
+      }
+      nestedOr.push({ [Sequelize.col('ips.ip')]: ipStrings });
+    }
+
+    if (ipUuids?.length) {
+      nestedOr.push({ [Sequelize.col('ips.uuid')]: ipUuids });
+    }
+
+    if (userIds > 0) {
+      nestedOr.push({ [Sequelize.col('tpids.uid')]: userIds });
+      nestedOr.push({ [Sequelize.col('users.id')]: userIds });
+    }
+
+    if (banUuids?.length) {
+      if (!Array.isArray(banUuids)) banUuids = [banUuids];
+      banUuids.forEach((uuid) => nestedOr.push(
+        { uuid: Sequelize.fn('UUID_TO_BIN', uuid) },
+      ));
+    }
+
+    if (!nestedOr.length) {
+      return [];
+    }
+
+    const bans = await Ban.findAll({
+      attributes: [
+        'id', 'uuid', 'reason', 'flags', 'expires', 'createdAt', 'muid',
+        [Sequelize.fn('BIN_TO_UUID', Sequelize.col('uuid')), 'buuid'],
+      ],
+      where, include,
+      raw: true,
+      nested: true,
+    });
+
+    return bans;
+  } catch (error) {
+    console.error(`SQL Error on getBanInfos: ${error.message}`);
+  }
+  return [];
 }
 
-/*
- * unban ip
- * @param ip
- * @return true if unbanned,
- *         false if ip wasn't banned anyway
+/**
+ * ban
+ * @param userIds Array of user ids
+ * @param ipStrings Array of ipStrings
+ * @param ipUuids Array of ip uuids (IID)
+ * @param mute boolean if muting
+ * @param ban boolean if banning
+ * @param reason reasoning as string
+ * @param duration duration in seconds
+ * @param muid id of the mod that bans
+ * @return boolean success
  */
-export async function unbanIP(ip) {
-  const count = await Ban.destroy({
-    where: { ip },
-  });
-  await cleanCacheForIP(ip);
-  return !!count;
+export async function ban(
+  // eslint-disable-next-line no-shadow
+  ipStrings, userIds, ipUuids, mute, ban, reason, duration, muid = null,
+) {
+  try {
+    const transaction = await sequelize.transaction();
+
+    try {
+      const banModel = await Ban.create({
+        reason, muid, ban, mute,
+        expires: (duration) ? new Date(Date.now() + duration * 1000) : null,
+      }, { transaction });
+      const bid = banModel.id;
+
+      const promises = [];
+      /* userIds is either null or an Array or a sinlge userId */
+      if (userIds > 0) {
+        const threePIDs = await ThreePID.findAll({
+          where: { uid: userIds },
+          raw: true,
+        });
+        if (threePIDs.length) {
+          promises.push(ThreePIDBan.bulkCreate(threePIDs.map(
+            (tpid) => ({ bid, tid: tpid.id }),
+          ), { returning: false, transaction }));
+        }
+        if (Array.isArray(userIds)) {
+          if (userIds.length) {
+            promises.push(UserBan.bulkCreate(userIds.map(
+              (uid) => ({ bid, uid }),
+            ), { returning: false, transaction }));
+          }
+        } else {
+          promises.push(UserBan.create({ uid: userIds, bid },
+            { returning: false, transaction }));
+        }
+      }
+
+      if (ipUuids?.length) {
+        const mappedIPStrings = await getIPsofIIDs(ipUuids);
+        if (Array.isArray(ipStrings)) {
+          ipStrings = ipStrings.concat(mappedIPStrings);
+        } else if (ipStrings) {
+          mappedIPStrings.push(ipStrings);
+          ipStrings = mappedIPStrings;
+        } else {
+          ipStrings = mappedIPStrings;
+        }
+      }
+
+      if (ipStrings) {
+        if (Array.isArray(ipStrings)) {
+          if (ipStrings.length) {
+            promises.push(IPBan.bulkCreate(ipStrings.map(
+              (ip) => ({ bid, ip: Sequelize.fn('IP_TO_BIN', ip) }),
+            ), { returning: false, transaction }));
+          }
+        } else {
+          promises.push(IPBan.create({
+            bid, ip: Sequelize.fn('IP_TO_BIN', ipStrings),
+          }, { returning: false, transaction }));
+        }
+      }
+
+      await Promise.all(promises);
+      await transaction.commit();
+      return [ipStrings || [], userIds || []];
+    } catch (error) {
+      await transaction.rollback();
+      throw error;
+    }
+  } catch (error) {
+    console.error(`SQL Error on ban: ${error.message}`);
+  }
+  return [[], []];
+}
+
+/**
+ * unban by user and/or ip
+ * @param userIds Array of user ids
+ * @param ipStrings Array of ipStrings
+ * @param ipUuids Array of ip uuids (IID)
+ * @param banUuids Array of ban uuids (UID)
+ * @param mute boolean if unmuting
+ * @param ban boolean if unbanning
+ * @param muid id of the mod that bans
+ * @return [ ipStrings, userIds ] affected users / ips
+ */
+export async function unban(
+  // eslint-disable-next-line no-shadow
+  ipStrings, userIds, ipUuids, banUuids, mute, ban, muid = null,
+) {
+  const unbannedUserIds = [];
+  const unbannedIpStrings = [];
+
+  try {
+    const bans = await getBanInfos(
+      ipStrings, userIds, ipUuids, banUuids, mute, ban,
+    );
+    if (!bans.length) {
+      return [unbannedIpStrings, unbannedUserIds];
+    }
+    await removeBans(bans, muid);
+    bans.forEach((b) => {
+      b.users.forEach(({ id: uid }) => {
+        if (!unbannedUserIds.includes(uid)) {
+          unbannedUserIds.push(uid);
+        }
+      });
+      b.tpids.forEach(({ uid }) => {
+        if (!unbannedUserIds.includes(uid)) {
+          unbannedUserIds.push(uid);
+        }
+      });
+      b.ips.forEach(({ ipString }) => {
+        if (!unbannedIpStrings.includes(ipString)) {
+          unbannedIpStrings.push(ipString);
+        }
+      });
+    });
+    return [unbannedIpStrings, unbannedUserIds];
+  } catch (error) {
+    console.error(`SQL Error on unban: ${error.message}`);
+  }
+  return [unbannedIpStrings, unbannedUserIds];
 }
 
 export default Ban;

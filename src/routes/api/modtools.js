@@ -7,11 +7,10 @@
 import express from 'express';
 import fileUpload from 'express-fileupload';
 
-import CanvasCleaner from '../../core/CanvasCleaner';
-import chatProvider from '../../core/ChatProvider';
-import { getIPFromRequest } from '../../utils/ip';
-import { escapeMd } from '../../core/utils';
-import logger, { modtoolsLogger } from '../../core/logger';
+import CanvasCleaner from '../../core/CanvasCleaner.js';
+import chatProvider from '../../core/ChatProvider.js';
+import { escapeMd } from '../../core/utils.js';
+import logger, { modtoolsLogger } from '../../core/logger.js';
 import {
   executeIPAction,
   executeIIDAction,
@@ -24,7 +23,8 @@ import {
   removeMod,
   makeMod,
   executeQuickAction,
-} from '../../core/adminfunctions';
+} from '../../core/adminfunctions.js';
+import { USERLVL } from '../../data/sql/index.js';
 
 
 const router = express.Router();
@@ -45,37 +45,31 @@ router.use(fileUpload({
 
 
 /*
- * make sure User is logged in and mod or mod
+ * make sure User is logged in and at least Mod
  */
 router.use(async (req, res, next) => {
-  const ip = getIPFromRequest(req);
   if (!req.user) {
     logger.warn(
-      `MODTOOLS> ${ip} tried to access modtools without login`,
+      `MODTOOLS> ${req.ip.ipString} tried to access modtools without login`,
     );
     const { t } = req.ttag;
-    res.status(403).send(t`You are not logged in`);
+    next(new Error(t`You are not logged in`));
     return;
   }
-  /*
-   * 1 = Admin
-   * 2 = Mod
-   */
-  if (!req.user.userlvl) {
+  if (req.user.userlvl < USERLVL.MOD) {
     logger.warn(
-      `MODTOOLS> ${ip} / ${req.user.id} tried to access modtools`,
+      `MODTOOLS: ${req.ip.ipString} / ${req.user.id} tried to access modtools`,
     );
     const { t } = req.ttag;
-    res.status(403).send(t`You are not allowed to access this page`);
+    next(new Error(t`You are not allowed to access this page`));
     return;
   }
 
   if (!req.body?.cleanerstat) {
     logger.info(
-      `MODTOOLS> access ${req.user.regUser.name}[${req.user.id}] -  ${ip}`,
+      `MODTOOLS> access ${req.user.name}[${req.user.id}] -  ${req.ip.ipString}`,
     );
   }
-
   next();
 });
 
@@ -87,7 +81,7 @@ router.post('/', async (req, res, next) => {
   const aLogger = (text) => {
     const timeString = new Date().toLocaleTimeString();
     // eslint-disable-next-line max-len
-    const logText = `@[${escapeMd(req.user.regUser.name)}](${req.user.id}) ${text}`;
+    const logText = `@[${escapeMd(req.user.name)}](${req.user.id}) ${text}`;
     modtoolsLogger.info(
       `${timeString} | MODTOOLS> ${logText}`,
     );
@@ -127,6 +121,7 @@ router.post('/', async (req, res, next) => {
         watchaction,
         ulcoor,
         brcoor,
+        /* time is interval in ms */
         time,
         iid,
         canvasid,
@@ -137,11 +132,14 @@ router.post('/', async (req, res, next) => {
     }
     if (req.body.iidaction) {
       const {
-        iidaction, iid, reason, time,
+        iidaction, iid, bid, iidoruid, identifiers, reason, time,
       } = req.body;
       const ret = await executeIIDAction(
         iidaction,
         iid,
+        bid,
+        iidoruid,
+        identifiers,
         reason,
         time,
         req.user.id,
@@ -203,7 +201,7 @@ router.post('/', async (req, res, next) => {
         brcoor,
         canvasid,
         aLogger,
-        (req.user.userlvl === 1),
+        (req.user.userlvl >= USERLVL.ADMIN),
       );
       res.status(ret).send(msg);
       return;
@@ -219,7 +217,7 @@ router.post('/', async (req, res, next) => {
  * just admins past here, no Mods
  */
 router.use(async (req, res, next) => {
-  if (req.user.userlvl !== 1) {
+  if (req.user.userlvl < USERLVL.ADMIN) {
     const { t } = req.ttag;
     res.status(403).send(t`Just admins can do that`);
     return;
@@ -232,7 +230,7 @@ router.use(async (req, res, next) => {
  */
 router.post('/', async (req, res, next) => {
   const aLogger = (text) => {
-    logger.info(`ADMIN> ${req.user.regUser.name}[${req.user.id}]> ${text}`);
+    logger.info(`ADMIN> ${req.user.name}[${req.user.id}]> ${text}`);
   };
 
   try {
@@ -273,16 +271,20 @@ router.post('/', async (req, res, next) => {
   }
 });
 
-router.use(async (req, res) => {
-  res.status(400).send('Invalid request');
+router.use(async (req, res, next) => {
+  next(new Error('Invalid request'));
 });
 
 // eslint-disable-next-line no-unused-vars
 router.use((err, req, res, next) => {
+  if (res.headersSent) {
+    next(err);
+    return;
+  }
   res.status(400).send(err.message);
   logger.error(
     // eslint-disable-next-line max-len
-    `MODTOOLS> ${getIPFromRequest(req)} / ${req.user.id} encountered error on using modtools: ${err.message}`,
+    `MODTOOLS> ${req.ip.ipString} / ${req.user.id} encountered error on using modtools: ${err.message}`,
   );
 });
 

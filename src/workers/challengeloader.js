@@ -8,7 +8,7 @@ import { randomInt } from 'crypto';
 import compile from 'watr';
 import { isMainThread, parentPort } from 'worker_threads';
 
-import createChallenge from '../funcs/createChallenge';
+import createChallenge from '../funcs/createChallenge.js';
 
 if (isMainThread) {
   throw new Error(

@@ -2,38 +2,27 @@
  * request password change
  */
 
-import logger from '../../../core/logger';
-import { getIPFromRequest } from '../../../utils/ip';
-import socketEvents from '../../../socket/socketEvents';
-import { RegUser } from '../../../data/sql';
-import { validateName } from '../../../utils/validation';
+import logger from '../../../core/logger.js';
+import socketEvents from '../../../socket/socketEvents.js';
+import { setName } from '../../../data/sql/User.js';
+import { validateName } from '../../../utils/validation.js';
 
-async function validate(oldname, name) {
-  if (oldname === name) return 'You already have that name.';
+async function validate(oldname, name, t, gettext) {
+  if (oldname === name) return t`You already have that name.`;
 
-  const nameerror = validateName(name);
+  const nameerror = gettext(validateName(name));
   if (nameerror) return nameerror;
-
-  const reguser = await RegUser.findOne({ where: { name } });
-  if (reguser) return 'Username already in use.';
 
   return null;
 }
 
 export default async (req, res) => {
   const { name } = req.body;
+  const { t, gettext } = req.ttag;
   const { user } = req;
 
-  if (!user || !user.regUser) {
-    res.status(401);
-    res.json({
-      errors: ['You are not authenticated.'],
-    });
-    return;
-  }
-
-  const oldname = user.regUser.name;
-  const error = await validate(oldname, name);
+  const oldname = user.name;
+  const error = await validate(oldname, name, t, gettext);
   if (error) {
     res.status(400);
     res.json({
@@ -42,12 +31,18 @@ export default async (req, res) => {
     return;
   }
 
+  const success = await setName(user.id, name);
+  if (!success) {
+    res.status(400);
+    res.json({
+      errors: [t`Username already in use.`],
+    });
+  }
+
   // eslint-disable-next-line max-len
-  logger.info(`AUTH: Changed name for user ${user.regUser.name}(${user.id}) to ${name} by ${getIPFromRequest(req)}`);
+  logger.info(`AUTH: Changed name for user ${user.name}(${user.id}) to ${name} by ${req.ip.ipString}`);
 
-  await user.regUser.update({ name });
-
-  socketEvents.reloadUser(oldname);
+  socketEvents.reloadUser(user.id);
 
   res.json({
     success: true,

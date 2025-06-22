@@ -1,6 +1,11 @@
-const pkg = require('./package.json');
+import { readFileSync } from 'fs';
+import path from 'path';
 
-module.exports = function (api) {
+const pkg = JSON.parse(
+  readFileSync(path.resolve(import.meta.dirname, './package.json')),
+);
+
+export default function (api) {
   const plugins = [
     // react-optimize
     '@babel/transform-react-constant-elements',

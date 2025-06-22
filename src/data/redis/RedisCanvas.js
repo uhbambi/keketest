@@ -3,9 +3,9 @@
  */
 import { commandOptions } from 'redis';
 
-import { getChunkOfPixel, getOffsetOfPixel } from '../../core/utils';
-import socketEvents from '../../socket/socketEvents';
-import client from './client';
+import { getChunkOfPixel, getOffsetOfPixel } from '../../core/utils.js';
+import socketEvents from '../../socket/socketEvents.js';
+import client from './client.js';
 
 
 const UINT_SIZE = 'u8';

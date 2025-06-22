@@ -4,41 +4,26 @@
 
 import express from 'express';
 
-import session from '../core/session';
-import passport from '../core/passport';
-import User from '../data/User';
-import { expressTTag } from '../core/ttag';
-import { getIPFromRequest } from '../utils/ip';
+import { verifySessionPromisified } from '../middleware/session.js';
+import { parseIP, ipAllowancePromisified } from '../middleware/ip.js';
+import promises from '../middleware/promises.js';
+import { expressTTag } from '../middleware/ttag.js';
 
 const router = express.Router();
 
-router.use(session);
-
-router.use(passport.initialize());
-router.use(passport.session());
+router.use(parseIP);
+router.use(verifySessionPromisified);
+router.use(ipAllowancePromisified);
 
 router.use(expressTTag);
 
+router.use(promises);
 
 function authenticateClient(req) {
   return new Promise(
-    ((resolve) => {
-      router(req, {}, async () => {
-        const country = req.headers['cf-ipcountry'] || 'xx';
-        const countryCode = country.toLowerCase();
-        let user;
-        if (req.user) {
-          user = req.user;
-        } else {
-          user = new User();
-          await user.initialize(null, getIPFromRequest(req));
-        }
-        user.setCountry(countryCode);
-        user.ttag = req.ttag;
-        user.lang = req.lang;
-        resolve(user);
-      });
-    }),
+    (resolve) => {
+      router(req, {}, resolve);
+    },
   );
 }
 

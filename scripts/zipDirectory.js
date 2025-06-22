@@ -1,7 +1,7 @@
 /*
  * ZIP a directory while adhering to .gitignore
  */
-const path = require('path');
+import path from 'path';
 
 async function zipDir(dir, outputFile) {
   const [
@@ -41,4 +41,4 @@ async function zipDir(dir, outputFile) {
   )
 }
 
-module.exports = zipDir;
+export default zipDir;

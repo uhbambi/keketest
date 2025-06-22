@@ -1,30 +1,30 @@
 /**
  *
  */
-
 import express from 'express';
 import path from 'path';
 
-import ranking from './ranking';
-import voidl from './void';
-import history from './history';
-import tiles from './tiles';
-import chunks from './chunks';
-import adminapi from './adminapi';
-import captcha from './captcha';
-import challenge from './challenge';
-import resetPassword from './reset_password';
-import api from './api';
+import ranking from './ranking.js';
+import voidl from './void.js';
+import history from './history.js';
+import tiles from './tiles.js';
+import chunks from './chunks.js';
+import adminapi from './adminapi.js';
+import captcha from './captcha.js';
+import challenge from './challenge.js';
+import resetPassword from './reset_password.js';
+import api from './api/index.js';
 
-import { expressTTag } from '../core/ttag';
-import corsMiddleware from '../utils/corsMiddleware';
-import generateGlobePage from '../ssr/Globe';
-import generatePopUpPage from '../ssr/PopUp';
-import generateMainPage from '../ssr/Main';
+import { expressTTag } from '../middleware/ttag.js';
+import cors from '../middleware/cors.js';
+import { parseIP } from '../middleware/ip.js';
+import generateGlobePage from '../ssr/Globe.jsx';
+import generatePopUpPage from '../ssr/PopUp.jsx';
+import generateMainPage from '../ssr/Main.jsx';
 
-import AVAILABLE_POPUPS from '../components/windows/popUpAvailable';
-import { MONTH } from '../core/constants';
-import { GUILDED_INVITE } from '../core/config';
+import AVAILABLE_POPUPS from '../components/windows/popUpAvailable.js';
+import { MONTH } from '../core/constants.js';
+import { GUILDED_INVITE } from '../core/config.js';
 
 const router = express.Router();
 
@@ -42,36 +42,21 @@ router.get(
 router.use('/tiles', tiles);
 
 /*
- * public folder
- * (this should be served with nginx or other webserver)
- */
-router.use(express.static(path.join(__dirname, 'public'), {
-  maxAge: 12 * MONTH,
-  extensions: ['html'],
-  setHeaders: (res, reqPath) => {
-    if (reqPath.includes('/legal')) {
-      res.setHeader('Cache-Control', `public, max-age=${3 * 24 * 3600}`);
-    }
-  },
-}));
-
-/*
  * Redirect to guilded
  */
 router.use('/guilded', (req, res) => {
   res.redirect(GUILDED_INVITE);
 });
 
+/* translations */
+router.use(expressTTag);
+/* ip */
+router.use(parseIP);
+
 /*
  * adminapi
  */
 router.use('/adminapi', adminapi);
-
-/*
- * Following with translations
- * ---------------------------------------------------------------------------
- */
-router.use(expressTTag);
 
 //
 // 3D Globe (react generated)
@@ -154,7 +139,7 @@ router.use('/reset_password', resetPassword);
  * Following with CORS
  * ---------------------------------------------------------------------------
  */
-router.use(corsMiddleware);
+router.use(cors);
 
 /*
  * API calls
@@ -188,5 +173,18 @@ router.get('/captcha.svg', captcha);
  */
 router.get('/challenge.js', challenge);
 
+/*
+ * public folder
+ * (this should be served with nginx or other webserver)
+ */
+router.use(express.static(path.join(__dirname, 'public'), {
+  maxAge: 12 * MONTH,
+  extensions: ['html'],
+  setHeaders: (res, reqPath) => {
+    if (reqPath.includes('/legal')) {
+      res.setHeader('Cache-Control', `public, max-age=${3 * 24 * 3600}`);
+    }
+  },
+}));
 
 export default router;

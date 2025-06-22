@@ -4,23 +4,15 @@
  *
  */
 
-import { DataTypes } from 'sequelize';
-import sequelize from './sequelize';
-import Channel from './Channel';
-import RegUser from './RegUser';
+import Sequelize, { DataTypes } from 'sequelize';
+import sequelize from './sequelize.js';
+import Channel from './Channel.js';
 
 const Message = sequelize.define('Message', {
-  // Message ID
   id: {
-    type: DataTypes.INTEGER.UNSIGNED,
+    type: DataTypes.BIGINT.UNSIGNED,
     autoIncrement: true,
     primaryKey: true,
-  },
-
-  name: {
-    type: `${DataTypes.CHAR(32)} CHARSET utf8mb4 COLLATE utf8mb4_unicode_ci`,
-    defaultValue: 'mx',
-    allowNull: false,
   },
 
   flag: {
@@ -30,29 +22,71 @@ const Message = sequelize.define('Message', {
   },
 
   message: {
-    type: `${DataTypes.CHAR(200)} CHARSET utf8mb4 COLLATE utf8mb4_unicode_ci`,
+    type: DataTypes.STRING(200),
+    charset: 'utf8mb4',
+    collate: 'utf8mb4_unicode_ci',
     allowNull: false,
-  },
-}, {
-  updatedAt: false,
-
-  setterMethods: {
-    message(value) {
+    set(value) {
       this.setDataValue('message', value.slice(0, 200));
     },
   },
+
+  createdAt: {
+    type: DataTypes.DATE,
+    defaultValue: DataTypes.NOW,
+    allowNull: false,
+  },
 });
 
-Message.belongsTo(Channel, {
-  as: 'channel',
-  foreignKey: 'cid',
-  onDelete: 'cascade',
-});
+export async function storeMessage(
+  flag, message, cid, uid,
+) {
+  try {
+    await Promise.all([
+      Channel.update({ lastMessage: Sequelize.fn('NOW') }, {
+        where: { id: cid },
+      }),
+      Message.create({
+        flag,
+        message,
+        cid,
+        uid,
+      }),
+    ]);
+  } catch (error) {
+    console.error(`SQL Error on storeMessage: ${error.message}`);
+  }
+}
 
-Message.belongsTo(RegUser, {
-  as: 'user',
-  foreignKey: 'uid',
-  onDelete: 'cascade',
-});
+export async function getMessagesForChannel(cid, limit) {
+  try {
+    const models = await Message.findAll({
+      attributes: [
+        'message',
+        'uid',
+        'flag',
+        [
+          Sequelize.fn('UNIX_TIMESTAMP', Sequelize.col('createdAt')),
+          'ts',
+        ],
+        [Sequelize.col('user.name'), 'name'],
+      ],
+      include: {
+        association: 'user',
+        attributes: [],
+      },
+      where: { cid },
+      limit,
+      order: [['createdAt', 'DESC']],
+      raw: true,
+    });
+    return models.map(({ name, message, flag, uid, ts }) => [
+      name, message, flag, uid, ts,
+    ]);
+  } catch (error) {
+    console.error(`SQL Error on getMessagesForChannel: ${error.message}`);
+  }
+  return [];
+}
 
 export default Message;

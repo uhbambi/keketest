@@ -1,28 +1,29 @@
 import express from 'express';
 
-import logger from '../../../core/logger';
-import { getHostFromRequest } from '../../../utils/ip';
-import passport from '../../../core/passport';
+import logger from '../../../core/logger.js';
+import { getHostFromRequest } from '../../../utils/intel/ip.js';
+import passport from '../../../core/passport.js';
+import { ensureLoggedIn, openSession } from '../../../middleware/session.js';
 
-import register from './register';
-import verify from './verify';
-import logout from './logout';
+import register from './register.js';
+import verify from './verify.js';
+import logout from './logout.js';
 // eslint-disable-next-line camelcase
-import resend_verify from './resend_verify';
+import resend_verify from './resend_verify.js';
 // eslint-disable-next-line camelcase
-import change_passwd from './change_passwd';
+import change_passwd from './change_passwd.js';
 // eslint-disable-next-line camelcase
-import delete_account from './delete_account';
+import delete_account from './delete_account.js';
 // eslint-disable-next-line camelcase
-import change_name from './change_name';
+import change_name from './change_name.js';
 // eslint-disable-next-line camelcase
-import change_mail from './change_mail';
+import change_mail from './change_mail.js';
 // eslint-disable-next-line camelcase
-import restore_password from './restore_password';
+import restore_password from './restore_password.js';
 
-import getHtml from '../../../ssr/RedirectionPage';
+import getHtml from '../../../ssr/RedirectionPage.jsx';
 
-import getMe from '../../../core/me';
+import getMe from '../../../core/me.js';
 
 const router = express.Router();
 
@@ -30,38 +31,52 @@ const router = express.Router();
  * third party logon
  */
 
+router.use(passport.initialize());
+
+const openSessionOnReturn = async (req, res) => {
+  /* this is NOT a full user instance, only { id, name, password, userlvl } */
+  const { user } = req;
+  /* openSession() turns req.user into a full user object */
+  await openSession(req, res, user.id, 720);
+  res.redirect('/');
+};
+
 router.get('/facebook', passport.authenticate('facebook',
   { scope: ['email'] }));
 router.get('/facebook/return', passport.authenticate('facebook', {
-  successRedirect: '/',
-}));
+  session: false,
+}), openSessionOnReturn);
 
 router.get('/discord', passport.authenticate('discord',
   { scope: ['identify', 'email'] }));
 router.get('/discord/return', passport.authenticate('discord', {
-  successRedirect: '/',
-}));
+  session: false,
+}), openSessionOnReturn);
 
 router.get('/google', passport.authenticate('google',
   { scope: ['email', 'profile'] }));
 router.get('/google/return', passport.authenticate('google', {
-  successRedirect: '/',
-}));
+  session: false,
+}), openSessionOnReturn);
 
 router.get('/vk', passport.authenticate('vkontakte',
   { scope: ['email'] }));
 router.get('/vk/return', passport.authenticate('vkontakte', {
-  successRedirect: '/',
-}));
+  session: false,
+}), openSessionOnReturn);
 
 router.get('/reddit', passport.authenticate('reddit',
   { duration: 'temporary', state: 'foo' }));
 router.get('/reddit/return', passport.authenticate('reddit', {
-  successRedirect: '/',
-}));
+  session: false,
+}), openSessionOnReturn);
 
 // eslint-disable-next-line no-unused-vars
 router.use((err, req, res, next) => {
+  if (res.headersSent) {
+    next(err);
+    return;
+  }
   const host = getHostFromRequest(req);
   logger.info(`Authentication error: ${err.message}`);
   const index = getHtml(
@@ -77,6 +92,42 @@ router.get('/verify', verify);
  * JSON APIs
  */
 
+router.post('/restore_password', restore_password);
+
+router.post('/register', register);
+
+router.post('/local', passport.authenticate('json', {
+  session: false,
+}), async (req, res) => {
+  /* this is NOT a full user instance, only { id, name, password, userlvl } */
+  const { user } = req;
+
+  /* session duration, null for permanent */
+  let { durationHours } = req.body;
+  if (durationHours !== null) {
+    durationHours = parseInt(durationHours, 10);
+    if (Number.isNaN(durationHours)) {
+      // default to 30 days if gibberish
+      durationHours = 720;
+    }
+  }
+
+  /* openSession() turns req.user into a full user object */
+  await openSession(req, res, user.id, durationHours);
+  logger.info(`User ${user.id} logged in with mail/password.`);
+  const me = await getMe(req.user, req.lang);
+  res.json({
+    success: true,
+    me,
+  });
+});
+
+router.use(ensureLoggedIn);
+
+/*
+ * require registered user after this point
+ */
+
 router.get('/logout', logout);
 
 router.get('/resend_verify', resend_verify);
@@ -89,18 +140,6 @@ router.post('/change_mail', change_mail);
 
 router.post('/delete_account', delete_account);
 
-router.post('/restore_password', restore_password);
 
-router.post('/register', register);
-
-router.post('/local', passport.authenticate('json'), async (req, res) => {
-  const { user } = req;
-  const me = await getMe(user, req.lang);
-  logger.info(`User ${user.id} logged in with mail/password.`);
-  res.json({
-    success: true,
-    me,
-  });
-});
 
 export default router;

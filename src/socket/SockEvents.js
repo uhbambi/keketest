@@ -5,9 +5,15 @@ import EventEmitter from 'events';
 
 import {
   dehydratePixelUpdate,
-} from './packets/server';
+} from './packets/server.js';
+import { DO_NOTHING } from '../core/constants.js';
 
 class SocketEvents extends EventEmitter {
+  isCluster = false;
+  // object with amount of online users
+  // in total and per canvas
+  onlineCounter;
+
   constructor() {
     super();
     /*
@@ -25,18 +31,18 @@ class SocketEvents extends EventEmitter {
   }
 
   // eslint-disable-next-line class-methods-use-this
-  async initialize() {
-    // nothing, only for child classes
+  get important() {
+    return true;
   }
 
   // eslint-disable-next-line class-methods-use-this
-  getLowestActiveShard() {
+  get lowestActiveShard() {
     return null;
   }
 
   // eslint-disable-next-line class-methods-use-this
-  amIImportant() {
-    return true;
+  async initialize() {
+    // nothing, only for child classes
   }
 
   /*
@@ -50,7 +56,7 @@ class SocketEvents extends EventEmitter {
     });
   }
 
-  /*
+  /**
    * requests that expect a response
    * req(type, args) can be awaited
    * it will return a response from whatever listens on onReq(type, cb(args))
@@ -75,14 +81,21 @@ class SocketEvents extends EventEmitter {
     });
   }
 
-  res(chan, ret) {
-    this.emit(`res:${chan}`, ret);
+  /**
+   * request for all shards that expect a response,
+   * since we don't have shards here, it's the same as this.req()
+   */
+  reqAll(...args) {
+    return this.req(...args);
   }
 
   onReq(type, cb) {
     this.on(`req:${type}`, async (chan, ...args) => {
       const ret = await cb(...args);
-      this.res(chan, ret);
+      if (ret === DO_NOTHING) {
+        return;
+      }
+      this.emit(`res:${chan}`, ret);
     });
   }
 
@@ -118,6 +131,25 @@ class SocketEvents extends EventEmitter {
   }
 
   /**
+   * broadcast fetched IpInfo of user,
+   * used to spread flag informations of users
+   * to shards
+   * @param userIpInfo object {
+   *   userId, // 0 if not logged in
+   *   status, // proxycheck and ban status (see core/isAllowed)
+   *   ip,
+   *   cidr,
+   *   org,
+   *   country,
+   *   asn,
+   *   descr,
+   * }
+   */
+  gotUserIpInfo(userIpInfo) {
+    this.emit('useripinfo', userIpInfo);
+  }
+
+  /**
    * ask other shards to send email for us,
    * only used when USE_MAILER is false
    * @param type type of mail to send
@@ -128,17 +160,17 @@ class SocketEvents extends EventEmitter {
   }
 
   /**
-   * received Chat message on own websocket
-   * @param user User Instance that sent the message
+   * received Chat message on own websocket, will be consumed by chatProvider
+   * and then send by sendMessage
+   * @param user user object
+   * @param ip ip object
    * @param message text message
    * @param channelId numerical channel id
+   * @param lang language code
+   * @param ttag ttag instance to be able to send localized error messages
    */
-  recvChatMessage(
-    user,
-    message,
-    channelId,
-  ) {
-    this.emit('recvChatMessage', user, message, channelId);
+  recvChatMessage(user, ip, message, channelId, lang, ttag) {
+    this.emit('recvChatMessage', user, ip, message, channelId, lang, ttag);
   }
 
   /**
@@ -176,7 +208,7 @@ class SocketEvents extends EventEmitter {
     );
   }
 
-  /*
+  /**
    * send chat message to a single user in channel
    */
   broadcastSUChatMessage(
@@ -216,7 +248,6 @@ class SocketEvents extends EventEmitter {
       channelArray,
     );
   }
-
 
   /*
    * broadcast Removing chat channel from user
@@ -268,11 +299,17 @@ class SocketEvents extends EventEmitter {
     this.emit('rankingListUpdate', rankings);
   }
 
-  /*
-   * reload user on websocket to get changes
+  /**
+   * reload user / ip on websocket to get changes
+   * @param local whether we only update server side, or if we tell the client
+   *   to update es well
    */
-  reloadUser(name) {
-    this.emit('reloadUser', name);
+  reloadUser(userId, local) {
+    this.emit('reloadUser', userId, local);
+  }
+
+  reloadIP(ipString, local) {
+    this.emit('reloadIP', ipString, local);
   }
 
   /**

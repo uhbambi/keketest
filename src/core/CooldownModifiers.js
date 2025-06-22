@@ -3,7 +3,7 @@
  * IP modifiers have to be set by timer.
  * Country modifiers are permanent.
  */
-import socketEvents from '../socket/socketEvents';
+import socketEvents from '../socket/socketEvents.js';
 
 /*
  * {country: factor, ...}

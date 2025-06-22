@@ -9,10 +9,10 @@
 import {
   getRenderer,
   initRenderer,
-} from '../../ui/rendererFactory';
+} from '../../ui/rendererFactory.js';
 import {
   selectColor,
-} from '../actions';
+} from '../actions/index.js';
 
 export default (store) => (next) => (action) => {
   const { type } = action;

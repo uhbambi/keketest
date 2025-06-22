@@ -6,8 +6,8 @@ import { t } from 'ttag';
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 
-import socketClient from '../socket/SocketClient';
-import { FISH_TYPES } from '../core/constants';
+import socketClient from '../socket/SocketClient.js';
+import { FISH_TYPES } from '../core/constants.js';
 
 /* eslint-disable max-len */
 

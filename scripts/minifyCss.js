@@ -9,10 +9,13 @@
 /* eslint-disable import/no-extraneous-dependencies */
 /* eslint-disable no-console */
 
-const fs = require('fs');
-const path = require('path');
-const CleanCSS = require('clean-css');
-const crypto = require('crypto');
+import fs from 'fs';
+import path from 'path';
+import CleanCSS from 'clean-css';
+import crypto from 'crypto';
+
+const __filename = import.meta.filename;
+const __dirname = import.meta.dirname;
 
 const buildTs = Date.now();
 const assetdir = path.resolve(__dirname, '..', 'dist', 'public', 'assets');
@@ -58,8 +61,8 @@ async function doMinifyCss() {
   process.exit(0); 
 }
 
-if (require.main === module) {
+if (import.meta.url.endsWith(process.argv[1])) {
   doMinifyCss();
 }
 
-module.exports = minifyCss;
+export default minifyCss;

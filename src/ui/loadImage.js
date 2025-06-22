@@ -50,7 +50,11 @@ class LoadingTiles {
       return;
     }
     this.tiles[canvasId] = null;
-    this.tiles[canvasId] = await loadImage(`./loading${canvasId}.png`);
+    try {
+      this.tiles[canvasId] = await loadImage(`./loading${canvasId}.png`);
+    } catch {
+      this.tiles[canvasId] = await loadImage('./loading.png');
+    }
   }
 }
 

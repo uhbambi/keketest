@@ -1,5 +1,5 @@
 import { t } from 'ttag';
-import { colorFromText } from './utils';
+import { colorFromText } from './utils.js';
 
 export function getCHistChartOpts(isDarkMode) {
   const options = {

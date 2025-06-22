@@ -1,8 +1,8 @@
 import http from 'http';
 import https from 'https';
 
-import logger from '../core/logger';
-import { BACKUP_URL } from '../core/config';
+import logger from '../core/logger.js';
+import { BACKUP_URL } from '../core/config.js';
 
 const TIME_CACHE = new Map();
 

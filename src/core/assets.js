@@ -5,8 +5,8 @@
 import fs from 'fs';
 import path from 'path';
 
-import assetWatcher from './fsWatcher';
-import { ASSET_DIR } from './config';
+import assetWatcher from './fsWatcher.js';
+import { ASSET_DIR } from './config.js';
 
 const assetDir = path.join(__dirname, 'public', ASSET_DIR);
 /*

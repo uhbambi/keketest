@@ -3,9 +3,9 @@
 import React, { useContext } from 'react';
 import { t } from 'ttag';
 
-import WindowContext from '../context/window';
-import EMBEDS from '../embeds';
-import { getLinkDesc } from '../../core/utils';
+import WindowContext from '../context/window.js';
+import EMBEDS from '../embeds/index.js';
+import { getLinkDesc } from '../../core/utils.js';
 
 const Player = () => {
   const { args: { uri } } = useContext(WindowContext);

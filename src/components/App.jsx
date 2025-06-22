@@ -7,15 +7,15 @@ import { Provider } from 'react-redux';
 import { createRoot } from 'react-dom/client';
 import { IconContext } from 'react-icons';
 
-import Style from './Style';
-import CoordinatesBox from './CoordinatesBox';
-import CanvasSwitchButton from './buttons/CanvasSwitchButton';
-import OnlineBox from './OnlineBox';
-import ChatButton from './buttons/ChatButton';
-import Menu from './Menu';
-import UI from './UI';
-import ExpandMenuButton from './buttons/ExpandMenuButton';
-import WindowManager from './WindowManager';
+import Style from './Style.jsx';
+import CoordinatesBox from './CoordinatesBox.jsx';
+import CanvasSwitchButton from './buttons/CanvasSwitchButton.jsx';
+import OnlineBox from './OnlineBox.jsx';
+import ChatButton from './buttons/ChatButton.jsx';
+import Menu from './Menu.jsx';
+import UI from './UI.jsx';
+import ExpandMenuButton from './buttons/ExpandMenuButton.jsx';
+import WindowManager from './WindowManager.jsx';
 
 const iconContextValue = { style: { verticalAlign: 'middle' } };
 

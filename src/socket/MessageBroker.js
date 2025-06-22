@@ -11,13 +11,13 @@
 
 /* eslint-disable no-console */
 
-import { SHARD_NAME } from '../core/config';
-import SocketEvents from './SockEvents';
+import { SHARD_NAME } from '../core/config.js';
+import SocketEvents from './SockEvents.js';
 import {
   ONLINE_COUNTER_OP,
   PIXEL_UPDATE_MB_OP,
   CHUNK_UPDATE_MB_OP,
-} from './packets/op';
+} from './packets/op.js';
 import {
   hydrateOnlineCounter,
   hydratePixelUpdateMB,
@@ -25,9 +25,10 @@ import {
   dehydratePixelUpdate,
   dehydratePixelUpdateMB,
   dehydrateChunkUpdateMB,
-} from './packets/server';
-import { pubsub } from '../data/redis/client';
-import { combineObjects } from '../core/utils';
+} from './packets/server.js';
+import { pubsub } from '../data/redis/client.js';
+import { combineObjects } from '../core/utils.js';
+import { DO_NOTHING } from '../core/constants.js';
 
 /*
  * channel that all shards share and listen to
@@ -45,21 +46,11 @@ const LISTEN_PREFIX = 'l';
 
 
 class MessageBroker extends SocketEvents {
+  isCluster = true;
+  thisShard = SHARD_NAME;
+
   constructor() {
     super();
-    this.isCluster = true;
-    this.thisShard = SHARD_NAME;
-    /*
-     * currently running cross-shard requests,
-     * are tracked in order to only send them to receiving
-     * shard
-     * [{
-     *   id: request id,
-     *   shard: requesting shard name,
-     *   ts: timestamp of request,
-     * },...]
-     */
-    this.csReq = [];
     /*
      * channel keepalive pings
      * { [channelName]: lastPingTimestamp }
@@ -88,6 +79,28 @@ class MessageBroker extends SocketEvents {
     };
     this.checkHealth = this.checkHealth.bind(this);
     setInterval(this.checkHealth, 10000);
+  }
+
+  get important() {
+    /*
+     * important main shard does tasks like running RpgEvent
+     * or updating rankings
+     */
+    return !this.shardsData[0]
+      || this.shardsData[0][0] === this.thisShard;
+  }
+
+  get lowestActiveShard() {
+    let lowest = 0;
+    let lShard = null;
+    this.shardsData.forEach((shardData) => {
+      const [shard, cnt] = shardData;
+      if (cnt < lowest || !lShard) {
+        lShard = shard;
+        lowest = cnt;
+      }
+    });
+    return lShard || this.thisShard;
   }
 
   async initialize() {
@@ -138,18 +151,14 @@ class MessageBroker extends SocketEvents {
         const key = message.slice(message.indexOf(':') + 1, comma);
         const val = JSON.parse(message.slice(comma + 1));
         /*
-         * if type is a cross-shard request, remember the originating shard
-         * in csReq, to be able to answer
+         * if type is a cross-shard request, remember the originating shard,
+         * by adding it to values
          * shard:req:reqtype,[channelId, ...args]
          */
         if (key.startsWith('req:')) {
-          const shard = message.slice(0, message.indexOf(':'));
-          const id = val[0];
-          this.csReq.push({
-            id,
-            shard,
-            ts: Date.now(),
-          });
+          const shardName = message.slice(0, message.indexOf(':'));
+          /* insert after channelId */
+          val.splice(1, 0, shardName);
         }
         /*
          * online data update of shard
@@ -165,7 +174,7 @@ class MessageBroker extends SocketEvents {
         super.emit(key, ...val);
         return;
       }
-      /*
+      /**
        * other messages are shard names that announce the existence
        * of a shard
        */
@@ -186,7 +195,7 @@ class MessageBroker extends SocketEvents {
     }
   }
 
-  /*
+  /**
    * messages on shard specific listener channel
    * messages in form `type,JSONArrayData`
    * straight emitted as socket event
@@ -208,32 +217,10 @@ class MessageBroker extends SocketEvents {
     }
   }
 
-  getLowestActiveShard() {
-    let lowest = 0;
-    let lShard = null;
-    this.shardsData.forEach((shardData) => {
-      const [shard, cnt] = shardData;
-      if (cnt < lowest || !lShard) {
-        lShard = shard;
-        lowest = cnt;
-      }
-    });
-    return lShard || this.thisShard;
-  }
-
-  amIImportant() {
-    /*
-     * important main shard does tasks like running RpgEvent
-     * or updating rankings
-     */
-    return !this.shardsData[0]
-      || this.shardsData[0][0] === this.thisShard;
-  }
-
   /*
    * requests that go over all shards and combine responses from all
    */
-  req(type, ...args) {
+  reqAll(type, ...args) {
     return new Promise((resolve, reject) => {
       const chan = Math.floor(Math.random() * 100000).toString()
         + Math.floor(Math.random() * 100000).toString();
@@ -267,20 +254,22 @@ class MessageBroker extends SocketEvents {
     });
   }
 
-  res(chan, ret) {
-    // only response to requesting shard
-    const csre = this.csReq.find((r) => r.id === chan);
-    // eslint-disable-next-line
-    console.log(`CLUSTER send res:${chan} to shard ${csre && csre.shard}`);
-    if (csre) {
-      this.publisher.publish(
-        `${LISTEN_PREFIX}:${csre.shard}`,
-        `res:${chan},${JSON.stringify([ret])}`,
-      );
-      this.csReq = this.csReq.filter((r) => r.id !== chan);
-    } else {
-      super.emit(`res:${chan}`, ret);
-    }
+  /* shardName got added in onShardBCMessage */
+  onReq(type, cb) {
+    this.on(`req:${type}`, async (chan, shardName, ...args) => {
+      const ret = await cb(...args);
+      if (ret === DO_NOTHING) {
+        return;
+      }
+      if (shardName === this.thisShard) {
+        super.emit(`res:${chan}`, ret);
+      } else {
+        this.publisher.publish(
+          `${LISTEN_PREFIX}:${shardName}`,
+          `res:${chan},${JSON.stringify([ret])}`,
+        );
+      }
+    });
   }
 
   updateShardOnlineData(shard, onlineData) {
@@ -391,7 +380,7 @@ class MessageBroker extends SocketEvents {
     this.publisher.publish(BROADCAST_CHAN, msg);
   }
 
-  /*
+  /**
    * broadcast pixel message via websocket
    * @param canvasId number ident of canvas
    * @param chunkid number id consisting of i,j chunk coordinates
@@ -414,19 +403,19 @@ class MessageBroker extends SocketEvents {
   }
 
   setCoolDownFactor(fac) {
-    if (this.amIImportant()) {
+    if (this.important) {
       this.emit('setCoolDownFactor', fac);
     } else {
       super.emit('setCoolDownFactor', fac);
     }
   }
 
-  recvChatMessage(
-    user,
-    message,
-    channelId,
-  ) {
-    super.emit('recvChatMessage', user, message, channelId);
+  /*
+   * not serializable, will be consumed by ChatProvider and then broadcasted
+   * with sendMessage
+   */
+  recvChatMessage(user, ip, message, channelId, lang, ttag) {
+    super.emit('recvChatMessage', user, ip, message, channelId, lang, ttag);
   }
 
   broadcastChunkUpdate(
@@ -455,7 +444,7 @@ class MessageBroker extends SocketEvents {
   }
 
   async checkHealth() {
-    let threshold = Date.now() - 30000;
+    const threshold = Date.now() - 30000;
     const { shards, pings } = this;
     try {
       // remove disconnected shards
@@ -498,9 +487,6 @@ class MessageBroker extends SocketEvents {
     this.publisher.publish(BROADCAST_CHAN, this.thisShard);
     // ping to own text listener channel
     this.publisher.publish(`${LISTEN_PREFIX}:${this.thisShard}`, 'ping');
-    // clean up dead shard requests
-    threshold -= 30000;
-    this.csReq = this.csReq.filter((r) => r.ts > threshold);
   }
 
   /**

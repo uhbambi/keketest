@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Tab from './Tab';
+import Tab from './Tab.jsx';
 
 const Tabs = ({ children, activeTab, setActiveTab }) => (
   <div className="tabs">

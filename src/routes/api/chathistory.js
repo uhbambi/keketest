@@ -3,7 +3,7 @@
  * returns chat messages of given channel
  *
  */
-import chatProvider from '../../core/ChatProvider';
+import chatProvider from '../../core/ChatProvider.js';
 
 async function chatHistory(req, res) {
   let { cid, limit } = req.query;
@@ -26,10 +26,7 @@ async function chatHistory(req, res) {
     return;
   }
 
-  const { user } = req;
-  user.lang = req.lang;
-
-  if (!chatProvider.userHasChannelAccess(user, cid)) {
+  if (!chatProvider.userHasChannelAccess(req.user, req.lang, cid)) {
     res.status(401);
     res.json({
       errors: ['You don\'t have access to this channel'],

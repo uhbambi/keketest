@@ -1,15 +1,17 @@
 /*
- * request password change
+ * request mail change
  */
 
-import mailProvider from '../../../core/MailProvider';
+import mailProvider from '../../../core/MailProvider.js';
 
-import logger from '../../../core/logger';
-import { getIPFromRequest, getHostFromRequest } from '../../../utils/ip';
-import { validatePassword, validateEMail } from '../../../utils/validation';
-import { compareToHash } from '../../../utils/hash';
-import { checkIfMuted } from '../../../data/redis/chat';
-import { checkIfMailDisposable } from '../../../core/isAllowed';
+import logger from '../../../core/logger.js';
+import { getHostFromRequest } from '../../../utils/intel/ip.js';
+import { validatePassword, validateEMail } from '../../../utils/validation.js';
+import { compareToHash } from '../../../utils/hash.js';
+import { checkMailOverShards } from '../../../utils/intel/index.js';
+import { setEmail } from '../../../data/sql/ThreePID.js';
+import { setUserLvl } from '../../../data/sql/User.js';
+import { USERLVL } from '../../../core/constants.js';
 
 async function validate(email, password, t, gettext) {
   const errors = [];
@@ -19,7 +21,7 @@ async function validate(email, password, t, gettext) {
   const mailerror = gettext(validateEMail(email));
   if (mailerror) {
     errors.push(mailerror);
-  } else if (await checkIfMailDisposable(email)) {
+  } else if (await checkMailOverShards(email)) {
     errors.push(t`This email provider is not allowed`);
   }
 
@@ -39,15 +41,7 @@ export default async (req, res) => {
   }
 
   const { user, lang } = req;
-  if (!user || !user.regUser) {
-    res.status(401);
-    res.json({
-      errors: [t`You are not authenticated.`],
-    });
-    return;
-  }
-
-  const currentPassword = user.regUser.password;
+  const currentPassword = user.data.password;
   if (!compareToHash(password, currentPassword)) {
     res.status(400);
     res.json({
@@ -56,25 +50,25 @@ export default async (req, res) => {
     return;
   }
 
-  const mutedTtl = await checkIfMuted(user.id);
-  if (mutedTtl !== -2) {
-    res.status(403);
+  const ret = await setEmail(user.id, email, false);
+  if (!ret) {
+    res.status(400);
     res.json({
-      errors: [t`Muted Users can not do this.`],
+      errors: [t`Could not set email, maybe it is already in use!`],
     });
     return;
   }
 
-  // eslint-disable-next-line max-len
-  logger.info(`AUTH: Changed mail for user ${user.regUser.name}(${user.id}) from ${user.regUser.email} to ${email} by ${getIPFromRequest(req)}`);
+  const { userlvl } = user;
+  if (userlvl <= USERLVL.VERIFIED && userlvl > USERLVL.REGISTERED) {
+    await setUserLvl(user.id, USERLVL.REGISTERED);
+  }
 
-  await user.regUser.update({
-    email,
-    mailVerified: false,
-  });
+  // eslint-disable-next-line max-len
+  logger.info(`AUTH: Changed mail for user ${user.name}(${user.id}) to ${email} by ${req.ip.ipString}`);
 
   const host = getHostFromRequest(req);
-  mailProvider.sendVerifyMail(email, user.regUser.name, host, lang);
+  mailProvider.sendVerifyMail(email, user.name, host, lang);
 
   res.json({
     success: true,

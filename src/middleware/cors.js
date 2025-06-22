@@ -1,7 +1,7 @@
 /*
- * set CORS Headers
+ * express middleware to set CORS Headers
  */
-import { CORS_HOSTS } from '../core/config';
+import { CORS_HOSTS } from '../core/config.js';
 
 export default (req, res, next) => {
   if (!CORS_HOSTS || !req.headers.origin) {
@@ -9,6 +9,10 @@ export default (req, res, next) => {
     return;
   }
   const { origin } = req.headers;
+  if (!origin || origin === 'null') {
+    next();
+    return;
+  }
 
   const host = origin.slice(origin.indexOf('//') + 2);
   /*
@@ -31,6 +35,7 @@ export default (req, res, next) => {
     res.set({
       'Access-Control-Allow-Headers': 'Content-Type',
       'Access-Control-Allow-Methods': 'GET,POST',
+      'Access-Control-Max-Age': '86400',
     });
     res.sendStatus(200);
     return;

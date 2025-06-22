@@ -5,7 +5,7 @@
  */
 import { randomUUID } from 'crypto';
 
-import client from './client';
+import client from './client.js';
 
 export const PREFIX = 'mail';
 const EXPIRE_TIME = 3600;

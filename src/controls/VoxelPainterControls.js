@@ -26,14 +26,14 @@ import {
 import {
   THREE_CANVAS_HEIGHT,
   VIEW_UPDATE_DELAY,
-} from '../core/constants';
+} from '../core/constants.js';
 import {
   getDiff,
   getTapOrClickCenter,
-} from '../core/utils';
+} from '../core/utils.js';
 import {
   selectHoverColor,
-} from '../store/actions';
+} from '../store/actions/index.js';
 
 const STORE_UPDATE_DELAY = VIEW_UPDATE_DELAY / 2;
 // Mouse buttons

@@ -1,7 +1,5 @@
 import { DataTypes } from 'sequelize';
-import sequelize from './sequelize';
-
-import RegUser from './RegUser';
+import sequelize from './sequelize.js';
 
 const Fish = sequelize.define('Fish', {
   id: {
@@ -19,15 +17,12 @@ const Fish = sequelize.define('Fish', {
     type: DataTypes.FLOAT,
     allowNull: false,
   },
-}, {
-  timestamps: true,
-  updatedAt: false,
-});
 
-Fish.belongsTo(RegUser, {
-  as: 'user',
-  foreignKey: 'uid',
-  onDelete: 'cascade',
+  createdAt: {
+    type: DataTypes.DATE,
+    defaultValue: DataTypes.NOW,
+    allowNull: false,
+  },
 });
 
 export async function storeFish(uid, type, size) {
@@ -37,8 +32,8 @@ export async function storeFish(uid, type, size) {
       type,
       size,
     });
-  } catch {
-    // nothing
+  } catch (error) {
+    console.error(`SQL Error on storeFish: ${error.message}`);
   }
 }
 
@@ -61,8 +56,8 @@ export async function getFishesOfUser(uid) {
       const { type, size, createdAt } = fishModels[i];
       fishes.push({ type, size, ts: createdAt.getTime() });
     }
-  } catch {
-    // nothing
+  } catch (error) {
+    console.error(`SQL Error on getFishesOfUser: ${error.message}`);
   }
   return fishes;
 }

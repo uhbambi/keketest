@@ -7,8 +7,8 @@
 
 /* eslint-disable */
 
-import { TILE_SIZE } from '../core/constants';
-import { getTileOfPixel, getCornerOfChunk } from '../core/utils';
+import { TILE_SIZE } from '../core/constants.js';
+import { getTileOfPixel, getCornerOfChunk } from '../core/utils.js';
 
 /* WAS A GOOD IDEA, BUT NOT USIN THIS CLASS */
 class ChunkScanner {

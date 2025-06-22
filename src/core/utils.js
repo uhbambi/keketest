@@ -4,7 +4,7 @@ import {
   THREE_TILE_SIZE,
   TILE_ZOOM_LEVEL,
   FISH_BONUS_MAX_DURATION,
-} from './constants';
+} from './constants.js';
 
 /**
  * http://stackoverflow.com/questions/4467539/javascript-modulo-not-behaving
@@ -119,7 +119,7 @@ export function getTileOfPixel(
 
 export function getMaxTiledZoom(canvasSize) {
   if (!canvasSize) return 0;
-  return Math.log2(canvasSize / TILE_SIZE) / TILE_ZOOM_LEVEL * 2;
+  return Math.log2(canvasSize / TILE_SIZE) / Math.log2(TILE_ZOOM_LEVEL);
 }
 
 export function getHistoricalCanvasSize(
@@ -767,6 +767,10 @@ export function parentExists() {
 export function calculateFishBonusDuration(size) {
   return Math.floor(size / 25 * FISH_BONUS_MAX_DURATION);
 }
+
+/**
+ * base64 operations
+ */
 
 export function bufferToBase64(array) {
   return new Promise((resolve) => {

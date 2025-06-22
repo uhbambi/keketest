@@ -7,10 +7,10 @@ import React, { useState } from 'react';
 import { useSelector, shallowEqual, useDispatch } from 'react-redux';
 import { t } from 'ttag';
 
-import copyTextToClipboard from '../utils/clipboard';
-import { parseInterval, coordsFromString } from '../core/utils';
-import { shardOrigin } from '../store/actions/fetch';
-import { selectCanvas } from '../store/actions';
+import copyTextToClipboard from '../utils/clipboard.js';
+import { parseInterval, coordsFromString } from '../core/utils.js';
+import { shardOrigin } from '../store/actions/fetch.js';
+import { selectCanvas } from '../store/actions/index.js';
 
 const keepState = {
   tlcoords: '',

@@ -6,46 +6,36 @@
 /* eslint-disable no-await-in-loop */
 
 import sharp from 'sharp';
-import Sequelize from 'sequelize';
 
-import isIPAllowed from './isAllowed';
-import { validateCoorRange } from '../utils/validation';
-import CanvasCleaner from './CanvasCleaner';
-import socketEvents from '../socket/socketEvents';
-import { RegUser } from '../data/sql';
-import { giveEveryoneAFish } from './Fishing';
-import {
-  cleanCacheForIP,
-} from '../data/redis/isAllowedCache';
-import { forceCaptcha, resetAllCaptchas } from '../data/redis/captcha';
-import { rollCaptchaFonts } from './captchaserver';
-import {
-  isWhitelisted,
-  whitelistIP,
-  unwhitelistIP,
-} from '../data/sql/Whitelist';
-import {
-  getBanInfo,
-  banIP,
-  unbanIP,
-} from '../data/sql/Ban';
+import { validateCoorRange } from '../utils/validation.js';
+import CanvasCleaner from './CanvasCleaner.js';
+import socketEvents from '../socket/socketEvents.js';
+import { USERLVL } from '../data/sql/index.js';
+import { giveEveryoneAFish } from './Fishing.js';
+import { forceCaptcha, resetAllCaptchas } from '../data/redis/captcha.js';
+import { rollCaptchaFonts } from './captchaserver.js';
+import { getBanInfos } from '../data/sql/Ban.js';
+import { ban, unban, whitelist, unwhitelist } from './ban.js';
 import {
   getInfoToIp,
   getIPofIID,
   getIIDofIP,
-} from '../data/sql/IPInfo';
+} from '../data/sql/IP.js';
+import {
+  getUserInfos, setUserLvl, getUserByUserLvl, name2Id,
+} from '../data/sql/User.js';
 import {
   getIIDSummary,
   getIIDPixels,
   getSummaryFromArea,
   getPixelsFromArea,
-} from './parsePixelLog';
-import canvases from './canvases';
+} from './parsePixelLog.js';
+import canvases from './canvases.js';
 import {
   imageABGR2Canvas,
   protectCanvasArea,
-} from './Image';
-import rollbackCanvasArea from './rollback';
+} from './Image.js';
+import rollbackCanvasArea from './rollback.js';
 
 /*
  * Execute IP based actions (banning, whitelist, etc.)
@@ -107,7 +97,47 @@ export async function executeQuickAction(action, logger = null) {
   }
 }
 
-/*
+/**
+ * print informations of ban
+ * @param ban Array of ban models
+ * @return string with informations
+ */
+function printBans(bans) {
+  let out = '';
+
+  let i = bans.length;
+  while (i > 0) {
+    i -= 1;
+    const {
+      buuid, reason, flags, expires, createdAt, mod, users, tpids, ips,
+    } = ban;
+    let type = '';
+    if (flags & 0x01) type = 'Ban';
+    else if (flags & 0x02) {
+      if (type) {
+        type += ' & ';
+      }
+      type += 'Mute';
+    }
+    if (i > 0) {
+      out += '\n';
+    }
+    out += `${type}: ${buuid}\nReason: ${reason}\n`;
+    if (expires) out += `Expires: ${expires.toLocaleString()}\n`;
+    out += `Created: ${createdAt.toLocaleString()}\n`;
+    if (mod?.id) {
+      out += `by: @[${mod.name}](${mod.id})\n`;
+    }
+    out += 'Affects: ';
+    if (users?.length) out += `${users.length} Users `;
+    if (tpids?.length) out += `${tpids.length} TPIDS `;
+    if (ips?.length) out += `${ips.length} IPs`;
+    out += '\n';
+  }
+  return out;
+}
+
+/**
  * Execute IID based actions
  * @param action what to do with the iid
  * @param iid already sanitized iid
@@ -116,100 +146,177 @@ export async function executeQuickAction(action, logger = null) {
 export async function executeIIDAction(
   action,
   iid,
+  bid,
+  iidOrUserId,
+  /* list of either iid, bid or userid */
+  identifiers,
   reason,
+  /* duration in ms */
   expire,
   muid,
   logger = null,
 ) {
-  const ip = await getIPofIID(iid);
-  if (!ip) {
-    return `Could not resolve ${iid}`;
-  }
-  const iidPart = iid.slice(0, iid.indexOf('-'));
+  if (logger) logger(`${action} ${iid} ${bid} ${iidOrUserId} ${identifiers}`);
 
-  if (logger) logger(`${action} ${iid} ${ip}`);
+  let duration;
+  const identifierUuidList = [];
+  const identifierUserIdList = [];
+
+  switch (action) {
+    case 'givecaptcha':
+    case 'whitelist':
+    case 'unwhitelist': {
+      if (!iid) {
+        return 'You must enter an IID';
+      }
+      break;
+    }
+    case 'baninfo': {
+      if (!bid) {
+        return 'You must enter an BID';
+      }
+      break;
+    }
+    case 'status': {
+      if (!iidOrUserId) {
+        return 'You must enter an IID or BID';
+      }
+      break;
+    }
+    case 'ban': {
+      /* duration in seconds */
+      duration = Math.ceil(parseInt(expire, 10) / 1000);
+      if (Number.isNaN(duration) || (duration && duration < Date.now())) {
+        return 'No valid expiration time';
+      }
+      if (!reason?.trim()) {
+        return 'You must enter a reason';
+      }
+      // fall through
+    }
+    case 'unban': {
+      if (!identifiers) {
+        return 'You must enter at least one IID, User Id or BID';
+      }
+      identifiers.split('\n').forEach((i) => {
+        i = i.trim();
+        const userId = parseInt(i, 10);
+        if (Number.isNaN(userId)) {
+          identifierUuidList.push(i);
+        } else {
+          identifierUserIdList.push(userId);
+        }
+      });
+      break;
+    }
+    default:
+      // nothing
+  }
+
+  let ipString;
+  if (iid) {
+    ipString = await getIPofIID(iid);
+    if (!ipString) {
+      return `Could not resolve ${iid}`;
+    }
+  }
 
   switch (action) {
     case 'status': {
-      const allowed = await isIPAllowed(ip, true);
-      let out = `Allowed to place: ${allowed.allowed}\n`;
-      const info = await getInfoToIp(ip);
-      out += `Country: ${info.country}\n`
-        + `CIDR: ${info.cidr}\n`
-        + `org: ${info.org || 'N/A'}\n`
-        + `desc: ${info.descr || 'N/A'}\n`
-        + `asn: ${info.asn}\n`
-        + `proxy: ${info.isProxy}\n`;
-      if (info.pcheck) {
-        const { pcheck } = info;
-        out += `pc: ${pcheck.slice(0, pcheck.indexOf(','))}\n`;
+      const userId = parseInt(iidOrUserId, 10);
+      if (Number.iNaN(userId)) {
+        /* is IID */
+        const ip = await getInfoToIp(iidOrUserId);
+        if (!ip) {
+          return 'No such IID found';
+        }
+        const {
+          country, cidr, org,
+          descr, asn, type, isProxy, isWhitelisted,
+        } = ip;
+        // eslint-disable-next-line max-len
+        let out = `IP: ${iidOrUserId}\nCountry: ${country}\nCIDR: ${cidr}\norg: ${org}\ndesc: ${descr}\nasn: ${asn}\nType: ${type}\nisProxy: ${isProxy}\nisWhitelisted: ${isWhitelisted}\n`;
+        const banInfos = await getBanInfos(ip.ipString, null, null, null);
+        if (banInfos?.length) {
+          out += printBans(banInfos);
+        }
+        return out;
       }
-      const whitelisted = await isWhitelisted(ip);
-      out += `whitelisted: ${whitelisted}\n`;
-      const ban = await getBanInfo(ip);
-      if (!ban) {
-        out += 'banned: false\n';
-      } else {
-        out += 'banned: true\n'
-          + `reason: ${ban.reason}\n`;
-        if (ban.expires) {
-          out += `expires: ${ban.expires.toLocaleString()}\n`;
-        }
-        if (ban.mod) {
-          out += `by: @[${ban.mod.name}](${ban.mod.id})\n`;
-        }
+      const user = await getUserInfos(userId);
+      if (!user) {
+        return 'No such user found';
+      }
+      // eslint-disable-next-line max-len
+      let out = `ID: ${userId}\nName: ${user.name}\nUserlvl: ${user.userlvl}\nFlags: ${user.flags}\n`;
+      const banInfos = await getBanInfos(null, userId, null, null);
+      if (banInfos?.length) {
+        out += printBans(banInfos);
       }
       return out;
     }
+    case 'baninfo': {
+      const banInfos = await getBanInfos(null, null, null, bid);
+      if (!banInfos?.length) {
+        return 'No such ban found';
+      }
+      return printBans(banInfos);
+    }
     case 'givecaptcha': {
-      const succ = await forceCaptcha(ip);
+      const succ = await forceCaptcha(ipString);
       if (succ === null) {
         return 'Captchas are deactivated on this server.';
       }
       if (succ) {
-        return `Forced captcha on ${iidPart}`;
+        return `Forced captcha on ${iid}`;
       }
-      return `${iidPart} would have gotten captcha anyway`;
+      return `${iid} would have gotten captcha anyway`;
     }
     case 'ban': {
-      const expireTs = parseInt(expire, 10);
-      if (Number.isNaN(expireTs) || (expireTs && expireTs < Date.now())) {
-        return 'No valid expiration time';
-      }
-      if (!reason || !reason.trim()) {
-        return 'No reason specified';
-      }
-      const ret = await banIP(ip, reason, expireTs || null, muid);
-      if (ret) {
+      const [bannedIpStrings, bannedUserIds] = await ban(
+        null, identifierUserIdList, identifierUuidList,
+        false, true, reason, duration || null, muid,
+      );
+      if (bannedIpStrings.length || bannedUserIds.length) {
         return 'Successfully banned user';
       }
       return 'Updated existing ban of user';
     }
     case 'unban': {
-      const ret = await unbanIP(ip);
-      if (ret) {
-        return 'Successfully unbanned user';
+      const [unbannedIpStrings, unbannedUserIds] = await unban(
+        null, identifierUserIdList, identifierUuidList, identifierUuidList,
+        false, true, muid,
+      );
+      let ret = '';
+      if (unbannedIpStrings.length) {
+        ret += `Unbanned IPs: ${unbannedIpStrings.map(
+          (i) => `${i.substring(0, i.indexOf('.'))}.xxx.xxx.xxx`,
+        ).join(', ')}`;
       }
-      return 'User is not banned';
+      if (unbannedUserIds.length) {
+        if (ret) ret += '\n';
+        ret += `Unbanned UserIds: ${unbannedUserIds.join(', ')}`;
+      }
+      if (ret) {
+        return ret;
+      }
+      return 'No applying Ban found';
     }
     case 'whitelist': {
-      const ret = await whitelistIP(ip);
+      const ret = await whitelist(ipString);
       if (ret) {
-        await cleanCacheForIP(ip);
         return 'Successfully whitelisted user';
       }
       return 'User is already whitelisted';
     }
     case 'unwhitelist': {
-      const ret = await unwhitelistIP(ip);
+      const ret = await unwhitelist(ipString);
       if (ret) {
-        await cleanCacheForIP(ip);
         return 'Successfully removed user from whitelist';
       }
       return 'User is not on whitelist';
     }
     default:
-      return `Failed to ${action} ${iid}`;
+      return `Failed to ${action}`;
   }
 }
 
@@ -363,7 +470,7 @@ export async function executeWatchAction(
   let ret;
   if (!ulcoor && !brcoor && iid) {
     if (action === 'summary') {
-      ret = await socketEvents.req(
+      ret = await socketEvents.reqAll(
         'watch',
         'getIIDSummary',
         iid,
@@ -371,7 +478,7 @@ export async function executeWatchAction(
       );
     }
     if (action === 'all') {
-      ret = await socketEvents.req(
+      ret = await socketEvents.reqAll(
         'watch',
         'getIIDPixels',
         iid,
@@ -401,7 +508,7 @@ export async function executeWatchAction(
   }
 
   if (action === 'summary') {
-    ret = await socketEvents.req(
+    ret = await socketEvents.reqAll(
       'watch',
       'getSummaryFromArea',
       canvasid,
@@ -411,7 +518,7 @@ export async function executeWatchAction(
     );
   }
   if (action === 'all') {
-    ret = await socketEvents.req(
+    ret = await socketEvents.reqAll(
       'watch',
       'getPixelsFromArea',
       canvasid,
@@ -622,11 +729,10 @@ export async function executeRollback(
  * @return [[id1, name2], [id2, name2], ...] list
  */
 export async function getModList() {
-  const mods = await RegUser.findAll({
-    where: Sequelize.where(Sequelize.literal('roles & 1'), '!=', 0),
-    attributes: ['id', 'name'],
-    raw: true,
-  });
+  const mods = await getUserByUserLvl(USERLVL.MOD);
+  if (!mods) {
+    return [];
+  }
   return mods.map((mod) => [mod.id, mod.name]);
 }
 
@@ -634,48 +740,24 @@ export async function removeMod(userId) {
   if (Number.isNaN(userId)) {
     throw new Error('Invalid userId');
   }
-  let user = null;
-  try {
-    user = await RegUser.findByPk(userId);
-  } catch {
-    throw new Error('Database error on remove mod');
-  }
-  if (!user) {
-    throw new Error('User not found');
-  }
-  try {
-    await user.update({
-      isMod: false,
-    });
+  const success = await setUserLvl(userId, USERLVL.REGISTERED);
+  if (success) {
     return `Moderation rights removed from user ${userId}`;
-  } catch {
-    throw new Error('Couldn\'t remove Mod from user');
   }
+  throw new Error('Couldn\'t remove Mod from user');
 }
 
 export async function makeMod(name) {
   if (!name) {
     throw new Error('No username given');
   }
-  let user = null;
-  try {
-    user = await RegUser.findOne({
-      where: {
-        name,
-      },
-    });
-  } catch {
-    throw new Error(`Invalid user ${name}`);
-  }
-  if (!user) {
+  const id = await name2Id(name);
+  if (!id) {
     throw new Error(`User ${name} not found`);
   }
-  try {
-    await user.update({
-      isMod: true,
-    });
-    return [user.id, user.name];
-  } catch {
-    throw new Error('Couldn\'t remove Mod from user');
+  const success = await setUserLvl(id, USERLVL.MOD);
+  if (success) {
+    return `Made user ${name} ${id} mod`;
   }
+  throw new Error('Couldn\'t make user Mod');
 }

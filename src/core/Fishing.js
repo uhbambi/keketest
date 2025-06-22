@@ -5,17 +5,17 @@
 
 /* eslint-disable import/prefer-default-export */
 
-import logger from './logger';
-import socketEvents from '../socket/socketEvents';
-import { getAmountOfIPCooldownModifications } from './CooldownModifiers';
-import chatProvider from './ChatProvider';
-import { escapeMd, calculateFishBonusDuration } from './utils';
-import { storeFish } from '../data/sql/Fish';
+import logger from './logger.js';
+import socketEvents from '../socket/socketEvents.js';
+import { getAmountOfIPCooldownModifications } from './CooldownModifiers.js';
+import chatProvider from './ChatProvider.js';
+import { escapeMd, calculateFishBonusDuration } from './utils.js';
+import { storeFish } from '../data/sql/Fish.js';
 import {
   EVENT_USER_NAME,
   FISH_TYPES,
   FISH_BONUS_CD_FACTOR,
-} from './constants';
+} from './constants.js';
 
 let totalWeight = 0;
 
@@ -37,7 +37,7 @@ function chooseFish() {
 }
 
 function runEventLoop() {
-  if (!socketEvents.amIImportant()) {
+  if (!socketEvents.important) {
     setTimeout(runEventLoop, 600000);
     return;
   }

@@ -4,10 +4,10 @@
 
 /* eslint-disable no-console */
 
-import { propagateMe } from '../actions';
+import { propagateMe } from '../actions/index.js';
 import {
   removePopUp, addPopUp, dispatchToPopUps, hasPopUps,
-} from '../../core/popUps';
+} from '../../core/popUps.js';
 
 export default (store) => (next) => (action) => {
   if (action instanceof MessageEvent) {

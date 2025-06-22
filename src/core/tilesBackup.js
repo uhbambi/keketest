@@ -9,8 +9,8 @@ import sharp from 'sharp';
 import fs from 'fs';
 import { commandOptions } from 'redis';
 
-import Palette from './Palette';
-import { TILE_SIZE } from './constants';
+import Palette from './Palette.js';
+import { TILE_SIZE } from './constants.js';
 
 
 /*

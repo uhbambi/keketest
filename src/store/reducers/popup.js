@@ -2,7 +2,7 @@
  * state for single-window page (popup)
  */
 
-import { argsTypes } from '../../components/windows/popUpAvailable';
+import { argsTypes } from '../../components/windows/popUpAvailable.js';
 
 function getWinDataFromURL() {
   const path = window.location.pathname.split('/').slice(1);

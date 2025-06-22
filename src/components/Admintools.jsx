@@ -5,7 +5,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { t } from 'ttag';
 
-import { shardOrigin } from '../store/actions/fetch';
+import { shardOrigin } from '../store/actions/fetch.js';
 
 async function submitIPAction(
   action,

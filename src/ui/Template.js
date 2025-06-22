@@ -7,7 +7,7 @@ import {
   imageToCanvas,
   bufferToCanvas,
   canvasToBuffer,
-} from '../utils/imageFiles';
+} from '../utils/imageFiles.js';
 
 class Template {
   // HTMLCanvasElement of image

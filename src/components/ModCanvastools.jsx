@@ -6,11 +6,11 @@ import React, { useState } from 'react';
 import { useSelector, shallowEqual, useDispatch } from 'react-redux';
 import { t } from 'ttag';
 
-import useInterval from './hooks/interval';
-import { coordsFromString } from '../core/utils';
-import HistorySelect from './HistorySelect';
-import { shardOrigin } from '../store/actions/fetch';
-import { selectCanvas } from '../store/actions';
+import useInterval from './hooks/interval.js';
+import { coordsFromString } from '../core/utils.js';
+import HistorySelect from './HistorySelect.jsx';
+import { shardOrigin } from '../store/actions/fetch.js';
+import { selectCanvas } from '../store/actions/index.js';
 
 const keptState = {
   coords: '',

@@ -13,7 +13,7 @@ if (process.env.BROWSER) {
 export const ASSET_DIR = '/assets';
 
 export const PORT = process.env.PORT || 8080;
-export const HOST = process.env.HOST || 'localhost';
+export const HOST = process.env.HOST || '127.0.0.1';
 
 export const USE_MAILER = parseInt(process.env.USE_MAILER, 10) || false;
 export const MAIL_ADDRESS = process.env.MAIL_ADDRESS
@@ -43,7 +43,7 @@ export const SHARD_NAME = process.env.SHARD_NAME || null;
 export const MYSQL_HOST = process.env.MYSQL_HOST || 'localhost';
 export const MYSQL_DATABASE = process.env.MYSQL_DATABASE || 'pixelplanet';
 export const MYSQL_USER = process.env.MYSQL_USER || 'pixelplanet';
-export const MYSQL_PW = process.env.MYSQL_PW || 'password';
+export const MYSQL_PW = process.env.MYSQL_PW || 'sqlpassword';
 
 // Social
 export const GUILDED_INVITE = process.env.GUILDED_INVITE
@@ -100,5 +100,8 @@ export const CAPTCHA_TIME = parseInt(process.env.CAPTCHA_TIME, 10) || 30;
 export const CAPTCHA_TIMEOUT = parseInt(process.env.CAPTCHA_TIMEOUT, 10) || 120;
 // time in which an ip is marked as trusted in hours
 export const TRUSTED_TIME = parseInt(process.env.TRUSTED_TIME, 10) || 48;
-
-export const SESSION_SECRET = process.env.SESSION_SECRET || 'dummy';
+// duration WHOIS data is stored in hours
+export const WHOIS_DURATION = parseInt(process.env.WHOIS_DURATION, 10) || 240;
+// duration ProxyCheck data is stored in hours
+// eslint-disable-next-line max-len
+export const PROXYCHECK_DURATION = parseInt(process.env.PROXYCHECK_DURATION, 10) || 72;

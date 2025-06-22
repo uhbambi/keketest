@@ -19,13 +19,18 @@
     "__DEV__": false
   },
   "env": {
+    "es2023": true,
     "browser": true
   },
   "rules": {
     "function-paren-newline": "off",
     "function-call-argument-newline":"off",
     "max-len": [1, 80, 2, {"ignoreComments": true}],
+    "import/extensions": ["error", "ignorePackages"],
     "no-bitwise": "off",
+    "no-console": "off",
+    "object-curly-newline": "off",
+    "object-property-newline": "off",
     "no-restricted-syntax": "off",
     "no-plusplus" : "off",
     "no-param-reassign": "off",

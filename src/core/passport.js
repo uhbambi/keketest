@@ -8,30 +8,24 @@ import JsonStrategy from 'passport-json';
 import GoogleStrategy from 'passport-google-oauth2';
 import DiscordStrategy from 'passport-discord';
 import FacebookStrategy from 'passport-facebook';
-import RedditStrategy from 'passport-reddit/lib/passport-reddit/strategy';
-import VkontakteStrategy from 'passport-vkontakte/lib/strategy';
+import RedditStrategy from 'passport-reddit/lib/passport-reddit/strategy.js';
+import VkontakteStrategy from 'passport-vkontakte/lib/strategy.js';
 
-import { sanitizeName } from '../utils/validation';
-import logger from './logger';
-import { RegUser } from '../data/sql';
-import User, { regUserQueryInclude as include } from '../data/User';
-import { auth } from './config';
-import { compareToHash } from '../utils/hash';
-import { getIPFromRequest } from '../utils/ip';
+import { sanitizeName } from '../utils/validation.js';
+import logger from './logger.js';
+import { USERLVL, THREEPID_PROVIDERS } from '../data/sql/index.js';
+import {
+  getUsersByNameOrEmail,
+  getUserByEmail,
+  getUserByTpid,
+  getNameThatIsNotTaken,
+  createNewUser,
+  setUserLvl,
+} from '../data/sql/User.js';
+import { addOrReplaceTpid } from '../data/sql/ThreePID.js';
+import { auth } from './config.js';
+import { compareToHash } from '../utils/hash.js';
 
-passport.serializeUser((user, done) => {
-  done(null, user.id);
-});
-
-passport.deserializeUser(async (req, id, done) => {
-  const user = new User();
-  try {
-    await user.initialize(id, getIPFromRequest(req));
-    done(null, user);
-  } catch (err) {
-    done(err, user);
-  }
-});
 
 /**
  * Sign in locally
@@ -40,81 +34,90 @@ passport.use(new JsonStrategy({
   usernameProp: 'nameoremail',
   passwordProp: 'password',
 }, async (nameoremail, password, done) => {
-  // Decide if email or name by the occurrence of @
-  // this is why we don't allow @ in usernames
-  // NOTE: could allow @ in the future by making an OR query,
-  // but i guess nobody really cares.
-  //  https://sequelize.org/master/manual/querying.html
-  const query = (nameoremail.indexOf('@') !== -1)
-    ? { email: nameoremail }
-    : { name: nameoremail };
-  const reguser = await RegUser.findOne({
-    include,
-    where: query,
-  });
-  if (!reguser) {
+  const users = await getUsersByNameOrEmail(nameoremail, null);
+  if (!users || !users.length) {
     done(new Error('Name or Email does not exist!'));
     return;
   }
-  if (!compareToHash(password, reguser.password)) {
-    if (reguser.password === 'hacked') {
+  const user = users.find((u) => compareToHash(password, u.password));
+  if (!user) {
+    if (users.find((u) => u.password === 'hacked')) {
       done(new Error(
         // eslint-disable-next-line max-len
-        'This email / password combination got leaked. Either by a different platform that got hacked or by malware infecting this user. To protect this account, the password has been reset. Please use the "Forgot my password" function below to set a new password. In the future, consider to use unique passwords and do not run shady software, Thank You.',
+        'This email / password combination got hacked on a different platform and leaked. To protect this account, the password has been reset. Please use the "Forgot my password" function below to set a new password. In the future, consider not installing Malware, Thank You.',
       ));
       return;
     }
     done(new Error('Incorrect password!'));
     return;
   }
-  const user = new User();
-  await user.initialize(reguser.id, null, reguser);
-  user.updateLogInTimestamp();
+  /* this is NOT a full user instance, only { id, name, password, userlvl } */
   done(null, user);
 }));
 
-/*
- * OAuth SignIns, mail based
+/**
+ * OAuth SignIns, either mail or tpid has to be given
+ * @param providerString one out of the possible OATUH_PROVIDERS enums
+ * @param name name of thid party account
+ * @param email email
+ * @param tpid id of third party account
  *
  */
-async function oauthLogin(provider, email, name, discordid = null) {
-  if (!email) {
-    throw new Error('You don\'t have a mail set in your account.');
-  }
+async function oauthLogin(providerString, name, email = null, tpid = null) {
   name = sanitizeName(name);
-  let reguser = await RegUser.findOne({
-    include,
-    where: { email },
-  });
-  if (!reguser) {
-    reguser = await RegUser.findOne({
-      include,
-      where: { name },
-    });
-    while (reguser) {
-      // name is taken by someone else
+  if (email?.length > 40) {
+    email = null;
+  }
+
+  const provider = THREEPID_PROVIDERS[providerString];
+  if (!provider) {
+    throw new Error(`Can not login with ${providerString}`);
+  }
+  if (!email && !tpid) {
+    throw new Error(
       // eslint-disable-next-line max-len
-      name = `${name.substring(0, 15)}-${Math.random().toString(36).substring(2, 10)}`;
-      // eslint-disable-next-line no-await-in-loop
-      reguser = await RegUser.findOne({
-        include,
-        where: { name },
-      });
+      `${provider} didn't give us enoguh information to log you in, maybe you don't have an email set in their account?`,
+    );
+  }
+
+  const promises = [];
+  let user;
+  // try with associated email
+  if (email) {
+    user = await getUserByEmail(email);
+  }
+  // try wwith threepid
+  if (!user && tpid) {
+    user = await getUserByTpid(provider, tpid);
+  }
+  // create new user
+  if (!user) {
+    name = await getNameThatIsNotTaken(name);
+    logger.info(
+      // eslint-disable-next-line max-len
+      `Create new user from ${providerString} oauth login ${email} / ${name} / ${tpid}`,
+    );
+    user = await createNewUser(name, null);
+    if (!user) {
+      throw new Error('Could not create user');
     }
-    // eslint-disable-next-line max-len
-    logger.info(`Create new user from ${provider} oauth login ${email} / ${name}`);
-    reguser = await RegUser.create({
-      email,
-      name,
-      verified: 1,
-      discordid,
-    });
+  } else if (email && user.userlvl === USERLVL.REGISTERED) {
+    /* if oauth is known by mail, ensure that userlvl is VERIFIED */
+    promises.push(setUserLvl(user.id, USERLVL.VERIFIED));
   }
-  if (!reguser.discordid && discordid) {
-    reguser.update({ discordid });
+
+  // upsert tpids
+  if (tpid) {
+    promises.push(addOrReplaceTpid(user.id, provider, tpid));
   }
-  const user = new User();
-  await user.initialize(reguser.id, null, reguser);
+  if (email) {
+    promises.push(
+      addOrReplaceTpid(user.id, THREEPID_PROVIDERS.EMAIL, email, true,
+      ));
+  }
+  await Promise.all(promises);
+
+  /* this is NOT a full user instance, only { id, name, password, userlvl } */
   return user;
 }
 
@@ -128,9 +131,9 @@ passport.use(new FacebookStrategy({
   profileFields: ['displayName', 'email'],
 }, async (req, accessToken, refreshToken, profile, done) => {
   try {
-    const { displayName: name, emails } = profile;
+    const { displayName: name, emails, id } = profile;
     const email = emails[0].value;
-    const user = await oauthLogin('facebook', email, name);
+    const user = await oauthLogin('FACEBOOK', name, email, id);
     done(null, user);
   } catch (err) {
     done(err);
@@ -147,13 +150,7 @@ passport.use(new DiscordStrategy({
 }, async (accessToken, refreshToken, profile, done) => {
   try {
     const { id, email, username: name } = profile;
-    if (!email) {
-      throw new Error(
-        // eslint-disable-next-line max-len
-        'Sorry, you can not use discord login with an discord account that does not have email set.',
-      );
-    }
-    const user = await oauthLogin('discord', email, name, id);
+    const user = await oauthLogin('DISCORD', name, email, id);
     done(null, user);
   } catch (err) {
     done(err);
@@ -169,9 +166,9 @@ passport.use(new GoogleStrategy({
   proxy: true,
 }, async (accessToken, refreshToken, profile, done) => {
   try {
-    const { displayName: name, emails } = profile;
+    const { displayName: name, emails, id } = profile;
     const email = emails[0].value;
-    const user = await oauthLogin('google', email, name);
+    const user = await oauthLogin('GOOGLE', name, email, id);
     done(null, user);
   } catch (err) {
     done(err);
@@ -187,39 +184,10 @@ passport.use(new RedditStrategy({
   proxy: true,
 }, async (accessToken, refreshToken, profile, done) => {
   try {
-    const redditid = profile.id;
-    let name = sanitizeName(profile.name);
-    // reddit needs an own login strategy based on its id,
-    // because we can not access it's mail
-    let reguser = await RegUser.findOne({
-      include,
-      where: { redditid },
-    });
-    if (!reguser) {
-      reguser = await RegUser.findOne({
-        include,
-        where: { name },
-      });
-      while (reguser) {
-        // name is taken by someone else
-        // eslint-disable-next-line max-len
-        name = `${name.substring(0, 15)}-${Math.random().toString(36).substring(2, 10)}`;
-        // eslint-disable-next-line no-await-in-loop
-        reguser = await RegUser.findOne({
-          include,
-          where: { name },
-        });
-      }
-      // eslint-disable-next-line max-len
-      logger.info(`Create new user from reddit oauth login ${name} / ${redditid}`);
-      reguser = await RegUser.create({
-        name,
-        verified: 1,
-        redditid,
-      });
-    }
-    const user = new User();
-    await user.initialize(reguser.id, null, reguser);
+    const { id } = profile;
+    const name = sanitizeName(profile.name);
+    // reddit does not give us access to email
+    const user = await oauthLogin('REDDIT', name, null, id);
     done(null, user);
   } catch (err) {
     done(err);
@@ -237,7 +205,7 @@ passport.use(new VkontakteStrategy({
   profileFields: ['displayName', 'email'],
 }, async (accessToken, refreshToken, params, profile, done) => {
   try {
-    const { displayName: name } = profile;
+    const { displayName: name, id } = profile;
     const { email } = params;
     if (!email) {
       throw new Error(
@@ -245,7 +213,7 @@ passport.use(new VkontakteStrategy({
         'Sorry, you can not use vk login with an account that does not have a verified email set.',
       );
     }
-    const user = await oauthLogin('vkontakte', email, name);
+    const user = await oauthLogin('VK', name, email, id);
     done(null, user);
   } catch (err) {
     done(err);

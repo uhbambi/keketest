@@ -7,10 +7,10 @@ import { useSelector, useDispatch, shallowEqual } from 'react-redux';
 import { TbPencil, TbPencilMinus } from 'react-icons/tb';
 import { t } from 'ttag';
 
-import useLongPress from '../hooks/useLongPress';
-import { PENCIL_MODE } from '../../core/constants';
-import { setHoldPaint } from '../../store/actions';
-import { switchPencilMode } from '../../store/actions/thunks';
+import useLongPress from '../hooks/useLongPress.js';
+import { PENCIL_MODE } from '../../core/constants.js';
+import { setHoldPaint } from '../../store/actions/index.js';
+import { switchPencilMode } from '../../store/actions/thunks.js';
 
 const PencilButton = () => {
   const [

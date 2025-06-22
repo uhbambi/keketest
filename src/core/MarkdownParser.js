@@ -7,7 +7,7 @@
  * WebAssembly, so it's all in a big loop
  */
 
-import MString from './MString';
+import MString from './MString.js';
 
 let parseMText = () => {};
 

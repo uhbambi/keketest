@@ -1,8 +1,8 @@
 /*
  * counter for daily and total pixels and ranking
  */
-import client from './client';
-import { getDateKeyOfTs } from '../../core/utils';
+import client from './client.js';
+import { getDateKeyOfTs } from '../../core/utils.js';
 
 export const RANKED_KEY = 'rank';
 export const DAILY_RANKED_KEY = 'rankd';

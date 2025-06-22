@@ -1,22 +1,297 @@
-import Whitelist from './Whitelist';
-import RegUser from './RegUser';
-import Channel from './Channel';
-import UserChannel from './UserChannel';
-import Message from './Message';
-import UserBlock from './UserBlock';
-import IPInfo from './IPInfo';
-import Fish from './Fish';
+import sequelize, { sync } from './sequelize.js';
+import User, { USERLVL } from './User.js';
+import Channel, { CHANNEL_TYPES } from './Channel.js';
+import Message from './Message.js';
+import Session from './Session.js';
+import IP from './IP.js';
+import ProxyData from './Proxy.js';
+import RangeData from './Range.js';
+import Ban from './Ban.js';
+import BanHistory from './BanHistory.js';
+import WhoisReferral from './WhoisReferral.js';
+import RangeBan from './RangeBan.js';
+import RangeBanHistory from './RangeBanHistory.js';
+import ProxyWhitelist from './ProxyWhitelist.js';
+import ThreePID, { THREEPID_PROVIDERS } from './ThreePID.js';
+import Fish from './Fish.js';
+import UserIP from './association_models/UserIP.js';
+import UserBlock from './association_models/UserBlock.js';
+import UserChannel from './association_models/UserChannel.js';
+import IPBan from './association_models/IPBan.js';
+import UserBan from './association_models/UserBan.js';
+import ThreePIDBan from './association_models/ThreePIDBan.js';
+import IPBanHistory from './association_models/IPBanHistory.js';
+import UserBanHistory from './association_models/UserBanHistory.js';
+import ThreePIDBanHistory from './association_models/ThreePIDBanHistory.js';
 
 /*
- * User Channel access
+ * Channels
  */
-RegUser.belongsToMany(Channel, {
-  as: 'channel',
+User.belongsToMany(Channel, {
+  as: 'channels',
   through: UserChannel,
+  foreignKey: 'uid',
 });
-Channel.belongsToMany(RegUser, {
-  as: 'user',
+Channel.belongsToMany(User, {
+  as: 'users',
   through: UserChannel,
+  foreignKey: 'cid',
+});
+
+/*
+ * Fish
+ */
+Fish.belongsTo(User, {
+  as: 'user',
+  foreignKey: {
+    name: 'uid',
+    allowNull: false,
+  },
+  onDelete: 'CASCADE',
+});
+
+/*
+ * ip informations of user
+ */
+IP.belongsToMany(User, {
+  as: 'users',
+  through: UserIP,
+  foreignKey: 'ip',
+});
+User.belongsToMany(IP, {
+  as: 'ips',
+  through: UserIP,
+  foreignKey: 'uid',
+});
+
+/*
+ * user sessions
+ */
+Session.belongsTo(User, {
+  as: 'user',
+  foreignKey: 'uid',
+  onDelete: 'CASCADE',
+});
+User.hasMany(Session, {
+  as: 'sessions',
+  foreignKey: 'uid',
+});
+
+/*
+ * proxy information of ip
+ */
+ProxyData.belongsTo(IP, {
+  as: 'ipinfo',
+  foreignKey: 'ip',
+  onDelete: 'CASCADE',
+});
+IP.hasOne(ProxyData, {
+  as: 'proxy',
+  foreignKey: 'ip',
+});
+
+/*
+ * third party ids for oauth login
+ */
+ThreePID.belongsTo(User, {
+  as: 'user',
+  foreignKey: 'uid',
+});
+User.hasMany(ThreePID, {
+  as: 'tpids',
+  foreignKey: 'uid',
+});
+
+/*
+ * ip range with whois info for ip
+ */
+IP.belongsTo(RangeData, {
+  as: 'range',
+  foreignKey: 'rid',
+});
+
+RangeData.hasMany(IP, {
+  as: 'ips',
+});
+/*
+ * generic ban by threepid, userid and ip
+ */
+Ban.belongsToMany(IP, {
+  as: 'ips',
+  through: IPBan,
+  foreignKey: 'bid',
+});
+IP.belongsToMany(Ban, {
+  as: 'bans',
+  through: IPBan,
+  foreignKey: 'ip',
+});
+// tpid
+Ban.belongsToMany(ThreePID, {
+  as: 'tpids',
+  through: ThreePIDBan,
+  foreignKey: 'bid',
+});
+ThreePID.belongsToMany(Ban, {
+  as: 'bans',
+  through: ThreePIDBan,
+  foreignKey: 'tid',
+});
+// user
+Ban.belongsToMany(User, {
+  as: 'users',
+  through: UserBan,
+  foreignKey: 'bid',
+});
+User.belongsToMany(Ban, {
+  as: 'bans',
+  through: UserBan,
+  foreignKey: 'uid',
+});
+// mods
+Ban.belongsTo(User, {
+  as: 'mod',
+  foreignKey: 'muid',
+});
+User.hasMany(Ban, {
+  as: 'banActions',
+});
+/*
+ * history of past bans
+ */
+BanHistory.belongsToMany(IP, {
+  as: 'ips',
+  through: IPBanHistory,
+  foreignKey: 'bid',
+});
+IP.belongsToMany(BanHistory, {
+  as: 'banHistory',
+  through: IPBanHistory,
+  foreignKey: 'ip',
+});
+// tpid
+BanHistory.belongsToMany(ThreePID, {
+  as: 'tpids',
+  through: ThreePIDBanHistory,
+  foreignKey: 'bid',
+});
+ThreePID.belongsToMany(BanHistory, {
+  as: 'banHistory',
+  through: ThreePIDBanHistory,
+  foreignKey: 'tid',
+});
+// user
+BanHistory.belongsToMany(User, {
+  as: 'users',
+  through: UserBanHistory,
+  foreignKey: 'bid',
+});
+User.belongsToMany(BanHistory, {
+  as: 'banHistory',
+  through: UserBanHistory,
+  foreignKey: 'uid',
+});
+// mods
+BanHistory.belongsTo(User, {
+  as: 'mod',
+  foreignKey: 'muid',
+});
+User.hasMany(BanHistory, {
+  as: 'banActionHistory',
+});
+BanHistory.belongsTo(User, {
+  as: 'lmod',
+  foreignKey: 'lmuid',
+});
+User.hasMany(BanHistory, {
+  as: 'banLiftingHistory',
+});
+
+/*
+ * ip whitelist
+ */
+ProxyWhitelist.belongsTo(User, {
+  as: 'mod',
+  foreignKey: 'muid',
+});
+User.hasMany(ProxyWhitelist, {
+  as: 'ipWhitelistActions',
+});
+ProxyWhitelist.belongsTo(IP, {
+  as: 'ipinfo',
+  foreignKey: 'ip',
+  onDelete: 'CASCADE',
+});
+IP.hasOne(ProxyWhitelist, {
+  as: 'whitelist',
+  foreignKey: 'ip',
+});
+
+/*
+ * range ban
+ */
+RangeBan.belongsTo(RangeData, {
+  as: 'iprange',
+  foreignKey: {
+    name: 'rid',
+    allowNull: false,
+    primaryKey: true,
+  },
+  onDelete: 'CASCADE',
+});
+RangeData.hasOne(RangeBan, {
+  as: 'bans',
+  foreignKey: 'rid',
+});
+RangeBan.belongsTo(User, {
+  as: 'mod',
+  foreignKey: 'muid',
+});
+User.hasMany(RangeBan, {
+  as: 'rangeBanActions',
+});
+
+/*
+ * ip range ban history
+ */
+RangeBanHistory.belongsTo(RangeData, {
+  as: 'iprange',
+  foreignKey: {
+    name: 'rid',
+    allowNull: false,
+  },
+  onDelete: 'CASCADE',
+});
+RangeData.hasMany(RangeBanHistory, {
+  as: 'banHistory',
+});
+RangeBanHistory.belongsTo(User, {
+  as: 'mod',
+  foreignKey: 'muid',
+});
+User.hasMany(RangeBanHistory, {
+  as: 'rangeBanActionHistory',
+});
+RangeBanHistory.belongsTo(User, {
+  as: 'lmod',
+  foreignKey: 'lmuid',
+});
+User.hasMany(RangeBanHistory, {
+  as: 'rangeBanLiftingHistory',
+});
+
+/*
+ * chat messages
+ */
+Message.belongsTo(Channel, {
+  as: 'channel',
+  foreignKey: 'cid',
+  onDelete: 'CASCADE',
+});
+Message.belongsTo(User, {
+  as: 'user',
+  foreignKey: 'uid',
+  onDelete: 'CASCADE',
 });
 
 /*
@@ -25,24 +300,35 @@ Channel.belongsToMany(RegUser, {
  * uid: User that blocks
  * buid: User that is blocked
  */
-RegUser.belongsToMany(RegUser, {
+User.belongsToMany(User, {
   as: 'blocked',
   through: UserBlock,
   foreignKey: 'uid',
 });
-RegUser.belongsToMany(RegUser, {
+User.belongsToMany(User, {
   as: 'blockedBy',
   through: UserBlock,
   foreignKey: 'buid',
 });
 
 export {
-  Whitelist,
-  RegUser,
+  sync,
+  sequelize,
+  // Models
+  ProxyWhitelist,
+  User,
   Channel,
   UserChannel,
   Message,
   UserBlock,
-  IPInfo,
+  RangeData,
+  IP,
+  Ban,
+  WhoisReferral,
+  ThreePID,
   Fish,
+  // constants
+  USERLVL,
+  THREEPID_PROVIDERS,
+  CHANNEL_TYPES,
 };

@@ -2,7 +2,7 @@
  * keypress actions
  */
 import { t } from 'ttag';
-import copy from '../utils/clipboard';
+import copy from '../utils/clipboard.js';
 import {
   toggleGrid,
   toggleHistoricalView,
@@ -16,9 +16,9 @@ import {
   setMoveU,
   setMoveV,
   setMoveW,
-} from '../store/actions';
-import { toggleOVEnabled } from '../store/actions/templates';
-import { notify, switchPencilMode } from '../store/actions/thunks';
+} from '../store/actions/index.js';
+import { toggleOVEnabled } from '../store/actions/templates.js';
+import { notify, switchPencilMode } from '../store/actions/thunks.js';
 
 const charKeys = ['g', 'h', 'x', 'm', 't', 'r', 'l', '+', '-', 'b'];
 

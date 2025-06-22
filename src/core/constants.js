@@ -8,6 +8,10 @@
 export const MAX_SCALE = 40; // 52 in log2
 // export const DEFAULT_SCALE = 0.25; //-20 in log2
 export const DEFAULT_SCALE = 3;
+
+// background color behind 2D canvses
+export const BACKGROUND_CLR_HEX = '#C4C4C4';
+
 export const DEFAULT_CANVAS_ID = '0';
 
 export const TILE_LOADING_IMAGE = './loading.png';
@@ -19,8 +23,6 @@ export const THREE_TILE_SIZE = 32;
 export const TILE_SIZE = 256;
 // how much to scale for a new tiled zoomlevel
 export const TILE_ZOOM_LEVEL = 2;
-
-export const COOKIE_SESSION_NAME = 'ppfun.session';
 
 export const SECOND = 1000;
 export const MINUTE = 60 * SECOND;
@@ -54,6 +56,46 @@ export const VIEW_UPDATE_DELAY = 1000;
 export const MAX_LOADED_CHUNKS = 2000;
 export const MAX_CHUNK_AGE = 300000;
 export const GC_INTERVAL = 300000;
+
+// TINYINT (-128 - 127)
+export const USERLVL = {
+  ANONYM: 0,
+  REGISTERED: 10,
+  VERIFIED: 20,
+  MOD: 80,
+  ADMIN: 100,
+};
+
+export const THREEPID_PROVIDERS = {
+  EMAIL: 1,
+  DISCORD: 2,
+  REDDIT: 3,
+  FACEBOOK: 4,
+  GOOGLE: 5,
+  VK: 6,
+};
+
+export const CHANNEL_TYPES = {
+  PUBLIC: 0,
+  DM: 1,
+  GROUP: 2,
+  FACTION: 3,
+};
+
+export const RANGEBAN_REASONS = {
+  DATACENTER: 0,
+  VPN: 0,
+  SPAMMING: 1,
+  FLOODING: 2,
+  SCRAPPING: 3,
+  RAIDING: 4,
+  ZOGBOTS: 5,
+};
+
+export const USER_FLAGS = {
+  BLOCK_DM: 0,
+  PRIV: 1,
+};
 
 // Mode for shift-painting or phone pencil, HISTORY has to be last
 export const PENCIL_MODE = {
@@ -132,3 +174,5 @@ export const FISH_TYPES = [
 ];
 export const FISH_BONUS_MAX_DURATION = 90 * 60 * 1000;
 export const FISH_BONUS_CD_FACTOR = 0.5;
+
+export const DO_NOTHING = Symbol('DO_NOTHING');

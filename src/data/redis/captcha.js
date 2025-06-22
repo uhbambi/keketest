@@ -3,15 +3,14 @@
  * check for captcha requirement
  */
 
-import logger from '../../core/logger';
-import client from './client';
-import { getIPv6Subnet } from '../../utils/ip';
-import { simpleHash } from '../../core/utils';
+import logger from '../../core/logger.js';
+import client from './client.js';
+import { simpleHash } from '../../core/utils.js';
 import {
   CAPTCHA_TIME,
   CAPTCHA_TIMEOUT,
   TRUSTED_TIME,
-} from '../../core/config';
+} from '../../core/config.js';
 
 const TTL_CACHE = CAPTCHA_TIME * 60; // minutes to seconds
 const TTL_TRUSTED = TRUSTED_TIME * 60 * 60; // hours to seconds
@@ -21,7 +20,7 @@ export const PREFIX = 'human';
 export const SOLUTION_PREFIX = 'capt';
 export const TRUSTED_PREFIX = 'trus';
 export const CHALLENGE_PREFIX = 'chal';
-export const CHALLENGE_IP_MAP_KEY = 'chip';
+export const CHALLENGE_IP_MAP_PREFIX = 'chip';
 export const CAPTCHA_FONT_KEY = 'cfont';
 
 /*
@@ -103,14 +102,14 @@ export async function getCaptchaFonts() {
   }
 }
 
-/*
- * mark client as trusted
- * @param ip
+/**
+ * mark client as trusted after successfully solving challenge
+ * @param ipString ip as string
  * @param ua User-Agent string
  */
-export async function markTrusted(ip, ua) {
+export async function markTrusted(ipString, ua) {
   try {
-    const key = `${TRUSTED_PREFIX}:${getIPv6Subnet(ip)}:${simpleHash(ua)}`;
+    const key = `${TRUSTED_PREFIX}:${ipString}:${simpleHash(ua)}`;
     await client.set(key, '', {
       EX: TTL_TRUSTED,
     });
@@ -119,28 +118,28 @@ export async function markTrusted(ip, ua) {
   }
 }
 
-/*
+/**
  * check if client is trusted
- * @param ip
+ * @param ipString ip as string
  * @param ua User-Agent string
  * @return boolean
  */
-export async function isTrusted(ip, ua) {
-  const key = `${TRUSTED_PREFIX}:${getIPv6Subnet(ip)}:${simpleHash(ua)}`;
+export async function isTrusted(ipString, ua) {
+  const key = `${TRUSTED_PREFIX}:${ipString}:${simpleHash(ua)}`;
   const ttl = await client.ttl(key);
   return ttl > 0;
 }
 
-/*
+/**
  * set challenge solution for IP
  * @param text challenge solution
- * @param ip
+ * @param ipString ip as string
  * @param ua User-Agent string
  */
-export async function setChallengeSolution(text, ip, ua) {
+export async function setChallengeSolution(text, ipString, ua) {
   try {
     const key = `${CHALLENGE_PREFIX}:${text}`;
-    await client.set(key, `${getIPv6Subnet(ip)},${simpleHash(ua)}`, {
+    await client.set(key, `${ipString},${simpleHash(ua)}`, {
       EX: CHALLENGE_TIMEOUT,
     });
   } catch (err) {
@@ -172,15 +171,14 @@ export async function resetAllCaptchas() {
   return amount;
 }
 
-/*
+/**
  * check challenge solution for IP
  * @param text challenge solution
- * @param ip
+ * @param ipString ip as string
  * @param ua User-Agent string
  * @return boolean
  */
-export async function checkChallengeSolution(text, ip, ua) {
-  ip = getIPv6Subnet(ip);
+export async function checkChallengeSolution(text, ipString, ua) {
   const key = `${CHALLENGE_PREFIX}:${text}`;
   const storedClient = await client.getDel(key);
   if (!storedClient) {
@@ -188,43 +186,42 @@ export async function checkChallengeSolution(text, ip, ua) {
   }
   const [storedIp, storeadUaHash] = storedClient.split(',');
   if (storeadUaHash !== simpleHash(ua)) {
-    logger.info(`CHALLENGE ${ip} failed User-Agent didn't match: ${ua}`);
+    logger.info(`CHALLENGE ${ipString} failed User-Agent didn't match: ${ua}`);
     return false;
   }
-  if (storedIp !== ip) {
+  if (storedIp !== ipString) {
     /*
     * sometimes browsers on dual stack send one request through IPv4 and
     * another through IPv6, so we allow one deviation
     */
-    let ipMapping = await client.hGet(CHALLENGE_IP_MAP_KEY, storedIp);
+    const ipMappingKey = `${CHALLENGE_IP_MAP_PREFIX}:${storedIp}`;
+    let ipMapping = await client.get(ipMappingKey);
     if (!ipMapping) {
-      logger.info(`CHALLENGE map different IP: ${storedIp} -> ${ip}`);
-      await client.hSet(CHALLENGE_IP_MAP_KEY, storedIp, ip);
-      ipMapping = ip;
+      logger.info(`CHALLENGE map different IP: ${storedIp} -> ${ipString}`);
+      await client.set(ipMappingKey, ipString, {
+        EX: 7 * 24 * 60 * 60,
+      });
+      ipMapping = ipString;
     }
-    if (ip !== ipMapping) {
+    if (ipString !== ipMapping) {
       // TODO check how many people this kicks out and either relax it or add
       // a seperate REST api for solving js challenges
       // eslint-disable-next-line max-len
-      logger.info(`CHALLENGE failing mapping: ${storedIp} -> ${ip} != ${ipMapping}`);
+      logger.info(`CHALLENGE failing mapping: ${storedIp} -> ${ipString} != ${ipMapping}`);
       return false;
     }
   }
-  logger.info(`CHALLENGE ${ip} successfully solved challenge ${text}`);
-  await markTrusted(ip, ua);
+  logger.info(`CHALLENGE ${ipString} successfully solved challenge ${text}`);
+  await markTrusted(ipString, ua);
   return true;
 }
 
-/*
+/**
  * set captcha solution
- *
  * @param text Solution of captcha
  * @param captchaid
  */
-export async function setCaptchaSolution(
-  text,
-  captchaid,
-) {
+export async function setCaptchaSolution(text, captchaid) {
   try {
     await client.set(`${SOLUTION_PREFIX}:${captchaid}`, text, {
       EX: CAPTCHA_TIMEOUT,
@@ -248,12 +245,7 @@ export async function setCaptchaSolution(
  *         2 if wrong
  */
 export async function checkCaptchaSolution(
-  text,
-  ip,
-  ua,
-  onetime,
-  captchaid,
-  challengeSolution,
+  text, ipString, ua, onetime, captchaid, challengeSolution,
 ) {
   if (!text || text.length > 10) {
     return 3;
@@ -264,10 +256,11 @@ export async function checkCaptchaSolution(
   const [solution, trusted] = await Promise.all([
     client.getDel(`${SOLUTION_PREFIX}:${captchaid}`),
     (challengeSolution)
-      ? checkChallengeSolution(challengeSolution, ip, ua) : isTrusted(ip, ua),
+      ? checkChallengeSolution(challengeSolution, ipString, ua)
+      : isTrusted(ipString, ua),
   ]);
   if (!trusted) {
-    logger.info(`CHALLENGE ${ip} failed trust (${challengeSolution})`);
+    logger.info(`CHALLENGE ${ipString} failed trust (${challengeSolution})`);
     return 6;
   }
   if (solution) {
@@ -276,53 +269,52 @@ export async function checkCaptchaSolution(
         return 2;
       }
       if (!onetime) {
-        const ipn = getIPv6Subnet(ip);
-        const solvkey = `${PREFIX}:${ipn}`;
+        const solvkey = `${PREFIX}:${ipString}`;
         await client.set(solvkey, '', {
           EX: TTL_CACHE,
         });
       }
-      logger.info(`CAPTCHA ${ip} successfully solved captcha ${text}`);
+      logger.info(`CAPTCHA ${ipString} successfully solved captcha ${text}`);
       return 0;
     }
     logger.info(
-      `CAPTCHA ${ip} got captcha wrong (${text} instead of ${solution})`,
+      `CAPTCHA ${ipString} got captcha wrong (${text} instead of ${solution})`,
     );
     return 2;
   }
-  logger.info(`CAPTCHA ${ip}:${captchaid} timed out`);
+  logger.info(`CAPTCHA ${ipString}:${captchaid} timed out`);
   return 1;
 }
 
-/*
+/**
  * check if captcha is needed
  * @param ip
  * @return boolean true if needed
  */
-export async function needCaptcha(ip) {
+export async function needCaptcha(ipString) {
   if (CAPTCHA_TIME < 0) {
     return false;
   }
-  const key = `${PREFIX}:${getIPv6Subnet(ip)}`;
+  const key = `${PREFIX}:${ipString}`;
   const ttl = await client.ttl(key);
   if (ttl > 0) {
     return false;
   }
-  logger.info(`CAPTCHA ${ip} got captcha`);
+  logger.info(`CAPTCHA ${ipString} got captcha`);
   return true;
 }
 
-/*
+/**
  * force ip to get captcha
  * @param ip
  * @return true if we triggered captcha
  *         false if user would have gotten one anyway
  */
-export async function forceCaptcha(ip) {
+export async function forceCaptcha(ipString) {
   if (CAPTCHA_TIME < 0) {
     return null;
   }
-  const key = `${PREFIX}:${getIPv6Subnet(ip)}`;
+  const key = `${PREFIX}:${ipString}`;
   const ret = await client.del(key);
   return (ret > 0);
 }

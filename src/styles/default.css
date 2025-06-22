@@ -864,12 +864,12 @@ table td span {
 }
 .chatname {
   padding-left: 4px;
-  max-width: 100px; 
+  max-width: 100px;
   background-color: #ebf2f9;
 }
 .mention, .ping {
   font-size: smaller;
-  max-width: 85px; 
+  max-width: 85px;
 }
 .mention {
   background-color: #f2eee9;
@@ -931,7 +931,7 @@ table td span {
   top: 5px;
   right: 20px;
   font-weight: bold;
-  color: #4a4a49; 
+  color: #4a4a49;
   transition: font-size 0.2s;
 }
 .chatlink > span {
@@ -1149,11 +1149,11 @@ table td span {
 #palettebox {
   z-index: 1;
   bottom: 59px;
-  padding: 3px; 
-  position: fixed; 
-  right: 16px; 
-  margin-left: auto; 
-  margin-right: auto; 
+  padding: 3px;
+  position: fixed;
+  right: 16px;
+  margin-left: auto;
+  margin-right: auto;
   overflow: hidden;
 }
 

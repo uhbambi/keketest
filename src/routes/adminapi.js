@@ -1,10 +1,10 @@
 import express from 'express';
 
-import logger from '../core/logger';
-import { RegUser } from '../data/sql';
-import { getIPFromRequest } from '../utils/ip';
-import { compareToHash } from '../utils/hash';
-import { APISOCKET_KEY } from '../core/config';
+import logger from '../core/logger.js';
+import { USERLVL } from '../data/sql/index.js';
+import { getUsersByNameOrEmail, findUserById } from '../data/sql/User.js';
+import { compareToHash } from '../utils/hash.js';
+import { APISOCKET_KEY } from '../core/config.js';
 
 const router = express.Router();
 
@@ -16,8 +16,7 @@ router.use(async (req, res, next) => {
   if (!headers.authorization
     || !APISOCKET_KEY
     || headers.authorization !== `Bearer ${APISOCKET_KEY}`) {
-    const ip = getIPFromRequest(req);
-    logger.warn(`API adminapi request from ${ip} rejected`);
+    logger.warn(`API adminapi request from ${req.ip.ipString} rejected`);
     res.status(401);
     res.json({
       success: false,
@@ -42,27 +41,13 @@ router.post('/checklogin', async (req, res) => {
     errors.push('No password given');
   }
 
-  const query = {
-    attributes: [
-      'id',
-      'name',
-      'email',
-      'password',
-      'verified',
-    ],
-  };
-  let userString;
-  if (req.body.name) {
-    query.where = { name: req.body.name };
-    userString = req.body.name;
-  } else if (req.body.email) {
-    query.where = { email: req.body.email };
-    userString = req.body.email;
+  let users;
+  if (req.body.name || req.body.email) {
+    users = await getUsersByNameOrEmail(req.body.name, req.body.email);
   } else if (req.body.id) {
-    query.where = { id: req.body.id };
-    userString = String(req.body.id);
+    users = [await findUserById(req.body.id)];
   } else {
-    errors.push('No name or email given');
+    errors.push('No name or email or idgiven');
   }
 
   if (errors.length) {
@@ -74,34 +59,34 @@ router.post('/checklogin', async (req, res) => {
     return;
   }
 
-  const reguser = await RegUser.findOne(query);
-  if (!reguser) {
+  if (!users) {
     res.json({
       success: false,
-      errors: [`User ${userString} does not exist`],
+      // eslint-disable-next-line max-len
+      errors: [`User ${req.body.name}, ${req.body.email}, ${req.body.id} could not be fetched`],
     });
     return;
   }
 
-  if (!compareToHash(password, reguser.password)) {
+  const user = users.find((u) => compareToHash(password, u.password));
+  if (!user) {
     logger.info(
-      `ADMINAPI: User ${reguser.name} / ${reguser.id} entered wrong password`,
+      `ADMINAPI: User ${user.name} / ${user.id} entered wrong password`,
     );
     res.json({
       success: false,
-      errors: [`Password wrong for user ${userString}`],
+      errors: [`Password wrong for user ${user.name} / ${user.id}`],
     });
     return;
   }
 
-  logger.info(`ADMINAPI: User ${reguser.name} / ${reguser.id} got loged in`);
+  logger.info(`ADMINAPI: User ${user.name} / ${user.id} got logged in`);
   res.json({
     success: true,
     userdata: {
-      id: reguser.id,
-      name: reguser.name,
-      email: reguser.email,
-      verified: !!reguser.verified,
+      id: user.id,
+      name: user.name,
+      verified: user.userlvl >= USERLVL.VERIFIED,
     },
   });
 });
@@ -119,12 +104,8 @@ router.post('/userdata', async (req, res) => {
     });
     return;
   }
-  const reguser = await RegUser.findOne({
-    where: {
-      id,
-    },
-  });
-  if (!reguser) {
+  const user = await findUserById(id);
+  if (!user) {
     res.json({
       success: false,
       errors: ['No such user'],
@@ -135,9 +116,9 @@ router.post('/userdata', async (req, res) => {
   res.json({
     success: true,
     userdata: {
-      id: reguser.id,
-      name: reguser.name,
-      email: reguser.email,
+      id: user.id,
+      name: user.name,
+      verified: user.userlvl >= USERLVL.VERIFIED,
     },
   });
 });

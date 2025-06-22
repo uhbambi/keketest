@@ -6,9 +6,9 @@ import React, { useState } from 'react';
 import { t } from 'ttag';
 import { useSelector, useDispatch } from 'react-redux';
 
-import { setMailreg } from '../store/actions';
-import { validatePassword } from '../utils/validation';
-import { requestPasswordChange } from '../store/actions/fetch';
+import { setMailreg } from '../store/actions/index.js';
+import { validatePassword } from '../utils/validation.js';
+import { requestPasswordChange } from '../store/actions/fetch.js';
 
 function validate(mailreg, password, newPassword, confirmPassword) {
   const errors = [];

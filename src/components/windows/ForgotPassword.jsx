@@ -4,9 +4,9 @@
 import React, { useState } from 'react';
 import { t } from 'ttag';
 
-import { validateEMail } from '../../utils/validation';
-import { requestNewPassword } from '../../store/actions/fetch';
-import useLink from '../hooks/link';
+import { validateEMail } from '../../utils/validation.js';
+import { requestNewPassword } from '../../store/actions/fetch.js';
+import useLink from '../hooks/link.js';
 
 function validate(email) {
   const errors = [];

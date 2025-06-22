@@ -13,29 +13,29 @@ import {
 } from 'redux';
 import { thunk } from 'redux-thunk';
 import { persistReducer } from 'redux-persist';
-import storage from 'redux-persist/lib/storage';
+import storage from 'redux-persist/es/storage/index.js';
 
 import sharedReducers, {
   migrate,
-} from './sharedReducers';
+} from './sharedReducers.js';
 
 /*
  * reducers
  */
-import windows from './reducers/windows';
-import alert from './reducers/alert';
+import windows from './reducers/windows.js';
+import alert from './reducers/alert.js';
 
 /*
  * middleware
  */
-import audio from './middleware/audio';
-import socketClientHook from './middleware/socketClientHook';
-import rendererHook from './middleware/rendererHook';
-import array from './middleware/array';
-import notifications from './middleware/notifications';
-import title from './middleware/title';
-import popUps from './middleware/popUps';
-import extensions from './middleware/extensions';
+import audio from './middleware/audio.js';
+import socketClientHook from './middleware/socketClientHook.js';
+import rendererHook from './middleware/rendererHook.js';
+import array from './middleware/array.js';
+import notifications from './middleware/notifications.js';
+import title from './middleware/title.js';
+import popUps from './middleware/popUps.js';
+import extensions from './middleware/extensions.js';
 
 const windowsPersist = persistReducer({
   key: 'wind',

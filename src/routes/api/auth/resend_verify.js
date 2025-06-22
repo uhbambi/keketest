@@ -2,30 +2,33 @@
  * request resend of verification mail
  */
 
-import mailProvider from '../../../core/MailProvider';
-import { getHostFromRequest } from '../../../utils/ip';
+import mailProvider from '../../../core/MailProvider.js';
+import { getHostFromRequest } from '../../../utils/intel/ip.js';
+import { USERLVL } from '../../../data/sql/index.js';
+import { getEmailOfUser } from '../../../data/sql/ThreePID.js';
 
 export default async (req, res) => {
-  const { user, lang } = req;
-  if (!user || !user.regUser) {
-    res.status(401);
+  const { user, lang, ttag: { t } } = req;
+
+  const { name, userlvl } = user.data;
+  if (userlvl >= USERLVL.VERIFIED) {
+    res.status(400);
     res.json({
-      errors: ['You are not authenticated.'],
+      errors: [t`You are already verified.`],
     });
     return;
   }
 
-  const { name, email, mailVerified } = user.regUser;
-  if (mailVerified) {
+  const email = getEmailOfUser(user.id);
+  if (!email) {
     res.status(400);
     res.json({
-      errors: ['You are already verified.'],
+      errors: [t`Please try again`],
     });
     return;
   }
 
   const host = getHostFromRequest(req);
-
   const error = await mailProvider.sendVerifyMail(email, name, host, lang);
   if (error) {
     res.status(400);

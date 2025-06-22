@@ -4,7 +4,7 @@
 
 /* eslint-disable max-len */
 
-import { getTTag } from '../core/ttag';
+import { getTTag } from '../middleware/ttag.js';
 
 export default function getPasswordResetHtml(name, code, lang, message = null) {
   const { t } = getTTag(lang);

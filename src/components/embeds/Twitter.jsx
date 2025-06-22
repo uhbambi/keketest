@@ -1,7 +1,7 @@
 import React, { useState, useRef } from 'react';
 
-import { stripQuery } from '../../core/utils';
-import usePostMessage from '../hooks/postMessage';
+import { stripQuery } from '../../core/utils.js';
+import usePostMessage from '../hooks/postMessage.js';
 
 const urlStr = '/status/';
 

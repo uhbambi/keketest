@@ -5,17 +5,17 @@
 /* eslint-disable no-console */
 
 import { persistReducer } from 'redux-persist';
-import storage from 'redux-persist/lib/storage';
+import storage from 'redux-persist/es/storage/index.js';
 
-import gui from './reducers/gui';
-import ranks from './reducers/ranks';
-import chatRead from './reducers/chatRead';
-import user from './reducers/user';
-import canvas from './reducers/canvas';
-import templates from './reducers/templates';
-import chat from './reducers/chat';
-import fetching from './reducers/fetching';
-import profile from './reducers/profile';
+import gui from './reducers/gui.js';
+import ranks from './reducers/ranks.js';
+import chatRead from './reducers/chatRead.js';
+import user from './reducers/user.js';
+import canvas from './reducers/canvas.js';
+import templates from './reducers/templates.js';
+import chat from './reducers/chat.js';
+import fetching from './reducers/fetching.js';
+import profile from './reducers/profile.js';
 
 
 export const migrate = (state, version) => {

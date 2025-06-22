@@ -7,9 +7,9 @@ import { t } from 'ttag';
 
 import {
   validateEMail, validateName, validatePassword,
-} from '../utils/validation';
-import { requestLogin } from '../store/actions/fetch';
-import { loginUser } from '../store/actions';
+} from '../utils/validation.js';
+import { requestLogin } from '../store/actions/fetch.js';
+import { loginUser } from '../store/actions/index.js';
 
 
 function validate(nameoremail, password) {

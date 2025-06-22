@@ -26,7 +26,13 @@ Click or tab: Place Pixel
 
 - [nodejs environment](https://nodejs.org/en/) (>=18)
 - [redis](https://redis.io/) or [redis-for-windows](https://github.com/redis-windows/redis-windows) in version **6.2.0 or above** as database for storìng the canvas
-- mysql or mariadb ([setup own user](https://www.digitalocean.com/community/tutorials/how-to-create-a-new-user-and-grant-permissions-in-mysql) and [create database](https://www.w3schools.com/SQl/sql_create_db.asp) for pixelplanet) for storing additional data like IP blacklist
+- mysql or mariadb ([setup own user](https://www.digitalocean.com/community/tutorials/how-to-create-a-new-user-and-grant-permissions-in-mysql) and [create database](https://www.w3schools.com/SQl/sql_create_db.asp) for pixelplanet), in example:
+
+```
+CREATE DATABASE pixelplanet;
+CREATE USER 'pixelplanet'@'localhost' IDENTIFIED BY 'sqlpassword';
+GRANT ALL PRIVILEGES ON pixelplanet.* TO 'pixelplanet'@'localhost';
+```
 
 ### Download
 
@@ -58,7 +64,6 @@ Configuration takes place in the environment variables that are defined in ecosy
 | ADMIN_IDS         | Ids of users with Admin rights        | "1,12,3"                  |
 | CAPTCHA_TIME      | time in minutes between captchas      | 30                        |
 |                   |  0: always captcha -1: never captcha  |                           |
-| SESSION_SECRET    | random sting for express sessions     | "ayylmao"                 |
 | LOG_MYSQL         | if sql queries should get logged      | 0                         |
 | USE_XREALIP       | see ngins / CDN  section              | 1                         |
 | BACKUP_URL        | url of backup server (see Backup)     | "http://localhost"        |
@@ -151,7 +156,7 @@ npm install -g pm2
 ### Running
 
 1. Make sure that mysql and redis are running
-3. Start with 
+3. Start with
 
 ```
 pm2 start ecosystem.yml
@@ -169,7 +174,7 @@ General logs are in `~/pm2/log/`, you can view them with
 pm2 log ppfun
 ```
 
-you can flush the logs with 
+you can flush the logs with
 
 ```
 pm2 log flush

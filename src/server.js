@@ -7,28 +7,28 @@ import compression from 'compression';
 import express from 'express';
 import http from 'http';
 
-import forceGC from './core/forceGC';
-import logger from './core/logger';
-import rankings from './core/Ranks';
-import sequelize from './data/sql/sequelize';
-import { connect as connectRedis } from './data/redis/client';
-import routes from './routes';
-import chatProvider from './core/ChatProvider';
-import { loadCaptchaFontsFromRedis } from './core/captchaserver';
-import rpgEvent from './core/RpgEvent';
-import { initialize as initializeFishing } from './core/Fishing';
-import canvasCleaner from './core/CanvasCleaner';
+import forceGC from './core/forceGC.js';
+import logger from './core/logger.js';
+import rankings from './core/Ranks.js';
+import { sync as syncSql } from './data/sql/sequelize.js';
+import { connect as connectRedis } from './data/redis/client.js';
+import routes from './routes/index.js';
+import chatProvider from './core/ChatProvider.js';
+import { loadCaptchaFontsFromRedis } from './core/captchaserver.js';
+import rpgEvent from './core/RpgEvent.js';
+import { initialize as initializeFishing } from './core/Fishing.js';
+import canvasCleaner from './core/CanvasCleaner.js';
 
-import socketEvents from './socket/socketEvents';
-import SocketServer from './socket/SocketServer';
-import APISocketServer from './socket/APISocketServer';
+import socketEvents from './socket/socketEvents.js';
+import SocketServer from './socket/SocketServer.js';
+import APISocketServer from './socket/APISocketServer.js';
 
 import {
   PORT, HOST, HOURLY_EVENT, FISHING,
-} from './core/config';
-import { SECOND } from './core/constants';
+} from './core/config.js';
+import { SECOND } from './core/constants.js';
 
-import startAllCanvasLoops from './core/tileserver';
+import startAllCanvasLoops from './core/tileserver.js';
 
 const app = express();
 app.disable('x-powered-by');
@@ -51,7 +51,7 @@ async function wsupgrade(request, socket, head) {
     if (pathname === '/ws') {
       await usersocket.handleUpgrade(request, socket, head);
     } else if (pathname === '/mcws') {
-      apisocket.handleUpgrade(request, socket, head);
+      await apisocket.handleUpgrade(request, socket, head);
     } else {
       socket.write('HTTP/1.1 404 Not found\r\n\r\n');
       socket.destroy();
@@ -87,7 +87,7 @@ app.use(routes);
 // ip config
 // -----------------------------------------------------------------------------
 // sync sql models
-sequelize.sync({ alter: { drop: false } })
+syncSql()
   // connect to redis
   .then(connectRedis)
   .then(async () => {
@@ -126,7 +126,7 @@ sequelize.sync({ alter: { drop: false } })
      * initializers that rely on the cluster being fully established
      * i.e. to know if it is the shard that runs the event
      */
-    if (socketEvents.isCluster && socketEvents.amIImportant()) {
+    if (socketEvents.isCluster && socketEvents.important) {
       logger.info('I am the main shard');
     }
     rankings.initialize();

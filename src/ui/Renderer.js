@@ -6,8 +6,8 @@
 
 import {
   VIEW_UPDATE_DELAY,
-} from '../core/constants';
-import { updateView } from '../store/actions';
+} from '../core/constants.js';
+import { updateView } from '../store/actions/index.js';
 
 /* eslint-disable class-methods-use-this */
 

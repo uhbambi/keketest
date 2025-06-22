@@ -6,13 +6,12 @@
 
 import nodemailer from 'nodemailer';
 
-import logger from './logger';
-import { getTTag } from './ttag';
-import { codeExists, checkCode, setCode } from '../data/redis/mailCodes';
-import socketEvents from '../socket/socketEvents';
-import { USE_MAILER, MAIL_ADDRESS } from './config';
-
-import { RegUser } from '../data/sql';
+import logger from './logger.js';
+import { getTTag } from '../middleware/ttag.js';
+import { codeExists, checkCode, setCode } from '../data/redis/mailCodes.js';
+import socketEvents from '../socket/socketEvents.js';
+import { USE_MAILER, MAIL_ADDRESS } from './config.js';
+import { getUserByEmail, verifyEmail } from '../data/sql/User.js';
 
 export class MailProvider {
   constructor() {
@@ -122,23 +121,13 @@ export class MailProvider {
       return t`We already sent you a mail with instructions. Please wait before requesting another mail.`;
     }
 
-    const reguser = await RegUser.findOne({ where: { email: to } });
-    if (!reguser) {
+    const userdata = await getUserByEmail(to);
+    if (!userdata) {
       logger.info(
         `Password reset mail for ${to} requested by ${ip} - mail not found`,
       );
       return t`Couldn't find this mail in our database`;
     }
-
-    /*
-     * not sure if this is needed yet
-     * does it matter if spamming password reset mails or verifications mails?
-     *
-    if(!reguser.verified) {
-      logger.info(`Password reset mail for ${to} requested by ${ip} - mail not verified`);
-      return "Can't reset password of unverified account.";
-    }
-    */
 
     const code = setCode(to);
     if (this.enabled) {
@@ -154,33 +143,12 @@ export class MailProvider {
     if (!ret) {
       return false;
     }
-    const reguser = await RegUser.findOne({ where: { email } });
-    if (!reguser) {
+    const userId = await verifyEmail(email);
+    if (!userId) {
       logger.error(`${email} does not exist in database`);
-      return false;
     }
-    await reguser.update({
-      mailVerified: true,
-      verificationReqAt: null,
-    });
-    return reguser.name;
+    return userId;
   }
-
-  /*
-   * we do not use this right now
-  static cleanUsers() {
-    // delete users that require verification for more than 4 days
-    RegUser.destroy({
-      where: {
-        verificationReqAt: {
-          [Sequelize.Op.lt]:
-            Sequelize.literal('CURRENT_TIMESTAMP - INTERVAL 4 DAY'),
-        },
-        verified: 0,
-      },
-    });
-  }
-  */
 }
 
 const mailProvider = new MailProvider();

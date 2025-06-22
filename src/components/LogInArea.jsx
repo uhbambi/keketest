@@ -3,8 +3,8 @@
 import React from 'react';
 import { t } from 'ttag';
 
-import LogInForm from './LogInForm';
-import useLink from './hooks/link';
+import LogInForm from './LogInForm.jsx';
+import useLink from './hooks/link.js';
 
 const logoStyle = {
   marginRight: 5,
@@ -12,6 +12,18 @@ const logoStyle = {
 
 const LogInArea = () => {
   const link = useLink();
+
+  /*
+   * third party login only works on main url, so if we are on a sharded one,
+   * remove the shard. Sadly this means that we have to limit SHARD_NAME to
+   * sc[a-z] and non-sharded instances can't be on such a subdomain
+   */
+  let host = '/';
+  if (window.location.host.startsWith('sc')
+    && window.location.host.charAt(3) === '.'
+  ) {
+    host = `${window.location.protocol}//${window.location.host.substring(4)}/`;
+  }
 
   return (
     <div style={{ textAlign: 'center' }}>
@@ -27,7 +39,7 @@ const LogInArea = () => {
       >
         {t`I forgot my Password.`}</p>
       <h2>{t`or login with:`}</h2>
-      <a href="/api/auth/discord">
+      <a href={`${host}api/auth/discord`}>
         <img
           style={logoStyle}
           width={32}
@@ -35,7 +47,7 @@ const LogInArea = () => {
           alt="Discord"
         />
       </a>
-      <a href="/api/auth/google">
+      <a href={`${host}api/auth/google`}>
         <img
           style={logoStyle}
           width={32}
@@ -43,7 +55,7 @@ const LogInArea = () => {
           alt="Google"
         />
       </a>
-      <a href="/api/auth/facebook">
+      <a href={`${host}api/auth/facebook`}>
         <img
           style={logoStyle}
           width={32}
@@ -51,7 +63,7 @@ const LogInArea = () => {
           alt="Facebook"
         />
       </a>
-      <a href="/api/auth/vk">
+      <a href={`${host}api/auth/vk`}>
         <img
           style={logoStyle}
           width={32}
@@ -59,7 +71,7 @@ const LogInArea = () => {
           alt="VK"
         />
       </a>
-      <a href="/api/auth/reddit">
+      <a href={`${host}api/auth/reddit`}>
         <img
           style={logoStyle}
           width={32}

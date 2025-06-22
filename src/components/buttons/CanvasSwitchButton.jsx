@@ -6,7 +6,7 @@ import React from 'react';
 import { FaFlipboard } from 'react-icons/fa';
 import { t } from 'ttag';
 
-import useLink from '../hooks/link';
+import useLink from '../hooks/link.js';
 
 const CanvasSwitchButton = () => {
   const link = useLink();

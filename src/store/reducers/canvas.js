@@ -1,16 +1,16 @@
-import Palette from '../../core/Palette';
+import Palette from '../../core/Palette.js';
 import {
   getIdFromObject,
   getHistoricalCanvasSize,
   getMaxTiledZoom,
   getToday,
   dateToString,
-} from '../../core/utils';
+} from '../../core/utils.js';
 import {
   DEFAULT_SCALE,
   DEFAULT_CANVAS_ID,
   PENCIL_MODE,
-} from '../../core/constants';
+} from '../../core/constants.js';
 
 /*
  * checks if toggling historical view is neccessary

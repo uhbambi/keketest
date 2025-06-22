@@ -4,7 +4,7 @@
 
 import {
   durationToString,
-} from '../../core/utils';
+} from '../../core/utils.js';
 
 /*
  * set theme-color meta tag that sets the color

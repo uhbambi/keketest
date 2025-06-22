@@ -3,13 +3,13 @@
  *
  */
 
-import ChunkLoader from './ChunkLoader';
-import Chunk from './Chunk3D';
+import ChunkLoader from './ChunkLoader.js';
+import Chunk from './Chunk3D.js';
 import {
   getChunkOfPixel,
   getOffsetOfPixel,
-} from '../core/utils';
-import { shardOrigin } from '../store/actions/fetch';
+} from '../core/utils.js';
+import { shardOrigin } from '../store/actions/fetch.js';
 
 class ChunkLoader3D extends ChunkLoader {
   palette;

@@ -1,29 +1,16 @@
 /*
- *
+ * tell user his own IID
  */
-import {
-  getIPFromRequest,
-  getIPv6Subnet,
-} from '../../utils/ip';
-import {
-  getIIDofIP,
-} from '../../data/sql/IPInfo';
+import { getIIDofIP } from '../../data/sql/IP.js';
 
 async function getiid(req, res, next) {
   try {
-    const ip = getIPv6Subnet(
-      getIPFromRequest(req),
-    );
-
-    const iid = await getIIDofIP(ip);
-
+    const iid = await getIIDofIP(req.ip.ipString);
     if (!iid) {
       throw new Error('Could not get IID');
     }
 
-    res.status(200).json({
-      iid,
-    });
+    res.status(200).json({ iid });
   } catch (err) {
     next(err);
   }

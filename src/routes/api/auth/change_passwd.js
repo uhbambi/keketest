@@ -2,10 +2,10 @@
  * request password change
  */
 
-import logger from '../../../core/logger';
-import { getIPFromRequest } from '../../../utils/ip';
-import { validatePassword } from '../../../utils/validation';
-import { compareToHash } from '../../../utils/hash';
+import logger from '../../../core/logger.js';
+import { validatePassword } from '../../../utils/validation.js';
+import { compareToHash } from '../../../utils/hash.js';
+import { setPassword } from '../../../data/sql/User.js';
 
 function validate(newPassword, gettext) {
   const errors = [];
@@ -29,15 +29,7 @@ export default async (req, res) => {
   }
 
   const { user } = req;
-  if (!user || !user.regUser) {
-    res.status(401);
-    res.json({
-      errors: [t`You are not authenticated.`],
-    });
-    return;
-  }
-
-  const currentPassword = user.regUser.password;
+  const currentPassword = user.data.password;
   if (currentPassword && !compareToHash(password, currentPassword)) {
     res.status(400);
     res.json({
@@ -46,10 +38,10 @@ export default async (req, res) => {
     return;
   }
 
-  // eslint-disable-next-line max-len
-  logger.info(`AUTH: Changed password for user ${user.regUser.name}(${user.id}) by ${getIPFromRequest(req)}`);
+  await setPassword({ password: newPassword });
 
-  await user.regUser.update({ password: newPassword });
+  // eslint-disable-next-line max-len
+  logger.info(`AUTH: Changed password for user ${user.name}(${user.id}) by ${req.ip.ipString}`);
 
   res.json({
     success: true,

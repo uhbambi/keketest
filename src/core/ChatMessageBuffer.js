@@ -3,12 +3,9 @@
  * it just buffers the most recent 200 messages for each channel
  *
  */
-import Sequelize from 'sequelize';
-import logger from './logger';
+import { storeMessage, getMessagesForChannel } from '../data/sql/Message.js';
 
-import { Message, Channel } from '../data/sql';
-
-const MAX_BUFFER_TIME = 120000;
+const MAX_BUFFER_TIME = 600000;
 
 class ChatMessageBuffer {
   constructor(socketEvents) {
@@ -24,12 +21,12 @@ class ChatMessageBuffer {
 
   async getMessages(cid, limit = 30) {
     if (limit > 200) {
-      return ChatMessageBuffer.getMessagesFromDatabase(cid, limit);
+      return getMessagesForChannel(cid, limit);
     }
 
     let messages = this.buffer.get(cid);
     if (!messages) {
-      messages = await ChatMessageBuffer.getMessagesFromDatabase(cid);
+      messages = await getMessagesForChannel(cid, limit);
       this.buffer.set(cid, messages);
     }
     this.timestamps.set(cid, Date.now());
@@ -39,18 +36,15 @@ class ChatMessageBuffer {
   cleanBuffer() {
     const curTime = Date.now();
     const toDelete = [];
-    this.timestamps.forEach((cid, timestamp) => {
+    this.timestamps.forEach((timestamp, cid) => {
       if (curTime > timestamp + MAX_BUFFER_TIME) {
         toDelete.push(cid);
       }
     });
     toDelete.forEach((cid) => {
-      this.buffer.delete(cid);
       this.timestamps.delete(cid);
+      this.buffer.delete(cid);
     });
-    logger.info(
-      `Cleaned ${toDelete.length} channels from chat message buffer`,
-    );
   }
 
   async broadcastChatMessage(
@@ -64,20 +58,7 @@ class ChatMessageBuffer {
     if (message.length > 200) {
       return;
     }
-    Message.create({
-      name,
-      flag,
-      message,
-      cid,
-      uid,
-    });
-    Channel.update({
-      lastMessage: Sequelize.literal('CURRENT_TIMESTAMP'),
-    }, {
-      where: {
-        id: cid,
-      },
-    });
+    storeMessage(flag, message, cid, uid);
     /*
      * goes through socket events and then comes
      * back at addMessage
@@ -109,45 +90,6 @@ class ChatMessageBuffer {
         Math.round(Date.now() / 1000),
       ]);
     }
-  }
-
-  static async getMessagesFromDatabase(cid, limit = 200) {
-    const messagesModel = await Message.findAll({
-      attributes: [
-        'message',
-        'uid',
-        'name',
-        'flag',
-        [
-          Sequelize.fn('UNIX_TIMESTAMP', Sequelize.col('createdAt')),
-          'ts',
-        ],
-      ],
-      where: { cid },
-      limit,
-      order: [['createdAt', 'DESC']],
-      raw: true,
-    });
-    const messages = [];
-    let i = messagesModel.length;
-    while (i > 0) {
-      i -= 1;
-      const {
-        message,
-        uid,
-        name,
-        flag,
-        ts,
-      } = messagesModel[i];
-      messages.push([
-        name,
-        message,
-        flag,
-        uid,
-        ts,
-      ]);
-    }
-    return messages;
   }
 }
 

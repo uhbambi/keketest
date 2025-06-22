@@ -6,11 +6,11 @@ import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { t } from 'ttag';
 
-import { notify } from '../store/actions/thunks';
-import copyTextToClipboard from '../utils/clipboard';
+import { notify } from '../store/actions/thunks.js';
+import copyTextToClipboard from '../utils/clipboard.js';
 import {
   requestIID,
-} from '../store/actions/fetch';
+} from '../store/actions/fetch.js';
 
 const GetIID = () => {
   const [iid, setIID] = useState('');

@@ -4,9 +4,9 @@
 import React, { useContext } from 'react';
 import { t } from 'ttag';
 
-import WindowContext from '../context/window';
-import { setBrightness, colorFromText } from '../../core/utils';
-import { FISH_TYPES } from '../../core/constants';
+import WindowContext from '../context/window.js';
+import { setBrightness, colorFromText } from '../../core/utils.js';
+import { FISH_TYPES } from '../../core/constants.js';
 
 const FishDisplay = () => {
   const { args: { type, size, ts } } = useContext(WindowContext);

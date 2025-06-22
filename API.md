@@ -46,18 +46,6 @@ send
 
 All pixels (including your own) will be sent to you as typical binary packages
 
-### Get flag of User
-
-send
-
-```['getflag', userId]```
-
-receive
-
-```['flag', userId, flag]``
-
-Flag is in lowercase two-letter country code and null if user doesn't exist or had no flag set yet
-
 ### Set Pixel
 
 ```[ "setpxl", minecraftid, ip, x, y, clr ]```

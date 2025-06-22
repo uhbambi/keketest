@@ -1,11 +1,11 @@
 import React, { useRef } from 'react';
-import ReactDOM from 'react-dom';
+import { createPortal } from 'react-dom';
 
-import UserContextMenu from './UserContextMenu';
-import ChannelContextMenu from './ChannelContextMenu';
+import UserContextMenu from './UserContextMenu.jsx';
+import ChannelContextMenu from './ChannelContextMenu.jsx';
 import {
   useClickOutside,
-} from '../hooks/clickOutside';
+} from '../hooks/clickOutside.js';
 
 export const types = {
   USER: UserContextMenu,
@@ -49,7 +49,7 @@ const ContextMenu = ({
 
   const Content = types[type];
 
-  return ReactDOM.createPortal((
+  return createPortal((
     <div
       ref={wrapperRef}
       className={`contextmenu ${type}`}

@@ -1,26 +1,26 @@
-import Sequelize from 'sequelize';
-
-import logger from '../../../core/logger';
-import { RegUser } from '../../../data/sql';
-import mailProvider from '../../../core/MailProvider';
-import getMe from '../../../core/me';
-import { getIPFromRequest, getHostFromRequest } from '../../../utils/ip';
-import { checkIfMailDisposable } from '../../../core/isAllowed';
+import logger from '../../../core/logger.js';
+import {
+  createNewUser, getUsersByNameOrEmail,
+} from '../../../data/sql/User.js';
+import {
+  addOrReplaceTpid, THREEPID_PROVIDERS,
+} from '../../../data/sql/ThreePID.js';
+import mailProvider from '../../../core/MailProvider.js';
+import getMe from '../../../core/me.js';
+import { openSession } from '../../../middleware/session.js';
+import { getHostFromRequest } from '../../../utils/intel/ip.js';
+import { checkMailOverShards } from '../../../utils/intel/index.js';
 import {
   validateEMail,
   validateName,
   validatePassword,
-} from '../../../utils/validation';
-import {
-  checkCaptchaSolution,
-} from '../../../data/redis/captcha';
+} from '../../../utils/validation.js';
+import { checkCaptchaSolution } from '../../../data/redis/captcha.js';
 
 async function validate(
   email, name, password, captcha, captchaid, t, gettext,
 ) {
   const errors = [];
-  const emailerror = gettext(validateEMail(email));
-  if (emailerror) errors.push(emailerror);
   const nameerror = validateName(name);
   if (nameerror) errors.push(nameerror);
   const passworderror = gettext(validatePassword(password));
@@ -29,11 +29,19 @@ async function validate(
   if (!captcha || !captchaid) {
     errors.push(t`No Captcha given`);
   }
+  const emailerror = gettext(validateEMail(email));
+  if (emailerror) errors.push(emailerror);
 
-  let reguser = await RegUser.findOne({ where: { email } });
-  if (reguser) errors.push(t`E-Mail already in use.`);
-  reguser = await RegUser.findOne({ where: { name } });
-  if (reguser) errors.push(t`Username already in use.`);
+  const users = await getUsersByNameOrEmail(name, email);
+  if (!users) {
+    errors.push(t`Please try again.`);
+  } else if (users.length) {
+    if (users[0].byEMail) {
+      errors.push(t`E-Mail already in use.`);
+    } else {
+      errors.push(t`Username already in use.`);
+    }
+  }
 
   return errors;
 }
@@ -47,17 +55,17 @@ export default async (req, res) => {
     email, name, password, captcha, captchaid, t, gettext,
   );
 
-  const ip = getIPFromRequest(req);
+  const { ip } = req;
   const userAgent = req.headers['user-agent'];
   if (!errors.length) {
     const captchaPass = await checkCaptchaSolution(
-      captcha, ip, userAgent, true, captchaid, challengeSolution,
+      captcha, ip.ipString, userAgent, true, captchaid, challengeSolution,
     );
     switch (captchaPass) {
       case 0:
         break;
       case 1:
-        errors.push(t`You took too long, try again.`);
+        errors.push(t`You took too long, try again`);
         break;
       case 2:
         errors.push(t`You failed your captcha`);
@@ -74,8 +82,18 @@ export default async (req, res) => {
     }
   }
 
-  if (!errors.length && await checkIfMailDisposable(email)) {
+  if (!errors.length && await checkMailOverShards(email)) {
     errors.push(t`This email provider is not allowed`);
+  }
+
+  if (!errors.length) {
+    const { isBanned, isProxy } = await ip.getAllowance();
+    if (isProxy) {
+      errors.push(t`You can not register an account with a proxy`);
+    }
+    if (isBanned) {
+      errors.push(t`You can not register an account while you are banned`);
+    }
   }
 
   if (errors.length > 0) {
@@ -86,15 +104,8 @@ export default async (req, res) => {
     return;
   }
 
-  const newuser = await RegUser.create({
-    email,
-    name,
-    password,
-    verificationReqAt: Sequelize.literal('CURRENT_TIMESTAMP'),
-    lastLogIn: Sequelize.literal('CURRENT_TIMESTAMP'),
-  });
-
-  if (!newuser) {
+  const user = await createNewUser(name, password);
+  if (!user) {
     res.status(500);
     res.json({
       errors: [t`Failed to create new user :(`],
@@ -102,27 +113,25 @@ export default async (req, res) => {
     return;
   }
 
-  logger.info(`Created new user ${name} ${email} ${ip}`);
+  /*
+   * we could allow registering without email if we change validation and
+   * put this under an if
+   */
+  await addOrReplaceTpid(user.id, THREEPID_PROVIDERS.EMAIL, email);
 
-  const { user, lang } = req;
-  user.setRegUser(newuser);
-  const me = await getMe(user, lang);
+  logger.info(`Created new user ${name} ${email} ${ip.ipString}`);
 
-  await req.logIn(user, (err) => {
-    if (err) {
-      logger.warn(`Login after register error: ${err.message}`);
-      res.status(500);
-      res.json({
-        errors: [t`Failed to establish session after register :(`],
-      });
-      return;
-    }
-    const host = getHostFromRequest(req);
-    mailProvider.sendVerifyMail(email, name, host, lang);
-    res.status(200);
-    res.json({
-      success: true,
-      me,
-    });
+  await openSession(req, res, user.id, 720);
+  const me = await getMe(req.user, req.lang);
+
+  const host = getHostFromRequest(req);
+  if (email) {
+    mailProvider.sendVerifyMail(email, name, host, req.lang);
+  }
+
+  res.status(200);
+  res.json({
+    success: true,
+    me,
   });
 };

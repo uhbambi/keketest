@@ -2,9 +2,9 @@
  * Cron job of argumentless functions that will get run in a specific interval,
  * at full hours
  */
-import { HOUR } from '../core/constants';
+import { HOUR } from '../core/constants.js';
 
-import logger from '../core/logger';
+import logger from '../core/logger.js';
 
 class Cron {
   // timestamp of last run
@@ -28,6 +28,10 @@ class Cron {
     const msToNextFullHour = HOUR
       - (ct.getUTCMinutes() * 60 + ct.getUTCSeconds()) * 1000;
     this.timeout = setTimeout(this.checkForExecution, msToNextFullHour);
+  }
+
+  destructor() {
+    clearTimeout(this.timeout);
   }
 
   checkForExecution() {

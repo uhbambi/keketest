@@ -13,4 +13,3 @@ apps:
       MYSQL_USER: "pixelplanet"
       MYSQL_DATABASE: "pixelplanet"
       MYSQL_PW: "sqlpassword"
-      SESSION_SECRET: "ayyylmao"

@@ -10,17 +10,17 @@ import {
   setHover,
   unsetHover,
   selectColor,
-} from '../store/actions';
-import pixelTransferController from '../ui/PixelTransferController';
-import { setCursor, getCursor } from './cursors';
+} from '../store/actions/index.js';
+import pixelTransferController from '../ui/PixelTransferController.js';
+import { setCursor, getCursor } from './cursors.js';
 import {
   screenToWorld,
   getChunkOfPixel,
   getOffsetOfPixel,
   getTapOrClickCenter,
-} from '../core/utils';
-import { PENCIL_MODE } from '../core/constants';
-import templateLoader from '../ui/templateLoader';
+} from '../core/utils.js';
+import { PENCIL_MODE } from '../core/constants.js';
+import templateLoader from '../ui/templateLoader.js';
 
 class PixelPainterControls {
   store;

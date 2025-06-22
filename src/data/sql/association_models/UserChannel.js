@@ -7,15 +7,13 @@
  */
 
 import { DataTypes } from 'sequelize';
-import sequelize from './sequelize';
+import sequelize from '../sequelize.js';
 
 const UserChannel = sequelize.define('UserChannel', {
   lastRead: {
     type: DataTypes.DATE,
     allowNull: true,
   },
-}, {
-  timestamps: false,
 });
 
 export default UserChannel;

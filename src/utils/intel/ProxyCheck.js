@@ -6,7 +6,7 @@
 
 import https from 'https';
 
-import { HourlyCron } from './cron';
+import { HourlyCron } from '../cron.js';
 
 const HYSTERESIS = 60;
 
@@ -20,6 +20,7 @@ class PcKeyProvider {
    * @param pcKeys comma separated list of keys
    */
   constructor(pcKeys, logger) {
+    if (!logger) logger = console;
     const keys = (pcKeys)
       ? pcKeys.split(',')
       : [];
@@ -129,14 +130,12 @@ class PcKeyProvider {
     }
     const queriesToday = Number(usage['Queries Today']) || 0;
     const availableBurst = Number(usage['Burst Tokens Available']) || 0;
+    const burstActive = Number(usage['Burst Token Active']) === 1;
     let dailyLimit = Number(usage['Daily Limit']) || 0;
-    let burstActive = false;
-    let availableQueries = dailyLimit - queriesToday;
-    if (availableQueries < 0) {
-      burstActive = true;
+    if (burstActive) {
       dailyLimit *= 5;
-      availableQueries = dailyLimit - queriesToday;
     }
+    const availableQueries = dailyLimit - queriesToday;
     // eslint-disable-next-line max-len
     this.logger.info(`PCKey: ${key}, Queries Today: ${availableQueries} / ${dailyLimit} (Burst: ${availableBurst}, ${burstActive ? 'active' : 'inactive'})`);
     const keyData = [
@@ -146,7 +145,7 @@ class PcKeyProvider {
       availableBurst,
       false,
     ];
-    if (burstActive || availableQueries > HYSTERESIS) {
+    if (availableQueries > HYSTERESIS) {
       /*
        * data is a few minutes old, stop at HYSTERESIS
        */
@@ -157,7 +156,6 @@ class PcKeyProvider {
   }
 
   /*
-   * TODO: proxycheck added the used burst token to API
    * query the API for limits
    * @param key
    */
@@ -226,6 +224,7 @@ class PcKeyProvider {
 
 class ProxyCheck {
   constructor(pcKeys, logger) {
+    if (!logger) logger = console;
     /*
      * queue of ip-checking tasks
      * [[ip, callbackFunction],...]
@@ -368,36 +367,37 @@ class ProxyCheck {
         cb(disposable);
       } else {
         // ip check
-        let allowed = true;
-        let status = -2;
-        let pcheck = 'N/A';
-
+        // eslint-disable-next-line no-lonely-if
         if (res[value]) {
           this.logger.info(`IP ${value}: ${JSON.stringify(res[value])}`);
-          const { proxy, type, city } = res[value];
-          allowed = proxy === 'no';
-          status = (allowed) ? 0 : 1;
-          pcheck = `${type},${city}`;
+          const result = res[value];
+          cb({
+            isProxy: result.proxy !== 'no',
+            type: result.type || null,
+            operator: result.operator?.name || null,
+            city: result.city || null,
+            devices: result.devices?.address || 1,
+            subnetDevices: result.devices?.subnet || 1,
+          });
+        } else {
+          this.logger.error(`IP ${value} could not be checked for proxy.`);
+          cb(null);
         }
-
-        cb({
-          allowed,
-          status,
-          pcheck,
-        });
       }
     }
     setTimeout(this.checkFromQueue, 10);
   }
 
-  /*
+  /**
    * check if ip is proxy in queue
-   * @param ip
-   * @return Promise that resolves to
-   * {
-   *   status, 0: no proxy 1: proxy -2: any failure
-   *   allowed, boolean if ip should be allowed to place
-   *   pcheck, string info of proxycheck return (like type and city)
+   * @param ip as string
+   * @return Promise null | {
+   *   isProxy: true or false,
+   *   type: Residential, Wireless, VPN, SOCKS,...,
+   *   operator: name of proxy operator if available,
+   *   city: name of city,
+   *   devices: amount of devices using this ip,
+   *   subnetDevices: amount of devices in this subnet,
    * }
    */
   checkIp(ip) {
@@ -409,10 +409,8 @@ class ProxyCheck {
     });
   }
 
-  /*
+  /**
    * same as for ip
-   * TODO: cache for mail providers, remember
-   * a disposable provider for an hour or so
    * @param email
    * @return Promise that resolves to
    *  null: failure
@@ -420,13 +418,6 @@ class ProxyCheck {
    *  true: is disposable provider
    */
   checkEmail(email) {
-    if (!email) return false;
-    if (email.endsWith('fuckmeuwu.shop')) return true;
-    const domain = email.substring(email.lastIndexOf('@') + 1);
-    const tld = domain.substring(domain.lastIndexOf('.') + 1);
-    if (tld === 'sbs' || tld === 'cyou') {
-      return true;
-    }
     return new Promise((resolve) => {
       this.queue.push([email, resolve]);
       if (!this.fetching) {

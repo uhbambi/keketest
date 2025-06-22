@@ -1,15 +1,13 @@
 import fs from 'fs';
 import readline from 'readline';
 
-import { PIXELLOGGER_PREFIX } from './logger';
-import { getNamesToIds } from '../data/sql/RegUser';
+import { PIXELLOGGER_PREFIX } from './logger.js';
+import { getNamesToIds } from '../data/sql/User.js';
 import {
   getIdsToIps,
   getInfoToIps,
   getIPofIID,
-} from '../data/sql/IPInfo';
-import { getIPv6Subnet } from '../utils/ip';
-
+} from '../data/sql/IP.js';
 
 function parseFile(cb) {
   const date = new Date();
@@ -58,11 +56,10 @@ export async function getIIDSummary(
 
   try {
     await parseFile((parts) => {
-      const [tsStr, ipFull,, cid, x, y,, clrStr] = parts;
+      const [tsStr, ipString,, cid, x, y,, clrStr] = parts;
       const ts = parseInt(tsStr, 10);
       if (ts >= time) {
-        const ip = getIPv6Subnet(ipFull);
-        if (ip === filterIP) {
+        if (ipString === filterIP) {
           const clr = parseInt(clrStr, 10);
           let curVals = cids[cid];
           if (!curVals) {
@@ -125,11 +122,10 @@ export async function getIIDPixels(
 
   try {
     await parseFile((parts) => {
-      const [tsStr, ipFull,, cid, x, y,, clrStr] = parts;
+      const [tsStr, ipString,, cid, x, y,, clrStr] = parts;
       const ts = parseInt(tsStr, 10);
       if (ts >= time) {
-        const ip = getIPv6Subnet(ipFull);
-        if (ip === filterIP) {
+        if (ipString === filterIP) {
           const clr = parseInt(clrStr, 10);
           pixels.push([
             cid,
@@ -199,7 +195,7 @@ export async function getSummaryFromArea(
   }
   try {
     await parseFile((parts) => {
-      const [tsStr, ipFull, uidStr, cid, x, y,, clrStr] = parts;
+      const [tsStr, ipString, uidStr, cid, x, y,, clrStr] = parts;
       const ts = parseInt(tsStr, 10);
       if (ts >= time
         // eslint-disable-next-line eqeqeq
@@ -209,16 +205,15 @@ export async function getSummaryFromArea(
         && y >= yUL
         && y <= yBR
       ) {
-        const ip = getIPv6Subnet(ipFull);
-        if (filterIP && ip !== filterIP) {
+        if (filterIP && ipString !== filterIP) {
           return;
         }
         const clr = parseInt(clrStr, 10);
         const uid = parseInt(uidStr, 10);
-        let curVals = ips[ip];
+        let curVals = ips[ipString];
         if (!curVals) {
           curVals = [0, uid, 0, 0, 0, 0];
-          ips[ip] = curVals;
+          ips[ipString] = curVals;
           uids.push(uid);
         }
         curVals[0] += 1;
@@ -319,7 +314,7 @@ export async function getPixelsFromArea(
   }
   try {
     await parseFile((parts) => {
-      const [tsStr, ipFull, uidStr, cid, x, y,, clrStr] = parts;
+      const [tsStr, ipString, uidStr, cid, x, y,, clrStr] = parts;
       const ts = parseInt(tsStr, 10);
       if (ts >= time
         // eslint-disable-next-line eqeqeq
@@ -329,15 +324,14 @@ export async function getPixelsFromArea(
         && y >= yUL
         && y <= yBR
       ) {
-        const ip = getIPv6Subnet(ipFull);
-        if (filterIP && ip !== filterIP) {
+        if (filterIP && ipString !== filterIP) {
           return;
         }
         const clr = parseInt(clrStr, 10);
         const uid = parseInt(uidStr, 10);
-        pixels.push([ip, uid, x, y, clr, ts]);
-        if (!ips.includes(ip)) {
-          ips.push(ip);
+        pixels.push([ipString, uid, x, y, clr, ts]);
+        if (!ips.includes(ipString)) {
+          ips.push(ipString);
           uids.push(uid);
         }
       }

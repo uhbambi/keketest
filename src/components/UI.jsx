@@ -5,18 +5,18 @@
 import React from 'react';
 import { useSelector, shallowEqual } from 'react-redux';
 
-import CoolDownBox from './CoolDownBox';
-import NotifyBox from './NotifyBox';
-import GlobeButton from './buttons/GlobeButton';
-import PalselButton from './buttons/PalselButton';
-import PencilButton from './buttons/PencilButton';
-import MovementControls from './buttons/MovementControls';
-import Palette from './Palette';
-import Alert from './Alert';
-import HistorySelect from './HistorySelect';
-import VDay from './VDay';
-import Fish from './Fish';
-import useDate from './hooks/useDate';
+import CoolDownBox from './CoolDownBox.jsx';
+import NotifyBox from './NotifyBox.jsx';
+import GlobeButton from './buttons/GlobeButton.jsx';
+import PalselButton from './buttons/PalselButton.jsx';
+import PencilButton from './buttons/PencilButton.jsx';
+import MovementControls from './buttons/MovementControls.jsx';
+import Palette from './Palette.jsx';
+import Alert from './Alert.jsx';
+import HistorySelect from './HistorySelect.jsx';
+import VDay from './VDay.jsx';
+import Fish from './Fish.jsx';
+import useDate from './hooks/useDate.js';
 
 const UI = () => {
   const [

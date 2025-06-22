@@ -9,19 +9,19 @@ import useStayScrolled from 'react-stay-scrolled';
 import { useSelector, useDispatch } from 'react-redux';
 import { t } from 'ttag';
 
-import WindowContext from '../context/window';
-import useLink from '../hooks/link';
-import ContextMenu from '../contextmenus';
-import ChatMessage from '../ChatMessage';
-import ChannelDropDown from '../contextmenus/ChannelDropDown';
+import WindowContext from '../context/window.js';
+import useLink from '../hooks/link.js';
+import ContextMenu from '../contextmenus/index.jsx';
+import ChatMessage from '../ChatMessage.jsx';
+import ChannelDropDown from '../contextmenus/ChannelDropDown.jsx';
 
 import {
   markChannelAsRead,
   sendChatMessage,
-} from '../../store/actions';
+} from '../../store/actions/index.js';
 import {
   fetchChatMessages,
-} from '../../store/actions/thunks';
+} from '../../store/actions/thunks.js';
 
 
 const Chat = () => {
@@ -56,6 +56,7 @@ const Chat = () => {
     setArgs({
       chatChannel: Number(cid),
     });
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dispatch]);
 
   const addToInput = useCallback((msg) => {
@@ -100,18 +101,20 @@ const Chat = () => {
     if (channels[chatChannel] && !messages[chatChannel] && !fetching) {
       dispatch(fetchChatMessages(chatChannel));
     }
-  }, [channels, messages, chatChannel]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [channels, messages, chatChannel, fetching]);
 
   useEffect(() => {
     if (channels[chatChannel]) {
       const channelName = channels[chatChannel][0];
       setTitle(`Chan: ${channelName}`);
     }
-  }, [chatChannel]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [chatChannel, channels]);
 
   useLayoutEffect(() => {
     stayScrolled();
-  }, [channelMessages.length]);
+  }, [channelMessages.length, stayScrolled]);
 
   useEffect(() => {
     setTimeout(() => {
@@ -126,6 +129,7 @@ const Chat = () => {
       bl.push(blocked[i][0]);
     }
     setBlockedIds(bl);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [blocked.length]);
 
   function handleSubmit(evt) {
@@ -149,7 +153,8 @@ const Chat = () => {
         setChannel(cids[0]);
       }
     }
-  }, [channels]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [channels, chatChannel]);
 
   return (
     <div

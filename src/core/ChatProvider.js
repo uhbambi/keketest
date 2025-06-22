@@ -1,35 +1,29 @@
 /*
  * class for chat communications
  */
-import { Op } from 'sequelize';
-import logger from './logger';
-import RateLimiter from '../utils/RateLimiter';
-import {
-  Channel, RegUser, UserChannel, Message,
-} from '../data/sql';
-import { findIdByNameOrId } from '../data/sql/RegUser';
-import ChatMessageBuffer from './ChatMessageBuffer';
-import socketEvents from '../socket/socketEvents';
-import isIPAllowed from './isAllowed';
+import logger from './logger.js';
+import RateLimiter from '../utils/RateLimiter.js';
+import { USERLVL } from '../data/sql/index.js';
+import { findIdByNameOrId, getDummyUser } from '../data/sql/User.js';
+import { getDefaultChannel } from '../data/sql/Channel.js';
+import ChatMessageBuffer from './ChatMessageBuffer.js';
+import socketEvents from '../socket/socketEvents.js';
+import { ban, unban } from './ban.js';
 import {
   mutec, unmutec,
   unmutecAll, listMutec,
-  mute,
-  unmute,
-  allowedChat,
-} from '../data/redis/chat';
-import { banIP } from '../data/sql/Ban';
-import { DailyCron } from '../utils/cron';
-import { escapeMd } from './utils';
-import ttags from './ttag';
+  isCountryMuted,
+} from '../data/redis/chat.js';
+import { escapeMd } from './utils.js';
+import ttags from '../middleware/ttag.js';
 
-import { USE_MAILER } from './config';
+import { USE_MAILER } from './config.js';
 import {
   CHAT_CHANNELS,
   EVENT_USER_NAME,
   INFO_USER_NAME,
   APISOCKET_USER_NAME,
-} from './constants';
+} from './constants.js';
 
 function getUserFromMd(mdUserLink) {
   let mdUser = mdUserLink.trim();
@@ -64,10 +58,22 @@ export class ChatProvider {
       },
     ];
     this.chatMessageBuffer = new ChatMessageBuffer(socketEvents);
-    this.clearOldMessages = this.clearOldMessages.bind(this);
 
-    socketEvents.on('recvChatMessage', async (user, message, channelId) => {
-      const errorMsg = await this.sendMessage(user, message, channelId);
+    /**
+     * when a chat message gets sent by a user on this shard
+     * @param user user object
+     * @param ip ip object
+     * @param message text message
+     * @param channelId channel id
+     * @param lang language code
+     * @param ttag ttag instance
+     */
+    socketEvents.on('recvChatMessage', async (
+      user, ip, message, channelId, lang, ttag,
+    ) => {
+      const errorMsg = await this.sendMessage(
+        user, ip, message, channelId, lang, ttag,
+      );
       if (errorMsg) {
         socketEvents.broadcastSUChatMessage(
           user.id,
@@ -81,44 +87,17 @@ export class ChatProvider {
     });
   }
 
-  async clearOldMessages() {
-    if (!socketEvents.amIImportant()) {
-      return;
-    }
-    const ids = Object.keys(this.defaultChannels);
-    for (let i = 0; i < ids.length; i += 1) {
-      const cid = ids[i];
-      Message.destroy({
-        where: {
-          cid,
-          createdAt: {
-            [Op.lt]: new Date(new Date() - 10 * 24 * 3600 * 1000),
-          },
-        },
-      });
-    }
-  }
-
   async initialize() {
     // find or create default channels
     for (let i = 0; i < CHAT_CHANNELS.length; i += 1) {
       const { name } = CHAT_CHANNELS[i];
       // eslint-disable-next-line no-await-in-loop
-      const channel = await Channel.findOrCreate({
-        where: { name },
-        defaults: {
-          name,
-        },
-      });
+      const channel = await getDefaultChannel(name);
       const { id, type, lastTs } = channel[0];
       if (name === 'en') {
         this.enChannelId = id;
       }
-      this.defaultChannels[id] = [
-        name,
-        type,
-        lastTs,
-      ];
+      this.defaultChannels[id] = [name, type, lastTs];
       this.publicChannelIds.push(id);
     }
     // find or create non-english lang channels
@@ -129,65 +108,15 @@ export class ChatProvider {
         continue;
       }
       // eslint-disable-next-line no-await-in-loop
-      const channel = await Channel.findOrCreate({
-        where: { name },
-        defaults: {
-          name,
-        },
-      });
+      const channel = await getDefaultChannel(name);
       const { id, type, lastTs } = channel[0];
-      this.langChannels[name] = {
-        id,
-        type,
-        lastTs,
-      };
+      this.langChannels[name] = { id, type, lastTs };
       this.publicChannelIds.push(id);
     }
     // find or create default users
-    let name = INFO_USER_NAME;
-    const infoUser = await RegUser.findOrCreate({
-      attributes: [
-        'id',
-      ],
-      where: { name },
-      defaults: {
-        name,
-        verified: 3,
-        email: 'info@example.com',
-      },
-      raw: true,
-    });
-    this.infoUserId = infoUser[0].id;
-    name = EVENT_USER_NAME;
-    const eventUser = await RegUser.findOrCreate({
-      attributes: [
-        'id',
-      ],
-      where: { name },
-      defaults: {
-        name,
-        verified: 3,
-        email: 'event@example.com',
-      },
-      raw: true,
-    });
-    this.eventUserId = eventUser[0].id;
-    name = APISOCKET_USER_NAME;
-    const apiSocketUser = await RegUser.findOrCreate({
-      attributes: [
-        'id',
-      ],
-      where: { name },
-      defaults: {
-        name,
-        verified: 3,
-        email: 'event@example.com',
-      },
-      raw: true,
-    });
-    this.apiSocketUserId = apiSocketUser[0].id;
-    this.clearOldMessages();
-    DailyCron.hook(this.clearOldMessages);
+    this.infoUserId = await getDummyUser(INFO_USER_NAME);
+    this.eventUserId = await getDummyUser(EVENT_USER_NAME);
+    this.apiSocketUserId = await getDummyUser(APISOCKET_USER_NAME);
   }
 
   getDefaultChannels(lang) {
@@ -207,53 +136,22 @@ export class ChatProvider {
     };
   }
 
-  static async addUserToChannel(
-    userId,
-    channelId,
-    channelArray,
-  ) {
-    const [, created] = await UserChannel.findOrCreate({
-      where: {
-        UserId: userId,
-        ChannelId: channelId,
-      },
-      raw: true,
-    });
-
-    if (created) {
-      socketEvents.broadcastAddChatChannel(
-        userId,
-        channelId,
-        channelArray,
-      );
-    }
-  }
-
-  /*
-   * user.lang has to be set
-   * this is just the case in chathistory.js and SocketServer
+  /**
+   * check if a user has access to a channel
+   * @param user user object
+   * @param lang language code
+   * @param cid channel id
+   * @return boolean whether or not the user has access to this channel
    */
-  userHasChannelAccess(user, cid) {
+  userHasChannelAccess(user, lang, cid) {
     if (this.defaultChannels[cid]) {
       return true;
     }
-    if (user.channels[cid]) {
+    if (user?.hasChannel(cid)) {
       return true;
     }
-    const { lang } = user;
     return !!(this.langChannels[lang]
       && this.langChannels[lang].id === cid);
-  }
-
-  checkIfDm(user, cid) {
-    if (this.defaultChannels[cid]) {
-      return null;
-    }
-    const channelArray = user.channels[cid];
-    if (channelArray && channelArray.length === 4) {
-      return user.channels[cid][3];
-    }
-    return null;
   }
 
   getHistory(cid, limit = 30) {
@@ -275,6 +173,7 @@ export class ChatProvider {
             {
               printChannel: channelId,
               initiator,
+              muid: user.id,
             },
           );
         }
@@ -284,6 +183,7 @@ export class ChatProvider {
             printChannel: channelId,
             initiator,
             duration: timeMin,
+            muid: user.id,
           },
         );
       }
@@ -294,6 +194,7 @@ export class ChatProvider {
           {
             printChannel: channelId,
             initiator,
+            muid: user.id,
           },
         );
 
@@ -380,82 +281,21 @@ export class ChatProvider {
     }
   }
 
-  /*
-   * User.ttag for translation has to be set, this is just the case
-   * in SocketServer for websocket connections
+  /**
+   * user sending a chat message
    * @param user User object
+   * @param ip ip object
    * @param message string of message
    * @param channelId integer of channel
+   * @param lang language code
+   * @param ttag ttag instance for localized errors
    * @return error message if unsuccessful, otherwise null
    */
-  async sendMessage(
-    user,
-    message,
-    channelId,
-  ) {
+  async sendMessage(user, ip, message, channelId, lang, ttag) {
     const { id } = user;
-    const { t } = user.ttag;
-    const { name } = user;
-
-    if (!name || !id) {
-      return null;
-    }
-    const country = user.regUser.flag || 'xx';
-
-    if (name.trim() === ''
-    //  || (Number(channelId) === 4374 && message.includes('discord'))
-      || (this.autobanPhrase && message.includes(this.autobanPhrase))
-    ) {
-      const { ipSub } = user;
-      if (!user.banned) {
-        banIP(ipSub, 'CHATBAN', 0, 1);
-        mute(id);
-        logger.info(`CHAT AUTOBANNED: ${ipSub}`);
-        user.banned = true;
-      }
-      return 'nope';
-    }
-    if (user.banned) {
-      return 'nope';
-    }
-
-    if (!user.userlvl) {
-      const [allowed, needProxycheck] = await allowedChat(
-        channelId,
-        id,
-        user.ipSub,
-        country,
-      );
-      if (allowed) {
-        logger.info(
-          `${name} / ${user.ip} tried to send chat message but is not allowed`,
-        );
-        if (allowed === 1) {
-          return t`You can not send chat messages while using a proxy`;
-        } if (allowed === 100 && user.userlvl === 0) {
-          return t`Your country is temporary muted from this chat channel`;
-        } if (allowed === 101) {
-          // eslint-disable-next-line max-len
-          return t`You are permanently muted, join our guilded to appeal the mute`;
-        } if (allowed === 2) {
-          return t`You are banned`;
-        } if (allowed === 3) {
-          return t`Your Internet Provider is banned`;
-        } if (allowed < 0) {
-          const ttl = -allowed;
-          if (ttl > 120) {
-            const timeMin = Math.round(ttl / 60);
-            return t`You are muted for another ${timeMin} minutes`;
-          }
-          return t`You are muted for another ${ttl} seconds`;
-        }
-      }
-      if (needProxycheck) {
-        isIPAllowed(user.ip);
-      }
-    } else if (message.charAt(0) === '/') {
-      return this.adminCommands(message, channelId, user);
-    }
+    const { t } = ttag;
+    const { name } = user.data;
+    const { ipString, country } = ip;
 
     if (!user.rateLimiter) {
       user.rateLimiter = new RateLimiter(20, 15, true);
@@ -467,12 +307,54 @@ export class ChatProvider {
       return t`You are sending messages too fast, you have to wait ${waitTime}s :(`;
     }
 
-    if (!this.userHasChannelAccess(user, channelId)) {
+    if (!this.userHasChannelAccess(user, lang, channelId)) {
       return t`You don\'t have access to this channel`;
     }
 
+    // eslint-disable-next-line prefer-const
+    let { isBanned, isMuted, isProxy } = await user.getAllowance();
+    if (isProxy) {
+      return t`You can not send chat messages while using a proxy`;
+    }
+    if (!isBanned && !isMuted) {
+      ({ isBanned, isMuted } = await ip.getAllowance());
+    }
+    if (isBanned) {
+      return t`Can not chat while being banned`;
+    }
+    if (isMuted) {
+      if (isMuted === true) {
+        // eslint-disable-next-line max-len
+        return t`You are permanently muted, join our guilded to appeal the mute`;
+      }
+      const ttl = (isMuted - Date.now()) / 1000;
+      if (ttl > 120) {
+        const timeMin = Math.round(ttl / 60);
+        return t`You are muted for another ${timeMin} minutes`;
+      }
+      return t`You are muted for another ${ttl} seconds`;
+    }
+
+    if (user.userlvl < USERLVL.MOD) {
+      if (await isCountryMuted(country, channelId, ipString)) {
+        return t`Your country is temporary muted from this chat channel`;
+      }
+    } else if (message.charAt(0) === '/') {
+      return this.adminCommands(message, channelId, user);
+    }
+
+    if (name.trim() === ''
+      || (this.autobanPhrase && message.includes(this.autobanPhrase))
+    ) {
+      user.isBanned = true;
+      /* this will both ban and mute */
+      ban(ipString, user.id, null, true, true, 'CHATBAN');
+      logger.info(`CHAT AUTOBANNED: ${ipString}`);
+      return 'nope';
+    }
+
     let displayCountry = country;
-    if (user.userlvl !== 0) {
+    if (user.userlvl >= USERLVL.MOD) {
       displayCountry = 'zz';
     } else if (user.id === 2927) {
       /*
@@ -488,7 +370,7 @@ export class ChatProvider {
       displayCountry = 'c1';
     }
 
-    if (USE_MAILER && !user.regUser.verified) {
+    if (USE_MAILER && user.userlvl < USERLVL.VERIFIED) {
       return t`Your mail has to be verified in order to chat`;
     }
 
@@ -519,7 +401,7 @@ export class ChatProvider {
     }
 
     logger.info(
-      `Received chat message ${message} from ${name} / ${user.ip}`,
+      `Received chat message ${message} from ${name} / ${ip.ipString}`,
     );
     this.broadcastChatMessage(
       name,
@@ -539,6 +421,7 @@ export class ChatProvider {
     const timeMin = opts.duration || null;
     const initiator = opts.initiator || null;
     const printChannel = opts.printChannel || null;
+    const muid = opts.muid || null;
 
     const searchResult = await findIdByNameOrId(nameOrId);
     if (!searchResult) {
@@ -547,7 +430,7 @@ export class ChatProvider {
     const { name, id } = searchResult;
     const userPing = `@[${escapeMd(name)}](${id})`;
 
-    mute(id, timeMin);
+    ban(null, id, null, true, false, 'mute', timeMin && timeMin * 60, muid);
     if (printChannel) {
       if (timeMin) {
         this.broadcastChatMessage(
@@ -576,6 +459,7 @@ export class ChatProvider {
   async unmute(nameOrId, opts) {
     const initiator = opts.initiator || null;
     const printChannel = opts.printChannel || null;
+    const muid = opts.muid || null;
 
     const searchResult = await findIdByNameOrId(nameOrId);
     if (!searchResult) {
@@ -584,7 +468,7 @@ export class ChatProvider {
     const { name, id } = searchResult;
     const userPing = `@[${escapeMd(name)}](${id})`;
 
-    const succ = await unmute(id);
+    const succ = await unban(null, id, null, null, true, false, muid);
     if (!succ) {
       return `User ${userPing} is not muted`;
     }

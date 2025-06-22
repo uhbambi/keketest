@@ -1,8 +1,8 @@
 /*
  * keeping track of open popups
  */
-import { unload } from '../store/actions';
-import { buildPopUpUrl } from '../components/windows/popUpAvailable';
+import { unload } from '../store/actions/index.js';
+import { buildPopUpUrl } from '../components/windows/popUpAvailable.js';
 
 const wins = [];
 

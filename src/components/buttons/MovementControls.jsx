@@ -18,8 +18,8 @@ import {
 
 import {
   setMoveU, setMoveV, setMoveW, cancelMove,
-} from '../../store/actions';
-import { selectMovementControlProps } from '../../store/selectors/gui';
+} from '../../store/actions/index.js';
+import { selectMovementControlProps } from '../../store/selectors/gui.js';
 
 const MovementControls = () => {
   const [render, setRender] = useState(false);

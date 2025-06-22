@@ -4,7 +4,7 @@
 
 /* eslint-disable max-len */
 
-import { getTTag } from '../core/ttag';
+import { getTTag } from '../middleware/ttag.js';
 
 function getHtml(description, text, host, lang) {
   const { jt, t } = getTTag(lang);

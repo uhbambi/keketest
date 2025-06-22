@@ -1,10 +1,9 @@
 /*
  * route providing captcha
  */
-import logger from '../core/logger';
-import { requestCaptcha } from '../core/captchaserver';
-import { getIPFromRequest } from '../utils/ip';
-import { setCaptchaSolution, isTrusted } from '../data/redis/captcha';
+import logger from '../core/logger.js';
+import { requestCaptcha } from '../core/captchaserver.js';
+import { setCaptchaSolution, isTrusted } from '../data/redis/captcha.js';
 
 async function captcha(req, res) {
   res.set({
@@ -12,11 +11,11 @@ async function captcha(req, res) {
     'Cache-Control': 'no-cache, no-store, must-revalidate',
   });
 
-  const ip = getIPFromRequest(req);
+  const { ipString } = req.ip;
 
   try {
     const [trusted, [err, text, data, id]] = await Promise.all([
-      isTrusted(ip, req.headers['user-agent']),
+      isTrusted(ipString, req.headers['user-agent']),
       new Promise((resolve) => {
         requestCaptcha((...args) => resolve(args));
       }),
@@ -26,7 +25,7 @@ async function captcha(req, res) {
       throw new Error(err);
     }
     setCaptchaSolution(text, id);
-    logger.info(`CAPTCHA ${ip} got captcha with text: ${text}`);
+    logger.info(`CAPTCHA ${ipString} got captcha with text: ${text}`);
 
     res.set({
       'Content-Type': 'image/svg+xml',

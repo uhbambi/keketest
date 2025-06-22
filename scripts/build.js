@@ -3,18 +3,21 @@
  * Lets split that here
  */
 
-const path = require('path');
-const fs = require('fs');
-const readline = require('readline');
-const { spawn } = require('child_process');
-const webpack = require('webpack');
-const validate = require("ttag-cli/dist/src/commands/validate").default;
+import path from 'path';
+import fs from 'fs';
+import readline from 'readline';
+import { spawn } from 'child_process';
+import webpack from 'webpack';
+import validate from 'ttag-cli/dist/src/commands/validate.js';
 
-const minifyCss = require('./minifyCss');
-const createImages = require('./createImages');
-const zipDir = require('./zipDirectory');
-const serverConfig = require('../webpack.config.server.js');
-const clientConfig = require('../webpack.config.client.js');
+import minifyCss from './minifyCss.js';
+import createImages from './createImages.js';
+import zipDir from './zipDirectory.js';
+import serverConfig from '../webpack.config.server.js';
+import clientConfig from '../webpack.config.client.js';
+
+const __filename = import.meta.filename;
+const __dirname = import.meta.dirname;
 
 let langs = 'all';
 let doBuildServer = false;
