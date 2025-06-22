@@ -17,6 +17,8 @@ export function getHostFromRequest(req, includeProto = true, stripSub = false) {
   if (stripSub) {
     if (host.lastIndexOf('.') !== host.indexOf('.')) {
       host = host.slice(host.indexOf('.'));
+    } else if (!includeProto && host.startsWith('localhost')) {
+      return 'localhost';
     } else {
       host = `.${host}`;
     }

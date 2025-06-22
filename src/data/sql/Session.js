@@ -49,7 +49,6 @@ export async function createSession(uid, durationHours) {
     const openSessions = await Session.count({ where: { uid } });
     if (openSessions > 100) {
       await sequelize.query(
-        // eslint-disable-next-line max-len
         `DELETE t FROM Sessions t JOIN (
   SELECT id FROM Sessions WHERE uid = :uid ORDER BY id ASC LIMIT 10
 ) AS oldest ON t.id = oldest.id`, {
@@ -141,9 +140,9 @@ bu.id AS 'blocked.id', bu.name AS 'blocked.name' FROM Users u
   LEFT JOIN Channels c ON c.id = ucm.cid
   LEFT JOIN UserChannels ucmd ON ucmd.cid = c.id AND c.type = ${CHANNEL_TYPES.DM} AND ucmd.uid != u.id
   LEFT JOIN Users ucu ON ucu.id = ucmd.uid
-WHERE s.token = :token`, {
+WHERE s.token = :token AND (s.expires > NOW() OR s.expires IS NULL)`, {
         /* eslint-enable max-len */
-        replacements: { token },
+        replacements: { token: generateTokenHash(token) },
         raw: true,
         type: QueryTypes.SELECT,
       });

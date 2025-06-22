@@ -204,7 +204,7 @@ export async function openSession(req, res, userId, durationHours = 720) {
    * closing the browser
    */
   if (durationHours) {
-    cookieOptions.expires = Date.now(durationHours * HOUR);
+    cookieOptions.expires = new Date(Date.now() + durationHours * HOUR);
   }
 
   res.cookie('ppfun.session', token, cookieOptions);

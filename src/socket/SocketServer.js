@@ -253,11 +253,12 @@ class SocketServer {
      */
     const { origin } = headers;
     const host = getHostFromRequest(request, false, true);
-    if (!origin
-      || !`.${origin.slice(origin.indexOf('//') + 2)}`.endsWith(host)
+    if ((!origin
+      || !`.${origin.slice(origin.indexOf('//') + 2)}`.endsWith(host))
+      && origin !== '127.0.0.1' && host !== 'localhost'
     ) {
       // eslint-disable-next-line max-len
-      logger.info(`Rejected CORS request on websocket from ${ipString} via ${headers.origin}, expected ${getHostFromRequest(request, false, true)}`);
+      logger.info(`Rejected CORS request on websocket from ${ipString} via ${origin}, expected ${host}`);
       socket.write('HTTP/1.1 403 Forbidden\r\n\r\n');
       socket.destroy();
       return;
