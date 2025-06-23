@@ -285,15 +285,22 @@ WHERE ${(where.length === 1) ? where[0] : `(${where.join(' OR ')})`}`, {
 /**
  * update lastSeen timestamps of IP
  * @param ipString ip as string
+ * @return sucess
  */
 export async function touchIP(ipString) {
   try {
-    await IP.update({ lastSeen: Sequelize.fn('NOW') }, {
-      where: { ip: Sequelize.fn('IP_TO_BIN', ipString) },
-    });
+    await sequelize.query(
+      'UPDATE IPs SET lastSeen = NOW() WHERE ip = IP_TO_BIN(?)', {
+        replacements: [ipString],
+        raw: true,
+        type: QueryTypes.UPDATE,
+      },
+    );
+    return true;
   } catch (error) {
     console.error(`SQL Error on touchIP: ${error.message}`);
   }
+  return false;
 }
 
 /**
@@ -306,16 +313,15 @@ export async function getIPofIID(uuid) {
     return null;
   }
   try {
-    const result = await IP.findOne({
-      attributes: [
-        [Sequelize.fn('BIN_TO_IP', Sequelize.col('ip')), 'ip'],
-      ],
-      where: {
-        uuid: Sequelize.fn('UUID_TO_BIN', uuid),
+    const result = await sequelize.query(
+      // eslint-disable-next-line max-len
+      'SELECT BIN_TO_IP(i.ip) AS \'ip\' FROM IPs i WHERE i.uuid = UUID_TO_BIN(?)', {
+        replacements: [uuid],
+        raw: true,
+        type: QueryTypes.SELECT,
       },
-      raw: true,
-    });
-    return result?.ip;
+    );
+    return result[0]?.ip;
   } catch (err) {
     console.error(`SQL Error on getIPofIID: ${err.message}`);
   }
@@ -329,16 +335,15 @@ export async function getIPofIID(uuid) {
  */
 export async function getIIDofIP(ipString) {
   try {
-    const result = await IP.findOne({
-      attributes: [
-        [Sequelize.fn('BIN_TO_UUID', Sequelize.col('uuid')), 'uuid'],
-      ],
-      where: {
-        ip: Sequelize.fn('IP_TO_BIN', ipString),
+    const result = await sequelize.query(
+      // eslint-disable-next-line max-len
+      'SELECT BIN_TO_UUID(i.uuid) AS \'iid\' FROM IPs i WHERE i.ip = IP_TO_BIN(?)', {
+        replacements: [ipString],
+        raw: true,
+        type: QueryTypes.SELECT,
       },
-      raw: true,
-    });
-    return result?.uuid;
+    );
+    return result[0]?.iid;
   } catch (err) {
     console.error(`SQL Error on getIIDofIP: ${err.message}`);
   }
@@ -352,32 +357,38 @@ export async function getIIDofIP(ipString) {
  */
 export async function getIPsOfIIDs(uuids) {
   const idToIPMap = new Map();
-  const where = {};
+
+  let where = '';
+  let replacements;
   if (uuids) {
     if (Array.isArray(uuids)) {
       if (uuids.length && uuids.length <= 300) {
-        where.uuid = uuids.map((u) => Sequelize.fn('UUID_TO_BIN', u));
+        const placeholder = uuids
+          .map(() => 'SELECT UUID_TO_BIN(?)').join(' UNION ALL ');
+        where += `i.uuid IN (${placeholder})`;
+        replacements = uuids;
       }
     } else {
-      where.uuid = Sequelize.fn('UUID_TO_BIN', uuids);
+      where += 'i.uuid = UUID_TO_BIN(?)';
+      replacements = [uuids];
     }
   }
 
-  if (!where.uuid) {
+  if (!replacements) {
     return idToIPMap;
   }
 
   try {
-    const result = await IP.findAll({
-      attributes: [
-        [Sequelize.fn('BIN_TO_IP', Sequelize.col('ip')), 'ip'],
-        [Sequelize.fn('BIN_TO_UUID', Sequelize.col('uuid')), 'uuid'],
-      ],
-      where,
-      raw: true,
-    });
+    const result = await sequelize.query(
+      `SELECT BIN_TO_IP(i.ip) AS 'ip', BIN_TO_UUID(i.uuid) AS 'iid' FROM IPs i
+WHERE ${where}`, {
+        replacements,
+        raw: true,
+        type: QueryTypes.SELECT,
+      },
+    );
     result.forEach((obj) => {
-      idToIPMap.set(obj.uuid, obj.ip);
+      idToIPMap.set(obj.iid, obj.ip);
     });
   } catch (err) {
     console.error(`SQL Error on getIPsOfIIDs: ${err.message}`);
@@ -392,32 +403,38 @@ export async function getIPsOfIIDs(uuids) {
  */
 export async function getIIDsOfIPs(ipStrings) {
   const ipToIdMap = new Map();
-  const where = {};
+
+  let where = '';
+  let replacements;
   if (ipStrings) {
     if (Array.isArray(ipStrings)) {
       if (ipStrings.length && ipStrings.length <= 300) {
-        where.ip = ipStrings.map((i) => Sequelize.fn('IP_TO_BIN', i));
+        const placeholder = ipStrings
+          .map(() => 'SELECT IP_TO_BIN(?)').join(' UNION ALL ');
+        where += `i.ip IN (${placeholder})`;
+        replacements = ipStrings;
       }
     } else {
-      where.ip = Sequelize.fn('UUID_TO_BIN', ipStrings);
+      where += 'i.ip = IP_TO_BIN(?)';
+      replacements = [ipStrings];
     }
   }
 
-  if (!where.ip) {
+  if (!replacements) {
     return ipToIdMap;
   }
 
   try {
-    const result = await IP.findAll({
-      attributes: [
-        [Sequelize.fn('BIN_TO_IP', Sequelize.col('ip')), 'ip'],
-        [Sequelize.fn('BIN_TO_UUID', Sequelize.col('uuid')), 'uuid'],
-      ],
-      where,
-      raw: true,
-    });
+    const result = await sequelize.query(
+      `SELECT BIN_TO_IP(i.ip) AS 'ip', BIN_TO_UUID(i.uuid) AS 'iid' FROM IPs i
+      WHERE ${where}`, {
+        replacements,
+        raw: true,
+        type: QueryTypes.SELECT,
+      },
+    );
     result.forEach((obj) => {
-      ipToIdMap.set(obj.ip, obj.uuid);
+      ipToIdMap.set(obj.ip, obj.iid);
     });
   } catch (error) {
     console.error(`SQL Error on getIIDsOfIPs: ${error.message}`);
