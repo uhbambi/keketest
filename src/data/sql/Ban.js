@@ -60,32 +60,6 @@ const Ban = sequelize.define('Ban', {
     defaultValue: DataTypes.NOW,
     allowNull: false,
   },
-
-  /*
-   * virtual
-   */
-
-  ban: {
-    type: DataTypes.VIRTUAL,
-    get() {
-      return !!(this.flags & 0x01);
-    },
-    set(num) {
-      const val = (num) ? (this.flags | 0x01) : (this.flags & ~0x01);
-      this.setDataValue('flags', val);
-    },
-  },
-
-  mute: {
-    type: DataTypes.VIRTUAL,
-    get() {
-      return !!(this.flags & 0x02);
-    },
-    set(num) {
-      const val = (num) ? (this.flags | 0x02) : (this.flags & ~0x02);
-      this.setDataValue('flags', val);
-    },
-  },
 });
 
 /**
@@ -514,13 +488,16 @@ export async function ban(
     const transaction = await sequelize.transaction();
 
     try {
-      /*
-       * Setting ban and mute here only works because of the virtual setters
-       * and they only work in combination.
-       * If we would upsert or update a ban, setting one flag cancels the other
-       */
+      let flags = 0;
+      if (ban) {
+        flags |= 0x01;
+      }
+      if (mute) {
+        flags |= 0.02;
+      }
+
       const banModel = await Ban.create({
-        reason, muid, ban, mute,
+        reason, muid, flags,
         expires: (duration) ? new Date(Date.now() + duration * 1000) : null,
       }, { transaction });
       const bid = banModel.id;
