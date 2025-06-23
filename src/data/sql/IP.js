@@ -317,52 +317,45 @@ export async function getIdsToIps(ips) {
 /**
  * get basic informations of ip
  * @param ipOrIid ip as string or uuid
+ * @return null | {
+ *   iid,
+ *   ipString,
+ *   country,
+ *   cidr,
+ *   org,
+ *   descr,
+ *   asn,
+ *   type,
+ *   isProxy,
+ *   isWhitelisted,
+ * }
  */
 export async function getInfoToIp(ipOrIid) {
   try {
     let where;
     if (ipOrIid.includes('-')) {
-      /* uuid */
-      where = { uuid: Sequelize.fn('UUID_TO_BIN', ipOrIid) };
+      where = 'ip.uuid = UUID_TO_BIN(?)';
     } else {
-      where = { ip: Sequelize.fn('IP_TO_BIN', ipOrIid) };
+      where = 'ip.ip = IP_TO_BIN(?)';
     }
-    return await IP.findOne({
-      attributes: [
-        [Sequelize.fn('BIN_TO_IP', Sequelize.col('ip')), 'ipString'],
-        [Sequelize.fn('BIN_TO_UUID', Sequelize.col('uuid')), 'uuid'],
-        [Sequelize.col('range.country'), 'country'],
-        [Sequelize.fn('CONCAT',
-          Sequelize.fn('BIN_TO_IP', Sequelize.col('$range.min$')),
-          '/',
-          Sequelize.col('range.mask'),
-        ), 'cidr'],
-        [Sequelize.col('range.org'), 'org'],
-        [Sequelize.col('range.descr'), 'descr'],
-        [Sequelize.col('range.asn'), 'asn'],
-        [Sequelize.col('proxy.type'), 'type'],
-        [Sequelize.col('proxy.isProxy'), 'isProxy'],
-        [Sequelize.literal('whitelist.ip IS NOT NULL'), 'isWhitelisted'],
-      ],
-      include: [{
-        association: 'range',
-        attributes: [],
-        where: {
-          expires: { [Op.gt]: Sequelize.fn('NOW') },
-        },
-      }, {
-        association: 'proxy',
-        attributes: [],
-        where: {
-          expires: { [Op.gt]: Sequelize.fn('NOW') },
-        },
-      }, {
-        association: 'whitelist',
-        attributes: [],
-      }],
-      where,
-      raw: true,
-    });
+    const ipInfo = await sequelize.query(
+      /* eslint-disable max-len */
+      `SELECT ip.uuid AS 'iid', BIN_TO_IP(ip.ip) AS 'ipString',
+COALESCE(r.country, 'xx') AS 'country', r.org, r.descr, r.asn, CONCAT(BIN_TO_IP(r.min), '/', r.mask) AS 'cidr',
+p.type, COALESCE(p.isProxy, 0) AS isProxy, w.ip IS NOT NULL AS isWhitelisted
+FROM IPs ip
+  LEFT JOIN Ranges r ON r.id = ip.rid
+  LEFT JOIN Proxies p ON p.ip = ip.ip
+  LEFT JOIN ProxyWhitelists w ON w.ip = ip.ip
+WHERE ${where}`, {
+        /* eslint-enable max-len */
+        replacements: [ipOrIid],
+        raw: true,
+        type: QueryTypes.SELECT,
+      });
+    if (ipInfo.length) {
+      return ipInfo[0];
+    }
   } catch (error) {
     console.error(`SQL Error on getInfoToIp: ${error.message}`);
   }

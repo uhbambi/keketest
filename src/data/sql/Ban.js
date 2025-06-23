@@ -166,7 +166,7 @@ async function removeBans(bans, modUid) {
         reason: b.reason,
         flags: b.flags,
         started: b.createdAt,
-        ended: b.expires,
+        ended: b.expires || Date.now(),
         muid: b.muid,
         liftedAt: null,
       })), {
@@ -179,7 +179,7 @@ async function removeBans(bans, modUid) {
         reason: b.reason,
         flags: b.flags,
         started: b.createdAt,
-        ended: b.expires,
+        ended: b.expires || Date.now(),
         muid: b.muid,
         lmuid: modUid,
       })), {
@@ -190,7 +190,7 @@ async function removeBans(bans, modUid) {
     /* ips */
     let rows = await IPBan.findAll({
       attributes: ['bid', 'ip'],
-      where: { uuid: banIds },
+      where: { bid: banIds },
       raw: true,
       transaction,
     });
@@ -223,13 +223,13 @@ async function removeBans(bans, modUid) {
 
     if (rows.length) {
       await ThreePIDBanHistory.bulkCreate(rows.map((row) => ({
-        bid: row.bid, uid: row.tid,
+        bid: row.bid, tid: row.tid,
       })), { transaction });
     }
 
     /* ban destruction will cascade to junction tables */
     await Ban.destroy({
-      where: { bid: banIds },
+      where: { id: banIds },
       transaction,
     });
 
@@ -304,10 +304,7 @@ export async function unbanByUuid(uuid, modUid) {
  * @param mute boolean if muting
  * @param bans boolean if banning
  * @return [{
- *   id, uuid, buuid, reason, flags, expires, createdAt, muid,
- *   mod: {
- *     id, name,
- *   },
+ *   id, uuid, buuid, reason, flags, expires, createdAt, muid, mname
  *   users: [{ id }, ...]
  *   ips: [{ ipString }, ...]
  * }, ...],
@@ -391,43 +388,43 @@ export async function getBanInfos(
       }
     }
 
-    let affectedBanIds = [];
-    if (unions.length) {
-      let query;
-      if (unions.length > 1) {
-        // eslint-disable-next-line max-len
-        query = `SELECT DISTINCT b.id FROM (\n  ${unions.join('\n  UNION ALL\n  ')}\n) AS b`;
-      } else {
-        [query] = unions;
-      }
-
-      affectedBanIds = await sequelize.query(query, {
-        replacements,
-        raw: true,
-        type: QueryTypes.SELECT,
-      });
-      affectedBanIds = affectedBanIds.map((b) => b.id);
-    }
-
     if (banUuids) {
       if (Array.isArray(banUuids)) {
         if (banUuids.length) {
-          if (!affectedBanIds.length) {
-            affectedBanIds = banUuids;
-          } else {
-            banUuids.forEach((uuid) => {
-              if (!affectedBanIds.includes(uuid)) {
-                affectedBanIds.push(uuid);
-              }
-            });
-          }
+          unions.push(
+            `SELECT bb.id FROM Bans bb WHERE bb.uuid IN (${
+              banUuids.map(() => 'SELECT UUID_TO_BIN(?)').join(' UNION ALL ')
+            })`,
+          );
+          replacements = replacements.concat(banUuids);
         }
       } else {
-        affectedBanIds.push(banUuids);
+        unions.push(
+          'SELECT bb.id FROM Bans bb WHERE bb.uuid = UUID_TO_BIN(?)',
+        );
+        replacements.push(banUuids);
       }
     }
 
-    console.log('BAN IDS', affectedBanIds);
+    if (!unions.length) {
+      return [];
+    }
+
+    let query;
+    if (unions.length > 1) {
+      // eslint-disable-next-line max-len
+      query = `SELECT DISTINCT b.id FROM (\n  ${unions.join('\n  UNION ALL\n  ')}\n) AS b`;
+    } else {
+      [query] = unions;
+    }
+
+    let affectedBanIds = await sequelize.query(query, {
+      replacements,
+      raw: true,
+      type: QueryTypes.SELECT,
+    });
+    affectedBanIds = affectedBanIds.map((b) => b.id);
+
     if (!affectedBanIds.length) {
       return [];
     }
@@ -607,11 +604,6 @@ export async function unban(
     await removeBans(bans, muid);
     bans.forEach((b) => {
       b.users.forEach(({ id: uid }) => {
-        if (!unbannedUserIds.includes(uid)) {
-          unbannedUserIds.push(uid);
-        }
-      });
-      b.tpids.forEach(({ uid }) => {
         if (!unbannedUserIds.includes(uid)) {
           unbannedUserIds.push(uid);
         }

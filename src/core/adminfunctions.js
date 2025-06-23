@@ -109,8 +109,8 @@ function printBans(bans) {
   while (i > 0) {
     i -= 1;
     const {
-      buuid, reason, flags, expires, createdAt, mod, users, tpids, ips,
-    } = ban;
+      buuid, reason, flags, expires, createdAt, muid, mname, users, tpids, ips,
+    } = bans[i];
     let type = '';
     if (flags & 0x01) type = 'Ban';
     else if (flags & 0x02) {
@@ -119,14 +119,11 @@ function printBans(bans) {
       }
       type += 'Mute';
     }
-    if (i > 0) {
-      out += '\n';
-    }
     out += `${type}: ${buuid}\nReason: ${reason}\n`;
     if (expires) out += `Expires: ${expires.toLocaleString()}\n`;
     out += `Created: ${createdAt.toLocaleString()}\n`;
-    if (mod?.id) {
-      out += `by: @[${mod.name}](${mod.id})\n`;
+    if (muid) {
+      out += `by: @[${mname}](${muid})\n`;
     }
     out += 'Affects: ';
     if (users?.length) out += ` Users: ${users.map((u) => u.id).join(', ')} `;
@@ -138,6 +135,9 @@ function printBans(bans) {
       ).join(', ')}`;
     }
     out += '\n';
+    if (i > 0) {
+      out += '\n';
+    }
   }
   return out;
 }
@@ -157,7 +157,7 @@ export async function executeIIDAction(
   identifiers,
   reason,
   /* duration in ms */
-  expire,
+  time,
   muid,
   logger = null,
 ) {
@@ -189,9 +189,8 @@ export async function executeIIDAction(
       break;
     }
     case 'ban': {
-      /* duration in seconds */
-      duration = Math.ceil(parseInt(expire, 10) / 1000);
-      if (Number.isNaN(duration) || (duration && duration < Date.now())) {
+      duration = Math.ceil(parseInt(time, 10) / 1000);
+      if (Number.isNaN(duration) || (duration < 0)) {
         return 'No valid expiration time';
       }
       if (!reason?.trim()) {
@@ -205,10 +204,10 @@ export async function executeIIDAction(
       }
       identifiers.split('\n').forEach((i) => {
         i = i.trim();
-        const userId = parseInt(i, 10);
-        if (Number.isNaN(userId)) {
+        if (i.indexOf('-') !== -1) {
           identifierUuidList.push(i);
         } else {
+          const userId = parseInt(i, 10);
           identifierUserIdList.push(userId);
         }
       });
@@ -228,8 +227,7 @@ export async function executeIIDAction(
 
   switch (action) {
     case 'status': {
-      const userId = parseInt(iidOrUserId, 10);
-      if (Number.isNaN(userId)) {
+      if (iidOrUserId.indexOf('-') !== -1 || iidOrUserId.indexOf('.') !== -1) {
         /* is IID */
         const ip = await getInfoToIp(iidOrUserId);
         if (!ip) {
@@ -243,10 +241,12 @@ export async function executeIIDAction(
         let out = `IP: ${iidOrUserId}\nCountry: ${country}\nCIDR: ${cidr}\norg: ${org}\ndesc: ${descr}\nasn: ${asn}\nType: ${type}\nisProxy: ${isProxy}\nisWhitelisted: ${isWhitelisted}\n`;
         const banInfos = await getBanInfos(ip.ipString, null, null, null);
         if (banInfos?.length) {
+          out += '\n';
           out += printBans(banInfos);
         }
         return out;
       }
+      const userId = parseInt(iidOrUserId, 10);
       const user = await getUserInfos(userId);
       if (!user) {
         return 'No such user found';
@@ -255,6 +255,7 @@ export async function executeIIDAction(
       let out = `ID: ${userId}\nName: ${user.name}\nUserlvl: ${user.userlvl}\nFlags: ${user.flags}\n`;
       const banInfos = await getBanInfos(null, userId, null, null);
       if (banInfos?.length) {
+        out += '\n';
         out += printBans(banInfos);
       }
       return out;

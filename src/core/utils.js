@@ -535,10 +535,10 @@ export function coordsFromString(url) {
   return coords;
 }
 
-/*
+/**
  * parse interval in s/m/h form to timestamp
  * @param interval string like "2d"
- * @return timestamp of now - interval
+ * @return duration in ms
  */
 export function parseInterval(interval) {
   if (!interval) {

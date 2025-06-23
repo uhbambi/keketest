@@ -78,8 +78,6 @@ const Help = () => {
       <h3>{t`Banned? Detected as Proxy?`}</h3>
       <div>
         <p>{jt`If you got detected as proxy, but you aren't using one, or think that you got wrongfully banned, please go to our ${guildedLink} or send us an e-mail to ${mailLink} and, in case of a ban, include the BID you got in the ban message.`}</p>
-        <p>{t`If you get asked for it, provide the following:`}</p>
-        <GetIID />
       </div>
       <h3>{t`Identifiers`}</h3>
       <p>{t`If you talk to moderators or administrators, you might get asked for one of the following identifiers:`}</p>

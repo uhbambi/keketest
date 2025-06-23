@@ -4,7 +4,7 @@
 import { getBanInfos } from '../../data/sql/Ban.js';
 
 async function baninfo(req, res) {
-  const { t, user, ip: { ipString } } = req.ttag;
+  const { ttag: { t }, user, ip: { ipString } } = req;
 
   const bans = await getBanInfos(ipString, user?.id, null, null);
 
@@ -18,7 +18,7 @@ async function baninfo(req, res) {
     /* null if permanent */
     sleft: ban.expires
       && Math.ceil((ban.expires.getTime() - Date.now()) / 1000),
-    mod: ban.mod && `${ban.mod.name} (${ban.mod.id})`,
+    mod: ban.muid && `${ban.mname} (${ban.muid})`,
   }));
 
   res.status(200).json(infos);

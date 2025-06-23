@@ -53,9 +53,6 @@ async function submitIIDAction(
       if (!reason) {
         return t`You must enter a reason`;
       }
-      if (time > 0) {
-        time += Date.now();
-      }
       data.append('reason', reason);
       data.append('time', time);
       // fall through
@@ -147,7 +144,7 @@ function ModIIDtools() {
             style={{
               display: 'inline-block',
               width: '100%',
-              maxWidth: '10em',
+              maxWidth: '37em',
             }}
             type="text"
             placeholder="xxxx-xxxxx-xxxx"
@@ -165,7 +162,7 @@ function ModIIDtools() {
             style={{
               display: 'inline-block',
               width: '100%',
-              maxWidth: '10em',
+              maxWidth: '37em',
             }}
             type="text"
             placeholder="xxxx-xxxxx-xxxx"
@@ -183,7 +180,7 @@ function ModIIDtools() {
             style={{
               display: 'inline-block',
               width: '100%',
-              maxWidth: '10em',
+              maxWidth: '37em',
             }}
             type="text"
             onChange={(evt) => {
@@ -195,14 +192,17 @@ function ModIIDtools() {
       {(iIDAction === 'ban' || iIDAction === 'unban') && (
         <p>
           IID, UID or BID:
-          <p>
-            <textarea
-              rows="10"
-              cols="17"
-              value={identifierList}
-              onChange={(e) => setIdentifierList(e.target.value)}
-            />
-          </p>
+          <br />
+          <textarea
+            style={{
+              width: '100%',
+              maxWidth: '37em',
+            }}
+            rows="10"
+            cols="17"
+            value={identifierList}
+            onChange={(e) => setIdentifierList(e.target.value)}
+          />
         </p>
       )}
       <p>
