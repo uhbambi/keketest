@@ -227,22 +227,33 @@ export async function findUserByIdOrName(id, name) {
  * @param id user id
  * @param index index of flag (see order in Model definition up there)
  * @param value 0 or 1, true or false
+ * @return success boolean
  */
 export async function setFlagOfUser(id, index, value) {
   try {
     const mask = 0x01 << index;
     if (value) {
-      await User.update({
-        flags: Sequelize.literal('flags | ?', mask),
-      }, { where: { id }, returning: false });
+      await sequelize.query(
+        'UPDATE Users SET flags = flags | ? WHERE id = ?', {
+          replacements: [mask, id],
+          raw: true,
+          type: QueryTypes.UPDATE,
+        },
+      );
     } else {
-      await User.update({
-        flags: Sequelize.literal('flags & ~(?)', mask),
-      }, { where: { id }, returning: false });
+      await sequelize.query(
+        'UPDATE Users SET flags = flags & ~(?) WHERE id = ?', {
+          replacements: [mask, id],
+          raw: true,
+          type: QueryTypes.UPDATE,
+        },
+      );
     }
+    return true;
   } catch (error) {
     console.error(`SQL Error on setFlagOfUser: ${error.message}`);
   }
+  return false;
 }
 
 /**
@@ -517,7 +528,7 @@ export async function getUserInfos(userId) {
 
 /**
  * take array of objects that include user ids and add
- * user informations if user is not private
+ * user informations if user if not private
  * @param rawRanks array of {id: userId, ...} objects
  */
 export async function populateIdObj(rawRanks) {

@@ -285,7 +285,7 @@ WHERE ${(where.length === 1) ? where[0] : `(${where.join(' OR ')})`}`, {
 /**
  * update lastSeen timestamps of IP
  * @param ipString ip as string
- * @return sucess
+ * @return sucess boolean
  */
 export async function touchIP(ipString) {
   try {
