@@ -17,9 +17,10 @@ import { rollCaptchaFonts } from './captchaserver.js';
 import { getBanInfos } from '../data/sql/Ban.js';
 import { ban, unban, whitelist, unwhitelist } from './ban.js';
 import {
-  getInfoToIp,
+  getIPInfos,
   getIPofIID,
-  getIIDofIP,
+  getIIDsOfIPs,
+  getIPsOfIIDs,
 } from '../data/sql/IP.js';
 import {
   getUserInfos, setUserLvl, getUserByUserLvl, name2Id,
@@ -44,26 +45,29 @@ import rollbackCanvasArea from './rollback.js';
  * @return text of success
  */
 export async function executeIPAction(action, ips, logger = null) {
-  const valueArray = ips.split('\n');
+  const inputValues = ips.split('\n').map((l) => l.trim());
+
+  let valueMap;
+  if (action === 'iidtoip') {
+    valueMap = await getIIDsOfIPs(inputValues);
+  } else if (action === 'iptoiid') {
+    valueMap = await getIPsOfIIDs(inputValues);
+  } else {
+    return `Failed to ${action}`;
+  }
+
   let out = '';
-  for (let i = 0; i < valueArray.length; i += 1) {
-    const value = valueArray[i].trim();
-    if (!value) {
-      continue;
+  for (let i = 0; i < inputValues.length; i += 1) {
+    const value = inputValues[i];
+    const map = valueMap.get(value);
+    if (map) {
+      out += map;
+    } else {
+      out += `Unknown: ${value}`;
     }
+    out += '\n';
 
     if (logger) logger(`${action} ${value}`);
-
-    if (action === 'iidtoip') {
-      const ip = await getIPofIID(value);
-      out += (ip) ? `${ip}\n` : `${value}\n`;
-      continue;
-    }
-
-    if (action === 'iptoiid') {
-      const iid = await getIIDofIP(value);
-      out += (iid) ? `${iid}\n` : `${value}\n`;
-    }
   }
   return out;
 }
@@ -227,33 +231,42 @@ export async function executeIIDAction(
 
   switch (action) {
     case 'status': {
-      if (iidOrUserId.indexOf('-') !== -1 || iidOrUserId.indexOf('.') !== -1) {
-        /* is IID */
-        const ip = await getInfoToIp(iidOrUserId);
-        if (!ip) {
+      let ipInfo;
+      let banInfos;
+      let out;
+      if (iidOrUserId.indexOf('-') !== -1) {
+        /* IID */
+        ipInfo = await getIPInfos(null, iidOrUserId);
+      } else if (iidOrUserId.indexOf('.') !== -1) {
+        /* IP */
+        ipInfo = await getIPInfos(iidOrUserId, null);
+      }
+
+      /* getIPInfos always returns Array */
+      if (ipInfo) {
+        if (!ipInfo.length) {
           return 'No such IID found';
         }
+        [ipInfo] = ipInfo;
+
         const {
           country, cidr, org,
           descr, asn, type, isProxy, isWhitelisted,
-        } = ip;
+        } = ipInfo;
         // eslint-disable-next-line max-len
-        let out = `IP: ${iidOrUserId}\nCountry: ${country}\nCIDR: ${cidr}\norg: ${org}\ndesc: ${descr}\nasn: ${asn}\nType: ${type}\nisProxy: ${isProxy}\nisWhitelisted: ${isWhitelisted}\n`;
-        const banInfos = await getBanInfos(ip.ipString, null, null, null);
-        if (banInfos?.length) {
-          out += '\n';
-          out += printBans(banInfos);
+        out = `IP: ${iidOrUserId}\nCountry: ${country}\nCIDR: ${cidr}\norg: ${org}\ndesc: ${descr}\nasn: ${asn}\nType: ${type}\nisProxy: ${isProxy}\nisWhitelisted: ${isWhitelisted}\n`;
+        banInfos = await getBanInfos(ipInfo.ipString, null, null, null);
+      } else {
+        /* UserID */
+        const userId = parseInt(iidOrUserId, 10);
+        const user = await getUserInfos(userId);
+        if (!user) {
+          return 'No such user found';
         }
-        return out;
+        // eslint-disable-next-line max-len
+        out = `ID: ${userId}\nName: ${user.name}\nUserlvl: ${user.userlvl}\nFlags: ${user.flags}\n`;
+        banInfos = await getBanInfos(null, userId, null, null);
       }
-      const userId = parseInt(iidOrUserId, 10);
-      const user = await getUserInfos(userId);
-      if (!user) {
-        return 'No such user found';
-      }
-      // eslint-disable-next-line max-len
-      let out = `ID: ${userId}\nName: ${user.name}\nUserlvl: ${user.userlvl}\nFlags: ${user.flags}\n`;
-      const banInfos = await getBanInfos(null, userId, null, null);
       if (banInfos?.length) {
         out += '\n';
         out += printBans(banInfos);
@@ -285,7 +298,7 @@ export async function executeIIDAction(
       if (bannedIpStrings.length || bannedUserIds.length) {
         return 'Successfully banned user';
       }
-      return 'Updated existing ban of user';
+      return 'Could not ban user';
     }
     case 'unban': {
       const [unbannedIpStrings, unbannedUserIds] = await unban(

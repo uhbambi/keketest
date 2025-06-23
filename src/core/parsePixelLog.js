@@ -4,8 +4,8 @@ import readline from 'readline';
 import { PIXELLOGGER_PREFIX } from './logger.js';
 import { getNamesToIds } from '../data/sql/User.js';
 import {
-  getIdsToIps,
-  getInfoToIps,
+  getIIDsOfIPs,
+  getIPInfos,
   getIPofIID,
 } from '../data/sql/IP.js';
 
@@ -230,13 +230,13 @@ export async function getSummaryFromArea(
   const uid2Name = await getNamesToIds(uids);
 
   const ipKeys = Object.keys(ips);
-  const ip2Info = await getInfoToIps(ipKeys);
+  const ip2Info = await getIPInfos(ipKeys);
 
   let printIIDs = false;
   let printUsers = false;
   const columns = ['rid', '#'];
   const types = ['number', 'number'];
-  if (ip2Info.size > 0) {
+  if (ip2Info.length > 0) {
     printIIDs = true;
     columns.push('IID', 'ct', 'cidr', 'org', 'pc');
     types.push('uuid', 'flag', 'cidr', 'string', 'string');
@@ -255,23 +255,16 @@ export async function getSummaryFromArea(
     const [pxls, uid, x, y, clr, ts] = ips[ip];
     const row = [i, pxls];
     if (printIIDs) {
-      const ipInfo = ip2Info.get(ip);
+      const ipInfo = ip2Info.find(({ ipString }) => ipString === ip);
       if (!ipInfo) {
         row.push('N/A', 'xx', 'N/A', 'N/A', 'N/A');
       } else {
-        let { pcheck } = ipInfo;
-        if (pcheck) {
-          const separator = pcheck.indexOf(',');
-          if (separator !== -1) {
-            pcheck = pcheck.slice(0, separator);
-          }
-        }
         row.push(
-          ipInfo.uuid,
+          ipInfo.iid,
           ipInfo.country,
           ipInfo.cidr,
           ipInfo.org || 'N/A',
-          pcheck || 'N/A',
+          ipInfo.type || 'N/A',
         );
       }
     }
@@ -341,7 +334,7 @@ export async function getPixelsFromArea(
   }
 
   const uid2Name = await getNamesToIds(uids);
-  const ip2Id = await getIdsToIps(ips);
+  const ip2Id = await getIIDsOfIPs(ips);
 
   const pixelF = (maxRows && pixels.length > maxRows)
     ? pixels.slice(maxRows * -1)

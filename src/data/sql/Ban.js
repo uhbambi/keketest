@@ -4,7 +4,7 @@ import crypto from 'crypto';
 import sequelize, { nestQuery } from './sequelize.js';
 import { HourlyCron } from '../../utils/cron.js';
 import BanHistory from './BanHistory.js';
-import { getIPsofIIDs } from './IP.js';
+import { getIPsOfIIDs } from './IP.js';
 import IPBan from './association_models/IPBan.js';
 import UserBan from './association_models/UserBan.js';
 import ThreePID from './ThreePID.js';
@@ -306,17 +306,17 @@ export async function unbanByUuid(uuid, modUid) {
 
 /**
  * get all bans for ips or user ids
- * @param userIds Array of user ids
- * @param ipStrings Array of ipStrings
- * @param ipUuids Array of ip uuids (IID)
- * @param banUuids Array of ban uuids (UID)
+ * @param ipStrings Array of multiple or single ipStrings
+ * @param userIds Array of multiple or single user ids
+ * @param ipUuids Array of multiple or single ip uuids (IID)
+ * @param banUuids Array of multiple or single ban uuids (UID)
  * @param mute boolean if muting
  * @param bans boolean if banning
  * @return [{
  *   id, uuid, buuid, reason, flags, expires, createdAt, muid, mname
  *   users: [{ id }, ...]
  *   ips: [{ ipString }, ...]
- * }, ...],
+ * }, ...]
  */
 export async function getBanInfos(
   // eslint-disable-next-line no-shadow
@@ -496,9 +496,9 @@ WHERE (b.flags & ?) = ? AND (b.expires > NOW() OR b.expires IS NULL) AND b.id ${
 
 /**
  * ban
- * @param userIds Array of user ids
- * @param ipStrings Array of ipStrings
- * @param ipUuids Array of ip uuids (IID)
+ * @param ipStrings Array of multiple or single ipStrings
+ * @param userIds Array of multiple or single user ids
+ * @param ipUuids Array of multiple or single ip uuids (IID)
  * @param mute boolean if muting
  * @param ban boolean if banning
  * @param reason reasoning as string
@@ -514,6 +514,11 @@ export async function ban(
     const transaction = await sequelize.transaction();
 
     try {
+      /*
+       * Setting ban and mute here only works because of the virtual setters
+       * and they only work in combination.
+       * If we would upsert or update a ban, setting one flag cancels the other
+       */
       const banModel = await Ban.create({
         reason, muid, ban, mute,
         expires: (duration) ? new Date(Date.now() + duration * 1000) : null,
@@ -521,7 +526,6 @@ export async function ban(
       const bid = banModel.id;
 
       const promises = [];
-      /* userIds is either null or an Array or a sinlge userId */
       if (userIds > 0) {
         const threePIDs = await ThreePID.findAll({
           where: { uid: userIds },
@@ -545,7 +549,9 @@ export async function ban(
       }
 
       if (ipUuids?.length) {
-        const mappedIPStrings = await getIPsofIIDs(ipUuids);
+        /* returns a Map */
+        let mappedIPStrings = await getIPsOfIIDs(ipUuids);
+        mappedIPStrings = Array.from(mappedIPStrings.values());
         if (Array.isArray(ipStrings)) {
           ipStrings = ipStrings.concat(mappedIPStrings);
         } else if (ipStrings) {
@@ -585,10 +591,10 @@ export async function ban(
 
 /**
  * unban by user and/or ip
- * @param userIds Array of user ids
- * @param ipStrings Array of ipStrings
- * @param ipUuids Array of ip uuids (IID)
- * @param banUuids Array of ban uuids (UID)
+ * @param ipStrings Array of multiple or single ipStrings
+ * @param userIds Array of multiple or single user ids
+ * @param ipUuids Array of multiple or single ip uuids (IID)
+ * @param banUuids Array of multiple or single ban uuids (UID)
  * @param mute boolean if unmuting
  * @param ban boolean if unbanning
  * @param muid id of the mod that bans

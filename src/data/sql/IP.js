@@ -1,4 +1,4 @@
-import Sequelize, { DataTypes, QueryTypes, Op } from 'sequelize';
+import Sequelize, { DataTypes, QueryTypes } from 'sequelize';
 import crypto from 'crypto';
 
 import sequelize, { nestQuery } from './sequelize.js';
@@ -201,6 +201,88 @@ export async function saveIPIntel(ipString, whoisData, pcData) {
 }
 
 /**
+ * get basic informations of ip
+ * @param ipStrings Array of multiple or single ipStrings
+ * @param ipUuids Array of multiple or single ip uuids (IID)
+ * @return [{
+ *   iid,
+ *   ipString,
+ *   country,
+ *   cidr,
+ *   org,
+ *   descr,
+ *   asn,
+ *   type,
+ *   isProxy,
+ *   isWhitelisted,
+ * }, ...]
+ */
+export async function getIPInfos(ipStrings, ipUuids) {
+  try {
+    const where = [];
+    let replacements = [];
+    let requestAmount = 0;
+
+    if (ipStrings) {
+      if (Array.isArray(ipStrings)) {
+        if (ipStrings.length) {
+          where.push(`ip.ip IN (${
+            ipStrings.map(() => 'SELECT IP_TO_BIN(?)').join(' UNION ALL ')
+          })`);
+          replacements = replacements.concat(ipStrings);
+          requestAmount += ipStrings.length;
+        }
+      } else {
+        where.push('ip.ip = IP_TO_BIN(?)');
+        replacements.push(ipStrings);
+        requestAmount += 1;
+      }
+    }
+
+    if (ipUuids) {
+      if (Array.isArray(ipUuids)) {
+        if (ipUuids.length) {
+          where.push(`ip.uuid IN (${
+            ipUuids.map(() => 'SELECT UUID_TO_BIN(?)').join(' UNION ALL ')
+          })`);
+          replacements = replacements.concat(ipUuids);
+          requestAmount += ipUuids.length;
+        }
+      } else {
+        where.push('ip.uuid = UUID_TO_BIN(?)');
+        replacements.push(ipUuids);
+        requestAmount += 1;
+      }
+    }
+
+    if (requestAmount === 0 || requestAmount > 300) {
+      return [];
+    }
+
+    const ipInfos = await sequelize.query(
+      /* eslint-disable max-len */
+      `SELECT BIN_TO_UUID(ip.uuid) AS 'iid', BIN_TO_IP(ip.ip) AS 'ipString',
+COALESCE(r.country, 'xx') AS 'country', r.org, r.descr, r.asn, CONCAT(BIN_TO_IP(r.min), '/', r.mask) AS 'cidr',
+p.type, COALESCE(p.isProxy, 0) AS isProxy, w.ip IS NOT NULL AS isWhitelisted
+FROM IPs ip
+  LEFT JOIN Ranges r ON r.id = ip.rid
+  LEFT JOIN Proxies p ON p.ip = ip.ip
+  LEFT JOIN ProxyWhitelists w ON w.ip = ip.ip
+WHERE ${(where.length === 1) ? where[0] : `(${where.join(' OR ')})`}`, {
+        /* eslint-enable max-len */
+        replacements,
+        raw: true,
+        type: QueryTypes.SELECT,
+      });
+
+    return ipInfos;
+  } catch (error) {
+    console.error(`SQL Error on getInfoToIp: ${error.message}`);
+  }
+  return [];
+}
+
+/**
  * update lastSeen timestamps of IP
  * @param ipString ip as string
  */
@@ -266,142 +348,79 @@ export async function getIIDofIP(ipString) {
 /**
  * get IPs of IIDs (which is just the uuid in this table)
  * @param uuid Array of IID strings
- * @return Array of IPs
+ * @return Map<{ uuid: ipString }>
  */
-export async function getIPsofIIDs(uuids) {
-  if (!uuids?.length) {
-    return null;
-  }
-  try {
-    const result = await IP.findAll({
-      attributes: [
-        [Sequelize.fn('BIN_TO_IP', Sequelize.col('ip')), 'ip'],
-      ],
-      where: {
-        uuid: uuids.map((uuid) => Sequelize.fn('UUID_TO_BIN', uuid)),
-      },
-      raw: true,
-    });
-    if (result) {
-      return result.map((m) => m.ip);
+export async function getIPsOfIIDs(uuids) {
+  const idToIPMap = new Map();
+  const where = {};
+  if (uuids) {
+    if (Array.isArray(uuids)) {
+      if (uuids.length && uuids.length <= 300) {
+        where.uuid = uuids.map((u) => Sequelize.fn('UUID_TO_BIN', u));
+      }
+    } else {
+      where.uuid = Sequelize.fn('UUID_TO_BIN', uuids);
     }
-  } catch (err) {
-    console.error(`SQL Error on getIPsofIIDs: ${err.message}`);
   }
-  return null;
-}
 
-export async function getIdsToIps(ips) {
-  const ipToIdMap = new Map();
-  if (!ips.length || ips.length > 300) {
-    return ipToIdMap;
+  if (!where.uuid) {
+    return idToIPMap;
   }
+
   try {
     const result = await IP.findAll({
       attributes: [
         [Sequelize.fn('BIN_TO_IP', Sequelize.col('ip')), 'ip'],
         [Sequelize.fn('BIN_TO_UUID', Sequelize.col('uuid')), 'uuid'],
       ],
-      where: { ip: ips.map((ip) => Sequelize.fn('IP_TO_BIN', ip)) },
+      where,
+      raw: true,
+    });
+    result.forEach((obj) => {
+      idToIPMap.set(obj.uuid, obj.ip);
+    });
+  } catch (err) {
+    console.error(`SQL Error on getIPsOfIIDs: ${err.message}`);
+  }
+  return idToIPMap;
+}
+
+/**
+ * get IIDs of IPs (which is just the uuid in this table)
+ * @param ipStrings Array of or a single ip string
+ * @return Map<{ ipString: uuid, ... }>
+ */
+export async function getIIDsOfIPs(ipStrings) {
+  const ipToIdMap = new Map();
+  const where = {};
+  if (ipStrings) {
+    if (Array.isArray(ipStrings)) {
+      if (ipStrings.length && ipStrings.length <= 300) {
+        where.ip = ipStrings.map((i) => Sequelize.fn('IP_TO_BIN', i));
+      }
+    } else {
+      where.ip = Sequelize.fn('UUID_TO_BIN', ipStrings);
+    }
+  }
+
+  if (!where.ip) {
+    return ipToIdMap;
+  }
+
+  try {
+    const result = await IP.findAll({
+      attributes: [
+        [Sequelize.fn('BIN_TO_IP', Sequelize.col('ip')), 'ip'],
+        [Sequelize.fn('BIN_TO_UUID', Sequelize.col('uuid')), 'uuid'],
+      ],
+      where,
       raw: true,
     });
     result.forEach((obj) => {
       ipToIdMap.set(obj.ip, obj.uuid);
     });
   } catch (error) {
-    console.error(`SQL Error on getIdsToIps: ${error.message}`);
-  }
-  return ipToIdMap;
-}
-
-/**
- * get basic informations of ip
- * @param ipOrIid ip as string or uuid
- * @return null | {
- *   iid,
- *   ipString,
- *   country,
- *   cidr,
- *   org,
- *   descr,
- *   asn,
- *   type,
- *   isProxy,
- *   isWhitelisted,
- * }
- */
-export async function getInfoToIp(ipOrIid) {
-  try {
-    let where;
-    if (ipOrIid.includes('-')) {
-      where = 'ip.uuid = UUID_TO_BIN(?)';
-    } else {
-      where = 'ip.ip = IP_TO_BIN(?)';
-    }
-    const ipInfo = await sequelize.query(
-      /* eslint-disable max-len */
-      `SELECT ip.uuid AS 'iid', BIN_TO_IP(ip.ip) AS 'ipString',
-COALESCE(r.country, 'xx') AS 'country', r.org, r.descr, r.asn, CONCAT(BIN_TO_IP(r.min), '/', r.mask) AS 'cidr',
-p.type, COALESCE(p.isProxy, 0) AS isProxy, w.ip IS NOT NULL AS isWhitelisted
-FROM IPs ip
-  LEFT JOIN Ranges r ON r.id = ip.rid
-  LEFT JOIN Proxies p ON p.ip = ip.ip
-  LEFT JOIN ProxyWhitelists w ON w.ip = ip.ip
-WHERE ${where}`, {
-        /* eslint-enable max-len */
-        replacements: [ipOrIid],
-        raw: true,
-        type: QueryTypes.SELECT,
-      });
-    if (ipInfo.length) {
-      return ipInfo[0];
-    }
-  } catch (error) {
-    console.error(`SQL Error on getInfoToIp: ${error.message}`);
-  }
-  return null;
-}
-
-export async function getInfoToIps(ips) {
-  const ipToIdMap = new Map();
-  if (!ips.length || ips.length > 300) {
-    return ipToIdMap;
-  }
-  try {
-    const result = await IP.findAll({
-      attributes: [
-        [Sequelize.fn('BIN_TO_IP', Sequelize.col('ip')), 'ip'],
-        [Sequelize.fn('BIN_TO_UUID', Sequelize.col('uuid')), 'uuid'],
-        [Sequelize.col('range.country'), 'country'],
-        [Sequelize.fn('CONCAT',
-          Sequelize.fn('BIN_TO_IP', Sequelize.col('range.min')),
-          '/',
-          Sequelize.col('range.mask'),
-        ), 'cidr'],
-        [Sequelize.col('range.org'), 'org'],
-        [Sequelize.col('proxy.type'), 'pcheck'],
-      ],
-      include: [{
-        association: 'range',
-        attributes: [],
-        where: {
-          expires: { [Op.gt]: Sequelize.fn('NOW') },
-        },
-      }, {
-        association: 'proxy',
-        attributes: [],
-        where: {
-          expires: { [Op.gt]: Sequelize.fn('NOW') },
-        },
-      }],
-      where: { ip: ips.map((ip) => Sequelize.fn('IP_TO_BIN', ip)) },
-      raw: true,
-    });
-    result.forEach((obj) => {
-      ipToIdMap.set(obj.ip, obj);
-    });
-  } catch (error) {
-    console.error(`SQL Error on getIdsToIps: ${error.message}`);
+    console.error(`SQL Error on getIIDsOfIPs: ${error.message}`);
   }
   return ipToIdMap;
 }

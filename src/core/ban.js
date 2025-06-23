@@ -31,9 +31,9 @@ export function notifyUserIpChanges(ipStrings, userIds) {
 
 /**
  * ban
- * @param userIds Array of user ids
- * @param ipStrings Array of ipStrings
- * @param ipUuids Array of ip uuids (IID)
+ * @param ipStrings Array of multiple or single ipStrings
+ * @param userIds Array of multiple or single user ids
+ * @param ipUuids Array of multiple or single ip uuids (IID)
  * @param mute boolean if muting
  * @param ban boolean if banning
  * @param reason reasoning as string
@@ -56,10 +56,10 @@ export async function ban(
 
 /**
  * unban
- * @param userIds Array of user ids
- * @param ipStrings Array of ipStrings
- * @param ipUuids Array of ip uuids (IID)
- * @param banUuids Array of ban uuids (UID)
+ * @param ipStrings Array of multiple or single ipStrings
+ * @param userIds Array of multiple or single user ids
+ * @param ipUuids Array of multiple or single ip uuids (IID)
+ * @param banUuids Array of multiple or single ban uuids (UID)
  * @param mute boolean if unmuting
  * @param ban boolean if unbanning
  * @param muid id of the mod that bans
