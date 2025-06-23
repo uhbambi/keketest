@@ -134,7 +134,7 @@ function printBans(bans) {
     if (ips?.length) {
       out += `IPs: ${ips.map(
         // eslint-disable-next-line max-len
-        (i) => `${i.ipString.substring(0, i.ipString.indexOf('.') + 3)}x.xxx.xxx`,
+        (ib) => `${ib.ipString.substring(0, ib.ipString.indexOf('.') + 3)}x.xxx.xxx`,
       ).join(', ')}`;
     }
     out += '\n';

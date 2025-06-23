@@ -468,19 +468,20 @@ WHERE (b.flags & ?) = ? AND (b.expires > NOW() OR b.expires IS NULL) AND b.id ${
       }));
 
     /*
-     * bans is populated with ids already
+     * bans is populated with ips already
      * bannedUserIds is [{ id, users: [ { id }, ... ] , ...}]
      */
     let [bans, bannedUserIds] = await Promise.all(promises);
-    if (!bans) {
-      return [];
+
+    bans = nestQuery(bans, 'id');
+
+    if (bannedUserIds.length) {
+      bannedUserIds = nestQuery(bannedUserIds, 'id');
+      bans.forEach((b) => {
+        const usersOfBan = bannedUserIds.find((u) => b.id === u.id);
+        b.users = (usersOfBan) ? usersOfBan.users : [];
+      });
     }
-    bans = nestQuery(bans, 'buuid');
-    bannedUserIds = nestQuery(bannedUserIds, 'id');
-    bans.forEach((b) => {
-      const usersOfBan = bannedUserIds.find((u) => b.id === u.id);
-      b.users = (usersOfBan) ? usersOfBan.users : [];
-    });
 
     return bans;
   } catch (error) {

@@ -42,6 +42,9 @@ const sequelize = new Sequelize(MYSQL_DATABASE, MYSQL_USER, MYSQL_PW, {
  */
 export function nestQuery(query, primaryKey) {
   if (!query?.length) {
+    if (primaryKey) {
+      return [];
+    }
     return null;
   }
   const ret = [];

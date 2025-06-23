@@ -2,7 +2,7 @@ import { QueryTypes, DataTypes } from 'sequelize';
 
 import sequelize, { nestQuery } from './sequelize.js';
 import { generateToken, generateTokenHash } from '../../utils/hash.js';
-import { HOUR, THREEPID_PROVIDERS } from '../../core/constants.js';
+import { HOUR } from '../../core/constants.js';
 import { CHANNEL_TYPES } from './Channel.js';
 
 const Session = sequelize.define('Session', {
@@ -107,9 +107,8 @@ export async function removeSession(token) {
  *   lastSeen,
  *   createdAt,
  *   mailreg,
- *   bans: [ { expires, flags }, ... ],
- *   tpids: [ { tpid, provider }, ... ],
  *   blocked: [ { id, name }, ...],
+ *   bans: [ { expires, flags }, ... ],
  *   channels: {
  *     cid: [ name, type, lastTs, [dmuid] ],
  *     ...
@@ -121,62 +120,141 @@ export async function resolveSession(token) {
     return null;
   }
   try {
+    /*
+     * CURRENT STATUS:
+     * Resolving a session takes two round-trip-times of:
+     *  1 + 3 queries if User has any DM chat channels associated
+     *  1 + 2 queries otherwise
+     * Consider that in api/me we also get redis ranks after resolving session,
+     * making a api/me call have three round-trips.
+     * Resolving IP intel (whois, proxycheck) is in parallel to resolving the
+     * session and takes longer than two sql round-trips if it has to be
+     * fetched. Therefore session resolving isn't the largest issue in case of
+     * a DDoS with unique IPs.
+     */
+
+    /* eslint-disable max-len */
+
     let user = await sequelize.query(
-      /* eslint-disable max-len */
       `SELECT u.id, u.name, u.password, u.userlvl, u.flags, u.lastSeen, u.createdAt,
-t.tpid AS 'tpids.tpid', t.provider AS 'tpids.provider',
-b.expires AS 'bans.expires', b.flags AS 'bans.flags',
-c.id AS 'channels.cid', c.\`type\` AS 'channels.type', c.lastMessage AS 'channels.lastDate',
-ucmd.uid AS 'channels.dmuid', ucu.name AS 'channels.dmuname',
-bu.id AS 'blocked.id', bu.name AS 'blocked.name' FROM Users u
+c.id AS 'channels.cid', c.name AS 'channels.name', c.\`type\` AS 'channels.type', c.lastMessage AS 'channels.lastDate', ucm.lastRead AS 'channels.lastReadDate',
+EXISTS(
+  SELECT 1 FROM ThreePIDs tp WHERE tp.provider = 1 AND tp.uid = u.id
+) AS 'mailreg' FROM Users u
   INNER JOIN Sessions s ON s.uid = u.id
-  LEFT JOIN ThreePIDs t ON t.uid = u.id
-  LEFT JOIN ThreePIDBans tbm ON tbm.tid = t.id
-  LEFT JOIN UserBans ubm ON ubm.uid =u.id
-  LEFT JOIN Bans b ON b.id = ubm.bid  OR b.id = tbm.bid
-  LEFT JOIN UserBlocks ub ON ub.uid = u.id
-  LEFT JOIN Users bu ON bu.id = ub.buid
   LEFT JOIN UserChannels ucm ON ucm.uid =u.id
   LEFT JOIN Channels c ON c.id = ucm.cid
-  LEFT JOIN UserChannels ucmd ON ucmd.cid = c.id AND c.type = ${CHANNEL_TYPES.DM} AND ucmd.uid != u.id
-  LEFT JOIN Users ucu ON ucu.id = ucmd.uid
 WHERE s.token = :token AND (s.expires > NOW() OR s.expires IS NULL)`, {
-        /* eslint-enable max-len */
         replacements: { token: generateTokenHash(token) },
         raw: true,
         type: QueryTypes.SELECT,
       });
+    /*
+     * {
+     *   id, name, password, userlvl, flags, lastSeen, createdAt,
+     *   mailreg,
+     *   channels: [{
+     *     cid, name, type, lastDate,
+     *   }, ...]
+     * }
+     */
     user = nestQuery(user);
 
-    if (user) {
-      /* rearrange values */
-      const { tpids, channels } = user;
-      user.mailreg = false;
-      let i = tpids.length;
-      while (i > 0) {
-        i -= 1;
-        if (tpids[i].provider === THREEPID_PROVIDERS.EMAIL) {
-          user.mailreg = true;
-          break;
-        }
-      }
+    if (!user) {
+      return null;
+    }
+    const promises = [];
+    const userId = user.id;
 
+    /* get info to DM channels */
+    const dmChannelIds = user.channels.filter(
+      ({ type }) => type === CHANNEL_TYPES.DM,
+    ).map(({ cid }) => cid);
+    if (dmChannelIds.length) {
+      promises.push(sequelize.query(
+        `SELECT uc.cid, dmu.id AS 'dmuid', dmu.name AS 'dmname' FROM UserChannels uc
+    INNER JOIN Users dmu ON dmu.id = uc.uid
+  WHERE dmu.id != ? AND uc.cid IN (?)`, {
+          replacements: [userId, dmChannelIds],
+          raw: true,
+          type: QueryTypes.SELECT,
+        }));
+    } else {
+      promises.push([]);
+    }
+
+    /* get blocked users */
+    promises.push(sequelize.query(
+      `SELECT bu.id, bu.name FROM UserBlocks ub
+  INNER JOIN Users bu ON bu.id = ub.buid
+WHERE ub.uid = ?`, {
+        replacements: [userId],
+        raw: true,
+        type: QueryTypes.SELECT,
+      }));
+
+    /* get bans applying on user id or tpid */
+    promises.push(sequelize.query(
+      `SELECT b.expires, b.flags FROM Bans b WHERE b.id IN (
+  SELECT DISTINCT b.id FROM (
+    SELECT ub.bid AS id FROM UserBans ub WHERE ub.uid = 3
+    UNION ALL
+    SELECT tb.bid AS id FROM ThreePIDBans tb INNER JOIN ThreePIDs t ON tb.tid = t.id WHERE t.uid = 3
+  ) AS b
+)`, {
+        replacements: [userId, userId],
+        raw: true,
+        type: QueryTypes.SELECT,
+      }));
+
+    /* eslint-enable max-len */
+
+    const [dmChannels, blocked, bans] = await Promise.all(promises);
+
+    /*
+     * dmChannels:
+     *   [{ cid, dmuid, dmname }, ...]
+     * user.channels:
+     *   [{ cid, name, type, lastDate, lastReadDate }, ...]
+     * target user.channels:
+     *   { cid: [ name, type, lastTs, [dmuid]], ... }
+     */
+    if (user.channels.length) {
+      const { channels } = user;
       user.channels = {};
-      i = channels.length;
+      let i = channels.length;
       while (i > 0) {
         i -= 1;
-        const { id: cid, name, type, lastDate, dmuid, dmuname } = channels[i];
+        const { cid, name, type, lastDate } = channels[i];
         const channel = [name, type, lastDate.getTime()];
-        /* if its a dm, this is set */
-        if (dmuid) {
+        if (type === CHANNEL_TYPES.DM) {
+          const dmChannel = dmChannels.find(({ dmcid }) => dmcid === cid);
+          if (!dmChannel) {
+            console.error(
+              // eslint-disable-next-line max-len
+              `User ${userId} has DM channel ${cid} but no other use associated`,
+            );
+            continue;
+          }
+          const { dmuid, dmname } = dmChannel;
           channel.push(dmuid);
-          channel[0] = dmuname;
+          channel[0] = dmname;
         }
         user.channels[cid] = channel;
       }
-
-      return user;
     }
+
+    /*
+     * [{ id, name }]
+     */
+    user.blocked = blocked;
+
+    /*
+     * [{ expires, flags }]
+     */
+    user.bans = bans;
+
+    return user;
   } catch (error) {
     console.error(`SQL Error on resolveSession: ${error.message}`);
   }
