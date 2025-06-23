@@ -8,6 +8,11 @@ const Fish = sequelize.define('Fish', {
     primaryKey: true,
   },
 
+  uid: {
+    type: DataTypes.INTEGER.UNSIGNED,
+    allowNull: false,
+  },
+
   type: {
     type: DataTypes.TINYINT.UNSIGNED,
     allowNull: false,

@@ -43,10 +43,7 @@ Channel.belongsToMany(User, {
  */
 Fish.belongsTo(User, {
   as: 'user',
-  foreignKey: {
-    name: 'uid',
-    allowNull: false,
-  },
+  foreignKey: 'uid',
   onDelete: 'CASCADE',
 });
 

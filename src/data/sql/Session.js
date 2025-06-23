@@ -6,15 +6,15 @@ import { HOUR } from '../../core/constants.js';
 import { CHANNEL_TYPES } from './Channel.js';
 
 const Session = sequelize.define('Session', {
-  uid: {
-    type: DataTypes.INTEGER.UNSIGNED,
-    allowNull: false,
-  },
-
   id: {
     type: DataTypes.BIGINT.UNSIGNED,
     autoIncrement: true,
     primaryKey: true,
+  },
+
+  uid: {
+    type: DataTypes.INTEGER.UNSIGNED,
+    allowNull: false,
   },
 
   token: {

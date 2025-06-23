@@ -4,7 +4,7 @@
  *
  */
 
-import Sequelize, { DataTypes } from 'sequelize';
+import Sequelize, { DataTypes, QueryTypes } from 'sequelize';
 import sequelize from './sequelize.js';
 import Channel from './Channel.js';
 
@@ -13,6 +13,16 @@ const Message = sequelize.define('Message', {
     type: DataTypes.BIGINT.UNSIGNED,
     autoIncrement: true,
     primaryKey: true,
+  },
+
+  cid: {
+    type: DataTypes.INTEGER.UNSIGNED,
+    allowNull: false,
+  },
+
+  uid: {
+    type: DataTypes.INTEGER.UNSIGNED,
+    allowNull: false,
   },
 
   flag: {
@@ -60,26 +70,16 @@ export async function storeMessage(
 
 export async function getMessagesForChannel(cid, limit) {
   try {
-    const models = await Message.findAll({
-      attributes: [
-        'message',
-        'uid',
-        'flag',
-        [
-          Sequelize.fn('UNIX_TIMESTAMP', Sequelize.col('createdAt')),
-          'ts',
-        ],
-        [Sequelize.col('user.name'), 'name'],
-      ],
-      include: {
-        association: 'user',
-        attributes: [],
+    const models = await sequelize.query(
+      `SELECT m.message, m.flag, m.uid, UNIX_TIMESTAMP(m.createdAt) AS 'ts',
+u.name FROM Messages m
+  INNER JOIN Users u ON u.id = m.uid
+WHERE m.cid = ? ORDER BY m.createdAt DESC LIMIT ?`, {
+        replacements: [cid, limit],
+        raw: true,
+        type: QueryTypes.SELECT,
       },
-      where: { cid },
-      limit,
-      order: [['createdAt', 'DESC']],
-      raw: true,
-    });
+    );
     return models.map(({ name, message, flag, uid, ts }) => [
       name, message, flag, uid, ts,
     ]);

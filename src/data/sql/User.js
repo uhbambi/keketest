@@ -114,8 +114,8 @@ export async function getDummyUser(name) {
 export async function name2Id(name) {
   try {
     const userq = await sequelize.query(
-      'SELECT id FROM Users WHERE name = :name',
-      { replacements: { name }, type: QueryTypes.SELECT, plain: true },
+      'SELECT id FROM Users WHERE name = ?',
+      { replacements: [name], type: QueryTypes.SELECT, plain: true },
     );
     return userq.id;
   } catch {
