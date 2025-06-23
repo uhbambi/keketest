@@ -169,7 +169,7 @@ tr:nth-child(odd) {
   background: linear-gradient(180deg, rgba(93,9,9,1) 0%, rgba(28,2,2,1) 10%, rgba(28,2,2,1) 90%, rgba(93,9,9,1) 100%);
 }
 
-.modal-content, .win-content, .popup-content {
+.modal-content, .win-content, .popup-content, .baninfo {
   font-size: 19px;
   font-weight: bold;
   color: #cb4646;

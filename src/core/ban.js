@@ -15,9 +15,9 @@ import socketEvents from '../socket/socketEvents.js';
 export function notifyUserIpChanges(ipStrings, userIds) {
   if (userIds) {
     if (Array.isArray(userIds)) {
-      userIds.forEach((id) => socketEvents.reloadUser(id));
+      userIds.forEach((id) => socketEvents.reloadUser(id, true));
     } else {
-      socketEvents.reloadUser(userIds);
+      socketEvents.reloadUser(userIds, true);
     }
   }
   if (ipStrings) {

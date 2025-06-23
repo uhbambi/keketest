@@ -650,7 +650,7 @@ tr:nth-child(even) {
   overflow-y: auto;
 }
 
-.modal-content, .win-content, .popup-content {
+.modal-content, .win-content, .popup-content, .baninfo {
   color: hsla(0, 0%, 0%, 0.6);
   font-size: 14px;
   font-weight: 500;
@@ -991,6 +991,11 @@ table td span {
 
 .pressed {
   box-shadow:0 0 3px 2px rgba(0,0,0,.6);
+}
+
+.baninfo {
+  border: solid #bbb;
+  border-width: thin;
 }
 
 .notifybox {

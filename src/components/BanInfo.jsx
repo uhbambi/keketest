@@ -50,9 +50,7 @@ const BanInfo = ({ close }) => {
   const countDown = useCallback(() => {
     if (bans.length) {
       const newBans = [];
-      let i = bans.length;
-      while (i > 0) {
-        i -= 1;
+      for (let i = 0; i < bans.length; i += 1) {
         const ban = bans[i];
         if (ban.sleft) {
           const sleft = ban.sleft - 1;
@@ -64,12 +62,12 @@ const BanInfo = ({ close }) => {
         newBans.push(ban);
       }
       if (!newBans.length) {
-        handleSubmit();
+        close();
       } else {
         setBans(newBans);
       }
     }
-  }, [bans, handleSubmit]);
+  }, [bans, close]);
 
   useInterval(countDown, 1000);
 
@@ -95,32 +93,32 @@ const BanInfo = ({ close }) => {
         </p>
       ))}
       {bans.map(({ reason, mod, sleft, expires, uuid }, index) => (
-        <React.Fragment key={reason + sleft}>
-          <h3>{t`Reason`}:</h3>
-          <p>{reason}</p>
+        <div className="baninfo" key={uuid}>
+          <p>
+            <span className="stattext">{t`Reason`}: </span>
+            {reason}
+          </p>
           {(mod) && (
-            <React.Fragment key="mod">
-              <h3>{t`By Mod`}:</h3>
-              <p>{mod}</p>
-            </React.Fragment>
+            <p key="mod">
+              <span className="stattext">{t`By Mod`}: </span>
+              {mod}
+            </p>
           )}
           {(sleft > 0) && (
-            <React.Fragment key="exp">
-              <h3>{t`Duration`}:</h3>
-              <p>
-                {t`Your ban expires at `}
-                <span style={{ fontWeight: 'bold' }}>{expires}</span>
-                {t` which is in `}
-                <span
-                  style={{ fontWeight: 'bold' }}
-                >
-                  {largeDurationToString(sleft)}
-                </span>
-              </p>
-            </React.Fragment>
+            <p key="exp">
+              <span className="stattext">{t`Duration`}: </span>
+              {t`Your ban expires at `}
+              <span style={{ fontWeight: 'bold' }}>{expires}</span>
+              {t` which is in `}
+              <span
+                style={{ fontWeight: 'bold' }}
+              >
+                {largeDurationToString(sleft)}
+              </span>
+            </p>
           )}
-          <h3>BID:</h3>
           <p>
+            <span className="stattext">{t`BID`}: </span>
             <input
               style={{
                 display: 'inline-block',
@@ -141,7 +139,7 @@ const BanInfo = ({ close }) => {
           {(index !== bans.length - 1) && (
             <div className="modaldivider" />
           )}
-        </React.Fragment>
+        </div>
       ))}
       <p>
         {(bans.length === 0) && (

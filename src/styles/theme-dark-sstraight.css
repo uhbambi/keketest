@@ -123,7 +123,7 @@ tr:nth-child(even) {
   border-radius: 10px;
 }
 
-.modal-content, .win-content, .popup-content {
+.modal-content, .win-content, .popup-content, .baninfo {
   color: #f8f8f8;
 }
 

@@ -87,7 +87,7 @@ tr:nth-child(even) {
   color: #f4f4f4;
 }
 
-.modal-content, .win-content, .popup-content {
+.modal-content, .win-content, .popup-content, .baninfo {
   color: #f4f4f4;
 }
 

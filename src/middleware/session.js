@@ -101,7 +101,7 @@ export class User {
     if (refresh
       || (this.banRecheckTs !== null && this.banRecheckTs < Date.now())
     ) {
-      const data = await resolveSession(this.token);
+      const data = await resolveSession(this.#token);
       if (data) {
         this.userlvl = data.userlvl;
         this.#data = data;
@@ -126,7 +126,7 @@ async function resolveSessionOfRequest(req) {
   if (!userData) {
     delete req.user;
   } else {
-    req.user = new User(userData);
+    req.user = new User(userData, token);
   }
 }
 
@@ -191,7 +191,7 @@ export async function openSession(req, res, userId, durationHours = 720) {
     delete req.user;
     return false;
   }
-  req.user = new User(userData);
+  req.user = new User(userData, token);
 
   const cookieOptions = { domain, httpOnly: true, secure: false };
 

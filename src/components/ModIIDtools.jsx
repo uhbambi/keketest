@@ -46,7 +46,7 @@ async function submitIIDAction(
       break;
     }
     case 'ban': {
-      let time = parseInterval(duration);
+      const time = parseInterval(duration);
       if (time === 0 && duration !== '0') {
         return t`You must enter a duration`;
       }

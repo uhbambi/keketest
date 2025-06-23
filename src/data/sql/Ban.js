@@ -132,6 +132,15 @@ export function parseListOfBans(bans) {
       }
     }
 
+    /* in case we have expired bans lingering */
+    const currentTs = Date.now();
+    if (isMuted && isMuted !== true && isMuted < currentTs) {
+      isMuted = false;
+    }
+    if (isBanned && isBanned !== true && isBanned < currentTs) {
+      isBanned = false;
+    }
+
     const isBannedIsInteger = Number.isInteger(isBanned);
     const isMutedIsInteger = Number.isInteger(isMuted);
     if (isBannedIsInteger || isMutedIsInteger) {
@@ -472,13 +481,11 @@ WHERE (b.flags & ?) = ? AND (b.expires > NOW() OR b.expires IS NULL) AND b.id ${
 
     bans = nestQuery(bans, 'id');
 
-    if (bannedUserIds.length) {
-      bannedUserIds = nestQuery(bannedUserIds, 'id');
-      bans.forEach((b) => {
-        const usersOfBan = bannedUserIds.find((u) => b.id === u.id);
-        b.users = (usersOfBan) ? usersOfBan.users : [];
-      });
-    }
+    bannedUserIds = nestQuery(bannedUserIds, 'id');
+    bans.forEach((b) => {
+      const usersOfBan = bannedUserIds.find((u) => b.id === u.id);
+      b.users = (usersOfBan) ? usersOfBan.users : [];
+    });
 
     return bans;
   } catch (error) {

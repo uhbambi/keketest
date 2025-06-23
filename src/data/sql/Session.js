@@ -201,7 +201,7 @@ WHERE ub.uid = ?`, {
     UNION ALL
     SELECT tb.bid AS id FROM ThreePIDBans tb INNER JOIN ThreePIDs t ON tb.tid = t.id WHERE t.uid = ?
   ) AS b
-)`, {
+) AND (b.expires > NOW() OR b.expires IS NULL)`, {
         replacements: [userId, userId],
         raw: true,
         type: QueryTypes.SELECT,
