@@ -192,15 +192,17 @@ function ModIIDtools() {
           />
         </p>
       )}
-      {(iIDAction === 'ban') || (iIDAction === 'unban') && (
+      {(iIDAction === 'ban' || iIDAction === 'unban') && (
         <p>
-          IID, UID or BID:&nbsp;
-          <textarea
-            rows="10"
-            cols="17"
-            value={identifierList}
-            onChange={(e) => setIdentifierList(e.target.value)}
-          />
+          IID, UID or BID:
+          <p>
+            <textarea
+              rows="10"
+              cols="17"
+              value={identifierList}
+              onChange={(e) => setIdentifierList(e.target.value)}
+            />
+          </p>
         </p>
       )}
       <p>

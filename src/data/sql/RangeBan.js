@@ -7,6 +7,11 @@ import RangeBanHistory from './RangeBanHistory.js';
 export { RANGEBAN_REASONS } from '../../core/constants.js';
 
 const RangeBan = sequelize.define('RangeBan', {
+  rid: {
+    type: DataTypes.INTEGER.UNSIGNED,
+    primaryKey: true,
+  },
+
   reason: {
     type: DataTypes.TINYINT.UNSIGNED,
     allowNull: false,

@@ -112,6 +112,7 @@ IP.belongsTo(RangeData, {
 
 RangeData.hasMany(IP, {
   as: 'ips',
+  foreignKey: 'rid',
 });
 /*
  * generic ban by threepid, userid and ip
@@ -155,6 +156,7 @@ Ban.belongsTo(User, {
 });
 User.hasMany(Ban, {
   as: 'banActions',
+  foreignKey: 'muid',
 });
 /*
  * history of past bans
@@ -198,6 +200,7 @@ BanHistory.belongsTo(User, {
 });
 User.hasMany(BanHistory, {
   as: 'banActionHistory',
+  foreignKey: 'muid',
 });
 BanHistory.belongsTo(User, {
   as: 'lmod',
@@ -205,6 +208,7 @@ BanHistory.belongsTo(User, {
 });
 User.hasMany(BanHistory, {
   as: 'banLiftingHistory',
+  foreignKey: 'lmuid',
 });
 
 /*
@@ -216,6 +220,7 @@ ProxyWhitelist.belongsTo(User, {
 });
 User.hasMany(ProxyWhitelist, {
   as: 'ipWhitelistActions',
+  foreignKey: 'muid',
 });
 ProxyWhitelist.belongsTo(IP, {
   as: 'ipinfo',
@@ -232,11 +237,7 @@ IP.hasOne(ProxyWhitelist, {
  */
 RangeBan.belongsTo(RangeData, {
   as: 'iprange',
-  foreignKey: {
-    name: 'rid',
-    allowNull: false,
-    primaryKey: true,
-  },
+  foreignKey: 'rid',
   onDelete: 'CASCADE',
 });
 RangeData.hasOne(RangeBan, {
@@ -249,6 +250,7 @@ RangeBan.belongsTo(User, {
 });
 User.hasMany(RangeBan, {
   as: 'rangeBanActions',
+  foreignKey: 'muid',
 });
 
 /*
@@ -256,10 +258,7 @@ User.hasMany(RangeBan, {
  */
 RangeBanHistory.belongsTo(RangeData, {
   as: 'iprange',
-  foreignKey: {
-    name: 'rid',
-    allowNull: false,
-  },
+  foreignKey: 'rid',
   onDelete: 'CASCADE',
 });
 RangeData.hasMany(RangeBanHistory, {
@@ -271,6 +270,7 @@ RangeBanHistory.belongsTo(User, {
 });
 User.hasMany(RangeBanHistory, {
   as: 'rangeBanActionHistory',
+  foreignKey: 'muid',
 });
 RangeBanHistory.belongsTo(User, {
   as: 'lmod',
@@ -278,6 +278,7 @@ RangeBanHistory.belongsTo(User, {
 });
 User.hasMany(RangeBanHistory, {
   as: 'rangeBanLiftingHistory',
+  foreignKey: 'lmuid',
 });
 
 /*

@@ -129,9 +129,14 @@ function printBans(bans) {
       out += `by: @[${mod.name}](${mod.id})\n`;
     }
     out += 'Affects: ';
-    if (users?.length) out += `${users.length} Users `;
+    if (users?.length) out += ` Users: ${users.map((u) => u.id).join(', ')} `;
     if (tpids?.length) out += `${tpids.length} TPIDS `;
-    if (ips?.length) out += `${ips.length} IPs`;
+    if (ips?.length) {
+      out += `IPs: ${ips.map(
+        // eslint-disable-next-line max-len
+        (i) => `${i.ipString.substring(0, i.ipString.indexOf('.') + 3)}x.xxx.xxx`,
+      ).join(', ')}`;
+    }
     out += '\n';
   }
   return out;
@@ -224,7 +229,7 @@ export async function executeIIDAction(
   switch (action) {
     case 'status': {
       const userId = parseInt(iidOrUserId, 10);
-      if (Number.iNaN(userId)) {
+      if (Number.isNaN(userId)) {
         /* is IID */
         const ip = await getInfoToIp(iidOrUserId);
         if (!ip) {

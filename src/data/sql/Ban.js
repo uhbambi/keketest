@@ -1,7 +1,7 @@
-import Sequelize, { DataTypes, Op } from 'sequelize';
+import Sequelize, { DataTypes, Op, QueryTypes } from 'sequelize';
 import crypto from 'crypto';
 
-import sequelize from './sequelize.js';
+import sequelize, { nestQuery } from './sequelize.js';
 import { HourlyCron } from '../../utils/cron.js';
 import BanHistory from './BanHistory.js';
 import { getIPsofIIDs } from './IP.js';
@@ -304,11 +304,12 @@ export async function unbanByUuid(uuid, modUid) {
  * @param mute boolean if muting
  * @param bans boolean if banning
  * @return [{
- *   uuid, reason, flags, expires, createdAt, muid,
+ *   id, uuid, buuid, reason, flags, expires, createdAt, muid,
  *   mod: {
  *     id, name,
  *   },
- *   ...
+ *   users: [{ id }, ...]
+ *   ips: [{ ipString }, ...]
  * }, ...],
  */
 export async function getBanInfos(
@@ -320,75 +321,165 @@ export async function getBanInfos(
   }
 
   try {
-    const nestedOr = [];
-    const where = {
-      [Op.and]: [{
-        [Op.or]: [
-          { expires: { [Op.gt]: Sequelize.fn('NOW') } },
-          { expires: null },
-        ],
-      }, {
-        [Op.or]: nestedOr,
-      }],
-    };
-    /* TODO allow to find by bit */
-    if (!mute || !ban) {
-      where[Op.and].push({ flags: (ban) ? 0x01 : 0x02 });
-    }
+    const unions = [];
+    let replacements = [];
 
-    const include = [{
-      association: 'mod',
-      attributes: ['id', 'name'],
-    }, {
-      association: 'ips',
-      attributes: [
-        [Sequelize.fn('BIN_TO_IP', Sequelize.col('ip')), 'ipString'],
-      ],
-    }, {
-      association: 'users',
-      attributes: ['id'],
-    }, {
-      association: 'tpids',
-      attributes: ['tpid', 'uid'],
-    }];
-
-    if (ipStrings?.length) {
-      if (Array.isArray(ipStrings)) {
-        ipStrings.map((ip) => Sequelize.fn('IP_TO_BIN', ip));
+    if (userIds) {
+      if (Array.isArray(userIds)) {
+        if (userIds.length) {
+          const placeholder = userIds.map(() => '?').join(', ');
+          unions.push(
+            `SELECT ub.bid AS id FROM UserBans ub WHERE ub.uid IN (${
+              placeholder
+            })`,
+          );
+          unions.push(
+            // eslint-disable-next-line max-len
+            `SELECT tb.bid AS id FROM ThreePIDBans tb INNER JOIN ThreePIDs t ON tb.tid = t.id WHERE t.uid IN (${
+              placeholder
+            })`,
+          );
+          replacements = replacements.concat(userIds, userIds);
+        }
       } else {
-        ipStrings = Sequelize.fn('IP_TO_BIN', ipStrings);
+        unions.push(
+          'SELECT ub.bid AS id FROM UserBans ub WHERE ub.uid = ?',
+        );
+        unions.push(
+          // eslint-disable-next-line max-len
+          'SELECT tb.bid AS id FROM ThreePIDBans tb INNER JOIN ThreePIDs t ON tb.tid = t.id WHERE t.uid = ?',
+        );
+        replacements.push(userIds, userIds);
       }
-      nestedOr.push({ [Sequelize.col('ips.ip')]: ipStrings });
     }
 
-    if (ipUuids?.length) {
-      nestedOr.push({ [Sequelize.col('ips.uuid')]: ipUuids });
+    if (ipUuids) {
+      if (Array.isArray(ipUuids)) {
+        if (ipUuids.length) {
+          unions.push(
+            // eslint-disable-next-line max-len
+            `SELECT ib2.bid AS id FROM IPBans ib2 INNER JOIN IPs i ON ib2.ip = i.ip WHERE i.uuid IN (${
+              ipUuids.map(() => 'SELECT UUID_TO_BIN(?)').join(' UNION ALL ')
+            })`,
+          );
+          replacements = replacements.concat(ipUuids);
+        }
+      } else {
+        unions.push(
+          // eslint-disable-next-line max-len
+          'SELECT ib2.bid AS id FROM IPBans ib2 INNER JOIN IPs i ON ib2.ip = i.ip WHERE i.uuid = UUID_TO_BIN(?)',
+        );
+        replacements.push(ipUuids);
+      }
     }
 
-    if (userIds > 0) {
-      nestedOr.push({ [Sequelize.col('tpids.uid')]: userIds });
-      nestedOr.push({ [Sequelize.col('users.id')]: userIds });
+    if (ipStrings) {
+      if (Array.isArray(ipStrings)) {
+        if (ipStrings.length) {
+          unions.push(
+            `SELECT ib.bid AS id FROM IPBans ib WHERE ib.ip IN (${
+              ipStrings.map(() => 'SELECT IP_TO_BIN(?)').join(' UNION ALL ')
+            })`,
+          );
+          replacements = replacements.concat(ipStrings);
+        }
+      } else {
+        unions.push(
+          'SELECT ib.bid AS id FROM IPBans ib WHERE ib.ip = IP_TO_BIN(?)',
+        );
+        replacements.push(ipStrings);
+      }
     }
 
-    if (banUuids?.length) {
-      if (!Array.isArray(banUuids)) banUuids = [banUuids];
-      banUuids.forEach((uuid) => nestedOr.push(
-        { uuid: Sequelize.fn('UUID_TO_BIN', uuid) },
-      ));
+    let affectedBanIds = [];
+    if (unions.length) {
+      let query;
+      if (unions.length > 1) {
+        // eslint-disable-next-line max-len
+        query = `SELECT DISTINCT b.id FROM (\n  ${unions.join('\n  UNION ALL\n  ')}\n) AS b`;
+      } else {
+        [query] = unions;
+      }
+
+      affectedBanIds = await sequelize.query(query, {
+        replacements,
+        raw: true,
+        type: QueryTypes.SELECT,
+      });
+      affectedBanIds = affectedBanIds.map((b) => b.id);
     }
 
-    if (!nestedOr.length) {
+    if (banUuids) {
+      if (Array.isArray(banUuids)) {
+        if (banUuids.length) {
+          if (!affectedBanIds.length) {
+            affectedBanIds = banUuids;
+          } else {
+            banUuids.forEach((uuid) => {
+              if (!affectedBanIds.includes(uuid)) {
+                affectedBanIds.push(uuid);
+              }
+            });
+          }
+        }
+      } else {
+        affectedBanIds.push(banUuids);
+      }
+    }
+
+    console.log('BAN IDS', affectedBanIds);
+    if (!affectedBanIds.length) {
       return [];
     }
 
-    const bans = await Ban.findAll({
-      attributes: [
-        'id', 'uuid', 'reason', 'flags', 'expires', 'createdAt', 'muid',
-        [Sequelize.fn('BIN_TO_UUID', Sequelize.col('uuid')), 'buuid'],
-      ],
-      where, include,
-      raw: true,
-      nested: true,
+    let flagMask = 0;
+    if (ban) {
+      flagMask |= 0x01;
+    }
+    if (mute) {
+      flagMask |= 0.02;
+    }
+
+    const promises = [];
+    const bidFilterMask = (affectedBanIds.length === 1) ? '= ?' : 'IN (?)';
+    replacements = [(affectedBanIds.length === 1)
+      ? affectedBanIds[0] : affectedBanIds];
+    promises.push(sequelize.query(
+      /* eslint-disable max-len */
+      `SELECT b.*, md.name as mname, BIN_TO_UUID(b.uuid) AS buuid, BIN_TO_IP(ib.ip) AS 'ips.ipString' FROM Bans b
+  LEFT JOIN Users md ON md.id = b.muid
+  LEFT JOIN IPBans ib ON ib.bid = b.id
+WHERE (b.flags & ?) = ? AND (b.expires > NOW() OR b.expires IS NULL) AND b.id ${bidFilterMask}`, {
+        replacements: [flagMask, flagMask].concat(replacements),
+        raw: true,
+        type: QueryTypes.SELECT,
+      }));
+
+    promises.push(sequelize.query(
+      `SELECT DISTINCT u.id, u.uid AS 'users.id' FROM (
+  SELECT ub.bid AS id, ub.uid FROM UserBans ub WHERE ub.bid ${bidFilterMask}
+  UNION ALL
+  SELECT tb.bid AS id, t.uid FROM ThreePIDBans tb INNER JOIN ThreePIDs t ON tb.tid = t.id WHERE t.uid IS NOT NULL AND tb.bid ${bidFilterMask}
+) AS u;`, {
+      /* eslint-enable max-len */
+        replacements: replacements.concat(replacements),
+        raw: true,
+        type: QueryTypes.SELECT,
+      }));
+
+    /*
+     * bans is populated with ids already
+     * bannedUserIds is [{ id, users: [ { id }, ... ] , ...}]
+     */
+    let [bans, bannedUserIds] = await Promise.all(promises);
+    if (!bans) {
+      return [];
+    }
+    bans = nestQuery(bans, 'buuid');
+    bannedUserIds = nestQuery(bannedUserIds, 'id');
+    bans.forEach((b) => {
+      const usersOfBan = bannedUserIds.find((u) => b.id === u.id);
+      b.users = (usersOfBan) ? usersOfBan.users : [];
     });
 
     return bans;

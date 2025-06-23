@@ -12,7 +12,7 @@ import socketEvents from '../socket/socketEvents.js';
  * @param ipStrings Array of ipStrings
  * @param userIds Array of user ids
  */
-function notifyUserIpChanges(ipStrings, userIds) {
+export function notifyUserIpChanges(ipStrings, userIds) {
   if (userIds) {
     if (Array.isArray(userIds)) {
       userIds.forEach((id) => socketEvents.reloadUser(id));
@@ -48,7 +48,7 @@ export async function ban(
     return false;
   }
   const result = await banQuery(
-    ipStrings, userIds, mute, ban, reason, ...args,
+    ipStrings, userIds, ipUuids, mute, ban, reason, ...args,
   );
   notifyUserIpChanges(...result);
   return result;

@@ -36,7 +36,8 @@ const sequelize = new Sequelize(MYSQL_DATABASE, MYSQL_USER, MYSQL_PW, {
  * and if we make sure that we only do this form on M:N associations, we can
  * nest the results
  * @param query query return object, which is an array
- * @param primaryKey any key that is unique to nest for, if null, nest all
+ * @param primaryKey any key that is unique to nest for, if null, nest all and
+ *   return only onw object
  * @return nested query
  */
 export function nestQuery(query, primaryKey) {
@@ -70,7 +71,7 @@ export function nestQuery(query, primaryKey) {
     let target;
     if (primaryKey) {
       const primary = row[primaryKey];
-      target = ret.findOne(
+      target = ret.find(
         (r) => r[primaryKey].toString() === primary.toString(),
       );
     } else {
@@ -115,7 +116,7 @@ export function nestQuery(query, primaryKey) {
     }
   }
 
-  return (ret.length === 1) ? ret[0] : ret;
+  return (primaryKey) ? ret : ret[0];
 }
 
 /**

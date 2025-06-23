@@ -95,7 +95,7 @@ router.post('/', async (req, res, next) => {
 
   const bLogger = (text) => {
     logger.info(
-      `MODTOOLS>IID>${req.user.regUser.name}[${req.user.id}]> ${text}`,
+      `MODTOOLS>IID>${req.user.name}[${req.user.id}]> ${text}`,
     );
   };
 
@@ -116,7 +116,7 @@ router.post('/', async (req, res, next) => {
         watchaction, ulcoor, brcoor, time, iid, canvasid, maxrows,
       } = req.body;
       // eslint-disable-next-line max-len
-      logger.info(`MODTOOLS>WATCH>${req.user.regUser.name}[${req.user.id}]> ${watchaction} ${ulcoor} ${brcoor} ${time} ${iid}`);
+      logger.info(`MODTOOLS>WATCH>${req.user.name}[${req.user.id}]> ${watchaction} ${ulcoor} ${brcoor} ${time} ${iid}`);
       const ret = await executeWatchAction(
         watchaction,
         ulcoor,

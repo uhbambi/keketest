@@ -1,8 +1,12 @@
 import { sequelize, sync as syncSql } from '../src/data/sql/index.js';
 import { DailyCron, HourlyCron } from '../src/utils/cron.js';
 import { getIPAllowance } from '../src/data/sql/IP.js';
-import { resolveSession } from '../src/data/sql/Session.js';
+import { getBanInfos } from '../src/data/sql/Ban.js';
+import { resolveSession, createSession } from '../src/data/sql/Session.js';
+import { getUsersByNameOrEmail, setPassword, setUserLvl } from '../src/data/sql/User.js';
+import { notifyUserIpChanges, ban } from '../src/core/ban.js';
 import { IP } from '../src/middleware/ip.js';
+import { USERLVL } from '../src/core/constants.js';
 
 async function initialize() {
   await syncSql(false);
@@ -24,8 +28,22 @@ async function destruct() {
   const ip = new IP({ connection: { remoteAddress: '127.0.0.1' } });
   console.log(await ip.getAllowance());
 */
+  console.log('==== getUsersByNameOrEmail ====');
+  const userdata = (await getUsersByNameOrEmail('test2', null))[0];
+  const uid = userdata.id;
+  console.log(userdata);
+  const token = await createSession(uid, 1);
+  notifyUserIpChanges(null, uid);
+  console.log(await setPassword(uid, 'asdfasdf'));
+  console.log(await setUserLvl(uid, USERLVL.MOD));
+  console.log('Session Token:', token);
+  console.log('==== resolveSession ====');
+  console.log(await resolveSession(token));
+  console.log('==== getIPAllowance ====');
   console.log(await getIPAllowance('127.0.0.1'));
-  console.log(await resolveSession('bSiVUJXMsJ4bsJnbocqNZUzFS/1DQmI+OVeUuQ'));
+  console.log('==== ban user ====');
+  // console.log(await ban(null, 6, null, false, true, 'just because', null, null));
+  console.log(await getBanInfos(null, null, '5c1f6618-4f8e-11f0-8cca-b61fc4d778f0', 2, true))
 
   await destruct();
 })();
