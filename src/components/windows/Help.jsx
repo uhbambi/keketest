@@ -85,13 +85,13 @@ const Help = () => {
       <GetIID />
       {(userId > 0) && (
       <>
-        <p>UUID</p>
+        <p>UID</p>
         <p>
           <input
             style={{
               display: 'inline-block',
               width: '100%',
-              maxWidth: '18em',
+              maxWidth: '10em',
             }}
             readOnly
             value={userId}

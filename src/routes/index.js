@@ -31,10 +31,7 @@ const router = express.Router();
 /*
  * Serving Chunks
  */
-router.get(
-  '/chunks/:c([0-9]+)/:x([0-9]+)/:y([0-9]+)(/)?:z([0-9]+)?.bmp',
-  chunks,
-);
+router.get(['/chunks/:c/:x/:y/:z.bmp', '/chunks/:c/:x/:y.bmp'], chunks);
 
 /*
  * zoomed tiles

@@ -26,6 +26,10 @@ export default async (req, res, next) => {
   const c = parseInt(paramC, 10);
   const x = parseInt(paramX, 10);
   const y = parseInt(paramY, 10);
+  if (Number.isNaN(paramC) || Number.isNaN(paramX) || Number.isNaN(paramY)) {
+    next();
+    return;
+  }
   try {
     res.set({
       'Access-Control-allow-origin': '*',

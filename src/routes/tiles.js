@@ -17,12 +17,17 @@ const router = express.Router();
 /*
  * decide on cache length
  */
-router.use('/:c([0-9]+)/:z([0-9]+)/:x([0-9]+)/:y([0-9]+).webp',
+router.use('/:c/:z/:x/:y.webp',
   (req, res, next) => {
     res.set({
       'Access-Control-allow-origin': '*',
     });
-    const { c: id } = req.params;
+    const { c: paramC } = req.params;
+    const id = parseInt(paramC, 10);
+    if (Number.isNaN(id)) {
+      next(new Error('Invalid canvas id.'));
+      return;
+    }
     const canvas = canvases[id];
     if (!canvas) {
       next(new Error('Canvas not found.'));
@@ -33,7 +38,7 @@ router.use('/:c([0-9]+)/:z([0-9]+)/:x([0-9]+)/:y([0-9]+).webp',
     const maxTiledZoom = getMaxTiledZoom(canvas.size);
     const { z: paramZ } = req.params;
     const z = parseInt(paramZ, 10);
-    if (z < 0 || z >= maxTiledZoom) {
+    if (Number.isNaN(z) || z < 0 || z >= maxTiledZoom) {
       next(new Error('Invalid zoom level'));
       return;
     }

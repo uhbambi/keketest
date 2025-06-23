@@ -11,7 +11,7 @@ import { parseListOfBans } from '../data/sql/Ban.js';
 import { getHostFromRequest } from '../utils/intel/ip.js';
 import { touchUser } from '../data/sql/User.js';
 
-class User {
+export class User {
   id;
   userlvl;
   /*

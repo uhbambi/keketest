@@ -197,9 +197,9 @@ WHERE ub.uid = ?`, {
     promises.push(sequelize.query(
       `SELECT b.expires, b.flags FROM Bans b WHERE b.id IN (
   SELECT DISTINCT b.id FROM (
-    SELECT ub.bid AS id FROM UserBans ub WHERE ub.uid = 3
+    SELECT ub.bid AS id FROM UserBans ub WHERE ub.uid = ?
     UNION ALL
-    SELECT tb.bid AS id FROM ThreePIDBans tb INNER JOIN ThreePIDs t ON tb.tid = t.id WHERE t.uid = 3
+    SELECT tb.bid AS id FROM ThreePIDBans tb INNER JOIN ThreePIDs t ON tb.tid = t.id WHERE t.uid = ?
   ) AS b
 )`, {
         replacements: [userId, userId],

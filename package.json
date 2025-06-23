@@ -41,7 +41,7 @@
     "cookie": "^1.0.2",
     "core-js": "^3.34.0",
     "etag": "^1.8.1",
-    "express": "^4.17.2",
+    "express": "^5.1.0",
     "express-fileupload": "^1.5.1",
     "image-q": "^4.0.0",
     "js-file-download": "^0.4.12",

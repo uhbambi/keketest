@@ -82,7 +82,7 @@ export default async (req, res) => {
     }
   }
 
-  if (!errors.length && await checkMailOverShards(email)) {
+  if (!errors.length && (await checkMailOverShards(email))) {
     errors.push(t`This email provider is not allowed`);
   }
 

@@ -6,6 +6,7 @@ import { getBanInfos } from '../../data/sql/Ban.js';
 async function baninfo(req, res) {
   const { ttag: { t }, user, ip: { ipString } } = req;
 
+  console.log('getbaninfo', ipString, user?.id);
   const bans = await getBanInfos(ipString, user?.id, null, null);
 
   if (!bans.length) {
