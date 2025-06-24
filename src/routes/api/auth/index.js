@@ -7,6 +7,7 @@ import { ensureLoggedIn, openSession } from '../../../middleware/session.js';
 
 import register from './register.js';
 import verify from './verify.js';
+import local from './local.js';
 import logout from './logout.js';
 // eslint-disable-next-line camelcase
 import resend_verify from './resend_verify.js';
@@ -24,8 +25,6 @@ import change_mail from './change_mail.js';
 import restore_password from './restore_password.js';
 
 import getHtml from '../../../ssr/RedirectionPage.jsx';
-
-import getMe from '../../../core/me.js';
 
 const router = express.Router();
 
@@ -98,31 +97,7 @@ router.post('/restore_password', restore_password);
 
 router.post('/register', register);
 
-router.post('/local', passport.authenticate('json', {
-  session: false,
-}), async (req, res) => {
-  /* this is NOT a full user instance, only { id, name, password, userlvl } */
-  const { user } = req;
-
-  /* session duration, null for permanent */
-  let { durationHours } = req.body;
-  if (durationHours !== null) {
-    durationHours = parseInt(durationHours, 10);
-    if (Number.isNaN(durationHours)) {
-      // default to 30 days if gibberish
-      durationHours = 720;
-    }
-  }
-
-  /* openSession() turns req.user into a full user object */
-  await openSession(req, res, user.id, durationHours);
-  logger.info(`User ${user.id} logged in with mail/password.`);
-  const me = await getMe(req.user, req.lang);
-  res.json({
-    success: true,
-    me,
-  });
-});
+router.post('/local', local);
 
 router.use(ensureLoggedIn);
 

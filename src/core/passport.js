@@ -4,7 +4,6 @@
  */
 
 import passport from 'passport';
-import JsonStrategy from 'passport-json';
 import GoogleStrategy from 'passport-google-oauth2';
 import DiscordStrategy from 'passport-discord';
 import FacebookStrategy from 'passport-facebook';
@@ -15,7 +14,6 @@ import { sanitizeName } from '../utils/validation.js';
 import logger from './logger.js';
 import { USERLVL, THREEPID_PROVIDERS } from '../data/sql/index.js';
 import {
-  getUsersByNameOrEmail,
   getUserByEmail,
   getUserByTpid,
   getNameThatIsNotTaken,
@@ -24,36 +22,7 @@ import {
 } from '../data/sql/User.js';
 import { addOrReplaceTpid } from '../data/sql/ThreePID.js';
 import { auth } from './config.js';
-import { compareToHash } from '../utils/hash.js';
 
-
-/**
- * Sign in locally
- */
-passport.use(new JsonStrategy({
-  usernameProp: 'nameoremail',
-  passwordProp: 'password',
-}, async (nameoremail, password, done) => {
-  const users = await getUsersByNameOrEmail(nameoremail, null);
-  if (!users || !users.length) {
-    done(new Error('Name or Email does not exist!'));
-    return;
-  }
-  const user = users.find((u) => compareToHash(password, u.password));
-  if (!user) {
-    if (users.find((u) => u.password === 'hacked')) {
-      done(new Error(
-        // eslint-disable-next-line max-len
-        'This email / password combination got hacked on a different platform and leaked. To protect this account, the password has been reset. Please use the "Forgot my password" function below to set a new password. In the future, consider not installing Malware, Thank You.',
-      ));
-      return;
-    }
-    done(new Error('Incorrect password!'));
-    return;
-  }
-  /* this is NOT a full user instance, only { id, name, password, userlvl } */
-  done(null, user);
-}));
 
 /**
  * OAuth SignIns, either mail or tpid has to be given
