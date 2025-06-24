@@ -3,7 +3,7 @@
  * Storing third party IDs for oauth login
  */
 
-import Sequelize, { DataTypes } from 'sequelize';
+import Sequelize, { DataTypes, QueryTypes } from 'sequelize';
 
 import sequelize from './sequelize.js';
 import ThreePIDHistory from './ThreePIDHistory.js';
@@ -109,6 +109,24 @@ export async function getEmailOfUser(uid) {
     console.error(`SQL Error on getEmailOfUser: ${error.message}`);
   }
   return null;
+}
+
+/**
+ * get all ThreePIDs of user
+ * @param uid user id
+ * @return Promise<[{
+ *   tpid, normalizedTpid, provider, verified, lastSeen, createdAt },
+ *   ...
+ * ]>
+ */
+export function getTPIDsOfUser(uid) {
+  return sequelize.query(
+    'SELECT * FROM ThreePIDs WHERE uid = ?', {
+      replacements: [uid],
+      raw: true,
+      type: QueryTypes.SELECT,
+    },
+  );
 }
 
 /**

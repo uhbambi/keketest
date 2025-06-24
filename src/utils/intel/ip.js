@@ -148,7 +148,12 @@ export function hexToIP(hex) {
   } else {
     // IPv6
     for (let i = 0; i < 16; i += 4) {
-      ip += hex.slice(i, i + 4);
+      const part = hex.slice(i, i + 4);
+      if (part === '0000') {
+        ip += '0';
+      } else {
+        ip += part;
+      }
       ip += ':';
     }
     ip += ':';
