@@ -170,7 +170,7 @@ export async function setEmail(uid, email, verified = false) {
           ThreePIDHistory.create({
             uid: existingUserEmail.uid,
             provider: THREEPID_PROVIDERS.EMAIL,
-            tpid: existingUserEmail.email,
+            tpid: existingUserEmail.tpid,
             verified: existingUserEmail.verified,
             createdAt: existingUserEmail.createdAt,
           }), { transaction },

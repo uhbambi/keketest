@@ -10,6 +10,8 @@ add a dropdown for expiration: Browser close, 30 days, 1 year, forevers
 
 Avoid DataTypes.BIGINT.UNSIGNED or make it return sane
 
+verify that normalizedTpids are used
+
 # rwhois tests
 
 Error on WHOIS 69.178.112.123 rwhois.gci.net:4321: no rwhois support

@@ -390,7 +390,9 @@ export async function getUsersByNameOrEmail(name, email) {
       where: {
         [Op.or]: [{ name }, {
           '$tpids.provider$': THREEPID_PROVIDERS.EMAIL,
-          '$tpids.tpid$': email,
+          '$tpids.normalizedTpid$': Sequelize.fn(
+            'NORMALIZE_TPID', THREEPID_PROVIDERS.EMAIL, email,
+          ),
         }],
       },
       include: {

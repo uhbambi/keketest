@@ -81,14 +81,16 @@ const ChangePassword = ({ done }) => {
         ))}
         {(havePassword)
         && (
-        <input
-          value={password}
-          onChange={(evt) => setPassword(evt.target.value)}
-          type="password"
-          placeholder={t`Old Password`}
-        />
+          <>
+            <input
+              value={password}
+              onChange={(evt) => setPassword(evt.target.value)}
+              type="password"
+              placeholder={t`Old Password`}
+            />
+            <br />
+          </>
         )}
-        <br />
         <input
           value={newPassword}
           onChange={(evt) => setNewPassword(evt.target.value)}

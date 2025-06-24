@@ -61,14 +61,16 @@ const DeleteAccount = ({ done }) => {
         ))}
         {(havePassword)
         && (
-        <input
-          value={password}
-          onChange={(evt) => setPassword(evt.target.value)}
-          type="password"
-          placeholder={t`Password`}
-        />
+          <>
+            <input
+              value={password}
+              onChange={(evt) => setPassword(evt.target.value)}
+              type="password"
+              placeholder={t`Password`}
+            />
+            <br />
+          </>
         )}
-        <br />
         <button type="submit">
           {(submitting) ? '...' : t`Yes, Delete My Account!`}
         </button>

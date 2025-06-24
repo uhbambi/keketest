@@ -61,8 +61,7 @@ const ChangeMail = ({ done }) => {
         <p
           className="modalmessage"
         >
-          {t`Changed Mail successfully. We sent you a verification mail, \
-            please verify your new mail address.`}
+          {t`Changed Mail successfully.`}
         </p>
         <button type="button" onClick={done}>Close</button>
       </div>
@@ -80,14 +79,16 @@ const ChangeMail = ({ done }) => {
         ))}
         {(havePassword)
         && (
-        <input
-          value={password}
-          onChange={(evt) => setPassword(evt.target.value)}
-          type="password"
-          placeholder={t`Password`}
-        />
+          <>
+            <input
+              value={password}
+              onChange={(evt) => setPassword(evt.target.value)}
+              type="password"
+              placeholder={t`Password`}
+            />
+            <br />
+          </>
         )}
-        <br />
         <input
           value={email}
           onChange={(evt) => setEmail(evt.target.value)}

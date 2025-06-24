@@ -43,7 +43,7 @@ export default async (req, res) => {
     return;
   }
 
-  await setPassword({ password: newPassword });
+  await setPassword(user.id, newPassword);
 
   // eslint-disable-next-line max-len
   logger.info(`AUTH: Changed password for user ${user.name}(${user.id}) by ${req.ip.ipString}`);
