@@ -142,7 +142,7 @@ EXISTS(
   SELECT 1 FROM ThreePIDs tp WHERE tp.provider = 1 AND tp.uid = u.id
 ) AS 'mailreg' FROM Users u
   INNER JOIN Sessions s ON s.uid = u.id
-  LEFT JOIN UserChannels ucm ON ucm.uid =u.id
+  LEFT JOIN UserChannels ucm ON ucm.uid = u.id
   LEFT JOIN Channels c ON c.id = ucm.cid
 WHERE s.token = :token AND (s.expires > NOW() OR s.expires IS NULL)`, {
         replacements: { token: generateTokenHash(token) },
@@ -228,11 +228,11 @@ WHERE ub.uid = ?`, {
         const { cid, name, type, lastDate } = channels[i];
         const channel = [name, type, lastDate.getTime()];
         if (type === CHANNEL_TYPES.DM) {
-          const dmChannel = dmChannels.find(({ dmcid }) => dmcid === cid);
+          const dmChannel = dmChannels.find(({ cid: dmcid }) => dmcid === cid);
           if (!dmChannel) {
             console.error(
               // eslint-disable-next-line max-len
-              `User ${userId} has DM channel ${cid} but no other use associated`,
+              `Session Error: User ${userId} has DM channel ${cid} but no other use associated`,
             );
             continue;
           }

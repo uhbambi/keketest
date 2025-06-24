@@ -19,6 +19,11 @@ const ThreePID = sequelize.define('ThreePID', {
     primaryKey: true,
   },
 
+  uid: {
+    type: DataTypes.INTEGER.UNSIGNED,
+    allowNull: false,
+  },
+
   provider: {
     type: DataTypes.TINYINT.UNSIGNED,
     allowNull: false,

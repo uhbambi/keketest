@@ -68,7 +68,7 @@ async function startDm(req, res) {
     `Creating DM Channel between ${user.name} and ${userName}`,
   );
 
-  const channelId = await createDMChannel(user.id, userId);
+  const [channelId] = await createDMChannel(user.id, userId);
 
   if (channelId) {
     const curTime = Date.now();
@@ -82,6 +82,8 @@ async function startDm(req, res) {
       channelId,
       [user.name, 1, curTime, user.id],
     );
+  } else {
+    throw new Error(`Couldn't create a DM with ${userName}, try again later.`);
   }
 
   res.json({

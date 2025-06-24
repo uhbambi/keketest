@@ -33,7 +33,6 @@ const Channel = sequelize.define('Channel', {
   type: {
     type: DataTypes.TINYINT.UNSIGNED,
     allowNull: false,
-    defaultValue: 0,
   },
 
   lastMessage: {
@@ -86,8 +85,8 @@ export async function findDMChannel(uidA, uidB) {
         association: 'users',
         where: {
           id: [uidA, uidB],
-          required: true,
         },
+        required: true,
         group: ['Channel.id'],
         having: Sequelize.where(
           Sequelize.fn('COUNT', Sequelize.col('users.id')),
@@ -108,18 +107,19 @@ export async function findDMChannel(uidA, uidB) {
  * create DM between two users
  * @param uidA user id of user A
  * @param uidB user id of user B
+ * @return [cid, created] cid can be set and created false if DM channel
+ *   already exists
  */
 export async function createDMChannel(uidA, uidB) {
   let cid = await findDMChannel(uidA, uidB);
   if (cid) {
-    return null;
+    return [cid, false];
   }
   const transaction = await sequelize.transaction();
 
   try {
-    const channel = Channel.create({
-      where: { type: CHANNEL_TYPES.DM },
-      raw: true,
+    const channel = await Channel.create({
+      type: CHANNEL_TYPES.DM,
     }, { transaction });
     cid = channel.id;
     await UserChannel.bulkCreate([
@@ -127,9 +127,10 @@ export async function createDMChannel(uidA, uidB) {
     ], { transaction });
 
     await transaction.commit();
-    return cid;
+    return [cid, true];
   } catch (error) {
     await transaction.rollback();
+    console.error(`SQL Error on createDMChannel: ${error.message}`);
     throw error;
   }
 }

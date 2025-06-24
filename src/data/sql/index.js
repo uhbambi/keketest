@@ -13,6 +13,7 @@ import RangeBan from './RangeBan.js';
 import RangeBanHistory from './RangeBanHistory.js';
 import ProxyWhitelist from './ProxyWhitelist.js';
 import ThreePID, { THREEPID_PROVIDERS } from './ThreePID.js';
+import ThreePIDHistory from './ThreePIDHistory.js';
 import Fish from './Fish.js';
 import UserIP from './association_models/UserIP.js';
 import UserBlock from './association_models/UserBlock.js';
@@ -96,6 +97,20 @@ ThreePID.belongsTo(User, {
 });
 User.hasMany(ThreePID, {
   as: 'tpids',
+  foreignKey: 'uid',
+});
+
+
+/*
+ * third party ids history
+ */
+ThreePIDHistory.belongsTo(User, {
+  as: 'user',
+  foreignKey: 'uid',
+  onDelete: 'CASCADE',
+});
+User.hasMany(ThreePIDHistory, {
+  as: 'tpidsHistory',
   foreignKey: 'uid',
 });
 
@@ -260,6 +275,7 @@ RangeBanHistory.belongsTo(RangeData, {
 });
 RangeData.hasMany(RangeBanHistory, {
   as: 'banHistory',
+  foreignKey: 'rid',
 });
 RangeBanHistory.belongsTo(User, {
   as: 'mod',

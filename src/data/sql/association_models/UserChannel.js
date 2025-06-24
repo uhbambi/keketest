@@ -12,7 +12,8 @@ import sequelize from '../sequelize.js';
 const UserChannel = sequelize.define('UserChannel', {
   lastRead: {
     type: DataTypes.DATE,
-    allowNull: true,
+    defaultValue: DataTypes.NOW,
+    allowNull: false,
   },
 });
 

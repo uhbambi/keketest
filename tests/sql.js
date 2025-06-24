@@ -3,7 +3,9 @@ import { DailyCron, HourlyCron } from '../src/utils/cron.js';
 import { getIPAllowance, getIPsOfIIDs, getIIDsOfIPs, getIPofIID, getIIDofIP, touchIP } from '../src/data/sql/IP.js';
 import { getBanInfos } from '../src/data/sql/Ban.js';
 import { resolveSession, createSession } from '../src/data/sql/Session.js';
-import { getUsersByNameOrEmail, setPassword, setUserLvl } from '../src/data/sql/User.js';
+import { getUsersByNameOrEmail, setPassword, setUserLvl, createNewUser } from '../src/data/sql/User.js';
+import { setEmail } from '../src/data/sql/ThreePID.js';
+import { createDMChannel, deleteDMChannel, deleteChannel } from '../src/data/sql/Channel.js';
 import { notifyUserIpChanges, ban } from '../src/core/ban.js';
 import { IP } from '../src/middleware/ip.js';
 import { User } from '../src/middleware/session.js';
@@ -22,6 +24,34 @@ async function destruct() {
   HourlyCron.destructor();
 }
 
+async function establishUsers() {
+  let userAId;
+  let userAToken;
+  let userBId;
+  let userBToken;
+  let userdataA = await getUsersByNameOrEmail('testA', 'testA@example.com');
+  if (!userdataA.length) {
+    userdataA = await createNewUser('testA', 'testtest');
+    await setEmail(userdataA.id, 'testA@example.com');
+  } else {
+    [userdataA] = userdataA;
+  }
+  let userdataB = await getUsersByNameOrEmail('testB', 'testB@example.com');
+  if (!userdataB.length) {
+    userdataB = await createNewUser('testB', 'testtest');
+    await setEmail(userdataB.id, 'testB@example.com');
+  } else {
+    [userdataB] = userdataB;
+  }
+  const tokena = await createSession(userdataA.id, 5);
+  const tokenb = await createSession(userdataB.id, 5);
+  return {
+    uida: userdataA.id,
+    uidb: userdataB.id,
+    tokena, tokenb,
+  }
+}
+
 async function ipMapping() {
   console.log('GET IPs OF IIDs');
   console.log(await getIPsOfIIDs(['5c1f6618-4f8e-11f0-8cca-b61fc4d778f0', '90ccd90a-c3e2-53d0-e889-c59c39cf9b45']));
@@ -37,10 +67,26 @@ async function ipMapping() {
   console.log(await touchIP('127.0.0.1'));
 }
 
+async function chat(users) {
+  const { uida, uidb, tokena, tokenb } = users;
+  await deleteDMChannel(uida, uidb);
+  const cid = await createDMChannel(uida, uidb);
+  console.log('Created DM channel', cid);
+  console.log(await resolveSession(tokena));
+  // console.log(await resolveSession(tokenb));
+}
+
 (async () => {
   await initialize();
 
-  await ipMapping();
+  try {
+    const users = await establishUsers();
+    await chat(users);
+  } catch (error) {
+    console.error(error.message);
+  }
+
+  await destruct();
   /*
   const ip = new IP({ connection: { remoteAddress: '127.0.0.1' } });
   console.log(await ip.getAllowance());
@@ -69,6 +115,4 @@ async function ipMapping() {
   // console.log(await ban(null, 6, null, false, true, 'just because', null, null));
   console.log(await getBanInfos('127.0.0.1', null, null, 5, true))
 */
-
-  await destruct();
 })();

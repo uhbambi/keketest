@@ -35,7 +35,7 @@ export default async function getMe(user, lang) {
     priv = !!(data.flags & (0x01 << USER_FLAGS.PRIV));
     channels = {
       ...channels,
-      ...user.channels,
+      ...data.channels,
     };
   } else {
     id = 0;

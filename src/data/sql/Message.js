@@ -80,9 +80,14 @@ WHERE m.cid = ? ORDER BY m.createdAt DESC LIMIT ?`, {
         type: QueryTypes.SELECT,
       },
     );
-    return models.map(({ name, message, flag, uid, ts }) => [
-      name, message, flag, uid, ts,
-    ]);
+    const rows = [];
+    let i = models.length;
+    while (i > 0) {
+      i -= 1;
+      const { name, message, flag, uid, ts } = models[i];
+      rows.push([name, message, flag, uid, ts])
+    }
+    return rows;
   } catch (error) {
     console.error(`SQL Error on getMessagesForChannel: ${error.message}`);
   }
