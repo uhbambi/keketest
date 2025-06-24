@@ -12,8 +12,10 @@ import { clearCookie } from '../../../middleware/session.js';
 function validate(password, gettext) {
   const errors = [];
 
-  const passworderror = gettext(validatePassword(password));
-  if (passworderror) errors.push(passworderror);
+  if (password) {
+    const passworderror = gettext(validatePassword(password));
+    if (passworderror) errors.push(passworderror);
+  }
 
   return errors;
 }
@@ -33,7 +35,7 @@ export default async (req, res) => {
   const { user } = req;
 
   const currentPassword = user.data.password;
-  if (!currentPassword || !compareToHash(password, currentPassword)) {
+  if (currentPassword && !compareToHash(password, currentPassword)) {
     res.status(400);
     res.json({
       errors: [t`Incorrect password!`],

@@ -3,6 +3,7 @@
  */
 
 import React, { useState } from 'react';
+import { useSelector } from 'react-redux';
 import { t } from 'ttag';
 
 import {
@@ -10,11 +11,13 @@ import {
 } from '../utils/validation.js';
 import { requestMailChange } from '../store/actions/fetch.js';
 
-function validate(email, password) {
+function validate(havePassword, email, password) {
   const errors = [];
 
-  const passerror = validatePassword(password);
-  if (passerror) errors.push(passerror);
+  if (havePassword) {
+    const passerror = validatePassword(password);
+    if (passerror) errors.push(passerror);
+  }
   const mailerror = validateEMail(email);
   if (mailerror) errors.push(mailerror);
 
@@ -28,13 +31,15 @@ const ChangeMail = ({ done }) => {
   const [success, setSuccess] = useState(false);
   const [errors, setErrors] = useState([]);
 
+  const havePassword = useSelector((state) => state.user.havePassword);
+
   const handleSubmit = async (evt) => {
     evt.preventDefault();
     if (submitting) {
       return;
     }
 
-    const valErrors = validate(email, password);
+    const valErrors = validate(havePassword, email, password);
     if (valErrors.length > 0) {
       setErrors(valErrors);
       return;
@@ -73,12 +78,15 @@ const ChangeMail = ({ done }) => {
             {error}
           </p>
         ))}
+        {(havePassword)
+        && (
         <input
           value={password}
           onChange={(evt) => setPassword(evt.target.value)}
           type="password"
           placeholder={t`Password`}
         />
+        )}
         <br />
         <input
           value={email}

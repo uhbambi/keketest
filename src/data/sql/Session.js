@@ -106,7 +106,6 @@ export async function removeSession(token) {
  *   flags,
  *   lastSeen,
  *   createdAt,
- *   mailreg,
  *   blocked: [ { id, name }, ...],
  *   bans: [ { expires, flags }, ... ],
  *   channels: {
@@ -137,10 +136,7 @@ export async function resolveSession(token) {
 
     let user = await sequelize.query(
       `SELECT u.id, u.name, u.password, u.userlvl, u.flags, u.lastSeen, u.createdAt,
-c.id AS 'channels.cid', c.name AS 'channels.name', c.\`type\` AS 'channels.type', c.lastMessage AS 'channels.lastDate', ucm.lastRead AS 'channels.lastReadDate',
-EXISTS(
-  SELECT 1 FROM ThreePIDs tp WHERE tp.provider = 1 AND tp.uid = u.id
-) AS 'mailreg' FROM Users u
+c.id AS 'channels.cid', c.name AS 'channels.name', c.\`type\` AS 'channels.type', c.lastMessage AS 'channels.lastDate', ucm.lastRead AS 'channels.lastReadDate' FROM Users u
   INNER JOIN Sessions s ON s.uid = u.id
   LEFT JOIN UserChannels ucm ON ucm.uid = u.id
   LEFT JOIN Channels c ON c.id = ucm.cid
@@ -152,7 +148,6 @@ WHERE s.token = :token AND (s.expires > NOW() OR s.expires IS NULL)`, {
     /*
      * {
      *   id, name, password, userlvl, flags, lastSeen, createdAt,
-     *   mailreg,
      *   channels: [{
      *     cid, name, type, lastDate,
      *   }, ...]

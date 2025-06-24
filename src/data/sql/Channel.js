@@ -85,7 +85,7 @@ WHERE c.type = ? AND uc.uid IN (?, ?) GROUP BY c.id HAVING COUNT(DISTINCT uc.uid
         replacements: [CHANNEL_TYPES.DM, uidA, uidB],
         raw: true,
         type: QueryTypes.SELECT,
-      }
+      },
     );
     return channel[0]?.id;
   } catch (error) {

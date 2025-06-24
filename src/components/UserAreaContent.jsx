@@ -47,7 +47,7 @@ const UserAreaContent = () => {
     }
   }, [dispatch]);
 
-  const mailreg = useSelector((state) => state.user.mailreg);
+  const havePassword = useSelector((state) => state.user.havePassword);
   const name = useSelector((state) => state.user.name);
   const [
     totalPixels,
@@ -103,24 +103,19 @@ const UserAreaContent = () => {
           onClick={() => setArea('CHANGE_NAME')}
         > {t`Change Username`}</span>
         <span className="hdivider" />
-        {(mailreg)
-          && (
-          <React.Fragment key="mc">
-            <span
-              role="button"
-              tabIndex={-1}
-              className="modallink"
-              onClick={() => setArea('CHANGE_MAIL')}
-            > {t`Change Mail`}</span>
-            <span className="hdivider" />
-          </React.Fragment>
-          )}
+        <span
+          role="button"
+          tabIndex={-1}
+          className="modallink"
+          onClick={() => setArea('CHANGE_MAIL')}
+        > {t`Change Mail`}</span>
+        <span className="hdivider" />
         <span
           role="button"
           tabIndex={-1}
           className="modallink"
           onClick={() => setArea('CHANGE_PASSWORD')}
-        > {t`Change Password`}</span>
+        > {(havePassword) ? t`Change Password` : t`Set Password`}</span>
         <span className="hdivider" />
         <span
           role="button"

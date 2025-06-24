@@ -6,14 +6,14 @@ import React, { useState } from 'react';
 import { t } from 'ttag';
 import { useSelector, useDispatch } from 'react-redux';
 
-import { setMailreg } from '../store/actions/index.js';
+import { setHavePassword } from '../store/actions/index.js';
 import { validatePassword } from '../utils/validation.js';
 import { requestPasswordChange } from '../store/actions/fetch.js';
 
-function validate(mailreg, password, newPassword, confirmPassword) {
+function validate(havePassword, password, newPassword, confirmPassword) {
   const errors = [];
 
-  if (mailreg) {
+  if (havePassword) {
     const oldpasserror = validatePassword(password);
     if (oldpasserror) errors.push(oldpasserror);
   }
@@ -35,7 +35,7 @@ const ChangePassword = ({ done }) => {
   const [submitting, setSubmitting] = useState(false);
   const [errors, setErrors] = useState([]);
 
-  const mailreg = useSelector((state) => state.user.mailreg);
+  const havePassword = useSelector((state) => state.user.havePassword);
   const dispatch = useDispatch();
 
   if (success) {
@@ -54,7 +54,7 @@ const ChangePassword = ({ done }) => {
           e.preventDefault();
           if (submitting) return;
           const valerrors = validate(
-            mailreg,
+            havePassword,
             password,
             newPassword,
             confirmPassword,
@@ -71,7 +71,7 @@ const ChangePassword = ({ done }) => {
             setSubmitting(false);
             return;
           }
-          dispatch(setMailreg(true));
+          dispatch(setHavePassword(true));
           setSuccess(true);
         }}
       >
@@ -79,7 +79,7 @@ const ChangePassword = ({ done }) => {
           <p key={error} className="errormessage"><span>{t`Error`}</span>
             :&nbsp;{error}</p>
         ))}
-        {(mailreg)
+        {(havePassword)
         && (
         <input
           value={password}
@@ -93,14 +93,16 @@ const ChangePassword = ({ done }) => {
           value={newPassword}
           onChange={(evt) => setNewPassword(evt.target.value)}
           type="password"
-          placeholder={t`New Password`}
+          placeholder={(havePassword) ? t`New Password` : t`Password`}
         />
         <br />
         <input
           value={confirmPassword}
           onChange={(evt) => setConfirmPassword(evt.target.value)}
           type="password"
-          placeholder={t`Confirm New Password`}
+          placeholder={
+            (havePassword) ? t`Confirm New Password` : t`Confirm Password`
+          }
         />
         <br />
         <button

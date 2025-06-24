@@ -23,7 +23,7 @@ export class User {
    *   flags,
    *   lastSeen,
    *   createdAt,
-   *   mailreg,
+   *   havePassword,
    *   bans: [ { expires, flags }, ... ],
    *   tpids: [ { tpid, provider }, ... ],
    *   blocked: [ { id, name }, ...],

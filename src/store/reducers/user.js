@@ -9,7 +9,7 @@ const initialState = {
   userlvl: USERLVL.ANONYM,
   // messages are sent by api/me, like not_verified status
   messages: [],
-  mailreg: false,
+  havePassword: false,
   // blocking all Dms
   blockDm: false,
   // profile is private
@@ -84,7 +84,7 @@ export default function user(
       const {
         id,
         name,
-        mailreg,
+        havePassword,
         blockDm,
         priv,
         userlvl,
@@ -95,7 +95,7 @@ export default function user(
         id,
         name,
         messages,
-        mailreg,
+        havePassword,
         blockDm,
         priv,
         userlvl,
@@ -108,7 +108,7 @@ export default function user(
         id: null,
         name: null,
         messages: [],
-        mailreg: false,
+        havePassword: false,
         blockDm: false,
         priv: false,
         userlvl: USERLVL.ANONYM,
@@ -166,11 +166,11 @@ export default function user(
       };
     }
 
-    case 's/SET_MAILREG': {
-      const { mailreg } = action;
+    case 's/SET_HAVE_PASSWORD': {
+      const { havePassword } = action;
       return {
         ...state,
-        mailreg,
+        havePassword,
       };
     }
 

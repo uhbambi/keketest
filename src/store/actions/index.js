@@ -364,12 +364,12 @@ export function setName(
   };
 }
 
-export function setMailreg(
-  mailreg,
+export function setHavePassword(
+  havePassword,
 ) {
   return {
-    type: 's/SET_MAILREG',
-    mailreg,
+    type: 's/SET_HAVE_PASSWORD',
+    havePassword,
   };
 }
 
@@ -544,7 +544,7 @@ export function propagateMe(state) {
   const {
     id,
     name,
-    mailreg,
+    havePassword,
     blockDm,
     userlvl,
   } = state.user;
@@ -568,7 +568,7 @@ export function propagateMe(state) {
     dailyRanking,
     dailyTotalPixels,
     id,
-    mailreg,
+    havePassword,
     name,
     ranking,
     totalPixels,

@@ -85,7 +85,7 @@ WHERE m.cid = ? ORDER BY m.createdAt DESC LIMIT ?`, {
     while (i > 0) {
       i -= 1;
       const { name, message, flag, uid, ts } = models[i];
-      rows.push([name, message, flag, uid, ts])
+      rows.push([name, message, flag, uid, ts]);
     }
     return rows;
   } catch (error) {
