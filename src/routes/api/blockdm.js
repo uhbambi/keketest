@@ -26,10 +26,10 @@ async function blockdm(req, res) {
 
   if (block) {
     const dmChannels = await deleteAllDMChannelsOfUser(user.id);
-    if (dmChannels?.length > 0) {
-      dmChannels.forEach(({ cid, uidA, uidB }) => {
-        socketEvents.broadcastRemoveChatChannel(uidA, cid);
-        socketEvents.broadcastRemoveChatChannel(uidB, cid);
+    if (dmChannels.length) {
+      dmChannels.forEach(({ cid, dmuid }) => {
+        socketEvents.broadcastRemoveChatChannel(user.id, cid);
+        socketEvents.broadcastRemoveChatChannel(dmuid, cid);
       });
     }
   }

@@ -20,6 +20,7 @@ const selectBlocks = (state) => [
   state.fetching.fetchingApi,
 ];
 
+/* eslint-disable max-len */
 const SocialSettings = ({ done }) => {
   const [
     blocked,
@@ -39,7 +40,7 @@ const SocialSettings = ({ done }) => {
             dispatch(setBlockingDm(!blockDm));
           }
         }}
-      >{t`Block all Private Messages`}</SettingsItem>
+      >{t`Block all Private Messages. Enabling this will delete all your current DMs. You can still start new DMs with other users, but other users won't be able to start DMs with you.`}</SettingsItem>
       <SettingsItem
         title={t`Private`}
         value={priv}

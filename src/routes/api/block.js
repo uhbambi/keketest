@@ -41,7 +41,7 @@ async function block(req, res) {
     return;
   }
 
-  const targetUser = findUserByIdOrName(userId, userName);
+  const targetUser = await findUserByIdOrName(userId, userName);
 
   if (!targetUser) {
     res.status(401);

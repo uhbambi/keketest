@@ -16,7 +16,10 @@ export default async function getMe(user, lang) {
   let id;
   let name;
   let userlvl;
+  /* if we have a mail set */
   let mailreg;
+  /* if we have a password set */
+  let passreg;
   let blockDm;
   let priv;
 
@@ -33,6 +36,7 @@ export default async function getMe(user, lang) {
     } = data);
     blockDm = !!(data.flags & (0x01 << USER_FLAGS.BLOCK_DM));
     priv = !!(data.flags & (0x01 << USER_FLAGS.PRIV));
+    passreg = data.password !== null;
     channels = {
       ...channels,
       ...data.channels,
@@ -42,12 +46,13 @@ export default async function getMe(user, lang) {
     name = null;
     userlvl = USERLVL.ANONYM;
     mailreg = false;
+    passreg = false;
     blockDm = false;
     priv = false;
   }
 
   const me = {
-    id, name, userlvl, mailreg, blockDm, priv,
+    id, name, userlvl, mailreg, passreg, blockDm, priv,
     channels, blocked, canvases,
   };
 

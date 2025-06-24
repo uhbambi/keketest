@@ -166,6 +166,7 @@ async function chat(users) {
   if (!out.blocked.find(({id}) => id === uidb)) {
     fail('User block not in session', out);
   }
+  console.log(await createDMChannel(5, 6));
 }
 
 (async () => {

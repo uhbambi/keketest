@@ -16,8 +16,10 @@ import { USERLVL } from '../../../core/constants.js';
 async function validate(email, password, t, gettext) {
   const errors = [];
 
-  const passerror = gettext(validatePassword(password));
-  if (passerror) errors.push(passerror);
+  if (password) {
+    const passerror = gettext(validatePassword(password));
+    if (passerror) errors.push(passerror);
+  }
   const mailerror = gettext(validateEMail(email));
   if (mailerror) {
     errors.push(mailerror);
@@ -41,8 +43,9 @@ export default async (req, res) => {
   }
 
   const { user, lang } = req;
+  /* remember that we do allow users to not have a password set */
   const currentPassword = user.data.password;
-  if (!compareToHash(password, currentPassword)) {
+  if (currentPassword && !compareToHash(password, currentPassword)) {
     res.status(400);
     res.json({
       errors: [t`Incorrect password!`],

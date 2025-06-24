@@ -4,7 +4,7 @@
  *
  */
 
-import Sequelize, { DataTypes, Op } from 'sequelize';
+import Sequelize, { DataTypes, QueryTypes, Op } from 'sequelize';
 
 import sequelize from './sequelize.js';
 import UserChannel from './association_models/UserChannel.js';
@@ -78,25 +78,16 @@ export async function findDMChannel(uidA, uidB) {
     return null;
   }
   try {
-    const channel = await Channel.findOne({
-      attributes: ['id'],
-      where: { type: CHANNEL_TYPES.DM },
-      include: {
-        association: 'users',
-        where: {
-          id: [uidA, uidB],
-        },
-        required: true,
-        group: ['Channel.id'],
-        having: Sequelize.where(
-          Sequelize.fn('COUNT', Sequelize.col('users.id')),
-          { [Op.eq]: 2 },
-        ),
-      },
-    });
-    if (channel) {
-      return channel.id;
-    }
+    const channel = await sequelize.query(
+      `SELECT c.id FROM Channels c
+  INNER JOIN UserChannels uc ON c.id = uc.cid
+WHERE c.type = ? AND uc.uid IN (?, ?) GROUP BY c.id HAVING COUNT(DISTINCT uc.uid) = 2`, {
+        replacements: [CHANNEL_TYPES.DM, uidA, uidB],
+        raw: true,
+        type: QueryTypes.SELECT,
+      }
+    );
+    return channel[0]?.id;
   } catch (error) {
     console.error(`SQL Error on findDMChannel: ${error.message}`);
   }
@@ -208,32 +199,22 @@ export async function removeUserFromChannel(uid, cid) {
  */
 export async function deleteAllDMChannelsOfUser(uid) {
   try {
-    const rows = await Channel.findAll({
-      attributes: ['id'],
-      where: {
-        type: CHANNEL_TYPES.DM,
-        [Sequelize.col('User.id')]: uid,
+    /* [{ dmuid, cid }, ...] */
+    const dmChannels = await sequelize.query(
+      `SELECT uc.uid AS 'dmuid', uc.cid FROM UserChannels uc
+WHERE uc.cid IN (
+  SELECT DISTINCT c.id FROM Channels c
+    INNER JOIN UserChannels uci ON uci.cid = c.id
+  WHERE c.type = ? AND uci.uid = ?
+) AND uc.uid != ?`, {
+        replacements: [CHANNEL_TYPES.DM, uid, uid],
+        raw: true,
+        type: QueryTypes.SELECT,
       },
-      include: {
-        association: 'users',
-        attributes: ['id'],
-      },
-      raw: true,
-      nested: true,
-    });
-    if (!rows.length) {
-      return rows;
+    );
+    if (dmChannels.length) {
+      await Channel.destroy({ where: { id: dmChannels.map((r) => r.cid) } });
     }
-    const cids = [];
-    const dmChannels = rows.map((r) => {
-      cids.push(r.id);
-      return {
-        cid: r.id,
-        uidA: uid,
-        uidB: r.users.filter((u) => u.id !== uid)[0].id,
-      };
-    });
-    await Channel.destroy({ where: { id: cids } });
     return dmChannels;
   } catch (error) {
     console.error(`SQL Error on deleteAllDMChannelsOfUser: ${error.message}`);

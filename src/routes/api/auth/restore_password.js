@@ -16,9 +16,7 @@ async function validate(email, gettext) {
 }
 
 export default async (req, res) => {
-  const { ip } = req.user;
-  const { email } = req.body;
-  const { gettext } = req.ttag;
+  const { ip: { ipString }, body: { email }, ttag: { gettext } } = req;
 
   const errors = validate(email, gettext);
   if (errors.length > 0) {
@@ -31,10 +29,10 @@ export default async (req, res) => {
 
   const host = getHostFromRequest(req);
   const { lang } = req;
-  const error = await mailProvider.sendPasswdResetMail(email, ip, host, lang);
+  const error = await mailProvider.sendPasswdResetMail(email, ipString, host, lang);
   if (error) {
     // eslint-disable-next-line max-len
-    logger.info(`AUTH: Could not send password reset mail for email ${email} by ${req.ip.ipString}`);
+    logger.info(`AUTH: Could not send password reset mail for email ${email} by ${ipString}`);
 
     res.status(400);
     res.json({
@@ -44,7 +42,7 @@ export default async (req, res) => {
   }
 
   // eslint-disable-next-line max-len
-  logger.info(`AUTH: Sent password reset mail for email ${email} by ${req.ip.ipString}`);
+  logger.info(`AUTH: Sent password reset mail for email ${email} by ${ipString}`);
 
   res.status(200);
   res.json({

@@ -53,10 +53,10 @@ export default async (req, res) => {
     return;
   }
   const { dmChannels } = ret;
-  if (dmChannels.length > 0) {
-    dmChannels.forEach(({ cid, uidA, uidB }) => {
-      socketEvents.broadcastRemoveChatChannel(uidA, cid);
-      socketEvents.broadcastRemoveChatChannel(uidB, cid);
+  if (dmChannels.length) {
+    dmChannels.forEach(({ cid, dmuid }) => {
+      socketEvents.broadcastRemoveChatChannel(user.id, cid);
+      socketEvents.broadcastRemoveChatChannel(dmuid, cid);
     });
   }
   clearCookie(req, res);
