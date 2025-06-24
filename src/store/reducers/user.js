@@ -3,6 +3,7 @@ import { USERLVL } from '../../core/constants.js';
 const initialState = {
   id: null,
   name: null,
+  username: null,
   wait: null,
   coolDown: null, // ms
   lastCoolDownEnd: null,
@@ -84,6 +85,7 @@ export default function user(
       const {
         id,
         name,
+        username,
         havePassword,
         blockDm,
         priv,
@@ -94,6 +96,7 @@ export default function user(
         ...state,
         id,
         name,
+        username,
         messages,
         havePassword,
         blockDm,
@@ -107,6 +110,7 @@ export default function user(
         ...state,
         id: null,
         name: null,
+        username: null,
         messages: [],
         havePassword: false,
         blockDm: false,
@@ -116,10 +120,10 @@ export default function user(
     }
 
     case 's/SET_NAME': {
-      const { name } = action;
       return {
         ...state,
-        name,
+        name: action.name || state.name,
+        username: action.username || state.username,
       };
     }
 

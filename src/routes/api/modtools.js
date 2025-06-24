@@ -132,16 +132,18 @@ router.post('/', async (req, res, next) => {
     }
     if (req.body.iidaction) {
       const {
-        iidaction, iid, bid, iidoruid, identifiers, reason, time,
+        iidaction, iid, bid, iidoruser,
+        identifiers, reason, time, username,
       } = req.body;
       const ret = await executeIIDAction(
         iidaction,
         iid,
         bid,
-        iidoruid,
+        iidoruser,
         identifiers,
         reason,
         time,
+        username,
         req.user.id,
         bLogger,
       );

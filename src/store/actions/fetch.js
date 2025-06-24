@@ -299,6 +299,13 @@ export function requestNameChange(name) {
   );
 }
 
+export function requestUsernameChange(username) {
+  return makeAPIPOSTRequest(
+    '/api/auth/change_username',
+    { username },
+  );
+}
+
 export function requestMailChange(email, password) {
   return makeAPIPOSTRequest(
     '/api/auth/change_mail',

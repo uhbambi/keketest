@@ -14,10 +14,11 @@ async function submitIIDAction(
   action,
   iid,
   bid,
-  iidoruid,
+  iidoruser,
   identifierList,
   reason,
   duration,
+  username,
 ) {
   const data = new FormData();
   data.append('iidaction', action);
@@ -39,10 +40,21 @@ async function submitIIDAction(
       break;
     }
     case 'status': {
-      if (!iidoruid) {
+      if (!iidoruser) {
         return t`You must enter an IID or UserId`;
       }
-      data.append('iidoruid', iidoruid);
+      data.append('iidoruser', iidoruser);
+      break;
+    }
+    case 'changeusername': {
+      if (!iidoruser) {
+        return t`You must enter a UserId`;
+      }
+      if (!username) {
+        return t`You must enter a username`;
+      }
+      data.append('iidoruser', iidoruser);
+      data.append('username', username);
       break;
     }
     case 'ban': {
@@ -76,12 +88,13 @@ async function submitIIDAction(
 }
 
 function ModIIDtools() {
-  const [iIDAction, selectIIDAction] = useState('givecaptcha');
+  const [iIDAction, selectIIDAction] = useState('status');
   const [iid, selectIid] = useState('');
   const [bid, selectBid] = useState('');
-  const [iidOrUid, selectIidOrUid] = useState('');
+  const [iidOrUser, selectIidOrUser] = useState('');
   const [identifierList, setIdentifierList] = useState('');
   const [reason, setReason] = useState('');
+  const [username, setUsername] = useState('');
   const [duration, setDuration] = useState('1d');
   const [resp, setResp] = useState('');
   const [submitting, setSubmitting] = useState(false);
@@ -96,15 +109,18 @@ function ModIIDtools() {
           selectIIDAction(sel.options[sel.selectedIndex].value);
         }}
       >
-        {['status', 'givecaptcha', 'ban', 'unban', 'whitelist', 'unwhitelist', 'baninfo']
-          .map((opt) => (
-            <option
-              key={opt}
-              value={opt}
-            >
-              {opt}
-            </option>
-          ))}
+        {[
+          'status', 'baninfo', 'ban', 'unban',
+          'whitelist', 'unwhitelist',
+          'givecaptcha', 'changeusername',
+        ].map((opt) => (
+          <option
+            key={opt}
+            value={opt}
+          >
+            {opt}
+          </option>
+        ))}
       </select>
       {(iIDAction === 'ban') && (
         <React.Fragment key="ban">
@@ -137,7 +153,7 @@ function ModIIDtools() {
         </React.Fragment>
       )}
       {(iIDAction === 'whitelist' || iIDAction === 'unwhitelist' || iIDAction === 'givecaptcha' || iIDAction === 'ipstatus') && (
-        <p>
+        <p key="iidactions">
           IID:&nbsp;
           <input
             value={iid}
@@ -155,7 +171,7 @@ function ModIIDtools() {
         </p>
       )}
       {(iIDAction === 'baninfo') && (
-        <p>
+        <p key="baninfo">
           BID:&nbsp;
           <input
             value={bid}
@@ -173,10 +189,10 @@ function ModIIDtools() {
         </p>
       )}
       {(iIDAction === 'status') && (
-        <p>
-          IID or UserID:&nbsp;
+        <p key="status">
+          IID or UserID or Name:&nbsp;
           <input
-            value={iidOrUid}
+            value={iidOrUser}
             style={{
               display: 'inline-block',
               width: '100%',
@@ -184,13 +200,42 @@ function ModIIDtools() {
             }}
             type="text"
             onChange={(evt) => {
-              selectIidOrUid(evt.target.value.trim());
+              selectIidOrUser(evt.target.value.trim());
             }}
           />
         </p>
       )}
+      {(iIDAction === 'changeusername') && (
+        <React.Fragment key="changeusername">
+          <p>
+            UserID or Name:
+            <input
+              value={iidOrUser}
+              style={{
+                display: 'inline-block',
+                width: '100%',
+                maxWidth: '37em',
+              }}
+              type="text"
+              onChange={(evt) => {
+                selectIidOrUser(evt.target.value.trim());
+              }}
+            />
+          </p>
+          <p>{t`Username`}</p>
+          <input
+            maxLength="200"
+            style={{
+              width: '100%',
+            }}
+            value={username}
+            placeholder={t`Enter Reason`}
+            onChange={(evt) => setUsername(evt.target.value)}
+          />
+        </React.Fragment>
+      )}
       {(iIDAction === 'ban' || iIDAction === 'unban') && (
-        <p>
+        <p key="banunban">
           IID, UID or BID:
           <br />
           <textarea
@@ -213,7 +258,8 @@ function ModIIDtools() {
               return;
             }
             const ret = await submitIIDAction(
-              iIDAction, iid, bid, iidOrUid, identifierList, reason, duration,
+              iIDAction, iid, bid, iidOrUser, identifierList,
+              reason, duration, username,
             );
             setSubmitting(false);
             setResp(ret);

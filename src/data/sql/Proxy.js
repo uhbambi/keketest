@@ -33,18 +33,14 @@ const ProxyData = sequelize.define('Proxy', {
    * operator of vpn if available
    */
   operator: {
-    type: DataTypes.STRING(60),
-    charset: 'utf8mb4',
-    collate: 'utf8mb4_unicode_ci',
+    type: `${DataTypes.STRING(60)} CHARSET utf8mb4 COLLATE utf8mb4_unicode_ci`,
   },
 
   /*
    * city of ip
    */
   city: {
-    type: DataTypes.STRING(60),
-    charset: 'utf8mb4',
-    collate: 'utf8mb4_unicode_ci',
+    type: `${DataTypes.STRING(60)} CHARSET utf8mb4 COLLATE utf8mb4_unicode_ci`,
   },
 
   /*

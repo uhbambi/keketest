@@ -355,12 +355,11 @@ export function loginUser(
   };
 }
 
-export function setName(
-  name,
-) {
+export function setName(name, username) {
   return {
     type: 's/SET_NAME',
     name,
+    username,
   };
 }
 

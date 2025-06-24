@@ -10,16 +10,18 @@ import UserMessages from './UserMessages.jsx';
 import FishList from './FishList.jsx';
 import ChangePassword from './ChangePassword.jsx';
 import ChangeName from './ChangeName.jsx';
+import ChangeUsername from './ChangeUsername.jsx';
 import ChangeMail from './ChangeMail.jsx';
 import DeleteAccount from './DeleteAccount.jsx';
 import SocialSettings from './SocialSettings.jsx';
 import { logoutUser } from '../store/actions/index.js';
 import { requestLogOut } from '../store/actions/fetch.js';
-
 import { numberToString } from '../core/utils.js';
+import { selectIsDarkMode } from '../store/selectors/gui.js';
 
 const AREAS = {
   CHANGE_NAME: ChangeName,
+  CHANGE_USERNAME: ChangeUsername,
   CHANGE_MAIL: ChangeMail,
   CHANGE_PASSWORD: ChangePassword,
   DELETE_ACCOUNT: DeleteAccount,
@@ -47,8 +49,16 @@ const UserAreaContent = () => {
     }
   }, [dispatch]);
 
-  const havePassword = useSelector((state) => state.user.havePassword);
-  const name = useSelector((state) => state.user.name);
+  const isDarkMode = useSelector(selectIsDarkMode);
+  const [
+    name,
+    havePassword,
+    username,
+  ] = useSelector((state) => [
+    state.user.name,
+    state.user.havePassword,
+    state.user.username,
+  ], shallowEqual);
   const [
     totalPixels,
     dailyTotalPixels,
@@ -88,7 +98,10 @@ const UserAreaContent = () => {
       />
       <FishList />
       <div>
-        <p>{t`Your name is: ${name}`}</p>(
+        <p>
+          {t`Your name is:`}<span className="statvalue">{` ${name} `}</span>
+          [<span>{` ${username} `}</span>]
+        </p>(
         <span
           role="button"
           tabIndex={-1}
@@ -101,8 +114,23 @@ const UserAreaContent = () => {
           tabIndex={-1}
           className="modallink"
           onClick={() => setArea('CHANGE_NAME')}
-        > {t`Change Username`}</span>
+        > {t`Change Name`}</span>
         <span className="hdivider" />
+        {(username.startsWith('pp_')) && (
+          <>
+            <span
+              role="button"
+              tabIndex={-1}
+              style={{
+                fontWeight: 'bold',
+                color: (isDarkMode) ? '#fcff4b' : '#8f270d',
+              }}
+              className="modallink"
+              onClick={() => setArea('CHANGE_USERNAME')}
+            > {t`Change Username`}</span>
+            <span className="hdivider" />
+          </>
+        )}
         <span
           role="button"
           tabIndex={-1}
@@ -113,6 +141,10 @@ const UserAreaContent = () => {
         <span
           role="button"
           tabIndex={-1}
+          style={(havePassword) ? {} : {
+            fontWeight: 'bold',
+            color: (isDarkMode) ? '#fcff4b' : '#8f270d',
+          }}
           className="modallink"
           onClick={() => setArea('CHANGE_PASSWORD')}
         > {(havePassword) ? t`Change Password` : t`Set Password`}</span>

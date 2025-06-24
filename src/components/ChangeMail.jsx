@@ -79,7 +79,7 @@ const ChangeMail = ({ done }) => {
         ))}
         {(havePassword)
         && (
-          <>
+          <React.Fragment key="pass">
             <input
               value={password}
               onChange={(evt) => setPassword(evt.target.value)}
@@ -87,7 +87,7 @@ const ChangeMail = ({ done }) => {
               placeholder={t`Password`}
             />
             <br />
-          </>
+          </React.Fragment>
         )}
         <input
           value={email}

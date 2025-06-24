@@ -7,7 +7,7 @@
 
 import sharp from 'sharp';
 
-import { validateCoorRange } from '../utils/validation.js';
+import { validateCoorRange, validateUsername } from '../utils/validation.js';
 import CanvasCleaner from './CanvasCleaner.js';
 import socketEvents from '../socket/socketEvents.js';
 import { USERLVL } from '../data/sql/index.js';
@@ -23,7 +23,7 @@ import {
   getIPsOfIIDs,
 } from '../data/sql/IP.js';
 import {
-  getUserInfos, setUserLvl, getUserByUserLvl, name2Id,
+  setUserLvl, getUserByUserLvl, name2Id, setUsername, findUserByIdOrName,
 } from '../data/sql/User.js';
 import {
   getIIDSummary,
@@ -156,16 +156,19 @@ export async function executeIIDAction(
   action,
   iid,
   bid,
-  iidOrUserId,
+  iidOrUserIdOrName,
   /* list of either iid, bid or userid */
   identifiers,
   reason,
   /* duration in ms */
   time,
+  username,
   muid,
   logger = null,
 ) {
-  if (logger) logger(`${action} ${iid} ${bid} ${iidOrUserId} ${identifiers}`);
+  if (logger) {
+    logger(`${action} ${iid} ${bid} ${iidOrUserIdOrName} ${identifiers}`);
+  }
 
   let duration;
   const identifierUuidList = [];
@@ -187,8 +190,19 @@ export async function executeIIDAction(
       break;
     }
     case 'status': {
-      if (!iidOrUserId) {
+      if (!iidOrUserIdOrName) {
         return 'You must enter an IID or BID';
+      }
+      break;
+    }
+    case 'changeusername': {
+      if (!iidOrUserIdOrName) {
+        return 'You must enter a UserId';
+      }
+      username = username?.trim();
+      const err = validateUsername(username);
+      if (err) {
+        return err;
       }
       break;
     }
@@ -234,12 +248,12 @@ export async function executeIIDAction(
       let ipInfo;
       let banInfos;
       let out;
-      if (iidOrUserId.indexOf('-') !== -1) {
+      if (iidOrUserIdOrName.indexOf('-') !== -1) {
         /* IID */
-        ipInfo = await getIPInfos(null, iidOrUserId);
-      } else if (iidOrUserId.indexOf('.') !== -1) {
+        ipInfo = await getIPInfos(null, iidOrUserIdOrName);
+      } else if (iidOrUserIdOrName.indexOf('.') !== -1) {
         /* IP */
-        ipInfo = await getIPInfos(iidOrUserId, null);
+        ipInfo = await getIPInfos(iidOrUserIdOrName, null);
       }
 
       /* getIPInfos always returns Array */
@@ -254,18 +268,17 @@ export async function executeIIDAction(
           descr, asn, type, isProxy, isWhitelisted,
         } = ipInfo;
         // eslint-disable-next-line max-len
-        out = `IP: ${iidOrUserId}\nCountry: ${country}\nCIDR: ${cidr}\norg: ${org}\ndesc: ${descr}\nasn: ${asn}\nType: ${type}\nisProxy: ${isProxy}\nisWhitelisted: ${isWhitelisted}\n`;
+        out = `IP: ${iidOrUserIdOrName}\nCountry: ${country}\nCIDR: ${cidr}\norg: ${org}\ndesc: ${descr}\nasn: ${asn}\nType: ${type}\nisProxy: ${isProxy}\nisWhitelisted: ${isWhitelisted}\n`;
         banInfos = await getBanInfos(ipInfo.ipString, null, null, null);
       } else {
         /* UserID */
-        const userId = parseInt(iidOrUserId, 10);
-        const user = await getUserInfos(userId);
+        const user = await findUserByIdOrName(iidOrUserIdOrName);
         if (!user) {
           return 'No such user found';
         }
         // eslint-disable-next-line max-len
-        out = `ID: ${userId}\nName: ${user.name}\nUserlvl: ${user.userlvl}\nFlags: ${user.flags}\n`;
-        banInfos = await getBanInfos(null, userId, null, null);
+        out = `ID: ${user.id}\nName: ${user.name}\nUsername: ${user.username}\nUserlvl: ${user.userlvl}\nFlags: ${user.flags}\n`;
+        banInfos = await getBanInfos(null, user.id, null, null);
       }
       if (banInfos?.length) {
         out += '\n';
@@ -290,13 +303,33 @@ export async function executeIIDAction(
       }
       return `${iid} would have gotten captcha anyway`;
     }
+    case 'changeusername': {
+      const [curUser, targetUser] = await Promise.all([
+        findUserByIdOrName(username), findUserByIdOrName(iidOrUserIdOrName),
+      ]);
+      if (!targetUser) {
+        return `No user ${iidOrUserIdOrName} found`;
+      }
+      let out = '';
+      if (curUser?.username === username) {
+        await setUsername(curUser.id, `pp_${curUser.id}`);
+        out += `Changed ${curUser.username} to pp_${curUser.id} and `;
+      }
+      const succ = await setUsername(targetUser.id, username);
+      if (!succ) {
+        // eslint-disable-next-line max-len
+        return `${out}Couldn't change ${targetUser.username}, ${username} probably already exists.`;
+      }
+      return `${out}Changed username of ${targetUser.username} to ${username}`;
+    }
     case 'ban': {
       const [bannedIpStrings, bannedUserIds] = await ban(
         null, identifierUserIdList, identifierUuidList,
         false, true, reason, duration || null, muid,
       );
       if (bannedIpStrings.length || bannedUserIds.length) {
-        return 'Successfully banned user';
+        // eslint-disable-next-line max-len
+        return `Successfully banned ${bannedUserIds.length} users and ${bannedIpStrings.length} IPs`;
       }
       return 'Could not ban user';
     }

@@ -17,7 +17,8 @@ async function validate(oldname, name, t, gettext) {
 }
 
 export default async (req, res) => {
-  const { name } = req.body;
+  let { name } = req.body;
+  name = name?.trim();
   const { t, gettext } = req.ttag;
   const { user } = req;
 
@@ -35,7 +36,7 @@ export default async (req, res) => {
   if (!success) {
     res.status(400);
     res.json({
-      errors: [t`Username already in use.`],
+      errors: [t`Name already in use.`],
     });
   }
 

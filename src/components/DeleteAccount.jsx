@@ -61,7 +61,7 @@ const DeleteAccount = ({ done }) => {
         ))}
         {(havePassword)
         && (
-          <>
+          <React.Fragment key="pass">
             <input
               value={password}
               onChange={(evt) => setPassword(evt.target.value)}
@@ -69,7 +69,7 @@ const DeleteAccount = ({ done }) => {
               placeholder={t`Password`}
             />
             <br />
-          </>
+          </React.Fragment>
         )}
         <button type="submit">
           {(submitting) ? '...' : t`Yes, Delete My Account!`}

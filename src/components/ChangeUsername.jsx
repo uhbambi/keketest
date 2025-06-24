@@ -1,27 +1,17 @@
 /*
- * Change Name Form
+ * Change Username Form
  */
 
 import React, { useState } from 'react';
 import { t } from 'ttag';
 import { useDispatch } from 'react-redux';
 
-import { validateName } from '../utils/validation.js';
-import { requestNameChange } from '../store/actions/fetch.js';
+import { validateUsername } from '../utils/validation.js';
+import { requestUsernameChange } from '../store/actions/fetch.js';
 import { setName } from '../store/actions/index.js';
 
-
-function validate(name) {
-  const errors = [];
-
-  const nameerror = validateName(name);
-  if (nameerror) errors.push(nameerror);
-
-  return errors;
-}
-
-const ChangeName = ({ done }) => {
-  const [name, setStName] = useState('');
+const ChangeUsername = ({ done }) => {
+  const [username, setStUsername] = useState('');
   const [submitting, setSubmitting] = useState(false);
   const [errors, setErrors] = useState([]);
 
@@ -33,35 +23,47 @@ const ChangeName = ({ done }) => {
       return;
     }
 
-    const valErrors = validate(name);
-    if (valErrors.length > 0) {
-      setErrors(valErrors);
+    const error = validateUsername(username);
+    if (error) {
+      setErrors([error]);
       return;
     }
 
     setSubmitting(true);
-    const { errors: respErrors } = await requestNameChange(name);
+    const { errors: respErrors } = await requestUsernameChange(username);
     setSubmitting(false);
     if (respErrors) {
       setErrors(respErrors);
       return;
     }
-    dispatch(setName(name));
+    dispatch(setName(null, username));
     done();
   };
 
   return (
-    <div className="inarea">
+    <div
+      className="inarea"
+      style={{
+        backgroundColor: '#dcb822',
+        color: 'black',
+      }}
+    >
       <form onSubmit={handleSubmit}>
         {errors.map((error) => (
           <p key={error} className="errormessage">
             <span>{t`Error`}</span>:&nbsp;{error}</p>
         ))}
+        <p>
+          <span
+            style={{ fontWeight: 'bold' }}
+          >{t`YOU CAN ONLY CHOOSE YOUR USERNAME ONCE!`}</span><br />
+          {t`Username can only contain the characters: a-z A-z . _ and -`}
+        </p>
         <input
-          value={name}
-          onChange={(evt) => setStName(evt.target.value)}
+          value={username}
+          onChange={(evt) => setStUsername(evt.target.value)}
           type="text"
-          placeholder={t`New Name`}
+          placeholder={t`New Username`}
         />
         <br />
         <button type="submit">
@@ -73,4 +75,4 @@ const ChangeName = ({ done }) => {
   );
 };
 
-export default React.memo(ChangeName);
+export default React.memo(ChangeUsername);

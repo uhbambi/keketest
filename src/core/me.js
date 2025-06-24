@@ -15,6 +15,7 @@ import chatProvider from './ChatProvider.js';
 export default async function getMe(user, lang) {
   let id;
   let name;
+  let username;
   let userlvl;
   let havePassword;
   let blockDm;
@@ -28,7 +29,7 @@ export default async function getMe(user, lang) {
 
   if (user) {
     const { data } = user;
-    ({ id, name, userlvl } = data);
+    ({ id, name, username, userlvl } = data);
     blockDm = !!(data.flags & (0x01 << USER_FLAGS.BLOCK_DM));
     priv = !!(data.flags & (0x01 << USER_FLAGS.PRIV));
     havePassword = data.password !== null;
@@ -39,6 +40,7 @@ export default async function getMe(user, lang) {
   } else {
     id = 0;
     name = null;
+    username = null;
     userlvl = USERLVL.ANONYM;
     havePassword = false;
     blockDm = false;
@@ -47,7 +49,7 @@ export default async function getMe(user, lang) {
   }
 
   const me = {
-    id, name, userlvl, havePassword, blockDm, priv,
+    id, name, username, userlvl, havePassword, blockDm, priv,
     channels, blocked, canvases,
   };
 

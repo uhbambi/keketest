@@ -14,9 +14,7 @@ const BanHistory = sequelize.define('BanHistory', {
   },
 
   reason: {
-    type: DataTypes.STRING(200),
-    charset: 'utf8mb4',
-    collate: 'utf8mb4_unicode_ci',
+    type: `${DataTypes.STRING(200)} CHARSET utf8mb4 COLLATE utf8mb4_unicode_ci`,
     allowNull: false,
   },
 

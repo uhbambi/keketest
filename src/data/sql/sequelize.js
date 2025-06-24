@@ -228,6 +228,10 @@ BEGIN
   END IF;
   RETURN (LOWER(CONCAT(REPLACE(SUBSTRING_INDEX(SUBSTRING_INDEX(tip, '@', 1), '+', 1), '.', ''),'@',(SUBSTRING_INDEX(tip, '@', -1)))));
 END`,
+    NAME_TO_USERNAME: `CREATE FUNCTION IF NOT EXISTS NAME_TO_USERNAME(name VARCHAR(32)) RETURNS VARCHAR(32) DETERMINISTIC
+BEGIN
+  RETURN CONCAT('pp_', REGEXP_REPLACE(name, '[^a-zA-Z0-9._-]', ''));
+END`,
     UUID_TO_BIN: `CREATE FUNCTION IF NOT EXISTS UUID_TO_BIN(uuid CHAR(36)) RETURNS BINARY(16) DETERMINISTIC
 BEGIN
   RETURN UNHEX(REPLACE(uuid, '-', ''));
@@ -307,7 +311,7 @@ END`,
         ));
       }
     }
-    promises.push(sequelize.query(functions[name], { raw: true }));
+    promises.push(sequelize.query(functions[name]));
   }
   try {
     await Promise.all(promises);

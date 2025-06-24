@@ -29,7 +29,9 @@ export default async (req, res) => {
 
   const host = getHostFromRequest(req);
   const { lang } = req;
-  const error = await mailProvider.sendPasswdResetMail(email, ipString, host, lang);
+  const error = await mailProvider.sendPasswdResetMail(
+    email, ipString, host, lang,
+  );
   if (error) {
     // eslint-disable-next-line max-len
     logger.info(`AUTH: Could not send password reset mail for email ${email} by ${ipString}`);

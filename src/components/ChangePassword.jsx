@@ -81,7 +81,7 @@ const ChangePassword = ({ done }) => {
         ))}
         {(havePassword)
         && (
-          <>
+          <React.Fragment key="oldpass">
             <input
               value={password}
               onChange={(evt) => setPassword(evt.target.value)}
@@ -89,7 +89,7 @@ const ChangePassword = ({ done }) => {
               placeholder={t`Old Password`}
             />
             <br />
-          </>
+          </React.Fragment>
         )}
         <input
           value={newPassword}

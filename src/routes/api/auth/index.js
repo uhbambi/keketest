@@ -17,6 +17,8 @@ import delete_account from './delete_account.js';
 // eslint-disable-next-line camelcase
 import change_name from './change_name.js';
 // eslint-disable-next-line camelcase
+import change_username from './change_username.js';
+// eslint-disable-next-line camelcase
 import change_mail from './change_mail.js';
 // eslint-disable-next-line camelcase
 import restore_password from './restore_password.js';
@@ -135,6 +137,8 @@ router.get('/resend_verify', resend_verify);
 router.post('/change_passwd', change_passwd);
 
 router.post('/change_name', change_name);
+
+router.post('/change_username', change_username);
 
 router.post('/change_mail', change_mail);
 

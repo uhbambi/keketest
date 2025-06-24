@@ -47,18 +47,14 @@ const RangeData = sequelize.define('Range', {
   },
 
   org: {
-    type: DataTypes.STRING(60),
-    charset: 'utf8mb4',
-    collate: 'utf8mb4_unicode_ci',
+    type: `${DataTypes.STRING(60)} CHARSET utf8mb4 COLLATE utf8mb4_unicode_ci`,
     set(value) {
       if (value) this.setDataValue('org', value.slice(0, 60));
     },
   },
 
   descr: {
-    type: DataTypes.STRING(60),
-    charset: 'utf8mb4',
-    collate: 'utf8mb4_unicode_ci',
+    type: `${DataTypes.STRING(60)} CHARSET utf8mb4 COLLATE utf8mb4_unicode_ci`,
     set(value) {
       if (value) this.setDataValue('descr', value.slice(0, 60));
     },

@@ -4,7 +4,7 @@
  *
  */
 
-import Sequelize, { DataTypes, QueryTypes, Op } from 'sequelize';
+import { DataTypes, QueryTypes } from 'sequelize';
 
 import sequelize from './sequelize.js';
 import UserChannel from './association_models/UserChannel.js';
@@ -21,9 +21,7 @@ const Channel = sequelize.define('Channel', {
   },
 
   name: {
-    type: DataTypes.STRING(32),
-    charset: 'utf8mb4',
-    collate: 'utf8mb4_unicode_ci',
+    type: `${DataTypes.STRING(32)} CHARSET utf8mb4 COLLATE utf8mb4_unicode_ci`,
     allowNull: true,
     set(value) {
       this.setDataValue('name', value.slice(0, 32));
@@ -79,9 +77,11 @@ export async function findDMChannel(uidA, uidB) {
   }
   try {
     const channel = await sequelize.query(
+      /* eslint-disable max-len */
       `SELECT c.id FROM Channels c
   INNER JOIN UserChannels uc ON c.id = uc.cid
 WHERE c.type = ? AND uc.uid IN (?, ?) GROUP BY c.id HAVING COUNT(DISTINCT uc.uid) = 2`, {
+        /* eslint-disable max-len */
         replacements: [CHANNEL_TYPES.DM, uidA, uidB],
         raw: true,
         type: QueryTypes.SELECT,

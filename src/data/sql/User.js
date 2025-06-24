@@ -25,11 +25,17 @@ const User = sequelize.define('User', {
     primaryKey: true,
   },
 
-  // STRING is VARCHAR, CHAR is CHAR
+  /* [a-zA-Z0-9._-] */
+  username: {
+    // eslint-disable-next-line
+    type: `${DataTypes.STRING(32)} CHARACTER SET ascii COLLATE ascii_general_ci`,
+    allowNull: false,
+    unique: 'username',
+  },
+
+  // STRING is VARCHAR
   name: {
-    type: DataTypes.STRING(32),
-    charset: 'utf8mb4',
-    collate: 'utf8mb4_unicode_ci',
+    type: `${DataTypes.STRING(32)} CHARSET utf8mb4 COLLATE utf8mb4_unicode_ci`,
     allowNull: false,
     unique: 'name',
   },
@@ -72,6 +78,30 @@ const User = sequelize.define('User', {
   },
 });
 
+/*
+ * Set default username to pp_[id],
+ * since we allow third party login, we can not ensure to have good names
+ * available.
+ * We will allow the user to change it ONCE at a later point, if his name
+ * starts with pp_.
+ * NOTE: This trigger doesn't like bulk inserts!
+ */
+User.afterSync(async () => {
+  await sequelize.query(
+    `CREATE TRIGGER IF NOT EXISTS set_username
+BEFORE INSERT ON Users FOR EACH ROW
+BEGIN
+  IF NEW.username IS NULL OR NEW.username = '=' THEN
+    SET NEW.username = CONCAT('pp_', (
+      SELECT AUTO_INCREMENT  FROM INFORMATION_SCHEMA.TABLES
+      WHERE TABLE_NAME = 'Users' AND TABLE_SCHEMA = DATABASE()
+    ));
+  ELSE
+    SET NEW.username = REGEXP_REPLACE(NEW.username, '[^a-zA-Z0-9._-]', '');
+  END IF;
+END`);
+});
+
 /**
  * update lastSeen timestamps of User
  * @param id user id
@@ -104,6 +134,7 @@ export async function getDummyUser(name) {
     where: { name },
     defaults: {
       name,
+      username: '=',
       userlvl: USERLVL.VERIFIED,
     },
     raw: true,
@@ -203,19 +234,53 @@ export async function findUserByIdOrName(id, name) {
   if (!id && !name) {
     return null;
   }
-  const where = {};
-  if (id) {
-    where.id = id;
-  }
-  if (name) {
-    where.name = name;
-  }
   try {
-    return await User.findOne({
-      where,
-      attributes: ['id', 'name', 'password', 'flags', 'userlvl'],
-      raw: true,
-    });
+    const where = [];
+    const replacements = [];
+    if (id) {
+      if (Number.isNaN(parseInt(id, 10))) {
+        /* first argument is a name instead */
+        name = id;
+      } else {
+        where.push('u.id = ?');
+        replacements.push(id);
+      }
+    }
+    if (name) {
+      where.push('u.username = ?');
+      where.push('u.name = ?');
+      replacements.push(id, id);
+    }
+    const userdata = await sequelize.query(
+      // eslint-disable-next-line max-len
+      `SELECT u.id, u.name, u.username, u.password, u.flags, u.userlvl FROM Users u WHERE ${
+        where.join(' OR ')
+      }`, {
+        replacements,
+        raw: true,
+        type: QueryTypes.SELECT,
+      },
+    );
+    if (!userdata.length) {
+      return null;
+    }
+    if (userdata.length === 1) {
+      return userdata[0];
+    }
+    /* priorities: uid > username > name */
+    let tmpData;
+    for (let i = 0; i < userdata.length; i += 1) {
+      const data = userdata[i];
+      if (data.id === id) {
+        return data;
+      } if (data.username === name) {
+        tmpData = data;
+      }
+    }
+    if (tmpData) {
+      return tmpData;
+    }
+    return userdata[0];
   } catch (error) {
     console.error(`SQL Error on findUserByIdOrName: ${error.message}`);
   }
@@ -388,7 +453,7 @@ export async function getUsersByNameOrEmail(name, email) {
         Sequelize.literal('tpids.tpid IS NOT NULL'), 'byEMail',
       ]],
       where: {
-        [Op.or]: [{ name }, {
+        [Op.or]: [{ name, username: name }, {
           '$tpids.provider$': THREEPID_PROVIDERS.EMAIL,
           '$tpids.normalizedTpid$': Sequelize.fn(
             'NORMALIZE_TPID', THREEPID_PROVIDERS.EMAIL, email,
@@ -415,9 +480,12 @@ export async function getUsersByNameOrEmail(name, email) {
  * @return limited user object or null if not successful
  */
 export async function createNewUser(
-  name, password, userlvl = USERLVL.REGISTERED,
+  name, password, username, userlvl = USERLVL.REGISTERED,
 ) {
-  const query = { name, userlvl };
+  if (!username) {
+    username = '=';
+  }
+  const query = { name, userlvl, username };
   if (password) query.password = password;
   try {
     return await User.create(query);
@@ -451,6 +519,20 @@ export async function setUserLvl(id, userlvl) {
 export async function setName(id, name) {
   try {
     await User.update({ name }, { where: { id }, returning: false });
+  } catch (error) {
+    return false;
+  }
+  return true;
+}
+
+/**
+ * set name
+ * @param id user id
+ * @param name name
+ */
+export async function setUsername(id, username) {
+  try {
+    await User.update({ username }, { where: { id }, returning: false });
   } catch (error) {
     return false;
   }
@@ -507,23 +589,6 @@ export async function getUserByUserLvl(userlvl) {
     });
   } catch (error) {
     console.error(`SQL Error on getUserByUserlvl: ${error.message}`);
-  }
-  return null;
-}
-
-/**
- * get basic information of user
- * @param userId id of user
- * @return { name , flags, userlvl }
- */
-export async function getUserInfos(userId) {
-  try {
-    return await User.findByPk(userId, {
-      attributes: ['name', 'flags', 'userlvl'],
-      raw: true,
-    });
-  } catch (error) {
-    console.error(`SQL Error on getUserInfos: ${error.message}`);
   }
   return null;
 }

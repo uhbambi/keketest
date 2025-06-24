@@ -27,7 +27,7 @@ function fail(message, value) {
 }
 
 async function initialize() {
-  await syncSql(false);
+  await syncSql(true);
 }
 
 async function destruct() {
@@ -53,6 +53,23 @@ async function establishUsers() {
   } else {
     [userdataB] = userdataB;
   }
+  [
+    [ 'test1', 'testtest', 'test1@example.com' ],
+    [ 'test2', 'testtest', 'test2@example.com' ],
+    [ 'test3', 'testtest', 'test3@example.com' ],
+    [ 'test4', 'testtest', 'test4@example.com' ],
+  ].forEach(async ([name, password, email]) => {
+    let userdata = await getUsersByNameOrEmail(name, email);
+    if (!userdata.length) {
+      userdata = await createNewUser(name, password);
+      await setEmail(userdata.id, email);
+    } else {
+      [userdata] = userdata;
+    }
+    if (name === 'test1') {
+      await setUserLvl(userdata.id, 80);
+    }
+  });
   console.log('Create Sessions');
   const tokena = await createSession(userdataA.id, 5);
   const tokenb = await createSession(userdataB.id, 5);
@@ -166,7 +183,6 @@ async function chat(users) {
   if (!out.blocked.find(({id}) => id === uidb)) {
     fail('User block not in session', out);
   }
-  console.log(await createDMChannel(5, 6));
 }
 
 (async () => {
