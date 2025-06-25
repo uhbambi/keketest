@@ -5,6 +5,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { t } from 'ttag';
 
+import DeleteList from './DeleteList.jsx';
 import { shardOrigin } from '../store/actions/fetch.js';
 
 async function submitIPAction(
@@ -212,32 +213,23 @@ function Admintools() {
           {t`Remove Moderator`}
         </p>
         {(modlist.length) ? (
-          <span
-            className="unblocklist"
-          >
-            {modlist.map((mod) => (
-              <div
-                role="button"
-                tabIndex={0}
-                key={mod[0]}
-                onClick={() => {
-                  if (submitting) return;
-                  setSubmitting(true);
-                  submitRemMod(mod[0], (success, ret) => {
-                    if (success) {
-                      setModList(
-                        modlist.filter((modl) => (modl[0] !== mod[0])),
-                      );
-                    }
-                    setSubmitting(false);
-                    setResp(ret);
-                  });
-                }}
-              >
-                {`⦸ ${mod[0]} ${mod[1]}`}
-              </div>
-            ))}
-          </span>
+          <DeleteList
+            list={modlist}
+            callback={(id) => {
+              if (submitting) return;
+              setSubmitting(true);
+              submitRemMod(id, (success, ret) => {
+                if (success) {
+                  setModList(
+                    modlist.filter((modl) => (modl[0] !== id)),
+                  );
+                }
+                setSubmitting(false);
+                setResp(ret);
+              });
+            }}
+            enabled={!submitting}
+          />
         )
           : (
             <p>{t`There are no mods`}</p>

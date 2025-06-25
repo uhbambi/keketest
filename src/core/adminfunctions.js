@@ -313,6 +313,7 @@ export async function executeIIDAction(
       let out = '';
       if (curUser?.username === username) {
         await setUsername(curUser.id, `pp_${curUser.id}`);
+        socketEvents.reloadUser(curUser.id);
         out += `Changed ${curUser.username} to pp_${curUser.id} and `;
       }
       const succ = await setUsername(targetUser.id, username);
@@ -320,6 +321,7 @@ export async function executeIIDAction(
         // eslint-disable-next-line max-len
         return `${out}Couldn't change ${targetUser.username}, ${username} probably already exists.`;
       }
+      socketEvents.reloadUser(targetUser.id);
       return `${out}Changed username of ${targetUser.username} to ${username}`;
     }
     case 'ban': {
@@ -794,6 +796,7 @@ export async function removeMod(userId) {
   }
   const success = await setUserLvl(userId, USERLVL.REGISTERED);
   if (success) {
+    socketEvents.reloadUser(userId);
     return `Moderation rights removed from user ${userId}`;
   }
   throw new Error('Couldn\'t remove Mod from user');
@@ -809,6 +812,7 @@ export async function makeMod(name) {
   }
   const success = await setUserLvl(id, USERLVL.MOD);
   if (success) {
+    socketEvents.reloadUser(id);
     return `Made user ${name} ${id} mod`;
   }
   throw new Error('Couldn\'t make user Mod');

@@ -36,7 +36,7 @@ export async function oauthLogin(
   providerString, name, email = null, tpid = null,
 ) {
   name = sanitizeName(name);
-  if (email?.length > 40 || !validateEMail(email)) {
+  if (email?.length > 40 || validateEMail(email)) {
     email = null;
   }
 

@@ -1061,7 +1061,7 @@ table td span {
   opacity: 0;
 }
 
-.unblocklist {
+.deletelist {
   display: inline-block;
   margin: 5px 0px 15px 0px;
   width: 95%;
@@ -1071,15 +1071,18 @@ table td span {
   border: thin solid;
 }
 
-.unblocklist > div {
+.deletelistitem {
   padding: 4px;
   font-weight: bold;
 }
 
-.unblocklist > div:hover {
+.deletelistitem.selected {
+  background-color: #ffd5d5;
+}
+
+.deletelistitem.unselected:hover {
   cursor: pointer;
-  font-weight: bold;
-  background-color: #db0000;
+  background-color: #ffe9e9;
 }
 
 .actionbuttons {

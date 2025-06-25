@@ -6,6 +6,8 @@ import React from 'react';
 import { useDispatch, useSelector, shallowEqual } from 'react-redux';
 import { t } from 'ttag';
 
+import DeleteList from './DeleteList.jsx';
+
 import {
   setBlockingDm,
   setPrivatize,
@@ -58,30 +60,17 @@ const SocialSettings = ({ done }) => {
       >{t`Unblock Users`}</h3>
       {
         (blocked.length) ? (
-          <span
-            className="unblocklist"
-          >
-            {
-            blocked.map((bl) => (
-              <div
-                key={bl[0]}
-                role="button"
-                tabIndex={0}
-                onClick={() => {
-                  if (!fetching) {
-                    dispatch(setUserBlock(bl[0], bl[1], false));
-                  }
-                }}
-              >
-                {`⦸ ${bl[1]}`}
-              </div>
-            ))
-          }
-          </span>
+          <DeleteList
+            list={blocked}
+            callback={(id, name) => {
+              if (!fetching) {
+                dispatch(setUserBlock(id, name, false));
+              }
+            }}
+            enabled={!fetching}
+          />
         )
-          : (
-            <p>{t`You have no users blocked`}</p>
-          )
+          : <p>{t`You have no users blocked`}</p>
       }
       <div className="modaldivider" />
       <button

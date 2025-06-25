@@ -22,6 +22,14 @@ a:hover {
   border-color: #d5d5d5;
 }
 
+.deletelistitem.selected {
+  background-color: #8c5e5e;
+}
+
+.deletelistitem.unselected:hover {
+  background-color: #7d5f5f;
+}
+
 .tab-list-item {
   color: #e2e2e2; 
 }

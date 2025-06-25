@@ -117,7 +117,7 @@ const UserAreaContent = () => {
         > {t`Change Name`}</span>
         <span className="hdivider" />
         {(username.startsWith('pp_')) && (
-          <>
+          <React.Fragment key="choseun">
             <span
               role="button"
               tabIndex={-1}
@@ -129,7 +129,7 @@ const UserAreaContent = () => {
               onClick={() => setArea('CHANGE_USERNAME')}
             > {t`Choose Username`}</span>
             <span className="hdivider" />
-          </>
+          </React.Fragment>
         )}
         <span
           role="button"
@@ -163,7 +163,7 @@ const UserAreaContent = () => {
           onClick={() => setArea('SOCIAL_SETTINGS')}
         > {t`Social Settings`}</span> )
       </div>
-      {(Area) && <Area done={() => setArea(null)} />}
+      {(Area) && <Area key="area" done={() => setArea(null)} />}
     </div>
   );
 };

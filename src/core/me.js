@@ -22,7 +22,7 @@ export default async function getMe(user, lang) {
   let priv;
 
   /* [[id, name], ...] */
-  const blocked = [];
+  let blocked;
   /* { id: [name, type, lastTs, dmu] } */
   let channels = { ...chatProvider.getDefaultChannels(lang) };
   const canvases = getLocalizedCanvases(lang);
@@ -33,6 +33,7 @@ export default async function getMe(user, lang) {
     blockDm = !!(data.flags & (0x01 << USER_FLAGS.BLOCK_DM));
     priv = !!(data.flags & (0x01 << USER_FLAGS.PRIV));
     havePassword = data.password !== null;
+    blocked = data.blocked.map(({ id: bid, name: bname }) => [bid, bname]);
     channels = {
       ...channels,
       ...data.channels,
@@ -46,6 +47,7 @@ export default async function getMe(user, lang) {
     blockDm = false;
     blockDm = false;
     priv = false;
+    blocked = [];
   }
 
   const me = {

@@ -87,6 +87,14 @@ tr:nth-child(even) {
   color: #f4f4f4;
 }
 
+.deletelistitem.selected {
+  background-color: #8c5e5e;
+}
+
+.deletelistitem.unselected:hover {
+  background-color: #7d5f5f;
+}
+
 .modal-content, .win-content, .popup-content, .baninfo {
   color: #f4f4f4;
 }
