@@ -18,7 +18,8 @@ export function validateEMail(email) {
   if (email.length < 5) return t`Email should be at least 5 characters long.`;
   if (email.length > 40) return t`Email can't be longer than 40 characters.`;
   if (email.indexOf('.') === -1) return t`Email should at least contain a dot`;
-  if (email.split('').filter((x) => x === '@').length !== 1) {
+  const posAt = email.indexOf('@');
+  if (posAt === -1 || posAt === 0 || posAt === email.length - 1) {
     return t`Email should contain a @`;
   }
   if (!mailTester.test(email)) return 'Your Email looks shady';

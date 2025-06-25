@@ -13,6 +13,9 @@ import { blockUser, unblockUser, isUserBlockedBy } from '../src/data/sql/associa
 import { IP } from '../src/middleware/ip.js';
 import { User } from '../src/middleware/session.js';
 import { USERLVL } from '../src/core/constants.js';
+import { oauthLogin } from '../src/core/passport.js';
+
+const LOG_QUERY = false;
 
 function title(title, spacer = '=') {
   const spacerAmount = Math.floor((80 - title.length - 2) / 2);
@@ -27,7 +30,7 @@ function fail(message, value) {
 }
 
 async function initialize() {
-  await syncSql(true);
+  await syncSql(false);
 }
 
 async function destruct() {
@@ -37,35 +40,33 @@ async function destruct() {
 }
 
 async function establishUsers() {
+  const createUserIfNotExists = async (name, email, password) => {
+    let userdata = await getUsersByNameOrEmail(name, email);
+    if (userdata.length) {
+      [userdata] = userdata;
+      if (!userdata.byEMail && email) {
+        await setEmail(userdata.id, email);
+      }
+    } else {
+      userdata = await createNewUser(name, password);
+      if (email) {
+        await setEmail(userdata.id, email);
+      }
+    }
+    return userdata;
+  };
+
   title('establish Users');
   console.log('Create Users');
-  let userdataA = await getUsersByNameOrEmail('testA', 'testA@example.com');
-  if (!userdataA.length) {
-    userdataA = await createNewUser('testA', 'testtest');
-    await setEmail(userdataA.id, 'testA@example.com');
-  } else {
-    [userdataA] = userdataA;
-  }
-  let userdataB = await getUsersByNameOrEmail('testB', 'testB@example.com');
-  if (!userdataB.length) {
-    userdataB = await createNewUser('testB', 'testtest');
-    await setEmail(userdataB.id, 'testB@example.com');
-  } else {
-    [userdataB] = userdataB;
-  }
+  const userdataA = await createUserIfNotExists('testA','testA@example.com');
+  const userdataB = await createUserIfNotExists('testB','testB@example.com');
   [
     [ 'test1', 'testtest', 'test1@example.com' ],
     [ 'test2', 'testtest', 'test2@example.com' ],
     [ 'test3', 'testtest', 'test3@example.com' ],
     [ 'test4', 'testtest', 'test4@example.com' ],
   ].forEach(async ([name, password, email]) => {
-    let userdata = await getUsersByNameOrEmail(name, email);
-    if (!userdata.length) {
-      userdata = await createNewUser(name, password);
-      await setEmail(userdata.id, email);
-    } else {
-      [userdata] = userdata;
-    }
+    let userdata = await createUserIfNotExists(name, email, password);
     if (name === 'test1') {
       await setUserLvl(userdata.id, 80);
     }
@@ -85,6 +86,9 @@ async function establishUsers() {
   if (!emailTpid || emailTpid.length > 1) {
     fail('Error: Email didn\'t get set!', emailTpid);
   }
+
+  console.log('Oauth');
+
 
   return {
     uida: userdataA.id,
@@ -190,6 +194,9 @@ async function chat(users) {
 
   let lsql;
   sequelize.options.logging = (sql, timing) => {
+    if (LOG_QUERY) {
+      console.log(sql);
+    }
     lsql = sql;
   };
 

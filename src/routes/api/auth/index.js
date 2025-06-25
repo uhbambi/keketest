@@ -38,7 +38,7 @@ const openSessionOnReturn = async (req, res) => {
   /* this is NOT a full user instance, only { id, name, password, userlvl } */
   const { user } = req;
   /* openSession() turns req.user into a full user object */
-  await openSession(req, res, user.id, 720);
+  await openSession(req, res, user.id, 168);
   res.redirect('/');
 };
 

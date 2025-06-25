@@ -215,7 +215,7 @@ export async function findUserById(id) {
   }
   try {
     return await User.findByPk(id, {
-      attributes: ['id', 'name', 'password', 'flags', 'userlvl'],
+      attributes: ['id', 'name', 'username', 'password', 'flags', 'userlvl'],
       raw: true,
     });
   } catch (error) {
@@ -333,7 +333,7 @@ export async function getUserByTpid(provider, tpid) {
   }
   try {
     return await User.findOne({
-      attributes: ['id', 'name', 'password', 'flags', 'userlvl'],
+      attributes: ['id', 'name', 'username', 'password', 'flags', 'userlvl'],
       include: {
         association: 'tpids',
         where: {
@@ -438,7 +438,8 @@ export async function verifyEmail(email) {
  * @param name (or either name or email if email not given)
  * @param email (optional)
  * @param populate boolean
- * @return [{ id, name, password, userlvl, byEmail }, ... ] | null on error
+ * @return [{ id, name, username, password, userlvl, byEmail }, ... ] | null
+ *   on error
  */
 export async function getUsersByNameOrEmail(name, email) {
   if (!name) {
@@ -448,25 +449,19 @@ export async function getUsersByNameOrEmail(name, email) {
     email = name;
   }
   try {
-    return await User.findAll({
-      attributes: ['id', 'name', 'password', 'flags', 'userlvl', [
-        Sequelize.literal('tpids.tpid IS NOT NULL'), 'byEMail',
-      ]],
-      where: {
-        [Op.or]: [{ name }, { username: name }, {
-          '$tpids.provider$': THREEPID_PROVIDERS.EMAIL,
-          '$tpids.normalizedTpid$': Sequelize.fn(
-            'NORMALIZE_TPID', THREEPID_PROVIDERS.EMAIL, email,
-          ),
-        }],
+    return await sequelize.query(
+      /* eslint-disable max-len */
+      `SELECT u.id, u.name, u.username, u.password, u.flags, u.userlvl,
+EXISTS (SELECT 1 FROM ThreePIDs WHERE uid = u.id AND provider = 1 AND normalizedTpid = NORMALIZE_TPID(1, ?)) AS 'byEMail'
+FROM Users u
+WHERE u.name = ? OR u.username = ? OR
+EXISTS (SELECT 1 FROM ThreePIDs WHERE uid = u.id AND provider = 1 AND normalizedTpid = NORMALIZE_TPID(1, ?))`, {
+        /* eslint-enable max-len */
+        replacements: [email, name, name, email],
+        raw: true,
+        type: QueryTypes.SELECT,
       },
-      include: {
-        association: 'tpids',
-        attributes: [],
-        required: false,
-      },
-      raw: true,
-    });
+    );
   } catch (err) {
     console.error(`SQL Error on getUsersByNameOrEmail: ${err.message}`);
     return null;
@@ -584,7 +579,7 @@ export async function getUserByUserLvl(userlvl) {
   try {
     return await User.findAll({
       where: { userlvl },
-      attributes: ['name', 'id'],
+      attributes: ['name', 'username', 'id'],
       raw: true,
     });
   } catch (error) {

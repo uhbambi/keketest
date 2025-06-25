@@ -133,6 +133,7 @@ export function getTPIDsOfUser(uid) {
  *   different user
  */
 export async function setEmail(uid, email, verified = false) {
+  console.log('setemail', uid, email, verified);
   try {
     const [existingEmail, existingUserEmail] = await Promise.all([
       ThreePID.findOne({
@@ -162,17 +163,16 @@ export async function setEmail(uid, email, verified = false) {
     try {
       if (existingUserEmail) {
         await Promise.all([
-          ThreePIDHistory.create({
+          ThreePIDHistory.upsert({
             uid: existingUserEmail.uid,
             provider: THREEPID_PROVIDERS.EMAIL,
             tpid: existingUserEmail.tpid,
             verified: existingUserEmail.verified,
             createdAt: existingUserEmail.createdAt,
-          }), { transaction },
+          }, { transaction }),
           ThreePID.destroy({
             where: { id: existingUserEmail.id },
-            transaction,
-          }),
+          }, { transaction }),
         ]);
       }
 

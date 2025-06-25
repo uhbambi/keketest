@@ -10,7 +10,7 @@ import FacebookStrategy from 'passport-facebook';
 import RedditStrategy from 'passport-reddit/lib/passport-reddit/strategy.js';
 import VkontakteStrategy from 'passport-vkontakte/lib/strategy.js';
 
-import { sanitizeName } from '../utils/validation.js';
+import { sanitizeName, validateEMail } from '../utils/validation.js';
 import logger from './logger.js';
 import { USERLVL, THREEPID_PROVIDERS } from '../data/sql/index.js';
 import {
@@ -36,7 +36,7 @@ export async function oauthLogin(
   providerString, name, email = null, tpid = null,
 ) {
   name = sanitizeName(name);
-  if (email?.length > 40) {
+  if (email?.length > 40 || !validateEMail(email)) {
     email = null;
   }
 
@@ -47,7 +47,7 @@ export async function oauthLogin(
   if (!email && !tpid) {
     throw new Error(
       // eslint-disable-next-line max-len
-      `${provider} didn't give us enoguh information to log you in, maybe you don't have an email set in their account?`,
+      `${provider} didn't give us enough information to log you in, maybe you don't have an email set in their account?`,
     );
   }
 
