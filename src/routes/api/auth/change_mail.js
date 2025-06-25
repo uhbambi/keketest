@@ -6,20 +6,17 @@ import mailProvider from '../../../core/MailProvider.js';
 
 import logger from '../../../core/logger.js';
 import { getHostFromRequest } from '../../../utils/intel/ip.js';
-import { validatePassword, validateEMail } from '../../../utils/validation.js';
+import { validateEMail } from '../../../utils/validation.js';
 import { compareToHash } from '../../../utils/hash.js';
 import { checkMailOverShards } from '../../../utils/intel/index.js';
 import { setEmail } from '../../../data/sql/ThreePID.js';
 import { setUserLvl } from '../../../data/sql/User.js';
 import { USERLVL } from '../../../core/constants.js';
+import socketEvents from '../../../socket/socketEvents.js';
 
-async function validate(email, password, t, gettext) {
+async function validate(email, t, gettext) {
   const errors = [];
 
-  if (password) {
-    const passerror = gettext(validatePassword(password));
-    if (passerror) errors.push(passerror);
-  }
   const mailerror = gettext(validateEMail(email));
   if (mailerror) {
     errors.push(mailerror);
@@ -33,7 +30,7 @@ async function validate(email, password, t, gettext) {
 export default async (req, res) => {
   const { email, password } = req.body;
   const { t, gettext } = req.ttag;
-  const errors = await validate(email, password, t, gettext);
+  const errors = await validate(email, t, gettext);
   if (errors.length > 0) {
     res.status(400);
     res.json({
@@ -57,7 +54,7 @@ export default async (req, res) => {
   if (!ret) {
     res.status(400);
     res.json({
-      errors: [t`Could not set email, maybe it is already in use!`],
+      errors: [t`Mail is already in use!`],
     });
     return;
   }
@@ -65,6 +62,7 @@ export default async (req, res) => {
   const { userlvl } = user;
   if (userlvl <= USERLVL.VERIFIED && userlvl > USERLVL.REGISTERED) {
     await setUserLvl(user.id, USERLVL.REGISTERED);
+    socketEvents.reloadUser(user.id);
   }
 
   // eslint-disable-next-line max-len

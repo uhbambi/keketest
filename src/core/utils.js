@@ -769,6 +769,30 @@ export function calculateFishBonusDuration(size) {
 }
 
 /**
+ * take an email or other identifier string and censor it
+ * @param identifier string of email or third party id or whatever
+ * @return censored identifier with most characters replaced by x
+ */
+export function censorIdentifier(identifier) {
+  if (!identifier?.length) {
+    return identifier;
+  }
+  const atIndex = identifier.indexOf('@');
+  const dotIndex = identifier.lastIndexOf('.');
+  if (atIndex === -1 || atIndex < 3
+    || atIndex > identifier.length - 2 || dotIndex < atIndex + 3
+  ) {
+    const i = Math.ceil(identifier.length / 4);
+    return identifier.substring(0, i + 1) + 'x'.repeat(identifier.length - i);
+  }
+  return identifier.charAt(0)
+    + 'x'.repeat(atIndex - 2)
+    + identifier.substring(atIndex - 1, atIndex + 2)
+    + 'x'.repeat(dotIndex - atIndex - 3)
+    + identifier.substring(dotIndex - 1);
+}
+
+/**
  * base64 operations
  */
 

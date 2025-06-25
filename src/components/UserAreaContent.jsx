@@ -136,7 +136,7 @@ const UserAreaContent = () => {
           tabIndex={-1}
           className="modallink"
           onClick={() => setArea('CHANGE_MAIL')}
-        > {t`Change Mail`}</span>
+        > {t`Login Methods`}</span>
         <span className="hdivider" />
         <span
           role="button"

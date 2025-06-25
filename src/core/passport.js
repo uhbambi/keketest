@@ -72,19 +72,20 @@ export async function oauthLogin(
     if (!user) {
       throw new Error('Could not create user');
     }
-  } else if (email && user.userlvl === USERLVL.REGISTERED) {
-    /* if oauth is known by mail, ensure that userlvl is VERIFIED */
-    promises.push(setUserLvl(user.id, USERLVL.VERIFIED));
   }
 
-  // upsert tpids
+  /* reddit doesn't neccessarily require email, so we cant verify that */
+  const verified = provider !== THREEPID_PROVIDERS.REDDIT && email;
   if (tpid) {
-    promises.push(addOrReplaceTpid(user.id, provider, tpid));
+    promises.push(addOrReplaceTpid(user.id, provider, tpid, verified));
   }
   if (email) {
     promises.push(
-      addOrReplaceTpid(user.id, THREEPID_PROVIDERS.EMAIL, email, true,
-      ));
+      addOrReplaceTpid(user.id, THREEPID_PROVIDERS.EMAIL, email),
+    );
+  }
+  if (verified && user.userlvl === USERLVL.REGISTERED) {
+    promises.push(setUserLvl(user.id, USERLVL.VERIFIED));
   }
   await Promise.all(promises);
 

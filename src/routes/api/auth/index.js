@@ -10,6 +10,10 @@ import verify from './verify.js';
 import local from './local.js';
 import logout from './logout.js';
 // eslint-disable-next-line camelcase
+import get_tpids from './get_tpids.js';
+// eslint-disable-next-line camelcase
+import remove_tpid from './remove_tpid.js';
+// eslint-disable-next-line camelcase
 import resend_verify from './resend_verify.js';
 // eslint-disable-next-line camelcase
 import change_passwd from './change_passwd.js';
@@ -107,7 +111,11 @@ router.use(ensureLoggedIn);
 
 router.get('/logout', logout);
 
+router.get('/get_tpids', get_tpids);
+
 router.get('/resend_verify', resend_verify);
+
+router.post('/remove_tpid', remove_tpid);
 
 router.post('/change_passwd', change_passwd);
 

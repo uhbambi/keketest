@@ -8,13 +8,9 @@ import { validatePassword } from '../../../utils/validation.js';
 import { compareToHash } from '../../../utils/hash.js';
 import { setPassword } from '../../../data/sql/User.js';
 
-function validate(password, newPassword, gettext) {
+function validate(newPassword, gettext) {
   const errors = [];
 
-  if (password) {
-    const passerror = gettext(validatePassword(password));
-    if (passerror) errors.push(passerror);
-  }
   const newpassworderror = gettext(validatePassword(newPassword));
   if (newpassworderror) errors.push(newpassworderror);
 
@@ -24,7 +20,7 @@ function validate(password, newPassword, gettext) {
 export default async (req, res) => {
   const { newPassword, password } = req.body;
   const { t, gettext } = req.ttag;
-  const errors = validate(password, newPassword, gettext);
+  const errors = validate(newPassword, gettext);
   if (errors.length > 0) {
     res.status(400);
     res.json({

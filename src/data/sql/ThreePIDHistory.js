@@ -35,6 +35,7 @@ const ThreePIDHistory = sequelize.define('ThreePIDHistory', {
 
   verified: {
     type: DataTypes.BOOLEAN,
+    allowNull: false,
   },
 
   lastSeen: {

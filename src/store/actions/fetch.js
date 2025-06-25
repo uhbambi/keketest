@@ -346,6 +346,13 @@ export function requestDeleteAccount(password) {
   );
 }
 
+export function requestRemoveTpid(id, password) {
+  return makeAPIPOSTRequest(
+    '/api/auth/remove_tpid',
+    { id, password },
+  );
+}
+
 export function requestRankings() {
   return makeAPIGETRequest(
     '/ranking',
@@ -356,6 +363,12 @@ export function requestRankings() {
 export function requestProfile() {
   return makeAPIGETRequest(
     '/api/profile',
+  );
+}
+
+export function requestTpids() {
+  return makeAPIGETRequest(
+    '/api/auth/get_tpids',
   );
 }
 

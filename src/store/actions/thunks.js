@@ -180,7 +180,6 @@ export function setPrivatize(priv) {
   };
 }
 
-
 export function setLeaveChannel(
   cid,
 ) {

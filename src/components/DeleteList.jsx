@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
+import { t } from 'ttag';
 
 /**
  * A list of items, where every single entry can be deleted
  * @param list [
- *   [identifier, string, iconUrl], ...
+ *   [identifier, string, iconUrl, [isDisabled]], ...
  * ]
  * @param callback that will be called with identifier and string
  * @param joinident if identifier should be shown as well
@@ -24,8 +25,11 @@ const DeleteList = ({ list, callback, enabled, joinident }) => {
           className={`deletelistitem ${
             (selected === identifier) ? 'selected' : 'unselected'
           }`}
+          title={`${t`Remove`} ${name}`}
           role="button"
-          onClick={() => setSelected(identifier)}
+          onClick={() => setSelected(
+            (selected === identifier) ? null : identifier,
+          )}
           tabIndex={0}
         >
           {(iconUrl) ? (

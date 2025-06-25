@@ -1072,6 +1072,7 @@ table td span {
 }
 
 .deletelistitem {
+  cursor: pointer;
   padding: 4px;
   font-weight: bold;
 }
@@ -1081,8 +1082,13 @@ table td span {
 }
 
 .deletelistitem.unselected:hover {
-  cursor: pointer;
   background-color: #ffe9e9;
+}
+
+.deletelistitem > img {
+  height: 29px;
+  vertical-align: middle;
+  margin-right: 8px;
 }
 
 .actionbuttons {
