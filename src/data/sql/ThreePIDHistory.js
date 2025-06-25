@@ -14,6 +14,11 @@ const ThreePIDHistory = sequelize.define('ThreePIDHistory', {
     primaryKey: true,
   },
 
+  uid: {
+    type: DataTypes.INTEGER.UNSIGNED,
+    allowNull: false,
+  },
+
   provider: {
     type: DataTypes.TINYINT.UNSIGNED,
     allowNull: false,

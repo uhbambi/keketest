@@ -127,7 +127,7 @@ const UserAreaContent = () => {
               }}
               className="modallink"
               onClick={() => setArea('CHANGE_USERNAME')}
-            > {t`Change Username`}</span>
+            > {t`Choose Username`}</span>
             <span className="hdivider" />
           </>
         )}

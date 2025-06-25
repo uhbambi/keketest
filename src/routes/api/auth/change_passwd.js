@@ -3,6 +3,7 @@
  */
 
 import logger from '../../../core/logger.js';
+import socketEvents from '../../../socket/socketEvents.js';
 import { validatePassword } from '../../../utils/validation.js';
 import { compareToHash } from '../../../utils/hash.js';
 import { setPassword } from '../../../data/sql/User.js';
@@ -47,6 +48,10 @@ export default async (req, res) => {
 
   // eslint-disable-next-line max-len
   logger.info(`AUTH: Changed password for user ${user.name}(${user.id}) by ${req.ip.ipString}`);
+
+  if (!currentPassword) {
+    socketEvents.reloadUser(user.id);
+  }
 
   res.json({
     success: true,

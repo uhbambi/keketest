@@ -1,5 +1,5 @@
 /**
- * https://scotch.io/tutorials/easy-node-authentication-linking-all-accounts-together#toc-linking-accounts-together
+ *
  *
  */
 
@@ -32,7 +32,9 @@ import { auth } from './config.js';
  * @param tpid id of third party account
  *
  */
-async function oauthLogin(providerString, name, email = null, tpid = null) {
+export async function oauthLogin(
+  providerString, name, email = null, tpid = null,
+) {
   name = sanitizeName(name);
   if (email?.length > 40) {
     email = null;
