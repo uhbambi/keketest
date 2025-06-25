@@ -392,7 +392,10 @@ class SocketServer {
       if (ws.readyState === WebSocket.OPEN
         && ws.user?.id === userId
       ) {
-        await ws.user.refresh();
+        const { loggedOut } = await ws.user.refresh();
+        if (loggedOut) {
+          delete ws.user;
+        }
         if (!local) {
           ws.send(buffer);
         }

@@ -109,6 +109,10 @@ export class User {
         this.isBanned = isBanned;
         this.isMuted = isMuted;
         this.banRecheckTs = banRecheckTs;
+      } else {
+        return {
+          isBanned: this.isBanned, isMuted: this.isMuted, loggedOut: true,
+        };
       }
     }
     return { isBanned: this.isBanned, isMuted: this.isMuted };
