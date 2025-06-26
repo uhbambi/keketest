@@ -87,9 +87,12 @@ const ChangeMail = ({ done }) => {
     if (submitting) {
       return;
     }
-    const passerror = validatePassword(password);
-    if (passerror) {
-      setErrors([passerror]);
+    if (havePassword) {
+      const passerror = validatePassword(password);
+      if (passerror) {
+        setErrors([passerror]);
+        return;
+      }
     }
 
     setSubmitting(true);
@@ -102,7 +105,7 @@ const ChangeMail = ({ done }) => {
     setErrors([]);
     setPassword('');
     setTpids(tpids.filter(({ id: tid }) => tid !== id));
-  }, [password, tpids, submitting]);
+  }, [password, tpids, submitting, havePassword]);
 
   return (
     <div className="inarea">

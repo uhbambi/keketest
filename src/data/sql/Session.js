@@ -2,8 +2,8 @@ import { QueryTypes, DataTypes } from 'sequelize';
 
 import sequelize, { nestQuery } from './sequelize.js';
 import { generateToken, generateTokenHash } from '../../utils/hash.js';
-import { HOUR } from '../../core/constants.js';
-import { CHANNEL_TYPES } from './Channel.js';
+import { HOUR, CHANNEL_TYPES, USERLVL } from '../../core/constants.js';
+import { ADMIN_IDS } from '../../core/config.js';
 
 const Session = sequelize.define('Session', {
   id: {
@@ -160,6 +160,11 @@ WHERE s.token = :token AND (s.expires > NOW() OR s.expires IS NULL)`, {
     }
     const promises = [];
     const userId = user.id;
+
+    /* set ADMIN */
+    if (ADMIN_IDS.includes(userId)) {
+      user.userlvl = USERLVL.ADMIN;
+    }
 
     /* get info to DM channels */
     const dmChannelIds = user.channels.filter(

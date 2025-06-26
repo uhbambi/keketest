@@ -399,10 +399,8 @@ function ModWatchtools() {
                               <span
                                 role="button"
                                 tabIndex={-1}
-                                style={{
-                                  cursor: 'pointer',
-                                  whiteSpace: 'initial',
-                                }}
+                                className="modallink"
+                                style={{ whiteSpace: 'initial' }}
                                 title={t`Copy to Clipboard`}
                                 onClick={() => copyTextToClipboard(val)}
                               >{val}</span>
@@ -415,9 +413,20 @@ function ModWatchtools() {
                             return (<td key={type}><span>{val}</span></td>);
                           }
                           return (
-                            <td key={type} title={val.slice(seperator + 1)}>
-                              <span>
-                                {val.slice(0, seperator)}
+                            <td key={type}>
+                              <span
+                                role="button"
+                                tabIndex={-1}
+                                className="modallink"
+                                title={t`Copy UserId to Clipboard`}
+                                onClick={() => copyTextToClipboard(
+                                  val.slice(seperator + 1),
+                                )}
+                              >
+                                {
+                                  // eslint-disable-next-line max-len
+                                  `${val.slice(0, seperator)} [${val.slice(seperator + 1)}]`
+                                }
                               </span>
                             </td>
                           );

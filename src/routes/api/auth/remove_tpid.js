@@ -22,8 +22,7 @@ export default async (req, res) => {
   }
 
   let tpids = await getTPIDsOfUser(req.user.id);
-  const target = tpids.find(({ id: tid }) => tid === id);
-  if (!target) {
+  if (!tpids.some(({ id: tid }) => tid === id)) {
     throw new Error(t`Could not find this login method`);
   }
   if (tpids.length === 1 && !currentPassword) {

@@ -30,7 +30,7 @@ function fail(message, value) {
 }
 
 async function initialize() {
-  await syncSql(false);
+  await syncSql();
 }
 
 async function destruct() {
@@ -68,7 +68,7 @@ async function establishUsers() {
   ].forEach(async ([name, password, email]) => {
     let userdata = await createUserIfNotExists(name, email, password);
     if (name === 'test1') {
-      await setUserLvl(userdata.id, 80);
+      await setUserLvl(userdata.id, 100);
     }
   });
   console.log('Create Sessions');

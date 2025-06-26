@@ -15,7 +15,9 @@ import { giveEveryoneAFish } from './Fishing.js';
 import { forceCaptcha, resetAllCaptchas } from '../data/redis/captcha.js';
 import { rollCaptchaFonts } from './captchaserver.js';
 import { getBanInfos } from '../data/sql/Ban.js';
+import { getTPIDsOfUser, getTPIDHistoryOfUser } from '../data/sql/ThreePID.js';
 import { ban, unban, whitelist, unwhitelist } from './ban.js';
+import { censorIdentifier } from './utils.js';
 import {
   getIPInfos,
   getIPofIID,
@@ -23,7 +25,7 @@ import {
   getIPsOfIIDs,
 } from '../data/sql/IP.js';
 import {
-  setUserLvl, getUserByUserLvl, name2Id, setUsername, findUserByIdOrName,
+  setUserLvl, getUserByUserLvl, setUsername, findUserByIdOrName,
 } from '../data/sql/User.js';
 import {
   getIIDSummary,
@@ -49,9 +51,9 @@ export async function executeIPAction(action, ips, logger = null) {
 
   let valueMap;
   if (action === 'iidtoip') {
-    valueMap = await getIIDsOfIPs(inputValues);
-  } else if (action === 'iptoiid') {
     valueMap = await getIPsOfIIDs(inputValues);
+  } else if (action === 'iptoiid') {
+    valueMap = await getIIDsOfIPs(inputValues);
   } else {
     return `Failed to ${action}`;
   }
@@ -59,11 +61,15 @@ export async function executeIPAction(action, ips, logger = null) {
   let out = '';
   for (let i = 0; i < inputValues.length; i += 1) {
     const value = inputValues[i];
+    if (!value.trim()) {
+      out += value;
+      continue;
+    }
     const map = valueMap.get(value);
     if (map) {
       out += map;
     } else {
-      out += `Unknown: ${value}`;
+      out += value;
     }
     out += '\n';
 
@@ -279,6 +285,24 @@ export async function executeIIDAction(
         // eslint-disable-next-line max-len
         out = `ID: ${user.id}\nName: ${user.name}\nUsername: ${user.username}\nUserlvl: ${user.userlvl}\nFlags: ${user.flags}\n`;
         banInfos = await getBanInfos(null, user.id, null, null);
+
+        let tpids = await getTPIDsOfUser(user.id);
+        if (tpids.length) {
+          out += '\nTPIDs:\n';
+        }
+        tpids.forEach(({ provider, tpid, verified }) => {
+          // eslint-disable-next-line max-len
+          out += `\nProvider: ${provider}\nTPID: ${censorIdentifier(tpid)}\nVerified: ${!!verified}\n`;
+        });
+
+        tpids = await getTPIDHistoryOfUser(user.id);
+        if (tpids.length) {
+          out += '\nTPID History:\n';
+        }
+        tpids.forEach(({ provider, tpid, verified, lastSeen }) => {
+          // eslint-disable-next-line max-len
+          out += `\nProvider: ${provider}\nTPID: ${censorIdentifier(tpid)}\nVerified: ${!!verified}\nDeleted at: ${lastSeen.toLocaleString()}\n`;
+        });
       }
       if (banInfos?.length) {
         out += '\n';
@@ -791,13 +815,14 @@ export async function getModList() {
 }
 
 export async function removeMod(userId) {
+  userId = parseInt(userId, 10);
   if (Number.isNaN(userId)) {
     throw new Error('Invalid userId');
   }
   const success = await setUserLvl(userId, USERLVL.REGISTERED);
   if (success) {
     socketEvents.reloadUser(userId);
-    return `Moderation rights removed from user ${userId}`;
+    return `Moderation rights removed from user with the id ${userId}`;
   }
   throw new Error('Couldn\'t remove Mod from user');
 }
@@ -806,14 +831,15 @@ export async function makeMod(name) {
   if (!name) {
     throw new Error('No username given');
   }
-  const id = await name2Id(name);
-  if (!id) {
+  const user = await findUserByIdOrName(name);
+  if (!user?.id) {
     throw new Error(`User ${name} not found`);
   }
+  const { id } = user;
   const success = await setUserLvl(id, USERLVL.MOD);
   if (success) {
     socketEvents.reloadUser(id);
-    return `Made user ${name} ${id} mod`;
+    return [id, user.name];
   }
   throw new Error('Couldn\'t make user Mod');
 }

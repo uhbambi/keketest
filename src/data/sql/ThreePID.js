@@ -120,7 +120,7 @@ export async function removeTpidFromUser(uid, id) {
     }
 
     /* store in history */
-    promises.push(ThreePIDHistory.upsert({
+    promises.push(ThreePIDHistory.create({
       uid: tpid.uid,
       provider: tpid.provider,
       tpid: tpid.tpid,
@@ -181,6 +181,25 @@ export function getTPIDsOfUser(uid) {
 }
 
 /**
+ * get histry of ThreePIDs of user
+ * @param uid user id
+ * @return Promise<[{
+ *   tpid, normalizedTpid, provider, verified, lastSeen, createdAt },
+ *   ...
+ * ]>
+ */
+export function getTPIDHistoryOfUser(uid) {
+  return sequelize.query(
+    // eslint-disable-next-line max-len
+    'SELECT id, tpid, provider, verified, lastSeen FROM ThreePIDHistories WHERE uid = ?', {
+      replacements: [uid],
+      raw: true,
+      type: QueryTypes.SELECT,
+    },
+  );
+}
+
+/**
  * set email of user
  * @param uid user id
  * @param email email string
@@ -189,7 +208,6 @@ export function getTPIDsOfUser(uid) {
  *   different user
  */
 export async function setEmail(uid, email) {
-  console.log('setemail', uid, email);
   try {
     const [existingEmail, existingUserEmail] = await Promise.all([
       ThreePID.findOne({
