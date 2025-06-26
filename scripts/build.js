@@ -160,8 +160,8 @@ function validateLangs(langs) {
         continue;
       }
       try {
-        validate(filePath);
-      } catch {
+        validate.default(filePath);
+      } catch (error) {
         brokenLangs.push(langFile);
       }
     }

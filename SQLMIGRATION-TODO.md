@@ -13,5 +13,3 @@ Avoid DataTypes.BIGINT.UNSIGNED or make it return sane
 fix rankings
 
 add CDN config
-
-ttag seems to be broken again
