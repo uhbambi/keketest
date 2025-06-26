@@ -16,6 +16,7 @@ import {
   FISH_TYPES,
   FISH_BONUS_CD_FACTOR,
 } from './constants.js';
+import { FISH_AMOUNT } from './config.js';
 
 let totalWeight = 0;
 
@@ -42,7 +43,7 @@ function runEventLoop() {
     return;
   }
 
-  const amountOfFishes = 4 - getAmountOfIPCooldownModifications();
+  const amountOfFishes = FISH_AMOUNT - getAmountOfIPCooldownModifications();
   if (amountOfFishes <= 0) {
     setTimeout(runEventLoop, 180000);
     logger.info('FISHING: no fishes to give out');

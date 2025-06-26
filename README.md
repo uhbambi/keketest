@@ -68,7 +68,8 @@ Configuration takes place in the environment variables that are defined in ecosy
 | USE_XREALIP       | see ngins / CDN  section              | 1                         |
 | BACKUP_URL        | url of backup server (see Backup)     | "http://localhost"        |
 | HOURLY_EVENT      | run hourly void event on main canvas  | 1                         |
-| FISHING           | run fishing event                     | 1                         |
+| FISHING           | whether to run fishing or not         | 1                         |
+| FISH_AMOUNT       | how many fishes appear at a time      | 3                         |
 | USE_MAILER        | enable to use mail sevicse            | 0                         |
 | MAIL_ADDRESS      | email address for sending mails       | "noreply@example.com"     |
 | CONTACT_ADDRESS   | email for users to contact            | "admin@example.com"       |
