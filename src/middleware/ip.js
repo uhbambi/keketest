@@ -169,7 +169,7 @@ export class IP {
     return {
       isBanned: this.isBanned,
       isProxy: this.isProxy,
-      isMute: this.isMuted,
+      isMuted: this.isMuted,
     };
   }
 }

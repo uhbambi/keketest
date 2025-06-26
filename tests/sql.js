@@ -189,6 +189,58 @@ async function chat(users) {
   }
 }
 
+async function testWhois() {
+  title('test WHOIS');
+  /*
+   * those are notiriously complicated IPs, because their providers have their
+   * whois over some rwhois box in the middle of a jungle
+   */
+  const badIPs = [
+    '69.178.112.123',
+    '50.7.93.84',
+    '2605:a601:a904:cc00:5918:f4cd:1dd1:a9c',
+    '198.16.70.52',
+    '198.16.78.45',
+    '149.34.217.96',
+    '38.9.254.98',
+    '38.54.79.203',
+    '38.91.101.217',
+    '38.10.69.98',
+    '50.7.93.28',
+    '38.128.66.211',
+    '198.16.66.125',
+    '198.16.74.44',
+    '198.16.70.28',
+    '198.16.66.197',
+    '38.54.57.78',
+    '198.16.66.195',
+    '198.16.66.101',
+    '2604:3d09:217e:96e0:e121:2b82:29b7:3fa9',
+    '149.57.29.157',
+    '38.91.100.42',
+    '149.71.172.36',
+    '149.36.50.199',
+    '50.5.243.186',
+    '65.78.19.109',
+    '160.2.105.243',
+    '50.7.142.179',
+    '198.16.66.140',
+    '149.100.25.120',
+    '50.7.93.28',
+    '38.34.185.140',
+    '198.16.78.44',
+    '198.16.66.155',
+    '38.107.255.226',
+    '184.155.140.22',
+    '2600:1001:b00c:7158:0000:0000:0000:0000',
+    '181.165.235.69',
+  ];
+  for (let i = 0; i < badIPs.length; i += 1) {
+    const ip = new IP({ connection: { remoteAddress: badIPs[i] } });
+    console.log(await ip.getAllowance(true));
+  }
+}
+
 (async () => {
   await initialize();
 
@@ -204,6 +256,7 @@ async function chat(users) {
     const users = await establishUsers();
     await ipMapping();
     await chat(users);
+    await testWhois();
   } catch (error) {
     console.error(error.message);
     console.error(lsql);

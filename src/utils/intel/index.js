@@ -167,7 +167,6 @@ export const checkMail = queue(async (email) => {
 /* answer on request if main shard */
 socketEvents.onReq('ipintel', (...args) => {
   if (socketEvents.important) {
-    console.log('PROXYCHECK ARGS', args);
     return getIPIntel(...args);
   }
   return DO_NOTHING;

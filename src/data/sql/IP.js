@@ -139,43 +139,48 @@ export async function saveIPIntel(ipString, whoisData, pcData) {
 
     try {
       const promises = [];
-      let { rid } = whoisData;
+      let rid;
 
-      if (whoisData && !rid) {
-        const {
-          range, org, descr, country, asn, referralHost, referralRange,
-          expiresTs: whoisExpiresTs,
-        } = whoisData;
+      if (whoisData) {
+        if (whoisData.rid) {
+          rid = whoisData.rid;
+        } else {
+          const {
+            range, org, descr, country, asn, referralHost, referralRange,
+            expiresTs: whoisExpiresTs,
+          } = whoisData;
 
-        if (referralRange && referralHost) {
-          promises.push(WhoisReferral.upsert({
-            min: Sequelize.fn('UNHEX', referralRange[0]),
-            max: Sequelize.fn('UNHEX', referralRange[1]),
-            mask: referralRange[2],
-            host: referralHost,
+          if (referralRange && referralHost) {
+            promises.push(WhoisReferral.upsert({
+              min: Sequelize.fn('UNHEX', referralRange[0]),
+              max: Sequelize.fn('UNHEX', referralRange[1]),
+              mask: referralRange[2],
+              host: referralHost,
+              expires: new Date(whoisExpiresTs),
+            }, { returning: false, transaction }));
+          }
+
+          promises.push(RangeData.upsert({
+            min: Sequelize.fn('UNHEX', range[0]),
+            max: Sequelize.fn('UNHEX', range[1]),
+            mask: range[2],
+            country,
+            org,
+            descr,
+            asn,
             expires: new Date(whoisExpiresTs),
-          }, { returning: false, transaction }));
+          }, { transaction }));
+
+          const whoisResult = await Promise.all(promises);
+          rid = whoisResult[whoisResult.length - 1][0].id;
         }
-
-        promises.push(RangeData.upsert({
-          min: Sequelize.fn('UNHEX', range[0]),
-          max: Sequelize.fn('UNHEX', range[1]),
-          mask: range[2],
-          country,
-          org,
-          descr,
-          asn,
-          expires: new Date(whoisExpiresTs),
-        }, { transaction }));
-
-        const whoisResult = await Promise.all(promises);
-        rid = whoisResult[whoisResult.length - 1][0].id;
       }
 
-      await IP.upsert({
-        rid,
-        ip: Sequelize.fn('IP_TO_BIN', ipString),
-      }, { returning: false, transaction });
+      const ipValues = { ip: Sequelize.fn('IP_TO_BIN', ipString) };
+      if (rid) {
+        ipValues.rid = rid;
+      }
+      await IP.upsert(ipValues, { returning: false, transaction });
 
       if (pcData) {
         const query = {
