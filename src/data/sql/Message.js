@@ -44,6 +44,14 @@ const Message = sequelize.define('Message', {
     defaultValue: DataTypes.NOW,
     allowNull: false,
   },
+}, {
+  indexes: [
+    {
+      name: 'messages_cid_id_desc',
+      fields: ['cid', 'id'],
+      order: { id: 'DESC' },
+    },
+  ],
 });
 
 export async function storeMessage(

@@ -10,4 +10,4 @@ add a dropdown for expiration: Browser close, 30 days, 1 year, forever
 
 add CDN config
 
-write sql cleanup cron job
+add fish modifier to config

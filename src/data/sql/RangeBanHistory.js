@@ -2,8 +2,9 @@ import { DataTypes } from 'sequelize';
 import sequelize from './sequelize.js';
 
 const RangeBanHistory = sequelize.define('RangeBanHistory', {
-  rid: {
+  id: {
     type: DataTypes.INTEGER.UNSIGNED,
+    autoIncrement: true,
     primaryKey: true,
   },
 

@@ -1,7 +1,6 @@
 import { DataTypes, Op } from 'sequelize';
 
 import sequelize from './sequelize.js';
-import { HourlyCron } from '../../utils/cron.js';
 import RangeBanHistory from './RangeBanHistory.js';
 
 export { RANGEBAN_REASONS } from '../../core/constants.js';
@@ -41,6 +40,7 @@ async function removeRangeBans(bans, modUid) {
   try {
     if (modUid) {
       await RangeBanHistory.bulkCreate(bans.map((ban) => ({
+        rid: ban.rid,
         reason: ban.reason,
         started: ban.createdAt,
         ended: ban.expires,
@@ -51,6 +51,7 @@ async function removeRangeBans(bans, modUid) {
       });
     } else {
       await RangeBanHistory.bulkCreate(bans.map((ban) => ({
+        rid: ban.rid,
         reason: ban.reason,
         started: ban.createdAt,
         ended: ban.expires,
@@ -61,7 +62,7 @@ async function removeRangeBans(bans, modUid) {
       });
     }
 
-    RangeBan.destroy({
+    await RangeBan.destroy({
       where: { rid: bans.map((b) => b.rid) },
       transaction,
     });
@@ -74,9 +75,9 @@ async function removeRangeBans(bans, modUid) {
 }
 
 /*
- * periodically check for expired bans and remove them if expired
+ * clean expired range bans
  */
-async function cleanIPRangeBans() {
+export async function cleanRangeBans() {
   try {
     const expiredBans = await RangeBan.findAll({
       attributes: ['reason', 'expires', 'createdAt', 'muid', 'rid'],

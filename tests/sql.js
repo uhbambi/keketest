@@ -1,5 +1,5 @@
 import { QueryTypes } from 'sequelize';
-import { sequelize, sync as syncSql } from '../src/data/sql/index.js';
+import { sequelize, sync as syncSql, cleanDB } from '../src/data/sql/index.js';
 import { DailyCron, HourlyCron } from '../src/utils/cron.js';
 import { getIPAllowance, getIPsOfIIDs, getIIDsOfIPs, getIPofIID, getIIDofIP, touchIP } from '../src/data/sql/IP.js';
 import { getBanInfos } from '../src/data/sql/Ban.js';
@@ -256,7 +256,9 @@ async function testWhois() {
     const users = await establishUsers();
     await ipMapping();
     await chat(users);
-    await testWhois();
+    // await testWhois();
+    title('Clean DB');
+    await cleanDB();
   } catch (error) {
     console.error(error.message);
     console.error(lsql);

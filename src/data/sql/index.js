@@ -1,3 +1,4 @@
+import { QueryTypes } from 'sequelize';
 import sequelize, { sync } from './sequelize.js';
 import User, { USERLVL } from './User.js';
 import Channel, { CHANNEL_TYPES } from './Channel.js';
@@ -6,10 +7,10 @@ import Session from './Session.js';
 import IP from './IP.js';
 import ProxyData from './Proxy.js';
 import RangeData from './Range.js';
-import Ban from './Ban.js';
+import Ban, { cleanBans } from './Ban.js';
 import BanHistory from './BanHistory.js';
 import WhoisReferral from './WhoisReferral.js';
-import RangeBan from './RangeBan.js';
+import RangeBan, { cleanRangeBans } from './RangeBan.js';
 import RangeBanHistory from './RangeBanHistory.js';
 import ProxyWhitelist from './ProxyWhitelist.js';
 import ThreePID, { THREEPID_PROVIDERS } from './ThreePID.js';
@@ -24,6 +25,61 @@ import ThreePIDBan from './association_models/ThreePIDBan.js';
 import IPBanHistory from './association_models/IPBanHistory.js';
 import UserBanHistory from './association_models/UserBanHistory.js';
 import ThreePIDBanHistory from './association_models/ThreePIDBanHistory.js';
+import { HourlyCron } from '../../utils/cron.js';
+
+/*
+ * clean the database of crap
+ */
+export async function cleanDB() {
+  const queries = [
+    'DELETE FROM Ranges WHERE expires < NOW()',
+    'DELETE FROM Proxies WHERE expires < NOW()',
+    'DELETE FROM Sessions WHERE expires < NOW()',
+    'DELETE FROM WhoisReferrals WHERE expires < NOW()',
+    /*
+     * delete all messages except the most recent 1000 per channel,
+     * this is highly database specific, that query is for MySQL 8+ and
+     * seems to work on MariaDB as well
+     */
+    `DELETE m FROM Messages m
+LEFT JOIN (
+  SELECT id FROM (
+    SELECT id,
+    ROW_NUMBER() OVER (PARTITION BY cid ORDER BY id DESC) as rn
+    FROM Messages
+  ) ranked WHERE rn <= 1000
+) keep ON m.id = keep.id
+WHERE keep.id IS NULL`,
+  ];
+  const functions = [
+    cleanBans,
+    cleanRangeBans,
+  ];
+  for (let i = 0; i < queries.length; i += 1) {
+    try {
+      // eslint-disable-next-line no-await-in-loop
+      await sequelize.query(queries[i], {
+        raw: true,
+        type: QueryTypes.DELETE,
+      });
+    } catch (error) {
+      console.error(
+        `SQL Error on clean-up query ${queries[i]}: ${error.message}`,
+      );
+    }
+  }
+  for (let i = 0; i < functions.length; i += 1) {
+    try {
+      // eslint-disable-next-line no-await-in-loop
+      await functions[i]();
+    } catch (error) {
+      console.error(
+        `SQL Error on clean-up job ${functions[i].name}: ${error.message}`,
+      );
+    }
+  }
+}
+HourlyCron.hook(cleanDB);
 
 /*
  * Channels

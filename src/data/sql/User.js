@@ -603,12 +603,13 @@ export async function populateIdObj(rawRanks) {
   }
   const uids = rawRanks.map((r) => r.id);
   const userData = await sequelize.query(
+    // eslint-disable-next-line max-len
     `SELECT u.id, u.name, DATEDIFF(CURRENT_TIMESTAMP(), u.createdAt) AS 'age' FROM Users u
 WHERE (u.flags & ?) = 0 AND u.id IN (?);`, {
       replacements: [0x01 << USER_FLAGS.PRIV, uids],
       raw: true,
       type: QueryTypes.SELECT,
-    }
+    },
   );
   for (const { id, name, age } of userData) {
     const dat = rawRanks.find((r) => r.id === id);

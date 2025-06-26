@@ -2,7 +2,6 @@ import Sequelize, { DataTypes, Op, QueryTypes } from 'sequelize';
 import crypto from 'crypto';
 
 import sequelize, { nestQuery } from './sequelize.js';
-import { HourlyCron } from '../../utils/cron.js';
 import BanHistory from './BanHistory.js';
 import { getIPsOfIIDs } from './IP.js';
 import IPBan from './association_models/IPBan.js';
@@ -222,9 +221,9 @@ async function removeBans(bans, modUid) {
 }
 
 /*
- * periodically check for expired bans and remove them if expired
+ * clean expired bans
  */
-async function cleanBans() {
+export async function cleanBans() {
   try {
     const expiredBans = await Ban.findAll({
       attributes: [
@@ -246,7 +245,6 @@ async function cleanBans() {
   }
   return null;
 }
-// HourlyCron.hook(cleanBans);
 
 /**
  * unban
