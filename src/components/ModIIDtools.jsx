@@ -101,114 +101,110 @@ function ModIIDtools() {
 
   return (
     <div style={{ textAlign: 'center', paddingLeft: '5%', paddingRight: '5%' }}>
-      <h3>{t`IID Actions`}</h3>
-      <select
-        value={iIDAction}
-        onChange={(e) => {
-          const sel = e.target;
-          selectIIDAction(sel.options[sel.selectedIndex].value);
+      <form
+        onSubmit={async (evt) => {
+          evt.preventDefault();
+          if (submitting) {
+            return;
+          }
+          const ret = await submitIIDAction(
+            iIDAction, iid, bid, iidOrUser, identifierList,
+            reason, duration, username,
+          );
+          setSubmitting(false);
+          setResp(ret);
         }}
       >
-        {[
-          'status', 'baninfo', 'ban', 'unban',
-          'whitelist', 'unwhitelist',
-          'givecaptcha', 'changeusername',
-        ].map((opt) => (
-          <option
-            key={opt}
-            value={opt}
-          >
-            {opt}
-          </option>
-        ))}
-      </select>
-      {(iIDAction === 'ban') && (
-        <React.Fragment key="ban">
-          <p>{t`Reason`}</p>
-          <input
-            maxLength="200"
-            style={{
-              width: '100%',
-            }}
-            value={reason}
-            placeholder={t`Enter Reason`}
-            onChange={(evt) => setReason(evt.target.value)}
-          />
-          <p>
-            {`${t`Duration`}: `}
+        <h3>{t`IID Actions`}</h3>
+        <select
+          value={iIDAction}
+          onChange={(e) => {
+            const sel = e.target;
+            selectIIDAction(sel.options[sel.selectedIndex].value);
+          }}
+        >
+          {[
+            'status', 'baninfo', 'ban', 'unban',
+            'whitelist', 'unwhitelist',
+            'givecaptcha', 'changeusername',
+          ].map((opt) => (
+            <option
+              key={opt}
+              value={opt}
+            >
+              {opt}
+            </option>
+          ))}
+        </select>
+        {(iIDAction === 'ban') && (
+          <React.Fragment key="ban">
+            <p>{t`Reason`}</p>
             <input
+              maxLength="200"
+              style={{
+                width: '100%',
+              }}
+              value={reason}
+              placeholder={t`Enter Reason`}
+              onChange={(evt) => setReason(evt.target.value)}
+            />
+            <p>
+              {`${t`Duration`}: `}
+              <input
+                style={{
+                  display: 'inline-block',
+                  width: '100%',
+                  maxWidth: '7em',
+                }}
+                value={duration}
+                placeholder="1d"
+                onChange={(evt) => {
+                  setDuration(evt.target.value.trim());
+                }}
+              />
+              {t`(0 = infinite)`}
+            </p>
+          </React.Fragment>
+        )}
+        {(iIDAction === 'whitelist' || iIDAction === 'unwhitelist' || iIDAction === 'givecaptcha' || iIDAction === 'ipstatus') && (
+          <p key="iidactions">
+            IID:&nbsp;
+            <input
+              value={iid}
               style={{
                 display: 'inline-block',
                 width: '100%',
-                maxWidth: '7em',
+                maxWidth: '37em',
               }}
-              value={duration}
-              placeholder="1d"
+              type="text"
+              placeholder="xxxx-xxxxx-xxxx"
               onChange={(evt) => {
-                setDuration(evt.target.value.trim());
+                selectIid(evt.target.value.trim());
               }}
             />
-            {t`(0 = infinite)`}
           </p>
-        </React.Fragment>
-      )}
-      {(iIDAction === 'whitelist' || iIDAction === 'unwhitelist' || iIDAction === 'givecaptcha' || iIDAction === 'ipstatus') && (
-        <p key="iidactions">
-          IID:&nbsp;
-          <input
-            value={iid}
-            style={{
-              display: 'inline-block',
-              width: '100%',
-              maxWidth: '37em',
-            }}
-            type="text"
-            placeholder="xxxx-xxxxx-xxxx"
-            onChange={(evt) => {
-              selectIid(evt.target.value.trim());
-            }}
-          />
-        </p>
-      )}
-      {(iIDAction === 'baninfo') && (
-        <p key="baninfo">
-          BID:&nbsp;
-          <input
-            value={bid}
-            style={{
-              display: 'inline-block',
-              width: '100%',
-              maxWidth: '37em',
-            }}
-            type="text"
-            placeholder="xxxx-xxxxx-xxxx"
-            onChange={(evt) => {
-              selectBid(evt.target.value.trim());
-            }}
-          />
-        </p>
-      )}
-      {(iIDAction === 'status') && (
-        <p key="status">
-          IID or UserID or Name:&nbsp;
-          <input
-            value={iidOrUser}
-            style={{
-              display: 'inline-block',
-              width: '100%',
-              maxWidth: '37em',
-            }}
-            type="text"
-            onChange={(evt) => {
-              selectIidOrUser(evt.target.value.trim());
-            }}
-          />
-        </p>
-      )}
-      {(iIDAction === 'changeusername') && (
-        <React.Fragment key="changeusername">
-          <p>
-            UserID or Name:
+        )}
+        {(iIDAction === 'baninfo') && (
+          <p key="baninfo">
+            BID:&nbsp;
+            <input
+              value={bid}
+              style={{
+                display: 'inline-block',
+                width: '100%',
+                maxWidth: '37em',
+              }}
+              type="text"
+              placeholder="xxxx-xxxxx-xxxx"
+              onChange={(evt) => {
+                selectBid(evt.target.value.trim());
+              }}
+            />
+          </p>
+        )}
+        {(iIDAction === 'status') && (
+          <p key="status">
+            IID or UserID or Name:&nbsp;
             <input
               value={iidOrUser}
               style={{
@@ -222,52 +218,58 @@ function ModIIDtools() {
               }}
             />
           </p>
-          <p>{t`Username`}</p>
-          <input
-            maxLength="200"
-            style={{
-              width: '100%',
-            }}
-            value={username}
-            placeholder={t`Enter Reason`}
-            onChange={(evt) => setUsername(evt.target.value)}
-          />
-        </React.Fragment>
-      )}
-      {(iIDAction === 'ban' || iIDAction === 'unban') && (
-        <p key="banunban">
-          IID, UID or BID:
-          <br />
-          <textarea
-            style={{
-              width: '100%',
-              maxWidth: '37em',
-            }}
-            rows="10"
-            cols="17"
-            value={identifierList}
-            onChange={(e) => setIdentifierList(e.target.value)}
-          />
+        )}
+        {(iIDAction === 'changeusername') && (
+          <React.Fragment key="changeusername">
+            <p>
+              UserID or Name:
+              <input
+                value={iidOrUser}
+                style={{
+                  display: 'inline-block',
+                  width: '100%',
+                  maxWidth: '37em',
+                }}
+                type="text"
+                onChange={(evt) => {
+                  selectIidOrUser(evt.target.value.trim());
+                }}
+              />
+            </p>
+            <p>{t`Username`}</p>
+            <input
+              maxLength="200"
+              style={{
+                width: '100%',
+              }}
+              value={username}
+              placeholder={t`Enter Reason`}
+              onChange={(evt) => setUsername(evt.target.value)}
+            />
+          </React.Fragment>
+        )}
+        {(iIDAction === 'ban' || iIDAction === 'unban') && (
+          <p key="banunban">
+            IID, UID or BID:
+            <br />
+            <textarea
+              style={{
+                width: '100%',
+                maxWidth: '37em',
+              }}
+              rows="10"
+              cols="17"
+              value={identifierList}
+              onChange={(e) => setIdentifierList(e.target.value)}
+            />
+          </p>
+        )}
+        <p>
+          <button type="submit">
+            {(submitting) ? '...' : t`Submit`}
+          </button>
         </p>
-      )}
-      <p>
-        <button
-          type="button"
-          onClick={async () => {
-            if (submitting) {
-              return;
-            }
-            const ret = await submitIIDAction(
-              iIDAction, iid, bid, iidOrUser, identifierList,
-              reason, duration, username,
-            );
-            setSubmitting(false);
-            setResp(ret);
-          }}
-        >
-          {(submitting) ? '...' : t`Submit`}
-        </button>
-      </p>
+      </form>
       <textarea
         style={{
           width: '100%',

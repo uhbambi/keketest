@@ -163,7 +163,7 @@ const ChangeMail = ({ done }) => {
           type="text"
           placeholder={t`New Mail`}
         />
-        <button onClick={changeMail} type="submit">
+        <button type="submit">
           {(submitting) ? '...' : t`Save`}
         </button>
       </form>
