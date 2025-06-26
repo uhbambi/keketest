@@ -415,7 +415,7 @@ export async function getBanInfos(
       flagMask |= 0x01;
     }
     if (mute) {
-      flagMask |= 0.02;
+      flagMask |= 0x02;
     }
 
     const promises = [];
@@ -491,7 +491,7 @@ export async function ban(
         flags |= 0x01;
       }
       if (mute) {
-        flags |= 0.02;
+        flags |= 0x02;
       }
 
       const banModel = await Ban.create({

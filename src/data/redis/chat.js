@@ -12,9 +12,9 @@ const MUTEC_PREFIX = 'mutec';
  * @param ipString ip as string
  * @return boolean, true if allowed
  */
-export async function isCountryMuted(country, channelId, ipString) {
+export async function isCountryMuted(country, channelId) {
   const countryMute = await client.hGet(
-    `${MUTEC_PREFIX}:${channelId}`, ipString,
+    `${MUTEC_PREFIX}:${channelId}`, country,
   );
   return countryMute !== null;
 }

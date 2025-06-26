@@ -327,7 +327,7 @@ export class ChatProvider {
         // eslint-disable-next-line max-len
         return t`You are permanently muted, join our guilded to appeal the mute`;
       }
-      const ttl = (isMuted - Date.now()) / 1000;
+      const ttl = Math.ceil((isMuted - Date.now()) / 1000);
       if (ttl > 120) {
         const timeMin = Math.round(ttl / 60);
         return t`You are muted for another ${timeMin} minutes`;
@@ -336,7 +336,7 @@ export class ChatProvider {
     }
 
     if (user.userlvl < USERLVL.MOD) {
-      if (await isCountryMuted(country, channelId, ipString)) {
+      if (await isCountryMuted(country, channelId)) {
         return t`Your country is temporary muted from this chat channel`;
       }
     } else if (message.charAt(0) === '/') {
