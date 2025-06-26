@@ -6,11 +6,13 @@ deleted redis stuff:
 'ised:*' - mail provider disposable, i think didn't get used yet
 'chip' - HSET for challenge ip mapping, it's stored different now
 
-add a dropdown for expiration: Browser close, 30 days, 1 year, forevers
+add a dropdown for expiration: Browser close, 30 days, 1 year, forever
 
 Avoid DataTypes.BIGINT.UNSIGNED or make it return sane
 
-verify that normalizedTpids are used
+fix rankings
+
+fix send verification
 
 # rwhois tests
 

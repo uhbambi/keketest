@@ -9,7 +9,7 @@ import { getHostFromRequest } from '../../../utils/intel/ip.js';
 import { validateEMail } from '../../../utils/validation.js';
 import { compareToHash } from '../../../utils/hash.js';
 import { checkMailOverShards } from '../../../utils/intel/index.js';
-import { setEmail } from '../../../data/sql/ThreePID.js';
+import { setEmail, getTPIDsOfUser } from '../../../data/sql/ThreePID.js';
 import { setUserLvl } from '../../../data/sql/User.js';
 import { USERLVL } from '../../../core/constants.js';
 import socketEvents from '../../../socket/socketEvents.js';
@@ -59,9 +59,17 @@ export default async (req, res) => {
     return;
   }
 
+  const tpids = await getTPIDsOfUser(req.user.id);
   const { userlvl } = user;
-  if (userlvl <= USERLVL.VERIFIED && userlvl > USERLVL.REGISTERED) {
+  const hasVerified = tpids.some(({ verified }) => verified);
+  /* make sure userlvl matches tpids */
+  if (!hasVerified && userlvl <= USERLVL.VERIFIED
+    && userlvl > USERLVL.REGISTERED
+  ) {
     await setUserLvl(user.id, USERLVL.REGISTERED);
+    socketEvents.reloadUser(user.id);
+  } else if (hasVerified && userlvl === USERLVL.REGISTERED) {
+    await setUserLvl(user.id, USERLVL.VERIFIED);
     socketEvents.reloadUser(user.id);
   }
 

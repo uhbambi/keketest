@@ -42,9 +42,11 @@ export function validateName(name) {
 }
 
 export function validateUsername(username) {
-  if (!username) return t`Name can't be empty.`;
-  if (username.length < 2) return t`Name must be at least 2 characters long`;
-  if (username.length > 26) return t`Name must be shorter than 26 characters`;
+  if (!username) return t`Userame can't be empty.`;
+  if (username.length < 2) return t`Userame must be at least 2 characters long`;
+  if (username.length > 26) {
+    return t`Userame must be shorter than 26 characters`;
+  }
   if (/[^a-zA-Z0-9._-]/.test(username)) {
     return t`Username can only contain the characters: a-z A-z . _ and -`;
   }

@@ -437,16 +437,20 @@ export async function verifyEmail(email) {
  * get Users by name or email
  * @param name (or either name or email if email not given)
  * @param email (optional)
+ * @param username (optional)
  * @param populate boolean
  * @return [{ id, name, username, password, userlvl, byEmail }, ... ] | null
  *   on error
  */
-export async function getUsersByNameOrEmail(name, email) {
+export async function getUsersByNameOrEmail(name, email, username) {
   if (!name) {
     return [];
   }
   if (!email) {
     email = name;
+  }
+  if (!username) {
+    username = name;
   }
   try {
     return await sequelize.query(
@@ -457,7 +461,7 @@ FROM Users u
 WHERE u.name = ? OR u.username = ? OR
 EXISTS (SELECT 1 FROM ThreePIDs WHERE uid = u.id AND provider = 1 AND normalizedTpid = NORMALIZE_TPID(1, ?))`, {
         /* eslint-enable max-len */
-        replacements: [email, name, name, email],
+        replacements: [email, name, username, email],
         raw: true,
         type: QueryTypes.SELECT,
       },

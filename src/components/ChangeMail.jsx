@@ -151,15 +151,17 @@ const ChangeMail = ({ done }) => {
         <div className="modaldivider" />
       )}
       <p>{t`Change your Mail Adress here:`}</p>
-      <input
-        value={email}
-        onChange={(evt) => setEmail(evt.target.value)}
-        type="text"
-        placeholder={t`New Mail`}
-      />
-      <button onClick={changeMail} type="submit">
-        {(submitting) ? '...' : t`Save`}
-      </button>
+      <form onSubmit={changeMail}>
+        <input
+          value={email}
+          onChange={(evt) => setEmail(evt.target.value)}
+          type="text"
+          placeholder={t`New Mail`}
+        />
+        <button onClick={changeMail} type="submit">
+          {(submitting) ? '...' : t`Save`}
+        </button>
+      </form>
       <div className="modaldivider" />
       <button type="button" onClick={done}>{t`Cancel`}</button>
     </div>

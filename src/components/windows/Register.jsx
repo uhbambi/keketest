@@ -8,19 +8,21 @@ import { t } from 'ttag';
 
 import Captcha from '../Captcha.jsx';
 import {
-  validateEMail, validateName, validatePassword,
+  validateEMail, validateName, validatePassword, validateUsername,
 } from '../../utils/validation.js';
 import { requestRegistration } from '../../store/actions/fetch.js';
 import { loginUser } from '../../store/actions/index.js';
 import useLink from '../hooks/link.js';
 
 
-function validate(name, email, password, confirmPassword) {
+function validate(name, username, email, password, confirmPassword) {
   const errors = [];
   const mailerror = validateEMail(email);
   if (mailerror) errors.push(mailerror);
   const nameerror = validateName(name);
   if (nameerror) errors.push(nameerror);
+  const usernameerror = validateUsername(username);
+  if (usernameerror) errors.push(usernameerror);
   const passworderror = validatePassword(password);
   if (passworderror) errors.push(passworderror);
 
@@ -48,6 +50,7 @@ const Register = () => {
     }
 
     const name = evt.target.name.value;
+    const username = evt.target.username.value;
     const email = evt.target.email.value;
     const password = evt.target.password.value;
     const confirmPassword = evt.target.confirmpassword.value;
@@ -55,7 +58,9 @@ const Register = () => {
     const captchaid = evt.target.captchaid.value;
     const challengeSolution = evt.target.challengesolution.value;
 
-    const valErrors = validate(name, email, password, confirmPassword);
+    const valErrors = validate(
+      name, username, email, password, confirmPassword,
+    );
     if (valErrors.length > 0) {
       setErrors(valErrors);
       return;
@@ -64,6 +69,7 @@ const Register = () => {
     setSubmitting(true);
     const { errors: respErrors, me } = await requestRegistration(
       name,
+      username,
       email,
       password,
       captcha,
@@ -81,6 +87,7 @@ const Register = () => {
     link('USERAREA');
   };
 
+  /* eslint-disable max-len */
   return (
     <div className="content">
       <form
@@ -88,11 +95,8 @@ const Register = () => {
         onSubmit={handleSubmit}
       >
         <p>{t`Register new account here`}</p>
-        {errors.map((error) => (
-          <p key={error} className="errormessage"><span>{t`Error`}</span>
-            :&nbsp;{error}</p>
-        ))}
         <h3>{t`Name`}:</h3>
+        {t`This is the name that other people see, e.g. in Chat. You can change it at any time. All characters except @, /, \, >, < and # are allowed.`}<br />
         <input
           name="name"
           className="reginput"
@@ -100,7 +104,17 @@ const Register = () => {
           type="text"
           placeholder={t`Name`}
         />
+        <h3>{t`User Name`}:</h3>
+        {t`The name of your account, only a-z, A-Z, -, ., and - characters are allowed. It is permanent, you can not change it later.`}<br />
+        <input
+          name="username"
+          className="reginput"
+          autoComplete="username"
+          type="text"
+          placeholder={t`Name`}
+        />
         <h3>{t`Email`}:</h3>
+        {t`Email is used to verify your account. You might get a cofirmation mail after registering.`}<br />
         <input
           name="email"
           className="reginput"
@@ -124,15 +138,22 @@ const Register = () => {
           type="password"
           placeholder={t`Confirm Password`}
         />
+        {errors.map((error) => (
+          <p key={error} className="errormessage"><span>{t`Error`}</span>
+            :&nbsp;{error}</p>
+        ))}
         <h3>{t`Captcha`}:</h3>
         <Captcha
           autoload={false}
           width={85}
           key={captKey}
           onReadyStateChange={setReady}
-        />
-        <button type="submit">
-          {(submitting || !ready) ? '...' : t`Submit`}
+        /><br />
+        <button
+          type="submit"
+          disabled={submitting || !ready}
+        >
+          {t`Submit`}
         </button>
         <button
           type="button"

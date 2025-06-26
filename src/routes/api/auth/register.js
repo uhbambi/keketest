@@ -14,15 +14,18 @@ import {
   validateEMail,
   validateName,
   validatePassword,
+  validateUsername,
 } from '../../../utils/validation.js';
 import { checkCaptchaSolution } from '../../../data/redis/captcha.js';
 
 async function validate(
-  email, name, password, captcha, captchaid, t, gettext,
+  email, name, username, password, captcha, captchaid, t, gettext,
 ) {
   const errors = [];
   const nameerror = validateName(name);
   if (nameerror) errors.push(nameerror);
+  const usernameerror = validateUsername(username);
+  if (usernameerror) errors.push(usernameerror);
   const passworderror = gettext(validatePassword(password));
   if (passworderror) errors.push(passworderror);
 
@@ -32,27 +35,16 @@ async function validate(
   const emailerror = gettext(validateEMail(email));
   if (emailerror) errors.push(emailerror);
 
-  const users = await getUsersByNameOrEmail(name, email);
-  if (!users) {
-    errors.push(t`Please try again.`);
-  } else if (users.length) {
-    if (users[0].byEMail) {
-      errors.push(t`E-Mail already in use.`);
-    } else {
-      errors.push(t`Username already in use.`);
-    }
-  }
-
   return errors;
 }
 
 export default async (req, res) => {
   const {
-    email, name, password, captcha, captchaid, cs: challengeSolution,
+    email, username, name, password, captcha, captchaid, cs: challengeSolution,
   } = req.body;
   const { t, gettext } = req.ttag;
   const errors = await validate(
-    email, name, password, captcha, captchaid, t, gettext,
+    email, name, username, password, captcha, captchaid, t, gettext,
   );
 
   const { ip } = req;
@@ -82,6 +74,19 @@ export default async (req, res) => {
     }
   }
 
+  if (!errors.length) {
+    const users = await getUsersByNameOrEmail(name, email, username);
+    if (!users) {
+      errors.push(t`Please try again.`);
+    } else if (users.length) {
+      if (users[0].byEMail) {
+        errors.push(t`E-Mail already in use.`);
+      } else {
+        errors.push(t`Username already in use.`);
+      }
+    }
+  }
+
   if (!errors.length && (await checkMailOverShards(email))) {
     errors.push(t`This email provider is not allowed`);
   }
@@ -104,11 +109,11 @@ export default async (req, res) => {
     return;
   }
 
-  const user = await createNewUser(name, password);
+  const user = await createNewUser(name, password, username);
   if (!user) {
     res.status(500);
     res.json({
-      errors: [t`Failed to create new user :(`],
+      errors: [t`Failed to create a new user :(`],
     });
     return;
   }

@@ -321,10 +321,10 @@ export function requestLogin(nameoremail, password) {
 }
 
 export function requestRegistration(
-  name, email, password, captcha, captchaid, challengeSolution,
+  name, username, email, password, captcha, captchaid, challengeSolution,
 ) {
   const body = {
-    name, email, password, captcha, captchaid,
+    name, username, email, password, captcha, captchaid,
   };
   if (challengeSolution) {
     body.cs = challengeSolution;
