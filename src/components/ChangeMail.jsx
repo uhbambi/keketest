@@ -1,5 +1,6 @@
 /*
- * Change Mail Form
+ * Form to Change ANY Third Party Identiier,
+ * it is called ChangeMail, because that is what it originally was
  */
 
 import React, { useState, useCallback, useEffect, useMemo } from 'react';
@@ -99,6 +100,7 @@ const ChangeMail = ({ done }) => {
       return;
     }
     setErrors([]);
+    setPassword('');
     setTpids(tpids.filter(({ id: tid }) => tid !== id));
   }, [password, tpids, submitting]);
 

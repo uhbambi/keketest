@@ -69,7 +69,7 @@ export default async function getMe(user, lang) {
   }
 
   // eslint-disable-next-line max-len
-  if (true && userlvl >= USERLVL.REGISTERED && userlvl < USERLVL.VERIFIED) {
+  if (USE_MAILER && userlvl >= USERLVL.REGISTERED && userlvl < USERLVL.VERIFIED) {
     me.messages = ['not_verified'];
   }
 

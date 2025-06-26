@@ -23,19 +23,14 @@ const UserMessages = () => {
       {messages.includes('not_verified')
         && (
           <p className="usermessages">
-            {
-              // eslint-disable-next-line max-len
-              t`Please verify your mail address or your account could get deleted after a few days.`
-            }
-            {(verifyAnswer)
-              ? (
-                <span
-                  className="modallink"
-                >
-                  {verifyAnswer}
-                </span>
-              )
-              : (
+            {(verifyAnswer) ? (
+              <span style={{ fontWeight: 'bold' }}>{verifyAnswer}</span>
+            ) : (
+              <React.Fragment key="umv">
+                {
+                  // eslint-disable-next-line max-len
+                  t`Please verify your mail address or your account could get deleted after a few days.`
+                }&nbsp;
                 <span
                   role="button"
                   tabIndex={-1}
@@ -52,7 +47,8 @@ const UserMessages = () => {
                 >
                   {t`Click here to request a new verification mail.`}
                 </span>
-              )}
+              </React.Fragment>
+            )}
           </p>
         )}
       {messages.map((message) => {

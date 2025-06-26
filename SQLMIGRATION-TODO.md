@@ -12,7 +12,7 @@ Avoid DataTypes.BIGINT.UNSIGNED or make it return sane
 
 fix rankings
 
-fix send verification
+test admin tools and ban evasion
 
 # rwhois tests
 

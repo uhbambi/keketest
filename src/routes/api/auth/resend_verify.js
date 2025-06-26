@@ -12,30 +12,24 @@ export default async (req, res) => {
 
   const { name, userlvl } = user.data;
   if (userlvl >= USERLVL.VERIFIED) {
-    res.status(400);
-    res.json({
-      errors: [t`You are already verified.`],
-    });
-    return;
+    throw new Error(t`You are already verified.`);
   }
 
-  const email = getEmailOfUser(user.id);
+  const email = await getEmailOfUser(user.id);
+  if (email === false) {
+    throw new Error(
+      // eslint-disable-next-line max-len
+      t`You do not have any email adress set. Please add one under "Login Methods".`,
+    );
+  }
   if (!email) {
-    res.status(400);
-    res.json({
-      errors: [t`Please try again`],
-    });
-    return;
+    throw new Error(t`An error occured. Please try again later.`);
   }
 
   const host = getHostFromRequest(req);
   const error = await mailProvider.sendVerifyMail(email, name, host, lang);
   if (error) {
-    res.status(400);
-    res.json({
-      errors: [error],
-    });
-    return;
+    throw new Error(error);
   }
   res.json({
     success: true,

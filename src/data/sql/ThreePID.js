@@ -139,6 +139,12 @@ export async function removeTpidFromUser(uid, id) {
   }
 }
 
+/**
+ * get email of a user, it will only return one, even if there could
+ * be multiple
+ * @param uid
+ * @return null if none exists | false if error | email otherwise
+ */
 export async function getEmailOfUser(uid) {
   try {
     const tpid = await ThreePID.findOne({
@@ -149,9 +155,7 @@ export async function getEmailOfUser(uid) {
       },
       raw: true,
     });
-    if (tpid) {
-      return tpid.tpid;
-    }
+    return tpid?.tpid || false;
   } catch (error) {
     console.error(`SQL Error on getEmailOfUser: ${error.message}`);
   }

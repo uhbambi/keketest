@@ -36,7 +36,7 @@ export default async (req, res) => {
   tpids = tpids.filter(({ id: tid }) => tid !== id);
 
   const { userlvl } = user;
-  const hasVerified = tpids.find(({ verified }) => verified);
+  const hasVerified = tpids.some(({ verified }) => verified);
   /* make sure userlvl matches tpids */
   if (!hasVerified && userlvl <= USERLVL.VERIFIED
     && userlvl > USERLVL.REGISTERED
