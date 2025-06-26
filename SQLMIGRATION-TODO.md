@@ -10,6 +10,6 @@ add a dropdown for expiration: Browser close, 30 days, 1 year, forever
 
 Avoid DataTypes.BIGINT.UNSIGNED or make it return sane
 
-fix rankings
-
 add CDN config
+
+write sql cleanup cron job

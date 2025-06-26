@@ -602,28 +602,14 @@ export async function populateIdObj(rawRanks) {
     return rawRanks;
   }
   const uids = rawRanks.map((r) => r.id);
-  const userData = await User.findAll({
-    attributes: [
-      'id',
-      'name',
-      [
-        Sequelize.fn(
-          'DATEDIFF',
-          Sequelize.literal('CURRENT_TIMESTAMP'),
-          Sequelize.col('createdAt'),
-        ),
-        'age',
-      ],
-    ],
-    where: {
-      id: uids,
-      flags: {
-        [Sequelize.Op.bitwiseAnd]: 0x01 << USER_FLAGS.PRIV,
-        [Sequelize.Op.ne]: 0,
-      },
-    },
-    raw: true,
-  });
+  const userData = await sequelize.query(
+    `SELECT u.id, u.name, DATEDIFF(CURRENT_TIMESTAMP(), u.createdAt) AS 'age' FROM Users u
+WHERE (u.flags & ?) = 0 AND u.id IN (?);`, {
+      replacements: [0x01 << USER_FLAGS.PRIV, uids],
+      raw: true,
+      type: QueryTypes.SELECT,
+    }
+  );
   for (const { id, name, age } of userData) {
     const dat = rawRanks.find((r) => r.id === id);
     if (dat) {
