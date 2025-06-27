@@ -39,17 +39,43 @@ export const { PROXYCHECK_KEY } = process.env;
 
 export const REDIS_URL = process.env.REDIS_URL || 'redis://localhost:6379';
 
-// for running as cluster
+// for running as cluster, either 0 or 1
 export const IS_CLUSTER = parseInt(process.env.IS_CLUSTER, 10) || false;
-// host for which we do not use shards, useful for running on multiple domains
+/*
+ * if CSN_HOST is set, this host will be used to serve assets. NO ending '/'
+ * For CSP purposes, it should always be a URL without path
+ * e.g.: "https://cdn.pixelplanet.fun"
+ */
+export const CDN_URL = process.env.CDN_URL || '';
+/*
+/* if API_URLS is set, this url will be used for apis,
+/* e.g "https://pixelplanet.fun/lmao" will lead to
+/* "https://pixelplanet.fun/lmao/ws" used for websockets,
+/* This shall NOT end with "/"
+ * It can be a comma seperated list as well, then a random one is chosen per
+ * client, which can be used for load balancing.
+ */
+export const API_URLS = (process.env.API_URLS)
+  ? process.env.API_URLS.split(',').map((c) => c.trim()) : null;
+// host for which we do not use API_URLS, useful for running on a second domain
 export const UNSHARDED_HOST = process.env.UNSHARDED_HOST || null;
-// if CSN_HOST is set, this host will be used to serve assets
-export const CDN_HOST = process.env.CDN_HOST || null;
-// list of hosts allowed to CORS, this will also allow all subdomains,
-// this is why they get prefixed with a dot here if they aren't v4 IPs
+/*
+ * if BASENAME is set, this path will be used for... everything
+ * the intention is to be able to run pixelplant with in a path.
+ * e.g "hahaa" would lead for the whole game to run under
+ * https://pixelplanet.fun/hahaa
+ * This shall NOT end with "/"
+ * NOTE: this isn't tested and probably won't work yet
+ */
+export const BASENAME = process.env.BASENAME || '';
+/*
+/* list of hosts allowed to CORS, this will also allow all subdomains,
+/* this is why they get prefixed with a dot here if they aren't v4 IPs
+ */
 export const CORS_HOSTS = (process.env.CORS_HOSTS)
   ? process.env.CORS_HOSTS.split(',').map(
-    (c) => ((c.split('.').length !== 4 && !c.startsWith('.')) ? `.${c}` : c),
+    // eslint-disable-next-line max-len
+    (c) => ((c.split('.').length !== 4 && !c.startsWith('.')) ? `.${c.trim()}` : c.trim()),
   ) : [];
 
 // Database

@@ -192,7 +192,7 @@ export function jsonToSequelizeRaw(json) {
 /*
  * estabish database connection
  */
-export const sync = async (alter = true) => {
+export const sync = async (alter = false) => {
   if (alter) {
     await sequelize.sync({ alter: { drop: true } });
   }

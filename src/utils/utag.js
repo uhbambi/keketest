@@ -1,5 +1,6 @@
 /*
  * tagFunctions for template literals that prepends a basename or CDN
+ * This is only useful client side
  */
 
 /*
@@ -8,10 +9,15 @@
 const basename = window.ssv?.basename || '';
 
 /*
- * cdnHost needs to be a host like 'cdn.pixelplanet.fun'
+ * apiUrl needs to be a url like 'https://pixelplanet.fun', shall not end with
+ * an '/'
  */
-const cdnHost = (window.ssv?.cdnHost)
-  ? `${window.location.protocol}//${window.ssv.cdnHost}` : basename;
+const apiUrl = window.ssv?.apiUrl || '';
+
+/*
+ * cdnUrl needs to be a url without path like "https://pixelplanet.fun"
+ */
+const cdnUrl = window.ssv?.cdnUrl || basename;
 
 /**
  * tagFunction to change the path of a URL
@@ -31,7 +37,21 @@ export function u(strings, ...values) {
  * tagFunction to redirect a URL to a CDN
  */
 export function cdn(strings, ...values) {
-  let result = cdnHost;
+  let result = cdnUrl;
+  for (let i = 0; i < strings.length; i++) {
+    result += strings[i];
+    if (i < values.length) {
+      result += values[i];
+    }
+  }
+  return result;
+}
+
+/**
+ * tagFUnction to redirect to API_URL
+ */
+export function api(strings, ...values) {
+  let result = apiUrl;
   for (let i = 0; i < strings.length; i++) {
     result += strings[i];
     if (i < values.length) {

@@ -7,19 +7,7 @@
 import { t } from 'ttag';
 
 import { dateToString, stringToTime } from '../../core/utils.js';
-
-export const shardHost = (function getShardHost() {
-  if (!window.ssv?.shard) {
-    return '';
-  }
-  const hostParts = window.location.host.split('.');
-  if (hostParts.length > 2) {
-    hostParts.shift();
-  }
-  return `${window.ssv.shard}.${hostParts.join('.')}`;
-}());
-export const shardOrigin = shardHost
-  && `${window.location.protocol}//${shardHost}`;
+import { api } from '../../utils/utag.js';
 
 /*
  * Adds customizable timeout to fetch
@@ -82,7 +70,7 @@ async function makeAPIPOSTRequest(
   addShard = true,
 ) {
   if (addShard) {
-    url = `${shardOrigin}${url}`;
+    url = api`${url}`;
   }
   try {
     const response = await fetchWithTimeout(url, {
@@ -113,7 +101,7 @@ async function makeAPIGETRequest(
   addShard = true,
 ) {
   if (addShard) {
-    url = `${shardOrigin}${url}`;
+    url = api`${url}`;
   }
   try {
     const response = await fetchWithTimeout(url, {
@@ -258,7 +246,7 @@ export async function requestHistoricalTimes(day, canvasId) {
 
 export async function requestChatMessages(cid) {
   const response = await fetch(
-    `${shardOrigin}/api/chathistory?cid=${cid}&limit=50`,
+    api`/api/chathistory?cid=${cid}&limit=50`,
     { credentials: 'include' },
   );
   // timeout in order to not spam api requests and get rate limited

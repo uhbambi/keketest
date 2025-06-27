@@ -9,7 +9,7 @@ import { t } from 'ttag';
 import useInterval from './hooks/interval.js';
 import { coordsFromString } from '../core/utils.js';
 import HistorySelect from './HistorySelect.jsx';
-import { shardOrigin } from '../store/actions/fetch.js';
+import { api } from '../utils/utag.js';
 import { selectCanvas } from '../store/actions/index.js';
 
 const keptState = {
@@ -36,7 +36,7 @@ async function submitImageAction(
   data.append('image', file);
   data.append('canvasid', canvas);
   data.append('coords', coords);
-  const resp = await fetch(`${shardOrigin}/api/modtools`, {
+  const resp = await fetch(api`/api/modtools`, {
     credentials: 'include',
     method: 'POST',
     body: data,
@@ -56,7 +56,7 @@ async function submitProtAction(
   data.append('canvasid', canvas);
   data.append('ulcoor', tlcoords);
   data.append('brcoor', brcoords);
-  const resp = await fetch(`${shardOrigin}/api/modtools`, {
+  const resp = await fetch(api`/api/modtools`, {
     credentials: 'include',
     method: 'POST',
     body: data,
@@ -78,7 +78,7 @@ async function submitRollback(
   data.append('canvasid', canvas);
   data.append('ulcoor', tlcoords);
   data.append('brcoor', brcoords);
-  const resp = await fetch(`${shardOrigin}/api/modtools`, {
+  const resp = await fetch(api`/api/modtools`, {
     credentials: 'include',
     method: 'POST',
     body: data,
@@ -98,7 +98,7 @@ async function submitCanvasCleaner(
   data.append('canvasid', canvas);
   data.append('ulcoor', tlcoords);
   data.append('brcoor', brcoords);
-  const resp = await fetch(`${shardOrigin}/api/modtools`, {
+  const resp = await fetch(api`/api/modtools`, {
     credentials: 'include',
     method: 'POST',
     body: data,
@@ -111,7 +111,7 @@ async function getCleanerStats(
 ) {
   const data = new FormData();
   data.append('cleanerstat', true);
-  const resp = await fetch(`${shardOrigin}/api/modtools`, {
+  const resp = await fetch(api`/api/modtools`, {
     credentials: 'include',
     method: 'POST',
     body: data,
@@ -129,7 +129,7 @@ async function getCleanerCancel(
 ) {
   const data = new FormData();
   data.append('cleanercancel', true);
-  const resp = await fetch(`${shardOrigin}/api/modtools`, {
+  const resp = await fetch(api`/api/modtools`, {
     credentials: 'include',
     method: 'POST',
     body: data,

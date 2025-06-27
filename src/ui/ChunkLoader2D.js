@@ -5,7 +5,7 @@
 import ChunkLoader from './ChunkLoader.js';
 import Chunk from './Chunk2D.js';
 import { TILE_SIZE, TILE_ZOOM_LEVEL } from '../core/constants.js';
-import { shardOrigin } from '../store/actions/fetch.js';
+import { cdn } from '../utils/utag.js';
 import {
   loadingTiles,
   loadImage,
@@ -258,7 +258,7 @@ class ChunkLoader2D extends ChunkLoader {
   async fetchBaseChunk(cx, cy, chunkRGB) {
     this.bcReqChunk(chunkRGB);
     try {
-      const url = `${shardOrigin}/chunks/${this.canvasId}/${cx}/${cy}.bmp`;
+      const url = cdn`/chunks/${this.canvasId}/${cx}/${cy}.bmp`;
       const response = await fetch(url);
       if (response.ok) {
         const arrayBuffer = await response.arrayBuffer();
@@ -283,7 +283,7 @@ class ChunkLoader2D extends ChunkLoader {
     this.bcReqChunk(chunkRGB);
     try {
     // eslint-disable-next-line max-len
-      const url = `/tiles/${this.canvasId}/${zoom}/${cx}/${cy}.webp`;
+      const url = cdn`/tiles/${this.canvasId}/${zoom}/${cx}/${cy}.webp`;
       const img = await loadImage(url);
       chunkRGB.fromImage(img);
       this.bcRecChunk(chunkRGB);

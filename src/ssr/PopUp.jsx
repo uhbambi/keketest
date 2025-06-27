@@ -7,12 +7,14 @@
 import etag from 'etag';
 
 import { getTTag, availableLangs as langs } from '../middleware/ttag.js';
-import socketEvents from '../socket/socketEvents.js';
 import { getJsAssets, getThemeCssAssets } from '../core/assets.js';
-import { BACKUP_URL, UNSHARDED_HOST, CDN_HOST } from '../core/config.js';
+import chooseAPIUrl from '../core/chooseAPIUrl.js';
+import {
+  BACKUP_URL, CONTACT_ADDRESS, UNSHARDED_HOST, CDN_URL, BASENAME,
+} from '../core/config.js';
 
 
-/*
+/**
  * generates string with html of win page
  * @param lang language code
  * @return html and etag of popup page
@@ -20,15 +22,16 @@ import { BACKUP_URL, UNSHARDED_HOST, CDN_HOST } from '../core/config.js';
 function generatePopUpPage(req) {
   const { lang } = req;
   const host = req.ip.getHost(false);
-  const shard = (host.startsWith(`${socketEvents.thisShard}.`)
-    || (UNSHARDED_HOST && host.startsWith(UNSHARDED_HOST))
-  ) ? null : socketEvents.lowestActiveShard;
+  const apiUrl = (UNSHARDED_HOST && host.startsWith(UNSHARDED_HOST))
+    ? null : chooseAPIUrl();
   const ssvR = JSON.stringify({
     availableStyles: getThemeCssAssets(),
     langs,
     backupurl: BACKUP_URL,
-    shard,
-    cdnHost: CDN_HOST,
+    contactAddress: CONTACT_ADDRESS,
+    apiUrl,
+    basename: BASENAME,
+    cdnUrl: CDN_URL,
     lang,
   });
   const scripts = getJsAssets('popup', lang);
@@ -40,8 +43,7 @@ function generatePopUpPage(req) {
 
   const { t } = getTTag(lang);
 
-  const html = `
-    <!doctype html>
+  const html = `<!doctype html>
     <html lang="${lang}">
       <head>
         <meta charset="UTF-8" />
@@ -54,13 +56,13 @@ function generatePopUpPage(req) {
         />
         <link rel="icon" href="/favicon.ico" type="image/x-icon" />
         <link rel="apple-touch-icon" href="apple-touch-icon.png" />
-        <script>/* @license magnet:?xt=urn:btih:0b31508aeb0634b347b8270c7bee4d411b5d4109&dn=agpl-3.0.txt AGPL-3.0-or-later */\n(function(){window.ssv=JSON.parse('${ssvR}');let hostPart = window.location.host.split('.'); if (hostPart.length > 2) hostPart.shift(); hostPart = hostPart.join('.'); if (window.ssv.shard && window.location.host !== 'fuckyouarkeros.fun') hostPart = window.location.protocol + '//' + window.ssv.shard + '.' + hostPart; else hostPart = ''; window.me=fetch(hostPart + '/api/me',{credentials:'include'})})();\n/* @license-end */</script>
-        <link rel="stylesheet" type="text/css" id="globcss" href="${getThemeCssAssets().default}" />
+        <script>/* @license magnet:?xt=urn:btih:0b31508aeb0634b347b8270c7bee4d411b5d4109&dn=agpl-3.0.txt AGPL-3.0-or-later */\n(function(){window.ssv=JSON.parse('${ssvR}'); window.me=fetch('${apiUrl || ''}/api/me',{credentials:'include'})})();\n/* @license-end */</script>
+        <link rel="stylesheet" type="text/css" id="globcss" href="${CDN_URL || BASENAME}${getThemeCssAssets().default}" />
       </head>
       <body>
         <div id="app" class="popup">
         </div>
-        ${scripts.map((script) => `<script src="${script}"></script>`).join('')}
+        ${scripts.map((script) => `<script src="${CDN_URL || BASENAME}${script}"></script>`).join('')}
         <a data-jslicense="1" style="display: none;" href="/legal">JavaScript license information</a>
       </body>
     </html>

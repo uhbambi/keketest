@@ -1,7 +1,7 @@
 /*
  * express middlewares for handling ip information
  */
-import { USE_XREALIP, CORS_HOSTS, CDN_HOST } from '../core/config.js';
+import { USE_XREALIP, CORS_HOSTS } from '../core/config.js';
 import {
   sanitizeIPString, ipToHex, getHostFromRequest,
 } from '../utils/intel/ip.js';
@@ -104,17 +104,10 @@ export class IP {
      * In some websocket requests from localhost, the origin is the loopback IP
      * and the host is localhost, it is super silly
      */
-    if (origin.endsWith(host) || origin.startsWith('127.0.0.1')) {
+    if (originHost.endsWith(host) || origin === '127.0.0.1') {
       return true;
     }
     return CORS_HOSTS.some((c) => originHost.endsWith(c));
-  }
-
-  /**
-   * @return boolean if request is on CDN
-   */
-  get isCDN() {
-    return this.getHost(false) === CDN_HOST;
   }
 
   toString() {

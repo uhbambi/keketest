@@ -9,7 +9,7 @@ import { t } from 'ttag';
 
 import copyTextToClipboard from '../utils/clipboard.js';
 import { parseInterval, coordsFromString } from '../core/utils.js';
-import { shardOrigin } from '../store/actions/fetch.js';
+import { api } from '../utils/utag.js';
 import { selectCanvas } from '../store/actions/index.js';
 
 const keepState = {
@@ -58,7 +58,7 @@ async function submitWatchAction(
   data.append('time', time);
   data.append('iid', iid);
   try {
-    const resp = await fetch(`${shardOrigin}/api/modtools`, {
+    const resp = await fetch(api`/api/modtools`, {
       credentials: 'include',
       method: 'POST',
       body: data,

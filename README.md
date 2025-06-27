@@ -65,7 +65,7 @@ Configuration takes place in the environment variables that are defined in ecosy
 | CAPTCHA_TIME      | time in minutes between captchas      | 30                        |
 |                   |  0: always captcha -1: never captcha  |                           |
 | LOG_MYSQL         | if sql queries should get logged      | 0                         |
-| USE_XREALIP       | see ngins / CDN  section              | 1                         |
+| USE_XREALIP       | see nginx / CDN  section              | 1                         |
 | BACKUP_URL        | url of backup server (see Backup)     | "http://localhost"        |
 | HOURLY_EVENT      | run hourly void event on main canvas  | 1                         |
 | FISHING           | whether to run fishing or not         | 1                         |
@@ -191,7 +191,7 @@ pm2 stop ppfun
 
 ### If using reverse Proxy
 
-If USE\_XREALIP is set, we take the IP from the X-Real-Ip header. Use this if you have pixelplanet running behind a reverse proxy like nginx (recommended). Use the nginx set\_realip module to give us the client ip on the X-Real-Ip header (and set it up so that just cloudflare are trusted proxy IPs, if you use them, or else players could fake their IP). And be sure to also set X-Forwarded-Host, X-Forwarded-Port and set X-Forwarded-Proto, because we use it for CORS and redirecion.
+If USE\_XREALIP is set, we take the IP from the X-Real-Ip header. Use this if you have pixelplanet running behind a reverse proxy like nginx (recommended). Use the nginx set\_realip module to give us the client ip on the `X-Real-Ip` header (and set it up so that just cloudflare are trusted proxy IPs, if you use them, or else players could fake their IP). And be sure to also set `X-Forwarded-Host`, `X-Forwarded-Port` and set `X-Forwarded-Proto`, because we use it for CORS and redirecion.
 
 ### Auto-Start
 To have the canvas with all it's components autostart at systemstart,

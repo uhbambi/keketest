@@ -39,7 +39,6 @@ import {
 } from '../store/actions/socket.js';
 import { pRefresh, fishAppears, catchedFish } from '../store/actions/index.js';
 import { fetchMe } from '../store/actions/thunks.js';
-import { shardHost } from '../store/actions/fetch.js';
 
 class SocketClient {
   store = null;
@@ -88,7 +87,8 @@ class SocketClient {
     const url = `${
       window.location.protocol === 'https:' ? 'wss:' : 'ws:'
     }//${
-      shardHost || window.location.host
+      // eslint-disable-next-line max-len
+      (window.ssv?.apiUrl) ? window.ssv.apiUrl.substring(window.ssv.apiUrl.indexOf('//') + 2) : window.location.host
     }/ws`;
     this.ws = new WebSocket(url);
     this.ws.binaryType = 'arraybuffer';

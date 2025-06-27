@@ -7,6 +7,7 @@
 import etag from 'etag';
 
 import { getTTag } from '../middleware/ttag.js';
+import { CDN_URL, BASENAME } from '../core/config.js';
 
 /* this will be set by webpack */
 import { getJsAssets, getCssAssets } from '../core/assets.js';
@@ -27,8 +28,7 @@ function generateGlobePage(req) {
 
   const { t } = getTTag(lang);
 
-  const html = `
-    <!doctype html>
+  const html = `<!doctype html>
     <html lang="${lang}">
       <head>
         <meta charset="UTF-8" />
@@ -41,14 +41,14 @@ function generateGlobePage(req) {
         />
         <link rel="icon" href="/favicon.ico" type="image/x-icon" />
         <link rel="apple-touch-icon" href="apple-touch-icon.png" />
-        <link rel="stylesheet" type="text/css" id="globcss" href="${getCssAssets().globe}" />
+        <link rel="stylesheet" type="text/css" id="globcss" href="${CDN_URL || BASENAME}${getCssAssets().globe}" />
       </head>
       <body>
         <div id="webgl" />
         <div id="coorbox">(0, 0)</div>
         <div id="info">${t`Double click on globe to go back.`}</div>
         <div id="loading">${t`Loading...`}</div>
-        ${scripts.map((script) => `<script src="${script}"></script>`).join('')}
+        ${scripts.map((script) => `<script src="${CDN_URL || BASENAME}${script}"></script>`).join('')}
         <a data-jslicense="1" style="display: none;" href="/legal">JavaScript license information</a>
       </body>
     </html>

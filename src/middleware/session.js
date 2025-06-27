@@ -183,7 +183,11 @@ export function ensureLoggedIn(req, res, next) {
  * @return boolean if successful
  */
 export async function openSession(req, res, userId, durationHours = 720) {
-  const domain = req.ip.getHost(false, true);
+  let domain = req.ip.getHost(false, true);
+  const portSeperator = domain.lastIndexOf(':');
+  if (portSeperator !== -1) {
+    domain = domain.substring(0, portSeperator);
+  }
 
   const token = await createSession(userId, durationHours);
   if (!token) {
@@ -215,7 +219,12 @@ export async function openSession(req, res, userId, durationHours = 720) {
 }
 
 export function clearCookie(req, res) {
-  const domain = req.ip.getHost(false, true);
+  let domain = req.ip.getHost(false, true);
+  const portSeperator = domain.lastIndexOf(':');
+  if (portSeperator !== -1) {
+    domain = domain.substring(0, portSeperator);
+  }
+
   res.clearCookie('ppfun.session', {
     domain, httpOnly: true, secure: false,
   });

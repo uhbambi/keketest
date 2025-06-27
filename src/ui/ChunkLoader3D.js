@@ -9,7 +9,7 @@ import {
   getChunkOfPixel,
   getOffsetOfPixel,
 } from '../core/utils.js';
-import { shardOrigin } from '../store/actions/fetch.js';
+import { cdn } from '../utils/utag.js';
 
 class ChunkLoader3D extends ChunkLoader {
   palette;
@@ -69,7 +69,7 @@ class ChunkLoader3D extends ChunkLoader {
   async fetchChunk(cx, cz, chunk) {
     this.bcReqChunk(chunk);
     try {
-      const url = `${shardOrigin}/chunks/${this.canvasId}/${cx}/${cz}.bmp`;
+      const url = cdn`/chunks/${this.canvasId}/${cx}/${cz}.bmp`;
       const response = await fetch(url);
       if (response.ok) {
         const arrayBuffer = await response.arrayBuffer();

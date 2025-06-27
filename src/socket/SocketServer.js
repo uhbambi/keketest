@@ -232,7 +232,7 @@ class SocketServer {
 
   async handleUpgrade(request, socket, head) {
     await authenticateClient(request);
-    const { headers, ip: { ipString } } = request;
+    const { ip: { ipString } } = request;
     /*
      * rate limit
      */
@@ -250,10 +250,9 @@ class SocketServer {
     /*
      * enforce CORS
      */
-    const { origin } = headers;
     if (!request.ip.isCORSAllowed) {
       // eslint-disable-next-line max-len
-      logger.info(`Rejected CORS request on websocket from ${ipString} via ${origin}, expected ${request.ip.getHost(false, true)}`);
+      logger.info(`Rejected CORS request on websocket from ${ipString} via ${request.headers.origin}, expected ${request.ip.getHost(false, true)}`);
       socket.write('HTTP/1.1 403 Forbidden\r\n\r\n');
       socket.destroy();
       return;

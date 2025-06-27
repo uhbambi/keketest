@@ -9,9 +9,9 @@ import canvases from '../core/canvases.js';
 import hashScript from '../utils/scriptHash.js';
 import { getTTag, availableLangs as langs } from '../middleware/ttag.js';
 import { getJsAssets, getThemeCssAssets } from '../core/assets.js';
-import socketEvents from '../socket/socketEvents.js';
+import chooseAPIUrl from '../core/chooseAPIUrl.js';
 import {
-  BACKUP_URL, CONTACT_ADDRESS, UNSHARDED_HOST, CDN_HOST,
+  BACKUP_URL, CONTACT_ADDRESS, UNSHARDED_HOST, CDN_URL, BASENAME,
 } from '../core/config.js';
 
 const defaultCanvasForCountry = {};
@@ -49,16 +49,16 @@ function generateMainPage(req) {
   const { lang, ip } = req;
   const host = ip.getHost(false);
   const proto = req.headers['x-forwarded-proto'] || 'http';
-  const shard = (host.startsWith(`${socketEvents.thisShard}.`)
-    || (UNSHARDED_HOST && host.startsWith(UNSHARDED_HOST))
-  ) ? null : socketEvents.lowestActiveShard;
+  const apiUrl = (UNSHARDED_HOST && host.startsWith(UNSHARDED_HOST))
+    ? null : chooseAPIUrl();
   const ssv = {
     availableStyles: getThemeCssAssets(),
     langs,
     backupurl: BACKUP_URL,
     contactAddress: CONTACT_ADDRESS,
-    shard,
-    cdnHost: CDN_HOST,
+    apiUrl,
+    basename: BASENAME,
+    cdnUrl: CDN_URL,
     lang,
   };
 
@@ -69,10 +69,10 @@ function generateMainPage(req) {
   const ssvR = JSON.stringify(ssv);
   const scripts = getJsAssets('client', lang);
 
-  const headScript = `/* @license magnet:?xt=urn:btih:0b31508aeb0634b347b8270c7bee4d411b5d4109&dn=agpl-3.0.txt AGPL-3.0-or-later */\n(function(){window.ssv=JSON.parse('${ssvR}');let hostPart = window.location.host.split('.'); if (hostPart.length > 2) hostPart.shift(); hostPart = hostPart.join('.'); if (window.ssv.shard) hostPart = window.location.protocol + '//' + window.ssv.shard + '.' + hostPart; else hostPart = ''; window.me=fetch(hostPart + '/api/me',{credentials:'include'})})();\n/* @license-end */`;
+  const headScript = `/* @license magnet:?xt=urn:btih:0b31508aeb0634b347b8270c7bee4d411b5d4109&dn=agpl-3.0.txt AGPL-3.0-or-later */\n(function(){window.ssv=JSON.parse('${ssvR}');window.me=fetch('${apiUrl || ''}/api/me',{credentials:'include'})})();\n/* @license-end */`;
   const scriptHash = hashScript(headScript);
 
-  const csp = `script-src 'self' ${scriptHash} *.tiktok.com *.ttwstatic.com; worker-src 'self' blob:;`;
+  const csp = `script-src 'self' ${CDN_URL} ${scriptHash} *.tiktok.com *.ttwstatic.com; worker-src 'self' blob:;`;
 
   const mainEtag = etag(scripts.concat(ssvR).join('_'), { weak: true });
   if (req.headers['if-none-match'] === mainEtag) {
@@ -119,11 +119,11 @@ function generateMainPage(req) {
     <link rel="icon" href="/favicon.ico" type="image/x-icon" />
     <link rel="apple-touch-icon" href="apple-touch-icon.png" />
     <script>${headScript}</script>
-    <link rel="stylesheet" type="text/css" id="globcss" href="${getThemeCssAssets().default}" />
+    <link rel="stylesheet" type="text/css" id="globcss" href="${CDN_URL || BASENAME}${getThemeCssAssets().default}" />
   </head>
   <body>
     <div id="app"></div>
-    ${scripts.map((script) => `<script src="${script}"></script>`).join('')}
+    ${scripts.map((script) => `<script src="${CDN_URL || BASENAME}${script}"></script>`).join('')}
     <a data-jslicense="1" style="display: none;" href="/legal">JavaScript license information</a>
   </body>
 </html>`;
