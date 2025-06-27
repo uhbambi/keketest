@@ -21,12 +21,15 @@ const LogInArea = () => {
       </p><br />
       <h2>{t`Login with Name or Mail:`}</h2>
       <LogInForm />
-      <p
-        className="modallink"
-        onClick={() => link('FORGOT_PASSWORD')}
-        role="presentation"
-      >
-        {t`I forgot my Password.`}</p>
+      <p>
+        <span
+          className="modallink"
+          onClick={() => link('FORGOT_PASSWORD')}
+          role="presentation"
+        >
+          {t`I forgot my Password.`}
+        </span>
+      </p>
       <h2>{t`or login with:`}</h2>
       <a href={u`/api/auth/discord`}>
         <img
