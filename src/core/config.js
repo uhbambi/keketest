@@ -39,8 +39,8 @@ export const { PROXYCHECK_KEY } = process.env;
 
 export const REDIS_URL = process.env.REDIS_URL || 'redis://localhost:6379';
 
-// for running as cluster, SHARD_NAME is the prefix (the scx in scx.pixelplanet.fun)
-export const SHARD_NAME = process.env.SHARD_NAME || null;
+// for running as cluster
+export const IS_CLUSTER = parseInt(process.env.IS_CLUSTER, 10) || false;
 // host for which we do not use shards, useful for running on multiple domains
 export const UNSHARDED_HOST = process.env.UNSHARDED_HOST || null;
 // if CSN_HOST is set, this host will be used to serve assets

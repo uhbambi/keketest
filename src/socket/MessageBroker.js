@@ -9,9 +9,6 @@
  *   '[otherShardName]': of every single other shard, where they send binary
  */
 
-/* eslint-disable no-console */
-
-import { SHARD_NAME } from '../core/config.js';
 import SocketEvents from './SockEvents.js';
 import {
   ONLINE_COUNTER_OP,
@@ -47,37 +44,47 @@ const LISTEN_PREFIX = 'l';
 
 class MessageBroker extends SocketEvents {
   isCluster = true;
-  thisShard = SHARD_NAME;
+  thisShard = Math.random().toString(36).substring(2, 10);
+  /*
+   * When we announce our existence to others, we use the shardName and
+   * a random existenceId.
+   * This has the purpose to detect the unlikely case of a duplicate shartName.
+   */
+  existenceId = null;
+  /*
+   * channel keepalive pings
+   * { [channelName]: lastPingTimestamp }
+   */
+  pings = {};
+  /*
+   * all other shards
+   * { [shardName]: lastBroadcastTimestamp, ... }
+   */
+  shards = {};
+  /*
+   * online counter of all shards including ourself
+   * [
+   *   [shardName, amountOnlineIps, {canvasId1: [IP1, IP2, ...], ...}],
+   *   ...,
+   * }
+   */
+  shardsData = [];
+
+  publisher = {
+    publish: () => {},
+  };
+
+  subscriber = {
+    subscribe: () => {},
+    unsubscribe: () => {},
+  };
 
   constructor() {
     super();
-    /*
-     * channel keepalive pings
-     * { [channelName]: lastPingTimestamp }
-     */
-    this.pings = {};
-    /*
-     * all other shards
-     * { [shardName]: lastBroadcastTimestamp, ... }
-     */
-    this.shards = {};
-    /*
-     * online counter of all shards including ourself
-     * [
-     *   [shardName, amountOnlineIps, {canvasId1: [IP1, IP2, ...], ...}],
-     *   ...,
-     * }
-     */
-    this.shardsData = [];
-
-    this.publisher = {
-      publish: () => {},
-    };
-    this.subscriber = {
-      subscribe: () => {},
-      unsubscribe: () => {},
-    };
     this.checkHealth = this.checkHealth.bind(this);
+    this.onShardBCMessage = this.onShardBCMessage.bind(this);
+    this.onShardListenMessage = this.onShardListenMessage.bind(this);
+
     setInterval(this.checkHealth, 10000);
   }
 
@@ -106,28 +113,47 @@ class MessageBroker extends SocketEvents {
   async initialize() {
     this.publisher = pubsub.publisher;
     this.subscriber = pubsub.subscriber;
-    await this.connectBCChannel();
     await this.connectShardChannel();
-    // give other shards 30s to announce themselves
+    await this.connectBCChannel();
+    // give other shards 25s to announce themselves
     await new Promise((resolve) => {
       setTimeout(resolve, 25000);
     });
     console.log('CLUSTER: Initialized message broker');
   }
 
+  announceExistence() {
+    /*
+     * to avoid collisions on package loss, reuse existing if not resolved
+     * already
+     */
+    this.existenceId = this.existenceId
+      || Math.random().toString(36).substring(2, 10);
+    this.publisher.publish(BROADCAST_CHAN,
+      `${this.thisShard}:exists,${this.existenceId}`,
+    );
+  }
+
   async connectBCChannel() {
-    await this.subscriber.subscribe(BROADCAST_CHAN, (...args) => {
-      this.onShardBCMessage(...args);
-    });
+    await this.subscriber.subscribe(BROADCAST_CHAN, this.onShardBCMessage);
+    this.announceExistence();
     this.pings[BROADCAST_CHAN] = Date.now();
   }
 
   async connectShardChannel() {
     const channel = `${LISTEN_PREFIX}:${this.thisShard}`;
-    await this.subscriber.subscribe(channel, (...args) => {
-      this.onShardListenMessage(...args);
-    });
+    await this.subscriber.subscribe(channel, this.onShardListenMessage);
     this.pings[channel] = Date.now();
+  }
+
+  async rerollShardName() {
+    const oldShardChannel = `${LISTEN_PREFIX}:${this.thisShard}`;
+    await this.subscriber.unsubscribe(oldShardChannel);
+    delete this.pings[oldShardChannel];
+    this.thisShard = Math.random().toString(36).substring(2, 10);
+    await this.connectShardChannel();
+    this.announceExistence();
+    console.log(`CLUSTER: Renamed shard to: ${this.thisShard}`);
   }
 
   /*
@@ -137,59 +163,68 @@ class MessageBroker extends SocketEvents {
     try {
       const curTime = Date.now();
       /*
-       * messages from own shard get used as ping
-       */
-      if (message.startsWith(this.thisShard)) {
-        this.pings[BROADCAST_CHAN] = curTime;
-        return;
-      }
-      const comma = message.indexOf(',');
-      /*
        * messages in the form of 'shard:type,JSONArrayData'
        */
-      if (~comma) {
-        const key = message.slice(message.indexOf(':') + 1, comma);
-        const val = JSON.parse(message.slice(comma + 1));
-        /*
-         * if type is a cross-shard request, remember the originating shard,
-         * by adding it to values
-         * shard:req:reqtype,[channelId, ...args]
-         */
-        if (key.startsWith('req:')) {
-          const shardName = message.slice(0, message.indexOf(':'));
-          /* insert after channelId */
-          val.splice(1, 0, shardName);
+      const comma = message.indexOf(',');
+      const colon = message.indexOf(':');
+      const shardName = message.slice(0, colon);
+      const key = message.slice(colon + 1, comma);
+      let val = message.slice(comma + 1);
+      /*
+        * shards announcing their existence
+        */
+      if (key === 'exists') {
+        if (shardName === this.thisShard) {
+          if (this.existenceId && val !== this.existenceId) {
+            console.error(`CLUSTER: Error CLASHING SHARD NAMES: ${val}`);
+            this.rerollShardName();
+            return;
+          }
+          this.pings[BROADCAST_CHAN] = curTime;
+          this.existenceId = null;
+        } else {
+          /*
+            * other shards
+            */
+          if (!this.shards[shardName]) {
+            console.log(`CLUSTER: Shard ${shardName} connected`);
+            await this.subscriber.subscribe(
+              shardName,
+              (buffer) => this.onShardBinaryMessage(buffer, shardName),
+              true,
+            );
+            // immediately give new shards information
+            this.announceExistence();
+          }
+          this.pings[shardName] = curTime;
+          this.shards[shardName] = curTime;
         }
-        /*
-         * online data update of shard
-         */
-        if (key === 'onlineShardData') {
-          const shard = message.slice(0, message.indexOf(':'));
-          this.updateShardOnlineData(shard, ...val);
-          return;
-        }
-        /*
-         * emit as socket event
-         */
-        super.emit(key, ...val);
         return;
       }
-      /**
-       * other messages are shard names that announce the existence
-       * of a shard
-       */
-      if (!this.shards[message]) {
-        console.log(`CLUSTER: Shard ${message} connected`);
-        await this.subscriber.subscribe(
-          message,
-          (buffer) => this.onShardBinaryMessage(buffer, message),
-          true,
-        );
-        // immediately give new shards information
-        this.publisher.publish(BROADCAST_CHAN, this.thisShard);
+      if (shardName === this.thisShard) {
+        return;
       }
-      this.pings[message] = curTime;
-      this.shards[message] = curTime;
+      val = JSON.parse(val);
+      /*
+        * if type is a cross-shard request, remember the originating shard,
+        * by adding it to values
+        * shard:req:reqtype,[channelId, ...args]
+        */
+      if (key.startsWith('req:')) {
+        /* insert after channelId */
+        val.splice(1, 0, shardName);
+      }
+      /*
+        * online data update of shard
+        */
+      if (key === 'onlineShardData') {
+        this.updateShardOnlineData(shardName, ...val);
+        return;
+      }
+      /*
+        * emit as socket event
+        */
+      super.emit(key, ...val);
     } catch (err) {
       console.error(`CLUSTER: Error on broadcast message: ${err.message}`);
     }
@@ -484,7 +519,7 @@ class MessageBroker extends SocketEvents {
       console.error(`CLUSTER: Error on health check: ${err.message}`);
     }
     // send keep alive to others
-    this.publisher.publish(BROADCAST_CHAN, this.thisShard);
+    this.announceExistence();
     // ping to own text listener channel
     this.publisher.publish(`${LISTEN_PREFIX}:${this.thisShard}`, 'ping');
   }

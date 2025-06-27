@@ -7,7 +7,7 @@ import path from 'path';
 import { createClient, defineScript } from 'redis';
 import { isMainThread } from 'worker_threads';
 
-import { REDIS_URL, SHARD_NAME, BACKUP_URL } from '../../core/config.js';
+import { REDIS_URL, IS_CLUSTER, BACKUP_URL } from '../../core/config.js';
 
 const scripts = {
   placePixel: {
@@ -94,7 +94,7 @@ export const connect = async () => {
   // eslint-disable-next-line no-console
   console.log(`Connecting to redis server at ${REDIS_URL}`);
   await client.connect();
-  if (SHARD_NAME && isMainThread) {
+  if (IS_CLUSTER && isMainThread) {
     const subscriber = client.duplicate();
     await subscriber.connect();
     pubsub.publisher = client;
