@@ -4,22 +4,35 @@
 import { CORS_HOSTS } from '../core/config.js';
 
 export default (req, res, next) => {
-  if (!CORS_HOSTS || !req.headers.origin) {
+  if (!CORS_HOSTS) {
     next();
     return;
   }
+
+  /* different origin produces different response */
+  res.set({
+    Vary: 'Origin',
+  });
+
   const { origin } = req.headers;
   if (!origin || origin === 'null') {
     next();
     return;
   }
 
-  const host = origin.slice(origin.indexOf('//') + 2);
+  const originHost = `.${origin.slice(origin.indexOf('//') + 2)}`;
+
+  if (originHost === req.ip.getHost(false, true)) {
+    /* no CORS headers needed */
+    next();
+    return;
+  }
+
   /*
-   * form .domain.tld will accept both domain.tld and x.domain.tld
+   * form .domain.tld will accept both domain.tld and x.domain.tld,
+   * all CORS_HOSTS entries shall start with a dot or be an IP
    */
-  const isAllowed = CORS_HOSTS.some((c) => c === host
-    || (c.startsWith('.') && (host.endsWith(c) || host === c.slice(1))));
+  const isAllowed = CORS_HOSTS.some((c) => originHost.endsWith(c));
 
   if (!isAllowed) {
     next();

@@ -45,10 +45,12 @@ export const IS_CLUSTER = parseInt(process.env.IS_CLUSTER, 10) || false;
 export const UNSHARDED_HOST = process.env.UNSHARDED_HOST || null;
 // if CSN_HOST is set, this host will be used to serve assets
 export const CDN_HOST = process.env.CDN_HOST || null;
-// list of hosts allowed to CORS, can be dot-prefixed to allow all subdomains
-// like ".pixelplanet.fun"
+// list of hosts allowed to CORS, this will also allow all subdomains,
+// this is why they get prefixed with a dot here if they aren't v4 IPs
 export const CORS_HOSTS = (process.env.CORS_HOSTS)
-  ? process.env.CORS_HOSTS.split(',') : [];
+  ? process.env.CORS_HOSTS.split(',').map(
+    (c) => ((c.split('.').length !== 4 && !c.startsWith('.')) ? `.${c}` : c),
+  ) : [];
 
 // Database
 export const MYSQL_HOST = process.env.MYSQL_HOST || 'localhost';

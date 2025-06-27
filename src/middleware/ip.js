@@ -1,7 +1,7 @@
 /*
  * express middlewares for handling ip information
  */
-import { USE_XREALIP, CDN_HOST } from '../core/config.js';
+import { USE_XREALIP, CORS_HOSTS, CDN_HOST } from '../core/config.js';
 import {
   sanitizeIPString, ipToHex, getHostFromRequest,
 } from '../utils/intel/ip.js';
@@ -86,6 +86,28 @@ export class IP {
   get country() {
     const cc = this.#req.headers['cf-ipcountry'];
     return (cc) ? cc.toLowerCase() : 'xx';
+  }
+
+  /**
+   * @return boolean if this is a CORS request and if it is, if it's allowed,
+   * only really useful for websockets, because otherwise the browser is doing
+   * the CORS check
+   */
+  get isCORSAllowed() {
+    const { origin } = this.#req.headers;
+    if (!origin) {
+      return false;
+    }
+    const originHost = `.${origin.slice(origin.indexOf('//') + 2)}`;
+    const host = this.getHost(false, true);
+    /*
+     * In some websocket requests from localhost, the origin is the loopback IP
+     * and the host is localhost, it is super silly
+     */
+    if (origin.endsWith(host) || origin.startsWith('127.0.0.1')) {
+      return true;
+    }
+    return CORS_HOSTS.some((c) => originHost.endsWith(c));
   }
 
   /**

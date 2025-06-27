@@ -16,10 +16,13 @@ export function getHostFromRequest(req, includeProto = true, stripSub = false) {
     || headers[':authority']
     || headers.host;
   if (stripSub) {
-    if (host.lastIndexOf('.') !== host.indexOf('.')) {
-      host = host.slice(host.indexOf('.'));
-    } else if (!includeProto && host.startsWith('localhost')) {
-      return 'localhost';
+    const firstDot = host.indexOf('.');
+    const lastDot = host.lastIndexOf('.');
+    if (firstDot !== lastDot) {
+      /* assume that more than two dots is an IPv4 */
+      if (host.indexOf('.', firstDot + 1) === lastDot) {
+        host = host.slice(host.indexOf('.'));
+      }
     } else {
       host = `.${host}`;
     }
