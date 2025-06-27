@@ -1,9 +1,9 @@
 /*
  * express middlewares for handling ip information
  */
-import { USE_XREALIP } from '../core/config.js';
+import { USE_XREALIP, CDN_HOST } from '../core/config.js';
 import {
-  sanitizeIPString, ipToHex, CDN_HOST,getHostFromRequest,
+  sanitizeIPString, ipToHex, getHostFromRequest,
 } from '../utils/intel/ip.js';
 import { getIPIntelOverShards } from '../utils/intel/index.js';
 import { queue } from '../utils/intel/queue.js';

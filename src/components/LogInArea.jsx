@@ -3,6 +3,7 @@
 import React from 'react';
 import { t } from 'ttag';
 
+import { u, cdn } from '../utils/utag.js';
 import LogInForm from './LogInForm.jsx';
 import useLink from './hooks/link.js';
 
@@ -12,18 +13,6 @@ const logoStyle = {
 
 const LogInArea = () => {
   const link = useLink();
-
-  /*
-   * third party login only works on main url, so if we are on a sharded one,
-   * remove the shard. Sadly this means that we have to limit SHARD_NAME to
-   * sc[a-z] and non-sharded instances can't be on such a subdomain
-   */
-  let host = '/';
-  if (window.location.host.startsWith('sc')
-    && window.location.host.charAt(3) === '.'
-  ) {
-    host = `${window.location.protocol}//${window.location.host.substring(4)}/`;
-  }
 
   return (
     <div style={{ textAlign: 'center' }}>
@@ -39,43 +28,43 @@ const LogInArea = () => {
       >
         {t`I forgot my Password.`}</p>
       <h2>{t`or login with:`}</h2>
-      <a href={`${host}api/auth/discord`}>
+      <a href={u`/api/auth/discord`}>
         <img
           style={logoStyle}
           width={32}
-          src="/discordlogo.svg"
+          src={cdn`/discordlogo.svg`}
           alt="Discord"
         />
       </a>
-      <a href={`${host}api/auth/google`}>
+      <a href={u`/api/auth/google`}>
         <img
           style={logoStyle}
           width={32}
-          src="/googlelogo.svg"
+          src={cdn`/googlelogo.svg`}
           alt="Google"
         />
       </a>
-      <a href={`${host}api/auth/facebook`}>
+      <a href={u`/api/auth/facebook`}>
         <img
           style={logoStyle}
           width={32}
-          src="/facebooklogo.svg"
+          src={cdn`/facebooklogo.svg`}
           alt="Facebook"
         />
       </a>
-      <a href={`${host}api/auth/vk`}>
+      <a href={u`/api/auth/vk`}>
         <img
           style={logoStyle}
           width={32}
-          src="/vklogo.svg"
+          src={cdn`/vklogo.svg`}
           alt="VK"
         />
       </a>
-      <a href={`${host}api/auth/reddit`}>
+      <a href={u`/api/auth/reddit`}>
         <img
           style={logoStyle}
           width={32}
-          src="/redditlogo.svg"
+          src={cdn`/redditlogo.svg`}
           alt="Reddit"
         />
       </a>

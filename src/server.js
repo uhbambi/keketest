@@ -131,7 +131,14 @@ syncSql()
     }
     rankings.initialize();
     if (HOURLY_EVENT) {
-      rpgEvent.initialize();
+      /*
+       * give us 60s of negotating shards,
+       * TODO: initialize RpgEvent either in a redis lua function or in a
+       * single transaction, so we can not clash with other shards
+       */
+      setTimeout(() => {
+        rpgEvent.initialize();
+      }, 60000);
     }
     if (FISHING) {
       initializeFishing();

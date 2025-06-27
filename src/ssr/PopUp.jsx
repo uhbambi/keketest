@@ -9,7 +9,7 @@ import etag from 'etag';
 import { getTTag, availableLangs as langs } from '../middleware/ttag.js';
 import socketEvents from '../socket/socketEvents.js';
 import { getJsAssets, getThemeCssAssets } from '../core/assets.js';
-import { BACKUP_URL, UNSHARDED_HOST } from '../core/config.js';
+import { BACKUP_URL, UNSHARDED_HOST, CDN_HOST } from '../core/config.js';
 
 
 /*
@@ -28,6 +28,7 @@ function generatePopUpPage(req) {
     langs,
     backupurl: BACKUP_URL,
     shard,
+    cdnHost: CDN_HOST,
     lang,
   });
   const scripts = getJsAssets('popup', lang);
