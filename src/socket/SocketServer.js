@@ -7,7 +7,6 @@ import logger from '../core/logger.js';
 import canvases from '../core/canvases.js';
 import MassRateLimiter from '../utils/MassRateLimiter.js';
 import Counter from '../utils/Counter.js';
-import { getHostFromRequest } from '../utils/intel/ip.js';
 import {
   REG_CANVAS_OP,
   PIXEL_UPDATE_OP,
@@ -252,7 +251,7 @@ class SocketServer {
      * enforce CORS
      */
     const { origin } = headers;
-    const host = getHostFromRequest(request, false, true);
+    const host = request.ip.getHost(false, true);
     if ((!origin
       || !`.${origin.slice(origin.indexOf('//') + 2)}`.endsWith(host))
       && origin !== '127.0.0.1' && host !== 'localhost'

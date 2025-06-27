@@ -2,7 +2,9 @@
  * express middlewares for handling ip information
  */
 import { USE_XREALIP } from '../core/config.js';
-import { sanitizeIPString, ipToHex } from '../utils/intel/ip.js';
+import {
+  sanitizeIPString, ipToHex, CDN_HOST,getHostFromRequest,
+} from '../utils/intel/ip.js';
 import { getIPIntelOverShards } from '../utils/intel/index.js';
 import { queue } from '../utils/intel/queue.js';
 import { getIPAllowance, touchIP } from '../data/sql/IP.js';
@@ -86,6 +88,13 @@ export class IP {
     return (cc) ? cc.toLowerCase() : 'xx';
   }
 
+  /**
+   * @return boolean if request is on CDN
+   */
+  get isCDN() {
+    return this.getHost(false) === CDN_HOST;
+  }
+
   toString() {
     return this.ipString;
   }
@@ -96,6 +105,16 @@ export class IP {
 
   toNum() {
     return this.ipNum;
+  }
+
+  /**
+   * get host
+   * @param includeProto include the http:// part (default true)
+   * @param stripSub strip subdomains and heep the dot (default: false)
+   * @return host from request
+   */
+  getHost(includeProto, stripSub) {
+    return getHostFromRequest(this.#req, includeProto, stripSub);
   }
 
   /**

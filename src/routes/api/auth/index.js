@@ -1,7 +1,6 @@
 import express from 'express';
 
 import logger from '../../../core/logger.js';
-import { getHostFromRequest } from '../../../utils/intel/ip.js';
 import passport from '../../../core/passport.js';
 import { ensureLoggedIn, openSession } from '../../../middleware/session.js';
 
@@ -82,7 +81,7 @@ router.use((err, req, res, next) => {
     next(err);
     return;
   }
-  const host = getHostFromRequest(req);
+  const host = req.ip.getHost();
   logger.info(`Authentication error: ${err.message}`);
   const index = getHtml(
     'OAuth Authentication',

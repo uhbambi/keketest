@@ -4,7 +4,6 @@
 
 import socketEvents from '../../../socket/socketEvents.js';
 import getHtml from '../../../ssr/RedirectionPage.jsx';
-import { getHostFromRequest } from '../../../utils/intel/ip.js';
 import { MailProvider } from '../../../core/MailProvider.js';
 import { validateEMail } from '../../../utils/validation.js';
 
@@ -12,7 +11,7 @@ export default async (req, res) => {
   const { email, token } = req.query;
   const { lang, ttag: { t } } = req;
 
-  const host = getHostFromRequest(req);
+  const host = req.ip.getHost();
   const error = validateEMail(email);
   if (!error) {
     const userId = await MailProvider.verify(email, token);

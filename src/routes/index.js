@@ -45,10 +45,10 @@ router.use('/guilded', (req, res) => {
   res.redirect(GUILDED_INVITE);
 });
 
-/* translations */
-router.use(expressTTag);
 /* ip */
 router.use(parseIP);
+/* translations */
+router.use(expressTTag);
 
 /*
  * adminapi

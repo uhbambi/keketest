@@ -8,7 +8,6 @@ import {
 import mailProvider from '../../../core/MailProvider.js';
 import getMe from '../../../core/me.js';
 import { openSession } from '../../../middleware/session.js';
-import { getHostFromRequest } from '../../../utils/intel/ip.js';
 import { checkMailOverShards } from '../../../utils/intel/index.js';
 import {
   validateEMail,
@@ -129,7 +128,7 @@ export default async (req, res) => {
   await openSession(req, res, user.id, 720);
   const me = await getMe(req.user, req.lang);
 
-  const host = getHostFromRequest(req);
+  const host = req.ip.getHost();
   if (email) {
     mailProvider.sendVerifyMail(email, name, host, req.lang);
   }

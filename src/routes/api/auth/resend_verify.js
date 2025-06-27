@@ -3,7 +3,6 @@
  */
 
 import mailProvider from '../../../core/MailProvider.js';
-import { getHostFromRequest } from '../../../utils/intel/ip.js';
 import { USERLVL } from '../../../data/sql/index.js';
 import { getEmailOfUser } from '../../../data/sql/ThreePID.js';
 
@@ -26,7 +25,7 @@ export default async (req, res) => {
     throw new Error(t`An error occured. Please try again later.`);
   }
 
-  const host = getHostFromRequest(req);
+  const host = req.ip.getHost();
   const error = await mailProvider.sendVerifyMail(email, name, host, lang);
   if (error) {
     throw new Error(error);

@@ -5,7 +5,6 @@
 import logger from '../../../core/logger.js';
 import mailProvider from '../../../core/MailProvider.js';
 import { validateEMail } from '../../../utils/validation.js';
-import { getHostFromRequest } from '../../../utils/intel/ip.js';
 
 async function validate(email, gettext) {
   const errors = [];
@@ -27,7 +26,7 @@ export default async (req, res) => {
     return;
   }
 
-  const host = getHostFromRequest(req);
+  const host = req.ip.getHost();
   const { lang } = req;
   const error = await mailProvider.sendPasswdResetMail(
     email, ipString, host, lang,

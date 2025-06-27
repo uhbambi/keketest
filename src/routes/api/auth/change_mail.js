@@ -5,7 +5,6 @@
 import mailProvider from '../../../core/MailProvider.js';
 
 import logger from '../../../core/logger.js';
-import { getHostFromRequest } from '../../../utils/intel/ip.js';
 import { validateEMail } from '../../../utils/validation.js';
 import { compareToHash } from '../../../utils/hash.js';
 import { checkMailOverShards } from '../../../utils/intel/index.js';
@@ -76,7 +75,7 @@ export default async (req, res) => {
   // eslint-disable-next-line max-len
   logger.info(`AUTH: Changed mail for user ${user.name}(${user.id}) to ${email} by ${req.ip.ipString}`);
 
-  const host = getHostFromRequest(req);
+  const host = req.ip.getHost();
   mailProvider.sendVerifyMail(email, user.name, host, lang);
 
   res.json({

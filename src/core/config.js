@@ -38,7 +38,18 @@ export const USE_PROXYCHECK = parseInt(process.env.USE_PROXYCHECK, 10) || false;
 export const { PROXYCHECK_KEY } = process.env;
 
 export const REDIS_URL = process.env.REDIS_URL || 'redis://localhost:6379';
+
+// for running as cluster, SHARD_NAME is the prefix (the scx in scx.pixelplanet.fun)
 export const SHARD_NAME = process.env.SHARD_NAME || null;
+// host for which we do not use shards, useful for running on multiple domains
+export const UNSHARDED_HOST = process.env.UNSHARDED_HOST || null;
+// if CSN_HOST is set, this host will be used to serve assets
+export const CDN_HOST = process.env.CDN_HOST || null;
+// list of hosts allowed to CORS, can be dot-prefixed to allow all subdomains
+// like ".pixelplanet.fun"
+export const CORS_HOSTS = (process.env.CORS_HOSTS)
+  ? process.env.CORS_HOSTS.split(',') : [];
+
 // Database
 export const MYSQL_HOST = process.env.MYSQL_HOST || 'localhost';
 export const MYSQL_DATABASE = process.env.MYSQL_DATABASE || 'pixelplanet';
@@ -63,9 +74,6 @@ export const APISOCKET_KEY = process.env.APISOCKET_KEY || null;
 // Comma separated list of user ids of Admins
 export const ADMIN_IDS = (process.env.ADMIN_IDS)
   ? process.env.ADMIN_IDS.split(',').map((z) => parseInt(z, 10)) : [];
-
-export const CORS_HOSTS = (process.env.CORS_HOSTS)
-  ? process.env.CORS_HOSTS.split(',') : [];
 
 export const auth = {
   // https://developers.facebook.com/

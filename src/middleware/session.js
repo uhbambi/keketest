@@ -8,7 +8,6 @@ import {
   resolveSession, createSession, removeSession,
 } from '../data/sql/Session.js';
 import { parseListOfBans } from '../data/sql/Ban.js';
-import { getHostFromRequest } from '../utils/intel/ip.js';
 import { touchUser } from '../data/sql/User.js';
 
 export class User {
@@ -184,7 +183,7 @@ export function ensureLoggedIn(req, res, next) {
  * @return boolean if successful
  */
 export async function openSession(req, res, userId, durationHours = 720) {
-  const domain = getHostFromRequest(req, false, true);
+  const domain = req.ip.getHost(false, true);
 
   const token = await createSession(userId, durationHours);
   if (!token) {
@@ -216,7 +215,7 @@ export async function openSession(req, res, userId, durationHours = 720) {
 }
 
 export function clearCookie(req, res) {
-  const domain = getHostFromRequest(req, false, true);
+  const domain = req.ip.getHost(false, true);
   res.clearCookie('ppfun.session', {
     domain, httpOnly: true, secure: false,
   });

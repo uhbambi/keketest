@@ -9,8 +9,7 @@ import etag from 'etag';
 import { getTTag, availableLangs as langs } from '../middleware/ttag.js';
 import socketEvents from '../socket/socketEvents.js';
 import { getJsAssets, getThemeCssAssets } from '../core/assets.js';
-import { BACKUP_URL } from '../core/config.js';
-import { getHostFromRequest } from '../utils/intel/ip.js';
+import { BACKUP_URL, UNSHARDED_HOST } from '../core/config.js';
 
 
 /*
@@ -20,9 +19,10 @@ import { getHostFromRequest } from '../utils/intel/ip.js';
  */
 function generatePopUpPage(req) {
   const { lang } = req;
-  const host = getHostFromRequest(req);
-  const shard = (host.startsWith(`${socketEvents.thisShard}.`))
-    ? null : socketEvents.lowestActiveShard;
+  const host = req.ip.getHost(false);
+  const shard = (host.startsWith(`${socketEvents.thisShard}.`)
+    || (UNSHARDED_HOST && host.startsWith(UNSHARDED_HOST))
+  ) ? null : socketEvents.lowestActiveShard;
   const ssvR = JSON.stringify({
     availableStyles: getThemeCssAssets(),
     langs,

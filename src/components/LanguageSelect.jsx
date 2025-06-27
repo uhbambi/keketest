@@ -40,7 +40,7 @@ function LanguageSelect() {
           }}
         >
           {
-            window.ssv.langs.map(([l]) => (
+            window.ssv?.langs.map(([l]) => (
               <option
                 key={l}
                 value={l}

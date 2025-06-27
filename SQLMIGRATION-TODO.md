@@ -9,3 +9,4 @@ deleted redis stuff:
 add a dropdown for expiration: Browser close, 30 days, 1 year, forever
 
 add CDN config
+

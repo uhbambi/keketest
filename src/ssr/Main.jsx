@@ -10,8 +10,9 @@ import hashScript from '../utils/scriptHash.js';
 import { getTTag, availableLangs as langs } from '../middleware/ttag.js';
 import { getJsAssets, getThemeCssAssets } from '../core/assets.js';
 import socketEvents from '../socket/socketEvents.js';
-import { BACKUP_URL, CONTACT_ADDRESS } from '../core/config.js';
-import { getHostFromRequest } from '../utils/intel/ip.js';
+import {
+  BACKUP_URL, CONTACT_ADDRESS, UNSHARDED_HOST, CDN_HOST,
+} from '../core/config.js';
 
 const defaultCanvasForCountry = {};
 (function populateDefaultCanvases() {
@@ -38,7 +39,7 @@ const basedQuotes = [
   ['Candace Owens', 'Antisemite of the year 2024', '/memes/owens2.mp4', 'video', 640, 360],
 ];
 
-/*
+/**
  * Generates string with html of main page
  * @param countryCoords Cell with coordinates of client country
  * @param lang language code
@@ -46,16 +47,18 @@ const basedQuotes = [
  */
 function generateMainPage(req) {
   const { lang, ip } = req;
-  const host = getHostFromRequest(req, false);
+  const host = ip.getHost(false);
   const proto = req.headers['x-forwarded-proto'] || 'http';
-  const shard = (host.startsWith(`${socketEvents.thisShard}.`))
-    ? null : socketEvents.lowestActiveShard;
+  const shard = (host.startsWith(`${socketEvents.thisShard}.`)
+    || (UNSHARDED_HOST && host.startsWith(UNSHARDED_HOST))
+  ) ? null : socketEvents.lowestActiveShard;
   const ssv = {
     availableStyles: getThemeCssAssets(),
     langs,
     backupurl: BACKUP_URL,
     contactAddress: CONTACT_ADDRESS,
     shard,
+    cdnHost: CDN_HOST,
     lang,
   };
 
@@ -66,7 +69,7 @@ function generateMainPage(req) {
   const ssvR = JSON.stringify(ssv);
   const scripts = getJsAssets('client', lang);
 
-  const headScript = `/* @license magnet:?xt=urn:btih:0b31508aeb0634b347b8270c7bee4d411b5d4109&dn=agpl-3.0.txt AGPL-3.0-or-later */\n(function(){window.ssv=JSON.parse('${ssvR}');let hostPart = window.location.host.split('.'); if (hostPart.length > 2) hostPart.shift(); hostPart = hostPart.join('.'); if (window.ssv.shard && window.location.host !== 'fuckyouarkeros.fun') hostPart = window.location.protocol + '//' + window.ssv.shard + '.' + hostPart; else hostPart = ''; window.me=fetch(hostPart + '/api/me',{credentials:'include'})})();\n/* @license-end */`;
+  const headScript = `/* @license magnet:?xt=urn:btih:0b31508aeb0634b347b8270c7bee4d411b5d4109&dn=agpl-3.0.txt AGPL-3.0-or-later */\n(function(){window.ssv=JSON.parse('${ssvR}');let hostPart = window.location.host.split('.'); if (hostPart.length > 2) hostPart.shift(); hostPart = hostPart.join('.'); if (window.ssv.shard) hostPart = window.location.protocol + '//' + window.ssv.shard + '.' + hostPart; else hostPart = ''; window.me=fetch(hostPart + '/api/me',{credentials:'include'})})();\n/* @license-end */`;
   const scriptHash = hashScript(headScript);
 
   const csp = `script-src 'self' ${scriptHash} *.tiktok.com *.ttwstatic.com; worker-src 'self' blob:;`;

@@ -26,6 +26,10 @@ export default (req, res, next) => {
     return;
   }
 
+  /*
+   * The recommended way of dealing with multiple origin is to return whatever
+   * origin requested, according to MDN.
+   */
   res.set({
     'Access-Control-Allow-Origin': origin,
     'Access-Control-Allow-Credentials': 'true',
