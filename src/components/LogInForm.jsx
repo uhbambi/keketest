@@ -33,8 +33,6 @@ const inputStyles = {
 };
 
 const LogInForm = () => {
-  const [nameoremail, setNameOrEmail] = useState('');
-  const [password, setPassword] = useState('');
   const [submitting, setSubmitting] = useState(false);
   const [errors, setErrors] = useState([]);
 
@@ -42,10 +40,12 @@ const LogInForm = () => {
 
   const handleSubmit = async (evt) => {
     evt.preventDefault();
-
     if (submitting) {
       return;
     }
+    const nameoremail = evt.target.nameoremail.value;
+    const password = evt.target.password.value;
+    const durationsel = evt.target.durationsel.value;
 
     const valErrors = validate(nameoremail, password);
     if (valErrors.length > 0) {
@@ -55,8 +55,7 @@ const LogInForm = () => {
 
     setSubmitting(true);
     const { errors: respErrors, me } = await requestLogin(
-      nameoremail,
-      password,
+      nameoremail, password, durationsel,
     );
     setSubmitting(false);
     if (respErrors) {
@@ -72,21 +71,29 @@ const LogInForm = () => {
         <p key={error}><span>{t`Error`}</span>:&nbsp;{error}</p>
       ))}
       <input
-        value={nameoremail}
         style={inputStyles}
-        name="username"
-        onChange={(evt) => setNameOrEmail(evt.target.value)}
+        name="nameoremail"
+        autoComplete="email"
         type="text"
         placeholder={t`Name or Email`}
       /><br />
       <input
-        value={password}
         style={inputStyles}
         name="password"
-        onChange={(evt) => setPassword(evt.target.value)}
+        autoComplete="current-password"
         type="password"
         placeholder={t`Password`}
       />
+      <p>
+        {t`Stay logged in: `}
+        <select name="durationsel">
+          <option value={0}>{t`Until the browser closes`}</option>
+          <option value={24 * 7}>{t`For one week`}</option>
+          <option value={24 * 31}>{t`For one month`}</option>
+          <option value={24 * 265}>{t`For one year`}</option>
+          <option value="forever">{t`Forever`}</option>
+        </select>
+      </p>
       <p>
         <button type="submit">
           {(submitting) ? '...' : t`LogIn`}

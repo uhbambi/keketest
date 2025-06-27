@@ -48,8 +48,10 @@ export default async (req, res) => {
     }
 
     /* session duration, null for permanent */
-    let { durationHours } = req.body;
-    if (durationHours !== null) {
+    let { durationsel: durationHours } = req.body;
+    if (durationHours === 'forever') {
+      durationHours = null;
+    } else {
       durationHours = parseInt(durationHours, 10);
       if (Number.isNaN(durationHours)) {
         // default to 30 days if gibberish

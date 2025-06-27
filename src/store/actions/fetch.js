@@ -298,18 +298,20 @@ export function requestMailChange(email, password) {
   );
 }
 
-export function requestLogin(nameoremail, password) {
+export function requestLogin(nameoremail, password, durationsel) {
   return makeAPIPOSTRequest(
     '/api/auth/local',
-    { nameoremail, password },
+    { nameoremail, password, durationsel },
   );
 }
 
 export function requestRegistration(
-  name, username, email, password, captcha, captchaid, challengeSolution,
+  name, username, email, password, durationsel,
+  captcha, captchaid, challengeSolution,
 ) {
   const body = {
-    name, username, email, password, captcha, captchaid,
+    name, username, email, password, durationsel,
+    captcha, captchaid,
   };
   if (challengeSolution) {
     body.cs = challengeSolution;

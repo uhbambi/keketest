@@ -48,12 +48,12 @@ const Register = () => {
     if (submitting || !ready) {
       return;
     }
-
     const name = evt.target.name.value;
     const username = evt.target.username.value;
     const email = evt.target.email.value;
     const password = evt.target.password.value;
     const confirmPassword = evt.target.confirmpassword.value;
+    const durationsel = evt.target.durationsel.value;
     const captcha = evt.target.captcha.value;
     const captchaid = evt.target.captchaid.value;
     const challengeSolution = evt.target.challengesolution.value;
@@ -72,6 +72,7 @@ const Register = () => {
       username,
       email,
       password,
+      durationsel,
       captcha,
       captchaid,
       challengeSolution,
@@ -142,6 +143,16 @@ const Register = () => {
           <p key={error} className="errormessage"><span>{t`Error`}</span>
             :&nbsp;{error}</p>
         ))}
+        <p>
+          {t`Stay logged in: `}
+          <select name="durationsel">
+            <option value={0}>{t`Until the browser closes`}</option>
+            <option value={24 * 7}>{t`For one week`}</option>
+            <option value={24 * 31}>{t`For one month`}</option>
+            <option value={24 * 265}>{t`For one year`}</option>
+            <option value="forever">{t`Forever`}</option>
+          </select>
+        </p>
         <h3>{t`Captcha`}:</h3>
         <Captcha
           autoload={false}
