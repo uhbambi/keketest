@@ -1,5 +1,6 @@
 /* vday banner */
 import React, { useState, useRef } from 'react';
+import { cdn } from '../utils/utag.js';
 
 const VDay = () => {
   const [isPlaying, setIsPlaying] = useState(false);
@@ -27,7 +28,7 @@ const VDay = () => {
           cursor: 'pointer',
         }}
         alt="butthurt belters"
-        src="special/butthurt.png"
+        src={cdn`/special/butthurt.png`}
         onClick={togglePlayPause}
       />
       <div
@@ -52,11 +53,11 @@ const VDay = () => {
         { /* eslint-disable-next-line jsx-a11y/media-has-caption */ }
         <audio
           ref={audioRef}
-          src="special/russia-8bit-anthem.opus"
+          src={cdn`/special/russia-8bit-anthem.opus`}
           onEnded={() => setIsPlaying(false)}
         />
       </div>
-      <link rel="stylesheet" type="text/css" href="special/vday.css" />
+      <link rel="stylesheet" type="text/css" href={cdn`/special/vday.css`} />
     </>
   );
 };

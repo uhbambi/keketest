@@ -2,10 +2,11 @@
  * state for single-window page (popup)
  */
 
-import { argsTypes } from '../../components/windows/popUpAvailable.js';
+import { POPUP_ARGS } from '../../core/constants.js';
 
 function getWinDataFromURL() {
-  const path = window.location.pathname.split('/').slice(1);
+  // eslint-disable-next-line max-len
+  const path = window.location.pathname.substring(window.ssv?.basename?.length || 0).split('/').slice(1);
   /*
    * first part of path is windowType
    */
@@ -15,12 +16,26 @@ function getWinDataFromURL() {
    */
   const argsArr = path.slice(1);
   const args = {};
-  const typeArr = argsTypes[windowType];
+  const typeArr = POPUP_ARGS[windowType];
   if (typeArr) {
     let i = Math.min(typeArr.length, argsArr.length);
     while (i > 0) {
       i -= 1;
-      args[typeArr[i]] = decodeURIComponent(argsArr[i]);
+      /*
+       * if it is an array, the first element is the name, the second one
+       * the type
+       */
+      let keyName = typeArr[i];
+      let type;
+      if (Array.isArray(keyName)) {
+        [keyName, type] = keyName;
+      }
+      const rawValue = argsArr[i];
+      /*
+       * currently we only support 'int' for number
+       */
+      args[keyName] = (type === 'int')
+        ? parseInt(rawValue, 10) : decodeURIComponent(rawValue);
     }
   }
   /*

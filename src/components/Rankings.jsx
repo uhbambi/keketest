@@ -20,6 +20,7 @@ import {
   ArcElement,
 } from 'chart.js';
 import { Line, Pie } from 'react-chartjs-2';
+import { cdn } from '../utils/utag.js';
 
 import { numberToString, numberToStringFull } from '../core/utils.js';
 import { selectIsDarkMode } from '../store/selectors/gui.js';
@@ -284,7 +285,7 @@ const Rankings = () => {
                       className="tab-cc-cell"
                     ><img
                       alt={rank.cc}
-                      src={`/cf/${rank.cc}.gif`}
+                      src={cdn`/cf/${rank.cc}.gif`}
                     /></td>
                     <td className="c-num">
                       {numberToStringFull(rank.px)}

@@ -9,7 +9,7 @@ import { t } from 'ttag';
 
 import copyTextToClipboard from '../utils/clipboard.js';
 import { parseInterval, coordsFromString } from '../core/utils.js';
-import { api } from '../utils/utag.js';
+import { api, cdn } from '../utils/utag.js';
 import { selectCanvas } from '../store/actions/index.js';
 
 const keepState = {
@@ -367,7 +367,7 @@ function ModWatchtools() {
                                 imageRendering: 'crisp-edges',
                               }}
                               alt={val}
-                              src={`/cf/${flag}.gif`}
+                              src={cdn`/cf/${flag}.gif`}
                             /></td>
                           );
                         }

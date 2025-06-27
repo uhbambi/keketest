@@ -1,37 +1,31 @@
 /*
  * windows that can be opened as pop-up
  */
+import { u } from '../../utils/utag.js';
+import { POPUP_ARGS, AVAILABLE_POPUPS } from '../../core/constants.js';
 
-export const argsTypes = {
-  USERAREA: ['activeTab'],
-  CHAT: ['chatChannel'],
-  PLAYER: ['uri'],
-};
-
-const availablePopups = [
-  'HELP',
-  'SETTINGS',
-  'USERAREA',
-  'CHAT',
-  'CANVAS_SELECTION',
-  'ARCHIVE',
-  'REGISTER',
-  'FORGOT_PASSWORD',
-  'PLAYER',
-];
+export default AVAILABLE_POPUPS;
 
 export function isPopUp() {
-  const fPath = window.location.pathname.split('/')[1];
-  return fPath && availablePopups.includes(fPath.toUpperCase());
+  // eslint-disable-next-line max-len
+  const fPath = window.location.pathname.substring(window.ssv?.basename?.length || 0).split('/')[1];
+  return fPath && AVAILABLE_POPUPS.includes(fPath.toUpperCase());
 }
 
 export function buildPopUpUrl(windowType, argsIn) {
   const args = { ...argsIn };
-  let path = `/${windowType.toLowerCase()}`;
-  const typeArr = argsTypes[windowType];
+  let path = u`/${windowType.toLowerCase()}`;
+  const typeArr = POPUP_ARGS[windowType];
   if (typeArr) {
     for (let i = 0; i < typeArr.length; i += 1) {
-      const key = typeArr[i];
+      let key = typeArr[i];
+      /*
+       * if it is an array, the first element is the name, the second one
+       * the type
+       */
+      if (Array.isArray(key)) {
+        [key] = key;
+      }
       if (args[key]) {
         path += `/${encodeURIComponent(args[key])}`;
         delete args[key];
@@ -51,4 +45,3 @@ export function buildPopUpUrl(windowType, argsIn) {
   return path;
 }
 
-export default availablePopups;

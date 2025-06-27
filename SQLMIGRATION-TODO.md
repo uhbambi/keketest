@@ -7,4 +7,3 @@ deleted redis stuff:
 'chip' - HSET for challenge ip mapping, it's stored different now
 
 add a dropdown for expiration: Browser close, 30 days, 1 year, forever
-

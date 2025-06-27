@@ -9,7 +9,7 @@ import {
 } from '../core/utils.js';
 import { selectIsDarkMode } from '../store/selectors/gui.js';
 import { parseParagraph } from '../core/MarkdownParser.js';
-
+import { cdn } from '../utils/utag.js';
 
 
 function ChatMessage({
@@ -58,7 +58,7 @@ function ChatMessage({
                 className="chatflag"
                 alt=""
                 title={country}
-                src={`/cf/${country}.gif`}
+                src={cdn`/cf/${country}.gif`}
               />
               <span
                 className="chatname"

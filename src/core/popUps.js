@@ -47,7 +47,8 @@ export function dispatchToPopUps(msg, ignore = null) {
 export function updateExistingPopUp(windowType, args) {
   const win = wins.find(
     (w) => !w.closed
-      && w.location.pathname.split('/')[1]?.toUpperCase() === windowType,
+      // eslint-disable-next-line max-len
+      && w.location.pathname.substring(window.ssv?.basename?.length || 0).split('/')[1]?.toUpperCase() === windowType,
   );
   if (win) {
     win.location = buildPopUpUrl(windowType, args);

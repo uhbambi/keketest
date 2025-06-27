@@ -13,6 +13,7 @@ import useLongPress from '../hooks/useLongPress.js';
 import copyTextToClipboard from '../../utils/clipboard.js';
 import { toggleEasterEgg } from '../../store/actions/index.js';
 import { notify } from '../../store/actions/thunks.js';
+import { cdn } from '../../utils/utag.js';
 
 /* eslint-disable max-len */
 
@@ -61,7 +62,7 @@ const Help = () => {
           padding: 2, maxWidth: '20%', verticalAlign: 'middle', display: 'inline-block',
         }}
         alt="ppfun"
-        src="./logo.svg"
+        src={cdn`/logo.svg`}
         ref={refCallback}
       />
       <p>

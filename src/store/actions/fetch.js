@@ -229,7 +229,7 @@ export async function requestHistoricalTimes(day, canvasId) {
   try {
     const date = dateToString(day);
     // Not going over shard url
-    const url = `/history?day=${date}&id=${canvasId}`;
+    const url = api`/history?day=${date}&id=${canvasId}`;
     const response = await fetchWithTimeout(url, {
       credentials: 'omit',
       timeout: 45000,

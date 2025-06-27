@@ -1,7 +1,6 @@
 /*
  * Entrypoint for main client script
  */
-
 import { persistStore } from 'redux-persist';
 
 import {
@@ -23,6 +22,9 @@ import renderApp from './components/App.jsx';
 import { getRenderer } from './ui/rendererFactory.js';
 import templateLoader from './ui/templateLoader.js';
 import socketClient from './socket/SocketClient.js';
+
+// eslint-disable-next-line
+__webpack_public_path__ = `${window.ssv?.basename || ''}/assets/`;
 
 persistStore(store, {}, () => {
   window.addEventListener('message', store.dispatch);

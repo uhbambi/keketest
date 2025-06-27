@@ -62,10 +62,10 @@ export const UNSHARDED_HOST = process.env.UNSHARDED_HOST || null;
 /*
  * if BASENAME is set, this path will be used for... everything
  * the intention is to be able to run pixelplant with in a path.
- * e.g "hahaa" would lead for the whole game to run under
+ * e.g "/hahaa" would lead for the whole game to run under
  * https://pixelplanet.fun/hahaa
  * This shall NOT end with "/"
- * NOTE: this isn't tested and probably won't work yet
+ * This SHALL start with an "/"
  */
 export const BASENAME = process.env.BASENAME || '';
 /*

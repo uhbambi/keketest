@@ -13,6 +13,7 @@ import { getLinkDesc } from '../core/utils.js';
 import EMBEDS from './embeds/index.js';
 import { isPopUp } from './windows/popUpAvailable.js';
 import useLink from './hooks/link.js';
+import { cdn, u } from '../utils/utag.js';
 
 const titleAllowed = [
   'odysee',
@@ -36,15 +37,15 @@ const MdLink = ({ href, title, refEmbed }) => {
   const link = useLink();
 
   // treat pixelplanet links separately
-  if (desc === window.location.hostname && href.includes('/#')) {
+  if (desc === window.location.host && href.includes('/#')) {
     const coords = href.substring(href.indexOf('/#') + 1);
     if (isPopUp() && window.opener && !window.opener.closed) {
       return (
-        <a href={`/${coords}`} target="main">{title || coords}</a>
+        <a href={u`/${coords}`} target="main">{title || coords}</a>
       );
     }
     return (
-      <a href={`/${coords}`}>{title || coords}</a>
+      <a href={u`/${coords}`}>{title || coords}</a>
     );
   }
 
@@ -82,7 +83,7 @@ const MdLink = ({ href, title, refEmbed }) => {
                 height: '1em',
                 verticalAlign: 'middle',
               }}
-              src={embedObj[3]}
+              src={cdn`${embedObj[3]}`}
               alt={`${desc}-icon`}
             />
             )}

@@ -9,6 +9,7 @@
 import React, { useState, useEffect } from 'react';
 import { t } from 'ttag';
 import { MONTH } from '../core/constants.js';
+import { cdn } from '../utils/utag.js';
 
 function LanguageSelect() {
   const [langSel, setLangSel] = useState(window.ssv.lang);
@@ -55,7 +56,7 @@ function LanguageSelect() {
         <img
           style={{ height: '1em', imageRendering: 'crisp-edges' }}
           alt=""
-          src={`/cf/${ccSel}.gif`}
+          src={cdn`/cf/${ccSel}.gif`}
         />
       </span>
       <button

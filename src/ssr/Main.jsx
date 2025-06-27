@@ -69,7 +69,7 @@ function generateMainPage(req) {
   const ssvR = JSON.stringify(ssv);
   const scripts = getJsAssets('client', lang);
 
-  const headScript = `/* @license magnet:?xt=urn:btih:0b31508aeb0634b347b8270c7bee4d411b5d4109&dn=agpl-3.0.txt AGPL-3.0-or-later */\n(function(){window.ssv=JSON.parse('${ssvR}');window.me=fetch('${apiUrl || ''}/api/me',{credentials:'include'})})();\n/* @license-end */`;
+  const headScript = `/* @license magnet:?xt=urn:btih:0b31508aeb0634b347b8270c7bee4d411b5d4109&dn=agpl-3.0.txt AGPL-3.0-or-later */\n(function(){window.ssv=JSON.parse('${ssvR}');window.me=fetch('${apiUrl || BASENAME}/api/me',{credentials:'include'})})();\n/* @license-end */`;
   const scriptHash = hashScript(headScript);
 
   const csp = `script-src 'self' ${CDN_URL} ${scriptHash} *.tiktok.com *.ttwstatic.com; worker-src 'self' blob:;`;
@@ -97,6 +97,7 @@ function generateMainPage(req) {
     width = 256;
     height = 256;
   }
+  media = BASENAME + media;
 
   const html = `<!doctype html>
 <html lang="${lang}">
@@ -109,22 +110,22 @@ function generateMainPage(req) {
     <meta property="og:title" content="${title}" />
     <meta property="og:description" content="${description}" />
     <meta property="og:${type}" content="${proto}://${host}${media}" />
-    <meta property="og:${type}:secure_url" content="https://${host}${media}" />
+    <meta property="og:${type}:secure_url" content="https://${host}${BASENAME}${media}" />
     <meta property="og:${type}:width" content="${width}" />
     <meta property="og:${type}:height" content="${height}" />${(type === 'video') ? `
     <meta property="og:video:type" content="video/mp4" />` : ''}
     <meta name="google" content="nopagereadaloud" />
     <meta name="theme-color" content="#cae3ff" />
     <meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1.0, maximum-scale=1.0" />
-    <link rel="icon" href="/favicon.ico" type="image/x-icon" />
-    <link rel="apple-touch-icon" href="apple-touch-icon.png" />
+    <link rel="icon" href="${BASENAME}/favicon.ico" type="image/x-icon" />
+    <link rel="apple-touch-icon" href="${BASENAME}/apple-touch-icon.png" />
     <script>${headScript}</script>
     <link rel="stylesheet" type="text/css" id="globcss" href="${CDN_URL || BASENAME}${getThemeCssAssets().default}" />
   </head>
   <body>
     <div id="app"></div>
     ${scripts.map((script) => `<script src="${CDN_URL || BASENAME}${script}"></script>`).join('')}
-    <a data-jslicense="1" style="display: none;" href="/legal">JavaScript license information</a>
+    <a data-jslicense="1" style="display: none;" href="${BASENAME}/legal">JavaScript license information</a>
   </body>
 </html>`;
 

@@ -24,7 +24,7 @@ import SocketServer from './socket/SocketServer.js';
 import APISocketServer from './socket/APISocketServer.js';
 
 import {
-  PORT, HOST, HOURLY_EVENT, FISHING,
+  PORT, HOST, HOURLY_EVENT, FISHING, BASENAME,
 } from './core/config.js';
 import { SECOND } from './core/constants.js';
 
@@ -45,12 +45,14 @@ const server = http.createServer(app);
 // -----------------------------------------------------------------------------
 const usersocket = new SocketServer();
 const apisocket = new APISocketServer();
+const wsUrl = `${BASENAME}/ws`;
+const apiWsUrl = `${BASENAME}/mcws`;
 async function wsupgrade(request, socket, head) {
   const { pathname } = url.parse(request.url);
   try {
-    if (pathname === '/ws') {
+    if (pathname === wsUrl) {
       await usersocket.handleUpgrade(request, socket, head);
-    } else if (pathname === '/mcws') {
+    } else if (pathname === apiWsUrl) {
       await apisocket.handleUpgrade(request, socket, head);
     } else {
       socket.write('HTTP/1.1 404 Not found\r\n\r\n');

@@ -4,10 +4,11 @@
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { t } from 'ttag';
-import useLink from './hooks/link.js';
 
+import useLink from './hooks/link.js';
 import { setBrightness, colorFromText } from '../core/utils.js';
 import { FISH_TYPES } from '../core/constants.js';
+import { cdn } from '../utils/utag.js';
 
 const FishList = () => {
   const [expanded, setExpanded] = useState(false);
@@ -47,7 +48,7 @@ const FishList = () => {
           >
             <img
               className={`profilefish-img ${shortname}`}
-              src={`/phishes/thumb/${shortname}.webp`}
+              src={cdn`/phishes/thumb/${shortname}.webp`}
               alt={name}
             />
             <span

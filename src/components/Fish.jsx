@@ -8,6 +8,7 @@ import { useSelector } from 'react-redux';
 
 import socketClient from '../socket/SocketClient.js';
 import { FISH_TYPES } from '../core/constants.js';
+import { cdn } from '../utils/utag.js';
 
 /* eslint-disable max-len */
 
@@ -34,7 +35,7 @@ const Fish = () => {
         cursor: 'pointer',
         zIndex: 9,
       }}
-      src={`phishes/${FISH_TYPES[type].name.toLowerCase().split(' ').join('')}.webp`}
+      src={cdn`/phishes/${FISH_TYPES[type].name.toLowerCase().split(' ').join('')}.webp`}
       alt={t`A Phish!`}
       onClick={() => {
         if (submitting) return;

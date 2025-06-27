@@ -107,6 +107,25 @@ export const PENCIL_MODE = {
 // threshold at which zoomlevel overlay switches to small-pixel mode
 export const OVERLAY_SP_TH = 8;
 
+// for popups
+export const POPUP_ARGS = {
+  USERAREA: ['activeTab'],
+  CHAT: [['chatChannel', 'int']],
+  PLAYER: ['uri'],
+};
+
+export const AVAILABLE_POPUPS = [
+  'HELP',
+  'SETTINGS',
+  'USERAREA',
+  'CHAT',
+  'CANVAS_SELECTION',
+  'ARCHIVE',
+  'REGISTER',
+  'FORGOT_PASSWORD',
+  'PLAYER',
+];
+
 // fish types available for fishing
 // sizes range from 1 to 25, in order to allow more, the utils function to
 // calculate the duration needs to be adjusted

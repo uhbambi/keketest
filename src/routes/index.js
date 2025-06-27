@@ -22,11 +22,27 @@ import generateGlobePage from '../ssr/Globe.jsx';
 import generatePopUpPage from '../ssr/PopUp.jsx';
 import generateMainPage from '../ssr/Main.jsx';
 
-import AVAILABLE_POPUPS from '../components/windows/popUpAvailable.js';
-import { MONTH } from '../core/constants.js';
-import { GUILDED_INVITE } from '../core/config.js';
+import { MONTH, AVAILABLE_POPUPS } from '../core/constants.js';
+import { GUILDED_INVITE, BASENAME } from '../core/config.js';
 
 const router = express.Router();
+
+/*
+ * if we are running on a path, we throw in a router in between
+ */
+const basenameRouter = (BASENAME) ? express.Router() : router;
+if (BASENAME) {
+  basenameRouter.use(BASENAME, router);
+  basenameRouter.get('/', (req, res) => {
+    /* eslint-disable max-len */
+    res.send(`<!DOCTYPE html>
+<html>
+  <head><title>Not Here</title></head>
+  <body>Pixelplanet is available under: <a href="${BASENAME}">${BASENAME}</a></body>
+</html>`);
+    /* eslint-enable max-len */
+  });
+}
 
 /*
  * Serving Chunks
@@ -184,4 +200,4 @@ router.use(express.static(path.join(__dirname, 'public'), {
   },
 }));
 
-export default router;
+export default basenameRouter;

@@ -3,6 +3,8 @@
  * see:
  * https://medium.com/@albertogasparin/manipulating-cross-origin-images-with-html-canvas-1e3e8780964c
  */
+import { cdn } from '../utils/utag.js';
+
 const corsRegEx = /^([\w]+:)?\/\//;
 function isCors(url) {
   return corsRegEx && url.replace(corsRegEx, '').indexOf(window.location.host);
@@ -30,6 +32,7 @@ export function loadImage(url) {
 /*
  * loading tiles that get temporarily shown till real tile is loaded
  */
+
 class LoadingTiles {
   tiles; // Object
 
@@ -51,9 +54,9 @@ class LoadingTiles {
     }
     this.tiles[canvasId] = null;
     try {
-      this.tiles[canvasId] = await loadImage(`./loading${canvasId}.png`);
+      this.tiles[canvasId] = await loadImage(cdn`/loading${canvasId}.png`);
     } catch {
-      this.tiles[canvasId] = await loadImage('./loading.png');
+      this.tiles[canvasId] = await loadImage(cdn`/loading.png`);
     }
   }
 }

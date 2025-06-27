@@ -3,6 +3,7 @@
  */
 
 import React from 'react';
+import { cdn } from '../utils/utag.js';
 
 const SettingsItemSelect = ({
   title, keyBind, values, selected, onSelect, icon, children,
@@ -10,7 +11,7 @@ const SettingsItemSelect = ({
   <div className="setitem">
     <div className="setrow">
       <h3 className="settitle">{title} {keyBind && <kbd>{keyBind}</kbd>}</h3>
-      {(icon) && <img alt="" src={icon} />}
+      {(icon) && <img alt="" src={cdn`${icon}`} />}
       <select
         value={selected}
         onChange={(e) => {

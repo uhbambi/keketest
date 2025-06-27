@@ -20,6 +20,9 @@ import {
   TrackballControls,
 } from 'three/examples/jsm/controls/TrackballControls';
 
+// eslint-disable-next-line
+__webpack_public_path__ = `${window.ssv?.basename || ''}/assets/`;
+
 
 function checkMaterial(object) {
   if (object.material) {

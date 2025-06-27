@@ -5,6 +5,7 @@
 /* eslint-disable max-len */
 
 import { getTTag } from '../middleware/ttag.js';
+import { BASENAME } from '../core/config.js';
 
 export default function getPasswordResetHtml(name, code, lang, message = null) {
   const { t } = getTTag(lang);
@@ -21,8 +22,8 @@ export default function getPasswordResetHtml(name, code, lang, message = null) {
           <meta name="description" content="${t`Reset your password here`}" />
           <meta name="google" content="nopagereadaloud" />
           <meta name="theme-color" content="#cae3ff" />
-          <link rel="icon" href="/favicon.ico" type="image/x-icon" />
-          <link rel="apple-touch-icon" href="apple-touch-icon.png" />
+          <link rel="icon" href="${BASENAME}/favicon.ico" type="image/x-icon" />
+          <link rel="apple-touch-icon" href="${BASENAME}/apple-touch-icon.png" />
         </head>
         <body>
           <h3>${t`Reset Password`}</h3>
@@ -41,8 +42,8 @@ export default function getPasswordResetHtml(name, code, lang, message = null) {
           <meta name="description" content="${t`Reset your password here`}" />
           <meta name="google" content="nopagereadaloud" />
           <meta name="theme-color" content="#cae3ff" />
-          <link rel="icon" href="/favicon.ico" type="image/x-icon" />
-          <link rel="apple-touch-icon" href="apple-touch-icon.png" />
+          <link rel="icon" href="${BASENAME}/favicon.ico" type="image/x-icon" />
+          <link rel="apple-touch-icon" href="${BASENAME}/apple-touch-icon.png" />
         </head>
         <body>
           <form method="post" action="reset_password">

@@ -3,6 +3,10 @@
  * This is only useful client side
  */
 
+if (!process.env.BROWSER) {
+  throw new Error('Only include utag in client code');
+}
+
 /*
  * basename needs to be a path like '/ppfun', it shall not end with an '/'
  */
@@ -12,7 +16,7 @@ const basename = window.ssv?.basename || '';
  * apiUrl needs to be a url like 'https://pixelplanet.fun', shall not end with
  * an '/'
  */
-const apiUrl = window.ssv?.apiUrl || '';
+const apiUrl = window.ssv?.apiUrl || basename;
 
 /*
  * cdnUrl needs to be a url without path like "https://pixelplanet.fun"

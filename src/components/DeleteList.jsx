@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { t } from 'ttag';
 
+import { cdn } from '../utils/utag.js';
+
 /**
  * A list of items, where every single entry can be deleted
  * @param list [
@@ -33,7 +35,7 @@ const DeleteList = ({ list, callback, enabled, joinident }) => {
           tabIndex={0}
         >
           {(iconUrl) ? (
-            <img key="ic" alt={name} src={iconUrl} />
+            <img key="ic" alt={name} src={cdn`${iconUrl}`} />
           ) : '⦸ '}
           {(joinident) ? `${name} [${identifier}]` : `${name} `}
           <button

@@ -7,6 +7,7 @@ import { t } from 'ttag';
 import WindowContext from '../context/window.js';
 import { setBrightness, colorFromText } from '../../core/utils.js';
 import { FISH_TYPES } from '../../core/constants.js';
+import { cdn } from '../../utils/utag.js';
 
 const FishDisplay = () => {
   const { args: { type, size, ts } } = useContext(WindowContext);
@@ -28,7 +29,7 @@ const FishDisplay = () => {
       </p>
       <img
         className="fishdisplay-img"
-        src={`/phishes/${shortname}.webp`}
+        src={cdn`/phishes/${shortname}.webp`}
         alt={name}
       />
       <p>

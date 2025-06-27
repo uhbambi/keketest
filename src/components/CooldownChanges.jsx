@@ -8,6 +8,8 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import { t } from 'ttag';
 
+import { cdn } from '../utils/utag.js';
+
 const CooldownChanges = () => {
   const cooldownChanges = useSelector((state) => state.ranks.cooldownChanges);
 
@@ -33,7 +35,7 @@ const CooldownChanges = () => {
                 className="tab-cc-cell"
               ><img
                 alt={cc}
-                src={`/cf/${cc}.gif`}
+                src={cdn`/cf/${cc}.gif`}
               /></td>
               <td>
                 x&nbsp;{factor}

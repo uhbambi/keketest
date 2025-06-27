@@ -39,8 +39,8 @@ function generateGlobePage(req) {
         <meta name="viewport"
           content="user-scalable=no, width=device-width, initial-scale=1.0, maximum-scale=1.0"
         />
-        <link rel="icon" href="/favicon.ico" type="image/x-icon" />
-        <link rel="apple-touch-icon" href="apple-touch-icon.png" />
+        <link rel="icon" href="${BASENAME}/favicon.ico" type="image/x-icon" />
+        <link rel="apple-touch-icon" href="${BASENAME}/apple-touch-icon.png" />
         <link rel="stylesheet" type="text/css" id="globcss" href="${CDN_URL || BASENAME}${getCssAssets().globe}" />
       </head>
       <body>
@@ -49,7 +49,7 @@ function generateGlobePage(req) {
         <div id="info">${t`Double click on globe to go back.`}</div>
         <div id="loading">${t`Loading...`}</div>
         ${scripts.map((script) => `<script src="${CDN_URL || BASENAME}${script}"></script>`).join('')}
-        <a data-jslicense="1" style="display: none;" href="/legal">JavaScript license information</a>
+        <a data-jslicense="1" style="display: none;" href="${BASENAME}/legal">JavaScript license information</a>
       </body>
     </html>
   `;

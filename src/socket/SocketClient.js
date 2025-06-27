@@ -88,7 +88,7 @@ class SocketClient {
       window.location.protocol === 'https:' ? 'wss:' : 'ws:'
     }//${
       // eslint-disable-next-line max-len
-      (window.ssv?.apiUrl) ? window.ssv.apiUrl.substring(window.ssv.apiUrl.indexOf('//') + 2) : window.location.host
+      (window.ssv?.apiUrl) ? window.ssv.apiUrl.substring(window.ssv.apiUrl.indexOf('//') + 2) : window.location.host + (window.ssv?.basename || '')
     }/ws`;
     this.ws = new WebSocket(url);
     this.ws.binaryType = 'arraybuffer';

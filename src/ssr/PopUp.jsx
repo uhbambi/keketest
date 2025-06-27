@@ -54,16 +54,16 @@ function generatePopUpPage(req) {
         <meta name="viewport"
           content="user-scalable=no, width=device-width, initial-scale=1.0, maximum-scale=1.0"
         />
-        <link rel="icon" href="/favicon.ico" type="image/x-icon" />
-        <link rel="apple-touch-icon" href="apple-touch-icon.png" />
-        <script>/* @license magnet:?xt=urn:btih:0b31508aeb0634b347b8270c7bee4d411b5d4109&dn=agpl-3.0.txt AGPL-3.0-or-later */\n(function(){window.ssv=JSON.parse('${ssvR}'); window.me=fetch('${apiUrl || ''}/api/me',{credentials:'include'})})();\n/* @license-end */</script>
+        <link rel="icon" href="${BASENAME}/favicon.ico" type="image/x-icon" />
+        <link rel="apple-touch-icon" href="${BASENAME}/apple-touch-icon.png" />
+        <script>/* @license magnet:?xt=urn:btih:0b31508aeb0634b347b8270c7bee4d411b5d4109&dn=agpl-3.0.txt AGPL-3.0-or-later */\n(function(){window.ssv=JSON.parse('${ssvR}'); window.me=fetch('${apiUrl || BASENAME}/api/me',{credentials:'include'})})();\n/* @license-end */</script>
         <link rel="stylesheet" type="text/css" id="globcss" href="${CDN_URL || BASENAME}${getThemeCssAssets().default}" />
       </head>
       <body>
         <div id="app" class="popup">
         </div>
         ${scripts.map((script) => `<script src="${CDN_URL || BASENAME}${script}"></script>`).join('')}
-        <a data-jslicense="1" style="display: none;" href="/legal">JavaScript license information</a>
+        <a data-jslicense="1" style="display: none;" href="${BASENAME}/legal">JavaScript license information</a>
       </body>
     </html>
   `;

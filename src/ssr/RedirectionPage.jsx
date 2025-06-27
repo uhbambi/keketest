@@ -5,6 +5,7 @@
 /* eslint-disable max-len */
 
 import { getTTag } from '../middleware/ttag.js';
+import { BASENAME } from '../core/config.js';
 
 function getHtml(description, text, host, lang) {
   const { jt, t } = getTTag(lang);
@@ -20,8 +21,8 @@ function getHtml(description, text, host, lang) {
         <meta name="description" content="${description}" />
         <meta name="google" content="nopagereadaloud" />
         <meta name="theme-color" content="#cae3ff" />
-        <link rel="icon" href="/favicon.ico" type="image/x-icon" />
-        <link rel="apple-touch-icon" href="apple-touch-icon.png" />
+        <link rel="icon" href="${BASENAME}/favicon.ico" type="image/x-icon" />
+        <link rel="apple-touch-icon" href="${BASENAME}/apple-touch-icon.png" />
         <script>window.setTimeout(function(){window.location.href="${host}";},15000)</script>
       </head>
       <body>
