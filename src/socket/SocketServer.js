@@ -449,9 +449,7 @@ class SocketServer {
       let client = it.next();
       while (!client.done) {
         const ws = client.value;
-        if (ws.readyState === WebSocket.OPEN
-          && ws.user && ws.canvasId !== null
-        ) {
+        if (ws.readyState === WebSocket.OPEN && ws.canvasId !== null) {
           const { canvasId, ip: { ipString } } = ws;
           // only count unique IPs per canvas
           if (!online[canvasId]) {

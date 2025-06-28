@@ -145,10 +145,10 @@ const Register = () => {
         ))}
         <p>
           {t`Stay logged in: `}
-          <select name="durationsel">
+          <select defaultValue={24 * 31} name="durationsel">
             <option value={0}>{t`Until the browser closes`}</option>
             <option value={24 * 7}>{t`For one week`}</option>
-            <option value={24 * 31} selected>{t`For one month`}</option>
+            <option value={24 * 31}>{t`For one month`}</option>
             <option value={24 * 265}>{t`For one year`}</option>
             <option value="forever">{t`Forever`}</option>
           </select>
