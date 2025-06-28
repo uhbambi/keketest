@@ -118,18 +118,6 @@ export default async function drawByOffsets(
       throw new Error(3);
     }
 
-    // eslint-disable-next-line prefer-const
-    let { isBanned, isProxy } = await ip.getAllowance();
-    if (isProxy) {
-      throw new Error(11);
-    }
-    if (!isBanned && user) {
-      ({ isBanned } = await user.getAllowance());
-    }
-    if (isBanned) {
-      throw new Error(14);
-    }
-
     const isAdmin = (user?.userlvl >= USERLVL.ADMIN);
     const req = (isAdmin) ? null : canvas.req;
     const clrIgnore = canvas.cli || 0;
@@ -201,6 +189,15 @@ export default async function drawByOffsets(
       throw new Error(17);
     }
 
+    // eslint-disable-next-line prefer-const
+    let { isBanned, isProxy } = await ip.getAllowance();
+    if (!isProxy && !isBanned && user) {
+      ({ isBanned } = await user.getAllowance());
+    }
+    if (isBanned) {
+      throw new Error(14);
+    }
+
     [
       retCode,
       pxlCnt,
@@ -219,8 +216,18 @@ export default async function drawByOffsets(
       bcd, pcd,
       cds,
       cdIfNull,
+      /*
+       * don't increase counter if we are detected as a proxy, but still check
+       * redis for captcha, since it is not smart to tell the user that he is
+       * detected before he solved his captcha
+       */
+      isProxy,
       pxlOffsets,
     );
+
+    if (pxlCnt > 0 && isProxy) {
+      throw new Error(11);
+    }
 
     for (let u = 0; u < pxlCnt; u += 1) {
       const [offset, color] = pixels[u];

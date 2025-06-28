@@ -23,6 +23,7 @@
 --   userId: '0' if not logged in
 --   cc country code
 --   req: requirements of canvas ('nope', unsigned integer or 'top')
+--   dontIncreaseCounters: name says it all
 --   off1, chunk offset of first pixel
 --   off2, chunk offset of second pixel
 --   ..., infinite pixels possible
@@ -32,8 +33,6 @@
 --     2: amount of successfully set pixels
 --     3: total cooldown of user
 --     4: added cooldown of last pixel
---     5: if we have to update isIpAllowed(proxycheck)
---     6: if we have to update isUserAllowed(user bans)
 --   }
 local ret = {0, 0, 0, 0}
 -- check if captcha is needed
@@ -86,7 +85,7 @@ local cli = tonumber(ARGV[1])
 local bcd = tonumber(ARGV[2])
 local pcd = tonumber(ARGV[3])
 local cds = tonumber(ARGV[4])
-for c = 9,#ARGV do
+for c = 10,#ARGV do
   local off = tonumber(ARGV[c]) * 8
   -- get color of pixel on canvas
   local sclr = redis.call('bitfield', KEYS[4], 'get', 'u8', off)
@@ -113,8 +112,8 @@ for c = 9,#ARGV do
   end
   pxlcnt = pxlcnt + 1
 end
-
-if pxlcnt > 0 then
+-- increase counter if dontIncreaseCounters isn't set
+if ARGV[9] == "0" and pxlcnt > 0 then
   -- set cooldown
   if cd > 0 then
     redis.call('set', KEYS[2], '', 'px', cd)

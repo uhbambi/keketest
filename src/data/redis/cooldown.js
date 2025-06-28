@@ -42,6 +42,7 @@ export default function allowPlace(
   pcd,
   cds,
   cdIfNull,
+  dontIncreaseCounters,
   pxls,
 ) {
   const captKey = (CAPTCHA_TIME >= 0)
@@ -63,7 +64,7 @@ export default function allowPlace(
   return client.placePixel(
     // eslint-disable-next-line max-len
     captKey, ipCdKey, idCdKey, chunkKey, rankset, dailyset, DAILY_CRANKED_KEY, PREV_DAY_TOP_KEY,
-    clrIgnore, bcd, pcd, cds, cdIfNull, id, cc, req,
+    clrIgnore, bcd, pcd, cds, cdIfNull, id, cc, req, dontIncreaseCounters ? 1 : 0,
     ...pxls,
   );
 }

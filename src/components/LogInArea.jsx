@@ -18,7 +18,7 @@ const LogInArea = () => {
     <div style={{ textAlign: 'center' }}>
       <p>
         {t`Login to access more features and stats.`}
-      </p><br />
+      </p>
       <h2>{t`Login with Name or Mail:`}</h2>
       <LogInForm />
       <p>
