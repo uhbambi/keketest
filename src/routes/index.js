@@ -23,7 +23,7 @@ import generatePopUpPage from '../ssr/PopUp.jsx';
 import generateMainPage from '../ssr/Main.jsx';
 
 import { MONTH, AVAILABLE_POPUPS } from '../core/constants.js';
-import { GUILDED_INVITE, BASENAME } from '../core/config.js';
+import { GUILDED_INVITE, BASENAME, CDN_HOST } from '../core/config.js';
 
 const router = express.Router();
 
@@ -35,7 +35,7 @@ if (BASENAME) {
   basenameRouter.use(BASENAME, router);
   basenameRouter.get('/', (req, res) => {
     /* eslint-disable max-len */
-    res.send(`<!DOCTYPE html>
+    res.status(404).send(`<!DOCTYPE html>
 <html>
   <head><title>Not Here</title></head>
   <body>Pixelplanet is available under: <a href="${BASENAME}">${BASENAME}</a></body>
@@ -43,6 +43,19 @@ if (BASENAME) {
     /* eslint-enable max-len */
   });
 }
+
+const staticConfig = {
+  maxAge: 12 * MONTH,
+  extensions: ['html'],
+  setHeaders: (res, reqPath) => {
+    if (reqPath.includes('/legal')) {
+      res.setHeader('Cache-Control', `public, max-age=${3 * 24 * 3600}`);
+    }
+  },
+};
+
+/* ip */
+router.use(parseIP);
 
 /*
  * Serving Chunks
@@ -61,8 +74,27 @@ router.use('/guilded', (req, res) => {
   res.redirect(GUILDED_INVITE);
 });
 
-/* ip */
-router.use(parseIP);
+/*
+ * if we get accessed by CDN, only serve static files
+ */
+router.use((req, res, next) => {
+  if (CDN_HOST && CDN_HOST === req.ip.getHost(false, false)) {
+    express.static(
+      path.join(__dirname, 'public'), staticConfig,
+    )(req, res, () => {
+      if (!res.headersSent) {
+        res.status(404).send(`<!DOCTYPE html>
+<html>
+  <head><title>Not here</title></head>
+  <body>This domain is used as a CDN. You can't access anything here.</body>
+</html>`);
+      }
+    });
+    return;
+  }
+  next();
+});
+
 /* translations */
 router.use(expressTTag);
 
@@ -188,16 +220,7 @@ router.get('/challenge.js', challenge);
 
 /*
  * public folder
- * (this should be served with nginx or other webserver)
  */
-router.use(express.static(path.join(__dirname, 'public'), {
-  maxAge: 12 * MONTH,
-  extensions: ['html'],
-  setHeaders: (res, reqPath) => {
-    if (reqPath.includes('/legal')) {
-      res.setHeader('Cache-Control', `public, max-age=${3 * 24 * 3600}`);
-    }
-  },
-}));
+router.use(express.static(path.join(__dirname, 'public'), staticConfig));
 
 export default basenameRouter;

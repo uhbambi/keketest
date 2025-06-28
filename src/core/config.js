@@ -42,11 +42,22 @@ export const REDIS_URL = process.env.REDIS_URL || 'redis://localhost:6379';
 // for running as cluster, either 0 or 1
 export const IS_CLUSTER = parseInt(process.env.IS_CLUSTER, 10) || false;
 /*
- * if CSN_HOST is set, this host will be used to serve assets. NO ending '/'
- * For CSP purposes, it should always be a URL without path
+ * if CDN_URL is set, this url will be used to serve assets. NO ending '/'
  * e.g.: "https://cdn.pixelplanet.fun"
  */
 export const CDN_URL = process.env.CDN_URL || '';
+/*
+ * CDN_HOST is generated from CDN_URL
+ */
+export const CDN_HOST = (() => {
+  if (!CDN_URL) {
+    return CDN_URL;
+  }
+  const cdnHost = CDN_URL.substring(CDN_URL.indexOf('//') + 2);
+  const endHostSlash = cdnHost.indexOf('/', 8);
+  return (endHostSlash !== -1) ? cdnHost.substring(0, endHostSlash) : cdnHost;
+})();
+
 /*
 /* if API_URLS is set, this url will be used for apis,
 /* e.g "https://pixelplanet.fun/lmao" will lead to

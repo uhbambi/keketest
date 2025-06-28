@@ -11,7 +11,7 @@ import { getTTag, availableLangs as langs } from '../middleware/ttag.js';
 import { getJsAssets, getThemeCssAssets } from '../core/assets.js';
 import chooseAPIUrl from '../core/chooseAPIUrl.js';
 import {
-  BACKUP_URL, CONTACT_ADDRESS, UNSHARDED_HOST, CDN_URL, BASENAME,
+  BACKUP_URL, CONTACT_ADDRESS, UNSHARDED_HOST, CDN_HOST, CDN_URL, BASENAME,
 } from '../core/config.js';
 
 const defaultCanvasForCountry = {};
@@ -72,7 +72,7 @@ function generateMainPage(req) {
   const headScript = `/* @license magnet:?xt=urn:btih:0b31508aeb0634b347b8270c7bee4d411b5d4109&dn=agpl-3.0.txt AGPL-3.0-or-later */\n(function(){window.ssv=JSON.parse('${ssvR}');window.me=fetch('${apiUrl || BASENAME}/api/me',{credentials:'include'})})();\n/* @license-end */`;
   const scriptHash = hashScript(headScript);
 
-  const csp = `script-src 'self' ${CDN_URL} ${scriptHash} *.tiktok.com *.ttwstatic.com; worker-src 'self' blob:;`;
+  const csp = `script-src 'self' ${CDN_HOST} ${scriptHash} *.tiktok.com *.ttwstatic.com; worker-src 'self' blob:;`;
 
   const mainEtag = etag(scripts.concat(ssvR).join('_'), { weak: true });
   if (req.headers['if-none-match'] === mainEtag) {

@@ -9,7 +9,7 @@ import express from 'express';
 
 import canvases from '../core/canvases.js';
 import { getMaxTiledZoom } from '../core/utils.js';
-import { TILE_FOLDER } from '../core/config.js';
+import { TILE_FOLDER, CDN_HOST } from '../core/config.js';
 
 
 const router = express.Router();
@@ -17,40 +17,47 @@ const router = express.Router();
 /*
  * decide on cache length
  */
-router.use('/:c/:z/:x/:y.webp',
-  (req, res, next) => {
-    res.set({
-      'Access-Control-allow-origin': '*',
-    });
-    const { c: paramC } = req.params;
-    const id = parseInt(paramC, 10);
-    if (Number.isNaN(id)) {
-      next(new Error('Invalid canvas id.'));
-      return;
-    }
-    const canvas = canvases[id];
-    if (!canvas) {
-      next(new Error('Canvas not found.'));
-      return;
-    }
-    req.canvasId = id;
+router.use('/:c/:z/:x/:y.webp', (req, res, next) => {
+  if (CDN_HOST && CDN_HOST !== req.ip.getHost(false, false)) {
+    /*
+     * do not allow chunks and tiles requests from any other URL than CDN,
+     * if CDN_URL is set
+     */
+    res.redirect(`${req.protocol}://${CDN_HOST}${req.originalUrl}`);
+    return;
+  }
 
-    const maxTiledZoom = getMaxTiledZoom(canvas.size);
-    const { z: paramZ } = req.params;
-    const z = parseInt(paramZ, 10);
-    if (Number.isNaN(z) || z < 0 || z >= maxTiledZoom) {
-      next(new Error('Invalid zoom level'));
-      return;
-    }
-    const invZoom = maxTiledZoom - z - 1;
-    const cacheTime = (15 + 180 * invZoom) * 60;
-    const pubCacheTime = Math.floor(cacheTime * 0.75);
-    res.set({
-      'Cache-Control': `public, s-maxage=${pubCacheTime}, max-age=${cacheTime}`,
-    });
-    next();
-  },
-);
+  res.set({
+    'Access-Control-allow-origin': '*',
+  });
+  const { c: paramC } = req.params;
+  const id = parseInt(paramC, 10);
+  if (Number.isNaN(id)) {
+    next(new Error('Invalid canvas id.'));
+    return;
+  }
+  const canvas = canvases[id];
+  if (!canvas) {
+    next(new Error('Canvas not found.'));
+    return;
+  }
+  req.canvasId = id;
+
+  const maxTiledZoom = getMaxTiledZoom(canvas.size);
+  const { z: paramZ } = req.params;
+  const z = parseInt(paramZ, 10);
+  if (Number.isNaN(z) || z < 0 || z >= maxTiledZoom) {
+    next(new Error('Invalid zoom level'));
+    return;
+  }
+  const invZoom = maxTiledZoom - z - 1;
+  const cacheTime = (15 + 180 * invZoom) * 60;
+  const pubCacheTime = Math.floor(cacheTime * 0.75);
+  res.set({
+    'Cache-Control': `public, s-maxage=${pubCacheTime}, max-age=${cacheTime}`,
+  });
+  next();
+});
 
 /*
  * get other tiles from directory
@@ -79,8 +86,7 @@ router.use(async (req, res) => {
   });
   res.status(200);
   res.sendFile(filename);
-},
-);
+});
 
 /*
  * error handler

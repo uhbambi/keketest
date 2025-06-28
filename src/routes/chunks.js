@@ -8,6 +8,7 @@ import etag from 'etag';
 import RedisCanvas from '../data/redis/RedisCanvas.js';
 import logger from '../core/logger.js';
 import socketEvents from '../socket/socketEvents.js';
+import { CDN_HOST } from '../core/config.js';
 
 const chunkEtags = new Map();
 socketEvents.on('chunkUpdate', (canvasId, [i, j]) => {
@@ -18,6 +19,15 @@ socketEvents.on('chunkUpdate', (canvasId, [i, j]) => {
  * Send binary chunk to the client
  */
 export default async (req, res, next) => {
+  if (CDN_HOST && CDN_HOST !== req.ip.getHost(false, false)) {
+    /*
+     * do not allow chunks and tiles requests from any other URL than CDN,
+     * if CDN_URL is set
+     */
+    res.redirect(`${req.protocol}://${CDN_HOST}${req.originalUrl}`);
+    return;
+  }
+
   const {
     c: paramC,
     x: paramX,
