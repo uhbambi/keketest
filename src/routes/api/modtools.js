@@ -237,6 +237,10 @@ router.post('/', async (req, res, next) => {
 
   try {
     if (req.body.ipaction) {
+      /*
+       * it can also be used for resetting users that got hacked, the naming
+       * is old
+       */
       const ret = await executeIPAction(
         req.body.ipaction,
         req.body.ip,

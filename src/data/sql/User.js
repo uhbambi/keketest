@@ -10,6 +10,7 @@ import Sequelize, { DataTypes, QueryTypes, Op } from 'sequelize';
 import sequelize from './sequelize.js';
 import { generateHash } from '../../utils/hash.js';
 import UserIP from './association_models/UserIP.js';
+import { setEmail } from './ThreePID.js';
 import {
   USERLVL, THREEPID_PROVIDERS, USER_FLAGS,
 } from '../../core/constants.js';
@@ -222,6 +223,121 @@ export async function findUserById(id) {
     console.error(`SQL Error on findUserById: ${error.message}`);
   }
   return null;
+}
+
+/**
+ * get User ids of all users with nameOrEmails
+ * @param nameIdsOrEmails Array or singular name or email or id
+ * @return Array of ids
+ */
+export async function getUserIdsByNamesOrEmails(nameIdsOrEmails) {
+  const ids = [];
+  if (!nameIdsOrEmails) {
+    return ids;
+  }
+  if (!Array.isArray(nameIdsOrEmails)) {
+    nameIdsOrEmails = [nameIdsOrEmails];
+  }
+  /* if there are already ids in nameOrEmails, pass them through */
+  const nameOrEmails = [];
+  for (let i = 0; i < nameIdsOrEmails.length; i += 1) {
+    const n = nameIdsOrEmails[i];
+    const id = parseInt(n, 10);
+    if (Number.isNaN(id)) {
+      nameOrEmails.push(n);
+    } else {
+      ids.push(id);
+    }
+  }
+
+  try {
+    /* eslint-disable max-len */
+    const where = [];
+    const replacements = [];
+    if (nameOrEmails.length) {
+      where.push('u.name IN (?)', 'u.username IN (?)');
+      where.push('EXISTS (SELECT 1 FROM ThreePIDs t WHERE t.uid = u.id AND t.tpid IN (?) AND t.provider = ?)');
+      replacements.push(nameOrEmails, nameOrEmails, nameOrEmails, THREEPID_PROVIDERS.EMAIL);
+    }
+
+    let users = [];
+    if (where.length) {
+      users = await sequelize.query(
+        // eslint-disable-next-line max-len
+        `SELECT u.id FROM Users u LEFT JOIN ThreePIDs t ON t.uid = u.id WHERE ${where.join(' OR ')}`, {
+          replacements,
+          raw: true,
+          type: QueryTypes.SELECT,
+        },
+      );
+    }
+    /* eslint-disable max-len */
+
+    return ids.concat(users.map((i) => i.id));
+  } catch (error) {
+    console.error(`SQL Error on getUserIdsByNamesOrEmails: ${error.message}`);
+  }
+  return ids;
+}
+
+/**
+ * people tend to get their credentials leaked, reset them to the oldest
+ * email available and mark their password as 'hacked'
+ * @param nameIdsOrEmails Array or singular name or email or id
+ * @return [emailSet, mailExists] Arrays of UserIds that we could set mails for
+ *   or not. If not, it only means that that mail is still assigned to the user
+ */
+export async function markUserAccountsAsHacked(nameIdsOrEmails) {
+  const emailSet = [];
+  const mailExists = [];
+  const affectedIds = await getUserIdsByNamesOrEmails(nameIdsOrEmails);
+  if (!affectedIds.length) {
+    return [emailSet, mailExists];
+  }
+  /* eslint-disable no-await-in-loop */
+  for (let i = 0; i < affectedIds.length; i += 1) {
+    const id = affectedIds[i];
+    let oldestEmail = await sequelize.query(
+      // eslint-disable-next-line max-len
+      'SELECT tpid, verified FROM ThreePIDHistories WHERE provider = 1 AND uid = ? ORDER BY createdAt ASC LIMIT 1', {
+        replacements: [affectedIds],
+        raw: true,
+        type: QueryTypes.SELECT,
+      },
+    );
+    if (!oldestEmail.length) {
+      continue;
+    }
+    [oldestEmail] = oldestEmail;
+    /* set user to oldest email */
+    const couldSetMail = await setEmail(
+      id, oldestEmail.tpid, oldestEmail.verified,
+    );
+    const promises = [];
+    /* set password to 'hacked' */
+    promises.push(sequelize.query(
+      'UPDATE Users SET password = \'hacked\' WHERE id = ?', {
+        replacements: [id],
+        raw: true,
+        type: QueryTypes.UPDATE,
+      }));
+    /* clear all user sessions */
+    promises.push(sequelize.query(
+      'DELETE t FROM Sessions t WHERE uid = ?', {
+        replacements: [id],
+        raw: true,
+        type: QueryTypes.DELETE,
+      }));
+
+    await Promise.all(promises);
+    if (couldSetMail) {
+      emailSet.push(id);
+    } else {
+      mailExists.push(id);
+    }
+  }
+  /* eslint-enable no-await-in-loop */
+  return [emailSet, mailExists];
 }
 
 /**

@@ -130,7 +130,7 @@ function Admintools() {
             selectIPAction(sel.options[sel.selectedIndex].value);
           }}
         >
-          {['iidtoip', 'iptoiid']
+          {['iidtoip', 'iptoiid', 'markusersashacked']
             .map((opt) => (
               <option
                 key={opt}

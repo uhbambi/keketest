@@ -41,7 +41,7 @@ export default async (req, res) => {
       if (users.find((u) => u.password === 'hacked')) {
         throw new Error(
           // eslint-disable-next-line max-len
-          t`This email / password combination got hacked on a different platform and leaked. To protect this account, the password has been reset. Please use the "Forgot my password" function below to set a new password. In the future, consider not installing Malware, Thank You.`,
+          t`This email / password combination got hacked and leaked. To protect this account, the password has been reset. Please use the "Forgot my password" function below to set a new password. In the future, consider not installing Malware, Thank You.`,
         );
       }
       throw new Error('Incorrect password!');

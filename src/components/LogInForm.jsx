@@ -68,7 +68,9 @@ const LogInForm = () => {
   return (
     <form onSubmit={handleSubmit}>
       {errors.map((error) => (
-        <p key={error}><span>{t`Error`}</span>:&nbsp;{error}</p>
+        <p key={error} className="errormessage">
+          <span>{t`Error`}</span>:&nbsp;{error}
+        </p>
       ))}
       <input
         style={inputStyles}

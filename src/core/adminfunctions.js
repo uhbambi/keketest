@@ -25,7 +25,11 @@ import {
   getIPsOfIIDs,
 } from '../data/sql/IP.js';
 import {
-  setUserLvl, getUserByUserLvl, setUsername, findUserByIdOrName,
+  setUserLvl,
+  getUserByUserLvl,
+  setUsername,
+  findUserByIdOrName,
+  markUserAccountsAsHacked,
 } from '../data/sql/User.js';
 import {
   getIIDSummary,
@@ -40,14 +44,29 @@ import {
 } from './Image.js';
 import rollbackCanvasArea from './rollback.js';
 
-/*
- * Execute IP based actions (banning, whitelist, etc.)
- * @param action what to do with the ip
+/**
+ * Execute IP based actions (banning, whitelist, etc.), it can also be used
+ * for resetting users that got hacked, the naming is old
+ * @param action what to do with the ips
  * @param ip already sanitized ip
  * @return text of success
  */
 export async function executeIPAction(action, ips, logger = null) {
   const inputValues = ips.split('\n').map((l) => l.trim());
+
+  if (action === 'markusersashacked') {
+    let out = '';
+    const [emailSet, mailExists] = await markUserAccountsAsHacked(ips);
+    emailSet.forEach((e) => {
+      out += `${e} setmail`;
+      socketEvents.reloadUser(e);
+    });
+    mailExists.forEach((e) => {
+      out += `${e} set`;
+      socketEvents.reloadUser(e);
+    });
+    return out;
+  }
 
   let valueMap;
   if (action === 'iidtoip') {
