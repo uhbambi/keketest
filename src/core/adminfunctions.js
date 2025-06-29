@@ -52,11 +52,11 @@ import rollbackCanvasArea from './rollback.js';
  * @return text of success
  */
 export async function executeIPAction(action, ips, logger = null) {
-  const inputValues = ips.split('\n').map((l) => l.trim());
+  const inputValues = ips.split('\n').map((l) => l.trim()).filter((l) => l);
 
   if (action === 'markusersashacked') {
     let out = '';
-    const [emailSet, mailExists] = await markUserAccountsAsHacked(ips);
+    const [emailSet, mailExists] = await markUserAccountsAsHacked(inputValues);
     emailSet.forEach((e) => {
       out += `${e} setmail`;
       socketEvents.reloadUser(e);
@@ -80,10 +80,6 @@ export async function executeIPAction(action, ips, logger = null) {
   let out = '';
   for (let i = 0; i < inputValues.length; i += 1) {
     const value = inputValues[i];
-    if (!value.trim()) {
-      out += value;
-      continue;
-    }
     const map = valueMap.get(value);
     if (map) {
       out += map;

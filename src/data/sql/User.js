@@ -264,7 +264,7 @@ export async function getUserIdsByNamesOrEmails(nameIdsOrEmails) {
     if (where.length) {
       users = await sequelize.query(
         // eslint-disable-next-line max-len
-        `SELECT u.id FROM Users u LEFT JOIN ThreePIDs t ON t.uid = u.id WHERE ${where.join(' OR ')}`, {
+        `SELECT u.id FROM Users u WHERE ${where.join(' OR ')}`, {
           replacements,
           raw: true,
           type: QueryTypes.SELECT,
@@ -297,7 +297,7 @@ export async function markUserAccountsAsHacked(nameIdsOrEmails) {
   /* eslint-disable no-await-in-loop */
   for (let i = 0; i < affectedIds.length; i += 1) {
     const id = affectedIds[i];
-    let oldestEmail = await sequelize.query(
+    const oldestEmail = await sequelize.query(
       // eslint-disable-next-line max-len
       'SELECT tpid, verified FROM ThreePIDHistories WHERE provider = 1 AND uid = ? ORDER BY createdAt ASC LIMIT 1', {
         replacements: [affectedIds],
@@ -305,14 +305,13 @@ export async function markUserAccountsAsHacked(nameIdsOrEmails) {
         type: QueryTypes.SELECT,
       },
     );
-    if (!oldestEmail.length) {
-      continue;
+    let couldSetMail;
+    if (oldestEmail.length) {
+      /* set user to oldest email */
+      couldSetMail = await setEmail(
+        id, oldestEmail.tpid, oldestEmail[0].verified,
+      );
     }
-    [oldestEmail] = oldestEmail;
-    /* set user to oldest email */
-    const couldSetMail = await setEmail(
-      id, oldestEmail.tpid, oldestEmail.verified,
-    );
     const promises = [];
     /* set password to 'hacked' */
     promises.push(sequelize.query(
