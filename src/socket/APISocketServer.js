@@ -41,6 +41,7 @@ class APISocketServer {
       ws.subChat = false;
       ws.subPxl = false;
       ws.subOnline = false;
+      ws.subReloadUser = false;
       ws.on('pong', () => {
         ws.isAlive = true;
       });
@@ -55,12 +56,14 @@ class APISocketServer {
 
     this.broadcastOnlineCounter = this.broadcastOnlineCounter.bind(this);
     this.broadcastPixelBuffer = this.broadcastPixelBuffer.bind(this);
+    this.reloadUser = this.reloadUser.bind(this);
     this.ping = this.ping.bind(this);
     this.broadcastChatMessage = this.broadcastChatMessage.bind(this);
 
     socketEvents.onAsync('onlineCounter', this.broadcastOnlineCounter);
     socketEvents.onAsync('pixelUpdate', this.broadcastPixelBuffer);
     socketEvents.onAsync('chatMessage', this.broadcastChatMessage);
+    socketEvents.onAsync('reloadUser', this.reloadUser);
 
     setInterval(this.ping, 45 * 1000);
   }
@@ -166,6 +169,13 @@ class APISocketServer {
     this.broadcast(buffer, (client) => client.subPxl);
   }
 
+  reloadUser(userId) {
+    this.broadcast(
+      JSON.stringify(['reloadUser', userId]),
+      (client) => client.subReloadUser,
+    );
+  }
+
   static getPublicChannels() {
     const chanReply = ['chans'];
     const defaultChanKeys = Object.keys(chatProvider.defaultChannels);
@@ -200,6 +210,8 @@ class APISocketServer {
           ws.subPxl = true;
         } else if (even === 'online') {
           ws.subOnline = true;
+        } else if (even === 'reloadUser') {
+          ws.subReloadUser = true;
         } else {
           logger.info(`APISocket wanted to sub to nonexistent  ${even}`);
         }

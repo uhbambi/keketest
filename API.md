@@ -46,6 +46,16 @@ send
 
 All pixels (including your own) will be sent to you as typical binary packages
 
+### Subscribe to User reload notifications
+
+send
+
+```["sub", "reloadUser"]```
+
+Whenever a user should be reloaded, because something about his account changed, you get a message
+
+```["reloadUser", userId]```
+
 ### Set Pixel
 
 ```[ "setpxl", minecraftid, ip, x, y, clr ]```

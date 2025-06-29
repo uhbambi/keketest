@@ -3,6 +3,7 @@ import express from 'express';
 import logger from '../core/logger.js';
 import { USERLVL } from '../data/sql/index.js';
 import { getUsersByNameOrEmail, findUserById } from '../data/sql/User.js';
+import { getBanInfos, parseListOfBans } from '../data/sql/Ban.js';
 import { compareToHash } from '../utils/hash.js';
 import { APISOCKET_KEY } from '../core/config.js';
 
@@ -113,12 +114,23 @@ router.post('/userdata', async (req, res) => {
     return;
   }
 
+  const bans = await getBanInfos(null, user.id, null, null);
+  const [isBanned, isMuted, banRecheckTs] = parseListOfBans(bans);
+
   res.json({
     success: true,
     userdata: {
       id: user.id,
       name: user.name,
       verified: user.userlvl >= USERLVL.VERIFIED,
+      /*
+       * NOTE:I f you use those values, you also have to adhere to
+       * socketEvent.reloadUser(userId) and periodically recheck. Otherwise
+       * you go outdated
+       */
+      isBanned,
+      isMuted,
+      banRecheckTs,
     },
   });
 });
