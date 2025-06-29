@@ -130,6 +130,14 @@ User.hasMany(Session, {
   as: 'sessions',
   foreignKey: 'uid',
 });
+Session.belongsTo(IP, {
+  as: 'ipinfo',
+  foreignKey: 'ip',
+});
+IP.hasMany(Session, {
+  as: 'sessions',
+  foreignKey: 'ip',
+});
 
 /*
  * proxy information of ip

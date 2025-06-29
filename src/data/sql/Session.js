@@ -1,4 +1,4 @@
-import { QueryTypes, DataTypes } from 'sequelize';
+import Sequelize, { QueryTypes, DataTypes } from 'sequelize';
 
 import sequelize, { nestQuery } from './sequelize.js';
 import { generateToken, generateTokenHash } from '../../utils/hash.js';
@@ -32,9 +32,10 @@ const Session = sequelize.define('Session', {
  * create session for a user
  * @param uid id of user
  * @param durationHours how long session is valid in hours or null for permanent
+ * @param ipString ip to store in the session
  * @return null | token session token
  */
-export async function createSession(uid, durationHours) {
+export async function createSession(uid, durationHours, ipString = null) {
   if (durationHours !== null && !durationHours) {
     /*
      * if we have a duration of 0, which would be a cookie that deletes on
@@ -59,13 +60,15 @@ export async function createSession(uid, durationHours) {
     }
 
     const token = generateToken();
-    const session = await Session.create({
+    const createOptions = {
       uid,
       token: generateTokenHash(token),
       expires: durationHours && new Date(Date.now() + durationHours * HOUR),
-    }, {
-      raw: true,
-    });
+    };
+    if (ipString) {
+      createOptions.ip = Sequelize.fn('IP_TO_BIN', ipString);
+    }
+    const session = await Session.create(createOptions, { raw: true });
     if (session) {
       return token;
     }

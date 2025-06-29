@@ -30,6 +30,7 @@ const basePackageValues = {
     restart: 'pm2 restart ecosystem.yml',
     stop: 'pm2 stop all',
     poststop: 'pm2 kill',
+    sqlsync: 'node scripts/sqlsync.js',
     'install-pm2': 'npm install -g pm2'
   },
   dependencies: {
@@ -71,6 +72,19 @@ export default ({
       workerEntries[name] = fullPath;
     });
 
+    /*
+     * same with scripts that are part of the final package
+     */
+    const scriptsDir = path.resolve('deployment', 'scripts');
+    const scriptsEntries = {};
+    fs.readdirSync(scriptsDir)
+    .filter((e) => e.endsWith('.js'))
+    .forEach((filename) => {
+      const name = `scripts/${filename.slice(0, -3)}`;
+      const fullPath = path.resolve(scriptsDir, filename);
+      scriptsEntries[name] = fullPath;
+    });
+
   return {
     name: 'server',
     target: 'node',
@@ -81,6 +95,7 @@ export default ({
       server: [path.resolve('src', 'server.js')],
       backup: [path.resolve('src', 'backup.js')],
       ...workerEntries,
+      ...scriptsEntries,
     },
 
     output: {

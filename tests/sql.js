@@ -30,7 +30,7 @@ function fail(message, value) {
 }
 
 async function initialize() {
-  await syncSql();
+  await syncSql(true);
 }
 
 async function destruct() {
