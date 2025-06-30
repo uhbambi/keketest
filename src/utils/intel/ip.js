@@ -245,14 +245,14 @@ function ip64RangeNumToCIDR(start, end, ip) {
  */
 export function ipSubnetToHex(subnet, ip) {
   const ipNum = ip && ipToNum(ip);
-  if (!subnet || (ip && !ipNum)) {
+  if (!subnet || (ip && ipNum === null)) {
     return null;
   }
   let ranges;
   if (subnet.includes('-')) {
     // given as range
     const [start, end] = subnet.split('-').map(ipToNum);
-    if (!start
+    if (start === null
       || typeof start !== typeof end
       || start > end
       || (ipNum && typeof ipNum !== typeof start)
@@ -268,7 +268,7 @@ export function ipSubnetToHex(subnet, ip) {
     let [start, mask] = subnet.split('/');
     start = ipToNum(start);
     mask = parseInt(mask, 10);
-    if (!start || !mask) {
+    if (start === null || !mask) {
       return null;
     }
     let end;
@@ -310,7 +310,7 @@ export function ipSubnetToHex(subnet, ip) {
  */
 export function getLowHexSubnetOfIP(ip) {
   let start = ipToNum(ip);
-  if (!start) {
+  if (start === null) {
     return null;
   }
   let mask;

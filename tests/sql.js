@@ -16,6 +16,7 @@ import { USERLVL } from '../src/core/constants.js';
 import { oauthLogin } from '../src/core/passport.js';
 
 const LOG_QUERY = false;
+const SYNC_MYSQL = false;
 
 function title(title, spacer = '=') {
   const spacerAmount = Math.floor((80 - title.length - 2) / 2);
@@ -30,7 +31,7 @@ function fail(message, value) {
 }
 
 async function initialize() {
-  await syncSql(true);
+  await syncSql(SYNC_MYSQL);
 }
 
 async function destruct() {
@@ -101,8 +102,10 @@ async function ipMapping() {
   title('IP to IID Mapping');
   console.log('Establish IPs');
   const ipv6 = sanitizeIPString('2604::96e0:e121:2b82:29b7:3fa9');
+  const ipv6Local = sanitizeIPString('::1');
   const ipv4 = sanitizeIPString('127.0.0.5');
   console.log(ipv6, ipToHex(ipv6), hexToIP(ipToHex(ipv6)));
+  console.log(ipv6Local, ipToHex(ipv6Local), hexToIP(ipToHex(ipv6Local)));
   console.log(ipv4, ipToHex(ipv4), hexToIP(ipToHex(ipv4)));
   await sequelize.query(
     `REPLACE INTO IPs (ip, uuid, lastSeen) VALUES (IP_TO_BIN(?), UUID_TO_BIN('5c1f6618-4f8e-11f0-8cca-b61fc4d778f0'), NOW())`, {
