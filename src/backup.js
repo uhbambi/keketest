@@ -17,6 +17,13 @@ import path from 'path';
 import { createClient } from 'redis';
 
 import {
+  REDIS_URL,
+  BACKUP_REDIS_URL,
+  BACKUP_DIR,
+  BACKUP_INTERVAL,
+  BACKUP_CMD,
+} from './core/config.js';
+import {
   createPngBackup,
   incrementalBackupRedis,
   updateBackupRedis,
@@ -34,30 +41,21 @@ try {
   console.log(`: error occurred${err}`);
 }
 
-
-const [
-  CANVAS_REDIS_URL,
-  BACKUP_REDIS_URL,
-  BACKUP_DIR,
-  INTERVAL,
-  CMD,
-] = process.argv.slice(2);
-
-if (!CANVAS_REDIS_URL || !BACKUP_REDIS_URL || !BACKUP_DIR) {
+if (!REDIS_URL || !BACKUP_REDIS_URL || !BACKUP_DIR) {
   console.error(
     'Usage: node backup.js original_canvas backup_canvas backup_directory',
   );
   process.exit(1);
 }
 
-const canvasRedis = createClient(CANVAS_REDIS_URL
+const canvasRedis = createClient(REDIS_URL
   .startsWith('redis://')
   ? {
-    url: CANVAS_REDIS_URL,
+    url: REDIS_URL,
   }
   : {
     socket: {
-      path: CANVAS_REDIS_URL,
+      path: REDIS_URL,
     },
   },
 );
@@ -166,14 +164,14 @@ async function trigger() {
   } else {
     await incrementalBackup();
   }
-  if (CMD) {
-    runCmd(CMD);
+  if (BACKUP_CMD) {
+    runCmd(BACKUP_CMD);
   }
-  if (!INTERVAL) {
+  if (!BACKUP_INTERVAL) {
     process.exit(0);
   }
-  console.log(`Creating next backup in ${INTERVAL} minutes`);
-  setTimeout(trigger, INTERVAL * 60 * 1000);
+  console.log(`Creating next backup in ${BACKUP_INTERVAL} minutes`);
+  setTimeout(trigger, BACKUP_INTERVAL * 60 * 1000);
 }
 
 console.log('Starting backup...');

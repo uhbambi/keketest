@@ -199,7 +199,11 @@ function cleanUpBeforeBuild(doBuildServer, doBuildClient) {
       'COPYING',
       'CODE_OF_CONDUCT.md',
       'AUTHORS',
+      'README.md',
       path.join('src', 'canvases.json'),
+      path.join('deployment', 'ecosystem.yml'),
+      path.join('deployment', 'ecosystem-backup.yml'),
+      path.join('deployment', 'config.ini'),
     ].forEach((f) => {
       fs.copyFileSync(
         path.join(parentDir, f),
@@ -229,14 +233,6 @@ function cleanUpBeforeBuild(doBuildServer, doBuildClient) {
       path.join(parentDir, 'src', 'funcs'),
       path.join(distDir, 'workers', 'funcs'),
       { recursive: true },
-    );
-    fs.copyFileSync(
-      path.join(parentDir, 'deployment', 'example-ecosystem.yml'),
-      path.join(distDir, 'ecosystem.yml'),
-    );
-    fs.copyFileSync(
-      path.join(parentDir, 'deployment', 'example-ecosystem-backup.yml'),
-      path.join(distDir, 'ecosystem-backup.yml'),
     );
     /*
      * overrides exist to deploy our own files

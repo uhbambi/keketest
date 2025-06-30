@@ -40,7 +40,7 @@ Download the current version of pixelplanet from the [Release page](https://git.
 
 ### Configuration
 
-Configuration takes place in the environment variables that are defined in ecosystem.yml.
+Configuration takes place in the `config.txt` file, or environment variables.
 
 #### Neccessary Configuration
 
@@ -258,30 +258,15 @@ Hourly event is an MMORPG style event that launches once in two hours where user
 
 ## Backups and Historical View
 
-PixelPlanet includes a backup script that creates full canvas backups daily in the form of PNG tile files and incremential backups all 15min (or whatever you define) that saves PNG tiles with just the differences since the last full daily backup.
+PixelPlanet includes a backup script that creates full canvas backups daily in the form of PNG tile files and incremential backups all 15min to 20min.
 
 It requires a [second running redis instance](https://www.digitalocean.com/community/questions/multiple-redis-instances-on-ubuntu-16-04).
 
-The backup script gets built when building pixelplanet and also gets copied to `dist/` directory. You can run it with:
-
-```
-node backup.js REDIS_URL_CANVAS REDIS_URL_BACKUP BACKUP_DIRECTORY [INTERVAL] [COMMAND]
-```
-
-Make sure to get the order right, because the backup redis instance will be overwritten every day.
-Interval is the time in minutes between incremential backups. If interval is undefined, it will just make one backup and then exit.
-If command is defined, it will be executed after every backup (just one command, with no arguments, like "dosomething.sh"), this is useful for synchronisation with a storage server i.e.. Look into `utils/backupServer` for some scripts and info on how to run it.
-
-You can run it with pm2, just like pixelplanet. An example ecosystem-backup.example.yml file will be located in the dist directory.
-
-Note:
+See the `config.ini` section about Historical View to learn more.
 
 - You do not have to run backups or historical view, it's optional.
 
 ![historicalview](promotion/historicalview.gif)
-
-Pixelplanet is able to let the user browse through the past with those backups. For this you need to define `BACKUP_URL` in your ecosystem.yml for pixelplanet.
-`BACKUP_URL` is the URL where the backup folder is available. You have to let another server serve those files or use nginx. `autoindex` should be on, cause the server is parsing the folder index to get the available backup times.
 
 ## 3D canvas
 

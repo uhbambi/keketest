@@ -21,7 +21,18 @@ import {
   setUserLvl,
 } from '../data/sql/User.js';
 import { addOrReplaceTpid } from '../data/sql/ThreePID.js';
-import { auth } from './config.js';
+import {
+  FACEBOOK_APP_ID,
+  FACEBOOK_APP_SECRET,
+  DISCORD_CLIENT_ID,
+  DISCORD_CLIENT_SECRET,
+  GOOGLE_CLIENT_ID,
+  GOOGLE_CLIENT_SECRET,
+  VK_CLIENT_ID,
+  VK_CLIENT_SECRET,
+  REDDIT_CLIENT_ID,
+  REDDIT_CLIENT_SECRET,
+} from './config.js';
 
 
 /**
@@ -97,7 +108,8 @@ export async function oauthLogin(
  * Sign in with Facebook.
  */
 passport.use(new FacebookStrategy({
-  ...auth.facebook,
+  clientID: FACEBOOK_APP_ID,
+  clientSecret: FACEBOOK_APP_SECRET,
   callbackURL: '/api/auth/facebook/return',
   proxy: true,
   profileFields: ['displayName', 'email'],
@@ -116,7 +128,8 @@ passport.use(new FacebookStrategy({
  * Sign in with Discord.
  */
 passport.use(new DiscordStrategy({
-  ...auth.discord,
+  clientID: DISCORD_CLIENT_ID,
+  clientSecret: DISCORD_CLIENT_SECRET,
   callbackURL: '/api/auth/discord/return',
   proxy: true,
 }, async (accessToken, refreshToken, profile, done) => {
@@ -133,7 +146,8 @@ passport.use(new DiscordStrategy({
  * Sign in with Google.
  */
 passport.use(new GoogleStrategy({
-  ...auth.google,
+  clientID: GOOGLE_CLIENT_ID,
+  clientSecret: GOOGLE_CLIENT_SECRET,
   callbackURL: '/api/auth/google/return',
   proxy: true,
 }, async (accessToken, refreshToken, profile, done) => {
@@ -151,7 +165,8 @@ passport.use(new GoogleStrategy({
  * Sign in with Reddit
  */
 passport.use(new RedditStrategy({
-  ...auth.reddit,
+  clientID: REDDIT_CLIENT_ID,
+  clientSecret: REDDIT_CLIENT_SECRET,
   callbackURL: '/api/auth/reddit/return',
   proxy: true,
 }, async (accessToken, refreshToken, profile, done) => {
@@ -170,7 +185,8 @@ passport.use(new RedditStrategy({
  * Sign in with Vkontakte
  */
 passport.use(new VkontakteStrategy({
-  ...auth.vk,
+  clientID: VK_CLIENT_ID,
+  clientSecret: VK_CLIENT_SECRET,
   callbackURL: '/api/auth/vk/return',
   proxy: true,
   scope: ['email'],
