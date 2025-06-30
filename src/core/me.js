@@ -4,15 +4,25 @@
  * This should be the most basic data in order to run the game.
  *
  */
-import getLocalizedCanvases from '../canvasesDesc.js';
+import getLocalizedCanvases, { canvases } from '../canvasesDesc.js';
 import { USERLVL } from '../data/sql/index.js';
 import { getUserRanks } from '../data/redis/ranks.js';
 import { USE_MAILER } from './config.js';
-import { USER_FLAGS } from './constants.js';
+import { USER_FLAGS, DEFAULT_CANVAS_ID } from './constants.js';
 import chatProvider from './ChatProvider.js';
 
+const defaultCanvasForCountry = {};
+(function populateDefaultCanvases() {
+  for (const [canvasId, canvas] of Object.entries(canvases)) {
+    canvas.dcc?.forEach(
+      (country) => {
+        defaultCanvasForCountry[country.toLowerCase()] = canvasId;
+      },
+    );
+  }
+}());
 
-export default async function getMe(user, lang) {
+export default async function getMe(user, ip, lang) {
   let id;
   let name;
   let username;
@@ -25,7 +35,7 @@ export default async function getMe(user, lang) {
   let blocked;
   /* { id: [name, type, lastTs, dmu] } */
   let channels = { ...chatProvider.getDefaultChannels(lang) };
-  const canvases = getLocalizedCanvases(lang);
+  const localizedCanvases = getLocalizedCanvases(lang);
 
   if (user) {
     const { data } = user;
@@ -50,18 +60,27 @@ export default async function getMe(user, lang) {
     blocked = [];
   }
 
+  const [ranks] = await Promise.all([
+    (user) ? getUserRanks(user.id) : null,
+    ip.getAllowance(),
+  ]);
+
+  /* default canvas based on country */
+  // eslint-disable-next-line max-len
+  const defaultCanvas = defaultCanvasForCountry[ip.country] || DEFAULT_CANVAS_ID;
+
   const me = {
     id, name, username, userlvl, havePassword, blockDm, priv,
-    channels, blocked, canvases,
+    channels, blocked, canvases: localizedCanvases, defaultCanvas,
   };
 
-  if (user) {
+  if (ranks) {
     const [
       totalPixels,
       dailyTotalPixels,
       ranking,
       dailyRanking,
-    ] = await getUserRanks(user.id);
+    ] = ranks;
     me.totalPixels = totalPixels;
     me.dailyTotalPixels = dailyTotalPixels;
     me.ranking = ranking;

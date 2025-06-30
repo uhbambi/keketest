@@ -8,6 +8,8 @@ import assetWatcher from './core/fsWatcher.js';
 import canvases from './core/canvases.js';
 import ttag from './middleware/ttag.js';
 
+export { canvases };
+
 
 /* eslint-disable max-len */
 

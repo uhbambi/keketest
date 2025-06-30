@@ -85,20 +85,20 @@ function getCanvasArgs(canvas, prevCoords) {
   };
 }
 
-/*
+/**
  * parse url hash and sets view to coordinates
  * @param canvases Object with all canvas information
  * @return incomplete state based on URL, null if failed
  */
-function getViewFromURL(canvases) {
+function getViewFromURL(canvases, defaultCanvas) {
   const { hash } = window.location;
   const almost = decodeURIComponent(hash).substring(1)
     .split(',');
 
   let canvasIdent = almost[0];
   let canvasId = getIdFromObject(canvases, canvasIdent);
-  if (!canvasId && window.ssv.dc) {
-    canvasId = window.ssv.dc;
+  if (!canvasId && defaultCanvas) {
+    canvasId = defaultCanvas;
   }
   if (!canvasId || (!window.ssv?.backupurl && canvases[canvasId].ed)) {
     canvasId = DEFAULT_CANVAS_ID;
@@ -140,6 +140,7 @@ const initialState = {
   historicalCanvasSize: 65536,
   is3D: null,
   canvasStartDate: null,
+  defaultCanvas: DEFAULT_CANVAS_ID,
   canvasEndDate: null,
   canvasMaxTiledZoom: getMaxTiledZoom(65536),
   palette: new Palette([[0, 0, 0]]),
@@ -307,14 +308,14 @@ export default function canvasReducer(
     }
 
     case 's/REC_ME': {
-      const { canvases } = action;
+      const { canvases, defaultCanvas } = action;
       let {
         canvasId,
         view,
       } = state;
 
       if (canvasId === null) {
-        ({ canvasId, view } = getViewFromURL(canvases));
+        ({ canvasId, view } = getViewFromURL(canvases, defaultCanvas));
       }
       const canvas = canvases[canvasId];
       const canvasState = getCanvasArgs(
@@ -327,6 +328,7 @@ export default function canvasReducer(
         ...canvasState,
         canvasId,
         canvases,
+        defaultCanvas,
         view,
       });
     }

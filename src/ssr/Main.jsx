@@ -5,7 +5,6 @@
 /* eslint-disable max-len */
 import etag from 'etag';
 
-import canvases from '../core/canvases.js';
 import hashScript from '../utils/scriptHash.js';
 import { getTTag, availableLangs as langs } from '../middleware/ttag.js';
 import { getJsAssets, getThemeCssAssets } from '../core/assets.js';
@@ -13,17 +12,6 @@ import chooseAPIUrl from '../core/chooseAPIUrl.js';
 import {
   BACKUP_URL, CONTACT_ADDRESS, UNSHARDED_HOST, CDN_HOST, CDN_URL, BASENAME,
 } from '../core/config.js';
-
-const defaultCanvasForCountry = {};
-(function populateDefaultCanvases() {
-  for (const [canvasId, canvas] of Object.entries(canvases)) {
-    canvas.dcc?.forEach(
-      (country) => {
-        defaultCanvasForCountry[country.toLowerCase()] = canvasId;
-      },
-    );
-  }
-}());
 
 const basedQuotes = [
   ['Do not use Discord', 'Discord is bad, you should not use it', '/memes/discord.png', 'image', 380, 379],
@@ -61,10 +49,6 @@ function generateMainPage(req) {
     cdnUrl: CDN_URL,
     lang,
   };
-
-  // country specific default canvas
-  const dc = defaultCanvasForCountry[ip.country];
-  if (dc) ssv.dc = dc;
 
   const ssvR = JSON.stringify(ssv);
   const scripts = getJsAssets('client', lang);

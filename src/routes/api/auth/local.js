@@ -20,7 +20,7 @@ export default async (req, res) => {
         const userdata = await oauthLogin(...args);
         await openSession(req, res, userdata.id, 720);
         logger.info(`User ${userdata.id} logged in with DEV oauth.`);
-        const me = await getMe(req.user, req.lang);
+        const me = await getMe(req.user, req.ip, req.lang);
         res.json({
           success: true,
           me,
@@ -62,7 +62,7 @@ export default async (req, res) => {
     /* openSession() turns req.user into a full user object */
     await openSession(req, res, user.id, durationHours);
     logger.info(`User ${user.id} logged in with mail/password.`);
-    const me = await getMe(req.user, req.lang);
+    const me = await getMe(req.user, req.ip, req.lang);
 
     res.json({
       success: true,

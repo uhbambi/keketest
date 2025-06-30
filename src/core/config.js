@@ -69,26 +69,29 @@ let config = {};
 
   const configFileValues = {};
   try {
-    fs.readFileSync(path.resolve('config.ini')).toString('utf8')
-      .split('\n').forEach((line) => {
-        line = line.trim();
-        if (line.startsWith('#')) {
-          return;
-        }
-        const seperator = line.indexOf('=');
-        // eslint-disable-next-line
-        if (seperator === -1 || seperator === 0 || seperator > line.length - 2) {
-          return;
-        }
-        const key = line.substring(0, seperator).trim();
-        let value = line.substring(seperator + 1).trim();
-        if ((value.startsWith('"') && value.endsWith('"'))
-          || (value.startsWith('\'') && value.endsWith('\''))
-        ) {
-          value = value.substring(1, value.length - 1);
-        }
-        configFileValues[key] = value;
-      });
+    const configFile = path.resolve('config.ini');
+    if (fs.existsSync(configFile)) {
+      fs.readFileSync(path.resolve('config.ini')).toString('utf8')
+        .split('\n').forEach((line) => {
+          line = line.trim();
+          if (line.startsWith('#')) {
+            return;
+          }
+          const seperator = line.indexOf('=');
+          // eslint-disable-next-line
+          if (seperator === -1 || seperator === 0 || seperator > line.length - 2) {
+            return;
+          }
+          const key = line.substring(0, seperator).trim();
+          let value = line.substring(seperator + 1).trim();
+          if ((value.startsWith('"') && value.endsWith('"'))
+            || (value.startsWith('\'') && value.endsWith('\''))
+          ) {
+            value = value.substring(1, value.length - 1);
+          }
+          configFileValues[key] = value;
+        });
+    }
   } catch (error) {
     console.error(`Couldn't read config file ${error.message}`);
   }

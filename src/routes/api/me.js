@@ -6,8 +6,6 @@ import getMe from '../../core/me.js';
 
 export default async (req, res, next) => {
   const { ip, user, lang } = req;
-  /* trigger getIPAllowance to ensure it is ready when ws request comes */
-  req.ip.getAllowance();
   /* trigger timestamp updates */
   if (user) {
     user.touch(ip.ipString);
@@ -15,7 +13,7 @@ export default async (req, res, next) => {
   ip.touch();
 
   try {
-    const userdata = await getMe(user, lang);
+    const userdata = await getMe(user, ip, lang);
     res.json(userdata);
   } catch (error) {
     next(error);

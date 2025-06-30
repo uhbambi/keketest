@@ -283,7 +283,7 @@ class MessageBroker extends SocketEvents {
         } else {
           reject(new Error(`CLUSTER Timeout on wait for res:${chan}:${type}`));
         }
-      }, 45000);
+      }, 20000);
       this.on(chankey, callback);
       this.emit(`req:${type}`, chan, ...args);
     });

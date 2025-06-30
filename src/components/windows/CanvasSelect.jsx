@@ -12,8 +12,11 @@ import useLink from '../hooks/link.js';
 
 
 const CanvasSelect = () => {
-  const [canvases, showHiddenCanvases, online] = useSelector((state) => [
+  const [
+    canvases, defaultCanvas, showHiddenCanvases, online,
+  ] = useSelector((state) => [
     state.canvas.canvases,
+    state.canvas.defaultCanvas,
     state.gui.easterEgg,
     state.ranks.online,
   ], shallowEqual);
@@ -40,8 +43,8 @@ Archived canvases can be accessed here:`}&nbsp;
         Object.keys(canvases)
           .sort((a, b) => {
             // display forced default canvas first
-            if (a === window.ssv.dc) return -1;
-            if (b === window.ssv.dc) return 1;
+            if (a === defaultCanvas) return -1;
+            if (b === defaultCanvas) return 1;
             // display linked canvas right after canvas they are linked too
             // eslint-disable-next-line eqeqeq
             if (canvases[a].linkcd != null) a = canvases[a].linkcd + 0.1;

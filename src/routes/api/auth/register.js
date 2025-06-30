@@ -138,7 +138,7 @@ export default async (req, res) => {
   }
 
   await openSession(req, res, user.id, durationHours);
-  const me = await getMe(req.user, req.lang);
+  const me = await getMe(req.user, ip, req.lang);
 
   const host = req.ip.getHost();
   if (email) {
