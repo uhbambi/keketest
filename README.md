@@ -40,9 +40,12 @@ Download the current version of pixelplanet from the [Release page](https://git.
 
 ### Configuration
 
-Configuration takes place in the `config.txt` file, or environment variables.
+Configuration takes place in the `config.ini` file, or environment variables.
+Check out that config file for available options.
 
 #### Neccessary Configuration
+
+Those are options you will most likely want to adjust:
 
 | Variable       | Description              |  Example                |
 |----------------|:-------------------------|------------------------:|
@@ -54,45 +57,9 @@ Configuration takes place in the `config.txt` file, or environment variables.
 | MYSQL_PW       | MySql Password           | "sqlpassword"           |
 | MYSQL_DATABASE | MySql Database           | "pixelplanet"           |
 
-#### Optional Configuration
-
-| Variable          | Description                           | Example                   |
-|-------------------|:--------------------------------------|---------------------------|
-| USE_PROXYCHECK    | Check users for Proxies               | 0                         |
-| PROXYCHECK_KEY    | Key for proxycheck.io                 | "asfas-xcsc-ewef-sdfsd"   |
-| APISOCKET_KEY     | Key for API Socket for SpecialAccess™ | "SDfasife3"               |
-| ADMIN_IDS         | Ids of users with Admin rights        | "1,12,3"                  |
-| CAPTCHA_TIME      | time in minutes between captchas      | 30                        |
-|                   |  0: always captcha -1: never captcha  |                           |
-| LOG_MYSQL         | if sql queries should get logged      | 0                         |
-| USE_XREALIP       | see nginx / CDN  section              | 1                         |
-| BACKUP_URL        | url of backup server (see Backup)     | "http://localhost"        |
-| HOURLY_EVENT      | run hourly void event on main canvas  | 1                         |
-| FISHING           | whether to run fishing or not         | 1                         |
-| FISH_AMOUNT       | how many fishes appear at a time      | 3                         |
-| USE_MAILER        | enable to use mail sevicse            | 0                         |
-| MAIL_ADDRESS      | email address for sending mails       | "noreply@example.com"     |
-| CONTACT_ADDRESS   | email for users to contact            | "admin@example.com"       |
-
-#### Optional Social Media Configuration
-
-| Variable              | Description              |
-|-----------------------|:-------------------------|
-| GUILDED_INVITE        | Invite to guilded server |
-| DISCORD_CLIENT_ID     | All                      |
-| DISCORD_CLIENT_SECRET | those                    |
-| GOOGLE_CLIENT_ID      | values                   |
-| GOOGLE_CLIENT_SECRET  | are                      |
-| FACEBOOK_APP_ID       | for                      |
-| FACEBOOK_APP_SECRET   | login                    |
-| VK_CLIENT_ID          | with                     |
-| VK_CLIENT_SECRET      | Social                   |
-| REDDIT_CLIENT_ID      | Media                    |
-| REDDIT_CLIENT_SECRET  | Accounts                 |
-
 #### Canvas Configuration
 
-Canvas specific configuartion like colors and cooldown is in `canvases.json` for all canvases. The titles and descriptions of the canvases are in `src/canvasesDesc.js` for translation reasons. Changing them requires a rebuild.
+Canvas specific configuartion like colors and cooldown is in `canvases.json` for all canvases.
 Meaning of some values:
 
 ##### Neccessary configuration per canvas
@@ -108,6 +75,8 @@ Meaning of some values:
 
 | Key    | Description                                                     |
 |--------|:----------------------------------------------------------------|
+| title  | Title of the canvas                                             |
+| desc   | Description of the canvas                                       |
 | pcd    | Cooldown for placing on set pixels (defaults to same as bcd)    |
 | cli    | Number of leading colors on the palette to ignore (default: 0)  |
 | req    | requieremt to place on the canvas (default: unset)              |
@@ -121,7 +90,6 @@ Meaning of some values:
 
 Notes:
 
-- The canvas size limit can be surpassed by changing the websocket packages in src/socket/packages/ to send chunk coordinates in 16bit.
 - If `req` is 0, the canvas is only available for registered useers. If it is a number >1 it is the amount of total pixels placed before a player is allowed to play there. If it is `top`, then it is only accessible for the Top10 players of the previous day.
 - The colors that are ignored via `cli` are used for making the canvas (blue ocean and white continents) and to know if the pixel is already set by a user or not.
 - If you want to add a new canvas, be sure that you additionally create `public/loading${canvasId}.png`, `public/assets3d/normal${canvasId}.jpg`, `public/preview${canvasId}.png` and `public/assets3d/specular${canvasId}.jpg`, check out the existing ones to see what those files are for.
