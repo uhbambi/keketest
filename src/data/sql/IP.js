@@ -145,9 +145,18 @@ export async function saveIPIntel(ipString, whoisData, pcData) {
           rid = whoisData.rid;
         } else {
           const {
-            range, org, descr, country, asn, referralHost, referralRange,
+            range, country = 'xx', asn = null,
+            referralHost, referralRange,
             expiresTs: whoisExpiresTs,
           } = whoisData;
+          let { org = null, descr = null } = whoisData;
+
+          if (org) {
+            org = org.slice(0, 60);
+          }
+          if (descr) {
+            descr = descr.slice(0, 60);
+          }
 
           if (referralRange && referralHost) {
             promises.push(WhoisReferral.upsert({
@@ -160,21 +169,32 @@ export async function saveIPIntel(ipString, whoisData, pcData) {
           }
 
           const expires = new Date(whoisExpiresTs);
+          /*
+           * if we would be always on MariaDB, we could use append RETURNING id and
+           * get the id during the insert
+           */
           promises.push(sequelize.query(
             /* eslint-disable max-len */
             `INSERT INTO Ranges (min, max, mask, country, org, descr, asn, expires) VALUES (UNHEX(?), UNHEX(?), ?, ?, ?, ?, ?, ?)
-ON DUPLICATE KEY UPDATE min = UNHEX(?), max = UNHEX(?), mask = ?, country = ?, org = ?, descr = ?, asn = ?, expires = ? RETURNING id`, {
+ON DUPLICATE KEY UPDATE min = UNHEX(?), max = UNHEX(?), mask = ?, country = ?, org = ?, descr = ?, asn = ?, expires = ?`, {
               /* eslint-disable max-len */
               replacements: [
                 range[0], range[1], range[2], country, org, descr, asn, expires,
                 range[0], range[1], range[2], country, org, descr, asn, expires,
               ],
               raw: true,
-              type: QueryTypes.SELECT,
+              type: QueryTypes.INSERT,
             }));
 
-          const whoisResult = await Promise.all(promises);
-          rid = whoisResult[whoisResult.length - 1][0].id;
+          await Promise.all(promises);
+          const whoisResult = await sequelize.query(
+            'SELECT id FROM Ranges WHERE min = UNHEX(?) AND max = UNHEX(?)', {
+              replacements: [range[0], range[1]],
+              raw: true,
+              type: QueryTypes.SELECT,
+            });
+
+          rid = whoisResult[0]?.id;
         }
       }
 

@@ -18,14 +18,12 @@ async function destruct() {
 
   console.log(`Moving and cleaning up old data... this can take a long time!`);
 
-  /*
   await sequelize.query(`DELETE m FROM Messages m LEFT JOIN (SELECT id FROM (SELECT id, ROW_NUMBER() OVER (PARTITION BY cid ORDER BY id DESC) as rn FROM Messages) ranked WHERE rn <= 1000) keep ON m.id = keep.id WHERE keep.id IS NULL;
 
 DELETE FROM Channels WHERE id NOT IN (SELECT ChannelId FROM UserChannels GROUP BY ChannelId HAVING COUNT(UserId) >= 2);`,{
     type: sequelize.QueryTypes.RAW,
     multipleStatements: true,
   });
-*/
 
   await sequelize.query(
 `DROP TABLE Bans;

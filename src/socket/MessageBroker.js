@@ -206,15 +206,6 @@ class MessageBroker extends SocketEvents {
       }
       val = JSON.parse(val);
       /*
-        * if type is a cross-shard request, remember the originating shard,
-        * by adding it to values
-        * shard:req:reqtype,[channelId, ...args]
-        */
-      if (key.startsWith('req:')) {
-        /* insert after channelId */
-        val.splice(1, 0, shardName);
-      }
-      /*
         * online data update of shard
         */
       if (key === 'onlineShardData') {
@@ -253,6 +244,29 @@ class MessageBroker extends SocketEvents {
   }
 
   /*
+   * this function is euqal to the one it overloads,
+   * whith the only addition of emmiting the shardName
+   */
+  req(type, ...args) {
+    return new Promise((resolve, reject) => {
+      const chan = Math.floor(Math.random() * 100000).toString()
+      + Math.floor(Math.random() * 100000).toString();
+      const chankey = `res:${chan}`;
+      let id;
+      const callback = (ret) => {
+        clearTimeout(id);
+        resolve(ret);
+      };
+      id = setTimeout(() => {
+        this.off(chankey, callback);
+        reject(new Error(`Timeout on req ${type}`));
+      }, 45000);
+      this.once(chankey, callback);
+      this.emit(`req:${type}`, chan, this.thisShard, ...args);
+    });
+  }
+
+  /*
    * requests that go over all shards and combine responses from all
    */
   reqAll(type, ...args) {
@@ -285,11 +299,10 @@ class MessageBroker extends SocketEvents {
         }
       }, 20000);
       this.on(chankey, callback);
-      this.emit(`req:${type}`, chan, ...args);
+      this.emit(`req:${type}`, chan, this.thisShard, ...args);
     });
   }
 
-  /* shardName got added in onShardBCMessage */
   onReq(type, cb) {
     this.on(`req:${type}`, async (chan, shardName, ...args) => {
       const ret = await cb(...args);

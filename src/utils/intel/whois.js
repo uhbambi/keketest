@@ -310,7 +310,7 @@ export default async function whoisIp(ip, options) {
 
     return result;
   } catch (error) {
-    logger.error(`WHOIS Error: ${error.message}`);
+    logger.error(`WHOIS Error: ${ip} - ${error.message}`);
     return null;
   }
 }

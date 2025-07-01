@@ -189,7 +189,7 @@ export async function openSession(req, res, userId, durationHours = 720) {
     domain = domain.substring(0, portSeperator);
   }
 
-  const token = await createSession(userId, durationHours, req.ip.ipString);
+  const token = await createSession(userId, durationHours, req.ip);
   if (!token) {
     return false;
   }

@@ -205,7 +205,7 @@ BEGIN
   SET longBin = INET6_ATON(ip);
   IF LENGTH(longBin) > 4
     THEN
-      RETURN (cast(longBin as binary(8)));
+      RETURN SUBSTRING(longBin, 1, 8);
     ELSE
       RETURN (longBin);
   END IF;

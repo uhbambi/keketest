@@ -211,7 +211,7 @@ function cleanUpBeforeBuild(doBuildServer, doBuildClient) {
       );
     });
     // copy folder to dist directory
-    const dirsToDirectlyCopy = ['public'];
+    const dirsToDirectlyCopy = ['public', 'doc'];
     if (!fs.existsSync(path.join(parentDir, 'overrides', 'captchaFonts'))) {
       dirsToDirectlyCopy.push(path.join('deployment', 'captchaFonts'));
     }

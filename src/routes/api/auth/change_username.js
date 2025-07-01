@@ -9,7 +9,6 @@ import { validateUsername } from '../../../utils/validation.js';
 
 export default async (req, res) => {
   let { username } = req.body;
-  username = username?.trim();
   const { t, gettext } = req.ttag;
   const { user } = req;
 
@@ -19,6 +18,7 @@ export default async (req, res) => {
   } else if (username.startsWith('pp_')) {
     error = t`Username can not start with pp_`;
   } else {
+    username = username?.toLowerCase();
     error = gettext(validateUsername(username));
   }
   if (error) {
@@ -35,6 +35,7 @@ export default async (req, res) => {
     res.json({
       errors: [t`Name already in use.`],
     });
+    return;
   }
 
   // eslint-disable-next-line max-len

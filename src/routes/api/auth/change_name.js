@@ -38,6 +38,7 @@ export default async (req, res) => {
     res.json({
       errors: [t`Name already in use.`],
     });
+    return;
   }
 
   // eslint-disable-next-line max-len

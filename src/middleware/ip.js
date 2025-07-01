@@ -49,7 +49,7 @@ export class IP {
   get ipString() {
     const req = this.#req;
     let ipString;
-    if (USE_XREALIP) {
+    if (USE_XREALIP && typeof req.headers['x-real-ip'] === 'string') {
       ipString = req.headers['x-real-ip'];
     }
     if (!ipString) {

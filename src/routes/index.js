@@ -79,6 +79,9 @@ router.use('/guilded', (req, res) => {
  */
 router.use((req, res, next) => {
   if (CDN_HOST && CDN_HOST === req.ip.getHost(false, false)) {
+    res.set({
+      'Access-Control-allow-origin': '*',
+    });
     express.static(
       path.join(__dirname, 'public'), staticConfig,
     )(req, res, () => {

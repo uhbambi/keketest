@@ -39,9 +39,10 @@ async function validate(
 
 export default async (req, res) => {
   const {
-    email, username, name, password, captcha, captchaid, cs: challengeSolution,
+    email, name, password, captcha, captchaid, cs: challengeSolution,
   } = req.body;
   const { t, gettext } = req.ttag;
+  const username = req.body.username?.toLowerCase();
   const errors = await validate(
     email, name, username, password, captcha, captchaid, t, gettext,
   );

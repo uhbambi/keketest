@@ -573,7 +573,7 @@ export async function getUsersByNameOrEmail(name, email, username) {
       `SELECT u.id, u.name, u.username, u.password, u.flags, u.userlvl,
 EXISTS (SELECT 1 FROM ThreePIDs WHERE uid = u.id AND provider = 1 AND normalizedTpid = NORMALIZE_TPID(1, ?)) AS 'byEMail'
 FROM Users u
-WHERE u.name = ? OR u.username = ? OR
+WHERE u.name = ? OR u.username = CONVERT(? USING ascii) OR
 EXISTS (SELECT 1 FROM ThreePIDs WHERE uid = u.id AND provider = 1 AND normalizedTpid = NORMALIZE_TPID(1, ?))`, {
         /* eslint-enable max-len */
         replacements: [email, name, username, email],

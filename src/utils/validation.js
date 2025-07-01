@@ -48,7 +48,7 @@ export function validateUsername(username) {
     return t`Userame must be shorter than 26 characters`;
   }
   if (/[^a-zA-Z0-9._-]/.test(username)) {
-    return t`Username can only contain the characters: a-z A-z . _ and -`;
+    return t`Username can only contain the characters: a-z . _ and -`;
   }
   return false;
 }

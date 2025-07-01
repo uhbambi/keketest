@@ -111,7 +111,7 @@ WHERE min <= b.ip AND max >= b.ip AND LENGTH(b.ip) = LENGTH(min) AND expires > N
       };
     }
   } catch (error) {
-    console.error(`SQL Error on getRangeOfIP: ${error.message}`);
+    console.error(`SQL Error on getRangeOfIP: ${ipString} - ${error.message}`);
   }
   return null;
 }
