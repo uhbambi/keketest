@@ -311,6 +311,14 @@ export class ChatProvider {
       return t`You don\'t have access to this channel`;
     }
 
+    if (user.userlvl < USERLVL.MOD) {
+      if (await isCountryMuted(country, channelId)) {
+        return t`Your country is temporary muted from this chat channel`;
+      }
+    } else if (message.charAt(0) === '/') {
+      return this.adminCommands(message, channelId, user);
+    }
+
     // eslint-disable-next-line prefer-const
     let { isBanned, isMuted, isProxy } = await user.getAllowance();
     if (isProxy) {
@@ -333,14 +341,6 @@ export class ChatProvider {
         return t`You are muted for another ${timeMin} minutes`;
       }
       return t`You are muted for another ${ttl} seconds`;
-    }
-
-    if (user.userlvl < USERLVL.MOD) {
-      if (await isCountryMuted(country, channelId)) {
-        return t`Your country is temporary muted from this chat channel`;
-      }
-    } else if (message.charAt(0) === '/') {
-      return this.adminCommands(message, channelId, user);
     }
 
     if (name.trim() === ''
