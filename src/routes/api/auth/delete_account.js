@@ -7,6 +7,7 @@ import socketEvents from '../../../socket/socketEvents.js';
 import { validatePassword } from '../../../utils/validation.js';
 import { compareToHash } from '../../../utils/hash.js';
 import { deleteUser } from '../../../data/sql/User.js';
+import { deleteUserFromRanks } from '../../../data/redis/cooldown.js';
 import { clearCookie } from '../../../middleware/session.js';
 
 function validate(password, gettext) {
@@ -64,6 +65,8 @@ export default async (req, res) => {
   clearCookie(req, res);
 
   socketEvents.reloadUser(user.id);
+
+  deleteUserFromRanks(user.id);
 
   res.status(200);
   res.json({

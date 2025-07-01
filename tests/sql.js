@@ -61,17 +61,18 @@ async function establishUsers() {
   console.log('Create Users');
   const userdataA = await createUserIfNotExists('testA','testA@example.com');
   const userdataB = await createUserIfNotExists('testB','testB@example.com');
-  [
+  const newusers = [
     [ 'test1', 'testtest', 'test1@example.com' ],
     [ 'test2', 'testtest', 'test2@example.com' ],
     [ 'test3', 'testtest', 'test3@example.com' ],
     [ 'test4', 'testtest', 'test4@example.com' ],
-  ].forEach(async ([name, password, email]) => {
+  ];
+  for (const [name, password, email] of newusers) {
     let userdata = await createUserIfNotExists(name, email, password);
     if (name === 'test1') {
       await setUserLvl(userdata.id, 100);
     }
-  });
+  };
   console.log('Create Sessions');
   const tokena = await createSession(userdataA.id, 5);
   const tokenb = await createSession(userdataB.id, 5);
@@ -259,7 +260,7 @@ async function testWhois() {
     const users = await establishUsers();
     await ipMapping();
     await chat(users);
-    // await testWhois();
+    await testWhois();
     title('Clean DB');
     await cleanDB();
   } catch (error) {

@@ -44,7 +44,7 @@ export async function unmutec(channelId, cc) {
     return null;
   }
   const key = `${MUTEC_PREFIX}:${channelId}`;
-  const ret = await client.hDel(key, cc, '');
+  const ret = await client.hDel(key, cc);
   return ret !== 0;
 }
 

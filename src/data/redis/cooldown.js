@@ -14,7 +14,7 @@ import { CAPTCHA_TIME } from '../../core/config.js';
 
 const PREFIX = 'cd';
 
-/*
+/**
  * checks how many of the given pixels can be set,
  * sets user cooldown, increments pixelcount
  * and returns the number of pixels to set
@@ -70,7 +70,7 @@ export default function allowPlace(
   /* eslint-enable max-len */
 }
 
-/*
+/**
  * get cooldown of specific user
  * @param ip ip of request
  * @param id userId
@@ -99,7 +99,7 @@ export async function getCoolDown(
   return cooldown;
 }
 
-/*
+/**
  * set cooldown of specific user
  * @param ip ip of request
  * @param id userId
@@ -123,4 +123,15 @@ export async function setCoolDown(
     });
   }
   return true;
+}
+
+/**
+ * delete user from ranks
+ * @param id user id
+ */
+export function deleteUserFromRanks(id) {
+  return Promise.all([
+    client.zRem(RANKED_KEY, String(id)),
+    client.zRem(DAILY_CRANKED_KEY, String(id)),
+  ]);
 }

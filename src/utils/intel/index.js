@@ -126,8 +126,7 @@ export const getIPIntel = queue(async (
     proxyCheckData.expiresTs = nowTs + PROXYCHECK_DURATION * 3600 * 1000;
   }
 
-  /* we don't have to await that */
-  saveIPIntel(ipString, whoisData, proxyCheckData);
+  await saveIPIntel(ipString, whoisData, proxyCheckData);
 
   if (whoisData?.rid) {
     delete whoisData.rid;
