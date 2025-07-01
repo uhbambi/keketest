@@ -207,7 +207,7 @@ export function getTPIDHistoryOfUser(uid) {
  * @param return boolean if email got set, null if email already exists for
  *   different user
  */
-export async function setEmail(uid, email, verified = null) {
+export async function setEmail(uid, email, verified = false) {
   try {
     const [existingEmail, existingUserEmail] = await Promise.all([
       ThreePID.findOne({

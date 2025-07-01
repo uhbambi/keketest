@@ -1,4 +1,4 @@
-import Sequelize, { DataTypes, Op } from 'sequelize';
+import { DataTypes, QueryTypes } from 'sequelize';
 import sequelize from './sequelize.js';
 
 /*
@@ -50,17 +50,17 @@ const WhoisReferral = sequelize.define('WhoisReferral', {
  */
 export async function getWhoisHostOfIP(ipString) {
   try {
-    const range = await WhoisReferral.findOne({
-      attributes: ['host'],
-      where: {
-        min: { [Op.lte]: Sequelize.fn('IP_TO_BIN', ipString) },
-        max: { [Op.gte]: Sequelize.fn('IP_TO_BIN', ipString) },
-        expires: { [Op.gt]: Sequelize.fn('NOW') },
-      },
-      raw: true,
-    });
-    if (range) {
-      return range.host;
+    const range = await sequelize.query(
+      /* eslint-disable max-len */
+      `SELECT host FROM WhoisReferrals, (SELECT IP_TO_BIN(?) AS ip) AS b
+WHERE min <= b.ip AND max >= b.ip AND LENGTH(b.ip) = LENGTH(min) AND expires > NOW()`, {
+        /* eslint-disable max-len */
+        replacements: [ipString, ipString, ipString],
+        raw: true,
+        type: QueryTypes.SELECT,
+      });
+    if (range.length) {
+      return range[0].host;
     }
   } catch (error) {
     console.error(`SQL Error on getWhoisHostOfIP: ${error.message}`);

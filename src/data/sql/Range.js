@@ -1,4 +1,4 @@
-import Sequelize, { DataTypes, Op } from 'sequelize';
+import { DataTypes, QueryTypes } from 'sequelize';
 
 import sequelize from './sequelize.js';
 import { sanitizeIPString, ipToHex } from '../../utils/intel/ip.js';
@@ -88,33 +88,26 @@ const RangeData = sequelize.define('Range', {
  */
 export async function getRangeOfIP(ipString) {
   try {
-    const range = await RangeData.findOne({
-      attributes: [
-        'mask', 'country', 'org', 'descr', 'asn', 'expires',
-        ['id', 'rid'],
-        [Sequelize.fn('BIN_TO_IP', Sequelize.col('min')), 'min'],
-        [Sequelize.fn('BIN_TO_IP', Sequelize.col('min')), 'max'],
-      ],
-      where: {
-        min: { [Op.lte]: Sequelize.fn('IP_TO_BIN', ipString) },
-        max: { [Op.gte]: Sequelize.fn('IP_TO_BIN', ipString) },
-        expires: { [Op.gt]: Sequelize.literal('NOW() - INTERVAL 20 DAY') },
-      },
-      raw: true,
-    });
-    if (range) {
+    const range = await sequelize.query(
+      /* eslint-disable max-len */
+      `SELECT id AS 'rid', BIN_TO_IP(min) AS 'min', BIN_TO_IP(max) AS 'max', mask, country, org, descr, asn, expires FROM Ranges, (SELECT IP_TO_BIN(?) AS ip) AS b
+WHERE min <= b.ip AND max >= b.ip AND LENGTH(b.ip) = LENGTH(min) AND expires > NOW()`, {
+      /* eslint-disable max-len */
+        replacements: [ipString, ipString, ipString],
+        raw: true,
+        type: QueryTypes.SELECT,
+      });
+    if (range.length) {
+      const {
+        rid, expires, min, max, mask, org, descr, asn, country,
+      } = range[0];
       return {
-        rid: range.rid,
-        expires: range.expires,
+        rid, expires, org, descr, asn, country,
         range: [
-          ipToHex(sanitizeIPString(range.min)),
-          ipToHex(sanitizeIPString(range.min)),
-          range.mask,
+          ipToHex(sanitizeIPString(min)),
+          ipToHex(sanitizeIPString(max)),
+          mask,
         ],
-        org: range.org,
-        descr: range.descr,
-        asn: range.asn,
-        country: range.country,
       };
     }
   } catch (error) {

@@ -160,16 +160,17 @@ export async function saveIPIntel(ipString, whoisData, pcData) {
             }, { returning: false, transaction }));
           }
 
-          promises.push(RangeData.upsert({
-            min: Sequelize.fn('UNHEX', range[0]),
-            max: Sequelize.fn('UNHEX', range[1]),
-            mask: range[2],
-            country,
-            org,
-            descr,
-            asn,
-            expires: new Date(whoisExpiresTs),
-          }, { transaction }));
+          const expires = new Date(whoisExpiresTs);
+          promises.push(sequelize.query(
+            `INSERT INTO Ranges (min, max, mask, country, org, descr, asn, expires) VALUES (UNHEX(?), UNHEX(?), ?, ?, ?, ?, ?, ?)
+ON DUPLICATE KEY UPDATE min = UNHEX(?), max = UNHEX(?), mask = ?, country = ?, org = ?, descr = ?, asn = ?, expires = ? RETURNING id`,{
+            replacements: [
+              range[0], range[1], range[2], country, org, descr, asn, expires,
+              range[0], range[1], range[2], country, org, descr, asn, expires,
+            ],
+            raw: true,
+            type: QueryTypes.SELECT,
+          }));
 
           const whoisResult = await Promise.all(promises);
           rid = whoisResult[whoisResult.length - 1][0].id;
