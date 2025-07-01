@@ -2,7 +2,6 @@ import Sequelize, { DataTypes, QueryTypes } from 'sequelize';
 import crypto from 'crypto';
 
 import sequelize, { nestQuery } from './sequelize.js';
-import RangeData from './Range.js';
 import ProxyData from './Proxy.js';
 import WhoisReferral from './WhoisReferral.js';
 import { USE_PROXYCHECK } from '../../core/config.js';
@@ -162,15 +161,17 @@ export async function saveIPIntel(ipString, whoisData, pcData) {
 
           const expires = new Date(whoisExpiresTs);
           promises.push(sequelize.query(
+            /* eslint-disable max-len */
             `INSERT INTO Ranges (min, max, mask, country, org, descr, asn, expires) VALUES (UNHEX(?), UNHEX(?), ?, ?, ?, ?, ?, ?)
-ON DUPLICATE KEY UPDATE min = UNHEX(?), max = UNHEX(?), mask = ?, country = ?, org = ?, descr = ?, asn = ?, expires = ? RETURNING id`,{
-            replacements: [
-              range[0], range[1], range[2], country, org, descr, asn, expires,
-              range[0], range[1], range[2], country, org, descr, asn, expires,
-            ],
-            raw: true,
-            type: QueryTypes.SELECT,
-          }));
+ON DUPLICATE KEY UPDATE min = UNHEX(?), max = UNHEX(?), mask = ?, country = ?, org = ?, descr = ?, asn = ?, expires = ? RETURNING id`, {
+              /* eslint-disable max-len */
+              replacements: [
+                range[0], range[1], range[2], country, org, descr, asn, expires,
+                range[0], range[1], range[2], country, org, descr, asn, expires,
+              ],
+              raw: true,
+              type: QueryTypes.SELECT,
+            }));
 
           const whoisResult = await Promise.all(promises);
           rid = whoisResult[whoisResult.length - 1][0].id;

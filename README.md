@@ -43,8 +43,6 @@ Download the current version of pixelplanet from the [Release page](https://git.
 Configuration takes place in the `config.ini` file, or environment variables.
 Check out that config file for available options.
 
-#### Neccessary Configuration
-
 Those are options you will most likely want to adjust:
 
 | Variable       | Description              |  Example                |

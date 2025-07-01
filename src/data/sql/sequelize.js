@@ -193,9 +193,7 @@ export function jsonToSequelizeRaw(json) {
  * estabish database connection
  */
 export const sync = async (alter = false) => {
-  if (alter) {
-    await sequelize.sync({ alter: { drop: true } });
-  }
+  await sequelize.sync({ alter: { drop: alter } });
 
   /*
    * custom functions (for IP_BIN explenation, look into IP_Info comments)
