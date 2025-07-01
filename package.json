@@ -23,7 +23,6 @@
     "update-browserlist": "browserslist --update-db",
     "restart": "ssh pixelplanet /home/pixelpla/restart.sh",
     "deploy": "./deployment/deploy.sh",
-    "deploy:dev": "./deployment/deploy-dev.sh",
     "deploy:server": "./deployment/deploy-server.sh",
     "minify-css": "node scripts/minifyCss.js",
     "lint": "cd $INIT_CWD && eslint --ext .jsx --ext .js",
