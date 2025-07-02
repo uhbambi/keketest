@@ -47,7 +47,7 @@ export function isCORSAllowed(req) {
     return false;
   }
   const originHost = `.${origin.slice(origin.indexOf('//') + 2)}`;
-  const host = this.getHost(false, true);
+  const host = req.ip.getHost(false, true);
   /*
    * In some websocket requests from localhost, the origin is the loopback IP
    * and the host is localhost, it is super silly

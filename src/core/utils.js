@@ -667,6 +667,32 @@ export function combineObjects(a, b) {
 }
 
 /*
+ * combine two similar objects, replacing values, prefering b
+ */
+export function shallowCombineObjects(a, b) {
+  if (typeof b === 'undefined') {
+    return a;
+  }
+  if (typeof a === 'undefined') {
+    return b;
+  }
+  if (!Array.isArray(a) && typeof a === 'object' && typeof a === typeof b) {
+    Object.keys(a).forEach((key) => {
+      const u = a[key];
+      const v = b[key];
+      a[key] = shallowCombineObjects(u, v);
+    });
+    Object.keys(b).forEach((key) => {
+      if (!a[key]) {
+        a[key] = b[key];
+      }
+    });
+    return a;
+  }
+  return b;
+}
+
+/*
  * get YYYYMMDD of timestamp
  */
 export function getDateKeyOfTs(ts) {

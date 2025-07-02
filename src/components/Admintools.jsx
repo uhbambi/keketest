@@ -76,6 +76,23 @@ async function submitQuickAction(action, callback) {
   callback(await resp.text());
 }
 
+async function getGameState(
+  callback,
+) {
+  const data = new FormData();
+  data.append('gamestate', true);
+  const resp = await fetch(api`/api/modtools`, {
+    credentials: 'include',
+    method: 'POST',
+    body: data,
+  });
+  if (resp.ok) {
+    callback(await resp.json());
+  } else {
+    callback({
+    });
+  }
+}
 
 function Admintools() {
   const [iPAction, selectIPAction] = useState('iidtoip');
@@ -83,10 +100,15 @@ function Admintools() {
   const [txtval, setTxtval] = useState('');
   const [resp, setResp] = useState(null);
   const [modlist, setModList] = useState([]);
+  const [gameState, setGameState] = useState([]);
   const [submitting, setSubmitting] = useState(false);
 
   useEffect(() => {
     getModList((mods) => setModList(mods));
+  }, []);
+
+  useEffect(() => {
+    getGameState((stats) => setGameState(stats));
   }, []);
 
   const reqQuickAction = useCallback((action) => () => {
@@ -189,22 +211,29 @@ function Admintools() {
           {(submitting) ? '...' : t`Give Everyone A Fish`}
         </button>
         <br />
-        {/* eslint-disable-next-line max-len */}
-        Note: Verification requirement resets when server restarts. And you don&apos;t know its status unless you try it. Greeting, hf
-        <br />
-        <button
-          type="button"
-          onClick={reqQuickAction('enableverify')}
-        >
-          {(submitting) ? '...' : t`Require Verification to Place`}
-        </button>
-        <br />
-        <button
-          type="button"
-          onClick={reqQuickAction('disableverify')}
-        >
-          {(submitting) ? '...' : t`Stop requiring Verification to Place`}
-        </button>
+        {(gameState.needVerification) ? (
+          <button
+            key="disableverify"
+            type="button"
+            onClick={() => {
+              reqQuickAction('disableverify')();
+              setGameState({ ...gameState, needVerification: false });
+            }}
+          >
+            {(submitting) ? '...' : t`Stop requiring Verification to Place`}
+          </button>
+        ) : (
+          <button
+            key="enableverify"
+            type="button"
+            onClick={() => {
+              reqQuickAction('enableverify')();
+              setGameState({ ...gameState, needVerification: true });
+            }}
+          >
+            {(submitting) ? '...' : t`Require Verification to Place`}
+          </button>
+        )}
         <br />
         <div className="modaldivider" />
 
@@ -235,39 +264,6 @@ function Admintools() {
           : (
             <p>{t`There are no mods`}</p>
           )}
-        <br />
-        <div className="modaldivider" />
-        <h3>{t`Quick Actions`}</h3>
-        <button
-          type="button"
-          onClick={reqQuickAction('resetcaptchas')}
-        >
-          {(submitting) ? '...' : t`Reset Captchas of ALL Users`}
-        </button>
-        <br />
-        <button
-          type="button"
-          onClick={reqQuickAction('rollcaptchafonts')}
-        >
-          {(submitting) ? '...' : t`Roll different Captcha Fonts`}
-        </button>
-        <br />
-        {/* eslint-disable-next-line max-len */}
-        Note: Verification requirement resets when server restarts. And you don&apos;t know its status unless you try it. Greeting, hf
-        <br />
-        <button
-          type="button"
-          onClick={reqQuickAction('enableverify')}
-        >
-          {(submitting) ? '...' : t`Require Verification to Place`}
-        </button>
-        <br />
-        <button
-          type="button"
-          onClick={reqQuickAction('disableverify')}
-        >
-          {(submitting) ? '...' : t`Stop requiring Verification to Place`}
-        </button>
         <br />
         <p>
           {t`Assign new Mod`}

@@ -17,6 +17,7 @@ import { rollCaptchaFonts } from './captchaserver.js';
 import { getBanInfos } from '../data/sql/Ban.js';
 import { getTPIDsOfUser, getTPIDHistoryOfUser } from '../data/sql/ThreePID.js';
 import { ban, unban, whitelist, unwhitelist } from './ban.js';
+import { setState } from './SharedState.js';
 import { censorIdentifier } from './utils.js';
 import {
   getIPInfos,
@@ -106,11 +107,11 @@ export async function executeQuickAction(action, logger = null) {
       return `Reset ${amount} Captchas and JS Challenges!`;
     }
     case 'enableverify': {
-      socketEvents.broadcastVerificationRequirement(true);
+      setState({ needVerification: true });
       return 'Enabled Verification Requirement';
     }
     case 'disableverify': {
-      socketEvents.broadcastVerificationRequirement(false);
+      setState({ needVerification: false });
       return 'Disabled Verification Requirement';
     }
     case 'givefishes': {

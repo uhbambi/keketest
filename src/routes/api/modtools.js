@@ -24,6 +24,7 @@ import {
   makeMod,
   executeQuickAction,
 } from '../../core/adminfunctions.js';
+import { getState } from '../../core/SharedState.js';
 import { USERLVL } from '../../data/sql/index.js';
 
 
@@ -251,6 +252,12 @@ router.post('/', async (req, res, next) => {
     }
     if (req.body.modlist) {
       const ret = await getModList();
+      res.status(200);
+      res.json(ret);
+      return;
+    }
+    if (req.body.gamestate) {
+      const ret = getState();
       res.status(200);
       res.json(ret);
       return;

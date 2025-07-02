@@ -2,15 +2,17 @@
  * send information about next void
  */
 
-import rpgEvent from '../core/RpgEvent.js';
+import { getState } from '../core/SharedState.js';
 
 export default (req, res) => {
   res.set({
     'Cache-Control': `public, max-age=${5 * 60}`,
   });
 
-  if (rpgEvent.eventTimestamp) {
-    const time = new Date(rpgEvent.eventTimestamp);
+  const eventTimestamp = getState().void?.eventTimestamp;
+
+  if (eventTimestamp) {
+    const time = new Date(eventTimestamp);
     res.send(`Next void at ${time.toUTCString()}`);
   } else {
     res.send('No void');

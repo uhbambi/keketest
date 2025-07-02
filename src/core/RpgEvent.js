@@ -19,6 +19,7 @@ import { protectCanvasArea } from './Image.js';
 import { setPixelByOffset } from './setPixel.js';
 import { TILE_SIZE, EVENT_USER_NAME } from './constants.js';
 import socketEvents from '../socket/socketEvents.js';
+import { setState } from './SharedState.js';
 import chatProvider from './ChatProvider.js';
 import canvases from './canvases.js';
 
@@ -120,6 +121,13 @@ class RpgEvent {
         const [x, y, w, h] = this.eventArea;
         await protectCanvasArea(CANVAS_ID, x, y, w, h, true);
       }
+      /*
+       * This state is being updated in parallel now, while we do follow
+       * redis. This update only happens to have other shards know when there
+       * is void
+       * TODO: use sharedState for storage and revoery instead of redis
+       */
+      setState({ void: { eventTimestamp } });
       this.eventTimestamp = eventTimestamp;
       await this.calcEventCenter();
       logger.info('initialized Event');
@@ -169,7 +177,7 @@ class RpgEvent {
     const j = Math.floor(Math.random() * (canvasSize / TILE_SIZE - 2)) + 1;
     // backup it and schedule next event in 1h
     await setNextEvent(EVENT_GAP_MIN, i, j);
-    const timestamp = await nextEvent();
+    const eventTimestamp = await nextEvent();
     const x = i * TILE_SIZE - canvasSize / 2;
     const y = j * TILE_SIZE - canvasSize / 2;
     RpgEvent.broadcastChatMessage(
@@ -177,7 +185,7 @@ class RpgEvent {
     );
     drawCross([i, j], 19, 0, 13);
     logger.info(`Set next Event in 60min at ${x},${y}`);
-    return timestamp;
+    return eventTimestamp;
   }
 
   static broadcastChatMessage(message) {
@@ -385,7 +393,9 @@ class RpgEvent {
       // 52min after last Event / 1h before next Event
       // define and protect it
       if (socketEvents.onlineCounter.total < USER_THRESHOLD) {
-        this.eventTimestamp = await RpgEvent.setNextEvent();
+        const eventTimestamp = await RpgEvent.setNextEvent();
+        this.eventTimestamp = eventTimestamp;
+        setState({ void: { eventTimestamp } });
         await this.calcEventCenter();
         const [x, y, w, h] = this.eventArea;
         await protectCanvasArea(CANVAS_ID, x, y, w, h, true);

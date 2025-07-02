@@ -11,6 +11,7 @@ import { USERLVL } from '../data/sql/index.js';
 import socketEvents from '../socket/socketEvents.js';
 import { getCooldownFactor } from './CooldownModifiers.js';
 import { setPixelByOffset } from './setPixel.js';
+import { getState } from './SharedState.js';
 import canvases from './canvases.js';
 
 import {
@@ -18,12 +19,8 @@ import {
 } from './constants.js';
 
 let coolDownFactor = 1;
-let needVerification = false;
 socketEvents.on('setCoolDownFactor', (newFac) => {
   coolDownFactor = newFac;
-});
-socketEvents.on('setVerificationRequirement', (req) => {
-  needVerification = req;
 });
 
 /*
@@ -185,7 +182,7 @@ export default async function drawByOffsets(
       cdIfNull = 0;
     }
 
-    if (needVerification && user?.userlvl < USERLVL.VERIFIED) {
+    if (getState().needVerification && user?.userlvl < USERLVL.VERIFIED) {
       throw new Error(17);
     }
 

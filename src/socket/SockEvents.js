@@ -271,14 +271,6 @@ class SocketEvents extends EventEmitter {
   }
 
   /**
-   * broadcast whether or not users have to be verified to place
-   * @param required boolean
-   */
-  broadcastVerificationRequirement(required) {
-    this.emit('setVerificationRequirement', required);
-  }
-
-  /**
    * trigger rate limit of ip
    * @param ip
    * @param blockTime in ms
@@ -352,6 +344,15 @@ class SocketEvents extends EventEmitter {
    */
   broadcastIPCooldownModifier(ip, factor, endTime) {
     this.emit('ipCooldownModifier', ip, factor, endTime);
+  }
+
+  /**
+   * update shared state (see core/SharedState.js), this can
+   * be a partial state, that will then be merged together
+   * @param state shared state
+   */
+  updateSharedState(state) {
+    this.emit('sharedstate', state);
   }
 
   /**
