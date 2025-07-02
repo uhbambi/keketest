@@ -75,13 +75,17 @@ router.use('/guilded', (req, res) => {
 });
 
 /*
+ * Following with CORS,
+ * this also means that all the landing pages are CORS, which is weird,
+ * but it is the simplest way to make CDN_URL CORS aware
+ */
+router.use(cors);
+
+/*
  * if we get accessed by CDN, only serve static files
  */
 router.use((req, res, next) => {
   if (CDN_HOST && CDN_HOST === req.ip.getHost(false, false)) {
-    res.set({
-      'Access-Control-allow-origin': '*',
-    });
     express.static(
       path.join(__dirname, 'public'), staticConfig,
     )(req, res, () => {
@@ -182,12 +186,6 @@ router.get('/', (req, res) => {
  * Password Reset Link
  */
 router.use('/reset_password', resetPassword);
-
-/*
- * Following with CORS
- * ---------------------------------------------------------------------------
- */
-router.use(cors);
 
 /*
  * API calls
