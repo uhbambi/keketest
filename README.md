@@ -24,7 +24,7 @@ Click or tab: Place Pixel
 
 ### Requirements
 
-- [nodejs environment](https://nodejs.org/en/) (>=18)
+- [nodejs environment](https://nodejs.org/en/) (>=20)
 - [redis](https://redis.io/) or [redis-for-windows](https://github.com/redis-windows/redis-windows) in version **6.2.0 or above** as database for storìng the canvas
 - mysql or mariadb, and set up an own user with password and database for pixelplanet, in example in `mysql` run as `root`:
 
@@ -92,22 +92,12 @@ Notes:
 - The colors that are ignored via `cli` are used for making the canvas (blue ocean and white continents) and to know if the pixel is already set by a user or not.
 - If you want to add a new canvas, be sure that you additionally create `public/loading${canvasId}.png`, `public/assets3d/normal${canvasId}.jpg`, `public/preview${canvasId}.png` and `public/assets3d/specular${canvasId}.jpg`, check out the existing ones to see what those files are for.
 
-#### Styles
-
-To add more css styles, create a new css file in `src/styles` based on `src/styles/default.css` with a filename beginning with "theme-" and rebuild`
-
 ### Preperation
 
-Install required packages
+Inside the pixelplanet folder, install the required packages:
 
 ```
 npm install
-```
-
-and [pm2](https://pm2.keymetrics.io/docs/usage/quick-start/) is used as process manager to restart on error and provie logging:
-
-```
-npm install -g pm2
 ```
 
 ### Running
@@ -116,61 +106,23 @@ npm install -g pm2
 3. Start with
 
 ```
-pm2 start ecosystem.yml
+npm start
 ```
 
-> NOTE: On Windows you might have to prepend `npx`, like: `npx pm2 start ecosystem.yml`
-
-Now you can access pixelplanet on `http://localhost:5000` or whatever oder *HOST* and *PORT* you chose.
-
-### Logging
-
-General logs are in `~/pm2/log/`, you can view them with
-
-```
-pm2 log ppfun
-```
-
-you can flush the logs with
-
-```
-pm2 log flush
-```
-
-Pixel placing logs are in `./log/pixels.log`and proxycheck logs in `./log/proxies.log` in the directory where you start pixelplaent. They get rotated daily and deleted if >14d old.
+Now you can access pixelplanet on `http://localhost:5000` or whatever oder *HOST* and *PORT* you chose inside `config.ini.
 
 ### Stopping
 
-```
-pm2 stop ppfun
-```
+Press Ctrl-C
 
-### If using reverse Proxy
+### What to do next
 
-If USE\_XREALIP is set, we take the IP from the X-Real-Ip header. Use this if you have pixelplanet running behind a reverse proxy like nginx (recommended). Use the nginx set\_realip module to give us the client ip on the `X-Real-Ip` header (and set it up so that just cloudflare are trusted proxy IPs, if you use them, or else players could fake their IP). And be sure to also set `X-Forwarded-Host`, `X-Forwarded-Port` and set `X-Forwarded-Proto`, because we use it for CORS and redirecion.
-
-### Auto-Start
-To have the canvas with all it's components autostart at systemstart,
-enable mysql, redis (and probably nginx if you use it) according to your system (`systemctl enable ...`)
-And then setup pm2 startup with:
-
-```
-pm2 startup
-```
-
-(execute as the user that is running pixelplanet)
-And follow the printed steps if needed. This will generate a systemctl service file `/etc/systemd/system/pm2-pixelplanet.service` and enable it. You will have to run `pm2 save` while the canvas is running to let pm2 know what to start.
-To make sure that mysql and redis are up when pixelplanet starts, edit this service file and modify the lines:
-
-```
-Wants=network-online.target
-After=network.target mysql.service redis.service
-```
+Read [DEPLOYMENT.md](./doc/DEPLOYMENT.md) for tips on how to run it on a server.
 
 ## Build
 
 ### Requirements
-- [nodejs environment](https://nodejs.org/en/) (>=18)
+- [nodejs environment](https://nodejs.org/en/) (>=20)
 
 ### Building
 Checkout repository
@@ -207,6 +159,10 @@ To build only specific languages, you can define them with the `--langs` flag:
 ```
 npm run build -- --langs de,gr
 ```
+
+## Styles
+
+To add more css styles, create a new css file in `src/styles` based on `src/styles/default.css` with a filename beginning with "theme-" and rebuild`.
 
 ## Hourly Event
 

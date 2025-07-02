@@ -16,7 +16,7 @@ async function destruct() {
   console.log('This migration script can potentially destroy your database! You have 15s to cancel by Ctrl-C before it starts.');
   await new Promise((res) => setTimeout(res, 15000));
 
-  console.log(`Moving and cleaning up old data... this can take a long time!`);
+  console.log(`Moving and cleaning up old data... this can take a LONG time!`);
 
   await sequelize.query(`DELETE m FROM Messages m LEFT JOIN (SELECT id FROM (SELECT id, ROW_NUMBER() OVER (PARTITION BY cid ORDER BY id DESC) as rn FROM Messages) ranked WHERE rn <= 1000) keep ON m.id = keep.id WHERE keep.id IS NULL;
 
@@ -72,8 +72,6 @@ INSERT IGNORE INTO UserBlocks (uid, buid) SELECT uid, buid FROM OLD_UserBlocks;`
 
   await sequelize.query(`INSERT IGNORE INTO Fishes (id, uid, type, size, createdAt) SELECT id, uid, type, size, createdAt from OLD_Fishes;
 
-INSERT IGNORE INTO ThreePIDHistories (uid, provider, tpid, verified, lastSeen, createdAt) SELECT id, 1, email, verified & 1, createdAt, createdAt FROM Oldusers o WHERE o.email IS NOT NULL;
-
 INSERT IGNORE INTO ThreePIDs (provider, tpid, verified, lastSeen, createdAt, uid) SELECT 1, email, verified & 1, COALESCE(lastLogIn, NOW()), createdAt, id FROM OLD_Users o WHERE o.email IS NOT NULL;
 
 INSERT IGNORE INTO ThreePIDs (provider, tpid, verified, lastSeen, createdAt, uid) SELECT 2, discordid, 1, COALESCE(lastLogIn, NOW()), createdAt, id FROM OLD_Users WHERE discordid IS NOT NULL;
@@ -90,7 +88,6 @@ DROP Table OLD_UserChannels;
 DROP Table OLD_Channels;
 DROP Table OLD_Users;
 DROP Table OLD_Whitelists;
-DROP Table Oldusers;
 `,{
     type: sequelize.QueryTypes.RAW,
     multipleStatements: true,
