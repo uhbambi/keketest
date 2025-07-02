@@ -179,14 +179,6 @@ msgstr ""
 msgid "Easter Egg OFF"
 msgstr ""
 
-#: src/ui/rendererFactory.js:32
-msgid "Canvas Error"
-msgstr ""
-
-#: src/ui/rendererFactory.js:33
-msgid "Can't render 3D canvas, do you have WebGL2 disabled?"
-msgstr ""
-
 #: src/ui/templateLoader.js:230
 #: src/ui/templateLoader.js:256
 msgid "Error :("
@@ -198,6 +190,14 @@ msgstr ""
 
 #: src/ui/templateLoader.js:257
 msgid "Can not import more than 20 or no template!"
+msgstr ""
+
+#: src/ui/rendererFactory.js:32
+msgid "Canvas Error"
+msgstr ""
+
+#: src/ui/rendererFactory.js:33
+msgid "Can't render 3D canvas, do you have WebGL2 disabled?"
 msgstr ""
 
 #: src/components/BanInfo.jsx:160
@@ -297,11 +297,6 @@ msgstr ""
 msgid "Total"
 msgstr ""
 
-#: src/components/buttons/CanvasSwitchButton.jsx:20
-#: src/components/windows/index.js:21
-msgid "Canvas Selection"
-msgstr ""
-
 #: src/store/actions/fetch.js:40
 msgid "You made too many requests"
 msgstr ""
@@ -333,6 +328,11 @@ msgstr ""
 msgid "Server answered with gibberish :("
 msgstr ""
 
+#: src/components/buttons/CanvasSwitchButton.jsx:20
+#: src/components/windows/index.js:21
+msgid "Canvas Selection"
+msgstr ""
+
 #: src/components/buttons/ChatButton.jsx:79
 msgid "Close Chat"
 msgstr ""
@@ -349,19 +349,7 @@ msgstr ""
 msgid "Open Menu"
 msgstr ""
 
-#: src/components/HistorySelect.jsx:156
-msgid "Loading"
-msgstr ""
-
-#: src/components/HistorySelect.jsx:157
-msgid "Select Date above"
-msgstr ""
-
-#: src/components/Fish.jsx:39
-msgid "A Phish!"
-msgstr ""
-
-#: src/components/Admintools.jsx:116
+#: src/components/Admintools.jsx:138
 #: src/components/ModCanvastools.jsx:227
 #: src/components/ModWatchtools.jsx:118
 #: src/components/Window.jsx:164
@@ -394,10 +382,16 @@ msgstr ""
 msgid "Resize"
 msgstr ""
 
-#: src/components/BanInfo.jsx:87
-#: src/components/buttons/HelpButton.jsx:20
-#: src/components/windows/index.js:15
-msgid "Help"
+#: src/components/HistorySelect.jsx:156
+msgid "Loading"
+msgstr ""
+
+#: src/components/HistorySelect.jsx:157
+msgid "Select Date above"
+msgstr ""
+
+#: src/components/Fish.jsx:39
+msgid "A Phish!"
 msgstr ""
 
 #: src/components/buttons/SettingsButton.jsx:21
@@ -405,12 +399,17 @@ msgstr ""
 msgid "Settings"
 msgstr ""
 
-#: src/components/buttons/GlobeButton.jsx:34
-msgid "Globe View"
-msgstr ""
-
 #: src/components/buttons/DownloadButton.jsx:36
 msgid "Make Screenshot"
+msgstr ""
+
+#: src/components/buttons/LogInButton.jsx:20
+#: src/components/windows/index.js:17
+msgid "User Area"
+msgstr ""
+
+#: src/components/buttons/GlobeButton.jsx:34
+msgid "Globe View"
 msgstr ""
 
 #: src/components/buttons/PalselButton.jsx:30
@@ -419,11 +418,6 @@ msgstr ""
 
 #: src/components/buttons/PalselButton.jsx:30
 msgid "Open Palette"
-msgstr ""
-
-#: src/components/buttons/LogInButton.jsx:20
-#: src/components/windows/index.js:17
-msgid "User Area"
 msgstr ""
 
 #: src/components/buttons/PencilButton.jsx:41
@@ -440,6 +434,12 @@ msgstr ""
 
 #: src/components/buttons/PencilButton.jsx:54
 msgid "Disable Overlay Pencil"
+msgstr ""
+
+#: src/components/BanInfo.jsx:87
+#: src/components/buttons/HelpButton.jsx:20
+#: src/components/windows/index.js:15
+msgid "Help"
 msgstr ""
 
 #: src/components/windows/index.js:18
@@ -521,10 +521,6 @@ msgstr ""
 msgid "Send"
 msgstr ""
 
-#: src/components/RefreshPrompt.jsx:14
-msgid "Refresh"
-msgstr ""
-
 #: src/components/BanInfo.jsx:78
 msgid "You are banned. You think it is unjustified? Check out the "
 msgstr ""
@@ -567,6 +563,10 @@ msgstr ""
 
 #: src/components/BanInfo.jsx:155
 msgid "Why?"
+msgstr ""
+
+#: src/components/RefreshPrompt.jsx:14
+msgid "Refresh"
 msgstr ""
 
 #: src/components/windows/Settings.jsx:72
@@ -936,7 +936,7 @@ msgid ""
 "any time. All characters except @, /, , >, < and # are allowed."
 msgstr ""
 
-#: src/components/Admintools.jsx:285
+#: src/components/Admintools.jsx:281
 #: src/components/windows/Register.jsx:108
 msgid "User Name"
 msgstr ""
@@ -1008,8 +1008,8 @@ msgstr ""
 msgid "Captcha"
 msgstr ""
 
-#: src/components/Admintools.jsx:165
-#: src/components/Admintools.jsx:311
+#: src/components/Admintools.jsx:187
+#: src/components/Admintools.jsx:307
 #: src/components/ModCanvastools.jsx:313
 #: src/components/ModCanvastools.jsx:404
 #: src/components/ModCanvastools.jsx:482
@@ -1085,10 +1085,6 @@ msgstr ""
 msgid "Channel settings"
 msgstr ""
 
-#: src/components/windows/Player.jsx:17
-msgid "This URL is not supported by our Media Player"
-msgstr ""
-
 #: src/components/windows/FishDisplay.jsx:36
 msgid "Size"
 msgstr ""
@@ -1103,6 +1099,10 @@ msgstr ""
 
 #: src/components/windows/ForgotPassword.jsx:69
 msgid "Enter your mail address and we will send you a new password:"
+msgstr ""
+
+#: src/components/windows/Player.jsx:17
+msgid "This URL is not supported by our Media Player"
 msgstr ""
 
 #: src/components/Captcha.jsx:66
@@ -1135,15 +1135,6 @@ msgstr ""
 
 #: src/components/Captcha.jsx:273
 msgid "Enter Characters"
-msgstr ""
-
-#: src/components/ChangeMail.jsx:167
-#: src/components/ChangeName.jsx:68
-#: src/components/ChangePassword.jsx:118
-#: src/components/ChangeUsername.jsx:70
-#: src/components/LanguageSelect.jsx:80
-#: src/components/TemplateItemEdit.jsx:209
-msgid "Save"
 msgstr ""
 
 #: src/components/TemplateSettings.jsx:52
@@ -1198,6 +1189,39 @@ msgstr ""
 msgid "Import templates"
 msgstr ""
 
+#: src/components/ChangeMail.jsx:167
+#: src/components/ChangeName.jsx:68
+#: src/components/ChangePassword.jsx:118
+#: src/components/ChangeUsername.jsx:70
+#: src/components/LanguageSelect.jsx:80
+#: src/components/TemplateItemEdit.jsx:209
+msgid "Save"
+msgstr ""
+
+#: src/components/LogInArea.jsx:20
+msgid "Login to access more features and stats."
+msgstr ""
+
+#: src/components/LogInArea.jsx:22
+msgid "Login with Name or Mail:"
+msgstr ""
+
+#: src/components/LogInArea.jsx:30
+msgid "I forgot my Password."
+msgstr ""
+
+#: src/components/LogInArea.jsx:33
+msgid "or login with:"
+msgstr ""
+
+#: src/components/LogInArea.jsx:74
+msgid "or register here:"
+msgstr ""
+
+#: src/components/LogInArea.jsx:79
+msgid "Register"
+msgstr ""
+
 #: src/components/UserAreaContent.jsx:80
 msgid "Today Placed Pixels"
 msgstr ""
@@ -1244,30 +1268,6 @@ msgstr ""
 
 #: src/components/UserAreaContent.jsx:164
 msgid "Social Settings"
-msgstr ""
-
-#: src/components/LogInArea.jsx:20
-msgid "Login to access more features and stats."
-msgstr ""
-
-#: src/components/LogInArea.jsx:22
-msgid "Login with Name or Mail:"
-msgstr ""
-
-#: src/components/LogInArea.jsx:30
-msgid "I forgot my Password."
-msgstr ""
-
-#: src/components/LogInArea.jsx:33
-msgid "or login with:"
-msgstr ""
-
-#: src/components/LogInArea.jsx:74
-msgid "or register here:"
-msgstr ""
-
-#: src/components/LogInArea.jsx:79
-msgid "Register"
 msgstr ""
 
 #: src/components/Converter.jsx:191
@@ -1401,53 +1401,6 @@ msgstr ""
 msgid "Get IID"
 msgstr ""
 
-#: src/components/CanvasItem.jsx:30
-msgid "Online Users"
-msgstr ""
-
-#: src/components/CanvasItem.jsx:35
-msgid "Cooldown"
-msgstr ""
-
-#: src/components/CanvasItem.jsx:41
-msgid "Stacking till"
-msgstr ""
-
-#: src/components/CanvasItem.jsx:43
-msgid "Ranked"
-msgstr ""
-
-#: src/components/CanvasItem.jsx:45
-msgid "Yes"
-msgstr ""
-
-#: src/components/CanvasItem.jsx:45
-msgid "No"
-msgstr ""
-
-#: src/components/CanvasItem.jsx:51
-msgid "Requirements"
-msgstr ""
-
-#: src/components/CanvasItem.jsx:54
-msgid "User Account"
-msgstr ""
-
-#: src/components/CanvasItem.jsx:56
-#, javascript-format
-msgid "and ${ canvas.req } Pixels set"
-msgstr ""
-
-#: src/components/CanvasItem.jsx:59
-msgid "Top 10 Daily Ranking"
-msgstr ""
-
-#: src/components/CanvasItem.jsx:65
-#: src/components/TemplateItem.jsx:60
-#: src/components/TemplateItemEdit.jsx:160
-msgid "Dimensions"
-msgstr ""
-
 #: src/utils/validation.js:17
 msgid "Email can't be empty."
 msgstr ""
@@ -1496,9 +1449,8 @@ msgstr ""
 msgid "Userame must be shorter than 26 characters"
 msgstr ""
 
-#: src/components/ChangeUsername.jsx:60
 #: src/utils/validation.js:51
-msgid "Username can only contain the characters: a-z A-z . _ and -"
+msgid "Username can only contain the characters: a-z . _ and -"
 msgstr ""
 
 #: src/utils/validation.js:66
@@ -1513,12 +1465,51 @@ msgstr ""
 msgid "Password must be shorter than 60 characters."
 msgstr ""
 
-#: src/components/TemplateItemEdit.jsx:97
-msgid "Select File"
+#: src/components/CanvasItem.jsx:30
+msgid "Online Users"
 msgstr ""
 
-#: src/components/TemplateItemEdit.jsx:120
-msgid "Template Name"
+#: src/components/CanvasItem.jsx:35
+msgid "Cooldown"
+msgstr ""
+
+#: src/components/CanvasItem.jsx:41
+msgid "Stacking till"
+msgstr ""
+
+#: src/components/CanvasItem.jsx:43
+msgid "Ranked"
+msgstr ""
+
+#: src/components/CanvasItem.jsx:45
+msgid "Yes"
+msgstr ""
+
+#: src/components/CanvasItem.jsx:45
+msgid "No"
+msgstr ""
+
+#: src/components/CanvasItem.jsx:51
+msgid "Requirements"
+msgstr ""
+
+#: src/components/CanvasItem.jsx:54
+msgid "User Account"
+msgstr ""
+
+#: src/components/CanvasItem.jsx:56
+#, javascript-format
+msgid "and ${ canvas.req } Pixels set"
+msgstr ""
+
+#: src/components/CanvasItem.jsx:59
+msgid "Top 10 Daily Ranking"
+msgstr ""
+
+#: src/components/CanvasItem.jsx:65
+#: src/components/TemplateItem.jsx:60
+#: src/components/TemplateItemEdit.jsx:160
+msgid "Dimensions"
 msgstr ""
 
 #: src/components/ModWatchtools.jsx:123
@@ -1532,16 +1523,44 @@ msgstr ""
 msgid "Coordinates"
 msgstr ""
 
-#: src/components/TemplateItemEdit.jsx:174
-msgid "Delete"
-msgstr ""
-
 #: src/components/TemplateItem.jsx:71
 msgid "Edit"
 msgstr ""
 
 #: src/components/TemplateItem.jsx:81
 msgid "Go to"
+msgstr ""
+
+#: src/components/TemplateItemEdit.jsx:97
+msgid "Select File"
+msgstr ""
+
+#: src/components/TemplateItemEdit.jsx:120
+msgid "Template Name"
+msgstr ""
+
+#: src/components/TemplateItemEdit.jsx:174
+msgid "Delete"
+msgstr ""
+
+#: src/components/LogInForm.jsx:80
+msgid "Name or Email"
+msgstr ""
+
+#: src/components/LogInForm.jsx:101
+msgid "LogIn"
+msgstr ""
+
+#: src/components/FishList.jsx:24
+msgid "Phishes"
+msgstr ""
+
+#: src/components/FishList.jsx:64
+msgid "Retract"
+msgstr ""
+
+#: src/components/FishList.jsx:64
+msgid "Expand"
 msgstr ""
 
 #: src/components/UserMessages.jsx:32
@@ -1556,18 +1575,6 @@ msgstr ""
 
 #: src/components/UserMessages.jsx:48
 msgid "Click here to request a new verification mail."
-msgstr ""
-
-#: src/components/FishList.jsx:24
-msgid "Phishes"
-msgstr ""
-
-#: src/components/FishList.jsx:64
-msgid "Retract"
-msgstr ""
-
-#: src/components/FishList.jsx:64
-msgid "Expand"
 msgstr ""
 
 #: src/components/ChangePassword.jsx:21
@@ -1604,28 +1611,12 @@ msgstr ""
 msgid "YOU CAN ONLY CHOOSE YOUR USERNAME ONCE!"
 msgstr ""
 
+#: src/components/ChangeUsername.jsx:60
+msgid "Username can only contain the characters: a-z A-z . _ and -"
+msgstr ""
+
 #: src/components/ChangeUsername.jsx:66
 msgid "New Username"
-msgstr ""
-
-#: src/components/ChangeMail.jsx:121
-msgid "To use this page, enter your Password:"
-msgstr ""
-
-#: src/components/ChangeMail.jsx:136
-msgid "...loading Login methods..."
-msgstr ""
-
-#: src/components/ChangeMail.jsx:144
-msgid "Remove a Login method:"
-msgstr ""
-
-#: src/components/ChangeMail.jsx:158
-msgid "Change your Mail Adress here:"
-msgstr ""
-
-#: src/components/ChangeMail.jsx:164
-msgid "New Mail"
 msgstr ""
 
 #: src/components/DeleteAccount.jsx:75
@@ -1659,160 +1650,76 @@ msgstr ""
 msgid "You have no users blocked"
 msgstr ""
 
-#: src/components/LogInForm.jsx:80
-msgid "Name or Email"
-msgstr ""
-
-#: src/components/LogInForm.jsx:101
-msgid "LogIn"
-msgstr ""
-
-#: src/components/ModWatchtools.jsx:49
-msgid "Interval is invalid"
-msgstr ""
-
-#: src/components/ModWatchtools.jsx:122
-msgid "Check who placed in an area"
-msgstr ""
-
-#: src/components/ModWatchtools.jsx:142
-msgid "Interval"
-msgstr ""
-
-#: src/components/ModWatchtools.jsx:157
-msgid "IID (optional)"
-msgstr ""
-
-#: src/components/ModCanvastools.jsx:342
-#: src/components/ModCanvastools.jsx:419
-#: src/components/ModCanvastools.jsx:513
-#: src/components/ModWatchtools.jsx:174
-msgid "Top-left corner"
-msgstr ""
-
-#: src/components/ModCanvastools.jsx:364
-#: src/components/ModCanvastools.jsx:441
-#: src/components/ModCanvastools.jsx:535
-#: src/components/ModWatchtools.jsx:196
-msgid "Bottom-right corner"
-msgstr ""
-
-#: src/components/ModWatchtools.jsx:247
-msgid "Get Pixels"
-msgstr ""
-
-#: src/components/ModWatchtools.jsx:279
-msgid "Get Users"
-msgstr ""
-
-#: src/components/ModWatchtools.jsx:421
-msgid "Copy UserId to Clipboard"
-msgstr ""
-
-#: src/components/Admintools.jsx:122
+#: src/components/Admintools.jsx:144
 msgid "IP Actions"
 msgstr ""
 
-#: src/components/Admintools.jsx:124
+#: src/components/Admintools.jsx:146
 msgid "Do stuff with IPs (one IP per line)"
 msgstr ""
 
-#: src/components/Admintools.jsx:170
-#: src/components/Admintools.jsx:240
+#: src/components/Admintools.jsx:192
 msgid "Quick Actions"
 msgstr ""
 
-#: src/components/Admintools.jsx:175
-#: src/components/Admintools.jsx:245
+#: src/components/Admintools.jsx:197
 msgid "Reset Captchas of ALL Users"
 msgstr ""
 
-#: src/components/Admintools.jsx:182
-#: src/components/Admintools.jsx:252
+#: src/components/Admintools.jsx:204
 msgid "Roll different Captcha Fonts"
 msgstr ""
 
-#: src/components/Admintools.jsx:189
+#: src/components/Admintools.jsx:211
 msgid "Give Everyone A Fish"
 msgstr ""
 
-#: src/components/Admintools.jsx:199
-#: src/components/Admintools.jsx:262
-msgid "Require Verification to Place"
-msgstr ""
-
-#: src/components/Admintools.jsx:206
-#: src/components/Admintools.jsx:269
+#: src/components/Admintools.jsx:223
 msgid "Stop requiring Verification to Place"
 msgstr ""
 
-#: src/components/Admintools.jsx:211
+#: src/components/Admintools.jsx:234
+msgid "Require Verification to Place"
+msgstr ""
+
+#: src/components/Admintools.jsx:240
 msgid "Manage Moderators"
 msgstr ""
 
-#: src/components/Admintools.jsx:213
+#: src/components/Admintools.jsx:242
 msgid "Remove Moderator"
 msgstr ""
 
-#: src/components/Admintools.jsx:236
+#: src/components/Admintools.jsx:265
 msgid "There are no mods"
 msgstr ""
 
-#: src/components/Admintools.jsx:273
+#: src/components/Admintools.jsx:269
 msgid "Assign new Mod"
 msgstr ""
 
-#: src/components/Admintools.jsx:276
+#: src/components/Admintools.jsx:272
 msgid "Enter UserName of new Mod"
 msgstr ""
 
-#: src/components/ModIIDtools.jsx:30
-msgid "You must enter an IID"
+#: src/components/ChangeMail.jsx:121
+msgid "To use this page, enter your Password:"
 msgstr ""
 
-#: src/components/ModIIDtools.jsx:37
-msgid "You must enter an BID"
+#: src/components/ChangeMail.jsx:136
+msgid "...loading Login methods..."
 msgstr ""
 
-#: src/components/ModIIDtools.jsx:44
-msgid "You must enter an IID or UserId"
+#: src/components/ChangeMail.jsx:144
+msgid "Remove a Login method:"
 msgstr ""
 
-#: src/components/ModIIDtools.jsx:51
-msgid "You must enter a UserId"
+#: src/components/ChangeMail.jsx:158
+msgid "Change your Mail Adress here:"
 msgstr ""
 
-#: src/components/ModIIDtools.jsx:54
-msgid "You must enter a username"
-msgstr ""
-
-#: src/components/ModIIDtools.jsx:63
-msgid "You must enter a duration"
-msgstr ""
-
-#: src/components/ModIIDtools.jsx:66
-msgid "You must enter a reason"
-msgstr ""
-
-#: src/components/ModIIDtools.jsx:74
-msgid "You must enter at least one IID, User Id or BID"
-msgstr ""
-
-#: src/components/ModIIDtools.jsx:118
-msgid "IID Actions"
-msgstr ""
-
-#: src/components/ModIIDtools.jsx:148
-#: src/components/ModIIDtools.jsx:246
-msgid "Enter Reason"
-msgstr ""
-
-#: src/components/ModIIDtools.jsx:165
-msgid "(0 = infinite)"
-msgstr ""
-
-#: src/components/ModIIDtools.jsx:239
-msgid "Username"
+#: src/components/ChangeMail.jsx:164
+msgid "New Mail"
 msgstr ""
 
 #: src/components/ModCanvastools.jsx:169
@@ -1880,6 +1787,20 @@ msgid ""
 "with image upload and alpha layers)"
 msgstr ""
 
+#: src/components/ModCanvastools.jsx:342
+#: src/components/ModCanvastools.jsx:419
+#: src/components/ModCanvastools.jsx:513
+#: src/components/ModWatchtools.jsx:174
+msgid "Top-left corner"
+msgstr ""
+
+#: src/components/ModCanvastools.jsx:364
+#: src/components/ModCanvastools.jsx:441
+#: src/components/ModCanvastools.jsx:535
+#: src/components/ModWatchtools.jsx:196
+msgid "Bottom-right corner"
+msgstr ""
+
 #: src/components/ModCanvastools.jsx:410
 msgid "Rollback to Date"
 msgstr ""
@@ -1898,6 +1819,83 @@ msgstr ""
 
 #: src/components/ModCanvastools.jsx:601
 msgid "Stop Cleaner"
+msgstr ""
+
+#: src/components/ModWatchtools.jsx:49
+msgid "Interval is invalid"
+msgstr ""
+
+#: src/components/ModWatchtools.jsx:122
+msgid "Check who placed in an area"
+msgstr ""
+
+#: src/components/ModWatchtools.jsx:142
+msgid "Interval"
+msgstr ""
+
+#: src/components/ModWatchtools.jsx:157
+msgid "IID (optional)"
+msgstr ""
+
+#: src/components/ModWatchtools.jsx:247
+msgid "Get Pixels"
+msgstr ""
+
+#: src/components/ModWatchtools.jsx:279
+msgid "Get Users"
+msgstr ""
+
+#: src/components/ModWatchtools.jsx:421
+msgid "Copy UserId to Clipboard"
+msgstr ""
+
+#: src/components/ModIIDtools.jsx:30
+msgid "You must enter an IID"
+msgstr ""
+
+#: src/components/ModIIDtools.jsx:37
+msgid "You must enter an BID"
+msgstr ""
+
+#: src/components/ModIIDtools.jsx:44
+msgid "You must enter an IID or UserId"
+msgstr ""
+
+#: src/components/ModIIDtools.jsx:51
+msgid "You must enter a UserId"
+msgstr ""
+
+#: src/components/ModIIDtools.jsx:54
+msgid "You must enter a username"
+msgstr ""
+
+#: src/components/ModIIDtools.jsx:63
+msgid "You must enter a duration"
+msgstr ""
+
+#: src/components/ModIIDtools.jsx:66
+msgid "You must enter a reason"
+msgstr ""
+
+#: src/components/ModIIDtools.jsx:74
+msgid "You must enter at least one IID, User Id or BID"
+msgstr ""
+
+#: src/components/ModIIDtools.jsx:118
+msgid "IID Actions"
+msgstr ""
+
+#: src/components/ModIIDtools.jsx:148
+#: src/components/ModIIDtools.jsx:246
+msgid "Enter Reason"
+msgstr ""
+
+#: src/components/ModIIDtools.jsx:165
+msgid "(0 = infinite)"
+msgstr ""
+
+#: src/components/ModIIDtools.jsx:239
+msgid "Username"
 msgstr ""
 
 #: src/core/chartSettings.js:30
@@ -1930,6 +1928,10 @@ msgid ""
 "In example in the case of a streamer raid."
 msgstr ""
 
+#: src/components/contextmenus/ChannelContextMenu.jsx:46
+msgid "Mute"
+msgstr ""
+
 #: src/components/contextmenus/UserContextMenu.jsx:49
 msgid "Ping"
 msgstr ""
@@ -1940,10 +1942,6 @@ msgstr ""
 
 #: src/components/contextmenus/UserContextMenu.jsx:86
 msgid "Block"
-msgstr ""
-
-#: src/components/contextmenus/ChannelContextMenu.jsx:46
-msgid "Mute"
 msgstr ""
 
 #: src/components/DeleteList.jsx:30

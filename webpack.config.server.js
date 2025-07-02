@@ -26,9 +26,7 @@ const basePackageValues = {
   private: true,
   engines: pkg.engines,
   scripts: {
-    start: 'pm2 start ecosystem.yml',
-    restart: 'pm2 restart ecosystem.yml',
-    stop: 'pm2 stop all',
+    start: 'node server.js',
     poststop: 'pm2 kill',
     sqlsync: 'node scripts/sqlsync.js',
     'install-pm2': 'npm install -g pm2'

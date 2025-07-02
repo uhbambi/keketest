@@ -258,6 +258,10 @@ function cleanUpAfterBuild(builtServer, builtClient) {
     fs.readdirSync(assetPath)
       .filter((e) => e.endsWith('.LICENSE.txt'))
       .forEach((l) => fs.rmSync(path.join(assetPath, l)));
+    const serverLicenseFile = path.resolve(__dirname, '..', 'dist', 'server.js.LICENSE.txt');
+    if (fs.existsSync(serverLicenseFile)) {
+      fs.rmSync(serverLicenseFile);
+    }
   }
 }
 
