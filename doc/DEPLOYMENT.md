@@ -91,7 +91,7 @@ location directive inside the *nginx* config, do:
 
 A baic configuration can look like this (note how the ssl certificates are ):
 
-```
+```nginx
 server {
   listen 80;
   listen [::]:80;
@@ -117,3 +117,82 @@ server {
 If you use a CDN like cloudflare, you also need to setup the real-ip module to
 trust theirs IPs. How to do this, will not be documented here.
 
+# Cluster
+
+Pixelplanet can run in multiple processes ("shards") to distribute load. This
+is important on high load with many users, because nodejs is notoriously single-
+core intensive.
+
+1. Set `IS_CLUSTER` to `true` in `config.ini`.
+
+2. Write an `ecosystem.yml` that launches multiple pixelplanet processes with
+different ports
+
+```yml
+apps:
+  - script     : ./server.js
+    name       : 'ppfun1'
+    node_args  : --nouse-idle-notification --expose-gc
+    env:
+      PORT: 3334
+  - script     : ./server.js
+    name       : 'ppfun2'
+    node_args  : --nouse-idle-notification --expose-gc
+    env:
+      PORT: 3335
+  - script     : ./server.js
+    name       : 'ppfun3'
+    node_args  : --nouse-idle-notification --expose-gc
+    env:
+      PORT: 3336
+  - script     : ./server.js
+    name       : 'ppfun4'
+    node_args  : --nouse-idle-notification --expose-gc
+    env:
+      PORT: 3337
+  - script     : ./server.js
+    name       : 'ppfun5'
+    node_args  : --nouse-idle-notification --expose-gc
+    env:
+      PORT: 3338
+  - script     : ./server.js
+    name       : 'ppfun6'
+    node_args  : --nouse-idle-notification --expose-gc
+    env:
+      PORT: 3339
+
+```
+
+3. Make nginx load balance between those:
+
+```nginx
+upstream ppfun_backend {
+  server 127.0.0.1:3334;
+  server 127.0.0.1:3335;
+  server 127.0.0.1:3336;
+  server 127.0.0.1:3337;
+  server 127.0.0.1:3338;
+  server 127.0.0.1:3339;
+}
+
+server {
+  listen 80;
+  listen [::]:80;
+
+  server_name example.com;
+
+  listen 443 ssl http2;
+  listen [::]:443 ssl http2;
+
+  ssl_certificate /etc/ssl/certs/ssl-cert-snakeoil.pem;
+  ssl_certificate_key /etc/ssl/private/ssl-cert-snakeoil.key;
+
+  location / {
+    proxy_set_header X-Real-IP $remote_addr;
+    proxy_set_header X-Forwarded-Proto $proxy_x_forwarded_proto;
+    proxy_set_header X-Forwarded-Host $host;
+
+    proxy_pass http://ppfun_backend$request_uri;
+  }
+}
+```
