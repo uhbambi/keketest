@@ -353,6 +353,11 @@ const nginxWhitelist = [
   console.log('');
   console.log('real_ip_header CF-Connecting-IP;');
   console.log('real_ip_recursive on;');
+  console.log(`
+map $http_x_forwarded_proto $proxy_x_forwarded_proto {
+  default $http_x_forwarded_proto;
+  ""      $scheme;
+}`);
   console.log('\n# Find out if we go through clouflare');
   console.log('geo $realip_remote_addr $cloudflare_ip {');
   console.log('  default  0;');
