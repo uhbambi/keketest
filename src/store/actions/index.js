@@ -543,6 +543,7 @@ export function propagateMe(state) {
   const {
     id,
     name,
+    username,
     havePassword,
     blockDm,
     userlvl,
@@ -569,6 +570,7 @@ export function propagateMe(state) {
     id,
     havePassword,
     name,
+    username,
     ranking,
     totalPixels,
     userlvl,
