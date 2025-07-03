@@ -65,6 +65,7 @@ let config = {};
     ['BACKUP_DIR', 'string', null],
     ['BACKUP_CMD', 'string', null],
     ['BACKUP_INTERVAL', 'int', 30],
+    ['RATE_LIMIT_CMD', 'string', null],
   ];
 
   const configFileValues = {};
@@ -226,6 +227,7 @@ export const {
   BACKUP_DIR,
   BACKUP_CMD,
   BACKUP_INTERVAL,
+  RATE_LIMIT_CMD,
 } = config;
 
 config = null;
