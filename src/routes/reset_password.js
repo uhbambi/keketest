@@ -25,6 +25,8 @@ router.use(express.urlencoded({ extended: true }));
  * if invalid password is given, ignore it and go to next
  */
 router.post('/', async (req, res) => {
+  req.tickRateLimiter(10000);
+
   const {
     pass, passconf, code, name: email,
   } = req.body;

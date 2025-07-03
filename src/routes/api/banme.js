@@ -6,6 +6,8 @@ import logger from '../../core/logger.js';
 import { ban } from '../../core/ban.js';
 
 async function banme(req, res) {
+  req.tickRateLimiter(3000);
+
   const { body: { code }, ip: { ipString } } = req;
 
   // eslint-disable-next-line max-len

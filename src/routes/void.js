@@ -5,6 +5,8 @@
 import { getState } from '../core/SharedState.js';
 
 export default (req, res) => {
+  req.tickRateLimiter(1000);
+
   res.set({
     'Cache-Control': `public, max-age=${5 * 60}`,
   });

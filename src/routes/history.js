@@ -111,6 +111,8 @@ function fetchTimesOfDay(yyyy, mm, dd, id, cacheTime, url) {
 }
 
 async function history(req, res) {
+  req.tickRateLimiter(500);
+
   const { day, id } = req.query;
   if (!BACKUP_URL || !day || !id
       || day.includes('/') || day.includes('\\') || day.length !== 8

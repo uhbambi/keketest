@@ -4,6 +4,8 @@
 import { getBanInfos } from '../../data/sql/Ban.js';
 
 async function baninfo(req, res) {
+  req.tickRateLimiter(3000);
+
   const { ttag: { t }, user, ip: { ipString } } = req;
 
   console.log('getbaninfo', ipString, user?.id);

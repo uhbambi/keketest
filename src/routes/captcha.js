@@ -6,6 +6,8 @@ import { requestCaptcha } from '../core/captchaserver.js';
 import { setCaptchaSolution, isTrusted } from '../data/redis/captcha.js';
 
 async function captcha(req, res) {
+  req.tickRateLimiter(3000);
+
   res.set({
     'Access-Control-Expose-Headers': 'captcha-id, challenge-needed',
     'Cache-Control': 'no-cache, no-store, must-revalidate',

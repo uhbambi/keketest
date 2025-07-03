@@ -18,6 +18,7 @@ import api from './api/index.js';
 import { expressTTag } from '../middleware/ttag.js';
 import cors from '../middleware/cors.js';
 import { parseIP } from '../middleware/ip.js';
+import rateLimiter from '../middleware/ratelimit.js';
 import generateGlobePage from '../ssr/Globe.jsx';
 import generatePopUpPage from '../ssr/PopUp.jsx';
 import generateMainPage from '../ssr/Main.jsx';
@@ -44,15 +45,17 @@ if (BASENAME) {
   });
 }
 
-const staticConfig = {
-  maxAge: 12 * MONTH,
-  extensions: ['html'],
-  setHeaders: (res, reqPath) => {
-    if (reqPath.includes('/legal')) {
-      res.setHeader('Cache-Control', `public, max-age=${3 * 24 * 3600}`);
-    }
+const expressStatic = express.static(
+  path.join(__dirname, 'public'), {
+    maxAge: 12 * MONTH,
+    extensions: ['html'],
+    setHeaders: (res, reqPath) => {
+      if (reqPath.includes('/legal')) {
+        res.setHeader('Cache-Control', `public, max-age=${3 * 24 * 3600}`);
+      }
+    },
   },
-};
+);
 
 /* ip */
 router.use(parseIP);
@@ -66,6 +69,9 @@ router.get(['/chunks/:c/:x/:y/:z.bmp', '/chunks/:c/:x/:y.bmp'], chunks);
  * zoomed tiles
  */
 router.use('/tiles', tiles);
+
+
+router.use(rateLimiter);
 
 /*
  * Redirect to guilded
@@ -86,9 +92,8 @@ router.use(cors);
  */
 router.use((req, res, next) => {
   if (CDN_HOST && CDN_HOST === req.ip.getHost(false, false)) {
-    express.static(
-      path.join(__dirname, 'public'), staticConfig,
-    )(req, res, () => {
+    req.tickRateLimiter(600);
+    expressStatic(req, res, () => {
       if (!res.headersSent) {
         res.status(404).send(`<!DOCTYPE html>
 <html>
@@ -114,6 +119,8 @@ router.use('/adminapi', adminapi);
 // 3D Globe (react generated)
 // -----------------------------------------------------------------------------
 router.get('/globe', (req, res) => {
+  req.tickRateLimiter(3000);
+
   const { html, etag: globeEtag } = generateGlobePage(req);
 
   res.set({
@@ -140,6 +147,7 @@ router.use(
       next();
       return;
     }
+    req.tickRateLimiter(3000);
 
     const { html, etag: winEtag } = generatePopUpPage(req);
 
@@ -162,6 +170,8 @@ router.use(
 // Main Page
 // -----------------------------------------------------------------------------
 router.get('/', (req, res) => {
+  req.tickRateLimiter(3000);
+
   const { html, csp, etag: mainEtag } = generateMainPage(req);
 
   res.set({
@@ -219,9 +229,14 @@ router.get('/captcha.svg', captcha);
  */
 router.get('/challenge.js', challenge);
 
+router.use((req, res, next) => {
+  req.tickRateLimiter(600);
+  next();
+});
+
 /*
  * public folder
  */
-router.use(express.static(path.join(__dirname, 'public'), staticConfig));
+router.use(expressStatic);
 
 export default basenameRouter;

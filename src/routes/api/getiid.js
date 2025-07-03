@@ -3,17 +3,15 @@
  */
 import { getIIDofIP } from '../../data/sql/IP.js';
 
-async function getiid(req, res, next) {
-  try {
-    const iid = await getIIDofIP(req.ip.ipString);
-    if (!iid) {
-      throw new Error('Could not get IID');
-    }
+async function getiid(req, res) {
+  req.tickRateLimiter(3000);
 
-    res.status(200).json({ iid });
-  } catch (err) {
-    next(err);
+  const iid = await getIIDofIP(req.ip.ipString);
+  if (!iid) {
+    throw new Error('Could not get IID');
   }
+
+  res.status(200).json({ iid });
 }
 
 export default getiid;

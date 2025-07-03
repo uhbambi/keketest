@@ -6,6 +6,8 @@ import requestChallenge from '../core/challengeserver.js';
 import { setChallengeSolution } from '../data/redis/captcha.js';
 
 async function challenge(req, res) {
+  req.tickRateLimiter(3000);
+
   res.set({
     'Cache-Control': 'no-cache, no-store, must-revalidate',
     'Content-Type': 'application/javascript; charset=UTF-8',

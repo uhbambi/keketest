@@ -51,7 +51,7 @@ class MassRateLimiter {
     });
   }
 
-  /*
+  /**
    * tick the rate limit for one identifier
    * @param identifier
    * @param deltaTime by which to increase time
@@ -78,6 +78,18 @@ class MassRateLimiter {
         identifier,
         [now + deltaTime, false],
       );
+    }
+    return false;
+  }
+
+  /**
+   * check if triggered for an identifier
+   * @param identifier
+   */
+  isTriggered(identifier) {
+    const limiter = this.triggers.get(identifier);
+    if (limiter?.[1] && limiter[0] > Date.now()) {
+      return true;
     }
     return false;
   }

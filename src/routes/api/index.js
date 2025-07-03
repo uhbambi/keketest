@@ -1,9 +1,6 @@
 import express from 'express';
 
 import { verifySession, ensureLoggedIn } from '../../middleware/session.js';
-import MassRateLimiter from '../../utils/MassRateLimiter.js';
-import logger from '../../core/logger.js';
-import { HOUR } from '../../core/constants.js';
 
 import me from './me.js';
 import auth from './auth/index.js';
@@ -20,13 +17,7 @@ import shards from './shards.js';
 import profile from './profile.js';
 import banme from './banme.js';
 
-const rateLimiter = new MassRateLimiter(HOUR);
-
 const router = express.Router();
-
-function onRateLimitTrigger(userId) {
-  logger.warn(`User ${userId} triggered API RateLimit.`);
-}
 
 // set cache-control
 router.use((req, res, next) => {
@@ -41,6 +32,7 @@ router.use(express.json());
 
 // routes that don't need a user
 router.get('/shards', shards);
+
 router.get('/getiid', getiid);
 
 /*
@@ -50,36 +42,25 @@ router.use(verifySession);
 
 router.get('/chathistory', chatHistory);
 
-router.get('/me', me);
-
 router.get('/baninfo', baninfo);
 
-router.use('/auth', auth);
-
-router.use('/modtools', modtools);
-
 router.post('/banme', banme);
+
+router.use((req, res, next) => {
+  req.tickRateLimiter(3000);
+  next();
+});
+
+router.get('/me', me);
+
+router.use('/auth', auth);
 
 /*
  * only with session
  */
 router.use(ensureLoggedIn);
 
-/*
- * rate limit per user
- */
-router.use((req, res, next) => {
-  if (rateLimiter.tick(req.user.id, 3000, null, onRateLimitTrigger)) {
-    const { t } = req.ttag;
-    const error = new Error(
-      // eslint-disable-next-line
-      t`You are doing too many things too fast. Cool down a bit and come back later.`,
-    );
-    error.status = 429;
-    throw error;
-  }
-  next();
-});
+router.use('/modtools', modtools);
 
 router.get('/profile', profile);
 

@@ -54,40 +54,28 @@ msgstr ""
 msgid "Stop flooding."
 msgstr ""
 
-#: src/routes/reset_password.js:39
+#: src/routes/reset_password.js:41
 msgid "You sent an empty password or invalid data :("
 msgstr ""
 
-#: src/routes/reset_password.js:51
+#: src/routes/reset_password.js:53
 msgid "This password-reset link isn't valid anymore :("
 msgstr ""
 
-#: src/routes/reset_password.js:62
+#: src/routes/reset_password.js:64
 msgid "Your passwords do not match :("
 msgstr ""
 
-#: src/routes/reset_password.js:77
+#: src/routes/reset_password.js:79
 msgid "User doesn't exist in our database :("
 msgstr ""
 
-#: src/routes/reset_password.js:89
+#: src/routes/reset_password.js:91
 msgid "Password successfully changed."
 msgstr ""
 
-#: src/routes/reset_password.js:108
+#: src/routes/reset_password.js:110
 msgid "Invalid url :( Please check your mail again."
-msgstr ""
-
-#: src/routes/api/index.js:76
-msgid "You are doing too many things too fast. Cool down a bit and come back later."
-msgstr ""
-
-#: src/ssr/PopUp.jsx:50
-msgid "ppfun"
-msgstr ""
-
-#: src/ssr/PopUp.jsx:51
-msgid "PixelPlanet.Fun PopUp"
 msgstr ""
 
 #: src/ssr/Globe.jsx:35
@@ -104,6 +92,14 @@ msgstr ""
 
 #: src/ssr/Globe.jsx:50
 msgid "Loading..."
+msgstr ""
+
+#: src/ssr/PopUp.jsx:50
+msgid "ppfun"
+msgstr ""
+
+#: src/ssr/PopUp.jsx:51
+msgid "PixelPlanet.Fun PopUp"
 msgstr ""
 
 #: src/ssr/Main.jsx:77
@@ -225,44 +221,16 @@ msgstr ""
 msgid "You are not logged in"
 msgstr ""
 
+#: src/routes/api/baninfo.js:15
+msgid "You are not banned"
+msgstr ""
+
 #: src/routes/api/modtools.js:65
 msgid "You are not allowed to access this page"
 msgstr ""
 
 #: src/routes/api/modtools.js:225
 msgid "Just admins can do that"
-msgstr ""
-
-#: src/routes/api/baninfo.js:13
-msgid "You are not banned"
-msgstr ""
-
-#: src/ssr/RedirectionPage.jsx:20
-msgid "PixelPlanet.fun Accounts"
-msgstr ""
-
-#: src/ssr/RedirectionPage.jsx:30
-msgid "You will be automatically redirected after 15s"
-msgstr ""
-
-#: src/ssr/RedirectionPage.jsx:31
-#, javascript-format
-msgid "Or ${ clickHere } to go back to pixelplanet"
-msgstr ""
-
-#: src/routes/api/auth/verify.js:21
-#: src/routes/api/auth/verify.js:30
-msgid "Mail verification"
-msgstr ""
-
-#: src/routes/api/auth/verify.js:22
-msgid "You are now verified :)"
-msgstr ""
-
-#: src/routes/api/auth/verify.js:30
-msgid ""
-"Your mail verification code is invalid or already expired :(, please "
-"request a new one."
 msgstr ""
 
 #: src/routes/api/auth/local.js:37
@@ -330,19 +298,19 @@ msgstr ""
 msgid "Failed to create a new user :("
 msgstr ""
 
-#: src/routes/api/auth/change_mail.js:47
-#: src/routes/api/auth/change_passwd.js:38
-#: src/routes/api/auth/delete_account.js:42
-#: src/routes/api/auth/remove_tpid.js:19
-msgid "Incorrect password!"
+#: src/routes/api/auth/verify.js:21
+#: src/routes/api/auth/verify.js:30
+msgid "Mail verification"
 msgstr ""
 
-#: src/routes/api/auth/remove_tpid.js:26
-msgid "Could not find this login method"
+#: src/routes/api/auth/verify.js:22
+msgid "You are now verified :)"
 msgstr ""
 
-#: src/routes/api/auth/remove_tpid.js:35
-msgid "You can not delete this login method, because you have nothing else left."
+#: src/routes/api/auth/verify.js:30
+msgid ""
+"Your mail verification code is invalid or already expired :(, please "
+"request a new one."
 msgstr ""
 
 #: src/routes/api/auth/resend_verify.js:14
@@ -359,6 +327,21 @@ msgstr ""
 msgid "An error occured. Please try again later."
 msgstr ""
 
+#: src/routes/api/auth/change_mail.js:47
+#: src/routes/api/auth/change_passwd.js:38
+#: src/routes/api/auth/delete_account.js:42
+#: src/routes/api/auth/remove_tpid.js:19
+msgid "Incorrect password!"
+msgstr ""
+
+#: src/routes/api/auth/remove_tpid.js:26
+msgid "Could not find this login method"
+msgstr ""
+
+#: src/routes/api/auth/remove_tpid.js:35
+msgid "You can not delete this login method, because you have nothing else left."
+msgstr ""
+
 #: src/routes/api/auth/delete_account.js:54
 msgid "Server error when deleting user."
 msgstr ""
@@ -370,6 +353,19 @@ msgstr ""
 #: src/routes/api/auth/change_name.js:39
 #: src/routes/api/auth/change_username.js:36
 msgid "Name already in use."
+msgstr ""
+
+#: src/ssr/RedirectionPage.jsx:20
+msgid "PixelPlanet.fun Accounts"
+msgstr ""
+
+#: src/ssr/RedirectionPage.jsx:30
+msgid "You will be automatically redirected after 15s"
+msgstr ""
+
+#: src/ssr/RedirectionPage.jsx:31
+#, javascript-format
+msgid "Or ${ clickHere } to go back to pixelplanet"
 msgstr ""
 
 #: src/routes/api/auth/change_username.js:17

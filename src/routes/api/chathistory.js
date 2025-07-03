@@ -6,6 +6,8 @@
 import chatProvider from '../../core/ChatProvider.js';
 
 async function chatHistory(req, res) {
+  req.tickRateLimiter(1000);
+
   let { cid, limit } = req.query;
 
   if (!cid || !limit) {
