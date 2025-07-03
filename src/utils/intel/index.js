@@ -55,6 +55,9 @@ async function whoisWithStorage(ipString) {
   const host = await getWhoisHostOfIP(ipString);
   if (host) whoisOptions.host = host;
   whoisData = await whois(ipString, whoisOptions);
+  if (whoisData?.country === 'zz') {
+    whoisData.country = 'fa';
+  }
   return whoisData;
 }
 
