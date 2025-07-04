@@ -35,7 +35,7 @@ msgstr ""
 #: src/components/BanInfo.jsx:135
 #: src/components/CoordinatesBox.jsx:39
 #: src/components/GetIID.jsx:51
-#: src/components/windows/Help.jsx:106
+#: src/components/windows/Help.jsx:108
 #: src/controls/keypress.js:208
 msgid "Copied"
 msgstr ""
@@ -267,13 +267,6 @@ msgstr ""
 msgid "You have new messages in chat"
 msgstr ""
 
-#: src/components/Converter.jsx:566
-#: src/components/CoordinatesBox.jsx:42
-#: src/components/ModWatchtools.jsx:388
-#: src/components/ModWatchtools.jsx:404
-msgid "Copy to Clipboard"
-msgstr ""
-
 #: src/components/OnlineBox.jsx:56
 msgid "Online Users on Canvas"
 msgstr ""
@@ -295,6 +288,18 @@ msgstr ""
 #: src/components/OnlineBox.jsx:92
 #: src/components/Rankings.jsx:151
 msgid "Total"
+msgstr ""
+
+#: src/components/Converter.jsx:566
+#: src/components/CoordinatesBox.jsx:42
+#: src/components/ModWatchtools.jsx:388
+#: src/components/ModWatchtools.jsx:404
+msgid "Copy to Clipboard"
+msgstr ""
+
+#: src/components/buttons/CanvasSwitchButton.jsx:20
+#: src/components/windows/index.js:21
+msgid "Canvas Selection"
 msgstr ""
 
 #: src/store/actions/fetch.js:40
@@ -328,9 +333,12 @@ msgstr ""
 msgid "Server answered with gibberish :("
 msgstr ""
 
-#: src/components/buttons/CanvasSwitchButton.jsx:20
-#: src/components/windows/index.js:21
-msgid "Canvas Selection"
+#: src/components/buttons/ExpandMenuButton.jsx:22
+msgid "Close Menu"
+msgstr ""
+
+#: src/components/buttons/ExpandMenuButton.jsx:22
+msgid "Open Menu"
 msgstr ""
 
 #: src/components/buttons/ChatButton.jsx:79
@@ -339,14 +347,6 @@ msgstr ""
 
 #: src/components/buttons/ChatButton.jsx:79
 msgid "Open Chat"
-msgstr ""
-
-#: src/components/buttons/ExpandMenuButton.jsx:22
-msgid "Close Menu"
-msgstr ""
-
-#: src/components/buttons/ExpandMenuButton.jsx:22
-msgid "Open Menu"
 msgstr ""
 
 #: src/components/Admintools.jsx:138
@@ -382,44 +382,16 @@ msgstr ""
 msgid "Resize"
 msgstr ""
 
+#: src/components/Fish.jsx:39
+msgid "A Phish!"
+msgstr ""
+
 #: src/components/HistorySelect.jsx:156
 msgid "Loading"
 msgstr ""
 
 #: src/components/HistorySelect.jsx:157
 msgid "Select Date above"
-msgstr ""
-
-#: src/components/Fish.jsx:39
-msgid "A Phish!"
-msgstr ""
-
-#: src/components/buttons/PalselButton.jsx:30
-msgid "Close Palette"
-msgstr ""
-
-#: src/components/buttons/PalselButton.jsx:30
-msgid "Open Palette"
-msgstr ""
-
-#: src/components/buttons/PencilButton.jsx:41
-msgid "Enable Pencil"
-msgstr ""
-
-#: src/components/buttons/PencilButton.jsx:46
-msgid "Disable Pencil"
-msgstr ""
-
-#: src/components/buttons/PencilButton.jsx:50
-msgid "Disable History Pencil"
-msgstr ""
-
-#: src/components/buttons/PencilButton.jsx:54
-msgid "Disable Overlay Pencil"
-msgstr ""
-
-#: src/components/buttons/GlobeButton.jsx:34
-msgid "Globe View"
 msgstr ""
 
 #: src/components/BanInfo.jsx:87
@@ -466,28 +438,40 @@ msgstr ""
 msgid "Make Screenshot"
 msgstr ""
 
-#: src/components/GlobalCaptcha.jsx:50
-msgid "You took too long, try again."
+#: src/components/buttons/GlobeButton.jsx:34
+msgid "Globe View"
 msgstr ""
 
-#: src/components/GlobalCaptcha.jsx:53
-msgid "You failed your captcha"
+#: src/components/buttons/PalselButton.jsx:30
+msgid "Close Palette"
 msgstr ""
 
-#: src/components/GlobalCaptcha.jsx:56
-msgid "No or invalid captcha text"
+#: src/components/buttons/PalselButton.jsx:30
+msgid "Open Palette"
 msgstr ""
 
-#: src/components/GlobalCaptcha.jsx:59
-msgid "No captcha id given"
+#: src/components/buttons/PencilButton.jsx:41
+msgid "Enable Pencil"
 msgstr ""
 
-#: src/components/GlobalCaptcha.jsx:62
-msgid "Your Browser looks shady"
+#: src/components/buttons/PencilButton.jsx:46
+msgid "Disable Pencil"
 msgstr ""
 
-#: src/components/GlobalCaptcha.jsx:68
-msgid "Unknown Captcha Error"
+#: src/components/buttons/PencilButton.jsx:50
+msgid "Disable History Pencil"
+msgstr ""
+
+#: src/components/buttons/PencilButton.jsx:54
+msgid "Disable Overlay Pencil"
+msgstr ""
+
+#: src/components/BanInfo.jsx:78
+msgid "You are banned. You think it is unjustified? Check out the "
+msgstr ""
+
+#: src/components/BanInfo.jsx:88
+msgid " on how to appeal. And don't forget to include the BID you can get below."
 msgstr ""
 
 #: src/components/BanInfo.jsx:92
@@ -498,35 +482,10 @@ msgstr ""
 #: src/components/ChangeUsername.jsx:54
 #: src/components/DeleteAccount.jsx:59
 #: src/components/GlobalCaptcha.jsx:80
-#: src/components/LogInForm.jsx:72
+#: src/components/LogInForm.jsx:70
 #: src/components/windows/ForgotPassword.jsx:73
 #: src/components/windows/Register.jsx:143
 msgid "Error"
-msgstr ""
-
-#: src/components/ChangeMail.jsx:171
-#: src/components/ChangeName.jsx:70
-#: src/components/ChangePassword.jsx:124
-#: src/components/ChangeUsername.jsx:72
-#: src/components/DeleteAccount.jsx:77
-#: src/components/GlobalCaptcha.jsx:94
-#: src/components/RefreshPrompt.jsx:16
-#: src/components/TemplateItemEdit.jsx:181
-#: src/components/windows/ForgotPassword.jsx:89
-#: src/components/windows/Register.jsx:173
-msgid "Cancel"
-msgstr ""
-
-#: src/components/GlobalCaptcha.jsx:100
-msgid "Send"
-msgstr ""
-
-#: src/components/BanInfo.jsx:78
-msgid "You are banned. You think it is unjustified? Check out the "
-msgstr ""
-
-#: src/components/BanInfo.jsx:88
-msgid " on how to appeal. And don't forget to include the BID you can get below."
 msgstr ""
 
 #: src/components/BanInfo.jsx:98
@@ -557,7 +516,7 @@ msgstr ""
 
 #: src/components/BanInfo.jsx:137
 #: src/components/GetIID.jsx:53
-#: src/components/windows/Help.jsx:108
+#: src/components/windows/Help.jsx:110
 msgid "Copy"
 msgstr ""
 
@@ -567,6 +526,263 @@ msgstr ""
 
 #: src/components/RefreshPrompt.jsx:14
 msgid "Refresh"
+msgstr ""
+
+#: src/components/ChangeMail.jsx:171
+#: src/components/ChangeName.jsx:70
+#: src/components/ChangePassword.jsx:124
+#: src/components/ChangeUsername.jsx:72
+#: src/components/DeleteAccount.jsx:77
+#: src/components/GlobalCaptcha.jsx:94
+#: src/components/RefreshPrompt.jsx:16
+#: src/components/TemplateItemEdit.jsx:181
+#: src/components/windows/ForgotPassword.jsx:89
+#: src/components/windows/Register.jsx:173
+msgid "Cancel"
+msgstr ""
+
+#: src/components/GlobalCaptcha.jsx:50
+msgid "You took too long, try again."
+msgstr ""
+
+#: src/components/GlobalCaptcha.jsx:53
+msgid "You failed your captcha"
+msgstr ""
+
+#: src/components/GlobalCaptcha.jsx:56
+msgid "No or invalid captcha text"
+msgstr ""
+
+#: src/components/GlobalCaptcha.jsx:59
+msgid "No captcha id given"
+msgstr ""
+
+#: src/components/GlobalCaptcha.jsx:62
+msgid "Your Browser looks shady"
+msgstr ""
+
+#: src/components/GlobalCaptcha.jsx:68
+msgid "Unknown Captcha Error"
+msgstr ""
+
+#: src/components/GlobalCaptcha.jsx:100
+msgid "Send"
+msgstr ""
+
+#: src/components/windows/Help.jsx:71
+msgid "Place color pixels on a large canvas with other players online!"
+msgstr ""
+
+#: src/components/windows/Help.jsx:72
+msgid ""
+"Our main canvas is a huge worldmap, you can place wherever you like, but "
+"you will have to wait a specific Cooldown between pixels. You can check out "
+"the cooldown and requirements on the Canvas Selection menu (globe button on "
+"top). Some canvases have a different cooldown for replacing a user-set "
+"pixels than placing on a unset pixel. i.e. 4s/7s means 4s on fresh pixels "
+"and 7s on already set pixels."
+msgstr ""
+
+#: src/components/windows/Help.jsx:73
+msgid ""
+"Higher zoomlevels take some time to update, the 3D globe gets updated at "
+"least once per day."
+msgstr ""
+
+#: src/components/windows/Help.jsx:74
+msgid "Have fun!"
+msgstr ""
+
+#: src/components/windows/Help.jsx:76
+msgid "recommended"
+msgstr ""
+
+#: src/components/windows/Help.jsx:76
+#: src/components/windows/UserArea.jsx:88
+msgid "Invited to Chat"
+msgstr ""
+
+#: src/components/windows/Help.jsx:77
+msgid "Source for pixelplanet on "
+msgstr ""
+
+#: src/components/windows/Help.jsx:78
+#, javascript-format
+msgid "We are Libre Software under the ${ agplLink }, "
+msgstr ""
+
+#: src/components/windows/Help.jsx:78
+msgid "check compliance here"
+msgstr ""
+
+#: src/components/windows/Help.jsx:79
+msgid "Legal Requests"
+msgstr ""
+
+#: src/components/windows/Help.jsx:80
+#, javascript-format
+msgid ""
+"For any legal issues, please contact ${ mailLink }. If you want to delete "
+"your data, simply delete your account, this in fact wipes all privacy "
+"relevant traces. Your placed pixels will of course not be deleted."
+msgstr ""
+
+#: src/components/windows/Help.jsx:81
+msgid "Map Data"
+msgstr ""
+
+#: src/components/windows/Help.jsx:82
+msgid ""
+"The bare map data that we use, together with converted OpenStreetMap tiles "
+"for orientation, can be downloaded from mega.nz here: "
+msgstr ""
+
+#: src/components/windows/Help.jsx:83
+msgid "Banned? Detected as Proxy?"
+msgstr ""
+
+#: src/components/windows/Help.jsx:85
+#, javascript-format
+msgid ""
+"If you got detected as proxy, but you aren't using one, or think that you "
+"got wrongfully banned, please go to our ${ guildedLink } or send us an "
+"e-mail to ${ mailLink } and, in case of a ban, include the BID you got in "
+"the ban message."
+msgstr ""
+
+#: src/components/windows/Help.jsx:87
+msgid "Identifiers"
+msgstr ""
+
+#: src/components/windows/Help.jsx:88
+msgid ""
+"If you talk to moderators or administrators, you might get asked for one of "
+"the following identifiers:"
+msgstr ""
+
+#: src/components/windows/Help.jsx:114
+#: src/components/windows/Help.jsx:130
+msgid "Controls"
+msgstr ""
+
+#: src/components/windows/Help.jsx:116
+msgid "Click a color in palette to select it"
+msgstr ""
+
+#: src/components/windows/Help.jsx:117
+#, javascript-format
+msgid "Press ${ bindG } to toggle grid"
+msgstr ""
+
+#: src/components/windows/Help.jsx:118
+#, javascript-format
+msgid "Press ${ bindX } to toggle showing of pixel activity"
+msgstr ""
+
+#: src/components/windows/Help.jsx:119
+#, javascript-format
+msgid "Press ${ bindH } to toggle historical view"
+msgstr ""
+
+#: src/components/windows/Help.jsx:120
+#, javascript-format
+msgid "Press ${ bindR } to copy coordinates"
+msgstr ""
+
+#: src/components/windows/Help.jsx:121
+#, javascript-format
+msgid "Press ${ bindQ } or ${ bindE } to zoom"
+msgstr ""
+
+#: src/components/windows/Help.jsx:122
+#: src/components/windows/Help.jsx:132
+#, javascript-format
+msgid "Press ${ bindW }, ${ bindA }, ${ bindS }, ${ bindD } to move"
+msgstr ""
+
+#: src/components/windows/Help.jsx:123
+#: src/components/windows/Help.jsx:133
+#, javascript-format
+msgid "Press ${ bindAUp }, ${ bindALeft }, ${ bindADown }, ${ bindARight } to move"
+msgstr ""
+
+#: src/components/windows/Help.jsx:124
+#, javascript-format
+msgid "Drag ${ mouseSymbol } mouse or ${ touchSymbol } pan to move"
+msgstr ""
+
+#: src/components/windows/Help.jsx:125
+#, javascript-format
+msgid "Scroll ${ mouseSymbol } mouse wheel or ${ touchSymbol } pinch to zoom"
+msgstr ""
+
+#: src/components/windows/Help.jsx:126
+#, javascript-format
+msgid "Hold left ${ bindShift } for pencil (to place while moving mouse)"
+msgstr ""
+
+#: src/components/windows/Help.jsx:127
+#: src/components/windows/Help.jsx:138
+#, javascript-format
+msgid "${ mouseSymbol } Left click or ${ touchSymbol } tap to place a pixel"
+msgstr ""
+
+#: src/components/windows/Help.jsx:128
+#: src/components/windows/Help.jsx:140
+#, javascript-format
+msgid ""
+"Click ${ mouseSymbol } middle mouse button or ${ touchSymbol } long-tap to "
+"select current hovering color"
+msgstr ""
+
+#: src/components/windows/Help.jsx:134
+#, javascript-format
+msgid "Press ${ bindQ } and ${ bindE } to fly up and down"
+msgstr ""
+
+#: src/components/windows/Help.jsx:135
+#, javascript-format
+msgid "${ mouseSymbol } Hold left mouse button and drag mouse to rotate"
+msgstr ""
+
+#: src/components/windows/Help.jsx:136
+#, javascript-format
+msgid ""
+"${ mouseSymbol } Scroll mouse wheel or hold ${ mouseSymbol } middle mouse "
+"button and drag to zoom"
+msgstr ""
+
+#: src/components/windows/Help.jsx:137
+#, javascript-format
+msgid "${ mouseSymbol } Right click and drag mouse to pan"
+msgstr ""
+
+#: src/components/windows/Help.jsx:139
+#, javascript-format
+msgid ""
+"${ mouseSymbol } Right click or ${ touchSymbol } double-tap to remove a "
+"pixel"
+msgstr ""
+
+#: src/components/windows/Help.jsx:144
+msgid ""
+"We thank the following artists, who made their palettes available to the "
+"public on"
+msgstr ""
+
+#: src/components/windows/Help.jsx:147
+#, javascript-format
+msgid "Credit for the Palette of the Moon goes to ${ starhouseLink }."
+msgstr ""
+
+#: src/components/windows/Help.jsx:150
+#, javascript-format
+msgid "Credit for the Palette of the Top10 canvas goes to ${ vinikLink }."
+msgstr ""
+
+#: src/components/windows/Help.jsx:153
+#, javascript-format
+msgid "Credit for the Palette of the 2bit canvas goes to ${ donendoLink }."
 msgstr ""
 
 #: src/components/windows/Settings.jsx:72
@@ -687,222 +903,6 @@ msgstr ""
 msgid "Select Language"
 msgstr ""
 
-#: src/components/windows/Help.jsx:69
-msgid "Place color pixels on a large canvas with other players online!"
-msgstr ""
-
-#: src/components/windows/Help.jsx:70
-msgid ""
-"Our main canvas is a huge worldmap, you can place wherever you like, but "
-"you will have to wait a specific Cooldown between pixels. You can check out "
-"the cooldown and requirements on the Canvas Selection menu (globe button on "
-"top). Some canvases have a different cooldown for replacing a user-set "
-"pixels than placing on a unset pixel. i.e. 4s/7s means 4s on fresh pixels "
-"and 7s on already set pixels."
-msgstr ""
-
-#: src/components/windows/Help.jsx:71
-msgid ""
-"Higher zoomlevels take some time to update, the 3D globe gets updated at "
-"least once per day."
-msgstr ""
-
-#: src/components/windows/Help.jsx:72
-msgid "Have fun!"
-msgstr ""
-
-#: src/components/windows/Help.jsx:74
-msgid "recommended"
-msgstr ""
-
-#: src/components/windows/Help.jsx:74
-#: src/components/windows/UserArea.jsx:88
-msgid "Invited to Chat"
-msgstr ""
-
-#: src/components/windows/Help.jsx:75
-msgid "Source for pixelplanet on "
-msgstr ""
-
-#: src/components/windows/Help.jsx:76
-#, javascript-format
-msgid "We are Libre Software under the ${ agplLink }, "
-msgstr ""
-
-#: src/components/windows/Help.jsx:76
-msgid "check compliance here"
-msgstr ""
-
-#: src/components/windows/Help.jsx:77
-msgid "Legal Requests"
-msgstr ""
-
-#: src/components/windows/Help.jsx:78
-#, javascript-format
-msgid ""
-"For any legal issues, please contact ${ mailLink }. If you want to delete "
-"your data, simply delete your account, this in fact wipes all privacy "
-"relevant traces. Your placed pixels will of course not be deleted."
-msgstr ""
-
-#: src/components/windows/Help.jsx:79
-msgid "Map Data"
-msgstr ""
-
-#: src/components/windows/Help.jsx:80
-msgid ""
-"The bare map data that we use, together with converted OpenStreetMap tiles "
-"for orientation, can be downloaded from mega.nz here: "
-msgstr ""
-
-#: src/components/windows/Help.jsx:81
-msgid "Banned? Detected as Proxy?"
-msgstr ""
-
-#: src/components/windows/Help.jsx:83
-#, javascript-format
-msgid ""
-"If you got detected as proxy, but you aren't using one, or think that you "
-"got wrongfully banned, please go to our ${ guildedLink } or send us an "
-"e-mail to ${ mailLink } and, in case of a ban, include the BID you got in "
-"the ban message."
-msgstr ""
-
-#: src/components/windows/Help.jsx:85
-msgid "Identifiers"
-msgstr ""
-
-#: src/components/windows/Help.jsx:86
-msgid ""
-"If you talk to moderators or administrators, you might get asked for one of "
-"the following identifiers:"
-msgstr ""
-
-#: src/components/windows/Help.jsx:112
-#: src/components/windows/Help.jsx:128
-msgid "Controls"
-msgstr ""
-
-#: src/components/windows/Help.jsx:114
-msgid "Click a color in palette to select it"
-msgstr ""
-
-#: src/components/windows/Help.jsx:115
-#, javascript-format
-msgid "Press ${ bindG } to toggle grid"
-msgstr ""
-
-#: src/components/windows/Help.jsx:116
-#, javascript-format
-msgid "Press ${ bindX } to toggle showing of pixel activity"
-msgstr ""
-
-#: src/components/windows/Help.jsx:117
-#, javascript-format
-msgid "Press ${ bindH } to toggle historical view"
-msgstr ""
-
-#: src/components/windows/Help.jsx:118
-#, javascript-format
-msgid "Press ${ bindR } to copy coordinates"
-msgstr ""
-
-#: src/components/windows/Help.jsx:119
-#, javascript-format
-msgid "Press ${ bindQ } or ${ bindE } to zoom"
-msgstr ""
-
-#: src/components/windows/Help.jsx:120
-#: src/components/windows/Help.jsx:130
-#, javascript-format
-msgid "Press ${ bindW }, ${ bindA }, ${ bindS }, ${ bindD } to move"
-msgstr ""
-
-#: src/components/windows/Help.jsx:121
-#: src/components/windows/Help.jsx:131
-#, javascript-format
-msgid "Press ${ bindAUp }, ${ bindALeft }, ${ bindADown }, ${ bindARight } to move"
-msgstr ""
-
-#: src/components/windows/Help.jsx:122
-#, javascript-format
-msgid "Drag ${ mouseSymbol } mouse or ${ touchSymbol } pan to move"
-msgstr ""
-
-#: src/components/windows/Help.jsx:123
-#, javascript-format
-msgid "Scroll ${ mouseSymbol } mouse wheel or ${ touchSymbol } pinch to zoom"
-msgstr ""
-
-#: src/components/windows/Help.jsx:124
-#, javascript-format
-msgid "Hold left ${ bindShift } for pencil (to place while moving mouse)"
-msgstr ""
-
-#: src/components/windows/Help.jsx:125
-#: src/components/windows/Help.jsx:136
-#, javascript-format
-msgid "${ mouseSymbol } Left click or ${ touchSymbol } tap to place a pixel"
-msgstr ""
-
-#: src/components/windows/Help.jsx:126
-#: src/components/windows/Help.jsx:138
-#, javascript-format
-msgid ""
-"Click ${ mouseSymbol } middle mouse button or ${ touchSymbol } long-tap to "
-"select current hovering color"
-msgstr ""
-
-#: src/components/windows/Help.jsx:132
-#, javascript-format
-msgid "Press ${ bindQ } and ${ bindE } to fly up and down"
-msgstr ""
-
-#: src/components/windows/Help.jsx:133
-#, javascript-format
-msgid "${ mouseSymbol } Hold left mouse button and drag mouse to rotate"
-msgstr ""
-
-#: src/components/windows/Help.jsx:134
-#, javascript-format
-msgid ""
-"${ mouseSymbol } Scroll mouse wheel or hold ${ mouseSymbol } middle mouse "
-"button and drag to zoom"
-msgstr ""
-
-#: src/components/windows/Help.jsx:135
-#, javascript-format
-msgid "${ mouseSymbol } Right click and drag mouse to pan"
-msgstr ""
-
-#: src/components/windows/Help.jsx:137
-#, javascript-format
-msgid ""
-"${ mouseSymbol } Right click or ${ touchSymbol } double-tap to remove a "
-"pixel"
-msgstr ""
-
-#: src/components/windows/Help.jsx:142
-msgid ""
-"We thank the following artists, who made their palettes available to the "
-"public on"
-msgstr ""
-
-#: src/components/windows/Help.jsx:145
-#, javascript-format
-msgid "Credit for the Palette of the Moon goes to ${ starhouseLink }."
-msgstr ""
-
-#: src/components/windows/Help.jsx:148
-#, javascript-format
-msgid "Credit for the Palette of the Top10 canvas goes to ${ vinikLink }."
-msgstr ""
-
-#: src/components/windows/Help.jsx:151
-#, javascript-format
-msgid "Credit for the Palette of the 2bit canvas goes to ${ donendoLink }."
-msgstr ""
-
 #: src/components/windows/UserArea.jsx:38
 #: src/components/windows/UserArea.jsx:65
 msgid "Profile"
@@ -974,7 +974,7 @@ msgstr ""
 #: src/components/ChangeMail.jsx:127
 #: src/components/ChangePassword.jsx:103
 #: src/components/DeleteAccount.jsx:69
-#: src/components/LogInForm.jsx:87
+#: src/components/LogInForm.jsx:85
 #: src/components/windows/Register.jsx:126
 #: src/components/windows/Register.jsx:132
 msgid "Password"
@@ -986,32 +986,32 @@ msgstr ""
 msgid "Confirm Password"
 msgstr ""
 
-#: src/components/LogInForm.jsx:90
+#: src/components/LogInForm.jsx:88
 #: src/components/windows/Register.jsx:147
 msgid "Stay logged in: "
 msgstr ""
 
-#: src/components/LogInForm.jsx:92
+#: src/components/LogInForm.jsx:90
 #: src/components/windows/Register.jsx:149
 msgid "Until the browser closes"
 msgstr ""
 
-#: src/components/LogInForm.jsx:93
+#: src/components/LogInForm.jsx:91
 #: src/components/windows/Register.jsx:150
 msgid "For one week"
 msgstr ""
 
-#: src/components/LogInForm.jsx:94
+#: src/components/LogInForm.jsx:92
 #: src/components/windows/Register.jsx:151
 msgid "For one month"
 msgstr ""
 
-#: src/components/LogInForm.jsx:95
+#: src/components/LogInForm.jsx:93
 #: src/components/windows/Register.jsx:152
 msgid "For one year"
 msgstr ""
 
-#: src/components/LogInForm.jsx:96
+#: src/components/LogInForm.jsx:94
 #: src/components/windows/Register.jsx:153
 msgid "Forever"
 msgstr ""
@@ -1030,6 +1030,22 @@ msgstr ""
 #: src/components/windows/ForgotPassword.jsx:84
 #: src/components/windows/Register.jsx:167
 msgid "Submit"
+msgstr ""
+
+#: src/components/windows/CanvasSelect.jsx:32
+msgid ""
+"Select the canvas you want to use.\n"
+"Every canvas is unique and has different palettes, cooldown and "
+"requirements.\n"
+"Archived canvases can be accessed here:"
+msgstr ""
+
+#: src/components/windows/CanvasSelect.jsx:40
+msgid "Archive"
+msgstr ""
+
+#: src/components/windows/CanvasSelect.jsx:73
+msgid "Retired Canvases (history only)"
 msgstr ""
 
 #: src/components/windows/Archive.jsx:9
@@ -1065,34 +1081,6 @@ msgid ""
 "how the canvas was at that time."
 msgstr ""
 
-#: src/components/windows/CanvasSelect.jsx:32
-msgid ""
-"Select the canvas you want to use.\n"
-"Every canvas is unique and has different palettes, cooldown and "
-"requirements.\n"
-"Archived canvases can be accessed here:"
-msgstr ""
-
-#: src/components/windows/CanvasSelect.jsx:40
-msgid "Archive"
-msgstr ""
-
-#: src/components/windows/CanvasSelect.jsx:73
-msgid "Retired Canvases (history only)"
-msgstr ""
-
-#: src/components/windows/Player.jsx:17
-msgid "This URL is not supported by our Media Player"
-msgstr ""
-
-#: src/components/windows/FishDisplay.jsx:36
-msgid "Size"
-msgstr ""
-
-#: src/components/windows/FishDisplay.jsx:41
-msgid "Date of catch"
-msgstr ""
-
 #: src/components/windows/Chat.jsx:185
 msgid "Start chatting here"
 msgstr ""
@@ -1109,12 +1097,28 @@ msgstr ""
 msgid "Channel settings"
 msgstr ""
 
+#: src/components/windows/Player.jsx:17
+msgid "This URL is not supported by our Media Player"
+msgstr ""
+
 #: src/components/windows/ForgotPassword.jsx:58
 msgid "Sent you a mail with instructions to reset your password."
 msgstr ""
 
 #: src/components/windows/ForgotPassword.jsx:69
 msgid "Enter your mail address and we will send you a new password:"
+msgstr ""
+
+#: src/components/windows/FishDisplay.jsx:36
+msgid "Size"
+msgstr ""
+
+#: src/components/windows/FishDisplay.jsx:41
+msgid "Date of catch"
+msgstr ""
+
+#: src/components/GetIID.jsx:44
+msgid "Get IID"
 msgstr ""
 
 #: src/components/Captcha.jsx:66
@@ -1201,19 +1205,6 @@ msgstr ""
 msgid "Import templates"
 msgstr ""
 
-#: src/components/ChangeMail.jsx:167
-#: src/components/ChangeName.jsx:68
-#: src/components/ChangePassword.jsx:118
-#: src/components/ChangeUsername.jsx:70
-#: src/components/LanguageSelect.jsx:80
-#: src/components/TemplateItemEdit.jsx:209
-msgid "Save"
-msgstr ""
-
-#: src/components/GetIID.jsx:44
-msgid "Get IID"
-msgstr ""
-
 #: src/components/LogInArea.jsx:20
 msgid "Login to access more features and stats."
 msgstr ""
@@ -1236,6 +1227,15 @@ msgstr ""
 
 #: src/components/LogInArea.jsx:79
 msgid "Register"
+msgstr ""
+
+#: src/components/ChangeMail.jsx:167
+#: src/components/ChangeName.jsx:68
+#: src/components/ChangePassword.jsx:118
+#: src/components/ChangeUsername.jsx:70
+#: src/components/LanguageSelect.jsx:80
+#: src/components/TemplateItemEdit.jsx:209
+msgid "Save"
 msgstr ""
 
 #: src/components/UserAreaContent.jsx:80
@@ -1286,68 +1286,52 @@ msgstr ""
 msgid "Social Settings"
 msgstr ""
 
-#: src/utils/validation.js:17
-msgid "Email can't be empty."
+#: src/components/Rankings.jsx:169
+msgid "Yesterday"
 msgstr ""
 
-#: src/utils/validation.js:18
-msgid "Email should be at least 5 characters long."
+#: src/components/Rankings.jsx:178
+msgid "Countries Today"
 msgstr ""
 
-#: src/utils/validation.js:19
-msgid "Email can't be longer than 40 characters."
+#: src/components/Rankings.jsx:187
+#: src/components/Rankings.jsx:204
+msgid "Charts"
 msgstr ""
 
-#: src/utils/validation.js:20
-msgid "Email should at least contain a dot"
+#: src/components/Rankings.jsx:192
+msgid "Total Pixels per Player"
 msgstr ""
 
-#: src/utils/validation.js:23
-msgid "Email should contain a @"
+#: src/components/Rankings.jsx:193
+msgid "Daily Pixels per Player"
 msgstr ""
 
-#: src/utils/validation.js:30
-msgid "Name can't be empty."
+#: src/components/Rankings.jsx:194
+msgid "Top 10 Players from Yesterday"
 msgstr ""
 
-#: src/utils/validation.js:31
-msgid "Name must be at least 2 characters long"
+#: src/components/Rankings.jsx:198
+msgid "Daily Pixels per Country"
 msgstr ""
 
-#: src/utils/validation.js:32
-msgid "Name must be shorter than 26 characters"
+#: src/components/Rankings.jsx:216
+#: src/components/Rankings.jsx:225
+#: src/components/Rankings.jsx:234
+msgid "User"
 msgstr ""
 
-#: src/utils/validation.js:39
-msgid "Name contains invalid character like @, /, \\ or #"
+#: src/components/CooldownChanges.jsx:26
+#: src/components/Rankings.jsx:241
+msgid "Country"
 msgstr ""
 
-#: src/utils/validation.js:45
-msgid "Userame can't be empty."
+#: src/components/Rankings.jsx:244
+msgid "+last hour"
 msgstr ""
 
-#: src/utils/validation.js:46
-msgid "Userame must be at least 2 characters long"
-msgstr ""
-
-#: src/utils/validation.js:48
-msgid "Userame must be shorter than 26 characters"
-msgstr ""
-
-#: src/utils/validation.js:51
-msgid "Username can only contain the characters: a-z . _ and -"
-msgstr ""
-
-#: src/utils/validation.js:66
-msgid "No password given."
-msgstr ""
-
-#: src/utils/validation.js:69
-msgid "Password must be at least 6 characters long."
-msgstr ""
-
-#: src/utils/validation.js:72
-msgid "Password must be shorter than 60 characters."
+#: src/components/Rankings.jsx:315
+msgid "Ranking updates every 5 min. Daily rankings get reset at midnight UTC."
 msgstr ""
 
 #: src/components/Converter.jsx:191
@@ -1429,6 +1413,70 @@ msgstr ""
 msgid "Download Template"
 msgstr ""
 
+#: src/utils/validation.js:17
+msgid "Email can't be empty."
+msgstr ""
+
+#: src/utils/validation.js:18
+msgid "Email should be at least 5 characters long."
+msgstr ""
+
+#: src/utils/validation.js:19
+msgid "Email can't be longer than 40 characters."
+msgstr ""
+
+#: src/utils/validation.js:20
+msgid "Email should at least contain a dot"
+msgstr ""
+
+#: src/utils/validation.js:23
+msgid "Email should contain a @"
+msgstr ""
+
+#: src/utils/validation.js:30
+msgid "Name can't be empty."
+msgstr ""
+
+#: src/utils/validation.js:31
+msgid "Name must be at least 2 characters long"
+msgstr ""
+
+#: src/utils/validation.js:32
+msgid "Name must be shorter than 26 characters"
+msgstr ""
+
+#: src/utils/validation.js:39
+msgid "Name contains invalid character like @, /, \\ or #"
+msgstr ""
+
+#: src/utils/validation.js:45
+msgid "Userame can't be empty."
+msgstr ""
+
+#: src/utils/validation.js:46
+msgid "Userame must be at least 2 characters long"
+msgstr ""
+
+#: src/utils/validation.js:48
+msgid "Userame must be shorter than 26 characters"
+msgstr ""
+
+#: src/utils/validation.js:51
+msgid "Username can only contain the characters: a-z . _ and -"
+msgstr ""
+
+#: src/utils/validation.js:66
+msgid "No password given."
+msgstr ""
+
+#: src/utils/validation.js:69
+msgid "Password must be at least 6 characters long."
+msgstr ""
+
+#: src/utils/validation.js:72
+msgid "Password must be shorter than 60 characters."
+msgstr ""
+
 #: src/components/CanvasItem.jsx:30
 msgid "Online Users"
 msgstr ""
@@ -1476,62 +1524,6 @@ msgstr ""
 msgid "Dimensions"
 msgstr ""
 
-#: src/components/Rankings.jsx:169
-msgid "Yesterday"
-msgstr ""
-
-#: src/components/Rankings.jsx:178
-msgid "Countries Today"
-msgstr ""
-
-#: src/components/Rankings.jsx:187
-#: src/components/Rankings.jsx:204
-msgid "Charts"
-msgstr ""
-
-#: src/components/Rankings.jsx:192
-msgid "Total Pixels per Player"
-msgstr ""
-
-#: src/components/Rankings.jsx:193
-msgid "Daily Pixels per Player"
-msgstr ""
-
-#: src/components/Rankings.jsx:194
-msgid "Top 10 Players from Yesterday"
-msgstr ""
-
-#: src/components/Rankings.jsx:198
-msgid "Daily Pixels per Country"
-msgstr ""
-
-#: src/components/Rankings.jsx:216
-#: src/components/Rankings.jsx:225
-#: src/components/Rankings.jsx:234
-msgid "User"
-msgstr ""
-
-#: src/components/CooldownChanges.jsx:26
-#: src/components/Rankings.jsx:241
-msgid "Country"
-msgstr ""
-
-#: src/components/Rankings.jsx:244
-msgid "+last hour"
-msgstr ""
-
-#: src/components/Rankings.jsx:315
-msgid "Ranking updates every 5 min. Daily rankings get reset at midnight UTC."
-msgstr ""
-
-#: src/components/TemplateItemEdit.jsx:97
-msgid "Select File"
-msgstr ""
-
-#: src/components/TemplateItemEdit.jsx:120
-msgid "Template Name"
-msgstr ""
-
 #: src/components/ModWatchtools.jsx:123
 #: src/components/TemplateItem.jsx:54
 #: src/components/TemplateItemEdit.jsx:122
@@ -1543,10 +1535,6 @@ msgstr ""
 msgid "Coordinates"
 msgstr ""
 
-#: src/components/TemplateItemEdit.jsx:174
-msgid "Delete"
-msgstr ""
-
 #: src/components/TemplateItem.jsx:71
 msgid "Edit"
 msgstr ""
@@ -1555,12 +1543,24 @@ msgstr ""
 msgid "Go to"
 msgstr ""
 
-#: src/components/LogInForm.jsx:80
+#: src/components/LogInForm.jsx:78
 msgid "Name or Email"
 msgstr ""
 
-#: src/components/LogInForm.jsx:101
+#: src/components/LogInForm.jsx:99
 msgid "LogIn"
+msgstr ""
+
+#: src/components/TemplateItemEdit.jsx:97
+msgid "Select File"
+msgstr ""
+
+#: src/components/TemplateItemEdit.jsx:120
+msgid "Template Name"
+msgstr ""
+
+#: src/components/TemplateItemEdit.jsx:174
+msgid "Delete"
 msgstr ""
 
 #: src/components/UserMessages.jsx:32
@@ -1575,6 +1575,18 @@ msgstr ""
 
 #: src/components/UserMessages.jsx:48
 msgid "Click here to request a new verification mail."
+msgstr ""
+
+#: src/components/FishList.jsx:24
+msgid "Phishes"
+msgstr ""
+
+#: src/components/FishList.jsx:64
+msgid "Retract"
+msgstr ""
+
+#: src/components/FishList.jsx:64
+msgid "Expand"
 msgstr ""
 
 #: src/components/ChangePassword.jsx:21
@@ -1601,18 +1613,6 @@ msgstr ""
 
 #: src/components/ChangePassword.jsx:111
 msgid "Confirm New Password"
-msgstr ""
-
-#: src/components/FishList.jsx:24
-msgid "Phishes"
-msgstr ""
-
-#: src/components/FishList.jsx:64
-msgid "Retract"
-msgstr ""
-
-#: src/components/FishList.jsx:64
-msgid "Expand"
 msgstr ""
 
 #: src/components/ChangeName.jsx:64
@@ -1653,33 +1653,6 @@ msgstr ""
 
 #: src/components/DeleteAccount.jsx:75
 msgid "Yes, Delete My Account!"
-msgstr ""
-
-#: src/components/SocialSettings.jsx:38
-msgid "Block DMs"
-msgstr ""
-
-#: src/components/SocialSettings.jsx:45
-msgid ""
-"Block all Private Messages. Enabling this will delete all your current DMs. "
-"You can still start new DMs with other users, but other users won't be able "
-"to start DMs with you."
-msgstr ""
-
-#: src/components/SocialSettings.jsx:47
-msgid "Private"
-msgstr ""
-
-#: src/components/SocialSettings.jsx:54
-msgid "Don't show me in global stats"
-msgstr ""
-
-#: src/components/SocialSettings.jsx:60
-msgid "Unblock Users"
-msgstr ""
-
-#: src/components/SocialSettings.jsx:73
-msgid "You have no users blocked"
 msgstr ""
 
 #: src/components/ModCanvastools.jsx:169
@@ -1781,81 +1754,31 @@ msgstr ""
 msgid "Stop Cleaner"
 msgstr ""
 
-#: src/components/ModWatchtools.jsx:49
-msgid "Interval is invalid"
+#: src/components/SocialSettings.jsx:38
+msgid "Block DMs"
 msgstr ""
 
-#: src/components/ModWatchtools.jsx:122
-msgid "Check who placed in an area"
+#: src/components/SocialSettings.jsx:45
+msgid ""
+"Block all Private Messages. Enabling this will delete all your current DMs. "
+"You can still start new DMs with other users, but other users won't be able "
+"to start DMs with you."
 msgstr ""
 
-#: src/components/ModWatchtools.jsx:142
-msgid "Interval"
+#: src/components/SocialSettings.jsx:47
+msgid "Private"
 msgstr ""
 
-#: src/components/ModWatchtools.jsx:157
-msgid "IID (optional)"
+#: src/components/SocialSettings.jsx:54
+msgid "Don't show me in global stats"
 msgstr ""
 
-#: src/components/ModWatchtools.jsx:247
-msgid "Get Pixels"
+#: src/components/SocialSettings.jsx:60
+msgid "Unblock Users"
 msgstr ""
 
-#: src/components/ModWatchtools.jsx:279
-msgid "Get Users"
-msgstr ""
-
-#: src/components/ModWatchtools.jsx:421
-msgid "Copy UserId to Clipboard"
-msgstr ""
-
-#: src/components/ModIIDtools.jsx:30
-msgid "You must enter an IID"
-msgstr ""
-
-#: src/components/ModIIDtools.jsx:37
-msgid "You must enter an BID"
-msgstr ""
-
-#: src/components/ModIIDtools.jsx:44
-msgid "You must enter an IID or UserId"
-msgstr ""
-
-#: src/components/ModIIDtools.jsx:51
-msgid "You must enter a UserId"
-msgstr ""
-
-#: src/components/ModIIDtools.jsx:54
-msgid "You must enter a username"
-msgstr ""
-
-#: src/components/ModIIDtools.jsx:63
-msgid "You must enter a duration"
-msgstr ""
-
-#: src/components/ModIIDtools.jsx:66
-msgid "You must enter a reason"
-msgstr ""
-
-#: src/components/ModIIDtools.jsx:74
-msgid "You must enter at least one IID, User Id or BID"
-msgstr ""
-
-#: src/components/ModIIDtools.jsx:118
-msgid "IID Actions"
-msgstr ""
-
-#: src/components/ModIIDtools.jsx:148
-#: src/components/ModIIDtools.jsx:246
-msgid "Enter Reason"
-msgstr ""
-
-#: src/components/ModIIDtools.jsx:165
-msgid "(0 = infinite)"
-msgstr ""
-
-#: src/components/ModIIDtools.jsx:239
-msgid "Username"
+#: src/components/SocialSettings.jsx:73
+msgid "You have no users blocked"
 msgstr ""
 
 #: src/components/Admintools.jsx:144
@@ -1910,6 +1833,34 @@ msgstr ""
 msgid "Enter UserName of new Mod"
 msgstr ""
 
+#: src/components/ModWatchtools.jsx:49
+msgid "Interval is invalid"
+msgstr ""
+
+#: src/components/ModWatchtools.jsx:122
+msgid "Check who placed in an area"
+msgstr ""
+
+#: src/components/ModWatchtools.jsx:142
+msgid "Interval"
+msgstr ""
+
+#: src/components/ModWatchtools.jsx:157
+msgid "IID (optional)"
+msgstr ""
+
+#: src/components/ModWatchtools.jsx:247
+msgid "Get Pixels"
+msgstr ""
+
+#: src/components/ModWatchtools.jsx:279
+msgid "Get Users"
+msgstr ""
+
+#: src/components/ModWatchtools.jsx:421
+msgid "Copy UserId to Clipboard"
+msgstr ""
+
 #: src/core/chartSettings.js:30
 msgid "Top 10 Countries [pxls / day]"
 msgstr ""
@@ -1940,8 +1891,53 @@ msgid ""
 "In example in the case of a streamer raid."
 msgstr ""
 
-#: src/components/DeleteList.jsx:30
-msgid "Remove"
+#: src/components/ModIIDtools.jsx:30
+msgid "You must enter an IID"
+msgstr ""
+
+#: src/components/ModIIDtools.jsx:37
+msgid "You must enter an BID"
+msgstr ""
+
+#: src/components/ModIIDtools.jsx:44
+msgid "You must enter an IID or UserId"
+msgstr ""
+
+#: src/components/ModIIDtools.jsx:51
+msgid "You must enter a UserId"
+msgstr ""
+
+#: src/components/ModIIDtools.jsx:54
+msgid "You must enter a username"
+msgstr ""
+
+#: src/components/ModIIDtools.jsx:63
+msgid "You must enter a duration"
+msgstr ""
+
+#: src/components/ModIIDtools.jsx:66
+msgid "You must enter a reason"
+msgstr ""
+
+#: src/components/ModIIDtools.jsx:74
+msgid "You must enter at least one IID, User Id or BID"
+msgstr ""
+
+#: src/components/ModIIDtools.jsx:118
+msgid "IID Actions"
+msgstr ""
+
+#: src/components/ModIIDtools.jsx:148
+#: src/components/ModIIDtools.jsx:246
+msgid "Enter Reason"
+msgstr ""
+
+#: src/components/ModIIDtools.jsx:165
+msgid "(0 = infinite)"
+msgstr ""
+
+#: src/components/ModIIDtools.jsx:239
+msgid "Username"
 msgstr ""
 
 #: src/components/contextmenus/UserContextMenu.jsx:49
@@ -1958,6 +1954,10 @@ msgstr ""
 
 #: src/components/contextmenus/ChannelContextMenu.jsx:46
 msgid "Mute"
+msgstr ""
+
+#: src/components/DeleteList.jsx:30
+msgid "Remove"
 msgstr ""
 
 #: src/components/MdLink.jsx:99
@@ -1984,25 +1984,10 @@ msgctxt "keybinds"
 msgid "X"
 msgstr ""
 
-#: src/components/windows/Settings.jsx:89
-msgctxt "keybinds"
-msgid "N"
-msgstr ""
-
-#: src/components/windows/Settings.jsx:97
-msgctxt "keybinds"
-msgid "M"
-msgstr ""
-
 #: src/components/windows/Help.jsx:23
 #: src/components/windows/Settings.jsx:159
 msgctxt "keybinds"
 msgid "H"
-msgstr ""
-
-#: src/components/windows/Settings.jsx:169
-msgctxt "keybinds"
-msgid "B"
 msgstr ""
 
 #: src/components/windows/Help.jsx:24
@@ -2043,6 +2028,21 @@ msgstr ""
 #: src/components/windows/Help.jsx:37
 msgctxt "keybinds"
 msgid "Shift"
+msgstr ""
+
+#: src/components/windows/Settings.jsx:89
+msgctxt "keybinds"
+msgid "N"
+msgstr ""
+
+#: src/components/windows/Settings.jsx:97
+msgctxt "keybinds"
+msgid "M"
+msgstr ""
+
+#: src/components/windows/Settings.jsx:169
+msgctxt "keybinds"
+msgid "B"
 msgstr ""
 
 #: src/components/TemplateSettings.jsx:61

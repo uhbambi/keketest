@@ -94,6 +94,14 @@ msgstr ""
 msgid "Loading..."
 msgstr ""
 
+#: src/ssr/Main.jsx:77
+msgid "Place color pixels on an map styled canvas with other players online"
+msgstr ""
+
+#: src/ssr/Main.jsx:78
+msgid "PixelPlanet"
+msgstr ""
+
 #: src/ssr/PopUp.jsx:50
 msgid "ppfun"
 msgstr ""
@@ -102,12 +110,9 @@ msgstr ""
 msgid "PixelPlanet.Fun PopUp"
 msgstr ""
 
-#: src/ssr/Main.jsx:77
-msgid "Place color pixels on an map styled canvas with other players online"
-msgstr ""
-
-#: src/ssr/Main.jsx:78
-msgid "PixelPlanet"
+#: src/middleware/session.js:166
+#: src/routes/api/modtools.js:57
+msgid "You are not logged in"
 msgstr ""
 
 #: src/ssr/PasswordReset.jsx:21
@@ -216,11 +221,6 @@ msgstr ""
 msgid "Password must be shorter than 60 characters."
 msgstr ""
 
-#: src/middleware/session.js:166
-#: src/routes/api/modtools.js:57
-msgid "You are not logged in"
-msgstr ""
-
 #: src/routes/api/modtools.js:65
 msgid "You are not allowed to access this page"
 msgstr ""
@@ -314,11 +314,11 @@ msgid ""
 "request a new one."
 msgstr ""
 
-#: src/routes/api/auth/local.js:37
+#: src/routes/api/auth/local.js:19
 msgid "Name or Email does not exist!"
 msgstr ""
 
-#: src/routes/api/auth/local.js:44
+#: src/routes/api/auth/local.js:26
 msgid ""
 "This email / password combination got hacked and leaked. To protect this "
 "account, the password has been reset. Please use the \"Forgot my password\" "
@@ -355,10 +355,6 @@ msgstr ""
 msgid "An error occured. Please try again later."
 msgstr ""
 
-#: src/routes/api/auth/delete_account.js:54
-msgid "Server error when deleting user."
-msgstr ""
-
 #: src/routes/api/auth/change_name.js:11
 msgid "You already have that name."
 msgstr ""
@@ -366,6 +362,10 @@ msgstr ""
 #: src/routes/api/auth/change_name.js:39
 #: src/routes/api/auth/change_username.js:36
 msgid "Name already in use."
+msgstr ""
+
+#: src/routes/api/auth/delete_account.js:54
+msgid "Server error when deleting user."
 msgstr ""
 
 #: src/routes/api/auth/change_username.js:17
