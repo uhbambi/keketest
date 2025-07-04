@@ -19,6 +19,10 @@ import clientConfig from '../webpack.config.client.js';
 const __filename = import.meta.filename;
 const __dirname = import.meta.dirname;
 
+const pkg = JSON.parse(
+  fs.readFileSync(path.resolve(import.meta.dirname, '..', 'package.json')),
+);
+
 let langs = 'all';
 let doBuildServer = false;
 let doBuildClient = false;
@@ -78,7 +82,7 @@ function getAllAvailableLocals() {
 function getPoFileStats(file) {
   return new Promise((resolve) => {
     const fileStream = fs.createReadStream(file);
-    const lineReader = readline.createInterface({ 
+    const lineReader = readline.createInterface({
       input: fileStream,
       crlfDelay: Infinity,
     });
@@ -427,7 +431,7 @@ async function build() {
       console.log(`Minify CSS assets...`);
       console.log('-----------------------------');
       await minifyCss();
-      
+
       if (doBuildServer) {
         /*
          * server copies files into ./dist/public, it
@@ -457,7 +461,9 @@ async function build() {
       console.log('-----------------------------');
       await zipDir(
         path.resolve(__dirname, '..'),
-        path.resolve(__dirname, '..', 'dist', 'public', 'legal', 'source.zip'),
+        path.resolve(__dirname, '..', 'dist', 'public', 'legal',
+          `${pkg.name}-${pkg.version}.zip`,
+        ),
       );
       console.log('-----------------------------');
     }

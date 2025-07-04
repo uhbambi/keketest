@@ -3,7 +3,7 @@
  */
 const mapping = {
   './src': {
-    sources: './source.zip',
+    sources: './%{name}-%{version}.zip',
     moduleSourceTemplate: 'branch:master',
   },
   three: {

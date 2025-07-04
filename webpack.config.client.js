@@ -10,6 +10,10 @@ import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
 import sourceMapping from './scripts/sourceMapping.js';
 import LicenseListWebpackPlugin from './scripts/LicenseListWebpackPlugin.cjs';
 
+const pkg = JSON.parse(
+  fs.readFileSync(path.resolve(import.meta.dirname, './package.json')),
+);
+
 /*
  * make sure we build in root dir
  */
@@ -132,6 +136,8 @@ export default ({
       new webpack.DefinePlugin({
         'process.env.NODE_ENV': development ? '"development"' : '"production"',
         'process.env.BROWSER': true,
+        'process.env.PKG_NAME': pkg.name,
+        'process.env.PKG_VERSION': pkg.version,
       }),
       // Output license informations
       new LicenseListWebpackPlugin({

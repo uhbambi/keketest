@@ -1,7 +1,8 @@
 /* eslint-disable max-len */
+const i32Max = 0xFFFFFFFF;
 
 function createChallenge(randomInt, randomStr, compileWat) {
-  const solution = randomInt(0xFFFFFFFF);
+  const solution = randomInt(i32Max);
   const wat = `(module (func (export "run") (result i32) i32.const ${solution}))`;
   const buffer = compileWat(wat);
 
@@ -13,7 +14,7 @@ WebAssembly.instantiate(w).then(wasmModule => {
 /* @license-end */`;
 
   return {
-    solution,
+    solution: solution & i32Max,
     data,
   };
 }
