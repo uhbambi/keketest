@@ -3,11 +3,14 @@
 The 2.0 release comes with a total revamp of the account system, proxy detection
 and more. Its database layout is not compatible with previous versions.
 
+The configuration moved to the file `config.ini`, which you have to edit and copy
+all the configs, that you previously had in `ecosystem.yml`, to.
+
 We can not offer automatic migration of the SQL database.
 However, a migration script got shipped with this version. Make user to BACK UP
 your SQL database before running it.
 
-Migration script:
+Migration script (uses the sql database configured in config.ini):
 
 ```bash
 node scripts/migrate2.js
