@@ -462,7 +462,7 @@ async function build() {
       await zipDir(
         path.resolve(__dirname, '..'),
         path.resolve(__dirname, '..', 'dist', 'public', 'legal',
-          `${pkg.name}-${pkg.version}.zip`,
+          `${pkg.name}-${pkg.version}-source.zip`,
         ),
       );
       console.log('-----------------------------');

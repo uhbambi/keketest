@@ -221,10 +221,6 @@ msgstr ""
 msgid "You are not logged in"
 msgstr ""
 
-#: src/routes/api/baninfo.js:15
-msgid "You are not banned"
-msgstr ""
-
 #: src/routes/api/modtools.js:65
 msgid "You are not allowed to access this page"
 msgstr ""
@@ -233,16 +229,21 @@ msgstr ""
 msgid "Just admins can do that"
 msgstr ""
 
-#: src/routes/api/auth/local.js:37
-msgid "Name or Email does not exist!"
+#: src/routes/api/baninfo.js:15
+msgid "You are not banned"
 msgstr ""
 
-#: src/routes/api/auth/local.js:44
-msgid ""
-"This email / password combination got hacked and leaked. To protect this "
-"account, the password has been reset. Please use the \"Forgot my password\" "
-"function below to set a new password. In the future, consider not "
-"installing malware, Thank You."
+#: src/ssr/RedirectionPage.jsx:20
+msgid "PixelPlanet.fun Accounts"
+msgstr ""
+
+#: src/ssr/RedirectionPage.jsx:30
+msgid "You will be automatically redirected after 15s"
+msgstr ""
+
+#: src/ssr/RedirectionPage.jsx:31
+#, javascript-format
+msgid "Or ${ clickHere } to go back to pixelplanet"
 msgstr ""
 
 #: src/routes/api/auth/register.js:32
@@ -313,18 +314,16 @@ msgid ""
 "request a new one."
 msgstr ""
 
-#: src/routes/api/auth/resend_verify.js:14
-msgid "You are already verified."
+#: src/routes/api/auth/local.js:37
+msgid "Name or Email does not exist!"
 msgstr ""
 
-#: src/routes/api/auth/resend_verify.js:21
+#: src/routes/api/auth/local.js:44
 msgid ""
-"You do not have any email adress set. Please add one under \"Login "
-"Methods\"."
-msgstr ""
-
-#: src/routes/api/auth/resend_verify.js:25
-msgid "An error occured. Please try again later."
+"This email / password combination got hacked and leaked. To protect this "
+"account, the password has been reset. Please use the \"Forgot my password\" "
+"function below to set a new password. In the future, consider not "
+"installing malware, Thank You."
 msgstr ""
 
 #: src/routes/api/auth/change_mail.js:47
@@ -342,6 +341,20 @@ msgstr ""
 msgid "You can not delete this login method, because you have nothing else left."
 msgstr ""
 
+#: src/routes/api/auth/resend_verify.js:14
+msgid "You are already verified."
+msgstr ""
+
+#: src/routes/api/auth/resend_verify.js:21
+msgid ""
+"You do not have any email adress set. Please add one under \"Login "
+"Methods\"."
+msgstr ""
+
+#: src/routes/api/auth/resend_verify.js:25
+msgid "An error occured. Please try again later."
+msgstr ""
+
 #: src/routes/api/auth/delete_account.js:54
 msgid "Server error when deleting user."
 msgstr ""
@@ -353,19 +366,6 @@ msgstr ""
 #: src/routes/api/auth/change_name.js:39
 #: src/routes/api/auth/change_username.js:36
 msgid "Name already in use."
-msgstr ""
-
-#: src/ssr/RedirectionPage.jsx:20
-msgid "PixelPlanet.fun Accounts"
-msgstr ""
-
-#: src/ssr/RedirectionPage.jsx:30
-msgid "You will be automatically redirected after 15s"
-msgstr ""
-
-#: src/ssr/RedirectionPage.jsx:31
-#, javascript-format
-msgid "Or ${ clickHere } to go back to pixelplanet"
 msgstr ""
 
 #: src/routes/api/auth/change_username.js:17
