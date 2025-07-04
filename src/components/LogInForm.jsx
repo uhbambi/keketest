@@ -14,12 +14,10 @@ import { loginUser } from '../store/actions/index.js';
 
 function validate(nameoremail, password) {
   const errors = [];
-  if (process?.env.NODE_ENV !== 'development' || password !== 'asdfasdf') {
-    const mailerror = (nameoremail.indexOf('@') !== -1)
-      ? validateEMail(nameoremail)
-      : validateName(nameoremail);
-    if (mailerror) errors.push(mailerror);
-  }
+  const mailerror = (nameoremail.indexOf('@') !== -1)
+    ? validateEMail(nameoremail)
+    : validateName(nameoremail);
+  if (mailerror) errors.push(mailerror);
   const passworderror = validatePassword(password);
   if (passworderror) errors.push(passworderror);
 

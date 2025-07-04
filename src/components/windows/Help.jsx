@@ -55,6 +55,8 @@ const Help = () => {
   }, [easterEgg, dispatch]);
   const refCallback = useLongPress(null, onLongPress, 1000);
 
+  const sourceUrl = `${cdn`/legal/` + process.env.PKG_NAME}-${process.env.PKG_VERSION}-source.zip`;
+
   return (
     <div className="content">
       <img
@@ -72,7 +74,7 @@ const Help = () => {
         {t`Have fun!`}
       </p>
       <p className="modalinfo">Guilded ({t`recommended`}): <a href="./guilded" target="_blank" rel="noopener noreferrer">{t`Invited to Chat`}</a></p>
-      <p className="modalinfo">{t`Source for pixelplanet on `}<a href="https://git.pixelplanet.fun" target="_blank" rel="noopener noreferrer">git.pixelplanet.fun</a> or <a href={cdn`/legal/process.env.PKG_NAME-process.env.PKG_VERSION-source.zip`} target="_blank" rel="noopener noreferrer">download here</a>.</p>
+      <p className="modalinfo">{t`Source for pixelplanet on `}<a href="https://git.pixelplanet.fun" target="_blank" rel="noopener noreferrer">git.pixelplanet.fun</a> or <a href={sourceUrl} target="_blank" rel="noopener noreferrer">download here</a>.</p>
       <p className="modalinfo">{jt`We are Libre Software under the ${agplLink}, `}<a href="/legal/summarized.html" target="_blank" rel="noopener noreferrer">{t`check compliance here`}</a>.</p>
       <h3>{t`Legal Requests`}</h3>
       <p>{t`For any legal issues, please contact ${mailLink}. If you want to delete your data, simply delete your account, this in fact wipes all privacy relevant traces. Your placed pixels will of course not be deleted.`}</p>
