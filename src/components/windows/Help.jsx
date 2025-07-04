@@ -77,7 +77,7 @@ const Help = () => {
       <p className="modalinfo">{t`Source for pixelplanet on `}<a href="https://git.pixelplanet.fun" target="_blank" rel="noopener noreferrer">git.pixelplanet.fun</a> or <a href={sourceUrl} target="_blank" rel="noopener noreferrer">download here</a>.</p>
       <p className="modalinfo">{jt`We are Libre Software under the ${agplLink}, `}<a href="/legal/summarized.html" target="_blank" rel="noopener noreferrer">{t`check compliance here`}</a>.</p>
       <h3>{t`Legal Requests`}</h3>
-      <p>{t`For any legal issues, please contact ${mailLink}. If you want to delete your data, simply delete your account, this in fact wipes all privacy relevant traces. Your placed pixels will of course not be deleted.`}</p>
+      <p>{jt`For any legal issues, please contact ${mailLink}. If you want to delete your data, simply delete your account, this in fact wipes all privacy relevant traces. Your placed pixels will of course not be deleted.`}</p>
       <h3>{t`Map Data`}</h3>
       <p>{t`The bare map data that we use, together with converted OpenStreetMap tiles for orientation, can be downloaded from mega.nz here: `}<a href="https://mega.nz/#!JpkBwAbJ!EnSLlZmKv3kEBE0HDhakTgAZZycD3ELjduajJxPGaXo">pixelplanetmap.zip</a> (422MB)</p>
       <h3>{t`Banned? Detected as Proxy?`}</h3>

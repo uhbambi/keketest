@@ -109,7 +109,7 @@ npm install
 npm start
 ```
 
-Now you can access pixelplanet on `http://localhost:5000` or whatever oder *HOST* and *PORT* you chose inside `config.ini.
+Now you can access pixelplanet on `http://localhost:5000` or whatever oder *HOST* and *PORT* you chose inside `config.ini`.
 
 ### Stopping
 

@@ -117,6 +117,10 @@ server {
 If you use a CDN like cloudflare, you also need to setup the real-ip module to
 trust theirs IPs. How to do this, will not be documented here.
 
+# Cloudflare
+
+When using Cloudflare (you souldn't), its Caching Setting `Broser Cache Expiration` should be set to `Respect Existing Headers` or it would default to 4h, which is unreasonable for chunks.
+
 # Cluster
 
 Pixelplanet can run in multiple processes ("shards") to distribute load. This
