@@ -138,7 +138,10 @@ export const getIPIntel = queue(async (
   return [whoisData, proxyCheckData];
 });
 
-const disposableEmailDomainCache = {};
+const disposableEmailDomainCache = new Map([
+  ['aminating.com', true],
+  ['fuckmeuwu.shop', true],
+]);
 
 export const checkMail = queue(async (email) => {
   if (!email) {
@@ -149,13 +152,16 @@ export const checkMail = queue(async (email) => {
   if (tld === 'sbs' || tld === 'cyou' || domain === 'fuckmeuwu.shop') {
     return true;
   }
-  const cache = disposableEmailDomainCache[domain];
+  const cache = disposableEmailDomainCache.get(domain);
   if (cache) {
     return cache;
   }
+  if (disposableEmailDomainCache.size > 100) {
+    disposableEmailDomainCache.clear();
+  }
   const isDisposable = await mailChecker(email);
   if (isDisposable) {
-    disposableEmailDomainCache[domain] = true;
+    disposableEmailDomainCache.set(domain, true);
   }
   return isDisposable;
 });
