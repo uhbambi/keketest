@@ -11,7 +11,7 @@
 --   chunk: 'ch:canvasId:i:j'
 --   rankset: 'rank' sorted set of pixelcount
 --   dailyset: 'rankd' sorted set of daily pixelcount
---     'nope' if not increasing ranks
+--     'nope' if not increasing ranks <- important
 --   countryset: sorted set for country stats
 --   prevTop: sorted set of yesterdays top 10
 -- Args:
@@ -122,13 +122,16 @@ if ARGV[9] == "0" and pxlcnt > 0 then
     end
   end
   -- increment pixelcount
-  if KEYS[6] ~= 'nope' then
-    redis.call('zincrby', KEYS[5], pxlcnt, ARGV[6])
-    redis.call('zincrby', KEYS[6], pxlcnt, ARGV[6])
-  end
-  -- increase country stats
-  if ARGV[7] ~= 'xx' then
-    redis.call('zincrby', KEYS[7], pxlcnt, ARGV[7])
+  if KEYS[6] ~= "nope" then
+    -- daily and total rank
+    if ARGV[6] ~= "0" then
+      redis.call('zincrby', KEYS[5], pxlcnt, ARGV[6])
+      redis.call('zincrby', KEYS[6], pxlcnt, ARGV[6])
+    end
+    -- country stats
+    if ARGV[7] ~= "xx" then
+      redis.call('zincrby', KEYS[7], pxlcnt, ARGV[7])
+    end
   end
 end
 
