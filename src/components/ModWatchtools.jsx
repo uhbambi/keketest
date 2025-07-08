@@ -63,13 +63,7 @@ async function submitWatchAction(
       method: 'POST',
       body: data,
     });
-    let ret;
-    try {
-      ret = await resp.json();
-    } catch {
-      throw new Error(await resp.text());
-    }
-    callback(await ret);
+    callback(await resp.json());
   } catch (err) {
     callback({
       info: `Error: ${err.message}`,
