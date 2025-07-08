@@ -300,7 +300,7 @@ export async function markUserAccountsAsHacked(nameIdsOrEmails) {
     const oldestEmail = await sequelize.query(
       // eslint-disable-next-line max-len
       'SELECT tpid, verified FROM ThreePIDHistories WHERE provider = 1 AND uid = ? ORDER BY createdAt ASC LIMIT 1', {
-        replacements: [affectedIds],
+        replacements: [id],
         raw: true,
         type: QueryTypes.SELECT,
       },
@@ -309,7 +309,7 @@ export async function markUserAccountsAsHacked(nameIdsOrEmails) {
     if (oldestEmail.length) {
       /* set user to oldest email */
       couldSetMail = await setEmail(
-        id, oldestEmail.tpid, oldestEmail[0].verified,
+        id, oldestEmail[0].tpid, oldestEmail[0].verified,
       );
     }
     const promises = [];

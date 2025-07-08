@@ -59,11 +59,11 @@ export async function executeIPAction(action, ips, logger = null) {
     let out = '';
     const [emailSet, mailExists] = await markUserAccountsAsHacked(inputValues);
     emailSet.forEach((e) => {
-      out += `${e} setmail`;
+      out += `${e} setmail\n`;
       socketEvents.reloadUser(e);
     });
     mailExists.forEach((e) => {
-      out += `${e} set`;
+      out += `${e} set\n`;
       socketEvents.reloadUser(e);
     });
     return out;
