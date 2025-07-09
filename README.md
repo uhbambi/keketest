@@ -7,7 +7,7 @@
 
 > Informations on how to contribute translations 🔠 is available under [i18n](./i18n). We very much appreciate any help. 
 
-The future rich, blazing fast 🚀🚀🚀 corporative pixel placing game 🔥 in your browser 🌐!  
+The future rich, 🩸 bleeding edge, 🕹️ paradigm-changing, 💡 easy to use, blazingly 🔥 fast 🚀🚀🚀 corporative pixel placing game 🔥 in your browser 🌐, built in 100% memory safe nodejs 🦀!
 A game changer in the world of browser games ✊🏿
 
 ### Controls 🎮
@@ -109,7 +109,7 @@ npm install
 npm start
 ```
 
-Now you can access pixelplanet on `http://localhost:5000` or whatever oder *HOST* and *PORT* you chose inside `config.ini`.
+Now you can access pixelplanet on `http://localhost:5000` or whatever other *HOST* and *PORT* you chose inside `config.ini`.
 
 ### Stopping 🛑
 
