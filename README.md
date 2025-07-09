@@ -7,11 +7,7 @@
 
 > Informations on how to contribute to translations is available under [i18n](./i18n). We very much appreciate any help. 
 
-To the 2nd anniversary of r/space, pixelplanet takes pixelgames to a new level. Place pixels, create pixelart and fight faction wars.
-Pixelplanet presents a 65k x 65k large canvas that is a map of the world and can also be seen as 3d globe, you can place pixels where ever you want, build an island, take over another country with a flag or just create pixelart.
-30 well chosen colors (decided by polls within the community) are available and you can place a pixel every 3s on an empty space, and 5s on an already set pixel. But pixels can be stacked up to a minute, so you don't have to wait every time.
-
-Pixelplanet receives regular updates and launches events, like a zero second cooldown day on r/place anniversary. We are driven by our community, because placing pixels is more fun together.
+Place pixels on a canvas together with hundreds of other players in the webbrowser.
 
 Controls:
 W, A, S, D, click and drag or pan: Move
@@ -119,7 +115,7 @@ Press Ctrl-C
 
 Read [DEPLOYMENT.md](./doc/DEPLOYMENT.md) for tips on how to run it on a server.
 
-## Build
+## Build from Source
 
 ### Requirements
 - [nodejs environment](https://nodejs.org/en/) (>=20)
@@ -154,15 +150,15 @@ npm run build:dev
 [ttag](https://github.com/ttag-org/ttag/) is used for handling translations. For server-side rendering the `Accept-Language` header gets checked and the first locale used and on-the-fly translated (`src/core/ttag.js` provides the functions). On the client-side a seperate bundle for every language gets provided.
 The language definitions in `i18n/template.pot` and `i18n/template-ssr.pot` get updated when doing a full production build with all languages (`npm run build`).
 
-To build only specific languages, you can define them with the `--langs` flag:
+To build only specific languages, you can define them with the `--langs` flag (probably won't work on Windows):
 
 ```
 npm run build -- --langs de,gr
 ```
 
-## Styles
+### Customization
 
-To add more css styles, create a new css file in `src/styles` based on `src/styles/default.css` with a filename beginning with "theme-" and rebuild`.
+For customization check out [CUSTOMIZATION.md](./doc/CUSTOMIZATION.md).
 
 ## Hourly Event
 
