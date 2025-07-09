@@ -4,7 +4,7 @@
 
 To use your own Logo, change `./public/logo.svg` and rebuild.
 
-**NOTE**: The logo [that comes with this repository](./public/logo.svg), is free to use. But the https://pixelplanet.fun logo is an unregistered trademark, you are not allowed to copy or modify it for your own purposes.
+**NOTE**: The logo [that comes with this repository](../public/logo.svg), is free to use. But the https://pixelplanet.fun logo is an unregistered trademark, you are not allowed to copy or modify it for your own purposes.
 
 ## Styles
 

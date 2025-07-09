@@ -1,28 +1,32 @@
-# PixelPlanet.fun
+# PixelPlanet
 
 
 [![Guilded](https://img.shields.io/badge/Discord-Support-blue.svg)](https://pixelplanet.fun/guilded)
 
 ![videothumb](promotion/videothumb.gif)
 
-> Informations on how to contribute to translations is available under [i18n](./i18n). We very much appreciate any help. 
+> Informations on how to contribute translations 🔠 is available under [i18n](./i18n). We very much appreciate any help. 
 
-Place pixels on a canvas together with hundreds of other players in the webbrowser.
+The future rich, blazing fast 🚀🚀🚀 corporative pixel placing game 🔥 in your browser 🌐!  
+A game changer in the world of browser games ✊🏿
 
-Controls:
-W, A, S, D, click and drag or pan: Move
-Q, E or scroll or pinch: Zoom
-Click or tab: Place Pixel
+### Controls 🎮
+
+- 🅆, 🄰, 🅂, 🄳, click and drag or pan: Move
+- 🅀, 🄴 or scroll or pinch: Zoom
+- Click 🖱️ or tap 👆: Place Pixel
 
 ![screenshot](promotion/screenshot.png)
 
 ## Install and Run
 
-### Requirements
+### Requirements 📡
 
 - [nodejs environment](https://nodejs.org/en/) (>=20)
 - [redis](https://redis.io/) or [redis-for-windows](https://github.com/redis-windows/redis-windows) in version **6.2.0 or above** as database for storìng the canvas
-- mysql or mariadb, and set up an own user with password and database for pixelplanet, in example in `mysql` run as `root`:
+- mysql or mariadb
+
+Make sure to set-up an own user with password and database for pixelplanet in SQL, i.e. in `mysql` run as `root`:
 
 ```
 CREATE DATABASE pixelplanet;
@@ -30,11 +34,11 @@ CREATE USER 'pixelplanet'@'localhost' IDENTIFIED BY 'sqlpassword';
 GRANT ALL PRIVILEGES ON pixelplanet.* TO 'pixelplanet'@'localhost';
 ```
 
-### Download
+### Download 📥
 
 Download the current version of pixelplanet from the [Release page](https://git.pixelplanet.fun/ppfun/pixelplanet/releases) (the **pixelplanet-x.x.x.zip** not the Source Code) and unpack the zip file.
 
-### Configuration
+### Configuration 🔧
 
 Configuration takes place in the `config.ini` file, or environment variables.
 Check out that config file for available options.
@@ -88,7 +92,7 @@ Notes:
 - The colors that are ignored via `cli` are used for making the canvas (blue ocean and white continents) and to know if the pixel is already set by a user or not.
 - If you want to add a new canvas, be sure that you additionally create `public/loading${canvasId}.png`, `public/assets3d/normal${canvasId}.jpg`, `public/preview${canvasId}.png` and `public/assets3d/specular${canvasId}.jpg`, check out the existing ones to see what those files are for.
 
-### Preperation
+### Preperation 📊
 
 Inside the pixelplanet folder, install the required packages:
 
@@ -96,7 +100,7 @@ Inside the pixelplanet folder, install the required packages:
 npm install
 ```
 
-### Running
+### Running ‍⚡
 
 1. Make sure that mysql and redis are running
 3. Start with
@@ -107,20 +111,20 @@ npm start
 
 Now you can access pixelplanet on `http://localhost:5000` or whatever oder *HOST* and *PORT* you chose inside `config.ini`.
 
-### Stopping
+### Stopping 🛑
 
 Press Ctrl-C
 
-### What to do next
+### What to do next❓
 
 Read [DEPLOYMENT.md](./doc/DEPLOYMENT.md) for tips on how to run it on a server.
 
 ## Build from Source
 
-### Requirements
+### Requirements 📡
 - [nodejs environment](https://nodejs.org/en/) (>=20)
 
-### Building
+### Building 🤖
 Checkout repository
 
 ```
@@ -156,7 +160,7 @@ To build only specific languages, you can define them with the `--langs` flag (p
 npm run build -- --langs de,gr
 ```
 
-### Customization
+### Customization 👑
 
 For customization check out [CUSTOMIZATION.md](./doc/CUSTOMIZATION.md).
 
