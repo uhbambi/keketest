@@ -378,7 +378,7 @@ export async function executeIIDAction(
     case 'unban': {
       const [unbannedIpStrings, unbannedUserIds] = await unban(
         null, identifierUserIdList, identifierUuidList, identifierUuidList,
-        false, true, muid,
+        true, true, muid,
       );
       let ret = '';
       if (unbannedIpStrings.length) {

@@ -274,7 +274,7 @@ const Rankings = () => {
                   <tr key={rank.name}>
                     <td>{ind + 1}</td>
                     <td><span>{rank.name}</span></td>
-                    <td className="c-num">{numberToStringFull(rank.px)}</td>
+                    <td className="c-num">{numberToStringFull(rank.px, '')}</td>
                   </tr>
                 ));
                 case 'countries': return dailyCRanking.map((rank, ind) => (
