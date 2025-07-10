@@ -7,7 +7,7 @@ The configuration moved to the file `config.ini`, which you have to edit and cop
 all the configs, that you previously had in `ecosystem.yml`, to.
 
 We can not offer automatic migration of the SQL database.
-However, a migration script got shipped with this version. Make user to BACK UP
+However, a migration script got shipped with this version. Make sure to BACK UP
 your SQL database before running it.
 
 Migration script (uses the sql database configured in config.ini):
