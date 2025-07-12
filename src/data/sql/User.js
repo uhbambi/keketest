@@ -255,15 +255,19 @@ export async function getUserIdsByNamesOrEmails(nameIdsOrEmails) {
     const where = [];
     const replacements = [];
     if (nameOrEmails.length) {
-      where.push('u.name IN (?)', 'u.username IN (?)');
-      where.push('EXISTS (SELECT 1 FROM ThreePIDs t WHERE t.uid = u.id AND t.tpid IN (?) AND t.provider = ?)');
-      replacements.push(nameOrEmails, nameOrEmails, nameOrEmails, THREEPID_PROVIDERS.EMAIL);
+      where.push(
+        'u.name IN (?)',
+        `u.username IN (${
+          nameOrEmails.map(() => 'SELECT CONVERT(? USING ascii)').join(' UNION ALL ')
+        })`,
+        'EXISTS (SELECT 1 FROM ThreePIDs t WHERE t.uid = u.id AND t.tpid IN (?) AND t.provider = ?)',
+      );
+      replacements.push(nameOrEmails, ...nameOrEmails, nameOrEmails, THREEPID_PROVIDERS.EMAIL);
     }
 
     let users = [];
     if (where.length) {
       users = await sequelize.query(
-        // eslint-disable-next-line max-len
         `SELECT u.id FROM Users u WHERE ${where.join(' OR ')}`, {
           replacements,
           raw: true,
@@ -271,7 +275,7 @@ export async function getUserIdsByNamesOrEmails(nameIdsOrEmails) {
         },
       );
     }
-    /* eslint-disable max-len */
+    /* eslint-enable max-len */
 
     return ids.concat(users.map((i) => i.id));
   } catch (error) {
