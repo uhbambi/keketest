@@ -186,6 +186,9 @@ export async function getSummaryFromArea(
 ) {
   const ips = {};
   const uids = [];
+  const ipKeys = [];
+  let summaryLength = 0;
+
   let filterIP = null;
   if (iid) {
     filterIP = await getIPofIID(iid);
@@ -193,8 +196,14 @@ export async function getSummaryFromArea(
       return 'Could not resolve IID to IP';
     }
   }
+
   try {
     await parseFile((parts) => {
+      /* only allow 100 entries */
+      if (summaryLength > 100) {
+        return;
+      }
+
       const [tsStr, ipString, uidStr, cid, x, y,, clrStr] = parts;
       const ts = parseInt(tsStr, 10);
       if (ts >= time
@@ -214,7 +223,11 @@ export async function getSummaryFromArea(
         if (!curVals) {
           curVals = [0, uid, 0, 0, 0, 0];
           ips[ipString] = curVals;
-          uids.push(uid);
+          summaryLength += 1;
+          if (!uids.includes(uid)) {
+            uids.push(uid);
+          }
+          ipKeys.push(ipString);
         }
         curVals[0] += 1;
         curVals[2] = x;
@@ -227,10 +240,10 @@ export async function getSummaryFromArea(
     return `Could not parse logfile: ${err.message}`;
   }
 
-  const uid2Name = await getNamesToIds(uids);
-
-  const ipKeys = Object.keys(ips);
-  const ip2Info = await getIPInfos(ipKeys);
+  const [uid2Name, ip2Info] = await Promise.all([
+    getNamesToIds(uids),
+    getIPInfos(ipKeys),
+  ]);
 
   let printIIDs = false;
   let printUsers = false;
@@ -298,6 +311,8 @@ export async function getPixelsFromArea(
   const pixels = [];
   const uids = [];
   const ips = [];
+  let summaryLength = 0;
+
   let filterIP = null;
   if (iid) {
     filterIP = await getIPofIID(iid);
@@ -305,8 +320,14 @@ export async function getPixelsFromArea(
       return 'Could not resolve IID to IP';
     }
   }
+
   try {
     await parseFile((parts) => {
+      /* only allow 100 different ipStrings */
+      if (summaryLength > 100) {
+        return;
+      }
+
       const [tsStr, ipString, uidStr, cid, x, y,, clrStr] = parts;
       const ts = parseInt(tsStr, 10);
       if (ts >= time
@@ -324,7 +345,10 @@ export async function getPixelsFromArea(
         const uid = parseInt(uidStr, 10);
         pixels.push([ipString, uid, x, y, clr, ts]);
         if (!ips.includes(ipString)) {
+          summaryLength += 1;
           ips.push(ipString);
+        }
+        if (!uids.includes(uid)) {
           uids.push(uid);
         }
       }
@@ -333,8 +357,10 @@ export async function getPixelsFromArea(
     return `Could not parse logfile: ${err.message}`;
   }
 
-  const uid2Name = await getNamesToIds(uids);
-  const ip2Id = await getIIDsOfIPs(ips);
+  const [uid2Name, ip2Id] = await Promise.all([
+    getNamesToIds(uids),
+    getIIDsOfIPs(ips),
+  ]);
 
   const pixelF = (maxRows && pixels.length > maxRows)
     ? pixels.slice(maxRows * -1)

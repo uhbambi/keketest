@@ -185,7 +185,7 @@ export async function findIdByNameOrId(searchString) {
 
 export async function getNamesToIds(ids) {
   const idToNameMap = new Map();
-  if (!ids.length || ids.length > 300) {
+  if (!ids.length) {
     return idToNameMap;
   }
   try {
