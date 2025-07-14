@@ -594,13 +594,6 @@ export async function executeWatchAction(
   }
   const [x, y, u, v] = parseCoords;
 
-  if ((u - x > 1000 || v - y > 1000)
-    && Date.now() - ts > 5 * 60 * 1000
-    && !iid
-  ) {
-    return { info: 'Can not watch so many pixels' };
-  }
-
   if (action === 'summary') {
     ret = await socketEvents.reqAll(
       'watch',

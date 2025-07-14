@@ -197,10 +197,11 @@ export async function getSummaryFromArea(
     }
   }
 
+  let tsLog = Date.now();
   try {
     await parseFile((parts) => {
-      /* only allow 100 entries */
-      if (summaryLength > 100) {
+      /* only allow a limited amount of entries */
+      if (summaryLength > 25) {
         return;
       }
 
@@ -239,11 +240,19 @@ export async function getSummaryFromArea(
   } catch (err) {
     return `Could not parse logfile: ${err.message}`;
   }
+  console.log(
+    `PIXEL_LOG: parsing logfile took ${(Date.now() - tsLog) / 1000} s`,
+    `We have ${summaryLength} entries.`,
+  );
+  tsLog = Date.now();
 
   const [uid2Name, ip2Info] = await Promise.all([
     getNamesToIds(uids),
     getIPInfos(ipKeys),
   ]);
+  console.log(
+    `PIXEL_LOG: resolving info took ${(Date.now() - tsLog) / 1000} s`,
+  );
 
   let printIIDs = false;
   let printUsers = false;
@@ -323,8 +332,8 @@ export async function getPixelsFromArea(
 
   try {
     await parseFile((parts) => {
-      /* only allow 100 different ipStrings */
-      if (summaryLength > 100) {
+      /* only allow a limited amount of ipStrings */
+      if (summaryLength > 25) {
         return;
       }
 
