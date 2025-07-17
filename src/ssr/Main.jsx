@@ -23,6 +23,7 @@ const basedQuotes = [
   ['Vladimir Putin', 'To forgive the terrorists is up to God, but to send them there is up to us.', '/memes/putin.png', 'image', 1004, 1005],
   ['Alexander G. Lukashenko', 'It&#39;s better to be a dictator than gay.', '/memes/luka.png', 'image', 665, 658],
   ['ILLIT', 'ILLIT - EZPZ', '/memes/illit1.mp4', 'video', 720, 1280],
+  ['Donald J. Trump', 'This guy has been talked about for years!', '/memes/trump-epstein.mp4', 'video', 720, 1280],
   ['Candace Owens', 'What is antisemitism?', '/memes/owens1.mp4', 'video', 640, 360],
   ['Candace Owens', 'Antisemite of the year 2024', '/memes/owens2.mp4', 'video', 640, 360],
 ];
