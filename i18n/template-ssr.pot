@@ -94,14 +94,6 @@ msgstr ""
 msgid "Loading..."
 msgstr ""
 
-#: src/ssr/Main.jsx:77
-msgid "Place color pixels on an map styled canvas with other players online"
-msgstr ""
-
-#: src/ssr/Main.jsx:78
-msgid "PixelPlanet"
-msgstr ""
-
 #: src/ssr/PopUp.jsx:50
 msgid "ppfun"
 msgstr ""
@@ -110,9 +102,12 @@ msgstr ""
 msgid "PixelPlanet.Fun PopUp"
 msgstr ""
 
-#: src/middleware/session.js:166
-#: src/routes/api/modtools.js:57
-msgid "You are not logged in"
+#: src/ssr/Main.jsx:78
+msgid "Place color pixels on an map styled canvas with other players online"
+msgstr ""
+
+#: src/ssr/Main.jsx:79
+msgid "PixelPlanet"
 msgstr ""
 
 #: src/ssr/PasswordReset.jsx:21
@@ -221,6 +216,11 @@ msgstr ""
 msgid "Password must be shorter than 60 characters."
 msgstr ""
 
+#: src/middleware/session.js:166
+#: src/routes/api/modtools.js:57
+msgid "You are not logged in"
+msgstr ""
+
 #: src/routes/api/modtools.js:65
 msgid "You are not allowed to access this page"
 msgstr ""
@@ -231,19 +231,6 @@ msgstr ""
 
 #: src/routes/api/baninfo.js:15
 msgid "You are not banned"
-msgstr ""
-
-#: src/ssr/RedirectionPage.jsx:20
-msgid "PixelPlanet.fun Accounts"
-msgstr ""
-
-#: src/ssr/RedirectionPage.jsx:30
-msgid "You will be automatically redirected after 15s"
-msgstr ""
-
-#: src/ssr/RedirectionPage.jsx:31
-#, javascript-format
-msgid "Or ${ clickHere } to go back to pixelplanet"
 msgstr ""
 
 #: src/routes/api/auth/register.js:32
@@ -297,6 +284,19 @@ msgstr ""
 
 #: src/routes/api/auth/register.js:116
 msgid "Failed to create a new user :("
+msgstr ""
+
+#: src/ssr/RedirectionPage.jsx:20
+msgid "PixelPlanet.fun Accounts"
+msgstr ""
+
+#: src/ssr/RedirectionPage.jsx:30
+msgid "You will be automatically redirected after 15s"
+msgstr ""
+
+#: src/ssr/RedirectionPage.jsx:31
+#, javascript-format
+msgid "Or ${ clickHere } to go back to pixelplanet"
 msgstr ""
 
 #: src/routes/api/auth/verify.js:21
@@ -355,6 +355,10 @@ msgstr ""
 msgid "An error occured. Please try again later."
 msgstr ""
 
+#: src/routes/api/auth/delete_account.js:54
+msgid "Server error when deleting user."
+msgstr ""
+
 #: src/routes/api/auth/change_name.js:11
 msgid "You already have that name."
 msgstr ""
@@ -362,10 +366,6 @@ msgstr ""
 #: src/routes/api/auth/change_name.js:39
 #: src/routes/api/auth/change_username.js:36
 msgid "Name already in use."
-msgstr ""
-
-#: src/routes/api/auth/delete_account.js:54
-msgid "Server error when deleting user."
 msgstr ""
 
 #: src/routes/api/auth/change_username.js:17
