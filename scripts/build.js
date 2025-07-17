@@ -201,7 +201,6 @@ function cleanUpBeforeBuild(doBuildServer, doBuildClient) {
     [
       'LICENSE',
       'COPYING',
-      'CODE_OF_CONDUCT.md',
       'AUTHORS',
       'README.md',
       path.join('src', 'canvases.json'),
