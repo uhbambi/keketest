@@ -499,7 +499,7 @@ export async function ban(
       const bid = banModel.id;
 
       const promises = [];
-      if (userIds > 0) {
+      if (userIds && userIds.length !== 0) {
         const threePIDs = await ThreePID.findAll({
           where: { uid: userIds },
           raw: true,
@@ -510,11 +510,9 @@ export async function ban(
           ), { returning: false, transaction }));
         }
         if (Array.isArray(userIds)) {
-          if (userIds.length) {
-            promises.push(UserBan.bulkCreate(userIds.map(
-              (uid) => ({ bid, uid }),
-            ), { returning: false, transaction }));
-          }
+          promises.push(UserBan.bulkCreate(userIds.map(
+            (uid) => ({ bid, uid }),
+          ), { returning: false, transaction }));
         } else {
           promises.push(UserBan.create({ uid: userIds, bid },
             { returning: false, transaction }));
