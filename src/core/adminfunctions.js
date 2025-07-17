@@ -128,7 +128,7 @@ export async function executeQuickAction(action, logger = null) {
  * @param ban Array of ban models
  * @return string with informations
  */
-function printBans(bans) {
+async function printBans(bans) {
   let out = '';
 
   let i = bans.length;
@@ -155,10 +155,8 @@ function printBans(bans) {
     if (users?.length) out += ` Users: ${users.map((u) => u.id).join(', ')} `;
     if (tpids?.length) out += `${tpids.length} TPIDS `;
     if (ips?.length) {
-      out += `IPs: ${ips.map(
-        // eslint-disable-next-line max-len
-        (ib) => `${ib.ipString.substring(0, ib.ipString.indexOf('.') + 3)}x.xxx.xxx`,
-      ).join(', ')}`;
+      const iids = await getIIDsOfIPs(ips.map((ib) => ib.ipString));
+      out += `IIDs: ${Array.from(iids.values()).join(', ')}`;
     }
     out += '\n';
     if (i > 0) {
@@ -322,7 +320,7 @@ export async function executeIIDAction(
       }
       if (banInfos?.length) {
         out += '\n';
-        out += printBans(banInfos);
+        out += await printBans(banInfos);
       }
       return out;
     }
@@ -382,9 +380,8 @@ export async function executeIIDAction(
       );
       let ret = '';
       if (unbannedIpStrings.length) {
-        ret += `Unbanned IPs: ${unbannedIpStrings.map(
-          (i) => `${i.substring(0, i.indexOf('.'))}.xxx.xxx.xxx`,
-        ).join(', ')}`;
+        const iids = await getIIDsOfIPs(unbannedIpStrings);
+        ret += `Unbanned IIDs: ${Array.from(iids.values()).join(', ')}`;
       }
       if (unbannedUserIds.length) {
         if (ret) ret += '\n';
