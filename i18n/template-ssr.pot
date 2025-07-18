@@ -94,22 +94,6 @@ msgstr ""
 msgid "Loading..."
 msgstr ""
 
-#: src/ssr/PopUp.jsx:50
-msgid "ppfun"
-msgstr ""
-
-#: src/ssr/PopUp.jsx:51
-msgid "PixelPlanet.Fun PopUp"
-msgstr ""
-
-#: src/ssr/Main.jsx:78
-msgid "Place color pixels on an map styled canvas with other players online"
-msgstr ""
-
-#: src/ssr/Main.jsx:79
-msgid "PixelPlanet"
-msgstr ""
-
 #: src/ssr/PasswordReset.jsx:21
 #: src/ssr/PasswordReset.jsx:41
 msgid "PixelPlanet.fun Password Reset"
@@ -221,6 +205,10 @@ msgstr ""
 msgid "You are not logged in"
 msgstr ""
 
+#: src/ssr/mainHTML.js:87
+msgid "Place color pixels on an map styled canvas with other players online"
+msgstr ""
+
 #: src/routes/api/modtools.js:65
 msgid "You are not allowed to access this page"
 msgstr ""
@@ -231,6 +219,105 @@ msgstr ""
 
 #: src/routes/api/baninfo.js:15
 msgid "You are not banned"
+msgstr ""
+
+#: src/canvasesDesc.js:21
+msgid "Earth"
+msgstr ""
+
+#: src/canvasesDesc.js:22
+msgid "Moon"
+msgstr ""
+
+#: src/canvasesDesc.js:23
+msgid "3D Canvas"
+msgstr ""
+
+#: src/canvasesDesc.js:24
+msgid "Coronavirus"
+msgstr ""
+
+#: src/canvasesDesc.js:25
+msgid "PixelZone"
+msgstr ""
+
+#: src/canvasesDesc.js:26
+msgid "PixelCanvas"
+msgstr ""
+
+#: src/canvasesDesc.js:27
+msgid "1bit"
+msgstr ""
+
+#: src/canvasesDesc.js:28
+msgid "Top10"
+msgstr ""
+
+#: src/canvasesDesc.js:29
+msgid "2bit"
+msgstr ""
+
+#: src/canvasesDesc.js:30
+msgid "Minimap"
+msgstr ""
+
+#: src/canvasesDesc.js:33
+msgid "Our main canvas, a huge map of the world. Place anywhere you like!"
+msgstr ""
+
+#: src/canvasesDesc.js:34
+msgid ""
+"Moon canvas. Safe space for art. No flags or large text (unless part of "
+"art) or art larger than 1.5k x 1.5k pixels."
+msgstr ""
+
+#: src/canvasesDesc.js:35
+msgid "Place Voxels on a 3D canvas with others."
+msgstr ""
+
+#: src/canvasesDesc.js:36
+msgid "Special canvas to spread awareness of SARS-CoV2 (take the vax)."
+msgstr ""
+
+#: src/canvasesDesc.js:37
+msgid "Mirror of PixelZone"
+msgstr ""
+
+#: src/canvasesDesc.js:38
+msgid "Mirror of PixelCanvas"
+msgstr ""
+
+#: src/canvasesDesc.js:39
+msgid "Black and White canvas"
+msgstr ""
+
+#: src/canvasesDesc.js:40
+msgid ""
+"A canvas for the most active players from the the previous day. Daily "
+"ranking updates at 00:00 UTC."
+msgstr ""
+
+#: src/canvasesDesc.js:41
+msgid "Only four colors. Same rules as moon!"
+msgstr ""
+
+#: src/canvasesDesc.js:42
+msgid ""
+"Conquer land on a smaller earth with protected ocean. Shares cooldown with "
+"earth canvas!"
+msgstr ""
+
+#: src/ssr/RedirectionPage.jsx:20
+msgid "PixelPlanet.fun Accounts"
+msgstr ""
+
+#: src/ssr/RedirectionPage.jsx:30
+msgid "You will be automatically redirected after 15s"
+msgstr ""
+
+#: src/ssr/RedirectionPage.jsx:31
+#, javascript-format
+msgid "Or ${ clickHere } to go back to pixelplanet"
 msgstr ""
 
 #: src/routes/api/auth/register.js:32
@@ -284,19 +371,6 @@ msgstr ""
 
 #: src/routes/api/auth/register.js:116
 msgid "Failed to create a new user :("
-msgstr ""
-
-#: src/ssr/RedirectionPage.jsx:20
-msgid "PixelPlanet.fun Accounts"
-msgstr ""
-
-#: src/ssr/RedirectionPage.jsx:30
-msgid "You will be automatically redirected after 15s"
-msgstr ""
-
-#: src/ssr/RedirectionPage.jsx:31
-#, javascript-format
-msgid "Or ${ clickHere } to go back to pixelplanet"
 msgstr ""
 
 #: src/routes/api/auth/verify.js:21
@@ -359,15 +433,6 @@ msgstr ""
 msgid "Server error when deleting user."
 msgstr ""
 
-#: src/routes/api/auth/change_name.js:11
-msgid "You already have that name."
-msgstr ""
-
-#: src/routes/api/auth/change_name.js:39
-#: src/routes/api/auth/change_username.js:36
-msgid "Name already in use."
-msgstr ""
-
 #: src/routes/api/auth/change_username.js:17
 msgid "You already chose your username"
 msgstr ""
@@ -376,94 +441,17 @@ msgstr ""
 msgid "Username can not start with pp_"
 msgstr ""
 
+#: src/routes/api/auth/change_name.js:39
+#: src/routes/api/auth/change_username.js:36
+msgid "Name already in use."
+msgstr ""
+
+#: src/routes/api/auth/change_name.js:11
+msgid "You already have that name."
+msgstr ""
+
 #: src/routes/api/auth/change_mail.js:56
 msgid "Mail is already in use!"
-msgstr ""
-
-#: src/canvasesDesc.js:22
-msgid "Earth"
-msgstr ""
-
-#: src/canvasesDesc.js:23
-msgid "Moon"
-msgstr ""
-
-#: src/canvasesDesc.js:24
-msgid "3D Canvas"
-msgstr ""
-
-#: src/canvasesDesc.js:25
-msgid "Coronavirus"
-msgstr ""
-
-#: src/canvasesDesc.js:26
-msgid "PixelZone"
-msgstr ""
-
-#: src/canvasesDesc.js:27
-msgid "PixelCanvas"
-msgstr ""
-
-#: src/canvasesDesc.js:28
-msgid "1bit"
-msgstr ""
-
-#: src/canvasesDesc.js:29
-msgid "Top10"
-msgstr ""
-
-#: src/canvasesDesc.js:30
-msgid "2bit"
-msgstr ""
-
-#: src/canvasesDesc.js:31
-msgid "Minimap"
-msgstr ""
-
-#: src/canvasesDesc.js:34
-msgid "Our main canvas, a huge map of the world. Place anywhere you like!"
-msgstr ""
-
-#: src/canvasesDesc.js:35
-msgid ""
-"Moon canvas. Safe space for art. No flags or large text (unless part of "
-"art) or art larger than 1.5k x 1.5k pixels."
-msgstr ""
-
-#: src/canvasesDesc.js:36
-msgid "Place Voxels on a 3D canvas with others."
-msgstr ""
-
-#: src/canvasesDesc.js:37
-msgid "Special canvas to spread awareness of SARS-CoV2 (take the vax)."
-msgstr ""
-
-#: src/canvasesDesc.js:38
-msgid "Mirror of PixelZone"
-msgstr ""
-
-#: src/canvasesDesc.js:39
-msgid "Mirror of PixelCanvas"
-msgstr ""
-
-#: src/canvasesDesc.js:40
-msgid "Black and White canvas"
-msgstr ""
-
-#: src/canvasesDesc.js:41
-msgid ""
-"A canvas for the most active players from the the previous day. Daily "
-"ranking updates at 00:00 UTC."
-msgstr ""
-
-#: src/canvasesDesc.js:42
-msgid "Only four colors. Same rules as moon!"
-msgstr ""
-
-#: src/canvasesDesc.js:43
-msgid ""
-"Conquer land on a smaller earth with protected ocean. Shares cooldown with "
-"earth canvas!"
 msgstr ""
 
 #: src/core/MailProvider.js:65
