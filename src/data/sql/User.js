@@ -121,7 +121,9 @@ export async function touchUser(id, ipString) {
       });
     }
   } catch (error) {
-    console.error(`SQL Error on touchUser: ${error.message}`);
+    console.error(
+      `SQL Error on touchUser ${id}, ${ipString}: ${error.message}`,
+    );
   }
 }
 

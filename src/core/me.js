@@ -4,23 +4,14 @@
  * This should be the most basic data in order to run the game.
  *
  */
-import getLocalizedCanvases, { canvases } from '../canvasesDesc.js';
+import getLocalizedCanvases, {
+  defaultCanvasForCountry,
+} from '../canvasesDesc.js';
 import { USERLVL } from '../data/sql/index.js';
 import { getUserRanks } from '../data/redis/ranks.js';
 import { USE_MAILER } from './config.js';
 import { USER_FLAGS, DEFAULT_CANVAS_ID } from './constants.js';
 import chatProvider from './ChatProvider.js';
-
-const defaultCanvasForCountry = {};
-(function populateDefaultCanvases() {
-  for (const [canvasId, canvas] of Object.entries(canvases)) {
-    canvas.dcc?.forEach(
-      (country) => {
-        defaultCanvasForCountry[country.toLowerCase()] = canvasId;
-      },
-    );
-  }
-}());
 
 export default async function getMe(user, ip, lang) {
   let id;

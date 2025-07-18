@@ -3,7 +3,7 @@
  */
 import { getIIDofIP } from '../../data/sql/IP.js';
 
-async function getiid(req, res) {
+export default async function getiid(req, res) {
   req.tickRateLimiter(3000);
 
   const iid = await getIIDofIP(req.ip.ipString);
@@ -13,5 +13,3 @@ async function getiid(req, res) {
 
   res.status(200).json({ iid });
 }
-
-export default getiid;

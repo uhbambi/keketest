@@ -113,6 +113,7 @@ export default () => (next) => (action) => {
     case 'RELOAD_URL':
     case 's/SELECT_CANVAS':
     case 's/TGL_EASTER_EGG':
+    case 's/REC_CANVASES':
     case 's/REC_ME':
       if (isActive) {
         const renderer = getRenderer();

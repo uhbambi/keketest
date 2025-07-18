@@ -6,7 +6,7 @@ import { persistStore } from 'redux-persist';
 import { parentExists } from './core/utils.js';
 import store from './store/storePopUp.js';
 import {
-  urlChange,
+  urlChange, parseCanvases,
 } from './store/actions/index.js';
 import {
   fetchMe,
@@ -26,6 +26,7 @@ persistStore(store, {}, () => {
     store.dispatch(urlChange());
   });
 
+  store.dispatch(parseCanvases());
   if (!parentExists()) {
     store.dispatch(fetchMe());
     SocketClient.initialize(store);

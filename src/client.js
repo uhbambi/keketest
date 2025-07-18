@@ -12,6 +12,7 @@ import {
   urlChange,
   setMobile,
   windowResize,
+  parseCanvases,
 } from './store/actions/index.js';
 import {
   fetchMe,
@@ -56,6 +57,7 @@ persistStore(store, {}, () => {
 
   store.dispatch(initTimer());
 
+  store.dispatch(parseCanvases());
   store.dispatch(fetchMe());
 
   socketClient.initialize(store, pixelTransferController, getRenderer);

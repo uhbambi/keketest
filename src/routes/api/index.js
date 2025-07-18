@@ -15,9 +15,12 @@ import baninfo from './baninfo.js';
 import getiid from './getiid.js';
 import shards from './shards.js';
 import profile from './profile.js';
+import canvases from './canvases.js';
 import banme from './banme.js';
 
 const router = express.Router();
+
+router.use('/canvases', canvases);
 
 // set cache-control
 router.use((req, res, next) => {

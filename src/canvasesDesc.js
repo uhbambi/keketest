@@ -5,11 +5,10 @@
  */
 
 import assetWatcher from './core/fsWatcher.js';
-import canvases from './core/canvases.js';
+import canvases, { defaultCanvasForCountry } from './core/canvases.js';
 import ttag from './middleware/ttag.js';
 
-export { canvases };
-
+export { canvases, defaultCanvasForCountry };
 
 /* eslint-disable max-len */
 

@@ -45,7 +45,7 @@ export default (store) => (next) => (action) => {
 
     case 'RELOAD_URL':
     case 's/SELECT_CANVAS':
-    case 's/REC_ME': {
+    case 's/REC_CANVASES': {
       const prevState = store.getState();
       const ret = next(action);
       const state = store.getState();

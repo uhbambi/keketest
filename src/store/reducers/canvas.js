@@ -307,7 +307,7 @@ export default function canvasReducer(
       });
     }
 
-    case 's/REC_ME': {
+    case 's/REC_CANVASES': {
       const { canvases, defaultCanvas } = action;
       let {
         canvasId,

@@ -289,9 +289,21 @@ export function receiveBigChunkFailure(chunk, error) {
   };
 }
 
-export function receiveMe(
-  me,
-) {
+export function parseCanvases() {
+  /*
+   * can only do this once and requires winsoe.ssv
+   */
+  const { canvases, defaultCanvas } = window.ssv;
+  delete window.ssv.canvases;
+  delete window.ssv.defaultCanvas;
+  return {
+    type: 's/REC_CANVASES',
+    canvases,
+    defaultCanvas,
+  };
+}
+
+export function receiveMe(me) {
   return {
     type: 's/REC_ME',
     ...me,
@@ -548,7 +560,6 @@ export function propagateMe(state) {
     blockDm,
     userlvl,
   } = state.user;
-  const { canvases } = state.canvas;
   const {
     blocked,
     channels,
@@ -563,7 +574,6 @@ export function propagateMe(state) {
     type: 's/REC_ME',
     blockDm,
     blocked,
-    canvases,
     channels,
     dailyRanking,
     dailyTotalPixels,

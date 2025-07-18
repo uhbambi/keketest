@@ -40,7 +40,7 @@ export default (store) => (next) => (action) => {
     }
 
     case 's/SELECT_CANVAS':
-    case 's/REC_ME':
+    case 's/REC_CANVASES':
     case 'RELOAD_URL':
     case 'UPDATE_VIEW': {
       const state = store.getState();

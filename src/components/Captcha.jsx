@@ -145,9 +145,13 @@ const Captcha = ({
   const checkAnimationProgress = useCallback(() => {
     if (animationRunning && captchaData.transforms) {
       const firstId = Object.keys(captchaData.transforms)[0];
-      const firstPathAnim = document.getElementById(firstId).transform.animVal;
-      if (firstPathAnim.length) {
-        const angle = Math.round(firstPathAnim.getItem(0).angle);
+      const firstAnimatedPathElement = document.getElementById(firstId);
+      if (!firstAnimatedPathElement) {
+        return;
+      }
+      const firstPathAnimation = firstAnimatedPathElement.transform.animVal;
+      if (firstPathAnimation.length) {
+        const angle = Math.round(firstPathAnimation.getItem(0).angle);
         setAnimationProgress(angle);
       }
     }
