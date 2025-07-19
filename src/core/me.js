@@ -4,13 +4,10 @@
  * This should be the most basic data in order to run the game.
  *
  */
-import getLocalizedCanvases, {
-  defaultCanvasForCountry,
-} from '../canvasesDesc.js';
 import { USERLVL } from '../data/sql/index.js';
 import { getUserRanks } from '../data/redis/ranks.js';
 import { USE_MAILER } from './config.js';
-import { USER_FLAGS, DEFAULT_CANVAS_ID } from './constants.js';
+import { USER_FLAGS } from './constants.js';
 import chatProvider from './ChatProvider.js';
 
 export default async function getMe(user, ip, lang) {
@@ -26,7 +23,6 @@ export default async function getMe(user, ip, lang) {
   let blocked;
   /* { id: [name, type, lastTs, dmu] } */
   let channels = { ...chatProvider.getDefaultChannels(lang) };
-  const localizedCanvases = getLocalizedCanvases(lang);
 
   if (user) {
     const { data } = user;
@@ -56,13 +52,8 @@ export default async function getMe(user, ip, lang) {
     ip.getAllowance(),
   ]);
 
-  /* default canvas based on country */
-  // eslint-disable-next-line max-len
-  const defaultCanvas = defaultCanvasForCountry[ip.country] || DEFAULT_CANVAS_ID;
-
   const me = {
-    id, name, username, userlvl, havePassword, blockDm, priv,
-    channels, blocked, canvases: localizedCanvases, defaultCanvas,
+    id, name, username, userlvl, havePassword, blockDm, priv, channels, blocked,
   };
 
   if (ranks) {
