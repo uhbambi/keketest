@@ -30,6 +30,7 @@ const basedQuotes = [
   ['Donald J. Trump', 'This guy has been talked about for years!', '/memes/trump-epstein.mp4', 'video', 720, 1280],
   ['Candace Owens', 'What is antisemitism?', '/memes/owens1.mp4', 'video', 640, 360],
   ['Candace Owens', 'Antisemite of the year 2024', '/memes/owens2.mp4', 'video', 640, 360],
+  ['Benjamin Aaron Shapiro', 'We have better things to do', '/memes/shapiro.mp4', 'video', 1274, 720],
 ];
 
 /**
