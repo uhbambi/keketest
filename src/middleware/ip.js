@@ -85,7 +85,13 @@ export class IP {
    */
   get country() {
     const cc = this.#req.headers['cf-ipcountry'];
-    return (cc) ? cc.toLowerCase() : 'xx';
+    if (cc) {
+      return cc.toLowerCase();
+    }
+    /*
+     * in case ttag middleware is loaded, get country of language
+     */
+    return this.#req.langCountry || 'xx';
   }
 
   toString() {

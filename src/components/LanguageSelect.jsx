@@ -16,13 +16,8 @@ function LanguageSelect() {
   const [ccSel, setCCSel] = useState('xx');
 
   useEffect(() => {
-    const { langs } = window.ssv;
-    for (let i = 0; i < langs.length; i += 1) {
-      const [lc, cc] = langs[i];
-      if (lc === langSel) {
-        setCCSel(cc);
-        return;
-      }
+    if (window.ssv && langSel) {
+      setCCSel(window.ssv.langs[langSel]);
     }
   }, [langSel]);
 
@@ -41,7 +36,7 @@ function LanguageSelect() {
           }}
         >
           {
-            window.ssv?.langs.map(([l]) => (
+            window.ssv && Object.keys(window.ssv.langs).map((l) => (
               <option
                 key={l}
                 value={l}

@@ -15,13 +15,18 @@ const localeImports = import.meta.webpackContext('../../i18n', {
 
 const ttags = {};
 
-export const availableLangs = [];
+/*
+ * maps all available langs to country codes for flags
+ * { en: 'gb' }
+ */
+export const availableLangs = {};
 
 function loadTtags() {
   const langs = localeImports.keys();
   const jsLangs = getLangsOfJsAsset('client');
-  availableLangs.length = 0;
+  Object.keys(availableLangs).forEach((key) => delete availableLangs[key]);
 
+  let amountOfLangs = 0;
   for (let i = 0; i < langs.length; i += 1) {
     const file = langs[i];
     // ./ssr-de.po
@@ -32,23 +37,25 @@ function loadTtags() {
      */
     const flag = lccc[lang] || lang;
     if (jsLangs.includes(lang)) {
+      amountOfLangs += 1;
+      availableLangs[lang] = flag;
+
       if (!ttags[lang]) {
         const ttag = new TTag();
         ttag.addLocale(lang, localeImports(file).default);
         ttag.useLocale(lang);
         ttags[lang] = ttag;
       }
-      availableLangs.push([lang, flag]);
     } else if (ttags[lang]) {
       delete ttags[lang];
     }
   }
 
-  if (jsLangs.includes('en') || !availableLangs.length) {
+  if (jsLangs.includes('en') || amountOfLangs === 0) {
     if (!ttags.en) {
       ttags.en = new TTag();
     }
-    availableLangs.push(['en', 'gb']);
+    availableLangs.en = 'gb';
   } else if (ttags.en) {
     delete ttags.en;
   }
@@ -98,14 +105,17 @@ export function expressTTag(req, res, next) {
   const cookies = parseCookie(req.headers.cookie || '');
   const language = cookies.plang || req.headers['accept-language'];
   let lang = languageFromLocalisation(language);
+  let country = availableLangs[lang];
   if (!ttags[lang]) {
     if (ttags.en) {
       lang = 'en';
     } else {
       [lang] = Object.keys(ttags);
     }
+    country = 'xx';
   }
   req.lang = lang;
+  req.langCountry = country;
   req.ttag = ttags[lang];
   next();
 }
