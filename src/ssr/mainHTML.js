@@ -37,9 +37,10 @@ const basedQuotes = [
  * @param req express request, populated with ttag and ip
  * @param title title of website
  * @param scripts Array of paths to scripts to include
+ * @param appClass classname of div of react entry point
  * @return {html, csp, etab} html, content-security-policy and etag for mainpage
  */
-export default function generateMainHTML(req, title, scripts) {
+export default function generateMainHTML(req, title, scripts, appClass) {
   const { lang, ip } = req;
   const host = ip.getHost(false);
   const proto = req.headers['x-forwarded-proto'] || 'http';
@@ -93,20 +94,20 @@ export default function generateMainHTML(req, title, scripts) {
   media = BASENAME + media;
 
   const html = `<!doctype html>
-  <html lang="${lang}">
+<html lang="${lang}">
   <head>
-  <meta charset="UTF-8" />
-  <title>${title}</title>
-  <meta name="description" content="${description}" />
-  <meta property="og:type" content="${(type === 'video') ? 'video.other' : 'website'}" />
-  <meta property="og:site_name" content="${host}" />
-  <meta property="og:title" content="${title}" />
-  <meta property="og:description" content="${description}" />
-  <meta property="og:${type}" content="${proto}://${host}${media}" />
-  <meta property="og:${type}:secure_url" content="https://${host}${BASENAME}${media}" />
-  <meta property="og:${type}:width" content="${width}" />
-  <meta property="og:${type}:height" content="${height}" />${(type === 'video') ? `
-    <meta property="og:video:type" content="video/mp4" />` : ''}
+    <meta charset="UTF-8" />
+    <title>${title}</title>
+    <meta name="description" content="${description}" />
+    <meta property="og:type" content="${(type === 'video') ? 'video.other' : 'website'}" />
+    <meta property="og:site_name" content="${host}" />
+    <meta property="og:title" content="${title}" />
+    <meta property="og:description" content="${description}" />
+    <meta property="og:${type}" content="${proto}://${host}${media}" />
+    <meta property="og:${type}:secure_url" content="https://${host}${BASENAME}${media}" />
+    <meta property="og:${type}:width" content="${width}" />
+    <meta property="og:${type}:height" content="${height}" />${(type === 'video') ? `
+      <meta property="og:video:type" content="video/mp4" />` : ''}
     <meta name="google" content="nopagereadaloud" />
     <meta name="theme-color" content="#cae3ff" />
     <meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1.0, maximum-scale=1.0" />
@@ -114,13 +115,13 @@ export default function generateMainHTML(req, title, scripts) {
     <link rel="apple-touch-icon" href="${BASENAME}/apple-touch-icon.png" />
     <script>${headScript}</script>
     <link rel="stylesheet" type="text/css" id="globcss" href="${CDN_URL || BASENAME}${getThemeCssAssets().default}" />
-    </head>
-    <body>
-    <div id="app"></div>
+  </head>
+  <body>
+    <div id="app" class="${appClass}"></div>
     ${scripts.map((script) => `<script src="${CDN_URL || BASENAME}${script}"></script>`).join('')}
     <a data-jslicense="1" style="display: none;" href="${BASENAME}/legal">JavaScript license information</a>
-    </body>
-    </html>`;
+  </body>
+</html>`;
 
   return { html, csp, etag: mainEtag };
 }

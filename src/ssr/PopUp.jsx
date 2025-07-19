@@ -12,5 +12,5 @@ import generateMainHTML from './mainHTML.js';
  */
 export default function generateMainPage(req) {
   const scripts = getJsAssets('popup', req.lang);
-  return generateMainHTML(req, 'ppfun', scripts);
+  return generateMainHTML(req, 'ppfun', scripts, 'popup');
 }
