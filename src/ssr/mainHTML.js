@@ -64,7 +64,7 @@ export default function generateMainHTML(req, title, scripts) {
 
   const ssvR = JSON.stringify(ssv);
 
-  const headScript = `/* @license magnet:?xt=urn:btih:0b31508aeb0634b347b8270c7bee4d411b5d4109&dn=agpl-3.0.txt AGPL-3.0-or-later */\n(function(){window.ssv=JSON.parse('${ssvR}');window.me=fetch('${apiUrl || BASENAME}/api/me',{credentials:'include'})})();\n/* @license-end */`;
+  const headScript = `/* @license magnet:?xt=urn:btih:0b31508aeb0634b347b8270c7bee4d411b5d4109&dn=agpl-3.0.txt AGPL-3.0-or-later */\n(function(){window.ssv=${ssvR};window.me=fetch('${apiUrl || BASENAME}/api/me',{credentials:'include'})})();\n/* @license-end */`;
   const scriptHash = hashScript(headScript);
 
   const csp = `script-src 'self' ${CDN_HOST} ${scriptHash} *.tiktok.com *.ttwstatic.com; worker-src 'self' blob:;`;
