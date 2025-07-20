@@ -300,6 +300,7 @@ export async function getBanInfos(
     const unions = [];
     let replacements = [];
 
+    /* eslint-disable max-len */
     if (userIds) {
       if (Array.isArray(userIds)) {
         if (userIds.length) {
@@ -310,7 +311,6 @@ export async function getBanInfos(
             })`,
           );
           unions.push(
-            // eslint-disable-next-line max-len
             `SELECT tb.bid AS id FROM ThreePIDBans tb INNER JOIN ThreePIDs t ON tb.tid = t.id WHERE t.uid IN (${
               placeholder
             })`,
@@ -322,7 +322,6 @@ export async function getBanInfos(
           'SELECT ub.bid AS id FROM UserBans ub WHERE ub.uid = ?',
         );
         unions.push(
-          // eslint-disable-next-line max-len
           'SELECT tb.bid AS id FROM ThreePIDBans tb INNER JOIN ThreePIDs t ON tb.tid = t.id WHERE t.uid = ?',
         );
         replacements.push(userIds, userIds);
@@ -333,16 +332,14 @@ export async function getBanInfos(
       if (Array.isArray(ipUuids)) {
         if (ipUuids.length) {
           unions.push(
-            // eslint-disable-next-line max-len
-            `SELECT ib2.bid AS id FROM IPBans ib2 INNER JOIN IPs i ON ib2.ip = i.ip WHERE i.uuid IN (${
-              ipUuids.map(() => 'SELECT UUID_TO_BIN(?)').join(' UNION ALL ')
-            })`,
+            `SELECT ib2.bid AS id FROM IPBans ib2 INNER JOIN IPs i ON ib2.ip = i.ip WHERE i.uuid IN (SELECT n.uuid FROM (${
+              ipUuids.map(() => 'SELECT UUID_TO_BIN(?) AS \'uuid\'').join(' UNION ALL ')
+            }) AS n)`,
           );
           replacements = replacements.concat(ipUuids);
         }
       } else {
         unions.push(
-          // eslint-disable-next-line max-len
           'SELECT ib2.bid AS id FROM IPBans ib2 INNER JOIN IPs i ON ib2.ip = i.ip WHERE i.uuid = UUID_TO_BIN(?)',
         );
         replacements.push(ipUuids);
@@ -353,9 +350,9 @@ export async function getBanInfos(
       if (Array.isArray(ipStrings)) {
         if (ipStrings.length) {
           unions.push(
-            `SELECT ib.bid AS id FROM IPBans ib WHERE ib.ip IN (${
-              ipStrings.map(() => 'SELECT IP_TO_BIN(?)').join(' UNION ALL ')
-            })`,
+            `SELECT ib.bid AS id FROM IPBans ib WHERE ib.ip IN (SELECT m.ip FROM (${
+              ipStrings.map(() => 'SELECT IP_TO_BIN(?) AS \'ip\'').join(' UNION ALL ')
+            }) AS m)`,
           );
           replacements = replacements.concat(ipStrings);
         }
@@ -371,9 +368,9 @@ export async function getBanInfos(
       if (Array.isArray(banUuids)) {
         if (banUuids.length) {
           unions.push(
-            `SELECT bb.id FROM Bans bb WHERE bb.uuid IN (${
-              banUuids.map(() => 'SELECT UUID_TO_BIN(?)').join(' UNION ALL ')
-            })`,
+            `SELECT bb.id FROM Bans bb WHERE bb.uuid IN (SELECT l.uuid FROM (${
+              banUuids.map(() => 'SELECT UUID_TO_BIN(?) AS \'uuid\'').join(' UNION ALL ')
+            }) AS l)`,
           );
           replacements = replacements.concat(banUuids);
         }
@@ -391,7 +388,6 @@ export async function getBanInfos(
 
     let query;
     if (unions.length > 1) {
-      // eslint-disable-next-line max-len
       query = `SELECT DISTINCT b.id FROM (\n  ${unions.join('\n  UNION ALL\n  ')}\n) AS b`;
     } else {
       [query] = unions;
@@ -421,7 +417,6 @@ export async function getBanInfos(
     replacements = [(affectedBanIds.length === 1)
       ? affectedBanIds[0] : affectedBanIds];
     promises.push(sequelize.query(
-      /* eslint-disable max-len */
       `SELECT b.*, md.name as mname, BIN_TO_UUID(b.uuid) AS buuid, BIN_TO_IP(ib.ip) AS 'ips.ipString' FROM Bans b
   LEFT JOIN Users md ON md.id = b.muid
   LEFT JOIN IPBans ib ON ib.bid = b.id

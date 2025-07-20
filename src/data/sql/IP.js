@@ -253,9 +253,9 @@ export async function getIPInfos(ipStrings, ipUuids) {
     if (ipStrings) {
       if (Array.isArray(ipStrings)) {
         if (ipStrings.length) {
-          where.push(`ip.ip IN (${
-            ipStrings.map(() => 'SELECT IP_TO_BIN(?)').join(' UNION ALL ')
-          })`);
+          where.push(`ip.ip IN (SELECT m.ip FROM (${
+            ipStrings.map(() => 'SELECT IP_TO_BIN(?) AS \'ip\'').join(' UNION ALL ')
+          }) AS m)`);
           replacements = replacements.concat(ipStrings);
           requestAmount += ipStrings.length;
         }
@@ -269,9 +269,9 @@ export async function getIPInfos(ipStrings, ipUuids) {
     if (ipUuids) {
       if (Array.isArray(ipUuids)) {
         if (ipUuids.length) {
-          where.push(`ip.uuid IN (${
-            ipUuids.map(() => 'SELECT UUID_TO_BIN(?)').join(' UNION ALL ')
-          })`);
+          where.push(`ip.uuid IN (SELECT l.ip FROM (${
+            ipUuids.map(() => 'SELECT UUID_TO_BIN(?) AS \'ip\'').join(' UNION ALL ')
+          }) AS l)`);
           replacements = replacements.concat(ipUuids);
           requestAmount += ipUuids.length;
         }
@@ -286,6 +286,7 @@ export async function getIPInfos(ipStrings, ipUuids) {
       return [];
     }
 
+    const startTime = Date.now();
     const ipInfos = await sequelize.query(
       /* eslint-disable max-len */
       `SELECT BIN_TO_UUID(ip.uuid) AS 'iid', BIN_TO_IP(ip.ip) AS 'ipString',
@@ -300,7 +301,11 @@ WHERE ${(where.length === 1) ? where[0] : `(${where.join(' OR ')})`}`, {
         replacements,
         raw: true,
         type: QueryTypes.SELECT,
-      });
+      },
+    );
+    console.log(
+      `SQL Resolving IPInfos took ${(Date.now() - startTime) / 1000}s`,
+    );
 
     return ipInfos;
   } catch (error) {
@@ -391,8 +396,8 @@ export async function getIPsOfIIDs(uuids) {
     if (Array.isArray(uuids)) {
       if (uuids.length && uuids.length <= 300) {
         const placeholder = uuids
-          .map(() => 'SELECT UUID_TO_BIN(?)').join(' UNION ALL ');
-        where += `i.uuid IN (${placeholder})`;
+          .map(() => 'SELECT UUID_TO_BIN(?) AS \'uuid\'').join(' UNION ALL ');
+        where += `i.uuid IN (SELECT l.uuid FROM (${placeholder}) AS l)`;
         replacements = uuids;
       }
     } else {
@@ -437,8 +442,8 @@ export async function getIIDsOfIPs(ipStrings) {
     if (Array.isArray(ipStrings)) {
       if (ipStrings.length && ipStrings.length <= 300) {
         const placeholder = ipStrings
-          .map(() => 'SELECT IP_TO_BIN(?)').join(' UNION ALL ');
-        where += `i.ip IN (${placeholder})`;
+          .map(() => 'SELECT IP_TO_BIN(?) AS \'ip\'').join(' UNION ALL ');
+        where += `i.ip IN (SELECT l.ip FROM (${placeholder}) AS l)`;
         replacements = ipStrings;
       }
     } else {

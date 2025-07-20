@@ -259,9 +259,9 @@ export async function getUserIdsByNamesOrEmails(nameIdsOrEmails) {
     if (nameOrEmails.length) {
       where.push(
         'u.name IN (?)',
-        `u.username IN (${
-          nameOrEmails.map(() => 'SELECT CONVERT(? USING ascii)').join(' UNION ALL ')
-        })`,
+        `u.username IN (SELECT l.username FROM (${
+          nameOrEmails.map(() => 'SELECT CONVERT(? USING ascii) AS \'usename\'').join(' UNION ALL ')
+        }) AS l)`,
         'EXISTS (SELECT 1 FROM ThreePIDs t WHERE t.uid = u.id AND t.tpid IN (?) AND t.provider = ?)',
       );
       replacements.push(nameOrEmails, ...nameOrEmails, nameOrEmails, THREEPID_PROVIDERS.EMAIL);

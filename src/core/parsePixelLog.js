@@ -185,8 +185,6 @@ export async function getSummaryFromArea(
   iid,
 ) {
   const ips = {};
-  const uids = [];
-  const ipKeys = [];
   let summaryLength = 0;
 
   let filterIP = null;
@@ -197,7 +195,6 @@ export async function getSummaryFromArea(
     }
   }
 
-  let tsLog = Date.now();
   try {
     await parseFile((parts) => {
       /* only allow a limited amount of entries */
@@ -225,10 +222,6 @@ export async function getSummaryFromArea(
           curVals = [0, uid, 0, 0, 0, 0];
           ips[ipString] = curVals;
           summaryLength += 1;
-          if (!uids.includes(uid)) {
-            uids.push(uid);
-          }
-          ipKeys.push(ipString);
         }
         curVals[0] += 1;
         curVals[2] = x;
@@ -240,63 +233,20 @@ export async function getSummaryFromArea(
   } catch (err) {
     return `Could not parse logfile: ${err.message}`;
   }
-  console.log(
-    `PIXEL_LOG: parsing logfile took ${(Date.now() - tsLog) / 1000} s`,
-    `We have ${summaryLength} entries.`,
-  );
-  tsLog = Date.now();
 
-  const [uid2Name, ip2Info] = await Promise.all([
-    getNamesToIds(uids),
-    getIPInfos(ipKeys),
-  ]);
-  console.log(
-    `PIXEL_LOG: resolving info took ${(Date.now() - tsLog) / 1000} s`,
-  );
-
-  let printIIDs = false;
-  let printUsers = false;
-  const columns = ['rid', '#'];
-  const types = ['number', 'number'];
-  if (ip2Info.length > 0) {
-    printIIDs = true;
-    columns.push('IID', 'ct', 'cidr', 'org', 'pc');
-    types.push('uuid', 'flag', 'cidr', 'string', 'string');
-  }
-  if (uid2Name.size > 0) {
-    printUsers = true;
-    columns.push('User');
-    types.push('user');
-  }
-  columns.push('last', 'clr', 'time');
-  types.push('coord', 'clr', 'ts');
+  const columns = [
+    'rid', '#', 'ipString', 'uid', 'last', 'clr', 'time',
+  ];
+  const types = [
+    'number', 'number', 'string', 'number', 'coord', 'clr', 'ts',
+  ];
 
   const rows = [];
+  const ipKeys = Object.keys(ips);
   for (let i = 0; i < ipKeys.length; i += 1) {
     const ip = ipKeys[i];
     const [pxls, uid, x, y, clr, ts] = ips[ip];
-    const row = [i, pxls];
-    if (printIIDs) {
-      const ipInfo = ip2Info.find(({ ipString }) => ipString === ip);
-      if (!ipInfo) {
-        row.push('N/A', 'xx', 'N/A', 'N/A', 'N/A');
-      } else {
-        row.push(
-          ipInfo.iid,
-          ipInfo.country,
-          ipInfo.cidr,
-          ipInfo.org || 'N/A',
-          ipInfo.type || 'N/A',
-        );
-      }
-    }
-    if (printUsers) {
-      const userMd = (uid && uid2Name.has(uid))
-        ? `${uid2Name.get(uid)},${uid}` : 'N/A';
-      row.push(userMd);
-    }
-    row.push(`${x},${y}`, clr, ts);
-    rows.push(row);
+    rows.push([i, pxls, ip, uid, `${x},${y}`, clr, ts]);
   }
 
   return {
@@ -318,9 +268,7 @@ export async function getPixelsFromArea(
   maxRows,
 ) {
   const pixels = [];
-  const uids = [];
-  const ips = [];
-  let summaryLength = 0;
+  const ipStrings = new Set();
 
   let filterIP = null;
   if (iid) {
@@ -333,7 +281,7 @@ export async function getPixelsFromArea(
   try {
     await parseFile((parts) => {
       /* only allow a limited amount of ipStrings */
-      if (summaryLength > 25) {
+      if (ipStrings.size > 25) {
         return;
       }
 
@@ -353,41 +301,22 @@ export async function getPixelsFromArea(
         const clr = parseInt(clrStr, 10);
         const uid = parseInt(uidStr, 10);
         pixels.push([ipString, uid, x, y, clr, ts]);
-        if (!ips.includes(ipString)) {
-          summaryLength += 1;
-          ips.push(ipString);
-        }
-        if (!uids.includes(uid)) {
-          uids.push(uid);
-        }
+        ipStrings.add(ipString);
       }
     });
   } catch (err) {
     return `Could not parse logfile: ${err.message}`;
   }
 
-  const [uid2Name, ip2Id] = await Promise.all([
-    getNamesToIds(uids),
-    getIIDsOfIPs(ips),
-  ]);
-
   const pixelF = (maxRows && pixels.length > maxRows)
     ? pixels.slice(maxRows * -1)
     : pixels;
 
-  let printIIDs = false;
-  let printUsers = false;
   const columns = ['rid'];
   const types = ['number'];
-  if (!filterIP && ip2Id.size > 0) {
-    printIIDs = true;
-    columns.push('IID');
-    types.push('uuid');
-  }
-  if (!filterIP && uid2Name.size > 0) {
-    printUsers = true;
-    columns.push('User');
-    types.push('user');
+  if (!filterIP) {
+    columns.push('ip2IID', 'uid');
+    types.push('string', 'number');
   }
   columns.push('coord', 'clr', 'time');
   types.push('coord', 'clr', 'ts');
@@ -396,13 +325,8 @@ export async function getPixelsFromArea(
   for (let i = 0; i < pixelF.length; i += 1) {
     const [ip, uid, x, y, clr, ts] = pixelF[i];
     const row = [i];
-    if (printIIDs) {
-      row.push(ip2Id.get(ip) || 'N/A');
-    }
-    if (printUsers) {
-      const userMd = (uid && uid2Name.has(uid))
-        ? `${uid2Name.get(uid)},${uid}` : 'N/A';
-      row.push(userMd);
+    if (!filterIP) {
+      row.push(ip, uid);
     }
     row.push(`${x},${y}`, clr, ts);
     rows.push(row);
@@ -413,4 +337,101 @@ export async function getPixelsFromArea(
     types,
     rows,
   };
+}
+
+
+/**
+ * Populate table with user and ip details, checks or 'uid', 'ip2IID' and
+ * 'ipString' columns and if they exist, add more columns with additional info
+ * to user and ip.
+ * Table gets changed in-place.
+ * @param table { columns, types, rows }
+ */
+export async function populateTable(table) {
+  const uids = new Set();
+  const ipStrings = new Set();
+  const uidColumn = table.columns.indexOf('uid');
+  /*
+    * whether the column is named ipString or ip2IID decides
+    * if we only resolve the iid to the ips or all info
+    */
+  let getFullIPInfo = true;
+  let ipColumn = table.columns.indexOf('ipString');
+  if (ipColumn === -1) {
+    ipColumn = table.columns.indexOf('ip2IID');
+    getFullIPInfo = false;
+  }
+
+  if (uidColumn !== -1 || ipColumn !== -1) {
+    const { rows } = table;
+    for (let i = 0; i < rows.length; i += 1) {
+      const row = rows[i];
+      if (uidColumn !== -1) {
+        uids.add(row[uidColumn]);
+      }
+      if (ipColumn !== -1) {
+        ipStrings.add(row[ipColumn]);
+      }
+    }
+
+    const promises = [
+      (uids.size) ? getNamesToIds([...uids]) : [],
+    ];
+    if (ipStrings.size) {
+      if (getFullIPInfo) {
+        promises.push(getIPInfos([...ipStrings]));
+      } else {
+        promises.push(getIIDsOfIPs([...ipStrings]));
+      }
+    } else {
+      promises.push([]);
+    }
+    const [uid2Name, ip2Info] = await Promise.all(promises);
+
+    if (uid2Name.size || ipColumn !== -1) {
+      if (uid2Name.size) {
+        table.columns[uidColumn] = 'User';
+        table.types[uidColumn] = 'user';
+      }
+      if (ipColumn !== -1) {
+        table.columns[ipColumn] = 'IID';
+        table.types[ipColumn] = 'uuid';
+        if (getFullIPInfo && ip2Info.length) {
+          table.columns.splice(
+            ipColumn + 1, 0, 'ct', 'cidr', 'org', 'pc',
+          );
+          table.types.splice(
+            ipColumn + 1, 0, 'flag', 'cidr', 'string', 'string',
+          );
+        }
+      }
+
+      for (let i = 0; i < rows.length; i += 1) {
+        const row = rows[i];
+        if (uid2Name.size) {
+          const uid = row[uidColumn];
+          row[uidColumn] = uid2Name.has(uid)
+            ? `${uid2Name.get(uid)},${uid}` : 'N/A';
+        }
+        if (ipColumn !== -1) {
+          if (!getFullIPInfo) {
+            row[ipColumn] = ip2Info.get(row[ipColumn]) || 'N/A';
+          } else {
+            const ipInfo = ip2Info.find(
+              ({ ipString }) => ipString === row[ipColumn],
+            );
+            row[ipColumn] = ipInfo ? ipInfo.iid : 'N/A';
+            if (ip2Info.length) {
+              if (ipInfo) {
+                // eslint-disable-next-line max-len
+                row.splice(ipColumn + 1, 0, ipInfo.country, ipInfo.cidr, ipInfo.org || 'N/A', ipInfo.type || 'N/A');
+              } else {
+                row.splice(ipColumn + 1, 0, 'xx', 'N/A', 'N/A', 'N/A');
+              }
+            }
+          }
+        }
+      }
+    }
+  }
 }

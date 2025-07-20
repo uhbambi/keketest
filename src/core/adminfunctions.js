@@ -37,6 +37,7 @@ import {
   getIIDPixels,
   getSummaryFromArea,
   getPixelsFromArea,
+  populateTable,
 } from './parsePixelLog.js';
 import canvases from './canvases.js';
 import {
@@ -616,6 +617,7 @@ export async function executeWatchAction(
     return { info: ret };
   }
   if (typeof ret !== 'undefined') {
+    await populateTable(ret);
     return ret;
   }
   return { info: 'Invalid action given' };
