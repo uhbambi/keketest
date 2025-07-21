@@ -612,7 +612,7 @@ export function combineTables(a, b) {
   if (~amountCol) {
     // sum amounts of duplicates if possible
     let sumCol = bTable.columns.indexOf('canvas');
-    if (sumCol === -1) sumCol = bTable.columns.indexOf('IID');
+    if (sumCol === -1) sumCol = bTable.columns.indexOf('ipString');
     if (~sumCol) {
       const timeCol = bTable.columns.indexOf('time');
       for (let i = 0; i < bTable.rows.length; i += 1) {
