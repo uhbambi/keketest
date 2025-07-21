@@ -11,7 +11,6 @@ import {
 import {
   fetchMe,
 } from './store/actions/thunks.js';
-import SocketClient from './socket/SocketClient.js';
 import renderAppPopUp from './components/AppPopUp.jsx';
 
 // eslint-disable-next-line
@@ -29,7 +28,6 @@ persistStore(store, {}, () => {
   store.dispatch(parseCanvases());
   if (!parentExists()) {
     store.dispatch(fetchMe());
-    SocketClient.initialize(store);
   }
 });
 

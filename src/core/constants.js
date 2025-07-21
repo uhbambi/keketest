@@ -107,7 +107,9 @@ export const PENCIL_MODE = {
 // threshold at which zoomlevel overlay switches to small-pixel mode
 export const OVERLAY_SP_TH = 8;
 
-// for popups
+/*
+ * PopUp path args
+ */
 export const POPUP_ARGS = {
   USERAREA: ['activeTab'],
   CHAT: [['chatChannel', 'int']],
@@ -115,6 +117,9 @@ export const POPUP_ARGS = {
   PLAYER: ['uri'],
 };
 
+/*
+ * windows that can be opened as popups
+ */
 export const AVAILABLE_POPUPS = [
   'HELP',
   'SETTINGS',
@@ -126,6 +131,14 @@ export const AVAILABLE_POPUPS = [
   'FORGOT_PASSWORD',
   'PLAYER',
   'FISH_DISPLAY',
+];
+
+/*
+ * popups that need websocket
+ */
+export const POPUPS_NEEDING_WS = [
+  'CHAT',
+  'USERAREA',
 ];
 
 // fish types available for fishing

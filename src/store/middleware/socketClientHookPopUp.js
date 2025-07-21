@@ -4,10 +4,20 @@
  */
 
 import SocketClient from '../../socket/SocketClient.js';
+import { POPUPS_NEEDING_WS } from '../../core/constants.js';
+import { parentExists } from '../../core/utils.js';
 
 export default (store) => (next) => (action) => {
+  const ret = next(action);
+
   if (SocketClient.readyState === WebSocket.CLOSED) {
-    if (action.type === 't/PARENT_CLOSED') {
+    if ((
+      action.type === 't/PARENT_CLOSED'
+      || action.type === 'CHANGE_WIN_TYPE'
+      || action.type === 'HYDRATED'
+    ) && !parentExists()
+      && POPUPS_NEEDING_WS.includes(store.getState().popup.windowType)
+    ) {
       SocketClient.initialize(store);
     }
   } else {
@@ -33,5 +43,5 @@ export default (store) => (next) => (action) => {
     }
   }
 
-  return next(action);
+  return ret;
 };
