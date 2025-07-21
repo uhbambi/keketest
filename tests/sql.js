@@ -257,11 +257,6 @@ async function testWhois() {
   };
 
   try {
-    const ip = new IP({ headers: {host: 'cdn.gs-os.com' }, connection: { remoteAddress: '127.0.0.1' } });
-    ip.getHost(false, false)
-    await destruct();
-    return;
-
     const users = await establishUsers();
     await ipMapping();
     await chat(users);

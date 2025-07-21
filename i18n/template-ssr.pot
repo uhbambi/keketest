@@ -200,12 +200,12 @@ msgstr ""
 msgid "Password must be shorter than 60 characters."
 msgstr ""
 
-#: src/middleware/session.js:166
+#: src/middleware/session.js:180
 #: src/routes/api/modtools.js:57
 msgid "You are not logged in"
 msgstr ""
 
-#: src/ssr/mainHTML.js:87
+#: src/ssr/mainHTML.js:89
 msgid "Place color pixels on an map styled canvas with other players online"
 msgstr ""
 
@@ -219,6 +219,18 @@ msgstr ""
 
 #: src/routes/api/baninfo.js:15
 msgid "You are not banned"
+msgstr ""
+
+#: src/routes/api/fish.js:16
+msgid "No or invalid fish id."
+msgstr ""
+
+#: src/routes/api/fish.js:20
+msgid "No such fish found"
+msgstr ""
+
+#: src/routes/api/fish.js:25
+msgid "The user owning this fish is private"
 msgstr ""
 
 #: src/canvasesDesc.js:21
@@ -433,12 +445,8 @@ msgstr ""
 msgid "Server error when deleting user."
 msgstr ""
 
-#: src/routes/api/auth/change_username.js:17
-msgid "You already chose your username"
-msgstr ""
-
-#: src/routes/api/auth/change_username.js:19
-msgid "Username can not start with pp_"
+#: src/routes/api/auth/change_name.js:11
+msgid "You already have that name."
 msgstr ""
 
 #: src/routes/api/auth/change_name.js:39
@@ -446,8 +454,12 @@ msgstr ""
 msgid "Name already in use."
 msgstr ""
 
-#: src/routes/api/auth/change_name.js:11
-msgid "You already have that name."
+#: src/routes/api/auth/change_username.js:17
+msgid "You already chose your username"
+msgstr ""
+
+#: src/routes/api/auth/change_username.js:19
+msgid "Username can not start with pp_"
 msgstr ""
 
 #: src/routes/api/auth/change_mail.js:56
