@@ -16,11 +16,16 @@ import getiid from './getiid.js';
 import shards from './shards.js';
 import profile from './profile.js';
 import canvases from './canvases.js';
+import fish from './fish.js';
 import banme from './banme.js';
 
 const router = express.Router();
 
 router.use('/canvases', canvases);
+
+router.use(express.json());
+
+router.use('/fish', fish);
 
 // set cache-control
 router.use((req, res, next) => {
@@ -30,8 +35,6 @@ router.use((req, res, next) => {
   });
   next();
 });
-
-router.use(express.json());
 
 // routes that don't need a user
 router.get('/shards', shards);

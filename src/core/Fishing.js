@@ -99,16 +99,18 @@ function registerCatchedFish(user, ip, type, size) {
     // eslint-disable-next-line max-len
     `FISHING: ${user.id} ${ip} caught a fish with ${size} kg, earning ${duration}ms of lower cd`,
   );
-  const userString = (user.id)
-    ? `@[${escapeMd(user.name)}](${user.id})` : 'A player';
-  if (chatProvider.enChannelId && chatProvider.eventUserId) {
-    chatProvider.broadcastChatMessage(
-      EVENT_USER_NAME,
-      // eslint-disable-next-line max-len
-      `${userString} caught a phish! It's a ${FISH_TYPES[type].name} with ${size}kg`,
-      chatProvider.enChannelId,
-      chatProvider.eventUserId,
-    );
+  if (!user.isPrivate) {
+    const userString = (user.id)
+      ? `@[${escapeMd(user.name)}](${user.id})` : 'A player';
+    if (chatProvider.enChannelId && chatProvider.eventUserId) {
+      chatProvider.broadcastChatMessage(
+        EVENT_USER_NAME,
+        // eslint-disable-next-line max-len
+        `${userString} caught a phish! It's a ${FISH_TYPES[type].name} with ${size}kg`,
+        chatProvider.enChannelId,
+        chatProvider.eventUserId,
+      );
+    }
   }
 
   if (user.id) {

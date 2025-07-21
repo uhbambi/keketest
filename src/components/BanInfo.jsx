@@ -3,13 +3,11 @@
  */
 
 import React, { useState, useCallback } from 'react';
-import { useDispatch } from 'react-redux';
 import { t } from 'ttag';
 
 import useInterval from './hooks/interval.js';
 import useLink from './hooks/link.js';
-import { notify } from '../store/actions/thunks.js';
-import copyTextToClipboard from '../utils/clipboard.js';
+import ClipboardCopyField from './ClipboardCopyField.jsx';
 import {
   largeDurationToString,
 } from '../core/utils.js';
@@ -21,7 +19,6 @@ const BanInfo = ({ close }) => {
   const [bans, setBans] = useState([]);
   const [submitting, setSubmitting] = useState(false);
 
-  const dispatch = useDispatch();
   const link = useLink();
 
   const handleSubmit = useCallback(async () => {
@@ -119,22 +116,7 @@ const BanInfo = ({ close }) => {
           )}
           <p>
             <span className="stattext">{t`BID`}: </span>
-            <input
-              style={{
-                display: 'inline-block',
-                width: '100%',
-                maxWidth: '18em',
-              }}
-              readOnly
-              value={uuid}
-            />
-            <button
-              type="button"
-              onClick={() => {
-                copyTextToClipboard(uuid);
-                dispatch(notify(t`Copied`));
-              }}
-            >{t`Copy`}</button>
+            <ClipboardCopyField text={uuid} maxWidth="18em" />
           </p>
           {(index !== bans.length - 1) && (
             <div className="modaldivider" />

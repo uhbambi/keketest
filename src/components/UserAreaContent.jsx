@@ -100,7 +100,7 @@ const UserAreaContent = () => {
       <div>
         <p>
           {t`Your name is:`}<span className="statvalue">{` ${name} `}</span>
-          [<span>{` ${username} `}</span>]
+          [{` ${username} `}]
         </p>(
         <span
           role="button"

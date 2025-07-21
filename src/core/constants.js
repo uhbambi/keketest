@@ -111,6 +111,7 @@ export const OVERLAY_SP_TH = 8;
 export const POPUP_ARGS = {
   USERAREA: ['activeTab'],
   CHAT: [['chatChannel', 'int']],
+  FISH_DISPLAY: [['id', 'int']],
   PLAYER: ['uri'],
 };
 
@@ -124,6 +125,7 @@ export const AVAILABLE_POPUPS = [
   'REGISTER',
   'FORGOT_PASSWORD',
   'PLAYER',
+  'FISH_DISPLAY',
 ];
 
 // fish types available for fishing

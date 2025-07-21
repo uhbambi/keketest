@@ -22,7 +22,7 @@ const FishList = () => {
   return (
     <p className="fishlist">
       <span className="stattext">{t`Phishes`}:</span>
-      {fishes.slice(0, sliceTill).map(({ type, size, ts }) => {
+      {fishes.slice(0, sliceTill).map(({ type, size, ts, id }) => {
         const { name } = FISH_TYPES[type];
         const shortname = name.toLowerCase().split(' ').join('');
         const backgroundColor = setBrightness(colorFromText(shortname), false);
@@ -39,10 +39,10 @@ const FishList = () => {
               link('FISH_DISPLAY', {
                 reuse: true,
                 target: 'blank',
-                args: { type, size, ts },
+                args: { id },
                 title: name,
                 width: 385,
-                height: 445,
+                height: 522,
               });
             }}
           >

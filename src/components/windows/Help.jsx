@@ -9,8 +9,8 @@ import { GiMouse } from 'react-icons/gi';
 import { MdTouchApp } from 'react-icons/md';
 
 import GetIID from '../GetIID.jsx';
+import ClipboardCopyField from '../ClipboardCopyField.jsx';
 import useLongPress from '../hooks/useLongPress.js';
-import copyTextToClipboard from '../../utils/clipboard.js';
 import { toggleEasterEgg } from '../../store/actions/index.js';
 import { notify } from '../../store/actions/thunks.js';
 import { cdn } from '../../utils/utag.js';
@@ -89,27 +89,10 @@ const Help = () => {
       <p>IID</p>
       <GetIID />
       {(userId > 0) && (
-      <>
-        <p>UID</p>
-        <p>
-          <input
-            style={{
-              display: 'inline-block',
-              width: '100%',
-              maxWidth: '10em',
-            }}
-            readOnly
-            value={userId}
-          />
-          <button
-            type="button"
-            onClick={() => {
-              copyTextToClipboard(userId);
-              dispatch(notify(t`Copied`));
-            }}
-          >{t`Copy`}</button>
-        </p>
-      </>
+        <React.Fragment key="cui">
+          <p>UID</p>
+          <p><ClipboardCopyField text={userId} /></p>
+        </React.Fragment>
       )}
       <h3>2D {t`Controls`}</h3>
       <div style={{ lineHeight: 1.5 }}>

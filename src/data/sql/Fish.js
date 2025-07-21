@@ -1,5 +1,6 @@
-import { DataTypes } from 'sequelize';
+import { DataTypes, QueryTypes } from 'sequelize';
 import sequelize from './sequelize.js';
+import { USER_FLAGS } from '../../core/constants.js';
 
 const Fish = sequelize.define('Fish', {
   id: {
@@ -42,11 +43,42 @@ export async function storeFish(uid, type, size) {
   }
 }
 
+/**
+ * get information of single fish
+ * @param id id of fish
+ * @return fish { type, size, ts, caughtByUid, caughtByName } | null
+ */
+export async function getFishById(id) {
+  try {
+    const fish = await sequelize.query(
+      // eslint-disable-next-line max-len
+      `SELECT f.type, f.size, f.createdAt,
+f.uid AS caughtByUid, u.name AS caughtByName, u.username AS caughtByUsername,
+(u.flags & ?) != 0 AS isPrivate FROM Fishes f
+  LEFT JOIN Users u ON u.id = f.uid
+WHERE f.id = ?`, {
+        replacements: [0x01 << USER_FLAGS.PRIV, id],
+        type: QueryTypes.SELECT,
+        plain: true,
+      },
+    );
+    if (fish) {
+      fish.ts = fish.createdAt.getTime();
+      delete fish.createdAt;
+      return fish;
+    }
+  } catch (error) {
+    console.error(`SQL Error on getFish: ${error.message}`);
+  }
+  return null;
+}
+
 export async function getFishesOfUser(uid) {
   const fishes = [];
   try {
     const fishModels = await Fish.findAll({
       attributes: [
+        'id',
         'type',
         'size',
         'createdAt',
@@ -58,8 +90,8 @@ export async function getFishesOfUser(uid) {
     let i = fishModels.length;
     while (i > 0) {
       i -= 1;
-      const { type, size, createdAt } = fishModels[i];
-      fishes.push({ type, size, ts: createdAt.getTime() });
+      const { id, type, size, createdAt } = fishModels[i];
+      fishes.push({ id, type, size, ts: createdAt.getTime() });
     }
   } catch (error) {
     console.error(`SQL Error on getFishesOfUser: ${error.message}`);

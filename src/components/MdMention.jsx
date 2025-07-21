@@ -5,13 +5,12 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 
 import { colorFromText, setBrightness } from '../core/utils.js';
+import { selectIsDarkMode } from '../store/selectors/gui.js';
 
 const MdMention = ({ name, uid }) => {
   const id = uid && uid.trim();
 
-  const isDarkMode = useSelector(
-    (state) => state.gui.style.indexOf('dark') !== -1,
-  );
+  const isDarkMode = useSelector(selectIsDarkMode);
   const ownId = useSelector((state) => state.user.id);
 
   return (

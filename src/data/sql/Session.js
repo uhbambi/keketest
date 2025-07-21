@@ -104,6 +104,33 @@ export async function removeSession(token) {
 }
 
 /**
+ * resolve only uid of session of given token
+ * @param token
+ * @return uid: number | null
+ */
+export async function resolveSessionUid(token) {
+  if (!token) {
+    return null;
+  }
+  try {
+    const session = await sequelize.query(
+      // eslint-disable-next-line max-len
+      'SELECT uid FROM Sessions WHERE token = ? AND (expires > NOW() OR expires IS NULL)', {
+        replacements: [generateTokenHash(token)],
+        type: QueryTypes.SELECT,
+        plain: true,
+      },
+    );
+    if (session) {
+      return session.uid;
+    }
+  } catch (error) {
+    console.error(`SQL Error on resolveSessionUid: ${error.message}`);
+  }
+  return null;
+}
+
+/**
  * resolve a session for a given token
  * @param token
  * @return null | {

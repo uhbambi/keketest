@@ -2,10 +2,10 @@
  * express middlewares for handling user sessions
  */
 import { parse as parseCookie } from 'cookie';
-import { HOUR } from '../core/constants.js';
+import { HOUR, USER_FLAGS } from '../core/constants.js';
 
 import {
-  resolveSession, createSession, removeSession,
+  resolveSession, createSession, removeSession, resolveSessionUid,
 } from '../data/sql/Session.js';
 import { parseListOfBans } from '../data/sql/Ban.js';
 import { touchUser } from '../data/sql/User.js';
@@ -62,6 +62,10 @@ export class User {
 
   get name() {
     return this.#data.name;
+  }
+
+  get isPrivate() {
+    return (this.#data.flags & (0x01 << USER_FLAGS.PRIV)) !== 0;
   }
 
   touch(ipString) {
@@ -131,6 +135,16 @@ async function resolveSessionOfRequest(req) {
   } else {
     req.user = new User(userData, token);
   }
+}
+
+/**
+ * resolve only user id of session if possible
+ * @param req express request
+ */
+export async function resolveSessionUidOfRequest(req) {
+  const cookies = parseCookie(req.headers.cookie || '');
+  const token = cookies['ppfun.session'];
+  return resolveSessionUid(token);
 }
 
 /*

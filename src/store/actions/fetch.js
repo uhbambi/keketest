@@ -353,6 +353,13 @@ export function requestProfile() {
   );
 }
 
+export function requestFish(id) {
+  return makeAPIPOSTRequest(
+    '/api/fish',
+    { id },
+  );
+}
+
 export function requestTpids() {
   return makeAPIGETRequest(
     '/api/auth/get_tpids',

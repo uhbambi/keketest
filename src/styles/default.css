@@ -1146,6 +1146,7 @@ table td span {
 
 .fishdisplay-img {
   width: 100%;
+  max-width: 450px;
 }
 
 @keyframes sway {
