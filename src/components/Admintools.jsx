@@ -204,13 +204,6 @@ function Admintools() {
           {(submitting) ? '...' : t`Roll different Captcha Fonts`}
         </button>
         <br />
-        <button
-          type="button"
-          onClick={reqQuickAction('givefishes')}
-        >
-          {(submitting) ? '...' : t`Give Everyone A Fish`}
-        </button>
-        <br />
         {(gameState.needVerification) ? (
           <button
             key="disableverify"
