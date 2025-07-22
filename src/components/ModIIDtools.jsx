@@ -39,6 +39,7 @@ async function submitIIDAction(
       data.append('bid', bid);
       break;
     }
+    case 'searchalts':
     case 'status': {
       if (!iidoruser) {
         return t`You must enter an IID or UserId`;
@@ -126,7 +127,7 @@ function ModIIDtools() {
           {[
             'status', 'baninfo', 'ban', 'unban',
             'whitelist', 'unwhitelist',
-            'givecaptcha', 'changeusername',
+            'givecaptcha', 'changeusername', 'searchalts',
           ].map((opt) => (
             <option
               key={opt}
@@ -202,7 +203,7 @@ function ModIIDtools() {
             />
           </p>
         )}
-        {(iIDAction === 'status') && (
+        {(iIDAction === 'status' || iIDAction === 'searchalts') && (
           <p key="status">
             IID or UserID or Name:&nbsp;
             <input

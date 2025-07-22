@@ -24,6 +24,7 @@ import {
   getIPofIID,
   getIIDsOfIPs,
   getIPsOfIIDs,
+  findAlts,
 } from '../data/sql/IP.js';
 import {
   setUserLvl,
@@ -210,9 +211,10 @@ export async function executeIIDAction(
       }
       break;
     }
+    case 'searchalts':
     case 'status': {
       if (!iidOrUserIdOrName) {
-        return 'You must enter an IID or BID';
+        return 'You must enter an IID or UserId or Name';
       }
       break;
     }
@@ -324,6 +326,26 @@ export async function executeIIDAction(
         out += await printBans(banInfos);
       }
       return out;
+    }
+    case 'searchalts': {
+      let userId;
+      if (iidOrUserIdOrName.indexOf('-') !== -1) {
+        /* IID */
+        ipString = await getIPofIID(iidOrUserIdOrName);
+      } else {
+        /* user id or name */
+        userId = parseInt(iidOrUserIdOrName, 10);
+        if (Number.isNaN(userId)) {
+          const user = await findUserByIdOrName(iidOrUserIdOrName);
+          if (user) {
+            userId = user.id;
+          } else {
+            userId = null;
+          }
+        }
+      }
+      const [iids, userIds] = await findAlts(userId, ipString);
+      return `UserIds:\n${userIds.join('\n')}\n\nIIDs:\n${iids.join('\n')}\n`;
     }
     case 'baninfo': {
       const banInfos = await getBanInfos(null, null, null, bid);

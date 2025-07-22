@@ -1,10 +1,10 @@
 import Sequelize, { DataTypes, QueryTypes } from 'sequelize';
-import crypto from 'crypto';
 
 import sequelize, { nestQuery } from './sequelize.js';
 import ProxyData from './Proxy.js';
 import WhoisReferral from './WhoisReferral.js';
 import { USE_PROXYCHECK } from '../../core/config.js';
+import { generateUUID } from '../../utils/hash.js';
 
 const IP = sequelize.define('IP', {
   /*
@@ -24,7 +24,7 @@ const IP = sequelize.define('IP', {
     type: 'BINARY(16)',
     allowNull: false,
     unique: 'uuid',
-    defaultValue: () => crypto.randomBytes(16),
+    defaultValue: generateUUID,
   },
 
   lastSeen: {
@@ -354,10 +354,54 @@ export async function getIPofIID(uuid) {
       },
     );
     return result[0]?.ip;
-  } catch (err) {
-    console.error(`SQL Error on getIPofIID: ${err.message}`);
+  } catch (error) {
+    console.error(`SQL Error on getIPofIID: ${error.message}`);
   }
   return null;
+}
+
+/**
+ * find other users and ips connected to one
+ * @param uid userId
+ * @param ipString ipString
+ * @return [ ipStrings, userIds ]
+ */
+export async function findAlts(userId, ipString) {
+  const userIds = new Set();
+  const iids = new Set();
+  try {
+    if (userId) {
+      const userIps = await sequelize.query(
+        // eslint-disable-next-line max-len
+        'SELECT BIN_TO_UUID(i.uuid) AS iid, l.uid FROM UserIPs l INNER JOIN IPs i ON l.ip = i.ip INNER JOIN UserIPs m ON m.ip = l.ip WHERE m.uid = ?', {
+          replacements: [userId],
+          raw: true,
+          type: QueryTypes.SELECT,
+        },
+      );
+      userIps.forEach(({ iid, uid }) => {
+        iids.add(iid);
+        userIds.add(uid);
+      });
+    }
+    if (ipString) {
+      const userIps = await sequelize.query(
+        // eslint-disable-next-line max-len
+        'SELECT BIN_TO_UUID(i.uuid) AS iid, l.uid FROM UserIPs l INNER JOIN IPs i ON l.ip = i.ip INNER JOIN UserIPs m ON m.uid = l.uid WHERE m.ip = IP_TO_BIN(?)', {
+          replacements: [ipString],
+          raw: true,
+          type: QueryTypes.SELECT,
+        },
+      );
+      userIps.forEach(({ iid, uid }) => {
+        iids.add(iid);
+        userIds.add(uid);
+      });
+    }
+  } catch (error) {
+    console.error(`SQL Error on findAlts: ${error.message}`);
+  }
+  return [[...iids], [...userIds]];
 }
 
 /**
@@ -376,8 +420,8 @@ export async function getIIDofIP(ipString) {
       },
     );
     return result[0]?.iid;
-  } catch (err) {
-    console.error(`SQL Error on getIIDofIP: ${err.message}`);
+  } catch (error) {
+    console.error(`SQL Error on getIIDofIP: ${error.message}`);
   }
   return null;
 }
@@ -422,8 +466,8 @@ WHERE ${where}`, {
     result.forEach((obj) => {
       idToIPMap.set(obj.iid, obj.ip);
     });
-  } catch (err) {
-    console.error(`SQL Error on getIPsOfIIDs: ${err.message}`);
+  } catch (error) {
+    console.error(`SQL Error on getIPsOfIIDs: ${error.message}`);
   }
   return idToIPMap;
 }
