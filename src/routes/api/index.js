@@ -25,7 +25,7 @@ router.use('/canvases', canvases);
 
 router.use(express.json());
 
-router.use('/fish', fish);
+router.post('/fish', fish);
 
 // set cache-control
 router.use((req, res, next) => {

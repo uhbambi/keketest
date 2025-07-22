@@ -460,6 +460,66 @@ WHERE (b.flags & ?) > 0 AND (b.expires > NOW() OR b.expires IS NULL) AND b.id ${
 }
 
 /**
+ * prolong existing ban of ipString / userId combo if exists
+ * @param ipString
+ * @param userId
+ * @param duration duration in seconds to add to existing ban
+ * @param reason reason to match
+ * @return boolean if prolonged
+ */
+export async function prolongExistingBan(ipString, userId, duration, reason) {
+  const bans = await getBanInfos(ipString, userId, null, null);
+  if (!bans.length) {
+    return false;
+  }
+  let banData;
+  if (reason) {
+    banData = bans.find((b) => b.reason === reason);
+  } else {
+    /* prefer ban over mute */
+    banData = bans.find((b) => b.flags & 0x01);
+    if (!banData) {
+      [banData] = bans;
+    }
+  }
+  if (!banData) {
+    return false;
+  }
+  if (!banData.expires) {
+    return true;
+  }
+  let newDuration = null;
+  if (duration) {
+    newDuration = new Date(banData.expires.getTime() + duration * 1000);
+  }
+  try {
+    await sequelize.query(
+      'UPDATE Bans SET expires = ? WHERE id = ?', {
+        replacements: [newDuration, banData.id],
+        raw: true,
+        type: QueryTypes.UPDATE,
+      },
+    );
+    if (!banData.ips.some(({ ipString: i }) => i === ipString)) {
+      console.log(`BAN add ip ${ipString} to ban that doesn't have it yet`);
+      await IPBan.create({
+        bid: banData.id, ip: Sequelize.fn('IP_TO_BIN', ipString),
+      }, { returning: false });
+    }
+    if (!banData.users.some(({ id: u }) => u === userId)) {
+      console.log(`BAN add user ${userId} to ban that doesn't have it yet`);
+      await UserBan.create({
+        bid: banData.id, uid: userId,
+      }, { returning: false });
+    }
+    return true;
+  } catch (error) {
+    console.error(`SQL Error on prolongExistingBan: ${error.message}`);
+  }
+  return false;
+}
+
+/**
  * ban
  * @param ipStrings Array of multiple or single ipStrings
  * @param userIds Array of multiple or single user ids
