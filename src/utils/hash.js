@@ -29,3 +29,15 @@ export function generateToken() {
 export function generateTokenHash(token) {
   return createHash('sha224').update(token).digest('base64').substring(0, 38);
 }
+
+/*
+ * UUIDv4 generation
+ */
+export function generateUUID() {
+  const bytes = randomBytes(16);
+  /* v4 */
+  bytes[6] = (bytes[6] & 0x0f) | 0x40;
+  /* variant 10 */
+  bytes[8] = (bytes[8] & 0x3f) | 0x80;
+  return bytes;
+}

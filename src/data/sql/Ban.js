@@ -1,5 +1,4 @@
 import Sequelize, { DataTypes, Op, QueryTypes } from 'sequelize';
-import crypto from 'crypto';
 
 import sequelize, { nestQuery } from './sequelize.js';
 import BanHistory from './BanHistory.js';
@@ -11,6 +10,7 @@ import ThreePIDBan from './association_models/ThreePIDBan.js';
 import IPBanHistory from './association_models/IPBanHistory.js';
 import UserBanHistory from './association_models/UserBanHistory.js';
 import ThreePIDBanHistory from './association_models/ThreePIDBanHistory.js';
+import { generateUUID } from '../../utils/hash.js';
 
 const Ban = sequelize.define('Ban', {
   id: {
@@ -23,7 +23,7 @@ const Ban = sequelize.define('Ban', {
     type: 'BINARY(16)',
     allowNull: false,
     unique: 'uuid',
-    defaultValue: () => crypto.randomBytes(16),
+    defaultValue: generateUUID,
   },
 
   reason: {
