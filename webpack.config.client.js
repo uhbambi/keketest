@@ -10,39 +10,42 @@ import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
 import sourceMapping from './scripts/sourceMapping.js';
 import LicenseListWebpackPlugin from './scripts/LicenseListWebpackPlugin.cjs';
 
-const pkg = JSON.parse(
-  fs.readFileSync(path.resolve(import.meta.dirname, './package.json')),
-);
-
 /*
  * make sure we build in root dir
  */
 process.chdir(import.meta.dirname);
 
-export default ({
-  development,
-  analyze,
-  locale = 'en',
-  extract,
-  readonly,
-}) => {
-  const ttag = {
-    resolve: {
-      translations: (locale !== 'en')
-        ? path.resolve('i18n', `${locale}.po`)
-        : 'default',
-    },
-  };
+const pkg = JSON.parse(
+  fs.readFileSync(path.resolve('package.json')),
+);
 
-  if (extract) {
-    ttag.extract = {
-      output: path.resolve('i18n', 'template.pot'),
-    };
+export default ({ development, analyze}) => {
+
+  const babelPlugins = [];
+  /*
+   * In development mode, we resolve translations to the default english.
+   * In production mode we remove the ttag import and build the tags into the
+   * bundle (as if they would be globals) and then resolve translations in
+   * post-processing to build language based bundles.
+   *
+   * NOTE: The production output bundle isn't useable without processing it
+   * first
+   */
+  if (development) {
+    babelPlugins.push([
+      'ttag', { resolve: { translations: 'default' } },
+    ]);
+  } else {
+    babelPlugins.push([
+      'ttag', {
+        extract: { output: path.resolve('i18n', 'template.pot') },
+        sortByMsgid: true,
+      },
+    ]);
+    babelPlugins.push([
+      "transform-remove-imports", { "test": "^ttag$" },
+    ]);
   }
-
-  const babelPlugins = [
-    ['ttag', ttag],
-  ];
 
   return {
     name: 'client',
@@ -63,20 +66,20 @@ export default ({
     output: {
       path: path.resolve('dist', 'public', 'assets'),
       publicPath: '/assets/',
-      // chunkReason is set if it is a split chunk like vendor or three
+      /*
+       * chunkReason is set if it is a split chunk like vendor or three, which
+       * will not include any translation strings.
+       * All other js assets will get the .en language attached to their name,
+       * and in post-ptocessing we resolve translations in production mode.
+       */
       filename: (pathData) => (pathData.chunk.chunkReason)
         ? '[name].[chunkhash:8].js'
-        : `[name].${locale}.[chunkhash:8].js`,
-      chunkFilename: `[name].${locale}.[chunkhash:8].js`,
+        : '[name].en.[chunkhash:8].js',
+      chunkFilename: '[name].en.[chunkhash:8].js',
     },
 
     resolve: {
       alias: {
-        /*
-         * have to mock it, because we don't ship ttag itself with the client,
-         * we have a script for every language
-        */
-        ttag: 'ttag/dist/mock',
         /*
          * if we don't do that,we might load different versions of three
          */
@@ -96,12 +99,8 @@ export default ({
               options: {
                 svgo: {
                   plugins: [
-                    {
-                      removeViewBox: false,
-                    },
-                    {
-                      removeDimensions: true,
-                    },
+                    { removeViewBox: false },
+                    { removeDimensions: true },
                   ],
                 },
                 jsx: false,
@@ -118,7 +117,6 @@ export default ({
                 plugins: babelPlugins,
               },
             },
-            path.resolve('scripts', 'TtagNonCacheableLoader.js'),
           ],
           include: [
             path.resolve('src'),
@@ -146,14 +144,38 @@ export default ({
         outputDir: path.join('..', 'legal'),
         includeLicenseFiles: true,
         override: sourceMapping,
-        /*
-         * build a second summarized html output,
-         * because LibreJS doesn't understand this and we still want it
-         * TODO: replace it with the mergeByChunnkName option once LibreJS
-         *       supports it
-         */
         processOutput: (out) => {
-          let secondOut = [...out].map((buildObj) => {
+          /*
+           * add language scripts that might be built later
+           */
+          const clientScripts = out.find(({ name }) => name === 'Client Scripts').scripts;
+          const scriptAmount = clientScripts.length;
+          const langs = fs.readdirSync(path.resolve('i18n'))
+            .filter((e) => (e.endsWith('.po') && !e.startsWith('ssr')))
+            .map((l) => l.slice(0, -3));
+          for (let i = 0; i < scriptAmount; i += 1) {
+            const script = clientScripts[i];
+            if (script.url.includes('.en.')) {
+              for (let j = 0; j < langs.length; j += 1) {
+                const replaceStr = '.' + langs[j] + '.';
+                clientScripts.push({
+                  ...script,
+                  assets: script.assets.map(({ name, url }) => ({
+                    name: name.replace('.en.', replaceStr),
+                    url: url.replace('.en.', replaceStr),
+                  })),
+                  url: script.url.replace('.en.', replaceStr),
+                });
+              }
+            }
+          }
+          /*
+           * build a second summarized html output, because LibreJS doesn't
+           * understand this and we still want it
+           * TODO: replace it with the mergeByChunnkName option once LibreJS
+           *       supports it
+           */
+          let secondOut = out.map((buildObj) => {
             const newBuildObj = {
               ...buildObj,
               scripts: [],
@@ -206,6 +228,11 @@ export default ({
             chunks: (chunk) => chunk.name.startsWith('client'),
             test: /[\\/]node_modules[\\/]/,
           },
+          pvendor: {
+            name: 'pvendor',
+            chunks: (chunk) => chunk.name.startsWith('popup'),
+            test: /[\\/]node_modules[\\/]/,
+          },
           three: {
             name: 'three',
             chunks: 'all',
@@ -213,6 +240,11 @@ export default ({
           },
         },
       },
+      /*
+       * we post-process the bundle in production ourselves, so no need for
+       * minimization here
+       */
+      minimize: false,
     },
 
     recordsPath: path.resolve('records.json'),
@@ -225,9 +257,16 @@ export default ({
       chunkModules: false,
     },
 
+    performance: {
+      /*
+       * since we minimize in production in post processing, those hints
+       * are useless
+       */
+      hints: false,
+    },
+
     cache: {
       type: 'filesystem',
-      readonly,
     },
   };
 }

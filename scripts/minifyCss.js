@@ -14,19 +14,15 @@ import path from 'path';
 import CleanCSS from 'clean-css';
 import crypto from 'crypto';
 
-const __filename = import.meta.filename;
 const __dirname = import.meta.dirname;
 
-const buildTs = Date.now();
 const assetdir = path.resolve(__dirname, '..', 'dist', 'public', 'assets');
-const builddir = path.resolve(__dirname, '..', 'dist');
-
 const FOLDER = path.resolve(__dirname, '..', 'src', 'styles');
-const FILES = fs.readdirSync(FOLDER).filter((e) => e.endsWith('.css'));
 
 async function minifyCss() {
-  console.log('Minifying css');
-  FILES.forEach((file) => {
+  const ts = Date.now();
+  process.stdout.write(`\x1b[33mMinifying CSS assets\x1b[0m\n`);
+  fs.readdirSync(FOLDER).filter((e) => e.endsWith('.css')).forEach((file) => {
     const input = fs.readFileSync(path.resolve(FOLDER, file), 'utf8');
     const options = {};
     const output = new CleanCSS(options).minify(input);
@@ -41,13 +37,13 @@ async function minifyCss() {
       }
       throw new Error('Minify CSS Error Occured');
     }
-    // eslint-disable-next-line max-len
-    console.log('\x1b[33m%s\x1b[0m', `Minified ${file} by ${Math.round(output.stats.efficiency * 100)}%`);
+    console.log(`${file} by ${Math.round(output.stats.efficiency * 100)}%`);
     const hash = crypto.createHash('md5').update(output.styles).digest('hex');
     let key = file.substr(0, file.indexOf('.'));
     const filename = `${key}.${hash.substr(0, 8)}.css`;
     fs.writeFileSync(path.resolve(assetdir, filename), output.styles, 'utf8');
   });
+  process.stdout.write(`\x1b[33mMinifying took ${Math.round((Date.now() - ts) / 1000)}s\x1b[0m\n`);
 }
 
 async function doMinifyCss() {

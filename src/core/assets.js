@@ -119,6 +119,9 @@ export function getJsAssets(name, lang) {
     case 'globe':
       jsAssets.push(assets.js.three);
       break;
+    case 'popup':
+      jsAssets.push(assets.js.pvendor);
+      break;
     default:
       // nothing
   }

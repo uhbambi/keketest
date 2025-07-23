@@ -10,14 +10,14 @@ import GeneratePackageJsonPlugin from 'generate-package-json-webpack-plugin';
 import LicenseListWebpackPlugin from './scripts/LicenseListWebpackPlugin.cjs';
 import sourceMapping from './scripts/sourceMapping.js';
 
+/*
+ * make sure we build in root dir
+ */
+process.chdir(import.meta.dirname);
+
 const pkg = JSON.parse(
-  fs.readFileSync(path.resolve(import.meta.dirname, './package.json')),
+  fs.readFileSync(path.resolve('package.json')),
 );
-
-const __dirname = import.meta.dirname;
-
-// make sure we build in root dir
-process.chdir(__dirname);
 
 const basePackageValues = {
   name: pkg.name,
@@ -50,10 +50,9 @@ export default ({
    * write template files for translations
    */
   if (extract) {
-    ttag.extract = {
-      output: path.resolve('i18n', 'template-ssr.pot'),
-    };
-    ttag.discover = ['t', 'jt'];
+    ttag.extract = { output: path.resolve('i18n', 'template-ssr.pot') };
+    ttag.discover = ['t', 'jt', 'c'];
+    ttag.sortByMsgid = true;
   }
 
   /*

@@ -11,6 +11,8 @@ import webpack from 'webpack';
 import validate from 'ttag-cli/dist/src/commands/validate.js';
 
 import minifyCss from './minifyCss.js';
+import minifyJs from './minifyJs.js';
+import buildLanguages from './buildLanguageBundles.js';
 import createImages from './createImages.js';
 import zipDir from './zipDirectory.js';
 import serverConfig from '../webpack.config.server.js';
@@ -27,7 +29,6 @@ let langs = 'all';
 let doBuildServer = false;
 let doBuildClient = false;
 let parallel = false;
-let recursion = false;
 let onlyValidate = false;
 let development = false;
 for (let i = 0; i < process.argv.length; i += 1) {
@@ -45,9 +46,6 @@ for (let i = 0; i < process.argv.length; i += 1) {
       break;
     case '--parallel':
       parallel = true;
-      break;
-    case '--recursion':
-      recursion = true;
       break;
     case '--validate':
       onlyValidate = true;
@@ -72,7 +70,6 @@ function getAllAvailableLocals() {
   const langs = fs.readdirSync(langDir)
     .filter((e) => (e.endsWith('.po') && !e.startsWith('ssr')))
     .map((l) => l.slice(0, -3));
-  langs.unshift('en');
   return langs;
 }
 
@@ -117,7 +114,6 @@ function getPoFileStats(file) {
 }
 
 async function filterLackingLocals(langs, percentage) {
-  langs = langs.filter((l) => l !== 'en');
   const promises = [];
   const { msgid, msgstr } = await getPoFileStats(path.resolve(
     __dirname, '..', 'i18n', `template.pot`,
@@ -127,7 +123,7 @@ async function filterLackingLocals(langs, percentage) {
     .map((l) => getPoFileStats(
       path.resolve(__dirname, '..', 'i18n', `${l}.po`),
     )));
-  const goodLangs = [ 'en' ];
+  const goodLangs = [];
   const badLangs = [];
   for (let i = 0; i < langs.length; i += 1) {
     const lang = langs[i];
@@ -150,28 +146,27 @@ async function filterLackingLocals(langs, percentage) {
  * check if language files contain errors
  */
 function validateLangs(langs) {
-  console.log('Validating language files...');
+  const ts = Date.now();
+  process.stdout.write(`\x1b[33mValidating Language files\x1b[0m\n`);
   const langDir = path.resolve(__dirname, '..', 'i18n');
   const brokenLangs = [];
   for (const lang of langs) {
     const langFiles = [`${lang}.po`, `ssr-${lang}.po`];
     for (const langFile of langFiles) {
-      process.stdout.clearLine(0);
-      process.stdout.cursorTo(0);
-      process.stdout.write(`i18n/${langFile} `);
       const filePath = path.join(langDir, langFile);
       if (!fs.existsSync(filePath)) {
         continue;
       }
       try {
         validate.default(filePath);
+        process.stdout.write('\x1b[32m' + langFile + '\x1b[0m ');
       } catch (error) {
         brokenLangs.push(langFile);
+        process.stdout.write('\x1b[31m' + langFile + '\x1b[0m ');
       }
     }
   }
-  process.stdout.clearLine(0);
-  process.stdout.cursorTo(0);
+  process.stdout.write(`\n\x1b[33mValidating Language files took ${Math.round((Date.now() - ts) / 1000)}s\x1b[0m\n`);
   return brokenLangs;
 }
 
@@ -283,13 +278,11 @@ function compile(webpackConfig) {
 }
 
 function buildServer() {
-  console.log('-----------------------------');
-  console.log(`Build server...`);
-  console.log('-----------------------------');
+  process.stdout.write(`\x1b[33mBuilding Server\x1b[0m\n`);
   const ts = Date.now();
 
   return new Promise((resolve, reject) => {
-    const argsc = (langs === 'all')
+    const argsc = (langs === 'all' && !development)
       ? ['webpack', '--env', 'extract', '--config', './webpack.config.server.js']
       : ['webpack', '--config', './webpack.config.server.js']
     const serverCompile = spawn('npx', argsc, {
@@ -305,109 +298,16 @@ function buildServer() {
       if (code) {
         reject(new Error('Server compilation failed!'));
       } else {
-        console.log('---------------------------------------');
-        console.log(`Server Compilation finished in ${Math.floor((Date.now() - ts) / 1000)}s`);
-        console.log('---------------------------------------');
         resolve();
       }
     });
   });
-}
-
-function buildClients(slangs) {
-  return new Promise((resolve, reject) => {
-    const clientCompile = spawn('npm', ['run', 'build', '--', '--client', '--recursion', '--langs', slangs.join(',')], {
-      shell: process.platform == 'win32',
-    });
-    clientCompile.stdout.on('data', (data) => {
-      console.log(data.toString());
-    });
-    clientCompile.stderr.on('data', (data) => {
-      console.error(data.toString());
-    });
-    clientCompile.on('close', (code) => {
-      if (code) {
-        reject(new Error('Client compilation failed!'));
-      } else {
-        resolve();
-      }
-    });
-  });
-}
-
-async function buildClientsSync(avlangs) {
-  for(let i = 0; i < avlangs.length; i += 1) {
-    const lang = avlangs[i];
-    console.log(`Build client for locale ${lang}...`);
-    await compile(clientConfig({
-      development,
-      analyze: false,
-      extract: false,
-      locale: lang,
-      readonly: recursion,
-    }));
-  }
-}
-
-function buildClientsParallel(avlangs) {
-  const st = Date.now();
-  const numProc = 3;
-  let nump = Math.floor(avlangs.length / numProc);
-  if (!nump) nump = 1;
-
-  const promises = [];
-  while (avlangs.length >= nump) {
-    const slangs = avlangs.splice(0, nump);
-    promises.push(buildClients(slangs));
-  }
-  if (avlangs.length) {
-    promises.push(buildClientsSync(avlangs));
-  }
-  return Promise.all(promises);
 }
 
 async function build() {
   const st = Date.now();
   // cleanup old files
-  if (!recursion) {
-    cleanUpBeforeBuild(doBuildServer, doBuildClient);
-  }
-
-  // decide which languages to build
-  let avlangs = getAllAvailableLocals();
-  if (langs !== 'all') {
-    avlangs = langs.split(',').map((l) => l.trim())
-      .filter((l) => avlangs.includes(l));
-  } else {
-    let badLangs;
-    ({ goodLangs: avlangs, badLangs } = await filterLackingLocals(avlangs, 50));
-    if (badLangs.length) {
-      console.log(
-        'Skipping',
-        badLangs.length,
-        'locals because of low completion:',
-        badLangs,
-      );
-    }
-  }
-  if (!avlangs.length) {
-    console.error(`ERROR: language ${langs} not available`);
-    process.exit(1);
-    return;
-  }
-  console.log('Building', avlangs.length, 'locales:', avlangs);
-
-  const brokenLangs = validateLangs(avlangs);
-  if (brokenLangs.length) {
-    console.error('ERROR: Translation files', brokenLangs, 'contain errors.');
-    process.exit(2);
-    return;
-  }
-  if (onlyValidate) {
-    console.log('Validation complete, everything is fine.');
-    process.exit(0);
-    return;
-  }
+  cleanUpBeforeBuild(doBuildServer, doBuildClient);
 
   const promises = [];
 
@@ -416,60 +316,76 @@ async function build() {
   }
 
   if (doBuildClient) {
-    if (!recursion) {
-      console.log('Building one client package...');
-      await compile(clientConfig({
-        development,
-        analyze: false,
-        extract: (langs === 'all'),
-        locale: avlangs.shift(),
-        readonly: false,
-      }));
+    process.stdout.write(`\x1b[33mBuilding Client\x1b[0m\n`);
+    await compile(clientConfig({
+      development,
+      analyze: false,
+    }));
 
-      console.log('-----------------------------');
-      console.log(`Minify CSS assets...`);
-      console.log('-----------------------------');
-      await minifyCss();
+    await minifyCss();
 
-      if (doBuildServer) {
-        /*
-         * server copies files into ./dist/public, it
-         * is needed for creating images
-         */
-        console.log('-----------------------------');
-        console.log(`Creating Images...`);
-        console.log('-----------------------------');
-        await createImages();
-      }
-      console.log('-----------------------------');
-    }
-
-    if (parallel) {
-      promises.push(buildClientsParallel(avlangs));
-    } else {
-      promises.push(buildClientsSync(avlangs));
+    if (doBuildServer) {
+      /*
+        * server copies files into ./dist/public, it
+        * is needed for creating images
+        */
+      await createImages();
     }
   }
   await Promise.all(promises);
 
-  if (!recursion) {
-    cleanUpAfterBuild(doBuildServer, doBuildClient);
-    if (doBuildServer && doBuildClient) {
-      console.log('-----------------------------');
-      console.log(`Archiving Source...`);
-      console.log('-----------------------------');
-      await zipDir(
-        path.resolve(__dirname, '..'),
-        path.resolve(__dirname, '..', 'dist', 'public', 'legal',
-          `${pkg.name}-${pkg.version}-source.zip`,
-        ),
-      );
-      console.log('-----------------------------');
+  // decide which languages to build
+  let avlangs;
+  if (!development) {
+    avlangs = getAllAvailableLocals();
+    if (langs !== 'all') {
+      avlangs = langs.split(',').map((l) => l.trim())
+      .filter((l) => avlangs.includes(l));
+    } else {
+      let badLangs;
+      ({ goodLangs: avlangs, badLangs } = await filterLackingLocals(avlangs, 50));
+      if (badLangs.length) {
+        console.log(
+          'Skipping',
+          badLangs.length,
+          'locals because of low completion:',
+          badLangs,
+        );
+      }
     }
-    console.log(`Finished building in ${(Date.now() - st) / 1000}s`);
-  } else {
-    console.log(`Worker done in ${(Date.now() - st) / 1000}s`);
+    if (avlangs.length) {
+      console.log('Translating into', avlangs.length, 'locales:', avlangs);
+
+      const brokenLangs = validateLangs(avlangs);
+      if (brokenLangs.length) {
+        console.error('ERROR: Translation files', brokenLangs, 'contain errors.');
+        process.exit(2);
+        return;
+      }
+      if (onlyValidate) {
+        console.log('Validation complete, everything is fine.');
+        process.exit(0);
+        return;
+      }
+    }
+
+    await buildLanguages(avlangs);
+    await minifyJs(avlangs);
   }
+
+  cleanUpAfterBuild(doBuildServer, doBuildClient);
+  if (doBuildServer && doBuildClient) {
+    const ts = Date.now();
+    process.stdout.write(`\x1b[33mArchiving Source\x1b[0m\n`);
+    await zipDir(
+      path.resolve(__dirname, '..'),
+      path.resolve(__dirname, '..', 'dist', 'public', 'legal',
+        `${pkg.name}-${pkg.version}-source.zip`,
+      ),
+    );
+    process.stdout.write(`\x1b[33mArchiving Source took ${Math.round((Date.now() - ts) / 1000)}s\x1b[0m\n`);
+  }
+  console.log(`Finished building in ${(Date.now() - st) / 1000}s`);
 }
 
 build();

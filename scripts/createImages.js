@@ -17,6 +17,8 @@ const tilePng = path.resolve(__dirname, '..', 'dist', 'public', 'tile.png');
 const touchIconPng = path.resolve(__dirname, '..', 'dist', 'public', 'apple-touch-icon.png');
 
 async function createImages() {
+  const ts = Date.now();
+  process.stdout.write(`\x1b[33mCreating images\x1b[0m\n`);
   await ico.sharpsToIco(
     [ sharp(svgLogo) ],
     targetIco,
@@ -32,6 +34,7 @@ async function createImages() {
   console.log('Created tile.png');
   fs.copyFileSync(tilePng, touchIconPng);
   console.log('Created apple-touch-icon.png');
+  process.stdout.write(`\x1b[33mCreating images took ${Math.round((Date.now() - ts) / 1000)}s\x1b[0m\n`);
 }
 
 export default createImages;
