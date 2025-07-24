@@ -20,8 +20,12 @@ export async function buildLanguage(lang = 'en') {
 
   if (lang === 'en') {
     ttag.resolve.translations = 'default';
+    /*
+     * if we do it here, we do not have a template.pot avaiable for completition
+     * check earlier in build
     ttag.extract = { output: path.join(podir, 'template.pot') };
-    // ttag.sortByMsgid = true;
+    ttag.sortByMsgid = true;
+    */
   } else {
     const translations = path.join(podir, lang + '.po');
     if (!fs.existsSync(translations)) {
@@ -107,17 +111,33 @@ function buildLanguages(langs, finish = true, parallel = false) {
 
   return new Promise((resolve, reject) => {
     let i = 0;
+    let cursorPosition = 0;
     const callback = async (error, finishedLang) => {
       if (error) {
         reject(error);
         return;
       }
+      finishedLang = finishedLang.trim();
 
       if (i > 0) {
         /* move back 9 columns and clean till EOL */
         process.stdout.write('\x1b[11D\x1b[0K');
       }
-      process.stdout.write('\x1b[32m' + finishedLang.trim() + ' \x1b[0m(' + `  ${i + 1}`.slice(-3) + '/' + `  ${amountOfLangs}`.slice(-3) + ' ) ');
+
+      /* calculate the current cursor position, because querying for it is hard */
+      if (cursorPosition + finishedLang.length + 1 >= process.stdout.columns) {
+        cursorPosition = 0;
+        process.stdout.write('\n');
+      }
+      cursorPosition += finishedLang.length + 1;
+      process.stdout.write('\x1b[32m' + finishedLang + ' ');
+      if (cursorPosition + 11 >= process.stdout.columns) {
+        cursorPosition = 0;
+        process.stdout.write('\n');
+      }
+      /* write progress */
+      process.stdout.write('\x1b[0m(' + `  ${i + 1}`.slice(-3) + '/' + `  ${amountOfLangs}`.slice(-3) + ' ) ');
+
       i += 1;
       if (i === amountOfLangs) {
         process.stdout.write('\x1b[11D\x1b[0K\n');

@@ -79,6 +79,7 @@ function minifyJs(langs, parallel = false) {
 
   return new Promise((resolve, reject) => {
     let i = 0;
+    let cursorPosition = 0;
     const callback = (error, asset) => {
       if (error) {
         reject(error);
@@ -90,7 +91,26 @@ function minifyJs(langs, parallel = false) {
         process.stdout.write('\x1b[5D\x1b[0K');
       }
       i += 1;
-      process.stdout.write('\x1b[32m' + asset.split('.').slice(0, -2).join('.') + ' \x1b[0m' + `  ${Math.floor(i / amountOfAssets * 100)}%`.slice(-4) + ' ');
+
+      const assetName = asset.trim().split('.').slice(0, -2).join('.');
+      /*
+      if (assetName.includes('globe.de')) {
+        console.log('DE FOUND');
+      }*/
+      /* calculate the current cursor position, because querying for it is hard */
+      if (cursorPosition + assetName.length + 1 >= process.stdout.columns) {
+        cursorPosition = 0;
+        process.stdout.write('\n');
+      }
+      cursorPosition += assetName.length + 1;
+      process.stdout.write('\x1b[32m' + assetName + ' ');
+      if (cursorPosition + 5 >= process.stdout.columns) {
+        cursorPosition = 0;
+        process.stdout.write('\n');
+      }
+      /* write progress */
+      process.stdout.write('\x1b[0m' + `  ${Math.floor(i / amountOfAssets * 100)}%`.slice(-4) + ' ');
+
       if (i === amountOfAssets) {
         process.stdout.write(`\x1b[5D\x1b[0K\n\x1b[33mMinifying took ${Math.round((Date.now() - ts) / 1000)}s\x1b[0m\n`);
         resolve();

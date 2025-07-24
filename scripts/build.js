@@ -278,7 +278,7 @@ function compile(webpackConfig) {
 }
 
 function buildServer() {
-  process.stdout.write(`\x1b[33mBuilding Server\x1b[0m\n`);
+  process.stdout.write(`\x1b[33mBuilding Server with Webpack\x1b[0m\n`);
   const ts = Date.now();
 
   return new Promise((resolve, reject) => {
@@ -321,7 +321,7 @@ async function build() {
   }
 
   if (doBuildClient) {
-    process.stdout.write(`\x1b[33mBuilding Client\x1b[0m\n`);
+    process.stdout.write(`\x1b[33mBuilding Client with Webpack\x1b[0m\n`);
     await compile(clientConfig({
       development,
       analyze: false,
