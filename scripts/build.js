@@ -315,6 +315,11 @@ async function build() {
     promises.push(buildServer());
   }
 
+  if (!parallel) {
+    await Promise.all(promises);
+    promises.length = 0;
+  }
+
   if (doBuildClient) {
     process.stdout.write(`\x1b[33mBuilding Client\x1b[0m\n`);
     await compile(clientConfig({
@@ -354,8 +359,6 @@ async function build() {
       }
     }
     if (avlangs.length) {
-      console.log('Translating into', avlangs.length, 'locales:', avlangs);
-
       const brokenLangs = validateLangs(avlangs);
       if (brokenLangs.length) {
         console.error('ERROR: Translation files', brokenLangs, 'contain errors.');
@@ -369,8 +372,8 @@ async function build() {
       }
     }
 
-    await buildLanguages(avlangs);
-    await minifyJs(avlangs);
+    await buildLanguages(avlangs, true, parallel && 5);
+    await minifyJs(avlangs, parallel && 5);
   }
 
   cleanUpAfterBuild(doBuildServer, doBuildClient);

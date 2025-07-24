@@ -4,6 +4,7 @@
 import fs from 'fs';
 import path from 'path';
 import { parseSync, transformAsync, transformFromAstSync } from '@babel/core';
+import { spawn } from 'child_process';
 
 const assetdir = path.resolve(
   import.meta.dirname, '..', 'dist', 'public', 'assets',
@@ -43,13 +44,8 @@ export async function buildLanguage(lang = 'en') {
   const translatableAssets = fs.readdirSync(assetdir).filter((e) => e.endsWith('.js') && e.includes('.en.'));
 
   const amountOfAssets = translatableAssets.length;
-  let processAssets = '';
   for (let i = 0; i < amountOfAssets; i += 1) {
     const asset = translatableAssets[i];
-    processAssets += asset.split('.')[0] + ' ';
-    process.stdout.clearLine(0);
-    process.stdout.cursorTo(0);
-    process.stdout.write(`  ${Math.floor(i / amountOfAssets * 100)}%`.slice(-4) + '  \x1b[32m' + processAssets + '\x1b[0m');
 
     let code = assetSourceCache.get(asset);
     if (!code) {
@@ -69,46 +65,118 @@ export async function buildLanguage(lang = 'en') {
       output,
     );
   }
-  process.stdout.clearLine(0);
-  process.stdout.cursorTo(0);
-  process.stdout.write('\x1b[32m' + processAssets + '\x1b[0m\n');
 }
 
-async function buildLanguages(langs, finish = true) {
+async function buildLanguageAssets(langs, callback) {
+  try {
+    for (let i = 0; i < langs.length; i += 1) {
+      const lang = langs[i].trim();
+      await buildLanguage(lang);
+      callback(null, lang);
+    }
+  } catch (error) {
+    callback(error);
+  }
+}
+
+async function buildLanguageAssetsInProcess(langs, callback) {
+  const minifyProcess = spawn('node', [import.meta.filename, ...langs], {
+    shell: process.platform == 'win32',
+  });
+  minifyProcess.stdout.on('data', (data) => {
+    callback(null, data.toString());
+  });
+  minifyProcess.stderr.on('data', (data) => {
+    console.error(data.toString());
+  });
+  minifyProcess.on('close', (code) => {
+    if (code) {
+      callback(new Error('Minifying assets failed!'));
+    }
+  });
+}
+
+function buildLanguages(langs, finish = true, parallel = false) {
   const ts = Date.now();
   process.stdout.write(`\x1b[33mTranslating\x1b[0m\n`);
+
   const amountOfLangs = langs.length;
-  for (let i = 0; i < amountOfLangs; i += 1) {
-    const lang = langs[i].trim();
-    console.log(`Translating to ${lang} (${i + 1}/${amountOfLangs})...`);
-    await buildLanguage(lang);
+
+  return new Promise((resolve, reject) => {
+    let i = 0;
+    const callback = async (error, finishedLang) => {
+      if (error) {
+        reject(error);
+        return;
+      }
+
+      if (i > 0) {
+        /* move back 9 columns and clean till EOL */
+        process.stdout.write('\x1b[11D\x1b[0K');
+      }
+      process.stdout.write('\x1b[32m' + finishedLang.trim() + ' \x1b[0m(' + `  ${i + 1}`.slice(-3) + '/' + `  ${amountOfLangs}`.slice(-3) + ' ) ');
+      i += 1;
+      if (i === amountOfLangs) {
+        process.stdout.write('\x1b[11D\x1b[0K\n');
+        if (finish) {
+          process.stdout.write('Finish en bundle\n');
+          await buildLanguage();
+        }
+        process.stdout.write(`\x1b[33mTranslating took ${Math.round((Date.now() - ts) / 1000)}s\x1b[0m\n`);
+        assetAstCache.clear();
+        assetSourceCache.clear();
+        resolve();
+      }
+    };
+
+    parallel = parseInt(parallel, 10);
+    if (Number.isNaN(parallel) || parallel < 1) {
+      parallel = false;
+    }
+    if (!parallel) {
+      /*
+       * minify in current process
+       */
+      buildLanguageAssets(langs, callback);
+    } else {
+      /*
+       * split into multiple other processes
+       */
+      const partSize = Math.ceil(amountOfLangs / parallel);
+
+      for (let i = 0; i < parallel; i++) {
+        const start = i * partSize;
+        const end = start + partSize;
+        buildLanguageAssetsInProcess(langs.slice(start, end), callback);
+      }
+    }
+  });
+}
+
+async function doBuildLanguages() {
+  /*
+   * if there are any arguments, they are lang codes
+   */
+  if (process.argv.length > 1) {
+    let langs = process.argv.slice(2).filter((a) => !a.startsWith('-'));
+    if (langs.length) {
+      buildLanguageAssets(langs, (error, finishedLang) => {
+        if (error) {
+          console.error(error.message);
+          process.exit(1);
+        } else {
+          console.log(finishedLang);
+        }
+      });
+      return;
+    }
   }
-  if (finish) {
-    console.log('Finish en bundle');
-    await buildLanguage();
-  }
-  process.stdout.write(`\x1b[33mTranslating took ${Math.round((Date.now() - ts) / 1000)}s\x1b[0m\n`);
-  assetAstCache.clear();
-  assetSourceCache.clear();
+  console.log('No --langs given');
+  process.exit(1);
 }
 
 if (import.meta.url.endsWith(process.argv[1])) {
-  const langsSwitch = process.argv.indexOf('--langs');
-  if (langsSwitch !== -1) {
-    let langs = process.argv[langsSwitch + 1];
-    if (langs) {
-      langs = langs.split(',');
-      try {
-        buildLanguages(langs);
-      } catch (e) {
-        console.log('ERROR while building language', e);
-        process.exit(1);
-      }
-    }
-  } else {
-    console.log('No --langs given');
-    process.exit(1);
-  }
+  doBuildLanguages();
 }
 
 export default buildLanguages;
