@@ -80,6 +80,9 @@ async function buildLanguageAssets(langs, callback) {
 }
 
 async function buildLanguageAssetsInProcess(langs, callback) {
+  if (!langs.length) {
+    return;
+  }
   const minifyProcess = spawn('node', [import.meta.filename, ...langs], {
     shell: process.platform == 'win32',
   });

@@ -38,6 +38,9 @@ async function minifyAssets(assetList, callback) {
 }
 
 async function minifyAssetsInProcess(assetList, callback) {
+  if (!assetList.length) {
+    return;
+  }
   const minifyProcess = spawn('node', [import.meta.filename, ...assetList], {
     shell: process.platform == 'win32',
   });
