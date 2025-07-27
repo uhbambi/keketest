@@ -89,6 +89,7 @@ class SocketServer {
       ws.lang = lang;
       ws.ttag = ttag;
       ws.userAgent = req.headers['user-agent'];
+      ipCounter.add(ip.ipString);
 
       ws.send(dehydrateOnlineCounter(socketEvents.onlineCounter));
 
@@ -98,7 +99,7 @@ class SocketServer {
       });
 
       ws.on('close', () => {
-        ipCounter.delete(ip);
+        ipCounter.delete(ip.ipString);
         this.deleteAllChunks(ws);
       });
 
@@ -267,7 +268,6 @@ class SocketServer {
       socket.destroy();
       return;
     }
-    ipCounter.add(ipString);
 
     this.wss.handleUpgrade(request, socket, head, (ws) => {
       this.wss.emit('connection', ws, request);
