@@ -341,7 +341,7 @@ async function build() {
 
   // decide which languages to build
   let avlangs;
-  if (!development) {
+  if (!development && doBuildClient) {
     avlangs = getAllAvailableLocals();
     if (langs !== 'all') {
       avlangs = langs.split(',').map((l) => l.trim())
