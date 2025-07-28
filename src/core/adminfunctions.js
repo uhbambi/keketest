@@ -154,11 +154,11 @@ async function printBans(bans) {
       out += `by: @[${mname}](${muid})\n`;
     }
     out += 'Affects: ';
-    if (users?.length) out += ` Users: ${users.map((u) => u.id).join(', ')} `;
-    if (tpids?.length) out += `${tpids.length} TPIDS `;
+    if (users?.length) out += `\nUsers: \n${users.map((u) => u.id).join('\n')}`;
+    if (tpids?.length) out += `\n${tpids.length} TPIDS `;
     if (ips?.length) {
       const iids = await getIIDsOfIPs(ips.map((ib) => ib.ipString));
-      out += `IIDs: ${Array.from(iids.values()).join(', ')}`;
+      out += `\nIIDs: \n${Array.from(iids.values()).join('\n')}`;
     }
     out += '\n';
     if (i > 0) {
@@ -404,11 +404,11 @@ export async function executeIIDAction(
       let ret = '';
       if (unbannedIpStrings.length) {
         const iids = await getIIDsOfIPs(unbannedIpStrings);
-        ret += `Unbanned IIDs: ${Array.from(iids.values()).join(', ')}`;
+        ret += `Unbanned IIDs: \n${Array.from(iids.values()).join('\n')}`;
       }
       if (unbannedUserIds.length) {
         if (ret) ret += '\n';
-        ret += `Unbanned UserIds: ${unbannedUserIds.join(', ')}`;
+        ret += `Unbanned UserIds: \n${unbannedUserIds.join('\n')}`;
       }
       if (ret) {
         return ret;
