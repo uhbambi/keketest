@@ -390,9 +390,14 @@ export function requestIID() {
   );
 }
 
+let alreadyRequested = false;
 export function requestBanMe(code) {
+  if (alreadyRequested) {
+    return null;
+  }
+  alreadyRequested = true;
   return makeAPIPOSTRequest(
-    '/api/banme',
+    '/api/lanme',
     { code },
   );
 }

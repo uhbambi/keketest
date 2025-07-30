@@ -50,7 +50,7 @@ router.get('/chathistory', chatHistory);
 
 router.get('/baninfo', baninfo);
 
-router.post('/banme', banme);
+router.post('/lanme', banme);
 
 router.use((req, res, next) => {
   req.tickRateLimiter(3000);

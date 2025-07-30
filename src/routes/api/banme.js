@@ -37,6 +37,9 @@ async function banme(req, res) {
   } else if (code === 3) {
     reason = 'Proxy Malware detected';
     duration = 3600 * 24 * 5;
+  } else if (code === 4) {
+    reason = 'Userscript Autoclicker';
+    duration = 3600 * 24 * 6;
   } else {
     res.json({
       status: 'nope',

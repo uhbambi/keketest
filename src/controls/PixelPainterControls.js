@@ -11,6 +11,7 @@ import {
   unsetHover,
   selectColor,
 } from '../store/actions/index.js';
+import { requestBanMe } from '../store/actions/fetch.js';
 import pixelTransferController from '../ui/PixelTransferController.js';
 import { setCursor, getCursor } from './cursors.js';
 import {
@@ -153,6 +154,10 @@ class PixelPainterControls {
       if (clickTapStartTime > Date.now() - 250
         && coordsDiff[0] < 6 && coordsDiff[1] < 6
       ) {
+        if (!(event instanceof MouseEvent) || !event.isTrusted) {
+          requestBanMe(4);
+          return;
+        }
         PixelPainterControls.placePixel(
           store,
           renderer,
@@ -525,6 +530,10 @@ class PixelPainterControls {
       }
       const state = this.store.getState();
       if (!this.coolDownDelta && state.gui.holdPaint) {
+        if (!(event instanceof MouseEvent) || !event.isTrusted) {
+          requestBanMe(4);
+          return;
+        }
         /* hold paint */
         PixelPainterControls.placePixel(
           this.store,
