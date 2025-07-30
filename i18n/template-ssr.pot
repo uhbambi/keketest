@@ -15,7 +15,7 @@ msgstr ""
 msgid "3D Canvas"
 msgstr ""
 
-#: src/ssr/Globe.jsx:36
+#: src/ssr/Globe.jsx:39
 msgid "A 3D globe of our whole map"
 msgstr ""
 
@@ -68,7 +68,7 @@ msgstr ""
 msgid "Couldn't find this mail in our database"
 msgstr ""
 
-#: src/ssr/Globe.jsx:49
+#: src/ssr/Globe.jsx:52
 msgid "Double click on globe to go back."
 msgstr ""
 
@@ -144,7 +144,7 @@ msgstr ""
 msgid "Just admins can do that"
 msgstr ""
 
-#: src/ssr/Globe.jsx:50
+#: src/ssr/Globe.jsx:53
 msgid "Loading..."
 msgstr ""
 
@@ -262,7 +262,7 @@ msgstr ""
 msgid "PixelCanvas"
 msgstr ""
 
-#: src/ssr/Globe.jsx:35
+#: src/ssr/Globe.jsx:38
 msgid "PixelPlanet.Fun 3DGlobe"
 msgstr ""
 
@@ -283,7 +283,7 @@ msgstr ""
 msgid "Place Voxels on a 3D canvas with others."
 msgstr ""
 
-#: src/ssr/mainHTML.js:89
+#: src/ssr/mainHTML.js:104
 msgid "Place color pixels on an map styled canvas with other players online"
 msgstr ""
 

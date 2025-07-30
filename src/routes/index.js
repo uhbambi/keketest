@@ -60,6 +60,9 @@ const expressStatic = express.static(
 /* ip */
 router.use(parseIP);
 
+/* translations */
+router.use(expressTTag);
+
 /*
  * Serving Chunks
  */
@@ -70,6 +73,16 @@ router.get(['/chunks/:c/:x/:y/:z.bmp', '/chunks/:c/:x/:y.bmp'], chunks);
  */
 router.use('/tiles', tiles);
 
+/*
+ * test path to check connectivity
+ */
+router.get('/test', (req, res) => {
+  res.set({
+    'Cache-Control': 'no-store',
+    'Access-Control-Allow-Origin': '*',
+  });
+  res.status(200).end();
+});
 
 router.use(rateLimiter);
 
@@ -106,9 +119,6 @@ router.use((req, res, next) => {
   }
   next();
 });
-
-/* translations */
-router.use(expressTTag);
 
 /*
  * adminapi

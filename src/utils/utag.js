@@ -21,7 +21,18 @@ const apiUrl = window.ssv?.apiUrl || basename;
 /*
  * cdnUrl needs to be a url without path like "https://pixelplanet.fun"
  */
-const cdnUrl = window.ssv?.cdnUrl || basename;
+let cdnUrl = window.ssv?.cdnUrl || basename;
+
+/*
+ * check if cdnTestUrl is reachable, and use it as cdn if it is
+ */
+if (window.ssv.cdnTestUrl) {
+  fetch(`${window.ssv.cdnTestUrl}/test`).then((res) => {
+    if (res.ok) {
+      cdnUrl = window.ssv.cdnTestUrl;
+    }
+  });
+}
 
 /**
  * tagFunction to change the path of a URL

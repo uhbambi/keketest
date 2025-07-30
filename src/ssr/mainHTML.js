@@ -13,7 +13,8 @@ import { getTTag, availableLangs as langs } from '../middleware/ttag.js';
 import { getThemeCssAssets } from '../core/assets.js';
 import chooseAPIUrl from '../core/chooseAPIUrl.js';
 import {
-  BACKUP_URL, CONTACT_ADDRESS, UNSHARDED_HOST, CDN_HOST, CDN_URL, BASENAME,
+  BACKUP_URL, CONTACT_ADDRESS,
+  UNSHARDED_HOST, CDN_HOST, CDN_URL, BASENAME, NO_CDN_COUNTRIES,
 } from '../core/config.js';
 import { DEFAULT_CANVAS_ID } from '../core/constants.js';
 
@@ -43,13 +44,14 @@ const basedQuotes = [
  */
 export default function generateMainHTML(req, title, scripts, appClass) {
   const { lang, ip } = req;
+  const { country } = ip;
   const host = ip.getHost(false);
   const proto = req.headers['x-forwarded-proto'] || 'http';
 
   const apiUrl = (UNSHARDED_HOST && host.startsWith(UNSHARDED_HOST))
     ? null : chooseAPIUrl();
   const localizedCanvases = getLocalizedCanvases(lang);
-  const defaultCanvas = defaultCanvasForCountry[ip.country] || DEFAULT_CANVAS_ID;
+  const defaultCanvas = defaultCanvasForCountry[country] || DEFAULT_CANVAS_ID;
 
   const ssv = {
     availableStyles: getThemeCssAssets(),
@@ -58,11 +60,24 @@ export default function generateMainHTML(req, title, scripts, appClass) {
     contactAddress: CONTACT_ADDRESS,
     apiUrl,
     basename: BASENAME,
-    cdnUrl: CDN_URL,
     lang,
     canvases: localizedCanvases,
     defaultCanvas,
   };
+
+  if (CDN_URL) {
+    /*
+     * CDN_URL gets used for all assets, but not for /api/ or /ws requests
+     */
+    if (NO_CDN_COUNTRIES?.includes(country)) {
+      /*
+       * tells the client to test the cdn and use it if successful
+       */
+      ssv.cdnTestUrl = CDN_URL;
+    } else {
+      ssv.cdnUrl = CDN_URL;
+    }
+  }
 
   const ssvR = JSON.stringify(ssv);
 
@@ -115,11 +130,11 @@ export default function generateMainHTML(req, title, scripts, appClass) {
     <link rel="icon" href="${BASENAME}/favicon.ico" type="image/x-icon" />
     <link rel="apple-touch-icon" href="${BASENAME}/apple-touch-icon.png" />
     <script>${headScript}</script>
-    <link rel="stylesheet" type="text/css" id="globcss" href="${CDN_URL || BASENAME}${getThemeCssAssets().default}" />
+    <link rel="stylesheet" type="text/css" id="globcss" href="${ssv.cdnUrl || BASENAME}${getThemeCssAssets().default}" />
   </head>
   <body>
     <div id="app" class="${appClass}"></div>
-    ${scripts.map((script) => `<script src="${CDN_URL || BASENAME}${script}"></script>`).join('')}
+    ${scripts.map((script) => `<script src="${ssv.cdnUrl || BASENAME}${script}"></script>`).join('')}
     <a data-jslicense="1" style="display: none;" href="${BASENAME}/legal">JavaScript license information</a>
   </body>
 </html>`;

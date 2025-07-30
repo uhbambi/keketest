@@ -7,7 +7,7 @@
 import etag from 'etag';
 
 import { getTTag } from '../middleware/ttag.js';
-import { CDN_URL, BASENAME } from '../core/config.js';
+import { CDN_URL, BASENAME, NO_CDN_COUNTRIES } from '../core/config.js';
 
 /* this will be set by webpack */
 import { getJsAssets, getCssAssets } from '../core/assets.js';
@@ -26,6 +26,9 @@ function generateGlobePage(req) {
     return { html: null, etag: globeEtag };
   }
 
+  const cdnUrl = NO_CDN_COUNTRIES?.includes(req.ip.country)
+    ? undefined : CDN_URL;
+
   const { t } = getTTag(lang);
 
   const html = `<!doctype html>
@@ -41,14 +44,14 @@ function generateGlobePage(req) {
         />
         <link rel="icon" href="${BASENAME}/favicon.ico" type="image/x-icon" />
         <link rel="apple-touch-icon" href="${BASENAME}/apple-touch-icon.png" />
-        <link rel="stylesheet" type="text/css" id="globcss" href="${CDN_URL || BASENAME}${getCssAssets().globe}" />
+        <link rel="stylesheet" type="text/css" id="globcss" href="${cdnUrl || BASENAME}${getCssAssets().globe}" />
       </head>
       <body>
         <div id="webgl" />
         <div id="coorbox">(0, 0)</div>
         <div id="info">${t`Double click on globe to go back.`}</div>
         <div id="loading">${t`Loading...`}</div>
-        ${scripts.map((script) => `<script src="${CDN_URL || BASENAME}${script}"></script>`).join('')}
+        ${scripts.map((script) => `<script src="${cdnUrl || BASENAME}${script}"></script>`).join('')}
         <a data-jslicense="1" style="display: none;" href="${BASENAME}/legal">JavaScript license information</a>
       </body>
     </html>

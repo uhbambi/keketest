@@ -9,7 +9,7 @@ import express from 'express';
 
 import canvases from '../core/canvases.js';
 import { getMaxTiledZoom } from '../core/utils.js';
-import { TILE_FOLDER, CDN_HOST } from '../core/config.js';
+import { TILE_FOLDER, CDN_HOST, NO_CDN_COUNTRIES } from '../core/config.js';
 
 
 const router = express.Router();
@@ -18,7 +18,10 @@ const router = express.Router();
  * decide on cache length
  */
 router.use('/:c/:z/:x/:y.webp', (req, res, next) => {
-  if (CDN_HOST && CDN_HOST !== req.ip.getHost(false, false)) {
+  if (CDN_HOST
+    && CDN_HOST !== req.ip.getHost(false, false)
+    && !NO_CDN_COUNTRIES?.includes(req.ip.country)
+  ) {
     /*
      * do not allow chunks and tiles requests from any other URL than CDN,
      * if CDN_URL is set
