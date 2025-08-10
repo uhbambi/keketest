@@ -27,6 +27,10 @@ const sequelize = new Sequelize(MYSQL_DATABASE, MYSQL_USER, MYSQL_PW, {
   dialectOptions: {
     connectTimeout: 10000,
     multipleStatements: true,
+    /*
+     * maxPreparedStatements options exist with v7, we are on v6
+     * maxPreparedStatements: 100,
+     */
   },
 });
 

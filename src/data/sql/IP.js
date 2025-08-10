@@ -1,7 +1,6 @@
 import Sequelize, { DataTypes, QueryTypes } from 'sequelize';
 
 import sequelize, { nestQuery } from './sequelize.js';
-import ProxyData from './Proxy.js';
 import WhoisReferral from './WhoisReferral.js';
 import { USE_PROXYCHECK } from '../../core/config.js';
 import { generateUUID } from '../../utils/hash.js';
@@ -138,7 +137,7 @@ export async function saveIPIntel(ipString, whoisData, pcData) {
 
     try {
       const promises = [];
-      let rid;
+      let rid = null;
 
       if (whoisData) {
         if (whoisData.rid) {
@@ -173,17 +172,17 @@ export async function saveIPIntel(ipString, whoisData, pcData) {
            * if we would be always on MariaDB, we could use append RETURNING id and
            * get the id during the insert
            */
+          /* eslint-disable max-len */
           promises.push(sequelize.query(
-            /* eslint-disable max-len */
             `INSERT INTO Ranges (min, max, mask, country, org, descr, asn, expires) VALUES (UNHEX(?), UNHEX(?), ?, ?, ?, ?, ?, ?)
 ON DUPLICATE KEY UPDATE min = UNHEX(?), max = UNHEX(?), mask = ?, country = ?, org = ?, descr = ?, asn = ?, expires = ?`, {
-              /* eslint-disable max-len */
               replacements: [
                 range[0], range[1], range[2], country, org, descr, asn, expires,
                 range[0], range[1], range[2], country, org, descr, asn, expires,
               ],
               raw: true,
               type: QueryTypes.INSERT,
+              transaction,
             }));
 
           await Promise.all(promises);
@@ -192,28 +191,41 @@ ON DUPLICATE KEY UPDATE min = UNHEX(?), max = UNHEX(?), mask = ?, country = ?, o
               replacements: [range[0], range[1]],
               raw: true,
               type: QueryTypes.SELECT,
+              transaction,
             });
 
           rid = whoisResult[0]?.id;
         }
       }
 
-      const ipValues = { ip: Sequelize.fn('IP_TO_BIN', ipString) };
-      if (rid) {
-        ipValues.rid = rid;
-      }
-      await IP.upsert(ipValues, { returning: false, transaction });
+      await sequelize.query(
+        'INSERT INTO IPs (ip, uuid, rid, lastSeen) VALUES (IP_TO_BIN(?), ?, ?, NOW()) ON DUPLICATE KEY UPDATE ip = VALUES(`ip`), rid = VALUES(`rid`)', {
+          replacements: [ipString, generateUUID(), rid],
+          raw: true,
+          type: QueryTypes.INSERT,
+          transaction,
+        },
+      );
 
       if (pcData) {
-        const query = {
-          ...pcData,
-          ip: Sequelize.fn('IP_TO_BIN', ipString),
-        };
-        query.expires = new Date(query.expiresTs);
-        delete query.expiresTs;
-
-        await ProxyData.upsert(query, { returning: false, transaction });
+        const {
+          isProxy, type, operator, city, devices, subnetDevices,
+        } = pcData;
+        await sequelize.query(
+          `INSERT INTO Proxies (ip, isProxy, type, operator, city, devices, subnetDevices, expires) VALUES (IP_TO_BIN(?),?,?,?,?,?,?,?)
+ON DUPLICATE KEY UPDATE isProxy = VALUES(\`isProxy\`), type = VALUES(\`type\`), operator = VALUES(\`operator\`), city = VALUES(\`city\`), devices = VALUES(\`devices\`), subnetDevices = VALUES(\`subnetDevices\`), ip = VALUES(\`ip\`), expires = VALUES(\`expires\`)`, {
+            replacements: [
+              ipString,
+              isProxy, type, operator, city, devices, subnetDevices,
+              new Date(pcData.expiresTs),
+            ],
+            raw: true,
+            type: QueryTypes.INSERT,
+            transaction,
+          },
+        );
       }
+      /* eslint-disable max-len */
 
       await transaction.commit();
       return true;
