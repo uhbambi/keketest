@@ -115,8 +115,8 @@ export async function touchUser(id, ipString) {
     if (ipString) {
       await sequelize.query(
         // eslint-disable-next-line max-len
-        'INSERT INTO UserIPs (lastSeen, ip, uid) VALUES (NOW(), IP_TO_BIN(?), ?) ON DUPLICATE KEY UPDATE lastSeen = VALUES(`lastSeen`)', {
-          replacements: [ipString, id],
+        'INSERT INTO UserIPs (lastSeen, ip, uid) VALUES (NOW(), IP_TO_BIN($1), $2) AS nv ON DUPLICATE KEY UPDATE lastSeen = nv.lastSeen', {
+          bind: [ipString, id],
           raw: true,
           type: QueryTypes.INSERT,
         },

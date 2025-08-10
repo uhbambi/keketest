@@ -131,7 +131,6 @@ WHERE i.ip = IP_TO_BIN(?)`, {
  * @return success boolean
  */
 export async function saveIPIntel(ipString, whoisData, pcData) {
-  let progress = 0;
   try {
     const transaction = await sequelize.transaction();
 
@@ -160,8 +159,8 @@ export async function saveIPIntel(ipString, whoisData, pcData) {
           if (referralRange && referralHost) {
             promises.push(sequelize.query(
               /* eslint-disable max-len */
-              `INSERT INTO WhoisReferrals (min, max, mask, host, expires) VALUES (UNHEX(?), UNHEX(?), ?, ?, ?)
-ON DUPLICATE KEY UPDATE min = VALUES(\`min\`), max = VALUES(\`max\`), mask = VALUES(\`mask\`), host = VALUES(\`host\`), expires = VALUES(\`expires\`)`, {
+              `INSERT INTO WhoisReferrals (min, max, mask, host, expires) VALUES (UNHEX(?), UNHEX(?), ?, ?, ?) AS nv
+ON DUPLICATE KEY UPDATE min = nv.min, max = nv.max, mask = nv.mask, host = nv.host, expires = nv.expires`, {
                 replacements: [
                   referralRange[0], referralRange[1], referralRange[2], referralHost, new Date(whoisExpiresTs),
                 ],
@@ -176,7 +175,6 @@ ON DUPLICATE KEY UPDATE min = VALUES(\`min\`), max = VALUES(\`max\`), mask = VAL
            * if we would be always on MariaDB, we could use append RETURNING id and
            * get the id during the insert
            */
-          progress += 1;
           promises.push(sequelize.query(
             `INSERT INTO Ranges (min, max, mask, country, org, descr, asn, expires) VALUES (UNHEX(?), UNHEX(?), ?, ?, ?, ?, ?, ?) AS nv
 ON DUPLICATE KEY UPDATE min = nv.min, max = nv.max, mask = nv.mask, country = nv.country, org = nv.org, descr = nv.descr, asn = nv.asn, expires = nv.expires`, {
@@ -189,7 +187,6 @@ ON DUPLICATE KEY UPDATE min = nv.min, max = nv.max, mask = nv.mask, country = nv
             }));
 
           await Promise.all(promises);
-          progress += 1;
           const whoisResult = await sequelize.query(
             'SELECT id FROM Ranges WHERE min = UNHEX(?) AND max = UNHEX(?)', {
               replacements: [range[0], range[1]],
@@ -202,9 +199,8 @@ ON DUPLICATE KEY UPDATE min = nv.min, max = nv.max, mask = nv.mask, country = nv
         }
       }
 
-      progress += 1;
       await sequelize.query(
-        'INSERT INTO IPs (ip, uuid, rid, lastSeen) VALUES (IP_TO_BIN(?), ?, ?, NOW()) ON DUPLICATE KEY UPDATE rid = VALUES(`rid`)', {
+        'INSERT INTO IPs (ip, uuid, rid, lastSeen) VALUES (IP_TO_BIN(?), ?, ?, NOW()) AS nv ON DUPLICATE KEY UPDATE rid = nv.rid', {
           replacements: [ipString, generateUUID(), rid],
           raw: true,
           type: QueryTypes.INSERT,
@@ -216,10 +212,9 @@ ON DUPLICATE KEY UPDATE min = nv.min, max = nv.max, mask = nv.mask, country = nv
         const {
           isProxy, type, operator, city, devices, subnetDevices,
         } = pcData;
-        progress += 1;
         await sequelize.query(
-          `INSERT INTO Proxies (ip, isProxy, type, operator, city, devices, subnetDevices, expires) VALUES (IP_TO_BIN(?), ?, ?, ?, ?, ?, ?, ?)
-ON DUPLICATE KEY UPDATE isProxy = VALUES(\`isProxy\`), type = VALUES(\`type\`), operator = VALUES(\`operator\`), city = VALUES(\`city\`), devices = VALUES(\`devices\`), subnetDevices = VALUES(\`subnetDevices\`), ip = VALUES(\`ip\`), expires = VALUES(\`expires\`)`, {
+          `INSERT INTO Proxies (ip, isProxy, type, operator, city, devices, subnetDevices, expires) VALUES (IP_TO_BIN(?), ?, ?, ?, ?, ?, ?, ?) AS nv
+ON DUPLICATE KEY UPDATE isProxy = nv.isProxy, type = nv.type, operator = nv.operator, city = nv.city, devices = nv.devices, subnetDevices = nv.subnetDevices, ip = nv.ip, expires = nv.expires`, {
             replacements: [
               ipString,
               isProxy, type, operator, city, devices, subnetDevices,
@@ -241,7 +236,7 @@ ON DUPLICATE KEY UPDATE isProxy = VALUES(\`isProxy\`), type = VALUES(\`type\`), 
     }
   } catch (error) {
     // eslint-disable-next-line max-len
-    console.error(`SQL Error on saveIPIntel at ${progress} for ${ipString}, ${JSON.stringify(whoisData)}, ${JSON.stringify(pcData)}: ${error.message}`);
+    console.error(`SQL Error on saveIPIntel for ${ipString}, ${JSON.stringify(whoisData)}, ${JSON.stringify(pcData)}: ${error.message}`);
     error.errors?.forEach((s) => console.error(s.message));
   }
   return false;
@@ -342,8 +337,8 @@ WHERE ${(where.length === 1) ? where[0] : `(${where.join(' OR ')})`}`, {
 export async function touchIP(ipString) {
   try {
     await sequelize.query(
-      'UPDATE IPs SET lastSeen = NOW() WHERE ip = IP_TO_BIN(?)', {
-        replacements: [ipString],
+      'UPDATE IPs SET lastSeen = NOW() WHERE ip = IP_TO_BIN($1)', {
+        bind: [ipString],
         raw: true,
         type: QueryTypes.UPDATE,
       },
