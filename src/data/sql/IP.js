@@ -1,7 +1,6 @@
-import Sequelize, { DataTypes, QueryTypes } from 'sequelize';
+import { DataTypes, QueryTypes } from 'sequelize';
 
 import sequelize, { nestQuery } from './sequelize.js';
-import WhoisReferral from './WhoisReferral.js';
 import { USE_PROXYCHECK } from '../../core/config.js';
 import { generateUUID } from '../../utils/hash.js';
 
@@ -62,9 +61,9 @@ b.expires AS 'bans.expires', b.flags AS 'bans.flags' FROM IPs i
   LEFT JOIN Ranges r ON r.id = i.rid AND r.expires > NOW()
   LEFT JOIN IPBans ib ON ib.ip = i.ip
   LEFT JOIN Bans b ON b.id = ib.bid AND (b.expires > NOW() OR b.expires IS NULL)
-WHERE i.ip = IP_TO_BIN(:ipString)`, {
+WHERE i.ip = IP_TO_BIN(?)`, {
       /* eslint-enable max-len */
-        replacements: { ipString },
+        replacements: [ipString],
         raw: true,
         type: QueryTypes.SELECT,
       });
@@ -132,6 +131,7 @@ WHERE i.ip = IP_TO_BIN(:ipString)`, {
  * @return success boolean
  */
 export async function saveIPIntel(ipString, whoisData, pcData) {
+  let progress = 0;
   try {
     const transaction = await sequelize.transaction();
 
@@ -158,27 +158,30 @@ export async function saveIPIntel(ipString, whoisData, pcData) {
           }
 
           if (referralRange && referralHost) {
-            promises.push(WhoisReferral.upsert({
-              min: Sequelize.fn('UNHEX', referralRange[0]),
-              max: Sequelize.fn('UNHEX', referralRange[1]),
-              mask: referralRange[2],
-              host: referralHost,
-              expires: new Date(whoisExpiresTs),
-            }, { returning: false, transaction }));
+            promises.push(sequelize.query(
+              /* eslint-disable max-len */
+              `INSERT INTO WhoisReferrals (min, max, mask, host, expires) VALUES (UNHEX(?), UNHEX(?), ?, ?, ?)
+ON DUPLICATE KEY UPDATE min = VALUES(\`min\`), max = VALUES(\`max\`), mask = VALUES(\`mask\`), host = VALUES(\`host\`), expires = VALUES(\`expires\`)`, {
+                replacements: [
+                  referralRange[0], referralRange[1], referralRange[2], referralHost, new Date(whoisExpiresTs),
+                ],
+                raw: true,
+                type: QueryTypes.INSERT,
+                transaction,
+              },
+            ));
           }
 
-          const expires = new Date(whoisExpiresTs);
           /*
            * if we would be always on MariaDB, we could use append RETURNING id and
            * get the id during the insert
            */
-          /* eslint-disable max-len */
+          progress += 1;
           promises.push(sequelize.query(
-            `INSERT INTO Ranges (min, max, mask, country, org, descr, asn, expires) VALUES (UNHEX(?), UNHEX(?), ?, ?, ?, ?, ?, ?)
-ON DUPLICATE KEY UPDATE min = UNHEX(?), max = UNHEX(?), mask = ?, country = ?, org = ?, descr = ?, asn = ?, expires = ?`, {
+            `INSERT INTO Ranges (min, max, mask, country, org, descr, asn, expires) VALUES (UNHEX(?), UNHEX(?), ?, ?, ?, ?, ?, ?) AS nv
+ON DUPLICATE KEY UPDATE min = nv.min, max = nv.max, mask = nv.mask, country = nv.country, org = nv.org, descr = nv.descr, asn = nv.asn, expires = nv.expires`, {
               replacements: [
-                range[0], range[1], range[2], country, org, descr, asn, expires,
-                range[0], range[1], range[2], country, org, descr, asn, expires,
+                range[0], range[1], range[2], country, org, descr, asn, new Date(whoisExpiresTs),
               ],
               raw: true,
               type: QueryTypes.INSERT,
@@ -186,6 +189,7 @@ ON DUPLICATE KEY UPDATE min = UNHEX(?), max = UNHEX(?), mask = ?, country = ?, o
             }));
 
           await Promise.all(promises);
+          progress += 1;
           const whoisResult = await sequelize.query(
             'SELECT id FROM Ranges WHERE min = UNHEX(?) AND max = UNHEX(?)', {
               replacements: [range[0], range[1]],
@@ -198,6 +202,7 @@ ON DUPLICATE KEY UPDATE min = UNHEX(?), max = UNHEX(?), mask = ?, country = ?, o
         }
       }
 
+      progress += 1;
       await sequelize.query(
         'INSERT INTO IPs (ip, uuid, rid, lastSeen) VALUES (IP_TO_BIN(?), ?, ?, NOW()) ON DUPLICATE KEY UPDATE rid = VALUES(`rid`)', {
           replacements: [ipString, generateUUID(), rid],
@@ -211,8 +216,9 @@ ON DUPLICATE KEY UPDATE min = UNHEX(?), max = UNHEX(?), mask = ?, country = ?, o
         const {
           isProxy, type, operator, city, devices, subnetDevices,
         } = pcData;
+        progress += 1;
         await sequelize.query(
-          `INSERT INTO Proxies (ip, isProxy, type, operator, city, devices, subnetDevices, expires) VALUES (IP_TO_BIN(?),?,?,?,?,?,?,?)
+          `INSERT INTO Proxies (ip, isProxy, type, operator, city, devices, subnetDevices, expires) VALUES (IP_TO_BIN(?), ?, ?, ?, ?, ?, ?, ?)
 ON DUPLICATE KEY UPDATE isProxy = VALUES(\`isProxy\`), type = VALUES(\`type\`), operator = VALUES(\`operator\`), city = VALUES(\`city\`), devices = VALUES(\`devices\`), subnetDevices = VALUES(\`subnetDevices\`), ip = VALUES(\`ip\`), expires = VALUES(\`expires\`)`, {
             replacements: [
               ipString,
@@ -225,7 +231,7 @@ ON DUPLICATE KEY UPDATE isProxy = VALUES(\`isProxy\`), type = VALUES(\`type\`), 
           },
         );
       }
-      /* eslint-disable max-len */
+      /* eslint-enable max-len */
 
       await transaction.commit();
       return true;
@@ -234,7 +240,9 @@ ON DUPLICATE KEY UPDATE isProxy = VALUES(\`isProxy\`), type = VALUES(\`type\`), 
       throw error;
     }
   } catch (error) {
-    console.error(`SQL Error on saveIPIntel for ${ipString}, ${whoisData}, ${pcData}: ${error.message}`);
+    // eslint-disable-next-line max-len
+    console.error(`SQL Error on saveIPIntel at ${progress} for ${ipString}, ${JSON.stringify(whoisData)}, ${JSON.stringify(pcData)}: ${error.message}`);
+    error.errors?.forEach((s) => console.error(s.message));
   }
   return false;
 }
@@ -265,6 +273,7 @@ export async function getIPInfos(ipStrings, ipUuids) {
     if (ipStrings) {
       if (Array.isArray(ipStrings)) {
         if (ipStrings.length) {
+          /* eslint-disable max-len */
           where.push(`ip.ip IN (SELECT m.ip FROM (${
             ipStrings.map(() => 'SELECT IP_TO_BIN(?) AS \'ip\'').join(' UNION ALL ')
           }) AS m)`);
@@ -300,7 +309,6 @@ export async function getIPInfos(ipStrings, ipUuids) {
 
     const startTime = Date.now();
     const ipInfos = await sequelize.query(
-      /* eslint-disable max-len */
       `SELECT BIN_TO_UUID(ip.uuid) AS 'iid', BIN_TO_IP(ip.ip) AS 'ipString',
 COALESCE(r.country, 'xx') AS 'country', r.org, r.descr, r.asn, CONCAT(BIN_TO_IP(r.min), '/', r.mask) AS 'cidr',
 p.type, COALESCE(p.isProxy, 0) AS isProxy, w.ip IS NOT NULL AS isWhitelisted

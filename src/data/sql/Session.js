@@ -1,4 +1,4 @@
-import Sequelize, { QueryTypes, DataTypes } from 'sequelize';
+import { QueryTypes, DataTypes } from 'sequelize';
 
 import sequelize, { nestQuery } from './sequelize.js';
 import { generateToken, generateTokenHash } from '../../utils/hash.js';
@@ -59,24 +59,26 @@ export async function createSession(uid, durationHours, ip = null) {
         });
     }
 
-    const token = generateToken();
-    const createOptions = {
-      uid,
-      token: generateTokenHash(token),
-      expires: durationHours && new Date(Date.now() + durationHours * HOUR),
-    };
     if (ip) {
       /*
        * we have to make user that IP is loaded into SQL, before we tell
        * createSession to use it
        */
       await ip.getAllowance();
-      createOptions.ip = Sequelize.fn('IP_TO_BIN', ip.ipString);
     }
-    const session = await Session.create(createOptions, { raw: true });
-    if (session) {
-      return token;
-    }
+    const token = generateToken();
+    // eslint-disable-next-line max-len
+    const expires = durationHours && new Date(Date.now() + durationHours * HOUR);
+
+    await sequelize.query(
+      // eslint-disable-next-line max-len
+      'INSERT INTO Sessions (uid, token, expires, ip) VALUES (?,?,?,IP_TO_BIN(?))', {
+        replacements: [uid, generateTokenHash(token), expires, ip?.ipString],
+        raw: true,
+        type: QueryTypes.INSERT,
+      },
+    );
+    return token;
   } catch (error) {
     console.error(`SQL Error on createSession: ${error.message}`);
   }
@@ -175,8 +177,8 @@ c.id AS 'channels.cid', c.name AS 'channels.name', c.\`type\` AS 'channels.type'
   INNER JOIN Sessions s ON s.uid = u.id
   LEFT JOIN UserChannels ucm ON ucm.uid = u.id
   LEFT JOIN Channels c ON c.id = ucm.cid
-WHERE s.token = :token AND (s.expires > NOW() OR s.expires IS NULL)`, {
-        replacements: { token: generateTokenHash(token) },
+WHERE s.token = $1 AND (s.expires > NOW() OR s.expires IS NULL)`, {
+        bind: [generateTokenHash(token)],
         raw: true,
         type: QueryTypes.SELECT,
       });
