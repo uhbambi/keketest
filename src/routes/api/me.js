@@ -4,20 +4,20 @@
 
 import getMe from '../../core/me.js';
 
-export default async (req, res, next) => {
+export default async (req, res) => {
   req.tickRateLimiter(3000);
 
   const { ip, user, lang } = req;
-  /* trigger timestamp updates */
+  const userdata = await getMe(user, ip, lang);
+
+  /*
+   * trigger timestamp updates after getMe finished,
+   * because getMe ensures that IP exist in table
+   */
   if (user) {
     user.touch(ip.ipString);
   }
   ip.touch();
 
-  try {
-    const userdata = await getMe(user, ip, lang);
-    res.json(userdata);
-  } catch (error) {
-    next(error);
-  }
+  res.json(userdata);
 };
