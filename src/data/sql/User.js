@@ -9,7 +9,6 @@ import Sequelize, { DataTypes, QueryTypes, Op } from 'sequelize';
 
 import sequelize from './sequelize.js';
 import { generateHash } from '../../utils/hash.js';
-import UserIP from './association_models/UserIP.js';
 import { setEmail } from './ThreePID.js';
 import {
   USERLVL, THREEPID_PROVIDERS, USER_FLAGS,
@@ -114,11 +113,14 @@ export async function touchUser(id, ipString) {
       where: { id },
     });
     if (ipString) {
-      await UserIP.upsert({
-        uid: id,
-        ip: Sequelize.fn('IP_TO_BIN', ipString),
-        lastSeen: Sequelize.fn('NOW'),
-      });
+      await sequelize.query(
+        // eslint-disable-next-line max-len
+        'INSERT INTO UserIPs (lastSeen, ip, uid) VALUES (NOW(), IP_TO_BIN(?), ?) ON DUPLICATE KEY UPDATE lastSeen = VALUES(`lastSeen`)', {
+          replacements: [ipString, id],
+          raw: true,
+          type: QueryTypes.INSERT,
+        },
+      );
     }
   } catch (error) {
     console.error(

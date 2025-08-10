@@ -199,7 +199,7 @@ ON DUPLICATE KEY UPDATE min = UNHEX(?), max = UNHEX(?), mask = ?, country = ?, o
       }
 
       await sequelize.query(
-        'INSERT INTO IPs (ip, uuid, rid, lastSeen) VALUES (IP_TO_BIN(?), ?, ?, NOW()) ON DUPLICATE KEY UPDATE ip = VALUES(`ip`), rid = VALUES(`rid`)', {
+        'INSERT INTO IPs (ip, uuid, rid, lastSeen) VALUES (IP_TO_BIN(?), ?, ?, NOW()) ON DUPLICATE KEY UPDATE rid = VALUES(`rid`)', {
           replacements: [ipString, generateUUID(), rid],
           raw: true,
           type: QueryTypes.INSERT,
@@ -234,7 +234,7 @@ ON DUPLICATE KEY UPDATE isProxy = VALUES(\`isProxy\`), type = VALUES(\`type\`), 
       throw error;
     }
   } catch (error) {
-    console.error(`SQL Error on saveIPIntel: ${error.message}`);
+    console.error(`SQL Error on saveIPIntel for ${ipString}, ${whoisData}, ${pcData}: ${error.message}`);
   }
   return false;
 }
