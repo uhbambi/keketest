@@ -23,7 +23,7 @@ export function compareToHash(password, hash) {
  */
 
 export function generateToken() {
-  return randomBytes(27).toString('base64');
+  return randomBytes(30).toString('base64');
 }
 
 export function generateTokenHash(token) {
