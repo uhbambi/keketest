@@ -186,7 +186,20 @@ ON DUPLICATE KEY UPDATE min = nv.min, max = nv.max, mask = nv.mask, country = nv
               transaction,
             }));
 
-          await Promise.all(promises);
+          try {
+            await Promise.all(promises);
+          } catch (error) {
+            /*
+             * ignore unique violations, that can happen when a row with min and
+             * a different row with max matches
+             */
+            if (!error.errors
+              || error.errors.some(({ type }) => type !== 'unique violation')
+            ) {
+              throw error;
+            }
+          }
+
           const whoisResult = await sequelize.query(
             'SELECT id FROM Ranges WHERE min = UNHEX(?) AND max = UNHEX(?)', {
               replacements: [range[0], range[1]],
@@ -195,7 +208,9 @@ ON DUPLICATE KEY UPDATE min = nv.min, max = nv.max, mask = nv.mask, country = nv
               transaction,
             });
 
-          rid = whoisResult[0]?.id;
+          if (whoisResult[0]) {
+            rid = whoisResult[0].id;
+          }
         }
       }
 

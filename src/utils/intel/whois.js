@@ -116,6 +116,9 @@ function parseWhois(ip, whoisReturn) {
     || whoisData['aut-num'];
   if (asn) {
     // use only first ASN from possible list
+    if (Array.isArray(asn)) {
+      [asn] = asn;
+    }
     // eslint-disable-next-line prefer-destructuring
     asn = asn.split(',')[0].split('\n')[0];
     // only number
@@ -214,7 +217,6 @@ function checkForReferral(whoisResult, host) {
       if (~prot) {
         value = value.slice(prot + 3);
       }
-      console.log(value);
       return value;
     }
   }
