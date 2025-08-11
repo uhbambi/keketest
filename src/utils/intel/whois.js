@@ -197,9 +197,7 @@ const referralKeys = [
   'refer:',
   'ReferralServer:',
 ];
-function checkForReferral(
-  whoisResult,
-) {
+function checkForReferral(whoisResult, host) {
   for (let u = 0; u < referralKeys.length; u += 1) {
     const key = referralKeys[u];
     const pos = whoisResult.indexOf(key);
@@ -216,8 +214,19 @@ function checkForReferral(
       if (~prot) {
         value = value.slice(prot + 3);
       }
+      console.log(value);
       return value;
     }
+  }
+  /*
+   * lacninc can be weird sometimes and return false requested
+   * arin responses
+   */
+  if (host === 'whois.lacnic.net'
+    && whoisResult.indexOf('ARIN WHOIS data') !== -1
+    && whoisResult.indexOf('Query terms are ambiguous.') !== -1
+  ) {
+    return 'whois.arin.net';
   }
   return null;
 }
@@ -262,7 +271,7 @@ export default async function whoisIp(ip, options) {
       try {
         // eslint-disable-next-line no-await-in-loop
         whoisResult = await singleWhoisQuery(`${queryPrefix} ${ip}`, host);
-        const ref = checkForReferral(whoisResult);
+        const ref = checkForReferral(whoisResult, host);
         if (!ref) {
           break;
         }
