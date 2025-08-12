@@ -225,7 +225,8 @@ ON DUPLICATE KEY UPDATE min = nv.min, max = nv.max, mask = nv.mask, country = nv
 
       if (pcData) {
         const {
-          isProxy, type, operator, city, devices, subnetDevices,
+          isProxy, type = null, operator = null, city = null,
+          devices = 1, subnetDevices = 1,
         } = pcData;
         await sequelize.query(
           `INSERT INTO Proxies (ip, isProxy, type, operator, city, devices, subnetDevices, expires) VALUES (IP_TO_BIN(?), ?, ?, ?, ?, ?, ?, ?) AS nv
