@@ -173,7 +173,7 @@ export class IP {
       }
 
       /* prefer whois for country code over headers: overwrite getter */
-      if (allowance.country && allowance.country !== 'xx') {
+      if (allowance.country) {
         Object.defineProperty(this, 'country', { value: allowance.country });
       }
 

@@ -126,6 +126,10 @@ export function expressTTag(req, res, next) {
     }
     country = 'xx';
   }
+  if (country.length !== 2) {
+    country = 'xx';
+  }
+
   req.lang = lang;
   req.langCountry = country;
   req.ttag = ttags[lang];
