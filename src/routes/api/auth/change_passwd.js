@@ -5,7 +5,7 @@
 import logger from '../../../core/logger.js';
 import socketEvents from '../../../socket/socketEvents.js';
 import { validatePassword } from '../../../utils/validation.js';
-import { compareToHash } from '../../../utils/hash.js';
+import { comparePasswordToHash } from '../../../utils/hash.js';
 import { setPassword } from '../../../data/sql/User.js';
 
 function validate(newPassword, gettext) {
@@ -32,12 +32,11 @@ export default async (req, res) => {
   const { user } = req;
   /* remember that we do allow users to not have a password set */
   const currentPassword = user.data.password;
-  if (currentPassword && !compareToHash(password, currentPassword)) {
-    res.status(400);
-    res.json({
-      errors: [t`Incorrect password!`],
-    });
-    return;
+  if (currentPassword) {
+    const err = comparePasswordToHash(password, currentPassword, t);
+    if (err !== null) {
+      throw err;
+    }
   }
 
   await setPassword(user.id, newPassword);

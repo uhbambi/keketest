@@ -5,7 +5,7 @@
 import logger from '../../../core/logger.js';
 import socketEvents from '../../../socket/socketEvents.js';
 import { validatePassword } from '../../../utils/validation.js';
-import { compareToHash } from '../../../utils/hash.js';
+import { comparePasswordToHash } from '../../../utils/hash.js';
 import { deleteUser } from '../../../data/sql/User.js';
 import { deleteUserFromRanks } from '../../../data/redis/cooldown.js';
 import { clearCookie } from '../../../middleware/session.js';
@@ -36,12 +36,11 @@ export default async (req, res) => {
   const { user } = req;
 
   const currentPassword = user.data.password;
-  if (currentPassword && !compareToHash(password, currentPassword)) {
-    res.status(400);
-    res.json({
-      errors: [t`Incorrect password!`],
-    });
-    return;
+  if (currentPassword) {
+    const err = comparePasswordToHash(password, currentPassword, t);
+    if (err !== null) {
+      throw err;
+    }
   }
 
   // eslint-disable-next-line max-len

@@ -48,8 +48,8 @@ import {
 import rollbackCanvasArea from './rollback.js';
 
 /**
- * Execute IP based actions (banning, whitelist, etc.), it can also be used
- * for resetting users that got hacked, the naming is old
+ * Execute IP based actions, it can also be used for resetting users that got
+ * hacked, the naming is old
  * @param action what to do with the ips
  * @param ip already sanitized ip
  * @return text of success

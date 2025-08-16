@@ -6,7 +6,7 @@ import mailProvider from '../../../core/MailProvider.js';
 
 import logger from '../../../core/logger.js';
 import { validateEMail } from '../../../utils/validation.js';
-import { compareToHash } from '../../../utils/hash.js';
+import { comparePasswordToHash } from '../../../utils/hash.js';
 import { checkMailOverShards } from '../../../utils/intel/index.js';
 import { setEmail, getTPIDsOfUser } from '../../../data/sql/ThreePID.js';
 import { setUserLvl } from '../../../data/sql/User.js';
@@ -41,21 +41,16 @@ export default async (req, res) => {
   const { user, lang } = req;
   /* remember that we do allow users to not have a password set */
   const currentPassword = user.data.password;
-  if (currentPassword && !compareToHash(password, currentPassword)) {
-    res.status(400);
-    res.json({
-      errors: [t`Incorrect password!`],
-    });
-    return;
+  if (currentPassword) {
+    const err = comparePasswordToHash(password, currentPassword, t);
+    if (err !== null) {
+      throw err;
+    }
   }
 
   const ret = await setEmail(user.id, email, false);
   if (!ret) {
-    res.status(400);
-    res.json({
-      errors: [t`Mail is already in use!`],
-    });
-    return;
+    throw new Error(t`Mail is already in use!`);
   }
 
   const tpids = await getTPIDsOfUser(req.user.id);

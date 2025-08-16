@@ -4,7 +4,7 @@
 import {
   getTPIDsOfUser, removeTpidFromUser,
 } from '../../../data/sql/ThreePID.js';
-import { compareToHash } from '../../../utils/hash.js';
+import { comparePasswordToHash } from '../../../utils/hash.js';
 import { USERLVL, THREEPID_PROVIDERS } from '../../../core/constants.js';
 import { setUserLvl } from '../../../data/sql/User.js';
 import socketEvents from '../../../socket/socketEvents.js';
@@ -13,12 +13,11 @@ export default async (req, res) => {
   const { user, body: { id, password }, ttag: { t } } = req;
 
   const currentPassword = user.data.password;
-  if (currentPassword && !compareToHash(password, currentPassword)) {
-    res.status(401);
-    res.json({
-      errors: [t`Incorrect password!`],
-    });
-    return;
+  if (currentPassword) {
+    const err = comparePasswordToHash(password, currentPassword, t);
+    if (err !== null) {
+      throw err;
+    }
   }
 
   let tpids = await getTPIDsOfUser(req.user.id);

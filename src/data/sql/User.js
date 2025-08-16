@@ -323,7 +323,8 @@ export async function markUserAccountsAsHacked(nameIdsOrEmails) {
     const promises = [];
     /* set password to 'hacked' */
     promises.push(sequelize.query(
-      'UPDATE Users SET password = \'hacked\' WHERE id = ?', {
+      // eslint-disable-next-line max-len
+      'UPDATE Users SET password = \'hacked\' WHERE id = ? AND password IS NOT NULL', {
         replacements: [id],
         raw: true,
         type: QueryTypes.UPDATE,
