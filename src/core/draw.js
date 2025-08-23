@@ -153,7 +153,7 @@ export default async function drawByOffsets(
       // admins and mods can place unset pixels
       if (color >= canvas.colors.length
         || (color < clrIgnore
-          && user?.userlvl < USERLVL.MOD
+          && (!user || user.userlvl < USERLVL.MOD)
           && !(canvas.v && color === 0))
       ) {
         // color out of bounds
