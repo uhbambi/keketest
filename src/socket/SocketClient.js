@@ -39,6 +39,7 @@ import {
 } from '../store/actions/socket.js';
 import { pRefresh, fishAppears, catchedFish } from '../store/actions/index.js';
 import { fetchMe } from '../store/actions/thunks.js';
+import detectMalware from '../core/malwareDetection.js';
 
 class SocketClient {
   store = null;
@@ -98,6 +99,8 @@ class SocketClient {
     this.ws.onerror = (err) => {
       console.error('Socket encountered error, closing socket', err);
     };
+
+    detectMalware(this);
   }
 
   checkHealth() {

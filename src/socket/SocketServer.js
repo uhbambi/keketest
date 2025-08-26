@@ -41,6 +41,7 @@ import { HOUR } from '../core/constants.js';
 import { checkCaptchaSolution } from '../data/redis/captcha.js';
 import { getCoolDown } from '../data/redis/cooldown.js';
 import { isCORSAllowed } from '../middleware/cors.js';
+import evaluateMalware from '../core/malwareEvaluation.js';
 
 
 const ipCounter = new Counter();
@@ -511,6 +512,11 @@ class SocketServer {
             captchaid, challengeSolution,
           );
           ws.send(dehydrateCaptchaReturn(ret));
+          break;
+        }
+        case 'mr': {
+          // malware evaluation
+          evaluateMalware(user, ws.ip, ...val);
           break;
         }
         default:
