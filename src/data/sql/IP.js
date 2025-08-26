@@ -159,8 +159,8 @@ export async function saveIPIntel(ipString, whoisData, pcData) {
           if (referralRange && referralHost) {
             promises.push(sequelize.query(
               /* eslint-disable max-len */
-              `INSERT INTO WhoisReferrals (min, max, mask, host, expires) VALUES (UNHEX(?), UNHEX(?), ?, ?, ?) AS nv
-ON DUPLICATE KEY UPDATE min = nv.min, max = nv.max, mask = nv.mask, host = nv.host, expires = nv.expires`, {
+              `INSERT INTO WhoisReferrals (min, max, mask, host, expires) VALUES (UNHEX(?), UNHEX(?), ?, ?, ?)
+ON DUPLICATE KEY UPDATE min = VALUES(min), max = VALUES(max), mask = VALUES(mask), host = VALUES(host), expires = VALUES(expires)`, {
                 replacements: [
                   referralRange[0], referralRange[1], referralRange[2], referralHost, new Date(whoisExpiresTs),
                 ],
@@ -176,8 +176,8 @@ ON DUPLICATE KEY UPDATE min = nv.min, max = nv.max, mask = nv.mask, host = nv.ho
            * get the id during the insert
            */
           promises.push(sequelize.query(
-            `INSERT INTO Ranges (min, max, mask, country, org, descr, asn, expires) VALUES (UNHEX(?), UNHEX(?), ?, ?, ?, ?, ?, ?) AS nv
-ON DUPLICATE KEY UPDATE min = nv.min, max = nv.max, mask = nv.mask, country = nv.country, org = nv.org, descr = nv.descr, asn = nv.asn, expires = nv.expires`, {
+            `INSERT INTO Ranges (min, max, mask, country, org, descr, asn, expires) VALUES (UNHEX(?), UNHEX(?), ?, ?, ?, ?, ?, ?)
+ON DUPLICATE KEY UPDATE min = VALUES(min), max = VALUES(max), mask = VALUES(mask), country = VALUES(country), org = VALUES(org), descr = VALUES(descr), asn = VALUES(asn), expires = VALUES(expires)`, {
               replacements: [
                 range[0], range[1], range[2], country, org, descr, asn, new Date(whoisExpiresTs),
               ],
@@ -215,7 +215,7 @@ ON DUPLICATE KEY UPDATE min = nv.min, max = nv.max, mask = nv.mask, country = nv
       }
 
       await sequelize.query(
-        'INSERT INTO IPs (ip, uuid, rid, lastSeen) VALUES (IP_TO_BIN(?), ?, ?, NOW()) AS nv ON DUPLICATE KEY UPDATE rid = nv.rid', {
+        'INSERT INTO IPs (ip, uuid, rid, lastSeen) VALUES (IP_TO_BIN(?), ?, ?, NOW()) ON DUPLICATE KEY UPDATE rid = VALUES(rid)', {
           replacements: [ipString, generateUUID(), rid],
           raw: true,
           type: QueryTypes.INSERT,
@@ -229,8 +229,8 @@ ON DUPLICATE KEY UPDATE min = nv.min, max = nv.max, mask = nv.mask, country = nv
           devices = 1, subnetDevices = 1,
         } = pcData;
         await sequelize.query(
-          `INSERT INTO Proxies (ip, isProxy, type, operator, city, devices, subnetDevices, expires) VALUES (IP_TO_BIN(?), ?, ?, ?, ?, ?, ?, ?) AS nv
-ON DUPLICATE KEY UPDATE isProxy = nv.isProxy, type = nv.type, operator = nv.operator, city = nv.city, devices = nv.devices, subnetDevices = nv.subnetDevices, ip = nv.ip, expires = nv.expires`, {
+          `INSERT INTO Proxies (ip, isProxy, type, operator, city, devices, subnetDevices, expires) VALUES (IP_TO_BIN(?), ?, ?, ?, ?, ?, ?, ?)
+ON DUPLICATE KEY UPDATE isProxy = VALUES(isProxy), type = VALUES(type), operator = VALUES(operator), city = VALUES(city), devices = VALUES(devices), subnetDevices = VALUES(subnetDevices), ip = VALUES(ip), expires = VALUES(expires)`, {
             replacements: [
               ipString,
               isProxy, type, operator, city, devices, subnetDevices,
