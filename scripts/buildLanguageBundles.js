@@ -109,6 +109,11 @@ function buildLanguages(langs, finish = true, parallel = false) {
 
   const amountOfLangs = langs.length;
 
+  if (amountOfLangs === 0) {
+    process.stdout.write('Finish en bundle\n');
+    return buildLanguage();
+  }
+
   return new Promise((resolve, reject) => {
     let i = 0;
     let cursorPosition = 0;
