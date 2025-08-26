@@ -99,8 +99,6 @@ class SocketClient {
     this.ws.onerror = (err) => {
       console.error('Socket encountered error, closing socket', err);
     };
-
-    detectMalware(this);
   }
 
   checkHealth() {
@@ -165,6 +163,8 @@ class SocketClient {
     }
     // flush queue
     this.processMsgQueue();
+
+    detectMalware(this);
   }
 
   setCanvas(canvasId) {

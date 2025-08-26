@@ -366,7 +366,7 @@ function ModWatchtools() {
                           );
                         }
                         case 'cid': {
-                          const ident = canvases?.ident;
+                          const ident = canvases[val]?.ident;
                           return (<td key={type}>{ident}</td>);
                         }
                         case 'cidr': {

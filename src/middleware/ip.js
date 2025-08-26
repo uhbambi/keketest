@@ -33,6 +33,8 @@ export class IP {
   isBanned = null;
   /* null | boolean */
   isMuted = null;
+  /* null | boolean */
+  isWhitelisted = null;
   /*
    * timestamp when ban should be rechecked,
    * null means to never recheck (so if not banned or perma banned)
@@ -180,6 +182,7 @@ export class IP {
       const [isBanned, isMuted, banRecheckTs] = parseListOfBans(allowance.bans);
       this.isBanned = isBanned;
       this.isMuted = isMuted;
+      this.isWhitelisted = allowance.isWhitelisted;
       this.banRecheckTs = banRecheckTs;
       this.isProxy = !allowance.isWhitelisted && allowance.isProxy;
       this.#allowance = allowance;
@@ -188,6 +191,7 @@ export class IP {
       isBanned: this.isBanned,
       isProxy: this.isProxy,
       isMuted: this.isMuted,
+      isWhitelisted: this.isWhitelisted,
     };
   }
 }

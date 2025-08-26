@@ -346,6 +346,28 @@ WHERE ${(where.length === 1) ? where[0] : `(${where.join(' OR ')})`}`, {
 }
 
 /**
+ * get ASN of IP, if we have it stored
+ * @param ipString
+ * @return ASN number | null
+ */
+export async function getASN(ipString) {
+  try {
+    const result = await sequelize.query(
+      // eslint-disable-next-line max-len
+      'SELECT r.asn FROM IPs ip INNER JOIN Ranges r ON r.id = ip.rid WHERE ip.ip = IP_TO_BIN(?)', {
+        replacements: [ipString],
+        plain: true,
+        type: QueryTypes.SELECT,
+      },
+    );
+    return result?.asn;
+  } catch (error) {
+    console.error(`SQL Error on getASN: ${error.message}`);
+  }
+  return null;
+}
+
+/**
  * update lastSeen timestamps of IP
  * @param ipString ip as string
  * @return sucess boolean
@@ -380,11 +402,11 @@ export async function getIPofIID(uuid) {
       // eslint-disable-next-line max-len
       'SELECT BIN_TO_IP(i.ip) AS \'ip\' FROM IPs i WHERE i.uuid = UUID_TO_BIN(?)', {
         replacements: [uuid],
-        raw: true,
+        plain: true,
         type: QueryTypes.SELECT,
       },
     );
-    return result[0]?.ip;
+    return result?.ip;
   } catch (error) {
     console.error(`SQL Error on getIPofIID: ${error.message}`);
   }

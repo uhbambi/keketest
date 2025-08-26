@@ -13,7 +13,7 @@ import { api } from '../../utils/utag.js';
  * Adds customizable timeout to fetch
  * defaults to 8s
  */
-async function fetchWithTimeout(url, options = {}) {
+export async function fetchWithTimeout(url, options = {}) {
   const { timeout = 30000 } = options;
 
   const controller = new AbortController();

@@ -19,7 +19,6 @@ export function queue(func, gracePeriod = 5000) {
     /* clean outdated requests */
     if (lastCleanTs < currentTs - gracePeriod) {
       funcQueue = funcQueue.filter(([,, ts]) => !ts || ts > currentTs);
-      console.log(`Reduced queue ${func.name} to ${funcQueue.length}`);
       lastCleanTs = currentTs;
     }
     /* try to find equal request */

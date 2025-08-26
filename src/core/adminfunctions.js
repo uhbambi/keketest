@@ -116,6 +116,14 @@ export async function executeQuickAction(action, logger = null) {
       setState({ needVerification: false });
       return 'Disabled Verification Requirement';
     }
+    case 'enablemalware': {
+      setState({ malwareCheck: true });
+      return 'Enabled Verification Requirement';
+    }
+    case 'disablemalware': {
+      setState({ malwareCheck: false });
+      return 'Disabled Verification Requirement';
+    }
     case 'givefishes': {
       giveEveryoneAFish();
       return 'Gave Fishes to everyone';

@@ -506,7 +506,7 @@ export async function prolongExistingBan(ipString, userId, duration, reason) {
         bid: banData.id, ip: Sequelize.fn('IP_TO_BIN', ipString),
       }, { returning: false });
     }
-    if (!banData.users.some(({ id: u }) => u === userId)) {
+    if (userId && !banData.users.some(({ id: u }) => u === userId)) {
       console.log(`BAN add user ${userId} to ban that doesn't have it yet`);
       await UserBan.create({
         bid: banData.id, uid: userId,

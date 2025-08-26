@@ -228,6 +228,30 @@ function Admintools() {
           </button>
         )}
         <br />
+        {(gameState.malwareCheck) ? (
+          <button
+            key="disablemalware"
+            type="button"
+            onClick={() => {
+              reqQuickAction('disablemalware')();
+              setGameState({ ...gameState, malwareCheck: false });
+            }}
+          >
+            {(submitting) ? '...' : t`Stop checking for Malware`}
+          </button>
+        ) : (
+          <button
+            key="enablemalware"
+            type="button"
+            onClick={() => {
+              reqQuickAction('enablemalware')();
+              setGameState({ ...gameState, malwareCheck: true });
+            }}
+          >
+            {(submitting) ? '...' : t`Start checking for Malware`}
+          </button>
+        )}
+        <br />
         <div className="modaldivider" />
 
         <h3>{t`Manage Moderators`}</h3>
