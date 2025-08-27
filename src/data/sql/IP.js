@@ -346,21 +346,21 @@ WHERE ${(where.length === 1) ? where[0] : `(${where.join(' OR ')})`}`, {
 }
 
 /**
- * get ASN of IP, if we have it stored
+ * get provider info to ip, if we have it stored
  * @param ipString
- * @return ASN number | null
+ * @return { asn, org } | null
  */
-export async function getASN(ipString) {
+export async function getProviderOfIP(ipString) {
   try {
     const result = await sequelize.query(
       // eslint-disable-next-line max-len
-      'SELECT r.asn FROM IPs ip INNER JOIN Ranges r ON r.id = ip.rid WHERE ip.ip = IP_TO_BIN(?)', {
+      'SELECT r.asn, r.org FROM IPs ip INNER JOIN Ranges r ON r.id = ip.rid WHERE ip.ip = IP_TO_BIN(?)', {
         replacements: [ipString],
         plain: true,
         type: QueryTypes.SELECT,
       },
     );
-    return result?.asn;
+    return result;
   } catch (error) {
     console.error(`SQL Error on getASN: ${error.message}`);
   }

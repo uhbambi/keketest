@@ -7,7 +7,7 @@ import socketEvents from '../../socket/socketEvents.js';
 import { getLowHexSubnetOfIP } from './ip.js';
 import { getRangeOfIP } from '../../data/sql/Range.js';
 import { getWhoisHostOfIP } from '../../data/sql/WhoisReferral.js';
-import { saveIPIntel } from '../../data/sql/IP.js';
+import { saveIPIntel, getProviderOfIP } from '../../data/sql/IP.js';
 import { queue } from './queue.js';
 import {
   USE_PROXYCHECK, PROXYCHECK_KEY, WHOIS_DURATION, PROXYCHECK_DURATION,
@@ -194,3 +194,44 @@ export const getIPIntelOverShards = queue((...args) => socketEvents.req('ipintel
 
 // eslint-disable-next-line max-len
 export const checkMailOverShards = queue((...args) => socketEvents.req('mailintel', ...args));
+
+/**
+ * check if two IPs have the same provider
+ * @param ipStringA
+ * @param ipStringB
+ * @return boolean if same provider, if in doubt, true
+ */
+export async function checkIfSameProvider(ipStringA, ipStringB) {
+  if (ipStringA === ipStringB) {
+    return true;
+  }
+  let [providerA, providerB] = await Promise.all([
+    getProviderOfIP(ipStringA),
+    getProviderOfIP(ipStringB),
+  ]);
+  [providerA, providerB] = await Promise.all([
+    providerA || getIPIntelOverShards(ipStringA, true, false),
+    providerB || getIPIntelOverShards(ipStringB, true, false),
+  ]);
+  if (!providerA || !providerB || !providerA.asn || !providerB.asn
+    || providerA.asn === providerB.asn || (
+    providerA.org && providerA.org === providerB.org
+  )
+  ) {
+    return true;
+  }
+  /*
+   * some providers really are weird and hand out IPs of different ASNs
+   * who also have a different org
+   */
+  const sameProvider = [[9141, 39603]];
+  for (let i = 0; i < sameProvider.length; i += 1) {
+    const [asnA, asnB] = sameProvider[i];
+    if ((providerA.asn === asnA && providerB.asn === asnB)
+      || (providerA.asn === asnB && providerB.asn === asnA)
+    ) {
+      return true;
+    }
+  }
+  return false;
+}
