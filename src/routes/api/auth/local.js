@@ -43,8 +43,11 @@ export default async (req, res) => {
 
     /* openSession() turns req.user into a full user object */
     await openSession(req, res, user.id, durationHours);
-    logger.info(`User ${user.id} logged in with mail/password.`);
-    const me = await getMe(req.user, req.ip, req.lang);
+    const { ip } = req;
+    // eslint-disable-next-line max-len
+    logger.info(`AUTH: Logged in user ${user.name}(${user.id}) by ${ip.ipString}`);
+    const me = await getMe(req.user, ip, req.lang);
+    req.user.touch(ip.ipString);
 
     res.json({
       success: true,

@@ -47,6 +47,10 @@ export default async function getMe(user, ip, lang) {
     blocked = [];
   }
 
+  /*
+   * make sure ip.getAllowance() if fetched here to make a user.touch() possible
+   * later
+   */
   const [ranks] = await Promise.all([
     (user) ? getUserRanks(user.id) : null,
     ip.getAllowance(),

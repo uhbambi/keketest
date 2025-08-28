@@ -320,12 +320,13 @@ export class ChatProvider {
     }
 
     // eslint-disable-next-line prefer-const
-    let { isBanned, isMuted, isProxy } = await user.getAllowance();
-    if (isProxy) {
-      return t`You can not send chat messages while using a proxy`;
-    }
+    let { isBanned, isMuted } = await user.getAllowance();
     if (!isBanned && !isMuted) {
-      ({ isBanned, isMuted } = await ip.getAllowance());
+      let isProxy;
+      ({ isBanned, isMuted, isProxy } = await ip.getAllowance());
+      if (isProxy) {
+        return t`You can not send chat messages while using a proxy`;
+      }
     }
     if (isBanned) {
       return t`Can not chat while being banned`;

@@ -138,7 +138,7 @@ export class IP {
   /**
    * fetch allowance data of ip
    * @param refresh whether we should refetch it, even if we have it already
-   * @return { isBanned, isProxy, isMuted }
+   * @return { isBanned, isProxy, isMuted, isWhitelisted }
    */
   async getAllowance(refresh = false) {
     const currentTs = Date.now();

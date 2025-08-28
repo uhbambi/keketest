@@ -257,7 +257,9 @@ export async function executeIIDAction(
           identifierUuidList.push(i);
         } else {
           const userId = parseInt(i, 10);
-          identifierUserIdList.push(userId);
+          if (userId) {
+            identifierUserIdList.push(userId);
+          }
         }
       });
       break;
