@@ -46,6 +46,17 @@ import {
 export async function oauthLogin(
   providerString, name, email = null, tpid = null,
 ) {
+  if (typeof tpid === 'bigint') {
+    tpid = tpid.toString();
+  } else if (typeof tpid === 'number') {
+    if (tpid > Number.MAX_SAFE_INTEGER) {
+      tpid = BigInt(tpid).toString();
+      console.error(`We lost precission on ${tpid} for ${providerString}`);
+    } else {
+      tpid = tpid.toString();
+    }
+  }
+
   name = sanitizeName(name);
   if (email?.length > 40 || validateEMail(email)) {
     email = null;

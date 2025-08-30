@@ -271,7 +271,7 @@ export async function requestResendVerify() {
 }
 
 export async function requestLogOut() {
-  const ret = makeAPIGETRequest(
+  const ret = await makeAPIGETRequest(
     '/api/auth/logout',
   );
   return !ret.errors;
