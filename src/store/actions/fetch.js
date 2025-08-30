@@ -367,6 +367,12 @@ export function requestFish(id) {
   );
 }
 
+export function requestBadge(id) {
+  return makeAPIPOSTRequest(
+    '/api/badge',
+    { id },
+  );
+}
 export function requestTpids() {
   return makeAPIGETRequest(
     '/api/auth/get_tpids',

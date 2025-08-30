@@ -17,9 +17,11 @@ import ProxyWhitelist from './ProxyWhitelist.js';
 import ThreePID, { THREEPID_PROVIDERS } from './ThreePID.js';
 import ThreePIDHistory from './ThreePIDHistory.js';
 import Fish from './Fish.js';
+import Badge from './Badge.js';
 import UserIP from './association_models/UserIP.js';
 import UserBlock from './association_models/UserBlock.js';
 import UserChannel from './association_models/UserChannel.js';
+import UserBadge from './association_models/UserBadge.js';
 import IPBan from './association_models/IPBan.js';
 import UserBan from './association_models/UserBan.js';
 import ThreePIDBan from './association_models/ThreePIDBan.js';
@@ -116,6 +118,20 @@ Fish.belongsTo(User, {
   as: 'user',
   foreignKey: 'uid',
   onDelete: 'CASCADE',
+});
+
+/*
+ * Badges
+ */
+Badge.belongsToMany(User, {
+  as: 'users',
+  through: UserBadge,
+  foreignKey: 'bid',
+});
+User.belongsToMany(Badge, {
+  as: 'badges',
+  through: UserBadge,
+  foreignKey: 'uid',
 });
 
 /*

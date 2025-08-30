@@ -18,6 +18,7 @@ import shards from './shards.js';
 import profile from './profile.js';
 import canvases from './canvases.js';
 import fish from './fish.js';
+import badge from './badge.js';
 import banme from './banme.js';
 
 const router = express.Router();
@@ -27,6 +28,8 @@ router.use('/canvases', canvases);
 router.use(express.json());
 
 router.post('/fish', fish);
+
+router.post('/badge', badge);
 
 // set cache-control
 router.use((req, res, next) => {

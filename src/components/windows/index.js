@@ -9,6 +9,7 @@ import Archive from './Archive.jsx';
 import Chat from './Chat.jsx';
 import Player from './Player.jsx';
 import FishDisplay from './FishDisplay.jsx';
+import BadgeDisplay from './BadgeDisplay.jsx';
 import ForgotPassword from './ForgotPassword.jsx';
 
 export default {
@@ -22,6 +23,7 @@ export default {
   ARCHIVE: [Archive, t`Canvas Archive`],
   PLAYER: [Player, t`Player`],
   FISH_DISPLAY: [FishDisplay, t`Fish Display`],
+  BADGE_DISPLAY: [BadgeDisplay, t`Badge Display`],
   /* other windows */
 };
 

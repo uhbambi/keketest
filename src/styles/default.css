@@ -1107,7 +1107,17 @@ table td span {
   font-size: 16px;
 }
 
-.profilefish {
+.badgelist {
+  font-size: 32px;
+  margin: 14px;
+}
+
+.profilebadge-img {
+  height: 32px;
+  vertical-align: middle;
+}
+
+.profilefish, .profilebadge {
   display: inline-block;
   border-radius: 1em;
   margin: 2px;
@@ -1115,7 +1125,7 @@ table td span {
   cursor: pointer;
 }
 
-.profilefish:hover {
+.profilefish:hover, .profilebadge:hover {
   opacity: 0.8;
 }
 
@@ -1133,10 +1143,6 @@ table td span {
   height: 1em;
 }
 
-.puferfish-size {
-  font-weight: bold;
-}
-
 .fishdisplay-title {
   font-size: 24px;
   border-radius: 1em;
@@ -1144,7 +1150,7 @@ table td span {
   padding: 4px;
 }
 
-.fishdisplay-img {
+.display-img {
   width: 100%;
   max-width: 450px;
 }

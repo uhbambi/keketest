@@ -1,5 +1,6 @@
 const initialState = {
   fishes: [],
+  badges: [],
   lastFetch: 0,
 };
 

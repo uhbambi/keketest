@@ -8,6 +8,7 @@ import { t } from 'ttag';
 
 import UserMessages from './UserMessages.jsx';
 import FishList from './FishList.jsx';
+import BadgeList from './BadgeList.jsx';
 import ChangePassword from './ChangePassword.jsx';
 import ChangeName from './ChangeName.jsx';
 import ChangeUsername from './ChangeUsername.jsx';
@@ -96,6 +97,7 @@ const UserAreaContent = () => {
         zero="N/A"
         rank
       />
+      <BadgeList />
       <FishList />
       <div>
         <p>

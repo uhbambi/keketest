@@ -27,7 +27,7 @@ const User = sequelize.define('User', {
 
   /* [a-zA-Z0-9._-] */
   username: {
-    // eslint-disable-next-line
+    // eslint-disable-next-line max-len
     type: `${DataTypes.STRING(32)} CHARACTER SET ascii COLLATE ascii_general_ci`,
     allowNull: false,
     unique: 'username',

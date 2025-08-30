@@ -114,6 +114,7 @@ export const POPUP_ARGS = {
   USERAREA: ['activeTab'],
   CHAT: [['chatChannel', 'int']],
   FISH_DISPLAY: [['id', 'int']],
+  BADGE_DISPLAY: [['id', 'int']],
   PLAYER: ['uri'],
 };
 
@@ -131,6 +132,7 @@ export const AVAILABLE_POPUPS = [
   'FORGOT_PASSWORD',
   'PLAYER',
   'FISH_DISPLAY',
+  'BADGE_DISPLAY',
 ];
 
 /*
@@ -206,31 +208,31 @@ export const FISH_TYPES = [
     name: 'Anchovy', common: 400, minSize: 0.05, maxSize: 0.10,
   },
   {
-    name: 'Oriental Roach', common: 5, minSize: 10, maxSize: 25,
+    name: 'Oriental Roach', common: 5, minSize: 0.05, maxSize: 0.08,
   },
   {
-    name: 'German Roach', common: 5, minSize: 10, maxSize: 25,
+    name: 'German Roach', common: 5, minSize: 0.05, maxSize: 0.08,
   },
   {
-    name: 'American Roach', common: 5, minSize: 10, maxSize: 25,
+    name: 'American Roach', common: 5, minSize: 0.05, maxSize: 0.08,
   },
   {
-    name: 'Florida Wood Roach', common: 5, minSize: 10, maxSize: 25,
+    name: 'Florida Wood Roach', common: 5, minSize: 0.05, maxSize: 0.08,
   },
   {
-    name: 'Surinam Roach', common: 5, minSize: 10, maxSize: 25,
+    name: 'Surinam Roach', common: 5, minSize: 0.05, maxSize: 0.08,
   },
   {
-    name: 'Brown Banded Roach', common: 5, minSize: 10, maxSize: 25,
+    name: 'Brown Banded Roach', common: 5, minSize: 0.05, maxSize: 0.08,
   },
   {
-    name: 'Brown Roach', common: 5, minSize: 10, maxSize: 25,
+    name: 'Brown Roach', common: 5, minSize: 0.05, maxSize: 0.08,
   },
   {
-    name: 'Australian Roach', common: 5, minSize: 10, maxSize: 25,
+    name: 'Australian Roach', common: 5, minSize: 0.05, maxSize: 0.08,
   },
   {
-    name: 'Asian Roach', common: 5, minSize: 10, maxSize: 25,
+    name: 'Asian Roach', common: 5, minSize: 0.05, maxSize: 0.08,
   },
 ];
 export const FISH_BONUS_MAX_DURATION = 90 * 60 * 1000;
