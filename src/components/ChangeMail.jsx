@@ -1,5 +1,5 @@
 /*
- * Form to Change ANY Third Party Identiier,
+ * Form to Change ANY Third Party Identiier AND Sessions,
  * it is called ChangeMail, because that is what it originally was
  */
 
@@ -12,7 +12,7 @@ import {
   validateEMail, validatePassword,
 } from '../utils/validation.js';
 import {
-  requestMailChange, requestTpids, requestRemoveTpid,
+  requestMailChange, requestTpids, requestRemoveTpid, requestCloseSession,
 } from '../store/actions/fetch.js';
 import { THREEPID_PROVIDERS } from '../core/constants.js';
 
@@ -33,6 +33,7 @@ const ChangeMail = ({ done }) => {
   const [password, setPassword] = useState('');
   const [email, setEmail] = useState('');
   const [tpids, setTpids] = useState(null);
+  const [sessions, setSessions] = useState(null);
   const [submitting, setSubmitting] = useState(false);
   const [errors, setErrors] = useState([]);
 
@@ -44,6 +45,7 @@ const ChangeMail = ({ done }) => {
       setErrors(res.errors);
     }
     setTpids(res.tpids);
+    setSessions(res.sessions);
   }, []);
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -107,6 +109,29 @@ const ChangeMail = ({ done }) => {
     setTpids(tpids.filter(({ id: tid }) => tid !== id));
   }, [password, tpids, submitting, havePassword]);
 
+  const closeSession = useCallback(async (id) => {
+    if (submitting) {
+      return;
+    }
+    if (havePassword) {
+      const passerror = validatePassword(password);
+      if (passerror) {
+        setErrors([passerror]);
+        return;
+      }
+    }
+
+    setSubmitting(true);
+    const { errors: respErrors } = await requestCloseSession(id, password);
+    setSubmitting(false);
+    if (respErrors) {
+      setErrors(respErrors);
+      return;
+    }
+    setErrors([]);
+    setSessions(sessions.filter(({ id: sid }) => sid !== id));
+  }, [password, sessions, submitting, havePassword]);
+
   return (
     <div className="inarea">
       {errors.map((error) => (
@@ -133,7 +158,7 @@ const ChangeMail = ({ done }) => {
         /* this is so ugly, but it is what it is.. */
         if (tpids === null && !errors.length) {
           return (
-            <p>{t`...loading Login methods...`}</p>
+            <p>{t`...loading Login methods and sessions...`}</p>
           );
         }
         if (!tpids?.length) {
@@ -154,6 +179,21 @@ const ChangeMail = ({ done }) => {
       })()}
       {(tpids?.length || (tpids === null && !errors.length)) && (
         <div className="modaldivider" />
+      )}
+      {(sessions?.length) && (
+        <React.Fragment key="sessions">
+          <p>{t`Log out a Session:`}</p>
+          <DeleteList
+            list={sessions.map(({ id, country, os, browser, current }) => [
+              id,
+              `${current ? '♦ ' : ''}${browser} / ${os}`,
+              `/cf/${country}.gif`,
+            ])}
+            callback={closeSession}
+            enabled={!submitting}
+          />
+          <div className="modaldivider" />
+        </React.Fragment>
       )}
       <p>{t`Change your Mail Adress here:`}</p>
       <form onSubmit={changeMail}>

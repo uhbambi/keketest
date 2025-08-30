@@ -9,8 +9,7 @@ import getMe from '../../../core/me.js';
 import { openSession } from '../../../middleware/session.js';
 
 export default async (req, res) => {
-  const { nameoremail, password } = req.body;
-  const { t } = req.ttag;
+  const { ttag: { t }, body: { nameoremail, password }, ip } = req;
 
   const users = await getUsersByNameOrEmail(nameoremail, null);
 
@@ -26,6 +25,8 @@ export default async (req, res) => {
           t`This email / password combination got hacked and leaked. To protect this account, the password has been reset. Please use the "Forgot my password" function below to set a new password. In the future, consider not installing malware, Thank You.`,
         );
       }
+      // eslint-disable-next-line max-len
+      logger.info(`AUTH: Incorrect login attempt for ${nameoremail} by ${ip.ipString}`);
       throw new Error('Incorrect password!');
     }
 
@@ -43,11 +44,9 @@ export default async (req, res) => {
 
     /* openSession() turns req.user into a full user object */
     await openSession(req, res, user.id, durationHours);
-    const { ip } = req;
     // eslint-disable-next-line max-len
     logger.info(`AUTH: Logged in user ${user.name}(${user.id}) by ${ip.ipString}`);
     const me = await getMe(req.user, ip, req.lang);
-    req.user.touch(ip.ipString);
 
     res.json({
       success: true,

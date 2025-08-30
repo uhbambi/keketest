@@ -412,6 +412,31 @@ export async function findUserByIdOrName(id, name) {
 }
 
 /**
+ * find name and mail of user by id
+ * @param id user id
+ * @return [name, email]
+ */
+export async function getMailAndNameOfUserId(id) {
+  try {
+    const result = await sequelize.query(
+      `SELECT u.name, t.tpid FROM Users u
+  INNER JOIN ThreePIDs t ON t.uid = u.id
+WHERE u.id = ? AND t.provider = 1 AND t.verified = ? LIMIT 1`, {
+        replacements: [id, true],
+        plain: true,
+        type: QueryTypes.SELECT,
+      },
+    );
+    if (result) {
+      return [result.name, result.tpid];
+    }
+  } catch (error) {
+    console.error(`SQL Error on getMailAndNameOfUserId: ${error.message}`);
+  }
+  return [null, null];
+}
+
+/**
  * set one bit in flags of user
  * @param id user id
  * @param index index of flag (see order in Model definition up there)

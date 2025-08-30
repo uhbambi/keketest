@@ -74,8 +74,8 @@ async function establishUsers() {
     }
   };
   console.log('Create Sessions');
-  const tokena = await createSession(userdataA.id, 5);
-  const tokenb = await createSession(userdataB.id, 5);
+  const [tokena] = await createSession(userdataA.id, 5);
+  const [tokenb] = await createSession(userdataB.id, 5);
 
   console.log('Check email existence');
   let tpids = await getTPIDsOfUser(userdataA.id);

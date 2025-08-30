@@ -120,13 +120,13 @@ export class IP {
 
   /**
    * update lastSeen timestamps of IP
-   * @return Promise<>
+   * @return Promise<boolean>
    */
   touch() {
     if (!this.#allowance
       || this.#allowance.lastSeen.getTime() > Date.now() - 10 * 60 * 1000
     ) {
-      return null;
+      return false;
     }
     return touchIP(this.ipString);
   }

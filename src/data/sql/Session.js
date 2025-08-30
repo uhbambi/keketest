@@ -23,6 +23,12 @@ const Session = sequelize.define('Session', {
     unique: 'token',
   },
 
+  country: {
+    type: DataTypes.CHAR(2),
+    defaultValue: 'xx',
+    allowNull: false,
+  },
+
   expires: {
     type: DataTypes.DATE,
   },
@@ -33,56 +39,73 @@ const Session = sequelize.define('Session', {
  * @param uid id of user
  * @param durationHours how long session is valid in hours or null for permanent
  * @param ip ip to store in the session
- * @return null | token session token
+ * @return [
+ *    null | token: session token,
+ *   newLocation: boolean
+ * ]
  */
-export async function createSession(uid, durationHours, ip = null) {
+export async function createSession(
+  uid, durationHours, ip = null, device = null,
+) {
   if (durationHours !== null && !durationHours) {
     /*
      * if we have a duration of 0, which would be a cookie that deletes on
-     * browser close, we still store it for 30 days, cause we don't know when
+     * browser close, we still store it for two days, cause we don't know when
      * a browser closes
      */
-    durationHours = 720;
+    durationHours = 48;
   }
 
   try {
-    /* limit the amount of open sessions a user can have */
-    const openSessions = await Session.count({ where: { uid } });
-    if (openSessions > 100) {
-      await sequelize.query(
-        `DELETE t FROM Sessions t JOIN (
-  SELECT id FROM Sessions WHERE uid = :uid ORDER BY id ASC LIMIT 10
-) AS oldest ON t.id = oldest.id`, {
-          replacements: { uid },
-          raw: true,
-          type: QueryTypes.DELETE,
-        });
+    /*
+     * make sure ip and device are parsed
+     */
+    const [deviceId] = await Promise.all([
+      device?.getDeviceId(),
+      ip?.getAllowance(),
+    ]);
+    /*
+     * limit the amount of open sessions a user can have, and check if new
+     * location
+     */
+    const openSessions = await sequelize.query(
+      // eslint-disable-next-line max-len
+      'SELECT country FROM Sessions WHERE uid = $1 AND (expires > NOW() OR expires IS NULL)',
+      { bind: [uid], type: QueryTypes.SELECT, raw: true },
+    );
+    let newLocation = false;
+    if (openSessions.length > 0) {
+      if (openSessions.length > 50) {
+        await sequelize.query(
+          `DELETE t FROM Sessions t JOIN (
+    SELECT id FROM Sessions WHERE uid = :uid ORDER BY id ASC LIMIT 5
+  ) AS oldest ON t.id = oldest.id`,
+          { replacements: { uid }, raw: true, type: QueryTypes.DELETE },
+        );
+      }
+      newLocation = !openSessions.some(({ country }) => country === ip.country);
     }
 
-    if (ip) {
-      /*
-       * we have to make user that IP is loaded into SQL, before we tell
-       * createSession to use it
-       */
-      await ip.getAllowance();
-    }
     const token = generateToken();
     // eslint-disable-next-line max-len
     const expires = durationHours && new Date(Date.now() + durationHours * HOUR);
 
     await sequelize.query(
       // eslint-disable-next-line max-len
-      'INSERT INTO Sessions (uid, token, expires, ip) VALUES (?,?,?,IP_TO_BIN(?))', {
-        replacements: [uid, generateTokenHash(token), expires, ip?.ipString],
+      'INSERT INTO Sessions (uid, token, expires, ip, country, did) VALUES (?,?,?,IP_TO_BIN(?),?,?)', {
+        replacements: [
+          uid, generateTokenHash(token), expires,
+          ip?.ipString, ip?.country || 'xx', deviceId,
+        ],
         raw: true,
         type: QueryTypes.INSERT,
       },
     );
-    return token;
+    return [token, newLocation];
   } catch (error) {
     console.error(`SQL Error on createSession: ${error.message}`);
   }
-  return null;
+  return [null, false];
 }
 
 /**
@@ -101,6 +124,26 @@ export async function removeSession(token) {
     return count !== 0;
   } catch (error) {
     console.error(`SQL Error on removeSession: ${error.message}`);
+  }
+  return false;
+}
+
+/**
+ * remove session by id
+ * @param id session id
+ * @return boolean success
+ */
+export async function removeSessionById(id, uid) {
+  if (!id) {
+    return false;
+  }
+  try {
+    const count = await Session.destroy({
+      where: { id, uid },
+    });
+    return count !== 0;
+  } catch (error) {
+    console.error(`SQL Error on removeSessionById: ${error.message}`);
   }
   return false;
 }
@@ -296,6 +339,33 @@ WHERE ub.uid = ?`, {
     console.error(`SQL Error on resolveSession: ${error.message}`);
   }
   return null;
+}
+
+/**
+ * get all Sessions for a User
+ * @param userId
+ * @return [{
+ *   id: session id,
+ *   token: session token,
+ *   country,
+ *   os,
+ *   browser,
+ * }, ...]
+ */
+export async function getAllSessionsOfUser(userId) {
+  if (userId) {
+    try {
+      return await sequelize.query(
+        `SELECT s.id, s.token, s.country, d.os, d.browser FROM Sessions s
+    LEFT JOIN Devices d ON d.id = s.did
+  WHERE uid = ? AND (s.expires > NOW() OR s.expires IS NULL)`,
+        { replacements: [userId], type: QueryTypes.SELECT, raw: true },
+      );
+    } catch (error) {
+      console.error(`SQL Error on getAllSessionsOfUser: ${error.message}`);
+    }
+  }
+  return [];
 }
 
 export default Session;

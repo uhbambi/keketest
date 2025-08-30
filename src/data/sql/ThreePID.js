@@ -166,7 +166,7 @@ export async function getEmailOfUser(uid) {
  * get all ThreePIDs of user
  * @param uid user id
  * @return Promise<[{
- *   tpid, normalizedTpid, provider, verified, lastSeen, createdAt },
+ *   id, tpid, provider, verified },
  *   ...
  * ]>
  */

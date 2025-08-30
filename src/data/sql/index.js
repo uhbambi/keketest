@@ -4,6 +4,7 @@ import User, { USERLVL } from './User.js';
 import Channel, { CHANNEL_TYPES } from './Channel.js';
 import Message from './Message.js';
 import Session from './Session.js';
+import Device from './Device.js';
 import IP from './IP.js';
 import ProxyData from './Proxy.js';
 import RangeData from './Range.js';
@@ -150,6 +151,14 @@ Session.belongsTo(IP, {
 IP.hasMany(Session, {
   as: 'sessions',
   foreignKey: 'ip',
+});
+Session.belongsTo(Device, {
+  as: 'device',
+  foreignKey: 'did',
+});
+Device.hasMany(Session, {
+  as: 'sessions',
+  foreignKey: 'did',
 });
 
 /*

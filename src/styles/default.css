@@ -1087,7 +1087,7 @@ table td span {
 }
 
 .deletelistitem > img {
-  height: 29px;
+  max-height: 29px;
   vertical-align: middle;
   margin-right: 8px;
 }

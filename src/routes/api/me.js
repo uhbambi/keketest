@@ -10,14 +10,5 @@ export default async (req, res) => {
   const { ip, user, lang } = req;
   const userdata = await getMe(user, ip, lang);
 
-  /*
-   * trigger timestamp updates after getMe finished,
-   * because getMe ensures that IP exist in table
-   */
-  if (user) {
-    user.touch(ip.ipString);
-  }
-  ip.touch();
-
   res.json(userdata);
 };

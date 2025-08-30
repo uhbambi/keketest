@@ -35,7 +35,11 @@ const DeleteList = ({ list, callback, enabled, joinident }) => {
           tabIndex={0}
         >
           {(iconUrl) ? (
-            <img key="ic" alt={name} src={cdn`${iconUrl}`} />
+            <img
+              key="ic"
+              alt=""
+              src={cdn`${iconUrl}`}
+            />
           ) : '⦸ '}
           {(joinident) ? `${name} [${identifier}]` : `${name} `}
           <button

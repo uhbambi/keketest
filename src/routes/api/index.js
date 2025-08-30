@@ -1,6 +1,7 @@
 import express from 'express';
 
 import { verifySession, ensureLoggedIn } from '../../middleware/session.js';
+import { parseDevice } from '../../middleware/device.js';
 
 import me from './me.js';
 import auth from './auth/index.js';
@@ -58,6 +59,8 @@ router.use((req, res, next) => {
 });
 
 router.get('/me', me);
+
+router.use(parseDevice);
 
 router.use('/auth', auth);
 

@@ -53,8 +53,10 @@ export default async function getMe(user, ip, lang) {
    */
   const [ranks] = await Promise.all([
     (user) ? getUserRanks(user.id) : null,
-    ip.getAllowance(),
+    user && ip.getAllowance(),
   ]);
+  user?.touch(ip.ipString);
+  ip.touch();
 
   const me = {
     id, name, username, userlvl, havePassword, blockDm, priv, channels, blocked,

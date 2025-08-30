@@ -9,6 +9,7 @@ import {
 } from '../data/sql/Session.js';
 import { parseListOfBans } from '../data/sql/Ban.js';
 import { touchUser } from '../data/sql/User.js';
+import mailProvider from '../core/MailProvider.js';
 
 export class User {
   id;
@@ -64,13 +65,17 @@ export class User {
     return this.#data.name;
   }
 
+  get token() {
+    return this.#token;
+  }
+
   get isPrivate() {
     return (this.#data.flags & (0x01 << USER_FLAGS.PRIV)) !== 0;
   }
 
   touch(ipString) {
     if (this.#data.lastSeen.getTime() > Date.now() - 10 * 60 * 1000) {
-      return null;
+      return false;
     }
     return touchUser(this.id, ipString);
   }
@@ -197,22 +202,33 @@ export function ensureLoggedIn(req, res, next) {
  * @return boolean if successful
  */
 export async function openSession(req, res, userId, durationHours = 720) {
-  let domain = req.ip.getHost(false, true);
+  const { ip, lang } = req;
+  let domain = ip.getHost(false, true);
   const portSeperator = domain.lastIndexOf(':');
   if (portSeperator !== -1) {
     domain = domain.substring(0, portSeperator);
   }
 
-  const token = await createSession(userId, durationHours, req.ip);
+  const [token, newLocation] = await createSession(
+    userId, durationHours, ip, req.device,
+  );
   if (!token) {
     return false;
   }
+
   const userData = await resolveSession(token);
   if (!userData) {
     delete req.user;
     return false;
   }
   req.user = new User(userData, token);
+
+  req.user.touch(ip.ipString);
+  if (newLocation) {
+    mailProvider.sendNewLocationMail(
+      req.user.id, req.ip.getHost(), lang, ip.ipString,
+    );
+  }
 
   const cookieOptions = { domain, httpOnly: true, secure: false };
 

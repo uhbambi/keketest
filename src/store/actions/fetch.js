@@ -340,6 +340,13 @@ export function requestRemoveTpid(id, password) {
   );
 }
 
+export function requestCloseSession(id, password) {
+  return makeAPIPOSTRequest(
+    '/api/auth/close_session',
+    { id, password },
+  );
+}
+
 export function requestRankings() {
   return makeAPIGETRequest(
     '/ranking',

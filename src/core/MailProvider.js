@@ -11,7 +11,9 @@ import { getTTag } from '../middleware/ttag.js';
 import { codeExists, checkCode, setCode } from '../data/redis/mailCodes.js';
 import socketEvents from '../socket/socketEvents.js';
 import { USE_MAILER, MAIL_ADDRESS } from './config.js';
-import { getUserByEmail, verifyEmail } from '../data/sql/User.js';
+import {
+  getUserByEmail, verifyEmail, getMailAndNameOfUserId,
+} from '../data/sql/User.js';
 
 export class MailProvider {
   constructor() {
@@ -31,6 +33,9 @@ export class MailProvider {
       switch (type) {
         case 'verify':
           this.postVerifyMail(...args);
+          break;
+        case 'newloc':
+          this.postNewLocationMail(...args);
           break;
         case 'pwreset':
           this.postPasswdResetMail(...args);
@@ -91,6 +96,32 @@ export class MailProvider {
       this.postVerifyMail(to, name, host, lang, code);
     } else {
       socketEvents.sendMail('verify', [to, name, host, lang, code]);
+    }
+    return null;
+  }
+
+  postNewLocationMail(to, name, host, lang, ip) {
+    const { t } = getTTag(lang);
+    logger.info(`Send new location login mail to ${to} / ${name} by ${ip}`);
+    const subject = t`Login from new location on PixelPlanet`;
+    const html = `<em>${t`Hello ${name}`}</em>,<br />
+${t`Someone logged into your account from a new location, with the IP:`} ${ip}<br />
+${t`If this was you, please ignore this email. If it wasn't you, please go to <a href="https://pixelplanet.fun">pixelplanet.fun</a> and log-out any session that you are unaware of under "Login Methods" in the User Area and change your password.`}<br />
+${t`Thanks`}<br /><br />
+<img alt="" src="https://pixelplanet.fun/tile.png" style="height:64px; width:64px" />`;
+    this.sendMail(to, subject, html);
+  }
+
+  async sendNewLocationMail(userId, host, lang, ip) {
+    if (!this.endabled && !socketEvents.isCluster) {
+      return null;
+    }
+
+    const [name, to] = await getMailAndNameOfUserId(userId);
+    if (to && this.enabled) {
+      this.postNewLocationMail(to, name, host, lang, ip);
+    } else {
+      socketEvents.sendMail('newloc', [to, name, host, lang, ip]);
     }
     return null;
   }

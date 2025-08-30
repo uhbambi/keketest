@@ -70,8 +70,7 @@ export default async (req, res) => {
   // eslint-disable-next-line max-len
   logger.info(`AUTH: Changed mail for user ${user.name}(${user.id}) to ${email} by ${req.ip.ipString}`);
 
-  const host = req.ip.getHost();
-  mailProvider.sendVerifyMail(email, user.name, host, lang);
+  mailProvider.sendVerifyMail(email, user.name, req.ip.getHost(), lang);
 
   res.json({
     success: true,
