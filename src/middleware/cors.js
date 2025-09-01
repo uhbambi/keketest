@@ -4,33 +4,28 @@
 import { CORS_HOSTS } from '../core/config.js';
 
 /**
- * check if it is a cors request and if allowed return its host
+ * check if it is a cors request and if allowed return its host, return false if
+ * it is cors and not allowed, nullif it isn't or cant be determined
  * @param req expressjs request
- * @return host or null
+ * @return host | false | null
  */
 export function corsHost(req) {
-  if (!CORS_HOSTS.length) {
-    return null;
-  }
-
   const { origin } = req.headers;
   if (!origin || origin === 'null') {
     return null;
   }
-
   const originHost = `.${origin.slice(origin.indexOf('//') + 2)}`;
   if (originHost === req.ip.getHost(false, true)) {
     /* no CORS */
     return null;
   }
-
   /*
    * form .domain.tld will accept both domain.tld and x.domain.tld,
    * all CORS_HOSTS entries shall start with a dot or be an IP
    */
   const isAllowed = CORS_HOSTS.some((c) => originHost.endsWith(c));
   if (!isAllowed) {
-    return null;
+    return false;
   }
   return origin;
 }
@@ -38,8 +33,6 @@ export function corsHost(req) {
 /**
  * @param req expressjs request
  * @return boolean if this is a CORS request and if it is, if it's allowed,
- * only really useful for websockets, because otherwise the browser is doing
- * the CORS check
  */
 export function isCORSAllowed(req) {
   const { origin } = req.headers;
@@ -62,6 +55,13 @@ export default (req, res, next) => {
   const origin = corsHost(req);
 
   if (!origin) {
+    if (origin === false) {
+      /*
+       * mark a disallowed cors request, to let possible CSRF vulnerable APIs
+       * choose how to handle
+       */
+      req.csrfPossible = true;
+    }
     next();
     return;
   }

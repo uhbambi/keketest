@@ -13,6 +13,16 @@ async function captcha(req, res) {
     'Cache-Control': 'no-cache, no-store, must-revalidate',
   });
 
+  if (req.csrfPossible) {
+    res.status(403);
+    res.set({ 'Content-Type': 'text/html; charset=utf-8' });
+    res.send(
+      // eslint-disable-next-line max-len
+      '<html><body><h1>Captchaserver: 403 Server Error</h1>Cross-Site request rejected</body></html>',
+    );
+    return;
+  }
+
   const { ipString } = req.ip;
 
   try {

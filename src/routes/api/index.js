@@ -31,12 +31,21 @@ router.post('/fish', fish);
 
 router.post('/badge', badge);
 
-// set cache-control
+/*
+ * set cache control and reject disallowed cors
+ */
 router.use((req, res, next) => {
   res.set({
     'Cache-Control': 'no-cache, no-store, must-revalidate',
     Expires: '0',
   });
+
+  if (req.csrfPossible) {
+    const error = new Error('Request from this origin denied.');
+    error.status = 403;
+    throw error;
+  }
+
   next();
 });
 

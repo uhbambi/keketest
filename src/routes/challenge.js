@@ -13,6 +13,15 @@ async function challenge(req, res) {
     'Content-Type': 'application/javascript; charset=UTF-8',
   });
 
+  if (req.csrfPossible) {
+    res.status(403);
+    res.send(
+      // eslint-disable-next-line max-len
+      'console.log(\'JS Challenge experienced an server error 403\');',
+    );
+    return;
+  }
+
   const { ipString } = req.ip;
 
   requestChallenge(async (error, solution, data) => {
@@ -30,7 +39,7 @@ async function challenge(req, res) {
         res.status(503);
         res.send(
           // eslint-disable-next-line max-len
-          'console.log(\'JS Challenged experienced an server error 503\');',
+          'console.log(\'JS Challenge experienced an server error 503\');',
         );
       }
       logger.warn(err.message);
