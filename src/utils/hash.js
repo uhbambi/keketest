@@ -2,7 +2,9 @@
  * Cryptographic hashing
  */
 import bcrypt from 'bcrypt';
-import { createHash, randomBytes } from 'crypto';
+import { timingSafeEqual, createHash, randomBytes, createHmac } from 'crypto';
+
+import { COOKIE_SECRET } from '../core/config.js';
 
 /*
  * bcrypt hash for passwords
@@ -40,11 +42,38 @@ export function comparePasswordToHash(password, hash, t) {
  */
 
 export function generateToken() {
-  return randomBytes(30).toString('base64');
+  return randomBytes(30).toString('base64url');
 }
 
 export function generateTokenHash(token) {
-  return createHash('sha224').update(token).digest('base64').substring(0, 38);
+  return createHash('sha224')
+    .update(token).digest('base64url').substring(0, 38);
+}
+
+/*
+ * sign and verify cookies
+ */
+
+export function sign(value) {
+  const hash = createHmac('sha256', COOKIE_SECRET)
+    .update(value).digest('base64url');
+  return `${value}.${hash}`;
+}
+
+export function unsign(signedValue) {
+  if (!signedValue) {
+    return null;
+  }
+  const [value, hash] = signedValue.split('.');
+  if (!value || !hash) {
+    return null;
+  }
+  const compareHash = createHmac('sha256', COOKIE_SECRET)
+    .update(value).digest('base64url');
+  if (!timingSafeEqual(Buffer.from(hash), Buffer.from(compareHash))) {
+    return null;
+  }
+  return value;
 }
 
 /*

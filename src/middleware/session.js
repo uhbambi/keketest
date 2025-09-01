@@ -10,6 +10,7 @@ import {
 import { parseListOfBans } from '../data/sql/Ban.js';
 import { touchUser } from '../data/sql/User.js';
 import mailProvider from '../core/MailProvider.js';
+import { sign, unsign } from '../utils/hash.js';
 
 export class User {
   id;
@@ -133,7 +134,7 @@ export class User {
  */
 async function resolveSessionOfRequest(req) {
   const cookies = parseCookie(req.headers.cookie || '');
-  const token = cookies['ppfun.session'];
+  const token = unsign(cookies['ppfun.session']);
   const userData = await resolveSession(token);
   if (!userData) {
     delete req.user;
@@ -148,7 +149,7 @@ async function resolveSessionOfRequest(req) {
  */
 export async function resolveSessionUidOfRequest(req) {
   const cookies = parseCookie(req.headers.cookie || '');
-  const token = cookies['ppfun.session'];
+  const token = unsign(cookies['ppfun.session']);
   return resolveSessionUid(token);
 }
 
@@ -244,7 +245,7 @@ export async function openSession(req, res, userId, durationHours = 720) {
     cookieOptions.expires = new Date(Date.now() + durationHours * HOUR);
   }
 
-  res.cookie('ppfun.session', token, cookieOptions);
+  res.cookie('ppfun.session', sign(token), cookieOptions);
   return true;
 }
 
@@ -268,7 +269,7 @@ export function clearCookie(req, res) {
  */
 export async function closeSession(req, res) {
   const cookies = parseCookie(req.headers.cookie || '');
-  const token = cookies['ppfun.session'];
+  const token = unsign(cookies['ppfun.session']);
   const success = await removeSession(token);
   clearCookie(req, res);
   delete req.user;

@@ -52,6 +52,7 @@ let config = {};
     ['TRUSTED_TIME', 'int', 48],
     ['WHOIS_DURATION', 'int', 240],
     ['PROXYCHECK_DURATION', 'int', 72],
+    ['COOKIE_SECRET', 'string', 'dummy'],
     ['FACEBOOK_APP_ID', 'string', 'dummy'],
     ['FACEBOOK_APP_SECRET', 'string', 'dummy'],
     ['DISCORD_CLIENT_ID', 'string', 'dummy'],
@@ -230,6 +231,7 @@ export const {
   BACKUP_CMD,
   BACKUP_INTERVAL,
   RATE_LIMIT_CMD,
+  COOKIE_SECRET,
 } = config;
 
 config = null;
