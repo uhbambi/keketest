@@ -117,6 +117,7 @@ export async function oauthLogin(
 
 /**
  * Sign in with Facebook.
+ * Facebook oauth on main instance doesn't work right now
  */
 passport.use(new FacebookStrategy({
   clientID: FACEBOOK_APP_ID,
@@ -127,6 +128,7 @@ passport.use(new FacebookStrategy({
 }, async (req, accessToken, refreshToken, profile, done) => {
   try {
     const { displayName: name, emails, id } = profile;
+    console.log('FACEBOOK', profile);
     const email = emails[0].value;
     const user = await oauthLogin('FACEBOOK', name, email, id);
     done(null, user);
@@ -137,6 +139,8 @@ passport.use(new FacebookStrategy({
 
 /**
  * Sign in with Discord.
+ * Apparently Discord does not share unverified email addresses, but they send
+ * a verified boolean, so we shall use it
  */
 passport.use(new DiscordStrategy({
   clientID: DISCORD_CLIENT_ID,
@@ -145,7 +149,11 @@ passport.use(new DiscordStrategy({
   proxy: true,
 }, async (accessToken, refreshToken, profile, done) => {
   try {
-    const { id, email, username: name } = profile;
+    const { id, username: name } = profile;
+    let email = null;
+    if (profile.verified) {
+      email = profile.email;
+    }
     const user = await oauthLogin('DISCORD', name, email, id);
     done(null, user);
   } catch (err) {
@@ -155,6 +163,7 @@ passport.use(new DiscordStrategy({
 
 /**
  * Sign in with Google.
+ * Google does share unverified email addresses, but sends a verification info
  */
 passport.use(new GoogleStrategy({
   clientID: GOOGLE_CLIENT_ID,
@@ -164,7 +173,12 @@ passport.use(new GoogleStrategy({
 }, async (accessToken, refreshToken, profile, done) => {
   try {
     const { displayName: name, emails, id } = profile;
-    const email = emails[0].value;
+    let email = null;
+    if (profile.email && profile.email_verified) {
+      email = profile.email;
+    } else if (emails[0]?.verified) {
+      email = emails[0].value;
+    }
     const user = await oauthLogin('GOOGLE', name, email, id);
     done(null, user);
   } catch (err) {
@@ -174,6 +188,7 @@ passport.use(new GoogleStrategy({
 
 /*
  * Sign in with Reddit
+ * Reddit email addresses can never be trusted
  */
 passport.use(new RedditStrategy({
   clientID: REDDIT_CLIENT_ID,
@@ -183,6 +198,7 @@ passport.use(new RedditStrategy({
 }, async (accessToken, refreshToken, profile, done) => {
   try {
     const { id } = profile;
+    console.log('REDDIT', profile);
     const name = sanitizeName(profile.name);
     // reddit does not give us access to email
     const user = await oauthLogin('REDDIT', name, null, id);
@@ -194,6 +210,7 @@ passport.use(new RedditStrategy({
 
 /**
  * Sign in with Vkontakte
+ * VK doesn't allow unverified email addresses
  */
 passport.use(new VkontakteStrategy({
   clientID: VK_CLIENT_ID,
