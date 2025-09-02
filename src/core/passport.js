@@ -215,6 +215,9 @@ passport.use(new RedditStrategy({
 passport.use(new VkontakteStrategy({
   clientID: VK_CLIENT_ID,
   clientSecret: VK_CLIENT_SECRET,
+  authorizationURL: 'https://oauth.vk.ru/authorize',
+  tokenURL: 'https://oauth.vk.ru/access_token',
+  profileURL: 'https://api.vk.ru/method/users.get',
   callbackURL: '/api/auth/vk/return',
   proxy: true,
   scope: ['email'],
