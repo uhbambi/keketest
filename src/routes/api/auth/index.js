@@ -74,7 +74,7 @@ router.get('/vk/return', passport.authenticate('vkontakte', {
 router.get('/reddit', passport.authenticate('reddit',
   { duration: 'temporary', state: 'foo' }));
 router.get('/reddit/return', passport.authenticate('reddit', {
-  session: false,
+  session: false, state: 'foo',
 }), openSessionOnReturn);
 
 // eslint-disable-next-line no-unused-vars

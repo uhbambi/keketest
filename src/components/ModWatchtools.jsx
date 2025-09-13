@@ -3,7 +3,7 @@
  * Tools to check who placed what where
  */
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSelector, shallowEqual, useDispatch } from 'react-redux';
 import { t } from 'ttag';
 
@@ -77,6 +77,22 @@ function ModWatchtools() {
   const [table, setTable] = useState({});
   const [resp, setResp] = useState(null);
   const [submitting, setSubmitting] = useState(false);
+  const [checkedValues, setCheckedValues] = useState(new Set());
+
+  useEffect(() => {
+    setCheckedValues(new Set());
+  }, [table]);
+
+  const checkValue = (evt) => {
+    const { target } = evt;
+    const newCheckedValues = new Set(checkedValues);
+    if (target.checked) {
+      newCheckedValues.add(target.value);
+    } else {
+      newCheckedValues.delete(target.value);
+    }
+    setCheckedValues(newCheckedValues);
+  };
 
   const [
     canvasId,
@@ -277,7 +293,7 @@ function ModWatchtools() {
       {(rows && columns && types) && (
         <React.Fragment key={ts}>
           <div className="modaldivider" />
-          <table style={{ fontSize: 11 }}>
+          <table className="watchtable">
             <thead>
               <tr>
                 {columns.slice(1).map((col, ind) => (
@@ -390,14 +406,22 @@ function ModWatchtools() {
                         case 'uuid': {
                           return (
                             <td key={type}>
-                              <span
-                                role="button"
-                                tabIndex={-1}
-                                className="modallink"
-                                style={{ whiteSpace: 'initial' }}
-                                title={t`Copy to Clipboard`}
-                                onClick={() => copyTextToClipboard(val)}
-                              >{val}</span>
+                              <div className="checkcontainer">
+                                <input
+                                  type="checkbox"
+                                  value={val}
+                                  checked={checkedValues.has(val)}
+                                  onChange={checkValue}
+                                />
+                                <span
+                                  role="button"
+                                  tabIndex={-1}
+                                  className="modallink"
+                                  style={{ whiteSpace: 'initial' }}
+                                  title={t`Copy to Clipboard`}
+                                  onClick={() => copyTextToClipboard(val)}
+                                >{val}</span>
+                              </div>
                             </td>
                           );
                         }
@@ -406,22 +430,29 @@ function ModWatchtools() {
                           if (seperator === -1) {
                             return (<td key={type}><span>{val}</span></td>);
                           }
+                          const uid = val.slice(seperator + 1);
                           return (
                             <td key={type}>
-                              <span
-                                role="button"
-                                tabIndex={-1}
-                                className="modallink"
-                                title={t`Copy UserId to Clipboard`}
-                                onClick={() => copyTextToClipboard(
-                                  val.slice(seperator + 1),
-                                )}
-                              >
-                                {
-                                  // eslint-disable-next-line max-len
-                                  `${val.slice(0, seperator)} [${val.slice(seperator + 1)}]`
-                                }
-                              </span>
+                              <div className="checkcontainer">
+                                <input
+                                  type="checkbox"
+                                  value={uid}
+                                  checked={checkedValues.has(uid)}
+                                  onChange={checkValue}
+                                />
+                                <span
+                                  role="button"
+                                  tabIndex={-1}
+                                  className="modallink"
+                                  title={t`Copy UserId to Clipboard`}
+                                  onClick={() => copyTextToClipboard(uid)}
+                                >
+                                  {
+                                    // eslint-disable-next-line max-len
+                                    `${val.slice(0, seperator)} [${uid}]`
+                                  }
+                                </span>
+                              </div>
                             </td>
                           );
                         }
@@ -434,6 +465,16 @@ function ModWatchtools() {
                 ))}
             </tbody>
           </table>
+          <br />
+          <button
+            type="button"
+            onClick={() => copyTextToClipboard(
+              Array.from(checkedValues).join('\n'),
+            )}
+            disabled={checkedValues.size === 0}
+          >
+            {t`Copy Selected to Clipboard`}
+          </button>
         </React.Fragment>
       )}
     </>
