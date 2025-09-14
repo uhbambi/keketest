@@ -367,12 +367,14 @@ function parseOpts(inOpts) {
 }
 
 export function parseParagraph(text, inOpts) {
+  if (!text) text = '';
   const opts = parseOpts(inOpts);
   const mText = new MString(text);
   return parseMParagraph(mText, opts);
 }
 
 export function parse(text, inOpts) {
+  if (!text) text = '';
   const opts = parseOpts(inOpts);
   const mText = new MString(text);
   return parseMText(mText, opts, 0);

@@ -115,13 +115,17 @@ class SocketServer {
       });
     });
 
-    socketEvents.on('onlineCounter', (online) => {
-      const onlineBuffer = dehydrateOnlineCounter(online);
-      this.broadcast(onlineBuffer);
-    });
     socketEvents.on('pixelUpdate', this.broadcastPixelBuffer);
     socketEvents.on('reloadUser', this.reloadUser);
     socketEvents.on('reloadIP', this.reloadIP);
+
+    socketEvents.on('onlineCounter', (online) => {
+      this.broadcast(dehydrateOnlineCounter(online));
+    });
+
+    socketEvents.on('announcement', (text) => {
+      this.broadcast(`an,${JSON.stringify(text)}`);
+    });
 
     socketEvents.on('suChatMessage', (
       userId,

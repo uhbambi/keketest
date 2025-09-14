@@ -209,6 +209,14 @@ class SocketEvents extends EventEmitter {
   }
 
   /**
+   * send an announcmeent to all players
+   * @param text can be markdown text
+   */
+  broadcastAnnouncement(text) {
+    this.emit('announcement', text);
+  }
+
+  /**
    * send chat message to a single user in channel
    */
   broadcastSUChatMessage(

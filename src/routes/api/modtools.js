@@ -12,7 +12,7 @@ import chatProvider from '../../core/ChatProvider.js';
 import { escapeMd } from '../../core/utils.js';
 import logger, { modtoolsLogger } from '../../core/logger.js';
 import {
-  executeIPAction,
+  executeTextAction,
   executeIIDAction,
   executeImageAction,
   executeProtAction,
@@ -237,14 +237,14 @@ router.post('/', async (req, res, next) => {
   };
 
   try {
-    if (req.body.ipaction) {
+    if (req.body.textaction) {
       /*
        * it can also be used for resetting users that got hacked, the naming
        * is old
        */
-      const ret = await executeIPAction(
-        req.body.ipaction,
-        req.body.ip,
+      const ret = await executeTextAction(
+        req.body.textaction,
+        req.body.text,
         aLogger,
       );
       res.status(200).send(ret);

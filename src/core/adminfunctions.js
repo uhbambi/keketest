@@ -48,14 +48,18 @@ import {
 import rollbackCanvasArea from './rollback.js';
 
 /**
- * Execute IP based actions, it can also be used for resetting users that got
- * hacked, the naming is old
+ * Execute admin text actions, text can be a list of ips or iids or anything
  * @param action what to do with the ips
  * @param ip already sanitized ip
  * @return text of success
  */
-export async function executeIPAction(action, ips, logger = null) {
-  const inputValues = ips.split('\n').map((l) => l.trim()).filter((l) => l);
+export async function executeTextAction(action, text, logger = null) {
+  if (action === 'announce' && text?.length > 6) {
+    socketEvents.broadcastAnnouncement(text);
+    return 'Sent announcement';
+  }
+
+  const inputValues = text.split('\n').map((l) => l.trim()).filter((l) => l);
 
   if (action === 'markusersashacked') {
     let out = '';

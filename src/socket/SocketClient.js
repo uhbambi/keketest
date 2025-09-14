@@ -37,7 +37,9 @@ import {
   addChatChannel,
   removeChatChannel,
 } from '../store/actions/socket.js';
-import { pRefresh, fishAppears, catchedFish } from '../store/actions/index.js';
+import {
+  pRefresh, fishAppears, catchedFish, pAlert,
+} from '../store/actions/index.js';
 import { fetchMe } from '../store/actions/thunks.js';
 import detectMalware from '../core/malwareDetection.js';
 
@@ -285,6 +287,9 @@ class SocketClient {
         break;
       case 'rc':
         this.store.dispatch(removeChatChannel(val));
+        break;
+      case 'an':
+        this.store.dispatch(pAlert('Announcement', val, 'info'));
         break;
       default:
         // nothing

@@ -55,7 +55,7 @@ export const MarkdownParagraph = React.memo(({ pArray, refEmbed }) => pArray.map
   }
 }));
 
-const Markdown = ({ mdArray }) => mdArray.map((part) => {
+export const Markdown = ({ mdArray }) => mdArray.map((part) => {
   const type = part[0];
   switch (type) {
     /* Heading */

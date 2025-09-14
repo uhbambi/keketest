@@ -8,14 +8,14 @@ import { t } from 'ttag';
 import DeleteList from './DeleteList.jsx';
 import { api } from '../utils/utag.js';
 
-async function submitIPAction(
+async function submitTextAction(
   action,
-  vallist,
+  text,
   callback,
 ) {
   const data = new FormData();
-  data.append('ipaction', action);
-  data.append('ip', vallist);
+  data.append('textaction', action);
+  data.append('text', text);
   const resp = await fetch(api`/api/modtools`, {
     credentials: 'include',
     method: 'POST',
@@ -95,7 +95,7 @@ async function getGameState(
 }
 
 function Admintools() {
-  const [iPAction, selectIPAction] = useState('iidtoip');
+  const [textAction, selectTextAction] = useState('iidtoip');
   const [modName, selectModName] = useState('');
   const [txtval, setTxtval] = useState('');
   const [resp, setResp] = useState(null);
@@ -146,13 +146,13 @@ function Admintools() {
           {t`Do stuff with IPs (one IP per line)`}
         </p>
         <select
-          value={iPAction}
+          value={textAction}
           onChange={(e) => {
             const sel = e.target;
-            selectIPAction(sel.options[sel.selectedIndex].value);
+            selectTextAction(sel.options[sel.selectedIndex].value);
           }}
         >
-          {['iidtoip', 'iptoiid', 'markusersashacked']
+          {['iidtoip', 'iptoiid', 'markusersashacked', 'announce']
             .map((opt) => (
               <option
                 key={opt}
@@ -164,8 +164,8 @@ function Admintools() {
         </select>
         <br />
         <textarea
-          rows="10"
-          cols="17"
+          rows="15"
+          cols="25"
           value={txtval}
           onChange={(e) => setTxtval(e.target.value)}
         /><br />
@@ -174,8 +174,8 @@ function Admintools() {
           onClick={() => {
             if (submitting) return;
             setSubmitting(true);
-            submitIPAction(
-              iPAction,
+            submitTextAction(
+              textAction,
               txtval,
               (ret) => {
                 setSubmitting(false);

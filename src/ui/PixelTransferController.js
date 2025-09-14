@@ -3,9 +3,7 @@
  * do client prediction, send to draw on renderer
  */
 import { t } from 'ttag';
-import {
-  pAlert,
-} from '../store/actions/index.js';
+import { pAlert } from '../store/actions/index.js';
 import {
   setPixelsFetching,
   receivePlacePixels,
