@@ -47,7 +47,8 @@ class Void {
     const online = socketEvents.onlineCounter.total || 0;
     // adjusted from 1.8 to 2.0 on 2022.04.26
     // adjusted back to 1.8 on 2022.08.12
-    const requiredSpeed = Math.floor(online / 1.8);
+    // adjusted from 1.8 to 1.6 on 2025.09.18
+    const requiredSpeed = Math.floor(online / 1.6);
     const ppm = Math.ceil(area / targetDuration + requiredSpeed);
     this.msTimeout = 60 * 1000 / ppm;
     this.area = new Uint8Array(TILE_SIZE * 3 * TILE_SIZE * 3);
