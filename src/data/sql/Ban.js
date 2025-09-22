@@ -148,7 +148,7 @@ async function removeBans(bans, modUid) {
         started: b.createdAt,
         ended: b.expires || Date.now(),
         muid: b.muid,
-        liftedAt: null,
+        lmuid: modUid,
       })), {
         transaction,
       });
@@ -161,7 +161,7 @@ async function removeBans(bans, modUid) {
         started: b.createdAt,
         ended: b.expires || Date.now(),
         muid: b.muid,
-        lmuid: modUid,
+        liftedAt: null,
       })), {
         transaction,
       });
