@@ -114,7 +114,7 @@ router.post('/', async (req, res, next) => {
     }
     if (req.body.watchaction) {
       const {
-        watchaction, ulcoor, brcoor, time, iid, canvasid, maxrows,
+        watchaction, ulcoor, brcoor, time, iid, canvasid, clr, maxrows,
       } = req.body;
       // eslint-disable-next-line max-len
       logger.info(`MODTOOLS>WATCH>${req.user.name}[${req.user.id}]> ${watchaction} ${ulcoor} ${brcoor} ${time} ${iid}`);
@@ -126,6 +126,7 @@ router.post('/', async (req, res, next) => {
         time,
         iid,
         canvasid,
+        clr,
         maxrows,
       );
       res.status(200).json(ret);

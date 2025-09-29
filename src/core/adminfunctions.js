@@ -568,6 +568,7 @@ export async function executeWatchAction(
   time,
   iid,
   canvasid,
+  clr,
   maxrows,
 ) {
   if (!canvasid) {
@@ -579,6 +580,11 @@ export async function executeWatchAction(
     maxrows = 300;
   } else if (maxrows > 10000) {
     maxrows = 10000;
+  }
+
+  clr = parseInt(clr, 10);
+  if (Number.isNaN(clr)) {
+    clr = null;
   }
 
   const ts = parseInt(time, 10);
@@ -633,6 +639,7 @@ export async function executeWatchAction(
       'watch',
       'getSummaryFromArea',
       canvasid,
+      clr,
       x, y, u, v,
       time,
       iid,
@@ -643,6 +650,7 @@ export async function executeWatchAction(
       'watch',
       'getPixelsFromArea',
       canvasid,
+      clr,
       x, y, u, v,
       time,
       iid,

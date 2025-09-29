@@ -166,9 +166,10 @@ export async function getIIDPixels(
   };
 }
 
-/*
+/**
  * Get summary of users placing in area of current day
  * @param canvasId id of canvas
+ * @param clr color
  * @param xUL, yUL, xBR, yBR area of canvas
  * @param time timestamp of when to start
  * @param iid Limit on one user (optional)
@@ -177,6 +178,7 @@ export async function getIIDPixels(
  */
 export async function getSummaryFromArea(
   canvasId,
+  clrFilter,
   xUL,
   yUL,
   xBR,
@@ -216,6 +218,9 @@ export async function getSummaryFromArea(
           return;
         }
         const clr = parseInt(clrStr, 10);
+        if (clrFilter !== null && clrFilter !== clr) {
+          return;
+        }
         const uid = parseInt(uidStr, 10);
         let curVals = ips[ipString];
         if (!curVals) {
@@ -259,6 +264,7 @@ export async function getSummaryFromArea(
 
 export async function getPixelsFromArea(
   canvasId,
+  clrFilter,
   xUL,
   yUL,
   xBR,
@@ -299,6 +305,9 @@ export async function getPixelsFromArea(
           return;
         }
         const clr = parseInt(clrStr, 10);
+        if (clrFilter !== null && clrFilter !== clr) {
+          return;
+        }
         const uid = parseInt(uidStr, 10);
         pixels.push([ipString, uid, x, y, clr, ts]);
         ipStrings.add(ipString);
