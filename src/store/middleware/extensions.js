@@ -25,7 +25,7 @@ const pixelPlanetEvents = new EventEmitter();
  */
 function monkeyPatchRenderer(renderer) {
   if (!isActive
-    || renderer.type === CANVAS_TYPES.TWOD || renderer.origUpdateView
+    || renderer.type !== CANVAS_TYPES.TWOD || renderer.origUpdateView
   ) {
     return;
   }
