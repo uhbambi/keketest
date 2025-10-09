@@ -19,8 +19,12 @@ import {
   MeshLambertMaterial,
   WebGLRenderer,
 } from 'three';
-
 import { Sky } from 'three/examples/jsm/objects/Sky';
+import { CANVAS_TYPES,
+  THREE_TILE_SIZE,
+  BACKGROUND_CLR_HEX,
+} from '../core/constants.js';
+
 
 import InfiniteGridHelper from './InfiniteGridHelper.js';
 import VoxelPainterControls from '../controls/VoxelPainterControls.js';
@@ -30,10 +34,6 @@ import {
   getChunkOfPixel,
   getOffsetOfPixel,
 } from '../core/utils.js';
-import {
-  THREE_TILE_SIZE,
-  BACKGROUND_CLR_HEX,
-} from '../core/constants.js';
 import {
   setHover,
   unsetHover,
@@ -68,7 +68,7 @@ class Renderer3D extends Renderer {
 
   constructor(store) {
     super(store);
-    this.is3D = true;
+    this.type = CANVAS_TYPES.THREED;
     const state = store.getState();
 
     // camera

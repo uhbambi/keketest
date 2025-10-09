@@ -28,6 +28,7 @@ import {
   addChatChannel,
   removeChatChannel,
 } from './socket.js';
+import { isIntervalActive } from '../../core/utils.js';
 import { PENCIL_MODE } from '../../core/constants.js';
 
 function setApiFetching(fetching) {
@@ -101,9 +102,13 @@ export function fetchProfile() {
 export function fetchMe() {
   return async (dispatch) => {
     const me = await requestMe();
-    if (!me.errors) {
-      dispatch(receiveMe(me));
+    if (me.errors?.length) {
+      return;
     }
+    if (me.redirect) {
+      window.location.href = me.redirect;
+    }
+    dispatch(receiveMe(me));
   };
 }
 
@@ -248,5 +253,48 @@ export function switchPencilMode() {
     }
     dispatch(selectPencilMode(pencilMode));
     dispatch(notify(notification));
+  };
+}
+
+function getPendingActions(state) {
+  const actions = [];
+  const now = Date.now();
+
+  const { wait } = state.user;
+
+  const coolDown = wait - now;
+
+  if (wait !== null && wait !== undefined) {
+    if (coolDown > 0) {
+      actions.push({ type: 'COOLDOWN_SET', coolDown });
+    } else {
+      actions.push({ type: 'COOLDOWN_END' });
+    }
+  }
+
+  /* once per minute, 333 is same as in initTimer */
+  if (now % 60000 < 333) {
+    if (state.canvas.replacementInterval
+      && state.canvas.replacementActive !== isIntervalActive(
+        state.canvas.replacementInterval,
+      )
+    ) {
+      actions.push({ type: 'UPDATE_INTERVAL_ACTIVE' });
+    }
+  }
+
+  return actions;
+}
+
+export function initTimer() {
+  return (dispatch, getState) => {
+    function tick() {
+      const state = getState();
+      const actions = getPendingActions(state);
+      dispatch(actions);
+    }
+
+    /* something shorter than 1000 ms */
+    setInterval(tick, 333);
   };
 }

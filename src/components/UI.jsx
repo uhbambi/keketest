@@ -7,6 +7,7 @@ import { useSelector, shallowEqual } from 'react-redux';
 
 import CoolDownBox from './CoolDownBox.jsx';
 import NotifyBox from './NotifyBox.jsx';
+import ReplacementMessage from './ReplacementMessage.jsx';
 import GlobeButton from './buttons/GlobeButton.jsx';
 import PalselButton from './buttons/PalselButton.jsx';
 import PencilButton from './buttons/PencilButton.jsx';
@@ -17,21 +18,25 @@ import HistorySelect from './HistorySelect.jsx';
 import VDay from './VDay.jsx';
 import Fish from './Fish.jsx';
 import useDate from './hooks/useDate.js';
+import { CANVAS_TYPES } from '../core/constants.js';
 
 const UI = () => {
   const [
     isHistoricalView,
-    is3D,
+    rendererType,
+    replacementActive,
     isOnMobile,
     hasFish,
   ] = useSelector((state) => [
     state.canvas.isHistoricalView,
-    state.canvas.is3D,
+    state.canvas.rendererType,
+    state.canvas.replacementActive,
     state.user.isOnMobile,
     state.user.fish.size,
   ], shallowEqual);
 
   const [day, month] = useDate();
+  const is3D = rendererType === CANVAS_TYPES.THREED;
 
   return (
     <>
@@ -50,6 +55,7 @@ const UI = () => {
       )}
       {(day === 9 && month === 5) && <VDay />}
       <NotifyBox />
+      {(replacementActive) && <ReplacementMessage />}
       {(hasFish && <Fish />)}
     </>
   );

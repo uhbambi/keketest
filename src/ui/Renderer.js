@@ -6,6 +6,7 @@
 
 import {
   VIEW_UPDATE_DELAY,
+  CANVAS_TYPES,
 } from '../core/constants.js';
 import { updateView } from '../store/actions/index.js';
 
@@ -20,8 +21,8 @@ class Renderer {
 
   // chunk loader
   chunkLoader = null;
-  // needs to be known for lazy loading THREE
-  is3D = null;
+  // 'THREED', 'TWOD' or 'DUMMY'
+  type = CANVAS_TYPES.DUMMY;
   // force renderer to rebuild whole view or
   // to "subrender" known view next tick
   forceNextRender = true;

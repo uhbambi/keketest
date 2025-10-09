@@ -10,6 +10,10 @@ const initialState = {
   userlvl: USERLVL.ANONYM,
   // messages are sent by api/me, like not_verified status
   messages: [],
+  /*
+   * whether or not the user has a password set (third party login might not
+   * have one)
+   */
   havePassword: false,
   // blocking all Dms
   blockDm: false,

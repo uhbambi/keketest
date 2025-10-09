@@ -8,15 +8,12 @@ import {
   createKeyUpHandler,
 } from './controls/keypress.js';
 import {
-  initTimer,
   urlChange,
   setMobile,
   windowResize,
   parseCanvases,
 } from './store/actions/index.js';
-import {
-  fetchMe,
-} from './store/actions/thunks.js';
+import { fetchMe, initTimer } from './store/actions/thunks.js';
 import pixelTransferController from './ui/PixelTransferController.js';
 import store from './store/store.js';
 import renderApp from './components/App.jsx';

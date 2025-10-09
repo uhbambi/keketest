@@ -1,7 +1,7 @@
 /*
  * express middlewares for handling ip information
  */
-import { USE_XREALIP } from '../core/config.js';
+import { USE_XREALIP, TIMEBLOCK_IPS } from '../core/config.js';
 import {
   sanitizeIPString, ipToHex, getHostFromRequest,
 } from '../utils/intel/ip.js';
@@ -65,6 +65,25 @@ export class IP {
     ipString = sanitizeIPString(ipString);
     Object.defineProperty(this, 'ipString', { value: ipString });
     return ipString;
+  }
+
+  /**
+   * @return null | string blockedInterval, blocked users can not see the
+   * canvas during defined daytime, but see a message instead and can interact
+   * with chat
+   */
+  get blockedInterval() {
+    let blockedInterval;
+    if (TIMEBLOCK_IPS) {
+      const timeBlockProps = TIMEBLOCK_IPS.get(this.ipString);
+      if (timeBlockProps) {
+        [blockedInterval] = timeBlockProps;
+      }
+    } else {
+      blockedInterval = null;
+    }
+    Object.defineProperty(this, 'blockedInterval', { value: blockedInterval });
+    return blockedInterval;
   }
 
   /**

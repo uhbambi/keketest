@@ -68,6 +68,7 @@ let config = {};
     ['BACKUP_CMD', 'string', null],
     ['BACKUP_INTERVAL', 'int', 30],
     ['RATE_LIMIT_CMD', 'string', null],
+    ['TIMEBLOCKS', 'array', null],
   ];
 
   const configFileValues = {};
@@ -157,6 +158,32 @@ let config = {};
     config[key] = value;
   }
 
+  /* postprocessed values */
+  config.TIMEBLOCK_USERS = null;
+  config.TIMEBLOCK_IPS = null;
+  if (config.TIMEBLOCKS) {
+    /*
+     * convert list of uidOrIP-HHmm-HHmm-message strings into Map
+     */
+    const timeBlockUsers = new Map();
+    const timeBlockIps = new Map();
+    for (let i = 0; i < config.TIMEBLOCKS.length; i += 1) {
+      const [uidOrIP, start, end, message] = config.TIMEBLOCKS[i].split('-');
+      const props = [`${start}-${end}`, message];
+      if (uidOrIP.includes(':') || uidOrIP.includes('.')) {
+        timeBlockIps.set(uidOrIP, props);
+      } else {
+        timeBlockUsers.set(parseInt(uidOrIP, 10), props);
+      }
+    }
+    if (timeBlockUsers.size) {
+      config.TIMEBLOCK_USERS = timeBlockUsers;
+    }
+    if (timeBlockIps.size) {
+      config.TIMEBLOCK_IPS = timeBlockIps;
+    }
+  }
+
   /* generated values */
   config.TILE_FOLDER = path.resolve(config.TILE_FOLDER_REL);
 
@@ -232,6 +259,8 @@ export const {
   BACKUP_INTERVAL,
   RATE_LIMIT_CMD,
   COOKIE_SECRET,
+  TIMEBLOCK_IPS,
+  TIMEBLOCK_USERS,
 } = config;
 
 config = null;

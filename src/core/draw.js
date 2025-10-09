@@ -3,7 +3,7 @@
  */
 
 import {
-  getPixelFromChunkOffset,
+  getPixelFromChunkOffset, isIntervalActive,
 } from './utils.js';
 import logger, { pixelLogger } from './logger.js';
 import allowPlace from '../data/redis/cooldown.js';
@@ -195,6 +195,14 @@ export default async function drawByOffsets(
     }
     if (isBanned) {
       throw new Error(14);
+    }
+
+    /* temporary blocks */
+    if (user?.blockedInterval && isIntervalActive(user.blockedInterval, 1)) {
+      throw new Error(18);
+    }
+    if (ip.blockedInterval && isIntervalActive(ip.blockedInterval, 1)) {
+      throw new Error(18);
     }
 
     [

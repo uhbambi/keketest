@@ -6,7 +6,7 @@
  */
 import { USERLVL } from '../data/sql/index.js';
 import { getUserRanks } from '../data/redis/ranks.js';
-import { USE_MAILER } from './config.js';
+import { USE_MAILER, TIMEBLOCK_USERS, TIMEBLOCK_IPS } from './config.js';
 import { USER_FLAGS } from './constants.js';
 import chatProvider from './ChatProvider.js';
 
@@ -73,6 +73,19 @@ export default async function getMe(user, ip, lang) {
     me.dailyTotalPixels = dailyTotalPixels;
     me.ranking = ranking;
     me.dailyRanking = dailyRanking;
+  }
+
+  if (user && TIMEBLOCK_USERS) {
+    const timeBlockProps = TIMEBLOCK_USERS.get(user.id);
+    if (timeBlockProps) {
+      [me.replacementInterval, me.replacementMessage] = timeBlockProps;
+    }
+  }
+  if (TIMEBLOCK_IPS && !me.replacementMessage) {
+    const timeBlockProps = TIMEBLOCK_IPS.get(ip.ipString);
+    if (timeBlockProps) {
+      [me.replacementInterval, me.replacementMessage] = timeBlockProps;
+    }
   }
 
   // eslint-disable-next-line max-len

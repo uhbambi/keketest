@@ -3,7 +3,7 @@
  */
 import { parse as parseCookie } from 'cookie';
 import { HOUR, USER_FLAGS } from '../core/constants.js';
-
+import { TIMEBLOCK_USERS } from '../core/config.js';
 import {
   resolveSession, createSession, removeSession, resolveSessionUid,
 } from '../data/sql/Session.js';
@@ -42,6 +42,12 @@ export class User {
   /* null | boolean */
   isMuted = null;
   /*
+   * Blocked users can not see the canvas during defined daytimes, but see a
+   * message instead and can interact with chat
+   * null | string HHmm-HHmm
+   */
+  blockedInterval = null;
+  /*
    * timestamp when ban should be rechecked,
    * null means to never recheck (so if not banned or perma banned)
    */
@@ -56,6 +62,12 @@ export class User {
     this.isBanned = isBanned;
     this.isMuted = isMuted;
     this.banRecheckTs = banRecheckTs;
+    if (TIMEBLOCK_USERS) {
+      const timeBlockProps = TIMEBLOCK_USERS.get(this.id);
+      if (timeBlockProps) {
+        [this.blockedInterval] = timeBlockProps;
+      }
+    }
   }
 
   get data() {

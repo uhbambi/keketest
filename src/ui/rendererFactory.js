@@ -11,7 +11,7 @@ import Renderer from './Renderer.js';
 import Renderer2D from './Renderer2D.js';
 import { pAlert } from '../store/actions/index.js';
 import { isWebGL2Available } from '../core/utils.js';
-import { GC_INTERVAL } from '../core/constants.js';
+import { GC_INTERVAL, CANVAS_TYPES } from '../core/constants.js';
 
 const dummyRenderer = new Renderer();
 
@@ -23,10 +23,15 @@ function animationLoop() {
 }
 animationLoop();
 
-export async function initRenderer(store, is3D) {
+/**
+ * create a renderer that adds and draws on a canvas
+ * @param store redux store
+ * @param type THREED, TWOD, DUMMY
+ */
+export async function initRenderer(store, type) {
   renderer.destructor();
-  switch (is3D) {
-    case true: {
+  switch (type) {
+    case CANVAS_TYPES.THREED: {
       if (!isWebGL2Available()) {
         store.dispatch(pAlert(
           t`Canvas Error`,
@@ -43,7 +48,7 @@ export async function initRenderer(store, is3D) {
       }
       break;
     }
-    case false:
+    case CANVAS_TYPES.TWOD:
       renderer = new Renderer2D(store);
       break;
     default:

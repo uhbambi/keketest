@@ -7,7 +7,7 @@
 
 /* eslint-disable */
 
-import { TILE_SIZE } from '../core/constants.js';
+import { TILE_SIZE, CANVAS_TYPES } from '../core/constants.js';
 import { getTileOfPixel, getCornerOfChunk } from '../core/utils.js';
 
 /* WAS A GOOD IDEA, BUT NOT USIN THIS CLASS */
@@ -187,7 +187,7 @@ async function getChunkArea(chunkLoader2D, cx, cy, cw, ch) {
  * @return the closest to center found music or null if none found
  */
 export async function parseNotes(renderer) {
-  if (renderer.is3D || !renderer.store) {
+  if (renderer.type === CANVAS_TYPES.TWOD || !renderer.store) {
     return null;
   }
   const [x, y, scale] = renderer.view;

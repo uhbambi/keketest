@@ -82,6 +82,12 @@ export const CHANNEL_TYPES = {
   FACTION: 3,
 };
 
+export const CANVAS_TYPES = {
+  DUMMY: 0,
+  TWOD: 1,
+  THREED: 2,
+};
+
 export const RANGEBAN_REASONS = {
   DATACENTER: 0,
   VPN: 0,

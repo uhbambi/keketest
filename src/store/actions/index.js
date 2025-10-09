@@ -402,48 +402,6 @@ export function markChannelAsRead(
   };
 }
 
-function setCoolDown(coolDown) {
-  return {
-    type: 'COOLDOWN_SET',
-    coolDown,
-  };
-}
-
-function endCoolDown() {
-  return {
-    type: 'COOLDOWN_END',
-  };
-}
-
-function getPendingActions(state) {
-  const actions = [];
-  const now = Date.now();
-
-  const { wait } = state.user;
-
-  const coolDown = wait - now;
-
-  if (wait !== null && wait !== undefined) {
-    if (coolDown > 0) actions.push(setCoolDown(coolDown));
-    else actions.push(endCoolDown());
-  }
-
-  return actions;
-}
-
-export function initTimer() {
-  return (dispatch, getState) => {
-    function tick() {
-      const state = getState();
-      const actions = getPendingActions(state);
-      dispatch(actions);
-    }
-
-    // something shorter than 1000 ms
-    setInterval(tick, 333);
-  };
-}
-
 export function catchedFish(success, type, size) {
   return (dispatch, getState) => {
     if (getState().user.fish.size) {

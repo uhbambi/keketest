@@ -12,6 +12,7 @@
 import EventEmitter from 'events';
 
 import { getRenderer } from '../../ui/rendererFactory.js';
+import { CANVAS_TYPES } from '../../core/constants.js';
 
 let isActive = false;
 
@@ -23,7 +24,9 @@ const pixelPlanetEvents = new EventEmitter();
  * But at the same time limiting the impact when no extension is running
  */
 function monkeyPatchRenderer(renderer) {
-  if (!isActive || renderer.is3D || renderer.origUpdateView) {
+  if (!isActive
+    || renderer.type === CANVAS_TYPES.TWOD || renderer.origUpdateView
+  ) {
     return;
   }
   // eslint-disable-next-line no-console

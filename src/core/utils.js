@@ -772,7 +772,7 @@ export function rgbToGray(rgb) {
   return [firstG, secondG, lastG];
 }
 
-/*
+/**
  * check if parent window exists and
  * is accessible
  */
@@ -785,6 +785,38 @@ export function parentExists() {
   } catch {
     return false;
   }
+}
+
+/**
+ * check if current time is in interval
+ * @param interval string describing an interval | null
+ * @param gracePeriode grace periode in minutes
+ * @return boolean
+ */
+export function isIntervalActive(interval, gracePeriode = 0) {
+  if (!interval || interval.length !== 9) {
+    return false;
+  }
+  const currentDate = new Date();
+  const currentDay = currentDate.getUTCDay();
+  if (currentDay === 0 || currentDay === 6) {
+    return false;
+  }
+  /* eslint-disable max-len */
+  const currentMinutes = currentDate.getUTCHours() * 60 + currentDate.getUTCMinutes();
+
+  const startMinutes = parseInt(interval.substring(0, 2), 10) * 60 + parseInt(interval.substring(2, 4), 10);
+  if (currentMinutes < startMinutes + gracePeriode) {
+    return false;
+  }
+
+  const endMinutes = parseInt(interval.substring(5, 7), 10) * 60 + parseInt(interval.substring(7), 10);
+  if (currentMinutes + gracePeriode > endMinutes) {
+    return false;
+  }
+  /* eslint-enable max-len */
+
+  return true;
 }
 
 /**

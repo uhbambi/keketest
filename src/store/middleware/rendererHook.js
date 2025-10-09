@@ -10,9 +10,8 @@ import {
   getRenderer,
   initRenderer,
 } from '../../ui/rendererFactory.js';
-import {
-  selectColor,
-} from '../actions/index.js';
+import { selectColor } from '../actions/index.js';
+import { CANVAS_TYPES } from '../../core/constants.js';
 
 export default (store) => (next) => (action) => {
   const { type } = action;
@@ -49,20 +48,23 @@ export default (store) => (next) => (action) => {
   const state = store.getState();
 
   switch (type) {
+    case 's/REC_ME':
+    case 's/LOGIN':
     case 'RELOAD_URL':
+    case 'UPDATE_INTERVAL_ACTIVE':
     case 's/SELECT_CANVAS':
     case 's/REC_CANVASES': {
       const renderer = getRenderer();
       renderer.controls.updateCursor?.();
-      const { is3D } = state.canvas;
+      const { rendererType } = state.canvas;
 
-      if (is3D === renderer.is3D) {
+      if (rendererType === renderer.type) {
         renderer.updateCanvasData(state);
         if (type === 'RELOAD_URL') {
           renderer.updateView(state.canvas.view);
         }
       } else {
-        initRenderer(store, is3D);
+        initRenderer(store, rendererType);
       }
 
       // TODO this looks shady, i.e. when a nwe Renderer appears
@@ -84,9 +86,12 @@ export default (store) => (next) => (action) => {
 
     case 's/TGL_EASTER_EGG': {
       const renderer = getRenderer();
-      const { is3D } = state.canvas;
-      if (is3D) {
-        initRenderer(store, !renderer.is3D);
+      if (state.canvas.rendererType === CANVAS_TYPES.THREED) {
+        initRenderer(
+          store,
+          renderer.type === CANVAS_TYPES.THREED
+            ? CANVAS_TYPES.TWOD : CANVAS_TYPES.THREED,
+        );
       }
       break;
     }

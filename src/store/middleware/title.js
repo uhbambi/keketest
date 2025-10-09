@@ -2,9 +2,8 @@
  * set URL in address bar, theme-color and title
  */
 
-import {
-  durationToString,
-} from '../../core/utils.js';
+import { durationToString } from '../../core/utils.js';
+import { CANVAS_TYPES } from '../../core/constants.js';
 
 /*
  * set theme-color meta tag that sets the color
@@ -48,7 +47,7 @@ export default (store) => (next) => (action) => {
       const {
         view,
         canvasIdent,
-        is3D,
+        rendererType,
       } = state.canvas;
 
       if (action.type !== 'UPDATE_VIEW') {
@@ -57,7 +56,7 @@ export default (store) => (next) => (action) => {
       }
 
       const viewString = view.map((c, ind) => {
-        if (ind === 2 && !is3D) {
+        if (ind === 2 && rendererType !== CANVAS_TYPES.THREED) {
           c = Math.log2(c) * 10;
         }
         return Math.floor(c);

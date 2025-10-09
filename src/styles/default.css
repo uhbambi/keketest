@@ -1007,6 +1007,15 @@ table td span {
   white-space: nowrap;
 }
 
+.repmsg {
+  user-select: text;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
 .checkcontainer > input[type="checkbox"] {
   vertical-align: middle;
   margin-top: 0px;

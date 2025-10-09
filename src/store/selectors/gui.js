@@ -1,16 +1,21 @@
 /*
  * selectors related to gui
  */
-
-/* eslint-disable import/prefer-default-export */
+import { CANVAS_TYPES } from '../../core/constants.js';
 
 export const selectIsDarkMode = (state) => (
   state.gui.style.indexOf('dark') !== -1
 );
 
 export const selectMovementControlProps = (state) => [
-  state.canvas.is3D,
-  state.gui.showMvmCtrls || (state.user.isOnMobile
-    && (state.canvas.is3D || (state.gui.holdPaint > 0)
-    && !state.canvas.isHistoricalView)),
+  state.canvas.rendererType === CANVAS_TYPES.THREED,
+  state.canvas.rendererType !== CANVAS_TYPES.DUMMY && (
+    state.gui.showMvmCtrls || (
+      state.user.isOnMobile && (
+        state.canvas.rendererType === CANVAS_TYPES.THREED
+        || (state.gui.holdPaint > 0)
+        && !state.canvas.isHistoricalView
+      )
+    )
+  ),
 ];

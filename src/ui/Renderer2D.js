@@ -11,6 +11,7 @@ import {
   MAX_SCALE,
   OVERLAY_SP_TH,
   BACKGROUND_CLR_HEX,
+  CANVAS_TYPES,
 } from '../core/constants.js';
 
 import {
@@ -51,7 +52,7 @@ class Renderer2D extends Renderer {
 
   constructor(store) {
     super(store);
-    this.is3D = false;
+    this.type = CANVAS_TYPES.TWOD;
 
     this.canvasMaxTiledZoom = 0;
     this.historicalCanvasMaxTiledZoom = 0;

@@ -166,8 +166,11 @@ class PixelTransferController {
         break;
       case 17:
         errorTitle = t`Just for verified Users`;
-        // eslint-disable-next-line max-len
         msg = t`Only verified Users are currently allowed to play.`;
+        break;
+      case 18:
+        errorTitle = t`Blocked`;
+        msg = t`You are currently not allowed to access this game.`;
         break;
       default:
         errorTitle = t`Weird`;

@@ -5,6 +5,7 @@
 import React from 'react';
 import { useSelector, shallowEqual, useDispatch } from 'react-redux';
 import { t } from 'ttag';
+import { CANVAS_TYPES } from '../core/constants.js';
 
 import copy from '../utils/clipboard.js';
 import { notify } from '../store/actions/thunks.js';
@@ -16,19 +17,22 @@ function renderCoordinates(cell) {
 
 
 const CoordinatesBox = () => {
-  const [view, hover, is3D] = useSelector((state) => [
+  const [view, hover, rendererType] = useSelector((state) => [
     state.canvas.view,
     state.canvas.hover,
-    state.canvas.is3D,
+    state.canvas.rendererType,
   ], shallowEqual);
   const dispatch = useDispatch();
 
   let coords;
   if (hover) {
     coords = hover;
+  } else if (rendererType === CANVAS_TYPES.DUMMY) {
+    coords = [];
   } else {
     const [x, y, z] = view;
-    coords = (is3D ? [x, y, z] : [x, y]).map(Math.floor);
+    // eslint-disable-next-line max-len
+    coords = (rendererType === CANVAS_TYPES.THREED ? [x, y, z] : [x, y]).map(Math.floor);
   }
 
   return (

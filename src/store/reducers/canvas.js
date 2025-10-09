@@ -5,14 +5,16 @@ import {
   getMaxTiledZoom,
   getToday,
   dateToString,
+  isIntervalActive,
 } from '../../core/utils.js';
 import {
   DEFAULT_SCALE,
   DEFAULT_CANVAS_ID,
   PENCIL_MODE,
+  CANVAS_TYPES,
 } from '../../core/constants.js';
 
-/*
+/**
  * checks if toggling historical view is neccessary
  * in given state or if properties have to change.
  * Changes the state inplace.
@@ -20,10 +22,10 @@ import {
  * @return same state with fixed historical view
  */
 function fixHistoryIfNeccessary(state) {
-  const { canvasEndDate, is3D } = state;
+  const { canvasEndDate, rendererType } = state;
   let { isHistoricalView, historicalDate } = state;
 
-  if (is3D) {
+  if (rendererType !== CANVAS_TYPES.TWOD) {
     isHistoricalView = false;
   } else if (canvasEndDate) {
     isHistoricalView = true;
@@ -54,13 +56,33 @@ function fixHistoryIfNeccessary(state) {
   return state;
 }
 
-/*
+/**
+ * set renderer type
+ * @param state
+ * @return new state with rendererType set correctly
+ */
+function setRendererTypeIfNeccessary(state) {
+  const canvas = state.canvases[state.canvasId];
+  if (!canvas || (
+    state.replacementMessage && isIntervalActive(state.replacementInterval))
+  ) {
+    state.replacementActive = true;
+    state.rendererType = CANVAS_TYPES.DUMMY;
+  } else {
+    state.replacementActive = false;
+    state.rendererType = canvas.v ? CANVAS_TYPES.THREED : CANVAS_TYPES.TWOD;
+  }
+  return state;
+}
+
+
+/**
  * parse canvas data
  * @param canvas object from api/me
- * @param prevCoords from state
+ * @param thisPreviousCanvasState from state
  * @return partial canvas specific state
  */
-function getCanvasArgs(canvas, prevCoords) {
+function getCanvasArgs(canvas, thisPreviousCanvasState) {
   const clrIgnore = canvas.cli || 0;
   const {
     size: canvasSize,
@@ -69,7 +91,7 @@ function getCanvasArgs(canvas, prevCoords) {
     ident: canvasIdent,
     colors,
   } = canvas;
-  const is3D = !!canvas.v;
+
   const palette = new Palette(colors, 0);
   return {
     clrIgnore,
@@ -77,11 +99,10 @@ function getCanvasArgs(canvas, prevCoords) {
     canvasStartDate,
     canvasEndDate,
     canvasIdent,
-    is3D,
     palette,
-    view: prevCoords?.view || [0, 0, DEFAULT_SCALE],
-    selectedColor: prevCoords?.selectedColor || clrIgnore,
-    pencilMode: prevCoords?.pencilMode || PENCIL_MODE.COLOR,
+    view: thisPreviousCanvasState?.view || [0, 0, DEFAULT_SCALE],
+    selectedColor: thisPreviousCanvasState?.selectedColor || clrIgnore,
+    pencilMode: thisPreviousCanvasState?.pencilMode || PENCIL_MODE.COLOR,
   };
 }
 
@@ -138,7 +159,7 @@ const initialState = {
   canvases: {},
   canvasSize: 65536,
   historicalCanvasSize: 65536,
-  is3D: null,
+  rendererType: 'DUMMY',
   canvasStartDate: null,
   defaultCanvas: DEFAULT_CANVAS_ID,
   canvasEndDate: null,
@@ -146,6 +167,20 @@ const initialState = {
   palette: new Palette([[0, 0, 0]]),
   clrIgnore: 0,
   selectedColor: 0,
+  /*
+   * replacementMessage replaces the canvas, for a school block or similar,
+   * String | null
+   */
+  replacementMessage: null,
+  /*
+   * interval when the replacementMessage is displayed
+   * string HHmm-HHmm | null
+   */
+  replacementInterval: null,
+  /*
+   * wheter or not we are currecntly withint eh interval
+   */
+  replacementActive: false,
   // from where the pencil takes its color from
   pencilMode: PENCIL_MODE.COLOR,
   // view is not up-to-date, changes are delayed compared to renderer.view
@@ -178,7 +213,7 @@ export default function canvasReducer(
     }
 
     case 's/TGL_HISTORICAL_VIEW': {
-      if (state.is3D || state.canvasEndDate) {
+      if (state.rendererType === CANVAS_TYPES.TWOD || state.canvasEndDate) {
         return state;
       }
       return fixHistoryIfNeccessary({
@@ -213,14 +248,13 @@ export default function canvasReducer(
         const { canvasId } = urlState;
         const canvas = canvases[canvasId];
         const canvasState = getCanvasArgs(
-          canvas,
-          state.prevCanvasState[canvasId],
+          canvas, state.prevCanvasState[canvasId],
         );
-        return {
+        return setRendererTypeIfNeccessary({
           ...state,
           ...canvasState,
           ...urlState,
-        };
+        });
       }
       return {
         ...state,
@@ -289,7 +323,7 @@ export default function canvasReducer(
       }
       const canvasState = getCanvasArgs(canvas, prevCanvasState[canvasId]);
 
-      return fixHistoryIfNeccessary({
+      return setRendererTypeIfNeccessary(fixHistoryIfNeccessary({
         ...state,
         ...canvasState,
         canvasId,
@@ -304,7 +338,21 @@ export default function canvasReducer(
             pencilMode: state.pencilMode,
           },
         },
+      }));
+    }
+
+
+    case 's/REC_ME':
+    case 's/LOGIN': {
+      return setRendererTypeIfNeccessary({
+        ...state,
+        replacementMessage: action.replacementMessage || null,
+        replacementInterval: action.replacementInterval || null,
       });
+    }
+
+    case 'UPDATE_INTERVAL_ACTIVE': {
+      return setRendererTypeIfNeccessary({ ...state });
     }
 
     case 's/REC_CANVASES': {
@@ -319,18 +367,17 @@ export default function canvasReducer(
       }
       const canvas = canvases[canvasId];
       const canvasState = getCanvasArgs(
-        canvas,
-        state.prevCanvasState[canvasId],
+        canvas, state.prevCanvasState[canvasId],
       );
 
-      return fixHistoryIfNeccessary({
+      return setRendererTypeIfNeccessary(fixHistoryIfNeccessary({
         ...state,
         ...canvasState,
         canvasId,
         canvases,
         defaultCanvas,
         view,
-      });
+      }));
     }
 
     default:
