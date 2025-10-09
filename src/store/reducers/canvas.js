@@ -213,7 +213,7 @@ export default function canvasReducer(
     }
 
     case 's/TGL_HISTORICAL_VIEW': {
-      if (state.rendererType === CANVAS_TYPES.TWOD || state.canvasEndDate) {
+      if (state.rendererType !== CANVAS_TYPES.TWOD || state.canvasEndDate) {
         return state;
       }
       return fixHistoryIfNeccessary({
