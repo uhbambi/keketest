@@ -350,7 +350,7 @@ export class ChatProvider {
     ) {
       user.isBanned = true;
       /* this will both ban and mute */
-      ban(ipString, user.id, null, true, true, 'CHATBAN');
+      ban(ipString, id, null, true, true, 'CHATBAN');
       logger.info(`CHAT AUTOBANNED: ${ipString}`);
       return 'nope';
     }
@@ -393,7 +393,7 @@ export class ChatProvider {
     if (user.last_message && user.last_message === message) {
       user.message_repeat += 1;
       if (user.message_repeat >= 4) {
-        this.mute(name, { duration: 60, printChannel: channelId });
+        this.mute(id, { duration: 60, printChannel: channelId });
         user.message_repeat = 0;
         return t`Stop flooding.`;
       }
