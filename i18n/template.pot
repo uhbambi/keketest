@@ -89,7 +89,7 @@ msgstr ""
 msgid "Anti Aliasing"
 msgstr ""
 
-#: src/components/ModCanvastools.jsx:490
+#: src/components/ModCanvastools.jsx:498
 msgid "Apply a filter to clean trash in large canvas areas."
 msgstr ""
 
@@ -97,7 +97,7 @@ msgstr ""
 msgid "Archive"
 msgstr ""
 
-#: src/components/Admintools.jsx:286
+#: src/components/Admintools.jsx:342
 msgid "Assign new Mod"
 msgstr ""
 
@@ -144,22 +144,22 @@ msgstr ""
 msgid "Blocked"
 msgstr ""
 
-#: src/components/ModCanvastools.jsx:364
-#: src/components/ModCanvastools.jsx:441
-#: src/components/ModCanvastools.jsx:535
+#: src/components/ModCanvastools.jsx:370
+#: src/components/ModCanvastools.jsx:447
+#: src/components/ModCanvastools.jsx:543
 #: src/components/ModWatchtools.jsx:206
 msgid "Bottom-right corner"
 msgstr ""
 
-#: src/components/ModCanvastools.jsx:172
+#: src/components/ModCanvastools.jsx:175
 msgid "Build image and set it to protected."
 msgstr ""
 
-#: src/components/ModCanvastools.jsx:169
+#: src/components/ModCanvastools.jsx:172
 msgid "Build image on canvas."
 msgstr ""
 
-#: src/components/ModCanvastools.jsx:175
+#: src/components/ModCanvastools.jsx:178
 msgid "Build image, but reset cooldown to unset-pixel cd."
 msgstr ""
 
@@ -214,7 +214,7 @@ msgstr ""
 msgid "Canvas Archive"
 msgstr ""
 
-#: src/components/ModCanvastools.jsx:488
+#: src/components/ModCanvastools.jsx:496
 msgid "Canvas Cleaner"
 msgstr ""
 
@@ -277,7 +277,7 @@ msgid "Check who placed in an area"
 msgstr ""
 
 #: src/components/Converter.jsx:191
-#: src/components/ModCanvastools.jsx:231
+#: src/components/ModCanvastools.jsx:234
 msgid "Choose Canvas"
 msgstr ""
 
@@ -293,21 +293,25 @@ msgstr ""
 msgid "Choose Username"
 msgstr ""
 
-#: src/components/ModCanvastools.jsx:193
+#: src/components/ModCanvastools.jsx:196
 msgid ""
 "Clean spare pixels that are surrounded by a single other color or unset "
 "pixels (VERY AGGRESSIVE ON CANVASES THAT ALLOW UNSET PIXELS (where there "
 "are two cooldowns)!)"
 msgstr ""
 
-#: src/components/ModCanvastools.jsx:185
+#: src/components/ModCanvastools.jsx:188
 msgid "Clean spare pixels that are surrounded by unset pixels"
 msgstr ""
 
-#: src/components/ModCanvastools.jsx:189
+#: src/components/ModCanvastools.jsx:192
 msgid ""
 "Clean spare pixels that are surrounded by unset pixels and up to 1 other "
 "set pixels"
+msgstr ""
+
+#: src/components/Admintools.jsx:387
+msgid "Cleaners can use 0cd blank colors."
 msgstr ""
 
 #: src/components/windows/Help.jsx:112
@@ -334,8 +338,8 @@ msgstr ""
 msgid "Clone"
 msgstr ""
 
-#: src/components/Admintools.jsx:138
-#: src/components/ModCanvastools.jsx:227
+#: src/components/Admintools.jsx:185
+#: src/components/ModCanvastools.jsx:230
 #: src/components/ModWatchtools.jsx:128
 #: src/components/Window.jsx:164
 #: src/components/Window.jsx:267
@@ -406,7 +410,7 @@ msgstr ""
 msgid "Coordinates"
 msgstr ""
 
-#: src/components/ModCanvastools.jsx:274
+#: src/components/ModCanvastools.jsx:279
 msgid "Coordinates:"
 msgstr ""
 
@@ -557,7 +561,7 @@ msgstr ""
 msgid "Display Palette in a compact form that takes less screen space."
 msgstr ""
 
-#: src/components/Admintools.jsx:146
+#: src/components/Admintools.jsx:193
 msgid "Do stuff with IPs (one IP per line)"
 msgstr ""
 
@@ -646,7 +650,7 @@ msgstr ""
 msgid "Enter Reason"
 msgstr ""
 
-#: src/components/Admintools.jsx:289
+#: src/components/Admintools.jsx:345
 msgid "Enter UserName of new Mod"
 msgstr ""
 
@@ -693,7 +697,7 @@ msgstr ""
 msgid "Factor"
 msgstr ""
 
-#: src/components/ModCanvastools.jsx:253
+#: src/components/ModCanvastools.jsx:258
 msgid "File"
 msgstr ""
 
@@ -834,7 +838,7 @@ msgstr ""
 msgid "IID Actions"
 msgstr ""
 
-#: src/components/Admintools.jsx:144
+#: src/components/Admintools.jsx:191
 msgid "IP Actions"
 msgstr ""
 
@@ -861,7 +865,7 @@ msgstr ""
 msgid "Image Converter"
 msgstr ""
 
-#: src/components/ModCanvastools.jsx:250
+#: src/components/ModCanvastools.jsx:255
 msgid "Image Upload"
 msgstr ""
 
@@ -894,6 +898,10 @@ msgstr ""
 #: src/components/windows/Help.jsx:76
 #: src/components/windows/UserArea.jsx:88
 msgid "Invited to Chat"
+msgstr ""
+
+#: src/components/Admintools.jsx:385
+msgid "Jannies can rollback and protect, but not watch or ban."
 msgstr ""
 
 #: src/ui/PixelTransferController.js:122
@@ -961,7 +969,7 @@ msgstr ""
 msgid "Make Screenshot"
 msgstr ""
 
-#: src/components/Admintools.jsx:257
+#: src/components/Admintools.jsx:304
 msgid "Manage Moderators"
 msgstr ""
 
@@ -975,6 +983,10 @@ msgstr ""
 
 #: src/components/Converter.jsx:301
 msgid "Minimum Color Distance"
+msgstr ""
+
+#: src/components/Admintools.jsx:383
+msgid "Moderators can access all Canvas, Watch and IID tools."
 msgstr ""
 
 #: src/components/windows/UserArea.jsx:79
@@ -1196,7 +1208,7 @@ msgstr ""
 msgid "Pixel Notify ON"
 msgstr ""
 
-#: src/components/ModCanvastools.jsx:318
+#: src/components/ModCanvastools.jsx:324
 msgid "Pixel Protection"
 msgstr ""
 
@@ -1302,7 +1314,7 @@ msgstr ""
 msgid "Profile"
 msgstr ""
 
-#: src/components/Admintools.jsx:192
+#: src/components/Admintools.jsx:239
 msgid "Quick Actions"
 msgstr ""
 
@@ -1347,7 +1359,15 @@ msgstr ""
 msgid "Remove"
 msgstr ""
 
-#: src/components/Admintools.jsx:259
+#: src/components/Admintools.jsx:331
+msgid "Remove Cleaner"
+msgstr ""
+
+#: src/components/Admintools.jsx:319
+msgid "Remove Janny"
+msgstr ""
+
+#: src/components/Admintools.jsx:307
 msgid "Remove Moderator"
 msgstr ""
 
@@ -1355,7 +1375,7 @@ msgstr ""
 msgid "Remove a Login method:"
 msgstr ""
 
-#: src/components/Admintools.jsx:227
+#: src/components/Admintools.jsx:274
 msgid "Require Verification to Place"
 msgstr ""
 
@@ -1367,7 +1387,7 @@ msgstr ""
 msgid "Reset"
 msgstr ""
 
-#: src/components/Admintools.jsx:197
+#: src/components/Admintools.jsx:244
 msgid "Reset Captchas of ALL Users"
 msgstr ""
 
@@ -1388,15 +1408,15 @@ msgstr ""
 msgid "Retract"
 msgstr ""
 
-#: src/components/Admintools.jsx:204
+#: src/components/Admintools.jsx:251
 msgid "Roll different Captcha Fonts"
 msgstr ""
 
-#: src/components/ModCanvastools.jsx:414
+#: src/components/ModCanvastools.jsx:420
 msgid "Rollback an area of the canvas to a set date and time"
 msgstr ""
 
-#: src/components/ModCanvastools.jsx:410
+#: src/components/ModCanvastools.jsx:416
 msgid "Rollback to Date"
 msgstr ""
 
@@ -1467,7 +1487,7 @@ msgstr ""
 msgid "Set Password"
 msgstr ""
 
-#: src/components/ModCanvastools.jsx:322
+#: src/components/ModCanvastools.jsx:328
 msgid ""
 "Set protection of areas (if you need finer grained control, use protect "
 "with image upload and alpha layers)"
@@ -1536,7 +1556,7 @@ msgstr ""
 msgid "Start chatting here"
 msgstr ""
 
-#: src/components/Admintools.jsx:251
+#: src/components/Admintools.jsx:298
 msgid "Start checking for Malware"
 msgstr ""
 
@@ -1544,7 +1564,7 @@ msgstr ""
 msgid "Statistics"
 msgstr ""
 
-#: src/components/ModCanvastools.jsx:208
+#: src/components/ModCanvastools.jsx:211
 msgid "Status: Not running"
 msgstr ""
 
@@ -1553,24 +1573,24 @@ msgstr ""
 msgid "Stay logged in: "
 msgstr ""
 
-#: src/components/ModCanvastools.jsx:601
+#: src/components/ModCanvastools.jsx:609
 msgid "Stop Cleaner"
 msgstr ""
 
-#: src/components/Admintools.jsx:240
+#: src/components/Admintools.jsx:287
 msgid "Stop checking for Malware"
 msgstr ""
 
-#: src/components/Admintools.jsx:216
+#: src/components/Admintools.jsx:263
 msgid "Stop requiring Verification to Place"
 msgstr ""
 
-#: src/components/Admintools.jsx:187
-#: src/components/Admintools.jsx:324
-#: src/components/ModCanvastools.jsx:313
-#: src/components/ModCanvastools.jsx:404
-#: src/components/ModCanvastools.jsx:482
-#: src/components/ModCanvastools.jsx:583
+#: src/components/Admintools.jsx:234
+#: src/components/Admintools.jsx:396
+#: src/components/ModCanvastools.jsx:318
+#: src/components/ModCanvastools.jsx:410
+#: src/components/ModCanvastools.jsx:488
+#: src/components/ModCanvastools.jsx:591
 #: src/components/ModIIDtools.jsx:270
 #: src/components/windows/ForgotPassword.jsx:84
 #: src/components/windows/Register.jsx:167
@@ -1604,10 +1624,6 @@ msgstr ""
 
 #: src/components/windows/Settings.jsx:178
 msgid "Themes"
-msgstr ""
-
-#: src/components/Admintools.jsx:282
-msgid "There are no mods"
 msgstr ""
 
 #: src/components/windows/Player.jsx:17
@@ -1678,9 +1694,9 @@ msgstr ""
 msgid "Top 10 Players from Yesterday"
 msgstr ""
 
-#: src/components/ModCanvastools.jsx:342
-#: src/components/ModCanvastools.jsx:419
-#: src/components/ModCanvastools.jsx:513
+#: src/components/ModCanvastools.jsx:348
+#: src/components/ModCanvastools.jsx:425
+#: src/components/ModCanvastools.jsx:521
 #: src/components/ModWatchtools.jsx:184
 msgid "Top-left corner"
 msgstr ""
@@ -1706,7 +1722,7 @@ msgstr ""
 msgid "Total Rank"
 msgstr ""
 
-#: src/components/ModCanvastools.jsx:197
+#: src/components/ModCanvastools.jsx:200
 msgid ""
 "Turn every pixel in area to 0 (YOU REALLY SHOULDN'T DO THAT ON ANY AREA "
 "THAT ISN'T ALREADY MOSTLY 0)"
@@ -1714,6 +1730,10 @@ msgstr ""
 
 #: src/components/windows/Settings.jsx:77
 msgid "Turn on grid to highlight pixel borders."
+msgstr ""
+
+#: src/components/Admintools.jsx:362
+msgid "Type of Mod"
 msgstr ""
 
 #: src/components/Captcha.jsx:181
@@ -1745,7 +1765,7 @@ msgstr ""
 msgid "Until the browser closes"
 msgstr ""
 
-#: src/components/ModCanvastools.jsx:251
+#: src/components/ModCanvastools.jsx:256
 msgid "Upload images to canvas"
 msgstr ""
 
@@ -1768,7 +1788,7 @@ msgstr ""
 msgid "User Area"
 msgstr ""
 
-#: src/components/Admintools.jsx:298
+#: src/components/Admintools.jsx:354
 #: src/components/windows/Register.jsx:108
 msgid "User Name"
 msgstr ""

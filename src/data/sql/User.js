@@ -728,17 +728,26 @@ export async function deleteUser(id) {
  * @param userlvl userlevel
  * @return { id, name }
  */
-export async function getUserByUserLvl(userlvl) {
+export async function getHighUserLvlUsers() {
   try {
-    return await User.findAll({
-      where: { userlvl },
-      attributes: ['name', 'username', 'id'],
+    const userModels = await User.findAll({
+      where: { userlvl: { [Op.gte]: USERLVL.CLEANER } },
+      attributes: ['name', 'id', 'userlvl'],
       raw: true,
     });
+    const usersByLvl = {};
+    for (let i = 0; i < userModels.length; i += 1) {
+      const { name, id, userlvl } = userModels[i];
+      if (!usersByLvl[userlvl]) {
+        usersByLvl[userlvl] = [];
+      }
+      usersByLvl[userlvl].push([id, name]);
+    }
+    return usersByLvl;
   } catch (error) {
-    console.error(`SQL Error on getUserByUserlvl: ${error.message}`);
+    console.error(`SQL Error on getHighUserLvlUsers: ${error.message}`);
   }
-  return null;
+  return {};
 }
 
 /**

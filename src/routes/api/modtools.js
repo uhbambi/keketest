@@ -19,12 +19,12 @@ import {
   executeRollback,
   executeCleanerAction,
   executeWatchAction,
-  getModList,
-  removeMod,
-  makeMod,
+  demoteUser,
+  promoteUser,
   executeQuickAction,
 } from '../../core/adminfunctions.js';
 import { getState } from '../../core/SharedState.js';
+import { getHighUserLvlUsers } from '../../data/sql/User.js';
 import { USERLVL } from '../../data/sql/index.js';
 
 
@@ -57,7 +57,7 @@ router.use(async (req, res, next) => {
     next(new Error(t`You are not logged in`));
     return;
   }
-  if (req.user.userlvl < USERLVL.MOD) {
+  if (req.user.userlvl < USERLVL.JANNY) {
     logger.warn(
       `MODTOOLS: ${req.ip.ipString} / ${req.user.id} tried to access modtools`,
     );
@@ -76,7 +76,93 @@ router.use(async (req, res, next) => {
 
 
 /*
- * Post for mod + admin
+ * Post for janny + mod + admin
+ */
+router.post('/', async (req, res, next) => {
+  const aLogger = (text) => {
+    const timeString = new Date().toLocaleTimeString();
+    // eslint-disable-next-line max-len
+    const logText = `@[${escapeMd(req.user.name)}](${req.user.id}) ${text}`;
+    modtoolsLogger.info(
+      `${timeString} | MODTOOLS> ${logText}`,
+    );
+    chatProvider.broadcastChatMessage(
+      'info',
+      logText,
+      chatProvider.enChannelId,
+      chatProvider.infoUserId,
+    );
+  };
+
+  try {
+    if (req.body.protaction) {
+      const {
+        protaction, ulcoor, brcoor, canvasid,
+      } = req.body;
+      const [ret, msg] = await executeProtAction(
+        protaction,
+        ulcoor,
+        brcoor,
+        canvasid,
+        aLogger,
+      );
+      res.status(ret).send(msg);
+      return;
+    }
+    if (req.body.rollbackdate) {
+      // rollbackdate is date as YYYYMMdd
+      // rollbacktime is time as hhmm
+      const {
+        rollbackdate, rollbacktime, ulcoor, brcoor, canvasid,
+      } = req.body;
+      if (req.user.userlvl < USERLVL.MOD) {
+        /*
+         * jannies can only rollback to yesterday max
+         */
+        let yesterday = new Date(Date.now() - 24 * 3600 * 1000);
+        let yesterdayDay = yesterday.getUTCDate();
+        let yesterdayMonth = yesterday.getUTCMonth() + 1;
+        if (yesterdayDay < 10) yesterdayDay = `0${String(yesterdayDay)}`;
+        if (yesterdayMonth < 10) yesterdayMonth = `0${String(yesterdayMonth)}`;
+        // eslint-disable-next-line max-len
+        yesterday = `${yesterday.getUTCFullYear()}${yesterdayMonth}${yesterdayDay}`;
+        if (parseInt(rollbackdate, 10) < parseInt(yesterday, 10)) {
+          res.status(403).send('You can not rollback further than yesterday');
+          return;
+        }
+      }
+      const [ret, msg] = await executeRollback(
+        rollbackdate,
+        rollbacktime,
+        ulcoor,
+        brcoor,
+        canvasid,
+        aLogger,
+        (req.user.userlvl >= USERLVL.ADMIN),
+      );
+      res.status(ret).send(msg);
+      return;
+    }
+    next();
+  } catch (err) {
+    next(err);
+  }
+});
+
+/*
+ * just mods + admins past here, no Jannies
+ */
+router.use(async (req, res, next) => {
+  if (req.user.userlvl < USERLVL.MOD) {
+    const { t } = req.ttag;
+    res.status(403).send(t`Just admins can do that`);
+    return;
+  }
+  next();
+});
+
+/*
+ * post just for admin + mod
  */
 router.post('/', async (req, res, next) => {
   const aLogger = (text) => {
@@ -178,38 +264,6 @@ router.post('/', async (req, res, next) => {
       res.status(ret).send(msg);
       return;
     }
-    if (req.body.protaction) {
-      const {
-        protaction, ulcoor, brcoor, canvasid,
-      } = req.body;
-      const [ret, msg] = await executeProtAction(
-        protaction,
-        ulcoor,
-        brcoor,
-        canvasid,
-        aLogger,
-      );
-      res.status(ret).send(msg);
-      return;
-    }
-    if (req.body.rollbackdate) {
-      // rollbackdate is date as YYYYMMdd
-      // rollbacktime is time as hhmm
-      const {
-        rollbackdate, rollbacktime, ulcoor, brcoor, canvasid,
-      } = req.body;
-      const [ret, msg] = await executeRollback(
-        rollbackdate,
-        rollbacktime,
-        ulcoor,
-        brcoor,
-        canvasid,
-        aLogger,
-        (req.user.userlvl >= USERLVL.ADMIN),
-      );
-      res.status(ret).send(msg);
-      return;
-    }
     next();
   } catch (err) {
     next(err);
@@ -252,7 +306,7 @@ router.post('/', async (req, res, next) => {
       return;
     }
     if (req.body.modlist) {
-      const ret = await getModList();
+      const ret = await getHighUserLvlUsers();
       res.status(200);
       res.json(ret);
       return;
@@ -264,12 +318,14 @@ router.post('/', async (req, res, next) => {
       return;
     }
     if (req.body.remmod) {
-      const ret = await removeMod(req.body.remmod);
+      const ret = await demoteUser(req.body.remmod);
       res.status(200).send(ret);
       return;
     }
     if (req.body.makemod) {
-      const ret = await makeMod(req.body.makemod);
+      const ret = await promoteUser(
+        req.body.makemod, parseInt(req.body.userlvl, 10),
+      );
       res.status(200);
       res.json(ret);
       return;

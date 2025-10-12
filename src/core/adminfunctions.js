@@ -28,7 +28,6 @@ import {
 } from '../data/sql/IP.js';
 import {
   setUserLvl,
-  getUserByUserLvl,
   setUsername,
   findUserByIdOrName,
   markUserAccountsAsHacked,
@@ -854,41 +853,41 @@ export async function executeRollback(
   ];
 }
 
-/*
- * Get list of mods
- * @return [[id1, name2], [id2, name2], ...] list
+/**
+ * demoe a user of a certain userlvl
+ * @param userId
  */
-export async function getModList() {
-  const mods = await getUserByUserLvl(USERLVL.MOD);
-  if (!mods) {
-    return [];
-  }
-  return mods.map((mod) => [mod.id, mod.name]);
-}
-
-export async function removeMod(userId) {
+export async function demoteUser(userId) {
   userId = parseInt(userId, 10);
   if (Number.isNaN(userId)) {
     throw new Error('Invalid userId');
   }
-  const success = await setUserLvl(userId, USERLVL.REGISTERED);
+  const success = await setUserLvl(userId, USERLVL.VERIFIED);
   if (success) {
     socketEvents.reloadUser(userId);
-    return `Moderation rights removed from user with the id ${userId}`;
+    return `All moderation rights removed from user with the id ${userId}`;
   }
-  throw new Error('Couldn\'t remove Mod from user');
+  throw new Error('Couldn\'t remove moderation rights from user');
 }
 
-export async function makeMod(name) {
+/**
+ * promote a user to a certain userlvl
+ * @param name name or id of user
+ * @param userlvl wanted level
+ */
+export async function promoteUser(name, userlvl) {
   if (!name) {
     throw new Error('No username given');
+  }
+  if (!userlvl) {
+    throw new Error('No userlvl given');
   }
   const user = await findUserByIdOrName(name);
   if (!user?.id) {
     throw new Error(`User ${name} not found`);
   }
   const { id } = user;
-  const success = await setUserLvl(id, USERLVL.MOD);
+  const success = await setUserLvl(id, userlvl);
   if (success) {
     socketEvents.reloadUser(id);
     return [id, user.name];

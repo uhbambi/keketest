@@ -75,7 +75,7 @@ const UserArea = () => {
             <Converter />
           </Suspense>
         </div>
-        {(userlvl >= USERLVL.MOD) && (
+        {(userlvl >= USERLVL.JANNY) && (
         <div label={(userlvl >= USERLVL.ADMIN) ? t`Admintools` : t`Modtools`}>
           <Suspense fallback={<div>{t`Loading...`}</div>}>
             <Modtools />

@@ -119,7 +119,7 @@ export default async function drawByOffsets(
     const req = (isAdmin) ? null : canvas.req;
     const clrIgnore = canvas.cli || 0;
     let factor = (isAdmin
-      || (user?.userlvl >= USERLVL.MOD && pixels[0][1] < clrIgnore))
+      || (user?.userlvl >= USERLVL.CLEANER && pixels[0][1] < clrIgnore))
       ? 0.0 : coolDownFactor;
 
     factor *= getCooldownFactor(ip.country, ipString);
@@ -150,10 +150,10 @@ export default async function drawByOffsets(
         throw new Error(4);
       }
 
-      // admins and mods can place unset pixels
+      // admins, jannies, cleaners and mods can place unset pixels
       if (color >= canvas.colors.length
         || (color < clrIgnore
-          && (!user || user.userlvl < USERLVL.MOD)
+          && (!user || user.userlvl < USERLVL.CLEANER)
           && !(canvas.v && color === 0))
       ) {
         // color out of bounds

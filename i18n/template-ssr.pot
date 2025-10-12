@@ -150,7 +150,8 @@ msgstr ""
 msgid "Invalid url :( Please check your mail again."
 msgstr ""
 
-#: src/routes/api/modtools.js:226
+#: src/routes/api/modtools.js:158
+#: src/routes/api/modtools.js:280
 msgid "Just admins can do that"
 msgstr ""
 

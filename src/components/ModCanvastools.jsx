@@ -11,6 +11,7 @@ import { coordsFromString } from '../core/utils.js';
 import HistorySelect from './HistorySelect.jsx';
 import { api } from '../utils/utag.js';
 import { selectCanvas } from '../store/actions/index.js';
+import { USERLVL } from '../core/constants.js';
 
 const keptState = {
   coords: '',
@@ -150,11 +151,13 @@ function ModCanvastools() {
   const [submitting, setSubmitting] = useState(false);
 
   const [
+    userlvl,
     canvasId,
     canvases,
     historicalDate,
     historicalTime,
   ] = useSelector((state) => [
+    state.user.userlvl,
     state.canvas.canvasId,
     state.canvas.canvases,
     state.canvas.historicalDate,
@@ -246,74 +249,77 @@ function ModCanvastools() {
           ))}
         </select>
       </p>
-      <div className="modaldivider" />
-      <h3>{t`Image Upload`}</h3>
-      <p>{t`Upload images to canvas`}</p>
-      <p>
-        {t`File`}:&nbsp;
-        <input type="file" name="image" id="imgfile" />
-      </p>
-      <select
-        value={imageAction}
-        onChange={(e) => {
-          const sel = e.target;
-          selectImageAction(sel.options[sel.selectedIndex].value);
-        }}
-      >
-        {['build', 'protect', 'wipe'].map((opt) => (
-          <option
-            key={opt}
-            value={opt}
+      {(userlvl >= USERLVL.MOD) && (
+        <React.Fragment key="imgup">
+          <div className="modaldivider" />
+          <h3>{t`Image Upload`}</h3>
+          <p>{t`Upload images to canvas`}</p>
+          <p>
+            {t`File`}:&nbsp;
+            <input type="file" name="image" id="imgfile" />
+          </p>
+          <select
+            value={imageAction}
+            onChange={(e) => {
+              const sel = e.target;
+              selectImageAction(sel.options[sel.selectedIndex].value);
+            }}
           >
-            {opt}
-          </option>
-        ))}
-      </select>
-      <p>{descAction}</p>
-      <p>
-        {t`Coordinates:`}&nbsp;
-        <input
-          defaultValue={keptState.coords}
-          style={{
-            display: 'inline-block',
-            width: '100%',
-            maxWidth: '15em',
-          }}
-          type="text"
-          placeholder="X_Y or URL"
-          onChange={(evt) => {
-            let co = evt.target.value.trim();
-            co = coordsFromString(co);
-            if (co) {
-              co = co.join('_');
-              evt.target.value = co;
-            }
-            keptState.coords = co;
-          }}
-        />
-      </p>
-      <button
-        type="button"
-        onClick={() => {
-          if (submitting) {
-            return;
-          }
-          setSubmitting(true);
-          submitImageAction(
-            imageAction,
-            canvasId,
-            keptState.coords,
-            (ret) => {
-              setSubmitting(false);
-              setResp(ret);
-            },
-          );
-        }}
-      >
-        {(submitting) ? '...' : t`Submit`}
-      </button>
-
-      <br />
+            {['build', 'protect', 'wipe'].map((opt) => (
+              <option
+                key={opt}
+                value={opt}
+              >
+                {opt}
+              </option>
+            ))}
+          </select>
+          <p>{descAction}</p>
+          <p>
+            {t`Coordinates:`}&nbsp;
+            <input
+              defaultValue={keptState.coords}
+              style={{
+                display: 'inline-block',
+                width: '100%',
+                maxWidth: '15em',
+              }}
+              type="text"
+              placeholder="X_Y or URL"
+              onChange={(evt) => {
+                let co = evt.target.value.trim();
+                co = coordsFromString(co);
+                if (co) {
+                  co = co.join('_');
+                  evt.target.value = co;
+                }
+                keptState.coords = co;
+              }}
+            />
+          </p>
+          <button
+            type="button"
+            onClick={() => {
+              if (submitting) {
+                return;
+              }
+              setSubmitting(true);
+              submitImageAction(
+                imageAction,
+                canvasId,
+                keptState.coords,
+                (ret) => {
+                  setSubmitting(false);
+                  setResp(ret);
+                },
+              );
+            }}
+          >
+            {(submitting) ? '...' : t`Submit`}
+          </button>
+          <br />
+        </React.Fragment>
+      )}
       <div className="modaldivider" />
       <h3>{t`Pixel Protection`}</h3>
       <p>
@@ -403,9 +409,9 @@ function ModCanvastools() {
       >
         {(submitting) ? '...' : t`Submit`}
       </button>
+      <br />
       {(window.ssv && window.ssv.backupurl) && (
-        <div>
-          <br />
+        <React.Fragment key="rlbb">
           <div className="modaldivider" />
           <h3>{t`Rollback to Date`}</h3>
           <p>
@@ -481,125 +487,129 @@ function ModCanvastools() {
           >
             {(submitting) ? '...' : t`Submit`}
           </button>
-        </div>
+          <br />
+        </React.Fragment>
       )}
-      <br />
-      <div className="modaldivider" />
-      <h3>{t`Canvas Cleaner`}</h3>
-      <p>
-        {t`Apply a filter to clean trash in large canvas areas.`}
-      </p>
-      <select
-        value={cleanAction}
-        onChange={(e) => {
-          const sel = e.target;
-          selectCleanAction(sel.options[sel.selectedIndex].value);
-        }}
-      >
-        {['spare', 'spareext', 'spareextu', 'makenull'].map((opt) => (
-          <option
-            key={opt}
-            value={opt}
+      {(userlvl >= USERLVL.MOD) && (
+        <React.Fragment key="cnvcln">
+          <div className="modaldivider" />
+          <h3>{t`Canvas Cleaner`}</h3>
+          <p>
+            {t`Apply a filter to clean trash in large canvas areas.`}
+          </p>
+          <select
+            value={cleanAction}
+            onChange={(e) => {
+              const sel = e.target;
+              selectCleanAction(sel.options[sel.selectedIndex].value);
+            }}
           >
-            {opt}
-          </option>
-        ))}
-      </select>
-      <p>{descCleanAction}</p>
-      <p style={{ fontWeight: 'bold' }}>
-        {cleanerStatusString}
-      </p>
-      <p>
-        {t`Top-left corner`}:&nbsp;
-        <input
-          defaultValue={keptState.tlccoords}
-          style={{
-            display: 'inline-block',
-            width: '100%',
-            maxWidth: '15em',
-          }}
-          type="text"
-          placeholder="X_Y or URL"
-          onChange={(evt) => {
-            let co = evt.target.value.trim();
-            co = coordsFromString(co);
-            if (co) {
-              co = co.join('_');
-              evt.target.value = co;
-            }
-            keptState.tlccoords = co;
-          }}
-        />
-      </p>
-      <p>
-        {t`Bottom-right corner`}:&nbsp;
-        <input
-          defaultValue={keptState.brccoords}
-          style={{
-            display: 'inline-block',
-            width: '100%',
-            maxWidth: '15em',
-          }}
-          type="text"
-          placeholder="X_Y or URL"
-          onChange={(evt) => {
-            let co = evt.target.value.trim();
-            co = coordsFromString(co);
-            if (co) {
-              co = co.join('_');
-              evt.target.value = co;
-            }
-            keptState.brccoords = co;
-          }}
-        />
-      </p>
-      <button
-        type="button"
-        onClick={() => {
-          if (submitting) {
-            return;
-          }
-          setSubmitting(true);
-          submitCanvasCleaner(
-            cleanAction,
-            canvasId,
-            keptState.tlccoords,
-            keptState.brccoords,
-            (ret) => {
-              setCleanerStats({
-                running: true,
-                percent: 'N/A',
-                method: cleanAction,
-                tl: keptState.tlccoords,
-                br: keptState.brccoords,
+            {['spare', 'spareext', 'spareextu', 'makenull'].map((opt) => (
+              <option
+                key={opt}
+                value={opt}
+              >
+                {opt}
+              </option>
+            ))}
+          </select>
+          <p>{descCleanAction}</p>
+          <p style={{ fontWeight: 'bold' }}>
+            {cleanerStatusString}
+          </p>
+          <p>
+            {t`Top-left corner`}:&nbsp;
+            <input
+              defaultValue={keptState.tlccoords}
+              style={{
+                display: 'inline-block',
+                width: '100%',
+                maxWidth: '15em',
+              }}
+              type="text"
+              placeholder="X_Y or URL"
+              onChange={(evt) => {
+                let co = evt.target.value.trim();
+                co = coordsFromString(co);
+                if (co) {
+                  co = co.join('_');
+                  evt.target.value = co;
+                }
+                keptState.tlccoords = co;
+              }}
+            />
+          </p>
+          <p>
+            {t`Bottom-right corner`}:&nbsp;
+            <input
+              defaultValue={keptState.brccoords}
+              style={{
+                display: 'inline-block',
+                width: '100%',
+                maxWidth: '15em',
+              }}
+              type="text"
+              placeholder="X_Y or URL"
+              onChange={(evt) => {
+                let co = evt.target.value.trim();
+                co = coordsFromString(co);
+                if (co) {
+                  co = co.join('_');
+                  evt.target.value = co;
+                }
+                keptState.brccoords = co;
+              }}
+            />
+          </p>
+          <button
+            type="button"
+            onClick={() => {
+              if (submitting) {
+                return;
+              }
+              setSubmitting(true);
+              submitCanvasCleaner(
+                cleanAction,
                 canvasId,
-              });
-              setSubmitting(false);
-              setResp(ret);
-            },
-          );
-        }}
-      >
-        {(submitting) ? '...' : t`Submit`}
-      </button>
-      <button
-        type="button"
-        onClick={() => {
-          if (submitting) {
-            return;
-          }
-          setSubmitting(true);
-          getCleanerCancel(
-            (ret) => {
-              setCleanerStats({});
-              setSubmitting(false);
-              setResp(ret);
-            },
-          );
-        }}
-      >
-        {(submitting) ? '...' : t`Stop Cleaner`}
-      </button>
+                keptState.tlccoords,
+                keptState.brccoords,
+                (ret) => {
+                  setCleanerStats({
+                    running: true,
+                    percent: 'N/A',
+                    method: cleanAction,
+                    tl: keptState.tlccoords,
+                    br: keptState.brccoords,
+                    canvasId,
+                  });
+                  setSubmitting(false);
+                  setResp(ret);
+                },
+              );
+            }}
+          >
+            {(submitting) ? '...' : t`Submit`}
+          </button>
+          <button
+            type="button"
+            onClick={() => {
+              if (submitting) {
+                return;
+              }
+              setSubmitting(true);
+              getCleanerCancel(
+                (ret) => {
+                  setCleanerStats({});
+                  setSubmitting(false);
+                  setResp(ret);
+                },
+              );
+            }}
+          >
+            {(submitting) ? '...' : t`Stop Cleaner`}
+          </button>
+        </React.Fragment>
+      )}
     </div>
   );
 }

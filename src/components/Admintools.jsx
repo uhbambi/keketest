@@ -7,6 +7,7 @@ import { t } from 'ttag';
 
 import DeleteList from './DeleteList.jsx';
 import { api } from '../utils/utag.js';
+import { USERLVL } from '../core/constants.js';
 
 async function submitTextAction(
   action,
@@ -50,9 +51,10 @@ async function submitRemMod(userId, callback) {
   callback(resp.ok, await resp.text());
 }
 
-async function submitMakeMod(userName, callback) {
+async function submitMakeMod(userName, userlvl, callback) {
   const data = new FormData();
   data.append('makemod', userName);
+  data.append('userlvl', userlvl);
   const resp = await fetch(api`/api/modtools`, {
     credentials: 'include',
     method: 'POST',
@@ -97,9 +99,10 @@ async function getGameState(
 function Admintools() {
   const [textAction, selectTextAction] = useState('iidtoip');
   const [modName, selectModName] = useState('');
+  const [modType, selectModType] = useState(USERLVL.MOD);
   const [txtval, setTxtval] = useState('');
   const [resp, setResp] = useState(null);
-  const [modlist, setModList] = useState([]);
+  const [modlist, setModList] = useState({});
   const [gameState, setGameState] = useState([]);
   const [submitting, setSubmitting] = useState(false);
 
@@ -119,6 +122,50 @@ function Admintools() {
       setSubmitting(false);
     });
   }, [submitting]);
+
+  const promoteUser = useCallback(() => {
+    if (submitting) return;
+    setSubmitting(true);
+    submitMakeMod(
+      modName, modType,
+      (ret) => {
+        if (typeof ret === 'string') {
+          setResp(ret);
+        } else {
+          const [id, name] = ret;
+          setResp(`Made ${name} mod successfully.`);
+          const newModList = {};
+          /* make sure new mod is not in any other list already */
+          Object.keys(modlist).forEach((lvl) => {
+            newModList[lvl] = modlist[lvl].filter(
+              (modl) => (modl[0] !== id),
+            );
+          });
+          newModList[modType] = [...(newModList[modType] || []), ret];
+          setModList(newModList);
+        }
+        setSubmitting(false);
+      },
+    );
+  }, [submitting, modType, modName, modlist]);
+
+  const demoteUser = useCallback((id) => {
+    if (submitting) return;
+    setSubmitting(true);
+    submitRemMod(id, (success, ret) => {
+      if (success) {
+        const newModList = {};
+        Object.keys(modlist).forEach((userlvl) => {
+          newModList[userlvl] = modlist[userlvl].filter(
+            (modl) => (modl[0] !== id),
+          );
+        });
+        setModList(newModList);
+      }
+      setSubmitting(false);
+      setResp(ret);
+    });
+  }, [submitting, modlist]);
 
   return (
     <div className="content">
@@ -255,35 +302,44 @@ function Admintools() {
         <div className="modaldivider" />
 
         <h3>{t`Manage Moderators`}</h3>
+        {(modlist[USERLVL.MOD]?.length > 0) && (
+          <React.Fragment key="mmod">
+            <p>{t`Remove Moderator`}</p>
+            <DeleteList
+              list={modlist[USERLVL.MOD]}
+              callback={demoteUser}
+              enabled={!submitting}
+              joinident
+            />
+            <br />
+          </React.Fragment>
+        )}
+        {(modlist[USERLVL.JANNY]?.length > 0) && (
+          <React.Fragment key="mjan">
+            <p>{t`Remove Janny`}</p>
+            <DeleteList
+              list={modlist[USERLVL.JANNY]}
+              callback={demoteUser}
+              enabled={!submitting}
+              joinident
+            />
+            <br />
+          </React.Fragment>
+        )}
+        {(modlist[USERLVL.CLEANER]?.length > 0) && (
+          <React.Fragment key="mcln">
+            <p>{t`Remove Cleaner`}</p>
+            <DeleteList
+              list={modlist[USERLVL.CLEANER]}
+              callback={demoteUser}
+              enabled={!submitting}
+              joinident
+            />
+            <br />
+          </React.Fragment>
+        )}
         <p>
-          {t`Remove Moderator`}
-        </p>
-        {(modlist.length) ? (
-          <DeleteList
-            list={modlist}
-            callback={(id) => {
-              if (submitting) return;
-              setSubmitting(true);
-              submitRemMod(id, (success, ret) => {
-                if (success) {
-                  setModList(
-                    modlist.filter((modl) => (modl[0] !== id)),
-                  );
-                }
-                setSubmitting(false);
-                setResp(ret);
-              });
-            }}
-            enabled={!submitting}
-            joinident
-          />
-        )
-          : (
-            <p>{t`There are no mods`}</p>
-          )}
-        <br />
-        <p>
-          {t`Assign new Mod`}
+          { t`Assign new Mod` }
         </p>
         <p>
           {t`Enter UserName of new Mod`}:&nbsp;
@@ -302,24 +358,40 @@ function Admintools() {
             }}
           />
         </p>
+        <p>
+          {t`Type of Mod`}:&nbsp;
+          <select
+            value={modType}
+            onChange={(e) => {
+              const sel = e.target;
+              selectModType(parseInt(sel.options[sel.selectedIndex].value, 10));
+            }}
+          >
+            {['MOD', 'JANNY', 'CLEANER'].map((opt) => (
+              <option
+                key={opt}
+                value={USERLVL[opt]}
+              >
+                {opt}
+              </option>
+            ))}
+          </select>
+        </p>
+        <p>{(() => {
+          switch (modType) {
+            case USERLVL.MOD:
+              return t`Moderators can access all Canvas, Watch and IID tools.`;
+            case USERLVL.JANNY:
+              return t`Jannies can rollback and protect, but not watch or ban.`;
+            case USERLVL.CLEANER:
+              return t`Cleaners can use 0cd blank colors.`;
+            default:
+              return null;
+          }
+        })()}</p>
         <button
           type="button"
-          onClick={() => {
-            if (submitting) return;
-            setSubmitting(true);
-            submitMakeMod(
-              modName,
-              (ret) => {
-                if (typeof ret === 'string') {
-                  setResp(ret);
-                } else {
-                  setResp(`Made ${ret[1]} mod successfully.`);
-                  setModList([...modlist, ret]);
-                }
-                setSubmitting(false);
-              },
-            );
-          }}
+          onClick={promoteUser}
         >
           {(submitting) ? '...' : t`Submit`}
         </button>
