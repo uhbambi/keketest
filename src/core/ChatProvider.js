@@ -356,8 +356,20 @@ export class ChatProvider {
     }
 
     let displayCountry = country;
-    if (user.userlvl >= USERLVL.MOD) {
-      displayCountry = 'zz';
+    if (user.userlvl >= USERLVL.CLEANER) {
+      switch (user.userlvl) {
+        case USERLVL.CLEANER:
+          displayCountry = 'z3';
+          break;
+        case USERLVL.JANNY:
+          displayCountry = 'z2';
+          break;
+        case USERLVL.MOD:
+          displayCountry = 'z1';
+          break;
+        default:
+          displayCountry = 'zz';
+      }
     } else if (user.id === 2927) {
       /*
        * hard coded flags
