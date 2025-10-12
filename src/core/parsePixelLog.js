@@ -356,10 +356,19 @@ export async function getPixelsFromArea(
  * Table gets changed in-place.
  * @param table { columns, types, rows }
  */
-export async function populateTable(table) {
+export async function populateTable(table, reducedInfo = false) {
   const uids = new Set();
   const ipStrings = new Set();
-  const uidColumn = table.columns.indexOf('uid');
+  let uidColumn = table.columns.indexOf('uid');
+  /*
+   * delete userinfo when reduced
+   */
+  if (reducedInfo && uidColumn !== -1) {
+    table.columns.splice(uidColumn, 1);
+    table.types.splice(uidColumn, 1);
+    table.rows.forEach((row) => row.splice(uidColumn, 1));
+    uidColumn = -1;
+  }
   /*
     * whether the column is named ipString or ip2IID decides
     * if we only resolve the iid to the ips or all info
