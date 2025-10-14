@@ -150,13 +150,25 @@ export default async function drawByOffsets(
         throw new Error(4);
       }
 
-      // admins, jannies, cleaners and mods can place unset pixels
-      if (color >= canvas.colors.length
-        || (color < clrIgnore
-          && (!user || user.userlvl < USERLVL.CLEANER)
-          && !(canvas.v && color === 0))
-      ) {
+      if (color >= canvas.colors.length) {
         // color out of bounds
+        throw new Error(5);
+      }
+      if (color < clrIgnore) {
+        // admins, jannies, cleaners and mods can place unset pixels
+        if ((!user || user.userlvl < USERLVL.CLEANER)
+          && !(canvas.v && color === 0)
+        ) {
+          // color out of bounds
+          throw new Error(5);
+        }
+      } else if (factor === 0.0 && !isAdmin) {
+        /*
+         * i.e.: mod sends ordianry pixels together with a started 0 cd pixel,
+         * a rare or impossible occurance, unless malicious
+         * NOTE: in case of future additions of 0cd possibilities, this needs
+         * a refactors
+         */
         throw new Error(5);
       }
 
