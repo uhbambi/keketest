@@ -614,7 +614,7 @@ tr:nth-child(even) {
 
 .window {
   position: fixed;
-  background-color: rgba(252, 252, 252, 0.95);
+  background-color: rgba(252, 252, 252, 0.98);
   border: solid black;
   border-width: thin;
   overflow: hidden;
@@ -626,7 +626,7 @@ tr:nth-child(even) {
 .popup {
   width: 100%;
   height: 100%;
-  background-color: rgba(252, 252, 252, 0.95);
+  background-color: rgba(252, 252, 252, 0.98);
 }
 
 .modal-content {
