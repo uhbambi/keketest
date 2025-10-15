@@ -130,6 +130,18 @@ router.post('/', async (req, res, next) => {
           res.status(403).send('You can not rollback further than yesterday');
           return;
         }
+        let today = new Date();
+        let todayDay = today.getUTCDate();
+        let todayMonth = today.getUTCMonth() + 1;
+        if (todayDay < 10) todayDay = `0${String(todayDay)}`;
+        if (todayMonth < 10) todayMonth = `0${String(todayMonth)}`;
+        today = `${today.getUTCFullYear()}${todayMonth}${todayDay}`;
+        if (parseInt(rollbackdate, 10) > parseInt(today, 10)
+          || (rollbackdate === today && today.getUTCHours() < 1)
+        ) {
+          res.status(403).send('You can not rollback to this time');
+          return;
+        }
       }
       const [ret, msg] = await executeRollback(
         rollbackdate,
