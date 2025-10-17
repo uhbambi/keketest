@@ -28,6 +28,11 @@ import ThreePIDBan from './association_models/ThreePIDBan.js';
 import IPBanHistory from './association_models/IPBanHistory.js';
 import UserBanHistory from './association_models/UserBanHistory.js';
 import ThreePIDBanHistory from './association_models/ThreePIDBanHistory.js';
+import OIDCClient from './OIDCClient.js';
+import OIDCAuthCode from './OIDCAuthCode.js';
+import OIDCAccessToken from './OIDCAccessToken.js';
+import OIDCRefreshToken from './OIDCRefreshToken.js';
+import OIDCConsent from './OIDCConsent.js';
 import { HourlyCron } from '../../utils/cron.js';
 
 /*
@@ -425,6 +430,58 @@ User.belongsToMany(User, {
   as: 'blockedBy',
   through: UserBlock,
   foreignKey: 'buid',
+});
+
+/*
+ * OpenID Connect
+ */
+OIDCConsent.belongsTo(User, {
+  as: 'user',
+  foreignKey: 'uid',
+  onDelete: 'CASCADE',
+});
+User.hasMany(OIDCConsent, {
+  as: 'oicdRefreshTokens',
+  foreignKey: 'uid',
+});
+OIDCConsent.belongsTo(OIDCClient, {
+  as: 'user',
+  foreignKey: 'cid',
+  onDelete: 'CASCADE',
+});
+OIDCClient.hasMany(OIDCConsent, {
+  as: 'refreshTokens',
+  foreignKey: 'cid',
+});
+
+OIDCAuthCode.belongsTo(OIDCConsent, {
+  as: 'user',
+  foreignKey: 'cid',
+  onDelete: 'CASCADE',
+});
+OIDCConsent.hasMany(OIDCAuthCode, {
+  as: 'authCodes',
+  foreignKey: 'cid',
+});
+
+OIDCAccessToken.belongsTo(OIDCConsent, {
+  as: 'user',
+  foreignKey: 'cid',
+  onDelete: 'CASCADE',
+});
+OIDCConsent.hasMany(OIDCAccessToken, {
+  as: 'accessTokens',
+  foreignKey: 'cid',
+});
+
+OIDCRefreshToken.belongsTo(OIDCConsent, {
+  as: 'user',
+  foreignKey: 'cid',
+  onDelete: 'CASCADE',
+});
+OIDCConsent.hasMany(OIDCRefreshToken, {
+  as: 'refreshTokens',
+  foreignKey: 'cid',
 });
 
 export {

@@ -14,6 +14,7 @@ import captcha from './captcha.js';
 import challenge from './challenge.js';
 import resetPassword from './reset_password.js';
 import api from './api/index.js';
+import oidc from './oidc/index.js';
 
 import { expressTTag } from '../middleware/ttag.js';
 import cors from '../middleware/cors.js';
@@ -211,6 +212,11 @@ router.use('/reset_password', resetPassword);
  * API calls
  */
 router.use('/api', api);
+
+/*
+ * OpenID Connect Provider (OP)
+ */
+router.use('/oidc', oidc);
 
 /*
  * void info

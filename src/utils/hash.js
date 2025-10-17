@@ -51,6 +51,13 @@ export function generateTokenHash(token) {
 }
 
 /*
+ * larger token for OIDC
+ */
+export function generateLargeToken() {
+  return randomBytes(60).toString('base64url');
+}
+
+/*
  * sign and verify cookies
  */
 
