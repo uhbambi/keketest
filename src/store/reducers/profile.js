@@ -26,7 +26,7 @@ export default function profile(state = initialState, action) {
       };
     }
 
-    case 's/REC_ME':
+    case 's/LOGIN':
     case 's/LOGOUT':
       // reset profile if user changes
       return { ...initialState };

@@ -329,7 +329,7 @@ const LogInForm = ({ title }) => {
                   style={{ paddingLeft: '5%', paddingRight: '5%' }}
                   onSubmit={submitRegister}
                 >
-                  <p>{t`Register new account here`}</p>
+                  <h2>{t`Register new account here`}</h2>
                   <h3>{t`Name`}:</h3>
                   <p>{t`This is the name that other people see, e.g. in Chat. You can change it at any time. All characters except @, /, \, >, < and # are allowed.`}</p>
                   <input
