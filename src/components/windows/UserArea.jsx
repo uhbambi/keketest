@@ -2,16 +2,13 @@
  *
  */
 
-import React, {
-  Suspense, useCallback, useContext, useEffect,
-} from 'react';
+import React, { Suspense, useCallback, useContext } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { t } from 'ttag';
 
-import { fetchStats, fetchProfile } from '../../store/actions/thunks.js';
+import { fetchStats } from '../../store/actions/thunks.js';
 import WindowContext from '../context/window.js';
 import useInterval from '../hooks/interval.js';
-import LogInArea from '../LogInArea.jsx';
 import Tabs from '../Tabs.jsx';
 import UserAreaContent from '../UserAreaContent.jsx';
 import { USERLVL } from '../../core/constants.js';
@@ -24,10 +21,8 @@ const Converter = React.lazy(() => import(/* webpackChunkName: "converter" */ '.
 const Modtools = React.lazy(() => import(/* webpackChunkName: "modtools" */ '../Modtools.jsx'));
 
 const UserArea = () => {
-  const id = useSelector((state) => state.user.id);
   const userlvl = useSelector((state) => state.user.userlvl);
   const lastStatsFetch = useSelector((state) => state.ranks.lastFetch);
-  const lastProfileFetch = useSelector((state) => state.profile.lastFetch);
 
   const {
     args,
@@ -52,18 +47,11 @@ const UserArea = () => {
     }
   }, 300000);
 
-  useEffect(() => {
-    if (id && Date.now() - 600000 > lastProfileFetch) {
-      dispatch(fetchProfile());
-    }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [lastProfileFetch, id]);
-
   return (
     <div style={{ textAlign: 'center' }}>
       <Tabs activeTab={activeTab} setActiveTab={setActiveTab}>
         <div label={t`Profile`}>
-          {(id) ? <UserAreaContent /> : <LogInArea />}
+          <UserAreaContent />
         </div>
         <div label={t`Statistics`}>
           <Suspense fallback={<div>Loading...</div>}>

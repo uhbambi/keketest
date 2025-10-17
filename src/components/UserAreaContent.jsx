@@ -2,7 +2,7 @@
  * Menu to change user credentials
  */
 
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import { useSelector, shallowEqual, useDispatch } from 'react-redux';
 import { t } from 'ttag';
 
@@ -14,11 +14,13 @@ import ChangeName from './ChangeName.jsx';
 import ChangeUsername from './ChangeUsername.jsx';
 import ChangeMail from './ChangeMail.jsx';
 import DeleteAccount from './DeleteAccount.jsx';
+import LogInRequired from './LogInRequired.jsx';
 import SocialSettings from './SocialSettings.jsx';
 import { logoutUser } from '../store/actions/index.js';
 import { requestLogOut } from '../store/actions/fetch.js';
 import { numberToString } from '../core/utils.js';
 import { selectIsDarkMode } from '../store/selectors/gui.js';
+import { fetchProfile } from '../store/actions/thunks.js';
 
 const AREAS = {
   CHANGE_NAME: ChangeName,
@@ -51,6 +53,7 @@ const UserAreaContent = () => {
   }, [dispatch]);
 
   const isDarkMode = useSelector(selectIsDarkMode);
+  const lastProfileFetch = useSelector((state) => state.profile.lastFetch);
   const [
     name,
     havePassword,
@@ -72,101 +75,110 @@ const UserAreaContent = () => {
     state.ranks.dailyRanking,
   ], shallowEqual);
 
+  useEffect(() => {
+    if (username && Date.now() - 600000 > lastProfileFetch) {
+      dispatch(fetchProfile());
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [lastProfileFetch, username]);
+
   const Area = AREAS[area];
 
   return (
-    <div className="content">
-      <UserMessages />
-      <Stat
-        text={t`Today Placed Pixels`}
-        value={dailyTotalPixels}
-      />
-      <Stat
-        text={t`Daily Rank`}
-        value={dailyRanking}
-        zero="N/A"
-        rank
-      />
-      <Stat
-        text={t`Placed Pixels`}
-        value={totalPixels}
-      />
-      <Stat
-        text={t`Total Rank`}
-        value={ranking}
-        zero="N/A"
-        rank
-      />
-      <BadgeList />
-      <FishList />
-      <div>
-        <p>
-          {t`Your name is:`}<span className="statvalue">{` ${name} `}</span>
-          [{` ${username} `}]
-        </p>(
-        <span
-          role="button"
-          tabIndex={-1}
-          className="modallink"
-          onClick={logout}
-        > {t`Log out`}</span>
-        <span className="hdivider" />
-        <span
-          role="button"
-          tabIndex={-1}
-          className="modallink"
-          onClick={() => setArea('CHANGE_NAME')}
-        > {t`Change Name`}</span>
-        <span className="hdivider" />
-        {(username.startsWith('pp_')) && (
-          <React.Fragment key="choseun">
-            <span
-              role="button"
-              tabIndex={-1}
-              style={{
-                fontWeight: 'bold',
-                color: (isDarkMode) ? '#fcff4b' : '#8f270d',
-              }}
-              className="modallink"
-              onClick={() => setArea('CHANGE_USERNAME')}
-            > {t`Choose Username`}</span>
-            <span className="hdivider" />
-          </React.Fragment>
-        )}
-        <span
-          role="button"
-          tabIndex={-1}
-          className="modallink"
-          onClick={() => setArea('CHANGE_MAIL')}
-        > {t`Login Methods`}</span>
-        <span className="hdivider" />
-        <span
-          role="button"
-          tabIndex={-1}
-          style={(havePassword) ? {} : {
-            fontWeight: 'bold',
-            color: (isDarkMode) ? '#fcff4b' : '#8f270d',
-          }}
-          className="modallink"
-          onClick={() => setArea('CHANGE_PASSWORD')}
-        > {(havePassword) ? t`Change Password` : t`Set Password`}</span>
-        <span className="hdivider" />
-        <span
-          role="button"
-          tabIndex={-1}
-          className="modallink"
-          onClick={() => setArea('DELETE_ACCOUNT')}
-        > {t`Delete Account`}</span> )
-        <br />(
-        <span
-          role="button"
-          tabIndex={-1}
-          className="modallink"
-          onClick={() => setArea('SOCIAL_SETTINGS')}
-        > {t`Social Settings`}</span> )
+    <LogInRequired>
+      <div className="content">
+        <UserMessages />
+        <Stat
+          text={t`Today Placed Pixels`}
+          value={dailyTotalPixels}
+        />
+        <Stat
+          text={t`Daily Rank`}
+          value={dailyRanking}
+          zero="N/A"
+          rank
+        />
+        <Stat
+          text={t`Placed Pixels`}
+          value={totalPixels}
+        />
+        <Stat
+          text={t`Total Rank`}
+          value={ranking}
+          zero="N/A"
+          rank
+        />
+        <BadgeList />
+        <FishList />
+        <div>
+          <p>
+            {t`Your name is:`}<span className="statvalue">{` ${name} `}</span>
+            [{` ${username} `}]
+          </p>(
+          <span
+            role="button"
+            tabIndex={-1}
+            className="modallink"
+            onClick={logout}
+          > {t`Log out`}</span>
+          <span className="hdivider" />
+          <span
+            role="button"
+            tabIndex={-1}
+            className="modallink"
+            onClick={() => setArea('CHANGE_NAME')}
+          > {t`Change Name`}</span>
+          <span className="hdivider" />
+          {(username.startsWith('pp_')) && (
+            <React.Fragment key="choseun">
+              <span
+                role="button"
+                tabIndex={-1}
+                style={{
+                  fontWeight: 'bold',
+                  color: (isDarkMode) ? '#fcff4b' : '#8f270d',
+                }}
+                className="modallink"
+                onClick={() => setArea('CHANGE_USERNAME')}
+              > {t`Choose Username`}</span>
+              <span className="hdivider" />
+            </React.Fragment>
+          )}
+          <span
+            role="button"
+            tabIndex={-1}
+            className="modallink"
+            onClick={() => setArea('CHANGE_MAIL')}
+          > {t`Login Methods`}</span>
+          <span className="hdivider" />
+          <span
+            role="button"
+            tabIndex={-1}
+            style={(havePassword) ? {} : {
+              fontWeight: 'bold',
+              color: (isDarkMode) ? '#fcff4b' : '#8f270d',
+            }}
+            className="modallink"
+            onClick={() => setArea('CHANGE_PASSWORD')}
+          > {(havePassword) ? t`Change Password` : t`Set Password`}</span>
+          <span className="hdivider" />
+          <span
+            role="button"
+            tabIndex={-1}
+            className="modallink"
+            onClick={() => setArea('DELETE_ACCOUNT')}
+          > {t`Delete Account`}</span> )
+          <br />(
+          <span
+            role="button"
+            tabIndex={-1}
+            className="modallink"
+            onClick={() => setArea('SOCIAL_SETTINGS')}
+          > {t`Social Settings`}</span> )
+        </div>
+        {(Area) && <Area key="area" done={() => setArea(null)} />}
       </div>
-      {(Area) && <Area key="area" done={() => setArea(null)} />}
-    </div>
+    </LogInRequired>
   );
 };
 
