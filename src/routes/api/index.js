@@ -2,6 +2,7 @@ import express from 'express';
 
 import { verifySession, ensureLoggedIn } from '../../middleware/session.js';
 import { parseDevice } from '../../middleware/device.js';
+import errorJson from '../../middleware/errorJson.js';
 
 import me from './me.js';
 import auth from './auth/index.js';
@@ -95,18 +96,6 @@ router.post('/blockdm', blockdm);
 
 router.post('/privatize', privatize);
 
-/*
- * error handling
- */
-// eslint-disable-next-line no-unused-vars
-router.use((err, req, res, next) => {
-  if (res.headersSent) {
-    next(err);
-    return;
-  }
-  res.status(err.status || 400).json({
-    errors: [err.message],
-  });
-});
+router.use(errorJson);
 
 export default router;

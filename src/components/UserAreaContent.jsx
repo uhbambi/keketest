@@ -85,7 +85,7 @@ const UserAreaContent = () => {
   const Area = AREAS[area];
 
   return (
-    <LogInRequired>
+    <LogInRequired title={t`Login to access more features and stats.`}>
       <div className="content">
         <UserMessages />
         <Stat

@@ -25,7 +25,9 @@ import generatePopUpPage from '../ssr/PopUp.jsx';
 import generateMainPage from '../ssr/Main.jsx';
 
 import { MONTH, AVAILABLE_POPUPS } from '../core/constants.js';
-import { GUILDED_INVITE, BASENAME, CDN_HOST } from '../core/config.js';
+import {
+  GUILDED_INVITE, BASENAME, CDN_HOST, OIDC_URL,
+} from '../core/config.js';
 
 const router = express.Router();
 
@@ -57,6 +59,27 @@ const expressStatic = express.static(
     },
   },
 );
+
+if (OIDC_URL) {
+  router.get('/.well-known/openid-configuration', (req, res) => {
+    const baseUrl = OIDC_URL + BASENAME;
+    res.json({
+      issuer: OIDC_URL,
+      authorization_endpoint: `${baseUrl}/oidc`,
+      token_endpoint: `${baseUrl}/oidc/token`,
+      userinfo_endpoint: `${baseUrl}/userinfo`,
+      response_types_supported: ['code'],
+      grant_types_supported: ['authorization_code', 'refresh_token'],
+      scopes_supported: [
+        'openid', 'email', 'profile', 'offline_access', 'game_data',
+        'achievements',
+      ],
+      token_endpoint_auth_methods_supported: [
+        'client_secret_basic', 'client_secret_post',
+      ],
+    });
+  });
+}
 
 /* ip */
 router.use(parseIP);
@@ -151,13 +174,9 @@ router.get('/globe', (req, res) => {
 //
 // PopUps
 // -----------------------------------------------------------------------------
-router.use(
+router.get(
   AVAILABLE_POPUPS.map((p) => `/${p.toLowerCase()}`),
-  (req, res, next) => {
-    if (req.method !== 'GET') {
-      next();
-      return;
-    }
+  (req, res) => {
     req.tickRateLimiter(3000);
 
     const { html, etag: winEtag } = generatePopUpPage(req);
@@ -216,7 +235,9 @@ router.use('/api', api);
 /*
  * OpenID Connect Provider (OP)
  */
-router.use('/oidc', oidc);
+if (OIDC_URL) {
+  router.use('/oidc', oidc);
+}
 
 /*
  * void info

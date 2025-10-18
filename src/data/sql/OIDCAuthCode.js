@@ -33,14 +33,6 @@ const OIDCAuthCode = sequelize.define('OIDCAuthCode', {
   },
 
   /*
-   * the one used redirect uri
-   */
-  redirectUri: {
-    type: `${DataTypes.TEXT} CHARACTER SET ascii COLLATE ascii_general_ci`,
-    allowNull: false,
-  },
-
-  /*
    * scope actually requested for that user (subset of scope of client)
    */
   scope: {
@@ -71,5 +63,38 @@ const OIDCAuthCode = sequelize.define('OIDCAuthCode', {
     allowNull: false,
   },
 });
+
+/**
+ * create new Auth Code
+ * @param consentId OIDCConsent id
+ * @param scope array of scopes
+ * @param pkceChallenge | null
+ * @param pkceMethod | null
+ * @return code Authorization Code
+ */
+export async function createAuthCode(
+  consentId, scope, pkceChallenge = null, pkceMethod = null,
+) {
+  try {
+    const code = generateLargeToken();
+    await sequelize.query(
+      /*
+       * minimum 10 minues expiration time is OIDC recommendation
+       */
+      // eslint-disable-next-line max-len
+      'INSERT INTO OIDCAuthCodes (cid, code, scope, pkceChallenge, pkceMethod, expires) VALUES (?, ?, ?, ?, ?, NOW() + INTERVAL 12 MINUTE)', {
+        replacements: [
+          consentId, code, scope.join(' '), pkceChallenge, pkceMethod,
+        ],
+        raw: true,
+        type: QueryTypes.INSERT,
+      },
+    );
+    return code;
+  } catch (error) {
+    console.error(`SQL Error on createAuthCode: ${error.message}`);
+  }
+  return null;
+}
 
 export default OIDCAuthCode;

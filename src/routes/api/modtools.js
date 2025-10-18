@@ -30,7 +30,9 @@ import { USERLVL } from '../../data/sql/index.js';
 
 const router = express.Router();
 
-router.use(express.urlencoded({ extended: true }));
+router.use(express.urlencoded({
+  extended: true, limit: '500kB', parameterLimit: 20,
+}));
 /*
  * parse multipart/form-data
  * ordinary fields will be under req.body[name]

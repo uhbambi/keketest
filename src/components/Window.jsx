@@ -56,6 +56,7 @@ const Window = ({ id }) => {
 
   const contextData = useMemo(() => ({
     args,
+    params: {},
     setArgs: (newArgs) => dispatch(setWindowArgs(id, newArgs)),
     setTitle: (title) => dispatch(setWindowTitle(id, title)),
     // eslint-disable-next-line max-len

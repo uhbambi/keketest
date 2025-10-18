@@ -26,6 +26,7 @@ const UIPopUp = () => {
 
   const contextData = useMemo(() => ({
     args,
+    params: window.ssv?.params || {},
     setArgs: (newArgs) => dispatch(setWindowArgs(newArgs)),
     setTitle: (title) => dispatch(setWindowTitle(title)),
     // eslint-disable-next-line max-len

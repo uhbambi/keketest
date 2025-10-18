@@ -9,7 +9,7 @@ import hashScript from '../utils/scriptHash.js';
 import getLocalizedCanvases, {
   defaultCanvasForCountry,
 } from '../canvasesDesc.js';
-import { getTTag, availableLangs as langs } from '../middleware/ttag.js';
+import { availableLangs as langs } from '../middleware/ttag.js';
 import { getThemeCssAssets } from '../core/assets.js';
 import chooseAPIUrl from '../core/chooseAPIUrl.js';
 import {
@@ -40,10 +40,13 @@ const basedQuotes = [
  * @param title title of website
  * @param scripts Array of paths to scripts to include
  * @param appClass classname of div of react entry point
+ * @param params additional parameters we give to the client in window.ssv
  * @return {html, csp, etab} html, content-security-policy and etag for mainpage
  */
-export default function generateMainHTML(req, title, scripts, appClass) {
-  const { lang, ip } = req;
+export default function generateMainHTML(
+  req, title, scripts, appClass, params = null,
+) {
+  const { lang, ip, ttag: { t } } = req;
   const { country } = ip;
   const host = ip.getHost(false);
   const proto = req.headers['x-forwarded-proto'] || 'http';
@@ -64,6 +67,10 @@ export default function generateMainHTML(req, title, scripts, appClass) {
     canvases: localizedCanvases,
     defaultCanvas,
   };
+
+  if (params) {
+    ssv.params = params;
+  }
 
   if (CDN_URL) {
     /*
@@ -90,8 +97,6 @@ export default function generateMainHTML(req, title, scripts, appClass) {
   if (req.headers['if-none-match'] === mainEtag) {
     return { html: null, csp, etag: mainEtag };
   }
-
-  const { t } = getTTag(lang);
 
   let description;
   let media;

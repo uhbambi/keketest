@@ -69,6 +69,7 @@ let config = {};
     ['BACKUP_INTERVAL', 'int', 30],
     ['RATE_LIMIT_CMD', 'string', null],
     ['TIMEBLOCKS', 'array', null],
+    ['OIDC_URL', 'string', null],
   ];
 
   const configFileValues = {};
@@ -261,6 +262,7 @@ export const {
   COOKIE_SECRET,
   TIMEBLOCK_IPS,
   TIMEBLOCK_USERS,
+  OIDC_URL,
 } = config;
 
 config = null;

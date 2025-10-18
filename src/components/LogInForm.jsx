@@ -173,10 +173,8 @@ const LogInForm = ({ title }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [submitting, success]);
 
-  // Login to access more features and stats.
-
   return (
-    <div style={{ textAlign: 'centr' }}>
+    <div style={{ textAlign: 'center' }}>
       {(title) && <p>{title}</p>}
       {(() => {
         switch (page) {

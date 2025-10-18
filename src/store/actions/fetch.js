@@ -277,6 +277,10 @@ export async function requestLogOut() {
   return !ret.errors;
 }
 
+export async function requestConsent(params) {
+  return makeAPIPOSTRequest('/oidc/consent', params);
+}
+
 export function requestNameChange(name) {
   return makeAPIPOSTRequest(
     '/api/auth/change_name',

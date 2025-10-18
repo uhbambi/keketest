@@ -7,10 +7,10 @@ import { useSelector } from 'react-redux';
 
 import LogInForm from './LogInForm.jsx';
 
-const LogInRequired = ({ children }) => {
+const LogInRequired = ({ children, title }) => {
   const userId = useSelector((state) => state.user.id);
   if (!userId) {
-    return <LogInForm />;
+    return <LogInForm title={title} />;
   }
   return children;
 };

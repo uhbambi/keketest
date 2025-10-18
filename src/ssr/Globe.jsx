@@ -6,7 +6,6 @@
 /* eslint-disable max-len */
 import etag from 'etag';
 
-import { getTTag } from '../middleware/ttag.js';
 import { CDN_URL, BASENAME, NO_CDN_COUNTRIES } from '../core/config.js';
 
 /* this will be set by webpack */
@@ -18,7 +17,7 @@ import { getJsAssets, getCssAssets } from '../core/assets.js';
  * @return html of mainpage
  */
 function generateGlobePage(req) {
-  const { lang } = req;
+  const { lang, ttag: { t } } = req;
   const scripts = getJsAssets('globe', lang);
 
   const globeEtag = etag(scripts.join('_'), { weak: true });
@@ -28,8 +27,6 @@ function generateGlobePage(req) {
 
   const cdnUrl = NO_CDN_COUNTRIES?.includes(req.ip.country)
     ? undefined : CDN_URL;
-
-  const { t } = getTTag(lang);
 
   const html = `<!doctype html>
     <html lang="${lang}">

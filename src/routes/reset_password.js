@@ -17,7 +17,9 @@ const router = express.Router();
 /*
  * decode form data to req.body
  */
-router.use(express.urlencoded({ extended: true }));
+router.use(express.urlencoded({
+  extended: true, limit: '500kB', parameterLimit: 20,
+}));
 
 
 /*

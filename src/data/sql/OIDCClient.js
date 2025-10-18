@@ -56,7 +56,7 @@ const OIDCClient = sequelize.define('OIDCClient', {
    */
   scope: {
     type: DataTypes.TEXT,
-    defaultValue: 'openid email profile',
+    defaultValue: 'openid profile email',
     allowNull: false,
   },
 
@@ -85,5 +85,39 @@ const OIDCClient = sequelize.define('OIDCClient', {
     allowNull: false,
   },
 });
+
+/**
+ * get OIDC client
+ * @param uuid client uuid, named client_id in auth requests
+ * @return clientModel {
+ *   id,
+ *   name,
+ *   scope: array of allowed scopes,
+ *   redirectUris: array of allowed redirect uris,
+ * }
+ */
+export async function getOIDCClient(uuid) {
+  if (!uuid) {
+    return null;
+  }
+  try {
+    const clientModel = await sequelize.query(
+      // eslint-disable-next-line max-len
+      'SELECT id, name, secret, redirectUris, scope, grantTypes, autoGrant FROM OIDCClients WHERE uuid = UUID_TO_BIN($1)', {
+        bind: [uuid],
+        type: QueryTypes.SELECT,
+        plain: true,
+      },
+    );
+    if (clientModel) {
+      clientModel.scope = clientModel.scope.split(' ');
+      clientModel.redirectUris = clientModel.redirectUris.split(' ');
+      return clientModel;
+    }
+  } catch (error) {
+    console.error(`SQL Error on getOIDCClient: ${error.message}`);
+  }
+  return null;
+}
 
 export default OIDCClient;

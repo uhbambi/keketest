@@ -32,6 +32,7 @@ const OIDCConsent = sequelize.define('OIDCConsent', {
 
   /*
    * scope actually requested for that user (subset of scope of client)
+   * space seperated list
    */
   scope: {
     type: DataTypes.TEXT,
@@ -46,12 +47,117 @@ const OIDCConsent = sequelize.define('OIDCConsent', {
   },
 
   /*
-   * user defined, same as refreshToken expiresMax
+   * user defined
    */
   expires: {
     type: DataTypes.DATE,
-    allowNull: false,
   },
+}, {
+  indexes: [{
+    unique: true,
+    name: 'uidcid',
+    fields: ['uid', 'cid'],
+  }],
 });
+
+/**
+ * check if user consented
+ * @param cid client id
+ * @param uid user id
+ * @return consentModel {
+ *   id,
+ *   cid,
+ *   uid,
+ *   scope: array of consented scopes, which could be more than client allows,
+ *   createdAt,
+ *   expires,
+ * }
+ */
+export async function hasUserConsent(cid, uid) {
+  if (!cid || !uid) {
+    return null;
+  }
+  try {
+    const consentModel = await sequelize.query(
+      // eslint-disable-next-line max-len
+      'SEELCT * FROM OIDCConsents WHERE cid = $1 AND uid = $2 AND (expires > NOW() OR expires IS NULL)', {
+        bind: [cid, uid],
+        type: QueryTypes.SELECT,
+        plain: true,
+      },
+    );
+    if (consentModel) {
+      consentModel.scope = consentModel.scope.split(' ');
+      return consentModel;
+    }
+  } catch (error) {
+    console.error(`SQL Error on getOIDCClient: ${error.message}`);
+  }
+  return null;
+}
+
+/**
+ * user consents to oidc client
+ * @param cid client id integer
+ * @param uid user id
+ * @param scope array of scopes
+ * @param expiresTs | null timestampe when consent expires
+ * @param existingConsent | null model of existing consent if we only add scope
+ * @return id | null consent id
+ */
+export async function consentUser(
+  cid, uid, scope, expiresTs, existingConsent = null,
+) {
+  try {
+    const expires = expiresTs && new Date(expiresTs);
+
+    /* if consent already exists, update existing consent */
+    if (existingConsent
+      && existingConsent.uid === uid && existingConsent.cid === cid
+    ) {
+      let modified = false;
+      for (let i = 0; i < scope.length; i += 1) {
+        if (!existingConsent.scope.has(scope[i])) {
+          existingConsent.scope.push(scope[i]);
+        }
+        modified = true;
+      }
+      const { id } = existingConsent;
+      if (modified) {
+        const scopeString = scope.sort().join(' ');
+        await sequelize.query(
+          'UPDATE OIDCConsents SET scope = ?, expires = ? WHERE id = ?', {
+            replacements: [scopeString, expires, id],
+            raw: true,
+            type: QueryTypes.UPDATE,
+          },
+        );
+      }
+      return id;
+    }
+
+    const scopeString = scope.sort().join(' ');
+    await sequelize.query(
+      // eslint-disable-next-line max-len
+      'INSERT INTO OIDCConsents (cid, uid, scope, expires, createdAt) VALUES (?, ?, ?, ?, NOW()) ON DUPLICATE KEY UPDATE scope = VALUES(scope), expires = VALUES(expires)', {
+        replacements: [cid, uid, scopeString, expires],
+        raw: true,
+        type: QueryTypes.INSERT,
+      },
+    );
+    const consentModel = await sequelize.query(
+      // eslint-disable-next-line max-len
+      'SELECT id FROM OIDCConsents WHERE cid = ?, uid = ?, scope = ? AND (expires > NOW() OR expires IS NULL)', {
+        replacements: [cid, uid, scopeString],
+        plain: true,
+        type: QueryTypes.SELECT,
+      },
+    );
+    return consentModel?.id;
+  } catch (error) {
+    console.error(`SQL Error on consent: ${error.message}`);
+  }
+  return null;
+}
 
 export default OIDCConsent;
