@@ -62,7 +62,9 @@ const logoStyle = {
   marginRight: 5,
 };
 
-const LogInForm = ({ title }) => {
+const LogInForm = ({
+  title, denyThirdParty, hideDurationSelection, onLoginSuccess,
+}) => {
   const [submitting, setSubmitting] = useState(false);
   const [errors, setErrors] = useState([]);
   const [success, setSuccess] = useState(false);
@@ -101,6 +103,9 @@ const LogInForm = ({ title }) => {
     if (respErrors) {
       setErrors(respErrors);
       return;
+    }
+    if (onLoginSuccess) {
+      onLoginSuccess();
     }
     dispatch(loginUser(me));
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -229,46 +234,52 @@ const LogInForm = ({ title }) => {
                   </span>
                 </p>
                 <h2>{t`or login with:`}</h2>
-                <a href={u`/api/auth/discord`}>
-                  <img
-                    style={logoStyle}
-                    width={32}
-                    src={cdn`/discordlogo.svg`}
-                    alt="Discord"
-                  />
-                </a>
-                <a href={u`/api/auth/google`}>
-                  <img
-                    style={logoStyle}
-                    width={32}
-                    src={cdn`/googlelogo.svg`}
-                    alt="Google"
-                  />
-                </a>
-                <a href={u`/api/auth/facebook`}>
-                  <img
-                    style={logoStyle}
-                    width={32}
-                    src={cdn`/facebooklogo.svg`}
-                    alt="Facebook"
-                  />
-                </a>
-                <a href={u`/api/auth/vk`}>
-                  <img
-                    style={logoStyle}
-                    width={32}
-                    src={cdn`/vklogo.svg`}
-                    alt="VK"
-                  />
-                </a>
-                <a href={u`/api/auth/reddit`}>
-                  <img
-                    style={logoStyle}
-                    width={32}
-                    src={cdn`/redditlogo.svg`}
-                    alt="Reddit"
-                  />
-                </a>
+                {(denyThirdParty) ? (
+                  <p>{t`Third Party LogIns are disabled for this action.`}</p>
+                ) : (
+                  <React.Fragment key="tp">
+                    <a href={u`/api/auth/discord`}>
+                      <img
+                        style={logoStyle}
+                        width={32}
+                        src={cdn`/discordlogo.svg`}
+                        alt="Discord"
+                      />
+                    </a>
+                    <a href={u`/api/auth/google`}>
+                      <img
+                        style={logoStyle}
+                        width={32}
+                        src={cdn`/googlelogo.svg`}
+                        alt="Google"
+                      />
+                    </a>
+                    <a href={u`/api/auth/facebook`}>
+                      <img
+                        style={logoStyle}
+                        width={32}
+                        src={cdn`/facebooklogo.svg`}
+                        alt="Facebook"
+                      />
+                    </a>
+                    <a href={u`/api/auth/vk`}>
+                      <img
+                        style={logoStyle}
+                        width={32}
+                        src={cdn`/vklogo.svg`}
+                        alt="VK"
+                      />
+                    </a>
+                    <a href={u`/api/auth/reddit`}>
+                      <img
+                        style={logoStyle}
+                        width={32}
+                        src={cdn`/redditlogo.svg`}
+                        alt="Reddit"
+                      />
+                    </a>
+                  </React.Fragment>
+                )}
                 <h2>{t`or register here:`}</h2>
                 <button
                   type="button"
@@ -371,7 +382,11 @@ const LogInForm = ({ title }) => {
                     type="password"
                     placeholder={t`Confirm Password`}
                   />
-                  <p>
+                  <p
+                    style={{
+                      visibility: (hideDurationSelection) ? 'hidden' : 'visible',
+                    }}
+                  >
                     {t`Stay logged in: `}
                     <select defaultValue={24 * 31} name="durationsel">
                       <option value={0}>{t`Until the browser closes`}</option>

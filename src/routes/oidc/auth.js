@@ -15,10 +15,12 @@ export default async (req, res) => {
   const {
     oidcUserId: uid,
     oidcClientModel: clientModel,
+    oidcAuthTime: sessionAge,
+    oidcNeedReauth: needReAuth,
   } = req;
 
   try {
-    if (uid) {
+    if (uid && !needReAuth) {
       /* client.id is a primary key integer client_id in request is an uuid */
       const consentModel = await hasUserConsent(uid, clientModel.id);
       let approvedConsentId;
@@ -52,7 +54,8 @@ export default async (req, res) => {
         /* consented without user input */
         const code = await createAuthCode(
           approvedConsentId, scope,
-          params.code_challenge, params.code_challenge_method, params.nonce,
+          params.code_challenge, params.code_challenge_method,
+          sessionAge, params.nonce,
         );
         if (code) {
           const responseParams = new URLSearchParams({ code });

@@ -6,6 +6,7 @@ import { HOUR, USER_FLAGS } from '../core/constants.js';
 import { TIMEBLOCK_USERS } from '../core/config.js';
 import {
   resolveSession, createSession, removeSession, resolveSessionUid,
+  resolveSessionUidAndAge,
 } from '../data/sql/Session.js';
 import { parseListOfBans } from '../data/sql/Ban.js';
 import { touchUser } from '../data/sql/User.js';
@@ -158,11 +159,23 @@ async function resolveSessionOfRequest(req) {
 /**
  * resolve only user id of session if possible
  * @param req express request
+ * @return uid
  */
 export async function resolveSessionUidOfRequest(req) {
   const cookies = parseCookie(req.headers.cookie || '');
   const token = unsign(cookies['ppfun.session']);
   return resolveSessionUid(token);
+}
+
+/**
+ * resolve age of session
+ * @param req express request
+ * @return age in seconds
+ */
+export async function resolveSessionUidAndAgeOfRequest(req) {
+  const cookies = parseCookie(req.headers.cookie || '');
+  const token = unsign(cookies['ppfun.session']);
+  return resolveSessionUidAndAge(token);
 }
 
 /*

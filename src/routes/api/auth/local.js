@@ -3,6 +3,7 @@
  */
 import logger from '../../../core/logger.js';
 import { getUsersByNameOrEmail } from '../../../data/sql/User.js';
+import { touchSession } from '../../../data/sql/Session.js';
 import { compareToHash } from '../../../utils/hash.js';
 
 import getMe from '../../../core/me.js';
@@ -42,12 +43,25 @@ export default async (req, res) => {
       }
     }
 
-    /* openSession() turns req.user into a full user object */
-    await openSession(req, res, user.id, durationHours);
-    // eslint-disable-next-line max-len
-    logger.info(`AUTH: Logged in user ${user.name}(${user.id}) by ${ip.ipString}`);
-    const me = await getMe(req.user, ip, req.lang);
+    if (req.user && req.user.id === user.id) {
+      /*
+       * if we are already logged in, we update the sessions creation time,
+       * this is used for reauthentification, which could be requested for old
+       * sessions
+       */
+      await touchSession(req.user.token);
+    } else {
+      /*
+       * new login
+       * openSession turns req.user into a full user object
+       */
+      await openSession(req, res, user.id, durationHours);
+      logger.info(
+        `AUTH: Logged in user ${user.name}(${user.id}) by ${ip.ipString}`,
+      );
+    }
 
+    const me = await getMe(req.user, ip, req.lang);
     res.json({
       success: true,
       me,

@@ -55,6 +55,7 @@ export default async (req, res) => {
   let returnRefreshToken = false;
   let returnData = false;
   let scope;
+  let authAge;
   let nonce;
   /* client id, integer not uuid like clientId */
   let clientIntId;
@@ -118,7 +119,9 @@ export default async (req, res) => {
     }
     returnRefreshToken = scope.includes('offline_access');
     returnData = true;
-    ({ scope, cid: consentId, uid, clientIntId, nonce } = authCodeModel);
+    ({
+      scope, cid: consentId, uid, clientIntId, authAge, nonce,
+    } = authCodeModel);
   } else {
     const error = new Error(`The grant type ${grantType} is not supported`);
     error.title = 'unsupported_grant_type';
@@ -172,7 +175,9 @@ export default async (req, res) => {
   }
 
   if (returnData && scope.includes('openid')) {
-    const idToken = await generateIdToken(uid, clientId, scope, payload, nonce);
+    const idToken = await generateIdToken(
+      uid, clientId, scope, payload, authAge, nonce,
+    );
     if (!idToken) {
       const error = new Error(
         'Server experienced an error on id_token creation',

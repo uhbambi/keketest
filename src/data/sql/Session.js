@@ -32,6 +32,12 @@ const Session = sequelize.define('Session', {
   expires: {
     type: DataTypes.DATE,
   },
+
+  createdAt: {
+    type: DataTypes.DATE,
+    defaultValue: DataTypes.NOW,
+    allowNull: false,
+  },
 });
 
 /**
@@ -92,7 +98,7 @@ export async function createSession(
 
     await sequelize.query(
       // eslint-disable-next-line max-len
-      'INSERT INTO Sessions (uid, token, expires, ip, country, did) VALUES (?,?,?,IP_TO_BIN(?),?,?)', {
+      'INSERT INTO Sessions (uid, token, expires, ip, country, did, createdAt) VALUES (?,?,?,IP_TO_BIN(?),?,?, NOW())', {
         replacements: [
           uid, generateTokenHash(token), expires,
           ip?.ipString, ip?.country || 'xx', deviceId,
@@ -124,6 +130,32 @@ export async function removeSession(token) {
     return count !== 0;
   } catch (error) {
     console.error(`SQL Error on removeSession: ${error.message}`);
+  }
+  return false;
+}
+
+/**
+ * touch session
+ * updates its createdAt, is used when reauthentifcation is requested for an
+ * old session
+ * @param token
+ * @return boolean success
+ */
+export async function touchSession(token) {
+  if (!token) {
+    return false;
+  }
+  try {
+    await sequelize.query(
+      'UPDATE Sessions SET createdAt = NOW() WHERE token = ?', {
+        replacements: [generateTokenHash(token)],
+        raw: true,
+        type: QueryTypes.UPDATE,
+      },
+    );
+    return true;
+  } catch (error) {
+    console.error(`SQL Error on touchSession: ${error.message}`);
   }
   return false;
 }
@@ -173,6 +205,33 @@ export async function resolveSessionUid(token) {
     console.error(`SQL Error on resolveSessionUid: ${error.message}`);
   }
   return null;
+}
+
+/**
+ * resolve uid and age of session of given token in seconds
+ * @param token
+ * @return [uid: number | null, age: number | null]
+ */
+export async function resolveSessionUidAndAge(token) {
+  if (!token) {
+    return [null, null];
+  }
+  try {
+    const session = await sequelize.query(
+      // eslint-disable-next-line max-len
+      'SELECT uid, createdAt FROM Sessions WHERE token = ? AND (expires > NOW() OR expires IS NULL)', {
+        replacements: [generateTokenHash(token)],
+        type: QueryTypes.SELECT,
+        plain: true,
+      },
+    );
+    if (session) {
+      return [session.uid, Math.floor(session.age.getTime() / 1000)];
+    }
+  } catch (error) {
+    console.error(`SQL Error on resolveSessionUid: ${error.message}`);
+  }
+  return [null, null];
 }
 
 /**

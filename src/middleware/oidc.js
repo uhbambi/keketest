@@ -2,7 +2,7 @@
  * middlewares and functions for OpenID Connect Routes
  */
 
-import { resolveSessionUidOfRequest } from './session.js';
+import { resolveSessionUidAndAgeOfRequest } from './session.js';
 import { getOIDCClient } from '../data/sql/OIDCClient.js';
 import { createJWT, hashValue } from '../core/jwt.js';
 import { OIDC_URL } from '../core/config.js';
@@ -17,10 +17,11 @@ import { USERLVL } from '../core/constants.js';
  * @param scopes
  * @param responsePayload payload we already have for whatever response we make,
  *   used to avoid double-fetching stuff
+ * @param authAge session age in seconds
  * @param nonce nonce | null
  */
 export async function generateIdToken(
-  uid, clientId, scope, responsePayload, nonce,
+  uid, clientId, scope, responsePayload, authAge, nonce,
 ) {
   const currentTsS = Math.floor(Date.now() / 1000);
   const payload = {
@@ -37,6 +38,9 @@ export async function generateIdToken(
   };
   if (nonce) {
     payload.nonce = nonce;
+  }
+  if (authAge) {
+    payload.auth_time = authAge;
   }
   if (responsePayload.access_token) {
     /*
@@ -128,6 +132,8 @@ export const validateAuthRequest = async (req, res, next) => {
      *   state: state to pass around against CSRF,
      *   nonce: only used for id_tokens to avoid replay attacks, we don't use
      *     id_tokens, so we ignore that
+     *   max_age: allowed age in second since last user authentification
+     *     (allowed session age)
      * }
      */
     const params = (req.method === 'GET') ? req.query : req.body;
@@ -166,8 +172,8 @@ export const validateAuthRequest = async (req, res, next) => {
       throw new Error('Nonce parameter too long, max length: 255');
     }
 
-    const [uid, clientModel] = await Promise.all([
-      resolveSessionUidOfRequest(req),
+    const [[uid, sessionAge], clientModel] = await Promise.all([
+      resolveSessionUidAndAgeOfRequest(req),
       getOIDCClient(clientId),
     ]);
     if (!clientModel) {
@@ -215,6 +221,8 @@ export const validateAuthRequest = async (req, res, next) => {
     params.code_challenge_method = codeChallengeMethod;
     req.oidcUserId = uid;
     req.oidcClientModel = clientModel;
+    req.oidcAuthTime = sessionAge;
+    req.oidcNeedReauth = Number(params.max_age) < sessionAge;
     next();
   } catch (error) {
     if (!error.title) {

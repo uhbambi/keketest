@@ -19,9 +19,14 @@ export default async (req, res) => {
   const {
     oidcUserId: uid,
     oidcClientModel: clientModel,
+    oidcAuthTime: sessionAge,
+    oidcNeedReauth: needReAuth,
   } = req;
   if (!uid) {
     throw new Error(t`Not logged in`);
+  }
+  if (needReAuth) {
+    throw new Error(t`Session is too old`);
   }
 
   let { expirationHours: expiration } = req.body;
@@ -50,7 +55,8 @@ export default async (req, res) => {
 
   const code = await createAuthCode(
     approvedConsentId, scope,
-    req.body.code_challenge, req.body.code_challenge_method, req.body.nonce,
+    req.body.code_challenge, req.body.code_challenge_method,
+    sessionAge, req.body.nonce,
   );
   if (!code) {
     throw new Error('Could not store AuthCode');

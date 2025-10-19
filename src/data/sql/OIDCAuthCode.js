@@ -45,6 +45,10 @@ const OIDCAuthCode = sequelize.define('OIDCAuthCode', {
     type: DataTypes.STRING(255),
   },
 
+  authAge: {
+    type: DataTypes.INTEGER.UNSIGNED,
+  },
+
   pkceChallenge: {
     type: DataTypes.STRING(255),
   },
@@ -74,10 +78,13 @@ const OIDCAuthCode = sequelize.define('OIDCAuthCode', {
  * @param scope array of scopes
  * @param pkceChallenge | null
  * @param pkceMethod | null
+ * @param authAge age of session
+ * @param nonce
  * @return code Authorization Code
  */
 export async function createAuthCode(
-  consentId, scope, pkceChallenge = null, pkceMethod = null, nonce = null,
+  consentId, scope,
+  pkceChallenge = null, pkceMethod = null, authAge = null, nonce = null,
 ) {
   try {
     const code = generateLargeToken();
@@ -86,10 +93,10 @@ export async function createAuthCode(
        * minimum 10 minues expiration time is OIDC recommendation
        */
       // eslint-disable-next-line max-len
-      'INSERT INTO OIDCAuthCodes (cid, code, scope, pkceChallenge, pkceMethod, nonce, expires, createdAt) VALUES (?, ?, ?, ?, ?, ?, NOW() + INTERVAL 12 MINUTE, NOW())', {
+      'INSERT INTO OIDCAuthCodes (cid, code, scope, pkceChallenge, pkceMethod, authAge, nonce, expires, createdAt) VALUES (?, ?, ?, ?, ?, ?, ?, NOW() + INTERVAL 12 MINUTE, NOW())', {
         replacements: [
           consentId, code, scope.sort().join(' '),
-          pkceChallenge, pkceMethod, nonce,
+          pkceChallenge, pkceMethod, authAge, nonce,
         ],
         raw: true,
         type: QueryTypes.INSERT,

@@ -28,6 +28,7 @@ const OIDCConsent = () => {
   /*
    * params includes everything the server parsed for oidc and gave us in
    * window.ssv.params, we return the same back
+   * additions: clientName needsReauthentication
    */
   const { params } = useContext(WindowContext);
 
@@ -111,7 +112,10 @@ const OIDCConsent = () => {
   const accountName = <><span className="statvalue">{name}</span>[{` ${username} `}]</>;
 
   return (
-    <LogInRequired title={t`Login to grant access to other application.`}>
+    <LogInRequired
+      title={t`Login to grant access to other application.`}
+      reauthenticate={params.needsReauthentication}
+    >
       <div style={{ textAlign: 'center' }}>
         <h2>{t`Login to other application`}</h2>
         <p>
