@@ -16,6 +16,7 @@ import resetPassword from './reset_password.js';
 import api from './api/index.js';
 import oidc from './oidc/index.js';
 
+import { createJWKS } from '../core/jwt.js';
 import { expressTTag } from '../middleware/ttag.js';
 import cors from '../middleware/cors.js';
 import { parseIP } from '../middleware/ip.js';
@@ -63,21 +64,35 @@ const expressStatic = express.static(
 if (OIDC_URL) {
   router.get('/.well-known/openid-configuration', (req, res) => {
     const baseUrl = OIDC_URL + BASENAME;
+    res.set({
+      'Cache-Control': `public, max-age=${24 * 3600}`,
+      'Access-Control-Allow-Origin': '*',
+    });
     res.json({
       issuer: OIDC_URL,
-      authorization_endpoint: `${baseUrl}/oidc`,
+      authorization_endpoint: `${baseUrl}/oidc/auth`,
       token_endpoint: `${baseUrl}/oidc/token`,
       userinfo_endpoint: `${baseUrl}/userinfo`,
+      jwks_uri: `${baseUrl}/.well-known/jwks.json`,
       response_types_supported: ['code'],
       grant_types_supported: ['authorization_code', 'refresh_token'],
       scopes_supported: [
         'openid', 'email', 'profile', 'offline_access', 'game_data',
         'achievements',
       ],
+      id_token_signing_alg_values_supported: ['RS256'],
       token_endpoint_auth_methods_supported: [
         'client_secret_basic', 'client_secret_post',
       ],
+      request_object_signing_alg_values_supported: ['none'],
     });
+  });
+  router.get('/.well-known/jwks.json', async (req, res) => {
+    res.set({
+      'Cache-Control': `public, max-age=${24 * 3600}`,
+      'Access-Control-Allow-Origin': '*',
+    });
+    res.json(await createJWKS());
   });
 }
 

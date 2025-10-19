@@ -4,7 +4,6 @@
 
 import fs from 'fs';
 import path from 'path';
-import process from 'process';
 import webpack from 'webpack';
 import GeneratePackageJsonPlugin from 'generate-package-json-webpack-plugin';
 import LicenseListWebpackPlugin from './scripts/LicenseListWebpackPlugin.cjs';

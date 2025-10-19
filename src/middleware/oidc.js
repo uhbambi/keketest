@@ -1,0 +1,226 @@
+/*
+ * middlewares and functions for OpenID Connect Routes
+ */
+
+import { resolveSessionUidOfRequest } from './session.js';
+import { getOIDCClient } from '../data/sql/OIDCClient.js';
+import { createJWT, hashValue } from '../core/jwt.js';
+import { OIDC_URL } from '../core/config.js';
+import { getUserOIDCProfile } from '../data/sql/User.js';
+
+import { USERLVL } from '../core/constants.js';
+
+/**
+ * generate openid id_token for user
+ * @param uid userId
+ * @param clientId the uuid of the client
+ * @param scopes
+ * @param responsePayload payload we already have for whatever response we make,
+ *   used to avoid double-fetching stuff
+ * @param nonce nonce | null
+ */
+export async function generateIdToken(
+  uid, clientId, scope, responsePayload, nonce,
+) {
+  const currentTsS = Math.floor(Date.now() / 1000);
+  const payload = {
+    /* oidc provider url */
+    iss: OIDC_URL,
+    /* unique user identifier */
+    sub: String(uid),
+    /* audience aka client_id */
+    aud: clientId,
+    /* expiration, one hour, same as access token */
+    exp: currentTsS + 3600,
+    /* date of issuence */
+    iat: currentTsS,
+  };
+  if (nonce) {
+    payload.nonce = nonce;
+  }
+  if (responsePayload.access_token) {
+    /*
+     * only relevant for response_type=id_token token
+     */
+    payload.at_hash = hashValue(responsePayload.access_token);
+  }
+  if (responsePayload.code) {
+    /*
+     * only relevant for response_type=code id_token
+     */
+    payload.c_hash = hashValue(responsePayload.code);
+  }
+
+  /*
+   * id_token will be populated with openid, profile and email related data,
+   * other scopes shall be handled on ./userinfo
+   */
+
+  let userProfileModel;
+
+  const { userlvl } = responsePayload;
+  if (!userlvl) {
+    userProfileModel = await getUserOIDCProfile(uid);
+    if (!userProfileModel) {
+      return null;
+    }
+  }
+  payload.userlvl = userlvl;
+  payload.verified = userlvl >= USERLVL.VERIFIED;
+
+  if (scope.includes('profile')) {
+    let {
+      name, preferred_username: username, updated_at: createdAt,
+    } = responsePayload;
+    if (!name || !username || !createdAt) {
+      if (!userProfileModel) {
+        userProfileModel = await getUserOIDCProfile(uid);
+        if (!userProfileModel) {
+          return null;
+        }
+      }
+      ({ name, username } = userProfileModel);
+      createdAt = Math.floor(userProfileModel.createdAt.getTime() / 1000);
+    }
+    payload.name = name;
+    payload.preferred_username = username;
+    payload.updated_at = createdAt;
+  }
+
+  if (scope.includes('email')) {
+    let { email, email_verified: verified } = responsePayload;
+    if (!email || (!verified && verified !== false)) {
+      if (!userProfileModel) {
+        userProfileModel = await getUserOIDCProfile(uid);
+        if (!userProfileModel) {
+          return null;
+        }
+        ({ email, verified } = userProfileModel);
+      }
+    }
+    payload.email = email;
+    payload.email_verified = verified;
+  }
+
+  return createJWT(payload);
+}
+
+/*
+ * both authorization request and the client consent request, send the same
+ * data and it shall be validated the same in both
+ */
+export const validateAuthRequest = async (req, res, next) => {
+  const { t } = req.ttag;
+  let redirectUri;
+
+  try {
+    /*
+     * minimum: {
+     *  response_type,
+     *  client_id,
+     *  redirect_url,
+     *  scope,
+     * }
+     * optional: {
+     *   code_challenge: PKCE challenge to verify same client requests token
+     *     that also requested the whole flow,
+     *   code_challenge_method,
+     *   state: state to pass around against CSRF,
+     *   nonce: only used for id_tokens to avoid replay attacks, we don't use
+     *     id_tokens, so we ignore that
+     * }
+     */
+    const params = (req.method === 'GET') ? req.query : req.body;
+    const {
+      response_type: responseType,
+      client_id: clientId,
+      code_challenge: codeChallenge,
+    } = params;
+    let {
+      scope,
+      code_challenge_method: codeChallengeMethod,
+    } = params;
+    ({ redirect_uri: redirectUri } = params);
+
+    if (responseType !== 'code') {
+      throw new Error(
+        t`This application uses a login method we do not support`,
+      );
+    }
+    if (!clientId) {
+      throw new Error(t`This application is not allowed to login`);
+    }
+    /* according to specs, method defaults to 'plain' */
+    if (codeChallenge && !codeChallengeMethod) {
+      codeChallengeMethod = 'plain';
+    }
+    if (codeChallengeMethod && (
+      codeChallengeMethod !== 'plain' || codeChallengeMethod !== 'S256'
+    )) {
+      throw new Error(
+        t`This application uses a PKCE method we do not support`,
+      );
+    }
+    /* limit nonce length */
+    if (params.nonce?.length > 255) {
+      throw new Error('Nonce parameter too long, max length: 255');
+    }
+
+    const [uid, clientModel] = await Promise.all([
+      resolveSessionUidOfRequest(req),
+      getOIDCClient(clientId),
+    ]);
+    if (!clientModel) {
+      const error = new Error(t`This application is not allowed to login`);
+      error.title = 'invalid_client';
+      error.status = 401;
+      throw error;
+    }
+    /*
+     * according to specs, if no redirect_uri is given and there is only one, we
+     * must use it
+     */
+    if (!redirectUri) {
+      if (clientModel.redirectUris.length === 1) {
+        [redirectUri] = clientModel.redirectUris;
+      } else {
+        throw new Error(
+          t`This application sent a faulty login request with no redirection`,
+        );
+      }
+    } else if (!clientModel.redirectUris.includes(redirectUri)) {
+      redirectUri = null;
+      throw new Error(t`This application redirects to an unallowed page`);
+    }
+    /*
+     * according to specs, we can do whatever we want if no scope is given, we
+     * let the client choose the default and if not, use empty
+     * NOTE that an empty scope is not openid, since openid requires the openid
+     * scope
+     */
+    if (!scope) {
+      scope = clientModel.defaultScope || [];
+    } else if (!Array.isArray(scope)) {
+      scope = scope.toLowerCase().split(' ');
+    }
+    /*
+     * sanitize scopes and go back to openid default if neccessary
+     */
+    scope = scope.filter((s) => clientModel.scope.includes(s));
+    /*
+     * overwrite values that might have changed
+     */
+    params.scope = scope;
+    params.redirect_uri = redirectUri;
+    params.code_challenge_method = codeChallengeMethod;
+    req.oidcUserId = uid;
+    req.oidcClientModel = clientModel;
+    next();
+  } catch (error) {
+    if (!error.title) {
+      error.title = 'invalid_request';
+    }
+    error.redirectUri = redirectUri;
+    throw error;
+  }
+};

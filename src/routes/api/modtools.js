@@ -7,6 +7,7 @@
 import express from 'express';
 import fileUpload from 'express-fileupload';
 
+import urlEncoded from '../../middleware/formData.js';
 import CanvasCleaner from '../../core/CanvasCleaner.js';
 import chatProvider from '../../core/ChatProvider.js';
 import { escapeMd } from '../../core/utils.js';
@@ -30,9 +31,7 @@ import { USERLVL } from '../../data/sql/index.js';
 
 const router = express.Router();
 
-router.use(express.urlencoded({
-  extended: true, limit: '500kB', parameterLimit: 20,
-}));
+router.use(urlEncoded);
 /*
  * parse multipart/form-data
  * ordinary fields will be under req.body[name]

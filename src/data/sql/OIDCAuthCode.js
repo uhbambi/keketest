@@ -33,12 +33,16 @@ const OIDCAuthCode = sequelize.define('OIDCAuthCode', {
   },
 
   /*
-   * scope actually requested for that user (subset of scope of client)
+   * scope actually approved that user (subset of scope of client)
    */
   scope: {
-    type: DataTypes.TEXT,
-    defaultValue: 'openid email profile',
+    // eslint-disable-next-line max-len
+    type: `${DataTypes.STRING(255)} CHARACTER SET ascii COLLATE ascii_general_ci`,
     allowNull: false,
+  },
+
+  nonce: {
+    type: DataTypes.STRING(255),
   },
 
   pkceChallenge: {
@@ -73,7 +77,7 @@ const OIDCAuthCode = sequelize.define('OIDCAuthCode', {
  * @return code Authorization Code
  */
 export async function createAuthCode(
-  consentId, scope, pkceChallenge = null, pkceMethod = null,
+  consentId, scope, pkceChallenge = null, pkceMethod = null, nonce = null,
 ) {
   try {
     const code = generateLargeToken();
@@ -82,9 +86,10 @@ export async function createAuthCode(
        * minimum 10 minues expiration time is OIDC recommendation
        */
       // eslint-disable-next-line max-len
-      'INSERT INTO OIDCAuthCodes (cid, code, scope, pkceChallenge, pkceMethod, expires) VALUES (?, ?, ?, ?, ?, NOW() + INTERVAL 12 MINUTE)', {
+      'INSERT INTO OIDCAuthCodes (cid, code, scope, pkceChallenge, pkceMethod, nonce, expires, createdAt) VALUES (?, ?, ?, ?, ?, ?, NOW() + INTERVAL 12 MINUTE, NOW())', {
         replacements: [
-          consentId, code, scope.join(' '), pkceChallenge, pkceMethod,
+          consentId, code, scope.sort().join(' '),
+          pkceChallenge, pkceMethod, nonce,
         ],
         raw: true,
         type: QueryTypes.INSERT,
@@ -93,6 +98,63 @@ export async function createAuthCode(
     return code;
   } catch (error) {
     console.error(`SQL Error on createAuthCode: ${error.message}`);
+  }
+  return null;
+}
+
+/**
+ * consume auth code
+ * @param cid client id
+ * @param uid user id
+ * @return {
+ *   cid,
+ *   uid,
+ *   pkceChallenge,
+ *   pkceMethod,
+ *   scope,
+ * }
+ */
+export async function consumeAuthCode(code) {
+  if (!code) {
+    return null;
+  }
+  try {
+    const authCodeModel = await sequelize.query(
+      // eslint-disable-next-line max-len
+      `SEELCT ac.id, ac.scope, ac.pkceChallenge, ac.pkceMethod, ac.nonce, co.scope AS consentedScope, co.uid, ac.cid, co.cid AS clientIntId FROM OIDCAuthCodes ac
+  INNER JOIN OIDCConsents co ON co.id = ac.cid
+WHERE code = $1 AND expires > NOW()`, {
+        bind: [code],
+        type: QueryTypes.SELECT,
+        plain: true,
+      },
+    );
+    if (authCodeModel) {
+      /*
+       * code is single-use
+       */
+      await sequelize.query(
+        'DELETE ac FROM OIDCAuthCodes ac WHERE id = $1', {
+          bind: [authCodeModel.id],
+          type: QueryTypes.DELETE,
+          raw: true,
+        },
+      );
+      delete authCodeModel.id;
+      /*
+       * make sure consent to scope is still given, afaik not required by spec
+       */
+      let { consentedScope } = authCodeModel;
+      consentedScope = consentedScope.split(' ');
+      authCodeModel.scope = authCodeModel.scope.split(' ').filter(
+        (s) => consentedScope.includes(s),
+      );
+      delete authCodeModel.consentedScope;
+
+      return authCodeModel;
+    }
+  } catch (error) {
+    console.error(`SQL Error on consumeRefreshToken: ${error.message}`);
   }
   return null;
 }

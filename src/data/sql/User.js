@@ -437,6 +437,30 @@ WHERE u.id = ? AND t.provider = 1 AND t.verified = ? LIMIT 1`, {
 }
 
 /**
+ * get basic profile info for openid
+ * @param id user id
+ * @return { name, username, mail, verified}
+ */
+export async function getUserOIDCProfile(id) {
+  try {
+    const result = await sequelize.query(
+      // eslint-disable-next-line max-len
+      `SELECT u.name, u.userlvl, u.username, u.createdAt, t.tpid AS email, t.verified FROM Users u
+  INNER JOIN ThreePIDs t ON t.uid = u.id
+WHERE u.id = ? AND t.provider = 1 ORDER BY t.verified DESC LIMIT 1`, {
+        replacements: [id],
+        plain: true,
+        type: QueryTypes.SELECT,
+      },
+    );
+    return result;
+  } catch (error) {
+    console.error(`SQL Error on getUserOIDCProfile: ${error.message}`);
+  }
+  return null;
+}
+
+/**
  * set one bit in flags of user
  * @param id user id
  * @param index index of flag (see order in Model definition up there)

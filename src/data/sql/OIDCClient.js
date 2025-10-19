@@ -2,15 +2,6 @@
  * store OIDC Relying Parties aka Clients aka other websites wanting to use our login
  */
 
-/*
- * recommended indexes
- CREATE INDEX idx_auth_codes_client_user ON oidc_authorization_codes(client_id, user_id);
- CREATE INDEX idx_access_tokens_token ON oidc_access_tokens(token);
- CREATE INDEX idx_access_tokens_user_client ON oidc_access_tokens(user_id, client_id);
- CREATE INDEX idx_refresh_tokens_token ON oidc_refresh_tokens(token);
- CREATE INDEX idx_auth_codes_expires ON oidc_authorization_codes(expires_at);
-*/
-
 import Sequelize, { DataTypes, QueryTypes, Op } from 'sequelize';
 
 import sequelize from './sequelize.js';
@@ -55,18 +46,18 @@ const OIDCClient = sequelize.define('OIDCClient', {
    * max scopes that client is allowed, user then can choose a subset
    */
   scope: {
-    type: DataTypes.TEXT,
+    // eslint-disable-next-line max-len
+    type: `${DataTypes.STRING(255)} CHARACTER SET ascii COLLATE ascii_general_ci`,
     defaultValue: 'openid profile email',
     allowNull: false,
   },
 
   /*
-   * how we exchange information
+   * scopes used when no scope is given
    */
-  grantTypes: {
-    type: DataTypes.STRING(500),
-    defaultValue: 'authorization_code refresh_token',
-    allowNull: false,
+  defaultScope: {
+    // eslint-disable-next-line max-len
+    type: `${DataTypes.STRING(255)} CHARACTER SET ascii COLLATE ascii_general_ci`,
   },
 
   /*
@@ -77,6 +68,10 @@ const OIDCClient = sequelize.define('OIDCClient', {
     type: DataTypes.BOOLEAN,
     defaultValue: false,
     allowNull: false,
+  },
+
+  lastUsed: {
+    type: DataTypes.DATE,
   },
 
   createdAt: {
@@ -103,7 +98,7 @@ export async function getOIDCClient(uuid) {
   try {
     const clientModel = await sequelize.query(
       // eslint-disable-next-line max-len
-      'SELECT id, name, secret, redirectUris, scope, grantTypes, autoGrant FROM OIDCClients WHERE uuid = UUID_TO_BIN($1)', {
+      'SELECT id, name, secret, redirectUris, scope, defaultScope, grantTypes, autoGrant FROM OIDCClients WHERE uuid = UUID_TO_BIN($1)', {
         bind: [uuid],
         type: QueryTypes.SELECT,
         plain: true,
@@ -118,6 +113,20 @@ export async function getOIDCClient(uuid) {
     console.error(`SQL Error on getOIDCClient: ${error.message}`);
   }
   return null;
+}
+
+export async function touchOIDCClient(id) {
+  try {
+    await sequelize.query(
+      'UPDATE OICDClients SET lastUsed = NOW() WHERE id = $1', {
+        bind: [id],
+        raw: true,
+        type: QueryTypes.UPDATE,
+      },
+    );
+  } catch (error) {
+    console.error(`SQL Error on touchOIDCClient: ${error.message}`);
+  }
 }
 
 export default OIDCClient;

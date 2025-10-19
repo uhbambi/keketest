@@ -31,12 +31,9 @@ const OIDCAccessToken = sequelize.define('OIDCAccessToken', {
     defaultValue: generateLargeToken,
   },
 
-  /*
-   * scope actually requested for that user (subset of scope of client)
-   */
   scope: {
-    type: DataTypes.TEXT,
-    defaultValue: 'openid email profile',
+    // eslint-disable-next-line max-len
+    type: `${DataTypes.STRING(255)} CHARACTER SET ascii COLLATE ascii_general_ci`,
     allowNull: false,
   },
 
@@ -54,5 +51,29 @@ const OIDCAccessToken = sequelize.define('OIDCAccessToken', {
     allowNull: false,
   },
 });
+
+/**
+ * create new Access Token
+ * @param consentId OIDCConsent id
+ * @param scope array of scopes
+ * @return token
+ */
+export async function createAccessToken(consentId, scope) {
+  try {
+    const token = generateLargeToken();
+    await sequelize.query(
+      // eslint-disable-next-line max-len
+      'INSERT INTO OIDCAccessTokens (cid, token, scope, expires, createdAt) VALUES (?, ?, ?, NOW() + 1 HOUR, NOW())', {
+        replacements: [consentId, token, scope.sort().join(' ')],
+        raw: true,
+        type: QueryTypes.INSERT,
+      },
+    );
+    return token;
+  } catch (error) {
+    console.error(`SQL Error on createAccessToken: ${error.message}`);
+  }
+  return null;
+}
 
 export default OIDCAccessToken;

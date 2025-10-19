@@ -10,11 +10,13 @@ import { ASSET_DIR } from './config.js';
 class FsWatcher {
   #path;
   #timeout = null;
+  #watcher = null;
   #listeners = [];
   filetypes;
   delay;
 
-  constructor(watchPath, { delay = 5000, filetypes = [] }) {
+  constructor(watchPath, options = {}) {
+    const { delay = 5000, filetypes = [] } = options;
     if (!watchPath) {
       throw new Error('Must define a path to watch');
     }
@@ -26,7 +28,7 @@ class FsWatcher {
 
   initialize() {
     const watchPath = this.#path;
-    fs.watch(watchPath, (eventType, filename) => {
+    this.#watcher = fs.watch(watchPath, (eventType, filename) => {
       if (filename && this.filetypes.length) {
         const ext = filename.split('.').pop();
         if (!this.filetypes.includes(ext)) {
@@ -37,10 +39,14 @@ class FsWatcher {
         clearTimeout(this.#timeout);
       }
       this.#timeout = setTimeout(() => {
-        logger.info('ASSET CHANGE, detected change in asset files');
+        logger.info(`FILE CHANGE, detected change in ${watchPath}`);
         this.#listeners.forEach((cb) => cb(eventType, filename));
       }, this.delay);
     });
+  }
+
+  destructor() {
+    this.#watcher?.close();
   }
 
   onChange(cb) {
@@ -48,8 +54,9 @@ class FsWatcher {
   }
 }
 
-const assetWatcher = new FsWatcher(
-  path.join(__dirname, 'public', ASSET_DIR),
+export const assetWatcher = new FsWatcher(
+  path.resolve('public', ASSET_DIR),
   { filetypes: ['js', 'css'] },
 );
-export default assetWatcher;
+
+export default FsWatcher;

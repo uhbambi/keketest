@@ -4,7 +4,7 @@
  *
  */
 
-import assetWatcher from './core/fsWatcher.js';
+import { assetWatcher } from './core/fsWatcher.js';
 import canvases, { defaultCanvasForCountry } from './core/canvases.js';
 import ttag from './middleware/ttag.js';
 

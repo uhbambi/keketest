@@ -3,7 +3,7 @@
  */
 import { TTag } from 'ttag';
 
-import assetWatcher from '../core/fsWatcher.js';
+import { assetWatcher } from '../core/fsWatcher.js';
 import { getLangsOfJsAsset } from '../core/assets.js';
 import lccc from '../../i18n/lccc.json';
 

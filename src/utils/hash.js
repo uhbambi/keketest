@@ -1,6 +1,7 @@
 /*
  * Cryptographic hashing
  */
+
 import bcrypt from 'bcrypt';
 import { timingSafeEqual, createHash, randomBytes, createHmac } from 'crypto';
 
@@ -22,6 +23,7 @@ export function compareToHash(password, hash) {
 /*
  * compare password to hash, returning translated error string if false
  */
+
 export function comparePasswordToHash(password, hash, t) {
   if (compareToHash(password, hash)) {
     return null;
@@ -55,6 +57,29 @@ export function generateTokenHash(token) {
  */
 export function generateLargeToken() {
   return randomBytes(60).toString('base64url');
+}
+
+/**
+ * pkce challenge
+ * @return boolean if passed
+ */
+export function validatePkceChallenge(verifier, challenge, method = 'plain') {
+  if (!verifier || !challenge) {
+    return false;
+  }
+  switch (method) {
+    case 'plain':
+      return verifier === challenge;
+    case 'S256': {
+      return createHash('sha256').update(verifier)
+        .digest('base64')
+        .replace(/\+/g, '-')
+        .replace(/\//g, '_')
+        .replace(/=/g, '') === challenge;
+    }
+    default:
+      return false;
+  }
 }
 
 /*

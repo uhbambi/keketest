@@ -6,6 +6,7 @@
 import express from 'express';
 
 import logger from '../core/logger.js';
+import urlEncoded from '../middleware/formData.js';
 import getPasswordResetHtml from '../ssr/PasswordReset.jsx';
 import { validateEMail } from '../utils/validation.js';
 import { checkCode } from '../data/redis/mailCodes.js';
@@ -14,19 +15,12 @@ import { getUserByEmail, setPassword } from '../data/sql/User.js';
 
 const router = express.Router();
 
-/*
- * decode form data to req.body
- */
-router.use(express.urlencoded({
-  extended: true, limit: '500kB', parameterLimit: 20,
-}));
-
 
 /*
  * Check for POST parameters,
  * if invalid password is given, ignore it and go to next
  */
-router.post('/', async (req, res) => {
+router.post('/', urlEncoded, async (req, res) => {
   req.tickRateLimiter(10000);
 
   const {

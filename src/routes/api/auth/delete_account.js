@@ -67,7 +67,6 @@ export default async (req, res) => {
 
   deleteUserFromRanks(user.id);
 
-  res.status(200);
   res.json({
     success: true,
   });

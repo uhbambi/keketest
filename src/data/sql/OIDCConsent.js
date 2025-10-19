@@ -35,12 +35,12 @@ const OIDCConsent = sequelize.define('OIDCConsent', {
    * space seperated list
    */
   scope: {
-    type: DataTypes.TEXT,
-    defaultValue: 'openid email profile',
+    // eslint-disable-next-line max-len
+    type: `${DataTypes.STRING(255)} CHARACTER SET ascii COLLATE ascii_general_ci`,
     allowNull: false,
   },
 
-  createdAt: {
+  consentedAt: {
     type: DataTypes.DATE,
     defaultValue: DataTypes.NOW,
     allowNull: false,
@@ -69,7 +69,7 @@ const OIDCConsent = sequelize.define('OIDCConsent', {
  *   cid,
  *   uid,
  *   scope: array of consented scopes, which could be more than client allows,
- *   createdAt,
+ *   consentedAt,
  *   expires,
  * }
  */
@@ -139,7 +139,7 @@ export async function consentUser(
     const scopeString = scope.sort().join(' ');
     await sequelize.query(
       // eslint-disable-next-line max-len
-      'INSERT INTO OIDCConsents (cid, uid, scope, expires, createdAt) VALUES (?, ?, ?, ?, NOW()) ON DUPLICATE KEY UPDATE scope = VALUES(scope), expires = VALUES(expires)', {
+      'INSERT INTO OIDCConsents (cid, uid, scope, expires, consentedAt) VALUES (?, ?, ?, ?, NOW()) ON DUPLICATE KEY UPDATE scope = VALUES(scope), expires = VALUES(expires), consentedAt = VALUES(consentedAt)', {
         replacements: [cid, uid, scopeString, expires],
         raw: true,
         type: QueryTypes.INSERT,

@@ -30,6 +30,13 @@ import { SECOND } from './core/constants.js';
 
 import startAllCanvasLoops from './core/tileserver.js';
 
+/*
+ * in final bundle make sure to cd to dir of script, just because
+ */
+if (process.env.NODE_ENV && __dirname) {
+  process.chdir(__dirname);
+}
+
 const app = express();
 app.disable('x-powered-by');
 

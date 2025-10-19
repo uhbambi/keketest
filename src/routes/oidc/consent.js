@@ -3,6 +3,7 @@
  * page
  */
 
+import { touchOIDCClient } from '../../data/sql/OIDCClient.js';
 import { consentUser } from '../../data/sql/OIDCConsent.js';
 import { createAuthCode } from '../../data/sql/OIDCAuthCode.js';
 
@@ -43,12 +44,20 @@ export default async (req, res) => {
   if (!approvedConsentId) {
     throw new Error('Could not store Consent');
   }
+
+  /* touch OIDCClient */
+  touchOIDCClient(clientModel.id);
+
   const code = await createAuthCode(
     approvedConsentId, scope,
-    req.body.code_challenge, req.body.code_challenge_method,
+    req.body.code_challenge, req.body.code_challenge_method, req.body.nonce,
   );
   if (!code) {
     throw new Error('Could not store AuthCode');
   }
-  res.status(200).json({ code });
+  res.set({
+    'Cache-Control': 'no-cache, no-store, must-revalidate',
+    Expires: '0',
+  });
+  res.json({ code });
 };

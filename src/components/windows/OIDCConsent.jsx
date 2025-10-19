@@ -42,7 +42,7 @@ const OIDCConsent = () => {
   const scopes = useMemo(() => params.scope?.map((s) => {
     switch (s) {
       case 'profile':
-        return [s, t`Read Name, verification status and account type`];
+        return [s, t`Read name, username and account age`];
       case 'email':
         return [s, t`Read Email`];
       case 'game_data':
@@ -52,7 +52,7 @@ const OIDCConsent = () => {
       case 'offline_access':
         return [s, t`Regular update this data`];
       case 'openid':
-        return [s, t`User id and verification status (usually required)`];
+        return [s, t`User ID and verification level (usually required)`];
       default:
         return [s, s];
     }
@@ -165,7 +165,7 @@ const OIDCConsent = () => {
           disabled={submitting}
           onClick={() => {
             const urlParams = new URLSearchParams({
-              error: 'access_denied',
+              error: 'invalid_request',
               error_description: t`You did not consent`,
             });
             if (params.state) {
@@ -181,7 +181,7 @@ const OIDCConsent = () => {
           disabled={submitting}
           onClick={submitConsent}
         >
-          {(submitting) ? '...' : t`Give Allowance`}
+          {(submitting) ? '...' : t`Grant`}
         </button>
       </div>
     </LogInRequired>
