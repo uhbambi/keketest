@@ -3,6 +3,7 @@ import express from 'express';
 import logger from '../../../core/logger.js';
 import passport from '../../../core/passport.js';
 import { ensureLoggedIn, openSession } from '../../../middleware/session.js';
+import socketEvents from '../../../socket/socketEvents.js';
 
 import register from './register.js';
 import verify from './verify.js';
@@ -44,6 +45,7 @@ const openSessionOnReturn = async (req, res) => {
   const { user } = req;
   /* openSession() turns req.user into a full user object */
   await openSession(req, res, user.id, 168);
+  socketEvents.reloadIP(req.ip.ipString, true);
   res.redirect('/');
 };
 

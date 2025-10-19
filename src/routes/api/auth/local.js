@@ -5,6 +5,7 @@ import logger from '../../../core/logger.js';
 import { getUsersByNameOrEmail } from '../../../data/sql/User.js';
 import { touchSession } from '../../../data/sql/Session.js';
 import { compareToHash } from '../../../utils/hash.js';
+import socketEvents from '../../../socket/socketEvents.js';
 
 import getMe from '../../../core/me.js';
 import { openSession } from '../../../middleware/session.js';
@@ -56,6 +57,7 @@ export default async (req, res) => {
        * openSession turns req.user into a full user object
        */
       await openSession(req, res, user.id, durationHours);
+      socketEvents.reloadIP(ip.ipString, true);
       logger.info(
         `AUTH: Logged in user ${user.name}(${user.id}) by ${ip.ipString}`,
       );
