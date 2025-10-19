@@ -72,7 +72,7 @@ if (OIDC_URL) {
       issuer: OIDC_URL,
       authorization_endpoint: `${baseUrl}/oidc/auth`,
       token_endpoint: `${baseUrl}/oidc/token`,
-      userinfo_endpoint: `${baseUrl}/userinfo`,
+      userinfo_endpoint: `${baseUrl}/oidc/userinfo`,
       jwks_uri: `${baseUrl}/.well-known/jwks.json`,
       response_types_supported: ['code'],
       grant_types_supported: ['authorization_code', 'refresh_token'],

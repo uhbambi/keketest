@@ -2,7 +2,7 @@
  * store OIDC Relying Parties aka Clients aka other websites wanting to use our login
  */
 
-import Sequelize, { DataTypes, QueryTypes, Op } from 'sequelize';
+import { DataTypes, QueryTypes } from 'sequelize';
 
 import sequelize from './sequelize.js';
 import { generateUUID, generateToken } from '../../utils/hash.js';

@@ -3,7 +3,7 @@
  * remembered to silently approve of previously given allowances again
  */
 
-import Sequelize, { DataTypes, QueryTypes, Op } from 'sequelize';
+import { DataTypes, QueryTypes } from 'sequelize';
 
 import sequelize from './sequelize.js';
 

@@ -4,7 +4,7 @@
  * use data, they are short-lived
  */
 
-import Sequelize, { DataTypes, QueryTypes, Op } from 'sequelize';
+import { DataTypes, QueryTypes } from 'sequelize';
 
 import sequelize from './sequelize.js';
 import { generateLargeToken } from '../../utils/hash.js';
@@ -72,6 +72,41 @@ export async function createAccessToken(consentId, scope) {
     return token;
   } catch (error) {
     console.error(`SQL Error on createAccessToken: ${error.message}`);
+  }
+  return null;
+}
+
+
+/**
+ * get scope and uid of access token
+ * @param cid client id
+ * @param uid user id
+ * @return {
+ *   uid,
+ *   scope,
+ * }
+ */
+export async function getAccessToken(token) {
+  if (!token) {
+    return null;
+  }
+  try {
+    const accessModel = await sequelize.query(
+      // eslint-disable-next-line max-len
+      `SEELCT t.scope, co.uid FROM OIDCAccessTokens t
+  INNER JOIN OIDCConsents co ON co.id = t.cid
+WHERE token = $1 AND expires > NOW()`, {
+        bind: [token],
+        type: QueryTypes.SELECT,
+        plain: true,
+      },
+    );
+    if (accessModel) {
+      accessModel.scope = accessModel.scope.split(' ');
+      return accessModel;
+    }
+  } catch (error) {
+    console.error(`SQL Error on consumeRefreshToken: ${error.message}`);
   }
   return null;
 }

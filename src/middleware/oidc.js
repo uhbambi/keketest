@@ -5,9 +5,9 @@
 import { resolveSessionUidAndAgeOfRequest } from './session.js';
 import { getOIDCClient } from '../data/sql/OIDCClient.js';
 import { createJWT, hashValue } from '../core/jwt.js';
-import { OIDC_URL } from '../core/config.js';
 import { getUserOIDCProfile } from '../data/sql/User.js';
 
+import { OIDC_URL } from '../core/config.js';
 import { USERLVL } from '../core/constants.js';
 
 /**

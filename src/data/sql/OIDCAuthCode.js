@@ -5,7 +5,7 @@
  * They are single-time use.
  */
 
-import Sequelize, { DataTypes, QueryTypes, Op } from 'sequelize';
+import { DataTypes, QueryTypes } from 'sequelize';
 
 import sequelize from './sequelize.js';
 import { generateLargeToken } from '../../utils/hash.js';

@@ -11,6 +11,7 @@ import { validateAuthRequest } from '../../middleware/oidc.js';
 import auth from './auth.js';
 import consent from './consent.js';
 import token from './token.js';
+import userinfo from './userinfo.js';
 
 const router = express.Router();
 
@@ -35,21 +36,8 @@ router.use('/auth', validateAuthRequest, auth, errorPage);
 router.post('/token', token);
 
 /*
- * oidc json response error responses
+ * relying party userinfo requests
  */
-router.use((err, req, res, next) => {
-  if (res.headersSent) {
-    next(err);
-    return;
-  }
-  res.set({
-    'Cache-Control': 'no-cache, no-store, must-revalidate',
-    Expires: '0',
-  });
-  res.status(err.status || 400).json({
-    error: err.title || 'invalid_request',
-    error_description: err.message,
-  });
-});
+router.use('/userinfo', userinfo);
 
 export default router;
