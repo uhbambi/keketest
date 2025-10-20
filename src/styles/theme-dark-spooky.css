@@ -165,7 +165,7 @@ tr:nth-child(odd) {
   background-color: #ff1818f2;
 }
 
-.modal, .Alert {
+.modal, .Alert, .popup-modal {
   background: rgb(68,2,2);
   background-image: url(/pumpkin-texture.png);
   background-size: cover;

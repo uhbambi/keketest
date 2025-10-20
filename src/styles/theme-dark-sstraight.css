@@ -118,12 +118,12 @@ tr:nth-child(even) {
   border-top: thin solid #ffa14c;
 }
 
-.modal, .Alert {
+.modal, .Alert, .popup-modal {
   background: #262626 none repeat scroll 0 0;;
   color: #ff8c22;
 }
 
-.modal {
+.modal, .popup-modal {
   border-radius: 15px;
 }
 

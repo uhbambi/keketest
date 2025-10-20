@@ -626,7 +626,33 @@ tr:nth-child(even) {
 .popup {
   width: 100%;
   height: 100%;
-  background-color: rgba(252, 252, 252, 0.98);
+  background-color: rgba(62, 24, 24, 0.98);
+}
+
+.popup-modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  right: auto;
+  height: 80%;
+  width: 70%;
+  max-height: 900px;
+  max-width: 800px;
+  z-index: 5;
+  padding: 0px 5px 5px 5px;
+  bottom: auto;
+  border: 1px solid rgb(204, 204, 204);
+  background: rgb(255, 255, 255) none repeat scroll 0% 0%;
+  border-radius: 4px;
+  outline: currentcolor none medium;
+  transform: translate(-50%, -50%);
+}
+
+.popup-content {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow-y: auto;
 }
 
 .modal-content {
@@ -642,12 +668,6 @@ tr:nth-child(even) {
   width: calc(100% - 4px);
   height: calc(100% - 27px);
   left: 2px;
-  overflow-y: auto;
-}
-
-.popup-content {
-  width: 100%;
-  height: 100%;
   overflow-y: auto;
 }
 
@@ -815,6 +835,28 @@ tr:nth-child(even) {
 
   .overlay {
     display: none;
+  }
+}
+
+@media (max-width: 750px) {
+  .popup-modal {
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    right: 0px;
+    bottom: 0px;
+    transform: none;
+    max-width: none;
+    max-height: none;
+    outline: none;
+    border: none;
+    border-radius: inherit !important;
+  }
+
+  .popup-modal {
+    height: 100%;
+    width: 100%;
+    padding: 0;
   }
 }
 

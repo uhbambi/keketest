@@ -34,14 +34,14 @@ const UIPopUp = () => {
   }), [args, dispatch]);
 
   return (
-    <div
-      className="popup-content"
-    >
-      <WindowContext.Provider value={contextData}>
-        {(windowType)
-          ? <Content />
-          : <h1>Loading</h1>}
-      </WindowContext.Provider>
+    <div className="popup-modal">
+      <div className="popup-content">
+        <WindowContext.Provider value={contextData}>
+          {(windowType)
+            ? <Content />
+            : <h1>Loading</h1>}
+        </WindowContext.Provider>
+      </div>
     </div>
   );
 };

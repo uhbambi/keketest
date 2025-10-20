@@ -45,7 +45,7 @@ tr:nth-child(even) {
   background-color: #505050;
 }
 
-.window, .popup {
+.window {
   background-color: rgba(59, 59, 59, 0.98);
   color: #f4f4f4;
 }
@@ -113,12 +113,12 @@ tr:nth-child(even) {
   background-color: #15374fd1;
 }
 
-.modal, .Alert {
+.modal, .Alert, .popup-modal {
   background: #444242 none repeat scroll 0 0;;
   color: #f4f4f4;
 }
 
-.modal {
+.modal, .popup-modal {
   border-radius: 21px;
 }
 
