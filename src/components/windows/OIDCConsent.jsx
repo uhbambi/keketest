@@ -33,7 +33,7 @@ const OIDCConsent = () => {
   /*
    * params includes everything the server parsed for oidc and gave us in
    * window.ssv.params, we return the same back
-   * additions: clientName needsReauthentication
+   * additions: clientName needsReauthentication requiredScopes
    */
   const { params } = useContext(WindowContext);
 
@@ -46,21 +46,22 @@ const OIDCConsent = () => {
   }, [params]);
 
   const scopes = useMemo(() => params.scope?.map((s) => {
+    const required = params.requiredScopes.includes(s);
     switch (s) {
       case 'profile':
-        return [s, t`Read name, username and account age`];
+        return [s, t`Read name, username and account age`, required];
       case 'email':
-        return [s, t`Read Email`];
+        return [s, t`Read Email`, required];
       case 'game_data':
-        return [s, t`Read Pixels placed`];
+        return [s, t`Read Pixels placed`, required];
       case 'achievements':
-        return [s, t`Read Badges and fishes`];
+        return [s, t`Read Badges and fishes`, required];
       case 'offline_access':
-        return [s, t`Regular update this data`];
+        return [s, t`Regular update this data`, required];
       case 'openid':
-        return [s, t`User ID and verification level (usually required)`];
+        return [s, t`User ID and verification level`, required];
       default:
-        return [s, s];
+        return [s, s, required];
     }
   }), [params]);
 
@@ -150,12 +151,14 @@ const OIDCConsent = () => {
             </tr>
           </thead>
           <tbody>
-            {scopes?.map(([scope, description]) => (
+            {scopes?.map(([scope, description, required]) => (
               <tr key={scope}>
                 <th>
                   <input
                     type="checkbox"
                     value={scope}
+                    disabled={required}
+                    title={required ? t`This permission is required` : t`Check to allow`}
                     checked={consentedScopes.includes(scope)}
                     onChange={consentScope}
                   />

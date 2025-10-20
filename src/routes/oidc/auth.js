@@ -77,6 +77,17 @@ export default async (req, res) => {
     }
 
     /*
+     * Required scopes, if its an openid connect request it does require the
+     * 'openid' scope.
+     * TODO there are grants where you can set things on required according to
+     * specs, we might choose supporting that
+     */
+    const requiredScopes = [];
+    if (scope.indexOf('openid')) {
+      requiredScopes.push('openid');
+    }
+
+    /*
      * print consent page
      * it is handled like any other popup, however, its not under
      * AVAILABLE_POPUPS because it is handled here, not by main routes, to do
@@ -88,6 +99,7 @@ export default async (req, res) => {
       ...params,
       clientName: clientModel.name,
       needsReauthentication: needReAuth,
+      requiredScopes,
     });
     res.set({
       'Cache-Control': 'private, no-cache', // seconds
