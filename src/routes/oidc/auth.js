@@ -10,7 +10,7 @@ import generatePopUpPage from '../../ssr/PopUp.jsx';
 
 export default async (req, res) => {
   const params = (req.method === 'GET') ? req.query : req.body;
-  const { redirect_uri: redirectUri } = params;
+  const { redirect_uri: redirectUri, prompt } = params;
   let { scope } = params;
   const {
     oidcUserId: uid,
@@ -66,6 +66,14 @@ export default async (req, res) => {
           return;
         }
       }
+    }
+
+    if (prompt === 'none') {
+      const { t } = req.ttag;
+      const error = new Error(t`Login is required`);
+      error.title = 'login_required';
+      error.status = 401;
+      throw error;
     }
 
     /*

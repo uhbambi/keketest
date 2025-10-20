@@ -134,6 +134,7 @@ export const validateAuthRequest = async (req, res, next) => {
      *     id_tokens, so we ignore that
      *   max_age: allowed age in second since last user authentification
      *     (allowed session age)
+     *   prompt: 'none', 'login', 'consent', 'select_account'
      * }
      */
     const params = (req.method === 'GET') ? req.query : req.body;
@@ -222,7 +223,8 @@ export const validateAuthRequest = async (req, res, next) => {
     req.oidcUserId = uid;
     req.oidcClientModel = clientModel;
     req.oidcAuthTime = sessionAge;
-    req.oidcNeedReauth = Number(params.max_age) < sessionAge;
+    req.oidcNeedReauth = Number(params.max_age) < sessionAge
+      || params.prompt === 'login';
     next();
   } catch (error) {
     if (!error.title) {
