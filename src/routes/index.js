@@ -190,7 +190,7 @@ router.get('/globe', (req, res) => {
 //
 // PopUps
 // -----------------------------------------------------------------------------
-router.get(
+router.use(
   AVAILABLE_POPUPS.map((p) => `/${p.toLowerCase()}`),
   (req, res) => {
     req.tickRateLimiter(3000);
