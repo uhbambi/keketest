@@ -225,9 +225,13 @@ export function ensureLoggedIn(req, res, next) {
  * @param res express response object
  * @param userId user id
  * @param durationHours how long session is valid in hours or null for permanent
- * @return boolean if successful
+ * @param noCookie skip setting cookies, in case we are only interested in
+ *   the token
+ * @return token | null
  */
-export async function openSession(req, res, userId, durationHours = 720) {
+export async function openSession(
+  req, res, userId, durationHours = 720, noCookie = false,
+) {
   const { ip, lang } = req;
   let domain = ip.getHost(false, true);
   const portSeperator = domain.lastIndexOf(':');
@@ -239,13 +243,13 @@ export async function openSession(req, res, userId, durationHours = 720) {
     userId, durationHours, ip, req.device,
   );
   if (!token) {
-    return false;
+    return null;
   }
 
   const userData = await resolveSession(token);
   if (!userData) {
     delete req.user;
-    return false;
+    return null;
   }
   req.user = new User(userData, token);
 
@@ -258,20 +262,21 @@ export async function openSession(req, res, userId, durationHours = 720) {
 
   const cookieOptions = { domain, httpOnly: true, secure: false };
 
-  if (durationHours === null) {
-    /* a permanent cookie is just a cookie that expires really late */
-    durationHours = 24 * 365 * 15;
+  if (!noCookie) {
+    if (durationHours === null) {
+      /* a permanent cookie is just a cookie that expires really late */
+      durationHours = 24 * 365 * 15;
+    }
+    /*
+    * if durationHours is 0, we don't set expire, which makes it expire on
+    * closing the browser
+    */
+    if (durationHours) {
+      cookieOptions.expires = new Date(Date.now() + durationHours * HOUR);
+    }
+    res.cookie('ppfun.session', sign(token), cookieOptions);
   }
-  /*
-   * if durationHours is 0, we don't set expire, which makes it expire on
-   * closing the browser
-   */
-  if (durationHours) {
-    cookieOptions.expires = new Date(Date.now() + durationHours * HOUR);
-  }
-
-  res.cookie('ppfun.session', sign(token), cookieOptions);
-  return true;
+  return token;
 }
 
 export function clearCookie(req, res) {

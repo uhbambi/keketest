@@ -302,11 +302,14 @@ export function requestMailChange(email, password) {
   );
 }
 
-export function requestLogin(nameoremail, password, durationsel) {
-  return makeAPIPOSTRequest(
-    '/api/auth/local',
-    { nameoremail, password, durationsel },
-  );
+export function requestLogin(
+  nameoremail, password, durationsel, returnToken,
+) {
+  const data = { nameoremail, password, durationsel };
+  if (returnToken) {
+    data.returnToken = true;
+  }
+  return makeAPIPOSTRequest('/api/auth/local', data);
 }
 
 export function requestRegistration(

@@ -79,6 +79,7 @@ export default async (req, res) => {
     const { html, etag: winEtag } = generatePopUpPage(req, {
       ...params,
       clientName: clientModel.name,
+      needsReauthentication: needReAuth,
     });
     res.set({
       'Cache-Control': 'private, no-cache', // seconds

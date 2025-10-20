@@ -135,32 +135,6 @@ export async function removeSession(token) {
 }
 
 /**
- * touch session
- * updates its createdAt, is used when reauthentifcation is requested for an
- * old session
- * @param token
- * @return boolean success
- */
-export async function touchSession(token) {
-  if (!token) {
-    return false;
-  }
-  try {
-    await sequelize.query(
-      'UPDATE Sessions SET createdAt = NOW() WHERE token = ?', {
-        replacements: [generateTokenHash(token)],
-        raw: true,
-        type: QueryTypes.UPDATE,
-      },
-    );
-    return true;
-  } catch (error) {
-    console.error(`SQL Error on touchSession: ${error.message}`);
-  }
-  return false;
-}
-
-/**
  * remove session by id
  * @param id session id
  * @return boolean success

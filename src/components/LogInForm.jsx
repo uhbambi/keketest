@@ -63,7 +63,11 @@ const logoStyle = {
 };
 
 const LogInForm = ({
-  title, denyThirdParty, hideDurationSelection, onLoginSuccess,
+  /*
+   * on reauthenticate, we do not set cookies and get the token directly, which
+   * is used for forced OpenID login window
+   */
+  title, onLoginSuccess, reauthenticate,
 }) => {
   const [submitting, setSubmitting] = useState(false);
   const [errors, setErrors] = useState([]);
@@ -87,7 +91,7 @@ const LogInForm = ({
     }
     const nameoremail = evt.target.nameoremail.value;
     const password = evt.target.password.value;
-    const durationsel = evt.target.durationsel.value;
+    const durationsel = (reauthenticate) ? '1' : evt.target.durationsel.value;
 
     const valErrors = validateLogin(nameoremail, password);
     if (valErrors.length > 0) {
@@ -96,8 +100,8 @@ const LogInForm = ({
     }
 
     setSubmitting(true);
-    const { errors: respErrors, me } = await requestLogin(
-      nameoremail, password, durationsel,
+    const { errors: respErrors, me, token } = await requestLogin(
+      nameoremail, password, durationsel, reauthenticate,
     );
     setSubmitting(false);
     if (respErrors) {
@@ -105,7 +109,7 @@ const LogInForm = ({
       return;
     }
     if (onLoginSuccess) {
-      onLoginSuccess();
+      onLoginSuccess({ me, token });
     }
     dispatch(loginUser(me));
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -234,7 +238,7 @@ const LogInForm = ({
                   </span>
                 </p>
                 <h2>{t`or login with:`}</h2>
-                {(denyThirdParty) ? (
+                {(reauthenticate) ? (
                   <p>{t`Third Party LogIns are disabled for this action.`}</p>
                 ) : (
                   <React.Fragment key="tp">
@@ -384,7 +388,7 @@ const LogInForm = ({
                   />
                   <p
                     style={{
-                      visibility: (hideDurationSelection) ? 'hidden' : 'visible',
+                      visibility: (reauthenticate) ? 'hidden' : 'visible',
                     }}
                   >
                     {t`Stay logged in: `}

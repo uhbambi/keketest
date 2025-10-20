@@ -13,13 +13,18 @@ import { useSelector, shallowEqual } from 'react-redux';
 import { t, jt } from 'ttag';
 
 import WindowContext from '../context/window.js';
-import LogInRequired from '../LogInRequired.jsx';
+import LogInForm from '../LogInForm.jsx';
 import { requestConsent } from '../../store/actions/fetch.js';
 
 const OIDCConsent = () => {
   const [expirationHours, setExpirationHours] = useState(String(24 * 7));
   const [submitting, setSubmitting] = useState(false);
   const [consentedScopes, setConsentedScopes] = useState([]);
+  /* when logging in to different account */
+  const [switchAccount, setSwitchAccount] = useState(false);
+  /* only relevant on forced reauthentification */
+  const [authReturn, setAuthReturn] = useState(null);
+
   const [name, username] = useSelector((state) => [
     state.user.name,
     state.user.username,
@@ -59,6 +64,16 @@ const OIDCConsent = () => {
     }
   }), [params]);
 
+  if ((params.reauthenticate || !name || switchAccount) && !authReturn) {
+    return (
+      <LogInForm
+        title={t`Login to grant access to other application.`}
+        reauthenticate={params.reauthenticate}
+        onLoginSuccess={setAuthReturn}
+      />
+    );
+  }
+
   const { redirect_uri: redirectUri, clientName } = params;
   if (!redirectUri) {
     return null;
@@ -73,6 +88,7 @@ const OIDCConsent = () => {
       ...params,
       scope: consentedScopes,
       expirationHours,
+      reauthToken: authReturn?.token,
     });
     let urlParams;
     if (errors) {
@@ -109,86 +125,88 @@ const OIDCConsent = () => {
   }
   appUrl = <span className="statvalue">{appUrl}</span>;
 
-  const accountName = <><span className="statvalue">{name}</span>[{` ${username} `}]</>;
+  const accountName = <><span className="statvalue">{authReturn ? authReturn.me.name : name}</span>[{` ${authReturn ? authReturn.me.username : username} `}]</>;
 
   return (
-    <LogInRequired
-      title={t`Login to grant access to other application.`}
-      reauthenticate={params.needsReauthentication}
-    >
-      <div style={{ textAlign: 'center' }}>
-        <h2>{t`Login to other application`}</h2>
-        <p>
-          {jt`The application ${appName} at ${appUrl} wants to login with your account ${accountName}.`}
-          {(scopes.length > 0) && t`It requests the following permissions. Uncheck what you don't want to grant:`}
-        </p>
-        {(scopes.length > 0) && (
-          <table className="consenttable">
-            <thead>
-              <tr>
-                <th>{t`Consent`}</th>
-                <th>{t`Permission`}</th>
-              </tr>
-            </thead>
-            <tbody>
-              {scopes?.map(([scope, description]) => (
-                <tr key={scope}>
-                  <th>
-                    <input
-                      type="checkbox"
-                      value={scope}
-                      checked={consentedScopes.includes(scope)}
-                      onChange={consentScope}
-                    />
-                  </th>
-                  <th>{description}</th>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        )}
-        <p>
-          {t`Remember this decision: `}
-          <select
-            value={expirationHours}
-            onChange={(e) => {
-              const sel = e.target;
-              setExpirationHours(sel.options[sel.selectedIndex].value);
-            }}
-          >
-            <option value={0}>{t`Don't remember`}</option>
-            <option value={24}>{t`For one day`}</option>
-            <option value={24 * 7}>{t`For one week`}</option>
-            <option value={24 * 31}>{t`For one month`}</option>
-            <option value={24 * 265}>{t`For one year`}</option>
-            <option value="forever">{t`Forever`}</option>
-          </select>
-        </p>
+    <div style={{ textAlign: 'center' }}>
+      <h2>{t`Login to other application`}</h2>
+      <p>
+        {`${jt`The application ${appName} at ${appUrl} wants to login with your account ${accountName}`} `}
         <button
           type="button"
           disabled={submitting}
-          onClick={() => {
-            const urlParams = new URLSearchParams({
-              error: 'invalid_request',
-              error_description: t`You did not consent`,
-            });
-            if (params.state) {
-              urlParams.append('state', params.state);
-            }
-            window.location.href = `${redirectUri}?${urlParams.toString()}`;
+          onClick={() => setSwitchAccount(true)}
+        >
+          {t`Switch Account`}
+        </button>{'. '}
+        {(scopes.length > 0) && t`It requests the following permissions. Uncheck what you don't want to grant:`}
+      </p>
+      {(scopes.length > 0) && (
+        <table className="consenttable">
+          <thead>
+            <tr>
+              <th>{t`Consent`}</th>
+              <th>{t`Permission`}</th>
+            </tr>
+          </thead>
+          <tbody>
+            {scopes?.map(([scope, description]) => (
+              <tr key={scope}>
+                <th>
+                  <input
+                    type="checkbox"
+                    value={scope}
+                    checked={consentedScopes.includes(scope)}
+                    onChange={consentScope}
+                  />
+                </th>
+                <th>{description}</th>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      )}
+      <p>
+        {t`Remember this decision: `}
+        <select
+          value={expirationHours}
+          onChange={(e) => {
+            const sel = e.target;
+            setExpirationHours(sel.options[sel.selectedIndex].value);
           }}
         >
-          {t`Deny`}
-        </button>
-        <button
-          type="button"
-          disabled={submitting}
-          onClick={submitConsent}
-        >
-          {(submitting) ? '...' : t`Grant`}
-        </button>
-      </div>
-    </LogInRequired>
+          <option value={0}>{t`Don't remember`}</option>
+          <option value={24}>{t`For one day`}</option>
+          <option value={24 * 7}>{t`For one week`}</option>
+          <option value={24 * 31}>{t`For one month`}</option>
+          <option value={24 * 265}>{t`For one year`}</option>
+          <option value="forever">{t`Forever`}</option>
+        </select>
+      </p>
+      <button
+        type="button"
+        disabled={submitting}
+        onClick={() => {
+          const urlParams = new URLSearchParams({
+            error: 'consent_required',
+            error_description: t`You did not consent`,
+          });
+          if (params.state) {
+            urlParams.append('state', params.state);
+          }
+          window.location.href = `${redirectUri}?${urlParams.toString()}`;
+        }}
+      >
+        {t`Deny`}
+      </button>
+      <button
+        type="button"
+        disabled={submitting}
+        onClick={submitConsent}
+      >
+        {(submitting) ? '...' : t`Grant`}
+      </button>
+    </div>
   );
 };
 

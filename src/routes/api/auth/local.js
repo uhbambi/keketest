@@ -3,7 +3,6 @@
  */
 import logger from '../../../core/logger.js';
 import { getUsersByNameOrEmail } from '../../../data/sql/User.js';
-import { touchSession } from '../../../data/sql/Session.js';
 import { compareToHash } from '../../../utils/hash.js';
 import socketEvents from '../../../socket/socketEvents.js';
 
@@ -32,7 +31,13 @@ export default async (req, res) => {
       throw new Error('Incorrect password!');
     }
 
-    /* session duration, null for permanent */
+    /*
+     * durationsel: session duration, null for permanent
+     * returnToken: if set, we do not set cookie and return the token instead,
+     *   this is used for reauthentification
+     *
+     */
+    const returnToken = req.body;
     let { durationsel: durationHours } = req.body;
     if (durationHours === 'forever') {
       durationHours = null;
@@ -44,30 +49,23 @@ export default async (req, res) => {
       }
     }
 
-    if (req.user && req.user.id === user.id) {
-      /*
-       * if we are already logged in, we update the sessions creation time,
-       * this is used for reauthentification, which could be requested for old
-       * sessions
-       */
-      await touchSession(req.user.token);
-    } else {
-      /*
-       * new login
-       * openSession turns req.user into a full user object
-       */
-      await openSession(req, res, user.id, durationHours);
-      socketEvents.reloadIP(ip.ipString, true);
-      logger.info(
-        `AUTH: Logged in user ${user.name}(${user.id}) by ${ip.ipString}`,
-      );
-    }
+    const token = await openSession(
+      req, res, user.id, durationHours, returnToken,
+    );
+    logger.info(
+      `AUTH: Logged in user ${user.name}(${user.id}) by ${ip.ipString}`,
+    );
 
-    const me = await getMe(req.user, ip, req.lang);
-    res.json({
+    const responseData = {
       success: true,
-      me,
-    });
+      me: await getMe(req.user, ip, req.lang),
+    };
+    if (returnToken) {
+      responseData.token = token;
+    } else {
+      socketEvents.reloadIP(ip.ipString, true);
+    }
+    res.json(responseData);
   } catch (error) {
     res.status(401).json({
       errors: [error.message],

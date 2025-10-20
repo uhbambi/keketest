@@ -6,6 +6,7 @@
 import { touchOIDCClient } from '../../data/sql/OIDCClient.js';
 import { consentUser } from '../../data/sql/OIDCConsent.js';
 import { createAuthCode } from '../../data/sql/OIDCAuthCode.js';
+import { resolveSessionUidAndAge } from '../../data/sql/Session.js';
 
 export default async (req, res) => {
   const { t } = req.ttag;
@@ -14,19 +15,32 @@ export default async (req, res) => {
    *   ...params from auth request,
    *   clientName,
    *   expirationHours: String 'forever' or 0 or amount hours,
+   *   reauthToken: session token, only set in case of reauthentification,
    * }
    */
   const {
-    oidcUserId: uid,
     oidcClientModel: clientModel,
+  } = req;
+  let {
+    oidcUserId: uid,
     oidcAuthTime: sessionAge,
     oidcNeedReauth: needReAuth,
   } = req;
-  if (!uid) {
-    throw new Error(t`Not logged in`);
+
+  if (req.body.reauthToken) {
+    /*
+     * reauthorization speciffcally for this request happened, which returns
+     * a 1 hour lived session token
+     */
+    [uid, sessionAge] = await resolveSessionUidAndAge(req.body.reauthToken);
+    needReAuth = Number(req.body.max_age) < sessionAge;
   }
-  if (needReAuth) {
-    throw new Error(t`Session is too old`);
+
+  if (!uid || needReAuth) {
+    const error = new Error(t`Login is required`);
+    error.title = 'login_required';
+    error.status = 401;
+    throw error;
   }
 
   let { expirationHours: expiration } = req.body;
