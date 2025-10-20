@@ -128,9 +128,9 @@ const OIDCConsent = () => {
   appUrl = <span key="b" className="statvalue">{appUrl}</span>;
 
   const accountName = (
-    <>
+    <React.Fragment key="c">
       <span className="statvalue">{authReturn ? authReturn.me.name : name}</span>[{` ${authReturn ? authReturn.me.username : username} `}]
-    </>
+    </React.Fragment>
   );
 
   return (
@@ -150,7 +150,7 @@ const OIDCConsent = () => {
         </button>{'. '}
       </p>
       {(scopes.length > 0) && (
-        <>
+        <React.Fragment key="ctt">
           <p>{t`It requests the following permissions. Uncheck what you don't want to grant:`}</p>
           <table className="consenttable">
             <thead>
@@ -177,7 +177,7 @@ const OIDCConsent = () => {
               ))}
             </tbody>
           </table>
-        </>
+        </React.Fragment>
       )}
       <p>
         {t`Remember this decision: `}

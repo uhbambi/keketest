@@ -39,7 +39,10 @@ export default async (req, res) => {
      */
     const { returnToken } = req.body;
     let { durationsel: durationHours } = req.body;
-    if (durationHours === 'forever') {
+    if (returnToken) {
+      /* only allow 15min for returned tokens */
+      durationHours = 0.25;
+    } else if (durationHours === 'forever') {
       durationHours = null;
     } else {
       durationHours = parseInt(durationHours, 10);

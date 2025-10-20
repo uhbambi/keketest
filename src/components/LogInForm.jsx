@@ -91,7 +91,8 @@ const LogInForm = ({
     }
     const nameoremail = evt.target.nameoremail.value;
     const password = evt.target.password.value;
-    const durationsel = (reauthenticate) ? '1' : evt.target.durationsel.value;
+    /* durationsel is ignored server-side if we reauthenticate */
+    const durationsel = evt.target.durationsel.value;
 
     const valErrors = validateLogin(nameoremail, password);
     if (valErrors.length > 0) {
