@@ -200,10 +200,10 @@ export async function resolveSessionUidAndAge(token) {
       },
     );
     if (session) {
-      return [session.uid, Math.floor(session.age.getTime() / 1000)];
+      return [session.uid, Math.floor(session.createdAt.getTime() / 1000)];
     }
   } catch (error) {
-    console.error(`SQL Error on resolveSessionUid: ${error.message}`);
+    console.error(`SQL Error on resolveSessionUidAndAge: ${error.message}`);
   }
   return [null, null];
 }

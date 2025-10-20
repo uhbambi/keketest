@@ -73,14 +73,14 @@ const OIDCConsent = sequelize.define('OIDCConsent', {
  *   expires,
  * }
  */
-export async function hasUserConsent(cid, uid) {
+export async function hasUserConsent(uid, cid) {
   if (!cid || !uid) {
     return null;
   }
   try {
     const consentModel = await sequelize.query(
       // eslint-disable-next-line max-len
-      'SEELCT * FROM OIDCConsents WHERE cid = $1 AND uid = $2 AND (expires > NOW() OR expires IS NULL)', {
+      'SELECT * FROM OIDCConsents WHERE cid = $1 AND uid = $2 AND (expires > NOW() OR expires IS NULL)', {
         bind: [cid, uid],
         type: QueryTypes.SELECT,
         plain: true,
@@ -109,7 +109,7 @@ export async function consentUser(
   cid, uid, scope, expiresTs, existingConsent = null,
 ) {
   try {
-    const expires = expiresTs && new Date(expiresTs);
+    const expires = expiresTs && new Date(Date.now() + expiresTs);
 
     /* if consent already exists, update existing consent */
     if (existingConsent
@@ -147,7 +147,7 @@ export async function consentUser(
     );
     const consentModel = await sequelize.query(
       // eslint-disable-next-line max-len
-      'SELECT id FROM OIDCConsents WHERE cid = ?, uid = ?, scope = ? AND (expires > NOW() OR expires IS NULL)', {
+      'SELECT id FROM OIDCConsents WHERE cid = ? AND uid = ? AND (expires > NOW() OR expires IS NULL)', {
         replacements: [cid, uid, scopeString],
         plain: true,
         type: QueryTypes.SELECT,

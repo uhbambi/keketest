@@ -63,7 +63,7 @@ export default async (req, res) => {
     if (returnToken) {
       responseData.token = token;
     } else {
-      socketEvents.reloadIP(ip.ipString, true);
+      socketEvents.reloadIP(ip.ipString);
     }
     res.json(responseData);
   } catch (error) {

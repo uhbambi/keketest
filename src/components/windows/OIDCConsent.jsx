@@ -38,8 +38,8 @@ const OIDCConsent = () => {
   const { params } = useContext(WindowContext);
 
   useEffect(() => {
-    if (params.requestedScopes) {
-      setConsentedScopes([...params.requestedScopes]);
+    if (params.scope) {
+      setConsentedScopes([...params.scope]);
     } else {
       setConsentedScopes([]);
     }
@@ -65,11 +65,11 @@ const OIDCConsent = () => {
     }
   }), [params]);
 
-  if ((params.reauthenticate || !name || switchAccount) && !authReturn) {
+  if ((params.needsReauthentication || !name || switchAccount) && !authReturn) {
     return (
       <LogInForm
         title={t`Login to grant access to other application.`}
-        reauthenticate={params.reauthenticate}
+        reauthenticate={params.needsReauthentication}
         onLoginSuccess={setAuthReturn}
       />
     );
@@ -91,6 +91,7 @@ const OIDCConsent = () => {
       expirationHours,
       reauthToken: authReturn?.token,
     });
+    console.log('consent reply', errors, code);
     let urlParams;
     if (errors) {
       urlParams = {
@@ -118,56 +119,65 @@ const OIDCConsent = () => {
     setConsentedScopes(newConsentedScopes);
   };
 
-  const appName = <span className="statvalue">{clientName}</span>;
+  const appName = <span key="a" className="statvalue">{clientName}</span>;
 
   let appUrl = redirectUri.substring(redirectUri.indexOf('://') + 3);
   if (appUrl.indexOf('/') !== -1) {
     appUrl = appUrl.substring(0, appUrl.indexOf('/'));
   }
-  appUrl = <span className="statvalue">{appUrl}</span>;
+  appUrl = <span key="b" className="statvalue">{appUrl}</span>;
 
-  const accountName = <><span className="statvalue">{authReturn ? authReturn.me.name : name}</span>[{` ${authReturn ? authReturn.me.username : username} `}]</>;
+  const accountName = (
+    <>
+      <span className="statvalue">{authReturn ? authReturn.me.name : name}</span>[{` ${authReturn ? authReturn.me.username : username} `}]
+    </>
+  );
 
   return (
     <div style={{ textAlign: 'center' }}>
       <h2>{t`Login to other application`}</h2>
-      <p>
-        {`${jt`The application ${appName} at ${appUrl} wants to login with your account ${accountName}`} `}
+      <p className="stattext">
+        {jt`The application ${appName} at ${appUrl} wants to login with your account ${accountName}`}{' '}
         <button
           type="button"
           disabled={submitting}
-          onClick={() => setSwitchAccount(true)}
+          onClick={() => {
+            setAuthReturn(null);
+            setSwitchAccount(true);
+          }}
         >
           {t`Switch Account`}
         </button>{'. '}
-        {(scopes.length > 0) && t`It requests the following permissions. Uncheck what you don't want to grant:`}
       </p>
       {(scopes.length > 0) && (
-        <table className="consenttable">
-          <thead>
-            <tr>
-              <th>{t`Consent`}</th>
-              <th>{t`Permission`}</th>
-            </tr>
-          </thead>
-          <tbody>
-            {scopes?.map(([scope, description, required]) => (
-              <tr key={scope}>
-                <th>
-                  <input
-                    type="checkbox"
-                    value={scope}
-                    disabled={required}
-                    title={required ? t`This permission is required` : t`Check to allow`}
-                    checked={consentedScopes.includes(scope)}
-                    onChange={consentScope}
-                  />
-                </th>
-                <th>{description}</th>
+        <>
+          <p>{t`It requests the following permissions. Uncheck what you don't want to grant:`}</p>
+          <table className="consenttable">
+            <thead>
+              <tr>
+                <th>{t`Consent`}</th>
+                <th>{t`Permission`}</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {scopes?.map(([scope, description, required]) => (
+                <tr key={scope}>
+                  <th>
+                    <input
+                      type="checkbox"
+                      value={scope}
+                      disabled={required}
+                      title={required ? t`This permission is required` : t`Check to allow`}
+                      checked={consentedScopes.includes(scope)}
+                      onChange={consentScope}
+                    />
+                  </th>
+                  <th>{description}</th>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </>
       )}
       <p>
         {t`Remember this decision: `}

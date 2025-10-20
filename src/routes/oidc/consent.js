@@ -9,6 +9,10 @@ import { createAuthCode } from '../../data/sql/OIDCAuthCode.js';
 import { resolveSessionUidAndAge } from '../../data/sql/Session.js';
 
 export default async (req, res) => {
+  res.set({
+    'Cache-Control': 'no-cache, no-store, must-revalidate',
+    Expires: '0',
+  });
   const { t } = req.ttag;
   /*
    * req.bdoy {
@@ -20,6 +24,7 @@ export default async (req, res) => {
    */
   const {
     oidcClientModel: clientModel,
+    oidcParams: params,
   } = req;
   let {
     oidcUserId: uid,
@@ -27,13 +32,13 @@ export default async (req, res) => {
     oidcNeedReauth: needReAuth,
   } = req;
 
-  if (req.body.reauthToken) {
+  if (params.reauthToken) {
     /*
      * reauthorization speciffcally for this request happened, which returns
      * a 1 hour lived session token
      */
-    [uid, sessionAge] = await resolveSessionUidAndAge(req.body.reauthToken);
-    needReAuth = Number(req.body.max_age) < sessionAge;
+    [uid, sessionAge] = await resolveSessionUidAndAge(params.reauthToken);
+    needReAuth = Number(params.max_age) < sessionAge;
   }
 
   if (!uid || needReAuth) {
@@ -43,7 +48,7 @@ export default async (req, res) => {
     throw error;
   }
 
-  let { expirationHours: expiration } = req.body;
+  let { expirationHours: expiration } = params;
   if (expiration === 'forever') {
     expiration = null;
   } else {
@@ -56,7 +61,7 @@ export default async (req, res) => {
     expiration = expiration * 1000 * 3600;
   }
 
-  const { scope } = req.body;
+  const { scope } = params;
   const approvedConsentId = await consentUser(
     clientModel.id, uid, scope, expiration,
   );
@@ -69,15 +74,11 @@ export default async (req, res) => {
 
   const code = await createAuthCode(
     approvedConsentId, scope,
-    req.body.code_challenge, req.body.code_challenge_method,
-    sessionAge, req.body.nonce,
+    params.code_challenge, params.code_challenge_method,
+    sessionAge, params.nonce,
   );
   if (!code) {
     throw new Error('Could not store AuthCode');
   }
-  res.set({
-    'Cache-Control': 'no-cache, no-store, must-revalidate',
-    Expires: '0',
-  });
   res.json({ code });
 };

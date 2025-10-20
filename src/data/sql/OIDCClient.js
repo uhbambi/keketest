@@ -87,8 +87,11 @@ const OIDCClient = sequelize.define('OIDCClient', {
  * @return clientModel {
  *   id,
  *   name,
+ *   secret,
  *   scope: array of allowed scopes,
+ *   defaultScope: array of default scopes,
  *   redirectUris: array of allowed redirect uris,
+ *   autoGrant,
  * }
  */
 export async function getOIDCClient(uuid) {
@@ -98,7 +101,7 @@ export async function getOIDCClient(uuid) {
   try {
     const clientModel = await sequelize.query(
       // eslint-disable-next-line max-len
-      'SELECT id, name, secret, redirectUris, scope, defaultScope, grantTypes, autoGrant FROM OIDCClients WHERE uuid = UUID_TO_BIN($1)', {
+      'SELECT id, name, secret, redirectUris, scope, defaultScope, autoGrant FROM OIDCClients WHERE uuid = UUID_TO_BIN($1)', {
         bind: [uuid],
         type: QueryTypes.SELECT,
         plain: true,
@@ -106,6 +109,9 @@ export async function getOIDCClient(uuid) {
     );
     if (clientModel) {
       clientModel.scope = clientModel.scope.split(' ');
+      if (clientModel.defaultScope) {
+        clientModel.defaultScope = clientModel.scope.split(' ');
+      }
       clientModel.redirectUris = clientModel.redirectUris.split(' ');
       return clientModel;
     }
@@ -118,7 +124,7 @@ export async function getOIDCClient(uuid) {
 export async function touchOIDCClient(id) {
   try {
     await sequelize.query(
-      'UPDATE OICDClients SET lastUsed = NOW() WHERE id = $1', {
+      'UPDATE OIDCClients SET lastUsed = NOW() WHERE id = $1', {
         bind: [id],
         raw: true,
         type: QueryTypes.UPDATE,

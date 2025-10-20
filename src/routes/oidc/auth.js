@@ -9,15 +9,15 @@ import { createAuthCode } from '../../data/sql/OIDCAuthCode.js';
 import generatePopUpPage from '../../ssr/PopUp.jsx';
 
 export default async (req, res) => {
-  const params = (req.method === 'GET') ? req.query : req.body;
-  const { redirect_uri: redirectUri, prompt } = params;
-  let { scope } = params;
   const {
+    oidcParams: params,
     oidcUserId: uid,
     oidcClientModel: clientModel,
     oidcAuthTime: sessionAge,
     oidcNeedReauth: needReAuth,
   } = req;
+  const { redirect_uri: redirectUri, prompt } = params;
+  let { scope } = params;
 
   try {
     if (uid && !needReAuth) {
@@ -83,7 +83,7 @@ export default async (req, res) => {
      * specs, we might choose supporting that
      */
     const requiredScopes = [];
-    if (scope.indexOf('openid')) {
+    if (scope.includes('openid')) {
       requiredScopes.push('openid');
     }
 
@@ -97,6 +97,7 @@ export default async (req, res) => {
      */
     const { html, etag: winEtag } = generatePopUpPage(req, {
       ...params,
+      scope,
       clientName: clientModel.name,
       needsReauthentication: needReAuth,
       requiredScopes,

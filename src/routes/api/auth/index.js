@@ -45,7 +45,7 @@ const openSessionOnReturn = async (req, res) => {
   const { user } = req;
   /* openSession() turns req.user into a full user object */
   await openSession(req, res, user.id, 168);
-  socketEvents.reloadIP(req.ip.ipString, true);
+  socketEvents.reloadIP(req.ip.ipString);
   res.redirect('/');
 };
 

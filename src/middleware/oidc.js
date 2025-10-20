@@ -224,7 +224,9 @@ export const validateAuthRequest = async (req, res, next) => {
     req.oidcClientModel = clientModel;
     req.oidcAuthTime = sessionAge;
     req.oidcNeedReauth = Number(params.max_age) < sessionAge
-      || params.prompt === 'login';
+    || params.prompt === 'login';
+    /* overwriting req.query does not work, so send it extra */
+    req.oidcParams = params;
     next();
   } catch (error) {
     if (!error.title) {
