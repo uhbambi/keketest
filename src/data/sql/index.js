@@ -445,7 +445,7 @@ User.hasMany(OIDCConsent, {
   foreignKey: 'uid',
 });
 OIDCConsent.belongsTo(OIDCClient, {
-  as: 'user',
+  as: 'client',
   foreignKey: 'cid',
   onDelete: 'CASCADE',
 });
@@ -455,7 +455,7 @@ OIDCClient.hasMany(OIDCConsent, {
 });
 
 OIDCAuthCode.belongsTo(OIDCConsent, {
-  as: 'user',
+  as: 'consent',
   foreignKey: 'cid',
   onDelete: 'CASCADE',
 });
@@ -465,7 +465,7 @@ OIDCConsent.hasMany(OIDCAuthCode, {
 });
 
 OIDCAccessToken.belongsTo(OIDCConsent, {
-  as: 'user',
+  as: 'consent',
   foreignKey: 'cid',
   onDelete: 'CASCADE',
 });
@@ -475,7 +475,7 @@ OIDCConsent.hasMany(OIDCAccessToken, {
 });
 
 OIDCRefreshToken.belongsTo(OIDCConsent, {
-  as: 'user',
+  as: 'consent',
   foreignKey: 'cid',
   onDelete: 'CASCADE',
 });

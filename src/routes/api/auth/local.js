@@ -37,7 +37,7 @@ export default async (req, res) => {
      *   this is used for reauthentification
      *
      */
-    const returnToken = req.body;
+    const { returnToken } = req.body;
     let { durationsel: durationHours } = req.body;
     if (durationHours === 'forever') {
       durationHours = null;

@@ -28,7 +28,23 @@ class FsWatcher {
 
   initialize() {
     const watchPath = this.#path;
+    /* keep retrying if path doesn't exist yet */
+    if (!fs.existsSync(watchPath)) {
+      setTimeout(() => {
+        this.initialize();
+      }, this.delay);
+      return;
+    }
+
     this.#watcher = fs.watch(watchPath, (eventType, filename) => {
+      if (eventType === 'rename') {
+        /* rename gets fired on deletion as well */
+        if (!fs.existsSync(watchPath)) {
+          this.destructor();
+          this.initialize();
+        }
+      }
+
       if (filename && this.filetypes.length) {
         const ext = filename.split('.').pop();
         if (!this.filetypes.includes(ext)) {
@@ -43,10 +59,14 @@ class FsWatcher {
         this.#listeners.forEach((cb) => cb(eventType, filename));
       }, this.delay);
     });
+    this.#listeners.forEach((cb) => cb('rename', watchPath));
   }
 
   destructor() {
     this.#watcher?.close();
+    if (this.#timeout) {
+      clearTimeout(this.#timeout);
+    }
   }
 
   onChange(cb) {
@@ -55,7 +75,7 @@ class FsWatcher {
 }
 
 export const assetWatcher = new FsWatcher(
-  path.resolve('public', ASSET_DIR),
+  path.join(path.resolve('public'), ASSET_DIR),
   { filetypes: ['js', 'css'] },
 );
 

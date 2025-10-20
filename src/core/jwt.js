@@ -11,7 +11,11 @@ import FsWatcher from './fsWatcher.js';
 const { exportJWK } = require('jose');
 
 let keys = [];
+
 const keyFile = path.resolve('jwtkeys.json');
+if (!fs.existsSync(keyFile)) {
+  fs.writeFileSync(keyFile, '[]');
+}
 const keyFileWatcher = new FsWatcher(keyFile);
 
 /*
@@ -75,7 +79,7 @@ function getKeyPair() {
 keyFileWatcher.onChange((eventType) => {
   /* rename also fired on remove */
   if (eventType === 'rename') {
-    if (!fs.existSync(keyFile)) {
+    if (!fs.existsSync(keyFile)) {
       createJWTKeys();
       /* reload watcher just to be safe */
       keyFileWatcher.destructor();
