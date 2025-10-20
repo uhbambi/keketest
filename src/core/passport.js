@@ -122,7 +122,7 @@ export async function oauthLogin(
 passport.use(new FacebookStrategy({
   clientID: FACEBOOK_APP_ID,
   clientSecret: FACEBOOK_APP_SECRET,
-  callbackURL: '/api/auth/facebook/return',
+  callbackURL: '/tp/r/fb',
   proxy: true,
   profileFields: ['displayName', 'email'],
 }, async (req, accessToken, refreshToken, profile, done) => {
@@ -145,7 +145,7 @@ passport.use(new FacebookStrategy({
 passport.use(new DiscordStrategy({
   clientID: DISCORD_CLIENT_ID,
   clientSecret: DISCORD_CLIENT_SECRET,
-  callbackURL: '/api/auth/discord/return',
+  callbackURL: '/tp/r/d',
   proxy: true,
 }, async (accessToken, refreshToken, profile, done) => {
   try {
@@ -168,7 +168,7 @@ passport.use(new DiscordStrategy({
 passport.use(new GoogleStrategy({
   clientID: GOOGLE_CLIENT_ID,
   clientSecret: GOOGLE_CLIENT_SECRET,
-  callbackURL: '/api/auth/google/return',
+  callbackURL: '/tp/r/g',
   proxy: true,
 }, async (accessToken, refreshToken, profile, done) => {
   try {
@@ -193,7 +193,7 @@ passport.use(new GoogleStrategy({
 passport.use(new RedditStrategy({
   clientID: REDDIT_CLIENT_ID,
   clientSecret: REDDIT_CLIENT_SECRET,
-  callbackURL: '/api/auth/reddit/return',
+  callbackURL: '/tp/r/re',
   proxy: true,
 }, async (accessToken, refreshToken, profile, done) => {
   try {
@@ -218,7 +218,7 @@ passport.use(new VkontakteStrategy({
   authorizationURL: 'https://oauth.vk.ru/authorize',
   tokenURL: 'https://oauth.vk.ru/access_token',
   profileURL: 'https://api.vk.ru/method/users.get',
-  callbackURL: '/api/auth/vk/return',
+  callbackURL: '/tp/r/vk',
   proxy: true,
   scope: ['email'],
   profileFields: ['displayName', 'email'],

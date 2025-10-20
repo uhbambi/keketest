@@ -13,6 +13,7 @@ import { validatePkceChallenge } from '../../utils/hash.js';
 import { generateIdToken } from '../../middleware/oidc.js';
 
 export default async (req, res) => {
+  req.tickRateLimiter(500);
   res.set({
     'Cache-Control': 'no-cache, no-store, must-revalidate',
     'Access-Control-Allow-Origin': '*',

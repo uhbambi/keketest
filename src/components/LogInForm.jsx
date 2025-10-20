@@ -183,6 +183,8 @@ const LogInForm = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [submitting, success]);
 
+  const path = encodeURIComponent(window.location.pathname + window.location.search + window.location.hash);
+
   return (
     <div style={{ textAlign: 'center' }}>
       {(title) && <p>{title}</p>}
@@ -243,7 +245,7 @@ const LogInForm = ({
                   <p>{t`Third Party LogIns are disabled for this action.`}</p>
                 ) : (
                   <React.Fragment key="tp">
-                    <a href={u`/api/auth/discord`}>
+                    <a href={u`/tp/d?o=${path}`}>
                       <img
                         style={logoStyle}
                         width={32}
@@ -251,7 +253,7 @@ const LogInForm = ({
                         alt="Discord"
                       />
                     </a>
-                    <a href={u`/api/auth/google`}>
+                    <a href={u`/tp/g?o=${path}`}>
                       <img
                         style={logoStyle}
                         width={32}
@@ -259,7 +261,7 @@ const LogInForm = ({
                         alt="Google"
                       />
                     </a>
-                    <a href={u`/api/auth/facebook`}>
+                    <a href={u`/tp/fb?o=${path}`}>
                       <img
                         style={logoStyle}
                         width={32}
@@ -267,7 +269,7 @@ const LogInForm = ({
                         alt="Facebook"
                       />
                     </a>
-                    <a href={u`/api/auth/vk`}>
+                    <a href={u`/tp/vk?o=${path}`}>
                       <img
                         style={logoStyle}
                         width={32}
@@ -275,7 +277,7 @@ const LogInForm = ({
                         alt="VK"
                       />
                     </a>
-                    <a href={u`/api/auth/reddit`}>
+                    <a href={u`/tp/re?o=${path}`}>
                       <img
                         style={logoStyle}
                         width={32}

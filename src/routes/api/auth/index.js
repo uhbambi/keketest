@@ -1,9 +1,6 @@
 import express from 'express';
 
-import logger from '../../../core/logger.js';
-import passport from '../../../core/passport.js';
-import { ensureLoggedIn, openSession } from '../../../middleware/session.js';
-import socketEvents from '../../../socket/socketEvents.js';
+import { ensureLoggedIn } from '../../../middleware/session.js';
 
 import register from './register.js';
 import verify from './verify.js';
@@ -30,75 +27,13 @@ import change_mail from './change_mail.js';
 // eslint-disable-next-line camelcase
 import restore_password from './restore_password.js';
 
-import getHtml from '../../../ssr/RedirectionPage.jsx';
-
 const router = express.Router();
-
-/*
- * third party logon
- */
-
-router.use(passport.initialize());
-
-const openSessionOnReturn = async (req, res) => {
-  /* this is NOT a full user instance, only { id, name, password, userlvl } */
-  const { user } = req;
-  /* openSession() turns req.user into a full user object */
-  await openSession(req, res, user.id, 168);
-  socketEvents.reloadIP(req.ip.ipString);
-  res.redirect('/');
-};
-
-router.get('/facebook', passport.authenticate('facebook',
-  { scope: ['email'] }));
-router.get('/facebook/return', passport.authenticate('facebook', {
-  session: false,
-}), openSessionOnReturn);
-
-router.get('/discord', passport.authenticate('discord',
-  { scope: ['identify', 'email'] }));
-router.get('/discord/return', passport.authenticate('discord', {
-  session: false,
-}), openSessionOnReturn);
-
-router.get('/google', passport.authenticate('google',
-  { scope: ['email', 'profile'] }));
-router.get('/google/return', passport.authenticate('google', {
-  session: false,
-}), openSessionOnReturn);
-
-router.get('/vk', passport.authenticate('vkontakte',
-  { scope: ['email'] }));
-router.get('/vk/return', passport.authenticate('vkontakte', {
-  session: false,
-}), openSessionOnReturn);
-
-router.get('/reddit', passport.authenticate('reddit',
-  { duration: 'temporary', state: 'foo' }));
-router.get('/reddit/return', passport.authenticate('reddit', {
-  session: false, state: 'foo',
-}), openSessionOnReturn);
-
-// eslint-disable-next-line no-unused-vars
-router.use((err, req, res, next) => {
-  if (res.headersSent) {
-    next(err);
-    return;
-  }
-  const host = req.ip.getHost();
-  logger.info(`Authentication error: ${err.message}`);
-  const index = getHtml(
-    'OAuth Authentication',
-    err.message, host, req.lang,
-  );
-  res.status(400).send(index);
-});
-
-router.get('/verify', verify);
 
 /*
  * JSON APIs
  */
+
+router.get('/verify', verify);
 
 router.post('/restore_password', restore_password);
 

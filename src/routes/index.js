@@ -15,6 +15,7 @@ import challenge from './challenge.js';
 import resetPassword from './reset_password.js';
 import api from './api/index.js';
 import oidc from './oidc/index.js';
+import tp from './tp.js';
 
 import { createJWKS } from '../core/jwt.js';
 import { expressTTag } from '../middleware/ttag.js';
@@ -246,6 +247,11 @@ router.use('/reset_password', resetPassword);
  * API calls
  */
 router.use('/api', api);
+
+/*
+ * oauth logins
+ */
+router.use('/tp', tp);
 
 /*
  * OpenID Connect Provider (OP)

@@ -59,6 +59,13 @@ export function generateLargeToken() {
   return randomBytes(60).toString('base64url');
 }
 
+/*
+ * tiny token for state
+ */
+export function generateTinyToken() {
+  return randomBytes(15).toString('base64url');
+}
+
 /**
  * pkce challenge
  * @return boolean if passed

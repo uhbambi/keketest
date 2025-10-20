@@ -114,6 +114,8 @@ export async function generateIdToken(
  * data and it shall be validated the same in both
  */
 export const validateAuthRequest = async (req, res, next) => {
+  req.tickRateLimiter(5000);
+
   const { t } = req.ttag;
   let redirectUri;
 

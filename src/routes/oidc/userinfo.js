@@ -10,6 +10,7 @@ import { getBadgesOfUser } from '../../data/sql/Badge.js';
 import { USERLVL } from '../../core/constants.js';
 
 export default async (req, res) => {
+  req.tickRateLimiter(500);
   res.set({
     'Cache-Control': 'no-cache, no-store, must-revalidate',
     'Access-Control-Allow-Origin': '*',
