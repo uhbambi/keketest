@@ -11,7 +11,7 @@ export default function getErrorPageHtml(
   <head>
     <meta charset="UTF-8" />
     <title>PixelPlanet ${t`Error`}</title>
-    <meta name="description" content="${t`Reset your password here`}" />
+    <meta name="description" content="${title}" />
     <meta name="google" content="nopagereadaloud" />
     <meta name="theme-color" content="#cae3ff" />
     <link rel="icon" href="${BASENAME}/favicon.ico" type="image/x-icon" />

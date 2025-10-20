@@ -15,6 +15,7 @@ import { generateIdToken } from '../../middleware/oidc.js';
 export default async (req, res) => {
   res.set({
     'Cache-Control': 'no-cache, no-store, must-revalidate',
+    'Access-Control-Allow-Origin': '*',
     Expires: '0',
   });
 

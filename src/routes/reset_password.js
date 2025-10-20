@@ -7,7 +7,9 @@ import express from 'express';
 
 import logger from '../core/logger.js';
 import urlEncoded from '../middleware/formData.js';
+import errorPage from '../middleware/errorPage.js';
 import getPasswordResetHtml from '../ssr/PasswordReset.jsx';
+import getErrorPageHtml from '../ssr/errorPageHTML.js';
 import { validateEMail } from '../utils/validation.js';
 import { checkCode } from '../data/redis/mailCodes.js';
 import { getUserByEmail, setPassword } from '../data/sql/User.js';
@@ -26,68 +28,68 @@ router.post('/', urlEncoded, async (req, res) => {
   const {
     pass, passconf, code, name: email,
   } = req.body;
-  const { lang } = req;
-  const { t } = req.ttag;
+  const { lang, ttag } = req;
+  const { t } = ttag;
+  const title = t`Reset your password here`;
+
+  if (req.csrfPossible) {
+    const error = new Error(
+      t`You need to directly access this page in the browser :(`,
+    );
+    error.title = title;
+    error.status = 400;
+    throw error;
+  }
 
   if (!pass || !passconf || !code) {
-    const html = getPasswordResetHtml(
-      null,
-      null,
-      lang,
+    const error = new Error(
       t`You sent an empty password or invalid data :(`,
     );
-    res.status(400).send(html);
-    return;
+    error.title = title;
+    error.status = 400;
+    throw error;
   }
 
   const ret = await checkCode(email, code);
   if (!ret) {
-    const html = getPasswordResetHtml(
-      null,
-      null,
-      lang,
+    const error = new Error(
       t`This password-reset link isn't valid anymore :(`,
     );
-    res.status(401).send(html);
-    return;
+    error.title = title;
+    error.status = 401;
+    throw error;
   }
 
   if (pass !== passconf) {
-    const html = getPasswordResetHtml(
-      null,
-      null,
-      lang,
+    const error = new Error(
       t`Your passwords do not match :(`,
     );
-    res.status(400).send(html);
-    return;
+    error.title = title;
+    error.status = 400;
+    throw error;
   }
 
   // set password
   const userdata = await getUserByEmail(email);
   if (!userdata) {
-    // eslint-disable-next-line max-len
-    logger.error(`${email} from PasswordReset page does not exist in database`);
-    const html = getPasswordResetHtml(
-      null,
-      null,
-      lang,
+    const error = new Error(
       t`User doesn't exist in our database :(`,
     );
-    res.status(400).send(html);
-    return;
+    error.title = title;
+    error.status = 400;
+    throw error;
   }
   await setPassword(userdata.id, pass);
 
   logger.info(`Changed password of ${email} via password reset form`);
-  const html = getPasswordResetHtml(
-    null,
-    null,
-    lang,
+  const html = getErrorPageHtml(
+    title,
     t`Password successfully changed.`,
+    lang,
+    ttag,
   );
   res.status(200).send(html);
-});
+}, errorPage);
 
 
 /*
@@ -97,32 +99,27 @@ router.get('/', async (req, res) => {
   const { email, token } = req.query;
   const { lang } = req;
   const { t } = req.ttag;
+  const title = t`Reset your password here`;
 
   if (!token) {
-    const html = getPasswordResetHtml(
-      null,
-      null,
-      lang,
+    const error = new Error(
       t`Invalid url :( Please check your mail again.`,
     );
-    res.status(400).send(html);
-    return;
+    error.title = title;
+    error.status = 400;
+    throw error;
   }
 
-  const error = validateEMail(email);
-  if (error) {
-    const html = getPasswordResetHtml(
-      null,
-      null,
-      lang,
-      error,
-    );
-    res.status(401).send(html);
-    return;
+  const errorDesc = validateEMail(email);
+  if (errorDesc) {
+    const error = new Error(errorDesc);
+    error.title = title;
+    error.status = 401;
+    throw error;
   }
 
   const html = getPasswordResetHtml(email, token, lang);
   res.status(200).send(html);
-});
+}, errorPage);
 
 export default router;

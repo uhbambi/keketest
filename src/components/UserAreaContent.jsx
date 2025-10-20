@@ -83,7 +83,7 @@ const UserAreaContent = () => {
   }, [lastProfileFetch, username]);
 
   if (!name) {
-    return <LogInForm title={t`Login to access more features and stats.`}/>
+    return <LogInForm title={t`Login to access more features and stats.`} />;
   }
 
   const Area = AREAS[area];
