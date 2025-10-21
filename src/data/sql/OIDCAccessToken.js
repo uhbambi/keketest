@@ -63,7 +63,7 @@ export async function createAccessToken(consentId, scope) {
     const token = generateLargeToken();
     await sequelize.query(
       // eslint-disable-next-line max-len
-      'INSERT INTO OIDCAccessTokens (cid, token, scope, expires, createdAt) VALUES (?, ?, ?, NOW() + 1 HOUR, NOW())', {
+      'INSERT INTO OIDCAccessTokens (cid, token, scope, expires, createdAt) VALUES (?, ?, ?, NOW() + INTERVAL 1 HOUR, NOW())', {
         replacements: [consentId, token, scope.sort().join(' ')],
         raw: true,
         type: QueryTypes.INSERT,
@@ -93,9 +93,9 @@ export async function getAccessToken(token) {
   try {
     const accessModel = await sequelize.query(
       // eslint-disable-next-line max-len
-      `SEELCT t.scope, co.uid FROM OIDCAccessTokens t
+      `SELECT t.scope, co.uid FROM OIDCAccessTokens t
   INNER JOIN OIDCConsents co ON co.id = t.cid
-WHERE token = $1 AND expires > NOW()`, {
+WHERE t.token = $1 AND t.expires > NOW()`, {
         bind: [token],
         type: QueryTypes.SELECT,
         plain: true,

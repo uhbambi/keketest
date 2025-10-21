@@ -69,9 +69,9 @@ export async function consumeRefreshToken(token) {
   try {
     const refreshModel = await sequelize.query(
       // eslint-disable-next-line max-len
-      `SEELCT rt.id, rt.scope, co.scope AS consentedScope, co.uid, rt.cid, co.cid AS clientIntId FROM OIDCRefreshTokens rt
+      `SELECT rt.id, rt.scope, co.scope AS consentedScope, co.uid, rt.cid, co.cid AS clientIntId FROM OIDCRefreshTokens rt
   INNER JOIN OIDCConsents co ON co.id = rt.cid
-WHERE token = $1 AND expires > NOW()`, {
+WHERE rt.token = $1 AND rt.expires > NOW()`, {
         bind: [token],
         type: QueryTypes.SELECT,
         plain: true,
@@ -118,7 +118,7 @@ export async function createRefreshToken(consentId, scope) {
     const token = generateLargeToken();
     await sequelize.query(
       // eslint-disable-next-line max-len
-      'INSERT INTO OIDCRefreshTokens (cid, token, scope, expires, createdAt) VALUES (?, ?, ?, NOW() + 1 HOUR, NOW())', {
+      'INSERT INTO OIDCRefreshTokens (cid, token, scope, expires, createdAt) VALUES (?, ?, ?, NOW() + INTERVAL 1 HOUR, NOW())', {
         replacements: [consentId, token, scope.sort().join(' ')],
         raw: true,
         type: QueryTypes.INSERT,

@@ -52,7 +52,7 @@ export default async (req, res) => {
       throw new Error('No grant_type given');
     }
 
-    const clientModel = getOIDCClient(clientId);
+    const clientModel = await getOIDCClient(clientId);
     if (!clientModel || clientModel.secret !== clientSecret) {
       const error = new Error('Client authentication failed');
       error.title = 'invalid_client';
@@ -80,7 +80,7 @@ export default async (req, res) => {
       if (!usedToken) {
         throw new Error('Missing required parameter: refresh_token');
       }
-      const usedRefreshModel = await consumeRefreshToken();
+      const usedRefreshModel = await consumeRefreshToken(usedToken);
       if (!usedRefreshModel) {
         const error = new Error('Refresh Token invalid or expired');
         error.title = 'invalid_grant';
@@ -125,18 +125,18 @@ export default async (req, res) => {
           throw error;
         }
       }
-      returnRefreshToken = scope.includes('offline_access');
-      returnData = true;
       ({
         scope, cid: consentId, uid, clientIntId, authAge, nonce,
       } = authCodeModel);
+      returnData = true;
+      returnRefreshToken = scope.includes('offline_access');
     } else {
       const error = new Error(`The grant type ${grantType} is not supported`);
       error.title = 'unsupported_grant_type';
       throw error;
     }
 
-    if (clientIntId !== clientModel.cid) {
+    if (clientIntId !== clientModel.id) {
       const error = new Error('Invalid authorization code');
       error.title = 'invalid_grant';
       throw error;
