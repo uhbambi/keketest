@@ -277,14 +277,6 @@ const LogInForm = ({
                         alt="VK"
                       />
                     </a>
-                    <a href={u`/tp/re?o=${path}`}>
-                      <img
-                        style={logoStyle}
-                        width={32}
-                        src={cdn`/redditlogo.svg`}
-                        alt="Reddit"
-                      />
-                    </a>
                   </React.Fragment>
                 )}
                 <h2>{t`or register here:`}</h2>

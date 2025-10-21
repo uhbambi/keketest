@@ -7,6 +7,7 @@ import { parse as parseCookie } from 'cookie';
 import passport from '../core/passport.js';
 import { sign, unsign, generateTinyToken } from '../utils/hash.js';
 import { openSession } from '../middleware/session.js';
+import { parseDevice } from '../middleware/device.js';
 import errorPage from '../middleware/errorPage.js';
 import socketEvents from '../socket/socketEvents.js';
 
@@ -20,7 +21,6 @@ router.use(passport.initialize());
 const providerToStrat = {
   vk: 'vkontakte',
   g: 'google',
-  re: 'reddit',
   d: 'discord',
   fb: 'facebook',
 };
@@ -35,17 +35,13 @@ router.get('/:provider', (req, res, next) => {
   const scopes = {
     vk: ['email'],
     g: ['email', 'profile'],
-    re: [],
-    d: ['identity', 'email'],
+    d: ['identify', 'email'],
     fb: ['email'],
   };
   const scope = scopes[provider];
   if (!scope) {
     throw new Error('No such oauth provider configured');
   }
-  const providerOpts = {
-    re: { duration: 'temporary' },
-  };
 
   const origin = req.query.o || '/';
   const state = generateTinyToken();
@@ -57,9 +53,7 @@ router.get('/:provider', (req, res, next) => {
     sameSite: 'lax',
   });
 
-  const opts = providerOpts[provider] ? { ...providerOpts[provider] } : {};
-  opts.scope = scope;
-  opts.state = state;
+  const opts = { scope, state };
 
   passport.authenticate(
     providerToStrat[provider], opts,
@@ -69,7 +63,7 @@ router.get('/:provider', (req, res, next) => {
 /*
  * return from oauth
  */
-router.get('/r/:provider', (req, res, next) => {
+router.get('/r/:provider', parseDevice, (req, res, next) => {
   req.tickRateLimiter(7000);
 
   const { provider } = req.params;
@@ -90,9 +84,9 @@ router.get('/r/:provider', (req, res, next) => {
   }
   req.oauthOrigin = origin;
 
-  passport.authenticate(providerToStrat[provider], {
-    session: false,
-  })(req, res, next);
+  const opts = { session: false };
+
+  passport.authenticate(providerToStrat[provider], opts)(req, res, next);
 }, async (req, res) => {
   /*
    * this is NOT a full user instance, only { id, name, password, userlvl },
@@ -120,6 +114,7 @@ router.get('/r/:provider', (req, res, next) => {
       }
     }
     res.redirect(req.oauthOrigin);
+    return;
   }
 
   res.redirect('/');

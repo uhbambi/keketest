@@ -6,6 +6,10 @@ import getErrorPageHtml from '../ssr/errorPageHTML.js';
 
 // eslint-disable-next-line no-unused-vars
 export default (err, req, res, next) => {
+  if (res.headersSent) {
+    next(err);
+    return;
+  }
   res.set({
     'Cache-Control': 'no-cache, no-store, must-revalidate',
     'Content-Type': 'text/html; charset=utf-8',

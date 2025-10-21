@@ -106,9 +106,6 @@ const mapping = {
   'passport-oauth2': {
     sources: 'tag',
   },
-  'passport-reddit': {
-    sources: 'tag'
-  },
   'passport-strategy': {
     sources: 'branch:master',
   },

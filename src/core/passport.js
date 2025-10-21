@@ -7,7 +7,6 @@ import passport from 'passport';
 import GoogleStrategy from 'passport-google-oauth2';
 import DiscordStrategy from 'passport-discord';
 import FacebookStrategy from 'passport-facebook';
-import RedditStrategy from 'passport-reddit/lib/passport-reddit/strategy.js';
 import VkontakteStrategy from 'passport-vkontakte/lib/strategy.js';
 
 import { sanitizeName, validateEMail } from '../utils/validation.js';
@@ -30,8 +29,6 @@ import {
   GOOGLE_CLIENT_SECRET,
   VK_CLIENT_ID,
   VK_CLIENT_SECRET,
-  REDDIT_CLIENT_ID,
-  REDDIT_CLIENT_SECRET,
 } from './config.js';
 
 
@@ -180,28 +177,6 @@ passport.use(new GoogleStrategy({
       email = emails[0].value;
     }
     const user = await oauthLogin('GOOGLE', name, email, id);
-    done(null, user);
-  } catch (err) {
-    done(err);
-  }
-}));
-
-/*
- * Sign in with Reddit
- * Reddit email addresses can never be trusted
- */
-passport.use(new RedditStrategy({
-  clientID: REDDIT_CLIENT_ID,
-  clientSecret: REDDIT_CLIENT_SECRET,
-  callbackURL: '/tp/r/re',
-  proxy: true,
-}, async (accessToken, refreshToken, profile, done) => {
-  try {
-    const { id } = profile;
-    console.log('REDDIT', profile);
-    const name = sanitizeName(profile.name);
-    // reddit does not give us access to email
-    const user = await oauthLogin('REDDIT', name, null, id);
     done(null, user);
   } catch (err) {
     done(err);
