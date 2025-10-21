@@ -119,7 +119,11 @@ router.get('/r/:abbr', parseDevice, async (req, res) => {
   const { state } = query;
 
   const cookies = parseCookie(req.headers.cookie || '');
-  const oauthCookie = unsign(cookies[`oa${state}`]);
+  const cookieName = `oa${state}`;
+  const oauthCookie = unsign(cookies[cookieName]);
+  res.clearCookie(cookieName, {
+    httpOnly: true, secure: false, sameSite: 'lax',
+  });
 
   /* eslint-disable max-len */
   if (!oauthCookie) {

@@ -139,6 +139,7 @@ export default ({
         'ws': 'commonjs ws',
         'compression': 'commonjs compression',
         'redis': 'commonjs redis',
+        'arctic': 'commonjs arctic',
         'winston': 'commonjs winston',
         'winston-daily-rotate-file': 'commonjs winston-daily-rotate-file',
       },

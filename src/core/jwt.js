@@ -5,10 +5,10 @@
 import { createSign, generateKeyPairSync, createHash } from 'crypto';
 import path from 'path';
 import fs from 'fs';
+import { exportJWK } from 'jose';
 
 import FsWatcher from './fsWatcher.js';
 
-const { exportJWK } = require('jose');
 
 let keys = [];
 
