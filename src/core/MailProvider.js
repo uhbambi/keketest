@@ -118,7 +118,10 @@ ${t`Thanks`}<br /><br />
     }
 
     const [name, to] = await getMailAndNameOfUserId(userId);
-    if (to && this.enabled) {
+    if (!to) {
+      return null;
+    }
+    if (this.enabled) {
       this.postNewLocationMail(to, name, host, lang, ip);
     } else {
       socketEvents.sendMail('newloc', [to, name, host, lang, ip]);
