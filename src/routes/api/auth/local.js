@@ -66,7 +66,8 @@ export default async (req, res) => {
     if (returnToken) {
       responseData.token = token;
     } else {
-      socketEvents.reloadIP(ip.ipString);
+      /* tell all clients of this ip to reload */
+      res.on('finish', () => socketEvents.reloadIP(ip.ipString));
     }
     res.json(responseData);
   } catch (error) {

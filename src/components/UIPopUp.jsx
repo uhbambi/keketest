@@ -12,6 +12,7 @@ import {
   setWindowArgs,
   setWindowTitle,
   changeWindowType,
+  togglePopUpfs,
 } from '../store/actions/popup.js';
 import WindowContext from './context/window.js';
 import COMPONENTS from './windows/index.js';
@@ -19,6 +20,7 @@ import COMPONENTS from './windows/index.js';
 const UIPopUp = () => {
   const windowType = useSelector(selectWindowType);
   const args = useSelector(selectWindowArgs);
+  const fsPopUps = useSelector((state) => state.gui.fsPopUps);
 
   const [Content] = COMPONENTS[windowType];
 
@@ -33,8 +35,18 @@ const UIPopUp = () => {
     changeType: (newType, newTitle, newArgs) => dispatch(changeWindowType(newType, newTitle, newArgs)),
   }), [args, dispatch]);
 
+  const isFullscreen = fsPopUps.includes(windowType);
+
   return (
-    <div className="popup-modal">
+    <div
+      className={`popup-modal${(isFullscreen) ? ' fs' : ''}`}
+    >
+      <div className="popup-fsbtn-wrapper">
+        <div
+          className="popup-fsbtn"
+          onClick={() => dispatch(togglePopUpfs(windowType))}
+        ><span>{(isFullscreen) ? '⇙' : '⇗'}</span></div>
+      </div>
       <div className="popup-content">
         <WindowContext.Provider value={contextData}>
           {(windowType)

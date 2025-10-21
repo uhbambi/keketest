@@ -29,3 +29,9 @@ export function changeWindowType(
   };
 }
 
+export function togglePopUpfs(windowType) {
+  return {
+    type: 'TOGGLE_POPUP_FS',
+    windowType,
+  };
+}

@@ -10,6 +10,8 @@ const initialState = {
   mute: false,
   chatNotify: true,
   cursor: true,
+  // popups that are set to show fullscreen
+  fsPopUps: [],
   // top-left button menu
   menuOpen: false,
   // show online users per canvas instead of total
@@ -156,6 +158,21 @@ export default function gui(
       return {
         ...state,
         style,
+      };
+    }
+
+    case 'TOGGLE_POPUP_FS': {
+      const { windowType } = action;
+      const fsPopUps = [...state.fsPopUps];
+      const pos = fsPopUps.indexOf(windowType);
+      if (pos !== -1) {
+        fsPopUps.splice(pos, 1);
+      } else {
+        fsPopUps.push(windowType);
+      }
+      return {
+        ...state,
+        fsPopUps,
       };
     }
 

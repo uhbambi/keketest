@@ -253,6 +253,13 @@ tr:nth-child(odd) {
 .msg.greentext{
   color: #00cc00;
 }
+.popup-fsbtn {
+  color: #666363;
+  background: linear-gradient(45deg, transparent 0%, transparent 50%, #373636 60%);
+}
+.popup-fsbtn:hover {
+  color: #bfb9b9;
+}
 
 .ping {
   background-color: #EB9999;

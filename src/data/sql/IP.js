@@ -3,6 +3,7 @@ import { DataTypes, QueryTypes } from 'sequelize';
 import sequelize, { nestQuery } from './sequelize.js';
 import { USE_PROXYCHECK } from '../../core/config.js';
 import { generateUUID } from '../../utils/hash.js';
+import { sanitizeIPString } from '../../utils/intel/ip.js';
 
 const IP = sequelize.define('IP', {
   /*
@@ -334,6 +335,11 @@ WHERE ${(where.length === 1) ? where[0] : `(${where.join(' OR ')})`}`, {
         type: QueryTypes.SELECT,
       },
     );
+    /* sanitize ips */
+    for (let i = 0; i < ipInfos.length; i += 1) {
+      const ipInfo = ipInfos[i];
+      ipInfo.ipString = sanitizeIPString(ipInfo.ipString);
+    }
     console.log(
       `SQL Resolving IPInfos took ${(Date.now() - startTime) / 1000}s`,
     );
@@ -563,7 +569,7 @@ export async function getIIDsOfIPs(ipStrings) {
       },
     );
     result.forEach((obj) => {
-      ipToIdMap.set(obj.ip, obj.iid);
+      ipToIdMap.set(sanitizeIPString(obj.ip), obj.iid);
     });
   } catch (error) {
     console.error(`SQL Error on getIIDsOfIPs: ${error.message}`);

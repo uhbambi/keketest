@@ -18,6 +18,10 @@
   border-radius: 21px;
 }
 
+.popup-fsbtn {
+  border-radius: 0 21px 0 0;
+}
+
 .Alert {
   border-radius: 12px;
 }

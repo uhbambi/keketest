@@ -354,8 +354,6 @@ router.get('/r/:abbr', parseDevice, async (req, res) => {
 
   /* creates req.user */
   await openSession(req, res, userData.id, 168);
-  /* tell all clients of this ip to reload */
-  socketEvents.reloadIP(req.ip.ipString);
 
   /*
   * on logins for openid connect reauthentification, we should split the
@@ -370,6 +368,9 @@ router.get('/r/:abbr', parseDevice, async (req, res) => {
       origin = url.pathname + url.search;
     }
   }
+
+  /* tell all clients of this ip to reload */
+  res.on('finish', () => socketEvents.reloadIP(req.ip.ipString));
   res.redirect(origin);
 });
 

@@ -87,6 +87,14 @@ tr:nth-child(even) {
   color: #f4f4f4;
 }
 
+.popup-fsbtn {
+  color: #666363;
+  background: linear-gradient(45deg, transparent 0%, transparent 50%, #373636 60%);
+}
+.popup-fsbtn:hover {
+  color: #bfb9b9;
+}
+
 .deletelistitem.selected {
   background-color: #8c5e5e;
 }

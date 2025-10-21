@@ -122,6 +122,15 @@ tr:nth-child(even) {
   border-radius: 21px;
 }
 
+.popup-fsbtn {
+  color: #666363;
+  border-radius: 0 21px 0 0;
+  background: linear-gradient(45deg, transparent 0%, transparent 50%, #373636 60%);
+}
+.popup-fsbtn:hover {
+  color: #bfb9b9;
+}
+
 .Alert {
   border-radius: 12px;
 }
