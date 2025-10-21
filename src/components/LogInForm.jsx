@@ -14,6 +14,7 @@ import {
   requestLogin, requestNewPassword, requestRegistration,
 } from '../store/actions/fetch.js';
 import { loginUser } from '../store/actions/index.js';
+import { THREEPID_ABBR } from '../core/constants.js';
 
 /* eslint-disable max-len */
 
@@ -240,43 +241,23 @@ const LogInForm = ({
                     {t`I forgot my Password.`}
                   </span>
                 </p>
-                <h2>{t`or login with:`}</h2>
-                {(reauthenticate) ? (
-                  <p>{t`Third Party LogIns are disabled for this action.`}</p>
-                ) : (
+                {(!reauthenticate && window.ssv?.availableTp?.length > 0) && (
                   <React.Fragment key="tp">
-                    <a href={u`/tp/d?o=${path}`}>
-                      <img
-                        style={logoStyle}
-                        width={32}
-                        src={cdn`/discordlogo.svg`}
-                        alt="Discord"
-                      />
-                    </a>
-                    <a href={u`/tp/g?o=${path}`}>
-                      <img
-                        style={logoStyle}
-                        width={32}
-                        src={cdn`/googlelogo.svg`}
-                        alt="Google"
-                      />
-                    </a>
-                    <a href={u`/tp/fb?o=${path}`}>
-                      <img
-                        style={logoStyle}
-                        width={32}
-                        src={cdn`/facebooklogo.svg`}
-                        alt="Facebook"
-                      />
-                    </a>
-                    <a href={u`/tp/vk?o=${path}`}>
-                      <img
-                        style={logoStyle}
-                        width={32}
-                        src={cdn`/vklogo.svg`}
-                        alt="VK"
-                      />
-                    </a>
+                    <h2>{t`or login with:`}</h2>
+                    {window.ssv.availableTp.map((abbr) => {
+                      const providerName = THREEPID_ABBR[abbr];
+                      return (
+                        <a href={u`/tp/${abbr}?o=${path}`} key={abbr}>
+                          <img
+                            style={logoStyle}
+                            width={32}
+                            src={cdn`/${providerName.toLowerCase()}logo.svg`}
+                            title={providerName}
+                            alt={providerName}
+                          />
+                        </a>
+                      );
+                    })}
                   </React.Fragment>
                 )}
                 <h2>{t`or register here:`}</h2>

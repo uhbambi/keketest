@@ -69,7 +69,7 @@ msgstr ""
 msgid "Add Template"
 msgstr ""
 
-#: src/components/windows/UserArea.jsx:79
+#: src/components/windows/UserArea.jsx:67
 msgid "Admintools"
 msgstr ""
 
@@ -109,7 +109,11 @@ msgstr ""
 msgid "BID"
 msgstr ""
 
-#: src/components/windows/index.js:26
+#: src/components/LogInForm.jsx:281
+msgid "Back"
+msgstr ""
+
+#: src/components/windows/index.js:23
 msgid "Badge Display"
 msgstr ""
 
@@ -193,10 +197,10 @@ msgstr ""
 #: src/components/ChangeUsername.jsx:72
 #: src/components/DeleteAccount.jsx:77
 #: src/components/GlobalCaptcha.jsx:94
+#: src/components/LogInForm.jsx:306
+#: src/components/LogInForm.jsx:399
 #: src/components/RefreshPrompt.jsx:16
 #: src/components/TemplateItemEdit.jsx:181
-#: src/components/windows/ForgotPassword.jsx:89
-#: src/components/windows/Register.jsx:173
 msgid "Cancel"
 msgstr ""
 
@@ -210,7 +214,7 @@ msgstr ""
 msgid "Canvas"
 msgstr ""
 
-#: src/components/windows/index.js:23
+#: src/components/windows/index.js:20
 msgid "Canvas Archive"
 msgstr ""
 
@@ -223,11 +227,11 @@ msgid "Canvas Error"
 msgstr ""
 
 #: src/components/buttons/CanvasSwitchButton.jsx:20
-#: src/components/windows/index.js:22
+#: src/components/windows/index.js:19
 msgid "Canvas Selection"
 msgstr ""
 
-#: src/components/windows/Register.jsx:156
+#: src/components/LogInForm.jsx:378
 msgid "Captcha"
 msgstr ""
 
@@ -239,11 +243,11 @@ msgstr ""
 msgid "Change Happened"
 msgstr ""
 
-#: src/components/UserAreaContent.jsx:119
+#: src/components/UserAreaContent.jsx:133
 msgid "Change Name"
 msgstr ""
 
-#: src/components/UserAreaContent.jsx:152
+#: src/components/UserAreaContent.jsx:166
 msgid "Change Password"
 msgstr ""
 
@@ -260,7 +264,7 @@ msgstr ""
 msgid "Charts"
 msgstr ""
 
-#: src/components/windows/index.js:21
+#: src/components/windows/index.js:18
 msgid "Chat"
 msgstr ""
 
@@ -270,6 +274,10 @@ msgstr ""
 
 #: src/components/windows/Settings.jsx:162
 msgid "Check out past versions of the canvas."
+msgstr ""
+
+#: src/components/windows/OIDCConsent.jsx:170
+msgid "Check to allow"
 msgstr ""
 
 #: src/components/ModWatchtools.jsx:132
@@ -289,7 +297,7 @@ msgstr ""
 msgid "Choose Strategy"
 msgstr ""
 
-#: src/components/UserAreaContent.jsx:132
+#: src/components/UserAreaContent.jsx:146
 msgid "Choose Username"
 msgstr ""
 
@@ -334,15 +342,15 @@ msgstr ""
 msgid "Click to Load Captcha"
 msgstr ""
 
-#: src/components/Window.jsx:228
+#: src/components/Window.jsx:229
 msgid "Clone"
 msgstr ""
 
 #: src/components/Admintools.jsx:185
 #: src/components/ModCanvastools.jsx:230
 #: src/components/ModWatchtools.jsx:128
-#: src/components/Window.jsx:164
-#: src/components/Window.jsx:267
+#: src/components/Window.jsx:165
+#: src/components/Window.jsx:268
 #: src/components/contextmenus/ChannelContextMenu.jsx:59
 msgid "Close"
 msgstr ""
@@ -368,8 +376,8 @@ msgid "Confirm New Password"
 msgstr ""
 
 #: src/components/ChangePassword.jsx:111
-#: src/components/windows/Register.jsx:134
-#: src/components/windows/Register.jsx:140
+#: src/components/LogInForm.jsx:356
+#: src/components/LogInForm.jsx:362
 msgid "Confirm Password"
 msgstr ""
 
@@ -378,7 +386,11 @@ msgstr ""
 msgid "Connection error ${ code } :("
 msgstr ""
 
-#: src/components/windows/UserArea.jsx:87
+#: src/components/windows/OIDCConsent.jsx:158
+msgid "Consent"
+msgstr ""
+
+#: src/components/windows/UserArea.jsx:75
 msgid "Consider joining us on Guilded:"
 msgstr ""
 
@@ -391,7 +403,7 @@ msgstr ""
 msgid "Convert an image to canvas colors"
 msgstr ""
 
-#: src/components/windows/UserArea.jsx:73
+#: src/components/windows/UserArea.jsx:61
 msgid "Converter"
 msgstr ""
 
@@ -508,7 +520,7 @@ msgstr ""
 msgid "Daily Pixels per Player"
 msgstr ""
 
-#: src/components/UserAreaContent.jsx:85
+#: src/components/UserAreaContent.jsx:99
 msgid "Daily Rank"
 msgstr ""
 
@@ -524,8 +536,12 @@ msgstr ""
 msgid "Delete"
 msgstr ""
 
-#: src/components/UserAreaContent.jsx:159
+#: src/components/UserAreaContent.jsx:173
 msgid "Delete Account"
+msgstr ""
+
+#: src/components/windows/OIDCConsent.jsx:213
+msgid "Deny"
 msgstr ""
 
 #: src/ui/PixelTransferController.js:70
@@ -565,6 +581,10 @@ msgstr ""
 msgid "Do stuff with IPs (one IP per line)"
 msgstr ""
 
+#: src/components/windows/OIDCConsent.jsx:191
+msgid "Don't remember"
+msgstr ""
+
 #: src/components/SocialSettings.jsx:54
 msgid "Don't show me in global stats"
 msgstr ""
@@ -597,9 +617,9 @@ msgstr ""
 msgid "Edit"
 msgstr ""
 
-#: src/components/windows/ForgotPassword.jsx:80
-#: src/components/windows/Register.jsx:117
-#: src/components/windows/Register.jsx:124
+#: src/components/LogInForm.jsx:299
+#: src/components/LogInForm.jsx:339
+#: src/components/LogInForm.jsx:346
 msgid "Email"
 msgstr ""
 
@@ -611,7 +631,7 @@ msgstr ""
 msgid "Email can't be longer than 40 characters."
 msgstr ""
 
-#: src/components/windows/Register.jsx:118
+#: src/components/LogInForm.jsx:340
 msgid ""
 "Email is used to verify your account. You might get a cofirmation mail "
 "after registering."
@@ -654,7 +674,7 @@ msgstr ""
 msgid "Enter UserName of new Mod"
 msgstr ""
 
-#: src/components/windows/ForgotPassword.jsx:69
+#: src/components/LogInForm.jsx:287
 msgid "Enter your mail address and we will send you a new password:"
 msgstr ""
 
@@ -666,11 +686,11 @@ msgstr ""
 #: src/components/ChangeUsername.jsx:54
 #: src/components/DeleteAccount.jsx:59
 #: src/components/GlobalCaptcha.jsx:80
-#: src/components/LogInForm.jsx:70
+#: src/components/LogInForm.jsx:201
+#: src/components/LogInForm.jsx:291
+#: src/components/LogInForm.jsx:386
 #: src/components/windows/BadgeDisplay.jsx:39
 #: src/components/windows/FishDisplay.jsx:40
-#: src/components/windows/ForgotPassword.jsx:73
-#: src/components/windows/Register.jsx:143
 msgid "Error"
 msgstr ""
 
@@ -701,7 +721,7 @@ msgstr ""
 msgid "File"
 msgstr ""
 
-#: src/components/windows/index.js:25
+#: src/components/windows/index.js:22
 msgid "Fish Display"
 msgstr ""
 
@@ -717,18 +737,25 @@ msgid ""
 "relevant traces. Your placed pixels will of course not be deleted."
 msgstr ""
 
-#: src/components/LogInForm.jsx:92
-#: src/components/windows/Register.jsx:151
+#: src/components/windows/OIDCConsent.jsx:192
+msgid "For one day"
+msgstr ""
+
+#: src/components/LogInForm.jsx:223
+#: src/components/LogInForm.jsx:373
+#: src/components/windows/OIDCConsent.jsx:194
 msgid "For one month"
 msgstr ""
 
-#: src/components/LogInForm.jsx:91
-#: src/components/windows/Register.jsx:150
+#: src/components/LogInForm.jsx:222
+#: src/components/LogInForm.jsx:372
+#: src/components/windows/OIDCConsent.jsx:193
 msgid "For one week"
 msgstr ""
 
-#: src/components/LogInForm.jsx:93
-#: src/components/windows/Register.jsx:152
+#: src/components/LogInForm.jsx:224
+#: src/components/LogInForm.jsx:374
+#: src/components/windows/OIDCConsent.jsx:195
 msgid "For one year"
 msgstr ""
 
@@ -736,13 +763,10 @@ msgstr ""
 msgid "For when you are playing on a potato."
 msgstr ""
 
-#: src/components/LogInForm.jsx:94
-#: src/components/windows/Register.jsx:153
+#: src/components/LogInForm.jsx:225
+#: src/components/LogInForm.jsx:375
+#: src/components/windows/OIDCConsent.jsx:196
 msgid "Forever"
-msgstr ""
-
-#: src/components/windows/index.js:20
-msgid "Forgot Password"
 msgstr ""
 
 #: src/components/windows/Settings.jsx:67
@@ -775,6 +799,10 @@ msgstr ""
 msgid "Go to"
 msgstr ""
 
+#: src/components/windows/OIDCConsent.jsx:220
+msgid "Grant"
+msgstr ""
+
 #: src/controls/keypress.js:182
 msgid "Grid OFF"
 msgstr ""
@@ -793,7 +821,7 @@ msgstr ""
 
 #: src/components/BanInfo.jsx:84
 #: src/components/buttons/HelpButton.jsx:20
-#: src/components/windows/index.js:16
+#: src/components/windows/index.js:15
 msgid "Help"
 msgstr ""
 
@@ -826,7 +854,7 @@ msgstr ""
 msgid "How pixelplanet should look like."
 msgstr ""
 
-#: src/components/LogInArea.jsx:30
+#: src/components/LogInForm.jsx:241
 msgid "I forgot my Password."
 msgstr ""
 
@@ -896,8 +924,12 @@ msgid "Invalid color selected"
 msgstr ""
 
 #: src/components/windows/Help.jsx:76
-#: src/components/windows/UserArea.jsx:88
+#: src/components/windows/UserArea.jsx:76
 msgid "Invited to Chat"
+msgstr ""
+
+#: src/components/windows/OIDCConsent.jsx:154
+msgid "It requests the following permissions. Uncheck what you don't want to grant:"
 msgstr ""
 
 #: src/components/Admintools.jsx:385
@@ -937,11 +969,11 @@ msgstr ""
 msgid "Loading"
 msgstr ""
 
-#: src/components/windows/UserArea.jsx:80
+#: src/components/windows/UserArea.jsx:68
 msgid "Loading..."
 msgstr ""
 
-#: src/components/UserAreaContent.jsx:112
+#: src/components/UserAreaContent.jsx:126
 msgid "Log out"
 msgstr ""
 
@@ -949,19 +981,27 @@ msgstr ""
 msgid "Log out a Session:"
 msgstr ""
 
-#: src/components/LogInForm.jsx:99
+#: src/components/LogInForm.jsx:230
 msgid "LogIn"
 msgstr ""
 
-#: src/components/UserAreaContent.jsx:141
+#: src/components/UserAreaContent.jsx:155
 msgid "Login Methods"
 msgstr ""
 
-#: src/components/LogInArea.jsx:20
+#: src/components/UserAreaContent.jsx:86
 msgid "Login to access more features and stats."
 msgstr ""
 
-#: src/components/LogInArea.jsx:22
+#: src/components/windows/OIDCConsent.jsx:71
+msgid "Login to grant access to other application."
+msgstr ""
+
+#: src/components/windows/OIDCConsent.jsx:138
+msgid "Login to other application"
+msgstr ""
+
+#: src/components/LogInForm.jsx:197
 msgid "Login with Name or Mail:"
 msgstr ""
 
@@ -977,7 +1017,7 @@ msgstr ""
 msgid "Map Data"
 msgstr ""
 
-#: src/components/Window.jsx:259
+#: src/components/Window.jsx:260
 msgid "Maximize"
 msgstr ""
 
@@ -989,11 +1029,11 @@ msgstr ""
 msgid "Moderators can access all Canvas, Watch and IID tools."
 msgstr ""
 
-#: src/components/windows/UserArea.jsx:79
+#: src/components/windows/UserArea.jsx:67
 msgid "Modtools"
 msgstr ""
 
-#: src/components/Window.jsx:236
+#: src/components/Window.jsx:237
 msgid "Move"
 msgstr ""
 
@@ -1005,9 +1045,8 @@ msgstr ""
 msgid "Muted Sound"
 msgstr ""
 
-#: src/components/windows/Register.jsx:99
-#: src/components/windows/Register.jsx:106
-#: src/components/windows/Register.jsx:115
+#: src/components/LogInForm.jsx:321
+#: src/components/LogInForm.jsx:328
 msgid "Name"
 msgstr ""
 
@@ -1027,7 +1066,7 @@ msgstr ""
 msgid "Name must be shorter than 26 characters"
 msgstr ""
 
-#: src/components/LogInForm.jsx:78
+#: src/components/LogInForm.jsx:209
 msgid "Name or Email"
 msgstr ""
 
@@ -1071,6 +1110,10 @@ msgstr ""
 #: src/ui/PixelTransferController.js:142
 #: src/ui/PixelTransferController.js:146
 msgid "Not allowed"
+msgstr ""
+
+#: src/components/windows/index.js:36
+msgid "OIDC LogIn"
 msgstr ""
 
 #: src/components/BanInfo.jsx:142
@@ -1157,9 +1200,9 @@ msgstr ""
 #: src/components/ChangeMail.jsx:152
 #: src/components/ChangePassword.jsx:103
 #: src/components/DeleteAccount.jsx:69
-#: src/components/LogInForm.jsx:85
-#: src/components/windows/Register.jsx:126
-#: src/components/windows/Register.jsx:132
+#: src/components/LogInForm.jsx:216
+#: src/components/LogInForm.jsx:348
+#: src/components/LogInForm.jsx:354
 msgid "Password"
 msgstr ""
 
@@ -1186,6 +1229,10 @@ msgstr ""
 
 #: src/store/actions/thunks.js:241
 msgid "Pencil picks: "
+msgstr ""
+
+#: src/components/windows/OIDCConsent.jsx:159
+msgid "Permission"
 msgstr ""
 
 #: src/store/actions/index.js:410
@@ -1221,7 +1268,7 @@ msgid "Place color pixels on a large canvas with other players online!"
 msgstr ""
 
 #: src/components/OnlineBox.jsx:84
-#: src/components/UserAreaContent.jsx:91
+#: src/components/UserAreaContent.jsx:105
 msgid "Placed Pixels"
 msgstr ""
 
@@ -1229,7 +1276,7 @@ msgstr ""
 msgid "Play a sound when new chat messages arrive"
 msgstr ""
 
-#: src/components/windows/index.js:24
+#: src/components/windows/index.js:21
 msgid "Player"
 msgstr ""
 
@@ -1247,15 +1294,15 @@ msgstr ""
 
 #: src/components/UserMessages.jsx:32
 msgid ""
-"Please verify your mail address or your account could get deleted after a "
-"few days."
+"Please verify your mail address or add a new one, otherwise your account "
+"could get deleted in the future."
 msgstr ""
 
 #: src/components/windows/Archive.jsx:12
 msgid "Political Compass Canvas"
 msgstr ""
 
-#: src/components/Window.jsx:180
+#: src/components/Window.jsx:181
 msgid "PopUp"
 msgstr ""
 
@@ -1309,8 +1356,8 @@ msgstr ""
 msgid "Private"
 msgstr ""
 
-#: src/components/windows/UserArea.jsx:38
-#: src/components/windows/UserArea.jsx:65
+#: src/components/windows/UserArea.jsx:33
+#: src/components/windows/UserArea.jsx:53
 msgid "Profile"
 msgstr ""
 
@@ -1330,6 +1377,22 @@ msgstr ""
 msgid "Ranking updates every 5 min. Daily rankings get reset at midnight UTC."
 msgstr ""
 
+#: src/components/windows/OIDCConsent.jsx:58
+msgid "Read Badges and fishes"
+msgstr ""
+
+#: src/components/windows/OIDCConsent.jsx:54
+msgid "Read Email"
+msgstr ""
+
+#: src/components/windows/OIDCConsent.jsx:56
+msgid "Read Pixels placed"
+msgstr ""
+
+#: src/components/windows/OIDCConsent.jsx:52
+msgid "Read name, username and account age"
+msgstr ""
+
 #: src/components/BanInfo.jsx:95
 #: src/components/ModIIDtools.jsx:142
 msgid "Reason"
@@ -1339,20 +1402,24 @@ msgstr ""
 msgid "Refresh"
 msgstr ""
 
-#: src/components/LogInArea.jsx:79
+#: src/components/LogInForm.jsx:267
 msgid "Register"
 msgstr ""
 
-#: src/components/windows/Register.jsx:98
+#: src/components/LogInForm.jsx:320
 msgid "Register new account here"
 msgstr ""
 
-#: src/components/windows/index.js:19
-msgid "Registration"
+#: src/components/windows/OIDCConsent.jsx:60
+msgid "Regular update this data"
 msgstr ""
 
 #: src/components/Captcha.jsx:267
 msgid "Reload"
+msgstr ""
+
+#: src/components/windows/OIDCConsent.jsx:183
+msgid "Remember this decision: "
 msgstr ""
 
 #: src/components/DeleteList.jsx:30
@@ -1391,11 +1458,15 @@ msgstr ""
 msgid "Reset Captchas of ALL Users"
 msgstr ""
 
-#: src/components/Window.jsx:275
+#: src/components/LogInForm.jsx:274
+msgid "Reset your password"
+msgstr ""
+
+#: src/components/Window.jsx:276
 msgid "Resize"
 msgstr ""
 
-#: src/components/Window.jsx:191
+#: src/components/Window.jsx:192
 msgid "Restore"
 msgstr ""
 
@@ -1467,7 +1538,7 @@ msgstr ""
 msgid "Send"
 msgstr ""
 
-#: src/components/windows/ForgotPassword.jsx:58
+#: src/components/LogInForm.jsx:278
 msgid "Sent you a mail with instructions to reset your password."
 msgstr ""
 
@@ -1483,7 +1554,7 @@ msgstr ""
 msgid "Server got confused by your pixels. Are you playing on multiple devices?"
 msgstr ""
 
-#: src/components/UserAreaContent.jsx:152
+#: src/components/UserAreaContent.jsx:166
 msgid "Set Password"
 msgstr ""
 
@@ -1500,7 +1571,7 @@ msgid ""
 msgstr ""
 
 #: src/components/buttons/SettingsButton.jsx:21
-#: src/components/windows/index.js:17
+#: src/components/windows/index.js:16
 msgid "Settings"
 msgstr ""
 
@@ -1540,7 +1611,7 @@ msgstr ""
 msgid "Small Pixels When Zoomed"
 msgstr ""
 
-#: src/components/UserAreaContent.jsx:166
+#: src/components/UserAreaContent.jsx:180
 msgid "Social Settings"
 msgstr ""
 
@@ -1560,7 +1631,7 @@ msgstr ""
 msgid "Start checking for Malware"
 msgstr ""
 
-#: src/components/windows/UserArea.jsx:68
+#: src/components/windows/UserArea.jsx:56
 msgid "Statistics"
 msgstr ""
 
@@ -1568,8 +1639,8 @@ msgstr ""
 msgid "Status: Not running"
 msgstr ""
 
-#: src/components/LogInForm.jsx:88
-#: src/components/windows/Register.jsx:147
+#: src/components/LogInForm.jsx:219
+#: src/components/LogInForm.jsx:369
 msgid "Stay logged in: "
 msgstr ""
 
@@ -1587,14 +1658,18 @@ msgstr ""
 
 #: src/components/Admintools.jsx:234
 #: src/components/Admintools.jsx:396
+#: src/components/LogInForm.jsx:303
+#: src/components/LogInForm.jsx:393
 #: src/components/ModCanvastools.jsx:318
 #: src/components/ModCanvastools.jsx:410
 #: src/components/ModCanvastools.jsx:488
 #: src/components/ModCanvastools.jsx:591
 #: src/components/ModIIDtools.jsx:270
-#: src/components/windows/ForgotPassword.jsx:84
-#: src/components/windows/Register.jsx:167
 msgid "Submit"
+msgstr ""
+
+#: src/components/windows/OIDCConsent.jsx:149
+msgid "Switch Account"
 msgstr ""
 
 #: src/controls/keypress.js:107
@@ -1610,13 +1685,20 @@ msgstr ""
 msgid "Templates"
 msgstr ""
 
+#: src/components/windows/OIDCConsent.jsx:140
+#, javascript-format
+msgid ""
+"The application ${ appName } at ${ appUrl } wants to login with your "
+"account ${ accountName }"
+msgstr ""
+
 #: src/components/windows/Help.jsx:83
 msgid ""
 "The bare map data that we use, together with converted OpenStreetMap tiles "
 "for orientation, can be downloaded from mega.nz here: "
 msgstr ""
 
-#: src/components/windows/Register.jsx:109
+#: src/components/LogInForm.jsx:331
 msgid ""
 "The name of your account, only a-z, A-Z, -, ., and - characters are "
 "allowed. It is permanent, you can not change it later."
@@ -1626,7 +1708,7 @@ msgstr ""
 msgid "Themes"
 msgstr ""
 
-#: src/components/windows/Player.jsx:17
+#: src/components/windows/Player.jsx:15
 msgid "This URL is not supported by our Media Player"
 msgstr ""
 
@@ -1642,10 +1724,14 @@ msgid ""
 "remained active for months till it got shut down on November 30th."
 msgstr ""
 
-#: src/components/windows/Register.jsx:100
+#: src/components/LogInForm.jsx:322
 msgid ""
 "This is the name that other people see, e.g. in Chat. You can change it at "
 "any time. All characters except @, /, , >, < and # are allowed."
+msgstr ""
+
+#: src/components/windows/OIDCConsent.jsx:170
+msgid "This permission is required"
 msgstr ""
 
 #: src/ui/PixelTransferController.js:68
@@ -1674,7 +1760,7 @@ msgstr ""
 msgid "Today"
 msgstr ""
 
-#: src/components/UserAreaContent.jsx:81
+#: src/components/UserAreaContent.jsx:95
 msgid "Today Placed Pixels"
 msgstr ""
 
@@ -1718,7 +1804,7 @@ msgstr ""
 msgid "Total Pixels placed per day"
 msgstr ""
 
-#: src/components/UserAreaContent.jsx:95
+#: src/components/UserAreaContent.jsx:109
 msgid "Total Rank"
 msgstr ""
 
@@ -1760,8 +1846,8 @@ msgstr ""
 msgid "Unmuted Sound"
 msgstr ""
 
-#: src/components/LogInForm.jsx:90
-#: src/components/windows/Register.jsx:149
+#: src/components/LogInForm.jsx:221
+#: src/components/LogInForm.jsx:371
 msgid "Until the browser closes"
 msgstr ""
 
@@ -1784,12 +1870,17 @@ msgid "User Account"
 msgstr ""
 
 #: src/components/buttons/LogInButton.jsx:20
-#: src/components/windows/index.js:18
+#: src/components/windows/index.js:17
 msgid "User Area"
 msgstr ""
 
+#: src/components/windows/OIDCConsent.jsx:62
+msgid "User ID and verification level"
+msgstr ""
+
 #: src/components/Admintools.jsx:354
-#: src/components/windows/Register.jsx:108
+#: src/components/LogInForm.jsx:330
+#: src/components/LogInForm.jsx:337
 msgid "User Name"
 msgstr ""
 
@@ -1920,6 +2011,10 @@ msgid ""
 "a bonus, your cooldown is reduced."
 msgstr ""
 
+#: src/components/windows/OIDCConsent.jsx:205
+msgid "You did not consent"
+msgstr ""
+
 #: src/components/GlobalCaptcha.jsx:53
 msgid "You failed your captcha"
 msgstr ""
@@ -1998,7 +2093,7 @@ msgstr ""
 msgid "Your ban expires at "
 msgstr ""
 
-#: src/components/UserAreaContent.jsx:104
+#: src/components/UserAreaContent.jsx:118
 msgid "Your name is:"
 msgstr ""
 
@@ -2025,11 +2120,11 @@ msgstr ""
 msgid "mentioned you"
 msgstr ""
 
-#: src/components/LogInArea.jsx:33
+#: src/components/LogInForm.jsx:246
 msgid "or login with:"
 msgstr ""
 
-#: src/components/LogInArea.jsx:74
+#: src/components/LogInForm.jsx:262
 msgid "or register here:"
 msgstr ""
 

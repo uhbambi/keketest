@@ -68,6 +68,12 @@ export const USERLVL = {
   ADMIN: 100,
 };
 
+export const THREEPID_ABBR = {
+  d: 'DISCORD',
+  g: 'GOOGLE',
+  vk: 'VK',
+};
+
 export const THREEPID_PROVIDERS = {
   EMAIL: 1,
   DISCORD: 2,

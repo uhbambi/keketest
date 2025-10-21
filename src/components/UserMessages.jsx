@@ -29,7 +29,7 @@ const UserMessages = () => {
               <React.Fragment key="umv">
                 {
                   // eslint-disable-next-line max-len
-                  t`Please verify your mail address or your account could get deleted after a few days.`
+                  t`Please verify your mail address or add a new one, otherwise your account could get deleted in the future.`
                 }&nbsp;
                 <span
                   role="button"

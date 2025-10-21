@@ -7,6 +7,10 @@ export default function getErrorPageHtml(
 ) {
   const { t } = ttag;
 
+  if (title === 'Error') {
+    title = t`Error`;
+  }
+
   return `<!doctype html>
 <html lang="${lang}">
   <head>

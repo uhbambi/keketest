@@ -285,6 +285,10 @@ function buildServer() {
     const argsc = (langs === 'all' && !development)
       ? ['webpack', '--env', 'extract', '--config', './webpack.config.server.js']
       : ['webpack', '--config', './webpack.config.server.js']
+    if (development) {
+      argsc.push('--env');
+      argsc.push('development');
+    }
     const serverCompile = spawn('npx', argsc, {
       shell: process.platform == 'win32',
     });

@@ -13,7 +13,7 @@ import { availableLangs as langs } from '../middleware/ttag.js';
 import { getThemeCssAssets } from '../core/assets.js';
 import chooseAPIUrl from '../core/chooseAPIUrl.js';
 import {
-  BACKUP_URL, CONTACT_ADDRESS,
+  BACKUP_URL, CONTACT_ADDRESS, AVAILABLE_TP,
   UNSHARDED_HOST, CDN_HOST, CDN_URL, BASENAME, NO_CDN_COUNTRIES,
 } from '../core/config.js';
 import { DEFAULT_CANVAS_ID } from '../core/constants.js';
@@ -66,6 +66,7 @@ export default function generateMainHTML(
     lang,
     canvases: localizedCanvases,
     defaultCanvas,
+    availableTp: AVAILABLE_TP,
   };
 
   if (params) {

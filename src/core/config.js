@@ -53,14 +53,15 @@ let config = {};
     ['WHOIS_DURATION', 'int', 240],
     ['PROXYCHECK_DURATION', 'int', 72],
     ['COOKIE_SECRET', 'string', 'dummy'],
-    ['FACEBOOK_APP_ID', 'string', 'dummy'],
-    ['FACEBOOK_APP_SECRET', 'string', 'dummy'],
-    ['DISCORD_CLIENT_ID', 'string', 'dummy'],
-    ['DISCORD_CLIENT_SECRET', 'string', 'dummy'],
-    ['GOOGLE_CLIENT_ID', 'string', 'dummy'],
-    ['GOOGLE_CLIENT_SECRET', 'string', 'dummy'],
-    ['VK_CLIENT_ID', 'string', 'dummy'],
-    ['VK_CLIENT_SECRET', 'string', 'dummy'],
+    ['DISCORD_CLIENT_ID', 'string', null],
+    ['DISCORD_CLIENT_SECRET', 'string', null],
+    ['GOOGLE_CLIENT_ID', 'string', null],
+    ['GOOGLE_CLIENT_SECRET', 'string', null],
+    ['VK_CLIENT_ID', 'string', null],
+    ['VK_CLIENT_SECRET', 'string', null],
+    ['DISCORD_R_URI', 'string', null],
+    ['GOOGLE_R_URI', 'string', null],
+    ['VK_R_URI', 'string', null],
     ['BACKUP_REDIS_URL', 'string', null],
     ['BACKUP_DIR', 'string', null],
     ['BACKUP_CMD', 'string', null],
@@ -70,6 +71,9 @@ let config = {};
     ['OIDC_URL', 'string', null],
   ];
 
+  /*
+   * read all config file values
+   */
   const configFileValues = {};
   try {
     const configFile = path.resolve('config.ini');
@@ -99,6 +103,10 @@ let config = {};
     console.error(`Couldn't read config file ${error.message}`);
   }
 
+  /*
+   * read all variables and assign config values, either by environment or
+   * config file
+   */
   for (let i = 0; i < variables.length; i += 1) {
     const [key, type, def] = variables[i];
 
@@ -158,6 +166,10 @@ let config = {};
   }
 
   /* postprocessed values */
+
+  /*
+   * read TIMEBLOCKS and seperate them into user and ip
+   */
   config.TIMEBLOCK_USERS = null;
   config.TIMEBLOCK_IPS = null;
   if (config.TIMEBLOCKS) {
@@ -183,9 +195,24 @@ let config = {};
     }
   }
 
-  /* generated values */
+  /*
+   * make list of configured third party providers,
+   * the abbriviations are used in the route routes/top.js and in the Login Form
+   * components/LogInForm.js
+   */
+  config.AVAILABLE_TP = [];
+  if (config.DISCORD_CLIENT_ID) config.AVAILABLE_TP.push('d');
+  if (config.GOOGLE_CLIENT_ID) config.AVAILABLE_TP.push('g');
+  if (config.VK_CLIENT_ID) config.AVAILABLE_TP.push('vk');
+
+  /*
+   * resolve TILE_FOLDER to full path
+   */
   config.TILE_FOLDER = path.resolve(config.TILE_FOLDER_REL);
 
+  /*
+   * proccess URL related values
+   */
   if (config.CDN_URL) {
     const cdnHost = config.CDN_URL.substring(config.CDN_URL.indexOf('//') + 2);
     const endHostSlash = cdnHost.indexOf('/', 8);
@@ -240,14 +267,15 @@ export const {
   TRUSTED_TIME,
   WHOIS_DURATION,
   PROXYCHECK_DURATION,
-  FACEBOOK_APP_ID,
-  FACEBOOK_APP_SECRET,
   DISCORD_CLIENT_ID,
   DISCORD_CLIENT_SECRET,
   GOOGLE_CLIENT_ID,
   GOOGLE_CLIENT_SECRET,
   VK_CLIENT_ID,
   VK_CLIENT_SECRET,
+  DISCORD_R_URI,
+  GOOGLE_R_URI,
+  VK_R_URI,
   TILE_FOLDER,
   CDN_HOST,
   BACKUP_REDIS_URL,
@@ -259,6 +287,7 @@ export const {
   TIMEBLOCK_IPS,
   TIMEBLOCK_USERS,
   OIDC_URL,
+  AVAILABLE_TP,
 } = config;
 
 config = null;

@@ -15,7 +15,7 @@ msgstr ""
 msgid "3D Canvas"
 msgstr ""
 
-#: src/ssr/Globe.jsx:39
+#: src/ssr/Globe.jsx:36
 msgid "A 3D globe of our whole map"
 msgstr ""
 
@@ -37,8 +37,8 @@ msgstr ""
 msgid "Can not chat while being banned"
 msgstr ""
 
-#: src/ssr/PasswordReset.jsx:31
 #: src/ssr/RedirectionPage.jsx:13
+#: src/ssr/errorPageHTML.js:28
 msgid "Click here"
 msgstr ""
 
@@ -46,7 +46,7 @@ msgstr ""
 msgid "Click to Verify"
 msgstr ""
 
-#: src/ssr/PasswordReset.jsx:61
+#: src/ssr/PasswordReset.jsx:37
 msgid "Confirm New Password"
 msgstr ""
 
@@ -72,7 +72,7 @@ msgstr ""
 msgid "Couldn't find this mail in our database"
 msgstr ""
 
-#: src/ssr/Globe.jsx:52
+#: src/ssr/Globe.jsx:49
 msgid "Double click on globe to go back."
 msgstr ""
 
@@ -122,7 +122,7 @@ msgstr ""
 msgid "Hello ${ name }"
 msgstr ""
 
-#: src/ssr/PasswordReset.jsx:51
+#: src/ssr/PasswordReset.jsx:27
 #, javascript-format
 msgid "Hello ${ name }, you can set your new password here:"
 msgstr ""
@@ -142,25 +142,30 @@ msgid ""
 "requested this mail was ${ ip })."
 msgstr ""
 
-#: src/utils/hash.js:34
+#: src/utils/hash.js:36
 msgid "Incorrect password!"
 msgstr ""
 
-#: src/routes/reset_password.js:110
+#: src/routes/reset_password.js:106
 msgid "Invalid url :( Please check your mail again."
 msgstr ""
 
-#: src/routes/api/modtools.js:158
-#: src/routes/api/modtools.js:280
+#: src/routes/api/modtools.js:171
+#: src/routes/api/modtools.js:293
 msgid "Just admins can do that"
 msgstr ""
 
-#: src/ssr/Globe.jsx:53
+#: src/ssr/Globe.jsx:50
 msgid "Loading..."
 msgstr ""
 
 #: src/core/MailProvider.js:106
 msgid "Login from new location on PixelPlanet"
+msgstr ""
+
+#: src/routes/oidc/auth.js:73
+#: src/routes/oidc/consent.js:45
+msgid "Login is required"
 msgstr ""
 
 #: src/routes/api/auth/change_mail.js:53
@@ -219,11 +224,11 @@ msgstr ""
 msgid "Name must be shorter than 26 characters"
 msgstr ""
 
-#: src/routes/api/auth/local.js:18
+#: src/routes/api/auth/local.js:19
 msgid "Name or Email does not exist!"
 msgstr ""
 
-#: src/ssr/PasswordReset.jsx:55
+#: src/ssr/PasswordReset.jsx:31
 msgid "New Password"
 msgstr ""
 
@@ -274,7 +279,7 @@ msgstr ""
 msgid "Password must be shorter than 60 characters."
 msgstr ""
 
-#: src/routes/reset_password.js:91
+#: src/routes/reset_password.js:87
 msgid "Password successfully changed."
 msgstr ""
 
@@ -282,7 +287,7 @@ msgstr ""
 msgid "PixelCanvas"
 msgstr ""
 
-#: src/ssr/Globe.jsx:38
+#: src/ssr/Globe.jsx:35
 msgid "PixelPlanet.Fun 3DGlobe"
 msgstr ""
 
@@ -290,8 +295,7 @@ msgstr ""
 msgid "PixelPlanet.fun Accounts"
 msgstr ""
 
-#: src/ssr/PasswordReset.jsx:21
-#: src/ssr/PasswordReset.jsx:41
+#: src/ssr/PasswordReset.jsx:17
 msgid "PixelPlanet.fun Password Reset"
 msgstr ""
 
@@ -303,7 +307,7 @@ msgstr ""
 msgid "Place Voxels on a 3D canvas with others."
 msgstr ""
 
-#: src/ssr/mainHTML.js:104
+#: src/ssr/mainHTML.js:110
 msgid "Place color pixels on an map styled canvas with other players online"
 msgstr ""
 
@@ -315,18 +319,18 @@ msgstr ""
 msgid "Please try again."
 msgstr ""
 
-#: src/core/ChatProvider.js:390
+#: src/core/ChatProvider.js:402
 msgid "Please use int channel"
 msgstr ""
 
 #: src/core/MailProvider.js:135
-#: src/ssr/PasswordReset.jsx:29
-#: src/ssr/PasswordReset.jsx:50
+#: src/ssr/PasswordReset.jsx:26
 msgid "Reset Password"
 msgstr ""
 
-#: src/ssr/PasswordReset.jsx:22
-#: src/ssr/PasswordReset.jsx:42
+#: src/routes/reset_password.js:33
+#: src/routes/reset_password.js:102
+#: src/ssr/PasswordReset.jsx:18
 msgid "Reset your password here"
 msgstr ""
 
@@ -342,11 +346,11 @@ msgstr ""
 msgid "Special canvas to spread awareness of SARS-CoV2 (take the vax)."
 msgstr ""
 
-#: src/core/ChatProvider.js:398
+#: src/core/ChatProvider.js:410
 msgid "Stop flooding."
 msgstr ""
 
-#: src/ssr/PasswordReset.jsx:66
+#: src/ssr/PasswordReset.jsx:42
 msgid "Submit"
 msgstr ""
 
@@ -364,7 +368,28 @@ msgstr ""
 msgid "The user owning this fish is private"
 msgstr ""
 
-#: src/routes/api/auth/local.js:25
+#: src/middleware/oidc.js:160
+#: src/middleware/oidc.js:183
+msgid "This application is not allowed to login"
+msgstr ""
+
+#: src/middleware/oidc.js:202
+msgid "This application redirects to an unallowed page"
+msgstr ""
+
+#: src/middleware/oidc.js:197
+msgid "This application sent a faulty login request with no redirection"
+msgstr ""
+
+#: src/middleware/oidc.js:170
+msgid "This application uses a PKCE method we do not support"
+msgstr ""
+
+#: src/middleware/oidc.js:156
+msgid "This application uses a login method we do not support"
+msgstr ""
+
+#: src/routes/api/auth/local.js:26
 msgid ""
 "This email / password combination got hacked and leaked. To protect this "
 "account, the password has been reset. Please use the \"Forgot my password\" "
@@ -372,7 +397,7 @@ msgid ""
 "installing malware, Thank You."
 msgstr ""
 
-#: src/utils/hash.js:32
+#: src/utils/hash.js:34
 msgid ""
 "This email / password combination got hacked and leaked. To protect this "
 "account, the password has been reset. Please use the \"Forgot my password\" "
@@ -385,7 +410,7 @@ msgstr ""
 msgid "This email provider is not allowed"
 msgstr ""
 
-#: src/routes/reset_password.js:53
+#: src/routes/reset_password.js:56
 msgid "This password-reset link isn't valid anymore :("
 msgstr ""
 
@@ -397,7 +422,7 @@ msgstr ""
 msgid "Unknown Captcha Error"
 msgstr ""
 
-#: src/routes/reset_password.js:79
+#: src/routes/reset_password.js:76
 msgid "User doesn't exist in our database :("
 msgstr ""
 
@@ -465,7 +490,7 @@ msgstr ""
 msgid "You are muted for another ${ ttl } seconds"
 msgstr ""
 
-#: src/routes/api/modtools.js:65
+#: src/routes/api/modtools.js:66
 msgid "You are not allowed to access this page"
 msgstr ""
 
@@ -473,8 +498,8 @@ msgstr ""
 msgid "You are not banned"
 msgstr ""
 
-#: src/middleware/session.js:198
-#: src/routes/api/modtools.js:57
+#: src/middleware/session.js:211
+#: src/routes/api/modtools.js:58
 msgid "You are not logged in"
 msgstr ""
 
@@ -507,7 +532,7 @@ msgstr ""
 msgid "You can not send chat messages while using a proxy"
 msgstr ""
 
-#: src/core/ChatProvider.js:386
+#: src/core/ChatProvider.js:398
 msgid "You can't send a message this long :("
 msgstr ""
 
@@ -529,13 +554,17 @@ msgstr ""
 msgid "You forgot your password for PixelPlanet? Get a new one here"
 msgstr ""
 
+#: src/routes/reset_password.js:37
+msgid "You need to directly access this page in the browser :("
+msgstr ""
+
 #: src/core/MailProvider.js:135
 msgid ""
 "You requested to get a new password. You can change your password within "
 "the next 30min here: "
 msgstr ""
 
-#: src/routes/reset_password.js:41
+#: src/routes/reset_password.js:46
 msgid "You sent an empty password or invalid data :("
 msgstr ""
 
@@ -555,7 +584,7 @@ msgstr ""
 msgid "Your country is temporary muted from this chat channel"
 msgstr ""
 
-#: src/core/ChatProvider.js:376
+#: src/core/ChatProvider.js:388
 msgid "Your mail has to be verified in order to chat"
 msgstr ""
 
@@ -565,11 +594,11 @@ msgid ""
 "request a new one."
 msgstr ""
 
-#: src/routes/reset_password.js:64
+#: src/routes/reset_password.js:65
 msgid "Your passwords do not match :("
 msgstr ""
 
-#: src/ssr/PasswordReset.jsx:31
+#: src/ssr/errorPageHTML.js:28
 msgid "to go back to pixelplanet"
 msgstr ""
 
