@@ -288,11 +288,12 @@ export function requestNameChange(name) {
   );
 }
 
-export function requestUsernameChange(username) {
-  return makeAPIPOSTRequest(
-    '/api/auth/change_username',
-    { username },
-  );
+export function requestUsernameChange(username, token) {
+  const data = { username };
+  if (token) {
+    data.token = token;
+  }
+  return makeAPIPOSTRequest('/api/auth/change_username', data);
 }
 
 export function requestMailChange(email, password) {

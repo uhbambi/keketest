@@ -176,7 +176,7 @@ export const validateAuthRequest = async (req, res, next) => {
       throw new Error('Nonce parameter too long, max length: 255');
     }
 
-    const [[uid, sessionAge], clientModel] = await Promise.all([
+    const [[uid, sessionAge, userIsValid], clientModel] = await Promise.all([
       resolveSessionUidAndAgeOfRequest(req),
       getOIDCClient(clientId),
     ]);
@@ -226,6 +226,7 @@ export const validateAuthRequest = async (req, res, next) => {
     req.oidcUserId = uid;
     req.oidcClientModel = clientModel;
     req.oidcAuthTime = sessionAge;
+    req.oidcUserValid = userIsValid;
     req.oidcNeedReauth = Number(params.max_age) < sessionAge
     || params.prompt === 'login';
     /* overwriting req.query does not work, so send it extra */

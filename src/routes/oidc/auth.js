@@ -14,13 +14,14 @@ export default async (req, res) => {
     oidcUserId: uid,
     oidcClientModel: clientModel,
     oidcAuthTime: sessionAge,
+    oidcUserValid: userIsValid,
     oidcNeedReauth: needReAuth,
   } = req;
   const { redirect_uri: redirectUri, prompt } = params;
   let { scope } = params;
 
   try {
-    if (uid && !needReAuth) {
+    if (uid && !needReAuth && userIsValid) {
       /* client.id is a primary key integer client_id in request is an uuid */
       const consentModel = await hasUserConsent(uid, clientModel.id);
       let approvedConsentId;
@@ -100,6 +101,7 @@ export default async (req, res) => {
       scope,
       clientName: clientModel.name,
       needsReauthentication: needReAuth,
+      userIsValid,
       requiredScopes,
     });
     res.set({

@@ -30,6 +30,7 @@ export default async (req, res) => {
     oidcUserId: uid,
     oidcAuthTime: sessionAge,
     oidcNeedReauth: needReAuth,
+    oidcUserValid: userIsValid,
   } = req;
 
   if (params.reauthToken) {
@@ -37,7 +38,9 @@ export default async (req, res) => {
      * reauthorization speciffcally for this request happened, which returns
      * a 1 hour lived session token
      */
-    [uid, sessionAge] = await resolveSessionUidAndAge(params.reauthToken);
+    [
+      uid, sessionAge, userIsValid,
+    ] = await resolveSessionUidAndAge(params.reauthToken);
     needReAuth = Number(params.max_age) < sessionAge;
   }
 
@@ -45,6 +48,13 @@ export default async (req, res) => {
     const error = new Error(t`Login is required`);
     error.title = 'login_required';
     error.status = 401;
+    throw error;
+  }
+
+  if (!userIsValid) {
+    const error = new Error('User must set a username before proceeding');
+    error.title = 'interaction_required';
+    error.status = 400;
     throw error;
   }
 

@@ -176,7 +176,7 @@ export async function resolveSessionUidOfRequest(req) {
 /**
  * resolve age of session
  * @param req express request
- * @return age in seconds
+ * @return [uid, age in seconds, boolean if user is valid for oauth]
  */
 export async function resolveSessionUidAndAgeOfRequest(req) {
   const cookies = parseCookie(req.headers.cookie || '');

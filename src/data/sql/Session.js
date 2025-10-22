@@ -183,8 +183,10 @@ export async function resolveSessionUid(token) {
 
 /**
  * resolve uid and age of session of given token in seconds
+ * Additionally return if a user is valid for oauth login, which currently
+ * only means that a username must be set.
  * @param token
- * @return [uid: number | null, age: number | null]
+ * @return [uid: number | null, age: number | null, isValid: boolean]
  */
 export async function resolveSessionUidAndAge(token) {
   if (!token) {
@@ -193,14 +195,20 @@ export async function resolveSessionUidAndAge(token) {
   try {
     const session = await sequelize.query(
       // eslint-disable-next-line max-len
-      'SELECT uid, createdAt FROM Sessions WHERE token = ? AND (expires > NOW() OR expires IS NULL)', {
+      `SELECT s.uid, s.createdAt, u.username NOT LIKE 'pp\\_%' AS isValid FROM Sessions s
+  INNER JOIN Users u ON u.id = s.uid
+WHERE token = ? AND (expires > NOW() OR expires IS NULL)`, {
         replacements: [generateTokenHash(token)],
         type: QueryTypes.SELECT,
         plain: true,
       },
     );
     if (session) {
-      return [session.uid, Math.floor(session.createdAt.getTime() / 1000)];
+      return [
+        session.uid,
+        Math.floor(session.createdAt.getTime() / 1000),
+        !!session.isValid,
+      ];
     }
   } catch (error) {
     console.error(`SQL Error on resolveSessionUidAndAge: ${error.message}`);

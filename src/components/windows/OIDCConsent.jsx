@@ -9,12 +9,15 @@
 import React, {
   useMemo, useContext, useState, useEffect,
 } from 'react';
-import { useSelector, shallowEqual } from 'react-redux';
+import { useSelector, shallowEqual, useDispatch } from 'react-redux';
 import { t, jt } from 'ttag';
 
 import WindowContext from '../context/window.js';
 import LogInForm from '../LogInForm.jsx';
-import { requestConsent } from '../../store/actions/fetch.js';
+import { requestConsent, requestUsernameChange } from '../../store/actions/fetch.js';
+/* for ability to change username if require */
+import { validateUsername } from '../../utils/validation.js';
+import { setName } from '../../store/actions/index.js';
 
 const OIDCConsent = () => {
   const [expirationHours, setExpirationHours] = useState(String(24 * 7));
@@ -24,11 +27,15 @@ const OIDCConsent = () => {
   const [switchAccount, setSwitchAccount] = useState(false);
   /* only relevant on forced reauthentification */
   const [authReturn, setAuthReturn] = useState(null);
+  /* only for changing username, which can be required */
+  const [usernameErrors, setUsernameErrors] = useState([]);
 
-  const [name, username] = useSelector((state) => [
+  const [sessionName, sessionUsername] = useSelector((state) => [
     state.user.name,
     state.user.username,
   ], shallowEqual);
+
+  const dispatch = useDispatch();
 
   /*
    * params includes everything the server parsed for oidc and gave us in
@@ -51,7 +58,7 @@ const OIDCConsent = () => {
       case 'profile':
         return [s, t`Read name, username and account age`, required];
       case 'email':
-        return [s, t`Get your email yddress`, required];
+        return [s, t`Get your email address`, required];
       case 'game_data':
         return [s, t`Get the amount of your Pixels placed and ranking`, required];
       case 'achievements':
@@ -65,6 +72,8 @@ const OIDCConsent = () => {
     }
   }), [params]);
 
+  const name = authReturn ? authReturn.me.name : sessionName;
+
   if ((params.needsReauthentication || !name || switchAccount) && !authReturn) {
     return (
       <LogInForm
@@ -74,6 +83,9 @@ const OIDCConsent = () => {
       />
     );
   }
+
+  const username = authReturn ? authReturn.me.username : sessionUsername;
+  const userIsValid = name && !username.startsWith('pp_');
 
   const { redirect_uri: redirectUri, clientName } = params;
   if (!redirectUri) {
@@ -108,6 +120,40 @@ const OIDCConsent = () => {
     window.location.href = `${redirectUri}?${urlParams.toString()}`;
   };
 
+  const submitChangeUsername = async (evt) => {
+    evt.preventDefault();
+    if (submitting) {
+      return;
+    }
+    const newUsername = evt.target.username.value;
+    const error = validateUsername(newUsername);
+    if (error) {
+      setUsernameErrors([error]);
+      return;
+    }
+    const token = authReturn?.token;
+
+    setSubmitting(true);
+    const { errors } = await requestUsernameChange(newUsername, token);
+    if (errors) {
+      setUsernameErrors(errors);
+      return;
+    }
+
+    setSubmitting(false);
+    if (authReturn) {
+      setAuthReturn({
+        ...authReturn,
+        me: {
+          ...authReturn.me,
+          username: newUsername,
+        },
+      });
+    } else {
+      dispatch(setName(null, newUsername));
+    }
+  };
+
   const consentScope = (evt) => {
     const { target } = evt;
     const newConsentedScopes = consentedScopes.filter(
@@ -117,6 +163,17 @@ const OIDCConsent = () => {
       newConsentedScopes.push(target.value);
     }
     setConsentedScopes(newConsentedScopes);
+  };
+
+  const deny = () => {
+    const urlParams = new URLSearchParams({
+      error: 'consent_required',
+      error_description: t`You did not consent`,
+    });
+    if (params.state) {
+      urlParams.append('state', params.state);
+    }
+    window.location.href = `${redirectUri}?${urlParams.toString()}`;
   };
 
   const appName = <span key="a" className="statvalue">{clientName}</span>;
@@ -129,7 +186,7 @@ const OIDCConsent = () => {
 
   const accountName = (
     <React.Fragment key="c">
-      <span className="statvalue">{authReturn ? authReturn.me.name : name}</span>[{` ${authReturn ? authReturn.me.username : username} `}]
+      <span className="statvalue">{name}</span>[{` ${username} `}]
     </React.Fragment>
   );
 
@@ -137,7 +194,7 @@ const OIDCConsent = () => {
     <div style={{ textAlign: 'center' }}>
       <h2>{t`Login to other application`}</h2>
       <p className="stattext">
-        {jt`The application ${appName} at ${appUrl} wants to login with your account ${accountName}`}{' '}
+        {jt`The application ${appName} at ${appUrl} wants to login with your pixelplanet account ${accountName}`}{' '}
         <button
           type="button"
           disabled={submitting}
@@ -149,76 +206,110 @@ const OIDCConsent = () => {
           {t`Switch Account`}
         </button>{'. '}
       </p>
-      {(scopes.length > 0) && (
-        <React.Fragment key="ctt">
-          <p>{t`It requests the following permissions. Uncheck what you don't want to grant:`}</p>
-          <table className="consenttable">
-            <thead>
-              <tr>
-                <th>{t`Consent`}</th>
-                <th>{t`Permission`}</th>
-              </tr>
-            </thead>
-            <tbody>
-              {scopes?.map(([scope, description, required]) => (
-                <tr key={scope}>
-                  <th>
-                    <input
-                      type="checkbox"
-                      value={scope}
-                      disabled={required}
-                      title={required ? t`This permission is required` : t`Check to allow`}
-                      checked={consentedScopes.includes(scope)}
-                      onChange={consentScope}
-                    />
-                  </th>
-                  <th>{description}</th>
+      {(userIsValid) ? (
+        <React.Fragment key="vu">
+          {(scopes.length > 0) && (
+          <React.Fragment key="ctt">
+            <p>{t`It requests the following permissions. Uncheck what you don't want to grant:`}</p>
+            <table className="consenttable">
+              <thead>
+                <tr>
+                  <th>{t`Consent`}</th>
+                  <th>{t`Permission`}</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
+              </thead>
+              <tbody>
+                {scopes?.map(([scope, description, required]) => (
+                  <tr key={scope}>
+                    <th>
+                      <input
+                        type="checkbox"
+                        value={scope}
+                        disabled={required}
+                        title={required ? t`This permission is required` : t`Check to allow`}
+                        checked={consentedScopes.includes(scope)}
+                        onChange={consentScope}
+                      />
+                    </th>
+                    <th>{description}</th>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </React.Fragment>
+          )}
+          <p>
+            {t`Remember this decision: `}
+            <select
+              value={expirationHours}
+              onChange={(e) => {
+                const sel = e.target;
+                setExpirationHours(sel.options[sel.selectedIndex].value);
+              }}
+            >
+              <option value={0}>{t`Don't remember`}</option>
+              <option value={24}>{t`For one day`}</option>
+              <option value={24 * 7}>{t`For one week`}</option>
+              <option value={24 * 31}>{t`For one month`}</option>
+              <option value={24 * 265}>{t`For one year`}</option>
+              <option value="forever">{t`Forever`}</option>
+            </select>
+          </p>
+          <button
+            type="button"
+            disabled={submitting}
+            onClick={deny}
+          >
+            {t`Deny`}
+          </button>
+          <button
+            type="button"
+            disabled={submitting}
+            onClick={submitConsent}
+          >
+            {(submitting) ? '...' : t`Grant`}
+          </button>
+        </React.Fragment>
+      ) : (
+        <React.Fragment key="nuv">
+          <p>{t`Your did not set your username yet. A username is required to login to other applications. You can set it now:`}</p>
+          <form onSubmit={submitChangeUsername}>
+            {usernameErrors.map((error) => (
+              <p key={error} className="errormessage">
+                <span>{t`Error`}</span>:&nbsp;{error}</p>
+            ))}
+            <p>
+              <span
+                style={{
+                  fontWeight: 'bold',
+                  backgroundColor: '#dcb822',
+                  color: 'black',
+                }}
+              >{t`YOU CAN ONLY CHOOSE YOUR USERNAME ONCE!`}</span><br />
+              {t`Username can only contain the characters: a-z A-z . _ and -`}
+            </p>
+            <input
+              name="username"
+              autoComplete="username"
+              type="text"
+              placeholder={t`User Name`}
+            /><br />
+            <button
+              type="button"
+              disabled={submitting}
+              onClick={deny}
+            >
+              {t`Deny`}
+            </button>
+            <button
+              type="submit"
+              disabled={submitting}
+              submit={submitChangeUsername}
+            >{t`Save`}
+            </button>
+          </form>
         </React.Fragment>
       )}
-      <p>
-        {t`Remember this decision: `}
-        <select
-          value={expirationHours}
-          onChange={(e) => {
-            const sel = e.target;
-            setExpirationHours(sel.options[sel.selectedIndex].value);
-          }}
-        >
-          <option value={0}>{t`Don't remember`}</option>
-          <option value={24}>{t`For one day`}</option>
-          <option value={24 * 7}>{t`For one week`}</option>
-          <option value={24 * 31}>{t`For one month`}</option>
-          <option value={24 * 265}>{t`For one year`}</option>
-          <option value="forever">{t`Forever`}</option>
-        </select>
-      </p>
-      <button
-        type="button"
-        disabled={submitting}
-        onClick={() => {
-          const urlParams = new URLSearchParams({
-            error: 'consent_required',
-            error_description: t`You did not consent`,
-          });
-          if (params.state) {
-            urlParams.append('state', params.state);
-          }
-          window.location.href = `${redirectUri}?${urlParams.toString()}`;
-        }}
-      >
-        {t`Deny`}
-      </button>
-      <button
-        type="button"
-        disabled={submitting}
-        onClick={submitConsent}
-      >
-        {(submitting) ? '...' : t`Grant`}
-      </button>
     </div>
   );
 };
