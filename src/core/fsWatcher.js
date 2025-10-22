@@ -7,6 +7,8 @@ import path from 'path';
 import logger from './logger.js';
 import { ASSET_DIR } from './config.js';
 
+const watchers = [];
+
 class FsWatcher {
   #path;
   #timeout = null;
@@ -23,6 +25,7 @@ class FsWatcher {
     this.#path = watchPath;
     this.delay = delay;
     this.filetypes = filetypes;
+    watchers.push(this);
     this.initialize();
   }
 
@@ -30,7 +33,10 @@ class FsWatcher {
     const watchPath = this.#path;
     /* keep retrying if path doesn't exist yet */
     if (!fs.existsSync(watchPath)) {
-      setTimeout(() => {
+      if (this.#timeout) {
+        clearTimeout(this.#timeout);
+      }
+      this.#timeout = setTimeout(() => {
         this.initialize();
       }, this.delay);
       return;
@@ -78,5 +84,9 @@ export const assetWatcher = new FsWatcher(
   path.join(path.resolve('public'), ASSET_DIR),
   { filetypes: ['js', 'css'] },
 );
+
+export function destructAllWatchers() {
+  watchers.forEach((w) => w.destructor());
+}
 
 export default FsWatcher;
