@@ -446,8 +446,8 @@ export async function getUserOIDCProfile(id) {
     const result = await sequelize.query(
       // eslint-disable-next-line max-len
       `SELECT u.name, u.userlvl, u.username, u.createdAt, t.tpid AS email, t.verified FROM Users u
-  INNER JOIN ThreePIDs t ON t.uid = u.id
-WHERE u.id = ? AND t.provider = 1 ORDER BY t.verified DESC LIMIT 1`, {
+  LEFT JOIN ThreePIDs t ON t.uid = u.id AND t.provider = 1
+WHERE u.id = ? ORDER BY t.verified DESC LIMIT 1`, {
         replacements: [id],
         plain: true,
         type: QueryTypes.SELECT,

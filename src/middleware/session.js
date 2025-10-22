@@ -10,8 +10,8 @@ import {
 } from '../data/sql/Session.js';
 import { parseListOfBans } from '../data/sql/Ban.js';
 import { touchUser } from '../data/sql/User.js';
-import mailProvider from '../core/MailProvider.js';
 import { sign, unsign } from '../utils/hash.js';
+
 
 export class User {
   id;
@@ -69,6 +69,12 @@ export class User {
         [this.blockedInterval] = timeBlockProps;
       }
     }
+  }
+
+  static mailProvider;
+
+  static setMailProvider(mailProvider) {
+    User.mailProvider = mailProvider;
   }
 
   get data() {
@@ -255,7 +261,7 @@ export async function openSession(
 
   req.user.touch(ip.ipString);
   if (newLocation) {
-    mailProvider.sendNewLocationMail(
+    User.mailProvider?.sendNewLocationMail(
       req.user.id, req.ip.getHost(), lang, ip.ipString,
     );
   }

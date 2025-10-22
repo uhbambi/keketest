@@ -62,13 +62,14 @@ export async function generateIdToken(
 
   let userProfileModel;
 
-  const { userlvl } = responsePayload;
+  let { userlvl } = responsePayload;
   if (!userlvl) {
     userProfileModel = await getUserOIDCProfile(uid);
     if (!userProfileModel) {
       return null;
     }
   }
+  userlvl = userProfileModel.userlvl;
   payload.userlvl = userlvl;
   payload.verified = userlvl >= USERLVL.VERIFIED;
 
@@ -99,13 +100,14 @@ export async function generateIdToken(
         if (!userProfileModel) {
           return null;
         }
-        ({ email, verified } = userProfileModel);
       }
+      ({ email, verified } = userProfileModel);
     }
     payload.email = email;
-    payload.email_verified = verified;
+    payload.email_verified = verified === 1;
   }
 
+  console.log(payload);
   return createJWT(payload);
 }
 

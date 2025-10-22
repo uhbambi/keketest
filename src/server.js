@@ -18,6 +18,8 @@ import { loadCaptchaFontsFromRedis } from './core/captchaserver.js';
 import rpgEvent from './core/RpgEvent.js';
 import { initialize as initializeFishing } from './core/Fishing.js';
 import canvasCleaner from './core/CanvasCleaner.js';
+import mailProvider from './core/MailProvider.js';
+import { User } from './middleware/session.js';
 
 import socketEvents from './socket/socketEvents.js';
 import SocketServer from './socket/SocketServer.js';
@@ -100,6 +102,7 @@ syncSql()
   // connect to redis
   .then(connectRedis)
   .then(async () => {
+    User.setMailProvider(mailProvider);
     chatProvider.initialize();
     startAllCanvasLoops();
     loadCaptchaFontsFromRedis();

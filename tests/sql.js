@@ -13,7 +13,6 @@ import { blockUser, unblockUser, isUserBlockedBy } from '../src/data/sql/associa
 import { IP } from '../src/middleware/ip.js';
 import { User } from '../src/middleware/session.js';
 import { USERLVL } from '../src/core/constants.js';
-import { oauthLogin } from '../src/core/passport.js';
 
 const LOG_QUERY = false;
 const SYNC_MYSQL = false;
