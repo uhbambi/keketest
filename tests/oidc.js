@@ -1,3 +1,7 @@
+/*
+ * test OIDC Provider implementation
+ */
+
 import express from 'express';
 import http from 'http';
 
@@ -38,7 +42,8 @@ async function destruct() {
   destructAllWatchers();
 }
 
-const scopes = ['openid', 'email', 'profile', 'offline_access', 'game_data', 'achievements'];
+let scopes = ['openid', 'email', 'profile', 'offline_access', 'game_data', 'achievements'];
+scopes = ['profile'];
 
 (async () => {
   await initialize();
@@ -107,12 +112,15 @@ const scopes = ['openid', 'email', 'profile', 'offline_access', 'game_data', 'ac
       let tokens = await provider.validateAuthorizationCode(token_endpoint, code, codeVerifier);
       console.log('tokens', tokens);
 
-      const claims = decodeIdToken(tokens.idToken());
-      console.log('claims', claims);
+      let claims;
+      if (scopes.includes('offline_access')) {
+        const claims = decodeIdToken(tokens.idToken());
+        console.log('claims', claims);
 
-      const refreshToken = tokens.refreshToken();
-      tokens = await provider.refreshAccessToken(token_endpoint, refreshToken, []);
-      console.log('refreshed_tokens', tokens);
+        const refreshToken = tokens.refreshToken();
+        tokens = await provider.refreshAccessToken(token_endpoint, refreshToken, []);
+        console.log('refreshed_tokens', tokens);
+      }
 
       let user = await fetch(userinfo_endpoint, {
         headers: { Authorization: `Bearer ${tokens.accessToken()}` },

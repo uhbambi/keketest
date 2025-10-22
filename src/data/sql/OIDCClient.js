@@ -161,7 +161,7 @@ export async function createOIDCClient(
   uid, name, scope, redirectUris, defaultScope = null, uuid = null,
   rerollSecret = false,
 ) {
-  scope = scope.join(' ');
+  scope = scope.sort().join(' ');
   redirectUris = redirectUris.join(' ');
 
   try {
