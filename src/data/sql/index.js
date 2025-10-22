@@ -44,6 +44,10 @@ export async function cleanDB() {
     'DELETE FROM Proxies WHERE expires < NOW()',
     'DELETE FROM Sessions WHERE expires < NOW()',
     'DELETE FROM WhoisReferrals WHERE expires < NOW()',
+    'DELETE FROM OIDCConsents WHERE expires < NOW()',
+    'DELETE FROM OIDCAccessTokens WHERE expires < NOW()',
+    'DELETE FROM OIDCAuthCodes WHERE expires < NOW()',
+    'DELETE FROM OIDCRefreshTokens WHERE expires < NOW()',
     // eslint-disable-next-line
     'DELETE c FROM Channels c WHERE c.type = 1 AND (SELECT COUNT(*) FROM UserChannels uc WHERE uc.cid =c.id) <= 1',
   ];

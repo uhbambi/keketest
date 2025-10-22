@@ -3,6 +3,7 @@ node_modules/
 overrides
 log/
 
+jwtkeys.json
 timelapse
 output.webm
 utils/ocean-tiles/ocean
