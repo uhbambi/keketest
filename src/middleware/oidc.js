@@ -107,7 +107,6 @@ export async function generateIdToken(
     payload.email_verified = verified === 1;
   }
 
-  console.log(payload);
   return createJWT(payload);
 }
 
@@ -165,9 +164,9 @@ export const validateAuthRequest = async (req, res, next) => {
     if (codeChallenge && !codeChallengeMethod) {
       codeChallengeMethod = 'plain';
     }
-    if (codeChallengeMethod && (
-      codeChallengeMethod !== 'plain' || codeChallengeMethod !== 'S256'
-    )) {
+    if (codeChallengeMethod
+      && codeChallengeMethod !== 'plain' && codeChallengeMethod !== 'S256'
+    ) {
       throw new Error(
         t`This application uses a PKCE method we do not support`,
       );

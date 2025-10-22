@@ -132,6 +132,15 @@ router.get('/r/:abbr', parseDevice, async (req, res) => {
     );
   }
 
+  if (query.error) {
+    if (query.error_description) {
+      const error = new Error(query.error_description);
+      error.title = query.error;
+      throw error;
+    }
+    throw new Error(query.error);
+  }
+
   const seperator = oauthCookie.indexOf(':');
   if (seperator === -1) {
     throw new Error(

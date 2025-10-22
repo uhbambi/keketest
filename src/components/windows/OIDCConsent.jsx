@@ -45,19 +45,19 @@ const OIDCConsent = () => {
     }
   }, [params]);
 
-  const scopes = useMemo(() => params.scope?.map((s) => {
+  const scopes = useMemo(() => params.scope?.sort().map((s) => {
     const required = params.requiredScopes.includes(s);
     switch (s) {
       case 'profile':
         return [s, t`Read name, username and account age`, required];
       case 'email':
-        return [s, t`Read Email`, required];
+        return [s, t`Get your email yddress`, required];
       case 'game_data':
-        return [s, t`Read Pixels placed`, required];
+        return [s, t`Get the amount of your Pixels placed and ranking`, required];
       case 'achievements':
         return [s, t`Read Badges and fishes`, required];
       case 'offline_access':
-        return [s, t`Regular update this data`, required];
+        return [s, t`Regularly update this data`, required];
       case 'openid':
         return [s, t`User ID and verification level`, required];
       default:

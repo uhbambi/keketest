@@ -128,7 +128,7 @@ export async function consumeAuthCode(code) {
   try {
     const authCodeModel = await sequelize.query(
       // eslint-disable-next-line max-len
-      `SELECT ac.id, ac.scope, ac.pkceChallenge, ac.pkceMethod, ac.nonce, co.scope AS consentedScope, co.uid, ac.cid, co.cid AS clientIntId FROM OIDCAuthCodes ac
+      `SELECT ac.id, ac.scope, ac.pkceChallenge, ac.pkceMethod, ac.nonce, co.scope AS consentedScope, ac.authAge, co.uid, ac.cid, co.cid AS clientIntId FROM OIDCAuthCodes ac
   INNER JOIN OIDCConsents co ON co.id = ac.cid
 WHERE ac.code = $1 AND ac.expires > NOW()`, {
         bind: [code],

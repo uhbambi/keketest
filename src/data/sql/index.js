@@ -444,6 +444,15 @@ User.hasMany(OIDCConsent, {
   as: 'oicdRefreshTokens',
   foreignKey: 'uid',
 });
+OIDCClient.belongsTo(User, {
+  as: 'user',
+  foreignKey: 'uid',
+  onDelete: 'CASCADE',
+});
+User.hasMany(OIDCClient, {
+  as: 'oicdClients',
+  foreignKey: 'uid',
+});
 OIDCConsent.belongsTo(OIDCClient, {
   as: 'client',
   foreignKey: 'cid',
