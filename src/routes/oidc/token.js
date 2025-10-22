@@ -180,6 +180,7 @@ export default async (req, res) => {
         throw error;
       }
       payload.refresh_token = refreshToken;
+      payload.refresh_expires_in = 90 * 24 * 3600;
     }
 
     if (returnData && scope.includes('openid')) {

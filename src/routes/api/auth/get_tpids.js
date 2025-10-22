@@ -1,16 +1,18 @@
 /*
- * get ThreePIDs and Session information
+ * get ThreePIDs and Session and OIDC consent information
  */
 import { getTPIDsOfUser } from '../../../data/sql/ThreePID.js';
 import { censorIdentifier } from '../../../core/utils.js';
 import { generateTokenHash } from '../../../utils/hash.js';
 import { getAllSessionsOfUser } from '../../../data/sql/Session.js';
+import { getAllConsentsOfUser } from '../../../data/sql/OIDCConsent.js';
 
 export default async (req, res) => {
   const { id: userId } = req.user;
-  const [tpids, sessions] = await Promise.all([
+  const [tpids, sessions, consents] = await Promise.all([
     getTPIDsOfUser(userId),
     getAllSessionsOfUser(userId),
+    getAllConsentsOfUser(userId),
   ]);
 
   for (let i = 0; i < tpids.length; i += 1) {
@@ -38,7 +40,10 @@ export default async (req, res) => {
    * },
    * sessions: {
    *   id, country, os, browser,
-   * }
+   * },
+   * consents: {
+   *   id, name, domain, expiresTs, image | null,
+   * },
    */
-  res.status(200).json({ tpids, sessions });
+  res.status(200).json({ tpids, sessions, consents });
 };

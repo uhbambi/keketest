@@ -41,6 +41,10 @@ const OIDCClient = sequelize.define('OIDCClient', {
     defaultValue: generateToken,
   },
 
+  image: {
+    type: DataTypes.STRING(255),
+  },
+
   /*
    * space seperated list of uris
    */
@@ -158,8 +162,8 @@ export async function touchOIDCClient(id) {
  * }
  */
 export async function createOIDCClient(
-  uid, name, scope, redirectUris, defaultScope = null, uuid = null,
-  rerollSecret = false,
+  uid, name, scope, redirectUris, image = null, defaultScope = null,
+  uuid = null, rerollSecret = false,
 ) {
   scope = scope.sort().join(' ');
   redirectUris = redirectUris.join(' ');
@@ -181,9 +185,9 @@ export async function createOIDCClient(
         // eslint-disable-next-line no-await-in-loop
         await sequelize.query(
           // eslint-disable-next-line max-len
-          'UPDATE OIDCClients SET name = ?, redirectUris = ?, scope = ?, defaultScope = ?, secret = ? WHERE id = ?', {
+          'UPDATE OIDCClients SET name = ?, image = ?, redirectUris = ?, scope = ?, defaultScope = ?, secret = ? WHERE id = ?', {
             replacements: [
-              name, redirectUris, scope, defaultScope, secret, client.id,
+              name, image, redirectUris, scope, defaultScope, secret, client.id,
             ],
             raw: true,
             type: QueryTypes.UPDATE,
@@ -197,6 +201,9 @@ export async function createOIDCClient(
     }
     if (uuid) {
       throw new Error('No such client exists or you do not have access to it');
+    }
+    if (existingClients.length >= 5) {
+      throw new Error('You can only register 5 clients max');
     }
 
     const secret = generateToken();
@@ -225,9 +232,9 @@ export async function createOIDCClient(
 
     await sequelize.query(
       // eslint-disable-next-line max-len
-      'INSERT INTO OIDCClients (uid, name, uuid, secret, redirectUris, scope, defaultScope, autoGrant, createdAt) VALUES (?, ?, UUID_TO_BIN(?), ?, ?, ?, ?, ?, NOW())', {
+      'INSERT INTO OIDCClients (uid, name, image, uuid, secret, redirectUris, scope, defaultScope, autoGrant, createdAt) VALUES (?, ?, ?, UUID_TO_BIN(?), ?, ?, ?, ?, ?, NOW())', {
         replacements: [
-          uid, name, uuid, secret, redirectUris, scope, null, false,
+          uid, name, image, uuid, secret, redirectUris, scope, null, false,
         ],
         raw: true,
         type: QueryTypes.INSERT,

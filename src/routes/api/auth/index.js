@@ -13,6 +13,8 @@ import remove_tpid from './remove_tpid.js';
 // eslint-disable-next-line camelcase
 import close_session from './close_session.js';
 // eslint-disable-next-line camelcase
+import revoke_consent from './revoke_consent.js';
+// eslint-disable-next-line camelcase
 import resend_verify from './resend_verify.js';
 // eslint-disable-next-line camelcase
 import change_passwd from './change_passwd.js';
@@ -56,6 +58,8 @@ router.get('/resend_verify', resend_verify);
 router.post('/remove_tpid', remove_tpid);
 
 router.post('/close_session', close_session);
+
+router.post('/revoke_consent', revoke_consent);
 
 router.post('/change_passwd', change_passwd);
 

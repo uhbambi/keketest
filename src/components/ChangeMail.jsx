@@ -1,5 +1,5 @@
 /*
- * Form to Change ANY Third Party Identiier AND Sessions,
+ * Form to Change ANY Third Party Identiier AND Sessions AND OIDC Consents,
  * it is called ChangeMail, because that is what it originally was
  */
 
@@ -13,6 +13,7 @@ import {
 } from '../utils/validation.js';
 import {
   requestMailChange, requestTpids, requestRemoveTpid, requestCloseSession,
+  requestRemoveConsent,
 } from '../store/actions/fetch.js';
 import { THREEPID_PROVIDERS } from '../core/constants.js';
 
@@ -34,6 +35,7 @@ const ChangeMail = ({ done }) => {
   const [email, setEmail] = useState('');
   const [tpids, setTpids] = useState(null);
   const [sessions, setSessions] = useState(null);
+  const [consents, setConsents] = useState(null);
   const [submitting, setSubmitting] = useState(false);
   const [errors, setErrors] = useState([]);
 
@@ -46,6 +48,7 @@ const ChangeMail = ({ done }) => {
     }
     setTpids(res.tpids);
     setSessions(res.sessions);
+    setConsents(res.consents);
   }, []);
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -132,6 +135,22 @@ const ChangeMail = ({ done }) => {
     setSessions(sessions.filter(({ id: sid }) => sid !== id));
   }, [password, sessions, submitting, havePassword]);
 
+  const removeConsent = useCallback(async (id) => {
+    if (submitting) {
+      return;
+    }
+
+    setSubmitting(true);
+    const { errors: respErrors } = await requestRemoveConsent(id);
+    setSubmitting(false);
+    if (respErrors) {
+      setErrors(respErrors);
+      return;
+    }
+    setErrors([]);
+    setConsents(consents.filter(({ id: cid }) => cid !== id));
+  }, [consents, submitting]);
+
   return (
     <div className="inarea">
       {errors.map((error) => (
@@ -180,7 +199,7 @@ const ChangeMail = ({ done }) => {
       {(tpids?.length || (tpids === null && !errors.length)) && (
         <div className="modaldivider" />
       )}
-      {(sessions?.length) && (
+      {(sessions?.length > 0) && (
         <React.Fragment key="sessions">
           <p>{t`Log out a Session:`}</p>
           <DeleteList
@@ -190,6 +209,19 @@ const ChangeMail = ({ done }) => {
               `/cf/${country}.gif`,
             ])}
             callback={closeSession}
+            enabled={!submitting}
+          />
+          <div className="modaldivider" />
+        </React.Fragment>
+      )}
+      {(consents?.length > 0) && (
+        <React.Fragment key="consents">
+          <p>{t`Revoke consent of third party applications:`}</p>
+          <DeleteList
+            list={consents.map(({ id, name, domain, image }) => [
+              id, `${name} [ ${domain} ]`, image || '/oidc.svg',
+            ])}
+            callback={removeConsent}
             enabled={!submitting}
           />
           <div className="modaldivider" />

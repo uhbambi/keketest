@@ -137,6 +137,7 @@ export async function removeSession(token) {
 /**
  * remove session by id
  * @param id session id
+ * @param uid user id
  * @return boolean success
  */
 export async function removeSessionById(id, uid) {
@@ -399,7 +400,7 @@ export async function getAllSessionsOfUser(userId) {
       return await sequelize.query(
         `SELECT s.id, s.token, s.country, d.os, d.browser FROM Sessions s
     LEFT JOIN Devices d ON d.id = s.did
-  WHERE uid = ? AND (s.expires > NOW() OR s.expires IS NULL)`,
+  WHERE s.uid = ? AND (s.expires > NOW() OR s.expires IS NULL)`,
         { replacements: [userId], type: QueryTypes.SELECT, raw: true },
       );
     } catch (error) {

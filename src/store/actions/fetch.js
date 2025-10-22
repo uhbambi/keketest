@@ -355,6 +355,10 @@ export function requestCloseSession(id, password) {
   );
 }
 
+export function requestRemoveConsent(id) {
+  return makeAPIPOSTRequest('/api/auth/revoke_consent', { id });
+}
+
 export function requestRankings() {
   return makeAPIGETRequest(
     '/ranking',

@@ -117,8 +117,12 @@ export async function createRefreshToken(consentId, scope) {
   try {
     const token = generateLargeToken();
     await sequelize.query(
+      /*
+       * reminder that if you change epiration time, to change it in token.js
+       * for payload.refresh_expires_in as well
+       */
       // eslint-disable-next-line max-len
-      'INSERT INTO OIDCRefreshTokens (cid, token, scope, expires, createdAt) VALUES (?, ?, ?, NOW() + INTERVAL 3 MONTH, NOW())', {
+      'INSERT INTO OIDCRefreshTokens (cid, token, scope, expires, createdAt) VALUES (?, ?, ?, NOW() + INTERVAL 90 DAY, NOW())', {
         replacements: [consentId, token, scope.sort().join(' ')],
         raw: true,
         type: QueryTypes.INSERT,

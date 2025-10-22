@@ -178,9 +178,13 @@ const OIDCConsent = () => {
 
   const appName = <span key="a" className="statvalue">{clientName}</span>;
 
-  let appUrl = redirectUri.substring(redirectUri.indexOf('://') + 3);
-  if (appUrl.indexOf('/') !== -1) {
-    appUrl = appUrl.substring(0, appUrl.indexOf('/'));
+  const domainStart = redirectUri.indexOf('://') + 3;
+  const domainEnd = redirectUri.indexOf('/', domainStart);
+  let appUrl;
+  if (domainEnd !== -1) {
+    appUrl = redirectUri.substring(domainStart, domainEnd);
+  } else {
+    appUrl = redirectUri.substring(domainStart);
   }
   appUrl = <span key="b" className="statvalue">{appUrl}</span>;
 
@@ -298,13 +302,11 @@ const OIDCConsent = () => {
               type="button"
               disabled={submitting}
               onClick={deny}
-            >
-              {t`Deny`}
+            >{t`Deny`}
             </button>
             <button
               type="submit"
               disabled={submitting}
-              submit={submitChangeUsername}
             >{t`Save`}
             </button>
           </form>

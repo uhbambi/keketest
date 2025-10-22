@@ -97,6 +97,74 @@ export async function hasUserConsent(uid, cid) {
 }
 
 /**
+ * get all consents a user has given
+ * @param uid user id
+ * @return [{
+ *   id
+ *   name,
+ *   image | null,
+ *   domain,
+ *   expiresTs,
+ * }, ...]
+ */
+export async function getAllConsentsOfUser(userId) {
+  if (userId) {
+    try {
+      const consentModels = await sequelize.query(
+        // eslint-disable-next-line max-len
+        `SELECT co.id, c.name, c.image, c.redirectUris, co.expires FROM OIDCConsents co
+    LEFT JOIN OIDCClients c ON c.id = co.cid
+  WHERE co.uid = ? AND (co.expires > NOW() OR co.expires IS NULL)`,
+        { replacements: [userId], type: QueryTypes.SELECT, raw: true },
+      );
+      if (consentModels) {
+        for (let i = 0; i < consentModels.length; i += 1) {
+          const model = consentModels[i];
+          model.expiresTs = model.expires.getTime();
+          delete model.expires;
+
+          let domain = model.redirectUris.split(' ')[0];
+          const start = domain.indexOf('://') + 3;
+          const end = domain.indexOf('/', start);
+          if (end !== -1) {
+            domain = domain.substring(start, end);
+          } else {
+            domain = domain.substring(start);
+          }
+          model.domain = domain;
+          delete model.redirectUris;
+        }
+        return consentModels;
+      }
+    } catch (error) {
+      console.error(`SQL Error on getAllConsentsOfUser: ${error.message}`);
+    }
+  }
+  return [];
+}
+
+/**
+ * remove consent by id
+ * @param id consent id
+ * @param uid user id
+ * @return boolean success
+ */
+export async function removeConsentById(id, uid) {
+  if (!id) {
+    return false;
+  }
+  try {
+    const count = await OIDCConsent.destroy({
+      where: { id, uid },
+    });
+    return count !== 0;
+  } catch (error) {
+    console.error(`SQL Error on removeConsentById: ${error.message}`);
+  }
+  return false;
+}
+
+/**
  * user consents to oidc client
  * @param cid client id integer
  * @param uid user id
