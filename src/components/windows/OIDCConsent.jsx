@@ -63,6 +63,8 @@ const OIDCConsent = () => {
         return [s, t`Get the amount of Pixels placed and ranking`, required];
       case 'achievements':
         return [s, t`Read Badges and fishes`, required];
+      case 'modtools':
+        return [s, t`ACCESS MODTOOLS`, required];
       case 'offline_access':
         return [s, t`Regularly update this data`, required];
       case 'user_id':

@@ -150,6 +150,11 @@ router.use(verifySession, urlEncoded, async (req, res) => {
       <th>email email_verified</th>
     </tr>
     <tr>
+      <th>modtools</th>
+      <th>${t`Access modtools`}</th>
+      <th></th>
+    </tr>
+    <tr>
       <th>achievements</th>
       <th>${t`Read Badges and fishes`}</th>
       <th>badges, fishes</th>
