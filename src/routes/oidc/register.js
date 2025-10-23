@@ -43,7 +43,7 @@ router.use(verifySession, urlEncoded, async (req, res) => {
   if (req.method === 'POST') {
     const allowedScopes = [
       'openid', 'email', 'profile', 'offline_access', 'game_data',
-      'achievements',
+      'achievements', 'user_id',
     ];
 
     const {
@@ -119,32 +119,44 @@ router.use(verifySession, urlEncoded, async (req, res) => {
     <tr>
       <th>${t`Consent`}</th>
       <th>${t`Permission`}</th>
+      <th>${t`Grants`}</th>
     </tr>
   </thead>
   <tbody>
     <tr>
       <th>openid</th>
-      <th>${t`User ID and verification level`} (${t`OpenID Connect specs`})</th>
+      <th>${t`Know that an account exists`} (${t`OpenID Connect specs`})</th>
+      <th>sub</th>
+    </tr>
+    <tr>
+      <th>user_id</th>
+      <th>${t`User ID and verification level`}</th>
+      <th>user_lvl, verified, user_id</th>
     </tr>
     <tr>
       <th>profile</th>
-      <th>${t`Read name, username and account age`}</th>
+      <th>${t`Read name, username and account age`} (${t`OpenID Connect specs`})</th>
+      <th>name, preferred_username, updated_at (account creation timestamp in s)</th>
     </tr>
     <tr>
       <th>email</th>
       <th>${t`Get email address`}</th>
+      <th>email email_verified</th>
     </tr>
     <tr>
       <th>achievements</th>
       <th>${t`Read Badges and fishes`}</th>
+      <th>badges, fishes</th>
     </tr>
     <tr>
       <th>offline_access</th>
       <th>${t`Regularly update this data`} (${t`OpenID Connect specs`})</th>
+      <th>refresh_token</th>
     </tr>
     <tr>
       <th>game_data</th>
       <th>${t`Get the amount of Pixels placed and ranking`}</th>
+      <th>totalPixels, dailyTotalPixels, ranking, dailyRanking</th>
     </tr>
   </tbody>
 </table>
@@ -179,7 +191,7 @@ router.use(verifySession, urlEncoded, async (req, res) => {
       <input
         type="text"
         name="scope"
-        placeholder="openid profile email"
+        placeholder="openid user_id profile"
         required
       /></label>
       <small>${t`Space-separated list of available scopes`}</small>
@@ -275,7 +287,7 @@ router.use(verifySession, urlEncoded, async (req, res) => {
         type="text"
         name="scope"
         value="${scope}"
-        placeholder="openid profile email"
+        placeholder="openid user_id profile"
         required
       /></label>
       <small>${t`Space-separated list of scopes that should be available`}</small>

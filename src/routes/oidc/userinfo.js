@@ -6,6 +6,7 @@ import { getUserOIDCProfile } from '../../data/sql/User.js';
 import { getUserRanks } from '../../data/redis/ranks.js';
 import { getFishesOfUser } from '../../data/sql/Fish.js';
 import { getBadgesOfUser } from '../../data/sql/Badge.js';
+import { generatePPID } from '../../utils/hash.js';
 
 import { USERLVL } from '../../core/constants.js';
 
@@ -19,6 +20,7 @@ export default async (req, res) => {
 
   let uid;
   let scope;
+  let clientId;
   try {
     let { authorization } = req.headers;
     if (!authorization) {
@@ -33,7 +35,7 @@ export default async (req, res) => {
     if (!tokenModel) {
       throw new Error('Invalid access token');
     }
-    ({ uid, scope } = tokenModel);
+    ({ uid, scope, clientId } = tokenModel);
     if (!scope.length) {
       const err = new Error('Invalid scope of token');
       err.title = 'insufficient_scope';
@@ -60,16 +62,20 @@ export default async (req, res) => {
     while (scope.length) {
       switch (scope.pop()) {
         case 'openid': {
-          payload.sub = String(uid);
-          const { userlvl } = userProfileModel;
-          payload.userlvl = userlvl;
-          payload.verified = userlvl >= USERLVL.VERIFIED;
+          payload.sub = generatePPID(clientId, String(uid));
           break;
         }
         case 'profile': {
           payload.name = userProfileModel.name;
           payload.preferred_username = userProfileModel.username;
           payload.updated_at = userProfileModel.createdAt;
+          break;
+        }
+        case 'user_id': {
+          const { userlvl } = userProfileModel;
+          payload.user_lvl = userlvl;
+          payload.verified = userlvl >= USERLVL.VERIFIED;
+          payload.user_id = String(uid);
           break;
         }
         case 'email': {

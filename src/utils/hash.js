@@ -66,6 +66,15 @@ export function generateTinyToken() {
   return randomBytes(15).toString('base64url');
 }
 
+/*
+ * generate a pairwise pseudonymous identifier
+ */
+export function generatePPID(sector, value) {
+  return createHash('sha256')
+    .update(`${sector}:${value}:${COOKIE_SECRET}`)
+    .digest('base64url');
+}
+
 /**
  * pkce challenge
  * @return boolean if passed

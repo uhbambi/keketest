@@ -65,8 +65,10 @@ const OIDCConsent = () => {
         return [s, t`Read Badges and fishes`, required];
       case 'offline_access':
         return [s, t`Regularly update this data`, required];
-      case 'openid':
+      case 'user_id':
         return [s, t`User ID and verification level`, required];
+      case 'openid':
+        return [s, t`Know that an account exists`, required];
       default:
         return [s, s, required];
     }

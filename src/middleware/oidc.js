@@ -5,6 +5,7 @@
 import { resolveSessionUidAndAgeOfRequest } from './session.js';
 import { getOIDCClient } from '../data/sql/OIDCClient.js';
 import { createJWT, hashValue } from '../core/jwt.js';
+import { generatePPID } from '../utils/hash.js';
 import { getUserOIDCProfile } from '../data/sql/User.js';
 
 import { OIDC_URL } from '../core/config.js';
@@ -28,7 +29,7 @@ export async function generateIdToken(
     /* oidc provider url */
     iss: OIDC_URL,
     /* unique user identifier */
-    sub: String(uid),
+    sub: generatePPID(clientId, String(uid)),
     /* audience aka client_id */
     aud: clientId,
     /* expiration, one hour, same as access token */
@@ -62,16 +63,19 @@ export async function generateIdToken(
 
   let userProfileModel;
 
-  let { userlvl } = responsePayload;
-  if (!userlvl) {
-    userProfileModel = await getUserOIDCProfile(uid);
-    if (!userProfileModel) {
-      return null;
+  if (scope.includes('user_id')) {
+    let userlvl = responsePayload.user_lvl;
+    if (!userlvl) {
+      userProfileModel = await getUserOIDCProfile(uid);
+      if (!userProfileModel) {
+        return null;
+      }
+      userlvl = userProfileModel.userlvl;
     }
+    payload.user_lvl = userlvl;
+    payload.verified = userlvl >= USERLVL.VERIFIED;
+    payload.user_id = String(uid);
   }
-  userlvl = userProfileModel.userlvl;
-  payload.userlvl = userlvl;
-  payload.verified = userlvl >= USERLVL.VERIFIED;
 
   if (scope.includes('profile')) {
     let {
