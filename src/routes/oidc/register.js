@@ -4,7 +4,7 @@
 import express from 'express';
 
 import urlEncoded from '../../middleware/formData.js';
-import { ensureLoggedIn, verifySession } from '../../middleware/session.js';
+import { verifySession } from '../../middleware/session.js';
 import errorPage from '../../middleware/errorPage.js';
 import {
   createOIDCClient, getAllClientsOfUser, deleteClient,
@@ -22,7 +22,7 @@ const router = express.Router();
  */
 router.use(verifySession, urlEncoded, async (req, res) => {
   req.tickRateLimiter(5000);
-  if (req.csrfPossible || !req.headers.origin) {
+  if (req.csrfPossible || (!req.headers.origin && req.method === 'POST')) {
     throw new Error('This browser is not supported');
   }
 
@@ -56,6 +56,7 @@ router.use(verifySession, urlEncoded, async (req, res) => {
     try {
       if (action === 'delete') {
         await deleteClient(req.user.id, uuid);
+        innerHtml = `<p class="topmessage" style="color: #2a537d;">${t`Application successfully added`}</p>`;
       } else {
         if (!name || !scope || !redirectUris) {
           throw new Error(t`You have to fill out all fields`);
@@ -87,6 +88,8 @@ router.use(verifySession, urlEncoded, async (req, res) => {
         if (defaultScope) {
           defaultScope = defaultScope.split(' ').filter(
             (s) => allowedScopes.includes(s),
+          ).filter(
+            (s) => scope.includes(s),
           );
           if (defaultScope.length === 0) {
             defaultScope = null;
@@ -96,11 +99,12 @@ router.use(verifySession, urlEncoded, async (req, res) => {
           req.user.id, name, scope, redirectUris, null, defaultScope, uuid,
           rerollSecret,
         );
+        innerHtml = `<p class="topmessage" style="color: #2a537d;">${t`Application changed successfully`}</p>`;
       }
     } catch (error) {
       status = 400;
       // eslint-disable-next-line max-len
-      innerHtml = `<p class="errormessage"><span>${t`Error`}</span>: ${error.message}</p>`;
+      innerHtml = `<p class="topmessage" style="color: #b73c3c;"><span>${t`Error`}</span>: ${error.message}</p>`;
     }
   }
 
@@ -149,45 +153,45 @@ router.use(verifySession, urlEncoded, async (req, res) => {
 <div class="client-form-box">
   <form method="post" action="register" class="client-form">
     <div class="form-group">
-      <label for="name">${t`Client Name`}:</label>
+      <label>${t`Client Name`}:
       <input
         type="text"
         name="name"
         placeholder="My OIDC Client"
         required
-      />
+      /></label>
       <small>${t`Display name for your OIDC client`}</small>
     </div>
 
     <div class="form-group">
-      <label for="redirectUris">${t`Redirect URIs`}:</label>
+      <label>${t`Redirect URIs`}:
       <textarea
         name="redirect_uris"
         placeholder="https://example.com/auth/return"
         rows="3"
         required
-      ></textarea>
+      ></textarea></label>
       <small>${t`One redirect URIs per line`}</small>
     </div>
 
     <div class="form-group">
-      <label for="scope">Scope:</label>
+      <label>Scope:
       <input
         type="text"
         name="scope"
         placeholder="openid profile email"
         required
-      />
+      /></label>
       <small>${t`Space-separated list of available scopes`}</small>
     </div>
 
     <div class="form-group">
-      <label for="defaultScope">${t`Default`} Scope:</label>
+      <label>${t`Default`} Scope:
       <input
         type="text"
         name="default_scope"
         placeholder="openid profile"
-      />
+      /></label>
       <small>${t`Space-separated list of default scopes, they will be used on requests where no other scope is given.`}</small>
     </div>
 
@@ -208,37 +212,37 @@ router.use(verifySession, urlEncoded, async (req, res) => {
     innerHtml += `<div class="client-form-box">
   <form method="post" action="register" class="client-form">
     <div class="form-group">
-      <label for="name">${t`Client Name`}:</label>
+      <label>${t`Client Name`}:
       <input
         type="text"
         name="name"
         value="${name}"
         placeholder="My OIDC Client"
         required
-      />
+      /></label>
       <small>${t`Display name for your OIDC client`}</small>
     </div>
 
     <div class="form-group">
-      <label for="client_id">client_id:</label>
+      <label>client_id:
       <input
         type="text"
         name="uuid"
         value="${uuid}"
         readonly
         class="readonly-field"
-      />
+      /></label>
     </div>
 
     <div class="form-group">
-      <label for="client_secret">client_secret</label>
+      <label>client_secret
       <input
         type="text"
         name="client_secret"
         value="${secret}"
         readonly
         class="readonly-field"
-      />
+      /></label>
     </div>
 
     <div class="form-group checkbox-group">
@@ -255,36 +259,36 @@ router.use(verifySession, urlEncoded, async (req, res) => {
     </div>
 
     <div class="form-group">
-      <label for="redirectUris">${t`Redirect URIs`}:</label>
+      <label>${t`Redirect URIs`}:
       <textarea
         name="redirect_uris"
         placeholder="https://example.com/auth/return"
         rows="3"
         required
-      >${redirectUris.split(' ').join('\n')}</textarea>
+      >${redirectUris.split(' ').join('\n')}</textarea></label>
       <small>${t`One redirect URI per line`}</small>
     </div>
 
     <div class="form-group">
-      <label for="scope">Scope:</label>
+      <label>Scope:
       <input
         type="text"
         name="scope"
         value="${scope}"
         placeholder="openid profile email"
         required
-      />
+      /></label>
       <small>${t`Space-separated list of scopes that should be available`}</small>
     </div>
 
     <div class="form-group">
-      <label for="defaultScope">${t`Default`} Scope:</label>
+      <label>${t`Default`} Scope:
       <input
         type="text"
         name="default_scope"
         value="${defaultScope || ''}"
         placeholder="openid profile"
-      />
+      /></label>
       <small>${t`Space-separated list of default scopes, they will be used on requests if no other scope is given.`}</small>
     </div>
 
@@ -358,7 +362,7 @@ textarea:focus {
   border-color: #007bff;
 }
 
-.errormessage {
+.topmessage {
   font-weight: bold;
   text-align: center;
   background-color: #ececce;

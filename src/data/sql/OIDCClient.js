@@ -282,7 +282,7 @@ export async function createOIDCClient(
     // eslint-disable-next-line no-await-in-loop
     const existingClient = await sequelize.query(
       // eslint-disable-next-line max-len
-      'SELECT id, BIN_TO_UUID(uuid) AS uuid FROM OIDCClients WHERE uuid = UUID_TO_BIN(?) OR name = ?', {
+      'SELECT name, BIN_TO_UUID(uuid) AS uuid FROM OIDCClients WHERE uuid = UUID_TO_BIN(?) OR name = ?', {
         replacements: [uuid, name],
         plain: true,
         type: QueryTypes.SELECT,
@@ -292,7 +292,7 @@ export async function createOIDCClient(
       uuid = null;
     }
     if (existingClient && existingClient.name === name) {
-      throw new Error('OIDC Client with this name already exists');
+      throw new Error('This name is already taken');
     }
   }
 

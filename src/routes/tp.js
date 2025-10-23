@@ -178,7 +178,6 @@ router.get('/r/:abbr', parseDevice, async (req, res) => {
         headers: { Authorization: `Bearer ${accessToken}` },
       });
       const user = await response.json();
-      console.log('disc user', user);
       ({
         username: preferredName, email, id: tpid,
       } = user);
@@ -284,11 +283,6 @@ router.get('/r/:abbr', parseDevice, async (req, res) => {
    * the fun starts here, we now got the third party data, verify it
    */
 
-  console.log(
-    // eslint-disable-next-line max-len
-    `TP LOGIN: ${providerName} - ${tpid}:${tpidVerified} - ${email}:${emailVerified} - ${preferredName} - ${avatarUrl}`,
-  );
-
   if (tpid && typeof tpid !== 'string') {
     tpid = tpid.toString();
   }
@@ -332,7 +326,7 @@ router.get('/r/:abbr', parseDevice, async (req, res) => {
     preferredName = await getNameThatIsNotTaken(preferredName);
     console.log(
       // eslint-disable-next-line max-len
-      `TP LOGIN: Create new user from ${providerName} oauth login ${email} / ${preferredName} / ${tpid}`,
+      `TP LOGIN: Create new user from ${providerName} oauth login ${tpid}`,
     );
     userData = await createNewUser(preferredName, null);
     if (!userData) {
