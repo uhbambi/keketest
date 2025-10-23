@@ -59,11 +59,12 @@ export default async (req, res) => {
           sessionAge, params.nonce,
         );
         if (code) {
-          const responseParams = new URLSearchParams({ code });
+          let urlParams = { code };
           if (params.state) {
-            responseParams.state = params.state;
+            urlParams.state = params.state;
           }
-          res.redirect(`${redirectUri}?${responseParams.toString()}`);
+          urlParams = new URLSearchParams(urlParams);
+          res.redirect(`${redirectUri}?${urlParams.toString()}`);
           return;
         }
       }
