@@ -207,6 +207,15 @@ export const validateAuthRequest = async (req, res, next) => {
       throw new Error(t`This application redirects to an unallowed page`);
     }
     /*
+     * check if redirectUri is at a local ip to treat it differently
+     */
+    let redirectIsLocal = false;
+    if (redirectUri.includes('://localhost')
+      || redirectUri.includes('://127.0') || redirectUri.includes('://192.168')
+    ) {
+      redirectIsLocal = true;
+    }
+    /*
      * according to specs, we can do whatever we want if no scope is given, we
      * let the client choose the default and if not, use empty
      * NOTE that an empty scope is not openid, since openid requires the openid
@@ -230,6 +239,7 @@ export const validateAuthRequest = async (req, res, next) => {
     req.oidcUserId = uid;
     req.oidcClientModel = clientModel;
     req.oidcAuthTime = sessionAge;
+    req.oidcRedirectIsLocal = redirectIsLocal;
     req.oidcUserValid = userIsValid;
     req.oidcNeedReauth = Number(params.max_age) < sessionAge
     || params.prompt === 'login';

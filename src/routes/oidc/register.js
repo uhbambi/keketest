@@ -73,8 +73,10 @@ router.use(verifySession, urlEncoded, async (req, res) => {
         if (redirectUris.length === 0) {
           throw new Error(t`No redirect URI given.`);
         }
-        if (redirectUris.some((u) => !u.startsWith('https://'))) {
-          throw new Error(t`Redirect URI needs to start with "https://"`);
+        if (redirectUris.some(
+          (u) => !u.startsWith('https://') && !u.startsWith('http://'),
+        )) {
+          throw new Error(t`Redirect URI does not look legit`);
         }
         if (name.length > 255) {
           throw new Error(t`Name is too long`);
