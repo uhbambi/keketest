@@ -42,7 +42,7 @@ async function destruct() {
   destructAllWatchers();
 }
 
-let scopes = ['openid', 'email', 'profile', 'offline_access', 'game_data', 'achievements'];
+let scopes = ['openid', 'email', 'profile', 'offline_access', 'game_data', 'achievements', 'modtools'];
 // scopes = ['profile'];
 
 (async () => {
@@ -66,7 +66,8 @@ let scopes = ['openid', 'email', 'profile', 'offline_access', 'game_data', 'achi
 
   try {
     title('generate oidc client');
-    const { clientId, clientSecret } = await createOIDCClient(1, 'test', scopes, ['http://localhost:33333/r'], );
+    const { clientId, clientSecret } = await createOIDCClient(1, 'test', scopes, ['http://localhost:33333/r'], null, null);
+    //const { clientId, clientSecret } = await createOIDCClient(1, 'test', scopes, ['http://localhost:33333/r'], null, null, '74625257-a717-4474-a9a4-2593170165ff');
     console.log('id', clientId, 'secret', clientSecret);
 
     title('initialize routes for oidc client');
@@ -126,6 +127,12 @@ let scopes = ['openid', 'email', 'profile', 'offline_access', 'game_data', 'achi
         headers: { Authorization: `Bearer ${tokens.accessToken()}` },
       });
       user = await user.json();
+
+      console.log('modtools');
+      response = await fetch('http://localhost:5000/api/modtools', {
+        headers: { Authorization: `Bearer ${tokens.accessToken()}` },
+      });
+      console.log('return', await response.text(), '\n', response.headers.get('WWW-Authenticate'));
 
       res.json({ id_token: claims, user });
     });
