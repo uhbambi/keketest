@@ -121,7 +121,7 @@ export async function getOIDCClient(uuid) {
     if (clientModel) {
       clientModel.scope = clientModel.scope.split(' ');
       if (clientModel.defaultScope) {
-        clientModel.defaultScope = clientModel.scope.split(' ');
+        clientModel.defaultScope = clientModel.defaultScope.split(' ');
       }
       clientModel.redirectUris = clientModel.redirectUris.split(' ');
       return clientModel;

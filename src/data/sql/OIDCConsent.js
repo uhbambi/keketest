@@ -91,7 +91,7 @@ export async function hasUserConsent(uid, cid) {
       return consentModel;
     }
   } catch (error) {
-    console.error(`SQL Error on getOIDCClient: ${error.message}`);
+    console.error(`SQL Error on hasUserConsent: ${error.message}`);
   }
   return null;
 }

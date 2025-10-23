@@ -103,7 +103,12 @@ export function unsign(signedValue) {
   if (!signedValue) {
     return null;
   }
-  const [value, hash] = signedValue.split('.');
+  const seperator = signedValue.lastIndexOf('.');
+  if (seperator === -1) {
+    return null;
+  }
+  const value = signedValue.substring(0, seperator);
+  const hash = signedValue.substring(seperator + 1);
   if (!value || !hash) {
     return null;
   }

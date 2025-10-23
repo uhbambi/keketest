@@ -2,15 +2,17 @@
  * functions for jwts
  */
 
-import { createSign, generateKeyPairSync, createHash } from 'crypto';
+import {
+  createSign, generateKeyPairSync, createHash, createPublicKey,
+} from 'crypto';
 import path from 'path';
 import fs from 'fs';
-import { exportJWK } from 'jose';
 
 import FsWatcher from './fsWatcher.js';
 
 
 let keys = [];
+let jwks = [];
 
 const keyFile = path.resolve('jwtkeys.json');
 if (!fs.existsSync(keyFile)) {
@@ -18,12 +20,44 @@ if (!fs.existsSync(keyFile)) {
 }
 const keyFileWatcher = new FsWatcher(keyFile);
 
+/**
+ * populate jwks array to send on well-known endpoint
+ * Sad that we need a third-party library for this :(
+ */
+async function populateJWKS() {
+  if (!keys.length) {
+    jwks.length = 0;
+    return;
+  }
+  const newJwks = [];
+  for (let i = 0; i < keys.length; i += 1) {
+    const { publicKey, kid } = keys[i];
+    try {
+      const jwk = createPublicKey(publicKey).export({ format: 'jwk' });
+      newJwks.push({
+        ...jwk,
+        use: 'sig',
+        kid,
+        alg: 'RS256',
+      });
+    } catch (error) {
+      console.error('Could not create jwk public key', error.message);
+    }
+  }
+  jwks = newJwks;
+}
+
+export function getJWKS() {
+  return jwks;
+}
+
 /*
  * load available keys from file
  */
 function loadJWTKeys() {
   if (!fs.existsSync(keyFile)) {
     keys.length = 0;
+    jwks.length = 0;
     return false;
   }
   let fileKeys;
@@ -32,13 +66,16 @@ function loadJWTKeys() {
   } catch (error) {
     console.error(`loadJWTKeys: Error ${error.message}`);
     keys.length = 0;
+    jwks.length = 0;
     return false;
   }
   if (Array.isArray(fileKeys) && fileKeys.length) {
     keys = fileKeys;
+    populateJWKS();
     return true;
   }
   keys.length = 0;
+  jwks.length = 0;
   return false;
 }
 
@@ -61,6 +98,7 @@ function createJWTKeys() {
     keys.length = 0;
     console.error(`createJWTKeys: Error ${error.message}`);
   }
+  populateJWKS();
 }
 
 /*
@@ -138,32 +176,3 @@ export function hashValue(value) {
   return leftHalf.toString('base64url');
 }
 
-/**
- * create a jwks response for publishing our public keys
- * Sad that we need a third-party library for this :(
- */
-export async function createJWKS() {
-  if (!keys.length) {
-    createJWTKeys();
-  }
-  if (!keys.length) {
-    return [];
-  }
-  const jwks = [];
-  for (let i = 0; i < keys.length; i += 1) {
-    const key = keys[i];
-    try {
-      // eslint-disable-next-line no-await-in-loop
-      const jwk = await exportJWK(key.publicKey);
-      jwks.push({
-        ...jwk,
-        use: 'sig',
-        kid: key.kid,
-        alg: 'RS256',
-      });
-    } catch {
-      // nothing
-    }
-  }
-  return jwks;
-}

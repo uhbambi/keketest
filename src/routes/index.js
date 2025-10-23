@@ -17,7 +17,7 @@ import api from './api/index.js';
 import oidc from './oidc/index.js';
 import tp from './tp.js';
 
-import { createJWKS } from '../core/jwt.js';
+import { getJWKS } from '../core/jwt.js';
 import { expressTTag } from '../middleware/ttag.js';
 import cors from '../middleware/cors.js';
 import { parseIP } from '../middleware/ip.js';
@@ -93,7 +93,7 @@ if (OIDC_URL) {
       'Cache-Control': `public, max-age=${24 * 3600}`,
       'Access-Control-Allow-Origin': '*',
     });
-    res.json(await createJWKS());
+    res.json({ keys: await getJWKS() });
   });
 }
 

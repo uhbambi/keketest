@@ -166,6 +166,7 @@ router.get('/r/:abbr', parseDevice, async (req, res) => {
    * when they do a third party login, they expect a login only.
    * If we ever use it, we need to ask for explicit consent.
    */
+  /* eslint-disable no-unused-vars */
   let avatarUrl;
   switch (req.params.abbr) {
     case 'd': {
@@ -277,6 +278,7 @@ router.get('/r/:abbr', parseDevice, async (req, res) => {
     default:
       // nothing
   }
+  /* eslint-enable no-unused-vars */
   /* eslint-enable max-len */
 
   /*
