@@ -12,6 +12,7 @@ import auth from './auth.js';
 import consent from './consent.js';
 import token from './token.js';
 import userinfo from './userinfo.js';
+import register from './register.js';
 
 const router = express.Router();
 
@@ -22,6 +23,8 @@ const router = express.Router();
 router.post('/consent', express.json(), validateAuthRequest, consent,
   errorJson,
 );
+
+router.use('/register', register);
 
 router.use(urlEncoded);
 

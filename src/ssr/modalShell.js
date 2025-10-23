@@ -1,22 +1,21 @@
-/* eslint-disable max-len */
+/*
+ * outer shell for a html page with a modal on it, good for smaller windows
+ * like info, redirection and error pages
+ */
+import { getTTag } from '../middleware/ttag.js';
 import { getThemeCssAssets } from '../core/assets.js';
 import { BASENAME } from '../core/config.js';
 
-export default function getErrorPageHtml(
-  title, description, lang, ttag,
-) {
-  const { t } = ttag;
+/* eslint-disable max-len */
 
-  if (title === 'Error') {
-    title = t`Error`;
-  }
-
+export default function putHtmlIntoModal(title, description, htmlString, lang = 'en') {
+  const { t } = getTTag(lang);
   return `<!doctype html>
 <html lang="${lang}">
   <head>
     <meta charset="UTF-8" />
-    <title>PixelPlanet</title>
-    <meta name="description" content="${title}" />
+    <title>${title}</title>
+    <meta name="description" content="${description}" />
     <meta name="google" content="nopagereadaloud" />
     <meta name="theme-color" content="#cae3ff" />
     <link rel="icon" href="${BASENAME}/favicon.ico" type="image/x-icon" />
@@ -27,8 +26,7 @@ export default function getErrorPageHtml(
     <div class="popup">
       <div class="popup-modal">
         <div class="popup-content" style="font-size: 20px;">
-          <h1>${title}</h1>
-          <p>${description}</p>
+${htmlString}
           <p><a href="${BASENAME}/">${t`Click here`}</a> ${t`to go back to pixelplanet`}</p>
         </div>
       </div>

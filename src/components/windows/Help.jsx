@@ -13,7 +13,7 @@ import ClipboardCopyField from '../ClipboardCopyField.jsx';
 import useLongPress from '../hooks/useLongPress.js';
 import { toggleEasterEgg } from '../../store/actions/index.js';
 import { notify } from '../../store/actions/thunks.js';
-import { cdn } from '../../utils/utag.js';
+import { cdn, u } from '../../utils/utag.js';
 
 /* eslint-disable max-len */
 
@@ -123,6 +123,8 @@ const Help = () => {
         {jt`${mouseSymbol} Right click or ${touchSymbol} double-tap to remove a pixel`}<br />
         {jt`Click ${mouseSymbol} middle mouse button or ${touchSymbol} long-tap to select current hovering color`}<br />
       </div>
+      <h3>{t`For Developers`}</h3>
+      <p>{t`You can connect to pixelplanet and use pixelplanet accounts for oauth / oidc login. See here:`}<a href={u`/oidc/register`}>{t`OpenID Connect Client registration`}</a></p>
       <h3>Palette Credits</h3>
       <div>
         {jt`We thank the following artists, who made their palettes available to the public on`}&nbsp;

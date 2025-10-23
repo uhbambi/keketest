@@ -60,21 +60,10 @@
 /*-----------*/
 
 body {
-  margin: 0;
   font-family: 'Montserrat', sans-serif;
   font-size: 16px;
   border: none;
-  user-select: none;
   background: #c4c4c4;
-}
-
-html, body {
-  position: fixed;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  right: 0;
-  overflow: hidden;
 }
 
 .viewport {

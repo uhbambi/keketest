@@ -2,7 +2,7 @@
  * error handling middleware that prints error html page
  */
 
-import getErrorPageHtml from '../ssr/errorPageHTML.js';
+import putHtmlIntoModal from '../ssr/modalShell.js';
 
 // eslint-disable-next-line no-unused-vars
 export default (err, req, res, next) => {
@@ -15,7 +15,8 @@ export default (err, req, res, next) => {
     'Content-Type': 'text/html; charset=utf-8',
     Expires: '0',
   });
-  const title = err.title || 'Error';
+  const { lang, ttag: { t } } = req;
+  const title = err.title || t`Error`;
   const { message: description } = err;
   if (err.redirectUri) {
     const responseParams = new URLSearchParams({
@@ -25,8 +26,8 @@ export default (err, req, res, next) => {
     res.redirect(`${err.redirectUri}?${responseParams.toString()}`);
     return;
   }
-  const { lang, ttag } = req;
-  const html = getErrorPageHtml(title, description, lang, ttag);
+  const innerHtml = `<h1>${title}</h1><p>${description}</p>`;
+  const html = putHtmlIntoModal(title, title, innerHtml, lang);
   const status = err.status || 400;
   res.status(status).send(html);
 };

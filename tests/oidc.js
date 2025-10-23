@@ -43,7 +43,7 @@ async function destruct() {
 }
 
 let scopes = ['openid', 'email', 'profile', 'offline_access', 'game_data', 'achievements'];
-scopes = ['profile'];
+// scopes = ['profile'];
 
 (async () => {
   await initialize();

@@ -19,7 +19,7 @@ const OIDCClient = sequelize.define('OIDCClient', {
    */
   uid: {
     type: DataTypes.INTEGER.UNSIGNED,
-    allowNull: true,
+    allowNull: false,
   },
 
   name: {
@@ -151,11 +151,60 @@ export async function touchOIDCClient(id) {
 }
 
 /**
+ * get all OIDC clients of user
+ * @param userId user id
+ */
+export async function getAllClientsOfUser(userId) {
+  try {
+    const oidcClients = await sequelize.query(
+      // eslint-disable-next-line max-len
+      'SELECT id, name, secret, redirectUris, scope, defaultScope, BIN_TO_UUID(uuid) AS uuid FROM OIDCClients WHERE uid = ?', {
+        replacements: [userId],
+        raw: true,
+        type: QueryTypes.SELECT,
+      },
+    );
+    if (oidcClients) {
+      return oidcClients;
+    }
+  } catch (error) {
+    console.error(`SQL Error on getAllClientsOfUser: ${error.message}`);
+  }
+  return [];
+}
+
+/**
+ * delete a client of a user
+ * @param userId user id
+ * @param uuid uuid of client
+ */
+export async function deleteClient(userId, uuid) {
+  if (!userId || !uuid) {
+    return false;
+  }
+  try {
+    await sequelize.query(
+      // eslint-disable-next-line max-len
+      'DELETE FROM OIDCClients WHERE uid = ? AND uuid = UUID_TO_BIN(?)', {
+        replacements: [userId, uuid],
+        raw: true,
+        type: QueryTypes.DELETE,
+      },
+    );
+    return true;
+  } catch (error) {
+    console.error(`SQL Error on getAllClientsOfUser: ${error.message}`);
+  }
+  return false;
+}
+
+/**
  * create new OIDC client
  * @param uid userId of whoever registers the client
  * @param scope Array of wanted scopes
  * @param redirectUris Array of accepted redirect urls
  * @param rerollSecret whether or not we generate a new secret on client change
+ * Throws an error if something is wrong
  * @return {
  *   clientSecret,
  *   clientId: the uuid for the client, not the integer id,
@@ -165,21 +214,41 @@ export async function createOIDCClient(
   uid, name, scope, redirectUris, image = null, defaultScope = null,
   uuid = null, rerollSecret = false,
 ) {
+  if (!uid) {
+    throw new Error('You are not logged in');
+  }
   scope = scope.sort().join(' ');
+  if (defaultScope) {
+    defaultScope = defaultScope.sort().join(' ');
+  }
   redirectUris = redirectUris.join(' ');
 
-  try {
-    const existingClients = await sequelize.query(
-      // eslint-disable-next-line max-len
-      'SELECT name, id, secret, BIN_TO_UUID(uuid) AS uuid, secret FROM OIDCClients WHERE uid = ?', {
-        replacements: [uid],
-        raw: true,
-        type: QueryTypes.SELECT,
-      },
-    );
+  const existingClients = await sequelize.query(
+    // eslint-disable-next-line max-len
+    'SELECT name, id, secret, BIN_TO_UUID(uuid) AS uuid, secret FROM OIDCClients WHERE uid = ?', {
+      replacements: [uid],
+      raw: true,
+      type: QueryTypes.SELECT,
+    },
+  );
+  if (uuid) {
     for (let i = 0; i < existingClients.length; i += 1) {
       const client = existingClients[i];
-      if (client && (client.name === name || client.uuid === uuid)) {
+      if (client.uuid === uuid) {
+        if (client.name !== name) {
+          // eslint-disable-next-line no-await-in-loop
+          const nameCheck = await sequelize.query(
+            // eslint-disable-next-line max-len
+            'SELECT id FROM OIDCClients WHERE name = ?', {
+              replacements: [name],
+              plain: true,
+              type: QueryTypes.SELECT,
+            },
+          );
+          if (nameCheck) {
+            throw new Error('This name is already taken');
+          }
+        }
         /* user already has this client registered */
         const secret = (rerollSecret) ? generateToken() : client.secret;
         // eslint-disable-next-line no-await-in-loop
@@ -187,7 +256,8 @@ export async function createOIDCClient(
           // eslint-disable-next-line max-len
           'UPDATE OIDCClients SET name = ?, image = ?, redirectUris = ?, scope = ?, defaultScope = ?, secret = ? WHERE id = ?', {
             replacements: [
-              name, image, redirectUris, scope, defaultScope, secret, client.id,
+              name, image, redirectUris, scope, defaultScope, secret,
+              client.id,
             ],
             raw: true,
             type: QueryTypes.UPDATE,
@@ -199,52 +269,44 @@ export async function createOIDCClient(
         };
       }
     }
-    if (uuid) {
-      throw new Error('No such client exists or you do not have access to it');
-    }
-    if (existingClients.length >= 5) {
-      throw new Error('You can only register 5 clients max');
-    }
+    throw new Error('No such client exists or you do not have access to it');
+  }
+  if (existingClients.length >= 5) {
+    throw new Error('You can only register 5 clients max');
+  }
 
-    const secret = generateToken();
+  const secret = generateToken();
 
-    while (!uuid) {
-      uuid = bufferToUUID(generateUUID());
-      // eslint-disable-next-line no-await-in-loop
-      const existingClient = await sequelize.query(
-        // eslint-disable-next-line max-len
-        'SELECT id, BIN_TO_UUID(uuid) AS uuid FROM OIDCClients WHERE uuid = UUID_TO_BIN(?) OR name = ?', {
-          replacements: [uuid, name],
-          plain: true,
-          type: QueryTypes.SELECT,
-        },
-      );
-      if (existingClient && existingClient.uuid === uuid) {
-        uuid = null;
-      }
-      if (existingClient && existingClient.name === name) {
-        throw new Error('OIDC Client with this name already exists');
-      }
-    }
-    console.log('chode uuid', [
-      name, uuid, secret, redirectUris, scope, null, false,
-    ]);
-
-    await sequelize.query(
+  while (!uuid) {
+    uuid = bufferToUUID(generateUUID());
+    // eslint-disable-next-line no-await-in-loop
+    const existingClient = await sequelize.query(
       // eslint-disable-next-line max-len
-      'INSERT INTO OIDCClients (uid, name, image, uuid, secret, redirectUris, scope, defaultScope, autoGrant, createdAt) VALUES (?, ?, ?, UUID_TO_BIN(?), ?, ?, ?, ?, ?, NOW())', {
-        replacements: [
-          uid, name, image, uuid, secret, redirectUris, scope, null, false,
-        ],
-        raw: true,
-        type: QueryTypes.INSERT,
+      'SELECT id, BIN_TO_UUID(uuid) AS uuid FROM OIDCClients WHERE uuid = UUID_TO_BIN(?) OR name = ?', {
+        replacements: [uuid, name],
+        plain: true,
+        type: QueryTypes.SELECT,
       },
     );
-    return { clientSecret: secret, clientId: uuid };
-  } catch (error) {
-    console.error(`SQL Error on createOIDCClient: ${error.message}`);
+    if (existingClient && existingClient.uuid === uuid) {
+      uuid = null;
+    }
+    if (existingClient && existingClient.name === name) {
+      throw new Error('OIDC Client with this name already exists');
+    }
   }
-  return null;
+
+  await sequelize.query(
+    // eslint-disable-next-line max-len
+    'INSERT INTO OIDCClients (uid, name, image, uuid, secret, redirectUris, scope, defaultScope, autoGrant, createdAt) VALUES (?, ?, ?, UUID_TO_BIN(?), ?, ?, ?, ?, ?, NOW())', {
+      replacements: [
+        uid, name, image, uuid, secret, redirectUris, scope, null, false,
+      ],
+      raw: true,
+      type: QueryTypes.INSERT,
+    },
+  );
+  return { clientSecret: secret, clientId: uuid };
 }
 
 export default OIDCClient;

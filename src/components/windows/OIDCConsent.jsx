@@ -58,9 +58,9 @@ const OIDCConsent = () => {
       case 'profile':
         return [s, t`Read name, username and account age`, required];
       case 'email':
-        return [s, t`Get your email address`, required];
+        return [s, t`Get email address`, required];
       case 'game_data':
-        return [s, t`Get the amount of your Pixels placed and ranking`, required];
+        return [s, t`Get the amount of Pixels placed and ranking`, required];
       case 'achievements':
         return [s, t`Read Badges and fishes`, required];
       case 'offline_access':

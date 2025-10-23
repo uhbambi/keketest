@@ -136,6 +136,7 @@ export default function generateMainHTML(
     <link rel="icon" href="${BASENAME}/favicon.ico" type="image/x-icon" />
     <link rel="apple-touch-icon" href="${BASENAME}/apple-touch-icon.png" />
     <script>${headScript}</script>
+    <style>html, body { position: fixed; top: 0; left: 0; bottom: 0; right: 0; overflow: hidden; user-select: none; margin: 0; }</style>
     <link rel="stylesheet" type="text/css" id="globcss" href="${ssv.cdnUrl || BASENAME}${getThemeCssAssets().default}" />
   </head>
   <body>

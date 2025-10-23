@@ -3,7 +3,7 @@
  */
 
 import socketEvents from '../../../socket/socketEvents.js';
-import getHtml from '../../../ssr/RedirectionPage.jsx';
+import putHtmlIntoRedirectionModal from '../../../ssr/redirectionModal.js';
 import { MailProvider } from '../../../core/MailProvider.js';
 import { validateEMail } from '../../../utils/validation.js';
 
@@ -12,21 +12,26 @@ export default async (req, res) => {
   const { lang, ttag: { t } } = req;
 
   const host = req.ip.getHost();
+  const title = t`Mail verification`;
   const error = validateEMail(email);
   if (!error) {
     const userId = await MailProvider.verify(email, token);
     if (userId) {
       socketEvents.reloadUser(userId);
-      const index = getHtml(
-        t`Mail verification`,
-        t`You are now verified :)`,
+      const html = putHtmlIntoRedirectionModal(
+        title, title,
+        `<h1>${t`Mail verification`}</h1><p>${t`You are now verified :)`}</p>`,
         host, lang,
       );
-      res.status(200).send(index);
+      res.status(200).send(html);
       return;
     }
   }
-  // eslint-disable-next-line max-len
-  const index = getHtml(t`Mail verification`, t`Your mail verification code is invalid or already expired :(, please request a new one.`, host, lang);
-  res.status(400).send(index);
+  const html = putHtmlIntoRedirectionModal(
+    title, title,
+    // eslint-disable-next-line max-len
+    `<h1>${t`Mail verification`}</h1><p>${t`Your mail verification code is invalid or already expired :(, please request a new one.`}</p>`,
+    host, lang,
+  );
+  res.status(400).send(html);
 };
