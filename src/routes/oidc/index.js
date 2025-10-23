@@ -7,7 +7,7 @@ import express from 'express';
 import urlEncoded from '../../middleware/formData.js';
 import errorPage from '../../middleware/errorPage.js';
 import errorJson from '../../middleware/errorJson.js';
-import { validateAuthRequest } from '../../middleware/oidc.js';
+import { validateAuthRequest, requireOidc } from '../../middleware/oidc.js';
 import auth from './auth.js';
 import consent from './consent.js';
 import token from './token.js';
@@ -41,6 +41,6 @@ router.post('/token', token);
 /*
  * relying party userinfo requests
  */
-router.use('/userinfo', userinfo);
+router.use('/userinfo', requireOidc(), userinfo);
 
 export default router;

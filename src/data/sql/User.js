@@ -212,7 +212,7 @@ export async function getNamesToIds(ids) {
 /**
  * get User by id
  * @param id user id
- * @return [{ id, name, password, userlvl }, ... ]
+ * @return { id, name, username, password, flags, userlvl }
  */
 export async function findUserById(id) {
   if (!id) {

@@ -9,7 +9,6 @@ import voidl from './void.js';
 import history from './history.js';
 import tiles from './tiles.js';
 import chunks from './chunks.js';
-import adminapi from './adminapi.js';
 import captcha from './captcha.js';
 import challenge from './challenge.js';
 import resetPassword from './reset_password.js';
@@ -159,11 +158,6 @@ router.use((req, res, next) => {
   }
   next();
 });
-
-/*
- * adminapi
- */
-router.use('/adminapi', adminapi);
 
 //
 // 3D Globe (react generated)

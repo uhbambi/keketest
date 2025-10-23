@@ -77,12 +77,12 @@ router.use(parseDevice);
 
 router.use('/auth', auth);
 
+router.use('/modtools', modtools);
+
 /*
  * only with session
  */
 router.use(ensureLoggedIn);
-
-router.use('/modtools', modtools);
 
 router.get('/profile', profile);
 

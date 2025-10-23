@@ -43,7 +43,7 @@ router.use(verifySession, urlEncoded, async (req, res) => {
   if (req.method === 'POST') {
     const allowedScopes = [
       'openid', 'email', 'profile', 'offline_access', 'game_data',
-      'achievements', 'user_id',
+      'achievements', 'user_id', 'modtools',
     ];
 
     const {

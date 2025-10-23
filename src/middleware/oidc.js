@@ -7,6 +7,7 @@ import { getOIDCClient } from '../data/sql/OIDCClient.js';
 import { createJWT, hashValue } from '../core/jwt.js';
 import { generatePPID } from '../utils/hash.js';
 import { getUserOIDCProfile } from '../data/sql/User.js';
+import { getAccessToken } from '../data/sql/OIDCAccessToken.js';
 
 import { OIDC_URL } from '../core/config.js';
 import { USERLVL } from '../core/constants.js';
@@ -114,9 +115,66 @@ export async function generateIdToken(
   return createJWT(payload);
 }
 
+/**
+ * generator for middleware to verify and ensure oauth / oidc authorization
+ * sets oidcUserId oidcScope oidcClientId on req
+ * @param requiredScope the required oauth scope or null if any goes
+ */
+export const requireOidc = (
+  requiredScope = null, allowUnauthenticated = false,
+) => async (req, res, next) => {
+  let uid;
+  let scope;
+  let clientId;
+  try {
+    let { authorization } = req.headers;
+    if (!authorization) {
+      if (allowUnauthenticated) {
+        next();
+        return;
+      }
+      throw new Error('Authorization header required');
+    }
+    authorization = authorization.trim();
+    if (!authorization.startsWith('Bearer')) {
+      throw new Error('Invalid Authorization method');
+    }
+    authorization = authorization.substring(7).trim();
+    const tokenModel = await getAccessToken(authorization);
+    if (!tokenModel) {
+      throw new Error('Invalid access token');
+    }
+    ({ uid, scope, clientId } = tokenModel);
+    if (!scope.length
+      || (requiredScope && !scope.includes(requiredScope))
+    ) {
+      const err = new Error('Invalid scope of token');
+      err.title = 'insufficient_scope';
+      throw err;
+    }
+  } catch (err) {
+    res.set({
+      'Cache-Control': 'no-cache, no-store, must-revalidate',
+      'Access-Control-Allow-Origin': '*',
+      Expires: '0',
+    });
+    res.set({
+      // eslint-disable-next-line max-len
+      'WWW-Authenticate': `Bearer error="${err.title || 'invalid_request'}", error_description="${err.message}"`,
+    });
+    res.status(err.status || 401).send();
+    return;
+  }
+  req.oidcUserId = uid;
+  req.oidcScope = scope;
+  req.oidcClientId = clientId;
+  next();
+};
+
 /*
  * both authorization request and the client consent request, send the same
  * data and it shall be validated the same in both
+ * sets lots of stuff on req
  */
 export const validateAuthRequest = async (req, res, next) => {
   req.tickRateLimiter(5000);

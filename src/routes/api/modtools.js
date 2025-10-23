@@ -8,6 +8,7 @@ import express from 'express';
 import fileUpload from 'express-fileupload';
 
 import urlEncoded from '../../middleware/formData.js';
+import { requireOidc } from '../../middleware/oidc.js';
 import CanvasCleaner from '../../core/CanvasCleaner.js';
 import chatProvider from '../../core/ChatProvider.js';
 import { escapeMd } from '../../core/utils.js';
@@ -25,19 +26,18 @@ import {
   executeQuickAction,
 } from '../../core/adminfunctions.js';
 import { getState } from '../../core/SharedState.js';
-import { getHighUserLvlUsers } from '../../data/sql/User.js';
+import { getHighUserLvlUsers, findUserById } from '../../data/sql/User.js';
 import { USERLVL } from '../../data/sql/index.js';
 
 
 const router = express.Router();
 
-router.use(urlEncoded);
 /*
  * parse multipart/form-data
  * ordinary fields will be under req.body[name]
  * files will be under req.files[name]
  */
-router.use(fileUpload({
+router.use(urlEncoded, fileUpload({
   limits: {
     fileSize: 5 * 1024 * 1024,
     fields: 50,
@@ -45,11 +45,19 @@ router.use(fileUpload({
   },
 }));
 
+router.use(requireOidc('modtools', true));
 
 /*
  * make sure User is logged in and at least Mod
  */
 router.use(async (req, res, next) => {
+  /*
+   * special case for oauth, this user object has only a subset of values
+   */
+  if (!req.user && req.oidcUserId) {
+    req.user = await findUserById(req.oidcUserId);
+  }
+
   if (!req.user) {
     logger.warn(
       `MODTOOLS> ${req.ip.ipString} tried to access modtools without login`,
@@ -58,7 +66,8 @@ router.use(async (req, res, next) => {
     next(new Error(t`You are not logged in`));
     return;
   }
-  if (req.user.userlvl < USERLVL.JANNY) {
+  const { userlvl } = req.user;
+  if (!userlvl || userlvl < USERLVL.JANNY) {
     logger.warn(
       `MODTOOLS: ${req.ip.ipString} / ${req.user.id} tried to access modtools`,
     );

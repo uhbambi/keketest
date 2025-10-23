@@ -1,7 +1,6 @@
 /*
  * userinfo endpoint called by the relying party
  */
-import { getAccessToken } from '../../data/sql/OIDCAccessToken.js';
 import { getUserOIDCProfile } from '../../data/sql/User.js';
 import { getUserRanks } from '../../data/redis/ranks.js';
 import { getFishesOfUser } from '../../data/sql/Fish.js';
@@ -18,37 +17,7 @@ export default async (req, res) => {
     Expires: '0',
   });
 
-  let uid;
-  let scope;
-  let clientId;
-  try {
-    let { authorization } = req.headers;
-    if (!authorization) {
-      throw new Error('Authorization header required');
-    }
-    authorization = authorization.trim();
-    if (!authorization.startsWith('Bearer')) {
-      throw new Error('Invalid Authorization method');
-    }
-    authorization = authorization.substring(7).trim();
-    const tokenModel = await getAccessToken(authorization);
-    if (!tokenModel) {
-      throw new Error('Invalid access token');
-    }
-    ({ uid, scope, clientId } = tokenModel);
-    if (!scope.length) {
-      const err = new Error('Invalid scope of token');
-      err.title = 'insufficient_scope';
-      throw err;
-    }
-  } catch (err) {
-    res.set({
-      // eslint-disable-next-line max-len
-      'WWW-Authenticate': `Bearer error="${err.title || 'invalid_request'}", error_description="${err.message}"`,
-    });
-    res.status(err.status || 401).send();
-    return;
-  }
+  const { oidcUserId: uid, oidcScope: scope, oidcClientId: clientId } = req;
 
   try {
     const payload = {};
