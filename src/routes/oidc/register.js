@@ -56,7 +56,7 @@ router.use(verifySession, urlEncoded, async (req, res) => {
     try {
       if (action === 'delete') {
         await deleteClient(req.user.id, uuid);
-        innerHtml = `<p class="topmessage" style="color: #2a537d;">${t`Application successfully added`}</p>`;
+        innerHtml += `<p class="topmessage" style="color: #2a537d;">${t`Application deleted`}</p>`;
       } else {
         if (!name || !scope || !redirectUris) {
           throw new Error(t`You have to fill out all fields`);
@@ -101,12 +101,16 @@ router.use(verifySession, urlEncoded, async (req, res) => {
           req.user.id, name, scope, redirectUris, null, defaultScope, uuid,
           rerollSecret,
         );
-        innerHtml = `<p class="topmessage" style="color: #2a537d;">${t`Application changed successfully`}</p>`;
+        if (uuid) {
+          innerHtml += `<p class="topmessage" style="color: #2a537d;">${t`Application changed successfully`}</p>`;
+        } else {
+          innerHtml += `<p class="topmessage" style="color: #2a537d;">${t`Application successfully added`}</p>`;
+        }
       }
     } catch (error) {
       status = 400;
       // eslint-disable-next-line max-len
-      innerHtml = `<p class="topmessage" style="color: #b73c3c;"><span>${t`Error`}</span>: ${error.message}</p>`;
+      innerHtml += `<p class="topmessage" style="color: #b73c3c;"><span>${t`Error`}</span>: ${error.message}</p>`;
     }
   }
 
