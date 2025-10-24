@@ -285,9 +285,14 @@ export const validateAuthRequest = async (req, res, next) => {
       scope = scope.toLowerCase().split(' ');
     }
     /*
-     * sanitize scopes and go back to openid default if neccessary
+     * remove duplicates and unallowed scopes
      */
-    scope = scope.filter((s) => clientModel.scope.includes(s));
+    scope = scope.sort().filter((s, pos, self) => {
+      if (!clientModel.scope.includes(s)) {
+        return false;
+      }
+      return pos === 0 || s != self[pos - 1];
+    });
     /*
      * overwrite values that might have changed
      */
