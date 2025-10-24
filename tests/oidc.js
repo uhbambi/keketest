@@ -4,6 +4,7 @@
 
 import express from 'express';
 import http from 'http';
+import { QueryTypes } from 'sequelize';
 
 import {
   OAuth2Client, generateCodeVerifier, decodeIdToken, CodeChallengeMethod,
@@ -42,7 +43,7 @@ async function destruct() {
   destructAllWatchers();
 }
 
-let scopes = ['openid', 'email', 'profile', 'offline_access', 'game_data', 'achievements', 'modtools'];
+let scopes = ['openid', 'email', 'user_id'];
 // scopes = ['profile'];
 
 (async () => {
@@ -66,8 +67,21 @@ let scopes = ['openid', 'email', 'profile', 'offline_access', 'game_data', 'achi
 
   try {
     title('generate oidc client');
-    const { clientId, clientSecret } = await createOIDCClient(1, 'test', scopes, ['http://localhost:33333/r'], null, null);
-    //const { clientId, clientSecret } = await createOIDCClient(1, 'test', scopes, ['http://localhost:33333/r'], null, null, '74625257-a717-4474-a9a4-2593170165ff');
+    let clientId;
+    let clientSecret;
+    try {
+      ({ clientId, clientSecret } = await createOIDCClient(1, 'test', scopes, ['http://localhost:33333/r'], null, false));
+    } catch {
+      const oidcClient = await sequelize.query(
+        // eslint-disable-next-line max-len
+        'SELECT uid, BIN_TO_UUID(uuid) AS uuid FROM OIDCClients WHERE name = ?', {
+          replacements: ['test'],
+          plain: true,
+          type: QueryTypes.SELECT,
+        },
+      );
+      ({ clientId, clientSecret } = await createOIDCClient(oidcClient.uid, 'test', scopes, ['http://localhost:33333/r'], null, null, oidcClient.uuid, false));
+    }
     console.log('id', clientId, 'secret', clientSecret);
 
     title('initialize routes for oidc client');
@@ -114,10 +128,11 @@ let scopes = ['openid', 'email', 'profile', 'offline_access', 'game_data', 'achi
       console.log('tokens', tokens);
 
       let claims;
-      if (scopes.includes('offline_access')) {
+      if (scopes.includes('openid')) {
         const claims = decodeIdToken(tokens.idToken());
         console.log('claims', claims);
-
+      }
+      if (scopes.includes('offline_access')) {
         const refreshToken = tokens.refreshToken();
         tokens = await provider.refreshAccessToken(token_endpoint, refreshToken, []);
         console.log('refreshed_tokens', tokens);
