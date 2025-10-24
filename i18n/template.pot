@@ -49,7 +49,7 @@ msgstr ""
 msgid "+last hour"
 msgstr ""
 
-#: src/components/ChangeMail.jsx:161
+#: src/components/ChangeMail.jsx:180
 msgid "...loading Login methods and sessions..."
 msgstr ""
 
@@ -59,6 +59,10 @@ msgstr ""
 
 #: src/components/UserMessages.jsx:44
 msgid "A new verification mail is getting sent to you."
+msgstr ""
+
+#: src/components/windows/OIDCConsent.jsx:67
+msgid "ACCESS MODTOOLS"
 msgstr ""
 
 #: src/components/Converter.jsx:361
@@ -109,7 +113,7 @@ msgstr ""
 msgid "BID"
 msgstr ""
 
-#: src/components/LogInForm.jsx:281
+#: src/components/LogInForm.jsx:282
 msgid "Back"
 msgstr ""
 
@@ -191,14 +195,14 @@ msgstr ""
 msgid "Can't render 3D canvas, do you have WebGL2 disabled?"
 msgstr ""
 
-#: src/components/ChangeMail.jsx:211
+#: src/components/ChangeMail.jsx:243
 #: src/components/ChangeName.jsx:70
 #: src/components/ChangePassword.jsx:124
 #: src/components/ChangeUsername.jsx:72
 #: src/components/DeleteAccount.jsx:77
 #: src/components/GlobalCaptcha.jsx:94
-#: src/components/LogInForm.jsx:306
-#: src/components/LogInForm.jsx:399
+#: src/components/LogInForm.jsx:307
+#: src/components/LogInForm.jsx:400
 #: src/components/RefreshPrompt.jsx:16
 #: src/components/TemplateItemEdit.jsx:181
 msgid "Cancel"
@@ -231,7 +235,7 @@ msgstr ""
 msgid "Canvas Selection"
 msgstr ""
 
-#: src/components/LogInForm.jsx:378
+#: src/components/LogInForm.jsx:379
 msgid "Captcha"
 msgstr ""
 
@@ -251,7 +255,7 @@ msgstr ""
 msgid "Change Password"
 msgstr ""
 
-#: src/components/ChangeMail.jsx:198
+#: src/components/ChangeMail.jsx:230
 msgid "Change your Mail Adress here:"
 msgstr ""
 
@@ -276,7 +280,7 @@ msgstr ""
 msgid "Check out past versions of the canvas."
 msgstr ""
 
-#: src/components/windows/OIDCConsent.jsx:170
+#: src/components/windows/OIDCConsent.jsx:237
 msgid "Check to allow"
 msgstr ""
 
@@ -376,8 +380,8 @@ msgid "Confirm New Password"
 msgstr ""
 
 #: src/components/ChangePassword.jsx:111
-#: src/components/LogInForm.jsx:356
-#: src/components/LogInForm.jsx:362
+#: src/components/LogInForm.jsx:357
+#: src/components/LogInForm.jsx:363
 msgid "Confirm Password"
 msgstr ""
 
@@ -386,12 +390,12 @@ msgstr ""
 msgid "Connection error ${ code } :("
 msgstr ""
 
-#: src/components/windows/OIDCConsent.jsx:158
+#: src/components/windows/OIDCConsent.jsx:225
 msgid "Consent"
 msgstr ""
 
 #: src/components/windows/UserArea.jsx:75
-msgid "Consider joining us on Guilded:"
+msgid "Consider joining us on Matrix:"
 msgstr ""
 
 #: src/components/windows/Help.jsx:98
@@ -485,17 +489,17 @@ msgstr ""
 msgid "Country"
 msgstr ""
 
-#: src/components/windows/Help.jsx:137
+#: src/components/windows/Help.jsx:139
 #, javascript-format
 msgid "Credit for the Palette of the 2bit canvas goes to ${ donendoLink }."
 msgstr ""
 
-#: src/components/windows/Help.jsx:131
+#: src/components/windows/Help.jsx:133
 #, javascript-format
 msgid "Credit for the Palette of the Moon goes to ${ starhouseLink }."
 msgstr ""
 
-#: src/components/windows/Help.jsx:134
+#: src/components/windows/Help.jsx:136
 #, javascript-format
 msgid "Credit for the Palette of the Top10 canvas goes to ${ vinikLink }."
 msgstr ""
@@ -540,7 +544,8 @@ msgstr ""
 msgid "Delete Account"
 msgstr ""
 
-#: src/components/windows/OIDCConsent.jsx:213
+#: src/components/windows/OIDCConsent.jsx:271
+#: src/components/windows/OIDCConsent.jsx:309
 msgid "Deny"
 msgstr ""
 
@@ -581,7 +586,7 @@ msgstr ""
 msgid "Do stuff with IPs (one IP per line)"
 msgstr ""
 
-#: src/components/windows/OIDCConsent.jsx:191
+#: src/components/windows/OIDCConsent.jsx:258
 msgid "Don't remember"
 msgstr ""
 
@@ -617,9 +622,9 @@ msgstr ""
 msgid "Edit"
 msgstr ""
 
-#: src/components/LogInForm.jsx:299
-#: src/components/LogInForm.jsx:339
-#: src/components/LogInForm.jsx:346
+#: src/components/LogInForm.jsx:300
+#: src/components/LogInForm.jsx:340
+#: src/components/LogInForm.jsx:347
 msgid "Email"
 msgstr ""
 
@@ -631,7 +636,7 @@ msgstr ""
 msgid "Email can't be longer than 40 characters."
 msgstr ""
 
-#: src/components/LogInForm.jsx:340
+#: src/components/LogInForm.jsx:341
 msgid ""
 "Email is used to verify your account. You might get a cofirmation mail "
 "after registering."
@@ -674,23 +679,24 @@ msgstr ""
 msgid "Enter UserName of new Mod"
 msgstr ""
 
-#: src/components/LogInForm.jsx:287
+#: src/components/LogInForm.jsx:288
 msgid "Enter your mail address and we will send you a new password:"
 msgstr ""
 
 #: src/components/BanInfo.jsx:89
 #: src/components/Captcha.jsx:189
-#: src/components/ChangeMail.jsx:139
+#: src/components/ChangeMail.jsx:158
 #: src/components/ChangeName.jsx:58
 #: src/components/ChangePassword.jsx:79
 #: src/components/ChangeUsername.jsx:54
 #: src/components/DeleteAccount.jsx:59
 #: src/components/GlobalCaptcha.jsx:80
 #: src/components/LogInForm.jsx:201
-#: src/components/LogInForm.jsx:291
-#: src/components/LogInForm.jsx:386
+#: src/components/LogInForm.jsx:292
+#: src/components/LogInForm.jsx:387
 #: src/components/windows/BadgeDisplay.jsx:39
 #: src/components/windows/FishDisplay.jsx:40
+#: src/components/windows/OIDCConsent.jsx:287
 msgid "Error"
 msgstr ""
 
@@ -729,6 +735,10 @@ msgstr ""
 msgid "For"
 msgstr ""
 
+#: src/components/windows/Help.jsx:126
+msgid "For Developers"
+msgstr ""
+
 #: src/components/windows/Help.jsx:80
 #, javascript-format
 msgid ""
@@ -737,25 +747,25 @@ msgid ""
 "relevant traces. Your placed pixels will of course not be deleted."
 msgstr ""
 
-#: src/components/windows/OIDCConsent.jsx:192
+#: src/components/windows/OIDCConsent.jsx:259
 msgid "For one day"
 msgstr ""
 
 #: src/components/LogInForm.jsx:223
-#: src/components/LogInForm.jsx:373
-#: src/components/windows/OIDCConsent.jsx:194
+#: src/components/LogInForm.jsx:374
+#: src/components/windows/OIDCConsent.jsx:261
 msgid "For one month"
 msgstr ""
 
 #: src/components/LogInForm.jsx:222
-#: src/components/LogInForm.jsx:372
-#: src/components/windows/OIDCConsent.jsx:193
+#: src/components/LogInForm.jsx:373
+#: src/components/windows/OIDCConsent.jsx:260
 msgid "For one week"
 msgstr ""
 
 #: src/components/LogInForm.jsx:224
-#: src/components/LogInForm.jsx:374
-#: src/components/windows/OIDCConsent.jsx:195
+#: src/components/LogInForm.jsx:375
+#: src/components/windows/OIDCConsent.jsx:262
 msgid "For one year"
 msgstr ""
 
@@ -764,8 +774,8 @@ msgid "For when you are playing on a potato."
 msgstr ""
 
 #: src/components/LogInForm.jsx:225
-#: src/components/LogInForm.jsx:375
-#: src/components/windows/OIDCConsent.jsx:196
+#: src/components/LogInForm.jsx:376
+#: src/components/windows/OIDCConsent.jsx:263
 msgid "Forever"
 msgstr ""
 
@@ -791,6 +801,14 @@ msgstr ""
 msgid "Get Users"
 msgstr ""
 
+#: src/components/windows/OIDCConsent.jsx:61
+msgid "Get email address"
+msgstr ""
+
+#: src/components/windows/OIDCConsent.jsx:63
+msgid "Get the amount of Pixels placed and ranking"
+msgstr ""
+
 #: src/components/buttons/GlobeButton.jsx:34
 msgid "Globe View"
 msgstr ""
@@ -799,7 +817,7 @@ msgstr ""
 msgid "Go to"
 msgstr ""
 
-#: src/components/windows/OIDCConsent.jsx:220
+#: src/components/windows/OIDCConsent.jsx:278
 msgid "Grant"
 msgstr ""
 
@@ -928,7 +946,7 @@ msgstr ""
 msgid "Invited to Chat"
 msgstr ""
 
-#: src/components/windows/OIDCConsent.jsx:154
+#: src/components/windows/OIDCConsent.jsx:221
 msgid "It requests the following permissions. Uncheck what you don't want to grant:"
 msgstr ""
 
@@ -950,6 +968,10 @@ msgstr ""
 
 #: src/components/Converter.jsx:509
 msgid "Keep Ratio"
+msgstr ""
+
+#: src/components/windows/OIDCConsent.jsx:73
+msgid "Know that an account exists"
 msgstr ""
 
 #: src/components/windows/Help.jsx:79
@@ -977,7 +999,7 @@ msgstr ""
 msgid "Log out"
 msgstr ""
 
-#: src/components/ChangeMail.jsx:185
+#: src/components/ChangeMail.jsx:204
 msgid "Log out a Session:"
 msgstr ""
 
@@ -993,11 +1015,11 @@ msgstr ""
 msgid "Login to access more features and stats."
 msgstr ""
 
-#: src/components/windows/OIDCConsent.jsx:71
+#: src/components/windows/OIDCConsent.jsx:84
 msgid "Login to grant access to other application."
 msgstr ""
 
-#: src/components/windows/OIDCConsent.jsx:138
+#: src/components/windows/OIDCConsent.jsx:203
 msgid "Login to other application"
 msgstr ""
 
@@ -1045,8 +1067,8 @@ msgstr ""
 msgid "Muted Sound"
 msgstr ""
 
-#: src/components/LogInForm.jsx:321
-#: src/components/LogInForm.jsx:328
+#: src/components/LogInForm.jsx:322
+#: src/components/LogInForm.jsx:329
 msgid "Name"
 msgstr ""
 
@@ -1070,7 +1092,7 @@ msgstr ""
 msgid "Name or Email"
 msgstr ""
 
-#: src/components/ChangeMail.jsx:204
+#: src/components/ChangeMail.jsx:236
 msgid "New Mail"
 msgstr ""
 
@@ -1166,6 +1188,10 @@ msgstr ""
 msgid "Open in PopUp"
 msgstr ""
 
+#: src/components/windows/Help.jsx:127
+msgid "OpenID Connect Client registration"
+msgstr ""
+
 #: src/components/windows/Help.jsx:72
 msgid ""
 "Our main canvas is a huge worldmap, you can place wherever you like, but "
@@ -1197,12 +1223,12 @@ msgstr ""
 msgid "Palette for ${ gimpLink }"
 msgstr ""
 
-#: src/components/ChangeMail.jsx:152
+#: src/components/ChangeMail.jsx:171
 #: src/components/ChangePassword.jsx:103
 #: src/components/DeleteAccount.jsx:69
 #: src/components/LogInForm.jsx:216
-#: src/components/LogInForm.jsx:348
-#: src/components/LogInForm.jsx:354
+#: src/components/LogInForm.jsx:349
+#: src/components/LogInForm.jsx:355
 msgid "Password"
 msgstr ""
 
@@ -1231,7 +1257,7 @@ msgstr ""
 msgid "Pencil picks: "
 msgstr ""
 
-#: src/components/windows/OIDCConsent.jsx:159
+#: src/components/windows/OIDCConsent.jsx:226
 msgid "Permission"
 msgstr ""
 
@@ -1377,19 +1403,11 @@ msgstr ""
 msgid "Ranking updates every 5 min. Daily rankings get reset at midnight UTC."
 msgstr ""
 
-#: src/components/windows/OIDCConsent.jsx:58
+#: src/components/windows/OIDCConsent.jsx:65
 msgid "Read Badges and fishes"
 msgstr ""
 
-#: src/components/windows/OIDCConsent.jsx:54
-msgid "Read Email"
-msgstr ""
-
-#: src/components/windows/OIDCConsent.jsx:56
-msgid "Read Pixels placed"
-msgstr ""
-
-#: src/components/windows/OIDCConsent.jsx:52
+#: src/components/windows/OIDCConsent.jsx:59
 msgid "Read name, username and account age"
 msgstr ""
 
@@ -1402,23 +1420,23 @@ msgstr ""
 msgid "Refresh"
 msgstr ""
 
-#: src/components/LogInForm.jsx:267
+#: src/components/LogInForm.jsx:268
 msgid "Register"
 msgstr ""
 
-#: src/components/LogInForm.jsx:320
+#: src/components/LogInForm.jsx:321
 msgid "Register new account here"
 msgstr ""
 
-#: src/components/windows/OIDCConsent.jsx:60
-msgid "Regular update this data"
+#: src/components/windows/OIDCConsent.jsx:69
+msgid "Regularly update this data"
 msgstr ""
 
 #: src/components/Captcha.jsx:267
 msgid "Reload"
 msgstr ""
 
-#: src/components/windows/OIDCConsent.jsx:183
+#: src/components/windows/OIDCConsent.jsx:250
 msgid "Remember this decision: "
 msgstr ""
 
@@ -1438,7 +1456,7 @@ msgstr ""
 msgid "Remove Moderator"
 msgstr ""
 
-#: src/components/ChangeMail.jsx:169
+#: src/components/ChangeMail.jsx:188
 msgid "Remove a Login method:"
 msgstr ""
 
@@ -1458,7 +1476,7 @@ msgstr ""
 msgid "Reset Captchas of ALL Users"
 msgstr ""
 
-#: src/components/LogInForm.jsx:274
+#: src/components/LogInForm.jsx:275
 msgid "Reset your password"
 msgstr ""
 
@@ -1479,6 +1497,10 @@ msgstr ""
 msgid "Retract"
 msgstr ""
 
+#: src/components/ChangeMail.jsx:219
+msgid "Revoke consent of third party applications:"
+msgstr ""
+
 #: src/components/Admintools.jsx:251
 msgid "Roll different Captcha Fonts"
 msgstr ""
@@ -1491,12 +1513,13 @@ msgstr ""
 msgid "Rollback to Date"
 msgstr ""
 
-#: src/components/ChangeMail.jsx:207
+#: src/components/ChangeMail.jsx:239
 #: src/components/ChangeName.jsx:68
 #: src/components/ChangePassword.jsx:118
 #: src/components/ChangeUsername.jsx:70
 #: src/components/LanguageSelect.jsx:75
 #: src/components/TemplateItemEdit.jsx:209
+#: src/components/windows/OIDCConsent.jsx:314
 msgid "Save"
 msgstr ""
 
@@ -1538,7 +1561,7 @@ msgstr ""
 msgid "Send"
 msgstr ""
 
-#: src/components/LogInForm.jsx:278
+#: src/components/LogInForm.jsx:279
 msgid "Sent you a mail with instructions to reset your password."
 msgstr ""
 
@@ -1640,7 +1663,7 @@ msgid "Status: Not running"
 msgstr ""
 
 #: src/components/LogInForm.jsx:219
-#: src/components/LogInForm.jsx:369
+#: src/components/LogInForm.jsx:370
 msgid "Stay logged in: "
 msgstr ""
 
@@ -1658,8 +1681,8 @@ msgstr ""
 
 #: src/components/Admintools.jsx:234
 #: src/components/Admintools.jsx:396
-#: src/components/LogInForm.jsx:303
-#: src/components/LogInForm.jsx:393
+#: src/components/LogInForm.jsx:304
+#: src/components/LogInForm.jsx:394
 #: src/components/ModCanvastools.jsx:318
 #: src/components/ModCanvastools.jsx:410
 #: src/components/ModCanvastools.jsx:488
@@ -1668,7 +1691,7 @@ msgstr ""
 msgid "Submit"
 msgstr ""
 
-#: src/components/windows/OIDCConsent.jsx:149
+#: src/components/windows/OIDCConsent.jsx:214
 msgid "Switch Account"
 msgstr ""
 
@@ -1685,11 +1708,11 @@ msgstr ""
 msgid "Templates"
 msgstr ""
 
-#: src/components/windows/OIDCConsent.jsx:140
+#: src/components/windows/OIDCConsent.jsx:205
 #, javascript-format
 msgid ""
 "The application ${ appName } at ${ appUrl } wants to login with your "
-"account ${ accountName }"
+"pixelplanet account ${ accountName }"
 msgstr ""
 
 #: src/components/windows/Help.jsx:83
@@ -1698,7 +1721,7 @@ msgid ""
 "for orientation, can be downloaded from mega.nz here: "
 msgstr ""
 
-#: src/components/LogInForm.jsx:331
+#: src/components/LogInForm.jsx:332
 msgid ""
 "The name of your account, only a-z, A-Z, -, ., and - characters are "
 "allowed. It is permanent, you can not change it later."
@@ -1724,13 +1747,13 @@ msgid ""
 "remained active for months till it got shut down on November 30th."
 msgstr ""
 
-#: src/components/LogInForm.jsx:322
+#: src/components/LogInForm.jsx:323
 msgid ""
 "This is the name that other people see, e.g. in Chat. You can change it at "
 "any time. All characters except @, /, , >, < and # are allowed."
 msgstr ""
 
-#: src/components/windows/OIDCConsent.jsx:170
+#: src/components/windows/OIDCConsent.jsx:237
 msgid "This permission is required"
 msgstr ""
 
@@ -1751,7 +1774,7 @@ msgid ""
 "on the template, should be one pixel on the canvas."
 msgstr ""
 
-#: src/components/ChangeMail.jsx:146
+#: src/components/ChangeMail.jsx:165
 msgid "To use this page, enter your Password:"
 msgstr ""
 
@@ -1847,7 +1870,7 @@ msgid "Unmuted Sound"
 msgstr ""
 
 #: src/components/LogInForm.jsx:221
-#: src/components/LogInForm.jsx:371
+#: src/components/LogInForm.jsx:372
 msgid "Until the browser closes"
 msgstr ""
 
@@ -1874,13 +1897,14 @@ msgstr ""
 msgid "User Area"
 msgstr ""
 
-#: src/components/windows/OIDCConsent.jsx:62
+#: src/components/windows/OIDCConsent.jsx:71
 msgid "User ID and verification level"
 msgstr ""
 
 #: src/components/Admintools.jsx:354
-#: src/components/LogInForm.jsx:330
-#: src/components/LogInForm.jsx:337
+#: src/components/LogInForm.jsx:331
+#: src/components/LogInForm.jsx:338
+#: src/components/windows/OIDCConsent.jsx:303
 msgid "User Name"
 msgstr ""
 
@@ -1905,6 +1929,7 @@ msgid "Username can only contain the characters: a-z . _ and -"
 msgstr ""
 
 #: src/components/ChangeUsername.jsx:60
+#: src/components/windows/OIDCConsent.jsx:297
 msgid "Username can only contain the characters: a-z A-z . _ and -"
 msgstr ""
 
@@ -1920,7 +1945,7 @@ msgid ""
 "how the canvas was at that time."
 msgstr ""
 
-#: src/components/windows/Help.jsx:128
+#: src/components/windows/Help.jsx:130
 msgid ""
 "We thank the following artists, who made their palettes available to the "
 "public on"
@@ -1955,6 +1980,7 @@ msgid "Wrong Color"
 msgstr ""
 
 #: src/components/ChangeUsername.jsx:59
+#: src/components/windows/OIDCConsent.jsx:296
 msgid "YOU CAN ONLY CHOOSE YOUR USERNAME ONCE!"
 msgstr ""
 
@@ -1996,6 +2022,12 @@ msgstr ""
 msgid "You are weird"
 msgstr ""
 
+#: src/components/windows/Help.jsx:127
+msgid ""
+"You can connect to pixelplanet and use pixelplanet accounts for oauth / "
+"oidc login. See here:"
+msgstr ""
+
 #: src/ui/PixelTransferController.js:128
 msgid "You can not access this canvas yet, because your pixel score is too low"
 msgstr ""
@@ -2011,7 +2043,7 @@ msgid ""
 "a bonus, your cooldown is reduced."
 msgstr ""
 
-#: src/components/windows/OIDCConsent.jsx:205
+#: src/components/windows/OIDCConsent.jsx:175
 msgid "You did not consent"
 msgstr ""
 
@@ -2093,6 +2125,12 @@ msgstr ""
 msgid "Your ban expires at "
 msgstr ""
 
+#: src/components/windows/OIDCConsent.jsx:283
+msgid ""
+"Your did not set your username yet. A username is required to login to "
+"other applications. You can set it now:"
+msgstr ""
+
 #: src/components/UserAreaContent.jsx:118
 msgid "Your name is:"
 msgstr ""
@@ -2124,7 +2162,7 @@ msgstr ""
 msgid "or login with:"
 msgstr ""
 
-#: src/components/LogInForm.jsx:262
+#: src/components/LogInForm.jsx:263
 msgid "or register here:"
 msgstr ""
 

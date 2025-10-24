@@ -85,6 +85,7 @@ export async function createAccessToken(consentId, scope) {
  *   uid,
  *   scope,
  *   clientId,
+ *   clientIntId,
  * }
  */
 export async function getAccessToken(token) {
@@ -94,8 +95,9 @@ export async function getAccessToken(token) {
   try {
     const accessModel = await sequelize.query(
       // eslint-disable-next-line max-len
-      `SELECT t.scope, co.uid, co.cid AS clientId FROM OIDCAccessTokens t
+      `SELECT t.scope, co.uid, co.cid AS clientIntId, BIN_TO_UUID(cl.uuid) AS clientId FROM OIDCAccessTokens t
   INNER JOIN OIDCConsents co ON co.id = t.cid
+  INNER JOIN OIDCClients cl ON co.cid = cl.id
 WHERE t.token = $1 AND t.expires > NOW()`, {
         bind: [token],
         type: QueryTypes.SELECT,

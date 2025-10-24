@@ -1,6 +1,6 @@
 # Translations
 
-The easiets way to help translate the game is with weblate. Simply use [hosted.weblate.org/projects/pixelplanet](https://hosted.weblate.org/projects/pixelplanet/). Feel free to ask in the Translation section in [our Discord](https://pixelplanet.fun/guilded) if you need help.
+The easiets way to help translate the game is with weblate. Simply use [hosted.weblate.org/projects/pixelplanet](https://hosted.weblate.org/projects/pixelplanet/). Feel free to ask in the Translation section in [our Matrix](https://pixelplanet.fun/guilded) if you need help.
 
 Tips for Weblate:
 
@@ -32,7 +32,7 @@ Translation files can be created out of the templates [template.pot](https://git
 ![translate](./images/translate.png)
 5. Save the translation as `[locale].po` (i.e. `es.po` for spanish)
 6. Do the same again, but with [template-ssr.pot](https://git.pixelplanet.fun/ppfun/translations/raw/branch/master/template-ssr.pot) and save it as `ssr-[locale].po`
-7. Send us the two files on [discord](https://pixelplanet.fun/guilded) or make a pull request
+7. Send us the two files on [matrix](https://pixelplanet.fun/guilded) or make a pull request
 
 ### Update old translation if change is needed
 

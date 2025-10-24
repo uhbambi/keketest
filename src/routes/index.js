@@ -27,7 +27,7 @@ import generateMainPage from '../ssr/Main.jsx';
 
 import { MONTH, AVAILABLE_POPUPS } from '../core/constants.js';
 import {
-  GUILDED_INVITE, BASENAME, CDN_HOST, OIDC_URL,
+  CHAT_INVITE, BASENAME, CDN_HOST, OIDC_URL,
 } from '../core/config.js';
 
 const router = express.Router();
@@ -126,10 +126,10 @@ router.get('/test', (req, res) => {
 router.use(rateLimiter);
 
 /*
- * Redirect to guilded
+ * Redirect to chat
  */
 router.use('/guilded', (req, res) => {
-  res.redirect(GUILDED_INVITE);
+  res.redirect(CHAT_INVITE);
 });
 
 /*

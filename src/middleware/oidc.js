@@ -291,7 +291,7 @@ export const validateAuthRequest = async (req, res, next) => {
       if (!clientModel.scope.includes(s)) {
         return false;
       }
-      return pos === 0 || s != self[pos - 1];
+      return pos === 0 || s !== self[pos - 1];
     });
     /*
      * overwrite values that might have changed

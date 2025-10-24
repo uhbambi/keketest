@@ -39,7 +39,7 @@ const Help = () => {
   const starhouseLink = <a href="https://twitter.com/starhousedev">starhouse </a>;
   const vinikLink = <a href="https://twitter.com/Vinikdev">Vinikdev</a>;
   const donendoLink = <a href="https://lospec.com/palette-list/lava-gb">Do-Nendo</a>;
-  const guildedLink = <a href="/guilded">guilded</a>;
+  const guildedLink = <a href="/guilded">matrix space</a>;
   const mailLink = <a href={`mailto:${window.ssv.contactAddress}`}>{window.ssv.contactAddress}</a>;
   const agplLink = <a href="http://www.gnu.org/licenses/agpl-3.0.html">AGPLv3</a>;
 
@@ -73,7 +73,7 @@ const Help = () => {
         {t`Higher zoomlevels take some time to update, the 3D globe gets updated at least once per day.`}<br />
         {t`Have fun!`}
       </p>
-      <p className="modalinfo">Guilded ({t`recommended`}): <a href="./guilded" target="_blank" rel="noopener noreferrer">{t`Invited to Chat`}</a></p>
+      <p className="modalinfo">Matrix ({t`recommended`}): <a href="./guilded" target="_blank" rel="noopener noreferrer">{t`Invited to Chat`}</a></p>
       <p className="modalinfo">{t`Source for pixelplanet on `}<a href="https://git.pixelplanet.fun" target="_blank" rel="noopener noreferrer">git.pixelplanet.fun</a> or <a href={sourceUrl} target="_blank" rel="noopener noreferrer">download here</a>.</p>
       <p className="modalinfo">{jt`We are Libre Software under the ${agplLink}, `}<a href="/legal/summarized.html" target="_blank" rel="noopener noreferrer">{t`check compliance here`}</a>.</p>
       <h3>{t`Legal Requests`}</h3>
