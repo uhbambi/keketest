@@ -38,6 +38,10 @@ const firewallBlockRanges = [
   '2001:4c4e:1824:4100::/64',
   '2a06:1287::/32',
   '46.34.62.0/24',
+  /* alibaba cloud */
+  '47.76.0.0/14',
+  '47.80.0.0/13',
+  '47.74.0.0/15',
 ];
 
 const firewallBlockIPs = [

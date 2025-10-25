@@ -47,7 +47,7 @@ const DeleteList = ({ list, callback, enabled, joinident }) => {
             disabled={!(enabled && selected === identifier)}
             onClick={() => callback(identifier, name)}
           >
-            {(!enabled) ? '...' : (selected === identifier) ? '🗑' : '‣'}
+            {(selected === identifier) ? '🗑' : '‣'}
           </button>
         </div>
       ))
