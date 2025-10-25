@@ -1,17 +1,18 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: admin@pixelplanet.fun\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2024-03-10 20:10+0000\n"
+"PO-Revision-Date: 2025-10-26 07:40+0000\n"
 "Last-Translator: Translation Team <noreply@example.com>\n"
-"Language-Team: Greek <https://hosted.weblate.org/projects/pixelplanet/client/"
-"el/>\n"
+"Language-Team: Greek <https://translate.gs-os.com/projects/ppfun/client/el/>"
+"\n"
 "Language: gr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.5-dev\n"
+"X-Generator: Weblate 5.14\n"
 
 #: src/controls/keypress.js:102
 #, javascript-format
@@ -28,11 +29,11 @@ msgstr "Πλέγμα Ενενεργό"
 
 #: src/controls/keypress.js:187
 msgid "Pixel Notify ON"
-msgstr "Ειδοποίηση Pixel Ενεργό"
+msgstr "Ειδοποίηση Pixel Ενεργή"
 
 #: src/controls/keypress.js:188
 msgid "Pixel Notify OFF"
-msgstr "Ειδοποίηση Pixel Ανενεργό"
+msgstr "Ειδοποίηση Pixel Ανενεργή"
 
 #: src/controls/keypress.js:193
 msgid "Muted Sound"
@@ -44,7 +45,6 @@ msgstr "Διακοπή σίγασης ήχου"
 
 #: src/components/CoordinatesBox.jsx:39 src/components/GetIID.jsx:51
 #: src/controls/keypress.js:203
-#, fuzzy
 msgid "Copied"
 msgstr "Αντιγράφηκε!"
 
@@ -69,13 +69,12 @@ msgid "Timeout"
 msgstr "Τέλος χρόνου"
 
 #: src/ui/PixelTransferController.js:72 src/ui/PixelTransferController.js:167
-#, fuzzy
 msgid ""
 "Didn't get an answer from pixelplanet. Try to refresh if this problem "
 "persists."
 msgstr ""
-"Δεν λάβατε απάντηση από το pixelplanet; Ίσως προσπαθήσετε να ανανεώσετε την "
-"σελίδα;"
+"Δεν λάβατε απάντηση από το pixelplanet; Προσπαθήστε να κάνετε ανανέωση "
+"σελίδας εάν το πρόβλημα παραμένει."
 
 #: src/ui/PixelTransferController.js:104
 msgid "Invalid Canvas"
@@ -124,11 +123,10 @@ msgid "Not allowed"
 msgstr "Δεν επιτρέπεται"
 
 #: src/ui/PixelTransferController.js:130
-#, fuzzy
 msgid "You can not access this canvas yet, because your pixel score is too low"
 msgstr ""
-"Δεν μπορείτε ακόμη να αποκτήσετε πρόσβαση σε αυτόν τον καμβά. Πρέπει να "
-"τοποθετήσετε περισσότερα pixel"
+"Δεν μπορείτε ακόμη να αποκτήσετε πρόσβαση σε αυτόν τον καμβά, διότι δεν "
+"έχετε αρκετά pixels."
 
 #: src/ui/PixelTransferController.js:133
 #, fuzzy
@@ -166,17 +164,18 @@ msgid "Range Banned"
 msgstr "Απαγόρευση εύρους"
 
 #: src/ui/PixelTransferController.js:162
-#, fuzzy
 msgid "Your Internet Provider is banned from this game"
-msgstr "Ο πάροχος Διαδικτύου σας έχει απαγορευτεί να παίξει αυτό το παιχνίδι"
+msgstr ""
+"Ο πάροχος διαδικτύου σας, έχει απαγορέυτει από το να παίζουν οι χρήστες του "
+"αυτό το παιχνίδι."
 
 #: src/ui/PixelTransferController.js:170
 msgid "Weird"
-msgstr "Είσαι περίεργος"
+msgstr "Περίεργο"
 
 #: src/ui/PixelTransferController.js:171
 msgid "Couldn't set Pixel"
-msgstr "Ειδοποίηση Pixel Ενεργό"
+msgstr "Το pixel δεν μπορεί να τοποθετηθεί σε αυτό το σημείο"
 
 #: src/ui/PixelTransferController.js:176
 #, javascript-format
@@ -185,25 +184,23 @@ msgstr "Κάτι πήγε λάθος ${ retCode }"
 
 #: src/store/actions/thunks.js:227
 msgid "Pencil picks: "
-msgstr ""
+msgstr "Επιλεγμένο χρώμα: "
 
 #: src/components/windows/Settings.jsx:66 src/store/actions/thunks.js:230
-#, fuzzy
 msgid "Selected Color"
-msgstr "Επιλογή γλώσσας"
+msgstr "Επιλεγμένο χρώμα"
 
 #: src/components/windows/Settings.jsx:66 src/store/actions/thunks.js:233
-#, fuzzy
 msgid "From Template"
-msgstr "Λήψη προτύπου"
+msgstr "Από το προτύπο"
 
 #: src/components/windows/Settings.jsx:67 src/store/actions/thunks.js:236
 msgid "From History"
-msgstr ""
+msgstr "Από ιστορική ρύθμιση"
 
 #: src/ui/rendererFactory.js:32
 msgid "Canvas Error"
-msgstr "Κάτι πήγε λάθος με τους κανβας:("
+msgstr "Κάτι πήγε λάθος με τον κανβας :("
 
 #: src/ui/rendererFactory.js:33
 msgid "Can't render 3D canvas, do you have WebGL2 disabled?"
@@ -228,13 +225,12 @@ msgid "OK"
 msgstr "OK"
 
 #: src/store/actions/index.js:19
-#, fuzzy
 msgid "Change Happened"
-msgstr "Νέο όνομα χρήστη"
+msgstr "Υπέστη μία αλλαγή"
 
 #: src/store/actions/index.js:19
 msgid "Please refresh the website"
-msgstr ""
+msgstr "Παρακαλώ ανανεώστε την ιστοσελίδα"
 
 #: src/store/actions/fetch.js:55
 msgid "You made too many requests"
@@ -288,15 +284,15 @@ msgstr "Αντιγραφή στο πρόχειρο"
 
 #: src/components/OnlineBox.jsx:56
 msgid "Online Users on Canvas"
-msgstr "Μόνο για εγγεγραμμένους χρήστες"
+msgstr "Ενεργά άτομα στον κάμβα"
 
 #: src/components/OnlineBox.jsx:71
 msgid "Total Online Users"
-msgstr "Μόνο για εγγεγραμμένους χρήστες"
+msgstr "Ολικά ενεργά άτομα"
 
 #: src/components/OnlineBox.jsx:84 src/components/UserAreaContent.jsx:79
 msgid "Placed Pixels"
-msgstr "Pixels τοποθετήθηκαν"
+msgstr "Pixels που τοποθετήθηκαν"
 
 #: src/components/OnlineBox.jsx:92 src/components/Rankings.jsx:159
 msgid "Today"
@@ -352,7 +348,7 @@ msgstr "Επαναφωρά"
 
 #: src/components/Window.jsx:221
 msgid "Clone"
-msgstr "Κλώνος"
+msgstr "Κλωνοποίηση"
 
 #: src/components/Window.jsx:229
 msgid "Move"
@@ -398,20 +394,19 @@ msgstr "Ρυθμίσεις"
 
 #: src/components/buttons/PencilButton.jsx:41
 msgid "Enable Pencil"
-msgstr ""
+msgstr "Ενεργοποίηση μολυβιού"
 
 #: src/components/buttons/PencilButton.jsx:46
-#, fuzzy
 msgid "Disable Pencil"
-msgstr "Απενεργοποιήστε τους ήχους παιχνιδιού"
+msgstr "Απενεργοποιήστε το μολύβι"
 
 #: src/components/buttons/PencilButton.jsx:50
 msgid "Disable History Pencil"
-msgstr ""
+msgstr "Απενεργοποιήστε το μολύβι ιστορικού"
 
 #: src/components/buttons/PencilButton.jsx:54
 msgid "Disable Overlay Pencil"
-msgstr ""
+msgstr "Απενεργοποιήστε το μολύβι επικάλυψης"
 
 #: src/components/windows/index.js:17
 msgid "Registration"
@@ -431,7 +426,7 @@ msgstr "Αρχείο καμβά"
 
 #: src/components/windows/index.js:22
 msgid "Player"
-msgstr ""
+msgstr "Παίχτης"
 
 #: src/components/GlobalCaptcha.jsx:48
 msgid "You took too long, try again."
@@ -460,7 +455,7 @@ msgstr "Άγνωστο σφάλμα Captcha"
 #: src/components/windows/ForgotPassword.jsx:73
 #: src/components/windows/Register.jsx:89
 msgid "Error"
-msgstr "Λάθος"
+msgstr "Ούπς, κάτι πήγε στραβά"
 
 #: src/components/ChangeMail.jsx:93 src/components/ChangeName.jsx:70
 #: src/components/ChangePassword.jsx:115 src/components/DeleteAccount.jsx:68

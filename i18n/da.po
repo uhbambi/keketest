@@ -1,18 +1,18 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: admin@pixelplanet.fun\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2024-03-12 19:57+0000\n"
-"Last-Translator: Rasmus Emil Rattanamongkut Seitzberg "
-"<Rasmusemilseitz@outlook.dk>\n"
-"Language-Team: Danish <https://hosted.weblate.org/projects/pixelplanet/"
-"client/da/>\n"
+"PO-Revision-Date: 2025-10-26 07:40+0000\n"
+"Last-Translator: Translation Team <noreply@example.com>\n"
+"Language-Team: Danish <https://translate.gs-os.com/projects/ppfun/client/da/>"
+"\n"
 "Language: da\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.5-dev\n"
+"X-Generator: Weblate 5.14\n"
 
 #: src/controls/keypress.js:102
 #, javascript-format
@@ -46,23 +46,23 @@ msgstr "Ustummet Lyd"
 #: src/components/CoordinatesBox.jsx:39 src/components/GetIID.jsx:51
 #: src/controls/keypress.js:203
 msgid "Copied"
-msgstr "Kopieret!"
+msgstr "Kopieret"
 
 #: src/controls/keypress.js:209
 msgid "Overlay ON"
-msgstr "Overlejring på"
+msgstr "Overlejring PÅ"
 
 #: src/controls/keypress.js:210
 msgid "Overlay OFF"
-msgstr "Overlejring af"
+msgstr "Overlejring FRA"
 
 #: src/components/windows/Help.jsx:50 src/controls/keypress.js:216
 msgid "Easter Egg ON"
-msgstr "Hemmelighed på"
+msgstr "Hemmelighed PÅ"
 
 #: src/components/windows/Help.jsx:49 src/controls/keypress.js:217
 msgid "Easter Egg OFF"
-msgstr "Hemmelighed af"
+msgstr "Hemmelighed AF"
 
 #: src/ui/PixelTransferController.js:70 src/ui/PixelTransferController.js:165
 msgid "Timeout"
@@ -73,16 +73,16 @@ msgid ""
 "Didn't get an answer from pixelplanet. Try to refresh if this problem "
 "persists."
 msgstr ""
-"Fik ikke et svar fra pixelplanet. Prøv måske at genindlæse hvis problemet "
-"vedvarer?"
+"Fik ikke et svar fra pixelplanet. Prøv at genindlæse hvis dette problem "
+"vedvarer."
 
 #: src/ui/PixelTransferController.js:104
 msgid "Invalid Canvas"
-msgstr "Ugyldig Kanvas"
+msgstr "Ugyldigt Kanvas"
 
 #: src/ui/PixelTransferController.js:105
 msgid "This canvas doesn't exist"
-msgstr "Dette Kanvas existerer ikke"
+msgstr "Dette kanvas eksisterer ikke"
 
 #: src/ui/PixelTransferController.js:108 src/ui/PixelTransferController.js:112
 #: src/ui/PixelTransferController.js:116
@@ -91,15 +91,15 @@ msgstr "Ugyldige Koordinater"
 
 #: src/ui/PixelTransferController.js:109
 msgid "x out of bounds"
-msgstr "x ud af grænsen"
+msgstr "x ud af grænserne"
 
 #: src/ui/PixelTransferController.js:113
 msgid "y out of bounds"
-msgstr "y ud af grænsen"
+msgstr "y ud af grænserne"
 
 #: src/ui/PixelTransferController.js:117
 msgid "z out of bounds"
-msgstr "z ud af grænsen"
+msgstr "z ud af grænserne"
 
 #: src/ui/PixelTransferController.js:120
 msgid "Wrong Color"
@@ -180,21 +180,19 @@ msgstr "Fejl ${ retCode }"
 
 #: src/store/actions/thunks.js:227
 msgid "Pencil picks: "
-msgstr ""
+msgstr "Blyant vælger: "
 
 #: src/components/windows/Settings.jsx:66 src/store/actions/thunks.js:230
-#, fuzzy
 msgid "Selected Color"
-msgstr "Vælg fil"
+msgstr "Valgt Farve"
 
 #: src/components/windows/Settings.jsx:66 src/store/actions/thunks.js:233
-#, fuzzy
 msgid "From Template"
-msgstr "Skabeloner"
+msgstr "Fra Skabelon"
 
 #: src/components/windows/Settings.jsx:67 src/store/actions/thunks.js:236
 msgid "From History"
-msgstr ""
+msgstr "Fra Historie"
 
 #: src/ui/rendererFactory.js:32
 msgid "Canvas Error"
@@ -221,13 +219,12 @@ msgid "OK"
 msgstr "OK"
 
 #: src/store/actions/index.js:19
-#, fuzzy
 msgid "Change Happened"
-msgstr "Ændre Brugernavn"
+msgstr "Ændring Skete"
 
 #: src/store/actions/index.js:19
 msgid "Please refresh the website"
-msgstr ""
+msgstr "Venligst genindlæs hjemmesiden"
 
 #: src/store/actions/fetch.js:55
 msgid "You made too many requests"
@@ -422,7 +419,7 @@ msgstr "Kanvas Arkiv"
 
 #: src/components/windows/index.js:22
 msgid "Player"
-msgstr ""
+msgstr "Spiller"
 
 #: src/components/GlobalCaptcha.jsx:48
 msgid "You took too long, try again."
@@ -508,7 +505,7 @@ msgstr "Hvorfor?"
 
 #: src/components/RefreshPrompt.jsx:14
 msgid "Refresh"
-msgstr ""
+msgstr "Genindlæs"
 
 #: src/components/windows/Help.jsx:65
 msgid "Place color pixels on a large canvas with other players online!"
@@ -636,9 +633,11 @@ msgstr ""
 "Skrol ${ mouseSymbol } mus hjul eller ${ touchSymbol } knib for at zoome"
 
 #: src/components/windows/Help.jsx:91
-#, fuzzy, javascript-format
+#, javascript-format
 msgid "Hold left ${ bindShift } for pencil (to place while moving mouse)"
-msgstr "Hold venstre ${ bindShift } for at placere imens man bevæger musen"
+msgstr ""
+"Hold venstre ${ bindShift } for blyant "
+"(for at placere imens man flytter sin mus)"
 
 #: src/components/windows/Help.jsx:92 src/components/windows/Help.jsx:103
 #, javascript-format
@@ -797,11 +796,11 @@ msgstr "Vis Gitter i hvid i stedet for sort."
 
 #: src/components/windows/Settings.jsx:149
 msgid "Custom Cursor"
-msgstr ""
+msgstr "Brugerdefineret Markør"
 
 #: src/components/windows/Settings.jsx:153
 msgid "Use our custom cursor"
-msgstr ""
+msgstr "Brug vores brugerdefineret markør"
 
 #: src/components/windows/Settings.jsx:157
 msgid "Historical View"
@@ -812,13 +811,13 @@ msgid "Check out past versions of the canvas."
 msgstr "Tjek tidligere versioner af kanvasset ud."
 
 #: src/components/windows/Settings.jsx:166
-#, fuzzy, javascript-format
+#, javascript-format
 msgid "Pencil Mode for ${ canvasName } canvas"
-msgstr "Skiftede til ${ canvasName }"
+msgstr "Blyantstilstand for ${ canvasName } kanvas"
 
 #: src/components/windows/Settings.jsx:174
 msgid "What the pencil should draw on the current canvas."
-msgstr ""
+msgstr "Hvad blyanten bør tegne på det nuværende kanvas."
 
 #: src/components/windows/Settings.jsx:178
 msgid "Themes"
@@ -980,7 +979,7 @@ msgstr "Kanal indstillinger"
 
 #: src/components/windows/Player.jsx:17
 msgid "This URL is not supported by our Media Player"
-msgstr ""
+msgstr "Dette URL er ikke understøttet af vores Medieafspiller"
 
 #: src/components/windows/ForgotPassword.jsx:58
 msgid "Sent you a mail with instructions to reset your password."
@@ -1298,24 +1297,20 @@ msgid "Charts"
 msgstr "Diagrammer"
 
 #: src/components/Rankings.jsx:191
-#, fuzzy
 msgid "Total Pixels per Player"
-msgstr "Antal Pixels placeret pr. dag"
+msgstr "Antal Pixels per Spiller"
 
 #: src/components/Rankings.jsx:192
-#, fuzzy
 msgid "Daily Pixels per Player"
-msgstr "Antal Pixels placeret pr. dag"
+msgstr "Daglige Pixels per Spiller"
 
 #: src/components/Rankings.jsx:193
-#, fuzzy
 msgid "Top 10 Players from Yesterday"
-msgstr "Top 10 Spillere [pxls / day]"
+msgstr "Top 10 Spillere fra i Går"
 
 #: src/components/Rankings.jsx:197
-#, fuzzy
 msgid "Daily Pixels per Country"
-msgstr "Spillere og Pixels per time"
+msgstr "Daglige Pixels per Land"
 
 #: src/components/Rankings.jsx:215 src/components/Rankings.jsx:224
 #: src/components/Rankings.jsx:233
@@ -1328,7 +1323,7 @@ msgstr "Land"
 
 #: src/components/Rankings.jsx:243
 msgid "+last hour"
-msgstr ""
+msgstr "+sidste time"
 
 #: src/components/Rankings.jsx:314
 msgid "Ranking updates every 5 min. Daily rankings get reset at midnight UTC."
@@ -1586,9 +1581,8 @@ msgid "Rollback to Date"
 msgstr "Rul tilbage til Dato"
 
 #: src/components/ModCanvastools.jsx:414
-#, fuzzy
 msgid "Rollback an area of the canvas to a set date and time"
-msgstr "Rul tilbage et område af kanvasset til en sæt dato 00:00 UTC)"
+msgstr "Rul et område af kanvasset tilbage til en sæt dato og tid"
 
 #: src/components/ModCanvastools.jsx:488
 msgid "Canvas Cleaner"
@@ -1696,17 +1690,19 @@ msgstr "Antal Pixels placeret pr. dag"
 
 #: src/components/CooldownChanges.jsx:20
 msgid "Current Cooldown Changes per Country"
-msgstr ""
+msgstr "Nuværende Nedkølingsændringer per Land"
 
 #: src/components/CooldownChanges.jsx:25
 msgid "Factor"
-msgstr ""
+msgstr "Faktor"
 
 #: src/components/CooldownChanges.jsx:46
 msgid ""
 "Cooldown is usually automatically changed for a country that is dominating. "
 "In example in the case of a streamer raid."
 msgstr ""
+"Nedkøling er som regel automatisk ændret for et land som dominerer. F.eks. i "
+"tilfælle af en streamer raid."
 
 #: src/components/contextmenus/UserContextMenu.jsx:49
 msgid "Ping"
@@ -1726,15 +1722,15 @@ msgstr "Gør Stum"
 
 #: src/components/MdLink.jsx:98
 msgid "Open in PopUp"
-msgstr ""
+msgstr "Åbn i PopUp"
 
 #: src/components/MdLink.jsx:109
 msgid "Hide Embed"
-msgstr ""
+msgstr "Skjul Indlejring"
 
 #: src/components/MdLink.jsx:115
 msgid "Show Embedded"
-msgstr ""
+msgstr "Vis Indlejret"
 
 #: src/components/windows/Help.jsx:19 src/components/windows/Settings.jsx:73
 msgctxt "keybinds"
@@ -1804,7 +1800,7 @@ msgstr "M"
 #: src/components/windows/Settings.jsx:169
 msgctxt "keybinds"
 msgid "B"
-msgstr ""
+msgstr "B"
 
 #: src/components/TemplateSettings.jsx:61
 msgctxt "keybinds"

@@ -1,17 +1,18 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: admin@pixelplanet.fun\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2024-05-09 14:07+0000\n"
+"PO-Revision-Date: 2025-10-26 00:05+0000\n"
 "Last-Translator: Translation Team <noreply@example.com>\n"
-"Language-Team: German <https://hosted.weblate.org/projects/pixelplanet/"
-"client/de/>\n"
+"Language-Team: German <https://translate.gs-os.com/projects/ppfun/client/de/>"
+"\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.5.4-rc\n"
+"X-Generator: Weblate 5.14\n"
 
 #: src/controls/keypress.js:102
 #, javascript-format
@@ -110,7 +111,7 @@ msgstr "Ungültige Farbe ausgewählt"
 
 #: src/ui/PixelTransferController.js:124
 msgid "Just for registered Users"
-msgstr "Nur für registrierte Spieler"
+msgstr "Nur für registrierte Benutzer"
 
 #: src/ui/PixelTransferController.js:125
 msgid "You have to be logged in to place on this canvas"
@@ -219,13 +220,12 @@ msgid "OK"
 msgstr "OK"
 
 #: src/store/actions/index.js:19
-#, fuzzy
 msgid "Change Happened"
-msgstr "Ändere Namen"
+msgstr "Eine Veränderung passierte"
 
 #: src/store/actions/index.js:19
 msgid "Please refresh the website"
-msgstr ""
+msgstr "Bitte lade die Seite neu"
 
 #: src/store/actions/fetch.js:55
 msgid "You made too many requests"
@@ -421,7 +421,7 @@ msgstr "Leinwand Archiv"
 
 #: src/components/windows/index.js:22
 msgid "Player"
-msgstr ""
+msgstr "Spieler"
 
 #: src/components/GlobalCaptcha.jsx:48
 msgid "You took too long, try again."
@@ -508,7 +508,7 @@ msgstr "Wieso?"
 
 #: src/components/RefreshPrompt.jsx:14
 msgid "Refresh"
-msgstr ""
+msgstr "Aktualisieren"
 
 #: src/components/windows/Help.jsx:65
 msgid "Place color pixels on a large canvas with other players online!"
@@ -992,7 +992,7 @@ msgstr "Kanal Einstellungen"
 
 #: src/components/windows/Player.jsx:17
 msgid "This URL is not supported by our Media Player"
-msgstr ""
+msgstr "Diese URL wird von diesem Medienspieler nicht unterstützt"
 
 #: src/components/windows/ForgotPassword.jsx:58
 msgid "Sent you a mail with instructions to reset your password."
@@ -1738,15 +1738,15 @@ msgstr "Stummschalten"
 
 #: src/components/MdLink.jsx:98
 msgid "Open in PopUp"
-msgstr ""
+msgstr "In kleinem Fenster öffnen"
 
 #: src/components/MdLink.jsx:109
 msgid "Hide Embed"
-msgstr ""
+msgstr "Verstecke Einbettung"
 
 #: src/components/MdLink.jsx:115
 msgid "Show Embedded"
-msgstr ""
+msgstr "Zeige Einbettung"
 
 #: src/components/windows/Help.jsx:19 src/components/windows/Settings.jsx:73
 msgctxt "keybinds"
