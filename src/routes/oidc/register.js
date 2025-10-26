@@ -26,7 +26,7 @@ router.use(verifySession, urlEncoded, async (req, res) => {
     throw new Error('This browser is not supported');
   }
 
-  const { lang, ttag: { t, jt } } = req;
+  const { lang, ttag: { t } } = req;
   const title = t`Add an Application (OIDC Client)`;
 
   if (!req.user) {
@@ -122,8 +122,8 @@ router.use(verifySession, urlEncoded, async (req, res) => {
   const wellKnownUrl = '<a href="/.well-known/openid-configuration">.well-known/openid-configuration</a>';
   innerHtml += `<h2>OpenID Connect (oauth2)</h2>
 <div class="client-form-box">
-<p style="font-size: 16px;">${jt`Pixelplanet fulfills the OpenID Connect (OIDC) specifications. So an application that supports OIDC could ask for consent and login using pixelplanet accounts. The required endpoints can be auto-discovered via the ${wellKnownUrl} URL.</a>`}</p>
-<p style="font-size: 16px;">${jt`You can register your own application here to get the client_id and client_secret needed to make use of this.`}</p>
+<p style="font-size: 16px;">${t`Pixelplanet fulfills the OpenID Connect (OIDC) specifications. So an application that supports OIDC could ask for consent and login using pixelplanet accounts. The required endpoints can be auto-discovered via the ${wellKnownUrl} URL.`}</p>
+<p style="font-size: 16px;">${t`You can register your own application here to get the client_id and client_secret needed to make use of this.`}</p>
 <p>${
   /* t: "scopes" is a technical term and should not be translated */
   t`List of available scopes`}:</p>
@@ -222,7 +222,9 @@ router.use(verifySession, urlEncoded, async (req, res) => {
         name="default_scope"
         placeholder="openid profile"
       /></label>
-      <small>${t`Space-separated list of default scopes, they will be used on requests where no other scope is given.`}</small>
+      <small>${
+  /* t: 'scope' is used as a technical term here, do not translate that word */
+  t`Space-separated list of default scopes, they will be used on requests where no other scope is given.`}</small>
     </div>
 
     <div class="form-actions">

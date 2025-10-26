@@ -29,7 +29,7 @@ msgstr ""
 msgid "Access modtools"
 msgstr ""
 
-#: src/routes/oidc/register.js:229
+#: src/routes/oidc/register.js:231
 msgid "Add Application"
 msgstr ""
 
@@ -75,7 +75,7 @@ msgid "Click to Verify"
 msgstr ""
 
 #: src/routes/oidc/register.js:186
-#: src/routes/oidc/register.js:245
+#: src/routes/oidc/register.js:247
 msgid "Client Name"
 msgstr ""
 
@@ -111,16 +111,16 @@ msgid "Couldn't find this mail in our database"
 msgstr ""
 
 #: src/routes/oidc/register.js:219
-#: src/routes/oidc/register.js:319
+#: src/routes/oidc/register.js:321
 msgid "Default"
 msgstr ""
 
-#: src/routes/oidc/register.js:331
+#: src/routes/oidc/register.js:333
 msgid "Delete Application"
 msgstr ""
 
 #: src/routes/oidc/register.js:193
-#: src/routes/oidc/register.js:253
+#: src/routes/oidc/register.js:255
 msgid "Display name for your OIDC client"
 msgstr ""
 
@@ -136,7 +136,7 @@ msgstr ""
 msgid "Earth"
 msgstr ""
 
-#: src/routes/oidc/register.js:236
+#: src/routes/oidc/register.js:238
 msgid "Edit existing applications"
 msgstr ""
 
@@ -169,7 +169,7 @@ msgstr ""
 msgid "Failed to create a new user :("
 msgstr ""
 
-#: src/routes/oidc/register.js:292
+#: src/routes/oidc/register.js:294
 #. 'client_secret' is a technical term and should not be translated
 msgid ""
 "Generate a new client_secret. The old secret will become invalid "
@@ -331,7 +331,7 @@ msgstr ""
 msgid "No or invalid fish id."
 msgstr ""
 
-#: src/utils/validation.js:66
+#: src/utils/validation.js:68
 msgid "No password given."
 msgstr ""
 
@@ -352,7 +352,7 @@ msgstr ""
 msgid "One redirect URIs per line"
 msgstr ""
 
-#: src/routes/oidc/register.js:303
+#: src/routes/oidc/register.js:305
 msgid "One redirect_uri per line"
 msgstr ""
 
@@ -380,11 +380,11 @@ msgstr ""
 msgid "Our main canvas, a huge map of the world. Place anywhere you like!"
 msgstr ""
 
-#: src/utils/validation.js:69
+#: src/utils/validation.js:71
 msgid "Password must be at least 6 characters long."
 msgstr ""
 
-#: src/utils/validation.js:72
+#: src/utils/validation.js:74
 msgid "Password must be shorter than 60 characters."
 msgstr ""
 
@@ -414,7 +414,7 @@ msgid ""
 "Pixelplanet fulfills the OpenID Connect (OIDC) specifications. So an "
 "application that supports OIDC could ask for consent and login using "
 "pixelplanet accounts. The required endpoints can be auto-discovered via the "
-"${ wellKnownUrl } URL.</a>"
+"${ wellKnownUrl } URL."
 msgstr ""
 
 #: src/canvasesDesc.js:35
@@ -446,7 +446,7 @@ msgid "Read name, username and account age"
 msgstr ""
 
 #: src/routes/oidc/register.js:197
-#: src/routes/oidc/register.js:296
+#: src/routes/oidc/register.js:298
 msgid "Redirect URIs"
 msgstr ""
 
@@ -454,7 +454,7 @@ msgstr ""
 msgid "Regularly update this data"
 msgstr ""
 
-#: src/routes/oidc/register.js:288
+#: src/routes/oidc/register.js:290
 #. 'client_secret' is a technical term and should not be translated
 msgid "Reroll client_secret"
 msgstr ""
@@ -483,19 +483,20 @@ msgstr ""
 msgid "Space-separated list of available scopes"
 msgstr ""
 
-#: src/routes/oidc/register.js:326
+#: src/routes/oidc/register.js:328
 msgid ""
 "Space-separated list of default scopes, they will be used on requests if no "
 "other scope is given."
 msgstr ""
 
-#: src/routes/oidc/register.js:225
+#: src/routes/oidc/register.js:227
+#. 'scope' is used as a technical term here, do not translate that word
 msgid ""
 "Space-separated list of default scopes, they will be used on requests where "
 "no other scope is given."
 msgstr ""
 
-#: src/routes/oidc/register.js:315
+#: src/routes/oidc/register.js:317
 msgid "Space-separated list of scopes that should be available"
 msgstr ""
 
@@ -584,7 +585,7 @@ msgstr ""
 msgid "Unknown Captcha Error"
 msgstr ""
 
-#: src/routes/oidc/register.js:330
+#: src/routes/oidc/register.js:332
 msgid "Update Application"
 msgstr ""
 
@@ -596,18 +597,6 @@ msgstr ""
 msgid "User doesn't exist in our database :("
 msgstr ""
 
-#: src/utils/validation.js:45
-msgid "Userame can't be empty."
-msgstr ""
-
-#: src/utils/validation.js:46
-msgid "Userame must be at least 2 characters long"
-msgstr ""
-
-#: src/utils/validation.js:48
-msgid "Userame must be shorter than 26 characters"
-msgstr ""
-
 #: src/routes/api/auth/register.js:85
 msgid "Username already in use."
 msgstr ""
@@ -616,8 +605,20 @@ msgstr ""
 msgid "Username can not start with pp_"
 msgstr ""
 
-#: src/utils/validation.js:51
+#: src/utils/validation.js:53
 msgid "Username can only contain the characters: a-z . _ and -"
+msgstr ""
+
+#: src/utils/validation.js:45
+msgid "Username can't be empty."
+msgstr ""
+
+#: src/utils/validation.js:47
+msgid "Username must be at least 2 characters long"
+msgstr ""
+
+#: src/utils/validation.js:50
+msgid "Username must be shorter than 26 characters"
 msgstr ""
 
 #: src/core/MailProvider.js:155

@@ -1124,7 +1124,7 @@ msgstr ""
 msgid "No or invalid captcha text"
 msgstr ""
 
-#: src/utils/validation.js:66
+#: src/utils/validation.js:68
 msgid "No password given."
 msgstr ""
 
@@ -1232,11 +1232,11 @@ msgstr ""
 msgid "Password"
 msgstr ""
 
-#: src/utils/validation.js:69
+#: src/utils/validation.js:71
 msgid "Password must be at least 6 characters long."
 msgstr ""
 
-#: src/utils/validation.js:72
+#: src/utils/validation.js:74
 msgid "Password must be shorter than 60 characters."
 msgstr ""
 
@@ -1908,29 +1908,29 @@ msgstr ""
 msgid "User Name"
 msgstr ""
 
-#: src/utils/validation.js:45
-msgid "Userame can't be empty."
-msgstr ""
-
-#: src/utils/validation.js:46
-msgid "Userame must be at least 2 characters long"
-msgstr ""
-
-#: src/utils/validation.js:48
-msgid "Userame must be shorter than 26 characters"
-msgstr ""
-
 #: src/components/ModIIDtools.jsx:240
 msgid "Username"
 msgstr ""
 
-#: src/utils/validation.js:51
+#: src/utils/validation.js:53
 msgid "Username can only contain the characters: a-z . _ and -"
 msgstr ""
 
 #: src/components/ChangeUsername.jsx:60
 #: src/components/windows/OIDCConsent.jsx:297
 msgid "Username can only contain the characters: a-z A-z . _ and -"
+msgstr ""
+
+#: src/utils/validation.js:45
+msgid "Username can't be empty."
+msgstr ""
+
+#: src/utils/validation.js:47
+msgid "Username must be at least 2 characters long"
+msgstr ""
+
+#: src/utils/validation.js:50
+msgid "Username must be shorter than 26 characters"
 msgstr ""
 
 #: src/components/windows/Help.jsx:78
