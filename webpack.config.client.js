@@ -38,6 +38,7 @@ export default ({ development, analyze}) => {
     babelPlugins.push([
       'ttag', {
         extract: { output: path.resolve('i18n', 'template.pot') },
+        addComments: 't:',
         sortByMsgid: true,
       },
     ]);

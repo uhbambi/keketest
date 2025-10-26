@@ -25,11 +25,11 @@ msgid ""
 "ranking updates at 00:00 UTC."
 msgstr ""
 
-#: src/routes/oidc/register.js:154
+#: src/routes/oidc/register.js:161
 msgid "Access modtools"
 msgstr ""
 
-#: src/routes/oidc/register.js:222
+#: src/routes/oidc/register.js:229
 msgid "Add Application"
 msgstr ""
 
@@ -37,7 +37,7 @@ msgstr ""
 msgid "Add an Application (OIDC Client)"
 msgstr ""
 
-#: src/routes/oidc/register.js:175
+#: src/routes/oidc/register.js:182
 msgid "Add new application"
 msgstr ""
 
@@ -45,7 +45,7 @@ msgstr ""
 msgid "An error occured. Please try again later."
 msgstr ""
 
-#: src/routes/oidc/register.js:105
+#: src/routes/oidc/register.js:110
 msgid "Application changed successfully"
 msgstr ""
 
@@ -53,7 +53,7 @@ msgstr ""
 msgid "Application deleted"
 msgstr ""
 
-#: src/routes/oidc/register.js:107
+#: src/routes/oidc/register.js:112
 msgid "Application successfully added"
 msgstr ""
 
@@ -74,8 +74,8 @@ msgstr ""
 msgid "Click to Verify"
 msgstr ""
 
-#: src/routes/oidc/register.js:179
-#: src/routes/oidc/register.js:238
+#: src/routes/oidc/register.js:186
+#: src/routes/oidc/register.js:245
 msgid "Client Name"
 msgstr ""
 
@@ -89,7 +89,7 @@ msgid ""
 "earth canvas!"
 msgstr ""
 
-#: src/routes/oidc/register.js:126
+#: src/routes/oidc/register.js:133
 msgid "Consent"
 msgstr ""
 
@@ -110,17 +110,17 @@ msgstr ""
 msgid "Couldn't find this mail in our database"
 msgstr ""
 
-#: src/routes/oidc/register.js:212
-#: src/routes/oidc/register.js:308
+#: src/routes/oidc/register.js:219
+#: src/routes/oidc/register.js:319
 msgid "Default"
 msgstr ""
 
-#: src/routes/oidc/register.js:320
+#: src/routes/oidc/register.js:331
 msgid "Delete Application"
 msgstr ""
 
-#: src/routes/oidc/register.js:186
-#: src/routes/oidc/register.js:246
+#: src/routes/oidc/register.js:193
+#: src/routes/oidc/register.js:253
 msgid "Display name for your OIDC client"
 msgstr ""
 
@@ -136,7 +136,7 @@ msgstr ""
 msgid "Earth"
 msgstr ""
 
-#: src/routes/oidc/register.js:229
+#: src/routes/oidc/register.js:236
 msgid "Edit existing applications"
 msgstr ""
 
@@ -161,7 +161,7 @@ msgid "Email should contain a @"
 msgstr ""
 
 #: src/middleware/errorPage.js:19
-#: src/routes/oidc/register.js:113
+#: src/routes/oidc/register.js:118
 msgid "Error"
 msgstr ""
 
@@ -169,22 +169,19 @@ msgstr ""
 msgid "Failed to create a new user :("
 msgstr ""
 
-#: src/routes/oidc/register.js:281
+#: src/routes/oidc/register.js:292
+#. 'client_secret' is a technical term and should not be translated
 msgid ""
-"Generate a new client secret. The old secret will become invalid "
+"Generate a new client_secret. The old secret will become invalid "
 "immediately."
 msgstr ""
 
-#: src/routes/oidc/register.js:149
+#: src/routes/oidc/register.js:156
 msgid "Get email address"
 msgstr ""
 
-#: src/routes/oidc/register.js:169
+#: src/routes/oidc/register.js:176
 msgid "Get the amount of Pixels placed and ranking"
-msgstr ""
-
-#: src/routes/oidc/register.js:128
-msgid "Grants"
 msgstr ""
 
 #: src/core/MailProvider.js:73
@@ -234,8 +231,13 @@ msgstr ""
 msgid "Just admins can do that"
 msgstr ""
 
-#: src/routes/oidc/register.js:134
+#: src/routes/oidc/register.js:141
 msgid "Know that an account exists"
+msgstr ""
+
+#: src/routes/oidc/register.js:129
+#. "scopes" is a technical term and should not be translated
+msgid "List of available scopes"
 msgstr ""
 
 #: src/ssr/Globe.jsx:50
@@ -300,7 +302,7 @@ msgstr ""
 msgid "Name contains invalid character like @, /, \\ or #"
 msgstr ""
 
-#: src/routes/oidc/register.js:82
+#: src/routes/oidc/register.js:86
 msgid "Name is too long"
 msgstr ""
 
@@ -333,8 +335,9 @@ msgstr ""
 msgid "No password given."
 msgstr ""
 
-#: src/routes/oidc/register.js:74
-msgid "No redirect URI given."
+#: src/routes/oidc/register.js:77
+#. "redirect_uris" is a technical term and should not be translated
+msgid "No redirect_uris given."
 msgstr ""
 
 #: src/routes/api/badge.js:20
@@ -345,25 +348,26 @@ msgstr ""
 msgid "No such fish found"
 msgstr ""
 
-#: src/routes/oidc/register.js:292
-msgid "One redirect URI per line"
-msgstr ""
-
-#: src/routes/oidc/register.js:197
+#: src/routes/oidc/register.js:204
 msgid "One redirect URIs per line"
 msgstr ""
 
-#: src/routes/oidc/register.js:71
-msgid "Only five redirect URIs are allowed per client"
+#: src/routes/oidc/register.js:303
+msgid "One redirect_uri per line"
+msgstr ""
+
+#: src/routes/oidc/register.js:73
+#. "redirect_uris" is a technical term and should not be translated
+msgid "Only five redirect_uris are allowed per client"
 msgstr ""
 
 #: src/canvasesDesc.js:41
 msgid "Only four colors. Same rules as moon!"
 msgstr ""
 
-#: src/routes/oidc/register.js:134
-#: src/routes/oidc/register.js:144
-#: src/routes/oidc/register.js:164
+#: src/routes/oidc/register.js:141
+#: src/routes/oidc/register.js:151
+#: src/routes/oidc/register.js:171
 msgid "OpenID Connect specs"
 msgstr ""
 
@@ -388,7 +392,7 @@ msgstr ""
 msgid "Password successfully changed."
 msgstr ""
 
-#: src/routes/oidc/register.js:127
+#: src/routes/oidc/register.js:134
 msgid "Permission"
 msgstr ""
 
@@ -404,7 +408,7 @@ msgstr ""
 msgid "PixelZone"
 msgstr ""
 
-#: src/routes/oidc/register.js:120
+#: src/routes/oidc/register.js:125
 #, javascript-format
 msgid ""
 "Pixelplanet fulfills the OpenID Connect (OIDC) specifications. So an "
@@ -433,29 +437,26 @@ msgstr ""
 msgid "Please use int channel"
 msgstr ""
 
-#: src/routes/oidc/register.js:159
+#: src/routes/oidc/register.js:166
 msgid "Read Badges and fishes"
 msgstr ""
 
-#: src/routes/oidc/register.js:144
+#: src/routes/oidc/register.js:151
 msgid "Read name, username and account age"
 msgstr ""
 
-#: src/routes/oidc/register.js:79
-msgid "Redirect URI does not look legit"
-msgstr ""
-
-#: src/routes/oidc/register.js:190
-#: src/routes/oidc/register.js:285
+#: src/routes/oidc/register.js:197
+#: src/routes/oidc/register.js:296
 msgid "Redirect URIs"
 msgstr ""
 
-#: src/routes/oidc/register.js:164
+#: src/routes/oidc/register.js:171
 msgid "Regularly update this data"
 msgstr ""
 
-#: src/routes/oidc/register.js:279
-msgid "Reroll Client Secret"
+#: src/routes/oidc/register.js:288
+#. 'client_secret' is a technical term and should not be translated
+msgid "Reroll client_secret"
 msgstr ""
 
 #: src/core/MailProvider.js:138
@@ -478,23 +479,23 @@ msgstr ""
 msgid "Someone logged into your account from a new location, with the IP:"
 msgstr ""
 
-#: src/routes/oidc/register.js:208
+#: src/routes/oidc/register.js:215
 msgid "Space-separated list of available scopes"
 msgstr ""
 
-#: src/routes/oidc/register.js:315
+#: src/routes/oidc/register.js:326
 msgid ""
 "Space-separated list of default scopes, they will be used on requests if no "
 "other scope is given."
 msgstr ""
 
-#: src/routes/oidc/register.js:218
+#: src/routes/oidc/register.js:225
 msgid ""
 "Space-separated list of default scopes, they will be used on requests where "
 "no other scope is given."
 msgstr ""
 
-#: src/routes/oidc/register.js:304
+#: src/routes/oidc/register.js:315
 msgid "Space-separated list of scopes that should be available"
 msgstr ""
 
@@ -570,8 +571,9 @@ msgstr ""
 msgid "This password-reset link isn't valid anymore :("
 msgstr ""
 
-#: src/routes/oidc/register.js:66
-msgid "Too many or too long redirect URIs"
+#: src/routes/oidc/register.js:67
+#. "redirect_uris" is a technical term and should not be translated
+msgid "Too many or too long redirect_uris"
 msgstr ""
 
 #: src/canvasesDesc.js:28
@@ -582,11 +584,11 @@ msgstr ""
 msgid "Unknown Captcha Error"
 msgstr ""
 
-#: src/routes/oidc/register.js:319
+#: src/routes/oidc/register.js:330
 msgid "Update Application"
 msgstr ""
 
-#: src/routes/oidc/register.js:139
+#: src/routes/oidc/register.js:146
 msgid "User ID and verification level"
 msgstr ""
 
@@ -700,7 +702,7 @@ msgstr ""
 msgid "You can not send chat messages while using a proxy"
 msgstr ""
 
-#: src/routes/oidc/register.js:121
+#: src/routes/oidc/register.js:126
 msgid ""
 "You can register your own application here to get the client_id and "
 "client_secret needed to make use of this."
@@ -736,7 +738,8 @@ msgstr ""
 msgid "You must be logged in to access this page"
 msgstr ""
 
-#: src/routes/oidc/register.js:88
+#: src/routes/oidc/register.js:93
+#. "scope" is a technical term and should not be translated
 msgid "You need to define a valid scope"
 msgstr ""
 
@@ -786,6 +789,11 @@ msgstr ""
 
 #: src/routes/reset_password.js:57
 msgid "Your passwords do not match :("
+msgstr ""
+
+#: src/routes/oidc/register.js:83
+#. "redirect_uris" is a technical term and should not be translated
+msgid "redirect_uris does not look legit"
 msgstr ""
 
 #: src/ssr/modalShell.js:30

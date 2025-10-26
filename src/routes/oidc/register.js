@@ -63,20 +63,24 @@ router.use(verifySession, urlEncoded, async (req, res) => {
         }
         redirectUris = redirectUris.trim();
         if (redirectUris.length >= 255) {
-          throw new Error(t`Too many or too long redirect URIs`);
+          /* t: "redirect_uris" is a technical term and should not be translated */
+          throw new Error(t`Too many or too long redirect_uris`);
         }
         redirectUris = redirectUris.replace(' ', '\n').split('\n')
           .map((u) => u.trim()).filter((u) => u);
         if (redirectUris.length > 5) {
-          throw new Error(t`Only five redirect URIs are allowed per client`);
+          /* t: "redirect_uris" is a technical term and should not be translated */
+          throw new Error(t`Only five redirect_uris are allowed per client`);
         }
         if (redirectUris.length === 0) {
-          throw new Error(t`No redirect URI given.`);
+          /* t: "redirect_uris" is a technical term and should not be translated */
+          throw new Error(t`No redirect_uris given.`);
         }
         if (redirectUris.some(
           (u) => !u.startsWith('https://') && !u.startsWith('http://'),
         )) {
-          throw new Error(t`Redirect URI does not look legit`);
+          /* t: "redirect_uris" is a technical term and should not be translated */
+          throw new Error(t`redirect_uris does not look legit`);
         }
         if (name.length > 255) {
           throw new Error(t`Name is too long`);
@@ -85,6 +89,7 @@ router.use(verifySession, urlEncoded, async (req, res) => {
           (s) => allowedScopes.includes(s),
         );
         if (scope.length < 1) {
+          /* t: "scope" is a technical term and should not be translated */
           throw new Error(t`You need to define a valid scope`);
         }
         if (defaultScope) {
@@ -119,13 +124,15 @@ router.use(verifySession, urlEncoded, async (req, res) => {
 <div class="client-form-box">
 <p style="font-size: 16px;">${jt`Pixelplanet fulfills the OpenID Connect (OIDC) specifications. So an application that supports OIDC could ask for consent and login using pixelplanet accounts. The required endpoints can be auto-discovered via the ${wellKnownUrl} URL.</a>`}</p>
 <p style="font-size: 16px;">${jt`You can register your own application here to get the client_id and client_secret needed to make use of this.`}</p>
-<p>List of available scopes:</p>
+<p>${
+  /* t: "scopes" is a technical term and should not be translated */
+  t`List of available scopes`}:</p>
 <table className="consenttable">
   <thead>
     <tr>
       <th>${t`Consent`}</th>
       <th>${t`Permission`}</th>
-      <th>${t`Grants`}</th>
+      <th>Grants</th>
     </tr>
   </thead>
   <tbody>
@@ -276,9 +283,13 @@ router.use(verifySession, urlEncoded, async (req, res) => {
           value="true"
         />
         <span class="checkmark"></span>
-        ${t`Reroll Client Secret`}
+        ${
+  /* t: 'client_secret' is a technical term and should not be translated */
+  t`Reroll client_secret`}
       </label>
-      <small>${t`Generate a new client secret. The old secret will become invalid immediately.`}</small>
+      <small>${
+  /* t: 'client_secret' is a technical term and should not be translated */
+  t`Generate a new client_secret. The old secret will become invalid immediately.`}</small>
     </div>
 
     <div class="form-group">
@@ -289,7 +300,7 @@ router.use(verifySession, urlEncoded, async (req, res) => {
         rows="3"
         required
       >${redirectUris.split(' ').join('\n')}</textarea></label>
-      <small>${t`One redirect URI per line`}</small>
+      <small>${t`One redirect_uri per line`}</small>
     </div>
 
     <div class="form-group">

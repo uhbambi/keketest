@@ -52,6 +52,7 @@ export default ({
     ttag.extract = { output: path.resolve('i18n', 'template-ssr.pot') };
     ttag.discover = ['t', 'jt', 'c'];
     ttag.sortByMsgid = true;
+    ttag.addComments = 't:';
   }
 
   /*
