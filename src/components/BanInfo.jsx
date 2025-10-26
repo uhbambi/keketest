@@ -3,7 +3,7 @@
  */
 
 import React, { useState, useCallback } from 'react';
-import { t } from 'ttag';
+import { jt, t } from 'ttag';
 
 import useInterval from './hooks/interval.js';
 import useLink from './hooks/link.js';
@@ -68,21 +68,23 @@ const BanInfo = ({ close }) => {
 
   useInterval(countDown, 1000);
 
+  const helpButton = (
+    <span
+      role="button"
+      tabIndex={0}
+      className="modallink"
+      onClick={() => {
+        link('HELP', { target: 'fullscreen' });
+        close();
+      }}
+    >{t`Help`}</span>
+  );
+
   /* eslint-disable max-len */
   return (
     <div style={{ userSelect: 'text' }}>
       <p>
-        {t`You are banned. You think it is unjustified? Check out the `}
-        <span
-          role="button"
-          tabIndex={0}
-          className="modallink"
-          onClick={() => {
-            link('HELP', { target: 'fullscreen' });
-            close();
-          }}
-        >{t`Help`}</span>
-        {t` on how to appeal. And don't forget to include the BID you can get below.`}
+        {jt`You are banned. You think it is unjustified? Check out the ${helpButton} on how to appeal. And don't forget to include the BID you can get below.`}
       </p>
       {errors.map((error) => (
         <p key={error} className="errormessage">
@@ -115,7 +117,7 @@ const BanInfo = ({ close }) => {
             </p>
           )}
           <p>
-            <span className="stattext">{t`BID`}: </span>
+            <span className="stattext">BID: </span>
             <ClipboardCopyField text={uuid} maxWidth="18em" />
           </p>
           {(index !== bans.length - 1) && (

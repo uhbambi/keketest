@@ -3,11 +3,7 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Plural-Forms: nplurals=2; plural=(n!=1);\n"
 
-#: src/components/BanInfo.jsx:85
-msgid " on how to appeal. And don't forget to include the BID you can get below."
-msgstr ""
-
-#: src/components/BanInfo.jsx:109
+#: src/components/BanInfo.jsx:111
 msgid " which is in "
 msgstr ""
 
@@ -109,10 +105,6 @@ msgstr ""
 msgid "Auto Zoom In"
 msgstr ""
 
-#: src/components/BanInfo.jsx:118
-msgid "BID"
-msgstr ""
-
 #: src/components/LogInForm.jsx:282
 msgid "Back"
 msgstr ""
@@ -171,7 +163,7 @@ msgstr ""
 msgid "Build image, but reset cooldown to unset-pixel cd."
 msgstr ""
 
-#: src/components/BanInfo.jsx:100
+#: src/components/BanInfo.jsx:102
 msgid "By Mod"
 msgstr ""
 
@@ -603,7 +595,7 @@ msgstr ""
 msgid "Drag ${ mouseSymbol } mouse or ${ touchSymbol } pan to move"
 msgstr ""
 
-#: src/components/BanInfo.jsx:106
+#: src/components/BanInfo.jsx:108
 #: src/components/ModIIDtools.jsx:153
 msgid "Duration"
 msgstr ""
@@ -683,7 +675,7 @@ msgstr ""
 msgid "Enter your mail address and we will send you a new password:"
 msgstr ""
 
-#: src/components/BanInfo.jsx:89
+#: src/components/BanInfo.jsx:91
 #: src/components/Captcha.jsx:189
 #: src/components/ChangeMail.jsx:158
 #: src/components/ChangeName.jsx:58
@@ -837,7 +829,7 @@ msgstr ""
 msgid "Height"
 msgstr ""
 
-#: src/components/BanInfo.jsx:84
+#: src/components/BanInfo.jsx:80
 #: src/components/buttons/HelpButton.jsx:20
 #: src/components/windows/index.js:15
 msgid "Help"
@@ -1138,7 +1130,7 @@ msgstr ""
 msgid "OIDC LogIn"
 msgstr ""
 
-#: src/components/BanInfo.jsx:142
+#: src/components/BanInfo.jsx:144
 #: src/store/actions/index.js:9
 msgid "OK"
 msgstr ""
@@ -1411,7 +1403,7 @@ msgstr ""
 msgid "Read name, username and account age"
 msgstr ""
 
-#: src/components/BanInfo.jsx:95
+#: src/components/BanInfo.jsx:97
 #: src/components/ModIIDtools.jsx:142
 msgid "Reason"
 msgstr ""
@@ -1967,7 +1959,7 @@ msgid ""
 "to keep them and we may decide to remove them."
 msgstr ""
 
-#: src/components/BanInfo.jsx:137
+#: src/components/BanInfo.jsx:139
 msgid "Why?"
 msgstr ""
 
@@ -2002,8 +1994,11 @@ msgid ""
 "suitable for them? Send us an email."
 msgstr ""
 
-#: src/components/BanInfo.jsx:75
-msgid "You are banned. You think it is unjustified? Check out the "
+#: src/components/BanInfo.jsx:87
+#, javascript-format
+msgid ""
+"You are banned. You think it is unjustified? Check out the ${ helpButton } "
+"on how to appeal. And don't forget to include the BID you can get below."
 msgstr ""
 
 #: src/ui/PixelTransferController.js:173
@@ -2121,7 +2116,7 @@ msgstr ""
 msgid "Your Internet Provider is banned from this game"
 msgstr ""
 
-#: src/components/BanInfo.jsx:107
+#: src/components/BanInfo.jsx:109
 msgid "Your ban expires at "
 msgstr ""
 
