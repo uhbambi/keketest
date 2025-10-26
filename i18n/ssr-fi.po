@@ -1,23 +1,24 @@
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2024-03-24 14:49+0000\n"
+"Report-Msgid-Bugs-To: admin@pixelplanet.fun\n"
+"PO-Revision-Date: 2025-10-26 12:52+0000\n"
 "Last-Translator: Translation Team <noreply@example.com>\n"
-"Language-Team: Finnish <https://hosted.weblate.org/projects/pixelplanet/"
-"server/fi/>\n"
+"Language-Team: Finnish <https://translate.gs-os.com/projects/ppfun/server/fi/"
+">\n"
 "Language: fi\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.5-dev\n"
+"X-Generator: Weblate 5.14\n"
 
 msgid "1bit"
-msgstr ""
+msgstr "1bit"
 
 msgid "2bit"
-msgstr ""
+msgstr "2bit"
 
 msgid "3D Canvas"
-msgstr ""
+msgstr "3D kehys"
 
 msgid "A 3D globe of our whole map"
 msgstr "3D maapallo koko kartastamme"
@@ -131,17 +132,15 @@ msgstr ""
 msgid "Failed to create a new user :("
 msgstr ""
 
+#. 'client_secret' is a technical term and should not be translated
 msgid ""
-"Generate a new client secret. The old secret will become invalid immediately."
+"Generate a new client_secret. The old secret will become invalid immediately."
 msgstr ""
 
 msgid "Get email address"
 msgstr ""
 
 msgid "Get the amount of Pixels placed and ranking"
-msgstr ""
-
-msgid "Grants"
 msgstr ""
 
 msgid ""
@@ -182,6 +181,10 @@ msgid "Just admins can do that"
 msgstr "Vain järjestelmänvalvojat voivat tehdä noin"
 
 msgid "Know that an account exists"
+msgstr ""
+
+#. "scopes" is a technical term and should not be translated
+msgid "List of available scopes"
 msgstr ""
 
 msgid "Loading..."
@@ -254,7 +257,8 @@ msgstr ""
 msgid "No password given."
 msgstr "Salasana jäi nyt antamatta jätkällä."
 
-msgid "No redirect URI given."
+#. "redirect_uris" is a technical term and should not be translated
+msgid "No redirect_uris given."
 msgstr ""
 
 msgid "No such badge found"
@@ -263,13 +267,14 @@ msgstr ""
 msgid "No such fish found"
 msgstr ""
 
-msgid "One redirect URI per line"
-msgstr ""
-
 msgid "One redirect URIs per line"
 msgstr ""
 
-msgid "Only five redirect URIs are allowed per client"
+msgid "One redirect_uri per line"
+msgstr ""
+
+#. "redirect_uris" is a technical term and should not be translated
+msgid "Only five redirect_uris are allowed per client"
 msgstr ""
 
 msgid "Only four colors. Same rules as moon!"
@@ -310,7 +315,7 @@ msgid ""
 "Pixelplanet fulfills the OpenID Connect (OIDC) specifications. So an "
 "application that supports OIDC could ask for consent and login using "
 "pixelplanet accounts. The required endpoints can be auto-discovered via the $"
-"{ wellKnownUrl } URL.</a>"
+"{ wellKnownUrl } URL."
 msgstr ""
 
 #, fuzzy
@@ -325,7 +330,7 @@ msgstr ""
 "verkossa"
 
 msgid "Please refresh the website"
-msgstr ""
+msgstr "Päivitä sivusto"
 
 msgid "Please try again."
 msgstr ""
@@ -339,16 +344,14 @@ msgstr ""
 msgid "Read name, username and account age"
 msgstr ""
 
-msgid "Redirect URI does not look legit"
-msgstr ""
-
 msgid "Redirect URIs"
 msgstr ""
 
 msgid "Regularly update this data"
 msgstr ""
 
-msgid "Reroll Client Secret"
+#. 'client_secret' is a technical term and should not be translated
+msgid "Reroll client_secret"
 msgstr ""
 
 msgid "Reset Password"
@@ -371,6 +374,7 @@ msgid ""
 "other scope is given."
 msgstr ""
 
+#. 'scope' is used as a technical term here, do not translate that word
 msgid ""
 "Space-separated list of default scopes, they will be used on requests where "
 "no other scope is given."
@@ -432,7 +436,8 @@ msgstr "Tämä sähköpostipalveluntarjoaja ei ole sallittu"
 msgid "This password-reset link isn't valid anymore :("
 msgstr "Tämä salasanan palautuslinkki ei ole enää voimassa :("
 
-msgid "Too many or too long redirect URIs"
+#. "redirect_uris" is a technical term and should not be translated
+msgid "Too many or too long redirect_uris"
 msgstr ""
 
 msgid "Top10"
@@ -450,15 +455,6 @@ msgstr ""
 msgid "User doesn't exist in our database :("
 msgstr "Käyttäjää ei ole tietokannassamme :("
 
-msgid "Userame can't be empty."
-msgstr ""
-
-msgid "Userame must be at least 2 characters long"
-msgstr ""
-
-msgid "Userame must be shorter than 26 characters"
-msgstr ""
-
 msgid "Username already in use."
 msgstr "Käyttäjänimi on jo käytössä."
 
@@ -466,6 +462,15 @@ msgid "Username can not start with pp_"
 msgstr ""
 
 msgid "Username can only contain the characters: a-z . _ and -"
+msgstr ""
+
+msgid "Username can't be empty."
+msgstr ""
+
+msgid "Username must be at least 2 characters long"
+msgstr ""
+
+msgid "Username must be shorter than 26 characters"
 msgstr ""
 
 msgid ""
@@ -561,6 +566,7 @@ msgstr ""
 msgid "You must be logged in to access this page"
 msgstr ""
 
+#. "scope" is a technical term and should not be translated
 msgid "You need to define a valid scope"
 msgstr ""
 
@@ -602,6 +608,10 @@ msgstr ""
 
 msgid "Your passwords do not match :("
 msgstr "Salasanasi eivät täsmää :("
+
+#. "redirect_uris" is a technical term and should not be translated
+msgid "redirect_uris does not look legit"
+msgstr ""
 
 msgid "to go back to pixelplanet"
 msgstr "Takaisin pixelplanettiin"

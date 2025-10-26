@@ -1,17 +1,19 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: admin@pixelplanet.fun\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2024-03-10 22:16+0000\n"
-"Last-Translator: Translation Team <noreply@example.com>\n"
-"Language-Team: Azerbaijani <https://hosted.weblate.org/projects/pixelplanet/"
+"PO-Revision-Date: 2025-10-27 08:07+0000\n"
+"Last-Translator: \"[KZ] ali tahsilli dallak\" "
+"<asocialmaxxing@noreply.pixelplanet.fun>\n"
+"Language-Team: Azerbaijani <https://translate.gs-os.com/projects/ppfun/"
 "server/az/>\n"
 "Language: az\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.5-dev\n"
+"X-Generator: Weblate 5.14\n"
 
 msgid "1bit"
 msgstr "1bit"
@@ -36,31 +38,31 @@ msgid "Access modtools"
 msgstr ""
 
 msgid "Add Application"
-msgstr ""
+msgstr "Tətbiq qoş"
 
 msgid "Add an Application (OIDC Client)"
-msgstr ""
+msgstr "Tətbiq qoş (OIDC Client)"
 
 msgid "Add new application"
-msgstr ""
+msgstr "Yeni tətbiq qoş"
 
 msgid "An error occured. Please try again later."
-msgstr ""
+msgstr "Xəta baş verdi. Zəhmət olmasa sonra yenidən sınayın."
 
 msgid "Application changed successfully"
-msgstr ""
+msgstr "Tətbiq uğurla dəyişdirildi"
 
 msgid "Application deleted"
-msgstr ""
+msgstr "Tətbiq silindi"
 
 msgid "Application successfully added"
-msgstr ""
+msgstr "Tətbiq uğurla qoşuldu"
 
 msgid "Black and White canvas"
 msgstr "Ağ-Qara Lövhə"
 
 msgid "Can not chat while being banned"
-msgstr ""
+msgstr "Qadağa olunmuş ikən söhbət edilə bilməz"
 
 msgid "Click here"
 msgstr "Bura basın"
@@ -69,7 +71,7 @@ msgid "Click to Verify"
 msgstr "Doğrulamaq üçün basın"
 
 msgid "Client Name"
-msgstr ""
+msgstr "Alıcı adı"
 
 msgid "Confirm New Password"
 msgstr "Yeni Parolu Doğrulayın"
@@ -83,31 +85,31 @@ msgstr ""
 "gözləmə müddəti paylaşır."
 
 msgid "Consent"
-msgstr ""
+msgstr "Razılıq"
 
 msgid "Coronavirus"
 msgstr "Koronavirus"
 
 msgid "Could not close this Session."
-msgstr ""
+msgstr "Bu Sessiya bağlanıla bilmədi."
 
 msgid "Could not find this login method"
-msgstr ""
+msgstr "Bu giriş üsulu tapıla bilmədi"
 
 msgid "Couldn't find this mail in our database"
 msgstr "Bu emaili databazamızda tapabilmədik"
 
 msgid "Default"
-msgstr ""
+msgstr "Defolt"
 
 msgid "Delete Application"
-msgstr ""
+msgstr "Tətbiqi sil"
 
 msgid "Display name for your OIDC client"
-msgstr ""
+msgstr "OIDC alıcınız üçün göstərilən ad"
 
 msgid "Double click on globe to go back."
-msgstr "Globusa iki dəfə basaraq geri dön."
+msgstr "Qlobusa iki dəfə basaraq geri qayıt."
 
 msgid "E-Mail already in use."
 msgstr "Email artıq istifadə olunur."
@@ -116,7 +118,7 @@ msgid "Earth"
 msgstr "Dünya"
 
 msgid "Edit existing applications"
-msgstr ""
+msgstr "Mövcud tətbiqləri düzəldin"
 
 msgid "Email can't be empty."
 msgstr "Email boş ola bilməz."
@@ -134,23 +136,21 @@ msgid "Email should contain a @"
 msgstr "Email-də @ simvolu olmalıdır"
 
 msgid "Error"
-msgstr ""
+msgstr "Xəta"
 
 msgid "Failed to create a new user :("
-msgstr ""
+msgstr "Yeni istifadəçi yaradıla bilmədi :("
 
+#. 'client_secret' is a technical term and should not be translated
 msgid ""
-"Generate a new client secret. The old secret will become invalid immediately."
-msgstr ""
+"Generate a new client_secret. The old secret will become invalid immediately."
+msgstr "Yeni client_secret yaradın. Köhnə gizli dərhal etibarsız olacaq."
 
 msgid "Get email address"
-msgstr ""
+msgstr "E-poçt ünvanını alın"
 
 msgid "Get the amount of Pixels placed and ranking"
-msgstr ""
-
-msgid "Grants"
-msgstr ""
+msgstr "Sıralama və qoyulan Piksel sayını alın"
 
 msgid ""
 "Have fun and don't hesitate to contact us if you encounter any problems :)"
@@ -163,7 +163,7 @@ msgstr "Salam"
 
 #, javascript-format
 msgid "Hello ${ email }, you can set your new password here:"
-msgstr ""
+msgstr "Salam ${ email }, buradan yeni parolunuzu təyin edə bilərsiniz:"
 
 #, javascript-format
 msgid "Hello ${ name }"
@@ -175,6 +175,10 @@ msgid ""
 "that you are unaware of under \"Login Methods\" in the User Area and change "
 "your password."
 msgstr ""
+"Bu siz idinizsə, zəhmət olmasa bu e-poçtu saymayın. Siz deyil idinizsə, "
+"zəhmət olmasa <a href=\"https://pixelplanet.fun\">pixelplanet.fun</a>-a "
+"gedin və İstifadəçi Sahəsində \"Giriş Üsulları\"-nın altında xəbəriniz "
+"olmayan hər bir sessiyadan çıxış edin və parolunuzu dəyişin."
 
 #, javascript-format
 msgid ""
@@ -194,19 +198,23 @@ msgid "Just admins can do that"
 msgstr "Sadəcə adminlər bunu edəbilər"
 
 msgid "Know that an account exists"
-msgstr ""
+msgstr "Bir hesabın mövcud olduğunu bilin"
+
+#. "scopes" is a technical term and should not be translated
+msgid "List of available scopes"
+msgstr "Əlçatan scopes siyahısı"
 
 msgid "Loading..."
 msgstr "Yüklənir..."
 
 msgid "Login from new location on PixelPlanet"
-msgstr ""
+msgstr "\"PixelPlanet\"-də yeni yerdən giriş"
 
 msgid "Login is required"
-msgstr ""
+msgstr "Giriş tələb olunur"
 
 msgid "Mail is already in use!"
-msgstr ""
+msgstr "E-poçt artıq istifadə olunur!"
 
 msgid "Mail is not configured on the server"
 msgstr "Email serverdə konfiqurasiya edilməyib"
@@ -235,7 +243,7 @@ msgstr ""
 "qadağandır."
 
 msgid "Name already in use."
-msgstr ""
+msgstr "Ad artıq istifadə olunur."
 
 msgid "Name can't be empty."
 msgstr "Ad boş olabilməz."
@@ -244,7 +252,7 @@ msgid "Name contains invalid character like @, /, \\ or #"
 msgstr "Ad keçərsiz simvol içərir, məsəlan @, /, \\ vəya #"
 
 msgid "Name is too long"
-msgstr ""
+msgstr "Ad çox uzundur"
 
 msgid "Name must be at least 2 characters long"
 msgstr "Ad ən az 2 simvol uzunluğunda olmalıdır"
@@ -253,7 +261,7 @@ msgid "Name must be shorter than 26 characters"
 msgstr "Ad 26 simvoldan qısa olmalıdır"
 
 msgid "Name or Email does not exist!"
-msgstr ""
+msgstr "Ad və ya E-poçt mövcud deyil!"
 
 msgid "New Password"
 msgstr "Yeni Parol"
@@ -262,28 +270,30 @@ msgid "No Captcha given"
 msgstr "Captcha mətni verilməyib"
 
 msgid "No or invalid fish id."
-msgstr ""
+msgstr "Balıq id-si səhvdir və ya yoxdur."
 
 msgid "No password given."
 msgstr "Heçbir şifrə verilmədi."
 
-msgid "No redirect URI given."
-msgstr ""
+#. "redirect_uris" is a technical term and should not be translated
+msgid "No redirect_uris given."
+msgstr "Heç bir redirect-uris verilməyib."
 
 msgid "No such badge found"
-msgstr ""
+msgstr "Belə bir nişan tapılmadı"
 
 msgid "No such fish found"
-msgstr ""
-
-msgid "One redirect URI per line"
-msgstr ""
+msgstr "Belə bir balıq tapılmadı"
 
 msgid "One redirect URIs per line"
-msgstr ""
+msgstr "Hər sətirə bir yönləndirmə URL-sı"
 
-msgid "Only five redirect URIs are allowed per client"
-msgstr ""
+msgid "One redirect_uri per line"
+msgstr "Hər sətirə bir redirect_uri"
+
+#. "redirect_uris" is a technical term and should not be translated
+msgid "Only five redirect_uris are allowed per client"
+msgstr "Hər müştəriyə yalnız beş redirect_uris icazə verilir"
 
 #, fuzzy
 msgid "Only four colors. Same rules as moon!"
@@ -311,7 +321,7 @@ msgid "Password successfully changed."
 msgstr "Parolunuz uğurla dəyişdirildi."
 
 msgid "Permission"
-msgstr ""
+msgstr "İcazə"
 
 msgid "PixelCanvas"
 msgstr "PixelCanvas"
@@ -327,7 +337,7 @@ msgid ""
 "Pixelplanet fulfills the OpenID Connect (OIDC) specifications. So an "
 "application that supports OIDC could ask for consent and login using "
 "pixelplanet accounts. The required endpoints can be auto-discovered via the $"
-"{ wellKnownUrl } URL.</a>"
+"{ wellKnownUrl } URL."
 msgstr ""
 
 #, fuzzy
@@ -339,21 +349,18 @@ msgstr ""
 "Digər oyunçularla biryerdə fərqli lövhələrdə fərqli rənglərdə pixellər atın"
 
 msgid "Please refresh the website"
-msgstr ""
+msgstr "Lütfən saytı yeniləyin"
 
 msgid "Please try again."
-msgstr ""
+msgstr "Lütfən yenidən sınayın."
 
 msgid "Please use int channel"
 msgstr "Zəhmət olmasa int kanalından istifadə edin"
 
 msgid "Read Badges and fishes"
-msgstr ""
+msgstr "Nişan və balıqları oxuyun"
 
 msgid "Read name, username and account age"
-msgstr ""
-
-msgid "Redirect URI does not look legit"
 msgstr ""
 
 msgid "Redirect URIs"
@@ -362,7 +369,8 @@ msgstr ""
 msgid "Regularly update this data"
 msgstr ""
 
-msgid "Reroll Client Secret"
+#. 'client_secret' is a technical term and should not be translated
+msgid "Reroll client_secret"
 msgstr ""
 
 msgid "Reset Password"
@@ -385,6 +393,7 @@ msgid ""
 "other scope is given."
 msgstr ""
 
+#. 'scope' is used as a technical term here, do not translate that word
 msgid ""
 "Space-separated list of default scopes, they will be used on requests where "
 "no other scope is given."
@@ -447,7 +456,8 @@ msgstr "Bu email provayderinə icazə verilmir"
 msgid "This password-reset link isn't valid anymore :("
 msgstr "Parol dəyişdirmə bağlantısı artıq keçərli deyil :("
 
-msgid "Too many or too long redirect URIs"
+#. "redirect_uris" is a technical term and should not be translated
+msgid "Too many or too long redirect_uris"
 msgstr ""
 
 msgid "Top10"
@@ -465,22 +475,22 @@ msgstr ""
 msgid "User doesn't exist in our database :("
 msgstr "Istifadəçi databazamızda mövcud deyil :("
 
-msgid "Userame can't be empty."
-msgstr ""
-
-msgid "Userame must be at least 2 characters long"
-msgstr ""
-
-msgid "Userame must be shorter than 26 characters"
-msgstr ""
-
 msgid "Username already in use."
-msgstr "Ad artıq istifadə olunur."
+msgstr "İstifadəçi adı artıq istifadə olunur."
 
 msgid "Username can not start with pp_"
 msgstr ""
 
 msgid "Username can only contain the characters: a-z . _ and -"
+msgstr ""
+
+msgid "Username can't be empty."
+msgstr ""
+
+msgid "Username must be at least 2 characters long"
+msgstr ""
+
+msgid "Username must be shorter than 26 characters"
 msgstr ""
 
 msgid ""
@@ -579,6 +589,7 @@ msgstr ""
 msgid "You must be logged in to access this page"
 msgstr ""
 
+#. "scope" is a technical term and should not be translated
 msgid "You need to define a valid scope"
 msgstr ""
 
@@ -622,6 +633,10 @@ msgstr ""
 
 msgid "Your passwords do not match :("
 msgstr "Parolların birbirinə uymur :("
+
+#. "redirect_uris" is a technical term and should not be translated
+msgid "redirect_uris does not look legit"
+msgstr ""
 
 msgid "to go back to pixelplanet"
 msgstr "pixelplanetə qayıtmaq üçün"

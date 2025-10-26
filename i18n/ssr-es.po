@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: admin@pixelplanet.fun\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2025-10-26 07:41+0000\n"
+"PO-Revision-Date: 2025-10-26 11:17+0000\n"
 "Last-Translator: Translation Team <noreply@example.com>\n"
 "Language-Team: Spanish <https://translate.gs-os.com/projects/ppfun/server/es/"
 ">\n"
@@ -83,7 +83,7 @@ msgstr ""
 "enfriamiento con la Tierra!"
 
 msgid "Consent"
-msgstr ""
+msgstr "Consentir"
 
 msgid "Coronavirus"
 msgstr "Coronavirus"
@@ -139,8 +139,9 @@ msgstr "Error"
 msgid "Failed to create a new user :("
 msgstr "Falló en crearse el nuevo usuario :("
 
+#. 'client_secret' is a technical term and should not be translated
 msgid ""
-"Generate a new client secret. The old secret will become invalid immediately."
+"Generate a new client_secret. The old secret will become invalid immediately."
 msgstr ""
 
 msgid "Get email address"
@@ -148,9 +149,6 @@ msgstr "Obtener dirección de correo"
 
 msgid "Get the amount of Pixels placed and ranking"
 msgstr "Obtener cantidad de Pixeles puestos y ranking"
-
-msgid "Grants"
-msgstr ""
 
 msgid ""
 "Have fun and don't hesitate to contact us if you encounter any problems :)"
@@ -196,6 +194,10 @@ msgid "Just admins can do that"
 msgstr "Solo los administradores pueden hacer eso"
 
 msgid "Know that an account exists"
+msgstr ""
+
+#. "scopes" is a technical term and should not be translated
+msgid "List of available scopes"
 msgstr ""
 
 msgid "Loading..."
@@ -269,7 +271,8 @@ msgstr ""
 msgid "No password given."
 msgstr "No se ingresó una contraseña."
 
-msgid "No redirect URI given."
+#. "redirect_uris" is a technical term and should not be translated
+msgid "No redirect_uris given."
 msgstr ""
 
 msgid "No such badge found"
@@ -278,13 +281,14 @@ msgstr "No se encontró esa insignia"
 msgid "No such fish found"
 msgstr "No se encontró ese pescado"
 
-msgid "One redirect URI per line"
-msgstr ""
-
 msgid "One redirect URIs per line"
 msgstr ""
 
-msgid "Only five redirect URIs are allowed per client"
+msgid "One redirect_uri per line"
+msgstr ""
+
+#. "redirect_uris" is a technical term and should not be translated
+msgid "Only five redirect_uris are allowed per client"
 msgstr ""
 
 msgid "Only four colors. Same rules as moon!"
@@ -326,12 +330,8 @@ msgid ""
 "Pixelplanet fulfills the OpenID Connect (OIDC) specifications. So an "
 "application that supports OIDC could ask for consent and login using "
 "pixelplanet accounts. The required endpoints can be auto-discovered via the $"
-"{ wellKnownUrl } URL.</a>"
+"{ wellKnownUrl } URL."
 msgstr ""
-"Pixelplanet cumple las especificaciones de OpenID Connect (OIDC). Una "
-"aplicación que soporte OIDC puede preguntar por consentimiento y acceder "
-"usando las cuentas de pixelplanet. Los puntos requeridos pueden verse en la "
-"${ wellKnownUrl } URL.</a>"
 
 msgid "Place Voxels on a 3D canvas with others."
 msgstr "Coloca vóxeles en un lienzo 3D junto a otros usuarios."
@@ -354,16 +354,14 @@ msgstr ""
 msgid "Read name, username and account age"
 msgstr ""
 
-msgid "Redirect URI does not look legit"
-msgstr ""
-
 msgid "Redirect URIs"
 msgstr ""
 
 msgid "Regularly update this data"
 msgstr "Actualizar regularmente estos datos"
 
-msgid "Reroll Client Secret"
+#. 'client_secret' is a technical term and should not be translated
+msgid "Reroll client_secret"
 msgstr ""
 
 msgid "Reset Password"
@@ -386,6 +384,7 @@ msgid ""
 "other scope is given."
 msgstr ""
 
+#. 'scope' is used as a technical term here, do not translate that word
 msgid ""
 "Space-separated list of default scopes, they will be used on requests where "
 "no other scope is given."
@@ -445,9 +444,9 @@ msgid ""
 "not installing malware, Thank You."
 msgstr ""
 "Esta combinación correo / contraseña fue hackeado y filtrado. Para proteger "
-"esta cuenta la contraseña fue reiniciada. Por favor usa la función "
-"\"Olvidé mi contraseña\" en la pagina de Acceso para configurar una nueva "
-"contraseña. En el futuro, considera no instalar malware, Gracias."
+"esta cuenta la contraseña fue reiniciada. Por favor usa la función \"Olvidé "
+"mi contraseña\" en la pagina de Acceso para configurar una nueva contraseña. "
+"En el futuro, considera no instalar malware, Gracias."
 
 msgid "This email provider is not allowed"
 msgstr "Este provedor de email no está permitido"
@@ -455,7 +454,8 @@ msgstr "Este provedor de email no está permitido"
 msgid "This password-reset link isn't valid anymore :("
 msgstr "Este enlace de reinicio de contraseña ya no es válido :("
 
-msgid "Too many or too long redirect URIs"
+#. "redirect_uris" is a technical term and should not be translated
+msgid "Too many or too long redirect_uris"
 msgstr ""
 
 msgid "Top10"
@@ -473,15 +473,6 @@ msgstr "ID de usuario y nivel de verificación"
 msgid "User doesn't exist in our database :("
 msgstr "El usuario no existe en la base de datos :("
 
-msgid "Userame can't be empty."
-msgstr "El nombre de Usuario no puede estar vacío."
-
-msgid "Userame must be at least 2 characters long"
-msgstr "El nombre de Usuario debe tener al menos 2 caracteres"
-
-msgid "Userame must be shorter than 26 characters"
-msgstr "El nombre de Usuario debe tener menos de 26 caracteres"
-
 msgid "Username already in use."
 msgstr "El nombre de usuario ya está en uso."
 
@@ -490,6 +481,15 @@ msgstr "El nombre de Usuario no puede empezar con pp_"
 
 msgid "Username can only contain the characters: a-z . _ and -"
 msgstr "El nombre de Usuario solo puede contener los caracteres: a-z . _ y -"
+
+msgid "Username can't be empty."
+msgstr ""
+
+msgid "Username must be at least 2 characters long"
+msgstr ""
+
+msgid "Username must be shorter than 26 characters"
+msgstr ""
 
 msgid ""
 "We already sent you a mail with instructions. Please wait before requesting "
@@ -503,8 +503,8 @@ msgid ""
 "We already sent you a verification mail, you can request another one in $"
 "{ minLeft } minutes."
 msgstr ""
-"Ya te enviamos un correo de verificación, puedes solicitar otro en ${ "
-"minLeft } minutos."
+"Ya te enviamos un correo de verificación, puedes solicitar otro en $"
+"{ minLeft } minutos."
 
 #, javascript-format
 msgid "Welcome ${ name } to PixelPlanet, please verify your mail"
@@ -591,6 +591,7 @@ msgstr "Tienes que llenar todos los campos"
 msgid "You must be logged in to access this page"
 msgstr "Debes iniciar sesión para acceder a esta pagina"
 
+#. "scope" is a technical term and should not be translated
 msgid "You need to define a valid scope"
 msgstr ""
 
@@ -635,6 +636,10 @@ msgstr ""
 msgid "Your passwords do not match :("
 msgstr "Tus contraseñas no coinciden :("
 
+#. "redirect_uris" is a technical term and should not be translated
+msgid "redirect_uris does not look legit"
+msgstr ""
+
 msgid "to go back to pixelplanet"
 msgstr "para regresar a pixelplanet"
 
@@ -644,6 +649,27 @@ msgid ""
 msgstr ""
 "bienvenido a nuestra pequeña comunidad de colocadores de píxeles, para "
 "utilizar tu cuenta necesitas verificar tu correo. Puedes hacerlo acá: "
+
+#, javascript-format
+#~ msgid ""
+#~ "Pixelplanet fulfills the OpenID Connect (OIDC) specifications. So an "
+#~ "application that supports OIDC could ask for consent and login using "
+#~ "pixelplanet accounts. The required endpoints can be auto-discovered via "
+#~ "the ${ wellKnownUrl } URL.</a>"
+#~ msgstr ""
+#~ "Pixelplanet cumple las especificaciones de OpenID Connect (OIDC). Una "
+#~ "aplicación que soporte OIDC puede preguntar por consentimiento y acceder "
+#~ "usando las cuentas de pixelplanet. Los puntos requeridos pueden verse en "
+#~ "la ${ wellKnownUrl } URL.</a>"
+
+#~ msgid "Userame can't be empty."
+#~ msgstr "El nombre de Usuario no puede estar vacío."
+
+#~ msgid "Userame must be at least 2 characters long"
+#~ msgstr "El nombre de Usuario debe tener al menos 2 caracteres"
+
+#~ msgid "Userame must be shorter than 26 characters"
+#~ msgstr "El nombre de Usuario debe tener menos de 26 caracteres"
 
 #~ msgid "You are banned"
 #~ msgstr "Estás baneado"

@@ -138,17 +138,15 @@ msgstr ""
 msgid "Failed to create a new user :("
 msgstr ""
 
+#. 'client_secret' is a technical term and should not be translated
 msgid ""
-"Generate a new client secret. The old secret will become invalid immediately."
+"Generate a new client_secret. The old secret will become invalid immediately."
 msgstr ""
 
 msgid "Get email address"
 msgstr ""
 
 msgid "Get the amount of Pixels placed and ranking"
-msgstr ""
-
-msgid "Grants"
 msgstr ""
 
 msgid ""
@@ -193,6 +191,10 @@ msgid "Just admins can do that"
 msgstr "Samo admini mogu to da rade"
 
 msgid "Know that an account exists"
+msgstr ""
+
+#. "scopes" is a technical term and should not be translated
+msgid "List of available scopes"
 msgstr ""
 
 msgid "Loading..."
@@ -265,7 +267,8 @@ msgstr ""
 msgid "No password given."
 msgstr "Nije data lozinka"
 
-msgid "No redirect URI given."
+#. "redirect_uris" is a technical term and should not be translated
+msgid "No redirect_uris given."
 msgstr ""
 
 msgid "No such badge found"
@@ -274,13 +277,14 @@ msgstr ""
 msgid "No such fish found"
 msgstr ""
 
-msgid "One redirect URI per line"
-msgstr ""
-
 msgid "One redirect URIs per line"
 msgstr ""
 
-msgid "Only five redirect URIs are allowed per client"
+msgid "One redirect_uri per line"
+msgstr ""
+
+#. "redirect_uris" is a technical term and should not be translated
+msgid "Only five redirect_uris are allowed per client"
 msgstr ""
 
 msgid "Only four colors. Same rules as moon!"
@@ -321,7 +325,7 @@ msgid ""
 "Pixelplanet fulfills the OpenID Connect (OIDC) specifications. So an "
 "application that supports OIDC could ask for consent and login using "
 "pixelplanet accounts. The required endpoints can be auto-discovered via the $"
-"{ wellKnownUrl } URL.</a>"
+"{ wellKnownUrl } URL."
 msgstr ""
 
 msgid "Place Voxels on a 3D canvas with others."
@@ -347,16 +351,14 @@ msgstr ""
 msgid "Read name, username and account age"
 msgstr ""
 
-msgid "Redirect URI does not look legit"
-msgstr ""
-
 msgid "Redirect URIs"
 msgstr ""
 
 msgid "Regularly update this data"
 msgstr ""
 
-msgid "Reroll Client Secret"
+#. 'client_secret' is a technical term and should not be translated
+msgid "Reroll client_secret"
 msgstr ""
 
 msgid "Reset Password"
@@ -379,6 +381,7 @@ msgid ""
 "other scope is given."
 msgstr ""
 
+#. 'scope' is used as a technical term here, do not translate that word
 msgid ""
 "Space-separated list of default scopes, they will be used on requests where "
 "no other scope is given."
@@ -440,7 +443,8 @@ msgstr "Ovaj e-mail provajder nije dostupan"
 msgid "This password-reset link isn't valid anymore :("
 msgstr "Ovaj link za resetovanje lozinke ne radi više :("
 
-msgid "Too many or too long redirect URIs"
+#. "redirect_uris" is a technical term and should not be translated
+msgid "Too many or too long redirect_uris"
 msgstr ""
 
 msgid "Top10"
@@ -458,15 +462,6 @@ msgstr ""
 msgid "User doesn't exist in our database :("
 msgstr "Nalog ne postoji u našim podacima :("
 
-msgid "Userame can't be empty."
-msgstr ""
-
-msgid "Userame must be at least 2 characters long"
-msgstr ""
-
-msgid "Userame must be shorter than 26 characters"
-msgstr ""
-
 msgid "Username already in use."
 msgstr "Ime je već u koristi."
 
@@ -474,6 +469,15 @@ msgid "Username can not start with pp_"
 msgstr ""
 
 msgid "Username can only contain the characters: a-z . _ and -"
+msgstr ""
+
+msgid "Username can't be empty."
+msgstr ""
+
+msgid "Username must be at least 2 characters long"
+msgstr ""
+
+msgid "Username must be shorter than 26 characters"
 msgstr ""
 
 msgid ""
@@ -572,6 +576,7 @@ msgstr ""
 msgid "You must be logged in to access this page"
 msgstr ""
 
+#. "scope" is a technical term and should not be translated
 msgid "You need to define a valid scope"
 msgstr ""
 
@@ -615,6 +620,10 @@ msgstr ""
 
 msgid "Your passwords do not match :("
 msgstr "Lozinke se ne spajaju :("
+
+#. "redirect_uris" is a technical term and should not be translated
+msgid "redirect_uris does not look legit"
+msgstr ""
 
 msgid "to go back to pixelplanet"
 msgstr "da bi se vratili u pixelplanet"

@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: admin@pixelplanet.fun\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2025-10-26 07:40+0000\n"
+"PO-Revision-Date: 2025-10-26 15:53+0000\n"
 "Last-Translator: Translation Team <noreply@example.com>\n"
 "Language-Team: German <https://translate.gs-os.com/projects/ppfun/server/de/>"
 "\n"
@@ -83,7 +83,7 @@ msgstr ""
 "Abklingzeit mit Erde!"
 
 msgid "Consent"
-msgstr "Zustimmen"
+msgstr "Einstimmung"
 
 msgid "Coronavirus"
 msgstr "Coronavirus"
@@ -128,10 +128,10 @@ msgid "Email should at least contain a dot"
 msgstr "E-Mail sollte zumindest einen Punkt beinhalten"
 
 msgid "Email should be at least 5 characters long."
-msgstr "Email sollte zumindest 5 Zeichen lang sein."
+msgstr "E-Mail sollte mindestens 5 Zeichen lang sein."
 
 msgid "Email should contain a @"
-msgstr "E-Mail sollte ein @ beinhalten"
+msgstr "E-Mail sollte ein \"@\" beinhalten"
 
 msgid "Error"
 msgstr "Fehler"
@@ -139,20 +139,17 @@ msgstr "Fehler"
 msgid "Failed to create a new user :("
 msgstr "Konnte keinen neuen Benutzer erstellen :("
 
+#. 'client_secret' is a technical term and should not be translated
 msgid ""
-"Generate a new client secret. The old secret will become invalid immediately."
+"Generate a new client_secret. The old secret will become invalid immediately."
 msgstr ""
-"Neues client secret schaffen, damit verliert das alte secret seine die "
-"Gültigkeit."
+"Erzeuge ein neues client_secret. Das alte client_secret wird sofort ungültig."
 
 msgid "Get email address"
-msgstr "Email-Adresse abrufen"
+msgstr "Sehe E-Mail-Adresse"
 
 msgid "Get the amount of Pixels placed and ranking"
-msgstr "Pixelanzahl und Platzierung abrufen"
-
-msgid "Grants"
-msgstr ""
+msgstr "Zugriff auf die Anzahl gesetzter Pixel und Rang"
 
 msgid ""
 "Have fun and don't hesitate to contact us if you encounter any problems :)"
@@ -200,7 +197,11 @@ msgid "Just admins can do that"
 msgstr "Nur Administratoren können dies tun"
 
 msgid "Know that an account exists"
-msgstr "Herausfinden ob ein Konto besteht"
+msgstr "Erfahren, dass ein pixelplanet Konto existiert"
+
+#. "scopes" is a technical term and should not be translated
+msgid "List of available scopes"
+msgstr "Liste aller verfügbaren scopes"
 
 msgid "Loading..."
 msgstr "Lade..."
@@ -255,7 +256,7 @@ msgid "Name must be at least 2 characters long"
 msgstr "Name muss mindestens 2 Zeichen lang sein"
 
 msgid "Name must be shorter than 26 characters"
-msgstr "Name muss kleiner als 26 Zeichen sein"
+msgstr "Name muss kürzer als 26 Zeichen sein"
 
 msgid "Name or Email does not exist!"
 msgstr "Name oder E-Mail nicht vorhanden!"
@@ -272,8 +273,9 @@ msgstr "Keine oder ungültige Fisch-ID ."
 msgid "No password given."
 msgstr "Kein Passwort angegeben."
 
-msgid "No redirect URI given."
-msgstr "Keine redirect URI angegeben."
+#. "redirect_uris" is a technical term and should not be translated
+msgid "No redirect_uris given."
+msgstr "Keine redirect_uris angegeben."
 
 msgid "No such badge found"
 msgstr "Keine Auszeichnung dieser Art gefunden"
@@ -281,20 +283,21 @@ msgstr "Keine Auszeichnung dieser Art gefunden"
 msgid "No such fish found"
 msgstr "Kein Fisch gefunden"
 
-msgid "One redirect URI per line"
-msgstr "Eine redirect URI pro Zeile"
-
 msgid "One redirect URIs per line"
 msgstr "Eine redirect URIs pro Zeile"
 
-msgid "Only five redirect URIs are allowed per client"
-msgstr "Nur fünf redirect URIs sind für einen client erlaubt"
+msgid "One redirect_uri per line"
+msgstr "Eine redirect_uri pro Zeile"
+
+#. "redirect_uris" is a technical term and should not be translated
+msgid "Only five redirect_uris are allowed per client"
+msgstr "Nur fünf redirect_uris sind pro Anwendung erlaubt"
 
 msgid "Only four colors. Same rules as moon!"
 msgstr "Nur vier Farben. Gleiche Regeln wie auf Mond!"
 
 msgid "OpenID Connect specs"
-msgstr ""
+msgstr "OpenID Connect Spezifikationen"
 
 msgid "Or by copying following url:"
 msgstr "Oder kopiere den folgenden Link:"
@@ -307,13 +310,13 @@ msgid "Password must be at least 6 characters long."
 msgstr "Passwort muss mindestens 6 Zeichen lang sein."
 
 msgid "Password must be shorter than 60 characters."
-msgstr "Passwort muss kleiner als 60 Zeichen sein."
+msgstr "Passwort muss kürzer als 60 Zeichen sein."
 
 msgid "Password successfully changed."
 msgstr "Passwort erfolgreich geändert."
 
 msgid "Permission"
-msgstr "Erlaubnis"
+msgstr "Berechtigung"
 
 msgid "PixelCanvas"
 msgstr "PixelCanvas"
@@ -329,8 +332,12 @@ msgid ""
 "Pixelplanet fulfills the OpenID Connect (OIDC) specifications. So an "
 "application that supports OIDC could ask for consent and login using "
 "pixelplanet accounts. The required endpoints can be auto-discovered via the $"
-"{ wellKnownUrl } URL.</a>"
+"{ wellKnownUrl } URL."
 msgstr ""
+"Pixelplanet erfüllt die OpenID Connect (OIDC) Spezifikationen. Somit kann "
+"eine Anwendung, welche diese unterstützt, pixelplanet Konten zur Anmeldung "
+"benutzen. Die erforderlichen Endpunkte können automatisch über die URL ${ "
+"wellKnownUrl } ermittelt werden."
 
 msgid "Place Voxels on a 3D canvas with others."
 msgstr "Zeichne mit Voxel in einer 3D Umgebung."
@@ -348,22 +355,20 @@ msgid "Please use int channel"
 msgstr "Bitte benutze int Kanal"
 
 msgid "Read Badges and fishes"
-msgstr "Auszeichnungen und Fische anzeigen"
+msgstr "Sehe Auszeichnungen und Fische"
 
 msgid "Read name, username and account age"
-msgstr "Lese Name, Benutzername und Alter des Kontos"
-
-msgid "Redirect URI does not look legit"
-msgstr "Redirect URI scheint nicht echt zu sein"
+msgstr "Sehe Name, Benutzername und Alter des Kontos"
 
 msgid "Redirect URIs"
-msgstr "Redirect URIs"
+msgstr "redirect_uris"
 
 msgid "Regularly update this data"
-msgstr "Überarbeite diese Daten regelmäßig"
+msgstr "Aktualisiere diese Daten regelmäßig"
 
-msgid "Reroll Client Secret"
-msgstr "Reroll Client Secret"
+#. 'client_secret' is a technical term and should not be translated
+msgid "Reroll client_secret"
+msgstr "Erzeuge ein neues client_secret"
 
 msgid "Reset Password"
 msgstr "Passwort zurücksetzen"
@@ -380,20 +385,27 @@ msgstr ""
 "Die IP:"
 
 msgid "Space-separated list of available scopes"
-msgstr ""
+msgstr "Durch Leerzeichen getrennte Liste verfügbarer scopes"
 
 msgid ""
 "Space-separated list of default scopes, they will be used on requests if no "
 "other scope is given."
 msgstr ""
+"Durch Leerzeichen getrennte Listea Standard scopes, welche für Anfragen "
+"benutzt werden, in denen kein scope Parameter angegeben ist."
 
+#. 'scope' is used as a technical term here, do not translate that word
 msgid ""
 "Space-separated list of default scopes, they will be used on requests where "
 "no other scope is given."
 msgstr ""
+"Durch Leerzeichen getrennte Listea Standard scopes, welche benutzt werden, "
+"falls kein scope Parameter angegeben wird."
 
 msgid "Space-separated list of scopes that should be available"
 msgstr ""
+"Durch Leerzeichen getrennte Liste an scopes, welche zur verfügung stehen "
+"sollen"
 
 msgid "Special canvas to spread awareness of SARS-CoV2 (take the vax)."
 msgstr "Kleine Leinwand im SARS-CoV2 Thema."
@@ -436,6 +448,11 @@ msgid ""
 "function below to set a new password. In the future, consider not installing "
 "malware, Thank You."
 msgstr ""
+"Diese E-Mail-/Passwort-Kombination wurde gehackt und ist von einem Datenleck "
+"betroffen. Zum Schutz dieses Accounts wurde das Passwort zurückgesetzt. "
+"Bitte verwenden Sie die Funktion \"Passwort vergessen\" unten, um ein neues "
+"Passwort zu vergeben. Zukünftig sollten Sie darauf achten, keine Malware zu "
+"installieren. Vielen Dank."
 
 msgid ""
 "This email / password combination got hacked and leaked. To protect this "
@@ -443,6 +460,11 @@ msgid ""
 "function on the LogIn page to set a new password. In the future, consider "
 "not installing malware, Thank You."
 msgstr ""
+"Diese E-Mail-/Passwort-Kombination wurde gehackt und ist von einem Datenleck "
+"betroffen. Zum Schutz dieses Accounts wurde das Passwort zurückgesetzt. "
+"Bitte verwenden Sie die Funktion \"Passwort vergessen\" unten, um ein neues "
+"Passwort zu vergeben. Zukünftig sollten Sie darauf achten, keine Malware zu "
+"installieren. Vielen Dank."
 
 msgid "This email provider is not allowed"
 msgstr "Dieser E-Mail Anbieter ist nicht erlaubt"
@@ -450,8 +472,9 @@ msgstr "Dieser E-Mail Anbieter ist nicht erlaubt"
 msgid "This password-reset link isn't valid anymore :("
 msgstr "Dieser Passwort-Wiederherstellungslink ist nichtmehr gültig :("
 
-msgid "Too many or too long redirect URIs"
-msgstr ""
+#. "redirect_uris" is a technical term and should not be translated
+msgid "Too many or too long redirect_uris"
+msgstr "Zu viele oder zu lange redirect_uris"
 
 msgid "Top10"
 msgstr "Top10"
@@ -460,31 +483,31 @@ msgid "Unknown Captcha Error"
 msgstr "Unbekannter Captcha-Fehler"
 
 msgid "Update Application"
-msgstr ""
+msgstr "Aktualisiere Anwendung"
 
 msgid "User ID and verification level"
-msgstr ""
+msgstr "Benutzer ID und Verifikationslevel"
 
 msgid "User doesn't exist in our database :("
 msgstr "Spieler existiert nicht in unserer Datenbank :("
-
-msgid "Userame can't be empty."
-msgstr ""
-
-msgid "Userame must be at least 2 characters long"
-msgstr ""
-
-msgid "Userame must be shorter than 26 characters"
-msgstr ""
 
 msgid "Username already in use."
 msgstr "Name wird bereits verwendet."
 
 msgid "Username can not start with pp_"
-msgstr ""
+msgstr "Benutzername kann nicht mit \"pp_\" beginnen"
 
 msgid "Username can only contain the characters: a-z . _ and -"
-msgstr ""
+msgstr "Benutzername kann nur [a-z]._ und - beinhalten"
+
+msgid "Username can't be empty."
+msgstr "Benutzername darf nicht leer sein."
+
+msgid "Username must be at least 2 characters long"
+msgstr "Benutzername muss mindestens zwei Zeichen lang sein"
+
+msgid "Username must be shorter than 26 characters"
+msgstr "Benutzername muss kürzer als 26 Zeichen sein"
 
 msgid ""
 "We already sent you a mail with instructions. Please wait before requesting "
@@ -507,13 +530,13 @@ msgstr ""
 "Willkommen ${ name } auf PixelPlanet, bitte verifiziere deine Mail Adresse"
 
 msgid "You already chose your username"
-msgstr ""
+msgstr "Benutzername wurde bereits gewählt"
 
 msgid "You already have that name."
-msgstr ""
+msgstr "Du hast bereits diesen Namen."
 
 msgid "You are already verified."
-msgstr ""
+msgstr "Du bist bereits verifiziert."
 
 #, javascript-format
 msgid "You are muted for another ${ timeMin } minutes"
@@ -547,12 +570,14 @@ msgstr "Du sendest zu viele Nachrichten, du musst ${ waitTime }s warten :("
 msgid ""
 "You can not delete this login method, because you have nothing else left."
 msgstr ""
+"Du kannst diese Anmeldungsmethode nicht entfernen, da du keine anderen mehr "
+"hast und Zugriff verlieren könntest."
 
 msgid "You can not register an account while you are banned"
-msgstr ""
+msgstr "Du kannst kein Konto registrieren während du gebannt bist"
 
 msgid "You can not register an account with a proxy"
-msgstr ""
+msgstr "Du kannst kein Konto registrieren, während du einen Proxy verwendest"
 
 msgid "You can not send chat messages while using a proxy"
 msgstr "Du kannst keine Nachrichten senden während du ein Proxy benutzt"
@@ -561,6 +586,8 @@ msgid ""
 "You can register your own application here to get the client_id and "
 "client_secret needed to make use of this."
 msgstr ""
+"Du kannst hier deine eigene Anwendung registrieren und ein client_id und "
+"client_secret bekommen, welches du brauchst um es zu nutzen."
 
 msgid "You can't send a message this long :("
 msgstr "Do kannst keine so langen Nachrichten senden"
@@ -568,6 +595,8 @@ msgstr "Do kannst keine so langen Nachrichten senden"
 msgid ""
 "You do not have any email adress set. Please add one under \"Login Methods\"."
 msgstr ""
+"Du hast keine E-Mail-Adresse gesetzt. Bitte füge eine im Menü "
+"\"Anmeldemethoden\" hinzu."
 
 msgid "You don't have access to this channel"
 msgstr "Du hast keinen Zugriff zu diesen Kanal"
@@ -580,16 +609,17 @@ msgstr ""
 "Du hast dein Passwort für PixelPlanet vergessen? Bekomme ein neues hier"
 
 msgid "You have to fill out all fields"
-msgstr ""
+msgstr "Bitte alle Felder ausfüllen"
 
 msgid "You must be logged in to access this page"
-msgstr ""
+msgstr "Diese Seite ist nur für angemeldete Benutzer verfügbar"
 
+#. "scope" is a technical term and should not be translated
 msgid "You need to define a valid scope"
-msgstr ""
+msgstr "Du musst einen gültigen scope angeben"
 
 msgid "You need to directly access this page in the browser :("
-msgstr ""
+msgstr "Diese Seite ist nur direkt in einem Browser verfügbar :("
 
 msgid ""
 "You requested to get a new password. You can change your password within the "
@@ -602,16 +632,16 @@ msgid "You sent an empty password or invalid data :("
 msgstr "Du hast ein ungültiges Passwort oder Daten gesendet :("
 
 msgid "You took too long, try again"
-msgstr ""
+msgstr "Zeitüberschreitung, bitte nochmal versuchen"
 
 msgid "You will be automatically redirected after 15s"
 msgstr "Du wirst automatisch weitergeleitet nach 15s"
 
 msgid "Your Browser looks shady"
-msgstr ""
+msgstr "Dein Browser sieht verdächtig aus"
 
 msgid "Your account needs to be verified to access this page"
-msgstr ""
+msgstr "Dein Konto muss verifiziert sein, um auf diese Seite zuzugreifen"
 
 msgid "Your country is temporary muted from this chat channel"
 msgstr "Dein Land ist temporär in diesem Kanal stummgeschaltet"
@@ -629,6 +659,10 @@ msgstr ""
 msgid "Your passwords do not match :("
 msgstr "Passwörter stimmen nicht überein :("
 
+#. "redirect_uris" is a technical term and should not be translated
+msgid "redirect_uris does not look legit"
+msgstr "redirect_uri seht ungültig aus"
+
 msgid "to go back to pixelplanet"
 msgstr "um zu pixelplanet zurückzukehren"
 
@@ -639,6 +673,31 @@ msgstr ""
 "wilkommen in unserer kleinen Gemeinschaft aus Pixel schubser, um dein Konto "
 "zu verwenden musst du deine E-Mail Adresse verifizieren. Du kannst das hier "
 "erledigen: "
+
+#~ msgid ""
+#~ "Generate a new client secret. The old secret will become invalid "
+#~ "immediately."
+#~ msgstr ""
+#~ "Neues client secret schaffen, damit verliert das alte secret seine die "
+#~ "Gültigkeit."
+
+#~ msgid "Grants"
+#~ msgstr "Grants"
+
+#~ msgid "No redirect URI given."
+#~ msgstr "Keine redirect URI angegeben."
+
+#~ msgid "One redirect URI per line"
+#~ msgstr "Eine redirect URI pro Zeile"
+
+#~ msgid "Only five redirect URIs are allowed per client"
+#~ msgstr "Nur fünf redirect URIs sind für einen client erlaubt"
+
+#~ msgid "Redirect URI does not look legit"
+#~ msgstr "Redirect URI scheint nicht echt zu sein"
+
+#~ msgid "Reroll Client Secret"
+#~ msgstr "Reroll Client Secret"
 
 #~ msgid "You are banned"
 #~ msgstr "Du bist gebannt"

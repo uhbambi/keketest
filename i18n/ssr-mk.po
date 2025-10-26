@@ -1,14 +1,15 @@
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2024-06-10 20:09+0000\n"
+"Report-Msgid-Bugs-To: admin@pixelplanet.fun\n"
+"PO-Revision-Date: 2025-10-26 12:52+0000\n"
 "Last-Translator: Translation Team <noreply@example.com>\n"
-"Language-Team: Macedonian <https://hosted.weblate.org/projects/pixelplanet/"
-"server/mk/>\n"
+"Language-Team: Macedonian <https://translate.gs-os.com/projects/ppfun/server/"
+"mk/>\n"
 "Language: mk\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n==1 || n%10==1 ? 0 : 1;\n"
-"X-Generator: Weblate 5.6-dev\n"
+"X-Generator: Weblate 5.14\n"
 
 msgid "1bit"
 msgstr "1bit"
@@ -30,34 +31,34 @@ msgstr ""
 "рангирањето во 00:00 UTC."
 
 msgid "Access modtools"
-msgstr ""
+msgstr "Пристап до мод алатки"
 
 msgid "Add Application"
-msgstr ""
+msgstr "Додај Апликација"
 
 msgid "Add an Application (OIDC Client)"
-msgstr ""
+msgstr "Додај Апликација (OIDC Client)"
 
 msgid "Add new application"
-msgstr ""
+msgstr "Додај нова апликација"
 
 msgid "An error occured. Please try again later."
 msgstr ""
 
 msgid "Application changed successfully"
-msgstr ""
+msgstr "Апликацијата успешно се промена"
 
 msgid "Application deleted"
-msgstr ""
+msgstr "Апликација избришана"
 
 msgid "Application successfully added"
-msgstr ""
+msgstr "Апликацијата успешно се додаде"
 
 msgid "Black and White canvas"
 msgstr "Црно-бело платно"
 
 msgid "Can not chat while being banned"
-msgstr ""
+msgstr "Неможите да пишувате дури сте банирани"
 
 msgid "Click here"
 msgstr "Кликни тука"
@@ -66,7 +67,7 @@ msgid "Click to Verify"
 msgstr "Кликнете за да потврдите"
 
 msgid "Client Name"
-msgstr ""
+msgstr "Име на Клиент"
 
 msgid "Confirm New Password"
 msgstr "Потврди ја новата лозинка"
@@ -79,7 +80,7 @@ msgstr ""
 "земјено платно!"
 
 msgid "Consent"
-msgstr ""
+msgstr "Согласност"
 
 msgid "Coronavirus"
 msgstr "Корона вирус"
@@ -97,7 +98,7 @@ msgid "Default"
 msgstr ""
 
 msgid "Delete Application"
-msgstr ""
+msgstr "Избриши Апликација"
 
 msgid "Display name for your OIDC client"
 msgstr ""
@@ -112,7 +113,7 @@ msgid "Earth"
 msgstr "Земјата"
 
 msgid "Edit existing applications"
-msgstr ""
+msgstr "Едитирање на постоечки апликации"
 
 msgid "Email can't be empty."
 msgstr "Емаил не може да биде празен."
@@ -130,22 +131,20 @@ msgid "Email should contain a @"
 msgstr "Е-поштата треба да содржи @"
 
 msgid "Error"
-msgstr ""
+msgstr "Грешка во системот"
 
 msgid "Failed to create a new user :("
 msgstr ""
 
+#. 'client_secret' is a technical term and should not be translated
 msgid ""
-"Generate a new client secret. The old secret will become invalid immediately."
+"Generate a new client_secret. The old secret will become invalid immediately."
 msgstr ""
 
 msgid "Get email address"
-msgstr ""
+msgstr "Земи е-маил адреса"
 
 msgid "Get the amount of Pixels placed and ranking"
-msgstr ""
-
-msgid "Grants"
 msgstr ""
 
 msgid ""
@@ -159,7 +158,7 @@ msgstr "Здраво"
 
 #, javascript-format
 msgid "Hello ${ email }, you can set your new password here:"
-msgstr ""
+msgstr "Здраво${ email }, можите да го сместите новата лозинка тука:"
 
 #, javascript-format
 msgid "Hello ${ name }"
@@ -192,6 +191,10 @@ msgstr "Само администраторите можат да го напр�
 msgid "Know that an account exists"
 msgstr ""
 
+#. "scopes" is a technical term and should not be translated
+msgid "List of available scopes"
+msgstr ""
+
 msgid "Loading..."
 msgstr "Вчитување..."
 
@@ -202,7 +205,7 @@ msgid "Login is required"
 msgstr ""
 
 msgid "Mail is already in use!"
-msgstr ""
+msgstr "Е-маилот е веќе во употреба!"
 
 msgid "Mail is not configured on the server"
 msgstr "Поштата не е конфигурирана на серверот"
@@ -263,7 +266,8 @@ msgstr ""
 msgid "No password given."
 msgstr "Не е дадена лозинка."
 
-msgid "No redirect URI given."
+#. "redirect_uris" is a technical term and should not be translated
+msgid "No redirect_uris given."
 msgstr ""
 
 msgid "No such badge found"
@@ -272,13 +276,14 @@ msgstr ""
 msgid "No such fish found"
 msgstr ""
 
-msgid "One redirect URI per line"
-msgstr ""
-
 msgid "One redirect URIs per line"
 msgstr ""
 
-msgid "Only five redirect URIs are allowed per client"
+msgid "One redirect_uri per line"
+msgstr ""
+
+#. "redirect_uris" is a technical term and should not be translated
+msgid "Only five redirect_uris are allowed per client"
 msgstr ""
 
 msgid "Only four colors. Same rules as moon!"
@@ -320,7 +325,7 @@ msgid ""
 "Pixelplanet fulfills the OpenID Connect (OIDC) specifications. So an "
 "application that supports OIDC could ask for consent and login using "
 "pixelplanet accounts. The required endpoints can be auto-discovered via the $"
-"{ wellKnownUrl } URL.</a>"
+"{ wellKnownUrl } URL."
 msgstr ""
 
 msgid "Place Voxels on a 3D canvas with others."
@@ -345,16 +350,14 @@ msgstr ""
 msgid "Read name, username and account age"
 msgstr ""
 
-msgid "Redirect URI does not look legit"
-msgstr ""
-
 msgid "Redirect URIs"
 msgstr ""
 
 msgid "Regularly update this data"
 msgstr ""
 
-msgid "Reroll Client Secret"
+#. 'client_secret' is a technical term and should not be translated
+msgid "Reroll client_secret"
 msgstr ""
 
 msgid "Reset Password"
@@ -377,6 +380,7 @@ msgid ""
 "other scope is given."
 msgstr ""
 
+#. 'scope' is used as a technical term here, do not translate that word
 msgid ""
 "Space-separated list of default scopes, they will be used on requests where "
 "no other scope is given."
@@ -438,7 +442,8 @@ msgstr "Овој давател на е-пошта не е дозволен"
 msgid "This password-reset link isn't valid anymore :("
 msgstr "Оваа врска за ресетирање лозинка повеќе не е валидна :("
 
-msgid "Too many or too long redirect URIs"
+#. "redirect_uris" is a technical term and should not be translated
+msgid "Too many or too long redirect_uris"
 msgstr ""
 
 msgid "Top10"
@@ -456,15 +461,6 @@ msgstr ""
 msgid "User doesn't exist in our database :("
 msgstr "Корисникот не постои во нашата база на податоци :("
 
-msgid "Userame can't be empty."
-msgstr ""
-
-msgid "Userame must be at least 2 characters long"
-msgstr ""
-
-msgid "Userame must be shorter than 26 characters"
-msgstr ""
-
 msgid "Username already in use."
 msgstr "Корисничкото име веќе е во употреба."
 
@@ -472,6 +468,15 @@ msgid "Username can not start with pp_"
 msgstr ""
 
 msgid "Username can only contain the characters: a-z . _ and -"
+msgstr ""
+
+msgid "Username can't be empty."
+msgstr ""
+
+msgid "Username must be at least 2 characters long"
+msgstr ""
+
+msgid "Username must be shorter than 26 characters"
 msgstr ""
 
 msgid ""
@@ -572,6 +577,7 @@ msgstr ""
 msgid "You must be logged in to access this page"
 msgstr ""
 
+#. "scope" is a technical term and should not be translated
 msgid "You need to define a valid scope"
 msgstr ""
 
@@ -614,6 +620,10 @@ msgstr ""
 
 msgid "Your passwords do not match :("
 msgstr "Твојот Пасворд не се совпаѓа :("
+
+#. "redirect_uris" is a technical term and should not be translated
+msgid "redirect_uris does not look legit"
+msgstr ""
 
 msgid "to go back to pixelplanet"
 msgstr "да се вратиме на пикселпланет"

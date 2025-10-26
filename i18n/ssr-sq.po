@@ -1,16 +1,18 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: admin@pixelplanet.fun\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: \n"
-"Last-Translator: \n"
-"Language-Team: \n"
+"PO-Revision-Date: 2025-10-26 12:52+0000\n"
+"Last-Translator: Translation Team <noreply@example.com>\n"
+"Language-Team: Albanian <https://translate.gs-os.com/projects/ppfun/server/"
+"sq/>\n"
 "Language: sq\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n==1) ? 0 : 1;\n"
-"X-Generator: Poedit 3.6\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 5.14\n"
 
 msgid "1bit"
 msgstr "1bit"
@@ -28,8 +30,8 @@ msgid ""
 "A canvas for the most active players from the the previous day. Daily "
 "ranking updates at 00:00 UTC."
 msgstr ""
-"Një kanavacë për lojtarët më aktivë nga dita e mëparshme. Përditësimet "
-"ditore të renditjes në 00:00 UTC."
+"Një kanavacë për lojtarët më aktivë nga dita e mëparshme. Përditësime ditore "
+"të renditjes në 00:00 UTC."
 
 msgid "Access modtools"
 msgstr ""
@@ -56,29 +58,29 @@ msgid "Application successfully added"
 msgstr ""
 
 msgid "Black and White canvas"
-msgstr "Kanavacë e zezë e bardhë"
+msgstr "Kanavacë Bardhë e Zi"
 
 msgid "Can not chat while being banned"
-msgstr "Nuk mund të bisedoj ndërsa është i ndaluar"
+msgstr "Nuk mund të bisedoni ndërsa jeni të përjashtuar"
 
 msgid "Click here"
 msgstr "Kliko këtu"
 
 msgid "Click to Verify"
-msgstr "Klikoni për të verifikuar"
+msgstr "Kliko për të Verifikuar"
 
 msgid "Client Name"
 msgstr ""
 
 msgid "Confirm New Password"
-msgstr "Konfirmo fjalëkalimin e ri"
+msgstr "Konfirmo Fjalëkalimin e Ri"
 
 msgid ""
 "Conquer land on a smaller earth with protected ocean. Shares cooldown with "
 "earth canvas!"
 msgstr ""
-"Pushtoni tokë në një tokë më të vogël me oqean të mbrojtur. Ndan ftohjen me "
-"kanavacën e tokës!"
+"Pushtoni tokë në një tokë më të vogël me oqean të mbrojtur. Ndan kohën e "
+"pritjes me kanavacën e tokës!"
 
 msgid "Consent"
 msgstr ""
@@ -90,10 +92,10 @@ msgid "Could not close this Session."
 msgstr ""
 
 msgid "Could not find this login method"
-msgstr "Nuk mund ta gjesh këtë metodë hyrjeje"
+msgstr "Nuk u gjet kjo mënyrë hyrjeje"
 
 msgid "Couldn't find this mail in our database"
-msgstr "Nuk mund ta gjesh këtë email në bazën tonë të të dhënave"
+msgstr "Kjo adresë nuk u gjet në bazën tonë të të dhënave"
 
 msgid "Default"
 msgstr ""
@@ -105,40 +107,41 @@ msgid "Display name for your OIDC client"
 msgstr ""
 
 msgid "Double click on globe to go back."
-msgstr "Klikoni dy herë mbi globin për të kthyer përsëri."
+msgstr "Klikoni dy herë mbi glob për tu kthyer përsëri."
 
 msgid "E-Mail already in use."
-msgstr "E-Mail tashmë në përdorim."
+msgstr "E-Mail tanimë në përdorim."
 
 msgid "Earth"
-msgstr "Tokë"
+msgstr "Toka"
 
 msgid "Edit existing applications"
 msgstr ""
 
 msgid "Email can't be empty."
-msgstr "Email nuk mund të jetë bosh."
+msgstr "Email-i nuk mund të jetë bosh."
 
 msgid "Email can't be longer than 40 characters."
-msgstr "Email nuk mund të jetë më i gjatë se 40 karaktere."
+msgstr "Email-i nuk mund të jetë më i gjatë se 40 karaktere."
 
 msgid "Email should at least contain a dot"
-msgstr "Email duhet të përmbajë të paktën një pikë"
+msgstr "Email-i duhet të përmbajë të paktën një pikë"
 
 msgid "Email should be at least 5 characters long."
-msgstr "Email duhet të jetë të paktën 5 karaktere të gjatë."
+msgstr "Email-i duhet të jetë të paktën 5 karaktere i gjatë."
 
 msgid "Email should contain a @"
-msgstr "Email duhet të përmbajë një @"
+msgstr "Email-i duhet të përmbajë një @"
 
 msgid "Error"
-msgstr ""
+msgstr "Gabim"
 
 msgid "Failed to create a new user :("
-msgstr "Dështoi për të krijuar një përdorues të ri :("
+msgstr "Dështoi krijimi i një përdorues të ri :("
 
+#. 'client_secret' is a technical term and should not be translated
 msgid ""
-"Generate a new client secret. The old secret will become invalid immediately."
+"Generate a new client_secret. The old secret will become invalid immediately."
 msgstr ""
 
 msgid "Get email address"
@@ -147,16 +150,13 @@ msgstr ""
 msgid "Get the amount of Pixels placed and ranking"
 msgstr ""
 
-msgid "Grants"
-msgstr ""
-
 msgid ""
 "Have fun and don't hesitate to contact us if you encounter any problems :)"
 msgstr ""
 "Argëtohuni dhe mos hezitoni të na kontaktoni nëse hasni ndonjë problem:)"
 
 msgid "Hello"
-msgstr "tungjatjeta"
+msgstr "Tungjatjeta"
 
 #, javascript-format
 msgid "Hello ${ email }, you can set your new password here:"
@@ -178,14 +178,14 @@ msgid ""
 "If you did not request this mail, please just ignore it (the ip that "
 "requested this mail was ${ ip })."
 msgstr ""
-"Nëse nuk e keni kërkuar këtë postë, ju lutemi thjesht injoroni atë (ip që "
-"kërkoi këtë postë ishte${ ip })."
+"Nëse nuk e keni kërkuar këtë email, thjesht injorojeni (ip-ja që e kërkoi "
+"këtë email ishte ${ ip })."
 
 msgid "Incorrect password!"
 msgstr "Fjalëkalimi i gabuar!"
 
 msgid "Invalid url :( Please check your mail again."
-msgstr "URL e pavlefshme :( Ju lutemi kontrolloni përsëri postën tuaj."
+msgstr "Url e pavlefshme :( Ju lutemi kontrolloni përsëri email-in tuaj."
 
 msgid "Just admins can do that"
 msgstr "Vetëm administratorët mund ta bëjnë këtë"
@@ -193,8 +193,12 @@ msgstr "Vetëm administratorët mund ta bëjnë këtë"
 msgid "Know that an account exists"
 msgstr ""
 
+#. "scopes" is a technical term and should not be translated
+msgid "List of available scopes"
+msgstr ""
+
 msgid "Loading..."
-msgstr "Ngarkohet..."
+msgstr "Duke ngarkuar..."
 
 msgid "Login from new location on PixelPlanet"
 msgstr ""
@@ -203,16 +207,16 @@ msgid "Login is required"
 msgstr ""
 
 msgid "Mail is already in use!"
-msgstr "Emaili është tashmë në përdorim!"
+msgstr "Email-i është tanimë në përdorim!"
 
 msgid "Mail is not configured on the server"
-msgstr "Emaili nuk është i konfiguruar në server!"
+msgstr "Email-i nuk është i konfiguruar në server"
 
 msgid "Mail verification"
-msgstr "Verifikimi i postës"
+msgstr "Verifikim me email"
 
 msgid "Minimap"
-msgstr "Minimap"
+msgstr "Miniharta"
 
 msgid "Mirror of PixelCanvas"
 msgstr "Pasqyra e PixelCanvas"
@@ -227,21 +231,21 @@ msgid ""
 "Moon canvas. Safe space for art. No flags or large text (unless part of art) "
 "or art larger than 1.5k x 1.5k pixels."
 msgstr ""
-"Moon Canvas. Vend i sigurt për art. Nuk lejohen flamujt ose tekste të "
-"mëdha(vetëm nëse është pjesë e Artit) ose Art më i gjatë se 1.5k x 1.5k "
-"piksela. "
+"Kanvaca e Hënës. Vend i sigurt për art. Nuk lejohen flamujt ose tekste të "
+"mëdha (vetëm nëse është pjesë e artit) ose art më të madh se 1.5k x 1.5k "
+"piksela."
 
 msgid "Name already in use."
-msgstr "Emri është tashmë në përdorim."
+msgstr "Emri është tanimë në përdorim."
 
 msgid "Name can't be empty."
 msgstr "Emri nuk mund të jetë bosh."
 
 msgid "Name contains invalid character like @, /, \\ or #"
-msgstr "Emri përmban karakter të pavlefshëm si @,/,\\ ose #"
+msgstr "Emri përmban karakter të pavlefshëm si @, /, \\ or #"
 
 msgid "Name is too long"
-msgstr ""
+msgstr "Emri është shumë i gjatë"
 
 msgid "Name must be at least 2 characters long"
 msgstr "Emri duhet të jetë së paku 2 karaktere i gjatë"
@@ -250,36 +254,38 @@ msgid "Name must be shorter than 26 characters"
 msgstr "Emri duhet të jetë më i shkurtër se 26 karaktere"
 
 msgid "Name or Email does not exist!"
-msgstr "Emri ose Emaili nuk ekziston!"
+msgstr "Emri ose Email-i nuk ekziston!"
 
 msgid "New Password"
-msgstr "Fjalëkalimi i ri"
+msgstr "Fjalëkalim i Ri"
 
 msgid "No Captcha given"
 msgstr "Asnjë Captcha nuk është dhënë"
 
 msgid "No or invalid fish id."
-msgstr "Asnje ose id e fish gabim."
+msgstr "Asnjë ose id e pavlefshme peshku."
 
 msgid "No password given."
 msgstr "Asnjë fjalëkalim nuk është dhënë."
 
-msgid "No redirect URI given."
+#. "redirect_uris" is a technical term and should not be translated
+msgid "No redirect_uris given."
 msgstr ""
 
 msgid "No such badge found"
 msgstr ""
 
 msgid "No such fish found"
-msgstr "Asnje peshk i ktij lloji gjetur"
-
-msgid "One redirect URI per line"
-msgstr ""
+msgstr "Asnjë peshk i tillë nuk u gjet"
 
 msgid "One redirect URIs per line"
 msgstr ""
 
-msgid "Only five redirect URIs are allowed per client"
+msgid "One redirect_uri per line"
+msgstr ""
+
+#. "redirect_uris" is a technical term and should not be translated
+msgid "Only five redirect_uris are allowed per client"
 msgstr ""
 
 msgid "Only four colors. Same rules as moon!"
@@ -322,7 +328,7 @@ msgid ""
 "Pixelplanet fulfills the OpenID Connect (OIDC) specifications. So an "
 "application that supports OIDC could ask for consent and login using "
 "pixelplanet accounts. The required endpoints can be auto-discovered via the $"
-"{ wellKnownUrl } URL.</a>"
+"{ wellKnownUrl } URL."
 msgstr ""
 
 msgid "Place Voxels on a 3D canvas with others."
@@ -348,16 +354,14 @@ msgstr ""
 msgid "Read name, username and account age"
 msgstr ""
 
-msgid "Redirect URI does not look legit"
-msgstr ""
-
 msgid "Redirect URIs"
 msgstr ""
 
 msgid "Regularly update this data"
 msgstr ""
 
-msgid "Reroll Client Secret"
+#. 'client_secret' is a technical term and should not be translated
+msgid "Reroll client_secret"
 msgstr ""
 
 msgid "Reset Password"
@@ -380,6 +384,7 @@ msgid ""
 "other scope is given."
 msgstr ""
 
+#. 'scope' is used as a technical term here, do not translate that word
 msgid ""
 "Space-separated list of default scopes, they will be used on requests where "
 "no other scope is given."
@@ -406,7 +411,7 @@ msgid "The user owning this badge is private"
 msgstr ""
 
 msgid "The user owning this fish is private"
-msgstr "Perdoruesi qe e ka ket peshk esht privat"
+msgstr "Përdoruesi që e ka këtë peshk është privat"
 
 msgid "This application is not allowed to login"
 msgstr ""
@@ -447,7 +452,8 @@ msgstr "Ky ofrues i emailit nuk lejohet"
 msgid "This password-reset link isn't valid anymore :("
 msgstr "Kjo lidhje e rivendosjes së fjalëkalimit nuk është më e vlefshme :("
 
-msgid "Too many or too long redirect URIs"
+#. "redirect_uris" is a technical term and should not be translated
+msgid "Too many or too long redirect_uris"
 msgstr ""
 
 msgid "Top10"
@@ -465,15 +471,6 @@ msgstr ""
 msgid "User doesn't exist in our database :("
 msgstr "Përdoruesi nuk ekziston në bazën tonë të të dhënave :("
 
-msgid "Userame can't be empty."
-msgstr "Emri i përdoruesit nuk mund të jetë bosh."
-
-msgid "Userame must be at least 2 characters long"
-msgstr "Emri i përdoruesit duhet të jetë së paku 2 karaktere i gjatë"
-
-msgid "Userame must be shorter than 26 characters"
-msgstr "Emri i përdoruesit duhet të jetë më i shkurtër se 26 karaktere"
-
 msgid "Username already in use."
 msgstr "Emri i përdoruesit tashmë në përdorim."
 
@@ -482,6 +479,15 @@ msgstr "Emri i përdoruesit nuk mund të fillojë me pp_"
 
 msgid "Username can only contain the characters: a-z . _ and -"
 msgstr "Emri i përdoruesit mund të përmbajë vetëm karakteret: a-z. _ dhe -"
+
+msgid "Username can't be empty."
+msgstr ""
+
+msgid "Username must be at least 2 characters long"
+msgstr ""
+
+msgid "Username must be shorter than 26 characters"
+msgstr ""
 
 msgid ""
 "We already sent you a mail with instructions. Please wait before requesting "
@@ -501,7 +507,7 @@ msgstr ""
 #, javascript-format
 msgid "Welcome ${ name } to PixelPlanet, please verify your mail"
 msgstr ""
-"Mirë ${ name } se vini në PixelPlanet, ju lutemi verifikoni emailin tuaj"
+"Mirë se vini ${ name } në PixelPlanet, ju lutemi verifikoni emailin tuaj"
 
 msgid "You already chose your username"
 msgstr "Ju tashmë keni zgjedhur emrin tuaj të përdoruesit"
@@ -584,6 +590,7 @@ msgstr ""
 msgid "You must be logged in to access this page"
 msgstr ""
 
+#. "scope" is a technical term and should not be translated
 msgid "You need to define a valid scope"
 msgstr ""
 
@@ -628,6 +635,10 @@ msgstr ""
 msgid "Your passwords do not match :("
 msgstr "Fjalëkalimet tuaja nuk përputhen :("
 
+#. "redirect_uris" is a technical term and should not be translated
+msgid "redirect_uris does not look legit"
+msgstr ""
+
 msgid "to go back to pixelplanet"
 msgstr "për t'u kthyer në pixelplanet"
 
@@ -637,6 +648,15 @@ msgid ""
 msgstr ""
 "mirësevini në komunitetin tonë të vogël të pixelplacers, për të përdorur "
 "llogarinë tuaj, duhet të verifikoni emailin tuaj. Këtë mund ta bëni këtu: "
+
+#~ msgid "Userame can't be empty."
+#~ msgstr "Emri i përdoruesit nuk mund të jetë bosh."
+
+#~ msgid "Userame must be at least 2 characters long"
+#~ msgstr "Emri i përdoruesit duhet të jetë së paku 2 karaktere i gjatë"
+
+#~ msgid "Userame must be shorter than 26 characters"
+#~ msgstr "Emri i përdoruesit duhet të jetë më i shkurtër se 26 karaktere"
 
 #~ msgid "PixelPlanet.fun Password Reset"
 #~ msgstr "Rivendosja e fjalëkalimit Pixelplanet.fun"
