@@ -69,13 +69,14 @@ export default ({ development, analyze}) => {
       /*
        * chunkReason is set if it is a split chunk like vendor or three, which
        * will not include any translation strings.
-       * All other js assets will get the .en language attached to their name,
-       * and in post-ptocessing we resolve translations in production mode.
+       * All other js assets will get the language attached to their name, with
+       * a WPLANGCODE placer if its in production, because we postprocess that,
+       * and generate language bundles out of it.
        */
       filename: (pathData) => (pathData.chunk.chunkReason)
         ? '[name].[chunkhash:8].js'
-        : '[name].en.[chunkhash:8].js',
-      chunkFilename: '[name].en.[chunkhash:8].js',
+        : `[name].${(development) ? 'en' : 'WPLANGCODE'}.[chunkhash:8].js`,
+      chunkFilename: `[name].${(development) ? 'en' : 'WPLANGCODE'}.[chunkhash:8].js`,
     },
 
     resolve: {

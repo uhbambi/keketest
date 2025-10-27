@@ -45,7 +45,7 @@ export async function buildLanguage(lang = 'en') {
     comments: false,
   };
 
-  const translatableAssets = fs.readdirSync(assetdir).filter((e) => e.endsWith('.js') && e.includes('.en.'));
+  const translatableAssets = fs.readdirSync(assetdir).filter((e) => e.endsWith('.js') && e.includes('.WPLANGCODE.'));
 
   const amountOfAssets = translatableAssets.length;
   for (let i = 0; i < amountOfAssets; i += 1) {
@@ -65,8 +65,8 @@ export async function buildLanguage(lang = 'en') {
 
     const { code: output } =  await transformFromAstSync(ast, code, options);
     fs.writeFileSync(
-      path.join(assetdir, asset.replace('.en.', '.' + lang + '.')),
-      output,
+      path.join(assetdir, asset.replace('.WPLANGCODE.', '.' + lang + '.')),
+      output.replace('WPLANGCODE', lang),
     );
   }
 }
@@ -153,6 +153,7 @@ function buildLanguages(langs, finish = true, parallel = false) {
         process.stdout.write(`\x1b[33mTranslating took ${Math.round((Date.now() - ts) / 1000)}s\x1b[0m\n`);
         assetAstCache.clear();
         assetSourceCache.clear();
+
         resolve();
       }
     };

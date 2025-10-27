@@ -250,16 +250,17 @@ function cleanUpBeforeBuild(doBuildServer, doBuildClient) {
 /*
  * clean up after build
  */
-function cleanUpAfterBuild(builtServer, builtClient) {
-  if (builtServer && builtClient) {
-    const assetPath = path.resolve(__dirname, '..', 'dist', 'public', 'assets');
-    fs.readdirSync(assetPath)
-      .filter((e) => e.endsWith('.LICENSE.txt'))
-      .forEach((l) => fs.rmSync(path.join(assetPath, l)));
-    const serverLicenseFile = path.resolve(__dirname, '..', 'dist', 'server.js.LICENSE.txt');
-    if (fs.existsSync(serverLicenseFile)) {
-      fs.rmSync(serverLicenseFile);
-    }
+function cleanUpAfterBuild() {
+  const assetPath = path.resolve(__dirname, '..', 'dist', 'public', 'assets');
+  fs.readdirSync(assetPath)
+    .filter((e) => e.endsWith('.LICENSE.txt'))
+    .forEach((l) => fs.rmSync(path.join(assetPath, l)));
+  fs.readdirSync(assetPath)
+    .filter((e) => e.endsWith('.js') && e.includes('WPLANGCODE'))
+    .forEach((l) => fs.rmSync(path.join(assetPath, l)));
+  const serverLicenseFile = path.resolve(__dirname, '..', 'dist', 'server.js.LICENSE.txt');
+  if (fs.existsSync(serverLicenseFile)) {
+    fs.rmSync(serverLicenseFile);
   }
 }
 
@@ -282,12 +283,13 @@ function buildServer() {
   const ts = Date.now();
 
   return new Promise((resolve, reject) => {
-    const argsc = (langs === 'all' && !development)
-      ? ['webpack', '--env', 'extract', '--config', './webpack.config.server.js']
-      : ['webpack', '--config', './webpack.config.server.js']
+    const argsc = ['webpack', '--config', './webpack.config.server.js'];
     if (development) {
       argsc.push('--env');
       argsc.push('development');
+    } else {
+      argsc.push('--env');
+      argsc.push('extract');
     }
     const serverCompile = spawn('npx', argsc, {
       shell: process.platform == 'win32',
@@ -380,7 +382,7 @@ async function build() {
     await minifyJs(avlangs, parallel && 5);
   }
 
-  cleanUpAfterBuild(doBuildServer, doBuildClient);
+  cleanUpAfterBuild();
   if (doBuildServer && doBuildClient) {
     const ts = Date.now();
     process.stdout.write(`\x1b[33mArchiving Source\x1b[0m\n`);

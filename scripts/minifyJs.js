@@ -67,7 +67,7 @@ function minifyJs(langs, parallel = false) {
   const ts = Date.now();
   process.stdout.write(`\x1b[33mMinifying JS assets\x1b[0m\n`);
 
-  let fsFiles = fs.readdirSync(assetdir).filter((e) => e.endsWith('.js'));
+  let fsFiles = fs.readdirSync(assetdir).filter((e) => e.endsWith('.js') && !e.includes('WPLANGCODE'));
   if (langs?.length) {
     fsFiles = fsFiles.filter((e) => {
       const parts = e.split('.');
