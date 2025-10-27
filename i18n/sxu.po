@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "PO-Revision-Date: 2024-04-16 07:23+0000\n"
-"Last-Translator: Translation Team <noreply@example.com>\n"
+"Last-Translator: weblate <weblate@noreply.pixelplanet.fun>\n"
 "Language-Team: Saxon (Upper) <https://hosted.weblate.org/projects/"
 "pixelplanet/client/sxu/>\n"
 "Language: sxu\n"

@@ -1,6 +1,6 @@
 msgid ""
 msgstr ""
-"Last-Translator: Automatically generated\n"
+"Last-Translator: weblate <weblate@noreply.pixelplanet.fun>\n"
 "Language-Team: none\n"
 "Language: scn\n"
 "Content-Type: text/plain; charset=UTF-8\n"
