@@ -16,10 +16,58 @@ import { setPixelByCoords } from '../core/setPixel.js';
 import logger from '../core/logger.js';
 import { APISOCKET_KEY } from '../core/config.js';
 import authenticateAPIClient from './authenticateAPIClient.js';
+import { getInfoByUsername } from '../data/sql/User.js';
 
 
 class APISocketServer {
   wss; // WebSocket.Server
+  /*
+   * mapping of usernames to limited user information
+   * [username]: {
+   *   id,
+   *   name,
+   *   flag,
+   * },
+   */
+  static #usernameMapping = new Map();
+
+  static async #getUserData(username) {
+    let userData = APISocketServer.#usernameMapping.get(username);
+    if (!userData || Date.now() - userData.fetchedAt > 3600 * 1000) {
+      userData = await getInfoByUsername(username);
+      if (userData) {
+        userData.fetchedAt = Date.now();
+        APISocketServer.#usernameMapping.set(username, userData);
+      }
+    }
+    if (Math.random() < 0.07) {
+      /* clear old data */
+      const cutOffTime = Date.now() - 90 * 60 * 1000;
+      for (const [un, data] of APISocketServer.#usernameMapping.entries()) {
+        if (data.fetchedAt < cutOffTime) {
+          APISocketServer.#usernameMapping.delete(un);
+        }
+      }
+    }
+    return userData;
+  }
+
+  static getPublicChannels() {
+    const chanReply = ['chans'];
+    const defaultChanKeys = Object.keys(chatProvider.defaultChannels);
+    const langChanKeys = Object.keys(chatProvider.langChannels);
+    for (let i = 0; i < defaultChanKeys.length; i += 1) {
+      const id = defaultChanKeys[i];
+      const [name] = chatProvider.defaultChannels[id];
+      chanReply.push([parseInt(id, 10), name]);
+    }
+    for (let i = 0; i < langChanKeys.length; i += 1) {
+      const name = langChanKeys[i];
+      const { id } = chatProvider.langChannels[name];
+      chanReply.push([id, name]);
+    }
+    return chanReply;
+  }
 
   initialize() {
     logger.info('Starting API websocket server');
@@ -176,23 +224,6 @@ class APISocketServer {
     );
   }
 
-  static getPublicChannels() {
-    const chanReply = ['chans'];
-    const defaultChanKeys = Object.keys(chatProvider.defaultChannels);
-    const langChanKeys = Object.keys(chatProvider.langChannels);
-    for (let i = 0; i < defaultChanKeys.length; i += 1) {
-      const id = defaultChanKeys[i];
-      const [name] = chatProvider.defaultChannels[id];
-      chanReply.push([parseInt(id, 10), name]);
-    }
-    for (let i = 0; i < langChanKeys.length; i += 1) {
-      const name = langChanKeys[i];
-      const { id } = chatProvider.langChannels[name];
-      chanReply.push([id, name]);
-    }
-    return chanReply;
-  }
-
   async onTextMessage(message, ws) {
     try {
       const packet = JSON.parse(message);
@@ -229,9 +260,32 @@ class APISocketServer {
         // minecraftid support got removed
         return;
       }
-      if (command === 'chat') {
-        const [name, id, msg, country, channelId] = packet;
-        const uid = id || chatProvider.apiSocketUserId;
+      if (command === 'mchat') {
+        const [username, msg, channelId] = packet;
+        let uid;
+        let name;
+        let country;
+        /* matrix id in @name:homeserver.tld form */
+        if (username.startsWith('@') && username.indexOf(':') !== -1) {
+          uid = chatProvider.apiSocketUserId;
+          country = 'mx';
+          name = username;
+        } else {
+          const userData = await APISocketServer.#getUserData(username);
+          if (!userData) {
+            logger.info(`Cound not get data of ${username} for matrix chat`);
+            return;
+          }
+          ({ uid, name, country } = userData);
+        }
+        if (!name || !uid) {
+          // eslint-disable-next-line max-len
+          logger.info(`APISocket sent bax mchat event ${username} ${msg} ${channelId}`);
+          return;
+        }
+        if (!country) {
+          country = 'mx';
+        }
         /*
          * do not send message back up ws that sent it
          */

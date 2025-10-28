@@ -18,7 +18,7 @@ import { cdn, u } from '../utils/utag.js';
 const titleAllowed = [
   'odysee',
   'twitter',
-  'matrix.pixelplanet.fun',
+  'matrix.gs-os',
   'youtube',
   'youtu.be',
   'bitchute',

@@ -147,6 +147,31 @@ export async function getDummyUser(name) {
   return dummy[0].id;
 }
 
+/**
+ * get basic userinfo by username
+ * @param username
+ * @return {
+ *   uid, name, country
+ * }
+ */
+export async function getInfoByUsername(username) {
+  if (!username) {
+    return null;
+  }
+  try {
+    return await sequelize.query(
+      `SELECT u.id AS uid, u.name, s.country FROM Users u
+    LEFT JOIN Sessions s ON s.uid = u.id AND s.country != 'xx'
+  WHERE u.username = ?`, {
+        replacements: [username], type: QueryTypes.SELECT, plain: true,
+      },
+    );
+  } catch (error) {
+    console.error(`SQL Error on getInfoByUsername: ${error.message}`);
+  }
+  return null;
+}
+
 export async function name2Id(name) {
   try {
     const userq = await sequelize.query(

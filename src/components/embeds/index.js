@@ -30,7 +30,7 @@ export default {
   youtube: YouTube,
   'youtu.be': YouTube,
   bitchute: BitChute,
-  'matrix.pixelplanet.fun': Matrix,
+  'matrix.gs-os': Matrix,
   'i.4cdn.org': DirectLinkMedia,
   'i.imgur': DirectLinkMedia,
   'litter.catbox.moe': DirectLinkMedia,

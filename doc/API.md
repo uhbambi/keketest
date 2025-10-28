@@ -1,6 +1,6 @@
 # API Websocket
 
-This websocket provides unlimited access to many functions of the site, it is used for Discord Chat Bridge and similar stuff.
+This websocket provides unlimited access to many functions of the site, it is used for Chat Bridges and similar stuff.
 
 Websocket url:
 `https://[dev.]pixelplanet.fun/mcws`
@@ -23,11 +23,10 @@ you get a reply with the list of public channels you are now receiving messages 
 
 ```["chans", [id1, name1], [id2, name2], ...]```
 
-All chat messages, except the once you send with `chat` or `mcchat`, will be sent to you in the form:
+All chat messages, except the once you send with `mchat` will be sent to you in the form:
 
 ```["msg", name, uid, message, country, channelId]```
-channelId is an integer, channel 0 is `en` channel 1 is `int` and maybe more to come.
-id is the user id
+channelId is an integer. id is the user id
 country is the [two-letter country code](https://www.nationsonline.org/oneworld/country_code_list.htm) in lowercase
 
 ### Subscribe to online user counter
@@ -78,7 +77,8 @@ coolDownSeconds is the added cooldown (negative if pixel couldn't be set because
 
 ### Send Chat Message
 
-```["chat", name, userId, message, country, channelId]```
+```["mchat", username, message, channelId]```
 
-channelId is an integer, channel 0 is `en` channel 1 is `int` and maybe more to come.
-(messages with the name "info" will be displayed as red notifications in the chat window)
+channelId is an integer
+username is the username of the user or a matrix ID in @name:homeserver.com format.
+If it is a matrix ID, it will be sent with the apisockets own user.
