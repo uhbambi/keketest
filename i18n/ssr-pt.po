@@ -1,23 +1,25 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: admin@pixelplanet.fun\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2024-03-10 16:43+0000\n"
-"Last-Translator: weblate <weblate@noreply.pixelplanet.fun>\n"
-"Language-Team: Portuguese <https://hosted.weblate.org/projects/pixelplanet/"
-"server/pt/>\n"
+"PO-Revision-Date: 2025-10-29 22:40+0000\n"
+"Last-Translator: 568d2b17a2a549b58c9e72614f849ff2 "
+"<568d2b17a2a549b58c9e72614f849ff2@noreply.pixelplanet.fun>\n"
+"Language-Team: Portuguese <https://translate.gs-os.com/projects/ppfun/server/"
+"pt/>\n"
 "Language: pt\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 5.5-dev\n"
+"X-Generator: Weblate 5.14\n"
 
 msgid "1bit"
 msgstr "1bit"
 
 msgid "2bit"
-msgstr ""
+msgstr "2bit"
 
 msgid "3D Canvas"
 msgstr "Canvas 3D"
@@ -29,36 +31,38 @@ msgid ""
 "A canvas for the most active players from the the previous day. Daily "
 "ranking updates at 00:00 UTC."
 msgstr ""
+"Um canvas para os jogadores mais ativos do dia anterior. Classificação "
+"diária é resetada à 00:00 UTC."
 
 msgid "Access modtools"
-msgstr ""
+msgstr "Aceder às ferramentas de moderador"
 
 msgid "Add Application"
-msgstr ""
+msgstr "Adicionar Aplicação"
 
 msgid "Add an Application (OIDC Client)"
-msgstr ""
+msgstr "Adicionar uma Aplicação (Cliente OIDC)"
 
 msgid "Add new application"
-msgstr ""
+msgstr "Adicionar nova aplicação"
 
 msgid "An error occured. Please try again later."
-msgstr ""
+msgstr "Ocorreu um erro. Por favor tente mais tarde."
 
 msgid "Application changed successfully"
-msgstr ""
+msgstr "Aplicação alterada com sucesso"
 
 msgid "Application deleted"
-msgstr ""
+msgstr "Aplicação removida"
 
 msgid "Application successfully added"
-msgstr ""
+msgstr "Aplicação adicionada com sucesso"
 
 msgid "Black and White canvas"
 msgstr "Canvas preto e branco"
 
 msgid "Can not chat while being banned"
-msgstr ""
+msgstr "Não é possível conversar enquanto estiver banido"
 
 msgid "Click here"
 msgstr "Clique aqui"
@@ -67,7 +71,7 @@ msgid "Click to Verify"
 msgstr "Clique para verificar"
 
 msgid "Client Name"
-msgstr ""
+msgstr "Nome Cliente"
 
 msgid "Confirm New Password"
 msgstr "Confirme a senha nova"
@@ -76,30 +80,32 @@ msgid ""
 "Conquer land on a smaller earth with protected ocean. Shares cooldown with "
 "earth canvas!"
 msgstr ""
+"Conquista território numa Terra mais pequena com oceano protegido. Partilha "
+"o tempo de espera com o canvas da Terra!"
 
 msgid "Consent"
-msgstr ""
+msgstr "Consentir"
 
 msgid "Coronavirus"
 msgstr "Coronavirus"
 
 msgid "Could not close this Session."
-msgstr ""
+msgstr "Não foi possível fechar esta Sessão."
 
 msgid "Could not find this login method"
-msgstr ""
+msgstr "Não foi possível encontrar este método de login"
 
 msgid "Couldn't find this mail in our database"
 msgstr "Não conseguimos achar esse e-mail no nosso banco de dados"
 
 msgid "Default"
-msgstr ""
+msgstr "Padrão"
 
 msgid "Delete Application"
-msgstr ""
+msgstr "REMOVER APLICAÇÃO"
 
 msgid "Display name for your OIDC client"
-msgstr ""
+msgstr "Mostre o seu nome para o seu cliente OIDC"
 
 msgid "Double click on globe to go back."
 msgstr "Clique duas vezes no globo para voltar."
@@ -111,7 +117,7 @@ msgid "Earth"
 msgstr "Terra"
 
 msgid "Edit existing applications"
-msgstr ""
+msgstr "Editar aplicações existentes"
 
 msgid "Email can't be empty."
 msgstr "E-mail não pode estar vazio."
@@ -129,21 +135,22 @@ msgid "Email should contain a @"
 msgstr "E-mail deve ter um @"
 
 msgid "Error"
-msgstr ""
+msgstr "Erro"
 
 msgid "Failed to create a new user :("
-msgstr ""
+msgstr "Erro ao criar um novo utilizador :("
 
 #. 'client_secret' is a technical term and should not be translated
 msgid ""
 "Generate a new client_secret. The old secret will become invalid immediately."
 msgstr ""
+"Gere um novo client_secret. O antigo secret irá ficar invalido imediatamente."
 
 msgid "Get email address"
-msgstr ""
+msgstr "Obter endereço de e-mail"
 
 msgid "Get the amount of Pixels placed and ranking"
-msgstr ""
+msgstr "Obter a quantidade de Pixeis colocados e a classificação"
 
 msgid ""
 "Have fun and don't hesitate to contact us if you encounter any problems :)"
@@ -154,7 +161,7 @@ msgstr "Olá"
 
 #, javascript-format
 msgid "Hello ${ email }, you can set your new password here:"
-msgstr ""
+msgstr "Olá ${ email }, podes definir a tua nova senha aqui:"
 
 #, javascript-format
 msgid "Hello ${ name }"
@@ -166,6 +173,10 @@ msgid ""
 "that you are unaware of under \"Login Methods\" in the User Area and change "
 "your password."
 msgstr ""
+"Se foste tu, ignora este e-mail. Se não foste tu, visita <a href="
+"\"https://pixelplanet.fun\">pixelplanet.fun</a>, termina qualquer sessão que "
+"desconheças em “Métodos de Início de Sessão” na Área de Utilizador e altera "
+"a tua palavra-passe."
 
 #, javascript-format
 msgid ""
@@ -182,35 +193,35 @@ msgid "Invalid url :( Please check your mail again."
 msgstr "URL inválido :( Por favor, olhe seu email de novo."
 
 msgid "Just admins can do that"
-msgstr ""
+msgstr "Apenas administradores podem fazer isso"
 
 msgid "Know that an account exists"
-msgstr ""
+msgstr "Verificar se a conta existe"
 
 #. "scopes" is a technical term and should not be translated
 msgid "List of available scopes"
-msgstr ""
+msgstr "Lista de scopes disponiveis"
 
 msgid "Loading..."
 msgstr "Carregando..."
 
 msgid "Login from new location on PixelPlanet"
-msgstr ""
+msgstr "Novo início de sessão no PixelPlanet"
 
 msgid "Login is required"
-msgstr ""
+msgstr "É obrigatório login"
 
 msgid "Mail is already in use!"
-msgstr ""
+msgstr "O endereço de e-mail já está em uso!"
 
 msgid "Mail is not configured on the server"
-msgstr ""
+msgstr "Endereço de e-mail não está configurado no servidor"
 
 msgid "Mail verification"
 msgstr "Verificação de e-mail"
 
 msgid "Minimap"
-msgstr ""
+msgstr "Minimapa"
 
 msgid "Mirror of PixelCanvas"
 msgstr "Espelho do PixelCanvas"
@@ -221,16 +232,15 @@ msgstr "Espelho do PixelZone"
 msgid "Moon"
 msgstr "Lua"
 
-#, fuzzy
 msgid ""
 "Moon canvas. Safe space for art. No flags or large text (unless part of art) "
 "or art larger than 1.5k x 1.5k pixels."
 msgstr ""
-"Canvas da Lua. Espaço seguro para artes. Sem bandeiras ou grandes textos (a "
-"não ser que faça parte da arte)"
+"Canvas da Lua. Espaço seguro para artes. Sem bandeiras ou grandes textos "
+"(a não ser que faça parte da arte) ou maior que 1.5k x 1.5k pixeis."
 
 msgid "Name already in use."
-msgstr ""
+msgstr "Nome já se encontra em uso."
 
 msgid "Name can't be empty."
 msgstr "Nome não pode estar vazio."
@@ -239,27 +249,25 @@ msgid "Name contains invalid character like @, /, \\ or #"
 msgstr "Nome contem caractere invalido como @,/,\\ ou #"
 
 msgid "Name is too long"
-msgstr ""
+msgstr "Nome é demasiado longo"
 
-#, fuzzy
 msgid "Name must be at least 2 characters long"
-msgstr "Nome deve ter ao menos 4 caracteres"
+msgstr "Nome deve ter ao menos 2 caracteres"
 
 msgid "Name must be shorter than 26 characters"
 msgstr "Nome deve ser menor que 26 caracteres"
 
 msgid "Name or Email does not exist!"
-msgstr ""
+msgstr "Nome ou endereço de e-mail não existe!"
 
 msgid "New Password"
 msgstr "Nova senha"
 
-#, fuzzy
 msgid "No Captcha given"
-msgstr "Nenhuma senha fornecida."
+msgstr "Nenhum Captcha fornecido"
 
 msgid "No or invalid fish id."
-msgstr ""
+msgstr "Não ou id de peixe inválido."
 
 msgid "No password given."
 msgstr "Nenhuma senha fornecida."

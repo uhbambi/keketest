@@ -1,22 +1,24 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: admin@pixelplanet.fun\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: \n"
-"Last-Translator: weblate <weblate@noreply.pixelplanet.fun>\n"
-"Language-Team: \n"
+"PO-Revision-Date: 2025-10-29 16:40+0000\n"
+"Last-Translator: IR Führer <ir_fuhrer@noreply.pixelplanet.fun>\n"
+"Language-Team: Persian <https://translate.gs-os.com/projects/ppfun/server/fa/"
+">\n"
 "Language: fa\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n==0 || n==1);\n"
-"X-Generator: Poedit 3.4\n"
+"X-Generator: Weblate 5.14\n"
 
 msgid "1bit"
 msgstr "یک بیت"
 
 msgid "2bit"
-msgstr ""
+msgstr "2بیت"
 
 msgid "3D Canvas"
 msgstr "بوم سه بعدی"
@@ -32,34 +34,34 @@ msgstr ""
 "00:00 UTC."
 
 msgid "Access modtools"
-msgstr ""
+msgstr "دسترسی به ابزار های مادریتوری"
 
 msgid "Add Application"
-msgstr ""
+msgstr "اضافه کردن برنامه"
 
 msgid "Add an Application (OIDC Client)"
-msgstr ""
+msgstr "اضافه کردن برنامه(دومرحله ای)"
 
 msgid "Add new application"
-msgstr ""
+msgstr "برنامه ی جدید"
 
 msgid "An error occured. Please try again later."
-msgstr ""
+msgstr "خطایی رخ داده است. لطفاً بعداً دوباره امتحان کنید."
 
 msgid "Application changed successfully"
-msgstr ""
+msgstr "برنامه با موفقیت تغییر کرد"
 
 msgid "Application deleted"
-msgstr ""
+msgstr "برنامه حذف شد"
 
 msgid "Application successfully added"
-msgstr ""
+msgstr "برنامه با موفقیت اضافه شد"
 
 msgid "Black and White canvas"
 msgstr "بوم سیاه و سفید"
 
 msgid "Can not chat while being banned"
-msgstr ""
+msgstr "تا زمانی که بن هستی نمیتونی چت کنی"
 
 msgid "Click here"
 msgstr "اینجا کلیک کنید"
@@ -68,7 +70,7 @@ msgid "Click to Verify"
 msgstr "برای تایید کلیک کنید"
 
 msgid "Client Name"
-msgstr ""
+msgstr "اسم مشتری"
 
 msgid "Confirm New Password"
 msgstr "رمز عبور جدید را تأیید کنید"
@@ -77,30 +79,32 @@ msgid ""
 "Conquer land on a smaller earth with protected ocean. Shares cooldown with "
 "earth canvas!"
 msgstr ""
+"زمینی کوچک‌تر با اقیانوسی محافظت‌شده رو فتح کنین. تایم کولد داون با دنیای اصلی "
+"به اشتراک گزاشته میشه!"
 
 msgid "Consent"
-msgstr ""
+msgstr "رضایت"
 
 msgid "Coronavirus"
 msgstr "ویروس کرونا"
 
 msgid "Could not close this Session."
-msgstr ""
+msgstr "نتوانستیم این جلسه را ببندیم."
 
 msgid "Could not find this login method"
-msgstr ""
+msgstr "این روش ورود به سیستم پیدا نشد"
 
 msgid "Couldn't find this mail in our database"
 msgstr "این ایمیل در پایگاه داده ما یافت نشد"
 
 msgid "Default"
-msgstr ""
+msgstr "پیشفرض"
 
 msgid "Delete Application"
-msgstr ""
+msgstr "حذف برنامه"
 
 msgid "Display name for your OIDC client"
-msgstr ""
+msgstr "نام نمایشی برای کلاینت دو مرحله ای شما"
 
 msgid "Double click on globe to go back."
 msgstr "برای بازگشت بر روی globe دوبار کلیک کنید."
@@ -112,7 +116,7 @@ msgid "Earth"
 msgstr "زمین"
 
 msgid "Edit existing applications"
-msgstr ""
+msgstr "ویرایش برنامه‌های موجود"
 
 msgid "Email can't be empty."
 msgstr "ایمیل نمی تواند خالی باشد."
@@ -130,10 +134,10 @@ msgid "Email should contain a @"
 msgstr "ایمیل باید حاوی @ باشد"
 
 msgid "Error"
-msgstr ""
+msgstr "خطا"
 
 msgid "Failed to create a new user :("
-msgstr ""
+msgstr "ایجاد کاربر جدید ناموفق بود :("
 
 #. 'client_secret' is a technical term and should not be translated
 msgid ""
@@ -141,12 +145,11 @@ msgid ""
 msgstr ""
 
 msgid "Get email address"
-msgstr ""
+msgstr "دریافت آدرس ایمیل"
 
 msgid "Get the amount of Pixels placed and ranking"
-msgstr ""
+msgstr "تعداد پیکسل‌های قرار داده شده و رتبه‌بندی را دریافت کنید"
 
-#, fuzzy
 msgid ""
 "Have fun and don't hesitate to contact us if you encounter any problems :)"
 msgstr "لذت ببرید و در صورت بروز هرگونه مشکل با ما در ارتباط باشید :)"
@@ -156,7 +159,7 @@ msgstr "سلام"
 
 #, javascript-format
 msgid "Hello ${ email }, you can set your new password here:"
-msgstr ""
+msgstr "سلام ${ email }، می‌توانید رمز عبور جدید خود را اینجا تنظیم کنید:"
 
 #, javascript-format
 msgid "Hello ${ name }"
@@ -168,6 +171,10 @@ msgid ""
 "that you are unaware of under \"Login Methods\" in the User Area and change "
 "your password."
 msgstr ""
+"اگر این شما بودید، لطفاً این ایمیل را نادیده بگیرید. اگر شما نبودید، لطفاً به "
+"<a href=\"https://pixelplanet.fun\">pixelplanet.fun</a> بروید و در قسمت «روش‌"
+"های ورود» در ناحیه کاربری، هر جلسه‌ای را که از آن بی‌اطلاع هستید، از سیستم "
+"خارج شوید و رمز عبور خود را تغییر دهید."
 
 #, javascript-format
 msgid ""
@@ -187,7 +194,7 @@ msgid "Just admins can do that"
 msgstr "فقط ادمین ها میتونن این کار رو بکنن"
 
 msgid "Know that an account exists"
-msgstr ""
+msgstr "بدانید که یک حساب کاربری وجود دارد"
 
 #. "scopes" is a technical term and should not be translated
 msgid "List of available scopes"
@@ -197,13 +204,13 @@ msgid "Loading..."
 msgstr "بارگذاری..."
 
 msgid "Login from new location on PixelPlanet"
-msgstr ""
+msgstr "ورود از طریق آی‌پی جدید در پیکسل پلنت"
 
 msgid "Login is required"
-msgstr ""
+msgstr "ورود الزامی است"
 
 msgid "Mail is already in use!"
-msgstr ""
+msgstr "ایمیل از قبل در حال استفاده است!"
 
 msgid "Mail is not configured on the server"
 msgstr "ایمیل روی سرور پیکربندی نشده است"
@@ -212,7 +219,7 @@ msgid "Mail verification"
 msgstr "تایید ایمیل"
 
 msgid "Minimap"
-msgstr ""
+msgstr "مینی‌مپ"
 
 msgid "Mirror of PixelCanvas"
 msgstr "آینه بوم پیکسل"
@@ -240,7 +247,7 @@ msgid "Name contains invalid character like @, /, \\ or #"
 msgstr "نام حاوی نویسه نامعتبر مانند @، /، \\ یا # است"
 
 msgid "Name is too long"
-msgstr ""
+msgstr "نام خیلی طولانی است"
 
 msgid "Name must be at least 2 characters long"
 msgstr "نام باید حداقل 2 کاراکتر باشد"
@@ -249,7 +256,7 @@ msgid "Name must be shorter than 26 characters"
 msgstr "نام باید کمتر از 26 کاراکتر باشد"
 
 msgid "Name or Email does not exist!"
-msgstr ""
+msgstr "چنین اسم یا ایمیلی وجود ندارد!"
 
 msgid "New Password"
 msgstr "رمز عبور جدید"
@@ -258,7 +265,7 @@ msgid "No Captcha given"
 msgstr "کپچا داده نشده است"
 
 msgid "No or invalid fish id."
-msgstr ""
+msgstr "شناسه ماهی وجود ندارد یا نامعتبر است."
 
 msgid "No password given."
 msgstr "رمز عبور داده نشده است."
@@ -268,10 +275,10 @@ msgid "No redirect_uris given."
 msgstr ""
 
 msgid "No such badge found"
-msgstr ""
+msgstr "نشان مورد نظر یافت نشد"
 
 msgid "No such fish found"
-msgstr ""
+msgstr "ماهی مورد نظر پیدا نشد"
 
 msgid "One redirect URIs per line"
 msgstr ""
@@ -292,10 +299,9 @@ msgstr ""
 msgid "Or by copying following url:"
 msgstr "یا با کپی کردن آدرس زیر:"
 
-#, fuzzy
 msgid "Our main canvas, a huge map of the world. Place anywhere you like!"
 msgstr ""
-"بوم اصلی ما، نقشه عظیمی از جهان است. هر جایی که دوست دارید پیکسل قرار دهید"
+"بوم اصلی ما، نقشه عظیمی از جهان است. هر جایی که دوست دارید پیکسل بزارید!"
 
 msgid "Password must be at least 6 characters long."
 msgstr "رمز عبور باید حداقل 6 کاراکتر باشد."
@@ -303,18 +309,17 @@ msgstr "رمز عبور باید حداقل 6 کاراکتر باشد."
 msgid "Password must be shorter than 60 characters."
 msgstr "رمز عبور باید کمتر از 60 کاراکتر باشد."
 
-#, fuzzy
 msgid "Password successfully changed."
 msgstr "رمز عبور با موفقیت تغییر کرد."
 
 msgid "Permission"
-msgstr ""
+msgstr "دسترسی"
 
 msgid "PixelCanvas"
 msgstr "بوم پیکسل"
 
 msgid "PixelPlanet.Fun 3DGlobe"
-msgstr ""
+msgstr "مدل کروی. بوم اصلی پیکسل پلنت"
 
 msgid "PixelZone"
 msgstr "منطقه پیکسل"
@@ -326,8 +331,11 @@ msgid ""
 "pixelplanet accounts. The required endpoints can be auto-discovered via the $"
 "{ wellKnownUrl } URL."
 msgstr ""
+"Pixelplanet مشخصات OpenID Connect (OIDC) را برآورده می‌کند. بنابراین برنامه‌ای "
+"که از OIDC پشتیبانی می‌کند، می‌تواند با استفاده از حساب‌های pixelplanet درخواست "
+"رضایت و ورود به سیستم کند. نقاط پایانی مورد نیاز می‌توانند به صورت خودکار از "
+"طریق آدرس اینترنتی ${ wellKnownUrl } کشف شوند."
 
-#, fuzzy
 msgid "Place Voxels on a 3D canvas with others."
 msgstr "Voxels را روی بوم سه بعدی با دیگران قرار دهید"
 
@@ -335,25 +343,25 @@ msgid "Place color pixels on an map styled canvas with other players online"
 msgstr "پیکسل‌های رنگی را روی بوم طرح‌دار نقشه با دیگر بازیکنان آنلاین قرار دهید"
 
 msgid "Please refresh the website"
-msgstr ""
+msgstr "لطفا سایت رو رفرش کنید"
 
 msgid "Please try again."
-msgstr ""
+msgstr "لطفا دوباره تلاش کنید."
 
 msgid "Please use int channel"
 msgstr "لطفا از کانال int استفاده کنید"
 
 msgid "Read Badges and fishes"
-msgstr ""
+msgstr "نشان‌ها و ماهی‌ها رو ببینید"
 
 msgid "Read name, username and account age"
-msgstr ""
+msgstr "دیدن نام، نام کاربری و سن حساب کاربری"
 
 msgid "Redirect URIs"
-msgstr ""
+msgstr "لینک های مرجوعی"
 
 msgid "Regularly update this data"
-msgstr ""
+msgstr "مرتباً این اطلاعات رو به‌روزرسانی کنید"
 
 #. 'client_secret' is a technical term and should not be translated
 msgid "Reroll client_secret"
@@ -366,10 +374,10 @@ msgid "Reset your password here"
 msgstr "رمز عبور خود را در اینجا بازنشانی کنید"
 
 msgid "Server error when deleting user."
-msgstr ""
+msgstr "خطای سرور هنگام حذف کاربر!"
 
 msgid "Someone logged into your account from a new location, with the IP:"
-msgstr ""
+msgstr "شخصی از یک مکان جدید با IP زیر وارد حساب کاربری شما شده است:"
 
 msgid "Space-separated list of available scopes"
 msgstr ""
@@ -388,9 +396,8 @@ msgstr ""
 msgid "Space-separated list of scopes that should be available"
 msgstr ""
 
-#, fuzzy
 msgid "Special canvas to spread awareness of SARS-CoV2 (take the vax)."
-msgstr "یک بوم مخصوص برای آگاهی رسانی درمورد ویروس کرونا"
+msgstr "یک بوم مخصوص برای آگاه سازی درمورد ویروس کرونا"
 
 msgid "Stop flooding."
 msgstr "اینقدر پیام نفرست."
@@ -402,25 +409,28 @@ msgid "Thanks"
 msgstr "ممنون"
 
 msgid "The user owning this badge is private"
-msgstr ""
+msgstr "کاربری که این نشان را دارد، خصوصی است"
 
 msgid "The user owning this fish is private"
-msgstr ""
+msgstr "کاربری که مالک این ماهی است، خصوصی است"
 
 msgid "This application is not allowed to login"
-msgstr ""
+msgstr "این برنامه اجازه ورود ندارد"
 
 msgid "This application redirects to an unallowed page"
-msgstr ""
+msgstr "این برنامه به یک صفحه غیرمجاز ارجاع داده می‌شود"
 
 msgid "This application sent a faulty login request with no redirection"
 msgstr ""
+"این برنامه یک درخواست ورود به سیستم معیوب و بدون تغییر مسیر مرجوعی ارسال کرد"
 
 msgid "This application uses a PKCE method we do not support"
-msgstr ""
+msgstr "این برنامه از روش PKCE استفاده می‌کند که ما از آن پشتیبانی نمی‌کنیم."
 
 msgid "This application uses a login method we do not support"
 msgstr ""
+"این برنامه از روشی برای ورود به سیستم استفاده می‌کند که ما از آن پشتیبانی "
+"نمی‌کنیم."
 
 msgid ""
 "This email / password combination got hacked and leaked. To protect this "
@@ -428,6 +438,10 @@ msgid ""
 "function below to set a new password. In the future, consider not installing "
 "malware, Thank You."
 msgstr ""
+"این ترکیب ایمیل/رمز عبور هک یا فاش شده است. برای محافظت از این حساب، رمز "
+"عبور بازنشانی شده است. لطفاً از گزینه «رمز عبور خود را فراموش کرده‌ام» در زیر "
+"برای تنظیم رمز عبور جدید استفاده کنید. در آینده در نظر بگیرید که بدافزاری "
+"نصب نکنید، متشکرم."
 
 msgid ""
 "This email / password combination got hacked and leaked. To protect this "
@@ -435,6 +449,10 @@ msgid ""
 "function on the LogIn page to set a new password. In the future, consider "
 "not installing malware, Thank You."
 msgstr ""
+"این ترکیب ایمیل/رمز عبور هک یا فاش شده است. برای محافظت از این حساب، رمز "
+"عبور بازنشانی شده است. لطفاً از گزینه «رمز عبور خود را فراموش کرده‌ام» در "
+"پایین برای تنظیم رمز عبور جدید استفاده کنید. در آینده در نظر بگیرید که "
+"بدافزاری نصب نکنید، متشکرم."
 
 msgid "This email provider is not allowed"
 msgstr "این ارائه دهنده ایمیل مجاز نیست"
@@ -453,10 +471,10 @@ msgid "Unknown Captcha Error"
 msgstr "کپچا یه خطایی داده که خودمم نمیدونم چیه"
 
 msgid "Update Application"
-msgstr ""
+msgstr "به‌روزرسانی برنامه"
 
 msgid "User ID and verification level"
-msgstr ""
+msgstr "شناسه کاربری و سطح تأیید"
 
 msgid "User doesn't exist in our database :("
 msgstr "کاربر در پایگاه داده ما وجود ندارد :("
@@ -465,13 +483,13 @@ msgid "Username already in use."
 msgstr "نام کاربری در حال حاضر استفاده شده است."
 
 msgid "Username can not start with pp_"
-msgstr ""
+msgstr "نام کاربری نمی‌تواند با pp_ شروع شود"
 
 msgid "Username can only contain the characters: a-z . _ and -"
-msgstr ""
+msgstr "نام کاربری فقط می‌تواند شامل کاراکترهای a-z، _ و - باشد."
 
 msgid "Username can't be empty."
-msgstr ""
+msgstr "نام کاربری نمی‌تواند خالی باشد."
 
 msgid "Username must be at least 2 characters long"
 msgstr ""

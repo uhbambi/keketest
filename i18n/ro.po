@@ -1,18 +1,19 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: admin@pixelplanet.fun\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2024-03-19 20:48+0000\n"
-"Last-Translator: weblate <weblate@noreply.pixelplanet.fun>\n"
-"Language-Team: Romanian <https://hosted.weblate.org/projects/pixelplanet/"
-"client/ro/>\n"
+"PO-Revision-Date: 2025-10-29 15:40+0000\n"
+"Last-Translator: Zaryаn1488 <zaryan@noreply.pixelplanet.fun>\n"
+"Language-Team: Romanian <https://translate.gs-os.com/projects/ppfun/client/"
+"ro/>\n"
 "Language: ro\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=n==1 ? 0 : (n==0 || (n%100 > 0 && n%100 < "
-"20)) ? 1 : 2;\n"
-"X-Generator: Weblate 5.5-dev\n"
+"Plural-Forms: nplurals=3; plural=n==1 ? 0 : "
+"(n==0 || (n%100 > 0 && n%100 < 20)) ? 1 : 2;\n"
+"X-Generator: Weblate 5.14\n"
 
 msgid " which is in "
 msgstr " •care este în• "
@@ -52,19 +53,19 @@ msgid "(0 = infinite)"
 msgstr "(0 = infinit)"
 
 msgid "+last hour"
-msgstr ""
+msgstr "+ultima oră"
 
 msgid "...loading Login methods and sessions..."
-msgstr ""
+msgstr "...se încarca metode si sesiuni de Login..."
 
 msgid "A Phish!"
-msgstr ""
+msgstr "Un Peste!"
 
 msgid "A new verification mail is getting sent to you."
 msgstr "Un nou mail de verificare este trimis către tine."
 
 msgid "ACCESS MODTOOLS"
-msgstr ""
+msgstr "ACCESEAZĂ UNELTE MODERATOR"
 
 msgid "Add Grid (uncheck if you need a 1:1 template)"
 msgstr "Adaugă o Grilă (debifează dacă ai nevoie de template 1:1)"
@@ -73,7 +74,7 @@ msgid "Add Template"
 msgstr "Încarcă Templateul"
 
 msgid "Admintools"
-msgstr ""
+msgstr "Unelte Administrator"
 
 msgid "All sound effects will be disabled."
 msgstr "Toate sunetele jocului vor fi oprite."
@@ -100,13 +101,13 @@ msgid "Auto Zoom In"
 msgstr "Zoom In automat"
 
 msgid "Back"
-msgstr ""
+msgstr "Înapoi"
 
 msgid "Badge Display"
-msgstr ""
+msgstr "Afișare insigne"
 
 msgid "Badges"
-msgstr ""
+msgstr "Insigne"
 
 msgid "Banned"
 msgstr "Banat"
@@ -125,9 +126,13 @@ msgid ""
 "You can still start new DMs with other users, but other users won't be able "
 "to start DMs with you."
 msgstr ""
+"Blochează toate Mesajele Private. Dacă activezi asta toate mesajele tale "
+"private vor fi șterse. Tot vei putea sa trimiți mesaje private celorlalți "
+"utilizatori, dar ceilalți utilizatori nu vor putea sa îti trimita ție mesaje "
+"private."
 
 msgid "Blocked"
-msgstr ""
+msgstr "Blocat"
 
 msgid "Bottom-right corner"
 msgstr "Colțul din Dreapta-jos"
@@ -185,20 +190,19 @@ msgid "Captcha"
 msgstr "Captcha"
 
 msgid "Caught by"
-msgstr ""
+msgstr "Prins de"
 
-#, fuzzy
 msgid "Change Happened"
-msgstr "Schimbă Numele de utilizator"
+msgstr "Schimbare Realizata"
 
 msgid "Change Name"
-msgstr ""
+msgstr "Schimba-ți Numele"
 
 msgid "Change Password"
 msgstr "Schimbă Parola"
 
 msgid "Change your Mail Adress here:"
-msgstr ""
+msgstr "Schimbă-ți adresa de Mail aici:"
 
 msgid "Channel settings"
 msgstr "Setări de Canal"
@@ -216,7 +220,7 @@ msgid "Check out past versions of the canvas."
 msgstr "Vezi versiunile de trecut ale canvasului."
 
 msgid "Check to allow"
-msgstr ""
+msgstr "Bifează pentru a permite"
 
 msgid "Check who placed in an area"
 msgstr "Verifică cine a pus într-o zonă"
@@ -231,7 +235,7 @@ msgid "Choose Strategy"
 msgstr "Alege felul"
 
 msgid "Choose Username"
-msgstr ""
+msgstr "Alege-ți Numele"
 
 msgid ""
 "Clean spare pixels that are surrounded by a single other color or unset "
@@ -253,7 +257,7 @@ msgstr ""
 "la 1 alți pixeli setați"
 
 msgid "Cleaners can use 0cd blank colors."
-msgstr ""
+msgstr "Curațatorii pot folosii culori goale cu 0cd."
 
 #, javascript-format
 msgid ""
@@ -301,10 +305,10 @@ msgid "Connection error ${ code } :("
 msgstr "Eroare de conectare ${ code } :("
 
 msgid "Consent"
-msgstr ""
+msgstr "Consimțământ"
 
 msgid "Consider joining us on Matrix:"
-msgstr ""
+msgstr "Ia în considerare sa te alături noua pe Matrix:"
 
 msgid "Controls"
 msgstr "Controale"
@@ -322,6 +326,8 @@ msgid ""
 "Cooldown is usually automatically changed for a country that is dominating. "
 "In example in the case of a streamer raid."
 msgstr ""
+"Cooldown-ul este de obicei schimbat automat pentru o țară care domină. De "
+"exemplu în cazul unui raid facut de un streamer."
 
 msgid "Coordinates"
 msgstr "Coordonate"
@@ -336,16 +342,16 @@ msgid "Copy"
 msgstr "Copiază"
 
 msgid "Copy Link"
-msgstr ""
+msgstr "Copiază Linkul"
 
 msgid "Copy Selected to Clipboard"
-msgstr ""
+msgstr "Copiază selecția în Clipboard"
 
 msgid "Copy URL"
-msgstr ""
+msgstr "Copiază URL-ul"
 
 msgid "Copy UserId to Clipboard"
-msgstr ""
+msgstr "Copiază UserId-ul în Clipboard"
 
 msgid "Copy to Clipboard"
 msgstr "Copiază către Clipboard"
@@ -378,30 +384,28 @@ msgid "Credit for the Palette of the Top10 canvas goes to ${ vinikLink }."
 msgstr "Credit pentru Paleta de pe Top10 se duce la ${ vinikLink }."
 
 msgid "Current Cooldown Changes per Country"
-msgstr ""
+msgstr "Cooldown-ul Actual se Schimbă per Țară"
 
 msgid "Custom Cursor"
-msgstr ""
+msgstr "Cursor Custom"
 
 msgid "DM"
 msgstr "DM"
 
-#, fuzzy
 msgid "Daily Pixels per Country"
-msgstr "Jucători și pixeli pe oră"
+msgstr "Pixeli Zilnici per Țară"
 
-#, fuzzy
 msgid "Daily Pixels per Player"
-msgstr "Pixeli puși în total pe zi"
+msgstr "Pixeli Zilnici per Jucător"
 
 msgid "Daily Rank"
 msgstr "Locul tău în clasament azi"
 
 msgid "Date of Award"
-msgstr ""
+msgstr "Data Premiului"
 
 msgid "Date of catch"
-msgstr ""
+msgstr "Data prinderii"
 
 msgid "Delete"
 msgstr "Șterge"
@@ -410,7 +414,7 @@ msgid "Delete Account"
 msgstr "Șterge Contul"
 
 msgid "Deny"
-msgstr ""
+msgstr "Refuză"
 
 msgid ""
 "Didn't get an answer from pixelplanet. Try to refresh if this problem "
@@ -441,7 +445,7 @@ msgid "Do stuff with IPs (one IP per line)"
 msgstr "Faceți lucruri cu IPuri (un IP pe linie)"
 
 msgid "Don't remember"
-msgstr ""
+msgstr "Nu îmi amintesc"
 
 msgid "Don't show me in global stats"
 msgstr "Nu mă arăta în statisticile globale"
@@ -479,6 +483,8 @@ msgid ""
 "Email is used to verify your account. You might get a cofirmation mail after "
 "registering."
 msgstr ""
+"Email-ul este folosit sa îți verifici accountul. Este posibil să primesti un "
+"email de confirmare dupa ce te înregistrezi."
 
 msgid "Email should at least contain a dot"
 msgstr "Emailul trebuie să conțină cel puțin un punct"
@@ -521,25 +527,25 @@ msgid "Error :("
 msgstr "Eroare :("
 
 msgid "Expand"
-msgstr ""
+msgstr "Expandă"
 
 msgid "Export enabled templates"
 msgstr "Exportă șabloanele activate"
 
 msgid "Factor"
-msgstr ""
+msgstr "Factor"
 
 msgid "File"
 msgstr "Filă"
 
 msgid "Fish Display"
-msgstr ""
+msgstr "Display de pești"
 
 msgid "For"
-msgstr ""
+msgstr "Pentru"
 
 msgid "For Developers"
-msgstr ""
+msgstr "Pentru Developeri"
 
 #, javascript-format
 msgid ""
@@ -547,31 +553,34 @@ msgid ""
 "your data, simply delete your account, this in fact wipes all privacy "
 "relevant traces. Your placed pixels will of course not be deleted."
 msgstr ""
+"Pentru orice problemă legală, contactează ${ mailLink }. Daca vrei sa îți "
+"stergi progresul, doar sterge-ți accountul, facând acest lucru îți va sterge "
+"toate urmele legate de intimitate . Evident, pixeli tăi plasați nu vor fi "
+"șterși."
 
 msgid "For one day"
-msgstr ""
+msgstr "Pentru o zi"
 
 msgid "For one month"
-msgstr ""
+msgstr "Pentru o lună"
 
 msgid "For one week"
-msgstr ""
+msgstr "Pentru o săptamână"
 
 msgid "For one year"
-msgstr ""
+msgstr "Pentru un an"
 
 msgid "For when you are playing on a potato."
 msgstr "Pentru atunci când te joci pe un cartof."
 
 msgid "Forever"
-msgstr ""
+msgstr "Pentru totdeauna"
 
 msgid "From History"
-msgstr ""
+msgstr "Din Istorie"
 
-#, fuzzy
 msgid "From Template"
-msgstr "Șabloane"
+msgstr "Din Șablon"
 
 msgid "Get IID"
 msgstr "Primește IIDul"
@@ -583,10 +592,10 @@ msgid "Get Users"
 msgstr "Fă rost de utilizatori"
 
 msgid "Get email address"
-msgstr ""
+msgstr "Obțineți adresa de email"
 
 msgid "Get the amount of Pixels placed and ranking"
-msgstr ""
+msgstr "Obține numărul de Pixeli plasați și ranking-ul"
 
 msgid "Globe View"
 msgstr "Vedere de pe glob"
@@ -595,7 +604,7 @@ msgid "Go to"
 msgstr "Mergi la"
 
 msgid "Grant"
-msgstr ""
+msgstr "Permite"
 
 msgid "Grid OFF"
 msgstr "Grilă Oprită"
@@ -620,7 +629,7 @@ msgstr ""
 "(care este momentan doar una)."
 
 msgid "Hide Embed"
-msgstr ""
+msgstr "Ascunde încorporatele"
 
 msgid ""
 "Higher zoomlevels take some time to update, the 3D globe gets updated at "
@@ -632,9 +641,10 @@ msgstr ""
 msgid "Historical View"
 msgstr "Vedere Istorică"
 
-#, fuzzy, javascript-format
+#, javascript-format
 msgid "Hold left ${ bindShift } for pencil (to place while moving mouse)"
-msgstr "Ține ${ bindShift } din stânga pentru a pune cât timp miști mouseul"
+msgstr ""
+"Ține ${ bindShift } din stânga pentru a pune pixeli cât timp miști mouse-ul"
 
 msgid "How pixelplanet should look like."
 msgstr "Cum pixelplanet ar trebui să arate."
@@ -652,7 +662,7 @@ msgid "IP Actions"
 msgstr "Acțiuni IP"
 
 msgid "Identifiers"
-msgstr ""
+msgstr "Identificatori"
 
 #, javascript-format
 msgid ""
@@ -661,11 +671,17 @@ msgid ""
 "mail to ${ mailLink } and, in case of a ban, include the BID you got in the "
 "ban message."
 msgstr ""
+"Dacă ai fost detectat ca proxy, dar nu folosești unul, sau crezi că ai fost "
+"banat pe nedrept, mergi la ${ guildedLink } sau trimite un e-mail la ${ "
+"mailLink } și în caz de interdicție, să includeți BID-ul pe care l-ați "
+"primit în mesajul de ban."
 
 msgid ""
 "If you talk to moderators or administrators, you might get asked for one of "
 "the following identifiers:"
 msgstr ""
+"Dacă vorbiți cu moderatori sau administratori, este posibil să ți-se "
+"solicite unul dintre următorii identificatori:"
 
 msgid "Image Converter"
 msgstr "Convertor de imagine"
@@ -692,20 +708,21 @@ msgid "Invalid color selected"
 msgstr "Culoare invalidă selectată"
 
 msgid "Invited to Chat"
-msgstr ""
+msgstr "Invitat în Chat"
 
 msgid ""
 "It requests the following permissions. Uncheck what you don't want to grant:"
 msgstr ""
+"Solicită următoarele permisiuni. Debifați ceea ce nu doriți să acordați:"
 
 msgid "Jannies can rollback and protect, but not watch or ban."
-msgstr ""
+msgstr "Jannies pot da rollback și pot proteja, dar nu pot privi sau da ban."
 
 msgid "Just for registered Users"
 msgstr "Doar pentru Utilizatorii înregistrați"
 
 msgid "Just for verified Users"
-msgstr ""
+msgstr "Doar pentru utilizatori verificați"
 
 msgid "Just the Top10 of yesterday can place here"
 msgstr "Doar cei din Top10 ieri pot pune aici"
@@ -714,10 +731,10 @@ msgid "Keep Ratio"
 msgstr "Păstrează Ratioul"
 
 msgid "Know that an account exists"
-msgstr ""
+msgstr "Să știe ca există un account"
 
 msgid "Legal Requests"
-msgstr ""
+msgstr "Cereri legale"
 
 msgid "Light Grid"
 msgstr "Grilă Albă"
@@ -735,22 +752,22 @@ msgid "Log out"
 msgstr "Deloghează-te"
 
 msgid "Log out a Session:"
-msgstr ""
+msgstr "Deconectați-vă de la o sesiune:"
 
 msgid "LogIn"
 msgstr "LogIn"
 
 msgid "Login Methods"
-msgstr ""
+msgstr "Metode de login"
 
 msgid "Login to access more features and stats."
 msgstr "Loghează-te pentru a accesa mai multe lucruri și statistici."
 
 msgid "Login to grant access to other application."
-msgstr ""
+msgstr "Conectați-vă pentru a acorda acces la alte aplicații."
 
 msgid "Login to other application"
-msgstr ""
+msgstr "Conectați-vă la altă aplicație"
 
 msgid "Login with Name or Mail:"
 msgstr "Loghează-te cu Numele sau cu Mailul:"
@@ -772,6 +789,8 @@ msgstr "Distanța Minimă de Culoare"
 
 msgid "Moderators can access all Canvas, Watch and IID tools."
 msgstr ""
+"Moderatorii pot accesa toate instrumentele legate de Canvas, de Urmarire și "
+"IID."
 
 msgid "Modtools"
 msgstr "Unelte pentru moderatori"
@@ -807,7 +826,7 @@ msgid "New Mail"
 msgstr "Mail Nou"
 
 msgid "New Name"
-msgstr ""
+msgstr "Nume Nou"
 
 msgid "New Password"
 msgstr "Parola Nouă"
@@ -819,7 +838,7 @@ msgid "No"
 msgstr "Nu"
 
 msgid "No Phish!"
-msgstr ""
+msgstr "Niciun pește!"
 
 msgid "No captcha id given"
 msgstr "Niciun id captcha primit"
@@ -834,7 +853,7 @@ msgid "Not allowed"
 msgstr "Nu este permis"
 
 msgid "OIDC LogIn"
-msgstr ""
+msgstr "Login OIDC"
 
 msgid "OK"
 msgstr "OK"
@@ -843,7 +862,7 @@ msgid "Offset"
 msgstr "Decalaj"
 
 msgid "Oh no, the phish escaped. Better luck next time!"
-msgstr ""
+msgstr "Oh nu, pestele a scăpat. Mai mult noroc data viitoare!"
 
 msgid "Old Password"
 msgstr "Parola Veche"
@@ -855,7 +874,7 @@ msgid "Online Users on Canvas"
 msgstr "Utilizatori online pe Canvas"
 
 msgid "Only verified Users are currently allowed to play."
-msgstr ""
+msgstr "Doar utilizatorii verificați au voie să se joace."
 
 msgid "Opacity of Overlay in percent."
 msgstr "Opacitate de Overlay în procente."
@@ -870,10 +889,10 @@ msgid "Open Palette"
 msgstr "Deschide Paleta"
 
 msgid "Open in PopUp"
-msgstr ""
+msgstr "Deschide în fereastra pop-up"
 
 msgid "OpenID Connect Client registration"
-msgstr ""
+msgstr "Înregistrarea clientului OpenID Connect"
 
 msgid ""
 "Our main canvas is a huge worldmap, you can place wherever you like, but you "
@@ -921,21 +940,21 @@ msgstr "Schimbat parola cu success."
 msgid "Passwords do not match."
 msgstr "Parolele nu sunt aceleași."
 
-#, fuzzy, javascript-format
+#, javascript-format
 msgid "Pencil Mode for ${ canvasName } canvas"
-msgstr "Schimbat canvasul la ${ canvasName }"
+msgstr "Modul Creion pentru ${ canvasName } canvas"
 
 msgid "Pencil picks: "
-msgstr ""
+msgstr "Creionul alege: "
 
 msgid "Permission"
-msgstr ""
+msgstr "Permisiune"
 
 msgid "Phish!"
-msgstr ""
+msgstr "Pește!"
 
 msgid "Phishes"
-msgstr ""
+msgstr "Pești"
 
 msgid "Ping"
 msgstr "Pingează"
@@ -962,7 +981,7 @@ msgid "Play a sound when new chat messages arrive"
 msgstr "Redă un sunet atunci când sunt trimise mesaje noi pe chat"
 
 msgid "Player"
-msgstr ""
+msgstr "Jucător"
 
 msgid "Players and Pixels per hour"
 msgstr "Jucători și pixeli pe oră"
@@ -971,12 +990,14 @@ msgid "Please prove that you are human"
 msgstr "Te rog să dovedești că ești om"
 
 msgid "Please refresh the website"
-msgstr ""
+msgstr "Te rugăm să dai refresh la site"
 
 msgid ""
 "Please verify your mail address or add a new one, otherwise your account "
 "could get deleted in the future."
 msgstr ""
+"Verifică-ți adresa de e-mail sau adăugă una nouă, altfel contul tău ar putea "
+"fi șters în viitor."
 
 msgid "Political Compass Canvas"
 msgstr "Canvasul Busolei Politice"
@@ -1029,7 +1050,7 @@ msgid "Profile"
 msgstr "Profil"
 
 msgid "Quick Actions"
-msgstr ""
+msgstr "Acțiuni rapide"
 
 msgid "Range Banned"
 msgstr "Range Banat"
@@ -1043,16 +1064,16 @@ msgstr ""
 "resetat la 2:00 AM în zona noastră de timp."
 
 msgid "Read Badges and fishes"
-msgstr ""
+msgstr "Citește Însignele și peștii"
 
 msgid "Read name, username and account age"
-msgstr ""
+msgstr "Citește numele, username-ul și vârsta accountului"
 
 msgid "Reason"
 msgstr "Motiv"
 
 msgid "Refresh"
-msgstr ""
+msgstr "Reîmprospăteaza pagina"
 
 msgid "Register"
 msgstr "Înregistrează-te"
@@ -1061,31 +1082,31 @@ msgid "Register new account here"
 msgstr "Înregistrează noul cont aici"
 
 msgid "Regularly update this data"
-msgstr ""
+msgstr "Actualizeaza în mod regulat aceste date"
 
 msgid "Reload"
 msgstr "Reîncarcă"
 
 msgid "Remember this decision: "
-msgstr ""
+msgstr "Adu-ți aminte aceasta decizie: "
 
 msgid "Remove"
-msgstr ""
+msgstr "Scoate"
 
 msgid "Remove Cleaner"
-msgstr ""
+msgstr "Scoate Cleaner"
 
 msgid "Remove Janny"
-msgstr ""
+msgstr "Retrogradați janny"
 
 msgid "Remove Moderator"
 msgstr "Scoate Moderatori"
 
 msgid "Remove a Login method:"
-msgstr ""
+msgstr "Scoateți o metodă de conectare:"
 
 msgid "Require Verification to Place"
-msgstr ""
+msgstr "Solicită verificare pentru a plasa"
 
 msgid "Requirements"
 msgstr "Obligații"
@@ -1094,10 +1115,10 @@ msgid "Reset"
 msgstr "Resetează"
 
 msgid "Reset Captchas of ALL Users"
-msgstr ""
+msgstr "Resetați captcha-urile TUTUROR utilizatorilor"
 
 msgid "Reset your password"
-msgstr ""
+msgstr "Resetează-ți parola"
 
 msgid "Resize"
 msgstr "Redimenzionează"
@@ -1109,17 +1130,16 @@ msgid "Retired Canvases (history only)"
 msgstr "Convasuri retrase (doar istorie)"
 
 msgid "Retract"
-msgstr ""
+msgstr "Retractează"
 
 msgid "Revoke consent of third party applications:"
-msgstr ""
+msgstr "Revocheaza consimțământului aplicațiilor terțe:"
 
 msgid "Roll different Captcha Fonts"
-msgstr ""
+msgstr "Rulați diferite fonturi Captcha"
 
-#, fuzzy
 msgid "Rollback an area of the canvas to a set date and time"
-msgstr "Dă Rollback la o zonă de la canvas la o dată fixă (00:00 UTC)"
+msgstr "Dă Rollback la o zonă a canvasului la o dată fixă"
 
 msgid "Rollback to Date"
 msgstr "Rollback la data"
@@ -1155,9 +1175,8 @@ msgstr ""
 "Fiecare canvas este unic și are palete diferite, cooldownuri și obligații. \n"
 "Arhiva canvasurilor închise poate fi accesată aici:"
 
-#, fuzzy
 msgid "Selected Color"
-msgstr "Selectează Fișier"
+msgstr "Selectează Culoare"
 
 msgid "Send"
 msgstr "Trimite"
@@ -1176,7 +1195,7 @@ msgid ""
 msgstr "Serverul este confuz de pixelii tăi. Te joci pe mai multe dispozitive?"
 
 msgid "Set Password"
-msgstr ""
+msgstr "Setează Parola"
 
 msgid ""
 "Set protection of areas (if you need finer grained control, use protect with "
@@ -1189,12 +1208,14 @@ msgid ""
 "Setting a password allows you to login by username or email, rather than "
 "only relying on 3rd party login."
 msgstr ""
+"Setarea unei parole iți permite să te conectezi prin nume de utilizator sau "
+"email, decât să te bazezi doar pe autentificare de tip 3rd party."
 
 msgid "Settings"
 msgstr "Setări"
 
 msgid "Show Embedded"
-msgstr ""
+msgstr "Afișează încorporatele"
 
 msgid "Show Grid"
 msgstr "Arată Grila"
@@ -1215,7 +1236,7 @@ msgid "Show templates as overlays ingame."
 msgstr "Arată șablonul ca Overlay ingame."
 
 msgid "Size"
-msgstr ""
+msgstr "Mărime"
 
 msgid "Small Pixels When Zoomed"
 msgstr "Zoom cu Pixeli Mici"
@@ -1224,7 +1245,7 @@ msgid "Social Settings"
 msgstr "Setări Sociale"
 
 msgid "Source for pixelplanet on "
-msgstr ""
+msgstr "Sursa cod pentru pixelplanet: "
 
 msgid "Stacking till"
 msgstr "Se stachează până la"
@@ -1233,7 +1254,7 @@ msgid "Start chatting here"
 msgstr "Începe chatul aici"
 
 msgid "Start checking for Malware"
-msgstr ""
+msgstr "Începe să verifici dacă există malware"
 
 msgid "Statistics"
 msgstr "Statistici"
@@ -1242,22 +1263,22 @@ msgid "Status: Not running"
 msgstr "Stare: Nu rulează"
 
 msgid "Stay logged in: "
-msgstr ""
+msgstr "Rămâne conectat în: "
 
 msgid "Stop Cleaner"
 msgstr "Oprește curățătorul"
 
 msgid "Stop checking for Malware"
-msgstr ""
+msgstr "Oprește verificarea programelor malware"
 
 msgid "Stop requiring Verification to Place"
-msgstr ""
+msgstr "Nu mai solicita verificare pentru a plasa"
 
 msgid "Submit"
 msgstr "Încarcă"
 
 msgid "Switch Account"
-msgstr ""
+msgstr "Schimbați-va contul"
 
 #, javascript-format
 msgid "Switched to ${ canvasName }"
@@ -1274,6 +1295,8 @@ msgid ""
 "The application ${ appName } at ${ appUrl } wants to login with your "
 "pixelplanet account ${ accountName }"
 msgstr ""
+"Aplicația ${ appName } la ${ appUrl } dorește să se conecteze cu contul tău "
+"pixelplanet ${ accountName }"
 
 msgid ""
 "The bare map data that we use, together with converted OpenStreetMap tiles "
@@ -1287,12 +1310,14 @@ msgid ""
 "The name of your account, only a-z, A-Z, -, ., and - characters are allowed. "
 "It is permanent, you can not change it later."
 msgstr ""
+"Numele contului tău, sunt permise doar caracterele a-z, A-Z, -,., și -. Este "
+"permanent, nu îl poți schimba mai târziu."
 
 msgid "Themes"
 msgstr "Teme"
 
 msgid "This URL is not supported by our Media Player"
-msgstr ""
+msgstr "Această adresă URL nu este acceptată de Media Player-ul nostru"
 
 msgid "This canvas doesn't exist"
 msgstr "Acest Canvas nu există"
@@ -1312,9 +1337,11 @@ msgid ""
 "This is the name that other people see, e.g. in Chat. You can change it at "
 "any time. All characters except @, /, , >, < and # are allowed."
 msgstr ""
+"Acesta este numele pe care îl văd alte persoane, de exemplu în Chat. Îl poți "
+"schimba oricând. Sunt permise toate caracterele, cu excepția @, /, >."
 
 msgid "This permission is required"
-msgstr ""
+msgstr "Această permisiune este necesară"
 
 msgid "Timeout"
 msgstr "Pauză"
@@ -1335,7 +1362,7 @@ msgstr ""
 "pânză."
 
 msgid "To use this page, enter your Password:"
-msgstr ""
+msgstr "Pentru a utiliza această pagină, introduceți parola ta:"
 
 msgid "Today"
 msgstr "Azi"
@@ -1352,9 +1379,8 @@ msgstr "Top 10 pe Clasamentul Zilnic"
 msgid "Top 10 Players [pxls / day]"
 msgstr "Top 10 Jucători [pixeli / zi]"
 
-#, fuzzy
 msgid "Top 10 Players from Yesterday"
-msgstr "Top 10 Jucători [pixeli / zi]"
+msgstr "Top 10 Jucători de ieri"
 
 msgid "Top-left corner"
 msgstr "Colțul din Stânga-sus"
@@ -1365,9 +1391,8 @@ msgstr "Total"
 msgid "Total Online Users"
 msgstr "Utilizatori Online în Total"
 
-#, fuzzy
 msgid "Total Pixels per Player"
-msgstr "Pixeli puși în total pe zi"
+msgstr "Pixeli puși în total per Player"
 
 msgid "Total Pixels placed per day"
 msgstr "Pixeli puși în total pe zi"
@@ -1386,7 +1411,7 @@ msgid "Turn on grid to highlight pixel borders."
 msgstr "Pornește grila pentru a marca marginea pixelilor."
 
 msgid "Type of Mod"
-msgstr ""
+msgstr "Tipul de mod"
 
 msgid "Type the characters from the following image:"
 msgstr "Scrie literele din imaginea următoare:"
@@ -1404,13 +1429,13 @@ msgid "Unmuted Sound"
 msgstr "Sunet Pornit"
 
 msgid "Until the browser closes"
-msgstr ""
+msgstr "Până când browserul se închide"
 
 msgid "Upload images to canvas"
 msgstr "Încarcă imagine către canvas"
 
 msgid "Use our custom cursor"
-msgstr ""
+msgstr "Utilizați cursorul nostru personalizat"
 
 msgid "User"
 msgstr "Utilizator"
@@ -1422,32 +1447,32 @@ msgid "User Area"
 msgstr "Zonă de Utilizator"
 
 msgid "User ID and verification level"
-msgstr ""
+msgstr "ID utilizator și nivel de verificare"
 
 msgid "User Name"
 msgstr "Nume de Utilizator"
 
 msgid "Username"
-msgstr ""
+msgstr "Username"
 
 msgid "Username can only contain the characters: a-z . _ and -"
-msgstr ""
+msgstr "Numele de utilizator poate conține doar caracterele: a-z. _ și -"
 
 msgid "Username can only contain the characters: a-z A-z . _ and -"
-msgstr ""
+msgstr "Numele de utilizator poate conține doar caracterele: a-z A-Z . _ și -"
 
 msgid "Username can't be empty."
-msgstr ""
+msgstr "Numele de utilizator nu poate fi gol."
 
 msgid "Username must be at least 2 characters long"
-msgstr ""
+msgstr "Numele de utilizator trebuie să aibă cel puțin 2 caractere"
 
 msgid "Username must be shorter than 26 characters"
-msgstr ""
+msgstr "Numele de utilizator trebuie să fie mai scurt de 26 de caractere"
 
 #, javascript-format
 msgid "We are Libre Software under the ${ agplLink }, "
-msgstr ""
+msgstr "Suntem Libre Software sub ${ agplLink }, "
 
 msgid ""
 "We decided to archive it as a timelapse with lossless encoded webm. Taking a "
@@ -1469,7 +1494,7 @@ msgid "Weird"
 msgstr "Ciudat"
 
 msgid "What the pencil should draw on the current canvas."
-msgstr ""
+msgstr "Ce ar trebui să deseneze creionul pe pânza curentă."
 
 msgid ""
 "While we tend to not delete canvases, some canvases are started for fun or "
@@ -1492,7 +1517,7 @@ msgid "Wrong Color"
 msgstr "Culoarea greșită"
 
 msgid "YOU CAN ONLY CHOOSE YOUR USERNAME ONCE!"
-msgstr ""
+msgstr "IȚI POȚI ALEGE NUMELE DE UTILIZATOR O SINGURĂ DATĂ!"
 
 msgid "Yes"
 msgstr "Da"
@@ -1507,18 +1532,22 @@ msgid ""
 "You are a teacher and a pupil is playing this game, despite it not being "
 "suitable for them? Send us an email."
 msgstr ""
+"Ești un profesor și un elev joacă acest joc, chiar dacă nu este potrivit "
+"pentru el? Trimite-ne un e-mail."
 
 #, javascript-format
 msgid ""
 "You are banned. You think it is unjustified? Check out the ${ helpButton } "
 "on how to appeal. And don't forget to include the BID you can get below."
 msgstr ""
+"Ești banat. Crezi că este nejustificat? Consulta ${ helpButton } despre cum "
+"să faci appeal. Și nu uita să incluzi BID-ul pe care îl poți obține mai jos."
 
 msgid "You are currently not allowed to access this game."
-msgstr ""
+msgstr "Nu ai voie să accesezi acest joc."
 
 msgid "You are not allowed to play this game right now :("
-msgstr ""
+msgstr "Nu ai voie să joci acest joc chiar acum :("
 
 msgid "You are using a Proxy."
 msgstr "Tu folosești un Proxy."
@@ -1530,6 +1559,8 @@ msgid ""
 "You can connect to pixelplanet and use pixelplanet accounts for oauth / oidc "
 "login. See here:"
 msgstr ""
+"Te poți conecta la pixelplanet și poți utiliza conturile pixelplanet pentru "
+"autentificarea oauth / oidc. Vezi aici:"
 
 msgid "You can not access this canvas yet, because your pixel score is too low"
 msgstr "Momentan nu poți accesa acest canvas. Trebuie să pui mai mulți pixeli"
@@ -1542,9 +1573,11 @@ msgid ""
 "You caught a Phish! It is a ${ FISH_TYPES[type].name } with ${ size }kg! As "
 "a bonus, your cooldown is reduced."
 msgstr ""
+"Ai prins un Peste! Este un ${ FISH_TYPES[type].name } cu ${ size }kg! Ca "
+"bonus, cooldown-ul iți este redus."
 
 msgid "You did not consent"
-msgstr ""
+msgstr "Nu ți-ai dat consimțământul"
 
 msgid "You failed your captcha"
 msgstr "Nu ai trecut captchaul tău"
@@ -1565,28 +1598,28 @@ msgid "You must be logged in to chat"
 msgstr "Trebuie să fi logat pentru a vorbi"
 
 msgid "You must enter a UserId"
-msgstr ""
+msgstr "Trebuie să introduci un UserId"
 
 msgid "You must enter a duration"
 msgstr "Trebuie să pui o durată"
 
 msgid "You must enter a reason"
-msgstr ""
+msgstr "Trebuie să introduci un motiv"
 
 msgid "You must enter a username"
-msgstr ""
+msgstr "Trebuie să introduci un username"
 
 msgid "You must enter an BID"
-msgstr ""
+msgstr "Trebuie să introduci un BID"
 
 msgid "You must enter an IID"
 msgstr "Trebuie să pui un IID"
 
 msgid "You must enter an IID or UserId"
-msgstr ""
+msgstr "Trebuie să introduci un IID sau UserId"
 
 msgid "You must enter at least one IID, User Id or BID"
-msgstr ""
+msgstr "Trebuie să introduceți macar un IID sau UserId"
 
 msgid "You took too long, try again."
 msgstr "Ți-a luat prea mult, încearcă din nou."
@@ -1599,7 +1632,7 @@ msgstr ""
 "Aveți vreo funcție de confidențialitate care ne blochează?"
 
 msgid "Your Browser looks shady"
-msgstr ""
+msgstr "Browserul tău arată ciudat"
 
 msgid "Your Internet Provider is banned from this game"
 msgstr "Furnizorul tău de internet este interzis din a juca acest joc"
@@ -1611,9 +1644,11 @@ msgid ""
 "Your did not set your username yet. A username is required to login to other "
 "applications. You can set it now:"
 msgstr ""
+"Nu ți-ai setat încă numele de utilizator. Este necesar un nume de utilizator "
+"pentru a te conecta la alte aplicații. Îl poți seta acum:"
 
 msgid "Your name is:"
-msgstr ""
+msgstr "Numele tău este:"
 
 msgid "Your next pixels are ready"
 msgstr "Pixelii tăi următori sunt gata"
@@ -1630,7 +1665,7 @@ msgid "and ${ canvas.req } Pixels set"
 msgstr "și ${ canvas.req } Pixeli puși în total"
 
 msgid "check compliance here"
-msgstr ""
+msgstr "Verifică conformitatea aici"
 
 msgid "mentioned you"
 msgstr "te-a menționat"
@@ -1663,7 +1698,7 @@ msgstr "A"
 
 msgctxt "keybinds"
 msgid "B"
-msgstr ""
+msgstr "B"
 
 msgctxt "keybinds"
 msgid "D"

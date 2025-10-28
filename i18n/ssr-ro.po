@@ -3,8 +3,8 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: admin@pixelplanet.fun\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2025-10-26 12:52+0000\n"
-"Last-Translator: weblate <weblate@noreply.pixelplanet.fun>\n"
+"PO-Revision-Date: 2025-10-29 10:40+0000\n"
+"Last-Translator: Zaryаn1488 <zaryan@noreply.pixelplanet.fun>\n"
 "Language-Team: Romanian <https://translate.gs-os.com/projects/ppfun/server/"
 "ro/>\n"
 "Language: ro\n"
@@ -35,7 +35,7 @@ msgstr ""
 "zilnice de clasare la 00:00 UTC."
 
 msgid "Access modtools"
-msgstr ""
+msgstr "Accesează unelte de moderator"
 
 msgid "Add Application"
 msgstr "Adaugă Cerere"
@@ -84,7 +84,7 @@ msgstr ""
 "ul cu canvasul \"Pământ\"!"
 
 msgid "Consent"
-msgstr "Consințământ"
+msgstr "Consimțământ"
 
 msgid "Coronavirus"
 msgstr "Coronavirus"
@@ -149,7 +149,7 @@ msgid "Get email address"
 msgstr "Obțineți adresa de email"
 
 msgid "Get the amount of Pixels placed and ranking"
-msgstr ""
+msgstr "Obține numărul de Pixeli plasați și ranking-ul"
 
 msgid ""
 "Have fun and don't hesitate to contact us if you encounter any problems :)"
@@ -172,6 +172,10 @@ msgid ""
 "that you are unaware of under \"Login Methods\" in the User Area and change "
 "your password."
 msgstr ""
+"Dacă tu ai fost, ignoră acest email. Dacă nu ai fost tu, mergi la <a "
+"href=\"https://pixelplanet.fun\">pixelplanet.fun</a> și deconectează-te din "
+"orice sesiune de care nu ești conștient sub \"Metode de conectare\" în Zona "
+"de utilizator și schimba-ți parola."
 
 #, javascript-format
 msgid ""
@@ -191,11 +195,11 @@ msgid "Just admins can do that"
 msgstr "Numai admini pot face asta"
 
 msgid "Know that an account exists"
-msgstr ""
+msgstr "Să știe ca există un account"
 
 #. "scopes" is a technical term and should not be translated
 msgid "List of available scopes"
-msgstr ""
+msgstr "Listă de scopuri valabile"
 
 msgid "Loading..."
 msgstr "Se încarcă..."
@@ -263,36 +267,36 @@ msgid "No Captcha given"
 msgstr "Niciun captcha dat"
 
 msgid "No or invalid fish id."
-msgstr ""
+msgstr "Nu este sau id-ul de pește este invalid."
 
 msgid "No password given."
 msgstr "Nu ai pus o parolă."
 
 #. "redirect_uris" is a technical term and should not be translated
 msgid "No redirect_uris given."
-msgstr ""
+msgstr "Niciun redirect_uris dat."
 
 msgid "No such badge found"
-msgstr ""
+msgstr "Nu s-a gasit așa insignă"
 
 msgid "No such fish found"
-msgstr ""
+msgstr "Nu s-a găsit așa pește"
 
 msgid "One redirect URIs per line"
-msgstr ""
+msgstr "Un singur redirect URIS pe fiecare linie"
 
 msgid "One redirect_uri per line"
-msgstr ""
+msgstr "Un singur redirect_uri per linie"
 
 #. "redirect_uris" is a technical term and should not be translated
 msgid "Only five redirect_uris are allowed per client"
-msgstr ""
+msgstr "Doar 5 redirect_uris sunt permise per client"
 
 msgid "Only four colors. Same rules as moon!"
 msgstr "Numai patru culoare. Același reguli ca pe Lună!"
 
 msgid "OpenID Connect specs"
-msgstr ""
+msgstr "Specificații OpenID Connect"
 
 msgid "Or by copying following url:"
 msgstr "Sau prin copierea următoarei adrese URL:"
@@ -311,7 +315,7 @@ msgid "Password successfully changed."
 msgstr "Schimbat parola cu success."
 
 msgid "Permission"
-msgstr ""
+msgstr "Permisiune"
 
 msgid "PixelCanvas"
 msgstr "PixelCanvas"
@@ -329,6 +333,10 @@ msgid ""
 "pixelplanet accounts. The required endpoints can be auto-discovered via the $"
 "{ wellKnownUrl } URL."
 msgstr ""
+"Pixelplanet îndeplinește specificațiile OpenID Connect (OIDC). Deci, o "
+"aplicație care acceptă OIDC ar putea cere consimțământul și se poate conecta "
+"folosind conturile pixelplanet. Punctele finale necesare pot fi descoperite "
+"automat prin intermediul URL-ului ${ wellKnownUrl }."
 
 msgid "Place Voxels on a 3D canvas with others."
 msgstr "Pune pixeli colorați pe un canvas 3D cu alți jucători."
@@ -338,29 +346,29 @@ msgstr ""
 "Pune pixeli de culoare pe un Convas în stil hartă cu alți jucători online"
 
 msgid "Please refresh the website"
-msgstr ""
+msgstr "Te rugăm să dai refresh la site"
 
 msgid "Please try again."
-msgstr ""
+msgstr "Te rugăm sa încerci din nou."
 
 msgid "Please use int channel"
 msgstr "Te rog să folosești canalul int"
 
 msgid "Read Badges and fishes"
-msgstr ""
+msgstr "Citește Însignele și peștii"
 
 msgid "Read name, username and account age"
-msgstr ""
+msgstr "Citește numele, username-ul și vârsta accountului"
 
 msgid "Redirect URIs"
-msgstr ""
+msgstr "Redirecționeaza URIs"
 
 msgid "Regularly update this data"
-msgstr ""
+msgstr "Actualizeaza în mod regulat aceste date"
 
 #. 'client_secret' is a technical term and should not be translated
 msgid "Reroll client_secret"
-msgstr ""
+msgstr "Dă reroll la client_secret"
 
 msgid "Reset Password"
 msgstr "Resetează Parola"
@@ -369,27 +377,33 @@ msgid "Reset your password here"
 msgstr "Resetează-ți parola aici"
 
 msgid "Server error when deleting user."
-msgstr ""
+msgstr "Eroare de server la încercarea ștergerii utilizatorul."
 
 msgid "Someone logged into your account from a new location, with the IP:"
 msgstr ""
+"Cineva s-a conectat în accountul tau dintr-o locație nouă, folosind IP-ul:"
 
 msgid "Space-separated list of available scopes"
-msgstr ""
+msgstr "Listă separată de spațiu a scope-urilor disponibile"
 
 msgid ""
 "Space-separated list of default scopes, they will be used on requests if no "
 "other scope is given."
 msgstr ""
+"Listă separată de spațiu a scope-urilor implicite, acestea vor fi utilizate "
+"la solicitări dacă nu este dat alt scop."
 
 #. 'scope' is used as a technical term here, do not translate that word
 msgid ""
 "Space-separated list of default scopes, they will be used on requests where "
 "no other scope is given."
 msgstr ""
+"Listă separată de spațiu a scope-urilor implicite, acestea vor fi utilizate "
+"la solicitări dacă nu este dat alt scop."
 
 msgid "Space-separated list of scopes that should be available"
 msgstr ""
+"Listă separată de spațiu a scope-urilor care ar trebuii sa fie valabile"
 
 msgid "Special canvas to spread awareness of SARS-CoV2 (take the vax)."
 msgstr "Convas special pentru a răspândi conștientizarea SARS-CoV2."
@@ -404,25 +418,26 @@ msgid "Thanks"
 msgstr "Mulțumim"
 
 msgid "The user owning this badge is private"
-msgstr ""
+msgstr "Utilizatorul care deține această insignă este privat"
 
 msgid "The user owning this fish is private"
-msgstr ""
+msgstr "Utilizatorul care deține această insignă este privat"
 
 msgid "This application is not allowed to login"
-msgstr ""
+msgstr "Această aplicație nu are permisiune să se conecteze"
 
 msgid "This application redirects to an unallowed page"
-msgstr ""
+msgstr "Această aplicație redirecționează către o pagină nepermisă"
 
 msgid "This application sent a faulty login request with no redirection"
 msgstr ""
+"Această aplicație a trimis o cerere de conectare eronată, fără redirecționare"
 
 msgid "This application uses a PKCE method we do not support"
-msgstr ""
+msgstr "Această aplicație folosește o metodă PKCE pe care nu o acceptăm"
 
 msgid "This application uses a login method we do not support"
-msgstr ""
+msgstr "Această aplicație folosește o metodă de login pe care nu o acceptăm"
 
 msgid ""
 "This email / password combination got hacked and leaked. To protect this "
@@ -430,6 +445,10 @@ msgid ""
 "function below to set a new password. In the future, consider not installing "
 "malware, Thank You."
 msgstr ""
+"Această combinație de e-mail / parolă a fost compromisă și furată. Pentru a "
+"proteja acest cont, parola a fost resetată. Utilizează funcția \"Mi-am uitat "
+"parola\" de mai jos pentru a seta o nouă parolă. În viitor, luați în "
+"considerare să nu instalați malware."
 
 msgid ""
 "This email / password combination got hacked and leaked. To protect this "
@@ -437,6 +456,10 @@ msgid ""
 "function on the LogIn page to set a new password. In the future, consider "
 "not installing malware, Thank You."
 msgstr ""
+"Această combinație de e-mail / parolă a fost compromisă și furată. Pentru a "
+"proteja acest cont, parola a fost resetată. Utilizează funcția \"Mi-am uitat "
+"parola\" de mai jos pentru a seta o nouă parolă. În viitor, luați în "
+"considerare să nu instalați malware."
 
 msgid "This email provider is not allowed"
 msgstr "Acest furnizor de mail nu este permis"
@@ -446,7 +469,7 @@ msgstr "Acest parolă-reset link deja nu este valid :("
 
 #. "redirect_uris" is a technical term and should not be translated
 msgid "Too many or too long redirect_uris"
-msgstr ""
+msgstr "Prea multe sau prea lungi redirect_uris"
 
 msgid "Top10"
 msgstr "Top10"
@@ -455,10 +478,10 @@ msgid "Unknown Captcha Error"
 msgstr "Eroare de Captcha necunoscută"
 
 msgid "Update Application"
-msgstr ""
+msgstr "Actualizează Aplicația"
 
 msgid "User ID and verification level"
-msgstr ""
+msgstr "ID utilizator și nivel de verificare"
 
 msgid "User doesn't exist in our database :("
 msgstr "Utilizatorul nu există în datele noastre de bază :("
@@ -467,19 +490,19 @@ msgid "Username already in use."
 msgstr "Numele de utiizator este deja folosită."
 
 msgid "Username can not start with pp_"
-msgstr ""
+msgstr "Numele de utilizator nu poate începe cu pp_"
 
 msgid "Username can only contain the characters: a-z . _ and -"
-msgstr ""
+msgstr "Numele de utilizator poate conține doar caracterele: a-z. _ și -"
 
 msgid "Username can't be empty."
-msgstr ""
+msgstr "Numele de utilizator nu poate fi gol."
 
 msgid "Username must be at least 2 characters long"
-msgstr ""
+msgstr "Numele de utilizator trebuie să aibă cel puțin 2 caractere"
 
 msgid "Username must be shorter than 26 characters"
-msgstr ""
+msgstr "Numele de utilizator trebuie să fie mai scurt de 26 de caractere"
 
 msgid ""
 "We already sent you a mail with instructions. Please wait before requesting "
@@ -501,13 +524,13 @@ msgid "Welcome ${ name } to PixelPlanet, please verify your mail"
 msgstr "Bine ai venit ${ name } la PixelPlanet, te rog verifică-ți mailul"
 
 msgid "You already chose your username"
-msgstr ""
+msgstr "Ți-ai ales deja numele de utilizator"
 
 msgid "You already have that name."
-msgstr ""
+msgstr "Ai deja acest nume."
 
 msgid "You are already verified."
-msgstr ""
+msgstr "Sunteți deja verificat."
 
 #, javascript-format
 msgid "You are muted for another ${ timeMin } minutes"
@@ -539,12 +562,14 @@ msgstr "Trimiți mesaje prea repede, trebuie să aștepți ${ waitTime }s :("
 msgid ""
 "You can not delete this login method, because you have nothing else left."
 msgstr ""
+"Nu puteți șterge această metodă de conectare, deoarece nu mai aveți alta "
+"metodă de conectare."
 
 msgid "You can not register an account while you are banned"
-msgstr ""
+msgstr "Nu vă puteți înregistra un cont în timp ce sunteți banat"
 
 msgid "You can not register an account with a proxy"
-msgstr ""
+msgstr "Nu puteți înregistra un cont folosind un proxy"
 
 msgid "You can not send chat messages while using a proxy"
 msgstr "Nu poți trimite mesaje în chat folosind proxy"
@@ -553,6 +578,8 @@ msgid ""
 "You can register your own application here to get the client_id and "
 "client_secret needed to make use of this."
 msgstr ""
+"Îti poți înregistra propria aplicație aici pentru a obține client_id și "
+"client_secret necesare pentru a o utiliza."
 
 msgid "You can't send a message this long :("
 msgstr "Nu poți trimite un mesaj atât de lung :("
@@ -560,6 +587,7 @@ msgstr "Nu poți trimite un mesaj atât de lung :("
 msgid ""
 "You do not have any email adress set. Please add one under \"Login Methods\"."
 msgstr ""
+"Nu ai nicio adresă de e-mail setată. Adaugă una la \"Metode de conectare\"."
 
 msgid "You don't have access to this channel"
 msgstr "Nu ai acces la acest canal"
@@ -571,17 +599,17 @@ msgid "You forgot your password for PixelPlanet? Get a new one here"
 msgstr "Ți-ai uitat parola pentru PixelPlanet? Fă-ți una nouă aici"
 
 msgid "You have to fill out all fields"
-msgstr ""
+msgstr "Trebuie sa completezi toate chenarele"
 
 msgid "You must be logged in to access this page"
-msgstr ""
+msgstr "Trebuie să fi conectat pentru a accesa această pagină"
 
 #. "scope" is a technical term and should not be translated
 msgid "You need to define a valid scope"
-msgstr ""
+msgstr "Trebuie sa definești un scope valid"
 
 msgid "You need to directly access this page in the browser :("
-msgstr ""
+msgstr "Trebuie să acesezi direct această pagină în browserul tau :("
 
 msgid ""
 "You requested to get a new password. You can change your password within the "
@@ -594,16 +622,16 @@ msgid "You sent an empty password or invalid data :("
 msgstr "Nu poți seta o parolă goală sau invalidă :("
 
 msgid "You took too long, try again"
-msgstr ""
+msgstr "Ți-a luat prea mult, încearcă din nou"
 
 msgid "You will be automatically redirected after 15s"
 msgstr "Vei fi redirecționat automatic după 15 secunde"
 
 msgid "Your Browser looks shady"
-msgstr ""
+msgstr "Browserul tău arată ciudat"
 
 msgid "Your account needs to be verified to access this page"
-msgstr ""
+msgstr "Contul tău trebuie să fie verificat pentru a accesa această pagină"
 
 msgid "Your country is temporary muted from this chat channel"
 msgstr "Țara ta este temporar dezactivată de pe acest canal de chat"
@@ -623,7 +651,7 @@ msgstr "Parolele nu sunt identifice :("
 
 #. "redirect_uris" is a technical term and should not be translated
 msgid "redirect_uris does not look legit"
-msgstr ""
+msgstr "redirect_uris nu pare legit"
 
 msgid "to go back to pixelplanet"
 msgstr "Pentru a merge înapoi pe pixelplanet"

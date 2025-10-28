@@ -1,17 +1,19 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: admin@pixelplanet.fun\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2024-03-10 16:43+0000\n"
-"Last-Translator: weblate <weblate@noreply.pixelplanet.fun>\n"
-"Language-Team: Portuguese <https://hosted.weblate.org/projects/pixelplanet/"
-"client/pt/>\n"
+"PO-Revision-Date: 2025-10-29 22:40+0000\n"
+"Last-Translator: 568d2b17a2a549b58c9e72614f849ff2 "
+"<568d2b17a2a549b58c9e72614f849ff2@noreply.pixelplanet.fun>\n"
+"Language-Team: Portuguese <https://translate.gs-os.com/projects/ppfun/client/"
+"pt/>\n"
 "Language: pt\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 5.5-dev\n"
+"X-Generator: Weblate 5.14\n"
 
 msgid " which is in "
 msgstr " que é em "
@@ -50,19 +52,19 @@ msgid "(0 = infinite)"
 msgstr "(0 = infinito)"
 
 msgid "+last hour"
-msgstr ""
+msgstr "+ultima hora"
 
 msgid "...loading Login methods and sessions..."
-msgstr ""
+msgstr "...a carregar métodos de Login e sessões..."
 
 msgid "A Phish!"
-msgstr ""
+msgstr "Um peixe!"
 
 msgid "A new verification mail is getting sent to you."
 msgstr "Uma nova verificação de e-mail está sendo enviada para você."
 
 msgid "ACCESS MODTOOLS"
-msgstr ""
+msgstr "ACEDER A FERRAMENTAS DE MODERAÇÃO"
 
 msgid "Add Grid (uncheck if you need a 1:1 template)"
 msgstr "Adicionar grade (desmarque se você precisa de um modelo 1:1)"
@@ -77,7 +79,7 @@ msgid "All sound effects will be disabled."
 msgstr "Todos os efeitos sonoros serão desativados."
 
 msgid "Always show Movement Controls"
-msgstr ""
+msgstr "Mostrar sempre os controlos de movimento"
 
 msgid "Always show movement control buttons"
 msgstr "Mostra sempre os botões para controlo de movimento"
@@ -86,7 +88,7 @@ msgid "Anti Aliasing"
 msgstr "Anti Aliasing"
 
 msgid "Apply a filter to clean trash in large canvas areas."
-msgstr ""
+msgstr "Aplique um filtro para limpar lixo em grandes áreas do canvas."
 
 msgid "Archive"
 msgstr "Arquivo"
@@ -98,13 +100,13 @@ msgid "Auto Zoom In"
 msgstr "Dar zoom automático"
 
 msgid "Back"
-msgstr ""
+msgstr "Atrás"
 
 msgid "Badge Display"
-msgstr ""
+msgstr "Mostrar Crachás"
 
 msgid "Badges"
-msgstr ""
+msgstr "Crachás"
 
 msgid "Banned"
 msgstr "Banido"
@@ -123,9 +125,13 @@ msgid ""
 "You can still start new DMs with other users, but other users won't be able "
 "to start DMs with you."
 msgstr ""
+"Bloquear todas as mensagens privadas. Ativar esta opção irá eliminar todas "
+"as tuas mensagens diretas atuais. Continuarás a poder iniciar novas "
+"conversas privadas com outros utilizadores, mas eles não poderão iniciar "
+"conversas contigo."
 
 msgid "Blocked"
-msgstr ""
+msgstr "Bloqueado"
 
 msgid "Bottom-right corner"
 msgstr "Canto inferior direito"
@@ -145,7 +151,7 @@ msgid "By Mod"
 msgstr "Pelo Mod"
 
 msgid "Calculate like GIMP"
-msgstr ""
+msgstr "Calcular como o GIMP"
 
 msgid "Can not export more than 20 or no template!"
 msgstr "Não é possivel exportar mais de 20 ou uma template inexistente!"
@@ -184,23 +190,22 @@ msgid "Canvas Selection"
 msgstr "Seleção de Canvas"
 
 msgid "Captcha"
-msgstr ""
+msgstr "Captcha"
 
 msgid "Caught by"
-msgstr ""
+msgstr "Flagrado por"
 
-#, fuzzy
 msgid "Change Happened"
-msgstr "Mudar o nome de usuário"
+msgstr "Mudar o nome de utilizador"
 
 msgid "Change Name"
-msgstr ""
+msgstr "Alterar Nome"
 
 msgid "Change Password"
 msgstr "Mudar a senha"
 
 msgid "Change your Mail Adress here:"
-msgstr ""
+msgstr "Altere seu endereço de e-mail aqui:"
 
 msgid "Channel settings"
 msgstr "Configuração de canal"
@@ -218,7 +223,7 @@ msgid "Check out past versions of the canvas."
 msgstr "Ver versões antigas do canvas."
 
 msgid "Check to allow"
-msgstr ""
+msgstr "Assinalar para permitir"
 
 msgid "Check who placed in an area"
 msgstr "Veja quem colocou píxeis nesta área"
@@ -233,13 +238,16 @@ msgid "Choose Strategy"
 msgstr "Escolha uma estratégia"
 
 msgid "Choose Username"
-msgstr ""
+msgstr "Escolher nome de utilizador"
 
 msgid ""
 "Clean spare pixels that are surrounded by a single other color or unset "
 "pixels (VERY AGGRESSIVE ON CANVASES THAT ALLOW UNSET PIXELS (where there are "
 "two cooldowns)!)"
 msgstr ""
+"Remove pixeis isolados que estejam rodeados por apenas uma cor ou por pixeis "
+"não definidos. Esta ação é muito agressiva em canvas que permitem pixeis "
+"virgens, especialmente onde existem dois tempos de espera"
 
 msgid "Clean spare pixels that are surrounded by unset pixels"
 msgstr "Limpar pixeis isolados rodeados por pixeis virgens"
@@ -252,7 +260,7 @@ msgstr ""
 "vizinho"
 
 msgid "Cleaners can use 0cd blank colors."
-msgstr ""
+msgstr "Os cleaners podem aplicar cores não definidas com tempo de espera zero."
 
 #, javascript-format
 msgid ""
@@ -272,7 +280,7 @@ msgid "Click to Load Captcha"
 msgstr "Clique para Carregar o Captcha"
 
 msgid "Clone"
-msgstr ""
+msgstr "Clonar"
 
 msgid "Close"
 msgstr "Fechar"
@@ -300,7 +308,7 @@ msgid "Connection error ${ code } :("
 msgstr "Erro de conexão ${ code } :("
 
 msgid "Consent"
-msgstr ""
+msgstr "Consentir"
 
 msgid "Consider joining us on Matrix:"
 msgstr ""
@@ -585,10 +593,10 @@ msgid "Get Users"
 msgstr "Obter Usuários"
 
 msgid "Get email address"
-msgstr ""
+msgstr "Obter endereço de e-mail"
 
 msgid "Get the amount of Pixels placed and ranking"
-msgstr ""
+msgstr "Obter a quantidade de Pixeis colocados e a classificação"
 
 msgid "Globe View"
 msgstr "Visão do Globo"
@@ -719,7 +727,7 @@ msgid "Keep Ratio"
 msgstr "Manter razão"
 
 msgid "Know that an account exists"
-msgstr ""
+msgstr "Verificar se a conta existe"
 
 msgid "Legal Requests"
 msgstr ""
@@ -800,9 +808,8 @@ msgstr "Nome não pode estar vazio."
 msgid "Name contains invalid character like @, /, \\ or #"
 msgstr "Nome contem caractere invalido como @,/,\\ ou #"
 
-#, fuzzy
 msgid "Name must be at least 2 characters long"
-msgstr "Nome deve ter ao menos 4 caracteres"
+msgstr "Nome deve ter ao menos 2 caracteres"
 
 msgid "Name must be shorter than 26 characters"
 msgstr "Nome deve ser menor que 26 caracteres"

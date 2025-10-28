@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: admin@pixelplanet.fun\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2025-10-28 09:41+0000\n"
+"PO-Revision-Date: 2025-10-28 21:40+0000\n"
 "Last-Translator: Extreme Motorsex <em@noreply.pixelplanet.fun>\n"
 "Language-Team: Albanian <https://translate.gs-os.com/projects/ppfun/server/"
 "sq/>\n"
@@ -34,28 +34,28 @@ msgstr ""
 "të renditjes në 00:00 UTC."
 
 msgid "Access modtools"
-msgstr ""
+msgstr "Akseso veglat e moderatorit"
 
 msgid "Add Application"
-msgstr ""
+msgstr "Shto aplikacion"
 
 msgid "Add an Application (OIDC Client)"
-msgstr ""
+msgstr "Shto aplikacion (OIDC Client)"
 
 msgid "Add new application"
-msgstr ""
+msgstr "Shto aplikacion të ri"
 
 msgid "An error occured. Please try again later."
 msgstr "Ndodhi një gabim. Ju lutemi provoni përsëri më vonë."
 
 msgid "Application changed successfully"
-msgstr ""
+msgstr "Aplikacioni u ndryshua me sukses"
 
 msgid "Application deleted"
-msgstr ""
+msgstr "Aplikacioni u fshi"
 
 msgid "Application successfully added"
-msgstr ""
+msgstr "Aplikacioni u shtua me sukses"
 
 msgid "Black and White canvas"
 msgstr "Kanavacë Bardhë e Zi"
@@ -70,7 +70,7 @@ msgid "Click to Verify"
 msgstr "Kliko për të Verifikuar"
 
 msgid "Client Name"
-msgstr ""
+msgstr "Emri i klientit"
 
 msgid "Confirm New Password"
 msgstr "Konfirmo Fjalëkalimin e Ri"
@@ -83,13 +83,13 @@ msgstr ""
 "pritjes me kanavacën e tokës!"
 
 msgid "Consent"
-msgstr "Autorizo"
+msgstr "Autorizimi"
 
 msgid "Coronavirus"
 msgstr "Koronavirusi"
 
 msgid "Could not close this Session."
-msgstr ""
+msgstr "Nuk munda të mbyll këtë Seancë."
 
 msgid "Could not find this login method"
 msgstr "Nuk u gjet kjo mënyrë hyrjeje"
@@ -98,25 +98,25 @@ msgid "Couldn't find this mail in our database"
 msgstr "Kjo adresë nuk u gjet në bazën tonë të të dhënave"
 
 msgid "Default"
-msgstr ""
+msgstr "E paracaktuar"
 
 msgid "Delete Application"
-msgstr ""
+msgstr "Fshi aplikacionin"
 
 msgid "Display name for your OIDC client"
-msgstr ""
+msgstr "Emri që do të shfaqet për klientin tuaj OIDC"
 
 msgid "Double click on globe to go back."
 msgstr "Klikoni dy herë mbi glob për tu kthyer përsëri."
 
 msgid "E-Mail already in use."
-msgstr "E-Mail tanimë në përdorim."
+msgstr "E-Mail është në përdorim."
 
 msgid "Earth"
 msgstr "Toka"
 
 msgid "Edit existing applications"
-msgstr ""
+msgstr "Modifiko aplikacionet ekzistuese"
 
 msgid "Email can't be empty."
 msgstr "Email nuk mund të jetë bosh."
@@ -143,12 +143,14 @@ msgstr "Dështoi krijimi i një përdoruesi të ri :("
 msgid ""
 "Generate a new client_secret. The old secret will become invalid immediately."
 msgstr ""
+"Gjeneroni një client_secret të ri. Sekreti i vjetër do të bëhet menjëherë i "
+"pavlefshëm."
 
 msgid "Get email address"
-msgstr "Merr adresën email"
+msgstr "Të marrë adresën email"
 
 msgid "Get the amount of Pixels placed and ranking"
-msgstr "Merr sasinë e pikselëve të vendosur dhe renditjen"
+msgstr "Të marrë sasinë e pikselëve të vendosur dhe renditjen"
 
 msgid ""
 "Have fun and don't hesitate to contact us if you encounter any problems :)"
@@ -156,11 +158,12 @@ msgstr ""
 "Argëtohuni dhe mos hezitoni të na kontaktoni nëse hasni ndonjë problem:)"
 
 msgid "Hello"
-msgstr "Tungjatjeta"
+msgstr "Përshëndetje"
 
 #, javascript-format
 msgid "Hello ${ email }, you can set your new password here:"
 msgstr ""
+"Përshëndetje ${ email }, mund të vendosni fjalëkalimin tuaj të ri këtu:"
 
 #, javascript-format
 msgid "Hello ${ name }"
@@ -172,6 +175,10 @@ msgid ""
 "that you are unaware of under \"Login Methods\" in the User Area and change "
 "your password."
 msgstr ""
+"Nëse ishit ju, ju lutem injorojeni këtë email. Nëse nuk ishit ju, ju lutem "
+"shkoni në <a href=\"https://pixelplanet.fun\">pixelplanet.fun</a> dhe "
+"mbyllni çdo seancë për të cilën nuk keni dijeni nën \"Metodat e hyrjes\" në "
+"Zonën e Përdoruesit dhe ndryshoni fjalëkalimin tuaj."
 
 #, javascript-format
 msgid ""
@@ -195,19 +202,19 @@ msgstr "Të dije që një llogari ekziston"
 
 #. "scopes" is a technical term and should not be translated
 msgid "List of available scopes"
-msgstr ""
+msgstr "Lista e scopes të disponueshme"
 
 msgid "Loading..."
-msgstr "Duke ngarkuar..."
+msgstr "Duke ngarkuar…"
 
 msgid "Login from new location on PixelPlanet"
-msgstr ""
+msgstr "Hyrje nga një vendndodhje e re në PixelPlanet"
 
 msgid "Login is required"
-msgstr ""
+msgstr "Duhet të hyni"
 
 msgid "Mail is already in use!"
-msgstr "Email-i është tanimë në përdorim!"
+msgstr "Email-i është në përdorim!"
 
 msgid "Mail is not configured on the server"
 msgstr "Email-i nuk është i konfiguruar në server"
@@ -236,7 +243,7 @@ msgstr ""
 "piksela."
 
 msgid "Name already in use."
-msgstr "Emri është tanimë në përdorim."
+msgstr "Emri është në përdorim."
 
 msgid "Name can't be empty."
 msgstr "Emri nuk mund të jetë bosh."
@@ -270,29 +277,29 @@ msgstr "Asnjë fjalëkalim nuk është dhënë."
 
 #. "redirect_uris" is a technical term and should not be translated
 msgid "No redirect_uris given."
-msgstr ""
+msgstr "Nuk janë dhënë redirect_uris."
 
 msgid "No such badge found"
-msgstr ""
+msgstr "Nuk ka asnjë stemë të tillë"
 
 msgid "No such fish found"
 msgstr "Nuk u gjet peshk i tillë"
 
 msgid "One redirect URIs per line"
-msgstr ""
+msgstr "Një URI ridrejtimi për rresht"
 
 msgid "One redirect_uri per line"
-msgstr ""
+msgstr "Një redirect_uri për rresht"
 
 #. "redirect_uris" is a technical term and should not be translated
 msgid "Only five redirect_uris are allowed per client"
-msgstr ""
+msgstr "Vetëm pesë redirect_uris janë të lejuara për klient"
 
 msgid "Only four colors. Same rules as moon!"
 msgstr "Vetëm katër ngjyra Të njëjtat rregulla si hëna!"
 
 msgid "OpenID Connect specs"
-msgstr ""
+msgstr "Specifikimet OpenID Connect"
 
 msgid "Or by copying following url:"
 msgstr "Ose duke kopjuar URL-në e mëposhtme:"
@@ -330,6 +337,10 @@ msgid ""
 "pixelplanet accounts. The required endpoints can be auto-discovered via the $"
 "{ wellKnownUrl } URL."
 msgstr ""
+"Pixelplanet përmbush specifikimet OpenID Connect (OIDC). Kështu, një "
+"aplikacion që mbështet hyrjen me OIDC mund të kërkojë autorizim dhe të kyçet "
+"duke përdorur një llogari pixelplanet. Pikat e kërkuara të hyrjes mund të "
+"zbulohen automatikisht nëpërmjet URL-së ${ wellKnownUrl } ."
 
 msgid "Place Voxels on a 3D canvas with others."
 msgstr "Vendosni Voxels në një kanavacë 3D me të tjerët."
@@ -355,14 +366,14 @@ msgid "Read name, username and account age"
 msgstr "Lexo emrin, emrin e përdoruesit dhe moshën e llogarisë"
 
 msgid "Redirect URIs"
-msgstr ""
+msgstr "URI-të e ridrejtimit"
 
 msgid "Regularly update this data"
 msgstr "Përditësoni këto të dhëna rregullisht"
 
 #. 'client_secret' is a technical term and should not be translated
 msgid "Reroll client_secret"
-msgstr ""
+msgstr "Rrotulloni client_secret"
 
 msgid "Reset Password"
 msgstr "Rivendos fjalëkalimin"
@@ -374,29 +385,33 @@ msgid "Server error when deleting user."
 msgstr "Gabim i serverit kur fshini përdoruesin."
 
 msgid "Someone logged into your account from a new location, with the IP:"
-msgstr ""
+msgstr "Dikush hyri në llogarinë tuaj nga një vendndodhje e re, me IP:"
 
 msgid "Space-separated list of available scopes"
-msgstr ""
+msgstr "Listë e ndarë me hapësira të scopes të disponueshme"
 
 msgid ""
 "Space-separated list of default scopes, they will be used on requests if no "
 "other scope is given."
 msgstr ""
+"Listë e ndarë me hapësira të scopes të paracaktuara, do të përdoren në "
+"kërkesa nëse nuk është dhënë scope tjetër."
 
 #. 'scope' is used as a technical term here, do not translate that word
 msgid ""
 "Space-separated list of default scopes, they will be used on requests where "
 "no other scope is given."
 msgstr ""
+"Listë e ndarë me hapësira të scopes të paracaktuara. Do të përdoren në "
+"kërkesa aty ku nuk është dhënë scope tjetër."
 
 msgid "Space-separated list of scopes that should be available"
-msgstr ""
+msgstr "Listë e ndarë me hapësira të scopes që duhet të jenë të disponueshme"
 
 msgid "Special canvas to spread awareness of SARS-CoV2 (take the vax)."
 msgstr ""
-"Kanavacë e veçantë për të përhapur ndërgjegjësimin për SARS-CoV2 "
-"(merrni vaksinën)."
+"Kanavacë e veçantë për të përhapur ndërgjegjësimin për SARS-CoV2 (merrni "
+"vaksinën)."
 
 msgid "Stop flooding."
 msgstr "Ndaloni përmbytjen."
@@ -408,25 +423,25 @@ msgid "Thanks"
 msgstr "Faleminderit"
 
 msgid "The user owning this badge is private"
-msgstr ""
+msgstr "Përdoruesi i cili zotëron këtë stemë është privat"
 
 msgid "The user owning this fish is private"
 msgstr "Përdoruesi që e ka këtë peshk është privat"
 
 msgid "This application is not allowed to login"
-msgstr ""
+msgstr "Ky aplikacion nuk është i lejuar të kyçet"
 
 msgid "This application redirects to an unallowed page"
-msgstr ""
+msgstr "Ky aplikacion ridrejton në një faqe të palejuar"
 
 msgid "This application sent a faulty login request with no redirection"
-msgstr ""
+msgstr "Ky aplikacion dërgoi një kërkesë të pasaktë për hyrje pa ridrejtim"
 
 msgid "This application uses a PKCE method we do not support"
-msgstr ""
+msgstr "Ky aplikacion përdor një metodë PKCE të cilën nuk e mbështesim"
 
 msgid "This application uses a login method we do not support"
-msgstr ""
+msgstr "Ky aplikacion përdor një metodë hyrjeje të cilën nuk e mbështesim"
 
 msgid ""
 "This email / password combination got hacked and leaked. To protect this "
@@ -434,8 +449,8 @@ msgid ""
 "function below to set a new password. In the future, consider not installing "
 "malware, Thank You."
 msgstr ""
-"Ky kombinim email/fjalëkalimi u hackua dhe u rrjedh. Për të mbrojtur këtë "
-"llogari, fjalëkalimi është rivendosur. Ju lutemi përdorni funksionin "
+"Ky kombinim emaili/fjalëkalimi u hackua dhe rrodhi. Për të mbrojtur këtë "
+"llogari, fjalëkalimi është rivendosur. Ju lutem përdorni funksionin "
 "\"Harrova fjalëkalimin tim\" më poshtë për të vendosur një fjalëkalim të ri. "
 "Në të ardhmen, konsideroni të mos instaloni malware. Faleminderit."
 
@@ -445,6 +460,11 @@ msgid ""
 "function on the LogIn page to set a new password. In the future, consider "
 "not installing malware, Thank You."
 msgstr ""
+"Ky kombinim emaili/fjalëkalimi u hackua dhe rrodhi. Për të mbrojtur këtë "
+"llogari, fjalëkalimi është rivendosur. Ju lutem përdorni funksionin "
+"\"Harrova fjalëkalimin tim\" në faqen e hyrjes për të vendosur një "
+"fjalëkalim të ri. Në të ardhmen, konsideroni të mos instaloni malware. "
+"Faleminderit."
 
 msgid "This email provider is not allowed"
 msgstr "Ky ofrues i emailit nuk lejohet"
@@ -454,7 +474,7 @@ msgstr "Kjo lidhje e rivendosjes së fjalëkalimit nuk është më e vlefshme :(
 
 #. "redirect_uris" is a technical term and should not be translated
 msgid "Too many or too long redirect_uris"
-msgstr ""
+msgstr "Shumë redirect_uris ose redirect_uris tepër të gjata"
 
 msgid "Top10"
 msgstr "Top10"
@@ -463,7 +483,7 @@ msgid "Unknown Captcha Error"
 msgstr "Gabim i panjohur Captcha"
 
 msgid "Update Application"
-msgstr ""
+msgstr "Përditëso aplikacionin"
 
 msgid "User ID and verification level"
 msgstr "ID e përdoruesit dhe niveli i verifikimit"
@@ -472,7 +492,7 @@ msgid "User doesn't exist in our database :("
 msgstr "Përdoruesi nuk ekziston në bazën tonë të të dhënave :("
 
 msgid "Username already in use."
-msgstr "Emri i përdoruesit tashmë në përdorim."
+msgstr "Emri i përdoruesit është në përdorim."
 
 msgid "Username can not start with pp_"
 msgstr "Emri i përdoruesit nuk mund të fillojë me pp_"
@@ -493,7 +513,7 @@ msgid ""
 "We already sent you a mail with instructions. Please wait before requesting "
 "another mail."
 msgstr ""
-"Ne tashmë ju dërguam një email me udhëzime. Ju lutemi prisni para se të "
+"Ne ju kemi dërguar një email me udhëzime. Ju lutemi prisni para se të "
 "kërkoni një email tjetër."
 
 #, javascript-format
@@ -501,8 +521,8 @@ msgid ""
 "We already sent you a verification mail, you can request another one in $"
 "{ minLeft } minutes."
 msgstr ""
-"Ne tashmë ju dërguam një email verifikimi, ju mund të kërkoni një tjetër "
-"brenda pak ${ minLeft } minutash."
+"Ne ju kemi dërguar një email verifikimi, ju mund të kërkoni një tjetër pas $"
+"{ minLeft } minutash."
 
 #, javascript-format
 msgid "Welcome ${ name } to PixelPlanet, please verify your mail"
@@ -530,7 +550,7 @@ msgid "You are not allowed to access this page"
 msgstr "Ju nuk lejohet të hyni në këtë faqe"
 
 msgid "You are not banned"
-msgstr "Ju nuk jeni të ndaluar"
+msgstr "Ju nuk jeni të dënuar"
 
 msgid "You are not logged in"
 msgstr "Ju nuk jeni të regjistruar"
@@ -553,7 +573,7 @@ msgstr ""
 "Ju nuk mund të fshini këtë metodë hyrjeje, sepse nuk keni asgjë tjetër."
 
 msgid "You can not register an account while you are banned"
-msgstr "Ju nuk mund të regjistroni një llogari ndërsa jeni të ndaluar"
+msgstr "Ju nuk mund të regjistroni një llogari ndërkohë që jeni të dënuar"
 
 msgid "You can not register an account with a proxy"
 msgstr "Ju nuk mund të regjistroni një llogari me një proxy"
@@ -565,6 +585,8 @@ msgid ""
 "You can register your own application here to get the client_id and "
 "client_secret needed to make use of this."
 msgstr ""
+"Ju mund të regjistroni aplikacionin tuaj këtu për të marrë client_id dhe "
+"client_secret që nevojiten për të përdorur këtë."
 
 msgid "You can't send a message this long :("
 msgstr "Nuk mund të dërgosh mesazh kaq gjatë :("
@@ -582,20 +604,21 @@ msgid "You failed your captcha"
 msgstr "Ju keni dështuar captcha-n tuaj"
 
 msgid "You forgot your password for PixelPlanet? Get a new one here"
-msgstr "Keni harruar fjalëkalimin për PixelPlanet? Merrni një të re këtu"
+msgstr "Keni harruar fjalëkalimin tuaj për PixelPlanet? Merrni një të ri këtu"
 
 msgid "You have to fill out all fields"
-msgstr ""
+msgstr "Ju duhet të plotësoni të gjitha fushat"
 
 msgid "You must be logged in to access this page"
-msgstr ""
+msgstr "Ju duhet të jeni të kyçur për të aksesuar këtë faqe"
 
 #. "scope" is a technical term and should not be translated
 msgid "You need to define a valid scope"
-msgstr ""
+msgstr "Ju duhet të përcaktoni një scope të vlefshëm"
 
 msgid "You need to directly access this page in the browser :("
 msgstr ""
+"Ju duhet ta aksesoni këtë faqe në shfletuesin tuaj në mënyrë direkte :("
 
 msgid ""
 "You requested to get a new password. You can change your password within the "
@@ -617,7 +640,7 @@ msgid "Your Browser looks shady"
 msgstr "Shfletuesi juaj duket i dyshimtë"
 
 msgid "Your account needs to be verified to access this page"
-msgstr ""
+msgstr "Llogaria juaj duhet të jetë e verifikuar për të aksesuar këtë faqe"
 
 msgid "Your country is temporary muted from this chat channel"
 msgstr "Shteti juaj është i heshtur përkohësisht nga ky kanal bisede"
@@ -629,15 +652,15 @@ msgid ""
 "Your mail verification code is invalid or already expired :(, please request "
 "a new one."
 msgstr ""
-"Kodi juaj i verifikimit të emailit është i pavlefshëm ose tashmë i skaduar :"
-"(, ju lutemi kërkoni një të ri."
+"Kodi juaj i verifikimit të emailit është i pavlefshëm ose ka skaduar :(, ju "
+"lutemi kërkoni një të ri."
 
 msgid "Your passwords do not match :("
 msgstr "Fjalëkalimet tuaja nuk përputhen :("
 
 #. "redirect_uris" is a technical term and should not be translated
 msgid "redirect_uris does not look legit"
-msgstr ""
+msgstr "redirect_uris nuk duken legjitime"
 
 msgid "to go back to pixelplanet"
 msgstr "për t'u kthyer në pixelplanet"
