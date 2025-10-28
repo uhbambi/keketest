@@ -1,17 +1,18 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: admin@pixelplanet.fun\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2024-06-12 10:12+0000\n"
-"Last-Translator: weblate <weblate@noreply.pixelplanet.fun>\n"
-"Language-Team: Turkish <https://hosted.weblate.org/projects/pixelplanet/"
-"server/tr/>\n"
+"PO-Revision-Date: 2025-10-28 09:41+0000\n"
+"Last-Translator: \"(CH) xm\" <xm@noreply.pixelplanet.fun>\n"
+"Language-Team: Turkish <https://translate.gs-os.com/projects/ppfun/server/tr/"
+">\n"
 "Language: tr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.6-dev\n"
+"X-Generator: Weblate 5.14\n"
 
 msgid "1bit"
 msgstr "1bit"
@@ -33,34 +34,34 @@ msgstr ""
 "UTC 00.00'da güncellenir."
 
 msgid "Access modtools"
-msgstr ""
+msgstr "Moderatör araçlarına erişim sağla"
 
 msgid "Add Application"
-msgstr ""
+msgstr "Aplikasyon ekle"
 
 msgid "Add an Application (OIDC Client)"
-msgstr ""
+msgstr "Aplikasyon Ekle (OIDC Client)"
 
 msgid "Add new application"
-msgstr ""
+msgstr "Yeni bir aplikasyon ekle"
 
 msgid "An error occured. Please try again later."
-msgstr ""
+msgstr "Bİr hata oluştu. Lütfen başka bir zaman deneyin."
 
 msgid "Application changed successfully"
-msgstr ""
+msgstr "Aplikasyon başarıyla değiştirildi"
 
 msgid "Application deleted"
-msgstr ""
+msgstr "Aplikasyon silindi"
 
 msgid "Application successfully added"
-msgstr ""
+msgstr "Aplikasyon başarıyla eklendi"
 
 msgid "Black and White canvas"
 msgstr "Siyah beyaz tuval"
 
 msgid "Can not chat while being banned"
-msgstr ""
+msgstr "Banın varken konuşamazsın"
 
 msgid "Click here"
 msgstr "Buraya tıklayarak"
@@ -69,7 +70,7 @@ msgid "Click to Verify"
 msgstr "Doğrulamak için Tıkla"
 
 msgid "Client Name"
-msgstr ""
+msgstr "Client Adı"
 
 msgid "Confirm New Password"
 msgstr "Yeni Parolayı Onayla"
@@ -82,7 +83,7 @@ msgstr ""
 "ile bekleme süresini paylaşır!"
 
 msgid "Consent"
-msgstr ""
+msgstr "Onay"
 
 msgid "Coronavirus"
 msgstr "Koronavirüs"

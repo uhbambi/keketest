@@ -3,10 +3,10 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: admin@pixelplanet.fun\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2025-10-26 13:57+0000\n"
-"Last-Translator: weblate <weblate@noreply.pixelplanet.fun>\n"
-"Language-Team: Greek <https://translate.gs-os.com/projects/ppfun/client/el/"
-">\n"
+"PO-Revision-Date: 2025-10-28 09:40+0000\n"
+"Last-Translator: Greekmapper <greekmapper@noreply.pixelplanet.fun>\n"
+"Language-Team: Greek <https://translate.gs-os.com/projects/ppfun/client/el/>"
+"\n"
 "Language: gr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -55,7 +55,7 @@ msgid "+last hour"
 msgstr "+Προηγούμενη ώρα"
 
 msgid "...loading Login methods and sessions..."
-msgstr ""
+msgstr "Φορτώνονται η τρόποι σύνδεσης κι συνεδρίων…"
 
 msgid "A Phish!"
 msgstr "Ένα πσάρι!"
@@ -73,7 +73,7 @@ msgid "Add Template"
 msgstr "Προσθήκη πρωτοτύπου"
 
 msgid "Admintools"
-msgstr ""
+msgstr "Εργαλεία του admin"
 
 msgid "All sound effects will be disabled."
 msgstr "Όλα τα ηχητικά εφέ θα απενεργοποιηθούν."
@@ -127,6 +127,9 @@ msgid ""
 "You can still start new DMs with other users, but other users won't be able "
 "to start DMs with you."
 msgstr ""
+"Εμπόδισε όλα τα ιδιωτικά μηνύματα. Ενεργοποιώντας το θα διαγραφούν όλες η "
+"τωρινές συνομιλίες σου. Μπορείς να αρχίσεις νέες συνομιλίες αλλά άλλοι "
+"χρήστες δεν μπορούν να αρχίσουν με εσένα."
 
 msgid "Blocked"
 msgstr "Αποκλείστηκες"
@@ -150,10 +153,10 @@ msgid "Calculate like GIMP"
 msgstr "Υπολογίστε όπως το GIMP"
 
 msgid "Can not export more than 20 or no template!"
-msgstr ""
+msgstr "Δεν γίνετε η εξαγωγή πάνω από 20 πρότυπων!"
 
 msgid "Can not import more than 20 or no template!"
-msgstr ""
+msgstr "Δεν γίνετε η εισαγωγή περισσότερων από 20 προτύπων ή όχι πρότυπα!"
 
 msgid "Can't read? Reload:"
 msgstr "Δεν μπορείτε να διαβάσετε; Ξαναδοκιμάστε :"
@@ -189,19 +192,19 @@ msgid "Captcha"
 msgstr "Captcha"
 
 msgid "Caught by"
-msgstr ""
+msgstr "Πιάστηκε από"
 
 msgid "Change Happened"
 msgstr "Υπέστη μία αλλαγή"
 
 msgid "Change Name"
-msgstr ""
+msgstr "Άλλαξε ονομασία"
 
 msgid "Change Password"
 msgstr "Άλλαξτε κωδικό"
 
 msgid "Change your Mail Adress here:"
-msgstr ""
+msgstr "Άλλαξε το mail address σου εδώ:"
 
 msgid "Channel settings"
 msgstr "Ρυθμίσεις καναλιού"
@@ -219,7 +222,7 @@ msgid "Check out past versions of the canvas."
 msgstr "Δείτε προηγούμενες εκδόσεις του καμβά."
 
 msgid "Check to allow"
-msgstr ""
+msgstr "Έλεγξε αν επιτρέπεται"
 
 msgid "Check who placed in an area"
 msgstr "Ελέγξτε ποιος τοποθέτησε σε μια περιοχή"
@@ -234,7 +237,7 @@ msgid "Choose Strategy"
 msgstr "Επιλέξτε Λειτουργία χρώματος"
 
 msgid "Choose Username"
-msgstr ""
+msgstr "Διάλεξε username"
 
 msgid ""
 "Clean spare pixels that are surrounded by a single other color or unset "
@@ -256,7 +259,7 @@ msgstr ""
 "και έως και 1 άλλο σύνολο pixel"
 
 msgid "Cleaners can use 0cd blank colors."
-msgstr ""
+msgstr "Καθαριστές μπορούν να χρησιμοποιήσουν 0cd άχρωμα χρώματα."
 
 #, javascript-format
 msgid ""
@@ -304,10 +307,10 @@ msgid "Connection error ${ code } :("
 msgstr "Κάτι πήγε λάθος ${ code } :("
 
 msgid "Consent"
-msgstr ""
+msgstr "Συγκατάθεση"
 
 msgid "Consider joining us on Matrix:"
-msgstr ""
+msgstr "Θεωρήστε να μπείτε στο matrix μας:"
 
 msgid "Controls"
 msgstr "Κοντρολ"
@@ -325,6 +328,8 @@ msgid ""
 "Cooldown is usually automatically changed for a country that is dominating. "
 "In example in the case of a streamer raid."
 msgstr ""
+"Το cooldown αλλάζετε αυτόματος όταν ένα έθνος κυριαρχεί. Παραδείγματος χάρη "
+"όταν γίνεται streamer raid."
 
 #, fuzzy
 msgid "Coordinates"
@@ -341,16 +346,16 @@ msgid "Copy"
 msgstr "Αντιγραφή"
 
 msgid "Copy Link"
-msgstr ""
+msgstr "Αντέγραψε σύνδεσμο"
 
 msgid "Copy Selected to Clipboard"
-msgstr ""
+msgstr "Αντιγραφή συγκεκριμένου στο πρόχειρο"
 
 msgid "Copy URL"
-msgstr ""
+msgstr "Αντιγραφή URL"
 
 msgid "Copy UserId to Clipboard"
-msgstr ""
+msgstr "Αντέγραψε UserId στο πρόχειρο"
 
 msgid "Copy to Clipboard"
 msgstr "Αντιγραφή στο πρόχειρο"
@@ -385,10 +390,10 @@ msgid "Credit for the Palette of the Top10 canvas goes to ${ vinikLink }."
 msgstr "Τα εύσημα για την Παλέτα του καμβά Top10 πηγαίνουν στο ${ vinikLink }."
 
 msgid "Current Cooldown Changes per Country"
-msgstr ""
+msgstr "Τωρινό cooldown αλλάζει ανά χώρα"
 
 msgid "Custom Cursor"
-msgstr ""
+msgstr "Προσαρμοσμένος cursor"
 
 msgid "DM"
 msgstr "Προσωπικά Μηνύματα (DM)"
@@ -405,10 +410,10 @@ msgid "Daily Rank"
 msgstr "Top 10 Ημερήσια Κατάταξη"
 
 msgid "Date of Award"
-msgstr ""
+msgstr "Ημερομηνίας της απονομής"
 
 msgid "Date of catch"
-msgstr ""
+msgstr "Ημερομηνία που πιάστηκε"
 
 #, fuzzy
 msgid "Delete"
@@ -418,7 +423,7 @@ msgid "Delete Account"
 msgstr "Διαγραφή λογαριασμού"
 
 msgid "Deny"
-msgstr ""
+msgstr "Άρνηση"
 
 msgid ""
 "Didn't get an answer from pixelplanet. Try to refresh if this problem "
@@ -450,7 +455,7 @@ msgid "Do stuff with IPs (one IP per line)"
 msgstr "Κάντε πράγματα με IP (μία IP ανά γραμμή)"
 
 msgid "Don't remember"
-msgstr ""
+msgstr "Δεν θυμάμαι"
 
 msgid "Don't show me in global stats"
 msgstr "Μην με εμφανίζετε στα παγκόσμια στατιστικά"
@@ -468,13 +473,13 @@ msgid "Duration"
 msgstr "Διάρκεια"
 
 msgid "Easter Egg OFF"
-msgstr ""
+msgstr "Πασχαλινό αυτό OFF"
 
 msgid "Easter Egg ON"
 msgstr "Πασχαλινό Αυγό Ενεργό"
 
 msgid "Edit"
-msgstr ""
+msgstr "Επεξεργασία"
 
 msgid "Email"
 msgstr "Μail"
@@ -489,6 +494,8 @@ msgid ""
 "Email is used to verify your account. You might get a cofirmation mail after "
 "registering."
 msgstr ""
+"Το email χρησιμοποιείται για την επαλήθευση του λογαριασμού σας. Θα λάβετε "
+"email επιβεβαίωσης μετά την δημιουργία του."
 
 msgid "Email should at least contain a dot"
 msgstr "Το email πρέπει να περιέχει τουλάχιστον μια τελεία"
@@ -500,7 +507,7 @@ msgid "Email should contain a @"
 msgstr "Το email πρέπει να περιέχει ένα @"
 
 msgid "Enable Overlay"
-msgstr ""
+msgstr "Ενεργοποίηση overlay"
 
 msgid "Enable Pencil"
 msgstr "Ενεργοποίηση μολυβιού"
@@ -533,25 +540,25 @@ msgid "Error :("
 msgstr "Κάτι πήγε λάθος:("
 
 msgid "Expand"
-msgstr ""
+msgstr "Επέκταση"
 
 msgid "Export enabled templates"
-msgstr ""
+msgstr "Εξαγωγή ενεργοποιημένων προτύπων"
 
 msgid "Factor"
-msgstr ""
+msgstr "Παράγοντας"
 
 msgid "File"
 msgstr "Αρχείο"
 
 msgid "Fish Display"
-msgstr ""
+msgstr "Εμφάνιση ψαριών"
 
 msgid "For"
-msgstr ""
+msgstr "Για"
 
 msgid "For Developers"
-msgstr ""
+msgstr "Για developers"
 
 #, javascript-format
 msgid ""
@@ -559,24 +566,27 @@ msgid ""
 "your data, simply delete your account, this in fact wipes all privacy "
 "relevant traces. Your placed pixels will of course not be deleted."
 msgstr ""
+"Για οποιαδήποτε νομικό θέμα , Παρακαλώ επικοινωνήστε ${ mailLink } . Αν "
+"θέλετε να διαγράψετε τα data, αυτό απλός σβήνει τον λογαριασμό σου, σβήνει "
+"όλα τα δεδομένα που άφησες εδώ. Τα pixels που τοποθετήσατε δεν σβήνονται"
 
 msgid "For one day"
-msgstr ""
+msgstr "Για μια μέρα"
 
 msgid "For one month"
-msgstr ""
+msgstr "Για ένα μήνα"
 
 msgid "For one week"
-msgstr ""
+msgstr "Για μια εβδομάδα"
 
 msgid "For one year"
-msgstr ""
+msgstr "Για ένα χρόνο"
 
 msgid "For when you are playing on a potato."
 msgstr "Για όταν παίζετε σε μια πατάτα."
 
 msgid "Forever"
-msgstr ""
+msgstr "Για πάντα"
 
 msgid "From History"
 msgstr "Από ιστορική ρύθμιση"
@@ -594,19 +604,19 @@ msgid "Get Users"
 msgstr "Λήψη χρηστών"
 
 msgid "Get email address"
-msgstr ""
+msgstr "Πάρε την διεύθυνση email"
 
 msgid "Get the amount of Pixels placed and ranking"
-msgstr ""
+msgstr "Πάρε το ποσό από pixels που τοποθετήθηκαν και βαθμολογία"
 
 msgid "Globe View"
 msgstr "Προβολή Υδρόγειου"
 
 msgid "Go to"
-msgstr ""
+msgstr "Πήγαινε στο"
 
 msgid "Grant"
-msgstr ""
+msgstr "Παραχώρηση"
 
 msgid "Grid OFF"
 msgstr "Πλέγμα Ενενεργό"
@@ -632,7 +642,7 @@ msgstr ""
 "κατάλληλο τρόπο (ο οποίος αυτή τη στιγμή είναι μόνο ένας)."
 
 msgid "Hide Embed"
-msgstr ""
+msgstr "Κρύψε ενθέτω"
 
 msgid ""
 "Higher zoomlevels take some time to update, the 3D globe gets updated at "
@@ -665,7 +675,7 @@ msgid "IP Actions"
 msgstr "Ενέργειες IP"
 
 msgid "Identifiers"
-msgstr ""
+msgstr "Αναγνωρισμένη"
 
 #, javascript-format
 msgid ""
@@ -674,11 +684,16 @@ msgid ""
 "mail to ${ mailLink } and, in case of a ban, include the BID you got in the "
 "ban message."
 msgstr ""
+"Αν εντοπίστηκες ας proxy, αλλά δεν έχεις ένα, ή νομίζεις ότι ήταν λάθος μας, "
+"παρακαλώ πηγαίντε στο ${ guildedLink } ή στείλτε μας email στο ${ mailLink } "
+"και αν η απαγόρευση , βάλτε το BID που είχατε στο μήνυμα απαγόρευσης."
 
 msgid ""
 "If you talk to moderators or administrators, you might get asked for one of "
 "the following identifiers:"
 msgstr ""
+"Αν μιλήσεις με συντονιστές ή διαχειριστές, μπορεί να σε ρωτήσουν από τα "
+"παρακάτω αναγνωστικά:"
 
 msgid "Image Converter"
 msgstr "Μεταφόρτωση εικόνας"
@@ -687,7 +702,7 @@ msgid "Image Upload"
 msgstr "Μεταφόρτωση εικόνας"
 
 msgid "Import templates"
-msgstr ""
+msgstr "Εξαγωγή προτύπων"
 
 msgid "Interval"
 msgstr "Διάστημα"
@@ -705,20 +720,23 @@ msgid "Invalid color selected"
 msgstr "Επιλέχθηκε μη έγκυρο χρώμα"
 
 msgid "Invited to Chat"
-msgstr ""
+msgstr "Καλεσμένος για συνομιλία"
 
 msgid ""
 "It requests the following permissions. Uncheck what you don't want to grant:"
 msgstr ""
+"Ζητάει της παρακάτω άδειες. Αποεπιλέξτε Σε ότι δεν θέλετε να παραχωρήσετε:"
 
 msgid "Jannies can rollback and protect, but not watch or ban."
 msgstr ""
+"Οι jannies μπορούν να κάνουν rollback και προστασία, αλλά όχι να βλέπουν ή "
+"να απαγορεύουν."
 
 msgid "Just for registered Users"
 msgstr "Μόνο για εγγεγραμμένους χρήστες"
 
 msgid "Just for verified Users"
-msgstr ""
+msgstr "Μόνο για επαληθευμένους λογαριασμούς"
 
 msgid "Just the Top10 of yesterday can place here"
 msgstr "Μόνο το Top10 απο χθες μπορεί να τοποθετηθεί εδώ"
@@ -727,10 +745,10 @@ msgid "Keep Ratio"
 msgstr "Διατήρηση αναλογίας"
 
 msgid "Know that an account exists"
-msgstr ""
+msgstr "Ξέροντας αυτός ο λογαριασμός υπάρχει"
 
 msgid "Legal Requests"
-msgstr ""
+msgstr "Νόμιμα ζητήματα"
 
 msgid "Light Grid"
 msgstr "Πλέγμα φωτός"
@@ -748,13 +766,13 @@ msgid "Log out"
 msgstr "Έξοδος"
 
 msgid "Log out a Session:"
-msgstr ""
+msgstr "Αποσυνδέεστε από την συνεδρία:"
 
 msgid "LogIn"
 msgstr "Σύνδεση"
 
 msgid "Login Methods"
-msgstr ""
+msgstr "Μέθοδοι σύνδεσης"
 
 msgid "Login to access more features and stats."
 msgstr ""
@@ -762,10 +780,10 @@ msgstr ""
 "στατιστικά στοιχεία."
 
 msgid "Login to grant access to other application."
-msgstr ""
+msgstr "Συνδεθείτε για να πάρετε πρόσβαση σε άλλες εφαρμογές."
 
 msgid "Login to other application"
-msgstr ""
+msgstr "Συνδέσμου από άλλη εφαρμογή"
 
 msgid "Login with Name or Mail:"
 msgstr "Είσοδος με όνομα ή αλληλογραφία:"

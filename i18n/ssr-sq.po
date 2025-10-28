@@ -3,8 +3,8 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: admin@pixelplanet.fun\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2025-10-26 12:52+0000\n"
-"Last-Translator: weblate <weblate@noreply.pixelplanet.fun>\n"
+"PO-Revision-Date: 2025-10-28 09:41+0000\n"
+"Last-Translator: Extreme Motorsex <em@noreply.pixelplanet.fun>\n"
 "Language-Team: Albanian <https://translate.gs-os.com/projects/ppfun/server/"
 "sq/>\n"
 "Language: sq\n"
@@ -61,7 +61,7 @@ msgid "Black and White canvas"
 msgstr "Kanavacë Bardhë e Zi"
 
 msgid "Can not chat while being banned"
-msgstr "Nuk mund të bisedoni ndërsa jeni të përjashtuar"
+msgstr "Nuk mund të bisedoni ndërkohë që jeni të dënuar"
 
 msgid "Click here"
 msgstr "Kliko këtu"
@@ -83,7 +83,7 @@ msgstr ""
 "pritjes me kanavacën e tokës!"
 
 msgid "Consent"
-msgstr ""
+msgstr "Autorizo"
 
 msgid "Coronavirus"
 msgstr "Koronavirusi"
@@ -119,25 +119,25 @@ msgid "Edit existing applications"
 msgstr ""
 
 msgid "Email can't be empty."
-msgstr "Email-i nuk mund të jetë bosh."
+msgstr "Email nuk mund të jetë bosh."
 
 msgid "Email can't be longer than 40 characters."
-msgstr "Email-i nuk mund të jetë më i gjatë se 40 karaktere."
+msgstr "Email nuk mund të jetë më i gjatë se 40 karaktere."
 
 msgid "Email should at least contain a dot"
-msgstr "Email-i duhet të përmbajë të paktën një pikë"
+msgstr "Email duhet të përmbajë të paktën një pikë"
 
 msgid "Email should be at least 5 characters long."
-msgstr "Email-i duhet të jetë të paktën 5 karaktere i gjatë."
+msgstr "Email duhet të jetë të paktën 5 karaktere i gjatë."
 
 msgid "Email should contain a @"
-msgstr "Email-i duhet të përmbajë një @"
+msgstr "Email duhet të përmbajë një @"
 
 msgid "Error"
 msgstr "Gabim"
 
 msgid "Failed to create a new user :("
-msgstr "Dështoi krijimi i një përdorues të ri :("
+msgstr "Dështoi krijimi i një përdoruesi të ri :("
 
 #. 'client_secret' is a technical term and should not be translated
 msgid ""
@@ -145,10 +145,10 @@ msgid ""
 msgstr ""
 
 msgid "Get email address"
-msgstr ""
+msgstr "Merr adresën email"
 
 msgid "Get the amount of Pixels placed and ranking"
-msgstr ""
+msgstr "Merr sasinë e pikselëve të vendosur dhe renditjen"
 
 msgid ""
 "Have fun and don't hesitate to contact us if you encounter any problems :)"
@@ -191,7 +191,7 @@ msgid "Just admins can do that"
 msgstr "Vetëm administratorët mund ta bëjnë këtë"
 
 msgid "Know that an account exists"
-msgstr ""
+msgstr "Të dije që një llogari ekziston"
 
 #. "scopes" is a technical term and should not be translated
 msgid "List of available scopes"
@@ -242,13 +242,13 @@ msgid "Name can't be empty."
 msgstr "Emri nuk mund të jetë bosh."
 
 msgid "Name contains invalid character like @, /, \\ or #"
-msgstr "Emri përmban karakter të pavlefshëm si @, /, \\ or #"
+msgstr "Emri përmban karaktere të pavlefshme si @, /, \\ ose #"
 
 msgid "Name is too long"
 msgstr "Emri është shumë i gjatë"
 
 msgid "Name must be at least 2 characters long"
-msgstr "Emri duhet të jetë së paku 2 karaktere i gjatë"
+msgstr "Emri duhet të jetë të paktën 2 karaktere i gjatë"
 
 msgid "Name must be shorter than 26 characters"
 msgstr "Emri duhet të jetë më i shkurtër se 26 karaktere"
@@ -257,7 +257,7 @@ msgid "Name or Email does not exist!"
 msgstr "Emri ose Email-i nuk ekziston!"
 
 msgid "New Password"
-msgstr "Fjalëkalim i Ri"
+msgstr "Fjalëkalim i ri"
 
 msgid "No Captcha given"
 msgstr "Asnjë Captcha nuk është dhënë"
@@ -276,7 +276,7 @@ msgid "No such badge found"
 msgstr ""
 
 msgid "No such fish found"
-msgstr "Asnjë peshk i tillë nuk u gjet"
+msgstr "Nuk u gjet peshk i tillë"
 
 msgid "One redirect URIs per line"
 msgstr ""
@@ -303,16 +303,16 @@ msgstr ""
 "pëlqen!"
 
 msgid "Password must be at least 6 characters long."
-msgstr "Fjalëkalimi duhet të jetë së paku 6 karaktere i gjatë."
+msgstr "Fjalëkalimi duhet të jetë të paktën 6 karaktere i gjatë."
 
 msgid "Password must be shorter than 60 characters."
 msgstr "Fjalëkalimi duhet të jetë më i shkurtër se 60 karaktere."
 
 msgid "Password successfully changed."
-msgstr "Fjalëkalimi ndryshuar me sukses."
+msgstr "Fjalëkalimi u ndryshua me sukses."
 
 msgid "Permission"
-msgstr ""
+msgstr "Leje"
 
 msgid "PixelCanvas"
 msgstr "PixelCanvas"
@@ -340,7 +340,7 @@ msgstr ""
 "tjerë në internet"
 
 msgid "Please refresh the website"
-msgstr "Ju lutemi rifresko faqen e internetit"
+msgstr "Ju lutemi rifreskoni faqen web"
 
 msgid "Please try again."
 msgstr "Ju lutemi provoni përsëri."
@@ -349,16 +349,16 @@ msgid "Please use int channel"
 msgstr "Ju lutemi përdorni kanalin int"
 
 msgid "Read Badges and fishes"
-msgstr ""
+msgstr "Lexo stemat dhe peshqit"
 
 msgid "Read name, username and account age"
-msgstr ""
+msgstr "Lexo emrin, emrin e përdoruesit dhe moshën e llogarisë"
 
 msgid "Redirect URIs"
 msgstr ""
 
 msgid "Regularly update this data"
-msgstr ""
+msgstr "Përditësoni këto të dhëna rregullisht"
 
 #. 'client_secret' is a technical term and should not be translated
 msgid "Reroll client_secret"
@@ -395,11 +395,11 @@ msgstr ""
 
 msgid "Special canvas to spread awareness of SARS-CoV2 (take the vax)."
 msgstr ""
-"Kanavacë e veçantë për të përhapur ndërgjegjësimin për SARS-CoV2 (merrni "
-"vax)."
+"Kanavacë e veçantë për të përhapur ndërgjegjësimin për SARS-CoV2 "
+"(merrni vaksinën)."
 
 msgid "Stop flooding."
-msgstr "Ndaloni përmbytjet."
+msgstr "Ndaloni përmbytjen."
 
 msgid "Submit"
 msgstr "Paraqisni"
@@ -434,10 +434,10 @@ msgid ""
 "function below to set a new password. In the future, consider not installing "
 "malware, Thank You."
 msgstr ""
-"Ky kombinim email/fjalëkalimi u hakua dhe u rrjedh. Për të mbrojtur këtë "
+"Ky kombinim email/fjalëkalimi u hackua dhe u rrjedh. Për të mbrojtur këtë "
 "llogari, fjalëkalimi është rivendosur. Ju lutemi përdorni funksionin "
-"“Harrova fjalëkalimin tim” më poshtë për të vendosur një fjalëkalim të ri. "
-"Në të ardhmen, konsideroni të mos instaloni malware, Faleminderit."
+"\"Harrova fjalëkalimin tim\" më poshtë për të vendosur një fjalëkalim të ri. "
+"Në të ardhmen, konsideroni të mos instaloni malware. Faleminderit."
 
 msgid ""
 "This email / password combination got hacked and leaked. To protect this "
@@ -466,7 +466,7 @@ msgid "Update Application"
 msgstr ""
 
 msgid "User ID and verification level"
-msgstr ""
+msgstr "ID e përdoruesit dhe niveli i verifikimit"
 
 msgid "User doesn't exist in our database :("
 msgstr "Përdoruesi nuk ekziston në bazën tonë të të dhënave :("
@@ -478,16 +478,16 @@ msgid "Username can not start with pp_"
 msgstr "Emri i përdoruesit nuk mund të fillojë me pp_"
 
 msgid "Username can only contain the characters: a-z . _ and -"
-msgstr "Emri i përdoruesit mund të përmbajë vetëm karakteret: a-z. _ dhe -"
+msgstr "Emri i përdoruesit mund të përmbajë vetëm karakteret: a-z . _ dhe -"
 
 msgid "Username can't be empty."
-msgstr ""
+msgstr "Emri i përdoruesit nuk mund të jetë bosh."
 
 msgid "Username must be at least 2 characters long"
-msgstr ""
+msgstr "Emri i përdoruesit duhet të jetë të paktën 2 karaktere i gjatë"
 
 msgid "Username must be shorter than 26 characters"
-msgstr ""
+msgstr "Emri i përdoruesit duhet të jetë më i shkurtër se 26 karaktere"
 
 msgid ""
 "We already sent you a mail with instructions. Please wait before requesting "
@@ -520,11 +520,11 @@ msgstr "Ju tashmë jeni verifikuar."
 
 #, javascript-format
 msgid "You are muted for another ${ timeMin } minutes"
-msgstr "Ju jeni të heshtur për një minutë tjetër ${ timeMin }"
+msgstr "Ju jeni të heshtur për ${ timeMin } minuta të tjera"
 
 #, javascript-format
 msgid "You are muted for another ${ ttl } seconds"
-msgstr "Ju jeni të heshtur për sekonda të tjera ${ ttl }"
+msgstr "Ju jeni të heshtur për ${ ttl } sekonda të tjera"
 
 msgid "You are not allowed to access this page"
 msgstr "Ju nuk lejohet të hyni në këtë faqe"
@@ -540,8 +540,8 @@ msgstr "Ju jeni verifikuar tani:)"
 
 msgid "You are permanently muted, join our guilded to appeal the mute"
 msgstr ""
-"Ju jeni të heshtur përgjithmonë, bashkohuni me komunitetin tonë për të "
-"apeluar heshtjen"
+"Ju jeni të heshtur përgjithmonë, bashkohuni me komunitetin tonë guilded për "
+"të apeluar heshtjen"
 
 #, javascript-format
 msgid "You are sending messages too fast, you have to wait ${ waitTime }s :("
@@ -620,7 +620,7 @@ msgid "Your account needs to be verified to access this page"
 msgstr ""
 
 msgid "Your country is temporary muted from this chat channel"
-msgstr "Vendi juaj është i heshtur përkohësisht nga ky kanal i bisedës"
+msgstr "Shteti juaj është i heshtur përkohësisht nga ky kanal bisede"
 
 msgid "Your mail has to be verified in order to chat"
 msgstr "Emaili juaj duhet të verifikohet në mënyrë që të bisedoni"
