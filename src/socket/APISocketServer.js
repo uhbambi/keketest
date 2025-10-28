@@ -16,7 +16,7 @@ import { setPixelByCoords } from '../core/setPixel.js';
 import logger from '../core/logger.js';
 import { APISOCKET_KEY } from '../core/config.js';
 import authenticateAPIClient from './authenticateAPIClient.js';
-import { getInfoByUsername } from '../data/sql/User.js';
+import { getInfoByUsernameOrId } from '../data/sql/User.js';
 import mapFlag from '../utils/flagMapping.js';
 
 
@@ -24,22 +24,23 @@ class APISocketServer {
   wss; // WebSocket.Server
   /*
    * mapping of usernames to limited user information
-   * [username]: {
+   * [usernameOrId]: {
    *   id,
    *   name,
    *   flag,
    *   userlvl,
+   *   isMuted,
    * },
    */
   static #usernameMapping = new Map();
 
-  static async #getUserData(username) {
-    let userData = APISocketServer.#usernameMapping.get(username);
+  static async #getUserData(usernameOrId) {
+    let userData = APISocketServer.#usernameMapping.get(usernameOrId);
     if (!userData || Date.now() - userData.fetchedAt > 3600 * 1000) {
-      userData = await getInfoByUsername(username);
+      userData = await getInfoByUsernameOrId(usernameOrId);
       if (userData) {
         userData.fetchedAt = Date.now();
-        APISocketServer.#usernameMapping.set(username, userData);
+        APISocketServer.#usernameMapping.set(usernameOrId, userData);
       }
     }
     if (Math.random() < 0.07) {
@@ -52,6 +53,14 @@ class APISocketServer {
       }
     }
     return userData;
+  }
+
+  static #deleteUserFromMapping(userId) {
+    for (const [un, data] of APISocketServer.#usernameMapping.entries()) {
+      if (data.uid === userId) {
+        APISocketServer.#usernameMapping.delete(un);
+      }
+    }
   }
 
   static getPublicChannels() {
@@ -113,7 +122,7 @@ class APISocketServer {
     socketEvents.onAsync('onlineCounter', this.broadcastOnlineCounter);
     socketEvents.onAsync('pixelUpdate', this.broadcastPixelBuffer);
     socketEvents.onAsync('chatMessage', this.broadcastChatMessage);
-    socketEvents.onAsync('reloadUser', this.reloadUser);
+    socketEvents.onAsync('reloadUser', this.reloadUser.bind(this));
 
     setInterval(this.ping, 45 * 1000);
   }
@@ -220,6 +229,9 @@ class APISocketServer {
   }
 
   reloadUser(userId) {
+    /* delete user from username mapping to force reload */
+    APISocketServer.#deleteUserFromMapping(userId);
+
     this.broadcast(
       JSON.stringify(['reloadUser', userId]),
       (client) => client.subReloadUser,
@@ -268,14 +280,23 @@ class APISocketServer {
         let userlvl;
         let name;
         let country;
-        /* matrix id in @name:homeserver.tld form */
         if (username.startsWith('@') && username.indexOf(':') !== -1) {
+          /* matrix id in @name:homeserver.tld form */
           uid = chatProvider.apiSocketUserId;
           name = username;
+          /* the socket can be muted as well */
+          const socketUserData = await APISocketServer.#getUserData(uid);
+          if (socketUserData?.isMuted) {
+            return;
+          }
         } else {
+          /* ordinary user */
           const userData = await APISocketServer.#getUserData(username);
           if (!userData) {
             logger.info(`Cound not get data of ${username} for matrix chat`);
+            return;
+          }
+          if (userData.isMuted) {
             return;
           }
           ({ uid, name, country, userlvl } = userData);

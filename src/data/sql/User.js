@@ -148,23 +148,33 @@ export async function getDummyUser(name) {
 }
 
 /**
- * get basic userinfo by username
- * @param username
+ * get basic userinfo by username or id
+ * @param username or id
  * @return {
- *   uid, name, country, userlvl
+ *   uid, name, country, userlvl, isMuted,
  * }
  */
-export async function getInfoByUsername(username) {
-  if (!username) {
+export async function getInfoByUsernameOrId(usernameOrId) {
+  console.error('load user', usernameOrId, Number.isInteger(usernameOrId));
+  if (!usernameOrId) {
     return null;
   }
   try {
-    return await sequelize.query(
-      `SELECT u.id AS uid, u.name, s.country, u.userlvl FROM Users u
+    /* eslint-disable max-len */
+    let query = `SELECT u.id AS uid, u.name, s.country, u.userlvl,
+ EXISTS(SELECT 1 FROM Bans b INNER JOIN UserBans ub ON ub.bid = b.id WHERE ub.uid = u.id AND (b.flags & 0x02) > 0 AND (b.expires > NOW() OR b.expires IS NULL)) AS isMuted
+ FROM Users u
     LEFT JOIN Sessions s ON s.uid = u.id AND s.country != 'xx'
-  WHERE u.username = ?`, {
-        replacements: [username], type: QueryTypes.SELECT, plain: true,
-      },
+WHERE `;
+    /* eslint-enable max-len */
+    if (Number.isInteger(usernameOrId)) {
+      query += 'u.id = ?';
+    } else {
+      query += 'u.username = ?';
+    }
+    return await sequelize.query(query, {
+      replacements: [usernameOrId], type: QueryTypes.SELECT, plain: true,
+    },
     );
   } catch (error) {
     console.error(`SQL Error on getInfoByUsername: ${error.message}`);
