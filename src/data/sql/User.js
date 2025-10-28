@@ -151,7 +151,7 @@ export async function getDummyUser(name) {
  * get basic userinfo by username
  * @param username
  * @return {
- *   uid, name, country
+ *   uid, name, country, userlvl
  * }
  */
 export async function getInfoByUsername(username) {
@@ -160,7 +160,7 @@ export async function getInfoByUsername(username) {
   }
   try {
     return await sequelize.query(
-      `SELECT u.id AS uid, u.name, s.country FROM Users u
+      `SELECT u.id AS uid, u.name, s.country, u.userlvl FROM Users u
     LEFT JOIN Sessions s ON s.uid = u.id AND s.country != 'xx'
   WHERE u.username = ?`, {
         replacements: [username], type: QueryTypes.SELECT, plain: true,

@@ -17,6 +17,7 @@ import logger from '../core/logger.js';
 import { APISOCKET_KEY } from '../core/config.js';
 import authenticateAPIClient from './authenticateAPIClient.js';
 import { getInfoByUsername } from '../data/sql/User.js';
+import mapFlag from '../utils/flagMapping.js';
 
 
 class APISocketServer {
@@ -27,6 +28,7 @@ class APISocketServer {
    *   id,
    *   name,
    *   flag,
+   *   userlvl,
    * },
    */
   static #usernameMapping = new Map();
@@ -263,12 +265,12 @@ class APISocketServer {
       if (command === 'mchat') {
         const [username, msg, channelId] = packet;
         let uid;
+        let userlvl;
         let name;
         let country;
         /* matrix id in @name:homeserver.tld form */
         if (username.startsWith('@') && username.indexOf(':') !== -1) {
           uid = chatProvider.apiSocketUserId;
-          country = 'mx';
           name = username;
         } else {
           const userData = await APISocketServer.#getUserData(username);
@@ -276,7 +278,7 @@ class APISocketServer {
             logger.info(`Cound not get data of ${username} for matrix chat`);
             return;
           }
-          ({ uid, name, country } = userData);
+          ({ uid, name, country, userlvl } = userData);
         }
         if (!name || !uid) {
           // eslint-disable-next-line max-len
@@ -286,6 +288,10 @@ class APISocketServer {
         if (!country) {
           country = 'mx';
         }
+        if (!userlvl) {
+          userlvl = 10;
+        }
+        country = mapFlag(uid, userlvl, country);
         /*
          * do not send message back up ws that sent it
          */

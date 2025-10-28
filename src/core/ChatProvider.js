@@ -15,6 +15,7 @@ import {
   isCountryMuted,
 } from '../data/redis/chat.js';
 import { escapeMd } from './utils.js';
+import mapFlag from '../utils/flagMapping.js';
 import ttags from '../middleware/ttag.js';
 
 import { USE_MAILER } from './config.js';
@@ -355,34 +356,7 @@ export class ChatProvider {
       return 'nope';
     }
 
-    let displayCountry = country;
-    if (user.userlvl >= USERLVL.CLEANER) {
-      switch (user.userlvl) {
-        case USERLVL.CLEANER:
-          displayCountry = 'z3';
-          break;
-        case USERLVL.JANNY:
-          displayCountry = 'z2';
-          break;
-        case USERLVL.MOD:
-          displayCountry = 'z1';
-          break;
-        default:
-          displayCountry = 'zz';
-      }
-    } else if (user.id === 2927) {
-      /*
-       * hard coded flags
-       * TODO make it possible to modify user flags
-       */
-      displayCountry = 'bt';
-    } else if (user.id === 41030) {
-      displayCountry = 'to';
-    } else if (user.id === 1384) {
-      displayCountry = 'fa';
-    } else if (user.id === 351896) {
-      displayCountry = 'c1';
-    }
+    const displayCountry = mapFlag(user.id, user.userlvl, country);
 
     if (USE_MAILER && user.userlvl < USERLVL.VERIFIED) {
       return t`Your mail has to be verified in order to chat`;
