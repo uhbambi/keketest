@@ -569,9 +569,17 @@ export async function executeWatchAction(
   canvasid,
   clr,
   maxrows,
+  maxentities,
 ) {
   if (!canvasid) {
     return { info: 'canvasid not defined' };
+  }
+
+  maxentities = parseInt(maxentities, 10);
+  if (!maxentities || maxentities < 1) {
+    maxentities = 25;
+  } else if (maxentities > 200) {
+    maxentities = 200;
   }
 
   maxrows = parseInt(maxrows, 10);
@@ -642,6 +650,7 @@ export async function executeWatchAction(
       x, y, u, v,
       time,
       iid,
+      maxentities,
     );
   }
   if (action === 'all') {
@@ -654,6 +663,7 @@ export async function executeWatchAction(
       time,
       iid,
       maxrows,
+      maxentities,
     );
   }
   if (typeof ret === 'string') {

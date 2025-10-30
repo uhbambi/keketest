@@ -185,6 +185,7 @@ export async function getSummaryFromArea(
   yBR,
   time,
   iid,
+  maxEntities,
 ) {
   const ips = {};
   let summaryLength = 0;
@@ -200,7 +201,7 @@ export async function getSummaryFromArea(
   try {
     await parseFile((parts) => {
       /* only allow a limited amount of entries */
-      if (summaryLength > 25) {
+      if (summaryLength > maxEntities) {
         return;
       }
 
@@ -272,6 +273,7 @@ export async function getPixelsFromArea(
   time,
   iid,
   maxRows,
+  maxEntities,
 ) {
   const pixels = [];
   const ipStrings = new Set();
@@ -287,7 +289,10 @@ export async function getPixelsFromArea(
   try {
     await parseFile((parts) => {
       /* only allow a limited amount of ipStrings */
-      if (ipStrings.size > 25) {
+      if (ipStrings.size > maxEntities) {
+        return;
+      }
+      if (pixels.length > maxRows) {
         return;
       }
 
@@ -317,10 +322,6 @@ export async function getPixelsFromArea(
     return `Could not parse logfile: ${err.message}`;
   }
 
-  const pixelF = (maxRows && pixels.length > maxRows)
-    ? pixels.slice(maxRows * -1)
-    : pixels;
-
   const columns = ['rid'];
   const types = ['number'];
   if (!filterIP) {
@@ -331,8 +332,8 @@ export async function getPixelsFromArea(
   types.push('coord', 'clr', 'ts');
 
   const rows = [];
-  for (let i = 0; i < pixelF.length; i += 1) {
-    const [ip, uid, x, y, clr, ts] = pixelF[i];
+  for (let i = 0; i < pixels.length; i += 1) {
+    const [ip, uid, x, y, clr, ts] = pixels[i];
     const row = [i];
     if (!filterIP) {
       row.push(ip, uid);
