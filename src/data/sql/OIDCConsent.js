@@ -120,7 +120,7 @@ export async function getAllConsentsOfUser(userId) {
       if (consentModels) {
         for (let i = 0; i < consentModels.length; i += 1) {
           const model = consentModels[i];
-          model.expiresTs = model.expires.getTime();
+          model.expiresTs = model.expires?.getTime();
           delete model.expires;
 
           let domain = model.redirectUris.split(' ')[0];

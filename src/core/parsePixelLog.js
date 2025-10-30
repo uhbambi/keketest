@@ -394,16 +394,32 @@ export async function populateTable(table, reducedInfo = false) {
     }
 
     const promises = [
-      (uids.size) ? getNamesToIds([...uids]) : [],
+      (uids.size) ? getNamesToIds([...uids]) : new Map(),
     ];
     if (ipStrings.size) {
-      if (getFullIPInfo) {
-        promises.push(getIPInfos([...ipStrings]));
-      } else {
-        promises.push(getIIDsOfIPs([...ipStrings]));
-      }
+      /*
+       * only grab 300 at a time and only the minimal info we want
+       */
+      const ipGrabFunc = (getFullIPInfo) ? getIPInfos : getIIDsOfIPs;
+      promises.push((async () => {
+        const ipStringsArray = Array.from(ipStrings);
+        let ip2Info = new Map();
+        let i = 0;
+        while (i < ipStringsArray.length) {
+          try {
+            // eslint-disable-next-line no-await-in-loop
+            const partialInfos = await ipGrabFunc(
+              ipStringsArray.slice(i, i += 300),
+            );
+            ip2Info = new Map([...ip2Info, ...partialInfos]);
+          } catch (err) {
+            break;
+          }
+        }
+        return ip2Info;
+      })());
     } else {
-      promises.push([]);
+      promises.push(new Map());
     }
     const [uid2Name, ip2Info] = await Promise.all(promises);
 
@@ -415,7 +431,7 @@ export async function populateTable(table, reducedInfo = false) {
       if (ipColumn !== -1) {
         table.columns[ipColumn] = 'IID';
         table.types[ipColumn] = 'uuid';
-        if (getFullIPInfo && ip2Info.length) {
+        if (getFullIPInfo && ip2Info.size) {
           table.columns.splice(
             ipColumn + 1, 0, 'ct', 'cidr', 'org', 'pc',
           );
@@ -436,11 +452,9 @@ export async function populateTable(table, reducedInfo = false) {
           if (!getFullIPInfo) {
             row[ipColumn] = ip2Info.get(row[ipColumn]) || 'N/A';
           } else {
-            const ipInfo = ip2Info.find(
-              ({ ipString }) => ipString === row[ipColumn],
-            );
+            const ipInfo = ip2Info.get(row[ipColumn]);
             row[ipColumn] = ipInfo ? ipInfo.iid : 'N/A';
-            if (ip2Info.length) {
+            if (ip2Info.size) {
               if (ipInfo) {
                 // eslint-disable-next-line max-len
                 row.splice(ipColumn + 1, 0, ipInfo.country, ipInfo.cidr, ipInfo.org || 'N/A', ipInfo.type || 'N/A');

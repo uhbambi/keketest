@@ -294,10 +294,11 @@ export async function executeIIDAction(
 
       /* getIPInfos always returns Array */
       if (ipInfo) {
-        if (!ipInfo.length) {
+        if (!ipInfo.size) {
           return 'No such IID found';
         }
-        [ipInfo] = ipInfo;
+        /* there is only one value, get it */
+        ipInfo = ipInfo.values().next().value;
 
         const {
           country, cidr, org,

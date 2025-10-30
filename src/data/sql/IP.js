@@ -277,6 +277,7 @@ ON DUPLICATE KEY UPDATE isProxy = VALUES(isProxy), type = VALUES(type), operator
  * }, ...]
  */
 export async function getIPInfos(ipStrings, ipUuids) {
+  const ipInfos = new Map();
   try {
     const where = [];
     let replacements = [];
@@ -316,11 +317,11 @@ export async function getIPInfos(ipStrings, ipUuids) {
     }
 
     if (requestAmount === 0 || requestAmount > 300) {
-      return [];
+      return ipInfos;
     }
 
     const startTime = Date.now();
-    const ipInfos = await sequelize.query(
+    const ipInfoModels = await sequelize.query(
       `SELECT BIN_TO_UUID(ip.uuid) AS 'iid', BIN_TO_IP(ip.ip) AS 'ipString',
 COALESCE(r.country, 'xx') AS 'country', r.org, r.descr, r.asn, CONCAT(BIN_TO_IP(r.min), '/', r.mask) AS 'cidr',
 p.type, COALESCE(p.isProxy, 0) AS isProxy, w.ip IS NOT NULL AS isWhitelisted
@@ -336,9 +337,11 @@ WHERE ${(where.length === 1) ? where[0] : `(${where.join(' OR ')})`}`, {
       },
     );
     /* sanitize ips */
-    for (let i = 0; i < ipInfos.length; i += 1) {
-      const ipInfo = ipInfos[i];
-      ipInfo.ipString = sanitizeIPString(ipInfo.ipString);
+    for (let i = 0; i < ipInfoModels.length; i += 1) {
+      const ipInfo = ipInfoModels[i];
+      const ipString = sanitizeIPString(ipInfo.ipString);
+      delete ipInfo.ipString;
+      ipInfos.set(ipString, ipInfo);
     }
     console.log(
       `SQL Resolving IPInfos took ${(Date.now() - startTime) / 1000}s`,
@@ -348,7 +351,7 @@ WHERE ${(where.length === 1) ? where[0] : `(${where.join(' OR ')})`}`, {
   } catch (error) {
     console.error(`SQL Error on getInfoToIp: ${error.message}`);
   }
-  return [];
+  return ipInfos;
 }
 
 /**
