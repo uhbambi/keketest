@@ -1,20 +1,21 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: admin@pixelplanet.fun\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2024-04-23 16:07+0000\n"
-"Last-Translator: weblate <weblate@noreply.pixelplanet.fun>\n"
-"Language-Team: French <https://hosted.weblate.org/projects/pixelplanet/"
-"client/fr/>\n"
+"PO-Revision-Date: 2025-10-31 12:40+0000\n"
+"Last-Translator: \"[FR]ꖦ𝔇𝔞𝔯𝔯𝔎𝔬𖦏\" <darrko@noreply.pixelplanet.fun>\n"
+"Language-Team: French <https://translate.gs-os.com/projects/ppfun/client/fr/>"
+"\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 5.5-dev\n"
+"X-Generator: Weblate 5.14\n"
 
 msgid " which is in "
-msgstr ""
+msgstr " qui est dans "
 
 #, javascript-format
 msgid "${ mouseSymbol } Hold left mouse button and drag mouse to rotate"
@@ -47,16 +48,16 @@ msgstr ""
 "souris et faites glisser pour zoomer"
 
 msgid "(0 = infinite)"
-msgstr ""
+msgstr "(0 = infini)"
 
 msgid "+last hour"
-msgstr ""
+msgstr "+dernière heure"
 
 msgid "...loading Login methods and sessions..."
-msgstr ""
+msgstr "...chargement des méthodes de connexion et des sessions..."
 
 msgid "A Phish!"
-msgstr ""
+msgstr "Un Poisson!"
 
 msgid "A new verification mail is getting sent to you."
 msgstr "Un nouveau courriel de verification se dirige vers vous."
@@ -67,9 +68,8 @@ msgstr ""
 msgid "Add Grid (uncheck if you need a 1:1 template)"
 msgstr "Ajouter grille (décochez-vous si vous avez besoin d'une modèle 1:1)"
 
-#, fuzzy
 msgid "Add Template"
-msgstr "Télécharger modèle"
+msgstr "Ajouter un Template"
 
 msgid "Admintools"
 msgstr "Outils d'admin"
@@ -78,10 +78,10 @@ msgid "All sound effects will be disabled."
 msgstr "Tous les effets sonores seront désactivés."
 
 msgid "Always show Movement Controls"
-msgstr ""
+msgstr "Toujours montrer les Contrôles de Mouvement"
 
 msgid "Always show movement control buttons"
-msgstr ""
+msgstr "Toujours montrer les boutons de contrôles de mouvement"
 
 msgid "Anti Aliasing"
 msgstr "Anticrénelage"

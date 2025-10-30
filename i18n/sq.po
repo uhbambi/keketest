@@ -3,8 +3,8 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: admin@pixelplanet.fun\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2025-10-28 21:40+0000\n"
-"Last-Translator: Extreme Motorsex <em@noreply.pixelplanet.fun>\n"
+"PO-Revision-Date: 2025-10-31 23:40+0000\n"
+"Last-Translator: Arti ϟϟ <arti@noreply.pixelplanet.fun>\n"
 "Language-Team: Albanian <https://translate.gs-os.com/projects/ppfun/client/"
 "sq/>\n"
 "Language: sq\n"
@@ -20,26 +20,26 @@ msgstr " e cila është në "
 #, javascript-format
 msgid "${ mouseSymbol } Hold left mouse button and drag mouse to rotate"
 msgstr ""
-"${ mouseSymbol } Mbani butonin e majtë të miut dhe tërhiqni miun për të "
+"${ mouseSymbol } Mbaj butonin e majtë të mausit dhe tërheq mausin për të "
 "rrotulluar"
 
 #, javascript-format
 msgid "${ mouseSymbol } Left click or ${ touchSymbol } tap to place a pixel"
 msgstr ""
-"${ mouseSymbol } Kliko majtas ose ${ touchSymbol } trokitni lehtë për të "
+"${ mouseSymbol } Kliko butonin e majtë ose ${ touchSymbol } prek për të "
 "vendosur një piksel"
 
 #, javascript-format
 msgid "${ mouseSymbol } Right click and drag mouse to pan"
 msgstr ""
-"${ mouseSymbol } Klikoni me të djathtën dhe tërhiqni miun për të lëvizur "
+"${ mouseSymbol } Kliko me butonin e djathtë dhe tërheq mausin për të lëvizur "
 "pamjen"
 
 #, javascript-format
 msgid ""
 "${ mouseSymbol } Right click or ${ touchSymbol } double-tap to remove a pixel"
 msgstr ""
-"${ mouseSymbol } Klikoni me të djathtën ose ${ touchSymbol } trokitni dy "
+"${ mouseSymbol } Kliko me butonin e djathtë ose ${ touchSymbol } prek dy "
 "herë për të hequr një piksel"
 
 #, javascript-format
@@ -47,8 +47,8 @@ msgid ""
 "${ mouseSymbol } Scroll mouse wheel or hold ${ mouseSymbol } middle mouse "
 "button and drag to zoom"
 msgstr ""
-"${ mouseSymbol } Lëvizni rrotën e miut ose mbani ${ mouseSymbol } butonin e "
-"mesëm të miut dhe tërhiqni për të zmadhuar"
+"${ mouseSymbol } Lëviz rrotën e mausit ose mbaj ${ mouseSymbol } butonin e "
+"mesëm të mausit dhe tërheq për të zmadhuar"
 
 msgid "(0 = infinite)"
 msgstr "(0 = pafund)"
@@ -57,25 +57,25 @@ msgid "+last hour"
 msgstr "+ora e fundit"
 
 msgid "...loading Login methods and sessions..."
-msgstr "…duke ngarkuar metodat e hyrjes dhe seancat…"
+msgstr "…duke ngarkuar metodat e Hyrjes dhe seancat…"
 
 msgid "A Phish!"
 msgstr "Një Phish!"
 
 msgid "A new verification mail is getting sent to you."
-msgstr "Një postë e re verifikimi po ju dërgohet."
+msgstr "Një email i ri verifikimi po ju dërgohet."
 
 msgid "ACCESS MODTOOLS"
-msgstr "Aksesoni veglat e moderatorit"
+msgstr "AKSESO VEGLAT E MODERATORIT"
 
 msgid "Add Grid (uncheck if you need a 1:1 template)"
-msgstr "Shto Rrjetën (hiqni shenjën nëse keni nevojë për një model 1:1)"
+msgstr "Shto Rrjetën (hiqni shenjën nëse keni nevojë për një shabllon 1:1)"
 
 msgid "Add Template"
-msgstr "Shto shabllon"
+msgstr "Shto Shabllon"
 
 msgid "Admintools"
-msgstr "Mjetet e administrimit"
+msgstr "Veglateadministratorit"
 
 msgid "All sound effects will be disabled."
 msgstr "Të gjitha efektet zanore do të çaktivizohen."
@@ -84,37 +84,37 @@ msgid "Always show Movement Controls"
 msgstr "Shfaq gjithmonë Kontrollet e Lëvizjes"
 
 msgid "Always show movement control buttons"
-msgstr "Gjithmonë tregoni butonat e kontrollit të lë"
+msgstr "Gjithmonë trego butonat e kontrollit të lëvizjes"
 
 msgid "Anti Aliasing"
 msgstr "Anti Aliasimi"
 
 msgid "Apply a filter to clean trash in large canvas areas."
-msgstr "Aplikoni një filtër për të pastruar plehrat në zona të mëdha kanavacë."
+msgstr "Apliko një filtër për të pastruar plehrat në zona të mëdha kanavacë."
 
 msgid "Archive"
 msgstr "Arkivi"
 
 msgid "Assign new Mod"
-msgstr "Caktoni Mod të ri"
+msgstr "Cakto Mod të ri"
 
 msgid "Auto Zoom In"
-msgstr "Zmadhimi automatik"
+msgstr "Zmadhimi Automatik"
 
 msgid "Back"
 msgstr "Mbrapa"
 
 msgid "Badge Display"
-msgstr "Ekrani i stemës"
+msgstr "Shfaqja e Stemave"
 
 msgid "Badges"
 msgstr "Stemat"
 
 msgid "Banned"
-msgstr "I dënuar"
+msgstr "Përjashtuar"
 
 msgid "Banned? Detected as Proxy?"
-msgstr "I dënuar? Zbuluar si proxy?"
+msgstr "Përjashtuar? Zbuluar si Proxy?"
 
 msgid "Block"
 msgstr "Blloko"
@@ -139,71 +139,70 @@ msgid "Bottom-right corner"
 msgstr "Këndi i poshtëm i djathtë"
 
 msgid "Build image and set it to protected."
-msgstr "Ndërtoni imazhin dhe vendoseni atë të mbrojtur."
+msgstr "Ndërto imazhin dhe vendose atë të mbrojtur."
 
 msgid "Build image on canvas."
-msgstr "Ndërtoni imazh në kanavacë."
+msgstr "Ndërto imazh në kanavacë."
 
 msgid "Build image, but reset cooldown to unset-pixel cd."
-msgstr ""
-"Ndërtoni imazhin, por rivendosni cooldown në cd të pikselit të pavendosur."
+msgstr "Ndërto imazhin, por rivendos cooldown në cd të pikselit të pavendosur."
 
 msgid "By Mod"
 msgstr "Nga Mod"
 
 msgid "Calculate like GIMP"
-msgstr "Llogaritni si GIMP"
+msgstr "Llogarit si GIMP"
 
 msgid "Can not export more than 20 or no template!"
-msgstr "Nuk mund të eksportoj më shumë se 20 ose asnjë shabllon!"
+msgstr "Nuk mund të eksportoni më shumë se 20 ose asnjë shabllon!"
 
 msgid "Can not import more than 20 or no template!"
-msgstr "Nuk mund të importoj më shumë se 20 ose asnjë shabllon!"
+msgstr "Nuk mund të importoni më shumë se 20 ose asnjë shabllon!"
 
 msgid "Can't read? Reload:"
-msgstr "Nuk mund të lexoni? Ringarkoni:"
+msgstr "Nuk mund ta lexoni? Ringarkoni:"
 
 msgid "Can't render 3D canvas, do you have WebGL2 disabled?"
 msgstr "Nuk mund të shfaq kanavacën 3D, a keni WebGL2 të çaktivizuar?"
 
 msgid "Cancel"
-msgstr "Anuloni"
+msgstr "Anulo"
 
 msgid "Cancel adding Template"
-msgstr "Anuloni shtimin e shabllonit"
+msgstr "Anulo shtimin e Shabllonit"
 
 msgid "Canvas"
 msgstr "Kanavacë"
 
 msgid "Canvas Archive"
-msgstr "Arkivi kanavacë"
+msgstr "Arkivi i Kanavacave"
 
 msgid "Canvas Cleaner"
-msgstr "Pastrues kanavacë"
+msgstr "Pastrues Kanavacë"
 
 msgid "Canvas Error"
-msgstr "Gabim i kanavacës"
+msgstr "Gabim i Kanavacës"
 
 msgid "Canvas Selection"
-msgstr "Përzgjedhja e kanavacës"
+msgstr "Përzgjedhja e Kanavacës"
 
 msgid "Captcha"
-msgstr "CAPTCHA"
+msgstr "Captcha"
 
 msgid "Caught by"
 msgstr "Kapur nga"
 
 msgid "Change Happened"
-msgstr "Ndryshimi ndodhi"
+msgstr "Ndodhi Ndryshim"
 
 msgid "Change Name"
-msgstr "Ndryshoni emrin"
+msgstr "Ndrysho Emrin"
 
 msgid "Change Password"
-msgstr "Ndryshoni fjalëkalimin"
+msgstr "Ndrysho Fjalëkalimin"
 
 msgid "Change your Mail Adress here:"
-msgstr "Ndryshoni adresën tuaj të postës këtu:"
+msgstr "Ndrysho Adresën tënde të Postës këtu:"
 
 msgid "Channel settings"
 msgstr "Cilësimet e kanalit"
@@ -215,46 +214,46 @@ msgid "Chat"
 msgstr "Bisedë"
 
 msgid "Chat here"
-msgstr "Bisedoni këtu"
+msgstr "Bisedo këtu"
 
 msgid "Check out past versions of the canvas."
-msgstr "Shikoni versionet e mëparshme të kanavacës."
+msgstr "Shiko versionet e mëparshme të kanavacës."
 
 msgid "Check to allow"
-msgstr "Zgjidhni për të lejuar"
+msgstr "Zgjidh për të lejuar"
 
 msgid "Check who placed in an area"
-msgstr "Kontrolloni se kush ka vendosur në një zonë"
+msgstr "Kontrollo se kush ka vendosur në një zonë"
 
 msgid "Choose Canvas"
-msgstr "Zgjidhni kanavacë"
+msgstr "Zgjidh Kanavacë"
 
 msgid "Choose Color Mode"
-msgstr "Zgjidhni Modalitetin e Ngjyrave"
+msgstr "Zgjidh Modalitetin e Ngjyrave"
 
 msgid "Choose Strategy"
-msgstr "Zgjidhni strategjinë"
+msgstr "Zgjidh Strategjinë"
 
 msgid "Choose Username"
-msgstr "Zgjidhni emrin e përdoruesit"
+msgstr "Zgjidh Emrin e Përdoruesit"
 
 msgid ""
 "Clean spare pixels that are surrounded by a single other color or unset "
 "pixels (VERY AGGRESSIVE ON CANVASES THAT ALLOW UNSET PIXELS (where there are "
 "two cooldowns)!)"
 msgstr ""
-"Pastroni piksele rezervë që janë të rrethuar nga një ngjyrë tjetër ose "
-"piksele të pacaktuara (SHUMË AGRESIVE NË KANAVACAT QË LEJOJNË PIKSELE TË "
-"PAVENDOSURA (ku ka dy cooldown)!)"
+"Pastro piksele rezervë që janë të rrethuar nga një ngjyrë tjetër ose piksele "
+"të pacaktuara (SHUMË AGRESIVE NË KANAVACAT QË LEJOJNË PIKSELE TË PAVENDOSURA "
+"(ku ka dy cooldown)!)"
 
 msgid "Clean spare pixels that are surrounded by unset pixels"
-msgstr "Pastroni piksele rezervë që janë të rrethuar nga piksele të pacaktuara"
+msgstr "Pastro piksele rezervë që janë të rrethuar nga piksele të pacaktuara"
 
 msgid ""
 "Clean spare pixels that are surrounded by unset pixels and up to 1 other set "
 "pixels"
 msgstr ""
-"Pastroni piksele rezervë që janë të rrethuar nga piksele të pacaktuara dhe "
+"Pastro piksele rezervë që janë të rrethuar nga piksele të pacaktuara dhe "
 "deri në 1 piksele të tjera të caktuara"
 
 msgid "Cleaners can use 0cd blank colors."
@@ -265,41 +264,41 @@ msgid ""
 "Click ${ mouseSymbol } middle mouse button or ${ touchSymbol } long-tap to "
 "select current hovering color"
 msgstr ""
-"Klikoni ${ mouseSymbol } butonin e mesëm të miut ose ${ touchSymbol } prekni "
+"Kliko ${ mouseSymbol } butonin e mesëm të mausit ose ${ touchSymbol } prekni "
 "gjatë për të zgjedhur ngjyrën aktuale të lëvizjes"
 
 msgid "Click a color in palette to select it"
-msgstr "Klikoni një ngjyrë në paletë për ta zgjedhur atë"
+msgstr "Kliko një ngjyrë në paletë për ta zgjedhur atë"
 
 msgid "Click here to request a new verification mail."
-msgstr "Klikoni këtu për të kërkuar një email të ri verifikimi."
+msgstr "Kliko këtu për të kërkuar një email të ri verifikimi."
 
 msgid "Click to Load Captcha"
-msgstr "Klikoni për të ngarkuar Captcha"
+msgstr "Klikoni për të Ngarkuar Captcha"
 
 msgid "Clone"
 msgstr "Klon"
 
 msgid "Close"
-msgstr "Mbylle"
+msgstr "Mbyll"
 
 msgid "Close Chat"
-msgstr "Mbyll bisedën"
+msgstr "Mbyll Bisedën"
 
 msgid "Close Menu"
-msgstr "Mbyll menunë"
+msgstr "Mbyll Menunë"
 
 msgid "Close Palette"
-msgstr "Mbyllni paletën"
+msgstr "Mbyll Paletën"
 
 msgid "Compact Palette"
-msgstr "Paleta kompakte"
+msgstr "Paleta Kompakte"
 
 msgid "Confirm New Password"
-msgstr "Konfirmo fjalëkalimin e ri"
+msgstr "Konfirmo Fjalëkalimin e Ri"
 
 msgid "Confirm Password"
-msgstr "Konfirmo fjalëkalimin"
+msgstr "Konfirmo Fjalëkalimin"
 
 #, javascript-format
 msgid "Connection error ${ code } :("
@@ -309,13 +308,13 @@ msgid "Consent"
 msgstr "Autorizimi"
 
 msgid "Consider joining us on Matrix:"
-msgstr "Konsideroni të na bashkoheni në Matrix:"
+msgstr "Konsidero të na bashkohesh në Matrix:"
 
 msgid "Controls"
 msgstr "Kontrollet"
 
 msgid "Convert an image to canvas colors"
-msgstr "Konvertoni një imazh në ngjyrat e kanavacës"
+msgstr "Konverto një imazh në ngjyrat e kanavacës"
 
 msgid "Converter"
 msgstr "Konvertuesi"
@@ -340,31 +339,31 @@ msgid "Copied"
 msgstr "Kopjuar"
 
 msgid "Copy"
-msgstr "Kopjoni"
+msgstr "Kopjo"
 
 msgid "Copy Link"
-msgstr "Kopjoni lidhjen"
+msgstr "Kopjo Lidhjen"
 
 msgid "Copy Selected to Clipboard"
-msgstr "Kopjoni të përzgjedhurën në memorie"
+msgstr "Kopjo të Përzgjedhurën në Memorie"
 
 msgid "Copy URL"
-msgstr "Kopjoni URL"
+msgstr "Kopjo URL"
 
 msgid "Copy UserId to Clipboard"
-msgstr "Kopjoni ID-në e përdoruesit në memorie"
+msgstr "Kopjo UserId në Memorie"
 
 msgid "Copy to Clipboard"
-msgstr "Kopjoni në memorie"
+msgstr "Kopjo në Memorie"
 
 msgid "Could not connect to server, please try again later :("
-msgstr "Nuk mund të lidhet me serverin, ju lutemi provoni përsëri më vonë :("
+msgstr "Nuk mund të lidhet me serverin, ju lutem provoni përsëri më vonë :("
 
 msgid "Could not load captcha"
-msgstr "Nuk mund të ngarkoj captcha"
+msgstr "Nuk mund të ngarkohej captcha"
 
 msgid "Couldn't set Pixel"
-msgstr "Nuk mund të vendos Pixel"
+msgstr "Nuk mund të vendosej Pikseli"
 
 msgid "Countries Today"
 msgstr "Shtetet Sot"
@@ -374,45 +373,45 @@ msgstr "Shteti"
 
 #, javascript-format
 msgid "Credit for the Palette of the 2bit canvas goes to ${ donendoLink }."
-msgstr "Krediti për Paletën e kanavacës 2bit i shkon ${ donendoLink }."
+msgstr "Krediti për Paletën e kanavacës 2bit shkon tek ${ donendoLink }."
 
 #, javascript-format
 msgid "Credit for the Palette of the Moon goes to ${ starhouseLink }."
-msgstr "Krediti për Paletën e Hënës i shkon ${ starhouseLink }."
+msgstr "Krediti për Paletën e Hënës shkon tek ${ starhouseLink }."
 
 #, javascript-format
 msgid "Credit for the Palette of the Top10 canvas goes to ${ vinikLink }."
-msgstr "Krediti për Paletën e kanavacës Top10 i shkon ${ vinikLink }."
+msgstr "Krediti për Paletën e kanavacës Top10 shkon tek ${ vinikLink }."
 
 msgid "Current Cooldown Changes per Country"
 msgstr "Ndryshimet aktuale të ftohjes për shtetet"
 
 msgid "Custom Cursor"
-msgstr "Kursori i personalizuar"
+msgstr "Kursori i Personalizuar"
 
 msgid "DM"
 msgstr "DM"
 
 msgid "Daily Pixels per Country"
-msgstr "Piksele ditore për shtetet"
+msgstr "Pikselët Ditorë për Shtet"
 
 msgid "Daily Pixels per Player"
-msgstr "Piksele ditore për lojtar"
+msgstr "Pikselët Ditorë për Lojtar"
 
 msgid "Daily Rank"
-msgstr "Renditja ditore"
+msgstr "Renditja Ditore"
 
 msgid "Date of Award"
-msgstr "Data e dhënies së çmimit"
+msgstr "Data e dhënies së Çmimit"
 
 msgid "Date of catch"
 msgstr "Data e kapjes"
 
 msgid "Delete"
-msgstr "Fshini"
+msgstr "Fshij"
 
 msgid "Delete Account"
-msgstr "Fshini llogarinë"
+msgstr "Fshij llogarinë"
 
 msgid "Deny"
 msgstr "Refuzo"
@@ -421,29 +420,29 @@ msgid ""
 "Didn't get an answer from pixelplanet. Try to refresh if this problem "
 "persists."
 msgstr ""
-"Nuk mora një përgjigje nga pixelplanet. Provoni të rifreskoni nëse ky "
+"Nuk u mor asnjë përgjigje nga pixelplanet. Provoni të rifreskoni nëse ky "
 "problem vazhdon."
 
 msgid "Dimensions"
-msgstr "Dimensionet"
+msgstr "Përmasat"
 
 msgid "Disable Game Sounds"
-msgstr "Çaktivizo tingujt e lojës"
+msgstr "Çaktivizo Tingujt e Lojës"
 
 msgid "Disable History Pencil"
-msgstr "Çaktivizo lapsin e historisë"
+msgstr "Çaktivizo Lapsin e Historisë"
 
 msgid "Disable Overlay Pencil"
-msgstr "Çaktivizoni lapsin e mbivendosjes"
+msgstr "Çaktivizo Lapsin e Mbivendosjes"
 
 msgid "Disable Pencil"
-msgstr "Çaktivizo lapsin"
+msgstr "Çaktivizo Lapsin"
 
 msgid "Display Palette in a compact form that takes less screen space."
 msgstr "Shfaq paletën në një formë kompakte që zë më pak hapësirë në ekran."
 
 msgid "Do stuff with IPs (one IP per line)"
-msgstr "Bëni gjëra me IP (një IP për linjë)"
+msgstr "Bëni gjëra me IP (një IP për rresht)"
 
 msgid "Don't remember"
 msgstr "Mos mbaj mend"
@@ -452,24 +451,24 @@ msgid "Don't show me in global stats"
 msgstr "Mos më trego në statistikat globale"
 
 msgid "Download Template"
-msgstr "Shkarkoni shabllonin"
+msgstr "Shkarko Shabllonin"
 
 #, javascript-format
 msgid "Drag ${ mouseSymbol } mouse or ${ touchSymbol } pan to move"
 msgstr ""
-"Tërhiqni ${ mouseSymbol } miun ose ${ touchSymbol } gishtin për të lëvizur"
+"Tërhiqni ${ mouseSymbol } mausin ose ${ touchSymbol } gishtin për të lëvizur"
 
 msgid "Duration"
 msgstr "Kohëzgjatja"
 
 msgid "Easter Egg OFF"
-msgstr "Vezë e Pashkëve OFF"
+msgstr "Veza e Pashkëve OFF"
 
 msgid "Easter Egg ON"
 msgstr "Vezë e Pashkëve ON"
 
 msgid "Edit"
-msgstr "Ndrysho"
+msgstr "Redakto"
 
 msgid "Email"
 msgstr "Email"
@@ -484,7 +483,7 @@ msgid ""
 "Email is used to verify your account. You might get a cofirmation mail after "
 "registering."
 msgstr ""
-"Email përdoret për të verifikuar llogarinë tuaj. Ju mund të merrni një postë "
+"Email përdoret për të verifikuar llogarinë tuaj. Ju mund të merrni një email "
 "verifikimi pas regjistrimit."
 
 msgid "Email should at least contain a dot"
@@ -497,26 +496,26 @@ msgid "Email should contain a @"
 msgstr "Email duhet të përmbajë një @"
 
 msgid "Enable Overlay"
-msgstr "Aktivizoni mbivendosjen"
+msgstr "Aktivizo Mbivendosjen"
 
 msgid "Enable Pencil"
-msgstr "Aktivizoni lapsin"
+msgstr "Aktivizo Lapsin"
 
 msgid "Enable chat notifications"
 msgstr "Aktivizo njoftimet e bisedës"
 
 msgid "Enter Characters"
-msgstr "Shkruani karakteret"
+msgstr "Shkruaj Karakteret"
 
 msgid "Enter Reason"
-msgstr "Shkruani arsyen"
+msgstr "Shkruaj Arsyen"
 
 msgid "Enter UserName of new Mod"
-msgstr "Futni emrin e përdoruesit të Moderatorit të ri"
+msgstr "Fut UserName të Moderatorit të ri"
 
 msgid "Enter your mail address and we will send you a new password:"
 msgstr ""
-"Shkruani adresën tuaj të postës dhe ne do t'ju dërgojmë një fjalëkalim të ri:"
+"Shkruaj adresën tënde të postës dhe ne do t'ju dërgojmë një fjalëkalim të ri:"
 
 msgid "Error"
 msgstr "Gabim"
@@ -541,13 +540,13 @@ msgid "File"
 msgstr "Skedar"
 
 msgid "Fish Display"
-msgstr "Ekrani i peshkut"
+msgstr "Shfaqja e Peshqve"
 
 msgid "For"
 msgstr "Për"
 
 msgid "For Developers"
-msgstr "Për zhvilluesit"
+msgstr "Për Zhvilluesit"
 
 #, javascript-format
 msgid ""
@@ -573,31 +572,31 @@ msgid "For one year"
 msgstr "Për një vit"
 
 msgid "For when you are playing on a potato."
-msgstr "Kur jeni duke luajtur në një patate."
+msgstr "Kur je duke luajtur në një patate."
 
 msgid "Forever"
 msgstr "Përgjithmonë"
 
 msgid "From History"
-msgstr "Nga historia"
+msgstr "Nga Historia"
 
 msgid "From Template"
-msgstr "Nga shablloni"
+msgstr "Nga Shablloni"
 
 msgid "Get IID"
-msgstr "Merrni IID"
+msgstr "Merr IID"
 
 msgid "Get Pixels"
-msgstr "Merrni piksele"
+msgstr "Merr Pikselët"
 
 msgid "Get Users"
-msgstr "Merrni Përdorues"
+msgstr "Merr Përdoruesit"
 
 msgid "Get email address"
-msgstr "Të marrë adresën email"
+msgstr "Merr adresën email"
 
 msgid "Get the amount of Pixels placed and ranking"
-msgstr "Të marrë sasinë e pikselëve të vendosur dhe renditjen"
+msgstr "Merr sasinë e Pikselëve të vendosur dhe renditjen"
 
 msgid "Globe View"
 msgstr "Pamja e Globit"
@@ -627,7 +626,7 @@ msgid ""
 "Here we collect removed canvases to archive them properly. Which is "
 "currently only one."
 msgstr ""
-"Këtu ne mbledhim kanavacat e hequr për t'i arkivuar ato siç duhet. E cila "
+"Këtu ne mbledhim kanavacat e hequra për t'i arkivuar ato siç duhet. E cila "
 "aktualisht është vetëm një."
 
 msgid "Hide Embed"
@@ -641,18 +640,18 @@ msgstr ""
 "globi 3D përditësohet të paktën një herë në ditë."
 
 msgid "Historical View"
-msgstr "Pamje historike"
+msgstr "Pamje Historike"
 
 #, javascript-format
 msgid "Hold left ${ bindShift } for pencil (to place while moving mouse)"
 msgstr ""
-"Mbani ${ bindShift } e majtë për laps (për të vendosur ndërsa lëvizni miun)"
+"Mbaj ${ bindShift } e majtë për laps (për të vendosur ndërsa lëviz mausin)"
 
 msgid "How pixelplanet should look like."
 msgstr "Si duhet të duket pixelplanet."
 
 msgid "I forgot my Password."
-msgstr "Kam harruar fjalëkalimin tim."
+msgstr "Kam harruar Fjalëkalimin tim."
 
 msgid "IID (optional)"
 msgstr "IID (opsionale)"
@@ -661,7 +660,7 @@ msgid "IID Actions"
 msgstr "Veprimet IID"
 
 msgid "IP Actions"
-msgstr "Veprimet e IP"
+msgstr "Veprimet IP"
 
 msgid "Identifiers"
 msgstr "Identifikuesit"
@@ -674,9 +673,9 @@ msgid ""
 "ban message."
 msgstr ""
 "Nëse jeni zbuluar si proxy, por nuk jeni duke përdorur një, ose mendoni se "
-"jeni dënuar gabimisht, ju lutemi shkoni tek ${ guildedLink } ynë ose na "
-"dërgoni një e-mail në ${ mailLink } dhe, në rast të dënimit, përfshini BID "
-"që keni marrë në mesazhin e dënimit."
+"jeni përjashtuar gabimisht, ju lutemi shkoni tek ${ guildedLink } ynë ose na "
+"dërgoni një email në ${ mailLink } dhe, në rast të përjashtimit, përfshini "
+"BID që keni marrë në mesazhin e përjashtimit."
 
 msgid ""
 "If you talk to moderators or administrators, you might get asked for one of "
@@ -1304,7 +1303,7 @@ msgid ""
 "The application ${ appName } at ${ appUrl } wants to login with your "
 "pixelplanet account ${ accountName }"
 msgstr ""
-"Aplikacioni ${ appName } në ${ appUrl } dëshiron të kyçet në llogarinë tuaj "
+"Aplikacioni ${ appName } në ${ appUrl } dëshiron të kyçet me llogarinë tuaj "
 "pixelplanet ${ accountName }"
 
 msgid ""
@@ -1318,8 +1317,8 @@ msgid ""
 "The name of your account, only a-z, A-Z, -, ., and - characters are allowed. "
 "It is permanent, you can not change it later."
 msgstr ""
-"Emri i llogarisë suaj, lejohen vetëm karakteret a-z, A-Z, -, dhe -. Është e "
-"përhershme, nuk mund ta ndryshoni më vonë."
+"Emri i llogarisë suaj, lejohen vetëm karakteret a-z, A-Z, -, ., dhe _. Është "
+"e përhershme, nuk mund ta ndryshoni më vonë."
 
 msgid "Themes"
 msgstr "Temat"
@@ -1353,7 +1352,7 @@ msgid "This permission is required"
 msgstr "Kjo leje është e detyrueshme"
 
 msgid "Timeout"
-msgstr "Afati i kohës"
+msgstr "Vonesë"
 
 msgid "Tip: Not case-sensitive; I and l are the same"
 msgstr ""
@@ -1384,7 +1383,7 @@ msgid "Top 10 Countries [pxls / day]"
 msgstr "10 vendet më të mira [pxls/ditë]"
 
 msgid "Top 10 Daily Ranking"
-msgstr "10 Renditja më e mirë ditore"
+msgstr "Renditja ditore e 10 më të mirëve"
 
 msgid "Top 10 Players [pxls / day]"
 msgstr "10 Lojtarët më të mirë [pxls/day]"
@@ -1460,10 +1459,10 @@ msgid "User ID and verification level"
 msgstr "ID e përdoruesit dhe niveli i verifikimit"
 
 msgid "User Name"
-msgstr "Emri i përdoruesit"
+msgstr "Emri i Përdoruesit"
 
 msgid "Username"
-msgstr "Emri i përdorimit"
+msgstr "Emri i përdoruesit"
 
 msgid "Username can only contain the characters: a-z . _ and -"
 msgstr "Emri i përdoruesit mund të përmbajë vetëm karakteret: a-z . _ dhe -"
@@ -1475,7 +1474,7 @@ msgid "Username can't be empty."
 msgstr "Emri i përdoruesit nuk mund të jetë bosh."
 
 msgid "Username must be at least 2 characters long"
-msgstr "Emri i përdoruesit duhet të jetë të paktën 2 karaktere i gjatë"
+msgstr "Emri i përdoruesit duhet të jetë të paktën dy karaktere i gjatë"
 
 msgid "Username must be shorter than 26 characters"
 msgstr "Emri i përdoruesit duhet të jetë më i shkurtër se 26 karaktere"
@@ -1576,7 +1575,7 @@ msgstr ""
 
 msgid "You can not access this canvas yet, because your pixel score is too low"
 msgstr ""
-"Ju nuk mund të hyni akoma në këtë kanavacë, sepse rezultati juaj i pikselit "
+"Ju nuk mund të hyni akoma në këtë kanavacë, sepse niveli juaj i pikselit "
 "është shumë i ulët"
 
 msgid "You can now place more on pixelplanet.fun :)"

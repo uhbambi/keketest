@@ -1,15 +1,19 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: admin@pixelplanet.fun\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: \n"
-"Last-Translator: weblate <weblate@noreply.pixelplanet.fun>\n"
-"Language-Team: \n"
-"Language: by\n"
+"PO-Revision-Date: 2025-10-31 19:40+0000\n"
+"Last-Translator: nickname_hidden <nickname_hidden@noreply.pixelplanet.fun>\n"
+"Language-Team: Belarusian <https://translate.gs-os.com/projects/ppfun/client/"
+"be/>\n"
+"Language: be\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 3.2.2\n"
+"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+"X-Generator: Weblate 5.14\n"
 
 msgid " which is in "
 msgstr " які знаходзіцца ў "
@@ -48,19 +52,19 @@ msgid "(0 = infinite)"
 msgstr "(0 = бясконцасць)"
 
 msgid "+last hour"
-msgstr ""
+msgstr "+апошняя гадзіна"
 
 msgid "...loading Login methods and sessions..."
-msgstr ""
+msgstr "…загрузка спосабаў уваходу і сеансаў…"
 
 msgid "A Phish!"
-msgstr ""
+msgstr "Рыба!"
 
 msgid "A new verification mail is getting sent to you."
 msgstr "Новае верыфікацыйнае пісьмо адпраўлена вам на пошту."
 
 msgid "ACCESS MODTOOLS"
-msgstr ""
+msgstr "ДОСТУП ДА ІНСТРУМЕНТАЎ МАДЭРАЦЫІ"
 
 msgid "Add Grid (uncheck if you need a 1:1 template)"
 msgstr "Дадаць сетку (зняміце галачку, калі вам патрэбен шаблон 1:1)"
@@ -70,16 +74,16 @@ msgid "Add Template"
 msgstr "Спампаваць Шаблон"
 
 msgid "Admintools"
-msgstr ""
+msgstr "Інструменты адміністратара"
 
 msgid "All sound effects will be disabled."
 msgstr "Усе гукавыя эфекты будуць выключаны."
 
 msgid "Always show Movement Controls"
-msgstr ""
+msgstr "Заўсёды паказваць элементы кіравання рухам"
 
 msgid "Always show movement control buttons"
-msgstr ""
+msgstr "Заўсёды паказваць кнопкі кіравання рухам"
 
 msgid "Anti Aliasing"
 msgstr "Згладжванне"
@@ -98,13 +102,13 @@ msgid "Auto Zoom In"
 msgstr "Аўтаматычнае Набліжэнне"
 
 msgid "Back"
-msgstr ""
+msgstr "Назад"
 
 msgid "Badge Display"
-msgstr ""
+msgstr "Адлюстраванне значкоў"
 
 msgid "Badges"
-msgstr ""
+msgstr "Значкі"
 
 msgid "Banned"
 msgstr "Вы забанены"
@@ -123,9 +127,13 @@ msgid ""
 "You can still start new DMs with other users, but other users won't be able "
 "to start DMs with you."
 msgstr ""
+"Заблакаваць усе прыватныя паведамленні. Уключэнне гэтай функцыі выдаліць усе "
+"вашыя бягучыя асабістыя паведамленні. Вы ўсё яшчэ зможаце пачынаць новыя "
+"асабістыя размовы з іншымі карыстальнікамі, але іншыя карыстальнікі не "
+"змогуць пачаць размову з вамі."
 
 msgid "Blocked"
-msgstr ""
+msgstr "Заблакавана"
 
 msgid "Bottom-right corner"
 msgstr "Ніжні правы кут"
@@ -146,10 +154,10 @@ msgid "Calculate like GIMP"
 msgstr "Вылічваць як GIMP"
 
 msgid "Can not export more than 20 or no template!"
-msgstr ""
+msgstr "Немагчыма экспартаваць больш за 20 або без шаблону!"
 
 msgid "Can not import more than 20 or no template!"
-msgstr ""
+msgstr "Немагчыма імпартаваць больш за 20 або без шаблону!"
 
 msgid "Can't read? Reload:"
 msgstr "Перазгрузіце яе, калі ня можаце прачытаць:"
@@ -183,20 +191,20 @@ msgid "Captcha"
 msgstr "Captcha"
 
 msgid "Caught by"
-msgstr ""
+msgstr "Злоўлены"
 
 #, fuzzy
 msgid "Change Happened"
 msgstr "Змяніць Імя Карыстальніка"
 
 msgid "Change Name"
-msgstr ""
+msgstr "Змяніць імя"
 
 msgid "Change Password"
 msgstr "Змяніць Пароль"
 
 msgid "Change your Mail Adress here:"
-msgstr ""
+msgstr "Змяніце свой адрас электроннай пошты тут:"
 
 msgid "Channel settings"
 msgstr "Налады канала"
@@ -214,7 +222,7 @@ msgid "Check out past versions of the canvas."
 msgstr "Праверыць мінулыя версіі палатна."
 
 msgid "Check to allow"
-msgstr ""
+msgstr "Паставіць галачку, каб дазволіць"
 
 msgid "Check who placed in an area"
 msgstr "Праверыць, хто маляваў на ўчастку"
@@ -229,7 +237,7 @@ msgid "Choose Strategy"
 msgstr "Выбраць Стратэгію"
 
 msgid "Choose Username"
-msgstr ""
+msgstr "Выберыце імя карыстальнік"
 
 msgid ""
 "Clean spare pixels that are surrounded by a single other color or unset "
@@ -248,7 +256,7 @@ msgid ""
 msgstr "Ачысціць пікселі, якія акружаны пустымі і адным пастаўленым пікселям"
 
 msgid "Cleaners can use 0cd blank colors."
-msgstr ""
+msgstr "Ачышчальнікі могуць выкарыстоўваць колеры фону без перазарадкі."
 
 #, javascript-format
 msgid ""
@@ -296,10 +304,10 @@ msgid "Connection error ${ code } :("
 msgstr "Памылка злучэння ${ code } :("
 
 msgid "Consent"
-msgstr ""
+msgstr "Згода"
 
 msgid "Consider joining us on Matrix:"
-msgstr ""
+msgstr "Далучайцеся да нас у Matrix:"
 
 msgid "Controls"
 msgstr "Кіраванне"
@@ -317,6 +325,8 @@ msgid ""
 "Cooldown is usually automatically changed for a country that is dominating. "
 "In example in the case of a streamer raid."
 msgstr ""
+"Перазарадка звычайна аўтаматычна змяняецца для краіны, якая дамінуе. "
+"Напрыклад, калі ідзе рэйд стрымера."
 
 #, fuzzy
 msgid "Coordinates"
@@ -334,16 +344,16 @@ msgid "Copy"
 msgstr "Капіяваць"
 
 msgid "Copy Link"
-msgstr ""
+msgstr "Скапіяваць спасылку"
 
 msgid "Copy Selected to Clipboard"
-msgstr ""
+msgstr "Скапіяваць выбранае ў буфер абмену"
 
 msgid "Copy URL"
-msgstr ""
+msgstr "Скапіяваць URL"
 
 msgid "Copy UserId to Clipboard"
-msgstr ""
+msgstr "Скапіяваць ID карыстальніка ў буфер абмену"
 
 msgid "Copy to Clipboard"
 msgstr "Скапіяваць у Буфер Абмену"
@@ -376,10 +386,10 @@ msgid "Credit for the Palette of the Top10 canvas goes to ${ vinikLink }."
 msgstr "Дзякуй за палітру палатна Top10 ${ vinikLink }."
 
 msgid "Current Cooldown Changes per Country"
-msgstr ""
+msgstr "Бягучы кулдаўн зменаў для краіны"
 
 msgid "Custom Cursor"
-msgstr ""
+msgstr "Карыстальніцкі курсор"
 
 msgid "DM"
 msgstr "АП"
@@ -396,10 +406,10 @@ msgid "Daily Rank"
 msgstr "Штодзённы Рэйтынг"
 
 msgid "Date of Award"
-msgstr ""
+msgstr "Дата ўзнагароды"
 
 msgid "Date of catch"
-msgstr ""
+msgstr "Дата злавання"
 
 #, fuzzy
 msgid "Delete"
@@ -409,7 +419,7 @@ msgid "Delete Account"
 msgstr "Выдаліць Акаўнт"
 
 msgid "Deny"
-msgstr ""
+msgstr "Адмовіць"
 
 #, fuzzy
 msgid ""
@@ -426,10 +436,10 @@ msgid "Disable Game Sounds"
 msgstr "Адклюцыць Гукі ў Гульне"
 
 msgid "Disable History Pencil"
-msgstr ""
+msgstr "Адключыць маляванне па гісторыі"
 
 msgid "Disable Overlay Pencil"
-msgstr ""
+msgstr "Адключыць маляванне па оверлеі"
 
 #, fuzzy
 msgid "Disable Pencil"
@@ -442,7 +452,7 @@ msgid "Do stuff with IPs (one IP per line)"
 msgstr "Рабіць нешта з IP-адрасамі (адзін IP на радок)"
 
 msgid "Don't remember"
-msgstr ""
+msgstr "Не запамінаць"
 
 msgid "Don't show me in global stats"
 msgstr "Не паказваць мяне ў глабальнай статыстыцы"
@@ -458,13 +468,13 @@ msgid "Duration"
 msgstr "Працягласць"
 
 msgid "Easter Egg OFF"
-msgstr ""
+msgstr "Велікоднае яйка ВЫКЛ"
 
 msgid "Easter Egg ON"
-msgstr ""
+msgstr "Велікоднае яйка ЎК"
 
 msgid "Edit"
-msgstr ""
+msgstr "Рэдагаваць"
 
 msgid "Email"
 msgstr "Эл. Пошта"
@@ -479,6 +489,8 @@ msgid ""
 "Email is used to verify your account. You might get a cofirmation mail after "
 "registering."
 msgstr ""
+"Электронная пошта выкарыстоўваецца для праверкі вашага акаўнта. Пасля "
+"рэгістрацыі вы можаце атрымаць пацвярджальны ліст."
 
 msgid "Email should at least contain a dot"
 msgstr "Пошта павінна змяшчаць у сабе прынамсі адну кропку"
@@ -490,10 +502,10 @@ msgid "Email should contain a @"
 msgstr "Эл. Пошта павінна змяшчаць у сабе @"
 
 msgid "Enable Overlay"
-msgstr ""
+msgstr "Уключыць накладанне"
 
 msgid "Enable Pencil"
-msgstr ""
+msgstr "Уключыць бесперапыннае маляванне"
 
 msgid "Enable chat notifications"
 msgstr "Уключыць паведамленні ў чаце"
@@ -521,25 +533,25 @@ msgid "Error :("
 msgstr "Памылка :("
 
 msgid "Expand"
-msgstr ""
+msgstr "Разгарнуць"
 
 msgid "Export enabled templates"
-msgstr ""
+msgstr "Экспартаваць уключаныя шаблоны"
 
 msgid "Factor"
-msgstr ""
+msgstr "Фактар"
 
 msgid "File"
 msgstr "Файл"
 
 msgid "Fish Display"
-msgstr ""
+msgstr "Адлюстраванне рыб"
 
 msgid "For"
-msgstr ""
+msgstr "Для"
 
 msgid "For Developers"
-msgstr ""
+msgstr "Для распрацоўшчыкаў"
 
 #, javascript-format
 msgid ""
@@ -547,27 +559,31 @@ msgid ""
 "your data, simply delete your account, this in fact wipes all privacy "
 "relevant traces. Your placed pixels will of course not be deleted."
 msgstr ""
+"Па любых юрыдычных пытаннях, калі ласка, звяртайцеся да ${ mailLink }. Калі "
+"вы хочаце выдаліць свае даныя, проста выдаліце свой акаўнт — гэта фактычна "
+"выдаляе ўсе прыватныя даныя. Вашы размешчаныя пікселі, вядома, не будуць "
+"выдалены."
 
 msgid "For one day"
-msgstr ""
+msgstr "На адзін дзен"
 
 msgid "For one month"
-msgstr ""
+msgstr "На адзін месяц"
 
 msgid "For one week"
-msgstr ""
+msgstr "На адзін тыдзень"
 
 msgid "For one year"
-msgstr ""
+msgstr "На адзін год"
 
 msgid "For when you are playing on a potato."
 msgstr "Для тых, хто гуляе з прыборнай панэлі Пасата."
 
 msgid "Forever"
-msgstr ""
+msgstr "Навек"
 
 msgid "From History"
-msgstr ""
+msgstr "гісторыі"
 
 #, fuzzy
 msgid "From Template"
@@ -583,10 +599,10 @@ msgid "Get Users"
 msgstr "Атрымаць Карыстальнікаў"
 
 msgid "Get email address"
-msgstr ""
+msgstr "Атрымаць адрас электроннай пошты"
 
 msgid "Get the amount of Pixels placed and ranking"
-msgstr ""
+msgstr "Атрымаць колькасць размешчаных пікселяў і рэйтынг"
 
 msgid "Globe View"
 msgstr "Выгяд Глобуса"
