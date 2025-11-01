@@ -155,7 +155,6 @@ export async function getDummyUser(name) {
  * }
  */
 export async function getInfoByUsernameOrId(usernameOrId) {
-  console.error('load user', usernameOrId, Number.isInteger(usernameOrId));
   if (!usernameOrId) {
     return null;
   }

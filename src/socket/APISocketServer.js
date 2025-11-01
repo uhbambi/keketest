@@ -307,7 +307,7 @@ class APISocketServer {
           return;
         }
         if (!country) {
-          country = 'mx';
+          country = 'yy';
         }
         if (!userlvl) {
           userlvl = 10;
