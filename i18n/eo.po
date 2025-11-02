@@ -1,16 +1,18 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: admin@pixelplanet.fun\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: \n"
-"Last-Translator: weblate <weblate@noreply.pixelplanet.fun>\n"
-"Language-Team: \n"
+"PO-Revision-Date: 2025-11-04 18:40+0000\n"
+"Last-Translator: Extreme Motorsex <em@noreply.pixelplanet.fun>\n"
+"Language-Team: Esperanto <https://translate.gs-os.com/projects/ppfun/client/"
+"eo/>\n"
 "Language: eo\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 2.4.1\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 5.14\n"
 
 msgid " which is in "
 msgstr ""
@@ -329,9 +331,8 @@ msgstr "Koordinatoj Nevalidaj"
 msgid "Coordinates:"
 msgstr "Koordinatoj Nevalidaj"
 
-#, fuzzy
 msgid "Copied"
-msgstr "Kopiita!"
+msgstr "Kopiita"
 
 msgid "Copy"
 msgstr ""
@@ -372,7 +373,7 @@ msgstr "Kredito por l' Kolorar' de l' lun'  ĉeestas kun ${ donendoLink }"
 
 #, javascript-format
 msgid "Credit for the Palette of the Moon goes to ${ starhouseLink }."
-msgstr "Kredito por l' Kolorar' de l' lun'  ĉeestas kun ${ starhouseLink }"
+msgstr "Kredito por l' Kolorar' de l' lun' ĉeestas kun ${ starhouseLink }"
 
 #, fuzzy, javascript-format
 msgid "Credit for the Palette of the Top10 canvas goes to ${ vinikLink }."
@@ -509,10 +510,10 @@ msgid "Enter UserName of new Mod"
 msgstr "Entajpu UzantNomon de la nova Moderigist'"
 
 msgid "Enter your mail address and we will send you a new password:"
-msgstr "Enskribi vian retmesaĝadreson  kaj ni sendos vi novan pasvorton:"
+msgstr "Enskribi vian retmesaĝadreson kaj ni sendos vi novan pasvorton:"
 
 msgid "Error"
-msgstr "Ho, erar'"
+msgstr "Erar'"
 
 #, javascript-format
 msgid "Error ${ retCode }"
@@ -960,9 +961,8 @@ msgstr ""
 msgid "Pixel Protection"
 msgstr "Piksela Protektaĵ'"
 
-#, fuzzy
 msgid "Pixel protected"
-msgstr "Piksel' protektita!"
+msgstr "Piksel' protektita"
 
 msgid "Place color pixels on a large canvas with other players online!"
 msgstr ""
@@ -1029,11 +1029,11 @@ msgstr "Premu ${ bindR } por kopii koordinatoj"
 
 #, javascript-format
 msgid "Press ${ bindW }, ${ bindA }, ${ bindS }, ${ bindD } to move"
-msgstr "Premu ${ bindW }, ${  bindA }, ${ bindS }, ${ bindD } por movi"
+msgstr "Premu ${ bindW }, ${ bindA }, ${ bindS }, ${ bindD } por movi"
 
 #, javascript-format
 msgid "Press ${ bindX } to toggle showing of pixel activity"
-msgstr "Premu ${ bindX } por vidi piksel' aktivec'."
+msgstr "Premu ${ bindX } por vidi piksel' aktivec'"
 
 msgid "Private"
 msgstr ""

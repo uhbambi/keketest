@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: admin@pixelplanet.fun\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2025-10-31 21:40+0000\n"
+"PO-Revision-Date: 2025-11-02 21:12+0000\n"
 "Last-Translator: Arti ϟϟ <arti@noreply.pixelplanet.fun>\n"
 "Language-Team: Albanian <https://translate.gs-os.com/projects/ppfun/server/"
 "sq/>\n"
@@ -189,7 +189,7 @@ msgstr ""
 "këtë email ishte ${ ip })."
 
 msgid "Incorrect password!"
-msgstr "Fjalëkalimi i gabuar!"
+msgstr "Fjalëkalim i gabuar!"
 
 msgid "Invalid url :( Please check your mail again."
 msgstr "Url e pavlefshme :( Ju lutemi kontrolloni përsëri email-in tuaj."
@@ -198,7 +198,7 @@ msgid "Just admins can do that"
 msgstr "Vetëm administratorët mund ta bëjnë këtë"
 
 msgid "Know that an account exists"
-msgstr "Të dije që një llogari ekziston"
+msgstr "Të dijë që një llogari ekziston"
 
 #. "scopes" is a technical term and should not be translated
 msgid "List of available scopes"
@@ -264,16 +264,16 @@ msgid "Name or Email does not exist!"
 msgstr "Emri ose Email-i nuk ekziston!"
 
 msgid "New Password"
-msgstr "Fjalëkalim i ri"
+msgstr "Fjalëkalimi i Ri"
 
 msgid "No Captcha given"
-msgstr "Asnjë Captcha nuk është dhënë"
+msgstr "Nuk është dhënë asnjë Captcha"
 
 msgid "No or invalid fish id."
 msgstr "Asnjë ID ose ID e pavlefshme peshku."
 
 msgid "No password given."
-msgstr "Asnjë fjalëkalim nuk është dhënë."
+msgstr "Nuk është dhënë asnjë fjalëkalim."
 
 #. "redirect_uris" is a technical term and should not be translated
 msgid "No redirect_uris given."
@@ -296,7 +296,7 @@ msgid "Only five redirect_uris are allowed per client"
 msgstr "Vetëm pesë redirect_uris janë të lejuara për klient"
 
 msgid "Only four colors. Same rules as moon!"
-msgstr "Vetëm katër ngjyra Të njëjtat rregulla si hëna!"
+msgstr "Vetëm katër ngjyra. Të njëjtat rregulla si hëna!"
 
 msgid "OpenID Connect specs"
 msgstr "Specifikimet OpenID Connect"
@@ -306,7 +306,7 @@ msgstr "Ose duke kopjuar URL-në e mëposhtme:"
 
 msgid "Our main canvas, a huge map of the world. Place anywhere you like!"
 msgstr ""
-"Kanavacë jonë kryesore, një hartë e madhe e botës. Vendosni kudo që ju "
+"Kanavaca jonë kryesore, një hartë e madhe e botës. Vendosni kudo që ju "
 "pëlqen!"
 
 msgid "Password must be at least 6 characters long."
@@ -351,7 +351,7 @@ msgstr ""
 "tjerë në internet"
 
 msgid "Please refresh the website"
-msgstr "Ju lutemi rifreskoni faqen web"
+msgstr "Ju lutemi rifreskoni faqen ueb"
 
 msgid "Please try again."
 msgstr "Ju lutemi provoni përsëri."
@@ -360,7 +360,7 @@ msgid "Please use int channel"
 msgstr "Ju lutemi përdorni kanalin int"
 
 msgid "Read Badges and fishes"
-msgstr "Lexo stemat dhe peshqit"
+msgstr "Lexo Stemat dhe peshqit"
 
 msgid "Read name, username and account age"
 msgstr "Lexo emrin, emrin e përdoruesit dhe moshën e llogarisë"
@@ -369,7 +369,7 @@ msgid "Redirect URIs"
 msgstr "URI-të e ridrejtimit"
 
 msgid "Regularly update this data"
-msgstr "Përditësoni këto të dhëna rregullisht"
+msgstr "Përditëso këto të dhëna rregullisht"
 
 #. 'client_secret' is a technical term and should not be translated
 msgid "Reroll client_secret"
@@ -382,7 +382,7 @@ msgid "Reset your password here"
 msgstr "Rivendosni fjalëkalimin tuaj këtu"
 
 msgid "Server error when deleting user."
-msgstr "Gabim i serverit kur fshini përdoruesin."
+msgstr "Gabim i serverit gjatë fshirjes së përdoruesit."
 
 msgid "Someone logged into your account from a new location, with the IP:"
 msgstr "Dikush hyri në llogarinë tuaj nga një vendndodhje e re, me IP:"
@@ -480,13 +480,13 @@ msgid "Top10"
 msgstr "Top10"
 
 msgid "Unknown Captcha Error"
-msgstr "Gabim i panjohur Captcha"
+msgstr "Gabim i Panjohur Captcha"
 
 msgid "Update Application"
 msgstr "Përditëso aplikacionin"
 
 msgid "User ID and verification level"
-msgstr "ID e përdoruesit dhe niveli i verifikimit"
+msgstr "User ID dhe niveli i verifikimit"
 
 msgid "User doesn't exist in our database :("
 msgstr "Përdoruesi nuk ekziston në bazën tonë të të dhënave :("
@@ -504,7 +504,7 @@ msgid "Username can't be empty."
 msgstr "Emri i përdoruesit nuk mund të jetë bosh."
 
 msgid "Username must be at least 2 characters long"
-msgstr "Emri i përdoruesit duhet të jetë të paktën dy karaktere i gjatë"
+msgstr "Emri i përdoruesit duhet të jetë të paktën 2 karaktere i gjatë"
 
 msgid "Username must be shorter than 26 characters"
 msgstr "Emri i përdoruesit duhet të jetë më i shkurtër se 26 karaktere"
@@ -556,7 +556,7 @@ msgid "You are not logged in"
 msgstr "Ju nuk jeni të regjistruar"
 
 msgid "You are now verified :)"
-msgstr "Ju jeni verifikuar tani:)"
+msgstr "Ju jeni verifikuar tani :)"
 
 msgid "You are permanently muted, join our guilded to appeal the mute"
 msgstr ""
@@ -565,7 +565,8 @@ msgstr ""
 
 #, javascript-format
 msgid "You are sending messages too fast, you have to wait ${ waitTime }s :("
-msgstr "Ju po dërgoni mesazhe shumë shpejt, duhet të prisni ${ waitTime } s :("
+msgstr ""
+"Ju po dërgoni mesazhe shumë shpejt, duhet të prisni ${ waitTime } sekonda :("
 
 msgid ""
 "You can not delete this login method, because you have nothing else left."
@@ -579,7 +580,9 @@ msgid "You can not register an account with a proxy"
 msgstr "Ju nuk mund të regjistroni një llogari me një proxy"
 
 msgid "You can not send chat messages while using a proxy"
-msgstr "Ju nuk mund të dërgoni mesazhe bisede gjatë përdorimit të një proxy"
+msgstr ""
+"Ju nuk mund të dërgoni mesazhe bisede ndërkohë që jeni duke përdorur një "
+"proxy"
 
 msgid ""
 "You can register your own application here to get the client_id and "
@@ -589,13 +592,13 @@ msgstr ""
 "client_secret që nevojiten për të përdorur këtë."
 
 msgid "You can't send a message this long :("
-msgstr "Nuk mund të dërgosh mesazh kaq gjatë :("
+msgstr "Nuk mund të dërgoni mesazh kaq të gjatë :("
 
 msgid ""
 "You do not have any email adress set. Please add one under \"Login Methods\"."
 msgstr ""
 "Ju nuk keni asnjë adresë emaili të caktuar. Ju lutemi shtoni një nën "
-"“Metodat e hyrjes”."
+"\"Metodat e hyrjes\"."
 
 msgid "You don't have access to this channel"
 msgstr "Ju nuk keni qasje në këtë kanal"
@@ -631,10 +634,10 @@ msgid "You sent an empty password or invalid data :("
 msgstr "Ju keni dërguar një fjalëkalim bosh ose të dhëna të pavlefshme :("
 
 msgid "You took too long, try again"
-msgstr "Ju zgjat shumë kohë, provoni përsëri"
+msgstr "Zgjatët shumë kohë, provoni përsëri"
 
 msgid "You will be automatically redirected after 15s"
-msgstr "Ju do të ridrejtoheni automatikisht pas 15s"
+msgstr "Ju do të ridrejtoheni automatikisht pas 15 sekondash"
 
 msgid "Your Browser looks shady"
 msgstr "Shfletuesi juaj duket i dyshimtë"
@@ -646,7 +649,7 @@ msgid "Your country is temporary muted from this chat channel"
 msgstr "Shteti juaj është i heshtur përkohësisht nga ky kanal bisede"
 
 msgid "Your mail has to be verified in order to chat"
-msgstr "Emaili juaj duhet të verifikohet në mënyrë që të bisedoni"
+msgstr "Emaili juaj duhet të jetë i verifikuar në mënyrë që të bisedoni"
 
 msgid ""
 "Your mail verification code is invalid or already expired :(, please request "

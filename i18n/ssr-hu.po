@@ -1,17 +1,18 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: admin@pixelplanet.fun\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2024-03-21 04:54+0000\n"
-"Last-Translator: weblate <weblate@noreply.pixelplanet.fun>\n"
-"Language-Team: Hungarian <https://hosted.weblate.org/projects/pixelplanet/"
-"server/hu/>\n"
+"PO-Revision-Date: 2025-11-02 09:40+0000\n"
+"Last-Translator: Batyo <batyo@noreply.pixelplanet.fun>\n"
+"Language-Team: Hungarian <https://translate.gs-os.com/projects/ppfun/server/"
+"hu/>\n"
 "Language: hu\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.5-dev\n"
+"X-Generator: Weblate 5.14\n"
 
 msgid "1bit"
 msgstr "1bit"
@@ -33,10 +34,10 @@ msgstr ""
 "00:00-kor frissül."
 
 msgid "Access modtools"
-msgstr ""
+msgstr "Hozzáférés a Moderátori eszközökhöz"
 
 msgid "Add Application"
-msgstr ""
+msgstr "Applikáció hozzáadása"
 
 msgid "Add an Application (OIDC Client)"
 msgstr ""
@@ -45,7 +46,7 @@ msgid "Add new application"
 msgstr ""
 
 msgid "An error occured. Please try again later."
-msgstr ""
+msgstr "Egy hiba történt. Kérlek próbáld újra később."
 
 msgid "Application changed successfully"
 msgstr ""
@@ -160,7 +161,7 @@ msgstr "Szia"
 
 #, javascript-format
 msgid "Hello ${ email }, you can set your new password here:"
-msgstr ""
+msgstr "Szia ${ email }, az új jelszót itt tudod beállítani:"
 
 #, javascript-format
 msgid "Hello ${ name }"
@@ -204,10 +205,10 @@ msgid "Login from new location on PixelPlanet"
 msgstr ""
 
 msgid "Login is required"
-msgstr ""
+msgstr "Bejelentkezés szükséges"
 
 msgid "Mail is already in use!"
-msgstr ""
+msgstr "Ez az email már foglalt!"
 
 msgid "Mail is not configured on the server"
 msgstr "Az e-mail cím nincs beállítva a szerveren"
@@ -236,7 +237,7 @@ msgstr ""
 "nagyobb rajz."
 
 msgid "Name already in use."
-msgstr ""
+msgstr "Ez a név már használatban van."
 
 msgid "Name can't be empty."
 msgstr "A név nem lehet üres."
@@ -245,7 +246,7 @@ msgid "Name contains invalid character like @, /, \\ or #"
 msgstr "A név érvénytelen karaktereket tartalmaz mint például: @, /, \\ vagy #"
 
 msgid "Name is too long"
-msgstr ""
+msgstr "A név túl hosszú"
 
 msgid "Name must be at least 2 characters long"
 msgstr "A névnek legalább 2 karakterből kell állnia"
@@ -254,7 +255,7 @@ msgid "Name must be shorter than 26 characters"
 msgstr "A név nem lehet hosszabb 26 karakternél"
 
 msgid "Name or Email does not exist!"
-msgstr ""
+msgstr "Ez a név vagy email nem létezik!"
 
 msgid "New Password"
 msgstr "Új jelszó"
@@ -263,7 +264,7 @@ msgid "No Captcha given"
 msgstr "Nincs Captcha megadva"
 
 msgid "No or invalid fish id."
-msgstr ""
+msgstr "Nem vagy érvénytelen hal id."
 
 msgid "No password given."
 msgstr "Nem adtál meg jelszót."
@@ -273,16 +274,16 @@ msgid "No redirect_uris given."
 msgstr ""
 
 msgid "No such badge found"
-msgstr ""
+msgstr "Nincs ilyen jelvény"
 
 msgid "No such fish found"
-msgstr ""
+msgstr "Nincs ilyen hal"
 
 msgid "One redirect URIs per line"
-msgstr ""
+msgstr "Egy átirányító link per sor"
 
 msgid "One redirect_uri per line"
-msgstr ""
+msgstr "Egy redirect_uri per sor"
 
 #. "redirect_uris" is a technical term and should not be translated
 msgid "Only five redirect_uris are allowed per client"
@@ -310,7 +311,7 @@ msgid "Password successfully changed."
 msgstr "Sikeresen megváltoztattad a jelszót."
 
 msgid "Permission"
-msgstr ""
+msgstr "Engedély"
 
 msgid "PixelCanvas"
 msgstr "Pixelvászon"
@@ -337,25 +338,25 @@ msgstr ""
 "Helyezz el pixeleket egy hatalmas online vásznon más játékosokkal együtt"
 
 msgid "Please refresh the website"
-msgstr ""
+msgstr "Kérlek töltsd újra a weboldalt"
 
 msgid "Please try again."
-msgstr ""
+msgstr "Kérlek próbáld újra."
 
 msgid "Please use int channel"
 msgstr "Kérjük, használd a nemzetközi csatornát"
 
 msgid "Read Badges and fishes"
-msgstr ""
+msgstr "Jelvények és halak olvasása"
 
 msgid "Read name, username and account age"
-msgstr ""
+msgstr "Név, felhasználónév és fiók életkorának olvasása"
 
 msgid "Redirect URIs"
 msgstr ""
 
 msgid "Regularly update this data"
-msgstr ""
+msgstr "Rendszeresen frissítsd az adatokat"
 
 #. 'client_secret' is a technical term and should not be translated
 msgid "Reroll client_secret"
@@ -368,10 +369,10 @@ msgid "Reset your password here"
 msgstr "Jelszó visszaállítása itt"
 
 msgid "Server error when deleting user."
-msgstr ""
+msgstr "Szerver hiba felhasználó törlése közben."
 
 msgid "Someone logged into your account from a new location, with the IP:"
-msgstr ""
+msgstr "Valaki bejelentkezett a fiókodba egy másik helyről, az ip címmel:"
 
 msgid "Space-separated list of available scopes"
 msgstr ""
@@ -403,10 +404,10 @@ msgid "Thanks"
 msgstr "Köszönjük"
 
 msgid "The user owning this badge is private"
-msgstr ""
+msgstr "A felhasználó fiókja privát aki birtokolja ezt a jelvényt"
 
 msgid "The user owning this fish is private"
-msgstr ""
+msgstr "A felhasználó fiókja privát aki birtokolja ezt a halat"
 
 msgid "This application is not allowed to login"
 msgstr ""
@@ -429,6 +430,10 @@ msgid ""
 "function below to set a new password. In the future, consider not installing "
 "malware, Thank You."
 msgstr ""
+"Ez az email / jelszó kombináció el lett lopva. A fiókja védelme érdekében, a "
+"jelszavát alaphelyzetbe állítottuk. Használja az \"Elfelejtett jelszó\" "
+"funkciót és állítson be új jelszót. A jövőben, ne töltsön le malware-ket, "
+"Köszönjük."
 
 msgid ""
 "This email / password combination got hacked and leaked. To protect this "
@@ -436,6 +441,10 @@ msgid ""
 "function on the LogIn page to set a new password. In the future, consider "
 "not installing malware, Thank You."
 msgstr ""
+"Ez az email / jelszó kombináció el lett lopva. A fiókja védelme érdekében, a "
+"jelszavát alaphelyzetbe állítottuk. Használja az \"Elfelejtett jelszó\" "
+"funkciót a bejelentkezési felületen és állítson be új jelszót. A jövőben, ne "
+"töltsön le malware-ket, Köszönjük."
 
 msgid "This email provider is not allowed"
 msgstr "Ez az e-mail szolgáltató nem engedélyezett"
@@ -457,7 +466,7 @@ msgid "Update Application"
 msgstr ""
 
 msgid "User ID and verification level"
-msgstr ""
+msgstr "Felhasználó ID és ellenőrzési szint"
 
 msgid "User doesn't exist in our database :("
 msgstr "A felhasználó nem létezik az adatbázisunkban :("
@@ -466,19 +475,19 @@ msgid "Username already in use."
 msgstr "A felhasználónév már foglalt."
 
 msgid "Username can not start with pp_"
-msgstr ""
+msgstr "Felhasználónév nem kezdődhet pp_-vel"
 
 msgid "Username can only contain the characters: a-z . _ and -"
-msgstr ""
+msgstr "Felhasználónév csak a-z . _ és - tartalmazhat"
 
 msgid "Username can't be empty."
-msgstr ""
+msgstr "Felhasználónév nem lehet üres."
 
 msgid "Username must be at least 2 characters long"
-msgstr ""
+msgstr "Felhasználónévnek minimum 2 karakter hosszúnak kell lennie"
 
 msgid "Username must be shorter than 26 characters"
-msgstr ""
+msgstr "Felhasználónévnek rövidebbnek kell lennie 26 karakternél"
 
 msgid ""
 "We already sent you a mail with instructions. Please wait before requesting "
@@ -501,13 +510,13 @@ msgstr ""
 "Üdvözöljük ${ name } a PixelPlaneten, kérjük, hitelesítsd az e-mail címedet"
 
 msgid "You already chose your username"
-msgstr ""
+msgstr "Már kiválasztottad a felhasználóneved"
 
 msgid "You already have that name."
-msgstr ""
+msgstr "Már használod azt a nevet."
 
 msgid "You are already verified."
-msgstr ""
+msgstr "Már hitelesítve vagy."
 
 #, javascript-format
 msgid "You are muted for another ${ timeMin } minutes"
@@ -540,13 +549,13 @@ msgstr ""
 
 msgid ""
 "You can not delete this login method, because you have nothing else left."
-msgstr ""
+msgstr "Nem törölheted ezt a bejelentkezési módszert, mivel nem marad több."
 
 msgid "You can not register an account while you are banned"
-msgstr ""
+msgstr "Nem regisztrálhatsz fiókod amíg ki vagy tíltva"
 
 msgid "You can not register an account with a proxy"
-msgstr ""
+msgstr "Nem regisztrálhatsz fiókot proxyval"
 
 msgid "You can not send chat messages while using a proxy"
 msgstr "Proxyval nem küldhetsz üzenetet"
@@ -562,6 +571,8 @@ msgstr "Nem tudsz ilyen hosszú üzenetet küldeni :("
 msgid ""
 "You do not have any email adress set. Please add one under \"Login Methods\"."
 msgstr ""
+"Nincs email címed beállítva. Kérlek adj meg egyet a "
+"\"bejelentkezési módszerek\" menünél."
 
 msgid "You don't have access to this channel"
 msgstr "Nincs hozzáférésed ehhez a csatornához"
@@ -573,17 +584,17 @@ msgid "You forgot your password for PixelPlanet? Get a new one here"
 msgstr "Elfelejtetted a jelszavadat a PixelPlanethez? Itt szerezhetsz újat"
 
 msgid "You have to fill out all fields"
-msgstr ""
+msgstr "Az összes mezőt ki kell töltened"
 
 msgid "You must be logged in to access this page"
-msgstr ""
+msgstr "Be kell hogy legyél jelentkezve ahhoz hogy elérd ezt az oldalt"
 
 #. "scope" is a technical term and should not be translated
 msgid "You need to define a valid scope"
 msgstr ""
 
 msgid "You need to directly access this page in the browser :("
-msgstr ""
+msgstr "Ezt az oldalt közvetlen a böngésződbe kell megnyitni :("
 
 msgid ""
 "You requested to get a new password. You can change your password within the "
@@ -596,16 +607,16 @@ msgid "You sent an empty password or invalid data :("
 msgstr "Üres jelszót vagy érvénytelen adatokat küldtél :("
 
 msgid "You took too long, try again"
-msgstr ""
+msgstr "Túl sokáig próbálkoztál, próbáld újra"
 
 msgid "You will be automatically redirected after 15s"
 msgstr "Automatikusan átirányítunk 15 másodperc múlva"
 
 msgid "Your Browser looks shady"
-msgstr ""
+msgstr "Furcsa a böngésződ"
 
 msgid "Your account needs to be verified to access this page"
-msgstr ""
+msgstr "A fiókodnak hitelesítve kell hogy legyen ahhoz hogy elérd ezt az oldalt"
 
 msgid "Your country is temporary muted from this chat channel"
 msgstr "Az országod ideiglenesen némítva van ezen a chaten"
