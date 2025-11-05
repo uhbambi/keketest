@@ -259,7 +259,8 @@ msgstr ""
 "vizinho"
 
 msgid "Cleaners can use 0cd blank colors."
-msgstr "Os cleaners podem aplicar cores não definidas com tempo de espera zero."
+msgstr ""
+"Os cleaners podem aplicar cores não definidas com tempo de espera zero."
 
 #, javascript-format
 msgid ""

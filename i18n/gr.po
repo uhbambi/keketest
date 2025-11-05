@@ -3,10 +3,10 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: admin@pixelplanet.fun\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2025-10-28 09:40+0000\n"
-"Last-Translator: Greekmapper <greekmapper@noreply.pixelplanet.fun>\n"
-"Language-Team: Greek <https://translate.gs-os.com/projects/ppfun/client/el/>"
-"\n"
+"PO-Revision-Date: 2025-11-05 20:44+0000\n"
+"Last-Translator: Extreme Motorsex <em@noreply.pixelplanet.fun>\n"
+"Language-Team: Greek <https://translate.gs-os.com/projects/ppfun/client/el/"
+">\n"
 "Language: gr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -169,9 +169,8 @@ msgstr ""
 msgid "Cancel"
 msgstr "Ματαίωση"
 
-#, fuzzy
 msgid "Cancel adding Template"
-msgstr "Λήψη προτύπου"
+msgstr "Ακύρωση προσθήκης προτύπου"
 
 msgid "Canvas"
 msgstr "Κανβας"
@@ -331,13 +330,11 @@ msgstr ""
 "Το cooldown αλλάζετε αυτόματος όταν ένα έθνος κυριαρχεί. Παραδείγματος χάρη "
 "όταν γίνεται streamer raid."
 
-#, fuzzy
 msgid "Coordinates"
-msgstr "Μη έγκυρες συντεταγμένες"
+msgstr "Συντεταγμένες"
 
-#, fuzzy
 msgid "Coordinates:"
-msgstr "Μη έγκυρες συντεταγμένες"
+msgstr "Συντεταγμένες:"
 
 msgid "Copied"
 msgstr "Αντιγράφηκε!"
@@ -376,10 +373,10 @@ msgstr "Χώρες σήμερα"
 msgid "Country"
 msgstr "Χώρα"
 
-#, fuzzy, javascript-format
+#, javascript-format
 msgid "Credit for the Palette of the 2bit canvas goes to ${ donendoLink }."
 msgstr ""
-"Τα εύσημα για την Παλέτα του καμβά Top10 πηγαίνουν στο ${ donendoLink }."
+"Τα εύσημα για την Παλέτα του καμβά 2bit πηγαίνουν στο ${ donendoLink }."
 
 #, javascript-format
 msgid "Credit for the Palette of the Moon goes to ${ starhouseLink }."

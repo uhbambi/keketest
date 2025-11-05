@@ -1,42 +1,44 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: admin@pixelplanet.fun\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: \n"
-"Last-Translator: weblate <weblate@noreply.pixelplanet.fun>\n"
-"Language-Team: \n"
-"Language: el_CY\n"
+"PO-Revision-Date: 2025-11-05 20:44+0000\n"
+"Last-Translator: Extreme Motorsex <em@noreply.pixelplanet.fun>\n"
+"Language-Team: Greek <https://translate.gs-os.com/projects/ppfun/client/"
+"el_CY/>\n"
+"Language: el\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.5\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 5.14\n"
 
 msgid " which is in "
-msgstr "Το οποιο είναι στεις"
+msgstr " το οποιο είναι στεις "
 
 #, javascript-format
 msgid "${ mouseSymbol } Hold left mouse button and drag mouse to rotate"
 msgstr ""
 "Κράτα πατημένο το αριστερό κουμπί του ποντικιού ${ mouseSymbol } τζιαι σούσε "
-"το για να γυρίσεις."
+"το για να γυρίσεις"
 
 #, javascript-format
 msgid "${ mouseSymbol } Left click or ${ touchSymbol } tap to place a pixel"
 msgstr ""
 "Πάτα αριστερό κλικ ${ mouseSymbol } ή απλά πάτα την οθόνη ${ touchSymbol } "
-"για να βάλλεις ένα πίξελ."
+"για να βάλλεις ένα πίξελ"
 
 #, javascript-format
 msgid "${ mouseSymbol } Right click and drag mouse to pan"
-msgstr "Δεξί κλικ ${ mouseSymbol } τζιαι σούσε το ποντίκι για να κινηθείς."
+msgstr "Δεξί κλικ ${ mouseSymbol } τζιαι σούσε το ποντίκι για να κινηθείς"
 
 #, javascript-format
 msgid ""
 "${ mouseSymbol } Right click or ${ touchSymbol } double-tap to remove a pixel"
 msgstr ""
 "Διπλό πάτημα ${ touchSymbol } ή δεξί κλικ ${ mouseSymbol } για να αφαιρέσεις "
-"ένα πίξελ."
+"ένα πίξελ"
 
 #, javascript-format
 msgid ""
@@ -77,10 +79,10 @@ msgid "All sound effects will be disabled."
 msgstr "Όλοι οι ήχοι θα μπλοκκαριστούν."
 
 msgid "Always show Movement Controls"
-msgstr "Εμφάνιζε πάντα τα κουμπιά κίνησης."
+msgstr "Εμφάνιζε πάντα τα κουμπιά κίνησης"
 
 msgid "Always show movement control buttons"
-msgstr "Εμφάνιζε πάντα τα κουμπιά κίνησης."
+msgstr "Εμφάνιζε πάντα τα κουμπιά κίνησης"
 
 msgid "Anti Aliasing"
 msgstr "Εξομάλυνση"
@@ -161,7 +163,7 @@ msgstr ""
 "Εν μπορεί να εμφανιστεί ο 3D καμβάς, έshεις το WebGL2 απενεργοποιημένο;"
 
 msgid "Cancel"
-msgstr "Cancel"
+msgstr "Άκυρο"
 
 msgid "Cancel adding Template"
 msgstr "Ακύρωσε το πρότυπο"
@@ -212,7 +214,7 @@ msgid "Chat here"
 msgstr "Κουβέντιασε δαμέ"
 
 msgid "Check out past versions of the canvas."
-msgstr "Δες πως ήταν ο καμβάς σε παλιές εκδόσεις"
+msgstr "Δες πως ήταν ο καμβάς σε παλιές εκδόσεις."
 
 msgid "Check to allow"
 msgstr ""
@@ -242,14 +244,14 @@ msgstr ""
 "cooldowns!)"
 
 msgid "Clean spare pixels that are surrounded by unset pixels"
-msgstr "Καθάρισε τα άχρηστα pixels που τα περικυκλώνουν unset pixels."
+msgstr "Καθάρισε τα άχρηστα pixels που τα περικυκλώνουν unset pixels"
 
 msgid ""
 "Clean spare pixels that are surrounded by unset pixels and up to 1 other set "
 "pixels"
 msgstr ""
 "Καθάρισε τα άχρηστα pixels που τα περικυκλώνουν unset pixels τζαι το πολλή 1 "
-"set pixel."
+"set pixel"
 
 msgid "Cleaners can use 0cd blank colors."
 msgstr ""
@@ -260,7 +262,7 @@ msgid ""
 "select current hovering color"
 msgstr ""
 "Πάτα το ${ mouseSymbol } μεσαίο κουμπί του ποντικού ή κράτα πατημένο το $"
-"{ touchSymbol } για να διαλέξεις το χρώμα που αιωρείται τωρά."
+"{ touchSymbol } για να διαλέξεις το χρώμα που αιωρείται τωρά"
 
 msgid "Click a color in palette to select it"
 msgstr "Πάτα ένα χρώμα στην παλέτα για να το θκιαλέξεις"
@@ -420,7 +422,7 @@ msgid "Dimensions"
 msgstr "Διαστάσεις"
 
 msgid "Disable Game Sounds"
-msgstr "Απενεργοποίησε τους ήχους του παιχνιδιού."
+msgstr "Απενεργοποίησε τους ήχους του παιχνιδιού"
 
 msgid "Disable History Pencil"
 msgstr "Απενεργοποιήστε το μολύβι ιστορικού"
@@ -479,13 +481,13 @@ msgid ""
 msgstr ""
 
 msgid "Email should at least contain a dot"
-msgstr "Το email πρέπει να έσιει τουλάχιστον μια τελεία."
+msgstr "Το email πρέπει να έσιει τουλάχιστον μια τελεία"
 
 msgid "Email should be at least 5 characters long."
 msgstr "Το email πρέπει να έχει τουλάχιστον 5 γράμματα."
 
 msgid "Email should contain a @"
-msgstr "Το email πρέπει να έσιει @."
+msgstr "Το email πρέπει να έσιει @"
 
 msgid "Enable Overlay"
 msgstr "Ενεργοποίηση Επικάλυψης"
@@ -494,7 +496,7 @@ msgid "Enable Pencil"
 msgstr "Ενεργοποίηση μολυβιού"
 
 msgid "Enable chat notifications"
-msgstr "Ενεργοποίησε τις ειδοποιήσεις του chat."
+msgstr "Ενεργοποίησε τις ειδοποιήσεις του chat"
 
 msgid "Enter Characters"
 msgstr "Γράψε τους χαρακτήρες"
@@ -587,7 +589,7 @@ msgid "Get the amount of Pixels placed and ranking"
 msgstr ""
 
 msgid "Globe View"
-msgstr " Υδρόγειου"
+msgstr "Υδρόγειου"
 
 msgid "Go to"
 msgstr "Πάενε στο"
@@ -635,7 +637,7 @@ msgid "Hold left ${ bindShift } for pencil (to place while moving mouse)"
 msgstr ""
 
 msgid "How pixelplanet should look like."
-msgstr "Ινταλος να φαίνεται το pixelplanet;"
+msgstr "Ινταλος να φαίνεται το pixelplanet."
 
 msgid "I forgot my Password."
 msgstr "Εξίασα τον κωδικό μου."
@@ -790,13 +792,13 @@ msgid "Name can't be empty."
 msgstr "Το όνομα εν μπορεί να είναι άδειο."
 
 msgid "Name contains invalid character like @, /, \\ or #"
-msgstr "Το όνομα έσιει άκυρους χαρακτήρες όπως @, /, \\\\ ή #."
+msgstr "Το όνομα έσιει άκυρους χαρακτήρες όπως @, /, \\\\ ή #"
 
 msgid "Name must be at least 2 characters long"
-msgstr "Το όνομα πρέπει να έσιει τουλάχιστον 2 γράμματα."
+msgstr "Το όνομα πρέπει να έσιει τουλάχιστον 2 γράμματα"
 
 msgid "Name must be shorter than 26 characters"
-msgstr "Το όνομα πρέπει να είναι πιο μιτσίν που 26 γράμματα."
+msgstr "Το όνομα πρέπει να είναι πιο μιτσίν που 26 γράμματα"
 
 msgid "Name or Email"
 msgstr "Όνομα ή Email"
@@ -959,7 +961,7 @@ msgid "Placed Pixels"
 msgstr "Τοποθετημένα pixels"
 
 msgid "Play a sound when new chat messages arrive"
-msgstr "Παίξε ήχο όταν έρκεται νέο μήνυμα."
+msgstr "Παίξε ήχο όταν έρκεται νέο μήνυμα"
 
 msgid "Player"
 msgstr ""
@@ -1004,7 +1006,7 @@ msgstr "Πάτα ${ bindH } να αλλάξεις στην ιστορική πρ
 
 #, javascript-format
 msgid "Press ${ bindQ } and ${ bindE } to fly up and down"
-msgstr "Πάτα ${ bindQ } τζιαι ${ bindE } για να ανεβοκατεβείς."
+msgstr "Πάτα ${ bindQ } τζιαι ${ bindE } για να ανεβοκατεβείς"
 
 #, javascript-format
 msgid "Press ${ bindQ } or ${ bindE } to zoom"
@@ -1150,9 +1152,10 @@ msgid ""
 "requirements.\n"
 "Archived canvases can be accessed here:"
 msgstr ""
-"Επίλεξε τον καμβά που θέλεις να χρησιμοποιήσεις. Κάθε καμβάς εν μοναδικός "
-"τζιαι έσιει διαφορετικές παλέτες, cooldown τζιαι απαιτήσεις. Μπορείς να "
-"έβρεις τους αρχειοθετημένους καμβάδες δαμέ:"
+"Επίλεξε τον καμβά που θέλεις να χρησιμοποιήσεις.\n"
+"Κάθε καμβάς εν μοναδικός τζιαι έσιει διαφορετικές παλέτες, cooldown τζιαι "
+"απαιτήσεις.\n"
+"Μπορείς να έβρεις τους αρχειοθετημένους καμβάδες δαμέ:"
 
 msgid "Selected Color"
 msgstr ""
@@ -1195,19 +1198,19 @@ msgid "Show Embedded"
 msgstr ""
 
 msgid "Show Grid"
-msgstr "Εμφάνισε το Κάτζελο."
+msgstr "Εμφάνισε το Κάτζελο"
 
 msgid "Show Grid in white instead of black."
 msgstr "Δείξε το πλέγμα σε άσπρο αντί σε μαύρο."
 
 msgid "Show Pixel Activity"
-msgstr "Εμφάνισε τη δραστηριότητα των πίξελ."
+msgstr "Εμφάνισε τη δραστηριότητα των πίξελ"
 
 msgid "Show circles where pixels are placed."
 msgstr "Δείξε που βάλλουν οι άλλοι παίκτες."
 
 msgid "Show overlay as small individual pixels on high zoomlevels."
-msgstr "Δείξε την επικάλυψη σαν μιτσιά μιτσιά pixels άμα ζουμάρεις πολλά."
+msgstr "Δείξε την επικάλυψη σαν μιτσιά pixels άμα ζουμάρεις πολλά."
 
 msgid "Show templates as overlays ingame."
 msgstr "Δείξε τα πρότυπα σαν επικαλύψεις στο παιχνίδι."
@@ -1222,7 +1225,7 @@ msgid "Social Settings"
 msgstr "Κοινωνικές ρυθμίσεις"
 
 msgid "Source for pixelplanet on "
-msgstr "Πηγή για το pixelplanet δαμέ"
+msgstr "Πηγή για το pixelplanet δαμέ "
 
 msgid "Stacking till"
 msgstr "Σορέφκο"
@@ -1278,7 +1281,7 @@ msgid ""
 "for orientation, can be downloaded from mega.nz here: "
 msgstr ""
 "Τα δεδομένα του χάρτη που χρησιμοποιούμε, μαζί με OpenStreetMap tiles για "
-"προσανατολισμό, μπορείς να τα κατεβάσεις που το mega.nz δαμέ:"
+"προσανατολισμό, μπορείς να τα κατεβάσεις που το mega.nz δαμέ: "
 
 msgid ""
 "The name of your account, only a-z, A-Z, -, ., and - characters are allowed. "
@@ -1319,7 +1322,7 @@ msgstr "Έληξε ο χρόνος"
 
 msgid "Tip: Not case-sensitive; I and l are the same"
 msgstr ""
-"Συμβουλή: Εν παίζει ρόλο αν είναι κεφαλαία ή πεζά. Το I τζαι το l εν το ίδιο."
+"Συμβουλή: Εν παίζει ρόλο αν είναι κεφαλαία ή πεζά. Το I τζαι το l εν το ίδιο"
 
 msgid ""
 "Tired of always spaming one single color? Want to create art instead, but "
@@ -1459,7 +1462,7 @@ msgid ""
 "public on"
 msgstr ""
 "Ευχαριστούμε τους καλλιτέχνες που εκάμαν τις παλέτες τους διαθέσιμες για το "
-"κοινό!"
+"κοινό"
 
 msgid "Weird"
 msgstr "Περίεργο"
@@ -1546,7 +1549,7 @@ msgid "You did not consent"
 msgstr ""
 
 msgid "You failed your captcha"
-msgstr "Εν εκούτσισες το captcha σου."
+msgstr "Εν εκούτσισες το captcha σου"
 
 msgid "You have new messages in chat"
 msgstr "Έχετε νέα μηνύματα μες την συνομιλία"
@@ -1588,7 +1591,7 @@ msgid "You must enter at least one IID, User Id or BID"
 msgstr ""
 
 msgid "You took too long, try again."
-msgstr "Αγκάστροσες μας, φτου ξανά που αρκις"
+msgstr "Αγκάστροσες μας, φτου ξανά που αρκις."
 
 msgid ""
 "Your Browser doesn't allow us to use AudioContext to play sounds. Do you "
@@ -1604,7 +1607,7 @@ msgid "Your Internet Provider is banned from this game"
 msgstr "Ο πάροχος ίντερνετ σου εν αποκλεισμένος που το παιχνίδι"
 
 msgid "Your ban expires at "
-msgstr "Η απαγόρευσή σου τελειώνει στις"
+msgstr "Η απαγόρευσή σου τελειώνει στις "
 
 msgid ""
 "Your did not set your username yet. A username is required to login to other "
