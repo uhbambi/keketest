@@ -4,7 +4,9 @@
 
 import fs from 'fs';
 import path from 'path';
+import readline from 'readline';
 
+import { ensureBadgeExistence } from '../data/sql/Badge.js';
 import { assetWatcher } from './fsWatcher.js';
 import { ASSET_DIR } from './config.js';
 
@@ -149,3 +151,35 @@ export function getCssAssets() {
 export function getThemeCssAssets() {
   return assets.themes;
 }
+
+/*
+ * Check badges file and ensure that those badges exist in the database,
+ * idk why i put that here, it felt like it would fit here, since we process
+ * a file in the public directory...
+ */
+(async () => {
+  const file = path.join(__dirname, 'public', 'badges', 'badges.txt');
+  if (!fs.existsSync(file)) {
+    return;
+  }
+
+  const fileStream = fs.createReadStream(file);
+  const lineReader = readline.createInterface({
+    input: fileStream,
+    crlfDelay: Infinity,
+  });
+
+  for await (let l of lineReader) {
+    l = l.trim();
+    const seperator = l.indexOf('|');
+    if (seperator <= 0 || seperator === l.length - 1) {
+      return;
+    }
+    const name = l.substring(0, seperator).trim();
+    const description = l.substring(seperator + 1).trim();
+    if (name.length && description.length) {
+      // eslint-disable-next-line no-await-in-loop
+      await ensureBadgeExistence(name, description);
+    }
+  }
+})();

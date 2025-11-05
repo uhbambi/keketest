@@ -1,0 +1,4 @@
+Roach 1st Class|This player caught 15 or more roaches during the Great Roach Infestation
+Roach 2nd Class|This player caught 5 or more roaches during the Great Roach Infestation
+Roach 3rd Class|This player caught a roach during the Great Roach Infestation
+Art Of The Month|This player won a Art of the Month competition

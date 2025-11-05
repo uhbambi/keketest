@@ -12,6 +12,10 @@ export default sequelize.define('UserBadge', {
     primaryKey: true,
   },
 
+  note: {
+    type: `${DataTypes.STRING(200)} CHARSET utf8mb4 COLLATE utf8mb4_unicode_ci`,
+  },
+
   createdAt: {
     type: DataTypes.DATE,
     defaultValue: DataTypes.NOW,

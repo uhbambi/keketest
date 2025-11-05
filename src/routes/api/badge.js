@@ -21,7 +21,7 @@ export default async function badge(req, res) {
   }
   if (badgeData.isPrivate) {
     const uid = await resolveSessionUidOfRequest(req);
-    if (uid !== badgeData.caughtByUid) {
+    if (uid !== badgeData.userId) {
       throw new Error(t`The user owning this badge is private`);
     }
   }

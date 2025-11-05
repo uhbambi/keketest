@@ -30,7 +30,7 @@ export async function getBadgeById(id) {
   try {
     const badge = await sequelize.query(
       // eslint-disable-next-line max-len
-      `SELECT b.name, b.description,
+      `SELECT b.name, b.description, ub.note,
 ub.createdAt, u.id AS userId, u.name AS userDisplayName, u.username AS userName,
 (u.flags & ?) != 0 AS isPrivate FROM Badges b
   INNER JOIN UserBadges ub ON ub.bid = b.id
@@ -84,6 +84,26 @@ WHERE u.id = ?`, {
     console.error(`SQL Error on getBadgesOfUser: ${error.message}`);
   }
   return badges;
+}
+
+/**
+ * ensure that a badge exists
+ */
+export async function ensureBadgeExistence(name, description) {
+  try {
+    await sequelize.query(
+      // eslint-disable-next-line max-len
+      'INSERT INTO Badges (name, description) VALUES (?, ?) ON DUPLICATE KEY UPDATE description = VALUES(description)', {
+        replacements: [name, description],
+        raw: true,
+        type: QueryTypes.INSERT,
+      },
+    );
+    return true;
+  } catch (error) {
+    console.error(`SQL Error on ensureBadgeExistence: ${error.message}`);
+  }
+  return false;
 }
 
 export default Badge;

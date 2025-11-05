@@ -43,7 +43,7 @@ const BadgeDisplay = () => {
     );
   }
 
-  const { name, description, ts, userName, userDisplayName } = badge;
+  const { name, note, description, ts, userName, userDisplayName } = badge;
   const shortname = name.toLowerCase().split(' ').join('');
 
   return (
@@ -55,6 +55,7 @@ const BadgeDisplay = () => {
         alt={name}
       />
       <p>{description}</p>
+      {typeof note === 'string' && <p key="nt">{note}</p>}
       <p>
         <span className="stattext">{t`Date of Award`}:</span>&nbsp;
         <span className="statvalue">{new Date(ts).toLocaleString()}</span>

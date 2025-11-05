@@ -443,7 +443,7 @@ msgstr ""
 msgid "Copy Selected to Clipboard"
 msgstr ""
 
-#: src/components/windows/BadgeDisplay.jsx:72
+#: src/components/windows/BadgeDisplay.jsx:73
 #: src/components/windows/FishDisplay.jsx:87
 msgid "Copy URL"
 msgstr ""
@@ -520,7 +520,7 @@ msgstr ""
 msgid "Daily Rank"
 msgstr ""
 
-#: src/components/windows/BadgeDisplay.jsx:59
+#: src/components/windows/BadgeDisplay.jsx:60
 msgid "Date of Award"
 msgstr ""
 
@@ -723,7 +723,7 @@ msgstr ""
 msgid "Fish Display"
 msgstr ""
 
-#: src/components/windows/BadgeDisplay.jsx:63
+#: src/components/windows/BadgeDisplay.jsx:64
 msgid "For"
 msgstr ""
 
