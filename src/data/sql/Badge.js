@@ -91,9 +91,29 @@ WHERE u.id = ?`, {
  */
 export async function ensureBadgeExistence(name, description) {
   try {
+    const found = await sequelize.query(
+      // eslint-disable-next-line max-len
+      'SELECT description FROM Badges WHERE name = ?', {
+        replacements: [name],
+        plain: true,
+        type: QueryTypes.SELECT,
+      },
+    );
+    if (found) {
+      if (found.description !== description) {
+        await sequelize.query(
+          'UPDATE Badges SET description = ? WHERE name = ?', {
+            replacements: [description, name],
+            raw: true,
+            type: QueryTypes.UPDATE,
+          },
+        );
+      }
+      return true;
+    }
     await sequelize.query(
       // eslint-disable-next-line max-len
-      'INSERT INTO Badges (name, description) VALUES (?, ?) ON DUPLICATE KEY UPDATE description = VALUES(description)', {
+      'INSERT INTO Badges (name, description) VALUES (?, ?)', {
         replacements: [name, description],
         raw: true,
         type: QueryTypes.INSERT,
