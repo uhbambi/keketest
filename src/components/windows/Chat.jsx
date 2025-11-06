@@ -15,6 +15,8 @@ import ContextMenu from '../contextmenus/index.jsx';
 import ChatMessage from '../ChatMessage.jsx';
 import ChannelDropDown from '../contextmenus/ChannelDropDown.jsx';
 
+import { CHANNEL_TYPES } from '../../core/constants.js';
+
 import {
   markChannelAsRead,
   sendChatMessage,
@@ -45,9 +47,7 @@ const Chat = () => {
     setTitle,
   } = useContext(WindowContext);
 
-  const {
-    chatChannel = 1,
-  } = args;
+  const chatChannel = args.chatChannel || 0;
 
   const link = useLink();
 
@@ -148,9 +148,21 @@ const Chat = () => {
    */
   useEffect(() => {
     if (!chatChannel || !channels[chatChannel]) {
-      const cids = Object.keys(channels);
-      if (cids.length) {
-        setChannel(cids[0]);
+      let chosenChannel;
+      for (const [cid, [name, type]] of Object.entries(channels)) {
+        if (!chosenChannel) {
+          chosenChannel = cid;
+        }
+        if (type === CHANNEL_TYPES.PUBLIC) {
+          chosenChannel = cid;
+          if (name === 'en') {
+            chosenChannel = cid;
+            break;
+          }
+        }
+      }
+      if (chosenChannel) {
+        setChannel(chosenChannel);
       }
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
