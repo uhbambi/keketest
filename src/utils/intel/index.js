@@ -224,7 +224,9 @@ export async function checkIfSameProvider(ipStringA, ipStringB) {
    * some providers really are weird and hand out IPs of different ASNs
    * who also have a different org
    */
-  const sameProvider = [[9141, 39603], [9050, 8708], [52361, 7303]];
+  const sameProvider = [
+    [9141, 39603], [9050, 8708], [52361, 7303], [5483, 1955],
+  ];
   for (let i = 0; i < sameProvider.length; i += 1) {
     const [asnA, asnB] = sameProvider[i];
     if ((providerA.asn === asnA && providerB.asn === asnB)
