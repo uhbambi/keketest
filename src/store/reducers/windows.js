@@ -30,8 +30,8 @@ function clampSize(prefWidth, prefHeight, margin = false) {
   let maxHeight = window.innerHeight;
   if (margin) {
     // same as modal in default.css
-    maxWidth = Math.floor(maxWidth * 0.70);
-    maxHeight = Math.floor(Math.min(maxHeight * 0.80, 900));
+    maxWidth = Math.floor(maxWidth * 0.75);
+    maxHeight = Math.floor(maxHeight * 0.90);
   }
   const width = prefWidth || maxWidth;
   const height = prefHeight || maxHeight;
@@ -143,7 +143,10 @@ function sortWindows(newState, force = false) {
 }
 
 const initialState = {
-  // if windows get shown, false on small screens
+  /*
+   * if windows can be floating, false on small screens, in which case windows
+   * will always be fullscreen
+   */
   showWindows: window.innerWidth > SCREEN_WIDTH_THRESHOLD,
   // highest zIndex of window
   zMax: 0,
@@ -389,12 +392,8 @@ export default function windows(
     }
 
     case 'FOCUS_WIN': {
-      const {
-        windowId,
-      } = action;
-      const {
-        zMax,
-      } = state;
+      const { windowId } = action;
+      const { zMax } = state;
       const { z } = state.positions[windowId];
       if (z === zMax) {
         return state;
@@ -412,13 +411,21 @@ export default function windows(
       });
     }
 
+    /*
+     * maximizing a window also gives it focus
+     */
     case 'TGL_MAXIMIZE_WIN': {
-      const {
-        windowId,
-      } = action;
+      const { windowId, maximize } = action;
+      const { zMax } = state;
+      const { z } = state.positions[windowId];
 
+      let alreadyHasWantedState = false;
       const newWindows = state.windows.map((win) => {
         if (win.windowId !== windowId) return win;
+        if (maximize === win.fullscreen) {
+          alreadyHasWantedState = true;
+          return win;
+        }
         return {
           ...win,
           fullscreen: !win.fullscreen,
@@ -426,11 +433,29 @@ export default function windows(
           hidden: false,
         };
       });
+      if (alreadyHasWantedState) {
+        return state;
+      }
 
-      return {
+      if (z === zMax) {
+        return {
+          ...state,
+          windows: newWindows,
+        };
+      }
+
+      return sortWindows({
         ...state,
         windows: newWindows,
-      };
+        zMax: zMax + 1,
+        positions: {
+          ...state.positions,
+          [windowId]: {
+            ...state.positions[windowId],
+            z: zMax + 1,
+          },
+        },
+      });
     }
 
     case 'CLOSE_FULLSCREEN_WINS': {
@@ -451,17 +476,10 @@ export default function windows(
     }
 
     case 'MOVE_WIN': {
-      const {
-        windowId,
-        xDiff,
-        yDiff,
-      } = action;
-      let {
-        xPos, yPos,
-      } = state.positions[windowId];
-      const {
-        width, height,
-      } = state.positions[windowId];
+      const { windowId, xDiff, yDiff } = action;
+      let { xPos, yPos } = state.positions[windowId];
+      const { width, height } = state.positions[windowId];
+
       [xPos, yPos] = clampPos(xPos + xDiff, yPos + yDiff, width, height);
       return {
         ...state,
@@ -477,12 +495,9 @@ export default function windows(
     }
 
     case 'RESIZE_WIN': {
-      const {
-        windowId,
-        xDiff,
-        yDiff,
-      } = action;
+      const { windowId, xDiff, yDiff } = action;
       let { width, height } = state.positions[windowId];
+
       [width, height] = clampSize(width + xDiff, height + yDiff, false);
       return {
         ...state,
@@ -492,6 +507,25 @@ export default function windows(
             ...state.positions[windowId],
             width,
             height,
+          },
+        },
+      };
+    }
+
+    case 'SET_WIN_POS': {
+      const { windowId } = action;
+      const { width, height } = state.positions[windowId];
+      let { xPos, yPos } = action;
+
+      [xPos, yPos] = clampPos(xPos, yPos, width, height);
+      return {
+        ...state,
+        positions: {
+          ...state.positions,
+          [windowId]: {
+            ...state.positions[windowId],
+            xPos,
+            yPos,
           },
         },
       };

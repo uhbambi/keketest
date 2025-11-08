@@ -71,10 +71,16 @@ export function cloneWindow(windowId) {
   };
 }
 
-export function toggleMaximizeWindow(windowId) {
+/**
+ * maximize or restore window
+ * @param windowId
+ * @param [maximize] optional boolean on what state to force
+ */
+export function toggleMaximizeWindow(windowId, maximize) {
   return {
     type: 'TGL_MAXIMIZE_WIN',
     windowId,
+    maximize,
   };
 }
 
@@ -93,6 +99,15 @@ export function resizeWindow(windowId, xDiff, yDiff) {
     windowId,
     xDiff,
     yDiff,
+  };
+}
+
+export function setWindowPosition(windowId, xPos, yPos) {
+  return {
+    type: 'SET_WIN_POS',
+    windowId,
+    xPos,
+    yPos,
   };
 }
 
@@ -131,8 +146,7 @@ export function openWindow(
       // open in existing window of same type
       const state = getState().windows;
       const existingWin = state.windows.find(
-        (win) => win.windowType === windowType
-        && (state.showWindows || win.fullscreen),
+        (win) => win.windowType === windowType,
       );
       if (existingWin) {
         if (existingWin.hidden) {

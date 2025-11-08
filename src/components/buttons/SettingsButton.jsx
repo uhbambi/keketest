@@ -16,7 +16,7 @@ const SettingsButton = () => {
     <div
       id="settingsbutton"
       className="actionbuttons"
-      onClick={() => link('SETTINGS', { target: 'fullscreen' })}
+      onClick={() => link('SETTINGS', { target: 'parent' })}
       role="button"
       title={t`Settings`}
       tabIndex={-1}

@@ -594,13 +594,6 @@ tr:nth-child(even) {
   opacity: 0;
 }
 
-.modal {
-  height: 80%;
-  width: 70%;
-  max-height: 900px;
-  z-index: 5;
-}
-
 .window {
   position: fixed;
   background-color: rgba(252, 252, 252, 0.98);
@@ -610,6 +603,18 @@ tr:nth-child(even) {
   padding: 3px;
   transition: opacity 200ms ease-in-out;
   opacity: 0;
+}
+
+.window.fullscreen {
+  padding: 0px;
+  border-radius: 0px;
+}
+
+.window.resizing {
+  transition: left 200ms ease-in-out,
+    top 200ms ease-in-out,
+    width 200ms ease-in-out,
+    height 200ms ease-in-out;
 }
 
 .popup {
@@ -678,14 +683,6 @@ tr:nth-child(even) {
   overflow-y: auto;
 }
 
-.modal-content {
-  position: relative;
-  width: calc(100% - 4px);
-  height: calc(100% - 50px);
-  left: 2px;
-  overflow-y: auto;
-}
-
 .win-content {
   position: relative;
   width: calc(100% - 4px);
@@ -694,7 +691,7 @@ tr:nth-child(even) {
   overflow-y: auto;
 }
 
-.modal-content, .win-content, .popup-content, .baninfo {
+.win-content, .popup-content, .baninfo {
   color: hsla(0, 0%, 0%, 0.6);
   font-size: 14px;
   font-weight: 500;
@@ -798,41 +795,8 @@ tr:nth-child(even) {
   flex-direction: row;
 }
 
-.modal-topbtn {
-  position: fixed;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border-width: 2px;
-  border-style: solid;
-  border-radius: 50%;
-  width: 27px;
-  height: 27px;
-  cursor: pointer;
-  background-color: #f6f6f7;
-  border-color: #dcddde;
-  top: 11px;
-  z-index: 5;
-}
-
-.modal-topbtn.close {
-  right: 14px;
-}
-
-.modal-topbtn.restore {
-  right: 52px;
-}
-
-.modal-topbtn.pop {
-  right: 90px;
-}
-
-.modal-topbtn:hover {
-  background-color: #e3e3e4;
-}
-
 @media (max-width: 604px) {
-  .modal, .Alert {
+  .Alert {
     position: fixed;
     top: 0px;
     left: 0px;
@@ -844,16 +808,6 @@ tr:nth-child(even) {
     outline: none;
     border: none;
     border-radius: inherit !important;
-  }
-
-  .modal-topbtn.pop {
-    right: 52px;
-  }
-
-  .modal {
-    height: 100%;
-    width: 100%;
-    padding: 0;
   }
 
   .overlay {
@@ -1318,7 +1272,7 @@ table td span {
   visibility: hidden;
 }
 
-.modal.show, .Alert.show, .overlay.show, .window.show {
+.Alert.show, .overlay.show, .window.show {
   opacity: 1;
 }
 

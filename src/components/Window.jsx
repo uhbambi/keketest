@@ -21,6 +21,7 @@ import {
   setWindowTitle,
   setWindowArgs,
   changeWindowType,
+  setWindowPosition,
 } from '../store/actions/windows.js';
 import {
   makeSelectWindowById,
@@ -40,6 +41,8 @@ import popUpTypes from './windows/popUpAvailable.js';
 
 const Window = ({ id }) => {
   const [render, setRender] = useState(false);
+  /* only for adding transitions when toggling fullscreen */
+  const [resizing, setResizing] = useState(false);
 
   const titleBarRef = useRef();
   const resizeRef = useRef();
@@ -63,51 +66,74 @@ const Window = ({ id }) => {
     changeType: (newType, newTitle, newArgs) => dispatch(changeWindowType(id, newType, newTitle, newArgs)),
   }), [id, args]);
 
-  const {
-    open,
-    hidden,
-    fullscreen,
-  } = win;
+  const { open, hidden } = win;
+  /* if no windows are supposed to be shown, go fullscreen */
+  const fullscreen = !showWindows || win.fullscreen;
 
   const focus = useCallback(() => {
     dispatch(focusWindow(id));
-  }, [dispatch]);
+  }, []);
 
   const clone = useCallback((evt) => {
     evt.stopPropagation();
     dispatch(cloneWindow(id));
-  }, [dispatch]);
+  }, []);
 
   const toggleMaximize = useCallback(() => {
-    setRender(false);
-  }, [dispatch]);
+    setResizing(true);
+    dispatch(toggleMaximizeWindow(id));
+  }, []);
 
   const close = useCallback((evt) => {
     evt.stopPropagation();
     dispatch(closeWindow(id));
-  }, [dispatch]);
+  }, []);
 
-  const {
-    xPos, yPos,
-    width, height,
-  } = position;
+  const { xPos, yPos, width, height } = position;
 
   const shown = !render && hidden;
 
   useDrag(
     titleBarRef,
+    /* on click */
     focus,
-    useCallback((xDiff, yDiff) => dispatch(
-      moveWindow(id, xDiff, yDiff),
-    ), [fullscreen, shown]),
+    /* on drag */
+    useCallback((xDiff, yDiff, x, y) => {
+      if (!showWindows) {
+        return true;
+      }
+      /*
+       * if the titlebar is dragged on a fullscreen window, restore it after a
+       * threshold
+       */
+      if (fullscreen && (xDiff ** 2 + yDiff ** 2 > 144)) {
+        dispatch(toggleMaximizeWindow(id, false));
+        dispatch(setWindowPosition(
+          id,
+          x - Math.floor(width / 2) + xDiff,
+          y - 11 + yDiff,
+        ));
+        return true;
+      }
+      dispatch(moveWindow(id, xDiff, yDiff));
+      return false;
+    }, [shown, fullscreen, resizing, showWindows]),
+    /* on double click */
+    useCallback(() => {
+      if (showWindows) {
+        toggleMaximize();
+      }
+    }, [showWindows]),
   );
 
   useDrag(
     resizeRef,
     focus,
-    useCallback((xDiff, yDiff) => dispatch(
-      resizeWindow(id, xDiff, yDiff),
-    ), [fullscreen, shown]),
+    useCallback((xDiff, yDiff) => {
+      if (!fullscreen) {
+        dispatch(resizeWindow(id, xDiff, yDiff));
+      }
+    }, [fullscreen, shown]),
   );
 
   const onTransitionEnd = useCallback(() => {
@@ -116,21 +142,19 @@ const Window = ({ id }) => {
     }
     if (!open) {
       dispatch(removeWindow(id));
-      return;
     }
-    if (!render && !hidden) {
-      dispatch(toggleMaximizeWindow(id));
-      setTimeout(() => setRender(true), 10);
+    if (resizing) {
+      setResizing(false);
     }
-  }, [dispatch, hidden, open, render]);
+  }, [hidden, open, resizing]);
 
   useEffect(() => {
-    if (open && !hidden) {
+    if (open && !hidden && !render) {
       window.setTimeout(() => {
         setRender(true);
       }, 10);
     }
-  }, [open, hidden]);
+  }, [open, hidden, render]);
 
   if (!render && (hidden || !open)) {
     return null;
@@ -142,94 +166,56 @@ const Window = ({ id }) => {
   const [Content, name] = COMPONENTS[windowType];
 
   const windowTitle = (title) ? `${name} - ${title}` : name;
-  const extraClasses = `${windowType}${
-    (open && !hidden && render) ? ' show' : ''}`;
 
+  let classes = `window ${windowType}`;
+  if (open && !hidden && render) {
+    classes += ' show';
+  }
+  if (resizing) {
+    classes += ' resizing';
+  }
+
+  let style;
   if (fullscreen) {
-    return (
-      <div
-        className={`modal ${extraClasses}`}
-        onTransitionEnd={onTransitionEnd}
-        onClick={focus}
-        style={{
-          zIndex: z,
-        }}
-      >
-        <h2>{windowTitle}</h2>
-        <div
-          onClick={close}
-          className="modal-topbtn close"
-          role="button"
-          label="close"
-          key="closebtn"
-          title={t`Close`}
-          tabIndex={-1}
-        >✕</div>
-        {popUpTypes.includes(windowType) && (
-          <div
-            onClick={(evt) => {
-              openWindowPopUp(
-                windowType, args,
-                xPos, yPos, width, height,
-              );
-              close(evt);
-            }}
-            className="modal-topbtn pop"
-            role="button"
-            label="close"
-            key="popbtn"
-            title={t`PopUp`}
-            tabIndex={-1}
-          ><BiChalkboard /></div>
-        )}
-        {(showWindows) && (
-          <div
-            onClick={toggleMaximize}
-            className="modal-topbtn restore"
-            key="resbtn"
-            role="button"
-            label="restore"
-            title={t`Restore`}
-            tabIndex={-1}
-          >↓</div>
-        )}
-        <div
-          className="modal-content"
-          key="content"
-        >
-          <WindowContext.Provider value={contextData}>
-            <Content />
-          </WindowContext.Provider>
-        </div>
-      </div>
-    );
+    classes += ' fullscreen';
+    style = {
+      left: 0,
+      top: 0,
+      width: '100%',
+      height: '100%',
+      zIndex: z,
+    };
+  } else {
+    style = {
+      left: xPos,
+      top: yPos,
+      width,
+      height,
+      zIndex: z,
+    };
   }
 
   return (
     <div
-      className={`window ${extraClasses}`}
+      className={classes}
       onTransitionEnd={onTransitionEnd}
       onClick={focus}
-      style={{
-        left: xPos,
-        top: yPos,
-        width,
-        height,
-        zIndex: z,
-      }}
+      style={style}
     >
       <div
         className="win-topbar"
         key="topbar"
       >
-        <span
-          className="win-topbtn"
-          key="clonebtn"
-          onClick={clone}
-          title={t`Clone`}
-        >
-          +
-        </span>
+        {(!fullscreen) && (
+          <span
+            className="win-topbtn"
+            key="clonebtn"
+            onClick={clone}
+            title={t`Clone`}
+          >
+            +
+          </span>
+        )}
         <span
           className="win-title"
           key="title"
@@ -253,14 +239,16 @@ const Window = ({ id }) => {
             <BiChalkboard />
           </span>
         )}
-        <span
-          className="win-topbtn"
-          key="maxbtn"
-          onClick={toggleMaximize}
-          title={t`Maximize`}
-        >
-          ↑
-        </span>
+        {(showWindows) && (
+          <span
+            className="win-topbtn"
+            key="maxbtn"
+            onClick={toggleMaximize}
+            title={(fullscreen) ? t`Restore` : t`Maximize`}
+          >
+            {(fullscreen) ? '↓' : '↑'}
+          </span>
+        )}
         <span
           className="win-topbtn close"
           key="closebtn"
@@ -270,14 +258,16 @@ const Window = ({ id }) => {
           X
         </span>
       </div>
-      <div
-        className="win-resize"
-        key="winres"
-        title={t`Resize`}
-        ref={resizeRef}
-      >
-        ▨
-      </div>
+      {(!fullscreen) && (
+        <div
+          className="win-resize"
+          key="winres"
+          title={t`Resize`}
+          ref={resizeRef}
+        >
+          ▨
+        </div>
+      )}
       <div
         className="win-content"
         key="content"

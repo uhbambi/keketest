@@ -248,7 +248,7 @@ const Chat = () => {
             key="nlipt"
             onClick={(evt) => {
               evt.stopPropagation();
-              link('USERAREA', { target: 'fullscreen' });
+              link('USERAREA', { target: 'parent' });
             }}
             style={{
               textAlign: 'center',

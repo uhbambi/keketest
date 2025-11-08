@@ -90,7 +90,9 @@ function useLink() {
 
     const { title = '' } = options;
 
-    if (isMain && (target === 'fullscreen' || target === 'blank')) {
+    if (isMain && (
+      target === 'parent' || target === 'fullscreen' || target === 'blank'
+    )) {
       dispatch(openWindow(
         windowType.toUpperCase(),
         !!options.reuse,

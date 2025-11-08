@@ -15,7 +15,7 @@ const LogInButton = () => {
     <div
       id="loginbutton"
       className="actionbuttons"
-      onClick={() => link('USERAREA', { target: 'fullscreen' })}
+      onClick={() => link('USERAREA', { target: 'parent' })}
       role="button"
       title={t`User Area`}
       tabIndex={-1}

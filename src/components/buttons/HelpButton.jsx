@@ -15,7 +15,7 @@ const HelpButton = () => {
     <div
       id="helpbutton"
       className="actionbuttons"
-      onClick={() => link('HELP', { target: 'fullscreen' })}
+      onClick={() => link('HELP', { target: 'parent' })}
       role="button"
       title={t`Help`}
       tabIndex={-1}

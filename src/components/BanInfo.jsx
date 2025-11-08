@@ -74,7 +74,7 @@ const BanInfo = ({ close }) => {
       tabIndex={0}
       className="modallink"
       onClick={() => {
-        link('HELP', { target: 'fullscreen' });
+        link('HELP', { target: 'parent' });
         close();
       }}
     >{t`Help`}</span>

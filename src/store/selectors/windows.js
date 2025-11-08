@@ -9,24 +9,9 @@ import { createSelector } from 'reselect';
 const selectWindows = (state) => state.windows.windows;
 export const selectShowWindows = (state) => state.windows.showWindows;
 
-export const selectIfFullscreen = createSelector(
-  selectWindows,
-  selectShowWindows,
-  (windows, showWindows) => [
-    windows.some((win) => win.fullscreen && !win.hidden) || showWindows,
-    windows.some((win) => win.fullscreen && win.open && !win.hidden),
-  ],
-);
-
 export const selectActiveWindowIds = createSelector(
   selectWindows,
-  selectShowWindows,
-  (windows, showWindows) => {
-    if (!showWindows) {
-      windows = windows.filter((win) => win.fullscreen);
-    }
-    return windows.map((win) => win.windowId);
-  },
+  (windows) => windows.map((win) => win.windowId),
 );
 
 export const selectChatWindowStatus = createSelector(
