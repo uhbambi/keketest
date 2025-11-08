@@ -251,7 +251,7 @@ msgstr ""
 msgid "Change your Mail Adress here:"
 msgstr ""
 
-#: src/components/windows/Chat.jsx:279
+#: src/components/windows/Chat.jsx:291
 msgid "Channel settings"
 msgstr ""
 
@@ -264,7 +264,7 @@ msgstr ""
 msgid "Chat"
 msgstr ""
 
-#: src/components/windows/Chat.jsx:223
+#: src/components/windows/Chat.jsx:235
 msgid "Chat here"
 msgstr ""
 
@@ -338,15 +338,14 @@ msgstr ""
 msgid "Click to Load Captcha"
 msgstr ""
 
-#: src/components/Window.jsx:229
+#: src/components/Window.jsx:214
 msgid "Clone"
 msgstr ""
 
 #: src/components/Admintools.jsx:185
 #: src/components/ModCanvastools.jsx:230
 #: src/components/ModWatchtools.jsx:128
-#: src/components/Window.jsx:165
-#: src/components/Window.jsx:268
+#: src/components/Window.jsx:256
 #: src/components/contextmenus/ChannelContextMenu.jsx:59
 msgid "Close"
 msgstr ""
@@ -1031,7 +1030,7 @@ msgstr ""
 msgid "Map Data"
 msgstr ""
 
-#: src/components/Window.jsx:260
+#: src/components/Window.jsx:247
 msgid "Maximize"
 msgstr ""
 
@@ -1047,7 +1046,7 @@ msgstr ""
 msgid "Modtools"
 msgstr ""
 
-#: src/components/Window.jsx:237
+#: src/components/Window.jsx:223
 msgid "Move"
 msgstr ""
 
@@ -1320,10 +1319,6 @@ msgstr ""
 msgid "Political Compass Canvas"
 msgstr ""
 
-#: src/components/Window.jsx:181
-msgid "PopUp"
-msgstr ""
-
 #: src/components/windows/Settings.jsx:135
 msgid "Potato Mode"
 msgstr ""
@@ -1472,11 +1467,11 @@ msgstr ""
 msgid "Reset your password"
 msgstr ""
 
-#: src/components/Window.jsx:276
+#: src/components/Window.jsx:265
 msgid "Resize"
 msgstr ""
 
-#: src/components/Window.jsx:192
+#: src/components/Window.jsx:247
 msgid "Restore"
 msgstr ""
 
@@ -1638,7 +1633,7 @@ msgstr ""
 msgid "Stacking till"
 msgstr ""
 
-#: src/components/windows/Chat.jsx:185
+#: src/components/windows/Chat.jsx:197
 msgid "Start chatting here"
 msgstr ""
 
@@ -2062,7 +2057,7 @@ msgstr ""
 msgid "You made too many requests"
 msgstr ""
 
-#: src/components/windows/Chat.jsx:249
+#: src/components/windows/Chat.jsx:261
 msgid "You must be logged in to chat"
 msgstr ""
 
