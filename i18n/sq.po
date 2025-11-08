@@ -1008,9 +1008,6 @@ msgstr ""
 msgid "Political Compass Canvas"
 msgstr "Kanavacë e Busullës Politike"
 
-msgid "PopUp"
-msgstr "Popup"
-
 msgid "Potato Mode"
 msgstr "Modaliteti i Patates"
 
@@ -1768,6 +1765,9 @@ msgstr "W"
 msgctxt "keybinds"
 msgid "X"
 msgstr "X"
+
+#~ msgid "PopUp"
+#~ msgstr "Popup"
 
 #~ msgid ""
 #~ " on how to appeal. And don't forget to include the BID you can get below."

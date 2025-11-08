@@ -1000,9 +1000,6 @@ msgstr ""
 msgid "Political Compass Canvas"
 msgstr "Canvas do Compasso Político"
 
-msgid "PopUp"
-msgstr ""
-
 msgid "Potato Mode"
 msgstr "Modo PC da Xuxa"
 

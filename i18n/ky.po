@@ -973,9 +973,6 @@ msgstr ""
 msgid "Political Compass Canvas"
 msgstr ""
 
-msgid "PopUp"
-msgstr "Калкыма"
-
 msgid "Potato Mode"
 msgstr ""
 
@@ -1684,6 +1681,9 @@ msgstr ""
 msgctxt "keybinds"
 msgid "X"
 msgstr ""
+
+#~ msgid "PopUp"
+#~ msgstr "Калкыма"
 
 #~ msgid "You are banned. You think it is unjustified? Check out the "
 #~ msgstr "Сиз тыюу салынган. Бул негизсиз деп ойлойсузбу? текшерип көр "

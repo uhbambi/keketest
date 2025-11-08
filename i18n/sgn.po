@@ -995,9 +995,6 @@ msgstr ""
 msgid "Political Compass Canvas"
 msgstr "👎👌👍🤞👋🤞🤘✌️👍 🤘👌👆👎✌️🖖🖖 🤘✌️👇🤜✌️🖖"
 
-msgid "PopUp"
-msgstr "👎👌👎🙌👎"
-
 msgid "Potato Mode"
 msgstr "👎👌👋✌️👋👌 👆👌🤚🤙"
 
@@ -1759,6 +1756,9 @@ msgstr "👐"
 msgctxt "keybinds"
 msgid "X"
 msgstr "👉"
+
+#~ msgid "PopUp"
+#~ msgstr "👎👌👎🙌👎"
 
 #~ msgid "You are banned. You think it is unjustified? Check out the "
 #~ msgstr ""

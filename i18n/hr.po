@@ -976,9 +976,6 @@ msgstr ""
 msgid "Political Compass Canvas"
 msgstr "Platno političkog kompasa"
 
-msgid "PopUp"
-msgstr "PopUp"
-
 msgid "Potato Mode"
 msgstr "Način krumpira"
 
@@ -1706,6 +1703,9 @@ msgstr "W"
 msgctxt "keybinds"
 msgid "X"
 msgstr "X"
+
+#~ msgid "PopUp"
+#~ msgstr "PopUp"
 
 #~ msgid "You are banned. You think it is unjustified? Check out the "
 #~ msgstr "Zabranjeni ste. Mislite da je neopravdano? Provjerite "

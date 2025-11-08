@@ -987,9 +987,6 @@ msgstr ""
 msgid "Political Compass Canvas"
 msgstr "Քաղաքական կողմնացույցի կտավ"
 
-msgid "PopUp"
-msgstr "PopUp"
-
 msgid "Potato Mode"
 msgstr "Թույլ համակարգչի ռեժիմ"
 
@@ -1728,6 +1725,9 @@ msgstr "W"
 msgctxt "keybinds"
 msgid "X"
 msgstr "X"
+
+#~ msgid "PopUp"
+#~ msgstr "PopUp"
 
 #~ msgid "You are banned. You think it is unjustified? Check out the "
 #~ msgstr "Դուք արգելափակված եք: Կարծում եք անարռա՞ռ է, ստուգեք "

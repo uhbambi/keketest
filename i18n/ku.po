@@ -984,9 +984,6 @@ msgstr ""
 msgid "Political Compass Canvas"
 msgstr "Komsîyona Siyasî Kanvas"
 
-msgid "PopUp"
-msgstr "PopUp"
-
 msgid "Potato Mode"
 msgstr "Moda kartol"
 
@@ -1723,6 +1720,9 @@ msgstr "W"
 msgctxt "keybinds"
 msgid "X"
 msgstr "X"
+
+#~ msgid "PopUp"
+#~ msgstr "PopUp"
 
 #~ msgid "You are banned. You think it is unjustified? Check out the "
 #~ msgstr "Hûn qedexe ne. Hûn difikirin ku ew neheq e? Binêre "

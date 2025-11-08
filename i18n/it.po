@@ -990,9 +990,6 @@ msgstr ""
 msgid "Political Compass Canvas"
 msgstr "Political Compass Canvas"
 
-msgid "PopUp"
-msgstr "PopUp"
-
 msgid "Potato Mode"
 msgstr "Modalità Spranga"
 
@@ -1728,6 +1725,9 @@ msgstr ""
 msgctxt "keybinds"
 msgid "X"
 msgstr ""
+
+#~ msgid "PopUp"
+#~ msgstr "PopUp"
 
 #~ msgid "You are banned. You think it is unjustified? Check out the "
 #~ msgstr "Sei bannato. Pensi sia sbagliato? Controlla il "

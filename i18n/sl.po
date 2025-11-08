@@ -1004,9 +1004,6 @@ msgstr ""
 msgid "Political Compass Canvas"
 msgstr "Politični Kompas Kanvas"
 
-msgid "PopUp"
-msgstr ""
-
 msgid "Potato Mode"
 msgstr "Način za kalkulatorje"
 

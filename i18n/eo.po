@@ -995,9 +995,6 @@ msgstr ""
 msgid "Political Compass Canvas"
 msgstr "Politikompasa Kanvas'"
 
-msgid "PopUp"
-msgstr ""
-
 msgid "Potato Mode"
 msgstr "Malmultekosta Computilaĉo Modo"
 

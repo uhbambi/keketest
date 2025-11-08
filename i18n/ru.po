@@ -1012,9 +1012,6 @@ msgstr ""
 msgid "Political Compass Canvas"
 msgstr "Полотно политического компаса"
 
-msgid "PopUp"
-msgstr "Всплывающее окно"
-
 msgid "Potato Mode"
 msgstr "Режим калькулятора"
 
@@ -1770,6 +1767,9 @@ msgstr "W"
 msgctxt "keybinds"
 msgid "X"
 msgstr "X"
+
+#~ msgid "PopUp"
+#~ msgstr "Всплывающее окно"
 
 #~ msgid ""
 #~ " on how to appeal. And don't forget to include the BID you can get below."

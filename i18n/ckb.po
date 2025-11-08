@@ -977,9 +977,6 @@ msgstr ""
 msgid "Political Compass Canvas"
 msgstr "کانڤاسی کۆمپاسی سیاسی"
 
-msgid "PopUp"
-msgstr "پۆپ ئەپ"
-
 msgid "Potato Mode"
 msgstr "دۆخی پەتاتە"
 
@@ -1710,6 +1707,9 @@ msgstr "W"
 msgctxt "keybinds"
 msgid "X"
 msgstr "X"
+
+#~ msgid "PopUp"
+#~ msgstr "پۆپ ئەپ"
 
 #~ msgid "You are banned. You think it is unjustified? Check out the "
 #~ msgstr "تۆ قەدەغەکراویت. تۆ پێت وایە ناڕەوایە؟ سەیری "

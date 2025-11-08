@@ -989,9 +989,6 @@ msgstr ""
 msgid "Political Compass Canvas"
 msgstr "بوم قطب نمای سیاسی"
 
-msgid "PopUp"
-msgstr "پاپ آپ"
-
 msgid "Potato Mode"
 msgstr "حالت سیب زمینی"
 
@@ -1729,6 +1726,9 @@ msgstr ""
 msgctxt "keybinds"
 msgid "X"
 msgstr ""
+
+#~ msgid "PopUp"
+#~ msgstr "پاپ آپ"
 
 #, fuzzy
 #~ msgid "You are banned. You think it is unjustified? Check out the "

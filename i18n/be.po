@@ -1001,9 +1001,6 @@ msgstr ""
 msgid "Political Compass Canvas"
 msgstr "Палатно Палітычны Компас"
 
-msgid "PopUp"
-msgstr "Усплывальнае Акно"
-
 msgid "Potato Mode"
 msgstr "Рэжым Бульбы"
 
@@ -1742,6 +1739,9 @@ msgstr "W"
 msgctxt "keybinds"
 msgid "X"
 msgstr "X"
+
+#~ msgid "PopUp"
+#~ msgstr "Усплывальнае Акно"
 
 #~ msgid "You are banned. You think it is unjustified? Check out the "
 #~ msgstr "Вы забанены. Лічыце, што гэта неапраўдана? Прачытайце "

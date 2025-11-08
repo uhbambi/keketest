@@ -1013,9 +1013,6 @@ msgstr ""
 msgid "Political Compass Canvas"
 msgstr "Llenç de la brúixola política"
 
-msgid "PopUp"
-msgstr ""
-
 msgid "Potato Mode"
 msgstr "Mode patata"
 

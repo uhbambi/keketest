@@ -976,9 +976,6 @@ msgstr ""
 msgid "Political Compass Canvas"
 msgstr "Poliitilise Kompassi Lõuend"
 
-msgid "PopUp"
-msgstr "PopUp"
-
 msgid "Potato Mode"
 msgstr "Kartulirežiim"
 
@@ -1707,6 +1704,9 @@ msgstr "W"
 msgctxt "keybinds"
 msgid "X"
 msgstr "X"
+
+#~ msgid "PopUp"
+#~ msgstr "PopUp"
 
 #~ msgid "You are banned. You think it is unjustified? Check out the "
 #~ msgstr "Sinu ligipääs on piiratud. Arvad, et see on viga? Proovi "

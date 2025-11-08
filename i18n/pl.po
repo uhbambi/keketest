@@ -985,9 +985,6 @@ msgstr ""
 msgid "Political Compass Canvas"
 msgstr "Płótno Kompasu Politycznego"
 
-msgid "PopUp"
-msgstr "Wyskakujące okienko"
-
 msgid "Potato Mode"
 msgstr "Tryb Ziemniaka (wydajny)"
 
@@ -1722,6 +1719,9 @@ msgstr "W"
 msgctxt "keybinds"
 msgid "X"
 msgstr "X"
+
+#~ msgid "PopUp"
+#~ msgstr "Wyskakujące okienko"
 
 #~ msgid "You are banned. You think it is unjustified? Check out the "
 #~ msgstr "Jesteś zbanowany. Myślisz że bezpodstawnie? Sprawdź "

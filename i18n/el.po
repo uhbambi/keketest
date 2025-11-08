@@ -983,9 +983,6 @@ msgstr ""
 msgid "Political Compass Canvas"
 msgstr "Καμβάς Πολιτικής Πυξίδας"
 
-msgid "PopUp"
-msgstr "PopUp"
-
 msgid "Potato Mode"
 msgstr "Πατάρα Μοουτ"
 
@@ -1716,6 +1713,9 @@ msgstr ""
 msgctxt "keybinds"
 msgid "X"
 msgstr ""
+
+#~ msgid "PopUp"
+#~ msgstr "PopUp"
 
 #~ msgid "You are banned. You think it is unjustified? Check out the "
 #~ msgstr "Είσαι αποκλεισμένος. Νομίζεις ότι εν αδικαιολόγητο; Κοίταξε το"

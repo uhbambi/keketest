@@ -971,9 +971,6 @@ msgstr ""
 msgid "Political Compass Canvas"
 msgstr "Politický kompas plátna"
 
-msgid "PopUp"
-msgstr "Vyskočiť"
-
 msgid "Potato Mode"
 msgstr "Zemiakový režim"
 
@@ -1698,6 +1695,9 @@ msgstr "W"
 msgctxt "keybinds"
 msgid "X"
 msgstr "X"
+
+#~ msgid "PopUp"
+#~ msgstr "Vyskočiť"
 
 #~ msgid "You are banned. You think it is unjustified? Check out the "
 #~ msgstr "Si zabanovaný. Myslíš že to je bezdôvodné? Pozri si "

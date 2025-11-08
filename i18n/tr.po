@@ -988,9 +988,6 @@ msgstr ""
 msgid "Political Compass Canvas"
 msgstr "Siyasi Pusula Tuvali"
 
-msgid "PopUp"
-msgstr "Açılır Pencere"
-
 msgid "Potato Mode"
 msgstr "Patates Modu"
 
@@ -1728,6 +1725,9 @@ msgstr "W"
 msgctxt "keybinds"
 msgid "X"
 msgstr "X"
+
+#~ msgid "PopUp"
+#~ msgstr "Açılır Pencere"
 
 #~ msgid "You are banned. You think it is unjustified? Check out the "
 #~ msgstr "Yasaklandınız. Doğru olmadığını mı düşünüyorsunuz? "

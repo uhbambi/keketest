@@ -969,9 +969,6 @@ msgstr ""
 msgid "Political Compass Canvas"
 msgstr "لوحة البوصلة السياسية"
 
-msgid "PopUp"
-msgstr "نافذة"
-
 msgid "Potato Mode"
 msgstr "وضع البطاطس"
 
@@ -1694,6 +1691,9 @@ msgstr "W"
 msgctxt "keybinds"
 msgid "X"
 msgstr "X"
+
+#~ msgid "PopUp"
+#~ msgstr "نافذة"
 
 #~ msgid "You are banned. You think it is unjustified? Check out the "
 #~ msgstr "أنت محظور. هل تعتقد أن هذا غير مبرر؟ تحقق من "

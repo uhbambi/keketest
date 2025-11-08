@@ -947,9 +947,6 @@ msgstr ""
 msgid "Political Compass Canvas"
 msgstr ""
 
-msgid "PopUp"
-msgstr ""
-
 msgid "Potato Mode"
 msgstr ""
 

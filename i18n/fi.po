@@ -978,9 +978,6 @@ msgstr ""
 msgid "Political Compass Canvas"
 msgstr "Poliittinen kompassi -kehys"
 
-msgid "PopUp"
-msgstr "Ponnahdusikkuna"
-
 msgid "Potato Mode"
 msgstr "Perunamuoto"
 
@@ -1711,6 +1708,9 @@ msgstr "W"
 msgctxt "keybinds"
 msgid "X"
 msgstr "X"
+
+#~ msgid "PopUp"
+#~ msgstr "Ponnahdusikkuna"
 
 #~ msgid "You are banned. You think it is unjustified? Check out the "
 #~ msgstr "Sinulle on asetettu porttikielto. Oliko tämä virhe? Katso "

@@ -984,9 +984,6 @@ msgstr ""
 msgid "Political Compass Canvas"
 msgstr "პოლიტიკური კომპასის კანვასი"
 
-msgid "PopUp"
-msgstr "ამომხტარი"
-
 msgid "Potato Mode"
 msgstr "კარტოფილის რეჟიმი"
 
@@ -1720,6 +1717,9 @@ msgstr "წ"
 msgctxt "keybinds"
 msgid "X"
 msgstr "ხ"
+
+#~ msgid "PopUp"
+#~ msgstr "ამომხტარი"
 
 #~ msgid "You are banned. You think it is unjustified? Check out the "
 #~ msgstr "აკრძალული ხარ. თქვენ ფიქრობთ, რომ ეს გაუმართლებელია? შეამოწმეთ "

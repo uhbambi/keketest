@@ -1012,9 +1012,6 @@ msgstr ""
 msgid "Political Compass Canvas"
 msgstr "Politischer Kompass Leinwand"
 
-msgid "PopUp"
-msgstr "Benachrichtigung"
-
 msgid "Potato Mode"
 msgstr "Erdapfel Modus"
 
@@ -1767,6 +1764,9 @@ msgstr "W"
 msgctxt "keybinds"
 msgid "X"
 msgstr "X"
+
+#~ msgid "PopUp"
+#~ msgstr "Benachrichtigung"
 
 #~ msgid "BID"
 #~ msgstr "BID"
