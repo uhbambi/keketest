@@ -164,7 +164,17 @@ const initialState = {
   // ]
   windows: [],
   // {
+  //    windowType: {
+  //     width: number,
+  //     height: number,
+  //     xPos: percentage,
+  //     yPos: percentage,
+  //    }
+  //  }
+  lastPositions: {},
+  // {
   //   windowId: {
+  //     windowType,
   //     width: number,
   //     height: number,
   //     xPos: percentage,
@@ -192,19 +202,41 @@ export default function windows(
   switch (action.type) {
     case 'OPEN_WIN': {
       /*
-       * preferred xPos, yPos, height adn width
+       * preferred xPos, yPos, height and width
        * can be given in action (but doesn't have to)
        */
-      const {
-        windowType,
-        title,
-        cloneable,
-        args,
+      const { windowType, title, cloneable, args } = action;
+      let {
         xPos: prefXPos,
         yPos: prefYPos,
         width: prefWidth,
         height: prefHeight,
       } = action;
+      /*
+       * use remembered position of last window of this type
+       */
+      if (!prefXPos && !prefYPos && !prefWidth && !prefHeight) {
+        const rememberedPosition = state.lastPositions[windowType];
+        if (rememberedPosition) {
+          ({
+            xPos: prefXPos,
+            yPos: prefYPos,
+            width: prefWidth,
+            height: prefHeight,
+          } = rememberedPosition);
+          /*
+           * if window of this type is already at this position, move it a bit
+           */
+          // eslint-disable-next-line no-loop-func
+          while (Object.values(state.positions).some((win) => (
+            win.windowType === windowType
+            && win.xPos === prefXPos && win.yPos === prefYPos
+          ))) {
+            prefXPos += 15;
+            prefYPos += 15;
+          }
+        }
+      }
 
       const [width, height] = clampSize(prefWidth, prefHeight, true);
       const [xPos, yPos] = clampPos(prefXPos, prefYPos, width, height);
@@ -241,11 +273,21 @@ export default function windows(
         positions: {
           ...state.positions,
           [windowId]: {
+            windowType,
             width,
             height,
             xPos,
             yPos,
             z: newZMax,
+          },
+        },
+        lastPositions: {
+          ...state.lastPositions,
+          [windowType]: {
+            width,
+            height,
+            xPos,
+            yPos,
           },
         },
       });
@@ -458,27 +500,10 @@ export default function windows(
       });
     }
 
-    case 'CLOSE_FULLSCREEN_WINS': {
-      const newWindows = state.windows.map((win) => {
-        if (win.fullscreen) {
-          return {
-            ...win,
-            open: false,
-          };
-        }
-        return win;
-      });
-
-      return {
-        ...state,
-        windows: newWindows,
-      };
-    }
-
     case 'MOVE_WIN': {
       const { windowId, xDiff, yDiff } = action;
       let { xPos, yPos } = state.positions[windowId];
-      const { width, height } = state.positions[windowId];
+      const { width, height, windowType } = state.positions[windowId];
 
       [xPos, yPos] = clampPos(xPos + xDiff, yPos + yDiff, width, height);
       return {
@@ -491,12 +516,22 @@ export default function windows(
             yPos,
           },
         },
+        lastPositions: {
+          ...state.lastPositions,
+          [windowType]: {
+            width,
+            height,
+            xPos,
+            yPos,
+          },
+        },
       };
     }
 
     case 'RESIZE_WIN': {
       const { windowId, xDiff, yDiff } = action;
       let { width, height } = state.positions[windowId];
+      const { windowType, xPos, yPos } = state.positions[windowId];
 
       [width, height] = clampSize(width + xDiff, height + yDiff, false);
       return {
@@ -507,6 +542,15 @@ export default function windows(
             ...state.positions[windowId],
             width,
             height,
+          },
+        },
+        lastPositions: {
+          ...state.lastPositions,
+          [windowType]: {
+            width,
+            height,
+            xPos,
+            yPos,
           },
         },
       };

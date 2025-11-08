@@ -66,7 +66,7 @@ const Window = ({ id }) => {
     changeType: (newType, newTitle, newArgs) => dispatch(changeWindowType(id, newType, newTitle, newArgs)),
   }), [id, args]);
 
-  const { open, hidden } = win;
+  const { open, hidden, cloneable } = win;
   /* if no windows are supposed to be shown, go fullscreen */
   const fullscreen = !showWindows || win.fullscreen;
 
@@ -206,7 +206,7 @@ const Window = ({ id }) => {
         className="win-topbar"
         key="topbar"
       >
-        {(!fullscreen) && (
+        {(!fullscreen && cloneable) && (
           <span
             className="win-topbtn"
             key="clonebtn"

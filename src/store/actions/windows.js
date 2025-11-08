@@ -14,12 +14,6 @@ export function setWindowArgs(
   };
 }
 
-export function closeFullscreenWindows() {
-  return {
-    type: 'CLOSE_FULLSCREEN_WINS',
-  };
-}
-
 export function changeWindowType(
   windowId,
   windowType,
