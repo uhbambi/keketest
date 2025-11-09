@@ -815,7 +815,7 @@ tr:nth-child(even) {
   }
 
   .win-topbar {
-    height: 30px;
+    height: 35px;
   }
 
   .win-topbtn {
@@ -826,7 +826,7 @@ tr:nth-child(even) {
   }
 
   .win-content {
-    height: calc(100% - 33px);
+    height: calc(100% - 38px);
   }
 }
 
