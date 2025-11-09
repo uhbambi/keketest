@@ -226,7 +226,7 @@ export async function checkIfSameProvider(ipStringA, ipStringB) {
    */
   const sameProvider = [
     [9141, 39603], [9050, 8708], [52361, 7303], [5483, 1955], [26599, 267336],
-    [48503, 9198], [9121, 16135],
+    [48503, 9198], [9121, 16135], [15897, 211709], [12361, 3329], [43612, 6821],
   ];
   for (let i = 0; i < sameProvider.length; i += 1) {
     const [asnA, asnB] = sameProvider[i];
