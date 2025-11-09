@@ -813,6 +813,21 @@ tr:nth-child(even) {
   .overlay {
     display: none;
   }
+
+  .win-topbar {
+    height: 30px;
+  }
+
+  .win-topbtn {
+    height: 28px;
+    min-width: 28px;
+    line-height: 28px;
+    font-size: 26px;
+  }
+
+  .win-content {
+    height: calc(100% - 33px);
+  }
 }
 
 .fs > .popup-fsbtn-wrapper > .popup-fsbtn {

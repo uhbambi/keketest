@@ -51,11 +51,13 @@ tr:nth-child(odd) {
   background: linear-gradient(135deg, orange , yellow, green, aqua, blue, violet);
 }
 
-.modal, .popup-modal {
-  background: #f4edf0 none repeat scroll 0 0;
+.win-content, .popup-modal {
   background-image: url("../jew.png");
   background-repeat: no-repeat;
-  background-size: cover;
+  background-size: contain;
+}
+
+.popup-modal {
   border-radius: 10px;
 }
 
