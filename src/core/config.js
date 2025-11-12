@@ -22,6 +22,7 @@ let config = {};
     ['MAIL_ADDRESS', 'string', 'donotreply@example.com'],
     ['CONTACT_ADDRESS', 'string', 'admin@example.com'],
     ['TILE_FOLDER_REL', 'string', 'tiles'],
+    ['MEDIA_FOLDER_REL', 'string', 'media'],
     ['USE_XREALIP', 'bool', false],
     ['BACKUP_URL', 'string', null],
     ['OUTGOING_ADDRESS', 'string', null],
@@ -206,9 +207,10 @@ let config = {};
   if (config.VK_CLIENT_ID) config.AVAILABLE_TP.push('vk');
 
   /*
-   * resolve TILE_FOLDER to full path
+   * resolve TILE_FOLDER and MEDIA_FOLDER to full path
    */
   config.TILE_FOLDER = path.resolve(config.TILE_FOLDER_REL);
+  config.MEDIA_FOLDER = path.resolve(config.MEDIA_FOLDER_REL);
 
   /*
    * proccess URL related values
@@ -277,6 +279,7 @@ export const {
   GOOGLE_R_URI,
   VK_R_URI,
   TILE_FOLDER,
+  MEDIA_FOLDER,
   CDN_HOST,
   BACKUP_REDIS_URL,
   BACKUP_DIR,
