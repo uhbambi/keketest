@@ -3,8 +3,8 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: admin@pixelplanet.fun\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2025-10-27 08:07+0000\n"
-"Last-Translator: weblate <weblate@noreply.pixelplanet.fun>\n"
+"PO-Revision-Date: 2025-11-13 16:16+0000\n"
+"Last-Translator: TheCat13 <thecat13@noreply.pixelplanet.fun>\n"
 "Language-Team: Catalan <https://translate.gs-os.com/projects/ppfun/client/ca/"
 ">\n"
 "Language: ca\n"
@@ -15,18 +15,18 @@ msgstr ""
 "X-Generator: Weblate 5.14\n"
 
 msgid " which is in "
-msgstr ""
+msgstr " que està dins "
 
 #, javascript-format
 msgid "${ mouseSymbol } Hold left mouse button and drag mouse to rotate"
 msgstr ""
-"${ mouseSymbol } Mantén premut el botó esquerre del ratolí mentre arrastres "
-"per rotar"
+"${ mouseSymbol } Mantingues premut el botó esquerre del ratolí mentre "
+"arrossegues per rotar"
 
 #, javascript-format
 msgid "${ mouseSymbol } Left click or ${ touchSymbol } tap to place a pixel"
 msgstr ""
-"${ mouseSymbol } Clic esquerre o ${ touchSymbol} prem per col·locar un píxel"
+"${ mouseSymbol } Clic esquerre o ${ touchSymbol } prem per col·locar un píxel"
 
 #, javascript-format
 msgid "${ mouseSymbol } Right click and drag mouse to pan"
@@ -36,8 +36,8 @@ msgstr "${ mouseSymbol } Prem el botó dret del ratolí per desplaçar-te"
 msgid ""
 "${ mouseSymbol } Right click or ${ touchSymbol } double-tap to remove a pixel"
 msgstr ""
-"${ mouseSymbol } Click dret o ${ touchSymbol }  doble toc per esborrar un "
-"píxel"
+"${ mouseSymbol } Clic dret o ${ touchSymbol } prem dues vegades per esborrar "
+"un píxel"
 
 #, javascript-format
 msgid ""
@@ -45,32 +45,31 @@ msgid ""
 "button and drag to zoom"
 msgstr ""
 "${ mouseSymbol } Gira la rodeta del ratolí o prem ${ mouseSymbol } sobre la "
-"rodeta mentre arrastres el ratolí per fer zoom"
+"rodeta mentre arrosegues el ratolí per fer zoom"
 
 msgid "(0 = infinite)"
-msgstr ""
+msgstr "(0 = infinite)"
 
 msgid "+last hour"
 msgstr ""
 
 msgid "...loading Login methods and sessions..."
-msgstr ""
+msgstr "...carregant mètodes d'Inici de Sessió i sessions..."
 
 msgid "A Phish!"
-msgstr ""
+msgstr "Un Peix!"
 
 msgid "A new verification mail is getting sent to you."
 msgstr "T'estem enviant un nou correu electrònic de verificació."
 
 msgid "ACCESS MODTOOLS"
-msgstr ""
+msgstr "ACCEDEIX A LES EINES DE MODERADOR"
 
 msgid "Add Grid (uncheck if you need a 1:1 template)"
-msgstr "Afegir quadrícula (desactiva si necessites una plantilla 1:1)"
+msgstr "Afegeix Quadrícula (desactiva-ho si necessites una plantilla 1:1)"
 
-#, fuzzy
 msgid "Add Template"
-msgstr "Descarregar plantilla"
+msgstr "Afegeix una Plantilla"
 
 msgid "Admintools"
 msgstr "Eines d'administrador"
@@ -79,31 +78,31 @@ msgid "All sound effects will be disabled."
 msgstr "Tots els sons seran desactivats."
 
 msgid "Always show Movement Controls"
-msgstr ""
+msgstr "Mostra sempre els Controls de Moviment"
 
 msgid "Always show movement control buttons"
-msgstr ""
+msgstr "Mostra sempre els botons de control de moviment"
 
 msgid "Anti Aliasing"
 msgstr "Anti Aliasing"
 
 msgid "Apply a filter to clean trash in large canvas areas."
-msgstr ""
+msgstr "Aplica un filtre per netejar la brossa en zones grans del llenç."
 
 msgid "Archive"
 msgstr "Arxiu"
 
 msgid "Assign new Mod"
-msgstr "Assignar nou moderador"
+msgstr "Assigna Moderador nou"
 
 msgid "Auto Zoom In"
-msgstr "Zoom automàtic"
+msgstr "Zoom Automàtic"
 
 msgid "Back"
-msgstr ""
+msgstr "Enrere"
 
 msgid "Badge Display"
-msgstr ""
+msgstr "Visualització d'Insígnies"
 
 msgid "Badges"
 msgstr "Insígnies"
@@ -111,25 +110,23 @@ msgstr "Insígnies"
 msgid "Banned"
 msgstr "Banejat"
 
-#, fuzzy
 msgid "Banned? Detected as Proxy?"
-msgstr "Has estat detectat com a proxy?"
+msgstr "Banejat? Detectat com a Proxy?"
 
 msgid "Block"
-msgstr "Bloquejar"
+msgstr "Bloqueja"
 
-#, fuzzy
 msgid "Block DMs"
-msgstr "Bloquejar"
+msgstr "Bloqueja els MDs"
 
 msgid ""
 "Block all Private Messages. Enabling this will delete all your current DMs. "
 "You can still start new DMs with other users, but other users won't be able "
 "to start DMs with you."
 msgstr ""
-"Bloquejar tots el missatges privats. Habilitant això esborrarà tots el tues "
-"xats privats actuals. Encara pots començar nous xats privats amb altres "
-"usuaris, però altres usuaris no podran començar un xat privat amb tú."
+"Bloqueja tots el Missatges Privats. Habilitar això esborrarà tots el teus "
+"Xats Privats actuals. Encara pots començar nous Xats Privats amb altres "
+"usuaris, però altres usuaris no podran començar un Xat Privat amb tú."
 
 msgid "Blocked"
 msgstr "Bloquejat"
@@ -154,10 +151,10 @@ msgid "Calculate like GIMP"
 msgstr "Calcular com a GIMP"
 
 msgid "Can not export more than 20 or no template!"
-msgstr ""
+msgstr "No es poden exportar més de 20 plantilles o cap!"
 
 msgid "Can not import more than 20 or no template!"
-msgstr ""
+msgstr "No es poden importar més de 20 plantilles o cap!"
 
 msgid "Can't read? Reload:"
 msgstr "Il·legible? Recarrega:"
@@ -168,51 +165,47 @@ msgstr "No es pot renderitzar el canvas 3D, tens el WebGL2 desactivat?"
 msgid "Cancel"
 msgstr "Cancel·la"
 
-#, fuzzy
 msgid "Cancel adding Template"
-msgstr "Descarregar plantilla"
+msgstr "Cancel·la afegir la Plantilla"
 
-#, fuzzy
 msgid "Canvas"
-msgstr "Error de llenç"
+msgstr "Llenç"
 
 msgid "Canvas Archive"
-msgstr "Arxiu de llenços"
+msgstr "Arxiu de Llenços"
 
-#, fuzzy
 msgid "Canvas Cleaner"
-msgstr "Selecció de llenç"
+msgstr "Netejador del Llenç"
 
 msgid "Canvas Error"
-msgstr "Error de llenç"
+msgstr "Error del Llenç"
 
 msgid "Canvas Selection"
-msgstr "Selecció de llenç"
+msgstr "Selecció de Llenç"
 
 msgid "Captcha"
 msgstr "Captcha"
 
 msgid "Caught by"
-msgstr ""
+msgstr "Atrapat per"
 
-#, fuzzy
 msgid "Change Happened"
-msgstr "Canviar nom d'usuari"
+msgstr "Ha Hagut Un Canvi"
 
 msgid "Change Name"
-msgstr ""
+msgstr "Canvia el Nom"
 
 msgid "Change Password"
-msgstr "Canviar contrasenya"
+msgstr "Canvia la Contrasenya"
 
 msgid "Change your Mail Adress here:"
-msgstr ""
+msgstr "Canvia la teva Adreça de Correu aquí:"
 
 msgid "Channel settings"
 msgstr "Configuració del canal"
 
 msgid "Charts"
-msgstr ""
+msgstr "Gràfics"
 
 msgid "Chat"
 msgstr "Xat"
@@ -224,22 +217,22 @@ msgid "Check out past versions of the canvas."
 msgstr "Consulta versions antigues del llenç."
 
 msgid "Check to allow"
-msgstr ""
+msgstr "Marca per permetre"
 
 msgid "Check who placed in an area"
-msgstr ""
+msgstr "Comprova qui ha col·locat en una zona"
 
 msgid "Choose Canvas"
-msgstr "Triar llenç"
+msgstr "Tria Llenç"
 
 msgid "Choose Color Mode"
-msgstr "Tria mode de color"
+msgstr "Tria Mode de Color"
 
 msgid "Choose Strategy"
-msgstr "Tria estratègia"
+msgstr "Tria Estratègia"
 
 msgid "Choose Username"
-msgstr ""
+msgstr "Tria Nom d'Usuari"
 
 msgid ""
 "Clean spare pixels that are surrounded by a single other color or unset "
@@ -256,7 +249,7 @@ msgid ""
 msgstr ""
 
 msgid "Cleaners can use 0cd blank colors."
-msgstr ""
+msgstr "Els netejadors poden utilitzar colors base amb 0cd."
 
 #, javascript-format
 msgid ""
@@ -273,7 +266,7 @@ msgid "Click here to request a new verification mail."
 msgstr "Clica aquí per solicitar un nou correu electrònic de verificació."
 
 msgid "Click to Load Captcha"
-msgstr "Clica per carregar el captcha"
+msgstr "Clica per Carregar el Captcha"
 
 msgid "Clone"
 msgstr "Clonar"
@@ -282,49 +275,51 @@ msgid "Close"
 msgstr "Tanca"
 
 msgid "Close Chat"
-msgstr "Tanca el xat"
+msgstr "Tanca el Xat"
 
 msgid "Close Menu"
-msgstr "Tanca el menú"
+msgstr "Tanca el Menú"
 
 msgid "Close Palette"
-msgstr "Tancar la paleta"
+msgstr "Tanca la Paleta"
 
 msgid "Compact Palette"
-msgstr "Paleta compacte"
+msgstr "Paleta Compacta"
 
 msgid "Confirm New Password"
-msgstr "Confirma la nova contrasenya"
+msgstr "Confirma la Contrasenya Nova"
 
 msgid "Confirm Password"
-msgstr "Confirma la contrasenya"
+msgstr "Confirma la Contrasenya"
 
 #, javascript-format
 msgid "Connection error ${ code } :("
 msgstr "Error de connexió ${ code } :("
 
 msgid "Consent"
-msgstr ""
+msgstr "Consentiment"
 
 msgid "Consider joining us on Matrix:"
-msgstr ""
+msgstr "Considera unir-te a nosaltres a Matrix:"
 
 msgid "Controls"
 msgstr "Controls"
 
 msgid "Convert an image to canvas colors"
-msgstr "Convertir una imatge als colors del llenç"
+msgstr "Converteix una imatge als colors del llenç"
 
 msgid "Converter"
 msgstr "Conversor"
 
 msgid "Cooldown"
-msgstr "Temps de refredament"
+msgstr "Refredament"
 
 msgid ""
 "Cooldown is usually automatically changed for a country that is dominating. "
 "In example in the case of a streamer raid."
 msgstr ""
+"El temps de Refredament sol canviar automàticament per a un país dominant. "
+"Per exemple, en el cas d'una incursió de streamers."
 
 msgid "Coordinates"
 msgstr "Coordenades"
@@ -340,19 +335,19 @@ msgid "Copy"
 msgstr "Copia"
 
 msgid "Copy Link"
-msgstr "Copiar Link"
+msgstr "Copia l'Enllaç"
 
 msgid "Copy Selected to Clipboard"
-msgstr ""
+msgstr "Copia la Selecció al Porta-Retalls"
 
 msgid "Copy URL"
-msgstr ""
+msgstr "Copia la URL"
 
 msgid "Copy UserId to Clipboard"
-msgstr ""
+msgstr "Copia l'ID d'Usuari al Porta-Retalls"
 
 msgid "Copy to Clipboard"
-msgstr "Copia al porta-retalls"
+msgstr "Copia al Porta-Retalls"
 
 msgid "Could not connect to server, please try again later :("
 msgstr ""
@@ -363,163 +358,160 @@ msgid "Could not load captcha"
 msgstr "No s'ha pogut carregar el captcha"
 
 msgid "Couldn't set Pixel"
-msgstr "No s'ha pogut col·locar el píxel"
+msgstr "No s'ha pogut col·locar el Píxel"
 
 msgid "Countries Today"
-msgstr ""
+msgstr "Països Avui"
 
 msgid "Country"
 msgstr "País"
 
-#, fuzzy, javascript-format
+#, javascript-format
 msgid "Credit for the Palette of the 2bit canvas goes to ${ donendoLink }."
 msgstr ""
-"Els crèdits per la paleta de colors del llenç Top10 són per ${ donendoLink }."
+"Els Crèdits per la Paleta de Colors del llenç 2bit són per ${ donendoLink }."
 
 #, javascript-format
 msgid "Credit for the Palette of the Moon goes to ${ starhouseLink }."
 msgstr ""
-"Els crèdits per la paleta de colors de la Lluna són per ${ starhouseLink }."
+"Els Crèdits per la Paleta de Colors de la Lluna són per ${ starhouseLink }."
 
 #, javascript-format
 msgid "Credit for the Palette of the Top10 canvas goes to ${ vinikLink }."
 msgstr ""
-"Els crèdits per la paleta de colors del llenç Top10 són per ${ vinikLink }."
+"Els Crèdits per la Paleta de Colors del llenç Top10 són per ${ vinikLink }."
 
 msgid "Current Cooldown Changes per Country"
-msgstr ""
+msgstr "Canvis Actuals al Temps de Refredament per País"
 
 msgid "Custom Cursor"
-msgstr ""
+msgstr "Cursor Personalitzat"
 
 msgid "DM"
-msgstr "Missatge privat"
+msgstr "Missatge Privat"
 
-#, fuzzy
 msgid "Daily Pixels per Country"
-msgstr "Píxels col·locats"
+msgstr "Píxels Diaris per País"
 
-#, fuzzy
 msgid "Daily Pixels per Player"
-msgstr "Píxels col·locats"
+msgstr "Píxels Diaris per Jugador"
 
 msgid "Daily Rank"
-msgstr "Classificació diària"
+msgstr "Classificació Diària"
 
 msgid "Date of Award"
 msgstr ""
 
 msgid "Date of catch"
-msgstr ""
+msgstr "Data de captura"
 
-#, fuzzy
 msgid "Delete"
-msgstr "Esborrar compte"
+msgstr "Esborrar"
 
 msgid "Delete Account"
-msgstr "Esborrar compte"
+msgstr "Esborra el Compte"
 
 msgid "Deny"
 msgstr "Denegar"
 
-#, fuzzy
 msgid ""
 "Didn't get an answer from pixelplanet. Try to refresh if this problem "
 "persists."
 msgstr ""
 "No s'ha obtingut cap resposta per part de PixelPlanet. Intenta refrescar la "
-"pàgina?"
+"pàgina."
 
 msgid "Dimensions"
 msgstr "Dimensions"
 
 msgid "Disable Game Sounds"
-msgstr "Desactivar sons del joc"
+msgstr "Desactiva els Sons del Joc"
 
 msgid "Disable History Pencil"
-msgstr ""
+msgstr "Desactiva el Llapis d'Història"
 
 msgid "Disable Overlay Pencil"
-msgstr ""
+msgstr "Desactiva el Llapis de Superposició"
 
 msgid "Disable Pencil"
-msgstr "Desactivar llapis"
+msgstr "Desactiva el Llapis"
 
 msgid "Display Palette in a compact form that takes less screen space."
 msgstr ""
-"Mostra la paleta de forma compacte per ocupar menys espai de la pantalla."
+"Mostra la Paleta de forma compacta per ocupar menys espai de la pantalla."
 
 msgid "Do stuff with IPs (one IP per line)"
-msgstr "Fes coses amb IPs (una per línia)"
+msgstr "Fes coses amb IPs (una IP per línia)"
 
 msgid "Don't remember"
-msgstr ""
+msgstr "No recordar"
 
 msgid "Don't show me in global stats"
-msgstr ""
+msgstr "No em mostris a les estadístiques globals"
 
 msgid "Download Template"
-msgstr "Descarregar plantilla"
+msgstr "Descarregar Plantilla"
 
 #, javascript-format
 msgid "Drag ${ mouseSymbol } mouse or ${ touchSymbol } pan to move"
 msgstr ""
-"Prem i arrastra amb el ratolí ${ mouseSymbol } o el dit ${ touchSymbol } per "
-"desplaçar-te"
+"Prem i arrossega amb el ratolí ${ mouseSymbol } o el dit ${ touchSymbol } "
+"per desplaçar-te"
 
-#, fuzzy
 msgid "Duration"
-msgstr "Registre"
+msgstr "Durada"
 
 msgid "Easter Egg OFF"
-msgstr ""
+msgstr "Easter Egg Desactivat"
 
 msgid "Easter Egg ON"
-msgstr ""
+msgstr "Easter Egg Activat"
 
 msgid "Edit"
-msgstr ""
+msgstr "Edita"
 
 msgid "Email"
-msgstr "Correu electrònic"
+msgstr "Correu Electrònic"
 
 msgid "Email can't be empty."
-msgstr "Has d'omplir el correu electrònic."
+msgstr "Has d'emplenar el Correu Electrònic."
 
 msgid "Email can't be longer than 40 characters."
-msgstr "El correu electrònic no pot contenir més de 40 caràcters."
+msgstr "El Correu Electrònic no pot contenir més de 40 caràcters."
 
 msgid ""
 "Email is used to verify your account. You might get a cofirmation mail after "
 "registering."
 msgstr ""
+"El Correu Electrònic s'utilitza per verificar el teu compte. És possible que "
+"rebis un correu de confirmació després de registrar-te."
 
 msgid "Email should at least contain a dot"
-msgstr "El correu electrònic ha de contenir com a mínim un punt"
+msgstr "El Correu Electrònic ha de contenir com a mínim un punt"
 
 msgid "Email should be at least 5 characters long."
-msgstr "El correu electrònic ha de comptar, com a mínim, amb 5 caràcters."
+msgstr "El Correu Electrònic ha de contenir 5 caràcters com a mínim."
 
 msgid "Email should contain a @"
-msgstr "El correu electrònic ha de contenir una @"
+msgstr "El Correu Electrònic ha de contenir una @"
 
 msgid "Enable Overlay"
-msgstr ""
+msgstr "Activa la Superposició"
 
 msgid "Enable Pencil"
-msgstr "Activar llapis"
+msgstr "Activa el Llapis"
 
 msgid "Enable chat notifications"
-msgstr "Activar notificacions del xat"
+msgstr "Activa les notificacions del xat"
 
 msgid "Enter Characters"
-msgstr "Escriu"
+msgstr "Introdueix els Caràcters"
 
 msgid "Enter Reason"
-msgstr ""
+msgstr "Introdueix la Raó"
 
 msgid "Enter UserName of new Mod"
-msgstr "Introdueix el nom d'usuari del nou moderador"
+msgstr "Introdueix el Nom d'Usuari del nou Moderador"
 
 msgid "Enter your mail address and we will send you a new password:"
 msgstr ""
@@ -537,25 +529,25 @@ msgid "Error :("
 msgstr "Error :("
 
 msgid "Expand"
-msgstr ""
+msgstr "Amplia"
 
 msgid "Export enabled templates"
-msgstr ""
+msgstr "Exporta les plantilles habilitades"
 
 msgid "Factor"
-msgstr ""
+msgstr "Factor"
 
 msgid "File"
 msgstr "Arxiu"
 
 msgid "Fish Display"
-msgstr ""
+msgstr "Visualització dels Peixos"
 
 msgid "For"
-msgstr ""
+msgstr "Per"
 
 msgid "For Developers"
-msgstr ""
+msgstr "Pels Desenvolupadors"
 
 #, javascript-format
 msgid ""
@@ -563,63 +555,64 @@ msgid ""
 "your data, simply delete your account, this in fact wipes all privacy "
 "relevant traces. Your placed pixels will of course not be deleted."
 msgstr ""
+"Per qualsevol assumpte legal, contacta amb ${ mailLink }. Si vols suprimir "
+"les teves dades, simplement esborra el teu compte, de fet això esborra tots "
+"els rastres rellevants de privadesa. Els píxels que hagis col·locat no "
+"s'eliminaran, és clar."
 
 msgid "For one day"
-msgstr ""
+msgstr "Durant un dia"
 
 msgid "For one month"
-msgstr ""
+msgstr "Durant un mes"
 
 msgid "For one week"
-msgstr ""
+msgstr "Durant una setmana"
 
 msgid "For one year"
-msgstr ""
+msgstr "Durant un any"
 
 msgid "For when you are playing on a potato."
 msgstr "Per quan jugues des d'un ordinador patata."
 
 msgid "Forever"
-msgstr ""
+msgstr "Per sempre"
 
 msgid "From History"
-msgstr "Històric"
+msgstr "Des de la Història"
 
-#, fuzzy
 msgid "From Template"
-msgstr "Descarregar plantilla"
+msgstr "Des de la Plantilla"
 
 msgid "Get IID"
-msgstr ""
+msgstr "Obtén l'IID"
 
-#, fuzzy
 msgid "Get Pixels"
-msgstr "Píxels col·locats"
+msgstr "Obtén els Píxels"
 
-#, fuzzy
 msgid "Get Users"
-msgstr "Usuaris en línia"
+msgstr "Obtén els Usuaris"
 
 msgid "Get email address"
-msgstr ""
+msgstr "Obtén l'adreça de correu electrònic"
 
 msgid "Get the amount of Pixels placed and ranking"
-msgstr ""
+msgstr "Obtén la quantitat de Píxels col·locats i la classificació"
 
 msgid "Globe View"
-msgstr "Vista del món"
+msgstr "Vista del Globus Terraqui"
 
 msgid "Go to"
-msgstr ""
+msgstr "Ves a"
 
 msgid "Grant"
-msgstr ""
+msgstr "Concedir"
 
 msgid "Grid OFF"
-msgstr "Quadrícula desactivada"
+msgstr "Quadrícula Desactivada"
 
 msgid "Grid ON"
-msgstr "Quadrícula activada"
+msgstr "Quadrícula Activada"
 
 msgid "Have fun!"
 msgstr "Passa-t'ho bé!"
@@ -630,16 +623,15 @@ msgstr "Alçada"
 msgid "Help"
 msgstr "Ajuda"
 
-#, fuzzy
 msgid ""
 "Here we collect removed canvases to archive them properly. Which is "
 "currently only one."
 msgstr ""
-"Aquí col·leccionem aquests llenços per arxivar-los de forma correcte (que "
-"per ara només és aquesta)."
+"Aquí col·leccionem llenços antics per arxivar-los de forma correcta. Que per "
+"ara només n'hi ha una."
 
 msgid "Hide Embed"
-msgstr ""
+msgstr "Amaga l'Incrustació"
 
 msgid ""
 "Higher zoomlevels take some time to update, the 3D globe gets updated at "
@@ -649,30 +641,31 @@ msgstr ""
 "terraqüi 3D s'actualitza com a mínim un cop al dia."
 
 msgid "Historical View"
-msgstr "Vista històrica"
+msgstr "Vista Històrica"
 
-#, fuzzy, javascript-format
+#, javascript-format
 msgid "Hold left ${ bindShift } for pencil (to place while moving mouse)"
-msgstr "Mantén ${ bindShift} esquerra per col·locar mentre mous el ratolí"
+msgstr ""
+"Mantingues pressionat ${ bindShift } esquerre per col·locar mentre mous el "
+"ratolí"
 
 msgid "How pixelplanet should look like."
 msgstr "Com s'hauria de veure PixelPlanet."
 
 msgid "I forgot my Password."
-msgstr "He oblidat la meva contrasenya."
+msgstr "He oblidat la meva Contrasenya."
 
 msgid "IID (optional)"
-msgstr ""
+msgstr "IID (opcional)"
 
-#, fuzzy
 msgid "IID Actions"
-msgstr "Accions IP"
+msgstr "Accions de l'IID"
 
 msgid "IP Actions"
-msgstr "Accions IP"
+msgstr "Accions de l'IP"
 
 msgid "Identifiers"
-msgstr ""
+msgstr "Identificadors"
 
 #, javascript-format
 msgid ""
@@ -681,8 +674,8 @@ msgid ""
 "mail to ${ mailLink } and, in case of a ban, include the BID you got in the "
 "ban message."
 msgstr ""
-"Si has estat detectar com a proxy, però no ho ets pas, o penses que has "
-"sigut banejat injustament, si us plau, ves al nostre ${ guildedLink } o "
+"Si has estat detectar com a proxy, però no n'estas fent servir, o penses que "
+"has sigut banejat injustament, si us plau, ves al nostre ${ guildedLink } o "
 "envia'ns un correu electrònic a ${ mailLink } i, en cas de baneig, inclou el "
 "BID que has rebut al missatge del mateix."
 
@@ -690,22 +683,23 @@ msgid ""
 "If you talk to moderators or administrators, you might get asked for one of "
 "the following identifiers:"
 msgstr ""
+"Si parles amb moderadors o administradors, és possible que et demanin un "
+"dels següents identificadors:"
 
 msgid "Image Converter"
-msgstr "Conversor d'imatge"
+msgstr "Conversor d'Imatges"
 
 msgid "Image Upload"
-msgstr "Pujar imatge"
+msgstr "Puja una Imatge"
 
 msgid "Import templates"
-msgstr ""
+msgstr "Importa plantilles"
 
 msgid "Interval"
-msgstr ""
+msgstr "Interval"
 
-#, fuzzy
 msgid "Interval is invalid"
-msgstr "Llenç invàlid"
+msgstr "Interval invàlid"
 
 msgid "Invalid Canvas"
 msgstr "Llenç invàlid"
@@ -717,40 +711,40 @@ msgid "Invalid color selected"
 msgstr "Color invàlid seleccionat"
 
 msgid "Invited to Chat"
-msgstr ""
+msgstr "T'han Convidat al Xat"
 
 msgid ""
 "It requests the following permissions. Uncheck what you don't want to grant:"
 msgstr ""
+"Et sol·licita els permisos següents. Desmarca els que no vulguis concedir:"
 
 msgid "Jannies can rollback and protect, but not watch or ban."
-msgstr ""
+msgstr "Els Jannies poden revertir i protegir, però no vigilar ni banejar."
 
 msgid "Just for registered Users"
-msgstr "Només per a usuaris registrats"
+msgstr "Només per a Usuaris registrats"
 
 msgid "Just for verified Users"
-msgstr ""
+msgstr "Només per a Usuaris verificats"
 
 msgid "Just the Top10 of yesterday can place here"
 msgstr ""
-"Només els 10 usuaris amb més píxels col·locats a la classificació diària "
-"d'ahir poden pintar aquí"
+"Només el Top10 d'usuaris amb més píxels col·locats d'ahir poden pintar aquí"
 
 msgid "Keep Ratio"
-msgstr "Mantenir proporció"
+msgstr "Mantenir Proporció"
 
 msgid "Know that an account exists"
 msgstr ""
 
 msgid "Legal Requests"
-msgstr ""
+msgstr "Peticions Legals"
 
 msgid "Light Grid"
-msgstr "Quadrícula clara"
+msgstr "Quadrícula Clara"
 
 msgid "Load Captcha"
-msgstr "Carrega el captcha"
+msgstr "Carrega el Captcha"
 
 msgid "Loading"
 msgstr "Carregant"
@@ -759,88 +753,88 @@ msgid "Loading..."
 msgstr "Carregant..."
 
 msgid "Log out"
-msgstr "Tancar sessió"
+msgstr "Tanca la sessió"
 
 msgid "Log out a Session:"
-msgstr ""
+msgstr "Tanca una Sessió:"
 
 msgid "LogIn"
-msgstr "Inicia sessió"
+msgstr "Inicia Sessió"
 
 msgid "Login Methods"
-msgstr ""
+msgstr "Mètodes d'Inici de Sessió"
 
 msgid "Login to access more features and stats."
-msgstr "Inicia sessió per accedir a més funcions i estadístiques."
+msgstr "Inicia la sessió per accedir a més funcions i estadístiques."
 
 msgid "Login to grant access to other application."
-msgstr ""
+msgstr "Inicia la sessió per concedir accés a una altra aplicació."
 
 msgid "Login to other application"
-msgstr ""
+msgstr "Inicia la sessió a una altra aplicació"
 
 msgid "Login with Name or Mail:"
-msgstr "Inicia sessió amb el nom o el correu electrònic:"
+msgstr "Inicia la sessió amb el Nom o el Correu Electrònic:"
 
 msgid "Make Screenshot"
-msgstr "Captura de pantalla"
+msgstr "Fes Captura de Pantalla"
 
 msgid "Manage Moderators"
-msgstr "Administrar moderadors"
+msgstr "Administrar Moderadors"
 
 msgid "Map Data"
-msgstr "Dades del mapa"
+msgstr "Dades del Mapa"
 
 msgid "Maximize"
-msgstr "Maximitzar"
+msgstr "Maximitza"
 
 msgid "Minimum Color Distance"
-msgstr "Distància de color mínima"
+msgstr "Distància de Color Mínima"
 
 msgid "Moderators can access all Canvas, Watch and IID tools."
-msgstr ""
+msgstr "Els Moderadors poden accedir a totes les eines de Llenç, Watch i IID."
 
 msgid "Modtools"
-msgstr "Eines de moderador"
+msgstr "Eines de Moderador"
 
 msgid "Move"
-msgstr "Moure"
+msgstr "Mou"
 
 msgid "Mute"
-msgstr "Silenciar"
+msgstr "Silencia"
 
 msgid "Muted Sound"
-msgstr "So desactivat"
+msgstr "So Silenciat"
 
 msgid "Name"
 msgstr "Nom"
 
 msgid "Name can't be empty."
-msgstr "El nom és obligatori."
+msgstr "El Nom és obligatori."
 
 msgid "Name contains invalid character like @, /, \\ or #"
-msgstr "El nom conté caràcters invalids com:  @   /   \\   #"
+msgstr "El Nom conté caràcters invalids com: @, /, \\ o #"
 
 msgid "Name must be at least 2 characters long"
-msgstr "El nom ha de ser com a mínim de 2 caràcters"
+msgstr "El Nom ha de contenir 2 caràcters com a mínim"
 
 msgid "Name must be shorter than 26 characters"
-msgstr "El nom no pot tenir més de 26 caràcters"
+msgstr "El nom no pot contenir més de 26 caràcters"
 
 msgid "Name or Email"
-msgstr "Nom o correu electrònic"
+msgstr "Nom o Correu Electrònic"
 
 msgid "New Mail"
-msgstr "Nou correu"
+msgstr "Correu Nou"
 
 msgid "New Name"
-msgstr ""
+msgstr "Nom Nou"
 
 msgid "New Password"
-msgstr "Nova contrasenya"
+msgstr "Contrasenya Nova"
 
 msgid "New Username"
-msgstr "Nou nom d'usuari"
+msgstr "Nom d'Usuari Nou"
 
 msgid "No"
 msgstr "No"
@@ -848,21 +842,20 @@ msgstr "No"
 msgid "No Phish!"
 msgstr ""
 
-#, fuzzy
 msgid "No captcha id given"
-msgstr "No s'ha escrit una contrasenya."
+msgstr "No s'ha proporcionat cap captcha"
 
 msgid "No or invalid captcha text"
-msgstr ""
+msgstr "No hi ha text de captcha o és invàlid"
 
 msgid "No password given."
-msgstr "No s'ha escrit una contrasenya."
+msgstr "No s'ha escrit cap contrasenya."
 
 msgid "Not allowed"
 msgstr "No tens permisos"
 
 msgid "OIDC LogIn"
-msgstr ""
+msgstr "Inici de Sessió d'OIDC"
 
 msgid "OK"
 msgstr "D'acord"
@@ -872,33 +865,34 @@ msgstr "Compensació"
 
 msgid "Oh no, the phish escaped. Better luck next time!"
 msgstr ""
+"Oh no, el peix s'ha escapat. A veure si tens més sort la pròxima vegada!"
 
 msgid "Old Password"
-msgstr "Antiga contrasenya"
+msgstr "Contrasenya Antiga"
 
 msgid "Online Users"
-msgstr "Usuaris en línia"
+msgstr "Usuaris en Línia"
 
 msgid "Online Users on Canvas"
-msgstr "Usuaris en línia en aquest llenç"
+msgstr "Usuaris en Línia en aquest Llenç"
 
 msgid "Only verified Users are currently allowed to play."
-msgstr ""
+msgstr "Actualment només els Usuaris verificats poden jugar."
 
 msgid "Opacity of Overlay in percent."
-msgstr ""
+msgstr "Opacitat de la Superposició (percentatge)."
 
 msgid "Open Chat"
-msgstr "Obre el xat"
+msgstr "Obre el Xat"
 
 msgid "Open Menu"
-msgstr "Obre el menú"
+msgstr "Obre el Menú"
 
 msgid "Open Palette"
-msgstr "Obrir la paleta"
+msgstr "Obre la Paleta"
 
 msgid "Open in PopUp"
-msgstr ""
+msgstr "Obre en una Finestra Emergent"
 
 msgid "OpenID Connect Client registration"
 msgstr ""
@@ -914,22 +908,22 @@ msgstr ""
 "El nostre llenç principal és un mapa del món gegant. Pots pintar allà on "
 "vulguis, però hauràs d'esperar un temps de refredament determinat entre "
 "píxels. Pots comprovar el temps de refredament i els requisits al menú de "
-"selecció de llenç (el botó quadrat de dalt a l'esquerra). Alguns llenços "
+"Selecció de Llenç (el botó quadrat de dalt a l'esquerra). Alguns llenços "
 "tenen diferents temps de refredament segons es substitueixi un píxel verge o "
 "un píxel ja col·locat per un usuari prèviament; per exemple 4s/7s vol dir 4 "
 "segons en un píxel verge i 7 segons en un d'editat prèviament."
 
 msgid "Overlay OFF"
-msgstr ""
+msgstr "Superposició Desactivada"
 
 msgid "Overlay ON"
-msgstr ""
+msgstr "Superposició Activada"
 
 msgid "Overlay Opacity"
-msgstr ""
+msgstr "Opacitat de la Superposició"
 
 msgid "Palette Download"
-msgstr "Descarregar paleta"
+msgstr "Descarrega la Paleta"
 
 #, javascript-format
 msgid "Palette for ${ gimpLink }"
@@ -939,44 +933,44 @@ msgid "Password"
 msgstr "Constrasenya"
 
 msgid "Password must be at least 6 characters long."
-msgstr "La contrasenya ha de tenir 6 caràcters com a mínim."
+msgstr "La contrasenya ha de contenir 6 caràcters com a mínim."
 
 msgid "Password must be shorter than 60 characters."
-msgstr "La contrasenya ha de tenir menys de 60 caràcters."
+msgstr "La contrasenya ha de contenir menys de 60 caràcters."
 
 msgid "Password successfully changed."
-msgstr "La contrasenya ha sigut reemplaçada amb èxit."
+msgstr "La contrasenya ha estat canviada amb èxit."
 
 msgid "Passwords do not match."
 msgstr "Les contrasenyes no coincideixen."
 
-#, fuzzy, javascript-format
+#, javascript-format
 msgid "Pencil Mode for ${ canvasName } canvas"
-msgstr "Canviat a ${ canvasName }"
+msgstr "Mode del Llapis pel llenç ${ canvasName }"
 
 msgid "Pencil picks: "
 msgstr "Selecció del llapis: "
 
 msgid "Permission"
-msgstr ""
+msgstr "Permís"
 
 msgid "Phish!"
-msgstr ""
+msgstr "Peix!"
 
 msgid "Phishes"
-msgstr ""
+msgstr "Peixos"
 
 msgid "Ping"
 msgstr "Ping"
 
 msgid "Pixel Notify OFF"
-msgstr "Activitat de píxels desactivada"
+msgstr "Activitat de Píxels Desactivada"
 
 msgid "Pixel Notify ON"
-msgstr "Activitat de píxels activada"
+msgstr "Activitat de Píxels Activada"
 
 msgid "Pixel Protection"
-msgstr "Protecció de píxels"
+msgstr "Protecció de Píxels"
 
 #, fuzzy
 msgid "Pixel protected"
@@ -987,20 +981,19 @@ msgstr ""
 "Col·loca píxels de colors en un gran llenç amb altres jugadors en línia!"
 
 msgid "Placed Pixels"
-msgstr "Píxels col·locats"
+msgstr "Píxels Col·locats"
 
 msgid "Play a sound when new chat messages arrive"
 msgstr "Reprodueix un so quan arribi un nou missatge al xat"
 
 msgid "Player"
-msgstr ""
+msgstr "Jugador"
 
-#, fuzzy
 msgid "Players and Pixels per hour"
-msgstr "Píxels col·locats"
+msgstr "Jugadors i Píxels per hora"
 
 msgid "Please prove that you are human"
-msgstr "Si us plau, demostra que ets un humà"
+msgstr "Si us plau, demostra que ets humà"
 
 msgid "Please refresh the website"
 msgstr "Si us plau, refresca la pàgina"
@@ -1009,19 +1002,21 @@ msgid ""
 "Please verify your mail address or add a new one, otherwise your account "
 "could get deleted in the future."
 msgstr ""
+"Si us plau, verifica la teva adreça de correu electrònic o afegeix-ne una de "
+"nova; si no el teu compte podria ser eliminat en el futur."
 
 msgid "Political Compass Canvas"
-msgstr "Llenç de la brúixola política"
+msgstr "Llenç de la Brúixola Política"
 
 msgid "Potato Mode"
-msgstr "Mode patata"
+msgstr "Mode Patata"
 
 #, javascript-format
 msgid ""
 "Press ${ bindAUp }, ${ bindALeft }, ${ bindADown }, ${ bindARight } to move"
 msgstr ""
 "Prem ${ bindAUp }, ${ bindALeft }, ${ bindADown }, ${ bindARight } per "
-"desplaçar-te"
+"moure't"
 
 #, javascript-format
 msgid "Press ${ bindG } to toggle grid"
@@ -1045,23 +1040,24 @@ msgstr "Prem ${ bindR } per copiar les coordenades"
 
 #, javascript-format
 msgid "Press ${ bindW }, ${ bindA }, ${ bindS }, ${ bindD } to move"
-msgstr "Prem ${ bindW }, ${ bindA }, ${ bindS }, ${ bindD } per desplaçar-te"
+msgstr "Prem ${ bindW }, ${ bindA }, ${ bindS }, ${ bindD } per moure't"
 
 #, javascript-format
 msgid "Press ${ bindX } to toggle showing of pixel activity"
-msgstr "Prem ${ bindX } per activar/desactivar la visió d'activitat de píxels"
+msgstr ""
+"Prem ${ bindX } per activar/desactivar les bombolles d'activitat de píxels"
 
 msgid "Private"
-msgstr ""
+msgstr "Privat"
 
 msgid "Profile"
 msgstr "Perfil"
 
 msgid "Quick Actions"
-msgstr ""
+msgstr "Accions Ràpides"
 
 msgid "Range Banned"
-msgstr ""
+msgstr "Rang Banejat"
 
 msgid "Ranked"
 msgstr "Classificat"
@@ -1072,49 +1068,49 @@ msgstr ""
 "reinicia a les 00:00 UTC."
 
 msgid "Read Badges and fishes"
-msgstr ""
+msgstr "Llegeix les Insígnies i els peixos"
 
 msgid "Read name, username and account age"
-msgstr ""
+msgstr "Llegeix nom, nom d'usuari i edat del compte"
 
 msgid "Reason"
-msgstr ""
+msgstr "Raó"
 
 msgid "Refresh"
-msgstr ""
+msgstr "Refresca"
 
 msgid "Register"
 msgstr "Registra't"
 
 msgid "Register new account here"
-msgstr "Registra un nou compte aquí"
+msgstr "Registra un compte nou aquí"
 
 msgid "Regularly update this data"
-msgstr ""
+msgstr "Actualitza aquestes dades regularment"
 
 msgid "Reload"
 msgstr "Recarrega"
 
 msgid "Remember this decision: "
-msgstr ""
+msgstr "Recorda aquesta decisió: "
 
 msgid "Remove"
-msgstr ""
+msgstr "Elimina"
 
 msgid "Remove Cleaner"
-msgstr ""
+msgstr "Elimina el Netejador"
 
 msgid "Remove Janny"
-msgstr ""
+msgstr "Elimina el Janny"
 
 msgid "Remove Moderator"
-msgstr "Eliminar moderador"
+msgstr "Elimina el Moderador"
 
 msgid "Remove a Login method:"
-msgstr ""
+msgstr "Elimina un mètode d'Inici de Sessió:"
 
 msgid "Require Verification to Place"
-msgstr ""
+msgstr "Cal Verificació per Col·locar"
 
 msgid "Requirements"
 msgstr "Requisits"
@@ -1123,72 +1119,69 @@ msgid "Reset"
 msgstr "Restableix"
 
 msgid "Reset Captchas of ALL Users"
-msgstr ""
+msgstr "Restableix els Captchas de TOTS els usuaris"
 
 msgid "Reset your password"
-msgstr ""
+msgstr "Restableix la teva contrasenya"
 
 msgid "Resize"
-msgstr "Canviar mida"
+msgstr "Canvia la mida"
 
 msgid "Restore"
 msgstr "Restaura"
 
 msgid "Retired Canvases (history only)"
-msgstr ""
+msgstr "Llenços Retirats (només vista històrica)"
 
 msgid "Retract"
-msgstr ""
+msgstr "Retracta"
 
 msgid "Revoke consent of third party applications:"
-msgstr ""
+msgstr "Revoca el consentiment de les aplicacions de tercers:"
 
 msgid "Roll different Captcha Fonts"
-msgstr ""
+msgstr "Desplega diferents Fonts de Captcha"
 
-#, fuzzy
 msgid "Rollback an area of the canvas to a set date and time"
-msgstr "Retrocedir l'àrea del llenç a una data determinata (00:00 UTC)"
+msgstr "Restableix una àrea del llenç a una data i hora establertes"
 
 msgid "Rollback to Date"
-msgstr "Retrocedir fins a la data"
+msgstr "Restableix fins a la Data"
 
 msgid "Save"
 msgstr "Desa"
 
 msgid "Scale Image"
-msgstr "Escalar imatge"
+msgstr "Escala la Imatge"
 
 #, javascript-format
 msgid "Scroll ${ mouseSymbol } mouse wheel or ${ touchSymbol } pinch to zoom"
 msgstr ""
-"Gira ${ mouseSymbol } la rodeta del ratolí o ${ touchSymbol } amb el dit per "
-"fer zoom"
+"Gira ${ mouseSymbol } la rodeta del ratolí o ${ touchSymbol } pessiga amb "
+"els dits per fer zoom"
 
 msgid "Select Date above"
-msgstr "Escull la data amunt"
+msgstr "Selecciona la Data amunt"
 
-#, fuzzy
 msgid "Select File"
-msgstr "Selecciona l'idioma"
+msgstr "Selecciona l'Arxiu"
 
 msgid "Select Language"
-msgstr "Selecciona l'idioma"
+msgstr "Selecciona l'Idioma"
 
-#, fuzzy
 msgid ""
 "Select the canvas you want to use.\n"
 "Every canvas is unique and has different palettes, cooldown and "
 "requirements.\n"
 "Archived canvases can be accessed here:"
 msgstr ""
-"Selecciona el llenç que vols fer servir.  Cada llenç és únic i té diferents "
-"paletes de colors, temps de refredament i requisits.  L'arxiu dels llenços "
-"tancats es troba aquí:"
+"Selecciona el llenç que vols fer servir. \n"
+"Cada llenç és únic i té diferents paletes de colors, temps de refredament i "
+"requisits. \n"
+"Els llenços arxivats es poden accedir aquí:"
 
-#, fuzzy
 msgid "Selected Color"
-msgstr "Selecciona l'idioma"
+msgstr "Color Seleccionat"
 
 msgid "Send"
 msgstr "Envia"
@@ -1207,37 +1200,41 @@ msgstr "El servidor ha respost amb un galimaties :("
 msgid ""
 "Server got confused by your pixels. Are you playing on multiple devices?"
 msgstr ""
+"El servidor s'ha confós amb els teus píxels. Estàs jugant amb més d'un "
+"dispositiu?"
 
 msgid "Set Password"
-msgstr ""
+msgstr "Estableix la Contrasenya"
 
-#, fuzzy
 msgid ""
 "Set protection of areas (if you need finer grained control, use protect with "
 "image upload and alpha layers)"
 msgstr ""
-"Definir protecció d'àrees          (si necessites un control més "
-"delimitat,           fes una protecció amb pujada d'imatge i capes alpha)"
+"Estableix la protecció de les àrees (si necessites un control més precís, "
+"fes la protecció amb càrrega d'imatges i capes alfa)"
 
 msgid ""
 "Setting a password allows you to login by username or email, rather than "
 "only relying on 3rd party login."
 msgstr ""
+"Establir una contrasenya et permet iniciar la sessió per nom d'usuari o "
+"correu electrònic, en comptes de dependre només en l'inici de sessió de "
+"tercers."
 
 msgid "Settings"
 msgstr "Configuració"
 
 msgid "Show Embedded"
-msgstr ""
+msgstr "Mostra Incrustat"
 
 msgid "Show Grid"
-msgstr "Mostra quadrícula"
+msgstr "Mostra la Quadrícula"
 
 msgid "Show Grid in white instead of black."
-msgstr "Mostra la quadrícula en blanc enlloc de negre."
+msgstr "Mostra la Quadrícula en blanc enlloc de negre."
 
 msgid "Show Pixel Activity"
-msgstr "Mostra activitat de píxels"
+msgstr "Mostra Activitat de Píxels"
 
 msgid "Show circles where pixels are placed."
 msgstr ""
@@ -1245,21 +1242,22 @@ msgstr ""
 
 msgid "Show overlay as small individual pixels on high zoomlevels."
 msgstr ""
+"Mostra la superposició com a píxels petits individuals quan hi ha molt zoom."
 
 msgid "Show templates as overlays ingame."
-msgstr ""
+msgstr "Mostra les plantilles com a superposicions dins del joc."
 
 msgid "Size"
-msgstr ""
+msgstr "Mida"
 
 msgid "Small Pixels When Zoomed"
-msgstr ""
+msgstr "Píxels Petits Quan es fa Zoom"
 
 msgid "Social Settings"
-msgstr "Preferències socials"
+msgstr "Preferències Socials"
 
 msgid "Source for pixelplanet on "
-msgstr ""
+msgstr "Codi font de PixelPlanet a "
 
 msgid "Stacking till"
 msgstr "Acumulació fins a"
@@ -1268,48 +1266,49 @@ msgid "Start chatting here"
 msgstr "Comença a xatejar aquí"
 
 msgid "Start checking for Malware"
-msgstr ""
+msgstr "Comença a comprovar si hi ha Malware"
 
 msgid "Statistics"
-msgstr ""
+msgstr "Estadístiques"
 
 msgid "Status: Not running"
-msgstr ""
+msgstr "Estat: No funciona"
 
 msgid "Stay logged in: "
-msgstr ""
+msgstr "Mantingues la sessió iniciada: "
 
 msgid "Stop Cleaner"
-msgstr ""
+msgstr "Atura el Netejador"
 
 msgid "Stop checking for Malware"
-msgstr ""
+msgstr "Deixa de comprovar si hi ha Malware"
 
 msgid "Stop requiring Verification to Place"
-msgstr ""
+msgstr "Deixa de requerir Verificació per Col·locar"
 
 msgid "Submit"
-msgstr "Enviar"
+msgstr "Envia"
 
 msgid "Switch Account"
-msgstr ""
+msgstr "Canvia de Compte"
 
 #, javascript-format
 msgid "Switched to ${ canvasName }"
 msgstr "Canviat a ${ canvasName }"
 
 msgid "Template Name"
-msgstr ""
+msgstr "Nom de la Plantilla"
 
-#, fuzzy
 msgid "Templates"
-msgstr "Descarregar plantilla"
+msgstr "Plantilles"
 
 #, javascript-format
 msgid ""
 "The application ${ appName } at ${ appUrl } wants to login with your "
 "pixelplanet account ${ accountName }"
 msgstr ""
+"L'aplicació ${ appName } a ${ appUrl } vol iniciar sessió amb el teu compte "
+"de PixelPlanet ${ accountName }"
 
 msgid ""
 "The bare map data that we use, together with converted OpenStreetMap tiles "
@@ -1322,12 +1321,14 @@ msgid ""
 "The name of your account, only a-z, A-Z, -, ., and - characters are allowed. "
 "It is permanent, you can not change it later."
 msgstr ""
+"El nom del teu compte, només es permeten els caràcters a-z, A-Z, -, . i -. "
+"És permanent, no el podràs canviar més tard."
 
 msgid "Themes"
 msgstr "Temes"
 
 msgid "This URL is not supported by our Media Player"
-msgstr ""
+msgstr "Aquesta URL no és compatible amb el nostre Reproductor Multimèdia"
 
 msgid "This canvas doesn't exist"
 msgstr "Aquest llenç no existeix"
@@ -1341,22 +1342,25 @@ msgstr ""
 "Aquest llenç va ser sol·licitat durant una època de conflictes polítics al "
 "llenç de la Terra. Era una representació de la brúixola política de "
 "1024x1024, amb un temps de refredament de 5 segons i d'acumulació de 60 "
-"segons. Es va estrenar a l'11 de maig i es va mantenir actiu durant uns "
-"mesos fins que es va tancar el 30 de novembre."
+"segons. Es va estrenar l'11 de maig i es va mantenir actiu durant uns mesos "
+"fins que es va tancar el 30 de novembre."
 
 msgid ""
 "This is the name that other people see, e.g. in Chat. You can change it at "
 "any time. All characters except @, /, , >, < and # are allowed."
 msgstr ""
+"Aquest és el nom que veuen altres persones, per exemple, al Xat. El pots "
+"canviar en qualsevol moment. Es permeten tots els caràcters excepte @, /, , "
+">, < i #."
 
 msgid "This permission is required"
-msgstr ""
+msgstr "Aquest permís és necessari"
 
 msgid "Timeout"
 msgstr ""
 
 msgid "Tip: Not case-sensitive; I and l are the same"
-msgstr "Consell: no importen les majúscules, I (i) i l (ela) són el mateix"
+msgstr "Consell: No importen les majúscules, I (i) i l (ela) són el mateix"
 
 msgid ""
 "Tired of always spaming one single color? Want to create art instead, but "
@@ -1364,146 +1368,146 @@ msgid ""
 "that! Templates can show as overlay and you can draw over them. One pixel on "
 "the template, should be one pixel on the canvas."
 msgstr ""
+"Cansat d'utilitzar sempre un sol color? Vols crear art, però has de comptar "
+"els píxels d'alguna altra imatge? Les plantilles et poden ajudar amb això! "
+"Les plantilles es poden mostrar com a superposició i pots dibuixar-hi a "
+"sobre. Un píxel a la plantilla hauria de ser un píxel al llenç."
 
 msgid "To use this page, enter your Password:"
-msgstr ""
+msgstr "Per fer servir aquesta pàgina, introdueix la teva Contrasenya:"
 
 msgid "Today"
 msgstr "Avui"
 
 msgid "Today Placed Pixels"
-msgstr "Píxels col·locats avui"
+msgstr "Píxels Col·locats Avui"
 
 msgid "Top 10 Countries [pxls / day]"
-msgstr ""
+msgstr "Top 10 de Països [píxels / dia]"
 
 msgid "Top 10 Daily Ranking"
-msgstr "Classificació diària top 10"
+msgstr "Top 10 de la Classificació Diària"
 
 msgid "Top 10 Players [pxls / day]"
-msgstr ""
+msgstr "Top 10 de Jugadors [píxels / dia]"
 
 msgid "Top 10 Players from Yesterday"
-msgstr ""
+msgstr "Top 10 de Jugadors d'Ahir"
 
 msgid "Top-left corner"
-msgstr ""
+msgstr "Cantó superior esquerre"
 
 msgid "Total"
 msgstr "Total"
 
 msgid "Total Online Users"
-msgstr "Usuaris en línia totals"
+msgstr "Usuaris en Línia Totals"
 
-#, fuzzy
 msgid "Total Pixels per Player"
-msgstr "Píxels col·locats"
+msgstr "Total de Píxels per Jugador"
 
-#, fuzzy
 msgid "Total Pixels placed per day"
-msgstr "Píxels col·locats"
+msgstr "Total de Píxels col·locats per dia"
 
 msgid "Total Rank"
-msgstr "Classificació total"
+msgstr "Classificació Total"
 
 msgid ""
 "Turn every pixel in area to 0 (YOU REALLY SHOULDN'T DO THAT ON ANY AREA THAT "
 "ISN'T ALREADY MOSTLY 0)"
 msgstr ""
+"Canvia tots els píxels de l'àrea a 0 (NO HAURIES DE FER AIXÒ EN CAP ÀREA QUE "
+"NO SIGUI JA MAJORITÀRIAMENT 0)"
 
 msgid "Turn on grid to highlight pixel borders."
 msgstr "Activa la quadrícula per ressaltar els límits entre els píxels."
 
 msgid "Type of Mod"
-msgstr ""
+msgstr "Tipus de Moderador"
 
 msgid "Type the characters from the following image:"
 msgstr "Escriu els caràcters de la següent imatge:"
 
 msgid "Unblock Users"
-msgstr "Desbloquejar usuaris"
+msgstr "Desbloqueja Usuaris"
 
-#, fuzzy
 msgid "Unknown Captcha Error"
-msgstr "Error desconegut"
+msgstr "Error Desconegut del Captcha"
 
 msgid "Unknown Error"
-msgstr "Error desconegut"
+msgstr "Error Desconegut"
 
 msgid "Unmuted Sound"
-msgstr "So activat"
+msgstr "So Activat"
 
 msgid "Until the browser closes"
-msgstr ""
+msgstr "Fins que es tanqui el navegador"
 
 msgid "Upload images to canvas"
-msgstr "Pujar imatges al llenç"
+msgstr "Puja imatges al llenç"
 
 msgid "Use our custom cursor"
-msgstr ""
+msgstr "Utilitza el nostre cursor personalitzat"
 
-#, fuzzy
 msgid "User"
-msgstr "Àrea d'usuari"
+msgstr "Usuari"
 
 msgid "User Account"
-msgstr "Compte d'usuari"
+msgstr "Compte d'Usuari"
 
 msgid "User Area"
-msgstr "Àrea d'usuari"
+msgstr "Àrea d'Usuari"
 
 msgid "User ID and verification level"
-msgstr ""
+msgstr "ID d'usuari i nivell de verificació"
 
 msgid "User Name"
-msgstr "Nom d'usuari"
+msgstr "Nom d'Usuari"
 
 msgid "Username"
-msgstr ""
+msgstr "Nom d'Usuari"
 
 msgid "Username can only contain the characters: a-z . _ and -"
-msgstr ""
+msgstr "El nom d'usuari només pot contenir els caràcters: a-z . _ i -"
 
 msgid "Username can only contain the characters: a-z A-z . _ and -"
-msgstr ""
+msgstr "El nom d'usuari només pot contenir els caràcters: a-z A-Z . _ i -"
 
 msgid "Username can't be empty."
-msgstr ""
+msgstr "El nom d'usuari és obligatori."
 
 msgid "Username must be at least 2 characters long"
-msgstr ""
+msgstr "El nom d'usuari ha de contenir 2 caràcters com a mínim"
 
 msgid "Username must be shorter than 26 characters"
-msgstr ""
+msgstr "El nom d'usuari ha de tenir menys de 26 caràcters"
 
 #, javascript-format
 msgid "We are Libre Software under the ${ agplLink }, "
-msgstr ""
+msgstr "Som Software Lliure sota la llicència ${ agplLink }, "
 
 msgid ""
 "We decided to archive it as a timelapse with lossless encoded webm. Taking a "
 "screenshot from the timelapse results in a perfect 1:1 representation of how "
 "the canvas was at that time."
 msgstr ""
-"Hem decidit arxivar-lo com un \"time-lapse\" en format web sense pèrdues. "
-"Fer-ne una captura otorga una perfecta representació a escala 1:1 de com era "
-"el llenç en aquell moment."
+"Hem decidit arxivar-lo com un 'timelapse' en format web sense pèrdues. Fer-"
+"ne una captura atorga una perfecta representació a escala 1:1 de com era el "
+"llenç en aquell moment."
 
-#, fuzzy
 msgid ""
 "We thank the following artists, who made their palettes available to the "
 "public on"
 msgstr ""
-"Agraïm enormement a aquests artistes que hagin ofert públicament les seves "
+"Agraïm enormement a aquests artistes que han ofert públicament les seves "
 "paletes a"
 
 msgid "Weird"
 msgstr "Estrany"
 
 msgid "What the pencil should draw on the current canvas."
-msgstr ""
+msgstr "El que el llapis hauria de dibuixar al llenç actual."
 
-#, fuzzy
 msgid ""
 "While we tend to not delete canvases, some canvases are started for fun or "
 "as a request by users who like a currently popular meme. Those canvases can "
@@ -1514,85 +1518,91 @@ msgstr ""
 "per sol·licitud d'usuaris que els agradava un mem actual. Aquests llenços es "
 "poden tornar avorrits al cap d'un temps, després de setmanes sense canvis "
 "substancials. Si ja no val la pena mantenir actius aquests llenços, llavors "
-"sí que els esborrem."
+"sí que els eliminem."
 
 msgid "Why?"
-msgstr ""
+msgstr "Per què?"
 
 msgid "Width"
 msgstr "Amplada"
 
 msgid "Wrong Color"
-msgstr "Color incorrecte"
+msgstr "Color Incorrecte"
 
 msgid "YOU CAN ONLY CHOOSE YOUR USERNAME ONCE!"
-msgstr ""
+msgstr "NOMÉS POTS TRIAR EL TEU NOM D'USUARI UNA VEGADA!"
 
 msgid "Yes"
 msgstr "Sí"
 
 msgid "Yes, Delete My Account!"
-msgstr "Sí, esborra el meu compte!"
+msgstr "Sí, Esborra el Meu Compte!"
 
 msgid "Yesterday"
-msgstr ""
+msgstr "Ahir"
 
 msgid ""
 "You are a teacher and a pupil is playing this game, despite it not being "
 "suitable for them? Send us an email."
 msgstr ""
+"Ets professor i un alumne està jugant a aquest joc, tot i que no és adequat "
+"per a ell? Envia'ns un correu electrònic."
 
 #, javascript-format
 msgid ""
 "You are banned. You think it is unjustified? Check out the ${ helpButton } "
 "on how to appeal. And don't forget to include the BID you can get below."
 msgstr ""
+"Estàs banejat. Creus que no està justificat? Consulta el ${ helpButton } "
+"sobre com apel·lar. I no oblidis incloure el BID que pots obtenir a "
+"continuació."
 
 msgid "You are currently not allowed to access this game."
-msgstr ""
+msgstr "Actualment no tens permís per accedir a aquest joc."
 
 msgid "You are not allowed to play this game right now :("
-msgstr ""
+msgstr "No tens permís per jugar a aquest joc ara mateix :("
 
 msgid "You are using a Proxy."
-msgstr "Estàs fent servir un proxy."
+msgstr "Estàs fent servir un Proxy."
 
 msgid "You are weird"
-msgstr ""
+msgstr "Ets estrany"
 
 msgid ""
 "You can connect to pixelplanet and use pixelplanet accounts for oauth / oidc "
 "login. See here:"
 msgstr ""
 
-#, fuzzy
 msgid "You can not access this canvas yet, because your pixel score is too low"
-msgstr "No pots accedir a aquest llenç encara. Has de col·locar més píxels."
+msgstr ""
+"Encara no pots accedir a aquest llenç perquè no has col·locat prou píxels"
 
 msgid "You can now place more on pixelplanet.fun :)"
-msgstr ""
+msgstr "Ara pots col·locar més píxels a pixelplanet.fun :)"
 
 #, javascript-format
 msgid ""
 "You caught a Phish! It is a ${ FISH_TYPES[type].name } with ${ size }kg! As "
 "a bonus, your cooldown is reduced."
 msgstr ""
+"Has atrapat un Peix! És un ${ FISH_TYPES[type].name } de ${ size }kg! Com a "
+"bonificació, el teu temps de refredament s'ha reduït."
 
 msgid "You did not consent"
-msgstr ""
+msgstr "No has donat consentiment"
 
-#, fuzzy
 msgid "You failed your captcha"
-msgstr "No s'ha pogut carregar el captcha"
+msgstr "Has fallat el captcha"
 
 msgid "You have new messages in chat"
-msgstr ""
+msgstr "Tens missatges nous al xat"
 
 msgid "You have no users blocked"
-msgstr "No tens cap usuari bloquejat"
+msgstr "No tens bloquejat a cap usuari"
 
 msgid "You have to be logged in to place on this canvas"
-msgstr "Has d'iniciar sessió per pintar en aquest llenç"
+msgstr "Has d'iniciar sessió per poder pintar en aquest llenç"
 
 msgid "You made too many requests"
 msgstr "Has fet masses sol·licituds"
@@ -1601,31 +1611,31 @@ msgid "You must be logged in to chat"
 msgstr "Has d'iniciar sessió per poder utilitzar el xat"
 
 msgid "You must enter a UserId"
-msgstr ""
+msgstr "Has d'introduir una ID d'Usuari"
 
 msgid "You must enter a duration"
-msgstr ""
+msgstr "Has d'introduir una durada"
 
 msgid "You must enter a reason"
-msgstr ""
+msgstr "Has d'introduir una raó"
 
 msgid "You must enter a username"
-msgstr ""
+msgstr "Has d'introduir un nom d'usuari"
 
 msgid "You must enter an BID"
-msgstr ""
+msgstr "Has d'introduir una BID"
 
 msgid "You must enter an IID"
-msgstr ""
+msgstr "Has d'introduir una IID"
 
 msgid "You must enter an IID or UserId"
-msgstr ""
+msgstr "Has d'introduir una IID o ID d'Usuari"
 
 msgid "You must enter at least one IID, User Id or BID"
-msgstr ""
+msgstr "Has d'introduir al menys una IID, ID d'Usuari o BID"
 
 msgid "You took too long, try again."
-msgstr ""
+msgstr "Has trigat massa, torna-ho a intentar."
 
 msgid ""
 "Your Browser doesn't allow us to use AudioContext to play sounds. Do you "
@@ -1635,24 +1645,26 @@ msgstr ""
 "alguna configuració de privacitat bloquejant-nos?"
 
 msgid "Your Browser looks shady"
-msgstr ""
+msgstr "El teu Navegador sembla sospitós"
 
 msgid "Your Internet Provider is banned from this game"
-msgstr ""
+msgstr "El teu Proveïdor d'Internet està prohibit en aquest joc"
 
 msgid "Your ban expires at "
-msgstr ""
+msgstr "El teu ban caduca a les "
 
 msgid ""
 "Your did not set your username yet. A username is required to login to other "
 "applications. You can set it now:"
 msgstr ""
+"Encara no has definit el teu nom d'usuari. Cal un nom d'usuari per iniciar "
+"sessió a altres aplicacions. El pots definir ara:"
 
 msgid "Your name is:"
-msgstr ""
+msgstr "El teu nom és:"
 
 msgid "Your next pixels are ready"
-msgstr ""
+msgstr "Els teus pròxims píxels estan a punt"
 
 msgid ""
 "Zoom in instead of placing a pixel when you tap the canvas and your zoom is "
@@ -1663,13 +1675,13 @@ msgstr ""
 
 #, javascript-format
 msgid "and ${ canvas.req } Pixels set"
-msgstr "i ${ canvas.req } píxels col·locats"
+msgstr "i ${ canvas.req } Píxels col·locats"
 
 msgid "check compliance here"
 msgstr ""
 
 msgid "mentioned you"
-msgstr ""
+msgstr "t'ha mencionat"
 
 msgid "or login with:"
 msgstr "o inicia sessió amb:"
@@ -1699,7 +1711,7 @@ msgstr "A"
 
 msgctxt "keybinds"
 msgid "B"
-msgstr ""
+msgstr "B"
 
 msgctxt "keybinds"
 msgid "D"
@@ -1721,10 +1733,9 @@ msgctxt "keybinds"
 msgid "M"
 msgstr "M"
 
-#, fuzzy
 msgctxt "keybinds"
 msgid "N"
-msgstr "No"
+msgstr "N"
 
 msgctxt "keybinds"
 msgid "Q"
@@ -1740,11 +1751,11 @@ msgstr "S"
 
 msgctxt "keybinds"
 msgid "Shift"
-msgstr "Shift"
+msgstr "Majús"
 
 msgctxt "keybinds"
 msgid "T"
-msgstr ""
+msgstr "T"
 
 msgctxt "keybinds"
 msgid "W"
