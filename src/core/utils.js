@@ -35,6 +35,19 @@ export function getRandomString() {
   return Math.random().toString(36).substring(2, 15);
 }
 
+/*
+ * generate random string with a-zz
+ * 6 chars length
+ */
+export function getRandomShortId(length = 6) {
+  let output = '';
+  while (length) {
+    length -= 1;
+    output += String.fromCharCode(97 + Math.floor(Math.random() * 26));
+  }
+  return output;
+}
+
 export function distMax([x1, y1], [x2, y2]) {
   return Math.max(Math.abs(x1 - x2), Math.abs(y1 - y2));
 }
@@ -874,4 +887,12 @@ export async function base64ToBuffer(base64) {
   const dataUrl = `data:application/octet-binary;base64,${base64}`;
   const res = await fetch(dataUrl);
   return res.arrayBuffer();
+}
+
+/*
+ * create url to media file by hash and extension
+ */
+export function constructUrl(shortId, extension, filename) {
+  const name = filename.substring(0, filename.lastIndexOf('.'));
+  return `/m/${shortId}/${name}.${extension}`;
 }
