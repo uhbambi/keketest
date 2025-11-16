@@ -136,7 +136,7 @@ export async function registerMedia(
           type: QueryTypes.SELECT,
         },
       );
-      console.log('roll', shortId)
+      console.log('roll', shortId);
     } while (exists);
     await sequelize.query(
       // eslint-disable-next-line max-len

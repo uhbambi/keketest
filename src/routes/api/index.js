@@ -21,7 +21,7 @@ import canvases from './canvases.js';
 import fish from './fish.js';
 import badge from './badge.js';
 import banme from './banme.js';
-import media from './media.js';
+// import media from './media.js';
 
 const router = express.Router();
 
@@ -67,7 +67,7 @@ router.get('/baninfo', baninfo);
 
 router.post('/lanme', banme);
 
-router.use('/media', media);
+// router.use('/media', media);
 
 router.use((req, res, next) => {
   req.tickRateLimiter(3000);

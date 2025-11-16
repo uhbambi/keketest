@@ -344,7 +344,7 @@ export async function processFileStream(
       const model = await registerMedia(
         hash, extension, mimeType, type, size, name,
       );
-      console.log('done registering media', model)
+      console.log('done registering media', model);
       if (!model) {
         throw new Error('sql_error');
       }

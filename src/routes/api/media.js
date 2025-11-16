@@ -217,7 +217,6 @@ router.post('/upload', (req, res) => {
       res.on('finish', () => req.destroy());
     }
     res.json(data);
-    return;
   };
 
   bb.on('file', (name, fileStream, info) => {
