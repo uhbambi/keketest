@@ -5,9 +5,12 @@ import { createHash } from 'crypto';
 import { spawn } from 'child_process';
 import path from 'path';
 import fs from 'fs';
+import sharp from 'sharp';
 
 import { getRandomString } from '../core/utils.js';
-import { registerMedia, hasMedia } from '../data/sql/Media.js';
+import {
+  registerMedia, deregisterMedia, hasMedia,
+} from '../data/sql/Media.js';
 import { MAX_MEDIA_SIZE } from '../core/constants.js';
 import { MEDIA_FOLDER } from '../core/config.js';
 
@@ -17,6 +20,8 @@ const typeToExt = {
   'image/png': 'png',
   'image/jxl': 'jxl',
   'image/webp': 'webp',
+  'video/webm': 'webm',
+  'video/mp4': 'mp4',
 };
 
 const queue = [];
@@ -25,6 +30,7 @@ let exiftoolProcess;
 let responseBuffer = '';
 
 function spawnExiftool(resultCallback) {
+  console.log('spawn exiftool');
   exiftoolProcess = spawn('exiftool', [
     '-stay_open', 'True', '-@', '-',
   ], {
@@ -35,7 +41,6 @@ function spawnExiftool(resultCallback) {
     if (exiftoolProcess) {
       exiftoolProcess.stdin.destroy();
       exiftoolProcess.stdout.destroy();
-      exiftoolProcess.stderr.destroy();
       exiftoolProcess = null;
     }
     for (let i = 0; i < queue.length; i += 1) {
@@ -48,10 +53,6 @@ function spawnExiftool(resultCallback) {
 
   exiftoolProcess.on('close', cleanUp);
   exiftoolProcess.on('error', cleanUp);
-
-  exiftoolProcess.stderr.on('data', (data) => {
-    console.error('MEDIA: EXIF', data.toString());
-  });
 
   exiftoolProcess.stdout.on('data', (data) => {
     responseBuffer += data.toString();
@@ -70,7 +71,6 @@ function spawnExiftool(resultCallback) {
             console.error(
               `MEDIA: EXIF stripping failed for ${filename}: ${response}`,
             );
-            console.log(filename, response);
           }
           callback();
         }
@@ -125,6 +125,109 @@ export function stripExif(filename) {
   });
 }
 
+export function calculateHash(filepath) {
+  return new Promise((resolve, reject) => {
+    const readStream = fs.createReadStream(filepath);
+    const cryptHash = createHash('sha256');
+
+    readStream.on('data', (chunk) => {
+      cryptHash.update(chunk);
+    });
+    readStream.on('end', () => {
+      resolve(cryptHash.digest('hex'));
+    });
+    readStream.on('error', (error) => {
+      reject(error);
+    });
+  });
+}
+
+export async function createImageThumbnails(filePath) {
+  try {
+    const { dir, name, ext } = path.parse(filePath);
+    let thumbFilePath = path.join(dir, `${name}_${ext.substring(1)}`);
+    const iconFilePath = `${thumbFilePath}_icon.webp`;
+    thumbFilePath += '_thumb.webp';
+
+    const previewBuffer = await sharp(filePath).resize(320, 240, {
+      fit: 'inside',
+      withoutEnlargement: true,
+    }).webp({
+      quality: 80,
+      effort: 4,
+    }).toBuffer();
+
+    await Promise.all([
+      fs.promises.writeFile(thumbFilePath, previewBuffer),
+      sharp(previewBuffer).resize(48, 48, {
+        fit: 'cover',
+        position: 'center',
+      }).webp({ quality: 75 }).toFile(iconFilePath),
+    ]);
+  } catch (error) {
+    console.error(
+      `MEDIA: Could not create thumbnails for ${filePath} ${error.message}`,
+    );
+    throw error;
+  }
+}
+
+export async function createVideoThumbnails(filePath) {
+  try {
+    const { dir, name, ext } = path.parse(filePath);
+    let thumbFilePath = path.join(dir, `${name}_${ext.substring(1)}`);
+    const iconFilePath = `${thumbFilePath}_icon.webp`;
+    thumbFilePath += '_thumb.webp';
+
+    await new Promise((resolve, reject) => {
+      const ffmpegProcess = spawn('ffmpeg', [
+        '-i', filePath,
+        '-ss', '00:00:01',
+        '-vframes', '1',
+        '-vf', 'scale=320:240:force_original_aspect_ratio=decrease',
+        '-qscale:v', 80,
+        '-compression_level', '6',
+        '-y',
+        thumbFilePath,
+      ]);
+
+      let stderr = '';
+      ffmpegProcess.stderr.on('data', (data) => {
+        stderr += data.toString();
+      });
+
+      ffmpegProcess.on('close', (code) => {
+        if (code !== 0) {
+          reject(new Error(`FFmpeg failed with code ${code}: ${stderr}`));
+          return;
+        }
+        resolve();
+      });
+
+      ffmpegProcess.on('error', reject);
+    });
+
+    await sharp(thumbFilePath).resize(48, 48, {
+      fit: 'cover',
+      position: 'center',
+    }).webp({ quality: 75 }).toFile(iconFilePath);
+  } catch (error) {
+    console.error(
+      `MEDIA: Could not create thumbnails for ${filePath} ${error.message}`,
+    );
+    throw error;
+  }
+}
+
+
+/*
+ * create path to media file by shortid and extension
+ */
+export function constructMediaPath(shortId, extension) {
+  // eslint-disable-next-line max-len
+  return path.resolve(MEDIA_FOLDER, shortId.substring(0, 2), shortId.substring(2, 4), `${shortId.substring(4, 6)}.${extension}`);
+}
+
 export function mimeTypeFitsToExt(mimeType, filename) {
   return filename.endsWith(`.${typeToExt(mimeType)}`);
 }
@@ -170,28 +273,6 @@ export async function processFileStream(
   const name = filename.substring(0, seperator);
   const extension = filename.substring(seperator + 1);
   const allowedExts = typeToExt[mimeType];
-  /*
-    * store file temporary until we got hash
-    */
-  const tmpFolder = path.resolve(MEDIA_FOLDER, 'tmp');
-  const temporaryFile = path.join(
-    tmpFolder, `${getRandomString() + getRandomString()}.${extension}`,
-  );
-
-  if (hashCheck) {
-    /*
-    * if hash got given already, check if file already exists
-    */
-    const existingMediaModel = await hasMedia(hashCheck, mimeType, name);
-    if (existingMediaModel) {
-      /*
-        * mark that it already exists, so that filestream can be recovered
-        * if more files are to be read
-        */
-      existingMediaModel.existed = true;
-      return existingMediaModel;
-    }
-  }
 
   if (!allowedExts
     || (Array.isArray(allowedExts) && !allowedExts.includes(extension))
@@ -210,12 +291,44 @@ export async function processFileStream(
     throw new Error('invalid_type');
   }
 
+  if (hashCheck) {
+    /*
+    * if hash got given already, check if file already exists
+    */
+    const existingMediaModel = await hasMedia(hashCheck, mimeType, name);
+    if (existingMediaModel) {
+      const existingFilePath = constructMediaPath(
+        existingMediaModel.shortId, existingMediaModel.extension,
+      );
+      if (fs.existsSync(existingFilePath)) {
+        /*
+          * mark that it already exists, so that filestream can be recovered
+          * if more files are to be read
+          */
+        existingMediaModel.existed = true;
+        return existingMediaModel;
+      }
+      await deregisterMedia(hashCheck, mimeType);
+    }
+  }
+
+  /*
+    * store file temporary until we got hash
+    */
+  const tmpFolder = path.resolve(MEDIA_FOLDER, 'tmp');
+  const temporaryFile = path.join(
+    tmpFolder, `${getRandomString() + getRandomString()}.${extension}`,
+  );
+  let targetFile;
+
   /*
   * make sure temporary folder exists
   */
   if (!fs.existsSync(tmpFolder)) {
     fs.mkdirSync(tmpFolder, { recursive: true });
   }
+
+  let model;
 
   try {
     const size = await new Promise((resolve, reject) => {
@@ -293,41 +406,41 @@ export async function processFileStream(
     /*
     * strip exif data
     */
+    console.log('strip exif');
     await stripExif(temporaryFile);
-    console.log('stripped exif success');
 
     /*
     * calculate hash
     */
-    const hash = await new Promise((resolve, reject) => {
-      const readStream = fs.createReadStream(temporaryFile);
-      const cryptHash = createHash('sha256');
-
-      readStream.on('data', (chunk) => {
-        cryptHash.update(chunk);
-      });
-
-      readStream.on('end', () => {
-        resolve(cryptHash.digest('hex'));
-      });
-
-      readStream.on('error', (error) => {
-        reject(error);
-      });
-    });
+    console.log('calculate hash');
+    const hash = await calculateHash(temporaryFile);
 
     /*
     * check if file already exists
     */
+    console.log('save model');
     const existingMediaModel = await hasMedia(hash, mimeType, name);
     if (existingMediaModel) {
-      return existingMediaModel;
+      const existingFilePath = constructMediaPath(
+        existingMediaModel.shortId, existingMediaModel.extension,
+      );
+      if (fs.existsSync(existingFilePath)) {
+        return existingMediaModel;
+      }
+      await deregisterMedia(hash, mimeType);
+    }
+
+    model = await registerMedia(
+      hash, extension, mimeType, type, size, name,
+    );
+    if (!model) {
+      throw new Error('server_error');
     }
 
     /*
-    * move it to target folder by hash
-    */
-    let targetFile = `${hash}.${extension}`;
+      * move it to target folder by hash
+      */
+    targetFile = `${model.shortId}.${extension}`;
     const targetFolder = path.resolve(
       MEDIA_FOLDER,
       targetFile.substring(0, 2),
@@ -338,28 +451,27 @@ export async function processFileStream(
     }
     targetFile = path.resolve(targetFolder, targetFile.substring(4));
     fs.renameSync(temporaryFile, targetFile);
-
-    try {
-      console.log('register media');
-      const model = await registerMedia(
-        hash, extension, mimeType, type, size, name,
-      );
-      console.log('done registering media', model);
-      if (!model) {
-        throw new Error('sql_error');
-      }
-
-      return model;
-    } catch (error) {
-      if (fs.existsSync(targetFile)) {
-        fs.rmSync(targetFile);
-      }
-      throw error;
-    }
   } finally {
     if (fs.existsSync(temporaryFile)) {
       fs.rmSync(temporaryFile);
     }
+  }
+
+  try {
+    /*
+      * create thumbnails
+      */
+    if (type === 'image') {
+      await createImageThumbnails(targetFile);
+    } else if (type === 'video') {
+      await createVideoThumbnails(targetFile);
+    }
+
     console.log('parse leave');
+    return model;
+  } catch (error) {
+    await deregisterMedia(model.hash, model.mimeType);
+    fs.rmSync(targetFile);
+    throw error;
   }
 }

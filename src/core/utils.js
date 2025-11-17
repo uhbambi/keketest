@@ -890,9 +890,9 @@ export async function base64ToBuffer(base64) {
 }
 
 /*
- * create url to media file by hash and extension
+ * create url to media file by shortid and extension
  */
-export function constructUrl(shortId, extension, filename) {
+export function constructMediaUrl(shortId, extension, filename) {
   const name = filename.substring(0, filename.lastIndexOf('.'));
   return `/m/${shortId}/${name}.${extension}`;
 }

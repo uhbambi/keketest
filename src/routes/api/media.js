@@ -211,6 +211,35 @@ router.post('/upload', (req, res) => {
       bb.destroy();
     }
     const data = { availableFiles };
+
+    if (error) {
+      switch (error) {
+        case 'no_info':
+          error = t`No file metadata given`;
+          break;
+        case 'unknown_type':
+          error = t`MimeType or extension not known or supported`;
+          break;
+        case 'invalid_type':
+          error = t`Invalid type of media`;
+          break;
+        case 'server_error':
+          error = t`Server Eror`;
+          break;
+        case 'stalled':
+          error = t`Request stalled`;
+          break;
+        case 'too_long':
+          error = t`A filewas too large`;
+          break;
+        case 'already_exists':
+          /* this is not an error, but treated as one to cancel request */
+          error = null;
+          break;
+        default:
+          // nothing
+      }
+    }
     if (error) {
       data.errors = [error];
       res.status(400);
@@ -225,7 +254,7 @@ router.post('/upload', (req, res) => {
       if (!fileStream.destroyed) {
         fileStream.destroy();
       }
-      finalize('Unknown file field in request');
+      finalize(t`Unknown field ${name} in request`);
       return;
     }
     /*
@@ -287,9 +316,7 @@ router.post('/upload', (req, res) => {
   });
 
   bb.on('error', () => {
-    if (!res.headersSent) {
-      res.status(500).json({ errors: ['Processing failed'] });
-    }
+    finalize('server_error');
   });
 
   bb.on('close', () => {

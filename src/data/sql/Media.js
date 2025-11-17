@@ -28,7 +28,7 @@ const Media = sequelize.define('Media', {
   },
 
   extension: {
-    type: DataTypes.STRING(8),
+    type: DataTypes.STRING(10),
     allowNull: false,
   },
 
@@ -112,6 +112,20 @@ export async function hasMedia(hash, mimeType, name) {
     console.error(`SQL Error on hasMedia: ${error.message}`);
   }
   return null;
+}
+
+export async function deregisterMedia(hash, mimeType) {
+  try {
+    console.log(`MEDIA: deregister ${hash}`);
+    await sequelize.query(
+      'DELETE FROM Media WHERE hash = UNHEX(?) AND mimeType = ?', {
+        replacements: [hash, mimeType],
+        type: QueryTypes.DELETE,
+        raw: true,
+      });
+  } catch (error) {
+    console.error(`SQL Error on deregisterMedia: ${error.message}`);
+  }
 }
 
 /**
