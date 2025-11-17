@@ -2,7 +2,7 @@
  *
  */
 
-import React, { useState, useEffect, useCallback, useMemo } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
 import GlobalCaptcha from './GlobalCaptcha.jsx';
@@ -10,8 +10,7 @@ import BanInfo from './BanInfo.jsx';
 import Overlay from './Overlay.jsx';
 import RefreshPrompt from './RefreshPrompt.jsx';
 import { closeAlert } from '../store/actions/index.js';
-import { parse } from '../core/MarkdownParser.js';
-import { Markdown } from './Markdown.jsx';
+import Markdown from './markdown/Markdown.jsx';
 
 const Alert = () => {
   const [render, setRender] = useState(false);
@@ -36,10 +35,6 @@ const Alert = () => {
       }, 10);
     }
   }, [open]);
-
-  const mdArray = useMemo(
-    () => parse(message, { parseLinks: true }), [message],
-  );
 
   let Content = null;
   switch (alertType) {
@@ -77,7 +72,7 @@ const Alert = () => {
       >
         <h2>{title}</h2>
         {(message) && (
-          <Markdown mdArray={mdArray} />
+          <Markdown text={message} parseLinks />
         )}
         {(Content) ? (
           <Content close={close} />

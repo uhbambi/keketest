@@ -9,11 +9,11 @@ import { HiArrowsExpand, HiStop } from 'react-icons/hi';
 import { HiWindow } from 'react-icons/hi2';
 import { t } from 'ttag';
 
-import { getLinkDesc } from '../core/utils.js';
-import EMBEDS from './embeds/index.js';
-import { isPopUp } from './windows/popUpAvailable.js';
-import useLink from './hooks/link.js';
-import { cdn, u } from '../utils/utag.js';
+import { getLinkDesc } from '../../core/utils.js';
+import EMBEDS from '../embeds/index.js';
+import { isPopUp } from '../windows/popUpAvailable.js';
+import useLink from '../hooks/link.js';
+import { cdn, u } from '../../utils/utag.js';
 
 const titleAllowed = [
   'odysee',

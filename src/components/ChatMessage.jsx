@@ -1,14 +1,13 @@
 import React, { useRef } from 'react';
 import { useSelector } from 'react-redux';
 
-import { MarkdownParagraph } from './Markdown.jsx';
+import MdParagraph from './markdown/MdParagraph.jsx';
 import {
   colorFromText,
   setBrightness,
   getDateTimeString,
 } from '../core/utils.js';
 import { selectIsDarkMode } from '../store/selectors/gui.js';
-import { parseParagraph } from '../core/MarkdownParser.js';
 import { cdn } from '../utils/utag.js';
 
 
@@ -35,8 +34,6 @@ function ChatMessage({
   } else if (msg.charAt(0) === '<') {
     className += ' redtext';
   }
-
-  const pArray = parseParagraph(msg);
 
   return (
     <li className="chatmsg" ref={refEmbed}>
@@ -72,7 +69,7 @@ function ChatMessage({
               {': '}
             </span>
           )}
-          <MarkdownParagraph refEmbed={refEmbed} pArray={pArray} />
+          <MdParagraph refEmbed={refEmbed} text={msg} />
         </span>
         <span className="chatts">
           {getDateTimeString(ts)}

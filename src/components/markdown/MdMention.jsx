@@ -4,8 +4,8 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 
-import { colorFromText, setBrightness } from '../core/utils.js';
-import { selectIsDarkMode } from '../store/selectors/gui.js';
+import { colorFromText, setBrightness } from '../../core/utils.js';
+import { selectIsDarkMode } from '../../store/selectors/gui.js';
 
 const MdMention = ({ name, uid }) => {
   const id = uid && uid.trim();
