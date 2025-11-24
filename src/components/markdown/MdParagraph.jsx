@@ -5,6 +5,7 @@ import React from 'react';
 
 import MdLink from './MdLink.jsx';
 import MdMention from './MdMention.jsx';
+import MdLocalMedia from './MdLocalMedia.jsx';
 import { parseParagraph } from '../../utils/markdown/MarkdownParser.js';
 
 /**
@@ -56,17 +57,25 @@ const MdParagraph = ({ text, pArray, refEmbed }) => {
             <MdParagraph pArray={part[1]} />
           </u>
         );
-      case 'img':
-      case 'l': {
+      case 'img': {
+        const link = part[2];
+        if (link.startsWith('/m/') && link) {
+          return (
+            <MdLocalMedia refEmbed={refEmbed} href={part[2]} title={part[1]} />
+          );
+        }
         return (
           <MdLink refEmbed={refEmbed} href={part[2]} title={part[1]} />
         );
       }
-      case '@': {
+      case 'l':
+        return (
+          <MdLink refEmbed={refEmbed} href={part[2]} title={part[1]} />
+        );
+      case '@':
         return (
           <MdMention uid={part[2]} name={part[1]} />
         );
-      }
       default:
         return type;
     }

@@ -11,7 +11,7 @@ import MString from './MString.js';
 
 let parseMText = () => {};
 
-/*
+/**
  * Parse Paragraph till next newline or breakChar (for recursion)
  */
 const paraElems = ['*', '~', '+', '_'];
@@ -179,7 +179,7 @@ function parseQuote(text, opts) {
   return [quoteChar, parseMText(mQuoteText, opts, 0)];
 }
 
-/*
+/**
  * parses Section (contains paragraphs, lists, etc. but no headings or quotes)
  * @param text MString
  * @param headingLevel the number of heading headingLevels we are in
