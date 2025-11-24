@@ -520,7 +520,7 @@ class SocketServer {
         }
         case 'mr': {
           // malware evaluation
-          evaluateMalware(user, ws.ip, ...val);
+          await evaluateMalware(user, ws.ip, ...val);
           break;
         }
         default:
