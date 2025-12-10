@@ -187,19 +187,26 @@ export async function name2Id(name) {
       'SELECT id FROM Users WHERE name = ?',
       { replacements: [name], type: QueryTypes.SELECT, plain: true },
     );
-    return userq.id;
+    if (userq) {
+      return userq.id;
+    }
   } catch {
-    return null;
+    // nothing
   }
+  return null;
 }
 
 export async function id2Name(id) {
-  const user = await User.findByPk(id, {
-    attributes: ['name'],
-    raw: true,
-  });
-  if (user) {
-    return user.name;
+  try {
+    const user = await User.findByPk(id, {
+      attributes: ['name'],
+      raw: true,
+    });
+    if (user) {
+      return user.name;
+    }
+  } catch {
+    // nothing
   }
   return null;
 }
@@ -208,9 +215,11 @@ export async function findIdByNameOrId(searchString) {
   let id;
   if (!Number.isNaN(Number(searchString))) {
     id = parseInt(searchString, 10);
-    const name = await id2Name(id);
-    if (name) {
-      return { name, id };
+    if (!Number.isNaN(id)) {
+      const name = await id2Name(id);
+      if (name) {
+        return { name, id };
+      }
     }
   }
 
