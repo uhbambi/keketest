@@ -5,8 +5,8 @@ import express from 'express';
 import busboy from 'busboy';
 
 import {
-  processFileStream, isMimeTypeAllowed, mimeTypeFitsToExt,
-} from '../../middleware/media.js';
+  storeMediaStream, isMimeTypeAllowed, mimeTypeFitsToExt,
+} from '../../utils/media/index.js';
 import { MAX_MEDIA_SIZE, MAX_UPLOAD_AMOUNT } from '../../core/constants.js';
 import { hasMedia } from '../../data/sql/Media.js';
 
@@ -223,6 +223,9 @@ router.post('/upload', (req, res) => {
         case 'invalid_type':
           error = t`Invalid type of media`;
           break;
+        case 'broken_file':
+          error = t`File is broken`;
+          break;
         case 'server_error':
           error = t`Server Eror`;
           break;
@@ -231,6 +234,21 @@ router.post('/upload', (req, res) => {
           break;
         case 'too_long':
           error = t`A filewas too large`;
+          break;
+        /*
+         * according to MEDIA_BAN_REASONS in constants.js
+         */
+        case 'media_banned_reason_1':
+          error = t`This media is banned for containing graphic violence`;
+          break;
+        case 'media_banned_reason_2':
+          error = t`This media is banned for containing CSAM`;
+          break;
+        case 'media_banned_reason_3':
+          error = t`This media is banned for being an attempt to scam people`;
+          break;
+        case 'media_banned_reason_4':
+          error = t`This media is banned for glorifying terrorism`;
           break;
         case 'already_exists':
           /* this is not an error, but treated as one to cancel request */
@@ -274,7 +292,7 @@ router.post('/upload', (req, res) => {
     }
     readingFiles += 1;
 
-    processFileStream(fileStream, info, hash).then((modal) => {
+    storeMediaStream(fileStream, info, req.user, req.ip, hash).then((modal) => {
       availableFiles.push(modal);
       if (modal.existed) {
         delete modal.existed;

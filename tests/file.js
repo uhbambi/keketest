@@ -8,7 +8,7 @@ import http from 'http';
 
 import { sequelize, sync as syncSql } from '../src/data/sql/index.js';
 import { DailyCron, HourlyCron } from '../src/utils/cron.js';
-import { processFileStream, killExiftool } from '../src/middleware/media.js';
+import { storeMediaStream, destruct as killExiftool } from '../src/urils/media/index.js';
 import errorJson from '../src/middleware/errorJson.js';
 import media from '../src/routes/api/media.js';
 
@@ -110,7 +110,7 @@ async function testFile(filePath) {
 
   const fileStream = fs.createReadStream(filePath);
   try {
-    const result = await processFileStream(fileStream, info);
+    const result = await storeMediaStream(fileStream, info);
     await killExiftool()
     console.log(result);
   } catch (error) {

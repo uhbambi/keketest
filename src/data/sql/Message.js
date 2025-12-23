@@ -1,6 +1,6 @@
 /*
  *
- * Database layout for Chat Message History
+ * Database layout for Chat Messages
  *
  */
 

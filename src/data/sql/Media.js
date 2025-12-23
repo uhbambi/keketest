@@ -10,9 +10,6 @@ const Media = sequelize.define('Media', {
     primaryKey: true,
   },
 
-  /*
-   * hash is a base64url but lowercase and only a-z  0-9, other chars stripped
-   */
   hash: {
     type: 'BINARY(32)',
     unique: 'hash',
@@ -20,15 +17,27 @@ const Media = sequelize.define('Media', {
   },
 
   /*
-   * short identifier for file
+   * SELECT
+   i d,  *
+   filename,
+   BIT_COUNT(phash ^ @target_hash) AS hamming_distance,
+                               phash
+                               FROM images
+                               WHERE BIT_COUNT(phash ^ @target_hash) <= 5
+                               ORDER BY hamming_distance
+                               LIMIT 20;
+  */
+
+  /*
+   * short identifier for file, will be 6 chars usually, but can be more
    */
   shortId: {
-    type: DataTypes.STRING(6),
+    type: DataTypes.STRING(16),
     allowNull: false,
   },
 
   extension: {
-    type: DataTypes.STRING(10),
+    type: DataTypes.STRING(12),
     allowNull: false,
   },
 
@@ -50,7 +59,19 @@ const Media = sequelize.define('Media', {
   },
 
   /*
-   * count active references
+   * from lowest to highest bit:
+   * 0: registeredUsersOnly (if only registered users can view it)
+   * 1: allowCORS (if allowing cors)
+   * 2: needsApproval
+   */
+  flags: {
+    type: DataTypes.TINYINT.UNSIGNED,
+    allowNull: false,
+    defaultValue: 0,
+  },
+
+  /*
+   * count active references, may or may not be used
    */
   refCounter: {
     type: DataTypes.INTEGER.UNSIGNED,
@@ -58,7 +79,17 @@ const Media = sequelize.define('Media', {
     allowNull: false,
   },
 
-  lastUsed: {
+  /*
+   * time to expire, NULL if infinite
+   */
+  expires: {
+    type: DataTypes.DATE,
+  },
+
+  /*
+   * time a file has been uploaded, may be updated on reupload or check
+   */
+  lastUpload: {
     type: DataTypes.DATE,
     defaultValue: DataTypes.NOW,
     allowNull: false,
@@ -92,7 +123,7 @@ export async function hasMedia(hash, mimeType, name) {
   try {
     const mediaModel = await sequelize.query(
       // eslint-disable-next-line max-len
-      'SELECT extension, shortId FROM Media WHERE hash = UNHEX($1) AND mimeType = $2', {
+      'SELECT id, extension, shortId FROM Media WHERE hash = UNHEX($1) AND mimeType = $2', {
         bind: [hash, mimeType],
         type: QueryTypes.SELECT,
         plain: true,
@@ -100,6 +131,17 @@ export async function hasMedia(hash, mimeType, name) {
     );
     if (mediaModel) {
       console.log('media already exists');
+      /*
+       * upldate lastUpload timestamp, if we would be on MariaDB only, we could
+       * use RETURNING and merge it together with the SELECT query
+       */
+      sequelize.query(
+        'UPDATE Media SET lastUsed = NOW() WHERE id = ?', {
+          replacements: [mediaModel.id],
+        },
+      ).catch((error) => {
+        console.error(`SQL Error on hasMedia: ${error.message}`);
+      });
       return {
         hash,
         name,
@@ -132,7 +174,7 @@ export async function deregisterMedia(hash, mimeType) {
  * register new media
  */
 export async function registerMedia(
-  hash, extension, mimeType, type, size, name,
+  hash, extension, mimeType, type, size, name, contentHash = null,
 ) {
   try {
     /*
@@ -144,8 +186,8 @@ export async function registerMedia(
       shortId = getRandomShortId();
       // eslint-disable-next-line no-await-in-loop
       exists = await sequelize.query(
-        'SELECT 1 FROM Media WHERE shortId = ?', {
-          replacements: [shortId],
+        'SELECT 1 FROM Media WHERE shortId = ? AND mimeType = ?', {
+          replacements: [shortId, mimeType],
           plain: true,
           type: QueryTypes.SELECT,
         },
@@ -154,8 +196,8 @@ export async function registerMedia(
     } while (exists);
     await sequelize.query(
       // eslint-disable-next-line max-len
-      'INSERT INTO Media (hash, shortId, extension, mimeType, type, size, lastUsed) VALUES (UNHEX(?), ?, ?, ?, ?, ?, NOW()) ON DUPLICATE KEY UPDATE lastUsed = VALUES(lastUsed)', {
-        replacements: [hash, shortId, extension, mimeType, type, size],
+      'INSERT INTO Media (hash, shortId, extension, mimeType, type, size, contentHash, lastUpload) VALUES (UNHEX(?), ?, ?, ?, ?, ?, UNHEX(?), NOW()) ON DUPLICATE KEY UPDATE lastUpload = VALUES(lastUpload)', {
+        replacements: [hash, shortId, extension, mimeType, type, size, contentHash],
         raw: true,
         type: QueryTypes.INSERT,
       },

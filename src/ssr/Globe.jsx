@@ -41,14 +41,14 @@ function generateGlobePage(req) {
         />
         <link rel="icon" href="${BASENAME}/favicon.ico" type="image/x-icon" />
         <link rel="apple-touch-icon" href="${BASENAME}/apple-touch-icon.png" />
-        <link rel="stylesheet" type="text/css" id="globcss" href="${cdnUrl || BASENAME}${getCssAssets().globe}" />
+        <link rel="stylesheet" type="text/css" id="globcss" href="${BASENAME}${getCssAssets().globe}" />
       </head>
       <body>
         <div id="webgl" />
         <div id="coorbox">(0, 0)</div>
         <div id="info">${t`Double click on globe to go back.`}</div>
         <div id="loading">${t`Loading...`}</div>
-        ${scripts.map((script) => `<script src="${cdnUrl || BASENAME}${script}"></script>`).join('')}
+        ${scripts.map((script) => `<script src="${BASENAME}${script}"></script>`).join('')}
         <a data-jslicense="1" style="display: none;" href="${BASENAME}/legal">JavaScript license information</a>
       </body>
     </html>

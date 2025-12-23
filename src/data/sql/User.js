@@ -416,7 +416,7 @@ export async function findUserByIdOrName(id, name) {
     if (name) {
       where.push('u.username = ?');
       where.push('u.name = ?');
-      replacements.push(id, id);
+      replacements.push(name, name);
     }
     const userdata = await sequelize.query(
       // eslint-disable-next-line max-len

@@ -83,6 +83,13 @@ export const THREEPID_PROVIDERS = {
   VK: 6,
 };
 
+export const MEDIA_BAN_REASONS = {
+  GORE: 1,
+  CSAM: 2,
+  SCAM: 3,
+  TERRORISM: 4,
+};
+
 export const CHANNEL_TYPES = {
   PUBLIC: 0,
   DM: 1,

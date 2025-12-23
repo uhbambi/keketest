@@ -137,11 +137,11 @@ export default function generateMainHTML(
     <link rel="apple-touch-icon" href="${BASENAME}/apple-touch-icon.png" />
     <script>${headScript}</script>
     <style>html, body { position: fixed; top: 0; left: 0; bottom: 0; right: 0; overflow: hidden; user-select: none; margin: 0; }</style>
-    <link rel="stylesheet" type="text/css" id="globcss" href="${ssv.cdnUrl || BASENAME}${getThemeCssAssets().default}" />
+    <link rel="stylesheet" type="text/css" id="globcss" href="${BASENAME}${getThemeCssAssets().default}" />
   </head>
   <body>
     <div id="app" class="${appClass}"></div>
-    ${scripts.map((script) => `<script src="${ssv.cdnUrl || BASENAME}${script}"></script>`).join('')}
+    ${scripts.map((script) => `<script src="${BASENAME}${script}"></script>`).join('')}
     <a data-jslicense="1" style="display: none;" href="${BASENAME}/legal">JavaScript license information</a>
   </body>
 </html>`;

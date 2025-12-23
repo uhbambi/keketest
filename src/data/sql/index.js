@@ -33,6 +33,11 @@ import OIDCAuthCode from './OIDCAuthCode.js';
 import OIDCAccessToken from './OIDCAccessToken.js';
 import OIDCRefreshToken from './OIDCRefreshToken.js';
 import OIDCConsent from './OIDCConsent.js';
+import Media from './Media.js';
+import ImageHash from './ImageHash.js';
+import UserMedia from './association_models/UserMedia.js';
+import IPMedia from './association_models/IPMedia.js';
+import MediaBan from './MediaBan.js';
 import { HourlyCron } from '../../utils/cron.js';
 
 /*
@@ -495,6 +500,47 @@ OIDCRefreshToken.belongsTo(OIDCConsent, {
 OIDCConsent.hasMany(OIDCRefreshToken, {
   as: 'refreshTokens',
   foreignKey: 'cid',
+});
+
+/*
+ * Media repository
+ */
+Media.belongsTo(ImageHash, {
+  as: 'imagedata',
+  foreignKey: 'mid',
+  onDelete: 'CASCADE',
+});
+ImageHash.hasOne(Media, {
+  as: 'media',
+  foreignKey: 'mid',
+});
+Media.belongsToMany(User, {
+  as: 'users',
+  through: UserMedia,
+  foreignKey: 'mid',
+});
+User.belongsToMany(Media, {
+  as: 'medias',
+  through: UserMedia,
+  foreignKey: 'uid',
+});
+Media.belongsToMany(IP, {
+  as: 'ips',
+  through: IPMedia,
+  foreignKey: 'mid',
+});
+IP.belongsToMany(Media, {
+  as: 'medias',
+  through: IPMedia,
+  foreignKey: 'ip',
+});
+MediaBan.belongsTo(User, {
+  as: 'mod',
+  foreignKey: 'muid',
+});
+User.hasMany(MediaBan, {
+  as: 'mediaBanActions',
+  foreignKey: 'muid',
 });
 
 export {
