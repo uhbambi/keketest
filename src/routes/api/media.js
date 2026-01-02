@@ -163,7 +163,7 @@ router.post('/upload', (req, res) => {
    * it is used to end a request in advance, if a hash got detected to already
    * exist
    */
-  let fileAmount = 1;
+  let fileAmount = null;
   /*
    * there might be a hash field given with the file, in which case we use the
    * hash to check for existence first
@@ -199,13 +199,13 @@ router.post('/upload', (req, res) => {
     if (ended || (!error && (!requestDone || readingFiles > 0))) {
       return;
     }
+    ended = true;
 
     if (error && typeof error !== 'string') {
       error = error.message;
     }
 
     console.log('ending file upload', error);
-    ended = true;
     if (error && !bb.destroyed) {
       console.log('destroy bb');
       bb.destroy();
@@ -286,6 +286,12 @@ router.post('/upload', (req, res) => {
       finalize(t`Could not upload all files`);
       return;
     }
+    /*
+     * if we have as many hashes as there are files left, do a bulk hash check
+     */
+    if (hashes.length === fileAmount) {
+    }
+
     const hash = hashes.shift();
     if (!hash) {
       leadingFiles += 1;
@@ -296,15 +302,23 @@ router.post('/upload', (req, res) => {
       availableFiles.push(modal);
       if (modal.existed) {
         delete modal.existed;
-        if (fileAmount <= 1) {
-          if (!fileStream.destroyed) {
-            fileStream.destroy();
+        if (fileAmount !== null) {
+          /*
+          * if we know the amount of files and its the last one, stop upload
+          */
+          if (fileAmount <= 1) {
+            if (!fileStream.destroyed) {
+              fileStream.destroy();
+            }
+            finalize('already_exists');
+            return;
           }
-          finalize('already_exists');
-          return;
+          fileAmount -= 1;
         }
-        fileAmount -= 1;
       }
+      /*
+       * roll forward to whatever comes next
+       */
       if (!fileStream.closed) {
         fileStream.resume();
       }
