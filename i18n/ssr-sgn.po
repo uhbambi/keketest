@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: admin@pixelplanet.fun\n"
-"PO-Revision-Date: 2025-10-31 15:40+0000\n"
-"Last-Translator: Kingfisher <shaddy@noreply.pixelplanet.fun>\n"
+"PO-Revision-Date: 2026-01-03 22:40+0000\n"
+"Last-Translator: Extreme Motorsex <em@noreply.pixelplanet.fun>\n"
 "Language-Team: Sign Languages <https://translate.gs-os.com/projects/ppfun/"
 "server/sgn/>\n"
 "Language: sgn\n"
@@ -15,7 +15,7 @@ msgid "1bit"
 msgstr "1️⃣👈🤞👋"
 
 msgid "2bit"
-msgstr ""
+msgstr "2️⃣👈🤞👋"
 
 msgid "3D Canvas"
 msgstr ""
@@ -127,7 +127,7 @@ msgid "Email should contain a @"
 msgstr "🤙👆✌️🤞👍 🖖🖐👌🙌👍🤚 🤘👌👇👋✌️🤞👇 ✌️ @"
 
 msgid "Error"
-msgstr ""
+msgstr "🤙☝️☝️👌☝️"
 
 msgid "Failed to create a new user :("
 msgstr ""
@@ -232,8 +232,8 @@ msgid "Name can't be empty."
 msgstr "👇✌️👆🤙 🤘✌️👇👋 👈🤙 🤙👆👎👋👏."
 
 msgid "Name contains invalid character like @, /, \\ or #"
-msgstr ""
-"👇✌️👆🤙 🤘👌👇👋✌️🤞👇🖖 🤞👇🤜✌️👍🤞🤚 🤘🖐✌️☝️✌️🤘👋🤙☝️ 👍🤞👊🤙 @, /, \\ 👌☝️ #"
+msgstr "👇✌️👆🤙 🤘👌👇👋✌️🤞👇🖖 🤞👇🤜✌️👍🤞🤚 🤘🖐✌️☝️✌️🤘👋🤙☝️ 👍🤞👊🤙 @, /, \\ "
+"👌☝️ #️⃣"
 
 msgid "Name is too long"
 msgstr ""
@@ -441,7 +441,7 @@ msgid "Too many or too long redirect_uris"
 msgstr ""
 
 msgid "Top10"
-msgstr ""
+msgstr "👋👌👎🔟"
 
 msgid "Unknown Captcha Error"
 msgstr "🙌👇👊👇👌👐👇 🤘✌️👎👋🤘🖐✌️ 🤙☝️☝️👌☝️"
