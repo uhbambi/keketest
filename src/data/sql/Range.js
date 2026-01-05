@@ -101,14 +101,19 @@ WHERE min <= b.ip AND max >= b.ip AND LENGTH(b.ip) = LENGTH(min) AND expires > N
       const {
         rid, expires, min, max, mask, org, descr, asn, country,
       } = range[0];
-      return {
-        rid, expires, org, descr, asn, country,
-        range: [
-          ipToHex(sanitizeIPString(min)),
-          ipToHex(sanitizeIPString(max)),
-          mask,
-        ],
-      };
+      /*
+       * makses <= 6 are unreasonable, but can happen if whois return is screwed
+       */
+      if (mask > 6) {
+        return {
+          rid, expires, org, descr, asn, country,
+          range: [
+            ipToHex(sanitizeIPString(min)),
+            ipToHex(sanitizeIPString(max)),
+            mask,
+          ],
+        };
+      }
     }
   } catch (error) {
     console.error(`SQL Error on getRangeOfIP: ${ipString} - ${error.message}`);

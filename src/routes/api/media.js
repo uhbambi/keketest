@@ -5,7 +5,7 @@ import express from 'express';
 import busboy from 'busboy';
 
 import {
-  storeMediaStream, isMimeTypeAllowed, mimeTypeFitsToExt,
+  storeMediaStream, isMimeTypeAllowed, mimeTypeFitsToExt, splitFilename,
 } from '../../utils/media/index.js';
 import { MAX_MEDIA_SIZE, MAX_UPLOAD_AMOUNT } from '../../core/constants.js';
 import { hasMedia } from '../../data/sql/Media.js';
@@ -81,7 +81,7 @@ router.post('/preflight', (req, res) => {
       );
     }
 
-    const promises = [];
+    const models = [];
     const readyToUpload = [];
 
     while (mimeTypes.length) {
@@ -113,27 +113,33 @@ router.post('/preflight', (req, res) => {
       }
 
       if (!fileErrors) {
-        const seperator = filename.lastIndexOf('.');
-        const name = filename.substring(0, seperator);
-        const extension = filename.substring(seperator + 1);
-        promises.push(hasMedia(hash, mimeType, name));
-        readyToUpload.push({ hash, name, mimeType, extension });
+        const [name, extension] = splitFilename(filename);
+        models.push({
+          hash, name, mimeType, extension,
+          originalFilename: filename,
+        });
+        readyToUpload.push({
+          hash, name, mimeType, extension,
+          originalFilename: filename,
+        });
       }
     }
 
-    Promise.all(promises).then((fileModels) => {
+    hasMedia(models).then(() => {
       const availableFiles = [];
-      for (let i = 0; i < fileModels.length; i += 1) {
-        const fileModel = fileModels[i];
-        if (fileModel) {
-          const { hash } = fileModel;
+      for (let i = 0; i < models.length; i += 1) {
+        const model = models[i];
+        if (model) {
+          const { hash } = model;
           readyToUpload.splice(readyToUpload.findIndex(
-            (model) => model.hash === hash,
+            (m) => m.hash === hash,
           ));
           /*
-           *  [{ hash, name, mimeType, extension, shortId }, ... ]
+           *  [{
+           *    hash, name, mimeType, extension, shortId, originalFilename,
+           *  }, ... ]
            */
-          availableFiles.push(fileModel);
+          availableFiles.push(model);
         }
       }
 
@@ -159,25 +165,18 @@ router.post('/upload', (req, res) => {
   const bb = busboy({ headers: req.headers });
 
   /*
-   * amount of files, which can be given by the client in the 'amount' field,
-   * it is used to end a request in advance, if a hash got detected to already
-   * exist
-   */
-  let fileAmount = null;
-  /*
-   * there might be a hash field given with the file, in which case we use the
-   * hash to check for existence first
+   * there might be a field with hashes given BEFORE sending files, which can
+   * be used to cancel the upload if they already exist, it has the form:
+   * filename=hash:mimeType;filename=hash:mimetype;...
+   * If this field exists, it must contain the hashes for all files, files that
+   * do not have a hash, may be dropped in that scenario.
+   * Multiple files given with the same filename will be processed in order.
    */
   const hashes = [];
   /*
-   * the hash field should arrive before the file, but it might come later,
-   * which makes them useless, so we keep track of leading files to drop them
-   */
-  let leadingFiles = 0;
-  /*
    * amount of files currently being read
    */
-  let readingFiles = 0;
+  const readingFiles = 0;
   /*
    * amount of files already read
    */
@@ -266,7 +265,7 @@ router.post('/upload', (req, res) => {
     res.json(data);
   };
 
-  bb.on('file', (name, fileStream, info) => {
+  bb.on('file', async (name, fileStream, info) => {
     console.log(`File [${name}]:`, info);
     if (name !== 'file') {
       if (!fileStream.destroyed) {
@@ -287,63 +286,73 @@ router.post('/upload', (req, res) => {
       return;
     }
     /*
-     * if we have as many hashes as there are files left, do a bulk hash check
+     * since the stream has to wait for consumption, we can async resolve hashes
+     * here, which wouldn't have been possible in the 'field' event.
      */
-    if (hashes.length === fileAmount) {
+    if (hashes.length && !hashes[hashes.length - 1].shortId) {
+      await hasMedia(hashes);
     }
-
-    const hash = hashes.shift();
-    if (!hash) {
-      leadingFiles += 1;
-    }
-    readingFiles += 1;
-
-    storeMediaStream(fileStream, info, req.user, req.ip, hash).then((modal) => {
-      availableFiles.push(modal);
-      if (modal.existed) {
-        delete modal.existed;
-        if (fileAmount !== null) {
-          /*
-          * if we know the amount of files and its the last one, stop upload
-          */
-          if (fileAmount <= 1) {
-            if (!fileStream.destroyed) {
-              fileStream.destroy();
-            }
-            finalize('already_exists');
-            return;
-          }
-          fileAmount -= 1;
+    let model = hashes.find((h) => h.originalFilename === info.filename);
+    if (model.shortId) {
+      availableFiles.push(model);
+      if (hashes.find((h) => h.shortId)) {
+        /* another file exists that we don't have yet, roll forward */
+        if (!fileStream.closed) {
+          fileStream.resume();
         }
+      } else {
+        if (!fileStream.destroyed) {
+          fileStream.destroy();
+        }
+        finalize('already_exists');
       }
-      /*
-       * roll forward to whatever comes next
-       */
-      if (!fileStream.closed) {
-        fileStream.resume();
-      }
-      readingFiles -= 1;
-      finalize();
-    }).catch((error) => {
+      return;
+    }
+
+    try {
+      model = await storeMediaStream(fileStream, info, req.user, req.ip);
+    } catch (error) {
       if (!fileStream.destroyed && !fileStream.closed) {
         fileStream.destroy();
       }
       finalize(error);
-    });
+      return;
+    }
+
+    if (!fileStream.closed) {
+      fileStream.resume();
+    }
   });
 
   bb.on('field', (name, value) => {
     console.log(`Field [${name}]:`, value);
-    if (name === 'amount') {
-      fileAmount = Number(value);
-      return;
-    }
-    if (name === 'hash') {
-      if (leadingFiles > 0) {
-        leadingFiles -= 1;
-        return;
+    if (name === 'hashes') {
+      /*
+       * filename=hash:mimeType;filename=hash:mimetype;...
+       */
+      const pairs = value.split(';');
+      for (let i = 0; i < pairs.length; i += 1) {
+        const pair = pairs[i];
+        const seperator = pair.indexOf('=');
+        if (seperator !== -1) {
+          let hash = pair.substring(seperator + 1);
+          const hashSeperator = hash.indexOf(':');
+          // eslint-disable-next-line max-len
+          const mimeType = decodeURIComponent(hash.substring(hashSeperator + 1).trim());
+          hash = hash.substring(0, hashSeperator).trim();
+          if (hash.length === 64) {
+            // eslint-disable-next-line max-len
+            const filename = decodeURIComponent(pair.substring(0, seperator).trim());
+            const [namePart, extension] = splitFilename(filename);
+            hashes.push({
+              hash, name: namePart, mimeType, extension,
+              originalFilename: filename,
+            });
+          }
+        }
       }
-      hashes.push(value);
+    } else {
+      finalize(t`Unknown field ${name} in request`);
     }
   });
 

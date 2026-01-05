@@ -103,33 +103,43 @@ const Media = sequelize.define('Media', {
 });
 
 /**
- * get filename of media if exists
- * @param hash
- * @param mimeType
- * @param name only a string that gets passed through
- * @return {
+ * get filename of media if exists, adds 'shortId' and 'extension' to hashes
+ * objects where a corresponding hash exists
+ * @param hashes [{
  *   hash,
- *   extension,
  *   mimeType,
- *   shortId,
- *   name,
- * }
+ * }, ...]
+ * @return success boolean
  */
-export async function hasMedia(hash, mimeType, name) {
-  if (!hash || !mimeType) {
-    return null;
+export async function hasMedia(hashes) {
+  if (!hashes?.length) {
+    return true;
   }
-  console.log('check if media exists', hash);
+  if (!Array.isArray(hashes)) {
+    hashes = [hashes];
+  }
+  console.log('check if media exists', hashes);
+
   try {
-    const mediaModel = await sequelize.query(
+    const replacements = [];
+    for (let i = 0; i < hashes.length; i += 1) {
+      replacements.push(hashes[i].hash, hashes[i].mimeType);
+    }
+
+    const mediaModels = await sequelize.query(
       // eslint-disable-next-line max-len
-      'SELECT id, extension, shortId FROM Media WHERE hash = UNHEX($1) AND mimeType = $2', {
-        bind: [hash, mimeType],
+      `SELECT HEX(hash) AS hash, mimeType, extension, shortId FROM Media WHERE ${
+        hashes.map(
+          () => '( hash = UNHEX(?) AND mimeType = ? )',
+        ).join(' OR ')
+      }`, {
+        replacements,
         type: QueryTypes.SELECT,
-        plain: true,
+        raw: true,
       },
     );
-    if (mediaModel) {
+
+    if (mediaModels.length) {
       console.log('media already exists');
       /*
        * upldate lastUpload timestamp, if we would be on MariaDB only, we could
@@ -137,23 +147,29 @@ export async function hasMedia(hash, mimeType, name) {
        */
       sequelize.query(
         'UPDATE Media SET lastUsed = NOW() WHERE id = ?', {
-          replacements: [mediaModel.id],
+          replacements: mediaModels.map((model) => model.id),
+          type: QueryTypes.UPDATE,
         },
       ).catch((error) => {
         console.error(`SQL Error on hasMedia: ${error.message}`);
       });
-      return {
-        hash,
-        name,
-        mimeType,
-        shortId: mediaModel.shortId,
-        extension: mediaModel.extension,
-      };
+
+      for (let i = 0; i < mediaModels.length; i += 1) {
+        const model = mediaModels[i];
+        const hash = hashes.find(
+          (h) => h.hash === model.hash && h.mimeType === model.mimeType,
+        );
+        if (hash) {
+          hash.extension = model.extension;
+          hash.shortId = model.shortId;
+        }
+      }
+      return true;
     }
   } catch (error) {
     console.error(`SQL Error on hasMedia: ${error.message}`);
   }
-  return null;
+  return false;
 }
 
 export async function deregisterMedia(hash, mimeType) {
@@ -197,7 +213,9 @@ export async function registerMedia(
     await sequelize.query(
       // eslint-disable-next-line max-len
       'INSERT INTO Media (hash, shortId, extension, mimeType, type, size, contentHash, lastUpload) VALUES (UNHEX(?), ?, ?, ?, ?, ?, UNHEX(?), NOW()) ON DUPLICATE KEY UPDATE lastUpload = VALUES(lastUpload)', {
-        replacements: [hash, shortId, extension, mimeType, type, size, contentHash],
+        replacements: [
+          hash, shortId, extension, mimeType, type, size, contentHash,
+        ],
         raw: true,
         type: QueryTypes.INSERT,
       },

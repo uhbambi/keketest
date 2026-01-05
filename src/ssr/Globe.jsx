@@ -6,7 +6,7 @@
 /* eslint-disable max-len */
 import etag from 'etag';
 
-import { CDN_URL, BASENAME, NO_CDN_COUNTRIES } from '../core/config.js';
+import { BASENAME } from '../core/config.js';
 
 /* this will be set by webpack */
 import { getJsAssets, getCssAssets } from '../core/assets.js';
@@ -24,9 +24,6 @@ function generateGlobePage(req) {
   if (req.headers['if-none-match'] === globeEtag) {
     return { html: null, etag: globeEtag };
   }
-
-  const cdnUrl = NO_CDN_COUNTRIES?.includes(req.ip.country)
-    ? undefined : CDN_URL;
 
   const html = `<!doctype html>
     <html lang="${lang}">
