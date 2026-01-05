@@ -82,7 +82,6 @@ router.post('/preflight', (req, res) => {
     }
 
     const models = [];
-    const readyToUpload = [];
 
     while (mimeTypes.length) {
       let fileErrors = false;
@@ -118,33 +117,33 @@ router.post('/preflight', (req, res) => {
           hash, name, mimeType, extension,
           originalFilename: filename,
         });
-        readyToUpload.push({
-          hash, name, mimeType, extension,
-          originalFilename: filename,
-        });
       }
     }
 
-    hasMedia(models).then(() => {
+    hasMedia(models).then((success) => {
+      if (!success) {
+        errors.push(t`Server Eror`);
+      }
+      const readyToUpload = [];
       const availableFiles = [];
-      for (let i = 0; i < models.length; i += 1) {
+      let i = models.length;
+      while (i > 0) {
+        i -= 1;
         const model = models[i];
-        if (model) {
-          const { hash } = model;
-          readyToUpload.splice(readyToUpload.findIndex(
-            (m) => m.hash === hash,
-          ));
-          /*
-           *  [{
-           *    hash, name, mimeType, extension, shortId, originalFilename,
-           *  }, ... ]
-           */
+        /*
+          *  [{
+          *    hash, name, mimeType, extension, shortId, originalFilename,
+          *  }, ... ]
+          */
+        if (model.shortId) {
           availableFiles.push(model);
+        } else {
+          readyToUpload.push(model);
         }
       }
 
       if (readyToUpload.length > MAX_UPLOAD_AMOUNT) {
-        readyToUpload.splice(0, readyToUpload.length - MAX_UPLOAD_AMOUNT);
+        readyToUpload.splice(MAX_UPLOAD_AMOUNT);
       }
 
       const data = { readyToUpload, availableFiles };
@@ -285,30 +284,40 @@ router.post('/upload', (req, res) => {
       finalize(t`Could not upload all files`);
       return;
     }
-    /*
-     * since the stream has to wait for consumption, we can async resolve hashes
-     * here, which wouldn't have been possible in the 'field' event.
-     */
-    if (hashes.length && !hashes[hashes.length - 1].shortId) {
-      await hasMedia(hashes);
-    }
-    let model = hashes.find((h) => h.originalFilename === info.filename);
-    if (model.shortId) {
-      availableFiles.push(model);
-      if (hashes.find((h) => h.shortId)) {
-        /* another file exists that we don't have yet, roll forward */
-        if (!fileStream.closed) {
-          fileStream.resume();
-        }
-      } else {
-        if (!fileStream.destroyed) {
-          fileStream.destroy();
-        }
-        finalize('already_exists');
+
+    if (hashes.length) {
+      /*
+      * since the stream has to wait for consumption, we can async resolve hashes
+      * here, which wouldn't have been possible in the 'field' event.
+      */
+      if (!hashes[hashes.length - 1].shortId) {
+        await hasMedia(hashes);
       }
-      return;
+      const modelIndex = hashes.findIndex(
+        (h) => h.originalFilename === info.filename,
+      );
+      if (modelIndex !== -1) {
+        const model = hashes[modelIndex];
+        hashes.splice(modelIndex, 1);
+        if (model.shortId) {
+          if (hashes.find((h) => h.shortId)) {
+            /* another file exists that we don't have yet, roll forward */
+            if (!fileStream.closed) {
+              fileStream.resume();
+            }
+          } else {
+            availableFiles.push(model);
+            if (!fileStream.destroyed) {
+              fileStream.destroy();
+            }
+            finalize('already_exists');
+          }
+          return;
+        }
+      }
     }
 
+    let model;
     try {
       model = await storeMediaStream(fileStream, info, req.user, req.ip);
     } catch (error) {
@@ -319,6 +328,7 @@ router.post('/upload', (req, res) => {
       return;
     }
 
+    availableFiles.push(model);
     if (!fileStream.closed) {
       fileStream.resume();
     }
