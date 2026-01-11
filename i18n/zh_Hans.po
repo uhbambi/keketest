@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: admin@pixelplanet.fun\n"
-"PO-Revision-Date: 2026-01-11 19:40+0000\n"
+"PO-Revision-Date: 2026-01-11 20:40+0000\n"
 "Last-Translator: Sakuya <sakuya@noreply.pixelplanet.fun>\n"
 "Language-Team: Chinese (Simplified Han script) <https://translate.gs-os.com/"
 "projects/ppfun/client/zh_Hans/>\n"
@@ -67,133 +67,134 @@ msgstr "正在向您发送一封新验证邮件。"
 
 #: src/components/windows/OIDCConsent.jsx:67
 msgid "ACCESS MODTOOLS"
-msgstr ""
+msgstr "访问管理员工具"
 
 #: src/components/Converter.jsx:361
 msgid "Add Grid (uncheck if you need a 1:1 template)"
-msgstr ""
+msgstr "添加网格（若您需要1比1模板则取消选中）"
 
 #: src/components/TemplateSettings.jsx:139
 msgid "Add Template"
-msgstr ""
+msgstr "添加模板"
 
 #: src/components/windows/UserArea.jsx:67
 msgid "Admintools"
-msgstr ""
+msgstr "管理员工具"
 
 #: src/components/windows/Settings.jsx:102
 msgid "All sound effects will be disabled."
-msgstr ""
+msgstr "所有声音效果都将不可用。"
 
 #: src/components/windows/Settings.jsx:88
 msgid "Always show Movement Controls"
-msgstr ""
+msgstr "总是显示移动控制"
 
 #: src/components/windows/Settings.jsx:93
 msgid "Always show movement control buttons"
-msgstr ""
+msgstr "总是显示移动控制按钮"
 
 #: src/components/Converter.jsx:522
 msgid "Anti Aliasing"
-msgstr ""
+msgstr "抗锯齿"
 
 #: src/components/ModCanvastools.jsx:498
 msgid "Apply a filter to clean trash in large canvas areas."
-msgstr ""
+msgstr "启用过滤器以清理大画布区域中的杂笔。"
 
 #: src/components/windows/CanvasSelect.jsx:40
 msgid "Archive"
-msgstr ""
+msgstr "文档"
 
 #: src/components/Admintools.jsx:342
 msgid "Assign new Mod"
-msgstr ""
+msgstr "指定新管理员"
 
 #: src/components/windows/Settings.jsx:119
 msgid "Auto Zoom In"
-msgstr ""
+msgstr "自动放大"
 
 #: src/components/LogInForm.jsx:282
 msgid "Back"
-msgstr ""
+msgstr "回退"
 
 #: src/components/windows/index.js:23
 msgid "Badge Display"
-msgstr ""
+msgstr "徽章显示"
 
 #: src/components/BadgeList.jsx:22
 msgid "Badges"
-msgstr ""
+msgstr "徽章"
 
 #: src/ui/PixelTransferController.js:155
 msgid "Banned"
-msgstr ""
+msgstr "已封禁"
 
 #: src/components/windows/Help.jsx:84
 msgid "Banned? Detected as Proxy?"
-msgstr ""
+msgstr "被封禁了？被检测为代理网络连接了？"
 
 #: src/components/contextmenus/UserContextMenu.jsx:86
 msgid "Block"
-msgstr ""
+msgstr "屏蔽"
 
 #: src/components/SocialSettings.jsx:38
 msgid "Block DMs"
-msgstr ""
+msgstr "屏蔽私信"
 
 #: src/components/SocialSettings.jsx:45
 msgid ""
 "Block all Private Messages. Enabling this will delete all your current DMs. "
 "You can still start new DMs with other users, but other users won't be able "
 "to start DMs with you."
-msgstr ""
+msgstr "屏蔽所有私信。启用该功能后您的所有现有私信将被删除。您仍然可以私信其他用户，"
+"但其他用户将无法私信您。"
 
 #: src/ui/PixelTransferController.js:172
 msgid "Blocked"
-msgstr ""
+msgstr "已屏蔽"
 
 #: src/components/ModCanvastools.jsx:370
 #: src/components/ModCanvastools.jsx:447
 #: src/components/ModCanvastools.jsx:543
 #: src/components/ModWatchtools.jsx:206
 msgid "Bottom-right corner"
-msgstr ""
+msgstr "右下角"
 
 #: src/components/ModCanvastools.jsx:175
 msgid "Build image and set it to protected."
-msgstr ""
+msgstr "建造图像，并将其设为受保护。"
 
 #: src/components/ModCanvastools.jsx:172
 msgid "Build image on canvas."
-msgstr ""
+msgstr "在画布上建造图像。"
 
 #: src/components/ModCanvastools.jsx:178
 msgid "Build image, but reset cooldown to unset-pixel cd."
-msgstr ""
+msgstr "建造图像，但将冷却时间重置为未设置像素冷却时间。"
 
 #: src/components/BanInfo.jsx:102
 msgid "By Mod"
-msgstr ""
+msgstr "来自管理员"
 
 #: src/components/Converter.jsx:328
 msgid "Calculate like GIMP"
-msgstr ""
+msgstr "以GIMP式计算"
 
 #: src/ui/templateLoader.js:231
 msgid "Can not export more than 20 or no template!"
-msgstr ""
+msgstr "无法导出超过20个模板！"
 
 #: src/ui/templateLoader.js:257
 msgid "Can not import more than 20 or no template!"
-msgstr ""
+msgstr "无法导入超过20个模板！"
 
 #: src/components/Captcha.jsx:263
 msgid "Can't read? Reload:"
-msgstr ""
+msgstr "无法辩识？点此重新加载→"
 
 #: src/ui/rendererFactory.js:38
 msgid "Can't render 3D canvas, do you have WebGL2 disabled?"
-msgstr ""
+msgstr "无法渲染三维画布，您是否禁用了WebGL2？"
 
 #: src/components/ChangeMail.jsx:243
 #: src/components/ChangeName.jsx:70
@@ -206,96 +207,96 @@ msgstr ""
 #: src/components/RefreshPrompt.jsx:16
 #: src/components/TemplateItemEdit.jsx:181
 msgid "Cancel"
-msgstr ""
+msgstr "取消"
 
 #: src/components/TemplateSettings.jsx:132
 msgid "Cancel adding Template"
-msgstr ""
+msgstr "取消添加模板"
 
 #: src/components/ModWatchtools.jsx:133
 #: src/components/TemplateItem.jsx:54
 #: src/components/TemplateItemEdit.jsx:122
 msgid "Canvas"
-msgstr ""
+msgstr "画布"
 
 #: src/components/windows/index.js:20
 msgid "Canvas Archive"
-msgstr ""
+msgstr "画布档案"
 
 #: src/components/ModCanvastools.jsx:496
 msgid "Canvas Cleaner"
-msgstr ""
+msgstr "画布清理器"
 
 #: src/ui/rendererFactory.js:37
 msgid "Canvas Error"
-msgstr ""
+msgstr "画布错误"
 
 #: src/components/buttons/CanvasSwitchButton.jsx:20
 #: src/components/windows/index.js:19
 msgid "Canvas Selection"
-msgstr ""
+msgstr "画布选择"
 
 #: src/components/LogInForm.jsx:379
 msgid "Captcha"
-msgstr ""
+msgstr "验证码"
 
 #: src/components/windows/FishDisplay.jsx:78
 msgid "Caught by"
-msgstr ""
+msgstr "抓取者："
 
 #: src/store/actions/index.js:21
 msgid "Change Happened"
-msgstr ""
+msgstr "发生变化"
 
 #: src/components/UserAreaContent.jsx:133
 msgid "Change Name"
-msgstr ""
+msgstr "更改名称"
 
 #: src/components/UserAreaContent.jsx:166
 msgid "Change Password"
-msgstr ""
+msgstr "更改密码"
 
 #: src/components/ChangeMail.jsx:230
 msgid "Change your Mail Adress here:"
-msgstr ""
+msgstr "此处更改你的邮箱地址："
 
 #: src/components/windows/Chat.jsx:291
 msgid "Channel settings"
-msgstr ""
+msgstr "频道设置"
 
 #: src/components/Rankings.jsx:187
 #: src/components/Rankings.jsx:204
 msgid "Charts"
-msgstr ""
+msgstr "图表"
 
 #: src/components/windows/index.js:18
 msgid "Chat"
-msgstr ""
+msgstr "聊天"
 
 #: src/components/windows/Chat.jsx:235
 msgid "Chat here"
-msgstr ""
+msgstr "此处聊天"
 
 #: src/components/windows/Settings.jsx:162
 msgid "Check out past versions of the canvas."
-msgstr ""
+msgstr "检查画布历史版本。"
 
 #: src/components/windows/OIDCConsent.jsx:237
 msgid "Check to allow"
-msgstr ""
+msgstr "检查以允许"
 
 #: src/components/ModWatchtools.jsx:132
 msgid "Check who placed in an area"
-msgstr ""
+msgstr "检查谁在区域内绘画"
 
 #: src/components/Converter.jsx:191
 #: src/components/ModCanvastools.jsx:234
 msgid "Choose Canvas"
-msgstr ""
+msgstr "选择画布"
 
 #: src/components/Converter.jsx:332
 msgid "Choose Color Mode"
-msgstr ""
+msgstr "选择颜色模式"
 
 #: src/components/Converter.jsx:261
 msgid "Choose Strategy"
