@@ -1,15 +1,19 @@
 msgid ""
 msgstr ""
-"Last-Translator: Automatically generated\n"
-"Language-Team: none\n"
+"Report-Msgid-Bugs-To: admin@pixelplanet.fun\n"
+"PO-Revision-Date: 2026-01-11 19:40+0000\n"
+"Last-Translator: Sakuya <sakuya@noreply.pixelplanet.fun>\n"
+"Language-Team: Chinese (Simplified Han script) <https://translate.gs-os.com/"
+"projects/ppfun/server/zh_Hans/>\n"
 "Language: zh_Hans\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Weblate 5.14\n"
 
 #: src/canvasesDesc.js:27
 msgid "1bit"
-msgstr ""
+msgstr "1字元"
 
 #: src/canvasesDesc.js:29
 msgid "2bit"

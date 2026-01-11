@@ -1,65 +1,69 @@
 msgid ""
 msgstr ""
-"Last-Translator: Automatically generated\n"
-"Language-Team: none\n"
+"Report-Msgid-Bugs-To: admin@pixelplanet.fun\n"
+"PO-Revision-Date: 2026-01-11 19:40+0000\n"
+"Last-Translator: Sakuya <sakuya@noreply.pixelplanet.fun>\n"
+"Language-Team: Chinese (Simplified Han script) <https://translate.gs-os.com/"
+"projects/ppfun/client/zh_Hans/>\n"
 "Language: zh_Hans\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Weblate 5.14\n"
 
 #: src/components/BanInfo.jsx:111
 msgid " which is in "
-msgstr ""
+msgstr " ，包含在 "
 
 #: src/components/windows/Help.jsx:119
 #, javascript-format
 msgid "${ mouseSymbol } Hold left mouse button and drag mouse to rotate"
-msgstr ""
+msgstr "${ mouseSymbol } 按住鼠标左键并拖拽以回转"
 
 #: src/components/windows/Help.jsx:111
 #: src/components/windows/Help.jsx:122
 #, javascript-format
 msgid "${ mouseSymbol } Left click or ${ touchSymbol } tap to place a pixel"
-msgstr ""
+msgstr "${ mouseSymbol } 点击鼠标左键或 ${ touchSymbol } 单击以放置像素"
 
 #: src/components/windows/Help.jsx:121
 #, javascript-format
 msgid "${ mouseSymbol } Right click and drag mouse to pan"
-msgstr ""
+msgstr "${ mouseSymbol } 点击鼠标右键并拖拽以平移"
 
 #: src/components/windows/Help.jsx:123
 #, javascript-format
 msgid ""
 "${ mouseSymbol } Right click or ${ touchSymbol } double-tap to remove a "
 "pixel"
-msgstr ""
+msgstr "${ mouseSymbol } 点击右键或 ${ touchSymbol } 双击以移除像素"
 
 #: src/components/windows/Help.jsx:120
 #, javascript-format
 msgid ""
 "${ mouseSymbol } Scroll mouse wheel or hold ${ mouseSymbol } middle mouse "
 "button and drag to zoom"
-msgstr ""
+msgstr "${ mouseSymbol } 滚动鼠标滚轮或按住 ${ mouseSymbol } 鼠标中键并拖拽以缩放"
 
 #: src/components/ModIIDtools.jsx:166
 msgid "(0 = infinite)"
-msgstr ""
+msgstr "（0即无限）"
 
 #: src/components/Rankings.jsx:244
 msgid "+last hour"
-msgstr ""
+msgstr "+最后小时"
 
 #: src/components/ChangeMail.jsx:180
 msgid "...loading Login methods and sessions..."
-msgstr ""
+msgstr "……正在加载登陆步骤……"
 
 #: src/components/Fish.jsx:39
 msgid "A Phish!"
-msgstr ""
+msgstr "鱼儿上钩了！"
 
 #: src/components/UserMessages.jsx:44
 msgid "A new verification mail is getting sent to you."
-msgstr ""
+msgstr "正在向您发送一封新验证邮件。"
 
 #: src/components/windows/OIDCConsent.jsx:67
 msgid "ACCESS MODTOOLS"
