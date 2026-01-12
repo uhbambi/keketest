@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: admin@pixelplanet.fun\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2025-11-04 18:40+0000\n"
+"PO-Revision-Date: 2026-01-12 15:40+0000\n"
 "Last-Translator: Extreme Motorsex <em@noreply.pixelplanet.fun>\n"
 "Language-Team: Esperanto <https://translate.gs-os.com/projects/ppfun/client/"
 "eo/>\n"
@@ -15,7 +15,7 @@ msgstr ""
 "X-Generator: Weblate 5.14\n"
 
 msgid " which is in "
-msgstr ""
+msgstr " kiu estas en "
 
 #, javascript-format
 msgid "${ mouseSymbol } Hold left mouse button and drag mouse to rotate"
@@ -48,22 +48,22 @@ msgstr ""
 "musbutonon kaj trenu zomi"
 
 msgid "(0 = infinite)"
-msgstr ""
+msgstr "(0 = senfina)"
 
 msgid "+last hour"
-msgstr ""
+msgstr "+lasta horo"
 
 msgid "...loading Login methods and sessions..."
-msgstr ""
+msgstr "...ŝarĝante ensalutajn metodojn kaj sesiojn..."
 
 msgid "A Phish!"
-msgstr ""
+msgstr "Fiŝo!"
 
 msgid "A new verification mail is getting sent to you."
 msgstr "Novan verigan retpostmensaĝon estas sendita."
 
 msgid "ACCESS MODTOOLS"
-msgstr ""
+msgstr "ALIRU MODERIGAJN ILOJN"
 
 msgid "Add Grid (uncheck if you need a 1:1 template)"
 msgstr "Aldonu Kradon (ne elektu se necesus 1:1 proporcion)"
@@ -79,16 +79,16 @@ msgid "All sound effects will be disabled."
 msgstr "Ĉiuj sonoj estos malŝaltitaj."
 
 msgid "Always show Movement Controls"
-msgstr ""
+msgstr "Ĉiam montri Movadajn Kontrolilojn"
 
 msgid "Always show movement control buttons"
-msgstr ""
+msgstr "Ĉiam montri butonojn por kontroli movojn"
 
 msgid "Anti Aliasing"
 msgstr "Glatigo"
 
 msgid "Apply a filter to clean trash in large canvas areas."
-msgstr ""
+msgstr "Apliku filtrilon por purigi rubon en grandaj kanvasaj areoj."
 
 msgid "Archive"
 msgstr "Arkiv'"
@@ -100,16 +100,16 @@ msgid "Auto Zoom In"
 msgstr "Aŭto Zomi"
 
 msgid "Back"
-msgstr ""
+msgstr "Reen"
 
 msgid "Badge Display"
-msgstr ""
+msgstr "Insigno-Ekspozicio"
 
 msgid "Badges"
-msgstr ""
+msgstr "Insignoj"
 
 msgid "Banned"
-msgstr ""
+msgstr "Malpermesita"
 
 #, fuzzy
 msgid "Banned? Detected as Proxy?"
@@ -127,12 +127,15 @@ msgid ""
 "You can still start new DMs with other users, but other users won't be able "
 "to start DMs with you."
 msgstr ""
+"Bloki ĉiujn privatajn mesaĝojn. Ebligi ĉi tion forigos ĉiujn viajn nunajn "
+"privatajn mesaĝojn. Vi ankoraŭ povas komenci novajn privatajn mesaĝojn kun "
+"aliaj uzantoj, sed aliaj uzantoj ne povos komenci privatajn mesaĝojn kun vi."
 
 msgid "Blocked"
-msgstr ""
+msgstr "Blokita"
 
 msgid "Bottom-right corner"
-msgstr ""
+msgstr "Malsupra dekstra angulo"
 
 msgid "Build image and set it to protected."
 msgstr "Konstruu bildon kaj protektu ĝin."
@@ -144,22 +147,22 @@ msgid "Build image, but reset cooldown to unset-pixel cd."
 msgstr "Konstruu bildon, sed, nuligu je l' malvarmig'."
 
 msgid "By Mod"
-msgstr ""
+msgstr "De Mod"
 
 msgid "Calculate like GIMP"
-msgstr ""
+msgstr "Kalkulu kiel GIMP"
 
 msgid "Can not export more than 20 or no template!"
-msgstr ""
+msgstr "Ne eblas eksporti pli ol 20 aŭ neniun ŝablonon!"
 
 msgid "Can not import more than 20 or no template!"
-msgstr ""
+msgstr "Ne eblas importi pli ol 20 aŭ neniun ŝablonon!"
 
 msgid "Can't read? Reload:"
-msgstr ""
+msgstr "Ĉu vi ne povas legi? Reŝargi:"
 
 msgid "Can't render 3D canvas, do you have WebGL2 disabled?"
-msgstr ""
+msgstr "Ne eblas bildigi 3D-kanvason, ĉu WebGL2 estas malŝaltita?"
 
 msgid "Cancel"
 msgstr "Nuligu"
@@ -190,26 +193,26 @@ msgid "Captcha"
 msgstr ""
 
 msgid "Caught by"
-msgstr ""
+msgstr "Kaptita de"
 
 #, fuzzy
 msgid "Change Happened"
 msgstr "Ŝanĝu Uzantnomon"
 
 msgid "Change Name"
-msgstr ""
+msgstr "Ŝanĝi Nomon"
 
 msgid "Change Password"
 msgstr "Ŝanĝu Pasvorton"
 
 msgid "Change your Mail Adress here:"
-msgstr ""
+msgstr "Ŝanĝu vian retpoŝtadreson ĉi tie:"
 
 msgid "Channel settings"
 msgstr "Kanal' agordoj"
 
 msgid "Charts"
-msgstr ""
+msgstr "Furorlisto"
 
 msgid "Chat"
 msgstr "Babilu"
@@ -221,10 +224,10 @@ msgid "Check out past versions of the canvas."
 msgstr "Vidu estintecajn versiojn de l' kanvas'."
 
 msgid "Check to allow"
-msgstr ""
+msgstr "Marku por permesi"
 
 msgid "Check who placed in an area"
-msgstr ""
+msgstr "Kontrolu kiu lokis en areo"
 
 msgid "Choose Canvas"
 msgstr "Elektu Kanvason"
@@ -236,24 +239,29 @@ msgid "Choose Strategy"
 msgstr "Elektu Strategion"
 
 msgid "Choose Username"
-msgstr ""
+msgstr "Elektu uzantnomon"
 
 msgid ""
 "Clean spare pixels that are surrounded by a single other color or unset "
 "pixels (VERY AGGRESSIVE ON CANVASES THAT ALLOW UNSET PIXELS (where there are "
 "two cooldowns)!)"
 msgstr ""
+"Purigu rezervajn pikselojn ĉirkaŭitajn de ununura alia koloro aŭ ne-"
+"agorditaj pikseloj (TRE AGRESIVA SUR KANASOJ, KIUJ PERMESAS NEGADORDITITAJN "
+"PIKSELOJN (kie estas du malvarmiĝtempoj)!)"
 
 msgid "Clean spare pixels that are surrounded by unset pixels"
-msgstr ""
+msgstr "Purigu rezervajn pikselojn ĉirkaŭitajn de neagorditaj pikseloj"
 
 msgid ""
 "Clean spare pixels that are surrounded by unset pixels and up to 1 other set "
 "pixels"
 msgstr ""
+"Purigu rezervajn pikselojn ĉirkaŭitajn de neagorditaj pikseloj kaj ĝis 1 "
+"alia agorditaj pikseloj"
 
 msgid "Cleaners can use 0cd blank colors."
-msgstr ""
+msgstr "Purigistoj povas uzi 0cd blankajn kolorojn."
 
 #, javascript-format
 msgid ""
@@ -270,10 +278,10 @@ msgid "Click here to request a new verification mail."
 msgstr "Klaku jen peti novan verigan retpostmensaĝon."
 
 msgid "Click to Load Captcha"
-msgstr ""
+msgstr "Alklaku por Ŝargi Captcha-on"
 
 msgid "Clone"
-msgstr ""
+msgstr "Klono"
 
 msgid "Close"
 msgstr "Fermu"
@@ -298,13 +306,13 @@ msgstr "Konfirmu Pasvort'"
 
 #, javascript-format
 msgid "Connection error ${ code } :("
-msgstr ""
+msgstr "Konekta eraro ${ code } :("
 
 msgid "Consent"
-msgstr ""
+msgstr "Konsento"
 
 msgid "Consider joining us on Matrix:"
-msgstr ""
+msgstr "Konsideru aliĝi al ni ĉe Matrix:"
 
 msgid "Controls"
 msgstr "Kontroloj"
@@ -322,6 +330,8 @@ msgid ""
 "Cooldown is usually automatically changed for a country that is dominating. "
 "In example in the case of a streamer raid."
 msgstr ""
+"La malvarmiga tempo kutime aŭtomate ŝanĝiĝas por lando, kiu dominas. "
+"Ekzemple, en la kazo de atako de retsendanto."
 
 #, fuzzy
 msgid "Coordinates"
@@ -335,19 +345,19 @@ msgid "Copied"
 msgstr "Kopiita"
 
 msgid "Copy"
-msgstr ""
+msgstr "Kopii"
 
 msgid "Copy Link"
-msgstr ""
+msgstr "Kopii Ligilon"
 
 msgid "Copy Selected to Clipboard"
-msgstr ""
+msgstr "Kopii selektitajn al la tondejo"
 
 msgid "Copy URL"
-msgstr ""
+msgstr "Kopii URL-on"
 
 msgid "Copy UserId to Clipboard"
-msgstr ""
+msgstr "Kopii Uzanto-ID-on al Poŝbreto"
 
 msgid "Copy to Clipboard"
 msgstr "Kopiu je l' poŝ'"
@@ -356,16 +366,16 @@ msgid "Could not connect to server, please try again later :("
 msgstr "Malligita al servilo, tentu poste ŭwŭ"
 
 msgid "Could not load captcha"
-msgstr ""
+msgstr "Ne eblis ŝargi la captcha-on"
 
 msgid "Couldn't set Pixel"
 msgstr "Ne povis meti pikselon"
 
 msgid "Countries Today"
-msgstr ""
+msgstr "Landoj Hodiaŭ"
 
 msgid "Country"
-msgstr ""
+msgstr "Lando"
 
 #, fuzzy, javascript-format
 msgid "Credit for the Palette of the 2bit canvas goes to ${ donendoLink }."
@@ -380,10 +390,10 @@ msgid "Credit for the Palette of the Top10 canvas goes to ${ vinikLink }."
 msgstr "Kredito por l' Kolorar' de l' lun'  ĉeestas kun ${ vinikLink }"
 
 msgid "Current Cooldown Changes per Country"
-msgstr ""
+msgstr "Aktualaj Ŝanĝoj de Malvarmigtempo laŭ Lando"
 
 msgid "Custom Cursor"
-msgstr ""
+msgstr "Propra kursoro"
 
 msgid "DM"
 msgstr "Mesaĝi Rekte"
@@ -400,10 +410,10 @@ msgid "Daily Rank"
 msgstr "Hodiaŭa Rang'"
 
 msgid "Date of Award"
-msgstr ""
+msgstr "Dato de Premio"
 
 msgid "Date of catch"
-msgstr ""
+msgstr "Dato de kapto"
 
 #, fuzzy
 msgid "Delete"
@@ -428,10 +438,10 @@ msgid "Disable Game Sounds"
 msgstr "Malŝalti je Ludsonar'"
 
 msgid "Disable History Pencil"
-msgstr ""
+msgstr "Malŝalti Historion Krajono"
 
 msgid "Disable Overlay Pencil"
-msgstr ""
+msgstr "Malŝalti Kovrilan Krajonon"
 
 #, fuzzy
 msgid "Disable Pencil"
@@ -444,10 +454,10 @@ msgid "Do stuff with IPs (one IP per line)"
 msgstr "Faru iom kun IPs (un IP po linion)"
 
 msgid "Don't remember"
-msgstr ""
+msgstr "Ne memoras"
 
 msgid "Don't show me in global stats"
-msgstr ""
+msgstr "Ne montri min en tutmondaj statistikoj"
 
 msgid "Download Template"
 msgstr "Elŝultu Modelon"
@@ -457,16 +467,16 @@ msgid "Drag ${ mouseSymbol } mouse or ${ touchSymbol } pan to move"
 msgstr "Trenu ${ mouseSymbol } muson aŭ ${ touchSymbol } glitu por moviĝi"
 
 msgid "Duration"
-msgstr ""
+msgstr "Daŭro"
 
 msgid "Easter Egg OFF"
-msgstr ""
+msgstr "Paska Ovo MALŜALTITA"
 
 msgid "Easter Egg ON"
-msgstr ""
+msgstr "Paska ovo ŜALTITA"
 
 msgid "Edit"
-msgstr ""
+msgstr "Redakti"
 
 msgid "Email"
 msgstr "Retpostadres'"
@@ -481,6 +491,8 @@ msgid ""
 "Email is used to verify your account. You might get a cofirmation mail after "
 "registering."
 msgstr ""
+"Retpoŝto estas uzata por kontroli vian konton. Vi eble ricevos konfirman "
+"retpoŝton post registriĝo."
 
 msgid "Email should at least contain a dot"
 msgstr "Retpostmensaĝ' devus almenaŭ enhavi pukton"
@@ -492,19 +504,19 @@ msgid "Email should contain a @"
 msgstr "Retpostmensaĝ' devus enhavi @"
 
 msgid "Enable Overlay"
-msgstr ""
+msgstr "Ebligi Supermetaĵon"
 
 msgid "Enable Pencil"
-msgstr ""
+msgstr "Ebligi Krajonon"
 
 msgid "Enable chat notifications"
 msgstr "Ŝaltiti je babila avizar'"
 
 msgid "Enter Characters"
-msgstr ""
+msgstr "Enigu Karakterojn"
 
 msgid "Enter Reason"
-msgstr ""
+msgstr "Enigu Kialon"
 
 msgid "Enter UserName of new Mod"
 msgstr "Entajpu UzantNomon de la nova Moderigist'"
@@ -523,25 +535,25 @@ msgid "Error :("
 msgstr "Erar'"
 
 msgid "Expand"
-msgstr ""
+msgstr "Malfermi"
 
 msgid "Export enabled templates"
-msgstr ""
+msgstr "Eksporti ebligitajn ŝablonojn"
 
 msgid "Factor"
-msgstr ""
+msgstr "Faktoro"
 
 msgid "File"
 msgstr "Dosiero"
 
 msgid "Fish Display"
-msgstr ""
+msgstr "Fiŝa Ekspozicio"
 
 msgid "For"
-msgstr ""
+msgstr "Por"
 
 msgid "For Developers"
-msgstr ""
+msgstr "Por Programistoj"
 
 #, javascript-format
 msgid ""
@@ -549,62 +561,65 @@ msgid ""
 "your data, simply delete your account, this in fact wipes all privacy "
 "relevant traces. Your placed pixels will of course not be deleted."
 msgstr ""
+"Por iuj ajn juraj problemoj, bonvolu kontakti ${ mailLink }. Se vi volas "
+"forigi viajn datumojn, simple forigu vian konton, tio fakte forviŝas ĉiujn "
+"spurojn rilatajn al privateco. Viaj metitaj pikseloj kompreneble ne estos."
 
 msgid "For one day"
-msgstr ""
+msgstr "Por unu tago"
 
 msgid "For one month"
-msgstr ""
+msgstr "Dum unu monato"
 
 msgid "For one week"
-msgstr ""
+msgstr "Dum unu semajno"
 
 msgid "For one year"
-msgstr ""
+msgstr "Dum unu jaro"
 
 msgid "For when you are playing on a potato."
 msgstr "Kiam vi ludas je aĉa avina legoma computil'."
 
 msgid "Forever"
-msgstr ""
+msgstr "Eterne"
 
 msgid "From History"
-msgstr ""
+msgstr "El Historio"
 
 #, fuzzy
 msgid "From Template"
 msgstr "Elŝultu Modelon"
 
 msgid "Get IID"
-msgstr ""
+msgstr "Akiri IID-on"
 
 #, fuzzy
 msgid "Get Pixels"
 msgstr "Metitaj Pikseloj"
 
 msgid "Get Users"
-msgstr ""
+msgstr "Akiri Uzantojn"
 
 msgid "Get email address"
-msgstr ""
+msgstr "Akiri retpoŝtadreson"
 
 msgid "Get the amount of Pixels placed and ranking"
-msgstr ""
+msgstr "Akiru la kvanton da pikseloj metitaj kaj rangon"
 
 msgid "Globe View"
 msgstr "Globa Vidaĵ'"
 
 msgid "Go to"
-msgstr ""
+msgstr "Iri al"
 
 msgid "Grant"
-msgstr ""
+msgstr "Doni"
 
 msgid "Grid OFF"
-msgstr ""
+msgstr "Krado MALŜALTITA"
 
 msgid "Grid ON"
-msgstr ""
+msgstr "Krado ŜALTITA"
 
 msgid "Have fun!"
 msgstr "Ne havu amuzaĝon, strangulo!"
@@ -624,7 +639,7 @@ msgstr ""
 "unuope, momente)."
 
 msgid "Hide Embed"
-msgstr ""
+msgstr "Kaŝi Enkorpigi"
 
 msgid ""
 "Higher zoomlevels take some time to update, the 3D globe gets updated at "
@@ -647,7 +662,7 @@ msgid "I forgot my Password."
 msgstr "Forgesis mi pasvorton mian."
 
 msgid "IID (optional)"
-msgstr ""
+msgstr "IID (nedeviga)"
 
 #, fuzzy
 msgid "IID Actions"
@@ -657,7 +672,7 @@ msgid "IP Actions"
 msgstr "IP Aktoj"
 
 msgid "Identifiers"
-msgstr ""
+msgstr "Identigiloj"
 
 #, javascript-format
 msgid ""
@@ -666,11 +681,17 @@ msgid ""
 "mail to ${ mailLink } and, in case of a ban, include the BID you got in the "
 "ban message."
 msgstr ""
+"Se vi estis detektita kiel prokurilo, sed vi ne uzas tian, aŭ pensas, ke vi "
+"estis maljuste malpermesita, bonvolu iri al nia ${ guildedLink } aŭ sendi al "
+"ni retpoŝton al ${ mailLink } kaj, kaze de malpermesita forigo, inkluzivi la "
+"BID-on, kiun vi ricevis en la malpermesmesaĝo."
 
 msgid ""
 "If you talk to moderators or administrators, you might get asked for one of "
 "the following identifiers:"
 msgstr ""
+"Se vi parolos kun moderigantoj aŭ administrantoj, oni eble petos vin pri unu "
+"el la jenaj identigiloj:"
 
 msgid "Image Converter"
 msgstr "Bildkonvertil'"
@@ -679,10 +700,10 @@ msgid "Image Upload"
 msgstr "Je Bild' Alŝutu"
 
 msgid "Import templates"
-msgstr ""
+msgstr "Importi ŝablonojn"
 
 msgid "Interval"
-msgstr ""
+msgstr "Intervalo"
 
 #, fuzzy
 msgid "Interval is invalid"
@@ -698,38 +719,38 @@ msgid "Invalid color selected"
 msgstr "Koloro nevalida selektit"
 
 msgid "Invited to Chat"
-msgstr ""
+msgstr "Invitita al babilado"
 
 msgid ""
 "It requests the following permissions. Uncheck what you don't want to grant:"
-msgstr ""
+msgstr "Ĝi petas la jenajn permesojn. Malmarku tion, kion vi ne volas doni:"
 
 msgid "Jannies can rollback and protect, but not watch or ban."
-msgstr ""
+msgstr "Jannioj povas malfari kaj protekti, sed ne observi aŭ malpermesi."
 
 msgid "Just for registered Users"
 msgstr "Nur pri registritaj uzantoj"
 
 msgid "Just for verified Users"
-msgstr ""
+msgstr "Nur por konfirmitaj uzantoj"
 
 msgid "Just the Top10 of yesterday can place here"
-msgstr ""
+msgstr "Nur la Supraj 10 de hieraŭ povas esti ĉi tie"
 
 msgid "Keep Ratio"
 msgstr "Konservu Porporcion"
 
 msgid "Know that an account exists"
-msgstr ""
+msgstr "Sciu, ke konto ekzistas"
 
 msgid "Legal Requests"
-msgstr ""
+msgstr "Laŭleĝaj Petoj"
 
 msgid "Light Grid"
 msgstr "Hela Krad'"
 
 msgid "Load Captcha"
-msgstr ""
+msgstr "Ŝargi Captcha-on"
 
 #, fuzzy
 msgid "Loading"
@@ -742,22 +763,22 @@ msgid "Log out"
 msgstr "Elsalutu"
 
 msgid "Log out a Session:"
-msgstr ""
+msgstr "Elsaluti sesion:"
 
 msgid "LogIn"
 msgstr "EnSalUtu"
 
 msgid "Login Methods"
-msgstr ""
+msgstr "Ensalutaj Metodoj"
 
 msgid "Login to access more features and stats."
 msgstr "Ensalutu aliri pli eblojn kaj statistikaĵojn."
 
 msgid "Login to grant access to other application."
-msgstr ""
+msgstr "Ensalutu por doni aliron al alia aplikaĵo."
 
 msgid "Login to other application"
-msgstr ""
+msgstr "Ensaluti al alia aplikaĵo"
 
 msgid "Login with Name or Mail:"
 msgstr "Ensalutu kun Nomon aŭ Retpostadreson:"
@@ -776,22 +797,22 @@ msgid "Maximize"
 msgstr "maksimumigu"
 
 msgid "Minimum Color Distance"
-msgstr ""
+msgstr "Minimuma Kolordistanco"
 
 msgid "Moderators can access all Canvas, Watch and IID tools."
-msgstr ""
+msgstr "Moderigantoj povas aliri ĉiujn ilojn de Canvas, Watch kaj IID."
 
 msgid "Modtools"
 msgstr "Moderigiloj"
 
 msgid "Move"
-msgstr ""
+msgstr "Movi"
 
 msgid "Mute"
 msgstr "Silentu"
 
 msgid "Muted Sound"
-msgstr ""
+msgstr "Silentigita Sono"
 
 msgid "Name"
 msgstr "Nom'"
@@ -816,7 +837,7 @@ msgid "New Mail"
 msgstr "Nova Retpostmensaĝ'"
 
 msgid "New Name"
-msgstr ""
+msgstr "Nova Nomo"
 
 msgid "New Password"
 msgstr "Nova Pasvort'"
@@ -825,26 +846,26 @@ msgid "New Username"
 msgstr "Nova Uzantnom'"
 
 msgid "No"
-msgstr ""
+msgstr "Ne"
 
 msgid "No Phish!"
-msgstr ""
+msgstr "Neniu Fiŝo!"
 
 #, fuzzy
 msgid "No captcha id given"
 msgstr "Pasvorton ne donita."
 
 msgid "No or invalid captcha text"
-msgstr ""
+msgstr "Neniu aŭ malvalida captcha-teksto"
 
 msgid "No password given."
 msgstr "Pasvorton ne donita."
 
 msgid "Not allowed"
-msgstr ""
+msgstr "Ne permesita"
 
 msgid "OIDC LogIn"
-msgstr ""
+msgstr "OIDC-Ensaluto"
 
 msgid "OK"
 msgstr "Okej"
@@ -853,7 +874,7 @@ msgid "Offset"
 msgstr "Kompens'"
 
 msgid "Oh no, the phish escaped. Better luck next time!"
-msgstr ""
+msgstr "Ho ne, la fiŝo eskapis. Pli da bonŝanco la venontan fojon!"
 
 msgid "Old Password"
 msgstr "Malnova Pasvort'"
@@ -863,13 +884,13 @@ msgid "Online Users"
 msgstr "Malblokigu Uzantojn"
 
 msgid "Online Users on Canvas"
-msgstr ""
+msgstr "Interretaj uzantoj sur Kanvaso"
 
 msgid "Only verified Users are currently allowed to play."
-msgstr ""
+msgstr "Nur konfirmitaj uzantoj nuntempe rajtas ludi."
 
 msgid "Opacity of Overlay in percent."
-msgstr ""
+msgstr "Opakeco de la tegaĵo en procento."
 
 msgid "Open Chat"
 msgstr "Malfermu je l' babil'"
@@ -881,10 +902,10 @@ msgid "Open Palette"
 msgstr "Malfermi je L' Kolorar'"
 
 msgid "Open in PopUp"
-msgstr ""
+msgstr "Malfermi en ŝprucfenestro"
 
 msgid "OpenID Connect Client registration"
-msgstr ""
+msgstr "OpenID Connect Klienta registrado"
 
 msgid ""
 "Our main canvas is a huge worldmap, you can place wherever you like, but you "
@@ -902,13 +923,13 @@ msgstr ""
 "je jam metitaj pikseloj."
 
 msgid "Overlay OFF"
-msgstr ""
+msgstr "Supermetaĵo MALŜALTITA"
 
 msgid "Overlay ON"
-msgstr ""
+msgstr "Supermetaĵo ŜALTITA"
 
 msgid "Overlay Opacity"
-msgstr ""
+msgstr "Supermeti Opakeco"
 
 msgid "Palette Download"
 msgstr "Elŝulti Kolorare"
@@ -935,28 +956,28 @@ msgstr "Pasvortoj ne parigas."
 
 #, javascript-format
 msgid "Pencil Mode for ${ canvasName } canvas"
-msgstr ""
+msgstr "Krajona Reĝimo por ${ canvasName } kanvaso"
 
 msgid "Pencil picks: "
-msgstr ""
+msgstr "Krajonaj elektoj: "
 
 msgid "Permission"
-msgstr ""
+msgstr "Permeso"
 
 msgid "Phish!"
-msgstr ""
+msgstr "Fiŝo!"
 
 msgid "Phishes"
-msgstr ""
+msgstr "Fiŝoj"
 
 msgid "Ping"
 msgstr "Eĥosondu"
 
 msgid "Pixel Notify OFF"
-msgstr ""
+msgstr "Piksela Sciigo MALŜALTITA"
 
 msgid "Pixel Notify ON"
-msgstr ""
+msgstr "Piksela Sciigo ŜALTITA"
 
 msgid "Pixel Protection"
 msgstr "Piksela Protektaĵ'"
@@ -975,22 +996,24 @@ msgid "Play a sound when new chat messages arrive"
 msgstr "Meti sonon kiam novan babilan mensaĝon alvenas"
 
 msgid "Player"
-msgstr ""
+msgstr "Ludanto"
 
 #, fuzzy
 msgid "Players and Pixels per hour"
 msgstr "Metitaj Pikseloj"
 
 msgid "Please prove that you are human"
-msgstr ""
+msgstr "Bonvolu pruvi, ke vi estas homo"
 
 msgid "Please refresh the website"
-msgstr ""
+msgstr "Bonvolu refreŝigi la retejon"
 
 msgid ""
 "Please verify your mail address or add a new one, otherwise your account "
 "could get deleted in the future."
 msgstr ""
+"Bonvolu konfirmi vian retpoŝtadreson aŭ aldoni novan, alie via konto povus "
+"esti forigita estonte."
 
 msgid "Political Compass Canvas"
 msgstr "Politikompasa Kanvas'"
@@ -1033,16 +1056,16 @@ msgid "Press ${ bindX } to toggle showing of pixel activity"
 msgstr "Premu ${ bindX } por vidi piksel' aktivec'"
 
 msgid "Private"
-msgstr ""
+msgstr "Privata"
 
 msgid "Profile"
 msgstr "Profil'"
 
 msgid "Quick Actions"
-msgstr ""
+msgstr "Rapidaj Agoj"
 
 msgid "Range Banned"
-msgstr ""
+msgstr "Intervalo Malpermesita"
 
 msgid "Ranked"
 msgstr "Rangita"
@@ -1051,16 +1074,16 @@ msgid "Ranking updates every 5 min. Daily rankings get reset at midnight UTC."
 msgstr "Rangigas ĉiu 5 minutoj. Hodiaŭa rangojn nuligas je meznokto UTC."
 
 msgid "Read Badges and fishes"
-msgstr ""
+msgstr "Legu insignojn kaj fiŝojn"
 
 msgid "Read name, username and account age"
-msgstr ""
+msgstr "Legu nomon, uzantnomon kaj aĝon de la konto"
 
 msgid "Reason"
-msgstr ""
+msgstr "Kialo"
 
 msgid "Refresh"
-msgstr ""
+msgstr "Refreŝigi"
 
 msgid "Register"
 msgstr "Registriĝi"
@@ -1069,31 +1092,31 @@ msgid "Register new account here"
 msgstr "Registriĝi novan konton jen"
 
 msgid "Regularly update this data"
-msgstr ""
+msgstr "Regule ĝisdatigu ĉi tiujn datumojn"
 
 msgid "Reload"
-msgstr ""
+msgstr "Reŝargi"
 
 msgid "Remember this decision: "
-msgstr ""
+msgstr "Memoru ĉi tiun decidon: "
 
 msgid "Remove"
-msgstr ""
+msgstr "Forigi"
 
 msgid "Remove Cleaner"
-msgstr ""
+msgstr "Forigu Purigilon"
 
 msgid "Remove Janny"
-msgstr ""
+msgstr "Forigu Janny"
 
 msgid "Remove Moderator"
 msgstr "Alĵetu je Moderigist'"
 
 msgid "Remove a Login method:"
-msgstr ""
+msgstr "Forigi ensalutan metodon:"
 
 msgid "Require Verification to Place"
-msgstr ""
+msgstr "Postuli Konfirmon por Loko"
 
 msgid "Requirements"
 msgstr "Postular'"
@@ -1102,28 +1125,28 @@ msgid "Reset"
 msgstr "Renuligu"
 
 msgid "Reset Captchas of ALL Users"
-msgstr ""
+msgstr "Restarigi Captcha-ojn de ĈIUJ Uzantoj"
 
 msgid "Reset your password"
-msgstr ""
+msgstr "Restarigi vian pasvorton"
 
 msgid "Resize"
-msgstr ""
+msgstr "Regrandigi"
 
 msgid "Restore"
-msgstr ""
+msgstr "Restaŭri"
 
 msgid "Retired Canvases (history only)"
-msgstr ""
+msgstr "Emeritaj Kanvasoj (nur historio)"
 
 msgid "Retract"
-msgstr ""
+msgstr "Retiri"
 
 msgid "Revoke consent of third party applications:"
-msgstr ""
+msgstr "Revoki konsenton de triapartaj aplikoj:"
 
 msgid "Roll different Captcha Fonts"
-msgstr ""
+msgstr "Rulu malsamajn Captcha-tiparojn"
 
 #, fuzzy
 msgid "Rollback an area of the canvas to a set date and time"
@@ -1169,24 +1192,24 @@ msgid "Selected Color"
 msgstr "Selektu Lingvon"
 
 msgid "Send"
-msgstr ""
+msgstr "Sendi"
 
 msgid "Sent you a mail with instructions to reset your password."
 msgstr ""
 "Sendita estas retpostmensaĝo kun instrukcioj, kiel renovigi vian pasvorton."
 
 msgid "Serpentine"
-msgstr ""
+msgstr "Serpentumo"
 
 msgid "Server answered with gibberish :("
-msgstr ""
+msgstr "La servilo respondis sensencaĵe :("
 
 msgid ""
 "Server got confused by your pixels. Are you playing on multiple devices?"
-msgstr ""
+msgstr "Servilo konfuziĝis pro viaj pikseloj. Ĉu vi ludas sur pluraj aparatoj?"
 
 msgid "Set Password"
-msgstr ""
+msgstr "Agordi Pasvorton"
 
 #, fuzzy
 msgid ""
@@ -1200,12 +1223,14 @@ msgid ""
 "Setting a password allows you to login by username or email, rather than "
 "only relying on 3rd party login."
 msgstr ""
+"Agordi pasvorton permesas al vi ensaluti per uzantnomo aŭ retpoŝto, anstataŭ "
+"nur fidi je triaparta ensaluto."
 
 msgid "Settings"
 msgstr "Agordar'"
 
 msgid "Show Embedded"
-msgstr ""
+msgstr "Montri Enigitan"
 
 msgid "Show Grid"
 msgstr "Montri je Krad'"
@@ -1221,9 +1246,11 @@ msgstr "Montri cirklojn tie ke pikselojn estas metitajn."
 
 msgid "Show overlay as small individual pixels on high zoomlevels."
 msgstr ""
+"Montri la supermetaĵon kiel malgrandajn individuajn pikselojn ĉe altaj "
+"zomniveloj."
 
 msgid "Show templates as overlays ingame."
-msgstr ""
+msgstr "Montru ŝablonojn kiel paŭsaĵojn en la ludo."
 
 msgid "Size"
 msgstr ""
@@ -1400,7 +1427,7 @@ msgid "Unblock Users"
 msgstr "Malblokigu Uzantojn"
 
 msgid "Unknown Captcha Error"
-msgstr ""
+msgstr "Nekonata Captcha-eraro"
 
 msgid "Unknown Error"
 msgstr ""
@@ -1428,7 +1455,7 @@ msgid "User Area"
 msgstr "Uzantareo"
 
 msgid "User ID and verification level"
-msgstr ""
+msgstr "Uzanto-identigilo kaj konfirmnivelo"
 
 msgid "User Name"
 msgstr "Uzantnom'"
@@ -1437,19 +1464,19 @@ msgid "Username"
 msgstr ""
 
 msgid "Username can only contain the characters: a-z . _ and -"
-msgstr ""
+msgstr "Uzantnomo povas enhavi nur la signojn: a-z . _ kaj -"
 
 msgid "Username can only contain the characters: a-z A-z . _ and -"
 msgstr ""
 
 msgid "Username can't be empty."
-msgstr ""
+msgstr "Uzantnomo ne povas esti malplena."
 
 msgid "Username must be at least 2 characters long"
-msgstr ""
+msgstr "Uzantnomo devas esti almenaŭ 2 signojn longa"
 
 msgid "Username must be shorter than 26 characters"
-msgstr ""
+msgstr "Uzantnomo devas esti pli mallonga ol 26 signoj"
 
 #, javascript-format
 msgid "We are Libre Software under the ${ agplLink }, "
@@ -1553,7 +1580,7 @@ msgid "You did not consent"
 msgstr ""
 
 msgid "You failed your captcha"
-msgstr ""
+msgstr "Vi malsukcesis vian captcha-on"
 
 msgid "You have new messages in chat"
 msgstr ""
@@ -1603,7 +1630,7 @@ msgid ""
 msgstr ""
 
 msgid "Your Browser looks shady"
-msgstr ""
+msgstr "Via retumilo aspektas suspektinda"
 
 msgid "Your Internet Provider is banned from this game"
 msgstr ""

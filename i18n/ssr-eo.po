@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: admin@pixelplanet.fun\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2025-11-04 18:40+0000\n"
+"PO-Revision-Date: 2026-01-12 15:41+0000\n"
 "Last-Translator: Extreme Motorsex <em@noreply.pixelplanet.fun>\n"
 "Language-Team: Esperanto <https://translate.gs-os.com/projects/ppfun/server/"
 "eo/>\n"
@@ -15,13 +15,13 @@ msgstr ""
 "X-Generator: Weblate 5.14\n"
 
 msgid "1bit"
-msgstr "1bit'"
+msgstr "1-bita"
 
 msgid "2bit"
-msgstr ""
+msgstr "2-bita"
 
 msgid "3D Canvas"
-msgstr "3D Kanvas'"
+msgstr "3D-Kanvaso"
 
 msgid "A 3D globe of our whole map"
 msgstr "3D globo de nia tuta mapo"
@@ -30,36 +30,38 @@ msgid ""
 "A canvas for the most active players from the the previous day. Daily "
 "ranking updates at 00:00 UTC."
 msgstr ""
+"Kanvaso por la plej aktivaj ludantoj de la antaŭa tago. Ĉiutage la "
+"rangotabelo ĝisdatigiĝas je 00:00 UTC."
 
 msgid "Access modtools"
-msgstr ""
+msgstr "Aliru moderigajn ilojn"
 
 msgid "Add Application"
-msgstr ""
+msgstr "Aldoni Aplikaĵon"
 
 msgid "Add an Application (OIDC Client)"
-msgstr ""
+msgstr "Aldoni Aplikaĵon (OIDC-Kliento)"
 
 msgid "Add new application"
-msgstr ""
+msgstr "Aldoni novan aplikaĵon"
 
 msgid "An error occured. Please try again later."
-msgstr ""
+msgstr "Eraro okazis. Bonvolu reprovi poste."
 
 msgid "Application changed successfully"
-msgstr ""
+msgstr "Aplikaĵo sukcese ŝanĝita"
 
 msgid "Application deleted"
-msgstr ""
+msgstr "Aplikaĵo forigita"
 
 msgid "Application successfully added"
-msgstr ""
+msgstr "Aplikaĵo sukcese aldonita"
 
 msgid "Black and White canvas"
 msgstr "Nigra-Blanka kanvaso"
 
 msgid "Can not chat while being banned"
-msgstr ""
+msgstr "Ne eblas babili dum malpermesita"
 
 msgid "Click here"
 msgstr "Klaku ĉi tien"
@@ -68,7 +70,7 @@ msgid "Click to Verify"
 msgstr "Klaki por Verigi"
 
 msgid "Client Name"
-msgstr ""
+msgstr "Klienta Nomo"
 
 msgid "Confirm New Password"
 msgstr "Verigu Novan Pasvorton"
@@ -77,30 +79,32 @@ msgid ""
 "Conquer land on a smaller earth with protected ocean. Shares cooldown with "
 "earth canvas!"
 msgstr ""
+"Konkeru teron sur pli malgranda tero kun protektita oceano. Kunhavas "
+"malvarmiĝtempon kun tera kanvaso!"
 
 msgid "Consent"
-msgstr ""
+msgstr "Konsento"
 
 msgid "Coronavirus"
 msgstr "Kronvirus'"
 
 msgid "Could not close this Session."
-msgstr ""
+msgstr "Ne eblis fermi ĉi tiun sesion."
 
 msgid "Could not find this login method"
-msgstr ""
+msgstr "Ne eblis trovi ĉi tiun ensalutan metodon"
 
 msgid "Couldn't find this mail in our database"
 msgstr "Ne trovis tion retpostmensaĝon en la datumbazon"
 
 msgid "Default"
-msgstr ""
+msgstr "Defaŭlta"
 
 msgid "Delete Application"
-msgstr ""
+msgstr "Forigi Aplikaĵon"
 
 msgid "Display name for your OIDC client"
-msgstr ""
+msgstr "Vidiga nomo por via OIDC-kliento"
 
 msgid "Double click on globe to go back."
 msgstr "Duoble klaku je la globo por reiri."
@@ -112,7 +116,7 @@ msgid "Earth"
 msgstr "L' Mond'"
 
 msgid "Edit existing applications"
-msgstr ""
+msgstr "Redakti ekzistantajn aplikaĵojn"
 
 msgid "Email can't be empty."
 msgstr "Retpostadreso ne povas malpleni."
@@ -133,18 +137,18 @@ msgid "Error"
 msgstr "Erar'"
 
 msgid "Failed to create a new user :("
-msgstr ""
+msgstr "Malsukcesis krei novan uzanton :("
 
 #. 'client_secret' is a technical term and should not be translated
 msgid ""
 "Generate a new client_secret. The old secret will become invalid immediately."
-msgstr ""
+msgstr "Generu novan client_secret. La malnova sekreto tuj malvalidiĝos."
 
 msgid "Get email address"
-msgstr ""
+msgstr "Akiri retpoŝtadreson"
 
 msgid "Get the amount of Pixels placed and ranking"
-msgstr ""
+msgstr "Akiru la kvanton da pikseloj metitaj kaj rangon"
 
 msgid ""
 "Have fun and don't hesitate to contact us if you encounter any problems :)"
@@ -155,7 +159,7 @@ msgstr "Saluton"
 
 #, javascript-format
 msgid "Hello ${ email }, you can set your new password here:"
-msgstr ""
+msgstr "Saluton ${ email }, vi povas agordi vian novan pasvorton ĉi tie:"
 
 #, javascript-format
 msgid "Hello ${ name }"
@@ -167,6 +171,10 @@ msgid ""
 "that you are unaware of under \"Login Methods\" in the User Area and change "
 "your password."
 msgstr ""
+"Se tio estis vi, bonvolu ignori ĉi tiun retmesaĝon. Se ne vi, bonvolu iri al "
+"<a href=\"https://pixelplanet.fun\">pixelplanet.fun</a> kaj elsaluti ajnan "
+"sesion, pri kiu vi ne scias, sub \"Ensalutaj Metodoj\" en la Uzanto-Areo kaj "
+"ŝanĝi vian pasvorton."
 
 #, javascript-format
 msgid ""
@@ -183,35 +191,35 @@ msgid "Invalid url :( Please check your mail again."
 msgstr "Nevalida URL ŭwŭ. Relegu vian retpostmensaĝujon."
 
 msgid "Just admins can do that"
-msgstr ""
+msgstr "Nur administrantoj povas fari tion"
 
 msgid "Know that an account exists"
-msgstr ""
+msgstr "Sciu, ke konto ekzistas"
 
 #. "scopes" is a technical term and should not be translated
 msgid "List of available scopes"
-msgstr ""
+msgstr "Listo de disponeblaj scopes"
 
 msgid "Loading..."
 msgstr "Ŝarĝadanta..."
 
 msgid "Login from new location on PixelPlanet"
-msgstr ""
+msgstr "Ensaluti de nova loko ĉe PixelPlanet"
 
 msgid "Login is required"
-msgstr ""
+msgstr "Ensaluto estas necesa"
 
 msgid "Mail is already in use!"
-msgstr ""
+msgstr "Retpoŝto jam estas uzata!"
 
 msgid "Mail is not configured on the server"
-msgstr ""
+msgstr "Retpoŝto ne estas agordita sur la servilo"
 
 msgid "Mail verification"
 msgstr "Retpostmensaĝa verigo"
 
 msgid "Minimap"
-msgstr ""
+msgstr "Minimapo"
 
 msgid "Mirror of PixelCanvas"
 msgstr "Ŝutspegulo de PixelKanvaso"
@@ -231,7 +239,7 @@ msgstr ""
 "texta (krom se parto da arto)"
 
 msgid "Name already in use."
-msgstr ""
+msgstr "Nomo jam uzata."
 
 msgid "Name can't be empty."
 msgstr "Nom' ne povas esti malplena."
@@ -240,7 +248,7 @@ msgid "Name contains invalid character like @, /, \\ or #"
 msgstr "Nom' enhavas nevalidan karakterojn kiel @, /, \\, aŭ #"
 
 msgid "Name is too long"
-msgstr ""
+msgstr "La nomo estas tro longa"
 
 #, fuzzy
 msgid "Name must be at least 2 characters long"
@@ -250,7 +258,7 @@ msgid "Name must be shorter than 26 characters"
 msgstr "Nom' devus esti pli mallonga ol 26 karakterojn"
 
 msgid "Name or Email does not exist!"
-msgstr ""
+msgstr "Nomo aŭ retpoŝtadreso ne ekzistas!"
 
 msgid "New Password"
 msgstr "Nova Pasvorto"
@@ -260,36 +268,36 @@ msgid "No Captcha given"
 msgstr "Pasvorton ne donita."
 
 msgid "No or invalid fish id."
-msgstr ""
+msgstr "Neniu aŭ malvalida fiŝidentigilo."
 
 msgid "No password given."
 msgstr "Pasvorton ne donita."
 
 #. "redirect_uris" is a technical term and should not be translated
 msgid "No redirect_uris given."
-msgstr ""
+msgstr "Neniu redirect_uris donita."
 
 msgid "No such badge found"
-msgstr ""
+msgstr "Neniu tia insigno trovita"
 
 msgid "No such fish found"
-msgstr ""
+msgstr "Neniu tia fiŝo trovita"
 
 msgid "One redirect URIs per line"
-msgstr ""
+msgstr "Unu alidirektaj URI-oj po linio"
 
 msgid "One redirect_uri per line"
-msgstr ""
+msgstr "Unu redirect_uri por linio"
 
 #. "redirect_uris" is a technical term and should not be translated
 msgid "Only five redirect_uris are allowed per client"
-msgstr ""
+msgstr "Nur kvin redirect_uris estas permesitaj por kliento"
 
 msgid "Only four colors. Same rules as moon!"
-msgstr ""
+msgstr "Nur kvar koloroj. Samaj reguloj kiel luno!"
 
 msgid "OpenID Connect specs"
-msgstr ""
+msgstr "Specifoj de OpenID Connect"
 
 msgid "Or by copying following url:"
 msgstr "Aŭ kopianta la URL:"
@@ -307,7 +315,7 @@ msgid "Password successfully changed."
 msgstr "Pasvorton Malerare Ŝanĝita."
 
 msgid "Permission"
-msgstr ""
+msgstr "Permeso"
 
 msgid "PixelCanvas"
 msgstr "PikselKanvaso"
@@ -325,6 +333,10 @@ msgid ""
 "pixelplanet accounts. The required endpoints can be auto-discovered via the $"
 "{ wellKnownUrl } URL."
 msgstr ""
+"Pixelplanet plenumas la specifojn de OpenID Connect (OIDC). Do aplikaĵo, kiu "
+"subtenas OIDC, povus peti konsenton kaj ensaluti per pixelplanet-kontoj. La "
+"bezonataj finpunktoj povas esti aŭtomate malkovritaj per la ${ wellKnownUrl }"
+" URL."
 
 #, fuzzy
 msgid "Place Voxels on a 3D canvas with others."
@@ -334,29 +346,29 @@ msgid "Place color pixels on an map styled canvas with other players online"
 msgstr "Metu kolorajn pikselojn en grandan kanvason kun alian ludantojn enrete"
 
 msgid "Please refresh the website"
-msgstr ""
+msgstr "Bonvolu refreŝigi la retejon"
 
 msgid "Please try again."
-msgstr ""
+msgstr "Bonvolu provi denove."
 
 msgid "Please use int channel"
 msgstr "Uzu /int/ strangulon"
 
 msgid "Read Badges and fishes"
-msgstr ""
+msgstr "Legu insignojn kaj fiŝojn"
 
 msgid "Read name, username and account age"
-msgstr ""
+msgstr "Legu nomon, uzantnomon kaj aĝon de la konto"
 
 msgid "Redirect URIs"
-msgstr ""
+msgstr "Alidirektaj URI-oj"
 
 msgid "Regularly update this data"
-msgstr ""
+msgstr "Regule ĝisdatigu ĉi tiujn datumojn"
 
 #. 'client_secret' is a technical term and should not be translated
 msgid "Reroll client_secret"
-msgstr ""
+msgstr "Rerulu client_secret"
 
 msgid "Reset Password"
 msgstr "Renovigu Pasvorton"
@@ -365,27 +377,31 @@ msgid "Reset your password here"
 msgstr "Renovigu pasvorton vian ĉi tien"
 
 msgid "Server error when deleting user."
-msgstr ""
+msgstr "Servila eraro dum forigo de uzanto."
 
 msgid "Someone logged into your account from a new location, with the IP:"
-msgstr ""
+msgstr "Iu ensalutis vian konton de nova loko, kun la IP-adreso:"
 
 msgid "Space-separated list of available scopes"
-msgstr ""
+msgstr "Spac-apartigita listo de disponeblaj scopes"
 
 msgid ""
 "Space-separated list of default scopes, they will be used on requests if no "
 "other scope is given."
 msgstr ""
+"Spac-apartigita listo de defaŭltaj scopes, ili estos uzataj ĉe petoj se "
+"neniu alia amplekso estas donita."
 
 #. 'scope' is used as a technical term here, do not translate that word
 msgid ""
 "Space-separated list of default scopes, they will be used on requests where "
 "no other scope is given."
 msgstr ""
+"Spac-apartigita listo de defaŭltaj scopes, ili estos uzataj ĉe petoj kie "
+"neniu alia amplekso estas donita."
 
 msgid "Space-separated list of scopes that should be available"
-msgstr ""
+msgstr "Spac-apartigita listo de scopes kiuj devus esti haveblaj"
 
 #, fuzzy
 msgid "Special canvas to spread awareness of SARS-CoV2 (take the vax)."
@@ -401,25 +417,25 @@ msgid "Thanks"
 msgstr "DANKon"
 
 msgid "The user owning this badge is private"
-msgstr ""
+msgstr "La uzanto posedanta ĉi tiun insignon estas privata"
 
 msgid "The user owning this fish is private"
-msgstr ""
+msgstr "La uzanto posedanta ĉi tiun fiŝon estas privata"
 
 msgid "This application is not allowed to login"
-msgstr ""
+msgstr "Ĉi tiu aplikaĵo ne rajtas ensaluti"
 
 msgid "This application redirects to an unallowed page"
-msgstr ""
+msgstr "Ĉi tiu aplikaĵo redirektas al nepermesita paĝo"
 
 msgid "This application sent a faulty login request with no redirection"
-msgstr ""
+msgstr "Ĉi tiu aplikaĵo sendis difektan ensalutan peton sen alidirektado"
 
 msgid "This application uses a PKCE method we do not support"
-msgstr ""
+msgstr "Ĉi tiu aplikaĵo uzas PKCE-metodon, kiun ni ne subtenas"
 
 msgid "This application uses a login method we do not support"
-msgstr ""
+msgstr "Ĉi tiu aplikaĵo uzas ensalutan metodon, kiun ni ne subtenas"
 
 msgid ""
 "This email / password combination got hacked and leaked. To protect this "
@@ -427,6 +443,10 @@ msgid ""
 "function below to set a new password. In the future, consider not installing "
 "malware, Thank You."
 msgstr ""
+"Ĉi tiu kombinaĵo de retpoŝtadreso kaj pasvorto estis hakita kaj likita. Por "
+"protekti ĉi tiun konton, la pasvorto estis restarigita. Bonvolu uzi la "
+"funkcion \"Ĉu mi forgesis mian pasvorton\" sube por agordi novan pasvorton. "
+"Estonte, konsideru ne instali malicajn programojn, dankon."
 
 msgid ""
 "This email / password combination got hacked and leaked. To protect this "
@@ -434,28 +454,32 @@ msgid ""
 "function on the LogIn page to set a new password. In the future, consider "
 "not installing malware, Thank You."
 msgstr ""
+"Ĉi tiu retpoŝtadreso/pasvorta kombinaĵo estis hakita kaj likita. Por "
+"protekti ĉi tiun konton, la pasvorto estis restarigita. Bonvolu uzi la "
+"funkcion \"Ĉu mi forgesis mian pasvorton\" sur la ensaluta paĝo por agordi "
+"novan pasvorton. Estontece, konsideru ne instali malicajn programojn, dankon."
 
 msgid "This email provider is not allowed"
-msgstr ""
+msgstr "Ĉi tiu retpoŝta provizanto ne estas permesita"
 
 msgid "This password-reset link isn't valid anymore :("
 msgstr "Ĉi tio renovigopasvortoligon malestas valido nun ŭwŭ"
 
 #. "redirect_uris" is a technical term and should not be translated
 msgid "Too many or too long redirect_uris"
-msgstr ""
+msgstr "Tro multaj aŭ tro longaj redirect_uris"
 
 msgid "Top10"
-msgstr ""
+msgstr "Supraj 10"
 
 msgid "Unknown Captcha Error"
-msgstr ""
+msgstr "Nekonata Captcha-eraro"
 
 msgid "Update Application"
-msgstr ""
+msgstr "Ĝisdatigu Aplikaĵon"
 
 msgid "User ID and verification level"
-msgstr ""
+msgstr "Uzanto-identigilo kaj konfirmnivelo"
 
 msgid "User doesn't exist in our database :("
 msgstr "Uzanto ne ekzistas ŭwŭ"
@@ -464,19 +488,19 @@ msgid "Username already in use."
 msgstr "Uzantnomo jam uzata."
 
 msgid "Username can not start with pp_"
-msgstr ""
+msgstr "Uzantnomo ne povas komenciĝi per pp_"
 
 msgid "Username can only contain the characters: a-z . _ and -"
-msgstr ""
+msgstr "Uzantnomo povas enhavi nur la signojn: a-z . _ kaj -"
 
 msgid "Username can't be empty."
-msgstr ""
+msgstr "Uzantnomo ne povas esti malplena."
 
 msgid "Username must be at least 2 characters long"
-msgstr ""
+msgstr "Uzantnomo devas esti almenaŭ 2 signojn longa"
 
 msgid "Username must be shorter than 26 characters"
-msgstr ""
+msgstr "Uzantnomo devas esti pli mallonga ol 26 signoj"
 
 msgid ""
 "We already sent you a mail with instructions. Please wait before requesting "
@@ -498,13 +522,13 @@ msgid "Welcome ${ name } to PixelPlanet, please verify your mail"
 msgstr "Bonvenon ${ name } to PixelPlanet, bonvolu verigi vian retpostadreson"
 
 msgid "You already chose your username"
-msgstr ""
+msgstr "Vi jam elektis vian uzantnomon"
 
 msgid "You already have that name."
-msgstr ""
+msgstr "Vi jam havas tiun nomon."
 
 msgid "You are already verified."
-msgstr ""
+msgstr "Vi jam estas konfirmita."
 
 #, javascript-format
 msgid "You are muted for another ${ timeMin } minutes"
@@ -539,12 +563,14 @@ msgstr "Vi sendas mensaĝojn tro rapide, atendu ${ waitTime }s ŭwŭ"
 msgid ""
 "You can not delete this login method, because you have nothing else left."
 msgstr ""
+"Vi ne povas forigi ĉi tiun ensalutan metodon, ĉar vi havas nenion alian "
+"restantan."
 
 msgid "You can not register an account while you are banned"
-msgstr ""
+msgstr "Vi ne povas registri konton dum vi estas malpermesita"
 
 msgid "You can not register an account with a proxy"
-msgstr ""
+msgstr "Vi ne povas registri konton ĉe prokurilo"
 
 #, fuzzy
 msgid "You can not send chat messages while using a proxy"
@@ -554,6 +580,8 @@ msgid ""
 "You can register your own application here to get the client_id and "
 "client_secret needed to make use of this."
 msgstr ""
+"Vi povas registri vian propran aplikaĵon ĉi tie por akiri la client_id kaj "
+"client_secret necesajn por uzi ĉi tion."
 
 msgid "You can't send a message this long :("
 msgstr "Ne sendus mensaĝon tiom longa ŭwŭ"
@@ -561,28 +589,30 @@ msgstr "Ne sendus mensaĝon tiom longa ŭwŭ"
 msgid ""
 "You do not have any email adress set. Please add one under \"Login Methods\"."
 msgstr ""
+"Vi ne havas retpoŝtadreson difinitan. Bonvolu aldoni unu sub "
+"\"Ensalutaj Metodoj\"."
 
 msgid "You don't have access to this channel"
 msgstr "Malhavas l' permes' je l' kanal'"
 
 msgid "You failed your captcha"
-msgstr ""
+msgstr "Vi malsukcesis vian captcha-on"
 
 msgid "You forgot your password for PixelPlanet? Get a new one here"
 msgstr "Forgesus vian pasvorton je PixelPlanet? Petu novan ĉi tien"
 
 msgid "You have to fill out all fields"
-msgstr ""
+msgstr "Vi devas plenigi ĉiujn kampojn"
 
 msgid "You must be logged in to access this page"
-msgstr ""
+msgstr "Vi devas esti ensalutinta por aliri ĉi tiun paĝon"
 
 #. "scope" is a technical term and should not be translated
 msgid "You need to define a valid scope"
-msgstr ""
+msgstr "Vi bezonas difini validan scope"
 
 msgid "You need to directly access this page in the browser :("
-msgstr ""
+msgstr "Vi devas rekte aliri ĉi tiun paĝon en la retumilo :("
 
 msgid ""
 "You requested to get a new password. You can change your password within the "
@@ -595,16 +625,16 @@ msgid "You sent an empty password or invalid data :("
 msgstr "Vi sendis pasvorton malplenan aŭ nevalida datumo ŭwŭ"
 
 msgid "You took too long, try again"
-msgstr ""
+msgstr "Vi tro longe bezonis, provu denove"
 
 msgid "You will be automatically redirected after 15s"
 msgstr "Aŭte redirektos vin post 15s"
 
 msgid "Your Browser looks shady"
-msgstr ""
+msgstr "Via retumilo aspektas suspektinda"
 
 msgid "Your account needs to be verified to access this page"
-msgstr ""
+msgstr "Via konto devas esti konfirmita por aliri ĉi tiun paĝon"
 
 #, fuzzy
 msgid "Your country is temporary muted from this chat channel"
@@ -625,7 +655,7 @@ msgstr "Viajn pasvortojn ne parigis ŭwŭ"
 
 #. "redirect_uris" is a technical term and should not be translated
 msgid "redirect_uris does not look legit"
-msgstr ""
+msgstr "redirect_uris ne aspektas legitima"
 
 msgid "to go back to pixelplanet"
 msgstr "reiri al pixelplanet"
