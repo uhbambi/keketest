@@ -1,14 +1,15 @@
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2024-06-14 20:57+0000\n"
-"Last-Translator: weblate <weblate@noreply.pixelplanet.fun>\n"
-"Language-Team: Kyrgyz <https://hosted.weblate.org/projects/pixelplanet/"
-"client/ky/>\n"
+"Report-Msgid-Bugs-To: admin@pixelplanet.fun\n"
+"PO-Revision-Date: 2026-01-12 16:40+0000\n"
+"Last-Translator: Extreme Motorsex <em@noreply.pixelplanet.fun>\n"
+"Language-Team: Kyrgyz <https://translate.gs-os.com/projects/ppfun/client/ky/>"
+"\n"
 "Language: ky\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.6-dev\n"
+"X-Generator: Weblate 5.14\n"
 
 msgid " which is in "
 msgstr " ичинде кайсы "
@@ -46,64 +47,64 @@ msgstr ""
 "чычкандын ортоңку баскычын басып, чоңойтуу үчүн сүйрөңүз"
 
 msgid "(0 = infinite)"
-msgstr ""
+msgstr "(0 = чексиз)"
 
 msgid "+last hour"
-msgstr ""
+msgstr "+акыркы саат"
 
 msgid "...loading Login methods and sessions..."
-msgstr ""
+msgstr "...кирүү ыкмалары жана сессиялары жүктөлүүдө..."
 
 msgid "A Phish!"
-msgstr ""
+msgstr "Балык!"
 
 msgid "A new verification mail is getting sent to you."
-msgstr ""
+msgstr "Сизге жаңы ырастоо каты жөнөтүлүүдө."
 
 msgid "ACCESS MODTOOLS"
-msgstr ""
+msgstr "МОДЕРАТОРДУН КУРАЛДАРЫНА КИРҮҮ"
 
 msgid "Add Grid (uncheck if you need a 1:1 template)"
-msgstr ""
+msgstr "Торчо кошуу (эгер сизге 1:1 шаблон керек болсо, белгини алып салыңыз)"
 
 msgid "Add Template"
-msgstr ""
+msgstr "Шаблон кошуу"
 
 msgid "Admintools"
-msgstr ""
+msgstr "Администратор куралдары"
 
 msgid "All sound effects will be disabled."
-msgstr ""
+msgstr "Бардык үн эффекттери өчүрүлөт."
 
 msgid "Always show Movement Controls"
-msgstr ""
+msgstr "Кыймылды башкаруу элементтерин ар дайым көрсөтүү"
 
 msgid "Always show movement control buttons"
-msgstr ""
+msgstr "Кыймылды башкаруу баскычтарын ар дайым көрсөтүү"
 
 msgid "Anti Aliasing"
-msgstr ""
+msgstr "Анти-алиасинг"
 
 msgid "Apply a filter to clean trash in large canvas areas."
-msgstr ""
+msgstr "Чоң брезент жерлериндеги таштандыларды тазалоо үчүн чыпканы колдонуңуз."
 
 msgid "Archive"
-msgstr ""
+msgstr "Архив"
 
 msgid "Assign new Mod"
-msgstr ""
+msgstr "Жаңы мод дайындоо"
 
 msgid "Auto Zoom In"
-msgstr ""
+msgstr "Автоматтык түрдө чоңойтуу"
 
 msgid "Back"
-msgstr ""
+msgstr "Артка"
 
 msgid "Badge Display"
-msgstr ""
+msgstr "Белги көрсөтүү"
 
 msgid "Badges"
-msgstr ""
+msgstr "Белгилер"
 
 msgid "Banned"
 msgstr "Бан"
@@ -112,22 +113,26 @@ msgid "Banned? Detected as Proxy?"
 msgstr "Тыюу салынганбы? Прокси катары аныкталдыбы?"
 
 msgid "Block"
-msgstr ""
+msgstr "Блок"
 
 msgid "Block DMs"
-msgstr ""
+msgstr "Түз билдирүүлөрдү бөгөттөө"
 
 msgid ""
 "Block all Private Messages. Enabling this will delete all your current DMs. "
 "You can still start new DMs with other users, but other users won't be able "
 "to start DMs with you."
 msgstr ""
+"Бардык жеке билдирүүлөрдү бөгөттөө. Муну иштетүү учурдагы бардык жеке "
+"билдирүүлөрүңүздү жок кылат. Сиз дагы эле башка колдонуучулар менен жаңы "
+"жеке билдирүүлөрдү баштай аласыз, бирок башка колдонуучулар сиз менен жеке "
+"билдирүүлөрдү баштай алышпайт."
 
 msgid "Blocked"
-msgstr ""
+msgstr "Бөгөттөлгөн"
 
 msgid "Bottom-right corner"
-msgstr ""
+msgstr "Төмөнкү оң бурч"
 
 msgid "Build image and set it to protected."
 msgstr ""
@@ -291,7 +296,7 @@ msgid "Connection error ${ code } :("
 msgstr "Туташуу катасы ${ code } :("
 
 msgid "Consent"
-msgstr ""
+msgstr "Макулдук"
 
 msgid "Consider joining us on Matrix:"
 msgstr ""

@@ -1,14 +1,15 @@
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2024-06-14 20:57+0000\n"
-"Last-Translator: weblate <weblate@noreply.pixelplanet.fun>\n"
-"Language-Team: Kyrgyz <https://hosted.weblate.org/projects/pixelplanet/"
-"server/ky/>\n"
+"Report-Msgid-Bugs-To: admin@pixelplanet.fun\n"
+"PO-Revision-Date: 2026-01-12 16:40+0000\n"
+"Last-Translator: Extreme Motorsex <em@noreply.pixelplanet.fun>\n"
+"Language-Team: Kyrgyz <https://translate.gs-os.com/projects/ppfun/server/ky/>"
+"\n"
 "Language: ky\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.6-dev\n"
+"X-Generator: Weblate 5.14\n"
 
 msgid "1bit"
 msgstr "1бит"
@@ -30,34 +31,34 @@ msgstr ""
 "жаңыртуулары 00:00 UTC."
 
 msgid "Access modtools"
-msgstr ""
+msgstr "Модератордун куралдарына кирүү"
 
 msgid "Add Application"
-msgstr ""
+msgstr "Колдонмо кошуу"
 
 msgid "Add an Application (OIDC Client)"
-msgstr ""
+msgstr "Тиркеме кошуу (OIDC кардары)"
 
 msgid "Add new application"
-msgstr ""
+msgstr "Жаңы колдонмо кошуу"
 
 msgid "An error occured. Please try again later."
-msgstr ""
+msgstr "Ката кетти. Кийинчерээк кайра аракет кылыңыз."
 
 msgid "Application changed successfully"
-msgstr ""
+msgstr "Колдонмо ийгиликтүү өзгөртүлдү"
 
 msgid "Application deleted"
-msgstr ""
+msgstr "Колдонмо өчүрүлдү"
 
 msgid "Application successfully added"
-msgstr ""
+msgstr "Колдонмо ийгиликтүү кошулду"
 
 msgid "Black and White canvas"
 msgstr "Кара жана ак кенеп"
 
 msgid "Can not chat while being banned"
-msgstr ""
+msgstr "Бөгөттөлгөн учурда баарлаша албайсыз"
 
 msgid "Click here"
 msgstr "Бул жерди басыңыз"
@@ -66,7 +67,7 @@ msgid "Click to Verify"
 msgstr "Текшерүү үчүн чыкылдатыңыз"
 
 msgid "Client Name"
-msgstr ""
+msgstr "Кардардын аты"
 
 msgid "Confirm New Password"
 msgstr "Жаңы сырсөздү ырастоо"
@@ -79,28 +80,28 @@ msgstr ""
 "убактысын бөлүшөт!"
 
 msgid "Consent"
-msgstr ""
+msgstr "Макулдук"
 
 msgid "Coronavirus"
 msgstr "Коронавирус"
 
 msgid "Could not close this Session."
-msgstr ""
+msgstr "Бул сессия жабылган жок."
 
 msgid "Could not find this login method"
-msgstr ""
+msgstr "Бул кирүү ыкмасын таба алган жок"
 
 msgid "Couldn't find this mail in our database"
 msgstr "Бул кат биздин маалымат базасынан табылган жок"
 
 msgid "Default"
-msgstr ""
+msgstr "Демейки"
 
 msgid "Delete Application"
-msgstr ""
+msgstr "Колдонмону жок кылуу"
 
 msgid "Display name for your OIDC client"
-msgstr ""
+msgstr "OIDC кардарыңыз үчүн көрсөтүлүүчү ат"
 
 msgid "Double click on globe to go back."
 msgstr "Артка кайтуу үчүн жер шарын эки жолу басыңыз"
@@ -112,7 +113,7 @@ msgid "Earth"
 msgstr "Жер"
 
 msgid "Edit existing applications"
-msgstr ""
+msgstr "Бар болгон тиркемелерди түзөтүү"
 
 msgid "Email can't be empty."
 msgstr "Электрондук почта бош болбошу керек."

@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: admin@pixelplanet.fun\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2026-01-12 15:40+0000\n"
+"PO-Revision-Date: 2026-01-12 16:40+0000\n"
 "Last-Translator: Extreme Motorsex <em@noreply.pixelplanet.fun>\n"
 "Language-Team: Esperanto <https://translate.gs-os.com/projects/ppfun/client/"
 "eo/>\n"
@@ -1253,16 +1253,16 @@ msgid "Show templates as overlays ingame."
 msgstr "Montru ŝablonojn kiel paŭsaĵojn en la ludo."
 
 msgid "Size"
-msgstr ""
+msgstr "Grandeco"
 
 msgid "Small Pixels When Zoomed"
-msgstr ""
+msgstr "Malgrandaj pikseloj kiam zomita"
 
 msgid "Social Settings"
 msgstr "Komunikaĵaj Agordoj"
 
 msgid "Source for pixelplanet on "
-msgstr ""
+msgstr "Fonto por pixelplanet ĉe "
 
 msgid "Stacking till"
 msgstr "Bufadinda ĝis"
@@ -1271,38 +1271,38 @@ msgid "Start chatting here"
 msgstr "Komencu babili ĉi tie"
 
 msgid "Start checking for Malware"
-msgstr ""
+msgstr "Komencu kontroli por malica programaro"
 
 msgid "Statistics"
-msgstr ""
+msgstr "Statistikoj"
 
 msgid "Status: Not running"
-msgstr ""
+msgstr "Stato: Ne funkcias"
 
 msgid "Stay logged in: "
-msgstr ""
+msgstr "Restu ensalutinta: "
 
 msgid "Stop Cleaner"
-msgstr ""
+msgstr "Haltiga Purigilo"
 
 msgid "Stop checking for Malware"
-msgstr ""
+msgstr "Ĉesu kontroli por malicprogramoj"
 
 msgid "Stop requiring Verification to Place"
-msgstr ""
+msgstr "Ĉesu postuli konfirmon por loko"
 
 msgid "Submit"
 msgstr "Sendu"
 
 msgid "Switch Account"
-msgstr ""
+msgstr "Ŝanĝi Konton"
 
 #, javascript-format
 msgid "Switched to ${ canvasName }"
-msgstr ""
+msgstr "Ŝanĝis al ${ canvasName }"
 
 msgid "Template Name"
-msgstr ""
+msgstr "Ŝablona Nomo"
 
 #, fuzzy
 msgid "Templates"
@@ -1313,6 +1313,8 @@ msgid ""
 "The application ${ appName } at ${ appUrl } wants to login with your "
 "pixelplanet account ${ accountName }"
 msgstr ""
+"La aplikaĵo ${ appName } ĉe ${ appUrl } volas ensaluti per via pixelplanet-"
+"konto ${ accountName }"
 
 msgid ""
 "The bare map data that we use, together with converted OpenStreetMap tiles "
@@ -1325,12 +1327,14 @@ msgid ""
 "The name of your account, only a-z, A-Z, -, ., and - characters are allowed. "
 "It is permanent, you can not change it later."
 msgstr ""
+"La nomo de via konto, nur la signoj a-z, A-Z, -, ., kaj - estas permesitaj. "
+"Ĝi estas permanenta, vi ne povas ŝanĝi ĝin poste."
 
 msgid "Themes"
 msgstr "Temar'"
 
 msgid "This URL is not supported by our Media Player"
-msgstr ""
+msgstr "Ĉi tiu URL ne estas subtenata de nia multmedia ludilo"
 
 msgid "This canvas doesn't exist"
 msgstr "Kanvason ne ekzistas"
@@ -1350,15 +1354,17 @@ msgid ""
 "This is the name that other people see, e.g. in Chat. You can change it at "
 "any time. All characters except @, /, , >, < and # are allowed."
 msgstr ""
+"Jen la nomo, kiun aliaj homoj vidas, ekzemple en la babilejo. Vi povas ŝanĝi "
+"ĝin iam ajn. Ĉiuj signoj krom @, /, \\, >, < kaj # estas permesitaj."
 
 msgid "This permission is required"
-msgstr ""
+msgstr "Ĉi tiu permeso estas necesa"
 
 msgid "Timeout"
-msgstr ""
+msgstr "Paŭzo"
 
 msgid "Tip: Not case-sensitive; I and l are the same"
-msgstr ""
+msgstr "Konsilo: Ne distingas majusklojn kaj minusklojn; I kaj l estas la samaj"
 
 msgid ""
 "Tired of always spaming one single color? Want to create art instead, but "
@@ -1366,37 +1372,42 @@ msgid ""
 "that! Templates can show as overlay and you can draw over them. One pixel on "
 "the template, should be one pixel on the canvas."
 msgstr ""
+"Ĉu vi laciĝis ĉiam uzi nur unu koloron? Ĉu vi volas krei arton anstataŭe, "
+"sed vi devas kalkuli pikselojn el iu alia bildo? Ŝablonoj povas helpi vin "
+"pri tio! Ŝablonoj povas montriĝi kiel supermetitaj elementoj kaj vi povas "
+"desegni super ili. Unu pikselo sur la ŝablono, devus esti unu pikselo sur la "
+"kanvaso."
 
 msgid "To use this page, enter your Password:"
-msgstr ""
+msgstr "Por uzi ĉi tiun paĝon, enigu vian pasvorton:"
 
 msgid "Today"
-msgstr ""
+msgstr "Hodiaŭ"
 
 msgid "Today Placed Pixels"
 msgstr "Hodiaŭa Metitaj Pikseloj"
 
 msgid "Top 10 Countries [pxls / day]"
-msgstr ""
+msgstr "Supraj 10 Landoj [pikseloj / tago]"
 
 #, fuzzy
 msgid "Top 10 Daily Ranking"
 msgstr "Hodiaŭa Rang'"
 
 msgid "Top 10 Players [pxls / day]"
-msgstr ""
+msgstr "Supraj 10 Ludantoj [pikseloj / tago]"
 
 msgid "Top 10 Players from Yesterday"
-msgstr ""
+msgstr "Supraj 10 Ludantoj de Hieraŭ"
 
 msgid "Top-left corner"
-msgstr ""
+msgstr "Supra-maldekstra angulo"
 
 msgid "Total"
 msgstr "La Tuto"
 
 msgid "Total Online Users"
-msgstr ""
+msgstr "Totalaj Interretaj Uzantoj"
 
 #, fuzzy
 msgid "Total Pixels per Player"
@@ -1413,15 +1424,17 @@ msgid ""
 "Turn every pixel in area to 0 (YOU REALLY SHOULDN'T DO THAT ON ANY AREA THAT "
 "ISN'T ALREADY MOSTLY 0)"
 msgstr ""
+"Ŝaltu ĉiun pikselon en la areo al 0 "
+"(VI VERE NE DEVUS FARI TION SUR AJN AREO, KIU NE JAM ESTAS PLEJPARTE 0)"
 
 msgid "Turn on grid to highlight pixel borders."
 msgstr "Ŝalti kradon emfazi pikselbarojn."
 
 msgid "Type of Mod"
-msgstr ""
+msgstr "Tipo de Mod"
 
 msgid "Type the characters from the following image:"
-msgstr ""
+msgstr "Tajpu la signojn el la sekva bildo:"
 
 msgid "Unblock Users"
 msgstr "Malblokigu Uzantojn"
@@ -1430,19 +1443,19 @@ msgid "Unknown Captcha Error"
 msgstr "Nekonata Captcha-eraro"
 
 msgid "Unknown Error"
-msgstr ""
+msgstr "Nekonata Eraro"
 
 msgid "Unmuted Sound"
-msgstr ""
+msgstr "Ne-Silentigita Sono"
 
 msgid "Until the browser closes"
-msgstr ""
+msgstr "Ĝis la retumilo fermiĝas"
 
 msgid "Upload images to canvas"
 msgstr "Alŝultu bildojn al kanvas'"
 
 msgid "Use our custom cursor"
-msgstr ""
+msgstr "Uzu nian kutiman kursoron"
 
 #, fuzzy
 msgid "User"
@@ -1461,7 +1474,7 @@ msgid "User Name"
 msgstr "Uzantnom'"
 
 msgid "Username"
-msgstr ""
+msgstr "Uzantnomo"
 
 msgid "Username can only contain the characters: a-z . _ and -"
 msgstr "Uzantnomo povas enhavi nur la signojn: a-z . _ kaj -"
