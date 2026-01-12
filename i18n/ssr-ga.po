@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: admin@pixelplanet.fun\n"
-"PO-Revision-Date: 2025-11-04 18:40+0000\n"
+"PO-Revision-Date: 2026-01-12 01:41+0000\n"
 "Last-Translator: Extreme Motorsex <em@noreply.pixelplanet.fun>\n"
 "Language-Team: Irish <https://translate.gs-os.com/projects/ppfun/server/ga/>"
 "\n"
@@ -32,34 +32,34 @@ msgstr ""
 "rangú gach lá ar 00:00 UTC."
 
 msgid "Access modtools"
-msgstr ""
+msgstr "Rochtain ar uirlisí mod"
 
 msgid "Add Application"
-msgstr ""
+msgstr "Cuir Feidhmchlár leis"
 
 msgid "Add an Application (OIDC Client)"
-msgstr ""
+msgstr "Cuir Feidhmchlár leis (Cliant OIDC)"
 
 msgid "Add new application"
-msgstr ""
+msgstr "Cuir feidhmchlár nua leis"
 
 msgid "An error occured. Please try again later."
-msgstr ""
+msgstr "Tharla earráid. Déan iarracht arís ar ball."
 
 msgid "Application changed successfully"
-msgstr ""
+msgstr "Athraíodh an feidhmchlár go rathúil"
 
 msgid "Application deleted"
-msgstr ""
+msgstr "Feidhmchlár scriosta"
 
 msgid "Application successfully added"
-msgstr ""
+msgstr "Cuireadh an feidhmchlár leis go rathúil"
 
 msgid "Black and White canvas"
 msgstr "Canbhás dubh agus bán"
 
 msgid "Can not chat while being banned"
-msgstr ""
+msgstr "Ní féidir comhrá a dhéanamh agus cosc á chur ort"
 
 msgid "Click here"
 msgstr "Cliceáil anseo"
@@ -68,7 +68,7 @@ msgid "Click to Verify"
 msgstr "Cliceáil le cinntigh"
 
 msgid "Client Name"
-msgstr ""
+msgstr "Ainm an Chliaint"
 
 msgid "Confirm New Password"
 msgstr "deimhnigh n phasfhocal nua"
@@ -81,28 +81,28 @@ msgstr ""
 "an gcéanna leis an Canbhás domhanda!"
 
 msgid "Consent"
-msgstr ""
+msgstr "Toiliú"
 
 msgid "Coronavirus"
-msgstr "Coronavirus"
+msgstr "Coróinvíreas"
 
 msgid "Could not close this Session."
-msgstr ""
+msgstr "Níorbh fhéidir an Seisiún seo a dhúnadh."
 
 msgid "Could not find this login method"
-msgstr ""
+msgstr "Níorbh fhéidir an modh logála isteach seo a aimsiú"
 
 msgid "Couldn't find this mail in our database"
 msgstr "Níorbh fhéidir teacht ar an bpost i ár mbunachar sonraí"
 
 msgid "Default"
-msgstr ""
+msgstr "Réamhshocrú"
 
 msgid "Delete Application"
-msgstr ""
+msgstr "Scrios Feidhmchlár"
 
 msgid "Display name for your OIDC client"
-msgstr ""
+msgstr "Ainm taispeána do chliant OIDC"
 
 msgid "Double click on globe to go back."
 msgstr "Cuir cliceáil dúbailte ar an cruinneog le dul árais."
@@ -114,7 +114,7 @@ msgid "Earth"
 msgstr "Domhan"
 
 msgid "Edit existing applications"
-msgstr ""
+msgstr "Cuir feidhmchláir atá ann cheana in eagar"
 
 msgid "Email can't be empty."
 msgstr "Caithfidh tú rud a cuir istigh Ríomhphost."
@@ -135,18 +135,18 @@ msgid "Error"
 msgstr "Earráid"
 
 msgid "Failed to create a new user :("
-msgstr ""
+msgstr "Theip ar úsáideoir nua a chruthú :("
 
 #. 'client_secret' is a technical term and should not be translated
 msgid ""
 "Generate a new client_secret. The old secret will become invalid immediately."
-msgstr ""
+msgstr "Ginigh client_secret nua. Beidh an seanrún neamhbhailí láithreach."
 
 msgid "Get email address"
-msgstr ""
+msgstr "Faigh seoladh ríomhphoist"
 
 msgid "Get the amount of Pixels placed and ranking"
-msgstr ""
+msgstr "Faigh líon na bpicteilí atá curtha agus an rangú"
 
 msgid ""
 "Have fun and don't hesitate to contact us if you encounter any problems :)"
@@ -159,7 +159,7 @@ msgstr "Heileo"
 
 #, javascript-format
 msgid "Hello ${ email }, you can set your new password here:"
-msgstr ""
+msgstr "Haigh ${ email }, is féidir leat do phasfhocal nua a shocrú anseo:"
 
 #, javascript-format
 msgid "Hello ${ name }"
@@ -171,6 +171,11 @@ msgid ""
 "that you are unaware of under \"Login Methods\" in the User Area and change "
 "your password."
 msgstr ""
+"Más tusa a bhí ann, déan neamhaird den ríomhphost seo le do thoil. Mura tusa "
+"a bhí ann, téigh go <a href=\"https://pixelplanet.fun\">pixelplanet.fun</a> "
+"agus logáil amach as aon seisiún nach bhfuil a fhios agat faoi "
+"\"Modhanna Logála Isteach\" sa Limistéar Úsáideora agus athraigh do "
+"phasfhocal."
 
 #, javascript-format
 msgid ""
@@ -190,23 +195,23 @@ msgid "Just admins can do that"
 msgstr "Ní féidir ach Riarthóirí sin a dhéanamh"
 
 msgid "Know that an account exists"
-msgstr ""
+msgstr "Bíodh a fhios agat go bhfuil cuntas ann"
 
 #. "scopes" is a technical term and should not be translated
 msgid "List of available scopes"
-msgstr ""
+msgstr "Liosta de na scopes atá ar fáil"
 
 msgid "Loading..."
 msgstr "Ag Loadail..."
 
 msgid "Login from new location on PixelPlanet"
-msgstr ""
+msgstr "Logáil isteach ó shuíomh nua ar PixelPlanet"
 
 msgid "Login is required"
-msgstr ""
+msgstr "Tá logáil isteach riachtanach"
 
 msgid "Mail is already in use!"
-msgstr ""
+msgstr "Tá ríomhphost in úsáid cheana féin!"
 
 msgid "Mail is not configured on the server"
 msgstr "Níl an phost cumraithe ar an freastalaí"
@@ -235,7 +240,7 @@ msgstr ""
 "picteilíní."
 
 msgid "Name already in use."
-msgstr ""
+msgstr "Ainm in úsáid cheana féin."
 
 msgid "Name can't be empty."
 msgstr "Ní féidir ainm a bheith folamh."
@@ -244,7 +249,7 @@ msgid "Name contains invalid character like @, /, \\ or #"
 msgstr "Tá charachtair neamhbhailí Ann mar shampla @,/,\\ nó #"
 
 msgid "Name is too long"
-msgstr ""
+msgstr "Tá an t-ainm rófhada"
 
 msgid "Name must be at least 2 characters long"
 msgstr "Ní mór ainm a bheith ar a laghad 2 carachtair fada"
@@ -253,7 +258,7 @@ msgid "Name must be shorter than 26 characters"
 msgstr "Ní mór ainm a bheith níos giorra ná 26 carachtair"
 
 msgid "Name or Email does not exist!"
-msgstr ""
+msgstr "Níl ainm ná ríomhphost ann!"
 
 msgid "New Password"
 msgstr "Phasfhocal Nua"
@@ -262,36 +267,36 @@ msgid "No Captcha given"
 msgstr "Níl Captcha ar fail"
 
 msgid "No or invalid fish id."
-msgstr ""
+msgstr "Gan aon aitheantas éisc nó aitheantas éisc neamhbhailí."
 
 msgid "No password given."
 msgstr "Níor thabhar tu phasfhocal."
 
 #. "redirect_uris" is a technical term and should not be translated
 msgid "No redirect_uris given."
-msgstr ""
+msgstr "Níor tugadh redirect_uris."
 
 msgid "No such badge found"
-msgstr ""
+msgstr "Níor aimsíodh aon suaitheantas den chineál sin"
 
 msgid "No such fish found"
-msgstr ""
+msgstr "Ní bhfuarthas aon iasc den chineál sin"
 
 msgid "One redirect URIs per line"
-msgstr ""
+msgstr "URIanna atreoraithe amháin in aghaidh na líne"
 
 msgid "One redirect_uri per line"
-msgstr ""
+msgstr "redirect_uri amháin in aghaidh na líne"
 
 #. "redirect_uris" is a technical term and should not be translated
 msgid "Only five redirect_uris are allowed per client"
-msgstr ""
+msgstr "Ní cheadaítear ach cúig redirect_uri in aghaidh an chliaint"
 
 msgid "Only four colors. Same rules as moon!"
 msgstr "Ní ach ceithre dath. Rialacha mar an gcéanna leis an gealach!"
 
 msgid "OpenID Connect specs"
-msgstr ""
+msgstr "Sonraíochtaí OpenID Connect"
 
 msgid "Or by copying following url:"
 msgstr "Nó má gcuireann to Cóip ar an URL:"
@@ -311,7 +316,7 @@ msgid "Password successfully changed."
 msgstr "Phasfhocal athraithe go rathúil."
 
 msgid "Permission"
-msgstr ""
+msgstr "Cead"
 
 msgid "PixelCanvas"
 msgstr "Canbhás picteilíní"
@@ -329,6 +334,10 @@ msgid ""
 "pixelplanet accounts. The required endpoints can be auto-discovered via the $"
 "{ wellKnownUrl } URL."
 msgstr ""
+"Comhlíonann Pixelplanet sonraíochtaí OpenID Connect (OIDC). Mar sin, "
+"d'fhéadfadh feidhmchlár a thacaíonn le OIDC toiliú agus logáil isteach a "
+"iarraidh ag baint úsáide as cuntais Pixelplanet. Is féidir na críochphointí "
+"riachtanacha a aimsiú go huathoibríoch tríd an URL ${ wellKnownUrl }."
 
 msgid "Place Voxels on a 3D canvas with others."
 msgstr "Cuir 'Voxels' ar canbhás 3D leis na cuid eile."
@@ -339,10 +348,10 @@ msgstr ""
 "líne"
 
 msgid "Please refresh the website"
-msgstr ""
+msgstr "Athnuaigh an suíomh gréasáin le do thoil"
 
 msgid "Please try again."
-msgstr ""
+msgstr "Déan iarracht arís."
 
 msgid "Please use int channel"
 msgstr "Baint úsáid as cainéal Idirnáisiúnta le do chul"
@@ -406,10 +415,10 @@ msgid "Thanks"
 msgstr "Go raibh maith agat"
 
 msgid "The user owning this badge is private"
-msgstr ""
+msgstr "Is úsáideoir príobháideach é/í an suaitheantas seo"
 
 msgid "The user owning this fish is private"
-msgstr ""
+msgstr "Is úsáideoir príobháideach é/í an t-iasc seo"
 
 msgid "This application is not allowed to login"
 msgstr ""
@@ -421,7 +430,7 @@ msgid "This application sent a faulty login request with no redirection"
 msgstr ""
 
 msgid "This application uses a PKCE method we do not support"
-msgstr ""
+msgstr "Úsáideann an feidhmchlár seo modh PKCE nach dtacaímid leis"
 
 msgid "This application uses a login method we do not support"
 msgstr ""
@@ -432,6 +441,11 @@ msgid ""
 "function below to set a new password. In the future, consider not installing "
 "malware, Thank You."
 msgstr ""
+"Rinneadh an teaglaim ríomhphoist/pasfhocail seo a hackáil agus a sceitheadh. "
+"Chun an cuntas seo a chosaint, athshocraíodh an pasfhocal. Bain úsáid as an "
+"fheidhm \"Dearmad ar mo phasfhocal\" thíos le do thoil chun pasfhocal nua a "
+"shocrú. Smaoinigh ar gan malware a shuiteáil amach anseo, go raibh maith "
+"agat."
 
 msgid ""
 "This email / password combination got hacked and leaked. To protect this "
@@ -439,6 +453,11 @@ msgid ""
 "function on the LogIn page to set a new password. In the future, consider "
 "not installing malware, Thank You."
 msgstr ""
+"Rinneadh an teaglaim ríomhphoist/pasfhocail seo a hackáil agus a sceitheadh. "
+"Chun an cuntas seo a chosaint, athshocraíodh an pasfhocal. Bain úsáid as an "
+"bhfeidhm \"Dearmad déanta agam ar mo phasfhocal\" ar an leathanach Logáil "
+"Isteach chun pasfhocal nua a shocrú. Smaoinigh ar gan malware a shuiteáil "
+"amach anseo, go raibh maith agat."
 
 msgid "This email provider is not allowed"
 msgstr "Níl cead tugtha ar an Soláthraí Ríomhphost sin"
@@ -448,7 +467,7 @@ msgstr "Níl an pasfhocal-nasc a athshocrú bailí níos mó:("
 
 #. "redirect_uris" is a technical term and should not be translated
 msgid "Too many or too long redirect_uris"
-msgstr ""
+msgstr "An iomarca nó rófhada redirect_uris"
 
 msgid "Top10"
 msgstr "Barr Deich"
@@ -469,19 +488,19 @@ msgid "Username already in use."
 msgstr "Ta an Ainm úsáideora sin in úsáid cheana féin."
 
 msgid "Username can not start with pp_"
-msgstr ""
+msgstr "Ní féidir le hainm úsáideora tosú le pp_"
 
 msgid "Username can only contain the characters: a-z . _ and -"
-msgstr ""
+msgstr "Ní féidir ach na carachtair a-z _ agus - a bheith san ainm úsáideora"
 
 msgid "Username can't be empty."
-msgstr ""
+msgstr "Ní féidir ainm úsáideora a fhágáil folamh."
 
 msgid "Username must be at least 2 characters long"
-msgstr ""
+msgstr "Ní mór dhá charachtar ar a laghad a bheith san ainm úsáideora"
 
 msgid "Username must be shorter than 26 characters"
-msgstr ""
+msgstr "Ní mór d'ainm úsáideora a bheith níos giorra ná 26 carachtar"
 
 msgid ""
 "We already sent you a mail with instructions. Please wait before requesting "
@@ -503,7 +522,7 @@ msgid "Welcome ${ name } to PixelPlanet, please verify your mail"
 msgstr "Fáilte ${ name } go PixelPlanet Cintigh do phost le do chul"
 
 msgid "You already chose your username"
-msgstr ""
+msgstr "Tá d'ainm úsáideora roghnaithe agat cheana féin"
 
 msgid "You already have that name."
 msgstr ""
@@ -545,12 +564,14 @@ msgstr ""
 msgid ""
 "You can not delete this login method, because you have nothing else left."
 msgstr ""
+"Ní féidir leat an modh logála isteach seo a scriosadh, mar níl aon rud eile "
+"fágtha agat."
 
 msgid "You can not register an account while you are banned"
-msgstr ""
+msgstr "Ní féidir leat cuntas a chlárú agus tú toirmiscthe"
 
 msgid "You can not register an account with a proxy"
-msgstr ""
+msgstr "Ní féidir leat cuntas a chlárú le seachfhreastalaí"
 
 msgid "You can not send chat messages while using a proxy"
 msgstr "Níl tú ábalta teachtaireacht a cuir amach ag úsáid seachfhreastalaí"
@@ -559,6 +580,8 @@ msgid ""
 "You can register your own application here to get the client_id and "
 "client_secret needed to make use of this."
 msgstr ""
+"Is féidir leat d’fheidhmchlár féin a chlárú anseo chun an client_id agus an "
+"client_secret a theastaíonn uait a fháil chun seo a úsáid."
 
 msgid "You can't send a message this long :("
 msgstr "Ní chúig leat teachtaireacht comh fhada le seo a cuir amach :("
@@ -566,6 +589,8 @@ msgstr "Ní chúig leat teachtaireacht comh fhada le seo a cuir amach :("
 msgid ""
 "You do not have any email adress set. Please add one under \"Login Methods\"."
 msgstr ""
+"Níl aon seoladh ríomhphoist socraithe agat. Cuir ceann leis faoi "
+"\"Modhanna Logála Isteach\"."
 
 msgid "You don't have access to this channel"
 msgstr "Níl Cead agat sa cainéal seo"
@@ -578,17 +603,18 @@ msgstr ""
 "Rinne tú dearmad ar do phasfhocal do PixelPlanet? Faigh ceann nua anseo"
 
 msgid "You have to fill out all fields"
-msgstr ""
+msgstr "Caithfidh tú na réimsí go léir a líonadh isteach"
 
 msgid "You must be logged in to access this page"
 msgstr ""
 
 #. "scope" is a technical term and should not be translated
 msgid "You need to define a valid scope"
-msgstr ""
+msgstr "Ní mór duit scope bailí a shainiú"
 
 msgid "You need to directly access this page in the browser :("
 msgstr ""
+"Ní mór duit rochtain dhíreach a fháil ar an leathanach seo sa bhrabhsálaí :("
 
 msgid ""
 "You requested to get a new password. You can change your password within the "
@@ -601,13 +627,13 @@ msgid "You sent an empty password or invalid data :("
 msgstr "sheol tú pasfhocal folamh nó sonraí Neamhbhailí :("
 
 msgid "You took too long, try again"
-msgstr ""
+msgstr "Thóg sé ró-fhada ort, déan iarracht arís"
 
 msgid "You will be automatically redirected after 15s"
 msgstr "Beidh tú a atreorú go huathoibríoch tar éis 15s"
 
 msgid "Your Browser looks shady"
-msgstr ""
+msgstr "Tá cuma amhrasach ar do Bhrabhsálaí"
 
 msgid "Your account needs to be verified to access this page"
 msgstr ""
@@ -630,7 +656,7 @@ msgstr "Ní mheaitseáileann do phasfhocail :("
 
 #. "redirect_uris" is a technical term and should not be translated
 msgid "redirect_uris does not look legit"
-msgstr ""
+msgstr "Ní cosúil go bhfuil redirect_uris dlisteanach"
 
 msgid "to go back to pixelplanet"
 msgstr "dul ar ais go dtí pixelplanet"

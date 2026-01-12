@@ -1,10 +1,10 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: admin@pixelplanet.fun\n"
-"PO-Revision-Date: 2025-11-04 18:40+0000\n"
+"PO-Revision-Date: 2026-01-12 01:40+0000\n"
 "Last-Translator: Extreme Motorsex <em@noreply.pixelplanet.fun>\n"
-"Language-Team: Irish <https://translate.gs-os.com/projects/ppfun/client/ga/"
-">\n"
+"Language-Team: Irish <https://translate.gs-os.com/projects/ppfun/client/ga/>"
+"\n"
 "Language: ga\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -18,52 +18,60 @@ msgstr " A bhfuil i "
 #, javascript-format
 msgid "${ mouseSymbol } Hold left mouse button and drag mouse to rotate"
 msgstr ""
+"${ mouseSymbol } Coinnigh cnaipe clé na luiche agus tarraing an luch chun "
+"rothlú"
 
 #, javascript-format
 msgid "${ mouseSymbol } Left click or ${ touchSymbol } tap to place a pixel"
 msgstr ""
+"${ mouseSymbol } Cliceáil ar chlé nó tapáil ${ touchSymbol } chun picteilín "
+"a chur"
 
 #, javascript-format
 msgid "${ mouseSymbol } Right click and drag mouse to pan"
-msgstr ""
+msgstr "${ mouseSymbol } Cliceáil ar dheis agus tarraing an luch chun panáil"
 
 #, javascript-format
 msgid ""
 "${ mouseSymbol } Right click or ${ touchSymbol } double-tap to remove a pixel"
 msgstr ""
+"${ mouseSymbol } Cliceáil ar dheis nó ${ touchSymbol } tapáil faoi dhó chun "
+"picteilín a bhaint"
 
 #, javascript-format
 msgid ""
 "${ mouseSymbol } Scroll mouse wheel or hold ${ mouseSymbol } middle mouse "
 "button and drag to zoom"
 msgstr ""
+"${ mouseSymbol } Scrollaigh roth na luiche nó coinnigh cnaipe lár na luiche "
+"${ mouseSymbol } agus tarraing chun zúmáil isteach"
 
 msgid "(0 = infinite)"
-msgstr ""
+msgstr "(0 = gan teorainn)"
 
 msgid "+last hour"
-msgstr ""
+msgstr "+an uair dheireanach"
 
 msgid "...loading Login methods and sessions..."
-msgstr ""
+msgstr "...ag luchtú modhanna agus seisiúin Logála Isteach..."
 
 msgid "A Phish!"
-msgstr ""
+msgstr "Iasc!"
 
 msgid "A new verification mail is getting sent to you."
-msgstr ""
+msgstr "Tá ríomhphost fíoraithe nua á sheoladh chugat."
 
 msgid "ACCESS MODTOOLS"
-msgstr ""
+msgstr "ROCHTAIN AR UIRLISÍ MOD"
 
 msgid "Add Grid (uncheck if you need a 1:1 template)"
-msgstr ""
+msgstr "Cuir Eangach leis (díthiceáil más gá teimpléad 1:1 duit)"
 
 msgid "Add Template"
-msgstr ""
+msgstr "Cuir Teimpléad leis"
 
 msgid "Admintools"
-msgstr ""
+msgstr "Uirlisí riaracháin"
 
 msgid "All sound effects will be disabled."
 msgstr "Cuirfidh faoi mhíchumas na Fuaimeanna Éifeachta uilig."
@@ -75,28 +83,29 @@ msgid "Always show movement control buttons"
 msgstr "Taispéant rialuithe Gluaiseacht cnaipí I gconaí"
 
 msgid "Anti Aliasing"
-msgstr ""
+msgstr "Frith-Ailiasú"
 
 msgid "Apply a filter to clean trash in large canvas areas."
 msgstr ""
+"Cuir scagaire i bhfeidhm chun bruscar a ghlanadh i limistéir mhóra chanbháis."
 
 msgid "Archive"
-msgstr ""
+msgstr "Cartlann"
 
 msgid "Assign new Mod"
-msgstr ""
+msgstr "Sannadh Mod nua"
 
 msgid "Auto Zoom In"
 msgstr "Uathsúmáilte isteach"
 
 msgid "Back"
-msgstr ""
+msgstr "Ar ais"
 
 msgid "Badge Display"
-msgstr ""
+msgstr "Taispeántas Suaitheantais"
 
 msgid "Badges"
-msgstr ""
+msgstr "Suaitheantais"
 
 msgid "Banned"
 msgstr "Cuirtear amach"
@@ -105,37 +114,41 @@ msgid "Banned? Detected as Proxy?"
 msgstr "Cosc? Braitheadh mar Proxy?"
 
 msgid "Block"
-msgstr ""
+msgstr "Blocáil"
 
 msgid "Block DMs"
-msgstr ""
+msgstr "Blocáil teachtaireachtaí díreacha"
 
 msgid ""
 "Block all Private Messages. Enabling this will delete all your current DMs. "
 "You can still start new DMs with other users, but other users won't be able "
 "to start DMs with you."
 msgstr ""
+"Blocáil gach Teachtaireacht Phríobháideach. Scriosfaidh sé seo do "
+"theachtaireachtaí díreacha reatha go léir. Is féidir leat teachtaireachtaí "
+"díreacha nua a thosú le húsáideoirí eile fós, ach ní bheidh úsáideoirí eile "
+"in ann teachtaireachtaí díreacha a thosú leat."
 
 msgid "Blocked"
-msgstr ""
+msgstr "Blocáilte"
 
 msgid "Bottom-right corner"
-msgstr ""
+msgstr "Cúinne íochtarach ar dheis"
 
 msgid "Build image and set it to protected."
-msgstr ""
+msgstr "Tóg íomhá agus socraigh í go cosanta."
 
 msgid "Build image on canvas."
-msgstr ""
+msgstr "Tóg íomhá ar chanbhás."
 
 msgid "Build image, but reset cooldown to unset-pixel cd."
-msgstr ""
+msgstr "Tóg íomhá, ach athshocraigh an fuarú go cd neamhsocraithe-pixel."
 
 msgid "By Mod"
 msgstr "Ó modhnóir"
 
 msgid "Calculate like GIMP"
-msgstr ""
+msgstr "Ríomh cosúil le GIMP"
 
 msgid "Can not export more than 20 or no template!"
 msgstr "Ní féidir a onnmhairiú níos mó ná 20 nó Níl aon teimpléad!"
@@ -144,7 +157,7 @@ msgid "Can not import more than 20 or no template!"
 msgstr "Ní féidir a allmhairiú níos mó ná 20 nó Níl aon teimpléad!"
 
 msgid "Can't read? Reload:"
-msgstr ""
+msgstr "Nach féidir leat léamh? Athlódáil:"
 
 msgid "Can't render 3D canvas, do you have WebGL2 disabled?"
 msgstr ""
@@ -154,16 +167,16 @@ msgid "Cancel"
 msgstr "Stad"
 
 msgid "Cancel adding Template"
-msgstr ""
+msgstr "Cealaigh an Teimpléad a chur leis"
 
 msgid "Canvas"
-msgstr ""
+msgstr "Canbhás"
 
 msgid "Canvas Archive"
 msgstr "chartlann canbhás"
 
 msgid "Canvas Cleaner"
-msgstr ""
+msgstr "Glantóir Canbhás"
 
 msgid "Canvas Error"
 msgstr "earráid chanbhás"
@@ -172,88 +185,94 @@ msgid "Canvas Selection"
 msgstr "Rogha Canbhás"
 
 msgid "Captcha"
-msgstr ""
+msgstr "Captcha"
 
 msgid "Caught by"
-msgstr ""
+msgstr "Gafa ag"
 
-#, fuzzy
 msgid "Change Happened"
-msgstr "Cuirtear amach mar gheal ar an raon"
+msgstr "Tharla athrú"
 
 msgid "Change Name"
-msgstr ""
+msgstr "Athraigh Ainm"
 
 msgid "Change Password"
-msgstr ""
+msgstr "Athraigh Pasfhocal"
 
 msgid "Change your Mail Adress here:"
-msgstr ""
+msgstr "Athraigh do Sheoladh Poist anseo:"
 
 msgid "Channel settings"
-msgstr ""
+msgstr "Socruithe cainéal"
 
 msgid "Charts"
-msgstr ""
+msgstr "Cairteacha"
 
 msgid "Chat"
 msgstr "Comhrá"
 
 msgid "Chat here"
-msgstr ""
+msgstr "Comhrá anseo"
 
 msgid "Check out past versions of the canvas."
 msgstr "Amharc ar leaganacha stairiúil ón canbhás."
 
 msgid "Check to allow"
-msgstr ""
+msgstr "Seiceáil chun cead a thabhairt"
 
 msgid "Check who placed in an area"
-msgstr ""
+msgstr "Seiceáil cé a chuir i gceantar"
 
 msgid "Choose Canvas"
-msgstr ""
+msgstr "Roghnaigh Canbhás"
 
 msgid "Choose Color Mode"
-msgstr ""
+msgstr "Roghnaigh Mód Dathanna"
 
 msgid "Choose Strategy"
-msgstr ""
+msgstr "Roghnaigh Straitéis"
 
 msgid "Choose Username"
-msgstr ""
+msgstr "Roghnaigh Ainm Úsáideora"
 
 msgid ""
 "Clean spare pixels that are surrounded by a single other color or unset "
 "pixels (VERY AGGRESSIVE ON CANVASES THAT ALLOW UNSET PIXELS (where there are "
 "two cooldowns)!)"
 msgstr ""
+"Glan picteilíní breise atá timpeallaithe ag dath amháin eile nó picteilíní "
+"neamhshocraithe (AN-IONSACH AR CHANBHÁIS A CHEADAÍONN PICTEILÍ "
+"NEAMHSHOCRAITHE (áit a bhfuil dhá fhuarú síos ann)!)"
 
 msgid "Clean spare pixels that are surrounded by unset pixels"
-msgstr ""
+msgstr "Glan picteilíní breise atá timpeallaithe ag picteilíní neamhshocraithe"
 
 msgid ""
 "Clean spare pixels that are surrounded by unset pixels and up to 1 other set "
 "pixels"
 msgstr ""
+"Glan picteilíní breise atá timpeallaithe ag picteilíní neamhshocraithe agus "
+"suas le 1 picteilín socraithe eile"
 
 msgid "Cleaners can use 0cd blank colors."
-msgstr ""
+msgstr "Is féidir le glantóirí dathanna bána 0cd a úsáid."
 
 #, javascript-format
 msgid ""
 "Click ${ mouseSymbol } middle mouse button or ${ touchSymbol } long-tap to "
 "select current hovering color"
 msgstr ""
+"Cliceáil cnaipe lár na luiche ${ mouseSymbol } nó tapáil fhada ${ "
+"touchSymbol } chun an dath reatha atá ag luí a roghnú"
 
 msgid "Click a color in palette to select it"
 msgstr "Cliceáil ar dath i bpailéad a roghnú é"
 
 msgid "Click here to request a new verification mail."
-msgstr ""
+msgstr "Cliceáil anseo chun ríomhphost fíoraithe nua a iarraidh."
 
 msgid "Click to Load Captcha"
-msgstr ""
+msgstr "Cliceáil chun Captcha a Luchtú"
 
 msgid "Clone"
 msgstr "Clón"
@@ -277,55 +296,57 @@ msgid "Confirm New Password"
 msgstr "deimhnigh n phasfhocal nua"
 
 msgid "Confirm Password"
-msgstr ""
+msgstr "Deimhnigh Pasfhocal"
 
 #, javascript-format
 msgid "Connection error ${ code } :("
 msgstr "Earráid Ceangal ${ code }:("
 
 msgid "Consent"
-msgstr ""
+msgstr "Toiliú"
 
 msgid "Consider joining us on Matrix:"
-msgstr ""
+msgstr "Smaoinigh ar bheith linn ar Matrix:"
 
 msgid "Controls"
 msgstr "Rialúcháin"
 
 msgid "Convert an image to canvas colors"
-msgstr ""
+msgstr "Tiontaigh íomhá go dathanna canbháis"
 
 msgid "Converter"
-msgstr ""
+msgstr "Tiontaire"
 
 msgid "Cooldown"
-msgstr ""
+msgstr "Fuarú síos"
 
 msgid ""
 "Cooldown is usually automatically changed for a country that is dominating. "
 "In example in the case of a streamer raid."
 msgstr ""
+"De ghnáth, athraítear an tréimhse fuaraithe go huathoibríoch i gcás tíre atá "
+"i gceannas. Mar shampla, i gcás ruathar sruthaitheora."
 
 msgid "Coordinates"
-msgstr ""
+msgstr "Comhordanáidí"
 
 msgid "Coordinates:"
-msgstr ""
+msgstr "Comhordanáidí:"
 
 msgid "Copied"
 msgstr "Cóipeál"
 
 msgid "Copy"
-msgstr ""
+msgstr "Cóipeáil"
 
 msgid "Copy Link"
-msgstr ""
+msgstr "Cóipeáil Nasc"
 
 msgid "Copy Selected to Clipboard"
-msgstr ""
+msgstr "Cóipeáil Roghnaithe chuig an nGearrthaisce"
 
 msgid "Copy URL"
-msgstr ""
+msgstr "Cóipeáil URL"
 
 msgid "Copy UserId to Clipboard"
 msgstr ""
@@ -373,15 +394,14 @@ msgstr ""
 msgid "Daily Pixels per Country"
 msgstr ""
 
-#, fuzzy
 msgid "Daily Pixels per Player"
-msgstr "Picteilíní cuirtha"
+msgstr "Picteilí Laethúla in aghaidh an Imreora"
 
 msgid "Daily Rank"
-msgstr ""
+msgstr "Rang Laethúil"
 
 msgid "Date of Award"
-msgstr ""
+msgstr "Dáta na Dámhachtana"
 
 msgid "Date of catch"
 msgstr ""
@@ -390,7 +410,7 @@ msgid "Delete"
 msgstr ""
 
 msgid "Delete Account"
-msgstr ""
+msgstr "Scrios Cuntas"
 
 msgid "Deny"
 msgstr ""
@@ -422,13 +442,13 @@ msgstr ""
 "taispeáint pailéad in fhoirm Dlúth a ghlacann níos liú Spás sa scáileán."
 
 msgid "Do stuff with IPs (one IP per line)"
-msgstr ""
+msgstr "Déan rudaí le IPanna (IP amháin in aghaidh an líne)"
 
 msgid "Don't remember"
-msgstr ""
+msgstr "Ní cuimhin liom"
 
 msgid "Don't show me in global stats"
-msgstr ""
+msgstr "Ná taispeáin mé i staitisticí domhanda"
 
 msgid "Download Template"
 msgstr ""
@@ -462,6 +482,8 @@ msgid ""
 "Email is used to verify your account. You might get a cofirmation mail after "
 "registering."
 msgstr ""
+"Úsáidtear ríomhphost chun do chuntas a fhíorú. B’fhéidir go bhfaighidh tú "
+"ríomhphost dearbhaithe tar éis clárú."
 
 msgid "Email should at least contain a dot"
 msgstr "Ba chóir go mbeadh ar a laghad ponc amhainn ann"
@@ -482,16 +504,17 @@ msgid "Enable chat notifications"
 msgstr "Cuir cumasaigh ar Fógraí Teachtaireachta"
 
 msgid "Enter Characters"
-msgstr ""
+msgstr "Cuir isteach Carachtair"
 
 msgid "Enter Reason"
-msgstr ""
+msgstr "Iontráil Cúis"
 
 msgid "Enter UserName of new Mod"
-msgstr ""
+msgstr "Cuir isteach Ainm Úsáideora an Mhod nua"
 
 msgid "Enter your mail address and we will send you a new password:"
 msgstr ""
+"Cuir isteach do sheoladh ríomhphoist agus cuirfimid pasfhocal nua chugat:"
 
 msgid "Error"
 msgstr "Earráid"
@@ -516,13 +539,13 @@ msgid "File"
 msgstr ""
 
 msgid "Fish Display"
-msgstr ""
+msgstr "Taispeántas Fush"
 
 msgid "For"
-msgstr ""
+msgstr "Do"
 
 msgid "For Developers"
-msgstr ""
+msgstr "Do Fhorbróirí"
 
 #, javascript-format
 msgid ""
@@ -530,6 +553,10 @@ msgid ""
 "your data, simply delete your account, this in fact wipes all privacy "
 "relevant traces. Your placed pixels will of course not be deleted."
 msgstr ""
+"Le haghaidh aon saincheisteanna dlí, déan teagmháil le ${ mailLink }. Más "
+"mian leat do chuid sonraí a scriosadh, níl le déanamh ach do chuntas a "
+"scriosadh, scriosann sé seo gach rian príobháideachta i ndáiríre. Ní bheidh "
+"na picteilíní atá curtha agat slán, ar ndóigh."
 
 msgid "For one day"
 msgstr ""
@@ -547,7 +574,7 @@ msgid "For when you are playing on a potato."
 msgstr "Nuair a n-imríonn tú ar phráta."
 
 msgid "Forever"
-msgstr ""
+msgstr "Go deo"
 
 msgid "From History"
 msgstr "Ón stair"
@@ -556,19 +583,19 @@ msgid "From Template"
 msgstr "Ón Teimpléad"
 
 msgid "Get IID"
-msgstr ""
+msgstr "Faigh IID"
 
 msgid "Get Pixels"
-msgstr ""
+msgstr "Faigh Picteilíní"
 
 msgid "Get Users"
 msgstr ""
 
 msgid "Get email address"
-msgstr ""
+msgstr "Faigh seoladh ríomhphoist"
 
 msgid "Get the amount of Pixels placed and ranking"
-msgstr ""
+msgstr "Faigh líon na bpicteilí atá curtha agus an rangú"
 
 msgid "Globe View"
 msgstr "amharc cruinneog"
@@ -643,11 +670,17 @@ msgid ""
 "mail to ${ mailLink } and, in case of a ban, include the BID you got in the "
 "ban message."
 msgstr ""
+"Má braitheadh gur seachfhreastalaí thú, ach mura bhfuil ceann á úsáid agat, "
+"nó má cheapann tú gur cuireadh cosc mícheart ort, téigh chuig ár ${ "
+"guildedLink } nó seol ríomhphost chugainn chuig ${ mailLink } agus, i gcás "
+"toirmisc, cuir an BID a fuair tú sa teachtaireacht toirmisc san áireamh."
 
 msgid ""
 "If you talk to moderators or administrators, you might get asked for one of "
 "the following identifiers:"
 msgstr ""
+"Má labhraíonn tú le modhnóirí nó riarthóirí, d’fhéadfaí ceann de na "
+"haitheantóirí seo a leanas a iarraidh ort:"
 
 msgid "Image Converter"
 msgstr ""
@@ -679,15 +712,19 @@ msgstr ""
 msgid ""
 "It requests the following permissions. Uncheck what you don't want to grant:"
 msgstr ""
+"Iarrann sé na ceadanna seo a leanas. Díthiceáil na cinn nach mian leat a "
+"dheonú:"
 
 msgid "Jannies can rollback and protect, but not watch or ban."
 msgstr ""
+"Is féidir le Jannies rolladh siar agus cosaint a dhéanamh, ach ní féidir leo "
+"féachaint ná cosc a chur orthu."
 
 msgid "Just for registered Users"
 msgstr "Ní ach do Úsáideoirí síneadh isteach"
 
 msgid "Just for verified Users"
-msgstr ""
+msgstr "D’úsáideoirí fíoraithe amháin"
 
 msgid "Just the Top10 of yesterday can place here"
 msgstr "Is féidir an Barr10 Don la inné a cuir anseo"
@@ -696,10 +733,10 @@ msgid "Keep Ratio"
 msgstr ""
 
 msgid "Know that an account exists"
-msgstr ""
+msgstr "Bíodh a fhios agat go bhfuil cuntas ann"
 
 msgid "Legal Requests"
-msgstr ""
+msgstr "Iarratais Dhlíthiúla"
 
 msgid "Light Grid"
 msgstr "eangach éadrom"
@@ -735,7 +772,7 @@ msgid "Login to other application"
 msgstr ""
 
 msgid "Login with Name or Mail:"
-msgstr ""
+msgstr "Logáil isteach le hainm nó ríomhphost:"
 
 msgid "Make Screenshot"
 msgstr "Déan Screenshot"
@@ -754,15 +791,17 @@ msgstr ""
 
 msgid "Moderators can access all Canvas, Watch and IID tools."
 msgstr ""
+"Is féidir le modhnóirí rochtain a fháil ar gach uirlis Canvas, Watch agus "
+"IID."
 
 msgid "Modtools"
-msgstr ""
+msgstr "Uirlisí modhnóireachta"
 
 msgid "Move"
 msgstr "Bóg"
 
 msgid "Mute"
-msgstr ""
+msgstr "Balbhaigh"
 
 msgid "Muted Sound"
 msgstr "Balbh fuaim"
@@ -783,10 +822,10 @@ msgid "Name must be shorter than 26 characters"
 msgstr "Ní mór ainm a bheith níos giorra ná 26 carachtair"
 
 msgid "Name or Email"
-msgstr ""
+msgstr "Ainm nó Ríomhphost"
 
 msgid "New Mail"
-msgstr ""
+msgstr "Ríomhphost Nua"
 
 msgid "New Name"
 msgstr ""
@@ -825,7 +864,7 @@ msgid "Offset"
 msgstr ""
 
 msgid "Oh no, the phish escaped. Better luck next time!"
-msgstr ""
+msgstr "Ó ní hea, d’éalaigh an fioscaire. Ádh mór ort an chéad uair eile!"
 
 msgid "Old Password"
 msgstr "Pasfhocal Sean"
@@ -837,10 +876,10 @@ msgid "Online Users on Canvas"
 msgstr "Úsáideoirí ar líne ar an Canbhás"
 
 msgid "Only verified Users are currently allowed to play."
-msgstr ""
+msgstr "Ní cheadaítear ach d'Úsáideoirí fíoraithe imirt faoi láthair."
 
 msgid "Opacity of Overlay in percent."
-msgstr ""
+msgstr "Teimhneacht an Fhorleagan i gcéatadán."
 
 msgid "Open Chat"
 msgstr "Comhrá Oscailte"
@@ -912,7 +951,7 @@ msgid "Pencil picks: "
 msgstr "Rogha Pheann Luidhe "
 
 msgid "Permission"
-msgstr ""
+msgstr "Cead"
 
 msgid "Phish!"
 msgstr ""
@@ -954,7 +993,7 @@ msgid "Please prove that you are human"
 msgstr "Tábhar fianaise gur é duine thú"
 
 msgid "Please refresh the website"
-msgstr ""
+msgstr "Athnuaigh an suíomh gréasáin le do thoil"
 
 msgid ""
 "Please verify your mail address or add a new one, otherwise your account "
@@ -1328,9 +1367,8 @@ msgstr "San iomlán"
 msgid "Total Online Users"
 msgstr "Úsáideoirí ar líne san Iomlán"
 
-#, fuzzy
 msgid "Total Pixels per Player"
-msgstr "Picteilíní cuirtha"
+msgstr "Líon Iomlán Picteilí in aghaidh an Imreora"
 
 msgid "Total Pixels placed per day"
 msgstr ""
@@ -1392,19 +1430,19 @@ msgid "Username"
 msgstr ""
 
 msgid "Username can only contain the characters: a-z . _ and -"
-msgstr ""
+msgstr "Ní féidir ach na carachtair a-z _ agus - a bheith san ainm úsáideora"
 
 msgid "Username can only contain the characters: a-z A-z . _ and -"
 msgstr ""
 
 msgid "Username can't be empty."
-msgstr ""
+msgstr "Ní féidir ainm úsáideora a fhágáil folamh."
 
 msgid "Username must be at least 2 characters long"
-msgstr ""
+msgstr "Ní mór dhá charachtar ar a laghad a bheith san ainm úsáideora"
 
 msgid "Username must be shorter than 26 characters"
-msgstr ""
+msgstr "Ní mór d'ainm úsáideora a bheith níos giorra ná 26 carachtar"
 
 #, javascript-format
 msgid "We are Libre Software under the ${ agplLink }, "
@@ -1558,7 +1596,7 @@ msgstr ""
 "orrainn?"
 
 msgid "Your Browser looks shady"
-msgstr ""
+msgstr "Tá cuma amhrasach ar do Bhrabhsálaí"
 
 msgid "Your Internet Provider is banned from this game"
 msgstr "Cuirtear cosc ar do soláthraí idirlín ón cliocha seo"
