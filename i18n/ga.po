@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: admin@pixelplanet.fun\n"
-"PO-Revision-Date: 2026-01-12 01:40+0000\n"
+"PO-Revision-Date: 2026-01-12 02:40+0000\n"
 "Last-Translator: Extreme Motorsex <em@noreply.pixelplanet.fun>\n"
 "Language-Team: Irish <https://translate.gs-os.com/projects/ppfun/client/ga/>"
 "\n"
@@ -13,7 +13,7 @@ msgstr ""
 "X-Generator: Weblate 5.14\n"
 
 msgid " which is in "
-msgstr " A bhfuil i "
+msgstr " a bhfuil i "
 
 #, javascript-format
 msgid "${ mouseSymbol } Hold left mouse button and drag mouse to rotate"
@@ -999,6 +999,8 @@ msgid ""
 "Please verify your mail address or add a new one, otherwise your account "
 "could get deleted in the future."
 msgstr ""
+"Fíoraigh do sheoladh ríomhphoist nó cuir ceann nua leis, nó d’fhéadfaí do "
+"chuntas a scriosadh amach anseo."
 
 msgid "Political Compass Canvas"
 msgstr "Canbhás Compás Polaitiúil"
