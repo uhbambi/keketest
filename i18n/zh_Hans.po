@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: admin@pixelplanet.fun\n"
-"PO-Revision-Date: 2026-01-11 20:40+0000\n"
-"Last-Translator: Sakuya <sakuya@noreply.pixelplanet.fun>\n"
+"PO-Revision-Date: 2026-01-12 19:40+0000\n"
+"Last-Translator: Extreme Motorsex <em@noreply.pixelplanet.fun>\n"
 "Language-Team: Chinese (Simplified Han script) <https://translate.gs-os.com/"
 "projects/ppfun/client/zh_Hans/>\n"
 "Language: zh_Hans\n"
@@ -13,7 +13,7 @@ msgstr ""
 
 #: src/components/BanInfo.jsx:111
 msgid " which is in "
-msgstr " ，包含在 "
+msgstr " 包含在 "
 
 #: src/components/windows/Help.jsx:119
 #, javascript-format
@@ -55,7 +55,7 @@ msgstr "+最后小时"
 
 #: src/components/ChangeMail.jsx:180
 msgid "...loading Login methods and sessions..."
-msgstr "……正在加载登陆步骤……"
+msgstr "…正在加载登陆步骤…"
 
 #: src/components/Fish.jsx:39
 msgid "A Phish!"
@@ -190,7 +190,7 @@ msgstr "无法导入超过20个模板！"
 
 #: src/components/Captcha.jsx:263
 msgid "Can't read? Reload:"
-msgstr "无法辩识？点此重新加载→"
+msgstr "无法辩识？点此重新加载："
 
 #: src/ui/rendererFactory.js:38
 msgid "Can't render 3D canvas, do you have WebGL2 disabled?"
@@ -242,7 +242,7 @@ msgstr "验证码"
 
 #: src/components/windows/FishDisplay.jsx:78
 msgid "Caught by"
-msgstr "抓取者："
+msgstr "抓取者"
 
 #: src/store/actions/index.js:21
 msgid "Change Happened"
@@ -300,22 +300,23 @@ msgstr "选择颜色模式"
 
 #: src/components/Converter.jsx:261
 msgid "Choose Strategy"
-msgstr ""
+msgstr "选择策略"
 
 #: src/components/UserAreaContent.jsx:146
 msgid "Choose Username"
-msgstr ""
+msgstr "选择用户名"
 
 #: src/components/ModCanvastools.jsx:196
 msgid ""
 "Clean spare pixels that are surrounded by a single other color or unset "
 "pixels (VERY AGGRESSIVE ON CANVASES THAT ALLOW UNSET PIXELS (where there "
 "are two cooldowns)!)"
-msgstr ""
+msgstr "清除被单一颜色或未设置像素包围的空白像素（在允许未设置像素的画布上非常激进，"
+"因为画布上有两个冷却时间！）"
 
 #: src/components/ModCanvastools.jsx:188
 msgid "Clean spare pixels that are surrounded by unset pixels"
-msgstr ""
+msgstr "干净的备用像素，周围环绕着未设置的像素"
 
 #: src/components/ModCanvastools.jsx:192
 msgid ""
@@ -377,7 +378,7 @@ msgstr ""
 
 #: src/components/ChangePassword.jsx:111
 msgid "Confirm New Password"
-msgstr ""
+msgstr "确认新密码"
 
 #: src/components/ChangePassword.jsx:111
 #: src/components/LogInForm.jsx:357
@@ -392,7 +393,7 @@ msgstr ""
 
 #: src/components/windows/OIDCConsent.jsx:225
 msgid "Consent"
-msgstr ""
+msgstr "同意"
 
 #: src/components/windows/UserArea.jsx:75
 msgid "Consider joining us on Matrix:"
@@ -630,11 +631,11 @@ msgstr ""
 
 #: src/utils/validation.js:17
 msgid "Email can't be empty."
-msgstr ""
+msgstr "邮箱地址不能为空。"
 
 #: src/utils/validation.js:19
 msgid "Email can't be longer than 40 characters."
-msgstr ""
+msgstr "电子邮件长度不能超过 40 个字符。"
 
 #: src/components/LogInForm.jsx:341
 msgid ""
@@ -644,15 +645,15 @@ msgstr ""
 
 #: src/utils/validation.js:20
 msgid "Email should at least contain a dot"
-msgstr ""
+msgstr "电子邮件至少应该包含一个句点"
 
 #: src/utils/validation.js:18
 msgid "Email should be at least 5 characters long."
-msgstr ""
+msgstr "电子邮件地址至少应包含 5 个字符。"
 
 #: src/utils/validation.js:23
 msgid "Email should contain a @"
-msgstr ""
+msgstr "电子邮件地址应包含 @ 符号"
 
 #: src/components/TemplateSettings.jsx:60
 msgid "Enable Overlay"
@@ -698,7 +699,7 @@ msgstr ""
 #: src/components/windows/FishDisplay.jsx:40
 #: src/components/windows/OIDCConsent.jsx:287
 msgid "Error"
-msgstr ""
+msgstr "错误"
 
 #: src/ui/PixelTransferController.js:182
 #, javascript-format
@@ -803,11 +804,11 @@ msgstr ""
 
 #: src/components/windows/OIDCConsent.jsx:61
 msgid "Get email address"
-msgstr ""
+msgstr "获取电子邮件地址"
 
 #: src/components/windows/OIDCConsent.jsx:63
 msgid "Get the amount of Pixels placed and ranking"
-msgstr ""
+msgstr "获取投放的像素数量和排名"
 
 #: src/components/buttons/GlobeButton.jsx:34
 msgid "Globe View"
@@ -972,7 +973,7 @@ msgstr ""
 
 #: src/components/windows/OIDCConsent.jsx:73
 msgid "Know that an account exists"
-msgstr ""
+msgstr "确认账户存在"
 
 #: src/components/windows/Help.jsx:79
 msgid "Legal Requests"
@@ -993,7 +994,7 @@ msgstr ""
 
 #: src/components/windows/UserArea.jsx:68
 msgid "Loading..."
-msgstr ""
+msgstr "加载中…"
 
 #: src/components/UserAreaContent.jsx:126
 msgid "Log out"
@@ -1074,11 +1075,11 @@ msgstr ""
 
 #: src/utils/validation.js:30
 msgid "Name can't be empty."
-msgstr ""
+msgstr "名称不能为空。"
 
 #: src/utils/validation.js:39
 msgid "Name contains invalid character like @, /, \\ or #"
-msgstr ""
+msgstr "名称包含无效字符，例如 @、/、\\ 或 #"
 
 #: src/utils/validation.js:31
 msgid "Name must be at least 2 characters long"
