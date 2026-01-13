@@ -81,8 +81,16 @@ export default async (req, res) => {
     } else if (users.length) {
       if (users[0].byEMail) {
         errors.push(t`E-Mail already in use.`);
+        console.log(`REGISTER: user already exists for ${email}:`, users);
+      } else if (users[0].name === name) {
+        errors.push(t`Name already in use.`);
+        console.log(`REGISTER: user already exists for name ${name}:`, users);
       } else {
         errors.push(t`Username already in use.`);
+        console.log(
+          `REGISTER: user already exists for username ${username}:`,
+          users,
+        );
       }
     }
   }

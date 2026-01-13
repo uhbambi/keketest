@@ -15,7 +15,7 @@ msgstr ""
 msgid "3D Canvas"
 msgstr ""
 
-#: src/ssr/Globe.jsx:36
+#: src/ssr/Globe.jsx:33
 msgid "A 3D globe of our whole map"
 msgstr ""
 
@@ -124,7 +124,7 @@ msgstr ""
 msgid "Display name for your OIDC client"
 msgstr ""
 
-#: src/ssr/Globe.jsx:49
+#: src/ssr/Globe.jsx:46
 msgid "Double click on globe to go back."
 msgstr ""
 
@@ -165,7 +165,7 @@ msgstr ""
 msgid "Error"
 msgstr ""
 
-#: src/routes/api/auth/register.js:116
+#: src/routes/api/auth/register.js:124
 msgid "Failed to create a new user :("
 msgstr ""
 
@@ -240,7 +240,7 @@ msgstr ""
 msgid "List of available scopes"
 msgstr ""
 
-#: src/ssr/Globe.jsx:50
+#: src/ssr/Globe.jsx:47
 msgid "Loading..."
 msgstr ""
 
@@ -291,6 +291,7 @@ msgstr ""
 
 #: src/routes/api/auth/change_name.js:39
 #: src/routes/api/auth/change_username.js:36
+#: src/routes/api/auth/register.js:86
 msgid "Name already in use."
 msgstr ""
 
@@ -400,7 +401,7 @@ msgstr ""
 msgid "PixelCanvas"
 msgstr ""
 
-#: src/ssr/Globe.jsx:35
+#: src/ssr/Globe.jsx:32
 msgid "PixelPlanet.Fun 3DGlobe"
 msgstr ""
 
@@ -564,7 +565,7 @@ msgid ""
 msgstr ""
 
 #: src/routes/api/auth/change_mail.js:23
-#: src/routes/api/auth/register.js:91
+#: src/routes/api/auth/register.js:99
 msgid "This email provider is not allowed"
 msgstr ""
 
@@ -597,7 +598,7 @@ msgstr ""
 msgid "User doesn't exist in our database :("
 msgstr ""
 
-#: src/routes/api/auth/register.js:85
+#: src/routes/api/auth/register.js:89
 msgid "Username already in use."
 msgstr ""
 
@@ -691,11 +692,11 @@ msgstr ""
 msgid "You can not delete this login method, because you have nothing else left."
 msgstr ""
 
-#: src/routes/api/auth/register.js:100
+#: src/routes/api/auth/register.js:108
 msgid "You can not register an account while you are banned"
 msgstr ""
 
-#: src/routes/api/auth/register.js:97
+#: src/routes/api/auth/register.js:105
 msgid "You can not register an account with a proxy"
 msgstr ""
 

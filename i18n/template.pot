@@ -840,7 +840,8 @@ msgid ""
 "currently only one."
 msgstr ""
 
-#: src/components/MdLink.jsx:110
+#: src/components/markdown/MdLink.jsx:110
+#: src/components/markdown/MdLocalMedia.jsx:60
 msgid "Hide Embed"
 msgstr ""
 
@@ -1175,7 +1176,8 @@ msgstr ""
 msgid "Open Palette"
 msgstr ""
 
-#: src/components/MdLink.jsx:99
+#: src/components/markdown/MdLink.jsx:99
+#: src/components/markdown/MdLocalMedia.jsx:49
 msgid "Open in PopUp"
 msgstr ""
 
@@ -1585,7 +1587,8 @@ msgstr ""
 msgid "Settings"
 msgstr ""
 
-#: src/components/MdLink.jsx:116
+#: src/components/markdown/MdLink.jsx:116
+#: src/components/markdown/MdLocalMedia.jsx:66
 msgid "Show Embedded"
 msgstr ""
 
