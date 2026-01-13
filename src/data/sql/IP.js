@@ -415,7 +415,9 @@ export async function getIPofIID(uuid) {
         type: QueryTypes.SELECT,
       },
     );
-    return result?.ip;
+    if (result) {
+      return sanitizeIPString(result.ip);
+    }
   } catch (error) {
     console.error(`SQL Error on getIPofIID: ${error.message}`);
   }
@@ -477,11 +479,11 @@ export async function getIIDofIP(ipString) {
       // eslint-disable-next-line max-len
       'SELECT BIN_TO_UUID(i.uuid) AS \'iid\' FROM IPs i WHERE i.ip = IP_TO_BIN(?)', {
         replacements: [ipString],
-        raw: true,
+        plain: true,
         type: QueryTypes.SELECT,
       },
     );
-    return result[0]?.iid;
+    return result?.iid;
   } catch (error) {
     console.error(`SQL Error on getIIDofIP: ${error.message}`);
   }
