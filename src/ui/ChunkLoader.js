@@ -49,6 +49,13 @@ class ChunkLoader {
     this.#chunks = new Map();
   }
 
+  reset() {
+    /*
+     * deletes all chunks to force a reload
+     */
+    this.destructor();
+  }
+
   cget(key) {
     return this.#chunks.get(key);
   }

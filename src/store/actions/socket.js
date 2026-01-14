@@ -13,6 +13,12 @@ export function socketOpen() {
   };
 }
 
+export function longTimeout() {
+  return {
+    type: 'w/LONG_TIMEOUT',
+  };
+}
+
 export function receiveChatMessage(
   name,
   text,

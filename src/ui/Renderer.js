@@ -104,6 +104,11 @@ class Renderer {
     return true;
   }
 
+  resetChunks() {
+    this.chunkLoader?.reset();
+    this.forceNextRender = true;
+  }
+
   gc() {
     this.chunkLoader?.gc(this);
   }

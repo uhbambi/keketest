@@ -30,6 +30,7 @@ import {
 } from './packets/op.js';
 import {
   socketOpen,
+  longTimeout,
   socketClose,
   receiveOnline,
   receiveCoolDown,
@@ -149,6 +150,11 @@ class SocketClient {
 
   onOpen() {
     const now = Date.now();
+    if (this.timeLastPing && now - 1000 * 60 * 15 > this.timeLastPing) {
+      /* if we were disconnected for more than 15 minutes, reload chunks */
+      this.store.dispatch(longTimeout());
+      console.log('Experience timeout longer than 15min on websocket.');
+    }
     this.timeLastPing = now;
     this.timeLastSent = now;
 

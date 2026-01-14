@@ -84,6 +84,11 @@ export default (store) => (next) => (action) => {
       break;
     }
 
+    case 'w/LONG_TIMEOUT': {
+      getRenderer().resetChunks();
+      break;
+    }
+
     case 's/TGL_EASTER_EGG': {
       const renderer = getRenderer();
       if (state.canvas.rendererType === CANVAS_TYPES.THREED) {
