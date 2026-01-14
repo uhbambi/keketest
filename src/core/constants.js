@@ -88,6 +88,7 @@ export const MEDIA_BAN_REASONS = {
   CSAM: 2,
   SCAM: 3,
   TERRORISM: 4,
+  PROPAGANDA: 5,
 };
 
 export const CHANNEL_TYPES = {

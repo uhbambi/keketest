@@ -14,7 +14,7 @@ import { getThemeCssAssets } from '../core/assets.js';
 import chooseAPIUrl from '../core/chooseAPIUrl.js';
 import {
   BACKUP_URL, CONTACT_ADDRESS, AVAILABLE_TP,
-  UNSHARDED_HOST, CDN_HOST, CDN_URL, BASENAME, NO_CDN_COUNTRIES,
+  UNSHARDED_HOST, CDN_HOST, CDN_URL, BASENAME, NO_CDN_COUNTRIES, NO_CDN,
 } from '../core/config.js';
 import { DEFAULT_CANVAS_ID } from '../core/constants.js';
 
@@ -77,7 +77,7 @@ export default function generateMainHTML(
     /*
      * CDN_URL gets used for all assets, but not for /api/ or /ws requests
      */
-    if (NO_CDN_COUNTRIES?.includes(country)) {
+    if (NO_CDN || NO_CDN_COUNTRIES?.includes(country)) {
       /*
        * tells the client to test the cdn and use it if successful
        */

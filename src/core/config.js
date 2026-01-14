@@ -197,6 +197,18 @@ let config = {};
   }
 
   /*
+   * check if ALL countries are allowed to be accessed without CDN
+   */
+  config.NO_CDN = null;
+  if (config.NO_CDN_COUNTRIES?.includes('all')) {
+    config.NO_CDN_COUNTRIES.splice(config.NO_CDN_COUNTRIES.indexOf('all'), 1);
+    if (!config.NO_CDN_COUNTRIES.length) {
+      config.NO_CDN_COUNTRIES = null;
+    }
+    config.NO_CDN = true;
+  }
+
+  /*
    * make list of configured third party providers,
    * the abbriviations are used in the route routes/top.js and in the Login Form
    * components/LogInForm.js
@@ -249,6 +261,7 @@ export const {
   IS_CLUSTER,
   CDN_URL,
   NO_CDN_COUNTRIES,
+  NO_CDN,
   API_URLS,
   UNSHARDED_HOST,
   BASENAME,

@@ -88,7 +88,7 @@ export default async (req, res) => {
       } else {
         errors.push(t`Username already in use.`);
         console.log(
-          `REGISTER: user already exists for username ${username}:`,
+          `REGISTER: user already exists for ${email}/${name}/${username}:`,
           users,
         );
       }
