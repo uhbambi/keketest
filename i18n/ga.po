@@ -1,10 +1,10 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: admin@pixelplanet.fun\n"
-"PO-Revision-Date: 2026-01-12 02:40+0000\n"
+"PO-Revision-Date: 2026-01-15 22:40+0000\n"
 "Last-Translator: Extreme Motorsex <em@noreply.pixelplanet.fun>\n"
-"Language-Team: Irish <https://translate.gs-os.com/projects/ppfun/client/ga/"
-">\n"
+"Language-Team: Irish <https://translate.gs-os.com/projects/ppfun/client/ga/>"
+"\n"
 "Language: ga\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -173,13 +173,13 @@ msgid "Canvas"
 msgstr "Canbhás"
 
 msgid "Canvas Archive"
-msgstr "chartlann canbhás"
+msgstr "Chartlann canbhás"
 
 msgid "Canvas Cleaner"
 msgstr "Glantóir Canbhás"
 
 msgid "Canvas Error"
-msgstr "earráid chanbhás"
+msgstr "Earráid chanbhás"
 
 msgid "Canvas Selection"
 msgstr "Rogha Canbhás"
@@ -284,7 +284,7 @@ msgid "Close Chat"
 msgstr "Comhrá Droidte"
 
 msgid "Close Menu"
-msgstr "roghchlár droidte"
+msgstr "Roghchlár droidte"
 
 msgid "Close Palette"
 msgstr "Droid pailéad"
@@ -300,7 +300,7 @@ msgstr "Deimhnigh Pasfhocal"
 
 #, javascript-format
 msgid "Connection error ${ code } :("
-msgstr "Earráid Ceangal ${ code }:("
+msgstr "Earráid Ceangal ${ code } :("
 
 msgid "Consent"
 msgstr "Toiliú"
@@ -356,7 +356,7 @@ msgstr "Cóip chun Bórd Coipailí"
 
 msgid "Could not connect to server, please try again later :("
 msgstr ""
-"Ní raibh muid ábalta ceangail leis an freastalaí, Tráil Arís níos Moille:("
+"Níorbh fhéidir ceangal leis an bhfreastalaí, déan iarracht arís ar ball :("
 
 msgid "Could not load captcha"
 msgstr ""
@@ -372,21 +372,21 @@ msgstr ""
 
 #, javascript-format
 msgid "Credit for the Palette of the 2bit canvas goes to ${ donendoLink }."
-msgstr ""
+msgstr "Is é ${ donendoLink } an creidiúint as Pailéad an chanbháis 2-giotán."
 
 #, javascript-format
 msgid "Credit for the Palette of the Moon goes to ${ starhouseLink }."
-msgstr ""
+msgstr "Is é ${ starhouseLink } an creidiúint as Pailéad na Gealaí."
 
 #, javascript-format
 msgid "Credit for the Palette of the Top10 canvas goes to ${ vinikLink }."
-msgstr ""
+msgstr "Is é ${ vinikLink } an creidiúint as Pailéad an chanbháis is fearr."
 
 msgid "Current Cooldown Changes per Country"
 msgstr ""
 
 msgid "Custom Cursor"
-msgstr ""
+msgstr "Cúrsóir Saincheaptha"
 
 msgid "DM"
 msgstr ""
@@ -429,17 +429,17 @@ msgid "Disable Game Sounds"
 msgstr "Díchumasaigh Fuaimeanna Cluiche"
 
 msgid "Disable History Pencil"
-msgstr "dhíchumasú Peann luaidhe stairiúil"
+msgstr "Dhíchumasú Peann luaidhe stairiúil"
 
 msgid "Disable Overlay Pencil"
-msgstr "disable peann luaidhe forleagan"
+msgstr "Disable peann luaidhe forleagan"
 
 msgid "Disable Pencil"
-msgstr "dhíchumasú peann luaidhe"
+msgstr "Dhíchumasú peann luaidhe"
 
 msgid "Display Palette in a compact form that takes less screen space."
 msgstr ""
-"taispeáint pailéad in fhoirm Dlúth a ghlacann níos liú Spás sa scáileán."
+"Taispeáint pailéad in fhoirm Dlúth a ghlacann níos liú Spás sa scáileán."
 
 msgid "Do stuff with IPs (one IP per line)"
 msgstr "Déan rudaí le IPanna (IP amháin in aghaidh an líne)"
@@ -458,7 +458,7 @@ msgid "Drag ${ mouseSymbol } mouse or ${ touchSymbol } pan to move"
 msgstr "Tarraing ${ mouseSymbol } luchóg nó ${ touchSymbol } pan le bóg"
 
 msgid "Duration"
-msgstr "ré"
+msgstr "Fad"
 
 msgid "Easter Egg OFF"
 msgstr "Múch an Ubh Cháisc"
@@ -524,7 +524,7 @@ msgid "Error ${ retCode }"
 msgstr "Earráid ${ retCode }"
 
 msgid "Error :("
-msgstr "earráid :("
+msgstr "Earráid :("
 
 msgid "Expand"
 msgstr ""
@@ -571,13 +571,13 @@ msgid "For one year"
 msgstr ""
 
 msgid "For when you are playing on a potato."
-msgstr "Nuair a n-imríonn tú ar phráta."
+msgstr "Nuair a bhíonn tú ag imirt ar phráta."
 
 msgid "Forever"
 msgstr "Go deo"
 
 msgid "From History"
-msgstr "Ón stair"
+msgstr "Ón Stair"
 
 msgid "From Template"
 msgstr "Ón Teimpléad"
@@ -607,10 +607,10 @@ msgid "Grant"
 msgstr ""
 
 msgid "Grid OFF"
-msgstr "Múch an greille"
+msgstr "Eangach AS"
 
 msgid "Grid ON"
-msgstr "Cuirtear eangach ar"
+msgstr "Eangach AR"
 
 msgid "Have fun!"
 msgstr "Bíodh sult agat!"
@@ -637,13 +637,13 @@ msgstr ""
 "mapa a nuashonrú, faigheann an cruinneog 3D nuashonraithe gach la."
 
 msgid "Historical View"
-msgstr "rAmharcanna Stairiúil"
+msgstr "Amharcanna Stairiúil"
 
 #, javascript-format
 msgid "Hold left ${ bindShift } for pencil (to place while moving mouse)"
 msgstr ""
-"coinnigh ar chlé ${ bindShift } do peann luaidhe (le cuir nuair atá tú ag "
-"bóg an luchóg)"
+"Coinnigh an cnaipe clé ${ bindShift } le haghaidh peann luaidhe "
+"(le cur agus an luch á bhogadh)"
 
 msgid "How pixelplanet should look like."
 msgstr "An dóigh a ba Chóir do Pixelplanet a beith mar."
@@ -698,10 +698,10 @@ msgid "Interval is invalid"
 msgstr ""
 
 msgid "Invalid Canvas"
-msgstr "chanbhás neamhbhailí"
+msgstr "Chanbhás neamhbhailí"
 
 msgid "Invalid Coordinates"
-msgstr "comhordaitheach neamhbhailí"
+msgstr "Comhordaitheach neamhbhailí"
 
 msgid "Invalid color selected"
 msgstr "Ní dath ceart é seo"
@@ -739,7 +739,7 @@ msgid "Legal Requests"
 msgstr "Iarratais Dhlíthiúla"
 
 msgid "Light Grid"
-msgstr "eangach éadrom"
+msgstr "Eangach Éadrom"
 
 msgid "Load Captcha"
 msgstr ""
@@ -804,7 +804,7 @@ msgid "Mute"
 msgstr "Balbhaigh"
 
 msgid "Muted Sound"
-msgstr "Balbh fuaim"
+msgstr "Fuaim Mhúchta"
 
 msgid "Name"
 msgstr "Ainm"
@@ -948,7 +948,7 @@ msgid "Pencil Mode for ${ canvasName } canvas"
 msgstr "Mód peann luaidhe do Canbhás ${ canvasName }"
 
 msgid "Pencil picks: "
-msgstr "Rogha Pheann Luidhe "
+msgstr "Rogha Pheann Luidhe: "
 
 msgid "Permission"
 msgstr "Cead"
@@ -963,16 +963,16 @@ msgid "Ping"
 msgstr ""
 
 msgid "Pixel Notify OFF"
-msgstr "Múch an picteilin fógra a thabhairt"
+msgstr "Fógra Pixel Múchta"
 
 msgid "Pixel Notify ON"
-msgstr "picteilin fógra a thabhairt"
+msgstr "Fógra Pixel AR SIÚL"
 
 msgid "Pixel Protection"
 msgstr ""
 
 msgid "Pixel protected"
-msgstr "picteilíní sabhailte"
+msgstr "Picteilíní sabhailte"
 
 msgid "Place color pixels on a large canvas with other players online!"
 msgstr "Cuir picteilíní dath ar canbhás mór le daoine eile are líne!"
@@ -984,7 +984,7 @@ msgid "Play a sound when new chat messages arrive"
 msgstr "Séanaim fuam nuair a thagann teachtaireacht nua sa comhrá"
 
 msgid "Player"
-msgstr ""
+msgstr "Imreoir"
 
 msgid "Players and Pixels per hour"
 msgstr ""
@@ -1024,7 +1024,7 @@ msgstr "Cliceáil ar ${ bindH } le amharcanna stairiúil a shocróidh"
 
 #, javascript-format
 msgid "Press ${ bindQ } and ${ bindE } to fly up and down"
-msgstr ""
+msgstr "Brúigh ${ bindQ } agus ${ bindE } chun eitilt suas agus síos"
 
 #, javascript-format
 msgid "Press ${ bindQ } or ${ bindE } to zoom"
@@ -1047,7 +1047,7 @@ msgid "Private"
 msgstr ""
 
 msgid "Profile"
-msgstr ""
+msgstr "Próifíl"
 
 msgid "Quick Actions"
 msgstr ""
@@ -1060,6 +1060,8 @@ msgstr ""
 
 msgid "Ranking updates every 5 min. Daily rankings get reset at midnight UTC."
 msgstr ""
+"Nuashonraítear an rangú gach 5 nóiméad. Athshocraítear na rangú laethúla ag "
+"meán oíche UTC."
 
 msgid "Read Badges and fishes"
 msgstr ""
@@ -1071,7 +1073,7 @@ msgid "Reason"
 msgstr "Fáth"
 
 msgid "Refresh"
-msgstr ""
+msgstr "Athnuachan"
 
 msgid "Register"
 msgstr ""
@@ -1183,7 +1185,7 @@ msgid "Serpentine"
 msgstr ""
 
 msgid "Server answered with gibberish :("
-msgstr "Freagair an freastalaí le gibirise"
+msgstr "Freagair an freastalaí le gibirise :("
 
 msgid ""
 "Server got confused by your pixels. Are you playing on multiple devices?"
@@ -1205,7 +1207,7 @@ msgid ""
 msgstr ""
 
 msgid "Settings"
-msgstr "Ait socruithe"
+msgstr "Socruithe"
 
 msgid "Show Embedded"
 msgstr ""
@@ -1309,7 +1311,7 @@ msgid "This URL is not supported by our Media Player"
 msgstr ""
 
 msgid "This canvas doesn't exist"
-msgstr "níl an chanbhás seo ann"
+msgstr "Níl an chanbhás seo ann"
 
 msgid ""
 "This canvas got requested during a time of political conflicts on the main "
@@ -1327,7 +1329,7 @@ msgid "This permission is required"
 msgstr ""
 
 msgid "Timeout"
-msgstr "am istigh"
+msgstr "Am críochnaithe"
 
 msgid "Tip: Not case-sensitive; I and l are the same"
 msgstr ""
@@ -1402,7 +1404,7 @@ msgid "Unknown Error"
 msgstr "Earráid nach bhfuil ar eolas"
 
 msgid "Unmuted Sound"
-msgstr "fuaim neamhbhalbh"
+msgstr "Fuaim Gan Mhúchadh"
 
 msgid "Until the browser closes"
 msgstr ""
@@ -1411,7 +1413,7 @@ msgid "Upload images to canvas"
 msgstr ""
 
 msgid "Use our custom cursor"
-msgstr ""
+msgstr "Bain úsáid as ár gcúrsóir saincheaptha"
 
 msgid "User"
 msgstr "Úsáideoir"
@@ -1460,6 +1462,8 @@ msgid ""
 "We thank the following artists, who made their palettes available to the "
 "public on"
 msgstr ""
+"Gabhaimid buíochas leis na healaíontóirí seo a leanas, a chuir a gcuid "
+"pailéid ar fáil don phobal ar"
 
 msgid "Weird"
 msgstr "Aisteach"
@@ -1486,7 +1490,7 @@ msgid "Width"
 msgstr ""
 
 msgid "Wrong Color"
-msgstr "níl an ceart dathanna"
+msgstr "Níl an ceart dathanna"
 
 msgid "YOU CAN ONLY CHOOSE YOUR USERNAME ONCE!"
 msgstr ""
@@ -1593,9 +1597,8 @@ msgid ""
 "Your Browser doesn't allow us to use AudioContext to play sounds. Do you "
 "have some privacy feature blocking us?"
 msgstr ""
-"Ní ligeann do Brabhsálaí dúinn le baint úsáid as AudioContext le fuaim a "
-"Séanaim. An bhfuil gnéithe príobháideachta agat a bhfuil ag cuur Bloc "
-"orrainn?"
+"Ní cheadaíonn do Bhrabhsálaí dúinn AudioContext a úsáid chun fuaimeanna a "
+"sheinm. An bhfuil gné príobháideachta éigin ann a chuireann bac orainn?"
 
 msgid "Your Browser looks shady"
 msgstr "Tá cuma amhrasach ar do Bhrabhsálaí"
@@ -1632,7 +1635,7 @@ msgid "check compliance here"
 msgstr ""
 
 msgid "mentioned you"
-msgstr "Lughaidh sé tú"
+msgstr "lughaidh sé tú"
 
 msgid "or login with:"
 msgstr ""
@@ -1645,7 +1648,7 @@ msgstr "molta"
 
 #, javascript-format
 msgid "try again after ${ ti }min"
-msgstr "Cuirtear Tráil arís i ndiaidh ${ ti } Bom"
+msgstr "déan iarracht arís tar éis ${ ti } nóiméad"
 
 msgid "x out of bounds"
 msgstr "x thar teorainn"
