@@ -1,11 +1,11 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: admin@pixelplanet.fun\n"
-"PO-Revision-Date: 2026-01-12 19:40+0000\n"
-"Last-Translator: Extreme Motorsex <em@noreply.pixelplanet.fun>\n"
+"PO-Revision-Date: 2026-01-15 13:40+0000\n"
+"Last-Translator: Sakuya <sakuya@noreply.pixelplanet.fun>\n"
 "Language-Team: Chinese (Simplified Han script) <https://translate.gs-os.com/"
 "projects/ppfun/client/zh_Hans/>\n"
-"Language: zh_Hans\n"
+"Language: zh\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -237,37 +237,37 @@ msgstr "干净的备用像素，周围环绕着未设置的像素"
 msgid ""
 "Clean spare pixels that are surrounded by unset pixels and up to 1 other set "
 "pixels"
-msgstr ""
+msgstr "清理未被至少1个已绘画像素包围的空闲像素"
 
 msgid "Cleaners can use 0cd blank colors."
-msgstr ""
+msgstr "清理人员可以使用不消耗等待时间的空白颜料。"
 
 #, javascript-format
 msgid ""
 "Click ${ mouseSymbol } middle mouse button or ${ touchSymbol } long-tap to "
 "select current hovering color"
-msgstr ""
+msgstr "点击 ${ mouseSymbol } 鼠标中键或 ${ touchSymbol } 长按以吸取颜色"
 
 msgid "Click a color in palette to select it"
-msgstr ""
+msgstr "在调色盘中点击一个颜色以选择"
 
 msgid "Click here to request a new verification mail."
-msgstr ""
+msgstr "点击此处以请求新验证电子邮件。"
 
 msgid "Click to Load Captcha"
-msgstr ""
+msgstr "点击此处加载验证码"
 
 msgid "Clone"
-msgstr ""
+msgstr "复制"
 
 msgid "Close"
-msgstr ""
+msgstr "关闭"
 
 msgid "Close Chat"
-msgstr ""
+msgstr "关闭聊天"
 
 msgid "Close Menu"
-msgstr ""
+msgstr "关闭菜单"
 
 msgid "Close Palette"
 msgstr ""
@@ -770,10 +770,10 @@ msgid "Name contains invalid character like @, /, \\ or #"
 msgstr "名称包含无效字符，例如 @、/、\\ 或 #"
 
 msgid "Name must be at least 2 characters long"
-msgstr ""
+msgstr "名称至少需要2字符长"
 
 msgid "Name must be shorter than 26 characters"
-msgstr ""
+msgstr "名称必须少于26字符"
 
 msgid "Name or Email"
 msgstr ""
@@ -785,7 +785,7 @@ msgid "New Name"
 msgstr ""
 
 msgid "New Password"
-msgstr ""
+msgstr "新密码"
 
 msgid "New Username"
 msgstr ""
@@ -803,7 +803,7 @@ msgid "No or invalid captcha text"
 msgstr ""
 
 msgid "No password given."
-msgstr ""
+msgstr "无可用密码。"
 
 msgid "Not allowed"
 msgstr ""

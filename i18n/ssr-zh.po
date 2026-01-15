@@ -1,11 +1,11 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: admin@pixelplanet.fun\n"
-"PO-Revision-Date: 2026-01-12 19:40+0000\n"
-"Last-Translator: Extreme Motorsex <em@noreply.pixelplanet.fun>\n"
+"PO-Revision-Date: 2026-01-15 13:40+0000\n"
+"Last-Translator: Sakuya <sakuya@noreply.pixelplanet.fun>\n"
 "Language-Team: Chinese (Simplified Han script) <https://translate.gs-os.com/"
 "projects/ppfun/server/zh_Hans/>\n"
-"Language: zh_Hans\n"
+"Language: zh\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -240,35 +240,35 @@ msgid "Name is too long"
 msgstr "名字太长了"
 
 msgid "Name must be at least 2 characters long"
-msgstr ""
+msgstr "名称至少需要2字符长"
 
 msgid "Name must be shorter than 26 characters"
-msgstr ""
+msgstr "名称必须少于26字符"
 
 msgid "Name or Email does not exist!"
-msgstr ""
+msgstr "名称或电子邮箱不存在！"
 
 msgid "New Password"
-msgstr ""
+msgstr "新密码"
 
 msgid "No Captcha given"
-msgstr ""
+msgstr "无可用验证码"
 
 msgid "No or invalid fish id."
-msgstr ""
+msgstr "不存在或无效Fish ID。"
 
 msgid "No password given."
-msgstr ""
+msgstr "无可用密码。"
 
 #. "redirect_uris" is a technical term and should not be translated
 msgid "No redirect_uris given."
-msgstr ""
+msgstr "无可用重定向网页链接."
 
 msgid "No such badge found"
-msgstr ""
+msgstr "未找到此徽章"
 
 msgid "No such fish found"
-msgstr ""
+msgstr "未找到此Fish"
 
 msgid "One redirect URIs per line"
 msgstr ""
