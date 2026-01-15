@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: admin@pixelplanet.fun\n"
-"PO-Revision-Date: 2026-01-15 13:40+0000\n"
+"PO-Revision-Date: 2026-01-15 14:40+0000\n"
 "Last-Translator: Sakuya <sakuya@noreply.pixelplanet.fun>\n"
 "Language-Team: Chinese (Simplified Han script) <https://translate.gs-os.com/"
 "projects/ppfun/server/zh_Hans/>\n"
@@ -262,7 +262,7 @@ msgstr "无可用密码。"
 
 #. "redirect_uris" is a technical term and should not be translated
 msgid "No redirect_uris given."
-msgstr "无可用重定向网页链接."
+msgstr "无可用重定向通用资源识别号（网页链接）。"
 
 msgid "No such badge found"
 msgstr "未找到此徽章"
@@ -271,10 +271,10 @@ msgid "No such fish found"
 msgstr "未找到此Fish"
 
 msgid "One redirect URIs per line"
-msgstr ""
+msgstr "每行1个重定向通用资源识别号（网页链接）"
 
 msgid "One redirect_uri per line"
-msgstr ""
+msgstr "每行1个重定向通用资源识别号（网页链接）"
 
 #. "redirect_uris" is a technical term and should not be translated
 msgid "Only five redirect_uris are allowed per client"
