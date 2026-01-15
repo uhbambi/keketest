@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: admin@pixelplanet.fun\n"
-"PO-Revision-Date: 2026-01-15 22:40+0000\n"
+"PO-Revision-Date: 2026-01-15 23:40+0000\n"
 "Last-Translator: Extreme Motorsex <em@noreply.pixelplanet.fun>\n"
 "Language-Team: Irish <https://translate.gs-os.com/projects/ppfun/client/ga/>"
 "\n"
@@ -241,8 +241,8 @@ msgid ""
 "two cooldowns)!)"
 msgstr ""
 "Glan picteilíní breise atá timpeallaithe ag dath amháin eile nó picteilíní "
-"neamhshocraithe (AN-IONSACH AR CHANBHÁIS A CHEADAÍONN PICTEILÍ "
-"NEAMHSHOCRAITHE (áit a bhfuil dhá fhuarú síos ann)!)"
+"neamhsocraithe (AN-IONSACH AR CHANBHÁIS A CHEADAÍONN PICTEILÍ NEAMHSOCRAITHE "
+"(áit a bhfuil dhá fhuarú síos ann)!)"
 
 msgid "Clean spare pixels that are surrounded by unset pixels"
 msgstr "Glan picteilíní breise atá timpeallaithe ag picteilíní neamhshocraithe"
@@ -293,7 +293,7 @@ msgid "Compact Palette"
 msgstr "Pailéad dlúth"
 
 msgid "Confirm New Password"
-msgstr "deimhnigh n phasfhocal nua"
+msgstr "Deimhnigh Pasfhocal Nua"
 
 msgid "Confirm Password"
 msgstr "Deimhnigh Pasfhocal"
@@ -349,7 +349,7 @@ msgid "Copy URL"
 msgstr "Cóipeáil URL"
 
 msgid "Copy UserId to Clipboard"
-msgstr ""
+msgstr "Cóipeáil Aitheantas Úsáideora chuig ann Gearrthaisce"
 
 msgid "Copy to Clipboard"
 msgstr "Cóip chun Bórd Coipailí"
@@ -359,16 +359,16 @@ msgstr ""
 "Níorbh fhéidir ceangal leis an bhfreastalaí, déan iarracht arís ar ball :("
 
 msgid "Could not load captcha"
-msgstr ""
+msgstr "Níorbh fhéidir an captcha a luchtú"
 
 msgid "Couldn't set Pixel"
 msgstr "Ní féidir picteilíní a cuir isteach"
 
 msgid "Countries Today"
-msgstr ""
+msgstr "Tíortha Inniu"
 
 msgid "Country"
-msgstr ""
+msgstr "Tír"
 
 #, javascript-format
 msgid "Credit for the Palette of the 2bit canvas goes to ${ donendoLink }."
@@ -383,16 +383,16 @@ msgid "Credit for the Palette of the Top10 canvas goes to ${ vinikLink }."
 msgstr "Is é ${ vinikLink } an creidiúint as Pailéad an chanbháis is fearr."
 
 msgid "Current Cooldown Changes per Country"
-msgstr ""
+msgstr "Athruithe Fuarúcháin Reatha in aghaidh na Tíre"
 
 msgid "Custom Cursor"
 msgstr "Cúrsóir Saincheaptha"
 
 msgid "DM"
-msgstr ""
+msgstr "DM"
 
 msgid "Daily Pixels per Country"
-msgstr ""
+msgstr "Picteilí Laethúla in aghaidh na Tíre"
 
 msgid "Daily Pixels per Player"
 msgstr "Picteilí Laethúla in aghaidh an Imreora"
@@ -404,16 +404,16 @@ msgid "Date of Award"
 msgstr "Dáta na Dámhachtana"
 
 msgid "Date of catch"
-msgstr ""
+msgstr "Dáta gabhála"
 
 msgid "Delete"
-msgstr ""
+msgstr "Scrios"
 
 msgid "Delete Account"
 msgstr "Scrios Cuntas"
 
 msgid "Deny"
-msgstr ""
+msgstr "Diúltaigh"
 
 msgid ""
 "Didn't get an answer from pixelplanet. Try to refresh if this problem "
@@ -423,7 +423,7 @@ msgstr ""
 "má leanann an fhadhb seo."
 
 msgid "Dimensions"
-msgstr ""
+msgstr "Toisí"
 
 msgid "Disable Game Sounds"
 msgstr "Díchumasaigh Fuaimeanna Cluiche"
@@ -451,7 +451,7 @@ msgid "Don't show me in global stats"
 msgstr "Ná taispeáin mé i staitisticí domhanda"
 
 msgid "Download Template"
-msgstr ""
+msgstr "Íoslódáil Teimpléad"
 
 #, javascript-format
 msgid "Drag ${ mouseSymbol } mouse or ${ touchSymbol } pan to move"
@@ -467,7 +467,7 @@ msgid "Easter Egg ON"
 msgstr "Ubh Cháisc"
 
 msgid "Edit"
-msgstr ""
+msgstr "Cuir in Eagar"
 
 msgid "Email"
 msgstr "Ríomhphost"
@@ -482,7 +482,7 @@ msgid ""
 "Email is used to verify your account. You might get a cofirmation mail after "
 "registering."
 msgstr ""
-"Úsáidtear ríomhphost chun do chuntas a fhíorú. B’fhéidir go bhfaighidh tú "
+"Úsáidtear ríomhphost chun do chuntas a fhíorú. B'fhéidir go bhfaighidh tú "
 "ríomhphost dearbhaithe tar éis clárú."
 
 msgid "Email should at least contain a dot"
@@ -495,7 +495,7 @@ msgid "Email should contain a @"
 msgstr "Ba chóir go mbeadh @ i do Ríomhphost"
 
 msgid "Enable Overlay"
-msgstr ""
+msgstr "Cumasaigh Forleagan"
 
 msgid "Enable Pencil"
 msgstr "Lás Peann luaidhe"
@@ -527,16 +527,16 @@ msgid "Error :("
 msgstr "Earráid :("
 
 msgid "Expand"
-msgstr ""
+msgstr "Leathnaigh"
 
 msgid "Export enabled templates"
-msgstr ""
+msgstr "Easpórtáil teimpléid chumasaithe"
 
 msgid "Factor"
-msgstr ""
+msgstr "Fachtóir"
 
 msgid "File"
-msgstr ""
+msgstr "Comhad"
 
 msgid "Fish Display"
 msgstr "Taispeántas Fush"
@@ -559,16 +559,16 @@ msgstr ""
 "na picteilíní atá curtha agat slán, ar ndóigh."
 
 msgid "For one day"
-msgstr ""
+msgstr "Ar feadh lae amháin"
 
 msgid "For one month"
-msgstr ""
+msgstr "Ar feadh míosa amháin"
 
 msgid "For one week"
-msgstr ""
+msgstr "Ar feadh seachtaine amháin"
 
 msgid "For one year"
-msgstr ""
+msgstr "Ar feadh bliana amháin"
 
 msgid "For when you are playing on a potato."
 msgstr "Nuair a bhíonn tú ag imirt ar phráta."
@@ -589,7 +589,7 @@ msgid "Get Pixels"
 msgstr "Faigh Picteilíní"
 
 msgid "Get Users"
-msgstr ""
+msgstr "Faigh Úsáideoirí"
 
 msgid "Get email address"
 msgstr "Faigh seoladh ríomhphoist"
@@ -601,10 +601,10 @@ msgid "Globe View"
 msgstr "amharc cruinneog"
 
 msgid "Go to"
-msgstr ""
+msgstr "Téigh go"
 
 msgid "Grant"
-msgstr ""
+msgstr "Deontas"
 
 msgid "Grid OFF"
 msgstr "Eangach AS"
@@ -616,7 +616,7 @@ msgid "Have fun!"
 msgstr "Bíodh sult agat!"
 
 msgid "Height"
-msgstr ""
+msgstr "Airde"
 
 msgid "Help"
 msgstr "Cuideadh"
@@ -627,7 +627,7 @@ msgid ""
 msgstr "Anseo bhailiúmid na canbhás scriosta. Nach bhfuil ach ceann amháin."
 
 msgid "Hide Embed"
-msgstr ""
+msgstr "Folaigh Leabaigh"
 
 msgid ""
 "Higher zoomlevels take some time to update, the 3D globe gets updated at "
@@ -649,19 +649,19 @@ msgid "How pixelplanet should look like."
 msgstr "An dóigh a ba Chóir do Pixelplanet a beith mar."
 
 msgid "I forgot my Password."
-msgstr ""
+msgstr "Dhearmad mé mo Phasfhocal."
 
 msgid "IID (optional)"
-msgstr ""
+msgstr "IID (roghnach)"
 
 msgid "IID Actions"
-msgstr ""
+msgstr "Gníomhartha IID"
 
 msgid "IP Actions"
-msgstr ""
+msgstr "Gníomhartha IP"
 
 msgid "Identifiers"
-msgstr ""
+msgstr "Aitheantóirí"
 
 #, javascript-format
 msgid ""
@@ -683,19 +683,19 @@ msgstr ""
 "haitheantóirí seo a leanas a iarraidh ort:"
 
 msgid "Image Converter"
-msgstr ""
+msgstr "Tiontaire Íomhá"
 
 msgid "Image Upload"
-msgstr ""
+msgstr "Uaslódáil Íomhá"
 
 msgid "Import templates"
-msgstr ""
+msgstr "Teimpléid a allmhairiú"
 
 msgid "Interval"
-msgstr ""
+msgstr "Eatramh"
 
 msgid "Interval is invalid"
-msgstr ""
+msgstr "Tá an t-eatramh neamhbhailí"
 
 msgid "Invalid Canvas"
 msgstr "Chanbhás neamhbhailí"
@@ -707,7 +707,7 @@ msgid "Invalid color selected"
 msgstr "Ní dath ceart é seo"
 
 msgid "Invited to Chat"
-msgstr ""
+msgstr "Cuireadh chun Comhrá"
 
 msgid ""
 "It requests the following permissions. Uncheck what you don't want to grant:"
@@ -730,7 +730,7 @@ msgid "Just the Top10 of yesterday can place here"
 msgstr "Is féidir an Barr10 Don la inné a cuir anseo"
 
 msgid "Keep Ratio"
-msgstr ""
+msgstr "Coinnigh Cóimheas"
 
 msgid "Know that an account exists"
 msgstr "Bíodh a fhios agat go bhfuil cuntas ann"
@@ -742,7 +742,7 @@ msgid "Light Grid"
 msgstr "Eangach Éadrom"
 
 msgid "Load Captcha"
-msgstr ""
+msgstr "Luchtaigh Captcha"
 
 msgid "Loading"
 msgstr "Lódáil"
@@ -751,25 +751,26 @@ msgid "Loading..."
 msgstr "Ag Loadail..."
 
 msgid "Log out"
-msgstr ""
+msgstr "Logáil amach"
 
 msgid "Log out a Session:"
-msgstr ""
+msgstr "Logáil amach as Seisiún:"
 
 msgid "LogIn"
-msgstr ""
+msgstr "Logáil Isteach"
 
 msgid "Login Methods"
-msgstr ""
+msgstr "Modhanna Logála Isteach"
 
 msgid "Login to access more features and stats."
 msgstr ""
+"Logáil isteach chun rochtain a fháil ar níos mó gnéithe agus staitisticí."
 
 msgid "Login to grant access to other application."
-msgstr ""
+msgstr "Logáil isteach chun rochtain a dheonú d'fheidhmchlár eile."
 
 msgid "Login to other application"
-msgstr ""
+msgstr "Logáil isteach i bhfeidhmchlár eile"
 
 msgid "Login with Name or Mail:"
 msgstr "Logáil isteach le hainm nó ríomhphost:"
@@ -778,7 +779,7 @@ msgid "Make Screenshot"
 msgstr "Déan Screenshot"
 
 msgid "Manage Moderators"
-msgstr ""
+msgstr "Bainistigh Modhnóirí"
 
 msgid "Map Data"
 msgstr "Sonraí Mhapa"
@@ -787,7 +788,7 @@ msgid "Maximize"
 msgstr "Uasmhéid"
 
 msgid "Minimum Color Distance"
-msgstr ""
+msgstr "Fad Íosta Dathanna"
 
 msgid "Moderators can access all Canvas, Watch and IID tools."
 msgstr ""
@@ -813,7 +814,7 @@ msgid "Name can't be empty."
 msgstr "Ní féidir ainm a bheith folamh."
 
 msgid "Name contains invalid character like @, /, \\ or #"
-msgstr "Tá charachtair neamhbhailí Ann mar shampla @,/,\\ nó #"
+msgstr "Tá charachtair neamhbhailí ann mar shampla @, /, \\ nó #"
 
 msgid "Name must be at least 2 characters long"
 msgstr "Ní mór ainm a bheith ar a laghad 2 carachtair fada"
@@ -828,19 +829,19 @@ msgid "New Mail"
 msgstr "Ríomhphost Nua"
 
 msgid "New Name"
-msgstr ""
+msgstr "Ainm Nua"
 
 msgid "New Password"
 msgstr "Phasfhocal Nua"
 
 msgid "New Username"
-msgstr ""
+msgstr "Ainm úsáideora nua"
 
 msgid "No"
 msgstr "Níl"
 
 msgid "No Phish!"
-msgstr ""
+msgstr "Gan Éisc!"
 
 msgid "No captcha id given"
 msgstr "Níor thugtar captcha id"
@@ -855,13 +856,13 @@ msgid "Not allowed"
 msgstr "Níl cead"
 
 msgid "OIDC LogIn"
-msgstr ""
+msgstr "Logáil Isteach OIDC"
 
 msgid "OK"
 msgstr "Maith go Leor"
 
 msgid "Offset"
-msgstr ""
+msgstr "Fritháireamh"
 
 msgid "Oh no, the phish escaped. Better luck next time!"
 msgstr "Ó ní hea, d’éalaigh an fioscaire. Ádh mór ort an chéad uair eile!"
@@ -870,7 +871,7 @@ msgid "Old Password"
 msgstr "Pasfhocal Sean"
 
 msgid "Online Users"
-msgstr ""
+msgstr "Úsáideoirí Ar Líne"
 
 msgid "Online Users on Canvas"
 msgstr "Úsáideoirí ar líne ar an Canbhás"
@@ -891,10 +892,10 @@ msgid "Open Palette"
 msgstr "Oscail pailéad"
 
 msgid "Open in PopUp"
-msgstr ""
+msgstr "Oscail i b'Pop-Up"
 
 msgid "OpenID Connect Client registration"
-msgstr ""
+msgstr "Clárú Cliant OpenID Connect"
 
 msgid ""
 "Our main canvas is a huge worldmap, you can place wherever you like, but you "
@@ -919,14 +920,14 @@ msgid "Overlay ON"
 msgstr "Tá forleagan ar"
 
 msgid "Overlay Opacity"
-msgstr ""
+msgstr "Teimhneacht Forleagan"
 
 msgid "Palette Download"
-msgstr ""
+msgstr "Íoslódáil Pailéad"
 
 #, javascript-format
 msgid "Palette for ${ gimpLink }"
-msgstr ""
+msgstr "Pailéad le haghaidh ${ gimpLink }"
 
 msgid "Password"
 msgstr "Pasfhocal"
@@ -941,7 +942,7 @@ msgid "Password successfully changed."
 msgstr "Phasfhocal athraithe go rathúil."
 
 msgid "Passwords do not match."
-msgstr ""
+msgstr "Ní hionann na pasfhocail."
 
 #, javascript-format
 msgid "Pencil Mode for ${ canvasName } canvas"
@@ -954,7 +955,7 @@ msgid "Permission"
 msgstr "Cead"
 
 msgid "Phish!"
-msgstr ""
+msgstr "Iasc!"
 
 msgid "Phishes"
 msgstr ""
@@ -969,7 +970,7 @@ msgid "Pixel Notify ON"
 msgstr "Fógra Pixel AR SIÚL"
 
 msgid "Pixel Protection"
-msgstr ""
+msgstr "Cosaint Picteilíní"
 
 msgid "Pixel protected"
 msgstr "Picteilíní sabhailte"
@@ -1044,7 +1045,7 @@ msgstr ""
 "Cliceáil ar ${ bindX } le léiriú ar ghníomhaíocht picteilín a shocróidh"
 
 msgid "Private"
-msgstr ""
+msgstr "Príobháideach"
 
 msgid "Profile"
 msgstr "Próifíl"
@@ -1056,7 +1057,7 @@ msgid "Range Banned"
 msgstr "Cuirtear amach mar gheal ar an raon"
 
 msgid "Ranked"
-msgstr ""
+msgstr "Rangaithe"
 
 msgid "Ranking updates every 5 min. Daily rankings get reset at midnight UTC."
 msgstr ""
@@ -1076,16 +1077,16 @@ msgid "Refresh"
 msgstr "Athnuachan"
 
 msgid "Register"
-msgstr ""
+msgstr "Cláraigh"
 
 msgid "Register new account here"
-msgstr ""
+msgstr "Cláraigh cuntas nua anseo"
 
 msgid "Regularly update this data"
 msgstr ""
 
 msgid "Reload"
-msgstr ""
+msgstr "Athlódáil"
 
 msgid "Remember this decision: "
 msgstr ""
@@ -1100,7 +1101,7 @@ msgid "Remove Janny"
 msgstr ""
 
 msgid "Remove Moderator"
-msgstr ""
+msgstr "Bain an Modhnóir"
 
 msgid "Remove a Login method:"
 msgstr ""
@@ -1109,10 +1110,10 @@ msgid "Require Verification to Place"
 msgstr ""
 
 msgid "Requirements"
-msgstr ""
+msgstr "Riachtanais"
 
 msgid "Reset"
-msgstr ""
+msgstr "Athshocraigh"
 
 msgid "Reset Captchas of ALL Users"
 msgstr ""
@@ -1127,7 +1128,7 @@ msgid "Restore"
 msgstr "Ath Cruthaigh"
 
 msgid "Retired Canvases (history only)"
-msgstr ""
+msgstr "Canbháis Scoir (stair amháin)"
 
 msgid "Retract"
 msgstr ""
@@ -1139,16 +1140,16 @@ msgid "Roll different Captcha Fonts"
 msgstr ""
 
 msgid "Rollback an area of the canvas to a set date and time"
-msgstr ""
+msgstr "Rollaigh limistéar den chanbhás ar ais go dtí dáta agus am socraithe"
 
 msgid "Rollback to Date"
-msgstr ""
+msgstr "Rolladh Ar Ais go Dáta"
 
 msgid "Save"
-msgstr ""
+msgstr "Sábháil"
 
 msgid "Scale Image"
-msgstr ""
+msgstr "Scálaigh Íomhá"
 
 #, javascript-format
 msgid "Scroll ${ mouseSymbol } mouse wheel or ${ touchSymbol } pinch to zoom"
@@ -1160,7 +1161,7 @@ msgid "Select Date above"
 msgstr "Roghnaigh Dáta thuas"
 
 msgid "Select File"
-msgstr ""
+msgstr "Roghnaigh Comhad"
 
 msgid "Select Language"
 msgstr "Roghnaigh Teanga"
@@ -1171,6 +1172,10 @@ msgid ""
 "requirements.\n"
 "Archived canvases can be accessed here:"
 msgstr ""
+"Roghnaigh an chanbhás is mian leat a úsáid.\n"
+"Tá gach chanbhás uathúil agus tá pailéid, fuarú síos agus riachtanais "
+"éagsúla aige.\n"
+"Is féidir rochtain a fháil ar chanbháis chartlannaithe anseo:"
 
 msgid "Selected Color"
 msgstr "Dath a Roghnaigh Tú"
@@ -1179,10 +1184,10 @@ msgid "Send"
 msgstr "Cuir amach"
 
 msgid "Sent you a mail with instructions to reset your password."
-msgstr ""
+msgstr "Chuir mé ríomhphost chugat le treoracha chun do phasfhocal a athshocrú."
 
 msgid "Serpentine"
-msgstr ""
+msgstr "Nathair"
 
 msgid "Server answered with gibberish :("
 msgstr "Freagair an freastalaí le gibirise :("
@@ -1200,6 +1205,8 @@ msgid ""
 "Set protection of areas (if you need finer grained control, use protect with "
 "image upload and alpha layers)"
 msgstr ""
+"Socraigh cosaint limistéar (más gá rialú níos míne duit, bain úsáid as "
+"cosaint le huaslódáil íomhá agus sraitheanna alfa)"
 
 msgid ""
 "Setting a password allows you to login by username or email, rather than "
@@ -1226,42 +1233,43 @@ msgstr "Taispéant ciorcal sna háiteanna a gcuirtear picteilíní."
 
 msgid "Show overlay as small individual pixels on high zoomlevels."
 msgstr ""
+"Taispeáin forleagan mar phicteilíní beaga aonair ar leibhéil súmála arda."
 
 msgid "Show templates as overlays ingame."
-msgstr ""
+msgstr "Taispeáin teimpléid mar fhorleagan sa chluiche."
 
 msgid "Size"
 msgstr ""
 
 msgid "Small Pixels When Zoomed"
-msgstr ""
+msgstr "Picteilíní Beaga Nuair a dhéantar Zúmáil orthu"
 
 msgid "Social Settings"
-msgstr ""
+msgstr "Socruithe Sóisialta"
 
 msgid "Source for pixelplanet on "
 msgstr ""
 
 msgid "Stacking till"
-msgstr ""
+msgstr "Ag cruachadh go dtí"
 
 msgid "Start chatting here"
-msgstr ""
+msgstr "Tosaigh ag comhrá anseo"
 
 msgid "Start checking for Malware"
 msgstr ""
 
 msgid "Statistics"
-msgstr ""
+msgstr "Staitisticí"
 
 msgid "Status: Not running"
-msgstr ""
+msgstr "Stádas: Ní ritheann"
 
 msgid "Stay logged in: "
 msgstr ""
 
 msgid "Stop Cleaner"
-msgstr ""
+msgstr "Stop Glantóir"
 
 msgid "Stop checking for Malware"
 msgstr ""
@@ -1280,10 +1288,10 @@ msgid "Switched to ${ canvasName }"
 msgstr "athrú go dtí ${ canvasName }"
 
 msgid "Template Name"
-msgstr ""
+msgstr "Ainm an Teimpléid"
 
 msgid "Templates"
-msgstr ""
+msgstr "Teimpléid"
 
 #, javascript-format
 msgid ""
@@ -1308,7 +1316,7 @@ msgid "Themes"
 msgstr "Téamaí"
 
 msgid "This URL is not supported by our Media Player"
-msgstr ""
+msgstr "Ní thacaíonn ár Seinnteoir Meán leis an URL seo"
 
 msgid "This canvas doesn't exist"
 msgstr "Níl an chanbhás seo ann"
@@ -1319,6 +1327,11 @@ msgid ""
 "with a 5s cooldown and 60s stacking. It got launched on May 11th and "
 "remained active for months till it got shut down on November 30th."
 msgstr ""
+"Iarradh an chanbhás seo le linn tréimhse coimhlintí polaitiúla ar "
+"phríomhchanbhás an Domhain. Ba léiriú 1024x1024 den chompás polaitiúil é le "
+"fuarú 5 soicind agus cruachadh 60 soicind. Seoladh é ar an 11 Bealtaine agus "
+"d’fhan sé gníomhach ar feadh míonna go dtí gur dúnadh síos é ar an 30 "
+"Samhain."
 
 msgid ""
 "This is the name that other people see, e.g. in Chat. You can change it at "
@@ -1332,7 +1345,7 @@ msgid "Timeout"
 msgstr "Am críochnaithe"
 
 msgid "Tip: Not case-sensitive; I and l are the same"
-msgstr ""
+msgstr "Leid: Ní cás-íogair; is ionann I agus l"
 
 msgid ""
 "Tired of always spaming one single color? Want to create art instead, but "
@@ -1340,6 +1353,12 @@ msgid ""
 "that! Templates can show as overlay and you can draw over them. One pixel on "
 "the template, should be one pixel on the canvas."
 msgstr ""
+"Tuirseach de bheith ag cur dath amháin i gcónaí ar neamhní? Ar mhaith leat "
+"ealaín a chruthú ina ionad sin, ach caithfidh tú picteilíní a chomhaireamh ó "
+"íomhá eile? Is féidir le teimpléid cabhrú leat leis sin! Is féidir teimpléid "
+"a thaispeáint mar fhorleagan agus is féidir leat tarraingt orthu. Ba chóir "
+"go mbeadh picteilín amháin ar an teimpléad mar phicteilín amháin ar an "
+"chanbhás."
 
 msgid "To use this page, enter your Password:"
 msgstr ""
@@ -1348,22 +1367,22 @@ msgid "Today"
 msgstr "Inniu"
 
 msgid "Today Placed Pixels"
-msgstr ""
+msgstr "Picteilíní Curtha Inniu"
 
 msgid "Top 10 Countries [pxls / day]"
 msgstr ""
 
 msgid "Top 10 Daily Ranking"
-msgstr ""
+msgstr "Barr 10 Rangú Laethúil"
 
 msgid "Top 10 Players [pxls / day]"
 msgstr ""
 
 msgid "Top 10 Players from Yesterday"
-msgstr ""
+msgstr "Na 10 nImreoir is Fearr ó Inné"
 
 msgid "Top-left corner"
-msgstr ""
+msgstr "Cúinne uachtarach ar chlé"
 
 msgid "Total"
 msgstr "San iomlán"
@@ -1378,12 +1397,14 @@ msgid "Total Pixels placed per day"
 msgstr ""
 
 msgid "Total Rank"
-msgstr ""
+msgstr "Rang Iomlán"
 
 msgid ""
 "Turn every pixel in area to 0 (YOU REALLY SHOULDN'T DO THAT ON ANY AREA THAT "
 "ISN'T ALREADY MOSTLY 0)"
 msgstr ""
+"Cas gach picteilín sa limistéar go 0 (NÍOR CHEART DUIT SIN A DHÉANAMH AR AON "
+"LIMISTÉAR NACH BHFUIL DEN MHÓR 0 CHEANA FÉIN)"
 
 msgid "Turn on grid to highlight pixel borders."
 msgstr "Cas ar an eangach chun béim a chur ar theorainneacha picteilín."
@@ -1392,10 +1413,10 @@ msgid "Type of Mod"
 msgstr ""
 
 msgid "Type the characters from the following image:"
-msgstr ""
+msgstr "Clóscríobh na carachtair ón íomhá seo a leanas:"
 
 msgid "Unblock Users"
-msgstr ""
+msgstr "Díbhlocáil Úsáideoirí"
 
 msgid "Unknown Captcha Error"
 msgstr "Earráid Captcha Nach bhfuil are eolas"
@@ -1410,7 +1431,7 @@ msgid "Until the browser closes"
 msgstr ""
 
 msgid "Upload images to canvas"
-msgstr ""
+msgstr "Uaslódáil íomhánna chuig canbhás"
 
 msgid "Use our custom cursor"
 msgstr "Bain úsáid as ár gcúrsóir saincheaptha"
@@ -1419,7 +1440,7 @@ msgid "User"
 msgstr "Úsáideoir"
 
 msgid "User Account"
-msgstr ""
+msgstr "Cuntas Úsáideora"
 
 msgid "User Area"
 msgstr "cheantar úsáideoirí"
@@ -1434,7 +1455,7 @@ msgid "Username"
 msgstr ""
 
 msgid "Username can only contain the characters: a-z . _ and -"
-msgstr "Ní féidir ach na carachtair a-z _ agus - a bheith san ainm úsáideora"
+msgstr "Ní féidir ach na carachtair a-z . _ agus - a bheith san ainm úsáideora"
 
 msgid "Username can only contain the characters: a-z A-z . _ and -"
 msgstr ""
@@ -1457,6 +1478,9 @@ msgid ""
 "screenshot from the timelapse results in a perfect 1:1 representation of how "
 "the canvas was at that time."
 msgstr ""
+"Shocraíomar é a chartlannú mar sheicheamh ama le webm ionchódaithe gan "
+"chailliúint. Má thógann tú scáileán ón seicheamh ama, gheobhaidh tú léiriú "
+"foirfe 1:1 ar an gcaoi a raibh an chanbhás ag an am sin."
 
 msgid ""
 "We thank the following artists, who made their palettes available to the "
@@ -1487,7 +1511,7 @@ msgid "Why?"
 msgstr "Cén fáth?"
 
 msgid "Width"
-msgstr ""
+msgstr "Leithead"
 
 msgid "Wrong Color"
 msgstr "Níl an ceart dathanna"
@@ -1499,27 +1523,32 @@ msgid "Yes"
 msgstr "Tá"
 
 msgid "Yes, Delete My Account!"
-msgstr ""
+msgstr "Sea, Scrios mo Chuntas!"
 
 msgid "Yesterday"
-msgstr ""
+msgstr "Inné"
 
 msgid ""
 "You are a teacher and a pupil is playing this game, despite it not being "
 "suitable for them? Send us an email."
 msgstr ""
+"An múinteoir thú agus an bhfuil dalta ag imirt an chluiche seo, cé nach "
+"bhfuil sé oiriúnach dóibh? Seol ríomhphost chugainn."
 
 #, javascript-format
 msgid ""
 "You are banned. You think it is unjustified? Check out the ${ helpButton } "
 "on how to appeal. And don't forget to include the BID you can get below."
 msgstr ""
+"Tá cosc ort. An gceapann tú nach bhfuil údar leis? Féach ar an ${helpButton} "
+"le haghaidh tuilleadh eolais faoi conas achomharc a dhéanamh. Agus ná déan "
+"dearmad an BID is féidir leat a fháil thíos a chur san áireamh."
 
 msgid "You are currently not allowed to access this game."
-msgstr ""
+msgstr "Níl cead agat rochtain a fháil ar an gcluiche seo faoi láthair."
 
 msgid "You are not allowed to play this game right now :("
-msgstr ""
+msgstr "Níl cead agat an cluiche seo a imirt faoi láthair :("
 
 msgid "You are using a Proxy."
 msgstr "Tá tú ag baint úsáide as Proxy."
@@ -1531,6 +1560,8 @@ msgid ""
 "You can connect to pixelplanet and use pixelplanet accounts for oauth / oidc "
 "login. See here:"
 msgstr ""
+"Is féidir leat ceangal le pixelplanet agus cuntais pixelplanet a úsáid le "
+"haghaidh logáil isteach oauth / oidc. Féach anseo:"
 
 msgid "You can not access this canvas yet, because your pixel score is too low"
 msgstr ""
@@ -1544,9 +1575,11 @@ msgid ""
 "You caught a Phish! It is a ${ FISH_TYPES[type].name } with ${ size }kg! As "
 "a bonus, your cooldown is reduced."
 msgstr ""
+"Ghabh tú iasc! Is ${ FISH_TYPES[type].name } é le ${ size }kg! Mar bhónas, "
+"laghdaítear do fhuarú ama."
 
 msgid "You did not consent"
-msgstr ""
+msgstr "Níor thoiligh tú"
 
 msgid "You failed your captcha"
 msgstr "Theip ort don Captcha"
@@ -1555,7 +1588,7 @@ msgid "You have new messages in chat"
 msgstr "Tá tú teachtaireachtaí nua sa comhrá"
 
 msgid "You have no users blocked"
-msgstr ""
+msgstr "Níl aon úsáideoirí blocáilte agat"
 
 msgid "You have to be logged in to place on this canvas"
 msgstr "Caithfidh tú beidh síneadh isteach le baint úsáid as an Canbháis seo"
@@ -1564,7 +1597,7 @@ msgid "You made too many requests"
 msgstr "Rinne tú med raibh Mór don iarratais"
 
 msgid "You must be logged in to chat"
-msgstr ""
+msgstr "Ní mór duit a bheith logáilte isteach le comhrá a dhéanamh"
 
 msgid "You must enter a UserId"
 msgstr ""
@@ -1629,7 +1662,7 @@ msgstr ""
 
 #, javascript-format
 msgid "and ${ canvas.req } Pixels set"
-msgstr ""
+msgstr "agus ${ canvas.req } Picteilíní socraithe"
 
 msgid "check compliance here"
 msgstr ""
@@ -1638,10 +1671,10 @@ msgid "mentioned you"
 msgstr "lughaidh sé tú"
 
 msgid "or login with:"
-msgstr ""
+msgstr "nó logáil isteach le:"
 
 msgid "or register here:"
-msgstr ""
+msgstr "nó cláraigh anseo:"
 
 msgid "recommended"
 msgstr "molta"
