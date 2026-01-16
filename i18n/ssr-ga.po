@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: admin@pixelplanet.fun\n"
-"PO-Revision-Date: 2026-01-15 23:40+0000\n"
+"PO-Revision-Date: 2026-01-16 20:40+0000\n"
 "Last-Translator: Extreme Motorsex <em@noreply.pixelplanet.fun>\n"
 "Language-Team: Irish <https://translate.gs-os.com/projects/ppfun/server/ga/>"
 "\n"
@@ -356,20 +356,20 @@ msgid "Please use int channel"
 msgstr "Baint úsáid as cainéal Idirnáisiúnta le do chul"
 
 msgid "Read Badges and fishes"
-msgstr ""
+msgstr "Léigh Suaitheantais agus iasc"
 
 msgid "Read name, username and account age"
-msgstr ""
+msgstr "Léigh ainm, ainm úsáideora agus aois chuntais"
 
 msgid "Redirect URIs"
-msgstr ""
+msgstr "URIanna atreoraithe"
 
 msgid "Regularly update this data"
-msgstr ""
+msgstr "Nuashonraigh na sonraí seo go rialta"
 
 #. 'client_secret' is a technical term and should not be translated
 msgid "Reroll client_secret"
-msgstr ""
+msgstr "Athrolláil client_secret"
 
 msgid "Reset Password"
 msgstr "Athshocraigh Pasfhocal"
@@ -378,27 +378,33 @@ msgid "Reset your password here"
 msgstr "Athshocraigh do phasfhocal anseo"
 
 msgid "Server error when deleting user."
-msgstr ""
+msgstr "Earráid freastalaí agus úsáideoir á scriosadh."
 
 msgid "Someone logged into your account from a new location, with the IP:"
 msgstr ""
+"Logáil duine éigin isteach i do chuntas ó shuíomh nua, leis an seoladh IP "
+"seo a leanas:"
 
 msgid "Space-separated list of available scopes"
-msgstr ""
+msgstr "Liosta de raonta atá ar fáil, scartha le spásanna"
 
 msgid ""
 "Space-separated list of default scopes, they will be used on requests if no "
 "other scope is given."
 msgstr ""
+"Liosta de raon feidhme réamhshocraithe atá scartha le spásanna, úsáidfear "
+"iad ar iarratais mura dtugtar aon raon feidhme eile."
 
 #. 'scope' is used as a technical term here, do not translate that word
 msgid ""
 "Space-separated list of default scopes, they will be used on requests where "
 "no other scope is given."
 msgstr ""
+"Liosta de scopes réamhshocraithe atá scartha le spásanna, úsáidfear iad ar "
+"iarratais nach dtugtar aon raon feidhme eile dóibh."
 
 msgid "Space-separated list of scopes that should be available"
-msgstr ""
+msgstr "Liosta de scopes atá scartha le spásanna agus ba chóir a bheith ar fáil"
 
 msgid "Special canvas to spread awareness of SARS-CoV2 (take the vax)."
 msgstr ""
@@ -420,10 +426,10 @@ msgid "The user owning this fish is private"
 msgstr "Is úsáideoir príobháideach é/í an t-iasc seo"
 
 msgid "This application is not allowed to login"
-msgstr ""
+msgstr "Ní cheadaítear don fheidhmchlár seo logáil isteach"
 
 msgid "This application redirects to an unallowed page"
-msgstr ""
+msgstr "Atreoraíonn an feidhmchlár seo chuig leathanach neamhcheadaithe"
 
 msgid "This application sent a faulty login request with no redirection"
 msgstr ""
