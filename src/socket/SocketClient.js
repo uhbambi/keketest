@@ -42,7 +42,7 @@ import {
   pRefresh, fishAppears, catchedFish, pAlert,
 } from '../store/actions/index.js';
 import { fetchMe } from '../store/actions/thunks.js';
-import detectMalware from '../core/malwareDetection.js';
+// import detectMalware from '../core/malwareDetection.js';
 
 class SocketClient {
   store = null;
@@ -172,7 +172,10 @@ class SocketClient {
     // flush queue
     this.processMsgQueue();
 
+    /*
+     * Chromium doesn't like this now and displays a scarry warning
     detectMalware(this);
+    */
   }
 
   setCanvas(canvasId) {

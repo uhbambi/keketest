@@ -535,8 +535,8 @@ msgstr ""
 msgid "Delete Account"
 msgstr ""
 
-#: src/components/windows/OIDCConsent.jsx:271
-#: src/components/windows/OIDCConsent.jsx:309
+#: src/components/windows/OIDCConsent.jsx:274
+#: src/components/windows/OIDCConsent.jsx:312
 msgid "Deny"
 msgstr ""
 
@@ -577,7 +577,7 @@ msgstr ""
 msgid "Do stuff with IPs (one IP per line)"
 msgstr ""
 
-#: src/components/windows/OIDCConsent.jsx:258
+#: src/components/windows/OIDCConsent.jsx:261
 msgid "Don't remember"
 msgstr ""
 
@@ -687,7 +687,7 @@ msgstr ""
 #: src/components/LogInForm.jsx:387
 #: src/components/windows/BadgeDisplay.jsx:39
 #: src/components/windows/FishDisplay.jsx:40
-#: src/components/windows/OIDCConsent.jsx:287
+#: src/components/windows/OIDCConsent.jsx:290
 msgid "Error"
 msgstr ""
 
@@ -738,25 +738,25 @@ msgid ""
 "relevant traces. Your placed pixels will of course not be deleted."
 msgstr ""
 
-#: src/components/windows/OIDCConsent.jsx:259
+#: src/components/windows/OIDCConsent.jsx:262
 msgid "For one day"
 msgstr ""
 
 #: src/components/LogInForm.jsx:223
 #: src/components/LogInForm.jsx:374
-#: src/components/windows/OIDCConsent.jsx:261
+#: src/components/windows/OIDCConsent.jsx:264
 msgid "For one month"
 msgstr ""
 
 #: src/components/LogInForm.jsx:222
 #: src/components/LogInForm.jsx:373
-#: src/components/windows/OIDCConsent.jsx:260
+#: src/components/windows/OIDCConsent.jsx:263
 msgid "For one week"
 msgstr ""
 
 #: src/components/LogInForm.jsx:224
 #: src/components/LogInForm.jsx:375
-#: src/components/windows/OIDCConsent.jsx:262
+#: src/components/windows/OIDCConsent.jsx:265
 msgid "For one year"
 msgstr ""
 
@@ -766,7 +766,7 @@ msgstr ""
 
 #: src/components/LogInForm.jsx:225
 #: src/components/LogInForm.jsx:376
-#: src/components/windows/OIDCConsent.jsx:263
+#: src/components/windows/OIDCConsent.jsx:266
 msgid "Forever"
 msgstr ""
 
@@ -808,7 +808,7 @@ msgstr ""
 msgid "Go to"
 msgstr ""
 
-#: src/components/windows/OIDCConsent.jsx:278
+#: src/components/windows/OIDCConsent.jsx:281
 msgid "Grant"
 msgstr ""
 
@@ -1126,6 +1126,10 @@ msgstr ""
 msgid "Not allowed"
 msgstr ""
 
+#: src/components/windows/OIDCConsent.jsx:248
+msgid "Note"
+msgstr ""
+
 #: src/components/windows/index.js:36
 msgid "OIDC LogIn"
 msgstr ""
@@ -1425,7 +1429,7 @@ msgstr ""
 msgid "Reload"
 msgstr ""
 
-#: src/components/windows/OIDCConsent.jsx:250
+#: src/components/windows/OIDCConsent.jsx:253
 msgid "Remember this decision: "
 msgstr ""
 
@@ -1508,7 +1512,7 @@ msgstr ""
 #: src/components/ChangeUsername.jsx:70
 #: src/components/LanguageSelect.jsx:75
 #: src/components/TemplateItemEdit.jsx:209
-#: src/components/windows/OIDCConsent.jsx:314
+#: src/components/windows/OIDCConsent.jsx:317
 msgid "Save"
 msgstr ""
 
@@ -1743,6 +1747,10 @@ msgid ""
 "any time. All characters except @, /, , >, < and # are allowed."
 msgstr ""
 
+#: src/components/windows/OIDCConsent.jsx:248
+msgid "This login may only work if your account is verified."
+msgstr ""
+
 #: src/components/windows/OIDCConsent.jsx:237
 msgid "This permission is required"
 msgstr ""
@@ -1894,7 +1902,7 @@ msgstr ""
 #: src/components/Admintools.jsx:354
 #: src/components/LogInForm.jsx:331
 #: src/components/LogInForm.jsx:338
-#: src/components/windows/OIDCConsent.jsx:303
+#: src/components/windows/OIDCConsent.jsx:306
 msgid "User Name"
 msgstr ""
 
@@ -1907,7 +1915,7 @@ msgid "Username can only contain the characters: a-z . _ and -"
 msgstr ""
 
 #: src/components/ChangeUsername.jsx:60
-#: src/components/windows/OIDCConsent.jsx:297
+#: src/components/windows/OIDCConsent.jsx:300
 msgid "Username can only contain the characters: a-z A-z . _ and -"
 msgstr ""
 
@@ -1970,7 +1978,7 @@ msgid "Wrong Color"
 msgstr ""
 
 #: src/components/ChangeUsername.jsx:59
-#: src/components/windows/OIDCConsent.jsx:296
+#: src/components/windows/OIDCConsent.jsx:299
 msgid "YOU CAN ONLY CHOOSE YOUR USERNAME ONCE!"
 msgstr ""
 
@@ -2118,7 +2126,7 @@ msgstr ""
 msgid "Your ban expires at "
 msgstr ""
 
-#: src/components/windows/OIDCConsent.jsx:283
+#: src/components/windows/OIDCConsent.jsx:286
 msgid ""
 "Your did not set your username yet. A username is required to login to "
 "other applications. You can set it now:"
