@@ -864,6 +864,9 @@ msgstr "Pasvorton ne donita."
 msgid "Not allowed"
 msgstr "Ne permesita"
 
+msgid "Note"
+msgstr ""
+
 msgid "OIDC LogIn"
 msgstr "OIDC-Ensaluto"
 
@@ -1356,6 +1359,9 @@ msgid ""
 msgstr ""
 "Jen la nomo, kiun aliaj homoj vidas, ekzemple en la babilejo. Vi povas ŝanĝi "
 "ĝin iam ajn. Ĉiuj signoj krom @, /, \\, >, < kaj # estas permesitaj."
+
+msgid "This login may only work if your account is verified."
+msgstr ""
 
 msgid "This permission is required"
 msgstr "Ĉi tiu permeso estas necesa"

@@ -856,6 +856,9 @@ msgstr "Nuk është dhënë asnjë fjalëkalim."
 msgid "Not allowed"
 msgstr "Nuk lejohet"
 
+msgid "Note"
+msgstr ""
+
 msgid "OIDC LogIn"
 msgstr "Hyrje OIDC"
 
@@ -1346,6 +1349,9 @@ msgstr ""
 "Ky është emri që njerëzit e tjerë shohin, p.sh. në Bisedë. Ju mund ta "
 "ndryshoni atë në çdo kohë. Të gjitha karakteret përveç @, /, \\, >, < dhe # "
 "janë të lejuara."
+
+msgid "This login may only work if your account is verified."
+msgstr ""
 
 msgid "This permission is required"
 msgstr "Kjo leje është e detyrueshme"

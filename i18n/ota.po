@@ -809,6 +809,9 @@ msgstr ""
 msgid "Not allowed"
 msgstr "Nevâhîdir"
 
+msgid "Note"
+msgstr ""
+
 msgid "OIDC LogIn"
 msgstr ""
 
@@ -1260,6 +1263,9 @@ msgstr ""
 msgid ""
 "This is the name that other people see, e.g. in Chat. You can change it at "
 "any time. All characters except @, /, , >, < and # are allowed."
+msgstr ""
+
+msgid "This login may only work if your account is verified."
 msgstr ""
 
 msgid "This permission is required"

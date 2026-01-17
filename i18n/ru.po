@@ -861,6 +861,9 @@ msgstr "Пароль не указан."
 msgid "Not allowed"
 msgstr "Не разрешено"
 
+msgid "Note"
+msgstr ""
+
 msgid "OIDC LogIn"
 msgstr "Вход через OIDC"
 
@@ -1352,6 +1355,9 @@ msgstr ""
 "Это имя, которое другие пользователи будут видеть, например, в чате. Вы "
 "можете изменить его в любое время. Доступны все символы, кроме @, /, , >, < "
 "и #."
+
+msgid "This login may only work if your account is verified."
+msgstr ""
 
 msgid "This permission is required"
 msgstr "Это разрешение необходимо"

@@ -859,6 +859,9 @@ msgstr "Kein Passwort eingegeben."
 msgid "Not allowed"
 msgstr "Nicht erlaubt"
 
+msgid "Note"
+msgstr ""
+
 msgid "OIDC LogIn"
 msgstr "OIDC Anmeldung"
 
@@ -1347,6 +1350,9 @@ msgid ""
 msgstr ""
 "Das ist der Name, den andere Spieler sehen, z.B. im Chat. Er kann jederzeit "
 "geändert werden. Alle Zichen bis auf @/><,# sind erlaubt."
+
+msgid "This login may only work if your account is verified."
+msgstr ""
 
 msgid "This permission is required"
 msgstr "Diese Berechtigung ist erforderlich"

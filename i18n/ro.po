@@ -852,6 +852,9 @@ msgstr "Nu ai pus o parolă."
 msgid "Not allowed"
 msgstr "Nu este permis"
 
+msgid "Note"
+msgstr ""
+
 msgid "OIDC LogIn"
 msgstr "Login OIDC"
 
@@ -1336,6 +1339,9 @@ msgid ""
 msgstr ""
 "Acesta este numele pe care îl văd alte persoane, de exemplu în Chat. Îl poți "
 "schimba oricând. Sunt permise toate caracterele, cu excepția @, /, >."
+
+msgid "This login may only work if your account is verified."
+msgstr ""
 
 msgid "This permission is required"
 msgstr "Această permisiune este necesară"
