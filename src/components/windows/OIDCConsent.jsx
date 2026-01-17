@@ -227,7 +227,7 @@ const OIDCConsent = () => {
                 </tr>
               </thead>
               <tbody>
-                {scopes?.map(([scope, description, required]) => (
+                {scopes.map(([scope, description, required]) => (
                   <tr key={scope}>
                     <th>
                       <input
@@ -245,6 +245,9 @@ const OIDCConsent = () => {
               </tbody>
             </table>
           </React.Fragment>
+          )}
+          {(scopes?.includes('user_id')) && (
+            <p key="scv"><strong>{`${t`Note`}: `}</strong>{t`This login may only work if your account is verified.`}</p>
           )}
           <p>
             {t`Remember this decision: `}
