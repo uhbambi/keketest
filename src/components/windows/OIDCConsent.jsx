@@ -30,9 +30,12 @@ const OIDCConsent = () => {
   /* only for changing username, which can be required */
   const [usernameErrors, setUsernameErrors] = useState([]);
 
-  const [sessionName, sessionUsername] = useSelector((state) => [
+  const [
+    sessionName, sessionUsername, sessionNotVerified,
+  ] = useSelector((state) => [
     state.user.name,
     state.user.username,
+    state.messages?.includes('not_verified'),
   ], shallowEqual);
 
   const dispatch = useDispatch();
@@ -89,6 +92,8 @@ const OIDCConsent = () => {
   }
 
   const username = authReturn ? authReturn.me.username : sessionUsername;
+  const notVerified = authReturn
+    ? authReturn.me.messages?.includes('not_verified') : sessionNotVerified;
   const userIsValid = name && !username.startsWith('pp_');
 
   const { redirect_uri: redirectUri, clientName } = params;
@@ -244,7 +249,7 @@ const OIDCConsent = () => {
                 ))}
               </tbody>
             </table>
-            {(scopes.some(([scope]) => scope === 'user_id')) && (
+            {(notVerified && scopes.some(([scope]) => scope === 'user_id')) && (
               <p key="scv"><strong>{`${t`Note`}: `}</strong>{t`This login may only work if your account is verified.`}</p>
             )}
           </React.Fragment>
