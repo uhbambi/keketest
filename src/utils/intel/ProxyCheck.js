@@ -108,24 +108,27 @@ class PcKeyProvider {
    */
   async getKeyUsage(key) {
     let usage;
-    try {
+    let tries = 5;
+    while (tries > 0) {
+      tries -= 1;
       try {
-        usage = await PcKeyProvider.requestKeyUsage(key);
-      } finally {
-        let pos = this.availableKeys.findIndex((k) => k[0] === key);
-        if (~pos) this.availableKeys.splice(pos, 1);
-        pos = this.disabledKeys.findIndex((k) => k[0] === key);
-        if (~pos) this.disabledKeys.splice(pos, 1);
+        try {
+          // eslint-disable-next-line no-await-in-loop
+          usage = await PcKeyProvider.requestKeyUsage(key);
+        } finally {
+          let pos = this.availableKeys.findIndex((k) => k[0] === key);
+          if (~pos) this.availableKeys.splice(pos, 1);
+          pos = this.disabledKeys.findIndex((k) => k[0] === key);
+          if (~pos) this.disabledKeys.splice(pos, 1);
+        }
+      } catch (err) {
+        this.logger.info(`PCKey: ${key}, Error ${err.message}`);
+        // eslint-disable-next-line no-await-in-loop
+        await new Promise((resolve) => { setTimeout(resolve, 5000); });
       }
-    } catch (err) {
-      this.logger.info(`PCKey: ${key}, Error ${err.message}`);
-      this.disabledKeys.push([
-        key,
-        0,
-        0,
-        0,
-        true,
-      ]);
+    }
+    if (!usage) {
+      this.disabledKeys.push([key, 0, 0, 0, true]);
       return;
     }
     const queriesToday = Number(usage['Queries Today']) || 0;
