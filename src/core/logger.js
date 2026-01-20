@@ -4,6 +4,7 @@
  *
  */
 
+import fs from 'fs';
 import { createLogger, format, transports } from 'winston';
 import DailyRotateFile from 'winston-daily-rotate-file';
 
@@ -12,6 +13,10 @@ import { PORT } from './config.js';
 export const PIXELLOGGER_PREFIX = `./log/pixels-${PORT}-`;
 const PROXYLOGGER_PREFIX = `./log/proxycheck-${PORT}-`;
 const MODTOOLLOGGER_PREFIX = `./log/moderation/modtools-${PORT}-`;
+
+if (!fs.existsSync('log')) {
+  fs.mkdirSync('log');
+}
 
 const logger = createLogger({
   level: 'info',
