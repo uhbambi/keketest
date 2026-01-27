@@ -42,6 +42,8 @@ const firewallBlockRanges = [
   '47.76.0.0/14',
   '47.80.0.0/13',
   '47.74.0.0/15',
+  /* private little fag */
+  '186.0.207.48/28',
 ];
 
 const firewallBlockIPs = [

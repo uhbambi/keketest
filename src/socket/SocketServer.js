@@ -586,7 +586,7 @@ class SocketServer {
             connectedTs,
           );
 
-          if (retCode > 9 && retCode !== 13) {
+          if ((retCode > 9 && retCode !== 13) || pixels.length > 20) {
             rateLimiter.add(ipString, 800);
           }
 

@@ -115,6 +115,15 @@ export default async function drawByOffsets(
       throw new Error(3);
     }
 
+    // eslint-disable-next-line prefer-const
+    let { isBanned, isProxy } = await ip.getAllowance();
+    if (!isProxy && !isBanned && user) {
+      ({ isBanned } = await user.getAllowance());
+    }
+    if (isBanned) {
+      throw new Error(14);
+    }
+
     const isAdmin = (user?.userlvl >= USERLVL.ADMIN);
     const req = (isAdmin) ? null : canvas.req;
     const clrIgnore = canvas.cli || 0;
@@ -138,10 +147,6 @@ export default async function drawByOffsets(
       pxlOffsets.push(offset);
 
       const [x, y, z] = getPixelFromChunkOffset(i, j, offset, canvasSize, is3d);
-      pixelLogger.info(
-        // eslint-disable-next-line max-len
-        `${startTime} ${ipString} ${userId} ${canvasId} ${x} ${y} ${z} ${color}`,
-      );
 
       const maxSize = (is3d) ? tileSize * tileSize * THREE_CANVAS_HEIGHT
         : tileSize * tileSize;
@@ -181,6 +186,11 @@ export default async function drawByOffsets(
         throw new Error(8);
       }
 
+      pixelLogger.info(
+        // eslint-disable-next-line max-len
+        `${startTime} ${ipString} ${userId} ${canvasId} ${x} ${y} ${z} ${color}`,
+      );
+
       /* dont rank antarctica */
       if (canvasId === 0 && y > 14450) {
         ranked = false;
@@ -198,15 +208,6 @@ export default async function drawByOffsets(
       !user || user.userlvl < USERLVL.VERIFIED
     )) {
       throw new Error(17);
-    }
-
-    // eslint-disable-next-line prefer-const
-    let { isBanned, isProxy } = await ip.getAllowance();
-    if (!isProxy && !isBanned && user) {
-      ({ isBanned } = await user.getAllowance());
-    }
-    if (isBanned) {
-      throw new Error(14);
     }
 
     /* temporary blocks */
