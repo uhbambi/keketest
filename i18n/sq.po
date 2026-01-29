@@ -1100,6 +1100,9 @@ msgstr "Mbani mend këtë zgjedhje: "
 msgid "Remove"
 msgstr "Hiq"
 
+msgid "Remove Chatmod"
+msgstr ""
+
 msgid "Remove Cleaner"
 msgstr "Hiq Pastruesit"
 

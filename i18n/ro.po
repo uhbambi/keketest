@@ -1093,6 +1093,9 @@ msgstr "Adu-ți aminte aceasta decizie: "
 msgid "Remove"
 msgstr "Scoate"
 
+msgid "Remove Chatmod"
+msgstr ""
+
 msgid "Remove Cleaner"
 msgstr "Scoate Cleaner"
 

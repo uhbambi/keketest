@@ -1104,6 +1104,9 @@ msgstr "Запомнить это решение: "
 msgid "Remove"
 msgstr "Убрать"
 
+msgid "Remove Chatmod"
+msgstr ""
+
 msgid "Remove Cleaner"
 msgstr "Убрать уборщика"
 

@@ -1084,6 +1084,9 @@ msgstr ""
 msgid "Remove"
 msgstr ""
 
+msgid "Remove Chatmod"
+msgstr ""
+
 msgid "Remove Cleaner"
 msgstr ""
 

@@ -1087,6 +1087,9 @@ msgstr "Husk dette valg: "
 msgid "Remove"
 msgstr "Fjern"
 
+msgid "Remove Chatmod"
+msgstr ""
+
 msgid "Remove Cleaner"
 msgstr "Fjern rengører"
 

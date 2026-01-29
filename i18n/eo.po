@@ -1106,6 +1106,9 @@ msgstr "Memoru ĉi tiun decidon: "
 msgid "Remove"
 msgstr "Forigi"
 
+msgid "Remove Chatmod"
+msgstr ""
+
 msgid "Remove Cleaner"
 msgstr "Forigu Purigilon"
 

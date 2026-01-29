@@ -1103,6 +1103,9 @@ msgstr "Diese Entscheidung merken: "
 msgid "Remove"
 msgstr "Entfernen"
 
+msgid "Remove Chatmod"
+msgstr ""
+
 msgid "Remove Cleaner"
 msgstr "Entferne Putzfrau"
 

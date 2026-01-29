@@ -1100,6 +1100,9 @@ msgstr "Recorda aquesta decisió: "
 msgid "Remove"
 msgstr "Elimina"
 
+msgid "Remove Chatmod"
+msgstr ""
+
 msgid "Remove Cleaner"
 msgstr "Elimina el Netejador"
 
