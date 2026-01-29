@@ -48,7 +48,6 @@ export class ChatProvider {
     this.enChannelId = 0;
     this.infoUserId = 1;
     this.eventUserId = 1;
-    this.autobanPhrase = null;
     this.apiSocketUserId = 1;
     this.caseCheck = /^[A-Z !.]*$/;
     this.cyrillic = /[\u0436-\u043B]'/;
@@ -271,22 +270,6 @@ export class ChatProvider {
         return 'No country is currently muted from this channel';
       }
 
-      case 'autoban': {
-        if (args[0]) {
-          this.autobanPhrase = args.join(' ');
-          if (this.autobanPhrase === 'unset' || this.autobanPhrase.length < 5) {
-            this.autobanPhrase = null;
-          }
-          return `Set autoban phrase on shard to ${this.autobanPhrase}`;
-        }
-        // eslint-disable-next-line
-        if (this.autobanPhrase) {
-          // eslint-disable-next-line
-          return `Current autoban phrase on shard is ${this.autobanPhrase}, use "/autoban unset" to remove it`;
-        }
-        return 'Autoban phrase is currently not set on this shard';
-      }
-
       default:
         return `Couldn't parse command ${cmd}`;
     }
@@ -306,7 +289,7 @@ export class ChatProvider {
     const { id } = user;
     const { t } = ttag;
     const { name } = user.data;
-    const { ipString, country } = ip;
+    const { country } = ip;
 
     if (!user.rateLimiter) {
       user.rateLimiter = new RateLimiter(20, 15, true);
@@ -356,13 +339,7 @@ export class ChatProvider {
       }
     }
 
-    if (name.trim() === ''
-      || (this.autobanPhrase && message.includes(this.autobanPhrase))
-    ) {
-      user.isBanned = true;
-      /* this will both ban and mute */
-      ban(ipString, id, null, true, true, 'CHATBAN');
-      logger.info(`CHAT AUTOBANNED: ${ipString}`);
+    if (name.trim() === '') {
       return 'nope';
     }
 
