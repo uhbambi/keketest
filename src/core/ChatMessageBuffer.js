@@ -3,7 +3,11 @@
  * it just buffers the most recent 200 messages for each channel
  *
  */
-import { storeMessage, getMessagesForChannel } from '../data/sql/Message.js';
+import {
+  storeMessage,
+  getMessagesForChannel,
+  deletePublicUserMessages,
+} from '../data/sql/Message.js';
 
 const MAX_BUFFER_TIME = 600000;
 
@@ -15,8 +19,14 @@ class ChatMessageBuffer {
     this.cleanBuffer = this.cleanBuffer.bind(this);
     this.cleanLoop = setInterval(this.cleanBuffer, 3 * 60 * 1000);
     this.addMessage = this.addMessage.bind(this);
+    this.resetBuffers = this.resetBuffers.bind(this);
     this.socketEvents = socketEvents;
     socketEvents.on('chatMessage', this.addMessage);
+    /*
+     * reset buffers when public messages got deleted, since we do not know
+     * which channels exactly got affected
+     */
+    socketEvents.on('deletePublicUserMessages', this.resetBuffers);
   }
 
   async getMessages(cid, limit = 30) {
@@ -45,6 +55,11 @@ class ChatMessageBuffer {
       this.timestamps.delete(cid);
       this.buffer.delete(cid);
     });
+  }
+
+  resetBuffers() {
+    this.buffer.clear();
+    this.timestamps.clear();
   }
 
   async broadcastChatMessage(
@@ -90,6 +105,18 @@ class ChatMessageBuffer {
         Math.round(Date.now() / 1000),
       ]);
     }
+  }
+
+  /*
+   * delete all messages of a user from public channels
+   */
+  async broadcastUserPublicChatMessageDeletion(uid, sendapi = true) {
+    deletePublicUserMessages(uid);
+    /*
+     * goes through socket events and then comes
+     * back to resetBuffers
+     */
+    this.socketEvents.broadcastUserPublicChatMessageDeletion(uid, sendapi);
   }
 }
 

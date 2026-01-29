@@ -1,4 +1,4 @@
-import { MAX_CHAT_MESSAGES } from '../../core/constants.js';
+import { MAX_CHAT_MESSAGES, CHANNEL_TYPES } from '../../core/constants.js';
 
 const initialState = {
   /*
@@ -168,6 +168,27 @@ export default function chat(
           ...state.channels,
           [channel]: channelArray,
         },
+        messages,
+      };
+    }
+
+    case 's/DELETE_PUB_USR_MSG': {
+      const { user } = action;
+
+      const messages = {
+        ...state.messages,
+      };
+
+      const cids = Object.keys(state.channels);
+      for (let i = 0; i < cids.length; i += 1) {
+        const cid = cids[i];
+        if (state.channels[cid][1] === CHANNEL_TYPES.PUBLIC && messages[cid]) {
+          messages[cid] = messages[cid].filter((m) => m[3] !== user);
+        }
+      }
+
+      return {
+        ...state,
         messages,
       };
     }

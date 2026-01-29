@@ -162,6 +162,10 @@ class SocketServer {
       SocketServer.broadcastSelected(clientArray, text);
     });
 
+    socketEvents.on('deletePublicUserMessages', (uid) => {
+      this.broadcast(`dpum,${JSON.stringify(uid)}`);
+    });
+
     socketEvents.on('addChatChannel', (userId, channelId, channelArray) => {
       this.findAllWsByUerId(userId).forEach((ws) => {
         ws.user.addChannel(channelId, channelArray);

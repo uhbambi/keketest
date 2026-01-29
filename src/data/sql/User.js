@@ -14,6 +14,7 @@ import {
   USERLVL, THREEPID_PROVIDERS, USER_FLAGS,
 } from '../../core/constants.js';
 import { deleteAllDMChannelsOfUser } from './Channel.js';
+import { ADMIN_IDS } from '../../core/config.js';
 
 export { USERLVL, THREEPID_PROVIDERS, USER_FLAGS };
 
@@ -160,7 +161,7 @@ export async function getInfoByUsernameOrId(usernameOrId) {
   }
   try {
     /* eslint-disable max-len */
-    let query = `SELECT u.id AS uid, u.name, s.country, u.userlvl,
+    let query = `SELECT u.id AS uid, u.name, u.username, s.country, u.userlvl,
  EXISTS(SELECT 1 FROM Bans b INNER JOIN UserBans ub ON ub.bid = b.id WHERE ub.uid = u.id AND (b.flags & 0x02) > 0 AND (b.expires > NOW() OR b.expires IS NULL)) AS isMuted
  FROM Users u
     LEFT JOIN Sessions s ON s.uid = u.id AND s.country != 'xx'
@@ -791,7 +792,7 @@ export async function deleteUser(id) {
 }
 
 /**
- * get basic information of user
+ * get staff
  * @param userlvl userlevel
  * @return { id, name }
  */
@@ -815,6 +816,42 @@ export async function getHighUserLvlUsers() {
     console.error(`SQL Error on getHighUserLvlUsers: ${error.message}`);
   }
   return {};
+}
+
+/**
+ * get staff with chat moderation rights
+ * @return [ [username, isAdmin], ... ]
+ */
+export async function getChatStaff() {
+  try {
+    const [adminModels, modModels] = await Promise.all([
+      sequelize.query(`SELECT id, username FROM Users WHERE id IN (${
+        ADMIN_IDS.map(() => '?').join(', ')
+      })`, {
+        replacements: [...ADMIN_IDS],
+        raw: true,
+        type: QueryTypes.SELECT,
+      }),
+      sequelize.query('SELECT id, username FROM Users WHERE userlvl >= ?', {
+        replacements: [USERLVL.MOD],
+        raw: true,
+        type: QueryTypes.SELECT,
+      }),
+    ]);
+    const staff = [];
+    for (const { id, username } of adminModels) {
+      staff.push([id, username, true]);
+    }
+    for (const { id, username } of modModels) {
+      if (!staff.find((staffProps) => staffProps[0] === id)) {
+        staff.push([id, username, false]);
+      }
+    }
+    return staff;
+  } catch (error) {
+    console.error(`SQL Error on getChatStaff: ${error.message}`);
+  }
+  return [];
 }
 
 /**

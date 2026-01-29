@@ -16,8 +16,9 @@ import { setPixelByCoords } from '../core/setPixel.js';
 import logger from '../core/logger.js';
 import { APISOCKET_KEY } from '../core/config.js';
 import authenticateAPIClient from './authenticateAPIClient.js';
-import { getInfoByUsernameOrId } from '../data/sql/User.js';
+import { getInfoByUsernameOrId, getChatStaff } from '../data/sql/User.js';
 import mapFlag from '../utils/flagMapping.js';
+import { DailyCron } from '../utils/cron.js';
 
 
 class APISocketServer {
@@ -63,8 +64,8 @@ class APISocketServer {
     }
   }
 
-  static getPublicChannels() {
-    const chanReply = ['chans'];
+  static async getPublicChannelsAndStaff() {
+    const chanReply = [];
     const defaultChanKeys = Object.keys(chatProvider.defaultChannels);
     const langChanKeys = Object.keys(chatProvider.langChannels);
     for (let i = 0; i < defaultChanKeys.length; i += 1) {
@@ -77,7 +78,8 @@ class APISocketServer {
       const { id } = chatProvider.langChannels[name];
       chanReply.push([id, name]);
     }
-    return chanReply;
+    const staff = await getChatStaff();
+    return ['chans', chanReply, staff];
   }
 
   initialize() {
@@ -118,10 +120,16 @@ class APISocketServer {
     this.reloadUser = this.reloadUser.bind(this);
     this.ping = this.ping.bind(this);
     this.broadcastChatMessage = this.broadcastChatMessage.bind(this);
+    this.refreshChatClients = this.refreshChatClients.bind(this);
 
+    DailyCron.hook(this.refreshChatClients);
     socketEvents.onAsync('onlineCounter', this.broadcastOnlineCounter);
     socketEvents.onAsync('pixelUpdate', this.broadcastPixelBuffer);
     socketEvents.onAsync('chatMessage', this.broadcastChatMessage);
+    socketEvents.onAsync(
+      'deletePublicUserMessages',
+      this.broadcastUserPublicChatMessageDeletion.bind(this),
+    );
     socketEvents.onAsync('reloadUser', this.reloadUser.bind(this));
 
     setInterval(this.ping, 45 * 1000);
@@ -151,7 +159,7 @@ class APISocketServer {
     name,
     msg,
     channelId,
-    id,
+    uid,
     country,
     sendapi,
     ws = null,
@@ -167,7 +175,7 @@ class APISocketServer {
     const sendmsg = JSON.stringify([
       'msg',
       name,
-      parseInt(id, 10),
+      parseInt(uid, 10),
       msg,
       country,
       parseInt(channelId, 10),
@@ -175,6 +183,36 @@ class APISocketServer {
     this.wss.clients.forEach((client) => {
       if (client !== ws
         && client.subChat
+        && client.readyState === WebSocket.OPEN) {
+        client.send(sendmsg);
+      }
+    });
+  }
+
+  async broadcastUserPublicChatMessageDeletion(uid, sendapi, ws = null) {
+    if (!sendapi || uid === chatProvider.apiSocketUserId) {
+      return;
+    }
+    const userData = await APISocketServer.#getUserData(uid);
+    if (!userData) {
+      return;
+    }
+    const sendmsg = JSON.stringify(['dpum', userData.username, uid]);
+    this.wss.clients.forEach((client) => {
+      if (client !== ws
+        && client.subChat
+        && client.readyState === WebSocket.OPEN) {
+        client.send(sendmsg);
+      }
+    });
+  }
+
+  async refreshChatClients() {
+    const sendmsg = JSON.stringify(
+      await APISocketServer.getPublicChannelsAndStaff(),
+    );
+    this.wss.clients.forEach((client) => {
+      if (client.subChat
         && client.readyState === WebSocket.OPEN) {
         client.send(sendmsg);
       }
@@ -250,7 +288,9 @@ class APISocketServer {
         const even = packet[0];
         if (even === 'chat') {
           ws.subChat = true;
-          ws.send(JSON.stringify(APISocketServer.getPublicChannels()));
+          ws.send(JSON.stringify(
+            await APISocketServer.getPublicChannelsAndStaff(),
+          ));
         } else if (even === 'pxl') {
           ws.subPxl = true;
         } else if (even === 'online') {
@@ -280,6 +320,8 @@ class APISocketServer {
         let userlvl;
         let name;
         let country;
+        let accepted = true;
+
         if (username.startsWith('@') && username.indexOf(':') !== -1) {
           /* matrix id in @name:homeserver.tld form */
           uid = chatProvider.apiSocketUserId;
@@ -287,52 +329,60 @@ class APISocketServer {
           /* the socket can be muted as well */
           const socketUserData = await APISocketServer.#getUserData(uid);
           if (socketUserData?.isMuted) {
-            return;
+            accepted = false;
           }
         } else {
           /* ordinary user */
           const userData = await APISocketServer.#getUserData(username);
           if (!userData) {
             logger.info(`Cound not get data of ${username} for matrix chat`);
-            return;
-          }
-          if (userData.isMuted) {
-            return;
+            accepted = false;
+          } else if (userData.isMuted) {
+            accepted = false;
           }
           ({ uid, name, country, userlvl } = userData);
+          if (!name || !uid) {
+            accepted = false;
+          }
         }
-        if (!name || !uid) {
-          // eslint-disable-next-line max-len
-          logger.info(`APISocket sent bax mchat event ${username} ${msg} ${channelId}`);
-          return;
+
+        if (accepted) {
+          if (!country) {
+            country = 'yy';
+          }
+          if (!userlvl) {
+            userlvl = 10;
+          }
+          country = mapFlag(uid, userlvl, country);
+
+          /*
+          * do not send message back up ws that sent it
+          */
+          chatProvider.broadcastChatMessage(
+            name,
+            msg,
+            channelId,
+            uid,
+            country,
+            false,
+          );
+          this.broadcastChatMessage(
+            name,
+            msg,
+            channelId,
+            uid,
+            country,
+            true,
+            ws,
+          );
         }
-        if (!country) {
-          country = 'yy';
-        }
-        if (!userlvl) {
-          userlvl = 10;
-        }
-        country = mapFlag(uid, userlvl, country);
-        /*
-         * do not send message back up ws that sent it
-         */
-        chatProvider.broadcastChatMessage(
-          name,
-          msg,
-          channelId,
-          uid,
-          country,
-          false,
-        );
-        this.broadcastChatMessage(
-          name,
-          msg,
-          channelId,
-          uid,
-          country,
-          true,
-          ws,
-        );
+
+        ws.send(JSON.stringify([
+          'chatret',
+          username,
+          uid === chatProvider.apiSocketUserId ? 0 : uid,
+          accepted,
+        ]));
         return;
       }
       logger.info(`Received unknown api-ws message ${message}`);

@@ -57,7 +57,7 @@ msgstr ""
 msgid "A new verification mail is getting sent to you."
 msgstr ""
 
-#: src/components/windows/OIDCConsent.jsx:67
+#: src/components/windows/OIDCConsent.jsx:70
 msgid "ACCESS MODTOOLS"
 msgstr ""
 
@@ -251,7 +251,7 @@ msgstr ""
 msgid "Change your Mail Adress here:"
 msgstr ""
 
-#: src/components/windows/Chat.jsx:291
+#: src/components/windows/Chat.jsx:290
 msgid "Channel settings"
 msgstr ""
 
@@ -264,7 +264,7 @@ msgstr ""
 msgid "Chat"
 msgstr ""
 
-#: src/components/windows/Chat.jsx:235
+#: src/components/windows/Chat.jsx:234
 msgid "Chat here"
 msgstr ""
 
@@ -272,7 +272,7 @@ msgstr ""
 msgid "Check out past versions of the canvas."
 msgstr ""
 
-#: src/components/windows/OIDCConsent.jsx:237
+#: src/components/windows/OIDCConsent.jsx:242
 msgid "Check to allow"
 msgstr ""
 
@@ -381,7 +381,7 @@ msgstr ""
 msgid "Connection error ${ code } :("
 msgstr ""
 
-#: src/components/windows/OIDCConsent.jsx:225
+#: src/components/windows/OIDCConsent.jsx:230
 msgid "Consent"
 msgstr ""
 
@@ -535,8 +535,8 @@ msgstr ""
 msgid "Delete Account"
 msgstr ""
 
-#: src/components/windows/OIDCConsent.jsx:274
-#: src/components/windows/OIDCConsent.jsx:312
+#: src/components/windows/OIDCConsent.jsx:279
+#: src/components/windows/OIDCConsent.jsx:317
 msgid "Deny"
 msgstr ""
 
@@ -577,7 +577,7 @@ msgstr ""
 msgid "Do stuff with IPs (one IP per line)"
 msgstr ""
 
-#: src/components/windows/OIDCConsent.jsx:261
+#: src/components/windows/OIDCConsent.jsx:266
 msgid "Don't remember"
 msgstr ""
 
@@ -687,7 +687,7 @@ msgstr ""
 #: src/components/LogInForm.jsx:387
 #: src/components/windows/BadgeDisplay.jsx:39
 #: src/components/windows/FishDisplay.jsx:40
-#: src/components/windows/OIDCConsent.jsx:290
+#: src/components/windows/OIDCConsent.jsx:295
 msgid "Error"
 msgstr ""
 
@@ -738,25 +738,25 @@ msgid ""
 "relevant traces. Your placed pixels will of course not be deleted."
 msgstr ""
 
-#: src/components/windows/OIDCConsent.jsx:262
+#: src/components/windows/OIDCConsent.jsx:267
 msgid "For one day"
 msgstr ""
 
 #: src/components/LogInForm.jsx:223
 #: src/components/LogInForm.jsx:374
-#: src/components/windows/OIDCConsent.jsx:264
+#: src/components/windows/OIDCConsent.jsx:269
 msgid "For one month"
 msgstr ""
 
 #: src/components/LogInForm.jsx:222
 #: src/components/LogInForm.jsx:373
-#: src/components/windows/OIDCConsent.jsx:263
+#: src/components/windows/OIDCConsent.jsx:268
 msgid "For one week"
 msgstr ""
 
 #: src/components/LogInForm.jsx:224
 #: src/components/LogInForm.jsx:375
-#: src/components/windows/OIDCConsent.jsx:265
+#: src/components/windows/OIDCConsent.jsx:270
 msgid "For one year"
 msgstr ""
 
@@ -766,7 +766,7 @@ msgstr ""
 
 #: src/components/LogInForm.jsx:225
 #: src/components/LogInForm.jsx:376
-#: src/components/windows/OIDCConsent.jsx:266
+#: src/components/windows/OIDCConsent.jsx:271
 msgid "Forever"
 msgstr ""
 
@@ -792,11 +792,11 @@ msgstr ""
 msgid "Get Users"
 msgstr ""
 
-#: src/components/windows/OIDCConsent.jsx:61
+#: src/components/windows/OIDCConsent.jsx:64
 msgid "Get email address"
 msgstr ""
 
-#: src/components/windows/OIDCConsent.jsx:63
+#: src/components/windows/OIDCConsent.jsx:66
 msgid "Get the amount of Pixels placed and ranking"
 msgstr ""
 
@@ -808,7 +808,7 @@ msgstr ""
 msgid "Go to"
 msgstr ""
 
-#: src/components/windows/OIDCConsent.jsx:281
+#: src/components/windows/OIDCConsent.jsx:286
 msgid "Grant"
 msgstr ""
 
@@ -938,7 +938,7 @@ msgstr ""
 msgid "Invited to Chat"
 msgstr ""
 
-#: src/components/windows/OIDCConsent.jsx:221
+#: src/components/windows/OIDCConsent.jsx:226
 msgid "It requests the following permissions. Uncheck what you don't want to grant:"
 msgstr ""
 
@@ -962,7 +962,7 @@ msgstr ""
 msgid "Keep Ratio"
 msgstr ""
 
-#: src/components/windows/OIDCConsent.jsx:73
+#: src/components/windows/OIDCConsent.jsx:76
 msgid "Know that an account exists"
 msgstr ""
 
@@ -1007,11 +1007,11 @@ msgstr ""
 msgid "Login to access more features and stats."
 msgstr ""
 
-#: src/components/windows/OIDCConsent.jsx:84
+#: src/components/windows/OIDCConsent.jsx:87
 msgid "Login to grant access to other application."
 msgstr ""
 
-#: src/components/windows/OIDCConsent.jsx:203
+#: src/components/windows/OIDCConsent.jsx:208
 msgid "Login to other application"
 msgstr ""
 
@@ -1126,7 +1126,7 @@ msgstr ""
 msgid "Not allowed"
 msgstr ""
 
-#: src/components/windows/OIDCConsent.jsx:248
+#: src/components/windows/OIDCConsent.jsx:253
 msgid "Note"
 msgstr ""
 
@@ -1254,7 +1254,7 @@ msgstr ""
 msgid "Pencil picks: "
 msgstr ""
 
-#: src/components/windows/OIDCConsent.jsx:226
+#: src/components/windows/OIDCConsent.jsx:231
 msgid "Permission"
 msgstr ""
 
@@ -1396,11 +1396,11 @@ msgstr ""
 msgid "Ranking updates every 5 min. Daily rankings get reset at midnight UTC."
 msgstr ""
 
-#: src/components/windows/OIDCConsent.jsx:65
+#: src/components/windows/OIDCConsent.jsx:68
 msgid "Read Badges and fishes"
 msgstr ""
 
-#: src/components/windows/OIDCConsent.jsx:59
+#: src/components/windows/OIDCConsent.jsx:62
 msgid "Read name, username and account age"
 msgstr ""
 
@@ -1421,7 +1421,7 @@ msgstr ""
 msgid "Register new account here"
 msgstr ""
 
-#: src/components/windows/OIDCConsent.jsx:69
+#: src/components/windows/OIDCConsent.jsx:72
 msgid "Regularly update this data"
 msgstr ""
 
@@ -1429,7 +1429,7 @@ msgstr ""
 msgid "Reload"
 msgstr ""
 
-#: src/components/windows/OIDCConsent.jsx:253
+#: src/components/windows/OIDCConsent.jsx:258
 msgid "Remember this decision: "
 msgstr ""
 
@@ -1512,7 +1512,7 @@ msgstr ""
 #: src/components/ChangeUsername.jsx:70
 #: src/components/LanguageSelect.jsx:75
 #: src/components/TemplateItemEdit.jsx:209
-#: src/components/windows/OIDCConsent.jsx:317
+#: src/components/windows/OIDCConsent.jsx:322
 msgid "Save"
 msgstr ""
 
@@ -1640,7 +1640,7 @@ msgstr ""
 msgid "Stacking till"
 msgstr ""
 
-#: src/components/windows/Chat.jsx:197
+#: src/components/windows/Chat.jsx:196
 msgid "Start chatting here"
 msgstr ""
 
@@ -1685,7 +1685,7 @@ msgstr ""
 msgid "Submit"
 msgstr ""
 
-#: src/components/windows/OIDCConsent.jsx:214
+#: src/components/windows/OIDCConsent.jsx:219
 msgid "Switch Account"
 msgstr ""
 
@@ -1702,7 +1702,7 @@ msgstr ""
 msgid "Templates"
 msgstr ""
 
-#: src/components/windows/OIDCConsent.jsx:205
+#: src/components/windows/OIDCConsent.jsx:210
 #, javascript-format
 msgid ""
 "The application ${ appName } at ${ appUrl } wants to login with your "
@@ -1747,11 +1747,11 @@ msgid ""
 "any time. All characters except @, /, , >, < and # are allowed."
 msgstr ""
 
-#: src/components/windows/OIDCConsent.jsx:248
+#: src/components/windows/OIDCConsent.jsx:253
 msgid "This login may only work if your account is verified."
 msgstr ""
 
-#: src/components/windows/OIDCConsent.jsx:237
+#: src/components/windows/OIDCConsent.jsx:242
 msgid "This permission is required"
 msgstr ""
 
@@ -1895,14 +1895,14 @@ msgstr ""
 msgid "User Area"
 msgstr ""
 
-#: src/components/windows/OIDCConsent.jsx:71
+#: src/components/windows/OIDCConsent.jsx:74
 msgid "User ID and verification level"
 msgstr ""
 
 #: src/components/Admintools.jsx:354
 #: src/components/LogInForm.jsx:331
 #: src/components/LogInForm.jsx:338
-#: src/components/windows/OIDCConsent.jsx:306
+#: src/components/windows/OIDCConsent.jsx:311
 msgid "User Name"
 msgstr ""
 
@@ -1915,7 +1915,7 @@ msgid "Username can only contain the characters: a-z . _ and -"
 msgstr ""
 
 #: src/components/ChangeUsername.jsx:60
-#: src/components/windows/OIDCConsent.jsx:300
+#: src/components/windows/OIDCConsent.jsx:305
 msgid "Username can only contain the characters: a-z A-z . _ and -"
 msgstr ""
 
@@ -1978,7 +1978,7 @@ msgid "Wrong Color"
 msgstr ""
 
 #: src/components/ChangeUsername.jsx:59
-#: src/components/windows/OIDCConsent.jsx:299
+#: src/components/windows/OIDCConsent.jsx:304
 msgid "YOU CAN ONLY CHOOSE YOUR USERNAME ONCE!"
 msgstr ""
 
@@ -2044,7 +2044,7 @@ msgid ""
 "a bonus, your cooldown is reduced."
 msgstr ""
 
-#: src/components/windows/OIDCConsent.jsx:175
+#: src/components/windows/OIDCConsent.jsx:180
 msgid "You did not consent"
 msgstr ""
 
@@ -2068,7 +2068,7 @@ msgstr ""
 msgid "You made too many requests"
 msgstr ""
 
-#: src/components/windows/Chat.jsx:261
+#: src/components/windows/Chat.jsx:260
 msgid "You must be logged in to chat"
 msgstr ""
 
@@ -2126,7 +2126,7 @@ msgstr ""
 msgid "Your ban expires at "
 msgstr ""
 
-#: src/components/windows/OIDCConsent.jsx:286
+#: src/components/windows/OIDCConsent.jsx:291
 msgid ""
 "Your did not set your username yet. A username is required to login to "
 "other applications. You can set it now:"

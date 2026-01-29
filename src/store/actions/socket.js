@@ -57,6 +57,13 @@ export function receiveChatMessage(
   };
 }
 
+export function deletePublicUserMessages(user) {
+  return {
+    type: 's/DELETE_PUB_USR_MSG',
+    user,
+  };
+}
+
 export function receiveCoolDown(wait) {
   return {
     type: 'REC_COOLDOWN',

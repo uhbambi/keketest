@@ -7,6 +7,7 @@
 import Sequelize, { DataTypes, QueryTypes } from 'sequelize';
 import sequelize from './sequelize.js';
 import Channel from './Channel.js';
+import { CHANNEL_TYPES } from '../../core/constants.js';
 
 const Message = sequelize.define('Message', {
   id: {
@@ -72,6 +73,31 @@ export async function storeMessage(
   } catch (error) {
     console.error(`SQL Error on storeMessage: ${error.message}`);
   }
+}
+
+/**
+ * delete all messages of a user written in public channels
+ * @param uid user id
+ */
+export async function deletePublicUserMessages(uid) {
+  if (!uid) {
+    return false;
+  }
+  try {
+    await sequelize.query(
+      `DELETE m FROM Messages m
+  INNER JOIN Channels c ON m.cid = c.id
+WHERE m.uid = ? AND c.type = ?`, {
+        replacements: [uid, CHANNEL_TYPES.PUBLIC],
+        raw: true,
+        type: QueryTypes.DELETE,
+      },
+    );
+    return true;
+  } catch (error) {
+    console.error(`SQL Error on deleteUserMessages: ${error.message}`);
+  }
+  return false;
 }
 
 export async function getMessagesForChannel(cid, limit) {

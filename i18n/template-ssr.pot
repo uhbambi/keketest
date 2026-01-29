@@ -61,7 +61,7 @@ msgstr ""
 msgid "Black and White canvas"
 msgstr ""
 
-#: src/core/ChatProvider.js:333
+#: src/core/ChatProvider.js:343
 msgid "Can not chat while being banned"
 msgstr ""
 
@@ -434,7 +434,7 @@ msgstr ""
 msgid "Please try again."
 msgstr ""
 
-#: src/core/ChatProvider.js:376
+#: src/core/ChatProvider.js:386
 msgid "Please use int channel"
 msgstr ""
 
@@ -505,7 +505,7 @@ msgstr ""
 msgid "Special canvas to spread awareness of SARS-CoV2 (take the vax)."
 msgstr ""
 
-#: src/core/ChatProvider.js:384
+#: src/core/ChatProvider.js:394
 msgid "Stop flooding."
 msgstr ""
 
@@ -652,12 +652,12 @@ msgstr ""
 msgid "You are already verified."
 msgstr ""
 
-#: src/core/ChatProvider.js:343
+#: src/core/ChatProvider.js:353
 #, javascript-format
 msgid "You are muted for another ${ timeMin } minutes"
 msgstr ""
 
-#: src/core/ChatProvider.js:345
+#: src/core/ChatProvider.js:355
 #, javascript-format
 msgid "You are muted for another ${ ttl } seconds"
 msgstr ""
@@ -679,11 +679,11 @@ msgstr ""
 msgid "You are now verified :)"
 msgstr ""
 
-#: src/core/ChatProvider.js:338
+#: src/core/ChatProvider.js:348
 msgid "You are permanently muted, join our guilded to appeal the mute"
 msgstr ""
 
-#: src/core/ChatProvider.js:308
+#: src/core/ChatProvider.js:318
 #, javascript-format
 msgid "You are sending messages too fast, you have to wait ${ waitTime }s :("
 msgstr ""
@@ -700,7 +700,7 @@ msgstr ""
 msgid "You can not register an account with a proxy"
 msgstr ""
 
-#: src/core/ChatProvider.js:330
+#: src/core/ChatProvider.js:340
 msgid "You can not send chat messages while using a proxy"
 msgstr ""
 
@@ -710,7 +710,7 @@ msgid ""
 "client_secret needed to make use of this."
 msgstr ""
 
-#: src/core/ChatProvider.js:372
+#: src/core/ChatProvider.js:382
 msgid "You can't send a message this long :("
 msgstr ""
 
@@ -720,7 +720,7 @@ msgid ""
 "Methods\"."
 msgstr ""
 
-#: src/core/ChatProvider.js:312
+#: src/core/ChatProvider.js:322
 msgid "You don't have access to this channel"
 msgstr ""
 
@@ -775,11 +775,11 @@ msgstr ""
 msgid "Your account needs to be verified to access this page"
 msgstr ""
 
-#: src/core/ChatProvider.js:317
+#: src/core/ChatProvider.js:327
 msgid "Your country is temporary muted from this chat channel"
 msgstr ""
 
-#: src/core/ChatProvider.js:362
+#: src/core/ChatProvider.js:372
 msgid "Your mail has to be verified in order to chat"
 msgstr ""
 

@@ -14,7 +14,6 @@ import useLink from '../hooks/link.js';
 import ContextMenu from '../contextmenus/index.jsx';
 import ChatMessage from '../ChatMessage.jsx';
 import ChannelDropDown from '../contextmenus/ChannelDropDown.jsx';
-
 import { CHANNEL_TYPES } from '../../core/constants.js';
 
 import {

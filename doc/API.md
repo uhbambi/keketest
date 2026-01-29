@@ -19,15 +19,19 @@ send
 
 ```["sub", "chat"]```
 
-you get a reply with the list of public channels you are now receiving messages of 
+you get a reply with the list of public channels followed by a list of staff
 
-```["chans", [id1, name1], [id2, name2], ...]```
+```["chans", [[id1, name1], [id2, name2], ...], [[ id, username, isAdmin], ...]]```
 
 All chat messages, except the once you send with `mchat` will be sent to you in the form:
 
 ```["msg", name, uid, message, country, channelId]```
 channelId is an integer. id is the user id
 country is the [two-letter country code](https://www.nationsonline.org/oneworld/country_code_list.htm) in lowercase
+
+Mass deletion of user messages in public channels will be announced to you in the form:
+
+```["dpum", username, uid]```
 
 ### Subscribe to online user counter
 
@@ -82,3 +86,7 @@ coolDownSeconds is the added cooldown (negative if pixel couldn't be set because
 channelId is an integer
 username is the username of the user or a matrix ID in @name:homeserver.com format.
 If it is a matrix ID, it will be sent with the apisockets own user.
+
+You will get a return to tell you if it was successful, uid will be 0 if user doesn't exist:
+
+```["chatret", username, uid, accepted (boolean)]```

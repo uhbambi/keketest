@@ -199,6 +199,16 @@ export class ChatProvider {
           },
         );
 
+      case 'purge':
+        return this.purge(
+          getUserFromMd(args.join(' ')),
+          {
+            printChannel: channelId,
+            initiator,
+            muid: user.id,
+          },
+        );
+
       case 'mutec': {
         if (args[0]) {
           const cc = args[0].toLowerCase();
@@ -419,6 +429,7 @@ export class ChatProvider {
     const userPing = `@[${escapeMd(name)}](${id})`;
 
     ban(null, id, null, true, false, 'mute', timeMin && timeMin * 60, muid);
+
     if (printChannel) {
       if (timeMin) {
         this.broadcastChatMessage(
@@ -471,6 +482,32 @@ export class ChatProvider {
       );
     }
     logger.info(`Unmuted user ${userPing}`);
+    return null;
+  }
+
+  async purge(nameOrId, opts) {
+    const initiator = opts.initiator || null;
+    const printChannel = opts.printChannel || null;
+
+    const searchResult = await findIdByNameOrId(nameOrId);
+    if (!searchResult) {
+      return `Couldn't find user ${nameOrId}`;
+    }
+    const { name, id } = searchResult;
+    const userPing = `@[${escapeMd(name)}](${id})`;
+
+    this.chatMessageBuffer.broadcastUserPublicChatMessageDeletion(id);
+    if (printChannel) {
+      this.broadcastChatMessage(
+        'info',
+        (initiator)
+          ? `Messages of ${userPing} purged by ${initiator}`
+          : `Messages of ${userPing} purged`,
+        printChannel,
+        this.infoUserId,
+      );
+    }
+    logger.info(`Purging public messages of user ${userPing}`);
     return null;
   }
 }
