@@ -41,6 +41,7 @@ export default {
   'cdn.discord.com': DirectLinkMedia,
   't.me': Telegram,
   twitter: Twitter,
+  x: Twitter,
   odysee: Odysee,
   'vod.afreecatv': AfreecaTv,
   'play.afreecatv': AfreecaTv,

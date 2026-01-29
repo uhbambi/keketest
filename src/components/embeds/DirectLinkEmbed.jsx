@@ -1,7 +1,7 @@
 import React from 'react';
 
 const DirectLinkEmbed = ({
-  url, fill, maxHeight, aspectRatio = 56.35,
+  url, fill, maxHeight, aspectRatio = 56.35, strictReferrer,
 }) => {
   const iFrame = (
     <iframe
@@ -12,7 +12,8 @@ const DirectLinkEmbed = ({
       }}
       src={url}
       frameBorder="0"
-      referrerPolicy="no-referrer"
+      // eslint-disable-next-line max-len
+      referrerPolicy={strictReferrer ? 'strict-origin-when-cross-origin' : 'no-referrer'}
       allow="autoplay; picture-in-picture; encrypted-media"
       scrolling="no"
       // eslint-disable-next-line max-len

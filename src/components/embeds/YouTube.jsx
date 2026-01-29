@@ -37,6 +37,7 @@ const YouTube = ({ url, fill, maxHeight }) => {
       maxHeight={maxHeight}
       fill={fill}
       aspectRatio={url.includes('/shorts/') ? 177.77 : undefined}
+      strictReferrer
     />
   );
 };
