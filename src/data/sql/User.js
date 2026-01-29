@@ -799,7 +799,7 @@ export async function deleteUser(id) {
 export async function getHighUserLvlUsers() {
   try {
     const userModels = await User.findAll({
-      where: { userlvl: { [Op.gte]: USERLVL.CLEANER } },
+      where: { userlvl: { [Op.gte]: USERLVL.CHATMOD } },
       attributes: ['name', 'id', 'userlvl'],
       raw: true,
     });
@@ -832,8 +832,9 @@ export async function getChatStaff() {
         raw: true,
         type: QueryTypes.SELECT,
       }),
-      sequelize.query('SELECT id, username FROM Users WHERE userlvl >= ?', {
-        replacements: [USERLVL.MOD],
+      // eslint-disable-next-line max-len
+      sequelize.query('SELECT id, username FROM Users WHERE userlvl >= ? OR userlvl = ?', {
+        replacements: [USERLVL.MOD, USERLVL.CHATMOD],
         raw: true,
         type: QueryTypes.SELECT,
       }),

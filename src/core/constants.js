@@ -62,6 +62,7 @@ export const USERLVL = {
   ANONYM: 0,
   REGISTERED: 10,
   VERIFIED: 20,
+  CHATMOD: 45,
   CLEANER: 50,
   JANNY: 65,
   MOD: 80,

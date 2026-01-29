@@ -322,7 +322,7 @@ export class ChatProvider {
       return t`You don\'t have access to this channel`;
     }
 
-    if (user.userlvl < USERLVL.MOD) {
+    if (user.userlvl < USERLVL.MOD && user.userlvl !== USERLVL.CHATMOD) {
       if (await isCountryMuted(country, channelId)) {
         return t`Your country is temporary muted from this chat channel`;
       }

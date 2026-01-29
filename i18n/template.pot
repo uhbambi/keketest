@@ -97,7 +97,7 @@ msgstr ""
 msgid "Archive"
 msgstr ""
 
-#: src/components/Admintools.jsx:342
+#: src/components/Admintools.jsx:354
 msgid "Assign new Mod"
 msgstr ""
 
@@ -314,7 +314,7 @@ msgid ""
 "set pixels"
 msgstr ""
 
-#: src/components/Admintools.jsx:387
+#: src/components/Admintools.jsx:399
 msgid "Cleaners can use 0cd blank colors."
 msgstr ""
 
@@ -666,7 +666,7 @@ msgstr ""
 msgid "Enter Reason"
 msgstr ""
 
-#: src/components/Admintools.jsx:345
+#: src/components/Admintools.jsx:357
 msgid "Enter UserName of new Mod"
 msgstr ""
 
@@ -942,7 +942,7 @@ msgstr ""
 msgid "It requests the following permissions. Uncheck what you don't want to grant:"
 msgstr ""
 
-#: src/components/Admintools.jsx:385
+#: src/components/Admintools.jsx:397
 msgid "Jannies can rollback and protect, but not watch or ban."
 msgstr ""
 
@@ -1039,7 +1039,7 @@ msgstr ""
 msgid "Minimum Color Distance"
 msgstr ""
 
-#: src/components/Admintools.jsx:383
+#: src/components/Admintools.jsx:395
 msgid "Moderators can access all Canvas, Watch and IID tools."
 msgstr ""
 
@@ -1437,6 +1437,10 @@ msgstr ""
 msgid "Remove"
 msgstr ""
 
+#: src/components/Admintools.jsx:343
+msgid "Remove Chatmod"
+msgstr ""
+
 #: src/components/Admintools.jsx:331
 msgid "Remove Cleaner"
 msgstr ""
@@ -1674,7 +1678,7 @@ msgid "Stop requiring Verification to Place"
 msgstr ""
 
 #: src/components/Admintools.jsx:234
-#: src/components/Admintools.jsx:396
+#: src/components/Admintools.jsx:408
 #: src/components/LogInForm.jsx:304
 #: src/components/LogInForm.jsx:394
 #: src/components/ModCanvastools.jsx:318
@@ -1839,7 +1843,7 @@ msgstr ""
 msgid "Turn on grid to highlight pixel borders."
 msgstr ""
 
-#: src/components/Admintools.jsx:362
+#: src/components/Admintools.jsx:374
 msgid "Type of Mod"
 msgstr ""
 
@@ -1899,7 +1903,7 @@ msgstr ""
 msgid "User ID and verification level"
 msgstr ""
 
-#: src/components/Admintools.jsx:354
+#: src/components/Admintools.jsx:366
 #: src/components/LogInForm.jsx:331
 #: src/components/LogInForm.jsx:338
 #: src/components/windows/OIDCConsent.jsx:311

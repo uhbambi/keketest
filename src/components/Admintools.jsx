@@ -338,6 +338,18 @@ function Admintools() {
             <br />
           </React.Fragment>
         )}
+        {(modlist[USERLVL.CHATMOD]?.length > 0) && (
+          <React.Fragment key="mcmd">
+            <p>{t`Remove Chatmod`}</p>
+            <DeleteList
+              list={modlist[USERLVL.CHATMOD]}
+              callback={demoteUser}
+              enabled={!submitting}
+              joinident
+            />
+            <br />
+          </React.Fragment>
+        )}
         <p>
           { t`Assign new Mod` }
         </p>
@@ -367,7 +379,7 @@ function Admintools() {
               selectModType(parseInt(sel.options[sel.selectedIndex].value, 10));
             }}
           >
-            {['MOD', 'JANNY', 'CLEANER'].map((opt) => (
+            {['MOD', 'JANNY', 'CLEANER', 'CHATMOD'].map((opt) => (
               <option
                 key={opt}
                 value={USERLVL[opt]}
