@@ -17,6 +17,9 @@ msgstr ""
 msgid " which is in "
 msgstr " e cila është në "
 
+msgid "# Today"
+msgstr ""
+
 #, javascript-format
 msgid "${ mouseSymbol } Hold left mouse button and drag mouse to rotate"
 msgstr ""
@@ -979,6 +982,12 @@ msgstr "Mbrojtje e Pikselit"
 msgid "Pixel protected"
 msgstr "Piksel i mbrojtur"
 
+msgid "Pixels"
+msgstr ""
+
+msgid "Pixels Today"
+msgstr ""
+
 msgid "Place color pixels on a large canvas with other players online!"
 msgstr ""
 "Vendos pikselë me ngjyra në një kanavacë të madhe me lojtarë të tjerë online!"
@@ -1257,8 +1266,9 @@ msgstr "Piksele të Vegjël kur është Zmadhuar"
 msgid "Social Settings"
 msgstr "Cilësimet Sociale"
 
-msgid "Source for pixelplanet on "
-msgstr "Burimi për pixelplanet në "
+#, javascript-format
+msgid "Source for pixelplanet on ${ gitLink } or ${ downloadHereLink }."
+msgstr ""
 
 msgid "Stacking till"
 msgstr "Grumbullim deri në"
@@ -1578,10 +1588,8 @@ msgstr "Ti je i çuditshëm"
 
 msgid ""
 "You can connect to pixelplanet and use pixelplanet accounts for oauth / oidc "
-"login. See here:"
+"login. See here: "
 msgstr ""
-"Ju mund të lidheni me pixelplanet dhe të përdorni llogari pixelplanet për "
-"kyçje oauth / oidc. Shiko këtu:"
 
 msgid "You can not access this canvas yet, because your pixel score is too low"
 msgstr ""
@@ -1691,6 +1699,9 @@ msgstr "dhe ${ canvas.req } Piksele të vendosura"
 msgid "check compliance here"
 msgstr "kontrolloni pajtueshmërinë këtu"
 
+msgid "download here"
+msgstr ""
+
 msgid "mentioned you"
 msgstr "ju përmendi"
 
@@ -1775,6 +1786,16 @@ msgstr "W"
 msgctxt "keybinds"
 msgid "X"
 msgstr "X"
+
+#~ msgid "Source for pixelplanet on "
+#~ msgstr "Burimi për pixelplanet në "
+
+#~ msgid ""
+#~ "You can connect to pixelplanet and use pixelplanet accounts for oauth / "
+#~ "oidc login. See here:"
+#~ msgstr ""
+#~ "Ju mund të lidheni me pixelplanet dhe të përdorni llogari pixelplanet për "
+#~ "kyçje oauth / oidc. Shiko këtu:"
 
 #~ msgid "PopUp"
 #~ msgstr "Popup"

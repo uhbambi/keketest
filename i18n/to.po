@@ -16,6 +16,9 @@ msgstr ""
 msgid " which is in "
 msgstr " ʻa ia ʻoku ʻi he "
 
+msgid "# Today"
+msgstr ""
+
 #, javascript-format
 msgid "${ mouseSymbol } Hold left mouse button and drag mouse to rotate"
 msgstr ""
@@ -978,6 +981,12 @@ msgstr "Pixel maluʻi"
 msgid "Pixel protected"
 msgstr "Pixel maluʻi!"
 
+msgid "Pixels"
+msgstr ""
+
+msgid "Pixels Today"
+msgstr ""
+
 msgid "Place color pixels on a large canvas with other players online!"
 msgstr ""
 "Tuku ʻa e lanu ʻo e lanu ʻi ha fakatataa lahi mo ha kau vaʻinga kehe ʻi he "
@@ -1258,7 +1267,8 @@ msgstr ""
 msgid "Social Settings"
 msgstr "Ngaahi Feituʻu Fakasōsialé"
 
-msgid "Source for pixelplanet on "
+#, javascript-format
+msgid "Source for pixelplanet on ${ gitLink } or ${ downloadHereLink }."
 msgstr ""
 
 msgid "Stacking till"
@@ -1566,7 +1576,7 @@ msgstr "ʻOkú ke faikehe"
 
 msgid ""
 "You can connect to pixelplanet and use pixelplanet accounts for oauth / oidc "
-"login. See here:"
+"login. See here: "
 msgstr ""
 
 #, fuzzy
@@ -1674,6 +1684,9 @@ msgid "and ${ canvas.req } Pixels set"
 msgstr "mo e ${ canvas.req } pixel"
 
 msgid "check compliance here"
+msgstr ""
+
+msgid "download here"
 msgstr ""
 
 msgid "mentioned you"

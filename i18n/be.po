@@ -18,6 +18,9 @@ msgstr ""
 msgid " which is in "
 msgstr " які знаходзіцца ў "
 
+msgid "# Today"
+msgstr ""
+
 #, javascript-format
 msgid "${ mouseSymbol } Hold left mouse button and drag mouse to rotate"
 msgstr "${ mouseSymbol } Зацісніце левую кнопку мышкі каб круціцца"
@@ -975,6 +978,12 @@ msgstr "Абарона Пікселяў"
 msgid "Pixel protected"
 msgstr "Піксель абаронены!"
 
+msgid "Pixels"
+msgstr ""
+
+msgid "Pixels Today"
+msgstr ""
+
 msgid "Place color pixels on a large canvas with other players online!"
 msgstr "Малюйце пікселямі разам з іншымі людзьмі анлайн!"
 
@@ -1251,7 +1260,8 @@ msgstr ""
 msgid "Social Settings"
 msgstr "Сацыяльныя Налады"
 
-msgid "Source for pixelplanet on "
+#, javascript-format
+msgid "Source for pixelplanet on ${ gitLink } or ${ downloadHereLink }."
 msgstr ""
 
 msgid "Stacking till"
@@ -1557,7 +1567,7 @@ msgstr "Вы агентура"
 
 msgid ""
 "You can connect to pixelplanet and use pixelplanet accounts for oauth / oidc "
-"login. See here:"
+"login. See here: "
 msgstr ""
 
 #, fuzzy
@@ -1661,6 +1671,9 @@ msgid "and ${ canvas.req } Pixels set"
 msgstr "і ${ canvas.req } пікселяў пастаўлена"
 
 msgid "check compliance here"
+msgstr ""
+
+msgid "download here"
 msgstr ""
 
 msgid "mentioned you"

@@ -17,6 +17,9 @@ msgstr ""
 msgid " which is in "
 msgstr " som er i "
 
+msgid "# Today"
+msgstr ""
+
 #, javascript-format
 msgid "${ mouseSymbol } Hold left mouse button and drag mouse to rotate"
 msgstr "${ mouseSymbol } Hold venstre museknap og træk din mus for at rotere"
@@ -969,6 +972,12 @@ msgstr "Pixel Beskyttelse"
 msgid "Pixel protected"
 msgstr "Pixel beskyttet"
 
+msgid "Pixels"
+msgstr ""
+
+msgid "Pixels Today"
+msgstr ""
+
 msgid "Place color pixels on a large canvas with other players online!"
 msgstr "Placer farvede pixels på en stor kanvas med andre spillere online!"
 
@@ -1242,8 +1251,9 @@ msgstr "Små pixels når zoomet"
 msgid "Social Settings"
 msgstr "Sociale Indstillinger"
 
-msgid "Source for pixelplanet on "
-msgstr "Kilde for pixelplanet på "
+#, javascript-format
+msgid "Source for pixelplanet on ${ gitLink } or ${ downloadHereLink }."
+msgstr ""
 
 msgid "Stacking till"
 msgstr "Stabler indtil"
@@ -1558,10 +1568,8 @@ msgstr "Du er mærkelig"
 
 msgid ""
 "You can connect to pixelplanet and use pixelplanet accounts for oauth / oidc "
-"login. See here:"
+"login. See here: "
 msgstr ""
-"Du kan forbinde til pixelplanet og bruge pixelplanet kontoer for oauth / "
-"oidc login. Se her:"
 
 msgid "You can not access this canvas yet, because your pixel score is too low"
 msgstr ""
@@ -1670,6 +1678,9 @@ msgstr "og ${ canvas.req } Pixels indstillet"
 msgid "check compliance here"
 msgstr "Check overholdelse her"
 
+msgid "download here"
+msgstr ""
+
 msgid "mentioned you"
 msgstr "nævnte dig"
 
@@ -1754,6 +1765,16 @@ msgstr "W"
 msgctxt "keybinds"
 msgid "X"
 msgstr "X"
+
+#~ msgid "Source for pixelplanet on "
+#~ msgstr "Kilde for pixelplanet på "
+
+#~ msgid ""
+#~ "You can connect to pixelplanet and use pixelplanet accounts for oauth / "
+#~ "oidc login. See here:"
+#~ msgstr ""
+#~ "Du kan forbinde til pixelplanet og bruge pixelplanet kontoer for oauth / "
+#~ "oidc login. Se her:"
 
 #~ msgid "PopUp"
 #~ msgstr "PopUp"

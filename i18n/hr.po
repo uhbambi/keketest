@@ -17,6 +17,9 @@ msgstr ""
 msgid " which is in "
 msgstr " što znači u "
 
+msgid "# Today"
+msgstr ""
+
 #, javascript-format
 msgid "${ mouseSymbol } Hold left mouse button and drag mouse to rotate"
 msgstr "${ mouseSymbol } Držite lijevu tipku miša i povucite miš za rotiranje"
@@ -950,6 +953,12 @@ msgstr "Zaštita piksela"
 msgid "Pixel protected"
 msgstr "Pixel zaštićen"
 
+msgid "Pixels"
+msgstr ""
+
+msgid "Pixels Today"
+msgstr ""
+
 msgid "Place color pixels on a large canvas with other players online!"
 msgstr "Postavite piksele u boji na veliko platno s drugim igračima na mreži!"
 
@@ -1222,7 +1231,8 @@ msgstr "Zumiranje malih pixela"
 msgid "Social Settings"
 msgstr "Društvene postavke"
 
-msgid "Source for pixelplanet on "
+#, javascript-format
+msgid "Source for pixelplanet on ${ gitLink } or ${ downloadHereLink }."
 msgstr ""
 
 msgid "Stacking till"
@@ -1524,7 +1534,7 @@ msgstr "Čudni ste"
 
 msgid ""
 "You can connect to pixelplanet and use pixelplanet accounts for oauth / oidc "
-"login. See here:"
+"login. See here: "
 msgstr ""
 
 msgid "You can not access this canvas yet, because your pixel score is too low"
@@ -1626,6 +1636,9 @@ msgid "and ${ canvas.req } Pixels set"
 msgstr "i ${ canvas.req } postavljeni pikseli"
 
 msgid "check compliance here"
+msgstr ""
+
+msgid "download here"
 msgstr ""
 
 msgid "mentioned you"

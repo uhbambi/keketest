@@ -14,6 +14,9 @@ msgstr ""
 msgid " which is in "
 msgstr " który jest w "
 
+msgid "# Today"
+msgstr ""
+
 #, javascript-format
 msgid "${ mouseSymbol } Hold left mouse button and drag mouse to rotate"
 msgstr ""
@@ -958,6 +961,12 @@ msgstr "Ochrona Pixeli"
 msgid "Pixel protected"
 msgstr "Pixel chroniony"
 
+msgid "Pixels"
+msgstr ""
+
+msgid "Pixels Today"
+msgstr ""
+
 msgid "Place color pixels on a large canvas with other players online!"
 msgstr ""
 "Umieść kolorowe piksele na dużym płótnie razem z innymi graczami online!"
@@ -1233,7 +1242,8 @@ msgstr "Małe pixele"
 msgid "Social Settings"
 msgstr "ustawienia prywatności"
 
-msgid "Source for pixelplanet on "
+#, javascript-format
+msgid "Source for pixelplanet on ${ gitLink } or ${ downloadHereLink }."
 msgstr ""
 
 msgid "Stacking till"
@@ -1541,7 +1551,7 @@ msgstr "Jesteś dziwny"
 
 msgid ""
 "You can connect to pixelplanet and use pixelplanet accounts for oauth / oidc "
-"login. See here:"
+"login. See here: "
 msgstr ""
 
 msgid "You can not access this canvas yet, because your pixel score is too low"
@@ -1642,6 +1652,9 @@ msgid "and ${ canvas.req } Pixels set"
 msgstr "oraz ${ canvas.req }Postawionych pixeli"
 
 msgid "check compliance here"
+msgstr ""
+
+msgid "download here"
 msgstr ""
 
 msgid "mentioned you"

@@ -16,6 +16,9 @@ msgstr ""
 msgid " which is in "
 msgstr " که در "
 
+msgid "# Today"
+msgstr ""
+
 #, javascript-format
 msgid "${ mouseSymbol } Hold left mouse button and drag mouse to rotate"
 msgstr "${ mouseSymbol } دکمه چپ موس رو نگه دار و موس رو حرکت بده تا بچرخی"
@@ -963,6 +966,12 @@ msgstr "محافظت از پیکسل"
 msgid "Pixel protected"
 msgstr "ادمین ها بهت اجازه نمیدند اینجا پیکسل بذاری، محافظت شده"
 
+msgid "Pixels"
+msgstr ""
+
+msgid "Pixels Today"
+msgstr ""
+
 msgid "Place color pixels on a large canvas with other players online!"
 msgstr "پیکسل های رنگی را روی یک بوم بزرگ با سایر بازیکنان آنلاین قرار دهید!"
 
@@ -1239,7 +1248,8 @@ msgstr ""
 msgid "Social Settings"
 msgstr "تنظیمات فضای اجتماعی"
 
-msgid "Source for pixelplanet on "
+#, javascript-format
+msgid "Source for pixelplanet on ${ gitLink } or ${ downloadHereLink }."
 msgstr ""
 
 msgid "Stacking till"
@@ -1544,7 +1554,7 @@ msgstr "سید داری یاهود بازی در میاری؟"
 
 msgid ""
 "You can connect to pixelplanet and use pixelplanet accounts for oauth / oidc "
-"login. See here:"
+"login. See here: "
 msgstr ""
 
 #, fuzzy
@@ -1648,6 +1658,9 @@ msgid "and ${ canvas.req } Pixels set"
 msgstr "و ${ canvas.req } تنظیم پیکسل"
 
 msgid "check compliance here"
+msgstr ""
+
+msgid "download here"
 msgstr ""
 
 msgid "mentioned you"

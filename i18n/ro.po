@@ -18,6 +18,9 @@ msgstr ""
 msgid " which is in "
 msgstr " care este în "
 
+msgid "# Today"
+msgstr ""
+
 #, javascript-format
 msgid "${ mouseSymbol } Hold left mouse button and drag mouse to rotate"
 msgstr ""
@@ -974,6 +977,12 @@ msgstr "Protejare de Pixeli"
 msgid "Pixel protected"
 msgstr "Pixel protejat"
 
+msgid "Pixels"
+msgstr ""
+
+msgid "Pixels Today"
+msgstr ""
+
 msgid "Place color pixels on a large canvas with other players online!"
 msgstr "Pune pixeli colorați pe un canvas mare cu alți jucători online!"
 
@@ -1247,8 +1256,9 @@ msgstr "Zoom cu Pixeli Mici"
 msgid "Social Settings"
 msgstr "Setări Sociale"
 
-msgid "Source for pixelplanet on "
-msgstr "Sursa cod pentru pixelplanet: "
+#, javascript-format
+msgid "Source for pixelplanet on ${ gitLink } or ${ downloadHereLink }."
+msgstr ""
 
 msgid "Stacking till"
 msgstr "Se stachează până la"
@@ -1563,10 +1573,8 @@ msgstr "Ești ciudat"
 
 msgid ""
 "You can connect to pixelplanet and use pixelplanet accounts for oauth / oidc "
-"login. See here:"
+"login. See here: "
 msgstr ""
-"Te poți conecta la pixelplanet și poți utiliza conturile pixelplanet pentru "
-"autentificarea oauth / oidc. Vezi aici:"
 
 msgid "You can not access this canvas yet, because your pixel score is too low"
 msgstr "Momentan nu poți accesa acest canvas. Trebuie să pui mai mulți pixeli"
@@ -1673,6 +1681,9 @@ msgstr "și ${ canvas.req } Pixeli puși în total"
 msgid "check compliance here"
 msgstr "Verifică conformitatea aici"
 
+msgid "download here"
+msgstr ""
+
 msgid "mentioned you"
 msgstr "te-a menționat"
 
@@ -1757,6 +1768,16 @@ msgstr "W"
 msgctxt "keybinds"
 msgid "X"
 msgstr "X"
+
+#~ msgid "Source for pixelplanet on "
+#~ msgstr "Sursa cod pentru pixelplanet: "
+
+#~ msgid ""
+#~ "You can connect to pixelplanet and use pixelplanet accounts for oauth / "
+#~ "oidc login. See here:"
+#~ msgstr ""
+#~ "Te poți conecta la pixelplanet și poți utiliza conturile pixelplanet "
+#~ "pentru autentificarea oauth / oidc. Vezi aici:"
 
 #~ msgid "PopUp"
 #~ msgstr "PopUp"

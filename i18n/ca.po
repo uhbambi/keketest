@@ -17,6 +17,9 @@ msgstr ""
 msgid " which is in "
 msgstr " que està dins "
 
+msgid "# Today"
+msgstr ""
+
 #, javascript-format
 msgid "${ mouseSymbol } Hold left mouse button and drag mouse to rotate"
 msgstr ""
@@ -979,6 +982,12 @@ msgstr "Protecció de Píxels"
 msgid "Pixel protected"
 msgstr "Píxel protegit!"
 
+msgid "Pixels"
+msgstr ""
+
+msgid "Pixels Today"
+msgstr ""
+
 msgid "Place color pixels on a large canvas with other players online!"
 msgstr ""
 "Col·loca píxels de colors en un gran llenç amb altres jugadors en línia!"
@@ -1262,8 +1271,9 @@ msgstr "Píxels Petits Quan es fa Zoom"
 msgid "Social Settings"
 msgstr "Preferències Socials"
 
-msgid "Source for pixelplanet on "
-msgstr "Codi font de PixelPlanet a "
+#, javascript-format
+msgid "Source for pixelplanet on ${ gitLink } or ${ downloadHereLink }."
+msgstr ""
 
 msgid "Stacking till"
 msgstr "Acumulació fins a"
@@ -1580,7 +1590,7 @@ msgstr "Ets estrany"
 
 msgid ""
 "You can connect to pixelplanet and use pixelplanet accounts for oauth / oidc "
-"login. See here:"
+"login. See here: "
 msgstr ""
 
 msgid "You can not access this canvas yet, because your pixel score is too low"
@@ -1689,6 +1699,9 @@ msgstr "i ${ canvas.req } Píxels col·locats"
 msgid "check compliance here"
 msgstr ""
 
+msgid "download here"
+msgstr ""
+
 msgid "mentioned you"
 msgstr "t'ha mencionat"
 
@@ -1773,6 +1786,9 @@ msgstr "W"
 msgctxt "keybinds"
 msgid "X"
 msgstr "X"
+
+#~ msgid "Source for pixelplanet on "
+#~ msgstr "Codi font de PixelPlanet a "
 
 #~ msgid "Registration"
 #~ msgstr "Registre"

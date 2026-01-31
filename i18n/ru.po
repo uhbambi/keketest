@@ -3,8 +3,8 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: admin@pixelplanet.fun\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2025-10-26 15:53+0000\n"
-"Last-Translator: weblate <weblate@noreply.pixelplanet.fun>\n"
+"PO-Revision-Date: 2026-01-31 18:38+0000\n"
+"Last-Translator: ⁡⁢󠀥⁤ <info@noreply.pixelplanet.fun>\n"
 "Language-Team: Russian <https://translate.gs-os.com/projects/ppfun/client/ru/"
 ">\n"
 "Language: ru\n"
@@ -17,6 +17,9 @@ msgstr ""
 
 msgid " which is in "
 msgstr " , через "
+
+msgid "# Today"
+msgstr ""
 
 #, javascript-format
 msgid "${ mouseSymbol } Hold left mouse button and drag mouse to rotate"
@@ -547,7 +550,7 @@ msgid "Fish Display"
 msgstr "Галерея рыб"
 
 msgid "For"
-msgstr "За"
+msgstr "Для"
 
 msgid "For Developers"
 msgstr "Для разработчиков"
@@ -862,7 +865,7 @@ msgid "Not allowed"
 msgstr "Не разрешено"
 
 msgid "Note"
-msgstr ""
+msgstr "Замечание"
 
 msgid "OIDC LogIn"
 msgstr "Вход через OIDC"
@@ -983,6 +986,12 @@ msgstr "Защита пикселей"
 
 msgid "Pixel protected"
 msgstr "Пиксель защищён"
+
+msgid "Pixels"
+msgstr ""
+
+msgid "Pixels Today"
+msgstr ""
 
 msgid "Place color pixels on a large canvas with other players online!"
 msgstr "Ставьте цветные пиксели на огромном полотне с другими людьми по сети!"
@@ -1105,7 +1114,7 @@ msgid "Remove"
 msgstr "Убрать"
 
 msgid "Remove Chatmod"
-msgstr ""
+msgstr "Убрать модератора чата"
 
 msgid "Remove Cleaner"
 msgstr "Убрать уборщика"
@@ -1262,8 +1271,9 @@ msgstr "Оверлей в виде мелких пикселей"
 msgid "Social Settings"
 msgstr "Настройки приватности"
 
-msgid "Source for pixelplanet on "
-msgstr "Исходный код pixelplanet на "
+#, javascript-format
+msgid "Source for pixelplanet on ${ gitLink } or ${ downloadHereLink }."
+msgstr ""
 
 msgid "Stacking till"
 msgstr "Запас перезарядки"
@@ -1360,7 +1370,7 @@ msgstr ""
 "и #."
 
 msgid "This login may only work if your account is verified."
-msgstr ""
+msgstr "Вы сможете авторизоваться, только если ваш аккаунт подтверждён."
 
 msgid "This permission is required"
 msgstr "Это разрешение необходимо"
@@ -1579,10 +1589,8 @@ msgstr "Вы странный"
 
 msgid ""
 "You can connect to pixelplanet and use pixelplanet accounts for oauth / oidc "
-"login. See here:"
+"login. See here: "
 msgstr ""
-"Вы можете подключить pixelplanet и использовать аккаунты pixelplanet для "
-"входа через OAuth/OIDC. Подробнее здесь:"
 
 msgid "You can not access this canvas yet, because your pixel score is too low"
 msgstr ""
@@ -1692,6 +1700,9 @@ msgstr "и ${ canvas.req } поставленных пикселей"
 msgid "check compliance here"
 msgstr "проверьте соответствие здесь"
 
+msgid "download here"
+msgstr ""
+
 msgid "mentioned you"
 msgstr "упомянул Вас"
 
@@ -1776,6 +1787,16 @@ msgstr "W"
 msgctxt "keybinds"
 msgid "X"
 msgstr "X"
+
+#~ msgid "Source for pixelplanet on "
+#~ msgstr "Исходный код pixelplanet на "
+
+#~ msgid ""
+#~ "You can connect to pixelplanet and use pixelplanet accounts for oauth / "
+#~ "oidc login. See here:"
+#~ msgstr ""
+#~ "Вы можете подключить pixelplanet и использовать аккаунты pixelplanet для "
+#~ "входа через OAuth/OIDC. Подробнее здесь:"
 
 #~ msgid "PopUp"
 #~ msgstr "Всплывающее окно"
