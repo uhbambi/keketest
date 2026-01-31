@@ -223,16 +223,16 @@ const Rankings = () => {
                   <tr>
                     <th>#</th>
                     <th>{t`User`}</th>
-                    <th>Pixels</th>
-                    <th># Total</th>
-                    <th>Total Pixels</th>
+                    <th>{t`Pixels`}</th>
+                    <th>{t`# Total`}</th>
+                    <th>{t`Total Pixels`}</th>
                   </tr>
                 );
                 case 'yesterday': return (
                   <tr>
                     <th>#</th>
                     <th>{t`User`}</th>
-                    <th>Pixels</th>
+                    <th>{t`Pixels`}</th>
                   </tr>
                 );
                 case 'countries': return (
