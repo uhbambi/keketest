@@ -214,9 +214,9 @@ const Rankings = () => {
                   <tr>
                     <th>#</th>
                     <th>{t`User`}</th>
-                    <th>Pixels</th>
-                    <th># Today</th>
-                    <th>Pixels Today</th>
+                    <th>{t`Pixels`}</th>
+                    <th>{t`# Today`}</th>
+                    <th>{t`Pixels Today`}</th>
                   </tr>
                 );
                 case 'today': return (

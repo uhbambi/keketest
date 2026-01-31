@@ -61,7 +61,7 @@ msgstr ""
 msgid "Black and White canvas"
 msgstr ""
 
-#: src/core/ChatProvider.js:343
+#: src/core/ChatProvider.js:326
 msgid "Can not chat while being banned"
 msgstr ""
 
@@ -434,7 +434,7 @@ msgstr ""
 msgid "Please try again."
 msgstr ""
 
-#: src/core/ChatProvider.js:386
+#: src/core/ChatProvider.js:363
 msgid "Please use int channel"
 msgstr ""
 
@@ -505,7 +505,7 @@ msgstr ""
 msgid "Special canvas to spread awareness of SARS-CoV2 (take the vax)."
 msgstr ""
 
-#: src/core/ChatProvider.js:394
+#: src/core/ChatProvider.js:371
 msgid "Stop flooding."
 msgstr ""
 
@@ -527,24 +527,24 @@ msgstr ""
 msgid "The user owning this fish is private"
 msgstr ""
 
-#: src/middleware/oidc.js:223
-#: src/middleware/oidc.js:246
+#: src/middleware/oidc.js:225
+#: src/middleware/oidc.js:248
 msgid "This application is not allowed to login"
 msgstr ""
 
-#: src/middleware/oidc.js:265
+#: src/middleware/oidc.js:267
 msgid "This application redirects to an unallowed page"
 msgstr ""
 
-#: src/middleware/oidc.js:260
+#: src/middleware/oidc.js:262
 msgid "This application sent a faulty login request with no redirection"
 msgstr ""
 
-#: src/middleware/oidc.js:233
+#: src/middleware/oidc.js:235
 msgid "This application uses a PKCE method we do not support"
 msgstr ""
 
-#: src/middleware/oidc.js:219
+#: src/middleware/oidc.js:221
 msgid "This application uses a login method we do not support"
 msgstr ""
 
@@ -652,12 +652,12 @@ msgstr ""
 msgid "You are already verified."
 msgstr ""
 
-#: src/core/ChatProvider.js:353
+#: src/core/ChatProvider.js:336
 #, javascript-format
 msgid "You are muted for another ${ timeMin } minutes"
 msgstr ""
 
-#: src/core/ChatProvider.js:355
+#: src/core/ChatProvider.js:338
 #, javascript-format
 msgid "You are muted for another ${ ttl } seconds"
 msgstr ""
@@ -679,11 +679,11 @@ msgstr ""
 msgid "You are now verified :)"
 msgstr ""
 
-#: src/core/ChatProvider.js:348
+#: src/core/ChatProvider.js:331
 msgid "You are permanently muted, join our guilded to appeal the mute"
 msgstr ""
 
-#: src/core/ChatProvider.js:318
+#: src/core/ChatProvider.js:301
 #, javascript-format
 msgid "You are sending messages too fast, you have to wait ${ waitTime }s :("
 msgstr ""
@@ -700,7 +700,7 @@ msgstr ""
 msgid "You can not register an account with a proxy"
 msgstr ""
 
-#: src/core/ChatProvider.js:340
+#: src/core/ChatProvider.js:323
 msgid "You can not send chat messages while using a proxy"
 msgstr ""
 
@@ -710,7 +710,7 @@ msgid ""
 "client_secret needed to make use of this."
 msgstr ""
 
-#: src/core/ChatProvider.js:382
+#: src/core/ChatProvider.js:359
 msgid "You can't send a message this long :("
 msgstr ""
 
@@ -720,7 +720,7 @@ msgid ""
 "Methods\"."
 msgstr ""
 
-#: src/core/ChatProvider.js:322
+#: src/core/ChatProvider.js:305
 msgid "You don't have access to this channel"
 msgstr ""
 
@@ -775,11 +775,11 @@ msgstr ""
 msgid "Your account needs to be verified to access this page"
 msgstr ""
 
-#: src/core/ChatProvider.js:327
+#: src/core/ChatProvider.js:310
 msgid "Your country is temporary muted from this chat channel"
 msgstr ""
 
-#: src/core/ChatProvider.js:372
+#: src/core/ChatProvider.js:349
 msgid "Your mail has to be verified in order to chat"
 msgstr ""
 

@@ -38,7 +38,7 @@ export async function generateIdToken(
     /* date of issuence */
     iat: currentTsS,
     /* 10 min tolerance */
-    nbf: currentTsS - 600,
+    nbf: currentTsS - 120,
   };
   if (nonce) {
     payload.nonce = nonce;

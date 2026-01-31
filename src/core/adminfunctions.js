@@ -523,7 +523,7 @@ export async function executeImageAction(
     );
 
     // eslint-disable-next-line max-len
-    if (logger) logger(`loaded image wth *${pxlCount}*pxls to #${canvas.ident},${x},${y} (+*${x}*+\\_+*${y}*+ - +*${x + info.width - 1}*+\\_+*${y + info.height - 1}*+)`);
+    if (logger) logger(`loaded image with *${pxlCount}*pxls to #${canvas.ident},${x},${y} (+*${x}*+\\_+*${y}*+ - +*${x + info.width - 1}*+\\_+*${y + info.height - 1}*+)`);
     return [
       200,
       `Successfully loaded image wth ${pxlCount}pxls to ${x}/${y}`,
