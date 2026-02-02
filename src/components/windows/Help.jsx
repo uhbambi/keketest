@@ -36,7 +36,7 @@ const Help = () => {
   const touchSymbol = <kbd><MdTouchApp /></kbd>;
   const bindShift = <kbd>⇧ {c('keybinds').t`Shift`}</kbd>;
 
-  const starhouseLink = <a href="https://twitter.com/starhousedev">starhouse </a>;
+  const starhouseLink = <a href="https://twitter.com/starhousedev">starhouse</a>;
   const vinikLink = <a href="https://twitter.com/Vinikdev">Vinikdev</a>;
   const donendoLink = <a href="https://lospec.com/palette-list/lava-gb">Do-Nendo</a>;
   const guildedLink = <a href="/guilded">matrix space</a>;
