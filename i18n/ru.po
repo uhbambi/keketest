@@ -3,23 +3,23 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: admin@pixelplanet.fun\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2026-01-31 18:38+0000\n"
+"PO-Revision-Date: 2026-02-03 17:30+0000\n"
 "Last-Translator: ⁡⁢󠀥⁤ <info@noreply.pixelplanet.fun>\n"
-"Language-Team: Russian <https://translate.gs-os.com/projects/ppfun/client/ru/"
-">\n"
+"Language-Team: Russian <https://translate.gs-os.com/projects/ppfun/client/"
+"ru/>\n"
 "Language: ru\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Generator: Weblate 5.14\n"
+"X-Generator: Weblate 5.15.2\n"
 
 msgid " which is in "
 msgstr " , через "
 
 msgid "# Today"
-msgstr ""
+msgstr "# Сегодня"
 
 #, javascript-format
 msgid "${ mouseSymbol } Hold left mouse button and drag mouse to rotate"
@@ -988,10 +988,10 @@ msgid "Pixel protected"
 msgstr "Пиксель защищён"
 
 msgid "Pixels"
-msgstr ""
+msgstr "Пикселей"
 
 msgid "Pixels Today"
-msgstr ""
+msgstr "Пикселей сегодня"
 
 msgid "Place color pixels on a large canvas with other players online!"
 msgstr "Ставьте цветные пиксели на огромном полотне с другими людьми по сети!"
@@ -1273,7 +1273,7 @@ msgstr "Настройки приватности"
 
 #, javascript-format
 msgid "Source for pixelplanet on ${ gitLink } or ${ downloadHereLink }."
-msgstr ""
+msgstr "Исходный код pixelplanet на ${ gitLink } или ${ downloadHereLink }."
 
 msgid "Stacking till"
 msgstr "Запас перезарядки"
@@ -1591,6 +1591,8 @@ msgid ""
 "You can connect to pixelplanet and use pixelplanet accounts for oauth / oidc "
 "login. See here: "
 msgstr ""
+"Вы можете подключить pixelplanet и использовать аккаунты pixelplanet для "
+"входа через OAuth/OIDC. Подробнее здесь: "
 
 msgid "You can not access this canvas yet, because your pixel score is too low"
 msgstr ""
@@ -1701,7 +1703,7 @@ msgid "check compliance here"
 msgstr "проверьте соответствие здесь"
 
 msgid "download here"
-msgstr ""
+msgstr "скачать здесь"
 
 msgid "mentioned you"
 msgstr "упомянул Вас"
