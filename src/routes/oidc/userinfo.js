@@ -44,6 +44,7 @@ export default async (req, res) => {
           const { userlvl } = userProfileModel;
           payload.user_lvl = userlvl;
           payload.verified = userlvl >= USERLVL.VERIFIED;
+          payload.verified_yn = payload.verified ? 'y' : 'n';
           payload.user_id = String(uid);
           break;
         }
