@@ -1,15 +1,15 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: admin@pixelplanet.fun\n"
-"PO-Revision-Date: 2026-01-12 16:40+0000\n"
+"PO-Revision-Date: 2026-02-10 15:30+0000\n"
 "Last-Translator: Extreme Motorsex <em@noreply.pixelplanet.fun>\n"
-"Language-Team: Kyrgyz <https://translate.gs-os.com/projects/ppfun/server/ky/"
-">\n"
+"Language-Team: Kyrgyz <https://translate.gs-os.com/projects/ppfun/server/ky/>"
+"\n"
 "Language: ky\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.14\n"
+"X-Generator: Weblate 5.15.2\n"
 
 msgid "1bit"
 msgstr "1бит"
@@ -131,21 +131,21 @@ msgid "Email should contain a @"
 msgstr "Электрондук почтада @ болушу керек"
 
 msgid "Error"
-msgstr ""
+msgstr "Ката"
 
 msgid "Failed to create a new user :("
-msgstr ""
+msgstr "Жаңы колдонуучу түзүү ишке ашкан жок :("
 
 #. 'client_secret' is a technical term and should not be translated
 msgid ""
 "Generate a new client_secret. The old secret will become invalid immediately."
-msgstr ""
+msgstr "Жаңы client_secret түзүңүз. Эски сыр дароо жараксыз болуп калат."
 
 msgid "Get email address"
-msgstr ""
+msgstr "Электрондук почта дарегин алуу"
 
 msgid "Get the amount of Pixels placed and ranking"
-msgstr ""
+msgstr "Жайгаштырылган пикселдердин санын жана рейтингин алыңыз"
 
 msgid ""
 "Have fun and don't hesitate to contact us if you encounter any problems :)"
@@ -158,7 +158,7 @@ msgstr "Салам"
 
 #, javascript-format
 msgid "Hello ${ email }, you can set your new password here:"
-msgstr ""
+msgstr "Салам ${ email }, жаңы сырсөзүңүздү бул жерден орното аласыз:"
 
 #, javascript-format
 msgid "Hello ${ name }"
@@ -170,6 +170,10 @@ msgid ""
 "that you are unaware of under \"Login Methods\" in the User Area and change "
 "your password."
 msgstr ""
+"Эгер бул сиз болсоңуз, бул электрондук катты этибарга албай коюңуз. Эгер бул "
+"сиз болбосоңуз, <a href=\"https://pixelplanet.fun\">pixelplanet.fun</a> "
+"сайтына кирип, колдонуучу аймагындагы \"Кирүү ыкмалары\" бөлүмүндөгү "
+"билбеген ар кандай сессиядан чыгып, сырсөзүңүздү өзгөртүңүз."
 
 #, javascript-format
 msgid ""
@@ -189,23 +193,23 @@ msgid "Just admins can do that"
 msgstr "Муну жөн гана админдер жасай алат"
 
 msgid "Know that an account exists"
-msgstr ""
+msgstr "Аккаунт бар экенин билүү"
 
 #. "scopes" is a technical term and should not be translated
 msgid "List of available scopes"
-msgstr ""
+msgstr "Жеткиликтүү scopes тизмеси"
 
 msgid "Loading..."
 msgstr "Жүктөлүүдө..."
 
 msgid "Login from new location on PixelPlanet"
-msgstr ""
+msgstr "PixelPlanet'теги жаңы жерден кириңиз"
 
 msgid "Login is required"
-msgstr ""
+msgstr "Кирүү талап кылынат"
 
 msgid "Mail is already in use!"
-msgstr ""
+msgstr "Почта мурунтан эле колдонулуп жатат!"
 
 msgid "Mail is not configured on the server"
 msgstr "Почта серверде конфигурацияланган эмес"
@@ -233,7 +237,7 @@ msgstr ""
 "желекчелер же чоң текст (эгер искусствонун бөлүгү болбосо) же сүрөт жок."
 
 msgid "Name already in use."
-msgstr ""
+msgstr "Бул аталыш мурунтан эле колдонулуп жатат."
 
 msgid "Name can't be empty."
 msgstr "Аты бош болбошу керек."
@@ -242,7 +246,7 @@ msgid "Name contains invalid character like @, /, \\ or #"
 msgstr "Аталышы @, /, \\ же # сыяктуу жараксыз белгини камтыйт"
 
 msgid "Name is too long"
-msgstr ""
+msgstr "Аты-жөнү өтө узун"
 
 msgid "Name must be at least 2 characters long"
 msgstr "Аты кеминде 2 белгиден турушу керек"
@@ -251,7 +255,7 @@ msgid "Name must be shorter than 26 characters"
 msgstr "Аты 26 белгиден кыска болушу керек"
 
 msgid "Name or Email does not exist!"
-msgstr ""
+msgstr "Аты-жөнү же электрондук почта дареги жок!"
 
 msgid "New Password"
 msgstr "жаңы сыр сөз"
@@ -260,36 +264,36 @@ msgid "No Captcha given"
 msgstr "Captcha берилген эмес"
 
 msgid "No or invalid fish id."
-msgstr ""
+msgstr "Балыктын идентификатору жок же жараксыз."
 
 msgid "No password given."
 msgstr "Сырсөз берилген жок."
 
 #. "redirect_uris" is a technical term and should not be translated
 msgid "No redirect_uris given."
-msgstr ""
+msgstr "redirect_uris берилген жок."
 
 msgid "No such badge found"
-msgstr ""
+msgstr "Мындай төш белги табылган жок"
 
 msgid "No such fish found"
-msgstr ""
+msgstr "Мындай балык табылган жок"
 
 msgid "One redirect URIs per line"
-msgstr ""
+msgstr "Ар бир сапка бир багыттоо URI'лери"
 
 msgid "One redirect_uri per line"
-msgstr ""
+msgstr "Ар бир сапка бир redirect_uri"
 
 #. "redirect_uris" is a technical term and should not be translated
 msgid "Only five redirect_uris are allowed per client"
-msgstr ""
+msgstr "Ар бир кардар үчүн беш гана redirect_uri уруксат берилет"
 
 msgid "Only four colors. Same rules as moon!"
 msgstr "Төрт гана түс. Ай сыяктуу эле эрежелер!"
 
 msgid "OpenID Connect specs"
-msgstr ""
+msgstr "OpenID Connect мүнөздөмөлөрү"
 
 msgid "Or by copying following url:"
 msgstr "Же төмөнкү url көчүрүү менен:"
@@ -309,7 +313,7 @@ msgid "Password successfully changed."
 msgstr "Сырсөз ийгиликтүү өзгөртүлдү."
 
 msgid "Permission"
-msgstr ""
+msgstr "Уруксат"
 
 msgid "PixelCanvas"
 msgstr "PixelCanvas"
@@ -327,6 +331,10 @@ msgid ""
 "pixelplanet accounts. The required endpoints can be auto-discovered via the $"
 "{ wellKnownUrl } URL."
 msgstr ""
+"Pixelplanet OpenID Connect (OIDC) спецификацияларына жооп берет. Ошентип, "
+"OIDC колдогон тиркеме макулдук сурап, pixelplanet аккаунттарын колдонуп кире "
+"алат. Керектүү аяккы чекиттерди ${ wellKnownUrl } URL дареги аркылуу "
+"автоматтык түрдө табууга болот."
 
 msgid "Place Voxels on a 3D canvas with others."
 msgstr "Voxels'ти башкалар менен 3D кенепке жайгаштырыңыз."
@@ -340,26 +348,26 @@ msgid "Please refresh the website"
 msgstr "Сураныч, веб-сайтты жаңыртыңыз"
 
 msgid "Please try again."
-msgstr ""
+msgstr "Кайра аракет кылып көрүңүз."
 
 msgid "Please use int channel"
 msgstr "Сураныч int каналды колдонуңуз"
 
 msgid "Read Badges and fishes"
-msgstr ""
+msgstr "Белгилерди жана балыктарды окуңуз"
 
 msgid "Read name, username and account age"
-msgstr ""
+msgstr "Атын, колдонуучунун атын жана аккаунттун жашын окуу"
 
 msgid "Redirect URIs"
-msgstr ""
+msgstr "URI'лерди багыттоо"
 
 msgid "Regularly update this data"
-msgstr ""
+msgstr "Бул маалыматтарды үзгүлтүксүз жаңыртып туруңуз"
 
 #. 'client_secret' is a technical term and should not be translated
 msgid "Reroll client_secret"
-msgstr ""
+msgstr "client_secret'ди кайра роллдоо"
 
 msgid "Reset Password"
 msgstr "Сырсөздү кайра коюу"
@@ -368,18 +376,20 @@ msgid "Reset your password here"
 msgstr "Сырсөзүңүздү бул жерден баштапкы абалга келтириңиз"
 
 msgid "Server error when deleting user."
-msgstr ""
+msgstr "Колдонуучуну жок кылууда серверде ката кетти."
 
 msgid "Someone logged into your account from a new location, with the IP:"
-msgstr ""
+msgstr "Кимдир бирөө сиздин аккаунтуңузга жаңы жерден, IP дарек менен кирди:"
 
 msgid "Space-separated list of available scopes"
-msgstr ""
+msgstr "Жеткиликтүү оптикалык приборлордун боштук менен бөлүнгөн тизмеси"
 
 msgid ""
 "Space-separated list of default scopes, they will be used on requests if no "
 "other scope is given."
 msgstr ""
+"Демейки көлөмдөрдүн боштук менен бөлүнгөн тизмеси, эгерде башка көлөм "
+"берилбесе, алар суроо-талаптарда колдонулат."
 
 #. 'scope' is used as a technical term here, do not translate that word
 msgid ""

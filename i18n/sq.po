@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: admin@pixelplanet.fun\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2026-01-18 15:40+0000\n"
+"PO-Revision-Date: 2026-02-10 15:30+0000\n"
 "Last-Translator: Extreme Motorsex <em@noreply.pixelplanet.fun>\n"
 "Language-Team: Albanian <https://translate.gs-os.com/projects/ppfun/client/"
 "sq/>\n"
@@ -12,13 +12,13 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.14\n"
+"X-Generator: Weblate 5.15.2\n"
 
 msgid " which is in "
 msgstr " e cila është në "
 
 msgid "# Today"
-msgstr ""
+msgstr "# Sot"
 
 #, javascript-format
 msgid "${ mouseSymbol } Hold left mouse button and drag mouse to rotate"
@@ -153,7 +153,7 @@ msgstr ""
 "pavendosur."
 
 msgid "By Mod"
-msgstr "Nga Mod"
+msgstr "Nga Moderatori"
 
 msgid "Calculate like GIMP"
 msgstr "Llogarit si GIMP"
@@ -983,10 +983,10 @@ msgid "Pixel protected"
 msgstr "Piksel i mbrojtur"
 
 msgid "Pixels"
-msgstr ""
+msgstr "Piksel"
 
 msgid "Pixels Today"
-msgstr ""
+msgstr "Piksel Sot"
 
 msgid "Place color pixels on a large canvas with other players online!"
 msgstr ""
@@ -1110,7 +1110,7 @@ msgid "Remove"
 msgstr "Hiq"
 
 msgid "Remove Chatmod"
-msgstr ""
+msgstr "Hiq moderatorin e bisedës"
 
 msgid "Remove Cleaner"
 msgstr "Hiq Pastruesit"
@@ -1268,7 +1268,7 @@ msgstr "Cilësimet Sociale"
 
 #, javascript-format
 msgid "Source for pixelplanet on ${ gitLink } or ${ downloadHereLink }."
-msgstr ""
+msgstr "Burimi për pixelplanet në ${ gitLink } ose ${ downloadHereLink }."
 
 msgid "Stacking till"
 msgstr "Grumbullim deri në"
@@ -1590,6 +1590,8 @@ msgid ""
 "You can connect to pixelplanet and use pixelplanet accounts for oauth / oidc "
 "login. See here: "
 msgstr ""
+"Ju mund të lidheni me pixelplanet dhe të përdorni llogari pixelplanet për "
+"kyçje oauth / oidc. Shikoni këtu: "
 
 msgid "You can not access this canvas yet, because your pixel score is too low"
 msgstr ""
@@ -1700,7 +1702,7 @@ msgid "check compliance here"
 msgstr "kontrolloni pajtueshmërinë këtu"
 
 msgid "download here"
-msgstr ""
+msgstr "shkarko këtu"
 
 msgid "mentioned you"
 msgstr "ju përmendi"

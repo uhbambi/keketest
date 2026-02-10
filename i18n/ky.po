@@ -1,21 +1,21 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: admin@pixelplanet.fun\n"
-"PO-Revision-Date: 2026-01-12 16:40+0000\n"
+"PO-Revision-Date: 2026-02-10 15:30+0000\n"
 "Last-Translator: Extreme Motorsex <em@noreply.pixelplanet.fun>\n"
-"Language-Team: Kyrgyz <https://translate.gs-os.com/projects/ppfun/client/ky/"
-">\n"
+"Language-Team: Kyrgyz <https://translate.gs-os.com/projects/ppfun/client/ky/>"
+"\n"
 "Language: ky\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.14\n"
+"X-Generator: Weblate 5.15.2\n"
 
 msgid " which is in "
 msgstr " ичинде кайсы "
 
 msgid "# Today"
-msgstr ""
+msgstr "# Бүгүн"
 
 #, javascript-format
 msgid "${ mouseSymbol } Hold left mouse button and drag mouse to rotate"
@@ -139,19 +139,19 @@ msgid "Bottom-right corner"
 msgstr "Төмөнкү оң бурч"
 
 msgid "Build image and set it to protected."
-msgstr ""
+msgstr "Сүрөттү түзүп, аны \"корголгон\" абалына коюңуз."
 
 msgid "Build image on canvas."
-msgstr ""
+msgstr "Сүрөттү полотного куруңуз."
 
 msgid "Build image, but reset cooldown to unset-pixel cd."
-msgstr ""
+msgstr "Сүрөт түзүлдү, бирок муздатуу убактысын unset-pixel CD'ге кайтарыңыз."
 
 msgid "By Mod"
 msgstr "Мод тарабынан"
 
 msgid "Calculate like GIMP"
-msgstr ""
+msgstr "GIMP сыяктуу эсептөө"
 
 msgid "Can not export more than 20 or no template!"
 msgstr "20дан ашык экспорттоого болбойт же шаблон жок!"
@@ -160,7 +160,7 @@ msgid "Can not import more than 20 or no template!"
 msgstr "20 дан ашык импорттоого болбойт же шаблон жок!"
 
 msgid "Can't read? Reload:"
-msgstr ""
+msgstr "Окуй албай жатасызбы? Кайра жүктөө:"
 
 msgid "Can't render 3D canvas, do you have WebGL2 disabled?"
 msgstr "3D кенепти көрсөтүү мүмкүн эмес, сизде WebGL2 өчүрүлгөнбү?"
@@ -169,16 +169,16 @@ msgid "Cancel"
 msgstr "Жокко чыгаруу"
 
 msgid "Cancel adding Template"
-msgstr ""
+msgstr "Шаблон кошууну жокко чыгаруу"
 
 msgid "Canvas"
-msgstr ""
+msgstr "Холст"
 
 msgid "Canvas Archive"
 msgstr "Canvas архив"
 
 msgid "Canvas Cleaner"
-msgstr ""
+msgstr "Кенеп тазалагыч"
 
 msgid "Canvas Error"
 msgstr "Панан кате"
@@ -187,72 +187,77 @@ msgid "Canvas Selection"
 msgstr "Канвас тандоо"
 
 msgid "Captcha"
-msgstr ""
+msgstr "Капча"
 
 msgid "Caught by"
-msgstr ""
+msgstr "Кармалган"
 
 msgid "Change Happened"
 msgstr "Өзгөртүү болду"
 
 msgid "Change Name"
-msgstr ""
+msgstr "Атын өзгөртүү"
 
 msgid "Change Password"
-msgstr ""
+msgstr "Сырсөздү өзгөртүү"
 
 msgid "Change your Mail Adress here:"
-msgstr ""
+msgstr "Почта дарегиңизди бул жерден өзгөртүңүз:"
 
 msgid "Channel settings"
-msgstr ""
+msgstr "Каналдын жөндөөлөрү"
 
 msgid "Charts"
-msgstr ""
+msgstr "Диаграммалар"
 
 msgid "Chat"
 msgstr "Чат"
 
 msgid "Chat here"
-msgstr ""
+msgstr "Бул жерде баарлашыңыз"
 
 msgid "Check out past versions of the canvas."
-msgstr ""
+msgstr "Кенептин мурунку версияларын карап көрүңүз."
 
 msgid "Check to allow"
-msgstr ""
+msgstr "Уруксат берүү үчүн белгилеңиз"
 
 msgid "Check who placed in an area"
-msgstr ""
+msgstr "Аймакка ким жайгаштырылганын текшериңиз"
 
 msgid "Choose Canvas"
-msgstr ""
+msgstr "Кенепти тандаңыз"
 
 msgid "Choose Color Mode"
-msgstr ""
+msgstr "Түс режимин тандаңыз"
 
 msgid "Choose Strategy"
-msgstr ""
+msgstr "Стратегияны тандаңыз"
 
 msgid "Choose Username"
-msgstr ""
+msgstr "Колдонуучу атын тандаңыз"
 
 msgid ""
 "Clean spare pixels that are surrounded by a single other color or unset "
 "pixels (VERY AGGRESSIVE ON CANVASES THAT ALLOW UNSET PIXELS (where there are "
 "two cooldowns)!)"
 msgstr ""
+"Башка бир түс же коюлбаган пикселдер менен курчалган запастык пикселдерди "
+"тазалаңыз (ПИКСЕЛДЕРДИ КОЮУГА ЖОЛ БЕРГЕН ПОЛЬТТОРДО ӨТӨ АГРЕССИВДҮҮ (эки "
+"муздатуу болгон жерде)!)"
 
 msgid "Clean spare pixels that are surrounded by unset pixels"
-msgstr ""
+msgstr "Орнотулбаган пикселдер менен курчалган запастык пикселдерди тазалаңыз"
 
 msgid ""
 "Clean spare pixels that are surrounded by unset pixels and up to 1 other set "
 "pixels"
 msgstr ""
+"Орнотулбаган пикселдер жана башка 1ге чейин коюлган пикселдер менен "
+"курчалган запастык пикселдерди тазалаңыз"
 
 msgid "Cleaners can use 0cd blank colors."
-msgstr ""
+msgstr "Тазалоочулар 0cd бош түстөрүн колдоно алышат."
 
 #, javascript-format
 msgid ""
@@ -266,10 +271,10 @@ msgid "Click a color in palette to select it"
 msgstr "Аны тандоо үчүн палитрадагы түстү басыңыз"
 
 msgid "Click here to request a new verification mail."
-msgstr ""
+msgstr "Жаңы текшерүү катын суроо үчүн бул жерди басыңыз."
 
 msgid "Click to Load Captcha"
-msgstr ""
+msgstr "Капча жүктөө үчүн чыкылдатыңыз"
 
 msgid "Clone"
 msgstr "Клон"
@@ -284,16 +289,16 @@ msgid "Close Menu"
 msgstr "Менюну жабуу"
 
 msgid "Close Palette"
-msgstr ""
+msgstr "Палитраны жабуу"
 
 msgid "Compact Palette"
-msgstr ""
+msgstr "Компакт палитра"
 
 msgid "Confirm New Password"
 msgstr "Жаңы сырсөздү ырастоо"
 
 msgid "Confirm Password"
-msgstr ""
+msgstr "Сырсөздү ыраста"
 
 #, javascript-format
 msgid "Connection error ${ code } :("
@@ -303,16 +308,16 @@ msgid "Consent"
 msgstr "Макулдук"
 
 msgid "Consider joining us on Matrix:"
-msgstr ""
+msgstr "Matrix сайтына кошулууну карап көрүңүз:"
 
 msgid "Controls"
 msgstr "Контроль"
 
 msgid "Convert an image to canvas colors"
-msgstr ""
+msgstr "Сүрөттү холст түстөрүнө айландыруу"
 
 msgid "Converter"
-msgstr ""
+msgstr "Конвертер"
 
 msgid "Cooldown"
 msgstr ""
@@ -323,28 +328,28 @@ msgid ""
 msgstr ""
 
 msgid "Coordinates"
-msgstr ""
+msgstr "Координаттар"
 
 msgid "Coordinates:"
-msgstr ""
+msgstr "Координаттар:"
 
 msgid "Copied"
 msgstr "Көчүрүлгөн"
 
 msgid "Copy"
-msgstr ""
+msgstr "Көчүрүү"
 
 msgid "Copy Link"
-msgstr ""
+msgstr "Шилтемени көчүрүү"
 
 msgid "Copy Selected to Clipboard"
-msgstr ""
+msgstr "Тандалганды алмашуу буферине көчүрүү"
 
 msgid "Copy URL"
-msgstr ""
+msgstr "URL'ди көчүрүү"
 
 msgid "Copy UserId to Clipboard"
-msgstr ""
+msgstr "Колдонуучунун ID'син алмашуу буферине көчүрүү"
 
 msgid "Copy to Clipboard"
 msgstr "Алмашуу буферине көчүрүү"
@@ -353,16 +358,16 @@ msgid "Could not connect to server, please try again later :("
 msgstr "Серверге туташпай койду, кийинчерээк кайра аракет кылыңыз :("
 
 msgid "Could not load captcha"
-msgstr ""
+msgstr "Капча жүктөлбөй койду"
 
 msgid "Couldn't set Pixel"
 msgstr "Пиксел орнотулбай койду"
 
 msgid "Countries Today"
-msgstr ""
+msgstr "Бүгүнкү өлкөлөр"
 
 msgid "Country"
-msgstr ""
+msgstr "Өлкө"
 
 #, javascript-format
 msgid "Credit for the Palette of the 2bit canvas goes to ${ donendoLink }."
@@ -378,10 +383,10 @@ msgid "Credit for the Palette of the Top10 canvas goes to ${ vinikLink }."
 msgstr "Топ10 кенептин палитрасы үчүн насыя ${ vinikLink } дарегине берилет."
 
 msgid "Current Cooldown Changes per Country"
-msgstr ""
+msgstr "Өлкө боюнча учурдагы муздатуу өзгөрүүлөрү"
 
 msgid "Custom Cursor"
-msgstr ""
+msgstr "Ыңгайлаштырылган курсор"
 
 msgid "DM"
 msgstr ""
@@ -582,10 +587,10 @@ msgid "Get Users"
 msgstr ""
 
 msgid "Get email address"
-msgstr ""
+msgstr "Электрондук почта дарегин алуу"
 
 msgid "Get the amount of Pixels placed and ranking"
-msgstr ""
+msgstr "Жайгаштырылган пикселдердин санын жана рейтингин алыңыз"
 
 msgid "Globe View"
 msgstr "Глобус көрүнүшү"
@@ -713,7 +718,7 @@ msgid "Keep Ratio"
 msgstr ""
 
 msgid "Know that an account exists"
-msgstr ""
+msgstr "Аккаунт бар экенин билүү"
 
 msgid "Legal Requests"
 msgstr ""
@@ -932,7 +937,7 @@ msgid "Pencil picks: "
 msgstr "Карандаш тандоо: "
 
 msgid "Permission"
-msgstr ""
+msgstr "Уруксат"
 
 msgid "Phish!"
 msgstr ""
@@ -1052,10 +1057,10 @@ msgid "Ranking updates every 5 min. Daily rankings get reset at midnight UTC."
 msgstr ""
 
 msgid "Read Badges and fishes"
-msgstr ""
+msgstr "Белгилерди жана балыктарды окуңуз"
 
 msgid "Read name, username and account age"
-msgstr ""
+msgstr "Атын, колдонуучунун атын жана аккаунттун жашын окуу"
 
 msgid "Reason"
 msgstr "себеп"
@@ -1070,7 +1075,7 @@ msgid "Register new account here"
 msgstr ""
 
 msgid "Regularly update this data"
-msgstr ""
+msgstr "Бул маалыматтарды үзгүлтүксүз жаңыртып туруңуз"
 
 msgid "Reload"
 msgstr ""
