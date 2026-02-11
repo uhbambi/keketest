@@ -161,7 +161,7 @@ export async function getInfoByUsernameOrId(usernameOrId) {
   }
   try {
     /* eslint-disable max-len */
-    let query = `SELECT u.id AS uid, u.name, u.username, s.country, u.userlvl, cf.code AS 'customFlag',
+    let query = `SELECT u.id AS uid, u.name, u.username, s.country, u.userlvl, cf.code AS customFlag,
  EXISTS(SELECT 1 FROM Bans b INNER JOIN UserBans ub ON ub.bid = b.id WHERE ub.uid = u.id AND (b.flags & 0x02) > 0 AND (b.expires > NOW() OR b.expires IS NULL)) AS isMuted
  FROM Users u
     LEFT JOIN CustomFlags cf ON cf.uid = u.id

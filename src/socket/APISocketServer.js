@@ -28,7 +28,7 @@ class APISocketServer {
    * [usernameOrId]: {
    *   id,
    *   name,
-   *   flag,
+   *   country,
    *   userlvl,
    *   isMuted,
    *   customFlag
@@ -43,6 +43,10 @@ class APISocketServer {
       if (userData) {
         userData.fetchedAt = Date.now();
         APISocketServer.#usernameMapping.set(usernameOrId, userData);
+        userData.country = userData.customFlag || mapFlag(
+          userData.userlvl, userData.country,
+        ) || 'yy';
+        delete userData.customFlag;
       }
     }
     if (Math.random() < 0.07) {
@@ -318,10 +322,8 @@ class APISocketServer {
       if (command === 'mchat') {
         const [username, msg, channelId] = packet;
         let uid;
-        let userlvl;
         let name;
         let country;
-        let customFlag;
         let accepted = true;
 
         if (username.startsWith('@') && username.indexOf(':') !== -1) {
@@ -342,21 +344,13 @@ class APISocketServer {
           } else if (userData.isMuted) {
             accepted = false;
           }
-          ({ uid, name, country, userlvl, customFlag } = userData);
+          ({ uid, name, country } = userData);
           if (!name || !uid) {
             accepted = false;
           }
         }
 
         if (accepted) {
-          if (!country) {
-            country = 'yy';
-          }
-          if (!userlvl) {
-            userlvl = 10;
-          }
-          country = customFlag ?? mapFlag(userlvl, country);
-
           /*
           * do not send message back up ws that sent it
           */
