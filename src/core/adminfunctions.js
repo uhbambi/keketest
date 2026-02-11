@@ -929,6 +929,7 @@ export async function setUserFlag(name, code) {
   const { id } = user;
   const success = await createCustomFlag(id, code);
   if (success) {
+    socketEvents.reloadUser(id);
     return `Custom flag for ${name} has been set to ${code}`;
   }
   throw new Error('Couldn\'t give custom flag');
@@ -949,6 +950,7 @@ export async function resetUserFlag(name) {
   const { id } = user;
   const success = await deleteCustomFlag(id);
   if (success) {
+    socketEvents.reloadUser(id);
     return `Custom flag for ${name} has been reset`;
   }
   throw new Error('Couldn\'t reset custom flag');

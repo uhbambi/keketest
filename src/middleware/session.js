@@ -26,6 +26,7 @@ export class User {
    *   lastSeen,
    *   createdAt,
    *   havePassword,
+   *   customFlag,
    *   bans: [ { expires, flags }, ... ],
    *   tpids: [ { tpid, provider }, ... ],
    *   blocked: [ { id, name }, ...],

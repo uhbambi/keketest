@@ -2,9 +2,8 @@
  * map flags of user
  */
 import { USERLVL } from '../core/constants.js';
-import { getCustomFlagById } from '../data/sql/CustomFlag.js';
 
-export default async function mapFlag(uid, userlvl, country) {
+export default function mapFlag(userlvl, country) {
   if (userlvl >= USERLVL.CLEANER) {
     switch (userlvl) {
       case USERLVL.CLEANER:
@@ -17,7 +16,5 @@ export default async function mapFlag(uid, userlvl, country) {
         return 'zz';
     }
   }
-  const hasCustomFlag = await getCustomFlagById(uid);
-  if (hasCustomFlag) return hasCustomFlag;
   return country;
 }
