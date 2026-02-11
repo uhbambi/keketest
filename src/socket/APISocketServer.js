@@ -353,7 +353,7 @@ class APISocketServer {
           if (!userlvl) {
             userlvl = 10;
           }
-          country = mapFlag(uid, userlvl, country);
+          country = await mapFlag(uid, userlvl, country);
 
           /*
           * do not send message back up ws that sent it

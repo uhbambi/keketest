@@ -343,7 +343,7 @@ export class ChatProvider {
       return 'nope';
     }
 
-    const displayCountry = mapFlag(user.id, user.userlvl, country);
+    const displayCountry = await mapFlag(user.id, user.userlvl, country);
 
     if (USE_MAILER && user.userlvl < USERLVL.VERIFIED) {
       return t`Your mail has to be verified in order to chat`;
