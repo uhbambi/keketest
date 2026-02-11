@@ -86,6 +86,10 @@ export class User {
     return this.#data.name;
   }
 
+  get customFlag() {
+    return this.#data.customFlag;
+  }
+
   get token() {
     return this.#token;
   }
