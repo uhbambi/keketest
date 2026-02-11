@@ -502,7 +502,7 @@ function Admintools() {
                   }}
                   type="text"
                   minLength="2"
-                  maxLength="2"
+                  maxLength="3"
                   onChange={(evt) => {
                     const co = evt.target.value.trim();
                     setFlagcodeval(co);

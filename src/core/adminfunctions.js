@@ -919,6 +919,9 @@ export async function setUserFlag(name, code) {
   if (!code) {
     throw new Error('No code given');
   }
+  if (code.length < 2 || code.length > 3) {
+    throw new Error('Code length is invalid');
+  }
   const user = await findUserByIdOrName(name);
   if (!user?.id) {
     throw new Error(`User ${name} not found`);
