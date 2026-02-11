@@ -16,6 +16,7 @@ import { forceCaptcha, resetAllCaptchas } from '../data/redis/captcha.js';
 import { rollCaptchaFonts } from './captchaserver.js';
 import { getBanInfos } from '../data/sql/Ban.js';
 import { getTPIDsOfUser, getTPIDHistoryOfUser } from '../data/sql/ThreePID.js';
+import { createCustomFlag, deleteCustomFlag } from '../data/sql/CustomFlag.js';
 import { ban, unban, whitelist, unwhitelist } from './ban.js';
 import { setState } from './SharedState.js';
 import { censorIdentifier } from './utils.js';
@@ -904,4 +905,53 @@ export async function promoteUser(name, userlvl) {
     return [id, user.name];
   }
   throw new Error('Couldn\'t make user Mod');
+}
+
+/**
+ * give custom flag to user
+ * @param name name or id of user
+ * @param code wanted country code
+ */
+export async function setUserFlag(name, code) {
+  if (!name) {
+    throw new Error('No username given');
+  }
+  if (!code) {
+    throw new Error('No code given');
+  }
+  if (code.length < 2 || code.length > 3) {
+    throw new Error('Code length is invalid');
+  }
+  const user = await findUserByIdOrName(name);
+  if (!user?.id) {
+    throw new Error(`User ${name} not found`);
+  }
+  const { id } = user;
+  const success = await createCustomFlag(id, code);
+  if (success) {
+    socketEvents.reloadUser(id);
+    return `Custom flag for ${name} has been set to ${code}`;
+  }
+  throw new Error('Couldn\'t give custom flag');
+}
+
+/**
+ * remove custom flag from user
+ * @param name name or id of user
+ */
+export async function resetUserFlag(name) {
+  if (!name) {
+    throw new Error('No username given');
+  }
+  const user = await findUserByIdOrName(name);
+  if (!user?.id) {
+    throw new Error(`User ${name} not found`);
+  }
+  const { id } = user;
+  const success = await deleteCustomFlag(id);
+  if (success) {
+    socketEvents.reloadUser(id);
+    return `Custom flag for ${name} has been reset`;
+  }
+  throw new Error('Couldn\'t reset custom flag');
 }

@@ -96,6 +96,29 @@ async function getGameState(
   }
 }
 
+async function submitResetUserFlag(userId, callback) {
+  const data = new FormData();
+  data.append('resetflag', userId);
+  const resp = await fetch(api`/api/modtools`, {
+    credentials: 'include',
+    method: 'POST',
+    body: data,
+  });
+  callback(resp.ok, await resp.text());
+}
+
+async function submitSetUserFlag(userId, flagCode, callback) {
+  const data = new FormData();
+  data.append('setflag', userId);
+  data.append('flagcode', flagCode);
+  const resp = await fetch(api`/api/modtools`, {
+    credentials: 'include',
+    method: 'POST',
+    body: data,
+  });
+  callback(resp.ok, await resp.text());
+}
+
 function Admintools() {
   const [textAction, selectTextAction] = useState('iidtoip');
   const [modName, selectModName] = useState('');
@@ -104,6 +127,9 @@ function Admintools() {
   const [resp, setResp] = useState(null);
   const [modlist, setModList] = useState({});
   const [gameState, setGameState] = useState([]);
+  const [flagAction, selectFlagAction] = useState('giveflag');
+  const [flaguserval, setFlaguserval] = useState('');
+  const [flagcodeval, setFlagcodeval] = useState('');
   const [submitting, setSubmitting] = useState(false);
 
   useEffect(() => {
@@ -166,6 +192,24 @@ function Admintools() {
       setResp(ret);
     });
   }, [submitting, modlist]);
+
+  const resetUserFlag = useCallback(() => {
+    if (submitting) return;
+    setSubmitting(true);
+    submitResetUserFlag(flaguserval, (success, ret) => {
+      setSubmitting(false);
+      setResp(ret);
+    });
+  }, [submitting, flaguserval]);
+
+  const giveUserFlag = useCallback(() => {
+    if (submitting) return;
+    setSubmitting(true);
+    submitSetUserFlag(flaguserval, flagcodeval, (success, ret) => {
+      setSubmitting(false);
+      setResp(ret);
+    });
+  }, [submitting, flaguserval, flagcodeval]);
 
   return (
     <div className="content">
@@ -408,6 +452,102 @@ function Admintools() {
           {(submitting) ? '...' : t`Submit`}
         </button>
         <br />
+
+        <div className="modaldivider" />
+        <h3>{t`Manage custom flags`}</h3>
+        <p>
+          <select
+            value={flagAction}
+            onChange={(e) => {
+              const sel = e.target;
+              selectFlagAction(sel.options[sel.selectedIndex].value);
+            }}
+          >
+            {['giveflag', 'reset']
+              .map((opt) => (
+                <option
+                  key={opt}
+                  value={opt}
+                >
+                  {opt}
+                </option>
+              ))}
+          </select>
+          {(flagAction === 'giveflag') && (
+            <p key="giveflag">
+              <p>
+                {t`Enter UserName or UserID`}:&nbsp;
+                <input
+                  value={flaguserval}
+                  style={{
+                    display: 'inline-block',
+                    width: '100%',
+                    maxWidth: '20em',
+                  }}
+                  type="text"
+                  onChange={(evt) => {
+                    const co = evt.target.value.trim();
+                    setFlaguserval(co);
+                  }}
+                />
+              </p>
+              <p>
+                {t`Enter flag code`}:&nbsp;
+                <input
+                  value={flagcodeval}
+                  style={{
+                    display: 'inline-block',
+                    width: '100%',
+                    maxWidth: '20em',
+                  }}
+                  type="text"
+                  minLength="2"
+                  maxLength="3"
+                  onChange={(evt) => {
+                    const co = evt.target.value.trim();
+                    setFlagcodeval(co);
+                  }}
+                />
+              </p>
+              <p>
+                <button
+                  type="button"
+                  onClick={giveUserFlag}
+                >
+                  {(submitting) ? '...' : t`Submit`}
+                </button>
+              </p>
+            </p>
+          )}
+          {(flagAction === 'reset') && (
+            <p key="reset">
+              <p>
+                {t`Enter UserName or UserID`}:&nbsp;
+                <input
+                  value={flaguserval}
+                  style={{
+                    display: 'inline-block',
+                    width: '100%',
+                    maxWidth: '20em',
+                  }}
+                  type="text"
+                  onChange={(evt) => {
+                    const co = evt.target.value.trim();
+                    setFlaguserval(co);
+                  }}
+                />
+              </p>
+              <p>
+                <button
+                  type="button"
+                  onClick={resetUserFlag}
+                >
+                  {(submitting) ? '...' : t`Submit`}
+                </button>
+              </p>
+            </p>
+          )}
+        </p>
       </div>
     </div>
   );

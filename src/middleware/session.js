@@ -26,6 +26,7 @@ export class User {
    *   lastSeen,
    *   createdAt,
    *   havePassword,
+   *   customFlag,
    *   bans: [ { expires, flags }, ... ],
    *   tpids: [ { tpid, provider }, ... ],
    *   blocked: [ { id, name }, ...],
@@ -83,6 +84,10 @@ export class User {
 
   get name() {
     return this.#data.name;
+  }
+
+  get customFlag() {
+    return this.#data.customFlag;
   }
 
   get token() {

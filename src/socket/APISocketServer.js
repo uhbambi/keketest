@@ -31,6 +31,7 @@ class APISocketServer {
    *   flag,
    *   userlvl,
    *   isMuted,
+   *   customFlag
    * },
    */
   static #usernameMapping = new Map();
@@ -320,6 +321,7 @@ class APISocketServer {
         let userlvl;
         let name;
         let country;
+        let customFlag;
         let accepted = true;
 
         if (username.startsWith('@') && username.indexOf(':') !== -1) {
@@ -340,7 +342,7 @@ class APISocketServer {
           } else if (userData.isMuted) {
             accepted = false;
           }
-          ({ uid, name, country, userlvl } = userData);
+          ({ uid, name, country, userlvl, customFlag } = userData);
           if (!name || !uid) {
             accepted = false;
           }
@@ -353,7 +355,7 @@ class APISocketServer {
           if (!userlvl) {
             userlvl = 10;
           }
-          country = mapFlag(uid, userlvl, country);
+          country = customFlag ?? mapFlag(userlvl, country);
 
           /*
           * do not send message back up ws that sent it

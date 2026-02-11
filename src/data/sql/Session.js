@@ -228,6 +228,7 @@ WHERE token = ? AND (expires > NOW() OR expires IS NULL)`, {
  *   flags,
  *   lastSeen,
  *   createdAt,
+ *   customFlag,
  *   blocked: [ { id, name }, ...],
  *   bans: [ { expires, flags }, ... ],
  *   channels: {
@@ -258,8 +259,10 @@ export async function resolveSession(token) {
 
     let user = await sequelize.query(
       `SELECT u.id, u.name, u.username, u.password, u.userlvl, u.flags, u.lastSeen, u.createdAt,
+cf.code AS 'customFlag',
 c.id AS 'channels.cid', c.name AS 'channels.name', c.\`type\` AS 'channels.type', c.lastMessage AS 'channels.lastDate', ucm.lastRead AS 'channels.lastReadDate' FROM Users u
   INNER JOIN Sessions s ON s.uid = u.id
+  LEFT JOIN CustomFlags cf ON cf.uid = u.id
   LEFT JOIN UserChannels ucm ON ucm.uid = u.id
   LEFT JOIN Channels c ON c.id = ucm.cid
 WHERE s.token = $1 AND (s.expires > NOW() OR s.expires IS NULL)`, {
@@ -269,7 +272,7 @@ WHERE s.token = $1 AND (s.expires > NOW() OR s.expires IS NULL)`, {
       });
     /*
      * {
-     *   id, name, password, userlvl, flags, lastSeen, createdAt,
+     *   id, name, password, userlvl, flags, lastSeen, createdAt, customFlag,
      *   channels: [{
      *     cid, name, type, lastDate,
      *   }, ...]

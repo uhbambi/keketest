@@ -152,7 +152,7 @@ export async function getDummyUser(name) {
  * get basic userinfo by username or id
  * @param username or id
  * @return {
- *   uid, name, country, userlvl, isMuted,
+ *   uid, name, country, userlvl, isMuted, customFlag
  * }
  */
 export async function getInfoByUsernameOrId(usernameOrId) {
@@ -161,9 +161,10 @@ export async function getInfoByUsernameOrId(usernameOrId) {
   }
   try {
     /* eslint-disable max-len */
-    let query = `SELECT u.id AS uid, u.name, u.username, s.country, u.userlvl,
+    let query = `SELECT u.id AS uid, u.name, u.username, s.country, u.userlvl, cf.code AS 'customFlag',
  EXISTS(SELECT 1 FROM Bans b INNER JOIN UserBans ub ON ub.bid = b.id WHERE ub.uid = u.id AND (b.flags & 0x02) > 0 AND (b.expires > NOW() OR b.expires IS NULL)) AS isMuted
  FROM Users u
+    LEFT JOIN CustomFlags cf ON cf.uid = u.id
     LEFT JOIN Sessions s ON s.uid = u.id AND s.country != 'xx'
 WHERE `;
     /* eslint-enable max-len */
