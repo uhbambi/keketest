@@ -1,35 +1,43 @@
 msgid ""
 msgstr ""
+"Report-Msgid-Bugs-To: admin@pixelplanet.fun\n"
+"PO-Revision-Date: 2026-02-13 18:30+0000\n"
+"Last-Translator: Extreme Motorsex <em@noreply.pixelplanet.fun>\n"
+"Language-Team: Dzongkha <https://translate.gs-os.com/projects/ppfun/server/"
+"dz/>\n"
 "Language: dz\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Weblate 5.15.2\n"
 
 msgid "1bit"
-msgstr ""
+msgstr "༡ བིཊི།"
 
 msgid "2bit"
-msgstr ""
+msgstr "༢ བིཊི།"
 
 msgid "3D Canvas"
-msgstr ""
+msgstr "༣ཌི་བཤུད་བརྙན།"
 
 msgid "A 3D globe of our whole map"
-msgstr ""
+msgstr "ང་བཅས་རའི་ས་ཁྲ་ཆ་མཉམ་གྱི་ ༣ཌི་འཛམ་གླིང་རིགས།"
 
 msgid ""
 "A canvas for the most active players from the the previous day. Daily "
 "ranking updates at 00:00 UTC."
 msgstr ""
+"ཧེ་མའི་ཉིནམ་ལས་ རྩེད་འགྲན་པ་ཤུགས་ཆེ་ཤོས་ཚུ་གི་དོན་ལུ་ བཤུད་བརྙན་ཅིག། ཉིན་བསྟར་གྱི་གནས་རིམ་དུས་མཐུན་ཚུ"
+"་ ༠༠:༠༠ UTC ལུ།"
 
 msgid "Access modtools"
-msgstr ""
+msgstr "མོ་ཌི་ཊུལསི་ལུ་འཛུལ་སྤྱོད་འབད།"
 
 msgid "Add Application"
-msgstr ""
+msgstr "འཇུག་སྤྱོད་ཁ་སྐོང་བརྐྱབ།"
 
 msgid "Add an Application (OIDC Client)"
-msgstr ""
+msgstr "གློག་རིམ་ཅིག་ཁ་སྐོང་རྐྱབས་ (OIDC མཁོ་སྤྲོད་པ་)"
 
 msgid "Add new application"
 msgstr ""
@@ -50,7 +58,7 @@ msgid "Black and White canvas"
 msgstr ""
 
 msgid "Can not chat while being banned"
-msgstr ""
+msgstr "བཀག་དམ་འབད་བའི་སྐབས་ ཁ་སླབ་མི་ཚུགས།"
 
 msgid "Click here"
 msgstr ""
@@ -496,7 +504,7 @@ msgid "You are not allowed to access this page"
 msgstr ""
 
 msgid "You are not banned"
-msgstr ""
+msgstr "ཁྱོད་བཀག་མེད།"
 
 msgid "You are not logged in"
 msgstr ""
@@ -516,7 +524,7 @@ msgid ""
 msgstr ""
 
 msgid "You can not register an account while you are banned"
-msgstr ""
+msgstr "བཀག་དམ་འབད་བའི་སྐབས་ རྩིས་ཁྲ་ཐོ་བཀོད་འབད་མི་ཚུགས།"
 
 msgid "You can not register an account with a proxy"
 msgstr ""

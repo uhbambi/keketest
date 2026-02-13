@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: admin@pixelplanet.fun\n"
-"PO-Revision-Date: 2026-02-10 15:30+0000\n"
+"PO-Revision-Date: 2026-02-13 18:30+0000\n"
 "Last-Translator: Extreme Motorsex <em@noreply.pixelplanet.fun>\n"
 "Language-Team: Kyrgyz <https://translate.gs-os.com/projects/ppfun/client/ky/>"
 "\n"
@@ -320,12 +320,14 @@ msgid "Converter"
 msgstr "Конвертер"
 
 msgid "Cooldown"
-msgstr ""
+msgstr "Муздатуу"
 
 msgid ""
 "Cooldown is usually automatically changed for a country that is dominating. "
 "In example in the case of a streamer raid."
 msgstr ""
+"Басымдуулук кылган өлкө үчүн муздатуу убактысы, адатта, автоматтык түрдө "
+"өзгөрөт. Мисалы, стример рейди учурунда."
 
 msgid "Coordinates"
 msgstr "Координаттар"
@@ -389,31 +391,31 @@ msgid "Custom Cursor"
 msgstr "Ыңгайлаштырылган курсор"
 
 msgid "DM"
-msgstr ""
+msgstr "Түз билдирүү"
 
 msgid "Daily Pixels per Country"
-msgstr ""
+msgstr "Өлкө боюнча күнүмдүк пикселдер"
 
 msgid "Daily Pixels per Player"
-msgstr ""
+msgstr "Ар бир оюнчу үчүн күнүмдүк пикселдер"
 
 msgid "Daily Rank"
-msgstr ""
+msgstr "Күнүмдүк рейтинг"
 
 msgid "Date of Award"
-msgstr ""
+msgstr "Сыйлыктын датасы"
 
 msgid "Date of catch"
-msgstr ""
+msgstr "Кармалган күнү"
 
 msgid "Delete"
-msgstr ""
+msgstr "Өчүрүү"
 
 msgid "Delete Account"
-msgstr ""
+msgstr "Аккаунтту жок кылуу"
 
 msgid "Deny"
-msgstr ""
+msgstr "Баш тартуу"
 
 msgid ""
 "Didn't get an answer from pixelplanet. Try to refresh if this problem "
@@ -423,10 +425,10 @@ msgstr ""
 "кылыңыз."
 
 msgid "Dimensions"
-msgstr ""
+msgstr "Өлчөмдөрү"
 
 msgid "Disable Game Sounds"
-msgstr ""
+msgstr "Оюн үндөрүн өчүрүү"
 
 msgid "Disable History Pencil"
 msgstr "Тарых калемин өчүрүү"
@@ -438,19 +440,19 @@ msgid "Disable Pencil"
 msgstr "Карандашты өчүрүү"
 
 msgid "Display Palette in a compact form that takes less screen space."
-msgstr ""
+msgstr "Экранда аз орун ээлеген компакттуу формадагы дисплей палитрасы."
 
 msgid "Do stuff with IPs (one IP per line)"
-msgstr ""
+msgstr "IP даректер менен иштөө (ар бир сапка бир IP)"
 
 msgid "Don't remember"
-msgstr ""
+msgstr "Эсимде жок"
 
 msgid "Don't show me in global stats"
-msgstr ""
+msgstr "Мага глобалдык статистикада көрсөтүлбөсүн"
 
 msgid "Download Template"
-msgstr ""
+msgstr "Шаблонду жүктөп алуу"
 
 #, javascript-format
 msgid "Drag ${ mouseSymbol } mouse or ${ touchSymbol } pan to move"
@@ -1426,7 +1428,7 @@ msgid "User Area"
 msgstr "Колдонуучу аймагы"
 
 msgid "User ID and verification level"
-msgstr ""
+msgstr "Колдонуучунун ID жана текшерүү деңгээли"
 
 msgid "User Name"
 msgstr ""

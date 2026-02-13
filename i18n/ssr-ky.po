@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: admin@pixelplanet.fun\n"
-"PO-Revision-Date: 2026-02-10 15:30+0000\n"
+"PO-Revision-Date: 2026-02-13 18:30+0000\n"
 "Last-Translator: Extreme Motorsex <em@noreply.pixelplanet.fun>\n"
 "Language-Team: Kyrgyz <https://translate.gs-os.com/projects/ppfun/server/ky/>"
 "\n"
@@ -396,9 +396,13 @@ msgid ""
 "Space-separated list of default scopes, they will be used on requests where "
 "no other scope is given."
 msgstr ""
+"Демейки масштабдардын боштук менен бөлүнгөн тизмеси, алар башка scope "
+"берилбеген суроо-талаптарда колдонулат."
 
 msgid "Space-separated list of scopes that should be available"
 msgstr ""
+"Бош орун менен бөлүнгөн жеткиликтүү болушу керек болгон оптикалык "
+"приборлордун тизмеси"
 
 msgid "Special canvas to spread awareness of SARS-CoV2 (take the vax)."
 msgstr ""
@@ -415,25 +419,25 @@ msgid "Thanks"
 msgstr "Рахмат"
 
 msgid "The user owning this badge is private"
-msgstr ""
+msgstr "Бул төш белгиге ээ болгон колдонуучу купуя"
 
 msgid "The user owning this fish is private"
-msgstr ""
+msgstr "Бул балыкты ээси болгон колдонуучу жеке менчик"
 
 msgid "This application is not allowed to login"
-msgstr ""
+msgstr "Бул колдонмого кирүүгө уруксат берилген эмес"
 
 msgid "This application redirects to an unallowed page"
-msgstr ""
+msgstr "Бул колдонмо уруксат берилбеген баракчага багыттайт"
 
 msgid "This application sent a faulty login request with no redirection"
-msgstr ""
+msgstr "Бул колдонмо багыттоосуз ката кирүү сурамын жөнөттү"
 
 msgid "This application uses a PKCE method we do not support"
-msgstr ""
+msgstr "Бул колдонмо биз колдобогон PKCE ыкмасын колдонот"
 
 msgid "This application uses a login method we do not support"
-msgstr ""
+msgstr "Бул колдонмо биз колдобогон кирүү ыкмасын колдонот"
 
 msgid ""
 "This email / password combination got hacked and leaked. To protect this "
@@ -441,6 +445,10 @@ msgid ""
 "function below to set a new password. In the future, consider not installing "
 "malware, Thank You."
 msgstr ""
+"Бул электрондук почта/сырсөз айкалышы бузулуп, маалымат агып кетти. Бул "
+"аккаунтту коргоо үчүн сырсөз баштапкы абалга келтирилди. Жаңы сырсөз коюу "
+"үчүн төмөндөгү \"Сырсөзүмдү унутуп калдым\" функциясын колдонуңуз. Келечекте "
+"зыяндуу программаны орнотпоону ойлонуп көрүңүз, рахмат."
 
 msgid ""
 "This email / password combination got hacked and leaked. To protect this "
@@ -448,6 +456,10 @@ msgid ""
 "function on the LogIn page to set a new password. In the future, consider "
 "not installing malware, Thank You."
 msgstr ""
+"Бул электрондук почта/сырсөз айкалышы бузулуп, маалымат агып кетти. Бул "
+"аккаунтту коргоо үчүн сырсөз баштапкы абалга келтирилди. Жаңы сырсөз коюу "
+"үчүн Кирүү барагындагы \"Сырсөзүмдү унутуп калдым\" функциясын колдонуңуз. "
+"Келечекте зыяндуу программаны орнотпоону ойлонуп көрүңүз, рахмат."
 
 msgid "This email provider is not allowed"
 msgstr "Бул электрондук почта провайдерине уруксат жок"
@@ -457,7 +469,7 @@ msgstr "Бул сырсөздү калыбына келтирүү шилтеме
 
 #. "redirect_uris" is a technical term and should not be translated
 msgid "Too many or too long redirect_uris"
-msgstr ""
+msgstr "Өтө көп же өтө узун redirect_uris"
 
 msgid "Top10"
 msgstr "Топ 10"
@@ -466,10 +478,10 @@ msgid "Unknown Captcha Error"
 msgstr "Белгисиз Captcha катасы"
 
 msgid "Update Application"
-msgstr ""
+msgstr "Колдонмону жаңыртуу"
 
 msgid "User ID and verification level"
-msgstr ""
+msgstr "Колдонуучунун ID жана текшерүү деңгээли"
 
 msgid "User doesn't exist in our database :("
 msgstr "Колдонуучу биздин маалымат базасында жок :("
@@ -478,7 +490,7 @@ msgid "Username already in use."
 msgstr "Колдонуучунун аты мурунтан эле колдонулууда."
 
 msgid "Username can not start with pp_"
-msgstr ""
+msgstr "Колдонуучунун аты pp_ менен башталбашы керек"
 
 msgid "Username can only contain the characters: a-z . _ and -"
 msgstr ""
