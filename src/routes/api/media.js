@@ -167,11 +167,12 @@ router.post('/upload', (req, res) => {
    * there might be a field with hashes given BEFORE sending files, which can
    * be used to cancel the upload if they already exist, it has the form:
    * filename=hash:mimeType;filename=hash:mimetype;...
-   * If this field exists, it must contain the hashes for all files, files that
-   * do not have a hash, may be dropped in that scenario.
+   * If this field exists, it must contain all files, files wtih unknown hash
+   * should be inside as well, but with empty hash.
    * Multiple files given with the same filename will be processed in order.
    */
   const hashes = [];
+  let hashesAreResolved = false;
   /*
    * amount of files currently being read
    */
@@ -243,10 +244,16 @@ router.post('/upload', (req, res) => {
           error = t`This media is banned for containing CSAM`;
           break;
         case 'media_banned_reason_3':
-          error = t`This media is banned for being an attempt to scam people`;
+          error = t`This media is banned for being degenerate`;
           break;
         case 'media_banned_reason_4':
+          error = t`This media is banned for being an attempt to scam people`;
+          break;
+        case 'media_banned_reason_5':
           error = t`This media is banned for glorifying terrorism`;
+          break;
+        case 'media_banned_reason_5':
+          error = t`This media is banned because it is propaganda`;
           break;
         case 'already_exists':
           /* this is not an error, but treated as one to cancel request */
@@ -290,8 +297,9 @@ router.post('/upload', (req, res) => {
       * since the stream has to wait for consumption, we can async resolve hashes
       * here, which wouldn't have been possible in the 'field' event.
       */
-      if (!hashes[hashes.length - 1].shortId) {
+      if (!hashesAreResolved) {
         await hasMedia(hashes);
+        hashesAreResolved = true;
       }
       const modelIndex = hashes.findIndex(
         (h) => h.originalFilename === info.filename,
@@ -300,13 +308,13 @@ router.post('/upload', (req, res) => {
         const model = hashes[modelIndex];
         hashes.splice(modelIndex, 1);
         if (model.shortId) {
-          if (hashes.find((h) => h.shortId)) {
+          availableFiles.push(model);
+          if (hashes.some((h) => !h.shortId)) {
             /* another file exists that we don't have yet, roll forward */
             if (!fileStream.closed) {
               fileStream.resume();
             }
           } else {
-            availableFiles.push(model);
             if (!fileStream.destroyed) {
               fileStream.destroy();
             }
@@ -350,15 +358,16 @@ router.post('/upload', (req, res) => {
           // eslint-disable-next-line max-len
           const mimeType = decodeURIComponent(hash.substring(hashSeperator + 1).trim());
           hash = hash.substring(0, hashSeperator).trim();
-          if (hash.length === 64) {
-            // eslint-disable-next-line max-len
-            const filename = decodeURIComponent(pair.substring(0, seperator).trim());
-            const [namePart, extension] = splitFilename(filename);
-            hashes.push({
-              hash, name: namePart, mimeType, extension,
-              originalFilename: filename,
-            });
+          if (hash.length !== 64) {
+            hash = null;
           }
+          // eslint-disable-next-line max-len
+          const filename = decodeURIComponent(pair.substring(0, seperator).trim());
+          const [namePart, extension] = splitFilename(filename);
+          hashes.push({
+            hash, name: namePart, mimeType, extension,
+            originalFilename: filename,
+          });
         }
       }
     } else {

@@ -1,7 +1,7 @@
 /*
  * stores perceptive hashes for images
  */
-import { DataTypes } from 'sequelize';
+import { DataTypes, QueryTypes } from 'sequelize';
 
 import sequelize from './sequelize.js';
 
@@ -28,5 +28,21 @@ const ImageHash = sequelize.define('ImageHash', {
     fields: ['pHash'],
   }],
 });
+
+
+export async function addImageHash(shortId, mimeType, pHash) {
+  try {
+    await sequelize.query(
+      // eslint-disable-next-line max-len
+      'INSERT INTO ImageHash (mid, pHash) SELECT m.id, UNHEX(?) AS hash FROM Media m WHERE m.shortId = ? AND m.mimeType = ?', {
+        replacements: [pHash, shortId, mimeType],
+        raw: true,
+        type: QueryTypes.INSERT,
+      },
+    );
+  } catch (error) {
+    console.error(`SQL Error on addImageHash: ${error.message}`);
+  }
+}
 
 export default ImageHash;

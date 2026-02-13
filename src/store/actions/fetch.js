@@ -415,6 +415,81 @@ export function requestIID() {
   );
 }
 
+/**
+ * file upload api
+ * @param files File or FileList
+ * @param [controller] AbortController
+ */
+export async function requestFileUpload(files, controller) {
+  if (files instanceof File) {
+    files = [files];
+  }
+  if (!files?.length) {
+    return {
+      errors: [t`No File selected to upload`],
+    };
+  }
+  const formData = new FormData();
+
+  let hashes = '';
+  for (let i = 0; i < files.length; i += 1) {
+    let file = files[i];
+    if (crypto.subtle) {
+      if (file.size > 1024 * 1024 * 1024) {
+        /*
+         * send empty hash to make sure server at least knows that this file
+         * exists and doesn't end the upload after previous ones match
+         */
+        // eslint-disable-next-line max-len
+        hashes += `${encodeURIComponent(file.name)}=:${encodeURIComponent(file.type)};`;
+      } else {
+        const arrayBuffer = await file.arrayBuffer();
+        const hashBuffer = await crypto.subtle.digest('SHA-256', arrayBuffer);
+        const hashArray = Array.from(new Uint8Array(hashBuffer));
+        const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0'))
+          .join('');
+        // eslint-disable-next-line max-len
+        hashes += `${encodeURIComponent(file.name)}=${hashHex}:${encodeURIComponent(file.type)};`;
+        /*
+        * create a new file object with that arrayBuffer, to avoid re-read from
+        * disk
+        */
+        file = new File([arrayBuffer], file.name, {
+          type: file.type,
+          lastModified: file.lastModified
+        });
+      }
+    }
+    formData.append('file', file);
+  }
+
+  if (hashes) {
+    formData.append('hashes', hashes);
+  }
+
+  const options = {
+    credentials: 'include',
+    method: 'POST',
+    body: formData,
+  };
+
+  if (controller) {
+    options.signal = controller.signal;
+  }
+
+  try {
+    const response = await fetch(api`/api/media/upload`, {
+      ...options,
+      signal: controller.signal,
+    });
+    return parseAPIresponse(response);
+  } catch (e) {
+    return {
+      errors: [t`Could not connect to server, please try again later :(`],
+    };
+  }
+}
+
 let alreadyRequested = false;
 export function requestBanMe(code) {
   if (alreadyRequested) {

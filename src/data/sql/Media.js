@@ -1,7 +1,12 @@
+import fs from 'fs';
 import { QueryTypes, DataTypes } from 'sequelize';
 
 import sequelize from './sequelize.js';
+import { addImageHash } from './ImageHash.js';
 import { getRandomShortId } from '../../core/utils.js';
+import {
+  constructMediaPath, getThumbnailPaths,
+} from '../../utils/mdia/utils.js';
 
 const Media = sequelize.define('Media', {
   id: {
@@ -47,7 +52,7 @@ const Media = sequelize.define('Media', {
   },
 
   /*
-   * 'audio', 'video', etc.
+   * 'image', 'audio', 'video', etc.
    */
   type: {
     type: DataTypes.STRING(128),
@@ -102,9 +107,10 @@ const Media = sequelize.define('Media', {
   }],
 });
 
+
 /**
- * get filename of media if exists, adds 'shortId' and 'extension' to hashes
- * objects where a corresponding hash exists
+ * get filename of media if exists, adds 'shortId', 'existed' and 'extension'
+ * to hashes objects where a corresponding hash exists
  * @param hashes [{
  *   hash,
  *   mimeType,
@@ -112,7 +118,7 @@ const Media = sequelize.define('Media', {
  * @return success boolean
  */
 export async function hasMedia(hashes) {
-  if (!hashes?.length) {
+  if (!hashes) {
     return true;
   }
   if (!Array.isArray(hashes)) {
@@ -123,7 +129,10 @@ export async function hasMedia(hashes) {
   try {
     const replacements = [];
     for (let i = 0; i < hashes.length; i += 1) {
-      replacements.push(hashes[i].hash, hashes[i].mimeType);
+      const hash = hashes[i].hash;
+      if (hash) {
+        replacements.push(hashes[i].hash, hashes[i].mimeType);
+      }
     }
 
     const mediaModels = await sequelize.query(
@@ -146,7 +155,9 @@ export async function hasMedia(hashes) {
        * use RETURNING and merge it together with the SELECT query
        */
       sequelize.query(
-        'UPDATE Media SET lastUsed = NOW() WHERE id = ?', {
+        `UPDATE Media SET lastUsed = NOW() WHERE id IN (${
+          mediaModels.map(() => '?').join(', ')
+        })`, {
           replacements: mediaModels.map((model) => model.id),
           type: QueryTypes.UPDATE,
         },
@@ -160,8 +171,17 @@ export async function hasMedia(hashes) {
           (h) => h.hash === model.hash && h.mimeType === model.mimeType,
         );
         if (hash) {
-          hash.extension = model.extension;
-          hash.shortId = model.shortId;
+          /*
+           * make sure that file actually exists
+           */
+          const filePath = constructMediaPath(model.shortId, model.extension);
+          if (fs.existsSync(filePath)) {
+            hash.extension = model.extension;
+            hash.shortId = model.shortId;
+            hash.existed = true;
+          } else {
+            deregisterMedia(model.shortId, model.mimeType, model.extension);
+          }
         }
       }
       return true;
@@ -172,26 +192,40 @@ export async function hasMedia(hashes) {
   return false;
 }
 
-export async function deregisterMedia(hash, mimeType) {
+export async function deregisterMedia(shortId, mimeType, extension) {
   try {
-    console.log(`MEDIA: deregister ${hash}`);
+    console.log(`MEDIA: deregister ${shortId} ${mimeType}`);
     await sequelize.query(
-      'DELETE FROM Media WHERE hash = UNHEX(?) AND mimeType = ?', {
-        replacements: [hash, mimeType],
+      'DELETE FROM Media WHERE shortId = ? AND mimeType = ?', {
+        replacements: [shortId, mimeType],
         type: QueryTypes.DELETE,
         raw: true,
       });
+    const filePath = constructMediaPath(shortId, extension);
+    if (fs.existsSync(filePath)) {
+      fs.rmSync(filePath);
+    }
+    const { thumbFilePath, iconFilePath } = getThumbnailPaths(filePath);
+    if (fs.existsSync(thumbFilePath)) {
+      fs.rmSync(thumbFilePath);
+    }
+    if (fs.existsSync(iconFilePath)) {
+      fs.rmSync(iconFilePath);
+    }
   } catch (error) {
     console.error(`SQL Error on deregisterMedia: ${error.message}`);
   }
 }
 
 /**
- * register new media
+ * register new media, adds 'shortId' and 'existed' to given model object
+ * @param model { hash, mimeType, extension }
+ * @return success boolean
  */
 export async function registerMedia(
-  hash, extension, mimeType, type, size, name, contentHash = null,
+  model, type, size, name, pHash = null,
 ) {
+  const { hash, mimeType, extension } = model;
   try {
     /*
      * shortId is a random 6 character string of a-z
@@ -212,25 +246,24 @@ export async function registerMedia(
     } while (exists);
     await sequelize.query(
       // eslint-disable-next-line max-len
-      'INSERT INTO Media (hash, shortId, extension, mimeType, type, size, contentHash, lastUpload) VALUES (UNHEX(?), ?, ?, ?, ?, ?, UNHEX(?), NOW()) ON DUPLICATE KEY UPDATE lastUpload = VALUES(lastUpload)', {
+      'INSERT INTO Media (hash, shortId, extension, mimeType, type, size, lastUpload) VALUES (UNHEX(?), ?, ?, ?, ?, ?, NOW()) ON DUPLICATE KEY UPDATE lastUpload = VALUES(lastUpload)', {
         replacements: [
-          hash, shortId, extension, mimeType, type, size, contentHash,
+          hash, shortId, extension, mimeType, type, size,
         ],
         raw: true,
         type: QueryTypes.INSERT,
       },
     );
-    return {
-      hash,
-      name,
-      mimeType,
-      shortId,
-      extension,
-    };
+    if (type === 'image' && pHash) {
+      await addImageHash(shortId, mimeType, pHash);
+    }
+    model.shortId = shortId;
+    model.existed = false;
+    return true;
   } catch (error) {
     console.error(`SQL Error on registerMedia: ${error.message}`);
   }
-  return null;
+  return false;
 }
 
 export default Media;

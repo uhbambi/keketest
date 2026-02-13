@@ -87,9 +87,10 @@ export const THREEPID_PROVIDERS = {
 export const MEDIA_BAN_REASONS = {
   GORE: 1,
   CSAM: 2,
-  SCAM: 3,
-  TERRORISM: 4,
-  PROPAGANDA: 5,
+  DEGENERACY: 3,
+  SCAM: 4,
+  TERRORISM: 5,
+  PROPAGANDA: 6,
 };
 
 export const CHANNEL_TYPES = {
