@@ -13,6 +13,7 @@ import WindowContext from '../context/window.js';
 import useLink from '../hooks/link.js';
 import ContextMenu from '../contextmenus/index.jsx';
 import ChatMessage from '../ChatMessage.jsx';
+import FileUpload from '../FileUpload.jsx';
 import ChannelDropDown from '../contextmenus/ChannelDropDown.jsx';
 import { CHANNEL_TYPES } from '../../core/constants.js';
 
@@ -260,6 +261,7 @@ const Chat = () => {
             {t`You must be logged in to chat`}
           </div>
         )}
+        <FileUpload />
         <ChannelDropDown
           key="cdd"
           setChatChannel={setChannel}
