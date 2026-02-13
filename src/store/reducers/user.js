@@ -147,6 +147,14 @@ export default function user(
       };
     }
 
+    case 's/CHANGE_FLAG': {
+      const { code } = action;
+      return {
+        ...state,
+        code,
+      };
+    }
+
     case 'SET_NOTIFICATION': {
       return {
         ...state,

@@ -469,6 +469,13 @@ export function privatize(priv) {
   };
 }
 
+export function changeFlag(code) {
+  return {
+    type: 's/SET_CHANGE_FLAG',
+    code,
+  };
+}
+
 export function muteChatChannel(cid) {
   return {
     type: 's/MUTE_CHAT_CHANNEL',

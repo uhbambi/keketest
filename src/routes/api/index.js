@@ -21,6 +21,7 @@ import canvases from './canvases.js';
 import fish from './fish.js';
 import badge from './badge.js';
 import banme from './banme.js';
+import changeflag from './changeflag.js';
 // import media from './media.js';
 
 const router = express.Router();
@@ -98,6 +99,8 @@ router.post('/block', block);
 router.post('/blockdm', blockdm);
 
 router.post('/privatize', privatize);
+
+router.post('/changeflag', changeflag);
 
 router.use(errorJson);
 

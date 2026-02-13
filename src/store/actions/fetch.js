@@ -156,6 +156,25 @@ export async function requestPrivatize(priv) {
 }
 
 /*
+ * change custom chat flag
+ * @param code
+ * @return error string or null if successful
+ */
+export async function requestCustomFlag(code) {
+  const res = await makeAPIPOSTRequest(
+    '/api/changeflag',
+    { code },
+  );
+  if (res.errors) {
+    return res.errors[0];
+  }
+  if (res.status === 'ok') {
+    return null;
+  }
+  return t`Unknown Error`;
+}
+
+/*
  * start new DM channel with user
  * @param query Object with either userId or userName: string
  * @return channel Array on success, error string if not

@@ -2,7 +2,7 @@
  * Change Mail Form
  */
 
-import React from 'react';
+import React, { useState } from 'react';
 import { useDispatch, useSelector, shallowEqual } from 'react-redux';
 import { t } from 'ttag';
 
@@ -12,6 +12,7 @@ import {
   setBlockingDm,
   setPrivatize,
   setUserBlock,
+  changeCustomFlag,
 } from '../store/actions/thunks.js';
 import SettingsItem from './SettingsItem.jsx';
 
@@ -31,6 +32,7 @@ const SocialSettings = ({ done }) => {
     fetching,
   ] = useSelector(selectBlocks, shallowEqual);
   const dispatch = useDispatch();
+  const [code, setCode] = useState('');
 
   return (
     <div className="inarea">
@@ -80,6 +82,35 @@ const SocialSettings = ({ done }) => {
       >
         Done
       </button>
+      <div className="modaldivider" />
+      <h3>{t`Change chat flag`}</h3>
+      <p>
+        {t`Enter flag code`}:&nbsp;
+        <input
+          value={code}
+          style={{
+            display: 'inline-block',
+            width: '100%',
+            maxWidth: '20em',
+          }}
+          type="text"
+          minLength="2"
+          maxLength="3"
+          onChange={(evt) => setCode(evt.target.value.trim())}
+        />
+      </p>
+      <p>
+        <button
+          type="button"
+          onClick={() => {
+            if (!fetching) {
+              dispatch(changeCustomFlag(code));
+            }
+          }}
+        >
+          {(fetching) ? '...' : t`Change`}
+        </button>
+      </p>
     </div>
   );
 };

@@ -13,6 +13,7 @@ import {
   requestProfile,
   requestChatMessages,
   requestMe,
+  requestCustomFlag,
 } from './fetch.js';
 import {
   pAlert,
@@ -23,6 +24,7 @@ import {
   blockingDm,
   privatize,
   selectPencilMode,
+  changeFlag,
 } from './index.js';
 import {
   addChatChannel,
@@ -180,6 +182,24 @@ export function setPrivatize(priv) {
       ));
     } else {
       dispatch(privatize(priv));
+    }
+    dispatch(setApiFetching(false));
+  };
+}
+
+export function changeCustomFlag(code) {
+  return async (dispatch) => {
+    dispatch(setApiFetching(true));
+    const res = await requestCustomFlag(code);
+    if (res) {
+      dispatch(pAlert(
+        'Change Custom Flag Error',
+        res,
+        'error',
+        'OK',
+      ));
+    } else {
+      dispatch(changeFlag(code));
     }
     dispatch(setApiFetching(false));
   };
