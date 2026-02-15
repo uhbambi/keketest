@@ -2,7 +2,7 @@ import { QueryTypes } from 'sequelize';
 import sequelize, { sync } from './sequelize.js';
 import User, { USERLVL } from './User.js';
 import Channel, { CHANNEL_TYPES } from './Channel.js';
-import CustomFlag from './CustomFlag.js';
+import Profile from './Profile.js';
 import Message from './Message.js';
 import Session from './Session.js';
 import Device from './Device.js';
@@ -152,13 +152,13 @@ User.belongsToMany(Badge, {
 /*
  * custom flags
  */
-CustomFlag.belongsTo(User, {
+Profile.belongsTo(User, {
   as: 'userid',
   foreignKey: 'uid',
   onDelete: 'CASCADE',
 });
-User.hasOne(CustomFlag, {
-  as: 'customflag',
+User.hasOne(Profile, {
+  as: 'proile',
   foreignKey: 'uid',
 });
 

@@ -259,10 +259,10 @@ export async function resolveSession(token) {
 
     let user = await sequelize.query(
       `SELECT u.id, u.name, u.username, u.password, u.userlvl, u.flags, u.lastSeen, u.createdAt,
-cf.code AS 'customFlag',
+p.customFlag,
 c.id AS 'channels.cid', c.name AS 'channels.name', c.\`type\` AS 'channels.type', c.lastMessage AS 'channels.lastDate', ucm.lastRead AS 'channels.lastReadDate' FROM Users u
   INNER JOIN Sessions s ON s.uid = u.id
-  LEFT JOIN CustomFlags cf ON cf.uid = u.id
+  LEFT JOIN Profiles p ON p.uid = u.id
   LEFT JOIN UserChannels ucm ON ucm.uid = u.id
   LEFT JOIN Channels c ON c.id = ucm.cid
 WHERE s.token = $1 AND (s.expires > NOW() OR s.expires IS NULL)`, {

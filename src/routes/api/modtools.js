@@ -24,8 +24,6 @@ import {
   demoteUser,
   promoteUser,
   executeQuickAction,
-  setUserFlag,
-  resetUserFlag,
 } from '../../core/adminfunctions.js';
 import { getState } from '../../core/SharedState.js';
 import { getHighUserLvlUsers, findUserById } from '../../data/sql/User.js';
@@ -358,16 +356,6 @@ router.post('/', async (req, res, next) => {
     }
     if (req.body.quickaction) {
       const ret = await executeQuickAction(req.body.quickaction, aLogger);
-      res.status(200).send(ret);
-      return;
-    }
-    if (req.body.setflag) {
-      const ret = await setUserFlag(req.body.setflag, req.body.flagcode);
-      res.status(200).send(ret);
-      return;
-    }
-    if (req.body.resetflag) {
-      const ret = await resetUserFlag(req.body.resetflag);
       res.status(200).send(ret);
       return;
     }
