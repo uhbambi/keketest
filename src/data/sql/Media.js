@@ -6,7 +6,7 @@ import { addImageHash } from './ImageHash.js';
 import { getRandomShortId } from '../../core/utils.js';
 import {
   constructMediaPath, getThumbnailPaths,
-} from '../../utils/mdia/utils.js';
+} from '../../utils/media/serverUtils.js';
 
 const Media = sequelize.define('Media', {
   id: {
@@ -108,12 +108,40 @@ const Media = sequelize.define('Media', {
 });
 
 
+export async function deregisterMedia(shortId, mimeType, extension) {
+  try {
+    console.log(`MEDIA: deregister ${shortId} ${mimeType}`);
+    await sequelize.query(
+      'DELETE FROM Media WHERE shortId = ? AND mimeType = ?', {
+        replacements: [shortId, mimeType],
+        type: QueryTypes.DELETE,
+        raw: true,
+      });
+    const filePath = constructMediaPath(shortId, extension);
+    if (fs.existsSync(filePath)) {
+      fs.rmSync(filePath);
+    }
+    const { thumbFilePath, iconFilePath } = getThumbnailPaths(filePath);
+    if (fs.existsSync(thumbFilePath)) {
+      fs.rmSync(thumbFilePath);
+    }
+    if (fs.existsSync(iconFilePath)) {
+      fs.rmSync(iconFilePath);
+    }
+  } catch (error) {
+    console.error(`SQL Error on deregisterMedia: ${error.message}`);
+  }
+}
+
 /**
  * get filename of media if exists, adds 'shortId', 'existed' and 'extension'
  * to hashes objects where a corresponding hash exists
  * @param hashes [{
  *   hash,
+ *   name,
  *   mimeType,
+ *   extension,
+ *   originalFilename,
  * }, ...]
  * @return success boolean
  */
@@ -129,7 +157,7 @@ export async function hasMedia(hashes) {
   try {
     const replacements = [];
     for (let i = 0; i < hashes.length; i += 1) {
-      const hash = hashes[i].hash;
+      const { hash } = hashes[i];
       if (hash) {
         replacements.push(hashes[i].hash, hashes[i].mimeType);
       }
@@ -192,38 +220,13 @@ export async function hasMedia(hashes) {
   return false;
 }
 
-export async function deregisterMedia(shortId, mimeType, extension) {
-  try {
-    console.log(`MEDIA: deregister ${shortId} ${mimeType}`);
-    await sequelize.query(
-      'DELETE FROM Media WHERE shortId = ? AND mimeType = ?', {
-        replacements: [shortId, mimeType],
-        type: QueryTypes.DELETE,
-        raw: true,
-      });
-    const filePath = constructMediaPath(shortId, extension);
-    if (fs.existsSync(filePath)) {
-      fs.rmSync(filePath);
-    }
-    const { thumbFilePath, iconFilePath } = getThumbnailPaths(filePath);
-    if (fs.existsSync(thumbFilePath)) {
-      fs.rmSync(thumbFilePath);
-    }
-    if (fs.existsSync(iconFilePath)) {
-      fs.rmSync(iconFilePath);
-    }
-  } catch (error) {
-    console.error(`SQL Error on deregisterMedia: ${error.message}`);
-  }
-}
-
 /**
  * register new media, adds 'shortId' and 'existed' to given model object
  * @param model { hash, mimeType, extension }
  * @return success boolean
  */
 export async function registerMedia(
-  model, type, size, name, pHash = null,
+  model, type, size, pHash = null,
 ) {
   const { hash, mimeType, extension } = model;
   try {

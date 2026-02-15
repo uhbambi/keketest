@@ -5,8 +5,9 @@ import express from 'express';
 import busboy from 'busboy';
 
 import {
-  storeMediaStream, isMimeTypeAllowed, mimeTypeFitsToExt, splitFilename,
+  storeMediaStream, isMimeTypeAllowed, mimeTypeFitsToExt,
 } from '../../utils/media/index.js';
+import { splitFilename } from '../../utils/media/utils.js';
 import { MAX_MEDIA_SIZE, MAX_UPLOAD_AMOUNT } from '../../core/constants.js';
 import { hasMedia } from '../../data/sql/Media.js';
 
@@ -252,7 +253,7 @@ router.post('/upload', (req, res) => {
         case 'media_banned_reason_5':
           error = t`This media is banned for glorifying terrorism`;
           break;
-        case 'media_banned_reason_5':
+        case 'media_banned_reason_6':
           error = t`This media is banned because it is propaganda`;
           break;
         case 'already_exists':

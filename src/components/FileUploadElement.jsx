@@ -1,53 +1,40 @@
 /*
- * individual file upload field for FileUpload.jsx
+ * individual file field for FileUpload.jsx
  */
 
-import React, { useState, useEffect, useRef, useCallback } from 'react';
+import React, { useState, useEffect } from 'react';
 
 const FileUploadElement = ({
   // id of this file upload
   id,
+  // file
+  file,
   // boolean if field is active
   active,
   // number of upload progress (parent does the uploading)
   completion,
-  // accepted types
-  acceptedTypes,
 
   // callback to call to close, argument must be id
   close,
-  // callback to inform parent that an action will likely happen, argument is id
-  incommingAction,
-  // callback to tell file to parent, first argument must be id
-  selectFile,
+  // callback to inform parent that a file shall be removed, argument must be id
+  removeFile,
 }) => {
   const [render, setRender] = useState(false);
   const [previewUrl, setPreviewUrl] = useState(null);
-  const inputRef = useRef(null);
 
-  const handleClick = useCallback((evt) => {
-    incommingAction(id);
-    const inputElement = inputRef.current;
-    if (!inputElement) {
-      return;
-    }
-    if (inputElement.files?.[0]) {
-      close(id);
-    } else {
-      inputElement.click();
-    }
-  }, [incommingAction, close, id]);
+  useEffect(() => {
+    if (file.type.startsWidth('image/')) {
+      const url = URL.createObjectURL(file);
 
-  const handleChange = useCallback((evt) => {
-    const file = evt.target.files?.[0];
-    if (file?.type.startsWith('image/')) {
-      setPreviewUrl(URL.createObjectURL(file));
-    } else if (previewUrl) {
-      setPreviewUrl(null);
-      URL.revokeObjectURL(previewUrl);
+      setPreviewUrl(url);
+
+      return () => {
+        URL.revokeObjectURL(url);
+        console.log('revoke preview url');
+      };
     }
-    selectFile(id, file);
-  }, [previewUrl, close, id]);
+    return undefined;
+  }, [file]);
 
   useEffect(() => {
     if (active && !render) {
@@ -60,7 +47,11 @@ const FileUploadElement = ({
   const style = {
     transition: '200ms',
     width: 0,
-  }
+    background: previewUrl
+      // eslint-disable-next-line max-len
+      ? `linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('${previewUrl}')`
+      : '#4CAF50',
+  };
   if (active && render) {
     style.width = 40;
   }
@@ -69,27 +60,13 @@ const FileUploadElement = ({
     <div
       role="button"
       tabIndex={0}
-      onTransitionEnd={!active && () => { close(id) }}
+      onTransitionEnd={!active && (() => { close(id); })}
       style={style}
-      onClick={handleClick}
+      onClick={() => { removeFile(id); }}
     >
-      <span>📎</span>
-      <input
-        ref={inputRef}
-        type="file"
-        accept={acceptedTypes}
-        onChange={handleChange}
-        style={{
-          position: 'absolute',
-          opacity: 0,
-          width: '100%',
-          height: '100%',
-          cursor: 'pointer',
-          pointerEvents: 'none' // Prevent double click events
-        }}
-      />
+      <span>{completion}</span>
     </div>
   );
-}
+};
 
 export default React.memo(FileUploadElement);

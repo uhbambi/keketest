@@ -419,8 +419,10 @@ export function requestIID() {
  * file upload api
  * @param files File or FileList
  * @param [controller] AbortController
+ * @param [onProgress] callback for progress
+ * @return response or null if aborted
  */
-export async function requestFileUpload(files, controller) {
+export async function requestFileUpload(files, controller, onProgress) {
   if (files instanceof File) {
     files = [files];
   }
@@ -429,64 +431,106 @@ export async function requestFileUpload(files, controller) {
       errors: [t`No File selected to upload`],
     };
   }
-  const formData = new FormData();
 
-  let hashes = '';
-  for (let i = 0; i < files.length; i += 1) {
-    let file = files[i];
-    if (crypto.subtle) {
-      if (file.size > 1024 * 1024 * 1024) {
-        /*
-         * send empty hash to make sure server at least knows that this file
-         * exists and doesn't end the upload after previous ones match
-         */
-        // eslint-disable-next-line max-len
-        hashes += `${encodeURIComponent(file.name)}=:${encodeURIComponent(file.type)};`;
-      } else {
-        const arrayBuffer = await file.arrayBuffer();
-        const hashBuffer = await crypto.subtle.digest('SHA-256', arrayBuffer);
-        const hashArray = Array.from(new Uint8Array(hashBuffer));
-        const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0'))
-          .join('');
-        // eslint-disable-next-line max-len
-        hashes += `${encodeURIComponent(file.name)}=${hashHex}:${encodeURIComponent(file.type)};`;
-        /*
-        * create a new file object with that arrayBuffer, to avoid re-read from
-        * disk
-        */
-        file = new File([arrayBuffer], file.name, {
-          type: file.type,
-          lastModified: file.lastModified
+  let request;
+  let abort;
+
+  try {
+    const formData = new FormData();
+
+    let hashes = '';
+    for (let i = 0; i < files.length; i += 1) {
+      /* eslint-disable no-await-in-loop */
+      const file = files[i];
+      if (crypto.subtle) {
+        if (file.size > 1024 * 1024 * 1024) {
+          /*
+          * send empty hash to make sure server at least knows that this file
+          * exists and doesn't end the upload after previous ones match
+          */
+          // eslint-disable-next-line max-len
+          hashes += `${encodeURIComponent(file.name)}=:${encodeURIComponent(file.type)};`;
+        } else {
+          const arrayBuffer = await file.arrayBuffer();
+          const hashBuffer = await crypto.subtle.digest('SHA-256', arrayBuffer);
+          const hashArray = Array.from(new Uint8Array(hashBuffer));
+          const hashHex = hashArray.map((b) => b.toString(16).padStart(2, '0'))
+            .join('');
+          // eslint-disable-next-line max-len
+          hashes += `${encodeURIComponent(file.name)}=${hashHex}:${encodeURIComponent(file.type)};`;
+        }
+      }
+      formData.append('file', file);
+      /* eslint-enable no-await-in-loop */
+    }
+
+    if (hashes) {
+      formData.append('hashes', hashes);
+    }
+
+    const xhr = new XMLHttpRequest();
+    abort = () => { xhr.abort(); };
+    if (controller) {
+      if (controller.signal.aborted) {
+        return null;
+      }
+      controller.signal.addEventListener('abort', abort);
+    }
+
+    request = new Promise((resolve, reject) => {
+      xhr.withCredentials = true;
+
+      if (onProgress) {
+        xhr.upload.addEventListener('progress', (event) => {
+          if (event.lengthComputable) {
+            const percentComplete = Math.floor(
+              (event.loaded / event.total) * 100,
+            );
+            onProgress(percentComplete);
+          }
         });
       }
-    }
-    formData.append('file', file);
-  }
 
-  if (hashes) {
-    formData.append('hashes', hashes);
-  }
+      /* eslint-disable prefer-promise-reject-errors */
+      xhr.addEventListener('load', () => {
+        if (xhr.status === 429) {
+          resolve({ errors: [t`You made too many requests`] });
+          return;
+        }
+        try {
+          resolve(JSON.parse(xhr.response));
+        } catch {
+          reject(false);
+        }
+      });
 
-  const options = {
-    credentials: 'include',
-    method: 'POST',
-    body: formData,
-  };
+      xhr.addEventListener('error', () => reject(false));
+      xhr.addEventListener('abort', () => reject(true));
+      /* eslint-enable prefer-promise-reject-errors */
 
-  if (controller) {
-    options.signal = controller.signal;
+      xhr.open('POST', '/upload');
+      xhr.send(formData);
+    });
+  } catch {
+    return {
+      errors: [t`Could not process files`],
+    };
   }
 
   try {
-    const response = await fetch(api`/api/media/upload`, {
-      ...options,
-      signal: controller.signal,
-    });
-    return parseAPIresponse(response);
-  } catch (e) {
+    return await request;
+  } catch (gotAborted) {
+    if (gotAborted) {
+      return null;
+    }
     return {
       errors: [t`Could not connect to server, please try again later :(`],
     };
+  } finally {
+    if (controller) {
+      controller.signal.removeEventListener('abort', abort);
+      console.log('remove signal');
+    }
   }
 }
 
