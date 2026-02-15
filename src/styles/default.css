@@ -1012,7 +1012,12 @@ table td span {
   height: 22px;
 }
 
-.chn.selected, .chn:hover, .channelbtn.selected, .channelbtn:hover, #sendbtn:hover {
+.chn.selected, .chn:hover, .channelbtn.selected, .channelbtn:hover {
+  cursor: pointer;
+  background-color: #c9c9c9;
+}
+
+button:hover {
   cursor: pointer;
   background-color: #c9c9c9;
 }

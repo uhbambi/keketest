@@ -272,11 +272,11 @@ tr:nth-child(odd) {
   font-size: 17px;
 }
 
-.chn.selected, .chn:hover, .channelbtn.selected, .channelbtn:hover, #sendbtn:hover {
+.chn.selected, .chn:hover, .channelbtn.selected, .channelbtn:hover, button:hover {
   background-color: #E78080;
 }
 
-#sendbtn {
+button {
   background-color: #CE0000;
   color: white;
 }

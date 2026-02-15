@@ -165,7 +165,7 @@ export async function hasMedia(hashes) {
 
     const mediaModels = await sequelize.query(
       // eslint-disable-next-line max-len
-      `SELECT HEX(hash) AS hash, mimeType, extension, shortId FROM Media WHERE ${
+      `SELECT id, LOWER(HEX(hash)) AS hash, mimeType, extension, shortId FROM Media WHERE ${
         hashes.map(
           () => '( hash = UNHEX(?) AND mimeType = ? )',
         ).join(' OR ')
@@ -183,7 +183,7 @@ export async function hasMedia(hashes) {
        * use RETURNING and merge it together with the SELECT query
        */
       sequelize.query(
-        `UPDATE Media SET lastUsed = NOW() WHERE id IN (${
+        `UPDATE Media SET lastUpload = NOW() WHERE id IN (${
           mediaModels.map(() => '?').join(', ')
         })`, {
           replacements: mediaModels.map((model) => model.id),

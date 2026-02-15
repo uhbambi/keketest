@@ -177,7 +177,7 @@ router.post('/upload', (req, res) => {
   /*
    * amount of files currently being read
    */
-  const readingFiles = 0;
+  let readingFiles = 0;
   /*
    * amount of files already read
    */
@@ -195,7 +195,7 @@ router.post('/upload', (req, res) => {
   let ended = false;
 
   const finalize = (error) => {
-    console.log('finalize');
+    console.log('finalize', error);
     if (ended || (!error && (!requestDone || readingFiles > 0))) {
       return;
     }
@@ -205,11 +205,6 @@ router.post('/upload', (req, res) => {
       error = error.message;
     }
 
-    console.log('ending file upload', error);
-    if (error && !bb.destroyed) {
-      console.log('destroy bb');
-      bb.destroy();
-    }
     const data = { availableFiles };
 
     if (error) {
@@ -233,7 +228,7 @@ router.post('/upload', (req, res) => {
           error = t`Request stalled`;
           break;
         case 'too_long':
-          error = t`A filewas too large`;
+          error = t`A file was too large`;
           break;
         /*
          * according to MEDIA_BAN_REASONS in constants.js
@@ -267,8 +262,20 @@ router.post('/upload', (req, res) => {
     if (error) {
       data.errors = [error];
       res.status(400);
-      res.on('finish', () => req.destroy());
+
+      /*
+       * firefox does not like this, while chrome is fine with it,
+       * have to use /preflight and client side validation
+       */
+      res.on('finish', () => setTimeout(() => {
+        if (!bb.destroyed) {
+          console.log('destroy bb');
+          bb.destroy();
+        }
+        req.destroy();
+      }, 500));
     }
+    console.log('send', data);
     res.json(data);
   };
 
@@ -281,6 +288,7 @@ router.post('/upload', (req, res) => {
       finalize(t`Unknown field ${name} in request`);
       return;
     }
+    readingFiles += 1;
     /*
       * can be multiple files with same fieldname
       */
@@ -310,6 +318,7 @@ router.post('/upload', (req, res) => {
         hashes.splice(modelIndex, 1);
         if (model.shortId) {
           availableFiles.push(model);
+          readingFiles -= 1;
           if (hashes.some((h) => !h.shortId)) {
             /* another file exists that we don't have yet, roll forward */
             if (!fileStream.closed) {
@@ -330,6 +339,7 @@ router.post('/upload', (req, res) => {
     try {
       model = await storeMediaStream(fileStream, info, req.user, req.ip);
     } catch (error) {
+      console.log('storemediaerror', error.message);
       if (!fileStream.destroyed && !fileStream.closed) {
         fileStream.destroy();
       }
@@ -337,9 +347,15 @@ router.post('/upload', (req, res) => {
       return;
     }
 
+    console.log('push', model);
     availableFiles.push(model);
     if (!fileStream.closed) {
       fileStream.resume();
+    }
+
+    readingFiles -= 1;
+    if (readingFiles === 0 && requestDone) {
+      finalize();
     }
   });
 

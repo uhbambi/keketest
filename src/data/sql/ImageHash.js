@@ -34,7 +34,7 @@ export async function addImageHash(shortId, mimeType, pHash) {
   try {
     await sequelize.query(
       // eslint-disable-next-line max-len
-      'INSERT INTO ImageHash (mid, pHash) SELECT m.id, UNHEX(?) AS hash FROM Media m WHERE m.shortId = ? AND m.mimeType = ?', {
+      'INSERT INTO ImageHashes (mid, pHash) SELECT m.id, UNHEX(?) AS hash FROM Media m WHERE m.shortId = ? AND m.mimeType = ?', {
         replacements: [pHash, shortId, mimeType],
         raw: true,
         type: QueryTypes.INSERT,

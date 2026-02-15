@@ -182,11 +182,16 @@ const FileUpload = ({
   }, [printErrors]);
 
   const handleInputChange = useCallback((evt) => {
-    const file = evt.target.files?.[0];
+    let file = evt.target.files?.[0];
     if (file) {
       uploadInfoRef.current.incrId += 1;
+      // add id to filename
       const id = uploadInfoRef.current.incrId;
-      file.name = addIdToFilename(file.name);
+      file = new File([file], addIdToFilename(file.name, id), {
+        type: file.type,
+        lastModified: file.lastModified,
+      });
+
       setFileInfos((oldInfos) => [
         ...oldInfos, {
           id, file, active: true, completion: null,
@@ -294,14 +299,19 @@ const FileUpload = ({
           removeFile={removeFile}
         />
       ))}
-      {(fileInfos.length - maxFiles > 0) && (
-        <div
-          role="button"
-          tabIndex={0}
-          onClick={handleInputClick}
-        >
-          <span>📎</span>
+      {(maxFiles - fileInfos.length > 0) && (
+        <>
+          <button
+            key="ipt"
+            type="button"
+            className="fileupload"
+            tabIndex={0}
+            onClick={handleInputClick}
+          >
+            <span key="si">📎</span>
+          </button>
           <input
+            key="fi"
             ref={inputRef}
             type="file"
             accept={acceptedTypes}
@@ -309,13 +319,11 @@ const FileUpload = ({
             style={{
               position: 'absolute',
               opacity: 0,
-              width: '100%',
-              height: '100%',
-              cursor: 'pointer',
-              pointerEvents: 'none',
+              width: 0,
+              height: 0,
             }}
           />
-        </div>
+        </>
       )}
     </>
   );

@@ -61,8 +61,9 @@ const Chat = () => {
 
   const printWarnings = useCallback((warnings) => {
     warnings.forEach((warning) => {
-      receiveChatMessage('info', warning, 'xx', chatChannel, 0);
+      dispatch(receiveChatMessage('info', warning, 'xx', chatChannel, 0));
     });
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [chatChannel]);
 
   const addToInput = useCallback((msg) => {
@@ -204,6 +205,7 @@ const Chat = () => {
           (!channelMessages.length)
           && (
           <ChatMessage
+            key="initm"
             uid={0}
             name="info"
             country="xx"
@@ -228,14 +230,16 @@ const Chat = () => {
       </ul>
       <form
         className="chatinput"
+        key="iptfl"
         onSubmit={(e) => handleSubmit(e)}
         style={{
           display: 'flex',
         }}
       >
         {(ownName) ? (
-          <React.Fragment key="chtipt">
+          <React.Fragment key="iptfr">
             <input
+              key="iptre"
               style={{
                 flexGrow: 1,
                 minWidth: 40,
@@ -248,7 +252,7 @@ const Chat = () => {
               placeholder={t`Chat here`}
             />
             <button
-              id="sendbtn"
+              className="sendbtn"
               style={{ flexGrow: 0 }}
               type="submit"
             >
@@ -274,7 +278,11 @@ const Chat = () => {
             {t`You must be logged in to chat`}
           </div>
         )}
-        <FileUpload uploadRef={uploadRef} printErrors={printWarnings} />
+        <FileUpload
+          key="fui"
+          uploadRef={uploadRef}
+          printErrors={printWarnings}
+        />
         <ChannelDropDown
           key="cdd"
           setChatChannel={setChannel}

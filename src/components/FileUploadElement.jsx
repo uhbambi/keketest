@@ -3,6 +3,7 @@
  */
 
 import React, { useState, useEffect } from 'react';
+import { t } from 'ttag';
 
 const FileUploadElement = ({
   // id of this file upload
@@ -23,7 +24,7 @@ const FileUploadElement = ({
   const [previewUrl, setPreviewUrl] = useState(null);
 
   useEffect(() => {
-    if (file.type.startsWidth('image/')) {
+    if (file.type.startsWith('image/')) {
       const url = URL.createObjectURL(file);
 
       setPreviewUrl(url);
@@ -38,34 +39,163 @@ const FileUploadElement = ({
 
   useEffect(() => {
     if (active && !render) {
-      window.setTimeout(() => {
+      requestAnimationFrame(() => {
         setRender(true);
-      }, 10);
+      });
     }
   }, [active, render]);
 
-  const style = {
-    transition: '200ms',
-    width: 0,
-    background: previewUrl
-      // eslint-disable-next-line max-len
-      ? `linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('${previewUrl}')`
-      : '#4CAF50',
-  };
-  if (active && render) {
-    style.width = 40;
+  let progressWidth = 0;
+  if (completion !== null && completion !== -1) {
+    progressWidth = completion;
+  }
+  progressWidth = `${String(progressWidth)}%`;
+
+  let progressColor;
+  switch (completion) {
+    case null:
+      progressColor = '#9ca3af';
+      break;
+    case -1:
+      progressColor = '#ef4444';
+      break;
+    case 100:
+      progressColor = '#22c55e';
+      break;
+    default:
+      progressColor = '#3b82f6';
   }
 
+  const buttonStyle = {
+    width: active && render ? 40 : 0,
+    transition: 'width 200ms ease-in-out',
+    position: 'relative',
+    padding: 0,
+    border: 'none',
+    borderRadius: 4,
+    overflow: 'hidden',
+    cursor: 'pointer',
+    // backgroundColor: '#f3f4f6',
+  };
+
+  // base image (grayscale)
+  const imageBaseStyle = previewUrl ? {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    width: '100%',
+    height: '100%',
+    backgroundImage: `url(${previewUrl})`,
+    backgroundSize: 'contain',
+    backgroundPosition: 'center',
+    backgroundRepeat: 'no-repeat',
+    filter: 'grayscale(100%)',
+    opacity: 0.4,
+  } : {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    width: '100%',
+    height: '100%',
+    backgroundColor: '#9ca3af',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    fontSize: 10,
+    color: 'white',
+    opacity: 0.4,
+  };
+
+  // colored overlay
+  const progressOverlayStyle = previewUrl ? {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    width: progressWidth,
+    height: '100%',
+    backgroundImage: `url(${previewUrl})`,
+    backgroundSize: 'contain',
+    backgroundPosition: 'center',
+    backgroundRepeat: 'no-repeat',
+    filter: 'grayscale(0%)',
+    opacity: 1,
+    transition: 'width 200ms ease-in-out',
+  } : {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    width: progressWidth,
+    height: '100%',
+    backgroundColor: progressColor,
+    transition: 'width 200ms ease-in-out, background-color 200ms',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    fontSize: 10,
+    color: 'white',
+  };
+
+  // Small progress indicator line at bottom (optional additional indicator)
+  const progressBarStyle = {
+    position: 'absolute',
+    bottom: 0,
+    left: 0,
+    width: progressWidth,
+    height: 3,
+    backgroundColor: progressColor,
+    transition: 'width 200ms ease-in-out, background-color 200ms',
+    zIndex: 2,
+  };
+
+  // X indicator - always visible
+  const xIndicatorStyle = {
+    position: 'absolute',
+    top: 0,
+    right: 0,
+    width: 16,
+    height: 16,
+    borderRadius: '0 4px 0 4px',
+    backgroundColor: completion === -1 ? '#ef4444' : 'rgba(0, 0, 0, 0.7)',
+    color: 'white',
+    fontSize: 12,
+    fontWeight: 'bold',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    zIndex: 3,
+    lineHeight: 1,
+  };
+
   return (
-    <div
-      role="button"
+    <button
       tabIndex={0}
-      onTransitionEnd={!active && (() => { close(id); })}
-      style={style}
-      onClick={() => { removeFile(id); }}
+      type="button"
+      onTransitionEnd={active ? undefined : () => close(id)}
+      style={buttonStyle}
+      onClick={() => removeFile(id)}
+      title={t`Click to remove`}
     >
-      <span>{completion}</span>
-    </div>
+      {/* Base faded image */}
+      <div style={imageBaseStyle}>
+        {!previewUrl && '📷'}
+      </div>
+
+      {(completion > 0 || previewUrl) && (
+      <div style={progressOverlayStyle}>
+        { /* eslint-disable-next-line max-len */
+          !previewUrl && completion !== null && completion !== -1 && `${completion}%`
+        }
+      </div>
+      )}
+
+      {completion !== null && completion !== -1 && (
+      <div style={progressBarStyle} />
+      )}
+
+      <span style={xIndicatorStyle}>
+        {completion === -1 ? '!' : '×'}
+      </span>
+    </button>
   );
 };
 

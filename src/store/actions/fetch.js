@@ -460,12 +460,14 @@ export async function requestFileUpload(files, controller, onProgress) {
           hashes += `${encodeURIComponent(file.name)}=${hashHex}:${encodeURIComponent(file.type)};`;
         }
       }
-      formData.append('file', file);
       /* eslint-enable no-await-in-loop */
     }
-
     if (hashes) {
       formData.append('hashes', hashes);
+    }
+
+    for (let i = 0; i < files.length; i += 1) {
+      formData.append('file', files[i]);
     }
 
     const xhr = new XMLHttpRequest();
@@ -508,7 +510,7 @@ export async function requestFileUpload(files, controller, onProgress) {
       xhr.addEventListener('abort', () => reject(true));
       /* eslint-enable prefer-promise-reject-errors */
 
-      xhr.open('POST', '/upload');
+      xhr.open('POST', api`/api/media/upload`);
       xhr.send(formData);
     });
   } catch {
@@ -523,6 +525,7 @@ export async function requestFileUpload(files, controller, onProgress) {
     if (gotAborted) {
       return null;
     }
+    console.log('errorrr', gotAborted);
     return {
       errors: [t`Could not connect to server, please try again later :(`],
     };
