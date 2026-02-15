@@ -165,16 +165,6 @@ router.post('/upload', (req, res) => {
   const bb = busboy({ headers: req.headers });
 
   /*
-   * there might be a field with hashes given BEFORE sending files, which can
-   * be used to cancel the upload if they already exist, it has the form:
-   * filename=hash:mimeType;filename=hash:mimetype;...
-   * If this field exists, it must contain all files, files wtih unknown hash
-   * should be inside as well, but with empty hash.
-   * Multiple files given with the same filename will be processed in order.
-   */
-  const hashes = [];
-  let hashesAreResolved = false;
-  /*
    * amount of files currently being read
    */
   let readingFiles = 0;
@@ -206,8 +196,10 @@ router.post('/upload', (req, res) => {
     }
 
     const data = { availableFiles };
+    let status = 200;
 
     if (error) {
+      status = 400;
       switch (error) {
         case 'no_info':
           error = t`No file metadata given`;
@@ -223,12 +215,18 @@ router.post('/upload', (req, res) => {
           break;
         case 'server_error':
           error = t`Server Eror`;
+          status = 500;
           break;
         case 'stalled':
           error = t`Request stalled`;
           break;
         case 'too_long':
           error = t`A file was too large`;
+          status = 413;
+          break;
+        case 'too_many_files':
+          error = t`Could not upload all files`;
+          status = 413;
           break;
         /*
          * according to MEDIA_BAN_REASONS in constants.js
@@ -259,13 +257,13 @@ router.post('/upload', (req, res) => {
           // nothing
       }
     }
+    res.status(status);
     if (error) {
       data.errors = [error];
-      res.status(400);
 
       /*
-       * firefox does not like this, while chrome is fine with it,
-       * have to use /preflight and client side validation
+       * chrome will show the apropriate error, firefox will get a generatic
+       * connection reset error
        */
       res.on('finish', () => setTimeout(() => {
         if (!bb.destroyed) {
@@ -297,42 +295,8 @@ router.post('/upload', (req, res) => {
       if (!fileStream.destroyed) {
         fileStream.destroy();
       }
-      finalize(t`Could not upload all files`);
+      finalize('too_many_files');
       return;
-    }
-
-    if (hashes.length) {
-      /*
-      * since the stream has to wait for consumption, we can async resolve hashes
-      * here, which wouldn't have been possible in the 'field' event.
-      */
-      if (!hashesAreResolved) {
-        await hasMedia(hashes);
-        hashesAreResolved = true;
-      }
-      const modelIndex = hashes.findIndex(
-        (h) => h.originalFilename === info.filename,
-      );
-      if (modelIndex !== -1) {
-        const model = hashes[modelIndex];
-        hashes.splice(modelIndex, 1);
-        if (model.shortId) {
-          availableFiles.push(model);
-          readingFiles -= 1;
-          if (hashes.some((h) => !h.shortId)) {
-            /* another file exists that we don't have yet, roll forward */
-            if (!fileStream.closed) {
-              fileStream.resume();
-            }
-          } else {
-            if (!fileStream.destroyed) {
-              fileStream.destroy();
-            }
-            finalize('already_exists');
-          }
-          return;
-        }
-      }
     }
 
     let model;
@@ -359,37 +323,8 @@ router.post('/upload', (req, res) => {
     }
   });
 
-  bb.on('field', (name, value) => {
-    console.log(`Field [${name}]:`, value);
-    if (name === 'hashes') {
-      /*
-       * filename=hash:mimeType;filename=hash:mimetype;...
-       */
-      const pairs = value.split(';');
-      for (let i = 0; i < pairs.length; i += 1) {
-        const pair = pairs[i];
-        const seperator = pair.indexOf('=');
-        if (seperator !== -1) {
-          let hash = pair.substring(seperator + 1);
-          const hashSeperator = hash.indexOf(':');
-          // eslint-disable-next-line max-len
-          const mimeType = decodeURIComponent(hash.substring(hashSeperator + 1).trim());
-          hash = hash.substring(0, hashSeperator).trim();
-          if (hash.length !== 64) {
-            hash = null;
-          }
-          // eslint-disable-next-line max-len
-          const filename = decodeURIComponent(pair.substring(0, seperator).trim());
-          const [namePart, extension] = splitFilename(filename);
-          hashes.push({
-            hash, name: namePart, mimeType, extension,
-            originalFilename: filename,
-          });
-        }
-      }
-    } else {
-      finalize(t`Unknown field ${name} in request`);
-    }
+  bb.on('field', (name) => {
+    finalize(t`Unknown field ${name} in request`);
   });
 
   bb.on('error', () => {
