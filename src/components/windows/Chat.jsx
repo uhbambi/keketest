@@ -21,15 +21,15 @@ import {
   markChannelAsRead,
   sendChatMessage,
 } from '../../store/actions/index.js';
-import {
-  fetchChatMessages,
-} from '../../store/actions/thunks.js';
+import { receiveChatMessage } from '../../store/actions/socket.js';
+import { fetchChatMessages } from '../../store/actions/thunks.js';
 
 
 const Chat = () => {
   const listRef = useRef();
   const targetRef = useRef();
   const inputRef = useRef();
+  const uploadRef = useRef();
 
   const [blockedIds, setBlockedIds] = useState([]);
   const [btnSize, setBtnSize] = useState(20);
@@ -58,6 +58,12 @@ const Chat = () => {
     });
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dispatch]);
+
+  const printWarnings = useCallback((warnings) => {
+    warnings.forEach((warning) => {
+      receiveChatMessage('info', warning, 'xx', chatChannel, 0);
+    });
+  }, [chatChannel]);
 
   const addToInput = useCallback((msg) => {
     const inputElem = inputRef.current;
@@ -132,10 +138,17 @@ const Chat = () => {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [blocked.length]);
 
-  function handleSubmit(evt) {
+  async function handleSubmit(evt) {
     evt.preventDefault();
-    const inptMsg = inputRef.current.value.trim();
+    let inptMsg = inputRef.current.value.trim();
     if (!inptMsg) return;
+    // if there are files to upload, do that and add links to them
+    const files = await uploadRef.current?.();
+    if (files.length) {
+      inptMsg = files.map(
+        (i) => `![${i.name}](/m/${i.shortId}/${i.name}.${i.extension})`,
+      ).join(' ') + inptMsg;
+    }
     // send message via websocket
     dispatch(sendChatMessage(inptMsg, chatChannel));
     inputRef.current.value = '';
@@ -261,7 +274,7 @@ const Chat = () => {
             {t`You must be logged in to chat`}
           </div>
         )}
-        <FileUpload />
+        <FileUpload uploadRef={uploadRef} printErrors={printWarnings} />
         <ChannelDropDown
           key="cdd"
           setChatChannel={setChannel}

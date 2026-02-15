@@ -10,6 +10,9 @@ import logger from '../core/logger.js';
 import socketEvents from '../socket/socketEvents.js';
 import { CDN_HOST, NO_CDN_COUNTRIES, NO_CDN } from '../core/config.js';
 
+/*
+ * TODO: in case of infinite canvases, this map needs to get cleared regularly
+ */
 const chunkEtags = new Map();
 socketEvents.on('chunkUpdate', (canvasId, [i, j]) => {
   chunkEtags.delete(`${canvasId}:${i}:${j}`);

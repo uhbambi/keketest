@@ -15,6 +15,7 @@ import resetPassword from './reset_password.js';
 import api from './api/index.js';
 import oidc from './oidc/index.js';
 import tp from './tp.js';
+import m from './m.js';
 
 import { getJWKS } from '../core/jwt.js';
 import { expressTTag } from '../middleware/ttag.js';
@@ -106,6 +107,11 @@ router.use(expressTTag);
  * Serving Chunks
  */
 router.get(['/chunks/:c/:x/:y/:z.bmp', '/chunks/:c/:x/:y.bmp'], chunks);
+
+/*
+ * Serving media
+ */
+router.get('/m/:s/:n.:e', m);
 
 /*
  * zoomed tiles
