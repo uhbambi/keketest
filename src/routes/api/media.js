@@ -19,20 +19,21 @@ const router = express.Router();
  */
 router.post('/preflight', (req, res) => {
   const { ttag: { t } } = req;
-  const bb = busboy({
-    headers: req.headers,
-    limits: {
-      fileSize: 120 * 1024,
-      files: 0,
-      fields: 50,
-    },
-  });
+  const bb = busboy({ headers: req.headers, limits: { fields: 50 } });
 
   const errors = [];
   const mimeTypes = [];
   const filenames = [];
   const hashes = [];
   const sizes = [];
+
+  bb.on('file', () => {
+    if (!bb.destroyed) {
+      console.log('destroy bb');
+      bb.destroy();
+    }
+    req.destroy();
+  });
 
   bb.on('field', (name, value) => {
     switch (name) {
@@ -59,7 +60,7 @@ router.post('/preflight', (req, res) => {
     }
     res.status(500).json({
       readyToUpload: [],
-      availableFiles: {},
+      availableFiles: [],
       errors: ['Processing failed'],
     });
   });
@@ -69,94 +70,104 @@ router.post('/preflight', (req, res) => {
       return;
     }
 
-    // eslint-disable-next-line max-len
-    if (mimeTypes.length !== filenames.length || filenames.length !== hashes.length || hashes.length !== sizes.length) {
-      errors.push(t`You did not provide all neccessary information`);
-      return;
-    }
-    if (mimeTypes.length > MAX_UPLOAD_AMOUNT) {
-      const amountOfFiles = mimeTypes.length;
-      errors.push(
-        // eslint-disable-next-line max-len
-        t`Can not upload this many files at once, only 5 are allowed, you have ${amountOfFiles}`,
-      );
-    }
-
-    const models = [];
-
-    while (mimeTypes.length) {
-      let fileErrors = false;
-      const mimeType = mimeTypes.shift();
-      const filename = filenames.shift();
-      const hash = hashes.shift();
-      const size = sizes.shift();
-
-      if (size > MAX_MEDIA_SIZE) {
-        const maxSizeMB = Math.floor(MAX_MEDIA_SIZE / 1024 / 10.24) / 100;
-        const sizeMB = Math.floor(size / 1024 / 10.24) / 100;
+    try {
+      // eslint-disable-next-line max-len
+      if (mimeTypes.length !== filenames.length || filenames.length !== hashes.length || hashes.length !== sizes.length) {
+        throw new Error(t`You did not provide all neccessary information`);
+      }
+      if (mimeTypes.length > MAX_UPLOAD_AMOUNT) {
+        const amountOfFiles = mimeTypes.length;
         errors.push(
           // eslint-disable-next-line max-len
-          t`File ${filename} has ${sizeMB} and is too large. It may only be ${maxSizeMB} MB`,
+          t`Can not upload this many files at once, only 5 are allowed, you have ${amountOfFiles}`,
         );
-        fileErrors = true;
-      }
-      if (!isMimeTypeAllowed(mimeType)) {
-        errors.push(
-          t`Mimetype ${mimeType} of file ${filename} is invalid or not allowed`,
-        );
-        fileErrors = true;
-      } else if (!mimeTypeFitsToExt(mimeType, filename)) {
-        errors.push(
-          t`File ${filename} has an invalid extension`,
-        );
-        fileErrors = true;
       }
 
-      if (!fileErrors) {
-        const [name, extension] = splitFilename(filename);
-        models.push({
-          hash, name, mimeType, extension,
-          originalFilename: filename,
-        });
-      }
-    }
+      const models = [];
 
-    hasMedia(models).then((success) => {
-      if (!success) {
-        errors.push(t`Server Eror`);
-      }
-      const readyToUpload = [];
-      const availableFiles = [];
-      let i = models.length;
-      while (i > 0) {
-        i -= 1;
-        const model = models[i];
-        /*
-          *  [{
-          *    hash, name, mimeType, extension, shortId, originalFilename,
-          *  }, ... ]
-          */
-        if (model.shortId) {
-          availableFiles.push(model);
-        } else {
-          readyToUpload.push(model);
+      while (mimeTypes.length) {
+        let fileErrors = false;
+        const mimeType = decodeURIComponent(mimeTypes.shift());
+        const filename = decodeURIComponent(filenames.shift());
+        const hash = hashes.shift();
+        const size = sizes.shift();
+        console.log('preflight', filename, mimeType, hash, size);
+
+        if (size > MAX_MEDIA_SIZE) {
+          const maxSizeMB = Math.floor(MAX_MEDIA_SIZE / 1024 / 10.24) / 100;
+          const sizeMB = Math.floor(size / 1024 / 10.24) / 100;
+          errors.push(
+            // eslint-disable-next-line max-len
+            t`File ${filename} has ${sizeMB} and is too large. It may only be ${maxSizeMB} MB`,
+          );
+          fileErrors = true;
+        }
+        if (!isMimeTypeAllowed(mimeType)) {
+          errors.push(
+            // eslint-disable-next-line max-len
+            t`Mimetype ${mimeType} of file ${filename} is invalid or not allowed`,
+          );
+          fileErrors = true;
+        } else if (!mimeTypeFitsToExt(mimeType, filename)) {
+          errors.push(
+            t`File ${filename} has an invalid extension`,
+          );
+          fileErrors = true;
+        }
+
+        if (!fileErrors) {
+          const [name, extension] = splitFilename(filename);
+          models.push({
+            hash, name, mimeType, extension,
+            originalFilename: filename,
+          });
         }
       }
 
-      if (readyToUpload.length > MAX_UPLOAD_AMOUNT) {
-        readyToUpload.splice(MAX_UPLOAD_AMOUNT);
-      }
+      hasMedia(models).then((success) => {
+        if (!success) {
+          errors.push(t`Server Error`);
+        }
+        const readyToUpload = [];
+        const availableFiles = [];
+        let i = models.length;
+        while (i > 0) {
+          i -= 1;
+          const model = models[i];
+          /*
+            *  [{
+            *    hash, name, mimeType, extension, shortId, originalFilename,
+            *  }, ... ]
+            */
+          if (model.shortId) {
+            availableFiles.push(model);
+          } else {
+            readyToUpload.push(model);
+          }
+        }
 
-      const data = { readyToUpload, availableFiles };
-      if (errors.length) {
-        data.errors = errors;
-        res.status(400);
+        if (readyToUpload.length > MAX_UPLOAD_AMOUNT) {
+          readyToUpload.splice(MAX_UPLOAD_AMOUNT);
+        }
+
+        const data = { readyToUpload, availableFiles };
+        if (errors.length) {
+          data.errors = errors;
+          res.status(400);
+        }
+        res.json(data);
+      });
+    } catch (error) {
+      if (res.headersSent) {
+        return;
       }
-      res.json(data);
-    });
+      res.status(400).json({
+        errors: [error.message],
+      });
+    }
   });
 
-  req.pipe(busboy);
+  req.pipe(bb);
 });
 
 router.post('/upload', (req, res) => {

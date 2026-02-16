@@ -6,7 +6,9 @@ import React, {
 } from 'react';
 
 import FileUploadElement from './FileUploadElement.jsx';
-import { requestFileUpload } from '../store/actions/fetch.js';
+import {
+  requestFileUpload, requestFileUploadPreflight,
+} from '../store/actions/fetch.js';
 import {
   addIdToFilename, extractIdFromFilename,
 } from '../utils/media/utils.js';
@@ -23,8 +25,11 @@ const FileUpload = ({
   /*
    * array with information for selected files
    * [{ id, file, active, completion, [fileInfo] }, ...]
-   * completion is null when upload not started, -1 when upload failed,
-   * 0-100 otherwise
+   * completion:
+   *   undefined if file not checked
+   *   null if checked and upload not started yet
+   *   -1 when upload failed,
+   *   0-100 progress otherwise
    */
   const [fileInfos, setFileInfos] = useState([]);
   /*
@@ -34,14 +39,16 @@ const FileUpload = ({
    *     controller: AbortController,
    *     promise,
    *     ids: Set<id>,
-   *   }],
-   *   timeout, // timeout for auto-upload
+   *   }], // also includes preflights
+   *   uploadTimeout, // timeout for auto-upload
+   *   preflightTimeout, // timeout for preflight
    *   incrId, // incrmeneting id for files
    *   unmounted, // boolean
    * }
    */
   const uploadInfoRef = useRef({
-    timeout: null, incrId: 1, uploads: [], unmounted: false,
+    preflightTimeout: null, uploadTimeout: null,
+    incrId: 1, uploads: [], unmounted: false,
   });
 
   const inputRef = useRef(null);
@@ -51,36 +58,57 @@ const FileUpload = ({
     if (!inputElement) {
       return;
     }
-    // cancel scheduled uploads
-    if (uploadInfoRef.current.timeout) {
-      clearTimeout(uploadInfoRef.current.timeout);
-      uploadInfoRef.current.timeout = null;
+    // TODO no need to cancel uploads here, its for testing
+    if (uploadInfoRef.current.uploadTimeout) {
+      clearTimeout(uploadInfoRef.current.uploadTimeout);
+      uploadInfoRef.current.uploadTimeout = null;
+    }
+    if (uploadInfoRef.current.preflightTimeout) {
+      clearTimeout(uploadInfoRef.current.preflightTimeout);
+      uploadInfoRef.current.preflightTimeout = null;
     }
     inputElement.click();
   }, []);
 
-  const uploadFile = useCallback(async () => {
+  /**
+   * upload file or preflight
+   */
+  const uploadFile = useCallback(async (preflight) => {
     const files = [];
     const ids = new Set();
-    setFileInfos((oldInfos) => oldInfos.map((info) => {
-      if (info.active && info.completion === null) {
-        files.push(info.file);
-        ids.add(info.id);
-        return {
-          ...info,
-          completion: 0,
-        };
-      }
-      return info;
-    }));
+
+    const timeoutName = (preflight) ? 'preflightTimeout' : 'uploadTimeout';
+    const completionCheck = (preflight) ? undefined : null;
+
+    await new Promise((resolve) => {
+      setFileInfos((oldInfos) => {
+        const newInfos = oldInfos.map((info) => {
+          if (info.active && info.completion === completionCheck) {
+            files.push(info.file);
+            ids.add(info.id);
+            return {
+              ...info,
+              completion: 0,
+            };
+          }
+          return info;
+        });
+        resolve();
+        return newInfos;
+      });
+    });
+
+    console.log('selected files', files[0], files.length, files);
     if (!files.length) {
       return;
     }
+    console.log('wtf1');
 
-    if (uploadInfoRef.current.timeout) {
-      clearTimeout(uploadInfoRef.current.timeout);
-      uploadInfoRef.current.timeout = null;
+    if (uploadInfoRef.current[timeoutName]) {
+      clearTimeout(uploadInfoRef.current[timeoutName]);
+      uploadInfoRef.current[timeoutName] = null;
     }
+    console.log('wtf2');
 
     const uploadInfo = { ids };
     let resolvePromise;
@@ -94,23 +122,29 @@ const FileUpload = ({
     });
     uploadInfo.controller = new AbortController();
     uploadInfoRef.current.uploads.push(uploadInfo);
+    console.log('wtf3');
 
-    const response = await requestFileUpload(
-      files, uploadInfo.controller, (complete) => {
-        setFileInfos((oldInfos) => oldInfos.map((info) => {
-          if (ids.has(info.id)) {
-            return {
-              ...info,
-              completion: complete,
-            };
-          }
-          return info;
-        }));
-      },
-    );
+    let response;
+    if (preflight) {
+      response = await requestFileUploadPreflight(files, uploadInfo.controller);
+    } else {
+      response = await requestFileUpload(
+        files, uploadInfo.controller, (complete) => {
+          setFileInfos((oldInfos) => oldInfos.map((info) => {
+            if (ids.has(info.id)) {
+              return {
+                ...info,
+                completion: complete,
+              };
+            }
+            return info;
+          }));
+        },
+      );
+    }
 
     // if component is already unmounted, get out
-    if (uploadInfoRef.current.unmounted === null) {
+    if (uploadInfoRef.current.unmounted) {
       resolvePromise();
       return;
     }
@@ -121,7 +155,7 @@ const FileUpload = ({
         if (ids.has(info.id)) {
           return {
             ...info,
-            completion: null,
+            completion: completionCheck,
           };
         }
         return info;
@@ -130,7 +164,7 @@ const FileUpload = ({
       return;
     }
 
-    const { availableFiles, errors } = response;
+    const { availableFiles, readyToUpload, errors } = response;
     if (availableFiles) {
       for (let i = 0; i < availableFiles.length; i += 1) {
         /*
@@ -148,6 +182,19 @@ const FileUpload = ({
         fileInfo.id = id;
       }
     }
+    if (readyToUpload) {
+      for (let i = 0; i < readyToUpload.length; i += 1) {
+        const fileInfo = readyToUpload[i];
+        const [name, id] = extractIdFromFilename(fileInfo.name);
+        fileInfo.name = name;
+        fileInfo.id = id;
+      }
+
+      if (uploadInfoRef.current.uploadTimeout) {
+        clearTimeout(uploadInfoRef.current.uploadTimeout);
+      }
+      uploadInfoRef.current.uploadTimeout = setTimeout(uploadFile, 3000);
+    }
 
     setFileInfos((oldInfos) => oldInfos.map((info) => {
       const { id } = info;
@@ -158,6 +205,12 @@ const FileUpload = ({
             ...info,
             fileInfo,
             completion: 100,
+          };
+        }
+        if (readyToUpload?.find((ui) => ui.id === id)) {
+          return {
+            ...info,
+            completion: null,
           };
         }
         return {
@@ -181,6 +234,8 @@ const FileUpload = ({
     console.log(response);
   }, [printErrors]);
 
+  const doPreflight = useCallback(() => uploadFile(true), [uploadFile]);
+
   const handleInputChange = useCallback((evt) => {
     let file = evt.target.files?.[0];
     if (file) {
@@ -194,17 +249,21 @@ const FileUpload = ({
 
       setFileInfos((oldInfos) => [
         ...oldInfos, {
-          id, file, active: true, completion: null,
+          id, file, active: true,
         },
       ]);
       evt.target.value = '';
       // schedule upload
-      if (uploadInfoRef.current.timeout) {
-        clearTimeout(uploadInfoRef.current.timeout);
+      if (uploadInfoRef.current.uploadTimeout) {
+        clearTimeout(uploadInfoRef.current.uploadTimeout);
+        uploadInfoRef.current.uploadTimeout = null;
       }
-      uploadInfoRef.current.timeout = setTimeout(uploadFile, 5000);
+      if (uploadInfoRef.current.preflightTimeout) {
+        clearTimeout(uploadInfoRef.current.preflightTimeout);
+      }
+      uploadInfoRef.current.preflightTimeout = setTimeout(doPreflight, 1000);
     }
-  }, [uploadFile]);
+  }, [doPreflight]);
 
   useEffect(() => {
     /**
@@ -241,14 +300,18 @@ const FileUpload = ({
 
   useEffect(() => () => {
     // clear timeouts
-    if (uploadInfoRef.current.timeout) {
-      clearTimeout(uploadInfoRef.current.timeout);
-      uploadInfoRef.current.timeout = null;
+    if (uploadInfoRef.current.uploadTimeout) {
+      clearTimeout(uploadInfoRef.current.uploadTimeout);
+      uploadInfoRef.current.uploadTimeout = null;
+    }
+    if (uploadInfoRef.current.preflightTimeout) {
+      clearTimeout(uploadInfoRef.current.preflightTimeout);
+      uploadInfoRef.current.preflightTimeout = null;
     }
     /*
       * null on this ref used to detect that component is unmounted
       */
-    uploadInfoRef.current.unmounted = null;
+    uploadInfoRef.current.unmounted = true;
     // cancel uploads
     const uploadInfos = uploadInfoRef.current.uploads;
     for (let i = 0; i < uploadInfos.length; i += 1) {

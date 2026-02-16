@@ -152,6 +152,9 @@ export async function hasMedia(hashes) {
   if (!Array.isArray(hashes)) {
     hashes = [hashes];
   }
+  if (!hashes.length) {
+    return true;
+  }
   console.log('check if media exists', hashes);
 
   try {
@@ -212,12 +215,12 @@ export async function hasMedia(hashes) {
           }
         }
       }
-      return true;
     }
   } catch (error) {
     console.error(`SQL Error on hasMedia: ${error.message}`);
+    return false;
   }
-  return false;
+  return true;
 }
 
 /**

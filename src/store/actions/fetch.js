@@ -416,6 +416,73 @@ export function requestIID() {
 }
 
 /**
+ * file upload api preflight to check which files are available
+ * @param files File or FileList
+ * @param [controller] AbortController
+ * @return { availableFiles } or null if aborted
+ */
+export async function requestFileUploadPreflight(files, controller) {
+  if (files instanceof File) {
+    files = [files];
+  }
+  if (!files?.length) {
+    return {
+      errors: [t`No File selected to upload`],
+    };
+  }
+  console.log('preflight');
+
+  const formData = new FormData();
+
+  try {
+    for (let i = 0; i < files.length; i += 1) {
+      /* eslint-disable no-await-in-loop */
+      const file = files[i];
+      if (crypto.subtle) {
+        formData.append('mimeType', encodeURIComponent(file.type));
+        formData.append('filename', encodeURIComponent(file.name));
+        formData.append('size', encodeURIComponent(file.size));
+        let hash = '';
+        if (file.size < 1024 * 1024 * 1024) {
+          const arrayBuffer = await file.arrayBuffer();
+          const hashBuffer = await crypto.subtle.digest('SHA-256', arrayBuffer);
+          const hashArray = Array.from(new Uint8Array(hashBuffer));
+          hash = hashArray.map((b) => b.toString(16).padStart(2, '0')).join('');
+        }
+        formData.append('hash', hash);
+      }
+      /* eslint-enable no-await-in-loop */
+    }
+  } catch {
+    return {
+      errors: [t`Could not process files`],
+    };
+  }
+
+  const options = {
+    method: 'POST',
+    credentials: 'include',
+    signal: controller.signal,
+    body: formData,
+  };
+  if (controller) {
+    options.signal = controller.signal;
+  }
+
+  try {
+    const response = await fetch(api`/api/media/preflight`, options);
+    return parseAPIresponse(response);
+  } catch (error) {
+    if (error.name === 'AbortError') {
+      return null;
+    }
+    return {
+      errors: [t`Could not connect to server`],
+    };
+  }
+}
+
+/**
  * file upload api
  * @param files File or FileList
  * @param [controller] AbortController
@@ -431,40 +498,13 @@ export async function requestFileUpload(files, controller, onProgress) {
       errors: [t`No File selected to upload`],
     };
   }
+  console.log('upload');
 
   let request;
   let abort;
 
   try {
     const formData = new FormData();
-
-    let hashes = '';
-    for (let i = 0; i < files.length; i += 1) {
-      /* eslint-disable no-await-in-loop */
-      const file = files[i];
-      if (crypto.subtle) {
-        if (file.size > 1024 * 1024 * 1024) {
-          /*
-          * send empty hash to make sure server at least knows that this file
-          * exists and doesn't end the upload after previous ones match
-          */
-          // eslint-disable-next-line max-len
-          hashes += `${encodeURIComponent(file.name)}=:${encodeURIComponent(file.type)};`;
-        } else {
-          const arrayBuffer = await file.arrayBuffer();
-          const hashBuffer = await crypto.subtle.digest('SHA-256', arrayBuffer);
-          const hashArray = Array.from(new Uint8Array(hashBuffer));
-          const hashHex = hashArray.map((b) => b.toString(16).padStart(2, '0'))
-            .join('');
-          // eslint-disable-next-line max-len
-          hashes += `${encodeURIComponent(file.name)}=${hashHex}:${encodeURIComponent(file.type)};`;
-        }
-      }
-      /* eslint-enable no-await-in-loop */
-    }
-    if (hashes) {
-      formData.append('hashes', hashes);
-    }
 
     for (let i = 0; i < files.length; i += 1) {
       formData.append('file', files[i]);
@@ -527,7 +567,7 @@ export async function requestFileUpload(files, controller, onProgress) {
     }
     console.log('errorrr', gotAborted);
     return {
-      errors: [t`Could not connect to server, please try again later :(`],
+      errors: [t`Could not connect to server`],
     };
   } finally {
     if (controller) {

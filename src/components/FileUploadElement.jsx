@@ -46,7 +46,7 @@ const FileUploadElement = ({
   }, [active, render]);
 
   let progressWidth = 0;
-  if (completion !== null && completion !== -1) {
+  if (completion && completion !== -1) {
     progressWidth = completion;
   }
   progressWidth = `${String(progressWidth)}%`;
@@ -182,13 +182,13 @@ const FileUploadElement = ({
 
       {(completion > 0 || previewUrl) && (
       <div style={progressOverlayStyle}>
-        { /* eslint-disable-next-line max-len */
-          !previewUrl && completion !== null && completion !== -1 && `${completion}%`
+        {
+          !previewUrl && `${completion}%`
         }
       </div>
       )}
 
-      {completion !== null && completion !== -1 && (
+      {completion > 0 && (
       <div style={progressBarStyle} />
       )}
 
