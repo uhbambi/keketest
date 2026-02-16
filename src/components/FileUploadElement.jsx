@@ -46,19 +46,13 @@ const FileUploadElement = ({
   }, [active, render]);
 
   let progressWidth = 0;
-  if (completion && completion !== -1) {
+  if (completion > 0) {
     progressWidth = completion;
   }
   progressWidth = `${String(progressWidth)}%`;
 
   let progressColor;
   switch (completion) {
-    case null:
-      progressColor = '#9ca3af';
-      break;
-    case -1:
-      progressColor = '#ef4444';
-      break;
     case 100:
       progressColor = '#22c55e';
       break;
@@ -75,7 +69,6 @@ const FileUploadElement = ({
     borderRadius: 4,
     overflow: 'hidden',
     cursor: 'pointer',
-    // backgroundColor: '#f3f4f6',
   };
 
   // base image (grayscale)
@@ -89,8 +82,8 @@ const FileUploadElement = ({
     backgroundSize: 'contain',
     backgroundPosition: 'center',
     backgroundRepeat: 'no-repeat',
-    filter: 'grayscale(100%)',
-    opacity: 0.4,
+    filter: (completion === 100) ? undefined : 'grayscale(100%)',
+    opacity: 0.7,
   } : {
     position: 'absolute',
     top: 0,
@@ -106,35 +99,6 @@ const FileUploadElement = ({
     opacity: 0.4,
   };
 
-  // colored overlay
-  const progressOverlayStyle = previewUrl ? {
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    width: progressWidth,
-    height: '100%',
-    backgroundImage: `url(${previewUrl})`,
-    backgroundSize: 'contain',
-    backgroundPosition: 'center',
-    backgroundRepeat: 'no-repeat',
-    filter: 'grayscale(0%)',
-    opacity: 1,
-    transition: 'width 200ms ease-in-out',
-  } : {
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    width: progressWidth,
-    height: '100%',
-    backgroundColor: progressColor,
-    transition: 'width 200ms ease-in-out, background-color 200ms',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    fontSize: 10,
-    color: 'white',
-  };
-
   // Small progress indicator line at bottom (optional additional indicator)
   const progressBarStyle = {
     position: 'absolute',
@@ -143,7 +107,7 @@ const FileUploadElement = ({
     width: progressWidth,
     height: 3,
     backgroundColor: progressColor,
-    transition: 'width 200ms ease-in-out, background-color 200ms',
+    transition: 'width 200ms ease-in-out',
     zIndex: 2,
   };
 
@@ -175,22 +139,11 @@ const FileUploadElement = ({
       onClick={() => removeFile(id)}
       title={t`Click to remove`}
     >
-      {/* Base faded image */}
       <div style={imageBaseStyle}>
         {!previewUrl && '📷'}
       </div>
 
-      {(completion > 0 || previewUrl) && (
-      <div style={progressOverlayStyle}>
-        {
-          !previewUrl && `${completion}%`
-        }
-      </div>
-      )}
-
-      {completion > 0 && (
       <div style={progressBarStyle} />
-      )}
 
       <span style={xIndicatorStyle}>
         {completion === -1 ? '!' : '×'}

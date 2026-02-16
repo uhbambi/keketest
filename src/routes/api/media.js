@@ -95,10 +95,10 @@ router.post('/preflight', (req, res) => {
 
         if (size > MAX_MEDIA_SIZE) {
           const maxSizeMB = Math.floor(MAX_MEDIA_SIZE / 1024 / 10.24) / 100;
-          const sizeMB = Math.floor(size / 1024 / 10.24) / 100;
+          const sizeMB = Math.floor(size / 1024 / 102.4) / 10;
           errors.push(
             // eslint-disable-next-line max-len
-            t`File ${filename} has ${sizeMB} and is too large. It may only be ${maxSizeMB} MB`,
+            t`File ${filename} has ${sizeMB} MB and is too large. It may only be ${maxSizeMB} MB`,
           );
           fileErrors = true;
         }
