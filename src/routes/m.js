@@ -21,10 +21,11 @@ export default async (req, res) => {
   const {
     s: shortId,
     e: extension,
+    t: type,
   } = req.params;
 
   res.set({
     'Cache-Control': 'public, s-maxage=5184000, max-age=5184000',
   });
-  res.sendFile(constructMediaPath(shortId, extension));
+  res.sendFile(constructMediaPath(shortId, extension, type));
 };

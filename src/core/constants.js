@@ -264,3 +264,17 @@ export const FISH_BONUS_MAX_DURATION = 90 * 60 * 1000;
 export const FISH_BONUS_CD_FACTOR = 0.5;
 
 export const DO_NOTHING = Symbol('DO_NOTHING');
+
+
+export const VIDEO_EXTENSIONS = [
+  'webm',
+  'mp4',
+];
+
+export const IMAGE_EXTENSIONS = [
+  'jpg',
+  'jpeg',
+  'png',
+  'webp',
+  'gif',
+];

@@ -2,25 +2,14 @@
 
 import React from 'react';
 
-import { getExt } from '../../core/utils.js';
-
-const videoExts = [
-  'webm',
-  'mp4',
-];
-const imageExts = [
-  'jpg',
-  'jpeg',
-  'png',
-  'webp',
-  'gif',
-];
+import { splitUrl } from '../../core/utils.js';
+import { VIDEO_EXTENSIONS, IMAGE_EXTENSIONS } from '../../core/constants.js';
 
 const DirectLinkMedia = ({
   url, fill, maxHeight, type,
 }) => {
-  const ext = getExt(url);
-  if (type === 'video' || videoExts.includes(ext)) {
+  const [, ext] = splitUrl(url);
+  if (type === 'video' || VIDEO_EXTENSIONS.includes(ext)) {
     return (
       <div
         style={{
@@ -70,8 +59,8 @@ const DirectLinkMedia = ({
 export default [
   React.memo(DirectLinkMedia),
   (url) => {
-    const ext = getExt(url);
-    return (videoExts.includes(ext) || imageExts.includes(ext));
+    const [, ext] = splitUrl(url);
+    return (VIDEO_EXTENSIONS.includes(ext) || IMAGE_EXTENSIONS.includes(ext));
   },
   null,
   '/embico/direct.png',

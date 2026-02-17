@@ -109,11 +109,6 @@ router.use(expressTTag);
 router.get(['/chunks/:c/:x/:y/:z.bmp', '/chunks/:c/:x/:y.bmp'], chunks);
 
 /*
- * Serving media
- */
-router.get('/m/:s/:n.:e', m);
-
-/*
  * zoomed tiles
  */
 router.use('/tiles', tiles);
@@ -144,6 +139,11 @@ router.use('/guilded', (req, res) => {
  * but it is the simplest way to make CDN_URL CORS aware
  */
 router.use(cors);
+
+/*
+ * Serving media
+ */
+router.get(['/m/:s/:n.:e', '/m/:t/:s/:n.:e.webp'], m);
 
 /*
  * if we get accessed by CDN, only serve static files

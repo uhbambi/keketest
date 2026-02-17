@@ -11,6 +11,7 @@ import { t } from 'ttag';
 
 import { getLinkDesc } from '../../core/utils.js';
 import EMBEDS from '../embeds/index.js';
+import MdLocalMedia from './MdLocalMedia.jsx';
 import { isPopUp } from '../windows/popUpAvailable.js';
 import useLink from '../hooks/link.js';
 import { cdn, u } from '../../utils/utag.js';
@@ -37,22 +38,26 @@ const MdLink = ({ href, title, refEmbed }) => {
   const link = useLink();
 
   // treat pixelplanet links separately
-  if (desc === window.location.host && href.includes('/#')) {
-    const coords = href.substring(href.indexOf('/#') + 1);
-    if (isPopUp() && window.opener && !window.opener.closed) {
+  if (desc === window.location.host) {
+    if (href.includes('/#')) {
+      const coords = href.substring(href.indexOf('/#') + 1);
+      if (isPopUp() && window.opener && !window.opener.closed) {
+        return (
+          <a href={u`/${coords}`} target="main">{title || coords}</a>
+        );
+      }
       return (
-        <a href={u`/${coords}`} target="main">{title || coords}</a>
+        <a href={u`/${coords}`}>{title || coords}</a>
       );
     }
-    return (
-      <a href={u`/${coords}`}>{title || coords}</a>
-    );
+    if (href.includes('/m/')) {
+      return <MdLocalMedia refEmbed={refEmbed} href={href} title={title} />;
+    }
   }
 
   const embedObj = EMBEDS[desc];
   const embedAvailable = embedObj && embedObj[1](href);
   const Embed = embedObj && embedObj[0];
-
 
   let parsedTitle;
   if (title && titleAllowed.includes(desc)) {

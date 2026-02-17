@@ -7,77 +7,63 @@ import { HiArrowsExpand, HiStop } from 'react-icons/hi';
 import { HiWindow } from 'react-icons/hi2';
 import { t } from 'ttag';
 
-import DirectLinkMedia from '../embeds/DirectLinkMedia.jsx';
 import useLink from '../hooks/link.js';
 import { cdn } from '../../utils/utag.js';
+import { splitUrl } from '../../core/utils.js';
+import { VIDEO_EXTENSIONS, IMAGE_EXTENSIONS } from '../../core/constants.js';
 
 const MdLocalMedia = ({ href, title, refEmbed }) => {
-  const [showEmbed, setShowEmbed] = useState(false);
-  const link = useLink();
+  const [expanded, setExpanded] = useState(false);
 
-  const [Embed] = DirectLinkMedia;
+  const [path, ext, query] = splitUrl(href);
+  const seperator = path.indexOf('/m/') + 3;
+  if (!ext || seperator < 3) {
+    return null;
+  }
+  const url = (expanded) ? `${path}.${ext}`
+    : `${path.substring(0, seperator)}t/${path.substring(seperator)}.${ext}.webp`;
+
+  if (VIDEO_EXTENSIONS.includes(ext)) {
+    return (
+      <div
+        style={{
+          textAlign: 'center',
+          overflow: 'hidden',
+        }}
+      >
+        <video
+          style={{
+            maxWidth: '100%',
+            maxHeight: 300,
+          }}
+          controls
+          autoPlay
+          src={url}
+          referrerPolicy="no-referrer"
+          onClick={() => setExpanded(!expanded)}
+        />
+      </div>
+    );
+  }
 
   return (
-    <>
-      <a
-        href={href}
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        {title || href}
-      </a>
-      <span className="embbtn">
-        &nbsp;
-        <img
-          style={{
-            width: '1em',
-            height: '1em',
-            verticalAlign: 'middle',
-          }}
-          src={cdn`/embico/direct.png`}
-          alt="local-icon"
-        />
-        <span
-          onClick={(evt) => {
-            evt.stopPropagation();
-            link('PLAYER', {
-              reuse: true,
-              target: 'blank',
-              args: { uri: href },
-            });
-          }}
-          title={t`Open in PopUp`}
-        >
-          <HiWindow className="ebex" />
-        </span>
-        <span
-          onClick={() => setShowEmbed(!showEmbed)}
-        >
-          {(showEmbed)
-            ? (
-              <HiStop
-                className="ebcl"
-                title={t`Hide Embed`}
-              />
-            )
-            : (
-              <HiArrowsExpand
-                className="ebex"
-                title={t`Show Embedded`}
-              />
-            )}
-        </span>
-      </span>
-      {showEmbed && (
-        (refEmbed && refEmbed.current)
-          ? createPortal(
-            <Embed url={href} maxHeight={300} />,
-            refEmbed.current,
-          ) : (
-            <Embed url={href} />
-          )
-      )}
-    </>
+    <div
+      style={{
+        textAlign: 'center',
+        overflow: 'hidden',
+      }}
+    >
+      <img
+        alt={`${title}`}
+        src={url}
+        style={{
+          maxWidth: '100%',
+          maxHeight: 300,
+        }}
+        referrerPolicy="no-referrer"
+        onClick={() => setExpanded(!expanded)}
+      />
+    </div>
   );
 };
 

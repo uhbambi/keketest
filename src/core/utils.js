@@ -472,27 +472,27 @@ export function getLinkDesc(link) {
   return link.slice(domainStart, domainEnd);
 }
 
-/*
- * try to get extension out of link
+/**
+ * split Url into path, ext and query
  * @param link url
- * @return extension or null if not available
+ * @return [path, ext, query]
  */
-export function getExt(link) {
+export function splitUrl(link) {
   let paramStart = link.indexOf('&');
   if (paramStart === -1) {
     paramStart = link.length;
   }
+  const query = link.substring(paramStart);
   let posDot = paramStart - 1;
-  for (;posDot >= 0 && link[posDot] !== '.'; posDot -= 1) {
+  for (;posDot > 0 && link[posDot] !== '.'; posDot -= 1) {
     if (link[posDot] === '/') {
-      return null;
+      posDot = 0;
+      break;
     }
   }
-  posDot += 1;
-  if (paramStart - posDot > 4) {
-    return null;
-  }
-  return link.slice(posDot, paramStart);
+  const ext = (posDot > 0) ? link.substring(posDot + 1, paramStart) : '';
+  const path = link.substring(0, posDot || paramStart);
+  return [path, ext, query];
 }
 
 /*

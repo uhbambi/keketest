@@ -147,7 +147,7 @@ const Chat = () => {
     if (files.length) {
       const attachments = files.map(
         // eslint-disable-next-line max-len
-        (i) => `![${i.name}](/m/${i.shortId}/${encodeURIComponent(i.name + '.' + i.extension)})`,
+        (i) => `![${i.name}](/m/${i.shortId}/${encodeURIComponent(`${i.name}.${i.extension}`)})`,
       ).join(' ');
       if (attachments) {
         inptMsg = `${attachments} ${inptMsg}`;
