@@ -146,7 +146,8 @@ const Chat = () => {
     const files = await uploadRef.current?.();
     if (files.length) {
       const attachments = files.map(
-        (i) => `![${i.name}](/m/${i.shortId}/${i.name}.${i.extension})`,
+        // eslint-disable-next-line max-len
+        (i) => `![${i.name}](/m/${i.shortId}/${encodeURIComponent(i.name + '.' + i.extension)})`,
       ).join(' ');
       if (attachments) {
         inptMsg = `${attachments} ${inptMsg}`;

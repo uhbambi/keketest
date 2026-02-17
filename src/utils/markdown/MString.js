@@ -149,17 +149,31 @@ export default class MString {
       ) {
         return null;
       }
-      if (zIsLink && chr === ':') {
-        // set this.iter temporarily to be able to use thischeckIfLink
-        const oldIter = this.iter;
-        this.iter = zEnd;
-        z = this.checkIfLink(true);
-        zEnd = this.iter;
-        this.iter = oldIter;
-        if (z === null) {
-          return null;
+      if (zIsLink && !z) {
+        if (chr === '/' && (
+          zEnd === zStart || MString.isWhiteSpace(this.text[zEnd - 1])
+        )) {
+          // absolute link
+          zStart = zEnd;
+          for (; zEnd < this.txt.length
+            && !MString.isWhiteSpace(this.txt[zEnd])
+            && this.txt[zEnd] !== ')'; zEnd += 1
+          );
+          z = this.slice(zStart, zEnd);
+          continue;
         }
-        continue;
+        if (chr === ':') {
+          // set this.iter temporarily to be able to use thischeckIfLink
+          const oldIter = this.iter;
+          this.iter = zEnd;
+          z = this.checkIfLink(true);
+          zEnd = this.iter;
+          this.iter = oldIter;
+          if (z === null) {
+            return null;
+          }
+          continue;
+        }
       }
       zEnd += 1;
     }
@@ -183,6 +197,7 @@ export default class MString {
     }
 
     this.iter = zEnd;
+    console.log('got enclosure', [y, z]);
     return [y, z];
   }
 
@@ -190,7 +205,7 @@ export default class MString {
    * Convoluted way to check if the current ':' is part of a link
    * we do not check for a 'http' because we might support application links
    * like tg://... or discord://..
-   * returns the link or false if there is none
+   * returns the link or null if there is none
    * moves iter forward to after the link, if there's one
    */
   checkIfLink(enclosure = false) {
