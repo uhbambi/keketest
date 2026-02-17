@@ -113,10 +113,10 @@ const ChannelDropDown = ({
     <div
       style={{ position: 'relative' }}
     >
-      <div
+      <button
         ref={buttonRef}
         key="expbtn"
-        role="button"
+        type="button"
         tabIndex={-1}
         onClick={() => setShow(true)}
         className={`channelbtn${(show) ? ' selected' : ''}`}
@@ -125,7 +125,7 @@ const ChannelDropDown = ({
           <div style={{ top: -4 }} className="chnunread">⦿</div>
         )}
         {chatChannelName}
-      </div>
+      </button>
       {(show)
         && (
         <div

@@ -430,7 +430,6 @@ export async function requestFileUploadPreflight(files, controller) {
       errors: [t`No File selected to upload`],
     };
   }
-  console.log('preflight');
 
   const formData = new FormData();
 
@@ -498,7 +497,6 @@ export async function requestFileUpload(files, controller, onProgress) {
       errors: [t`No File selected to upload`],
     };
   }
-  console.log('upload');
 
   let request;
   let abort;
@@ -565,14 +563,12 @@ export async function requestFileUpload(files, controller, onProgress) {
     if (gotAborted) {
       return null;
     }
-    console.log('errorrr', gotAborted);
     return {
       errors: [t`Could not connect to server`],
     };
   } finally {
     if (controller) {
       controller.signal.removeEventListener('abort', abort);
-      console.log('remove signal');
     }
   }
 }

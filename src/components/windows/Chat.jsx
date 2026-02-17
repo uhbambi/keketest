@@ -142,14 +142,17 @@ const Chat = () => {
   async function handleSubmit(evt) {
     evt.preventDefault();
     let inptMsg = inputRef.current.value.trim();
-    if (!inptMsg) return;
     // if there are files to upload, do that and add links to them
     const files = await uploadRef.current?.();
     if (files.length) {
-      inptMsg = files.map(
+      const attachments = files.map(
         (i) => `![${i.name}](/m/${i.shortId}/${i.name}.${i.extension})`,
-      ).join(' ') + inptMsg;
+      ).join(' ');
+      if (attachments) {
+        inptMsg = `${attachments} ${inptMsg}`;
+      }
     }
+    if (!inptMsg) return;
     // send message via websocket
     dispatch(sendChatMessage(inptMsg, chatChannel));
     inputRef.current.value = '';
@@ -251,9 +254,14 @@ const Chat = () => {
               className="chtipt"
               placeholder={t`Chat here`}
             />
+            <FileUpload
+              key="fui"
+              uploadRef={uploadRef}
+              printErrors={printWarnings}
+            />
             <button
               className="sendbtn"
-              style={{ flexGrow: 0 }}
+              style={{ flexGrow: 0, width: 24 }}
               type="submit"
             >
               ‣
@@ -278,11 +286,6 @@ const Chat = () => {
             {t`You must be logged in to chat`}
           </div>
         )}
-        <FileUpload
-          key="fui"
-          uploadRef={uploadRef}
-          printErrors={printWarnings}
-        />
         <ChannelDropDown
           key="cdd"
           setChatChannel={setChannel}

@@ -31,7 +31,6 @@ const FileUploadElement = ({
 
       return () => {
         URL.revokeObjectURL(url);
-        console.log('revoke preview url');
       };
     }
     return undefined;
@@ -63,19 +62,13 @@ const FileUploadElement = ({
   const buttonStyle = {
     width: active && render ? 40 : 0,
     transition: 'width 200ms ease-in-out',
-    position: 'relative',
     padding: 0,
-    border: 'none',
-    borderRadius: 4,
     overflow: 'hidden',
-    cursor: 'pointer',
+    position: 'relative',
   };
 
   // base image (grayscale)
   const imageBaseStyle = previewUrl ? {
-    position: 'absolute',
-    top: 0,
-    left: 0,
     width: '100%',
     height: '100%',
     backgroundImage: `url(${previewUrl})`,
@@ -83,11 +76,7 @@ const FileUploadElement = ({
     backgroundPosition: 'center',
     backgroundRepeat: 'no-repeat',
     filter: (completion === 100) ? undefined : 'grayscale(100%)',
-    opacity: 0.7,
   } : {
-    position: 'absolute',
-    top: 0,
-    left: 0,
     width: '100%',
     height: '100%',
     backgroundColor: '#9ca3af',
@@ -131,24 +120,28 @@ const FileUploadElement = ({
   };
 
   return (
-    <button
-      tabIndex={0}
-      type="button"
-      onTransitionEnd={active ? undefined : () => close(id)}
+    <div
       style={buttonStyle}
-      onClick={() => removeFile(id)}
-      title={t`Click to remove`}
+      onTransitionEnd={active ? undefined : () => close(id)}
     >
-      <div style={imageBaseStyle}>
-        {!previewUrl && '📷'}
-      </div>
+      <button
+        tabIndex={0}
+        type="button"
+        style={{ width: '100%', height: '100%' }}
+        onClick={() => removeFile(id)}
+        title={t`Click to remove`}
+      >
+        <div style={imageBaseStyle}>
+          {!previewUrl && '📷'}
+        </div>
 
-      <div style={progressBarStyle} />
+        <div style={progressBarStyle} />
 
-      <span style={xIndicatorStyle}>
-        {completion === -1 ? '!' : '×'}
-      </span>
-    </button>
+        <span style={xIndicatorStyle}>
+          {completion === -1 ? '!' : '×'}
+        </span>
+      </button>
+    </div>
   );
 };
 

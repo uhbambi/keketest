@@ -317,8 +317,8 @@ tr:nth-child(even) {
   border-style: solid;
   border-width: thin;
   border-radius: 4px;
-  width: 50px;
-  height: 22px;
+  width: 40px;
+  height: 100%;
   white-space: nowrap;
   font-size: 14px;
   overflow-x: hidden;

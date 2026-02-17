@@ -2,8 +2,9 @@
  * Component to upload files
  */
 import React, {
-  useEffect, useState, useCallback, useRef,
+  useEffect, useState, useCallback, useRef, useLayoutEffect,
 } from 'react';
+import { ImAttachment } from 'react-icons/im';
 
 import FileUploadElement from './FileUploadElement.jsx';
 import {
@@ -22,6 +23,20 @@ const FileUpload = ({
   // be uploaded
   uploadRef,
 }) => {
+  /*
+   * whether or not input button is active annd rendered, used for animating it
+   * similar to FileUploadElement
+   * 0: fade-in width:0
+   * 1: shown
+   * 2: fade-out width:0
+   * 3: hidden
+   */
+  const [inputButtonState, setInputButtonState] = useState(2);
+  /*
+   * amount of currently displayed FileUploadElements, tracked for efficient
+   * inputButton fade-in fade-out
+   */
+  const [displayedUploadElements, setDisplayedUploadElements] = useState(0);
   /*
    * array with information for selected files
    * [{ id, file, active, completion, [fileInfo] }, ...]
@@ -98,17 +113,14 @@ const FileUpload = ({
       });
     });
 
-    console.log('selected files', files[0], files.length, files);
     if (!files.length) {
       return;
     }
-    console.log('wtf1');
 
     if (uploadInfoRef.current[timeoutName]) {
       clearTimeout(uploadInfoRef.current[timeoutName]);
       uploadInfoRef.current[timeoutName] = null;
     }
-    console.log('wtf2');
 
     const uploadInfo = { ids };
     let resolvePromise;
@@ -122,7 +134,6 @@ const FileUpload = ({
     });
     uploadInfo.controller = new AbortController();
     uploadInfoRef.current.uploads.push(uploadInfo);
-    console.log('wtf3');
 
     let response;
     if (preflight) {
@@ -231,7 +242,6 @@ const FileUpload = ({
     }
 
     resolvePromise();
-    console.log(response);
   }, [printErrors]);
 
   const doPreflight = useCallback(() => uploadFile(true), [uploadFile]);
@@ -252,6 +262,7 @@ const FileUpload = ({
           id, file, active: true,
         },
       ]);
+      setDisplayedUploadElements((c) => c + 1);
       evt.target.value = '';
       // schedule upload
       if (uploadInfoRef.current.uploadTimeout) {
@@ -343,11 +354,37 @@ const FileUpload = ({
         active: false,
       };
     }));
+    setDisplayedUploadElements((c) => c - 1);
   }, []);
 
   const closeFileUploadElement = useCallback((id) => {
     setFileInfos((oldInfos) => oldInfos.filter((info) => info.id !== id));
   }, []);
+
+  useLayoutEffect(() => {
+    if (maxFiles - displayedUploadElements > 0) {
+      if (inputButtonState > 1) {
+        setInputButtonState(0);
+      }
+    } else if (inputButtonState < 2) {
+      setInputButtonState(2);
+    }
+  }, [maxFiles, displayedUploadElements, inputButtonState]);
+
+  useEffect(() => {
+    if (inputButtonState === 0) {
+      requestAnimationFrame(() => {
+        setInputButtonState(1);
+      });
+    }
+  }, [inputButtonState]);
+
+  const inputButtonStyle = {
+    width: inputButtonState === 1 ? 24 : 0,
+    transition: 'width 200ms ease-in-out',
+    padding: 0,
+    overflow: 'hidden',
+  };
 
   return (
     <>
@@ -362,16 +399,21 @@ const FileUpload = ({
           removeFile={removeFile}
         />
       ))}
-      {(maxFiles - fileInfos.length > 0) && (
-        <>
+      {inputButtonState !== 3 && (
+        <div
+          style={inputButtonStyle}
+          onTransitionEnd={inputButtonState !== 2 ? undefined
+            : () => setInputButtonState(3)}
+        >
           <button
             key="ipt"
             type="button"
+            style={{ width: '100%' }}
             className="fileupload"
             tabIndex={0}
             onClick={handleInputClick}
           >
-            <span key="si">📎</span>
+            <ImAttachment />
           </button>
           <input
             key="fi"
@@ -386,7 +428,7 @@ const FileUpload = ({
               height: 0,
             }}
           />
-        </>
+        </div>
       )}
     </>
   );
