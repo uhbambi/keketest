@@ -304,6 +304,7 @@ const FileUpload = ({
         }
       }
       setFileInfos([]);
+      setDisplayedUploadElements(0);
 
       return finishedFileInfos;
     };
