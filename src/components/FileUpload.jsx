@@ -291,24 +291,38 @@ const FileUpload = ({
      * }, ...]
      */
     uploadRef.current = async () => {
-      /* trigger upload of the rest */
+      // upload the rest
+      if (uploadInfoRef.current.preflightTimeout) {
+        clearTimeout(uploadInfoRef.current.preflightTimeout);
+        uploadInfoRef.current.preflightTimeout = null;
+      }
+      await doPreflight(true);
+      if (uploadInfoRef.current.uploadTimeout) {
+        clearTimeout(uploadInfoRef.current.uploadTimeout);
+        uploadInfoRef.current.uploadTimeout = null;
+      }
       await uploadFile();
       /* wait for running uploads */
       await Promise.all(uploadInfoRef.current.uploads.map((i) => i.promise));
 
+      const oldInfos = await new Promise((resolve) => {
+        setFileInfos((oldInfos) => {
+          resolve(oldInfos);
+          return [];
+        });
+      });
+      setDisplayedUploadElements(0);
       const finishedFileInfos = [];
-      for (let i = 0; i < fileInfos.length; i += 1) {
-        const { fileInfo } = fileInfos[i];
+      for (let i = 0; i < oldInfos.length; i += 1) {
+        const { fileInfo } = oldInfos[i];
         if (fileInfo) {
           finishedFileInfos.push(fileInfo);
         }
       }
-      setFileInfos([]);
-      setDisplayedUploadElements(0);
 
       return finishedFileInfos;
     };
-  }, [uploadRef, uploadFile, fileInfos]);
+  }, [uploadRef, uploadFile, doPreflight]);
 
   useEffect(() => () => {
     // clear timeouts
