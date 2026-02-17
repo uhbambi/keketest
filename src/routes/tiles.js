@@ -91,7 +91,12 @@ router.use(async (req, res) => {
     'Content-Type': 'image/webp',
   });
   res.status(200);
-  res.sendFile(filename);
+  res.sendFile(filename, (err) => {
+    if (err) {
+      // Silently return 404 without logging
+      res.status(404).end();
+    }
+  });
 });
 
 /*

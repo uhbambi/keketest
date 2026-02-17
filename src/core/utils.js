@@ -452,6 +452,9 @@ export function isWebGL2Available() {
  *  (www. and .com are split)
  */
 export function getLinkDesc(link) {
+  if (link[0] === '/') {
+    return '/';
+  }
   let domainStart = link.indexOf('://') + 3;
   if (domainStart < 3) {
     domainStart = 0;

@@ -49,7 +49,7 @@ function parseMParagraph(text, opts, breakChar) {
         if (pStart !== oldPos) {
           pArray.push(text.slice(pStart, oldPos));
         }
-        pArray.push(['l', null, `${window.location.origin}/${coords}`]);
+        pArray.push(['l', null, `/${coords}`]);
         pStart = text.iter;
       }
     } else if (paraElems.includes(chr)) {
@@ -125,9 +125,6 @@ function parseMParagraph(text, opts, breakChar) {
       if (encArr !== null) {
         if (pStart < oldPos) {
           pArray.push(text.slice(pStart, oldPos));
-        }
-        if (zIsLink && encArr[1].startsWith('/')) {
-          encArr[1] = `${window.location.origin}${encArr[1]}`;
         }
         pArray.push([tag, encArr[0], encArr[1]]);
         pStart = text.iter + 1;

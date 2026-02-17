@@ -38,7 +38,7 @@ const MdLink = ({ href, title, refEmbed }) => {
   const link = useLink();
 
   // treat pixelplanet links separately
-  if (desc === window.location.host) {
+  if (desc === '/' || desc === window.location.host) {
     if (href.includes('/#')) {
       const coords = href.substring(href.indexOf('/#') + 1);
       if (isPopUp() && window.opener && !window.opener.closed) {

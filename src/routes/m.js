@@ -27,5 +27,9 @@ export default async (req, res) => {
   res.set({
     'Cache-Control': 'public, s-maxage=5184000, max-age=5184000',
   });
-  res.sendFile(constructMediaPath(shortId, extension, type));
+  res.sendFile(constructMediaPath(shortId, extension, type), (err) => {
+    if (err) {
+      res.status(404).end();
+    }
+  });
 };
