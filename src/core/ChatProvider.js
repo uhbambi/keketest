@@ -288,7 +288,7 @@ export class ChatProvider {
   async sendMessage(user, ip, message, channelId, lang, ttag) {
     const { id } = user;
     const { t } = ttag;
-    const { name } = user.data;
+    const { name, customFlag, avatarId } = user.data;
     const { country } = ip;
 
     if (!user.rateLimiter) {
@@ -342,7 +342,9 @@ export class ChatProvider {
     if (name.trim() === '') {
       return 'nope';
     }
-    const displayCountry = user.customFlag ?? mapFlag(user.userlvl, country);
+    const [flagLegit, displayCountry] = mapFlag(
+      customFlag, user.userlvl, country,
+    );
 
     if (USE_MAILER && user.userlvl < USERLVL.VERIFIED) {
       return t`Your mail has to be verified in order to chat`;
@@ -383,6 +385,8 @@ export class ChatProvider {
       channelId,
       id,
       displayCountry,
+      flagLegit,
+      avatarId,
     );
     return null;
   }

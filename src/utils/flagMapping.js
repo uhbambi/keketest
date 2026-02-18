@@ -3,18 +3,25 @@
  */
 import { USERLVL } from '../core/constants.js';
 
-export default function mapFlag(userlvl, country) {
+export default function mapFlag(customFlag, userlvl, country) {
+  if (customFlag) {
+    return [false, customFlag];
+  }
   if (userlvl >= USERLVL.CLEANER) {
     switch (userlvl) {
       case USERLVL.CLEANER:
-        return 'z3';
+        customFlag = 'z3';
+        break;
       case USERLVL.JANNY:
-        return 'z2';
+        customFlag = 'z2';
+        break;
       case USERLVL.MOD:
-        return 'z1';
+        customFlag = 'z1';
+        break;
       default:
-        return 'zz';
+        customFlag = 'zz';
     }
+    return [false, customFlag];
   }
-  return country;
+  return [true, country || 'xx'];
 }

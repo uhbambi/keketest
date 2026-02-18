@@ -20,12 +20,13 @@ const initialState = {
   channels: {},
   // [[uId, userName], [userId2, userName2],...]
   blocked: [],
-  // { cid: [message1,message2,message3,...]}
+  /*
+   * { cid: [[
+   *   name, text, country, userId, ts, msgId, flagLegit, avatarId,
+   * ],...], ... }
+   */
   messages: {},
 };
-
-// used to give every message a unique incrementing key
-let msgId = 0;
 
 export default function chat(
   state = initialState,
@@ -138,18 +139,16 @@ export default function chat(
 
     case 's/REC_CHAT_MESSAGE': {
       const {
-        name, text, country, channel, user,
+        name, text, country, channel, userId, ts, msgId, flagLegit, avatarId,
       } = action;
       if (!state.messages[channel] || !state.channels[channel]) {
         return state;
       }
-      const ts = Math.round(Date.now() / 1000);
-      msgId += 1;
       const messages = {
         ...state.messages,
         [channel]: [
           ...state.messages[channel],
-          [name, text, country, user, ts, msgId],
+          [name, text, country, userId, ts, msgId, flagLegit, avatarId],
         ],
       };
       if (messages[channel].length > MAX_CHAT_MESSAGES) {
@@ -195,10 +194,6 @@ export default function chat(
 
     case 's/REC_CHAT_HISTORY': {
       const { cid, history } = action;
-      for (let i = 0; i < history.length; i += 1) {
-        msgId += 1;
-        history[i].push(msgId);
-      }
       return {
         ...state,
         messages: {

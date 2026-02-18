@@ -12,6 +12,14 @@ const Profile = sequelize.define('Profile', {
     type: DataTypes.STRING(2),
     allowNull: true,
   },
+
+  /*
+   * media id foreign key
+   */
+  avatar: {
+    type: DataTypes.BIGINT.UNSIGNED,
+    allowNull: true,
+  },
 });
 
 /**
@@ -35,6 +43,32 @@ export async function setCustomFlag(uid, code = null) {
     return true;
   } catch (err) {
     console.error('SQL Error on createCustomFlag:', err.message);
+    return false;
+  }
+}
+
+/**
+ * set avatar of a user
+ * @param uid userId
+ * @param mediaId shortId:extension of media
+ */
+export async function setUserAvatar(uid, mediaId) {
+  try {
+    const [shortId, extension] = mediaId.split(':');
+    if (!shortId || !extension) {
+      return false;
+    }
+    await sequelize.query(
+      // eslint-disable-next-line max-len
+      'INSERT INTO Profiles (uid, avatar) VALUES SELECT ?, m.id AS hash FROM Media m WHERE m.shortId = ? AND m.extension = ? ON DUPLCATE KEY UPDATE avatar = VALUES(avatar)', {
+        replacements: [uid, shortId, extension],
+        raw: true,
+        type: QueryTypes.INSERT,
+      },
+    );
+    return true;
+  } catch (err) {
+    console.error('SQL Error on setUserAvatar:', err.message);
     return false;
   }
 }

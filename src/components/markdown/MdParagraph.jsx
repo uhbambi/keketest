@@ -1,10 +1,12 @@
 /*
  * Renders Markdown that got parsed by core/MarkdownParser
  */
-import React from 'react';
+import React, { useState, useMemo } from 'react';
 
 import MdLink from './MdLink.jsx';
 import MdMention from './MdMention.jsx';
+import EMBEDS from '../embeds/index.js';
+import EmbedContext from '../context/embed.js';
 import { parseParagraph } from '../../utils/markdown/MarkdownParser.js';
 
 /**
@@ -13,10 +15,9 @@ import { parseParagraph } from '../../utils/markdown/MarkdownParser.js';
  * @param {
  *   text: markdown text
  *   pArray: parsed markdown array
- *   refEmbed: a reference to the element where we can attach an embed to
  * }
  */
-const MdParagraph = ({ text, pArray, refEmbed }) => {
+const RecursiveMdParagraph = ({ text, pArray }) => {
   if (!pArray) {
     if (!text) {
       return null;
@@ -59,7 +60,7 @@ const MdParagraph = ({ text, pArray, refEmbed }) => {
       case 'img':
       case 'l':
         return (
-          <MdLink refEmbed={refEmbed} href={part[2]} title={part[1]} />
+          <MdLink href={part[2]} title={part[1]} />
         );
       case '@':
         return (
@@ -69,6 +70,35 @@ const MdParagraph = ({ text, pArray, refEmbed }) => {
         return type;
     }
   });
+};
+
+const MdParagraph = ({ text, pArray, className }) => {
+  /*
+   * [[desc, href], ...]
+   */
+  const [shownEmbeds, setShownEmbeds] = useState([]);
+
+  const contextData = useMemo(() => ({
+    isEmbedOpen: (href) => shownEmbeds.some(
+      (embedOpts) => embedOpts[1] === href,
+    ),
+    openEmbed: (embedOpts) => setShownEmbeds((cs) => [...cs, embedOpts]),
+    closeEmbed: (href) => setShownEmbeds(
+      (cs) => cs.filter((embedOpts) => embedOpts[1] !== href),
+    ),
+  }), [shownEmbeds]);
+
+  return (
+    <EmbedContext.Provider value={contextData}>
+      <div className={className}>
+        <RecursiveMdParagraph text={text} pArray={pArray} />
+        {shownEmbeds.map(([desc, href]) => {
+          const Embed = EMBEDS[desc][0];
+          return <Embed key={href} url={href} maxHeight={300} />;
+        })}
+      </div>
+    </EmbedContext.Provider>
+  );
 };
 
 export default React.memo(MdParagraph);

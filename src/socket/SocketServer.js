@@ -136,7 +136,8 @@ class SocketServer {
       country,
     ) => {
       const text = `cm,${JSON.stringify(
-        [name, message, country, channelId, id],
+        // eslint-disable-next-line max-len
+        [name, message, country, channelId, id, Math.floor(Date.now / 1000), 0, false, null],
       )}`;
       this.findAllWsByUerId(userId).forEach((ws) => {
         ws.send(text);
@@ -147,11 +148,16 @@ class SocketServer {
       name,
       message,
       channelId,
-      id,
-      country,
+      userId,
+      flag,
+      ts,
+      msgId,
+      flagLegit,
+      avatarId,
     ) => {
       const text = `cm,${JSON.stringify(
-        [name, message, country, channelId, id],
+        // eslint-disable-next-line max-len
+        [name, message, flag, channelId, userId, ts, msgId, flagLegit, avatarId],
       )}`;
       const clientArray = [];
       this.wss.clients.forEach((ws) => {

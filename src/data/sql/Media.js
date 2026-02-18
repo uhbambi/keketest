@@ -103,17 +103,20 @@ const Media = sequelize.define('Media', {
   indexes: [{
     unique: true,
     name: 'filename',
-    fields: ['shortId', 'mimeType'],
+    fields: ['shortId', 'extension'],
+  }, {
+    name: 'hashtype',
+    fields: ['hash', 'mimeType'],
   }],
 });
 
 
-export async function deregisterMedia(shortId, mimeType, extension) {
+export async function deregisterMedia(shortId, extension) {
   try {
-    console.log(`MEDIA: deregister ${shortId} ${mimeType}`);
+    console.log(`MEDIA: deregister ${shortId} ${extension}`);
     await sequelize.query(
-      'DELETE FROM Media WHERE shortId = ? AND mimeType = ?', {
-        replacements: [shortId, mimeType],
+      'DELETE FROM Media WHERE shortId = ? AND extension = ?', {
+        replacements: [shortId, extension],
         type: QueryTypes.DELETE,
         raw: true,
       });
@@ -211,7 +214,7 @@ export async function hasMedia(hashes) {
             hash.shortId = model.shortId;
             hash.existed = true;
           } else {
-            deregisterMedia(model.shortId, model.mimeType, model.extension);
+            deregisterMedia(model.shortId, model.extension);
           }
         }
       }
@@ -242,8 +245,8 @@ export async function registerMedia(
       shortId = getRandomShortId();
       // eslint-disable-next-line no-await-in-loop
       exists = await sequelize.query(
-        'SELECT 1 FROM Media WHERE shortId = ? AND mimeType = ?', {
-          replacements: [shortId, mimeType],
+        'SELECT 1 FROM Media WHERE shortId = ? AND extension = ?', {
+          replacements: [shortId, extension],
           plain: true,
           type: QueryTypes.SELECT,
         },
@@ -261,7 +264,7 @@ export async function registerMedia(
       },
     );
     if (type === 'image' && pHash) {
-      await addImageHash(shortId, mimeType, pHash);
+      await addImageHash(shortId, extension, pHash);
     }
     model.shortId = shortId;
     model.existed = false;

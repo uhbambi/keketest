@@ -13,6 +13,7 @@ import BitChute from './BitChute.jsx';
 import AfreecaTv from './AfreecaTv.jsx';
 import TwitchTv from './TwitchTv.jsx';
 import DirectLinkMedia from './DirectLinkMedia.jsx';
+import LocalMedia from './LocalMedia.jsx';
 
 /*
  * key is the domain (with .com and www. stripped)
@@ -46,4 +47,5 @@ export default {
   'vod.afreecatv': AfreecaTv,
   'play.afreecatv': AfreecaTv,
   'twitch.tv': TwitchTv,
+  '/': LocalMedia,
 };

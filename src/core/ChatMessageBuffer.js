@@ -68,12 +68,19 @@ class ChatMessageBuffer {
     cid,
     uid,
     flag = 'xx',
+    flagLegit = false,
+    avatarId = null,
     sendapi = true,
   ) {
     if (message.length > 200) {
-      return;
+      return null;
     }
-    storeMessage(flag, message, cid, uid);
+    const ts = Math.floor(Date.now() / 1000);
+    const msgId = await storeMessage(message, cid, uid);
+    if (!msgId) {
+      return null;
+    }
+    console.log('message', message, 'has id', msgId);
     /*
      * goes through socket events and then comes
      * back at addMessage
@@ -84,8 +91,13 @@ class ChatMessageBuffer {
       cid,
       uid,
       flag,
+      ts,
+      msgId,
+      flagLegit,
+      avatarId,
       sendapi,
     );
+    return [ts, msgId];
   }
 
   async addMessage(
@@ -94,6 +106,10 @@ class ChatMessageBuffer {
     cid,
     uid,
     flag,
+    ts,
+    msgId,
+    flagLegit,
+    avatarId,
   ) {
     const messages = this.buffer.get(cid);
     if (messages) {
@@ -102,7 +118,10 @@ class ChatMessageBuffer {
         message,
         flag,
         uid,
-        Math.round(Date.now() / 1000),
+        ts,
+        msgId,
+        flagLegit,
+        avatarId,
       ]);
     }
   }

@@ -28,6 +28,14 @@ const sequelize = new Sequelize(MYSQL_DATABASE, MYSQL_USER, MYSQL_PW, {
     connectTimeout: 10000,
     multipleStatements: true,
     maxPreparedStatements: 100,
+    supportBigNumbers: true,
+    /*
+     * enabling the following will return all BIGINT as string, leaving it
+     * disabled will only return them as string if they are larger than what
+     * Number() can represent
+     * TODO: enable this temporary for testing
+     */
+    // bigNumberStrings: true,
   },
 });
 

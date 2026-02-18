@@ -24,7 +24,11 @@ export function receiveChatMessage(
   text,
   country,
   channel,
-  user,
+  userId,
+  ts,
+  msgId,
+  flagLegit,
+  avatarId,
 ) {
   return (dispatch, getState) => {
     channel = Number(channel);
@@ -50,7 +54,11 @@ export function receiveChatMessage(
       text,
       country,
       channel,
-      user,
+      userId,
+      ts,
+      msgId,
+      flagLegit,
+      avatarId,
       isPing: false,
       isRead,
     });

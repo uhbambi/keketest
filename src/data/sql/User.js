@@ -162,9 +162,11 @@ export async function getInfoByUsernameOrId(usernameOrId) {
   try {
     /* eslint-disable max-len */
     let query = `SELECT u.id AS uid, u.name, u.username, s.country, u.userlvl, p.customFlag,
- EXISTS(SELECT 1 FROM Bans b INNER JOIN UserBans ub ON ub.bid = b.id WHERE ub.uid = u.id AND (b.flags & 0x02) > 0 AND (b.expires > NOW() OR b.expires IS NULL)) AS isMuted
- FROM Users u
+COALESCE(CONCAT(a.shortId, ':', a.extension), NULL) AS avatarId,
+EXISTS(SELECT 1 FROM Bans b INNER JOIN UserBans ub ON ub.bid = b.id WHERE ub.uid = u.id AND (b.flags & 0x02) > 0 AND (b.expires > NOW() OR b.expires IS NULL)) AS isMuted
+FROM Users u
     LEFT JOIN Profiles p ON p.uid = u.id
+    LEFT JOIN Media a ON a.id = p.avatar
     LEFT JOIN Sessions s ON s.uid = u.id AND s.country != 'xx'
 WHERE `;
     /* eslint-enable max-len */
@@ -817,6 +819,65 @@ export async function getHighUserLvlUsers() {
     console.error(`SQL Error on getHighUserLvlUsers: ${error.message}`);
   }
   return {};
+}
+
+/**
+ * ensure correct admins based on ADMIN_IDS configuration
+ */
+export async function ensureAdminPowers() {
+  try {
+    const existingAdmins = await sequelize.query(
+      'SELECT id FROM Users WHERE userlvl = ?', {
+        replacements: [USERLVL.ADMIN],
+        raw: true,
+        type: QueryTypes.SELECT,
+      },
+    );
+    const adminsToDemoteIds = [];
+    const adminsToPromoteIds = [];
+    for (let i = 0; i < existingAdmins.length; i += 1) {
+      const existingAdminId = existingAdmins[i].id;
+      if (!ADMIN_IDS.includes(existingAdminId)) {
+        adminsToDemoteIds.push(existingAdminId);
+      }
+    }
+    for (let i = 0; i < ADMIN_IDS.length; i += 1) {
+      const shouldBeAdminId = ADMIN_IDS[i];
+      if (!existingAdmins.some((a) => a.id === shouldBeAdminId)) {
+        adminsToPromoteIds.push(shouldBeAdminId);
+      }
+    }
+    const promises = [];
+    if (adminsToDemoteIds.length) {
+      console.log('Demote Admins', adminsToDemoteIds);
+      promises.push(sequelize.query(
+        `UPDATE Users SET userlvl = ? WHERE id IN (${
+          adminsToDemoteIds.map(() => '?').join(', ')
+        })`, {
+          replacements: [USERLVL.VERIFIED, ...adminsToDemoteIds],
+          raw: true,
+          type: QueryTypes.UPDATE,
+        },
+      ));
+    }
+    if (adminsToPromoteIds.length) {
+      console.log('Promote to Admin', adminsToPromoteIds);
+      promises.push(sequelize.query(
+        `UPDATE Users SET userlvl = ? WHERE id IN (${
+          adminsToPromoteIds.map(() => '?').join(', ')
+        })`, {
+          replacements: [USERLVL.ADMIN, ...adminsToPromoteIds],
+          raw: true,
+          type: QueryTypes.UPDATE,
+        },
+      ));
+    }
+    if (promises.length) {
+      await Promise.all(promises);
+    }
+  } catch (error) {
+    console.error(`SQL Error on ensureAdminPowers: ${error.message}`);
+  }
 }
 
 /**

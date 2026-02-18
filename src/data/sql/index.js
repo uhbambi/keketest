@@ -1,6 +1,6 @@
 import { QueryTypes } from 'sequelize';
-import sequelize, { sync } from './sequelize.js';
-import User, { USERLVL } from './User.js';
+import sequelize, { sync as syncSql } from './sequelize.js';
+import User, { USERLVL, ensureAdminPowers } from './User.js';
 import Channel, { CHANNEL_TYPES } from './Channel.js';
 import Profile from './Profile.js';
 import Message from './Message.js';
@@ -40,6 +40,14 @@ import UserMedia from './association_models/UserMedia.js';
 import IPMedia from './association_models/IPMedia.js';
 import MediaBan from './MediaBan.js';
 import { HourlyCron } from '../../utils/cron.js';
+
+/*
+ * initial sync
+ */
+export async function sync() {
+  await syncSql();
+  await ensureAdminPowers();
+}
 
 /*
  * clean the database of crap
@@ -160,6 +168,14 @@ Profile.belongsTo(User, {
 User.hasOne(Profile, {
   as: 'proile',
   foreignKey: 'uid',
+});
+Profile.belongsTo(Media, {
+  as: 'avatarMedia',
+  foreignKey: 'avatar',
+});
+Media.hasMany(Profile, {
+  as: 'proiles',
+  foreignKey: 'avatar',
 });
 
 /*
@@ -558,7 +574,6 @@ User.hasMany(MediaBan, {
 });
 
 export {
-  sync,
   sequelize,
   // Models
   ProxyWhitelist,

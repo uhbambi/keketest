@@ -194,7 +194,11 @@ class SocketEvents extends EventEmitter {
     message,
     channelId,
     uid,
-    country = 'xx',
+    country,
+    ts,
+    msgId,
+    flagLegit,
+    avatarId,
     sendapi = true,
   ) {
     this.emit(
@@ -203,7 +207,11 @@ class SocketEvents extends EventEmitter {
       message,
       channelId,
       uid,
-      country || 'xx',
+      country,
+      ts,
+      msgId,
+      flagLegit,
+      avatarId,
       sendapi,
     );
   }

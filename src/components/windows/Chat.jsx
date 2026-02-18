@@ -226,6 +226,9 @@ const Chat = () => {
                 country={message[2]}
                 uid={message[3]}
                 ts={message[4]}
+                msgId={message[5]}
+                flagLegit={message[6]}
+                avatarId={message[7]}
                 key={message[5]}
                 openCm={openUserCm}
               />

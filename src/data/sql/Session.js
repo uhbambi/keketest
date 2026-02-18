@@ -2,8 +2,7 @@ import { QueryTypes, DataTypes } from 'sequelize';
 
 import sequelize, { nestQuery } from './sequelize.js';
 import { generateToken, generateTokenHash } from '../../utils/hash.js';
-import { HOUR, CHANNEL_TYPES, USERLVL } from '../../core/constants.js';
-import { ADMIN_IDS } from '../../core/config.js';
+import { HOUR, CHANNEL_TYPES } from '../../core/constants.js';
 
 const Session = sequelize.define('Session', {
   id: {
@@ -260,9 +259,11 @@ export async function resolveSession(token) {
     let user = await sequelize.query(
       `SELECT u.id, u.name, u.username, u.password, u.userlvl, u.flags, u.lastSeen, u.createdAt,
 p.customFlag,
+COALESCE(CONCAT(a.shortId, ':', a.extension), NULL) AS avatarId,
 c.id AS 'channels.cid', c.name AS 'channels.name', c.\`type\` AS 'channels.type', c.lastMessage AS 'channels.lastDate', ucm.lastRead AS 'channels.lastReadDate' FROM Users u
   INNER JOIN Sessions s ON s.uid = u.id
   LEFT JOIN Profiles p ON p.uid = u.id
+  LEFT JOIN Media a ON a.id = p.avatar
   LEFT JOIN UserChannels ucm ON ucm.uid = u.id
   LEFT JOIN Channels c ON c.id = ucm.cid
 WHERE s.token = $1 AND (s.expires > NOW() OR s.expires IS NULL)`, {
@@ -285,11 +286,6 @@ WHERE s.token = $1 AND (s.expires > NOW() OR s.expires IS NULL)`, {
     }
     const promises = [];
     const userId = user.id;
-
-    /* set ADMIN */
-    if (ADMIN_IDS.includes(userId)) {
-      user.userlvl = USERLVL.ADMIN;
-    }
 
     /* get info to DM channels */
     const dmChannelIds = user.channels.filter(

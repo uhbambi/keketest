@@ -10,7 +10,7 @@ import http from 'http';
 import forceGC from './core/forceGC.js';
 import logger from './core/logger.js';
 import rankings from './core/Ranks.js';
-import { sync as syncSql } from './data/sql/sequelize.js';
+import { sync as syncSql } from './data/sql/index.js';
 import { connect as connectRedis } from './data/redis/client.js';
 import routes from './routes/index.js';
 import chatProvider from './core/ChatProvider.js';

@@ -306,8 +306,8 @@ const FileUpload = ({
       await Promise.all(uploadInfoRef.current.uploads.map((i) => i.promise));
 
       const oldInfos = await new Promise((resolve) => {
-        setFileInfos((oldInfos) => {
-          resolve(oldInfos);
+        setFileInfos((infos) => {
+          resolve(infos);
           return [];
         });
       });

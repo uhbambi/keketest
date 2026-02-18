@@ -46,20 +46,16 @@ const Markdown = ({ text, mdArray, parseLinks = false }) => {
             headingElem = <h4>{heading}</h4>;
         }
         return (
-          <>
+          <section>
             {headingElem}
-            <section>
-              <Markdown mdArray={children} />
-            </section>
-          </>
+            <Markdown mdArray={children} />
+          </section>
         );
       }
       /* Paragraph */
       case 'p': {
         return (
-          <p>
-            <MdParagraph pArray={part[1]} />
-          </p>
+          <MdParagraph pArray={part[1]} />
         );
       }
       /* Code Block */

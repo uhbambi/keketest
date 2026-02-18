@@ -3,15 +3,14 @@
  * Also provides previews
  * Links are assumed to start with protocol (http:// etc.)
  */
-import React, { useState } from 'react';
-import { createPortal } from 'react-dom';
+import React, { useContext, useMemo } from 'react';
 import { HiArrowsExpand, HiStop } from 'react-icons/hi';
 import { HiWindow } from 'react-icons/hi2';
 import { t } from 'ttag';
 
 import { getLinkDesc } from '../../core/utils.js';
 import EMBEDS from '../embeds/index.js';
-import MdLocalMedia from './MdLocalMedia.jsx';
+import EmbedContext from '../context/embed.js';
 import { isPopUp } from '../windows/popUpAvailable.js';
 import useLink from '../hooks/link.js';
 import { cdn, u } from '../../utils/utag.js';
@@ -30,48 +29,70 @@ const titleAllowed = [
   'twitch.tv',
 ];
 
-const MdLink = ({ href, title, refEmbed }) => {
-  const [showEmbed, setShowEmbed] = useState(false);
-
-  const desc = getLinkDesc(href);
+const MdLink = ({ href, title }) => {
+  const {
+    isEmbedOpen,
+    openEmbed,
+    closeEmbed,
+  } = useContext(EmbedContext);
 
   const link = useLink();
 
-  // treat pixelplanet links separately
-  if (desc === '/' || desc === window.location.host) {
-    if (href.includes('/#')) {
-      const coords = href.substring(href.indexOf('/#') + 1);
-      if (isPopUp() && window.opener && !window.opener.closed) {
-        return (
-          <a href={u`/${coords}`} target="main">{title || coords}</a>
-        );
-      }
-      return (
-        <a href={u`/${coords}`}>{title || coords}</a>
+  const [desc, uri] = useMemo(() => {
+    let newDesc = getLinkDesc(href);
+    let newUri = href;
+    // make full urls of our own wesbite relative
+    if (newDesc === getLinkDesc(window.location.host)) {
+      newDesc = '/';
+      newUri = href.substring(
+        href.indexOf(window.location.host) + window.location.host.length,
       );
     }
-    if (href.includes('/m/')) {
-      return <MdLocalMedia refEmbed={refEmbed} href={href} title={title} />;
+    // local media will get opened immediately
+    // eslint-disable-next-line max-len
+    if (href.startsWith('/m/') && !href.includes('/t/') && !href.includes('/i/')) {
+      openEmbed([newDesc, href]);
+      newDesc = null;
     }
+    return [newDesc, newUri];
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [href]);
+
+  if (!desc) {
+    return null;
+  }
+
+  // treat pixelplanet links separately
+  if (uri.startsWith('/#')) {
+    const coords = uri.substring(2);
+    if (isPopUp() && window.opener && !window.opener.closed) {
+      return (
+        <a href={u`/${coords}`} target="main">{title || coords}</a>
+      );
+    }
+    return (
+      <a href={u`/${coords}`}>{title || coords}</a>
+    );
   }
 
   const embedObj = EMBEDS[desc];
-  const embedAvailable = embedObj && embedObj[1](href);
-  const Embed = embedObj && embedObj[0];
+  const embedAvailable = embedObj && embedObj[1](uri);
 
   let parsedTitle;
   if (title && titleAllowed.includes(desc)) {
     parsedTitle = title;
   } else if (embedAvailable && embedObj[2]) {
-    parsedTitle = embedObj[2](href);
+    parsedTitle = embedObj[2](uri);
   } else {
-    parsedTitle = href;
+    parsedTitle = uri;
   }
+
+  const isOpen = isEmbedOpen(uri);
 
   return (
     <>
       <a
-        href={href}
+        href={uri}
         target="_blank"
         rel="noopener noreferrer"
       >
@@ -98,7 +119,7 @@ const MdLink = ({ href, title, refEmbed }) => {
               link('PLAYER', {
                 reuse: true,
                 target: 'blank',
-                args: { uri: href },
+                args: { uri },
               });
             }}
             title={t`Open in PopUp`}
@@ -106,9 +127,15 @@ const MdLink = ({ href, title, refEmbed }) => {
             <HiWindow className="ebex" />
           </span>
           <span
-            onClick={() => setShowEmbed(!showEmbed)}
+            onClick={() => {
+              if (isOpen) {
+                closeEmbed(uri);
+              } else {
+                openEmbed([desc, uri]);
+              }
+            }}
           >
-            {(showEmbed)
+            {(isOpen)
               ? (
                 <HiStop
                   className="ebcl"
@@ -122,16 +149,7 @@ const MdLink = ({ href, title, refEmbed }) => {
                 />
               )}
           </span>
-          </span>
-      )}
-      {showEmbed && embedAvailable && (
-        (refEmbed && refEmbed.current)
-          ? createPortal(
-            <Embed url={href} maxHeight={300} />,
-            refEmbed.current,
-          ) : (
-            <Embed url={href} />
-          )
+        </span>
       )}
     </>
   );

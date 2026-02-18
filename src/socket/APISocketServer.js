@@ -43,9 +43,9 @@ class APISocketServer {
       if (userData) {
         userData.fetchedAt = Date.now();
         APISocketServer.#usernameMapping.set(usernameOrId, userData);
-        userData.country = userData.customFlag || mapFlag(
-          userData.userlvl, userData.country,
-        ) || 'yy';
+        [userData.flagLegit, userData.country] = mapFlag(
+          userData.customFlag, userData.userlvl, userData.country || 'yy',
+        );
         delete userData.customFlag;
       }
     }
@@ -166,6 +166,10 @@ class APISocketServer {
     channelId,
     uid,
     country,
+    ts,
+    msgId,
+    flagLegit,
+    avatarId,
     sendapi,
     ws = null,
   ) {
@@ -324,6 +328,8 @@ class APISocketServer {
         let uid;
         let name;
         let country;
+        let flagLegit = false;
+        let avatarId = null;
         let accepted = true;
 
         if (username.startsWith('@') && username.indexOf(':') !== -1) {
@@ -344,7 +350,7 @@ class APISocketServer {
           } else if (userData.isMuted) {
             accepted = false;
           }
-          ({ uid, name, country } = userData);
+          ({ uid, name, country, avatarId, flagLegit } = userData);
           if (!name || !uid) {
             accepted = false;
           }
@@ -354,12 +360,14 @@ class APISocketServer {
           /*
           * do not send message back up ws that sent it
           */
-          chatProvider.broadcastChatMessage(
+          const [ts, msgId] = chatProvider.broadcastChatMessage(
             name,
             msg,
             channelId,
             uid,
             country,
+            flagLegit,
+            avatarId,
             false,
           );
           this.broadcastChatMessage(
@@ -368,8 +376,12 @@ class APISocketServer {
             channelId,
             uid,
             country,
+            ts,
+            msgId,
+            flagLegit,
+            avatarId,
             true,
-            ws,
+            ws = null,
           );
         }
 
