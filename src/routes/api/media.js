@@ -18,6 +18,7 @@ const router = express.Router();
  * and if the file is already uploaded
  */
 router.post('/preflight', (req, res) => {
+  req.tickRateLimiter(10000);
   const { ttag: { t } } = req;
   const bb = busboy({ headers: req.headers, limits: { fields: 50 } });
 
@@ -172,6 +173,7 @@ router.post('/preflight', (req, res) => {
 });
 
 router.post('/upload', (req, res) => {
+  req.tickRateLimiter(30000);
   console.log('got upload');
   const { ttag: { t } } = req;
   const bb = busboy({ headers: req.headers });

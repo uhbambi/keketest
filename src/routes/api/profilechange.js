@@ -14,8 +14,8 @@ import { getMediaType } from '../../data/sql/Media.js';
 import { setUserAvatar, setCustomFlag } from '../../data/sql/Profile.js';
 
 async function profilechange(req, res) {
-  const { profile } = req.body;
-  const { user } = req;
+  req.tickRateLimiter(15000);
+  const { ttag: { t }, user, body: { profile } } = req;
 
   if (!profile || typeof profile !== 'object') {
     throw new Error('Invalid request, no profile object included');
@@ -38,13 +38,13 @@ async function profilechange(req, res) {
     needsReload = true;
     const isLegitMedia = await getMediaType(avatarId) === 'image';
     if (!isLegitMedia) {
-      throw new Error('Invalid id for avatar image');
+      throw new Error(t`Avatar can only be an image`);
     }
     const success = await setUserAvatar(user.id, avatarId);
     if (success) {
       logger.info(`User ${user.name} changed avatar to ${avatarId}`);
     } else {
-      throw new Error('Could not set your avtar');
+      throw new Error(t`Could not set your avtar`);
     }
   }
 
@@ -55,7 +55,7 @@ async function profilechange(req, res) {
     if (success) {
       logger.info(`User ${user.name} removed his custom flag`);
     } else {
-      throw new Error('Could not set your custom flag');
+      throw new Error('Could not remove your custom flag');
     }
   } else if (typeof customFlag === 'string') {
     changed = true;
