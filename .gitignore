@@ -16,7 +16,6 @@ test*.wasm
 utils/rendering
 
 TODO
-media
 
 logs
 *.log

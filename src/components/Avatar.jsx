@@ -5,20 +5,39 @@ import React from 'react';
 
 import { getColorFromId, getCharFromId } from '../core/utils.js';
 import { cdn } from '../utils/utag.js';
+import useLink from './hooks/link.js';
+import { getUrlFromMediaId } from '../utils/media/utils.js';
 
 const Avatar = ({ uid, isDarkMode, avatarId }) => {
+  const link = useLink();
+
   const avatarStyle = {
     backgroundColor: getColorFromId(uid, isDarkMode),
     color: (isDarkMode) ? '#636363' : '#a7a5a5',
   };
-  if (avatarId) {
-    const [shortId, extension] = avatarId.split(':');
-    // eslint-disable-next-line max-len
-    avatarStyle.backgroundImage = `url(${cdn`/m/t/${shortId}/avatar.${extension}.webp`})`;
+  const [image, thumb] = getUrlFromMediaId(avatarId);
+  if (thumb) {
+    avatarStyle.backgroundImage = `url(${cdn`${thumb}`})`;
   }
+  console.log(image, thumb);
 
   return (
-    <div className="avatar" style={avatarStyle}>
+    <div
+      className="avatar"
+      style={avatarStyle}
+      onClick={(evt) => {
+        evt.stopPropagation();
+        if (image) {
+          link('PLAYER', {
+            reuse: true,
+            target: 'blank',
+            args: {
+              uri: image,
+            },
+          });
+        }
+      }}
+    >
       {!avatarId && getCharFromId(uid)}
     </div>
   );

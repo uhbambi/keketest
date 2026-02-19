@@ -207,7 +207,7 @@ const FileUpload = ({
       if (uploadInfoRef.current.uploadTimeout) {
         clearTimeout(uploadInfoRef.current.uploadTimeout);
       }
-      uploadInfoRef.current.uploadTimeout = setTimeout(uploadFile, 3000);
+      uploadInfoRef.current.uploadTimeout = setTimeout(uploadFile, 2000);
     }
 
     setFileInfos((oldInfos) => oldInfos.map((info) => {
@@ -275,7 +275,7 @@ const FileUpload = ({
       if (uploadInfoRef.current.preflightTimeout) {
         clearTimeout(uploadInfoRef.current.preflightTimeout);
       }
-      uploadInfoRef.current.preflightTimeout = setTimeout(doPreflight, 1000);
+      uploadInfoRef.current.preflightTimeout = setTimeout(doPreflight, 500);
     }
   }, [doPreflight]);
 

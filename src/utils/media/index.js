@@ -1,0 +1,277 @@
+/*
+ * media processing and storing
+ */
+import path from 'path';
+import fs from 'fs';
+
+import { getRandomString } from '../../core/utils.js';
+import {
+  registerMedia, deregisterMedia, hasMedia,
+} from '../../data/sql/Media.js';
+import { MAX_MEDIA_SIZE } from '../../core/constants.js';
+import { MEDIA_FOLDER } from '../../core/config.js';
+
+import calculateHash from './hash.js';
+import calculatePHash from './phash.js';
+import stripExif, { destruct } from './stripExif.js';
+import createVideoThumbnails from './videoThumbnails.js';
+import createImageThumbnails from './imageThumbnails.js';
+import checkIfBanned from './ban.js';
+import { splitFilename } from './utils.js';
+import { mimeTypeFitsToExt, isMimeTypeAllowed } from './serverUtils.js';
+
+export {
+  createImageThumbnails, createVideoThumbnails,
+  calculateHash, calculatePHash, stripExif, destruct,
+  mimeTypeFitsToExt, isMimeTypeAllowed,
+};
+
+
+/**
+ * store stream into file, check for size limits and stalling
+ * @param fileStream input stream
+ * @param filePath output file
+ * @return Promise<size>
+ */
+function storeFileStream(fileStream, filePath) {
+  return new Promise((resolve, reject) => {
+    let ended = false;
+    let totalSize = 0;
+    const startTime = Date.now();
+    let timeoutStartTime;
+    let timeout;
+
+    const writeStream = fs.createWriteStream(filePath);
+
+    const cancel = (error) => {
+      if (ended) {
+        return;
+      }
+      ended = true;
+      clearTimeout(timeout);
+      writeStream.destroy();
+      if (typeof error === 'string') {
+        error = new Error(error);
+      }
+      reject(error);
+    };
+
+    /*
+     * have to deel with drip-feeding data to hog up resources
+     */
+    const resetTimeout = () => {
+      if (timeout) {
+        clearTimeout(timeout);
+      }
+      timeoutStartTime = Date.now();
+      timeout = setTimeout(() => cancel('stalled'), 30000);
+    };
+
+    resetTimeout();
+
+    fileStream.on('data', (chunk) => {
+      if (ended) {
+        return;
+      }
+      totalSize += chunk.length;
+      if (totalSize > MAX_MEDIA_SIZE) {
+        cancel('too_long');
+        return;
+      }
+      const now = Date.now();
+      if (now - timeoutStartTime > 15000) {
+        if (totalSize / (now - startTime) < 8) {
+          cancel('stalled');
+          return;
+        }
+        resetTimeout();
+      }
+    });
+
+    fileStream.on('error', cancel);
+    fileStream.on('limit', cancel);
+    writeStream.on('error', cancel);
+
+    fileStream.on('close', () => console.log('reading done'));
+    writeStream.on('close', () => {
+      if (ended) {
+        return;
+      }
+      console.log('writing done');
+      ended = true;
+      clearTimeout(timeout);
+      resolve(totalSize);
+    });
+
+    fileStream.pipe(writeStream);
+  });
+}
+
+/**
+ * store media file from filestream
+ * @param fileStream
+ * @param info { mimeType, filename }
+ * @param [user] user object from middleware
+ * @param [ip] ip object from middleware
+ * @param [hashCheck] sha256 hash in hex that we check against
+ * @param [restrictType] exclusive type to allow 'audio', 'video', 'image', ...
+ * @return {
+ *   hash,
+ *   extension,
+ *   mimeType,
+ *   shortId,
+ *   name,
+ *   originalFilename,
+ *   [existed],
+ * }
+ */
+export async function storeMediaStream(
+  fileStream, info, user, ip, hashCheck, restrictType,
+) {
+  console.log('parse enter');
+  const { mimeType } = info;
+
+  /*
+   * ensure sane type
+   */
+  const filename = info.filename?.trim();
+  if (!filename || !mimeType) {
+    throw new Error('no_info');
+  }
+  const [name, extension] = splitFilename(filename);
+
+  if (!mimeTypeFitsToExt(mimeType, filename)) {
+    throw new Error('unknown_type');
+  }
+
+  const type = mimeType.substring(0, mimeType.indexOf('/'));
+  if (restrictType && type !== restrictType) {
+    throw new Error('invalid_type');
+  }
+
+  const model = {
+    name, mimeType, extension,
+    originalFilename: filename,
+  };
+
+  if (hashCheck) {
+    model.hash = hashCheck;
+    /*
+     * if hash got given already, check if file already exists
+     */
+    await hasMedia(model);
+    if (model.shortId) {
+      return model;
+    }
+  }
+
+  /*
+   * store file temporary until we got hash
+   */
+  const tmpFolder = path.resolve(MEDIA_FOLDER, 'tmp');
+  const temporaryFile = path.join(
+    tmpFolder, `${getRandomString() + getRandomString()}.${extension}`,
+  );
+  let targetFile;
+
+  /*
+   * make sure temporary folder exists
+   */
+  if (!fs.existsSync(tmpFolder)) {
+    fs.mkdirSync(tmpFolder, { recursive: true });
+  }
+
+  try {
+    /*
+     * store stream into temporary file
+     */
+    const size = await storeFileStream(fileStream, temporaryFile);
+
+    /*
+     * if it is an image, calculate perceptive hash
+     */
+    let pHash = null;
+    if (type === 'image') {
+      try {
+        pHash = await calculatePHash(temporaryFile);
+      } catch {
+        throw new Error('broken_file');
+      }
+    }
+
+    /*
+     * calculate hash
+     */
+    console.log('calculate hash');
+    model.hash = await calculateHash(temporaryFile);
+
+    /*
+     * strip exif data
+     */
+    console.log('strip exif');
+    await stripExif(temporaryFile);
+
+    /*
+     * check if file already exists
+     */
+    console.log('save model');
+    await hasMedia(model);
+    if (model.shortId) {
+      return model;
+    }
+
+    /*
+     * check if media is banned
+     */
+    const reason = await checkIfBanned(
+      temporaryFile, model.hash, pHash, user, ip,
+    );
+    if (reason) {
+      throw new Error(`media_banned_reason_${String(reason)}`);
+    }
+
+    /*
+     * register media, this gives us the shortId for storage
+     */
+    await registerMedia(model, type, size, pHash);
+    if (!model.shortId) {
+      throw new Error('server_error');
+    }
+
+    /*
+     * move it to target folder by hash
+     */
+    targetFile = `${model.shortId}.${extension}`;
+    const targetFolder = path.resolve(
+      MEDIA_FOLDER,
+      targetFile.substring(0, 2),
+      targetFile.substring(2, 4),
+    );
+    if (!fs.existsSync(targetFolder)) {
+      fs.mkdirSync(targetFolder, { recursive: true });
+    }
+    targetFile = path.resolve(targetFolder, targetFile.substring(4));
+    fs.renameSync(temporaryFile, targetFile);
+  } finally {
+    if (fs.existsSync(temporaryFile)) {
+      fs.rmSync(temporaryFile);
+    }
+  }
+
+  try {
+    /*
+     * create thumbnails
+     */
+    if (type === 'image') {
+      await createImageThumbnails(targetFile);
+    } else if (type === 'video') {
+      await createVideoThumbnails(targetFile);
+    }
+
+    console.log('parse leave');
+    return model;
+  } catch (error) {
+    await deregisterMedia(model.shortId, model.mimeType, model.extension);
+    throw error;
+  }
+}
