@@ -39,7 +39,7 @@ function ChatMessage({
 
   let flagClass = 'chatflag';
   if (!flagLegit) {
-    flagClass += 'illegit';
+    flagClass += ' illegit';
   }
 
   if (isInfo || isEvent) {

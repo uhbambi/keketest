@@ -5,10 +5,13 @@
  * it
  *
  */
+import fs from 'fs';
+import path from 'path';
+
 import logger from '../../core/logger.js';
 import socketEvents from '../../socket/socketEvents.js';
 import { getMediaType } from '../../data/sql/Media.js';
-import { setUserAvatar } from '../../data/sql/Profile.js';
+import { setUserAvatar, setCustomFlag } from '../../data/sql/Profile.js';
 
 async function profilechange(req, res) {
   const { profile } = req.body;
@@ -18,7 +21,7 @@ async function profilechange(req, res) {
     throw new Error('Invalid request, no profile object included');
   }
 
-  const { avatarId } = profile;
+  const { avatarId, customFlag } = profile;
   let changed = false;
   let needsReload = false;
   if (avatarId === null) {
@@ -42,6 +45,35 @@ async function profilechange(req, res) {
       logger.info(`User ${user.name} changed avatar to ${avatarId}`);
     } else {
       throw new Error('Could not set your avtar');
+    }
+  }
+
+  if (customFlag === null) {
+    changed = true;
+    needsReload = true;
+    const success = await setCustomFlag(user.id, null);
+    if (success) {
+      logger.info(`User ${user.name} removed his custom flag`);
+    } else {
+      throw new Error('Could not set your custom flag');
+    }
+  } else if (typeof customFlag === 'string') {
+    changed = true;
+    needsReload = true;
+    if (customFlag.length !== 2
+      /* eslint-disable max-len */
+      || customFlag.includes('/') || customFlag.includes('\\') || customFlag.includes('.')
+      || ['zz', 'z1', 'z2', 'z3', 'xx', 'a1', 'a2', 'yy', 'ap'].includes(customFlag)
+      || !fs.existsSync(path.join(__dirname, 'public', 'cf', `${customFlag}.gif`))
+      /* eslint-enable max-len */
+    ) {
+      throw new Error('This custom flag is invalid');
+    }
+    const success = await setCustomFlag(user.id, customFlag);
+    if (success) {
+      logger.info(`User ${user.name} changed flag to ${customFlag}`);
+    } else {
+      throw new Error('Could not set your custom flag');
     }
   }
 

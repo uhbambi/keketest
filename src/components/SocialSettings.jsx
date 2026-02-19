@@ -1,13 +1,15 @@
 /*
  * Change Mail Form
  */
+/* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import { useDispatch, useSelector, shallowEqual } from 'react-redux';
 import { RiSave3Line } from 'react-icons/ri';
 import { IoTrashOutline } from 'react-icons/io5';
 import { t } from 'ttag';
 
+import { cdn } from '../utils/utag.js';
 import DeleteList from './DeleteList.jsx';
 
 import {
@@ -27,6 +29,7 @@ const selectBlocks = (state) => [
   state.user.priv,
   state.user.avatarId,
   state.user.id,
+  state.user.customFlag,
   state.fetching.fetchingApi,
 ];
 
@@ -38,14 +41,44 @@ const SocialSettings = ({ done }) => {
     priv,
     avatarId,
     userId,
+    customFlag,
     fetching,
   ] = useSelector(selectBlocks, shallowEqual);
+  const [selectedCustomFlag, setSelectedCustomFlag] = useState(customFlag);
   const isDarkMode = useSelector(selectIsDarkMode);
   const uploadRef = useRef();
+  const flagAtlasRef = useRef();
+  const flagAtlasJsonRef = useRef();
   const dispatch = useDispatch();
+
+  const onFlagAtlasClick = async (event) => {
+    /*
+     * get information of flag atlas, set ref to true while fetching those
+     */
+    if (flagAtlasJsonRef.current === true) {
+      return;
+    }
+    if (!flagAtlasJsonRef.current) {
+      flagAtlasJsonRef.current = true;
+      try {
+        const response = await fetch(cdn`/cf/atlas.json`);
+        flagAtlasJsonRef.current = await response.json();
+      } catch {
+        flagAtlasJsonRef.current = null;
+        return;
+      }
+    }
+    const { codes, width, height, margin, columns } = flagAtlasJsonRef.current;
+    const rect = flagAtlasRef.current.getBoundingClientRect();
+    const xRel = Math.floor((event.clientX - rect.left) / (width + margin));
+    const yRel = Math.floor((event.clientY - rect.top) / (height + margin));
+    const flag = codes[yRel * columns + xRel];
+    setSelectedCustomFlag(flag);
+  };
 
   return (
     <div className="inarea">
+
       <div className="setitem">
         <div className="setrow">
           <h3 className="settitle">{t`Avatar`}</h3>
@@ -60,6 +93,18 @@ const SocialSettings = ({ done }) => {
               type="button"
               onClick={async () => {
                 if (!fetching) {
+                  dispatch(changeProfile({ avatarId: null }));
+                }
+              }}
+              title={t`Clear`}
+              disabled={fetching}
+            >
+              <IoTrashOutline />
+            </button>
+            <button
+              type="button"
+              onClick={async () => {
+                if (!fetching) {
                   const files = await uploadRef.current?.();
                   if (files.length) {
                     dispatch(changeProfile({ avatarId: files[0].mediaId }));
@@ -67,19 +112,9 @@ const SocialSettings = ({ done }) => {
                 }
               }}
               title={t`Save`}
+              disabled={fetching}
             >
-              {(fetching) ? '...' : (<RiSave3Line />)}
-            </button>
-            <button
-              type="button"
-              onClick={async () => {
-                if (!fetching) {
-                  dispatch(changeProfile({ avatarId: null }));
-                }
-              }}
-              title={t`Clear`}
-            >
-              {(fetching) ? '...' : (<IoTrashOutline />)}
+              <RiSave3Line />
             </button>
           </div>
         </div>
@@ -88,6 +123,62 @@ const SocialSettings = ({ done }) => {
         }</div>
         <div className="modaldivider" />
       </div>
+
+
+      <h3
+        style={{
+          textAlign: 'left',
+          marginLeft: 10,
+        }}
+      >{t`Custom Flag`}</h3>
+      <p>
+        {(selectedCustomFlag) ? (
+          <span key="cfs">
+            {t`Selected Flag:`}
+            &nbsp;
+            <img
+              className="chatflag illegit"
+              src={cdn`/cf/${selectedCustomFlag}.gif`}
+              alt={selectedCustomFlag}
+            />
+          </span>
+        ) : (
+          <span key="ncf">{t`No flag selected`}</span>
+        )}
+        &nbsp;
+        <button
+          type="button"
+          onClick={() => setSelectedCustomFlag(null)}
+          title={t`Clear`}
+          disabled={fetching || !selectedCustomFlag}
+        >
+          <IoTrashOutline />
+        </button>
+        <button
+          type="button"
+          onClick={async () => {
+            if (!fetching) {
+              dispatch(changeProfile({ customFlag: selectedCustomFlag }));
+            }
+          }}
+          title={t`Save`}
+          disabled={fetching || customFlag === selectedCustomFlag}
+        >
+          <RiSave3Line />
+        </button>
+      </p>
+      <div style={{ overflow: 'auto' }}>
+        <img
+          src={cdn`/cf/atlas.png`}
+          alt={t`Select Flag`}
+          ref={flagAtlasRef}
+          onClick={onFlagAtlasClick}
+          style={{ cursor: 'pointer' }}
+          onDragStart={(e) => e.preventDefault()}
+        />
+      </div>
+      <div className="modaldivider" />
+
       <SettingsItem
         title={t`Block DMs`}
         value={blockDm}

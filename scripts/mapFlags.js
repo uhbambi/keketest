@@ -6,10 +6,11 @@ import fs from 'fs';
 import path from 'path';
 import sharp from 'sharp';
 
-const FORBIDDEN_FLAGS = ['zz', 'z1', 'z2', 'z3', 'xx', 'a1', 'a2', 'mx', 'ap'];
+const FORBIDDEN_FLAGS = ['zz', 'z1', 'z2', 'z3', 'xx', 'a1', 'a2', 'yy', 'ap'];
 const MARGIN = 2;
 const FLAG_WIDTH = 16;
 const FLAG_HEIGHT = 11;
+const SCALE = 2;
 
 const __dirname = import.meta.dirname;
 
@@ -36,7 +37,7 @@ async function mapFlags() {
   }
 
   console.log('Available flags:', flagCodes);
-  const columns = Math.ceil(Math.sqrt(flagCount) / 1.5);
+  const columns = Math.ceil(Math.sqrt(flagCount) * 2);
   const rows = Math.ceil(flagCount / columns);
   const atlasWidth = columns * (FLAG_WIDTH + MARGIN) + MARGIN;
   const atlasHeight = rows * (FLAG_HEIGHT + MARGIN) + MARGIN;
@@ -46,7 +47,7 @@ async function mapFlags() {
       width: atlasWidth,
       height: atlasHeight,
       channels: 4,
-      background: { r: 0, g: 0, b: 0, alpha: 0 } // Transparent background
+      background: { r: 0, g: 0, b: 0, alpha: 0 }
     }
   });
 
@@ -98,7 +99,7 @@ async function mapFlags() {
   .toBuffer();
 
   await sharp(atlasBuffer)
-    .resize(atlasWidth * 2, atlasHeight * 2, {
+    .resize(atlasWidth * SCALE, atlasHeight * SCALE, {
       kernel: 'nearest',
       fit: 'fill',
     })
@@ -106,9 +107,9 @@ async function mapFlags() {
 
   fs.writeFileSync(flagMapJson, JSON.stringify({
     codes: flagCodes,
-    width: FLAG_WIDTH * 2,
-    height: FLAG_HEIGHT * 2,
-    margin: MARGIN * 2,
+    width: FLAG_WIDTH * SCALE,
+    height: FLAG_HEIGHT * SCALE,
+    margin: MARGIN * SCALE,
     columns,
   }, null, 2));
   // eslint-disable-next-line max-len

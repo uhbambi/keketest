@@ -54,7 +54,11 @@ const MdLocalMedia = ({ url, fill }) => {
 
   if (thumbnail && !expanded && !fill) {
     return (
-      <div className="embtrc" style={style}>
+      <div
+        className="embtrc"
+        style={style}
+        onClick={toggleExpand}
+      >
         <img
           alt={idName}
           src={thumbnail}
@@ -62,8 +66,6 @@ const MdLocalMedia = ({ url, fill }) => {
             maxWidth: '100%',
             maxHeight: '100%',
           }}
-          referrerPolicy="no-referrer"
-          onClick={toggleExpand}
         />
       </div>
     );
@@ -118,7 +120,11 @@ const MdLocalMedia = ({ url, fill }) => {
   );
 
   return (
-    <div className="embtrc" style={style}>
+    <div
+      className="embtrc"
+      style={style}
+      onClick={toggleExpand}
+    >
       {(() => {
         switch (contentType) {
           case 'image':
@@ -130,7 +136,6 @@ const MdLocalMedia = ({ url, fill }) => {
                   maxWidth: '100%',
                   maxHeight: '100%',
                 }}
-                onClick={toggleExpand}
                 referrerPolicy="no-referrer"
               />
             );

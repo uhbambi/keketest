@@ -888,24 +888,6 @@ tr:nth-child(even) {
   transition: opacity 200ms ease-in-out;
 }
 
-.chatbox div .chatarea  {
-  height: 174px;
-}
-.chatarea {
-  padding: 3px 3px 0px 3px;
-  margin: 0px;
-  overflow-x: hidden;
-  overflow-y: scroll;
-}
-
-.chatinput {
-  height: 24px;
-  white-space: nowrap;
-  display: flex;
-}
-.chathead {
-  display: flex;
-}
 table {
   font-size: 13px;
 }
@@ -924,11 +906,25 @@ table td span {
  * ========================= CHAT STUFF HERE ===================================
  */
 
-.chatname {
-  padding-left: 4px;
-  max-width: 100px;
-  background-color: #ebf2f9;
+.chatbox div .chatarea  {
+  height: 174px;
 }
+.chatarea {
+  padding: 3px 3px 0px 3px;
+  margin: 0px;
+  overflow-x: hidden;
+  overflow-y: scroll;
+}
+
+.chatinput {
+  height: 24px;
+  white-space: nowrap;
+  display: flex;
+}
+.chathead {
+  display: flex;
+}
+
 .mention, .ping {
   font-size: smaller;
   max-width: 85px;
@@ -942,10 +938,10 @@ table td span {
 .chatmsg {
   font-size: 13px;
   display: flex;
-  gap: 6px;  /* Space between avatar and content */
+  gap: 6px;
   padding: 5px 0 5px 2px;
   list-style: none;
-  align-items: flex-start;  /* Align avatar to top of message */
+  align-items: flex-start;
 }
 
 .avatar {
@@ -967,15 +963,15 @@ table td span {
 }
 
 .msgcontent {
-  flex: 1;  /* Take remaining space */
-  min-width: 0;  /* Prevent overflow issues */
+  flex: 1;
+  min-width: 0;
 }
 
 .msgheader {
   display: flex;
-  justify-content: space-between;  /* Pushes name left, timestamp right */
-  align-items: baseline;  /* Align text baselines */
-  flex-wrap: wrap;  /* Allow wrapping on small screens */
+  justify-content: space-between;
+  align-items: baseline;
+  flex-wrap: wrap;
   margin-bottom: 1px;
 }
 
@@ -993,24 +989,26 @@ table td span {
 }
 
 .chatflag.illegit {
-  border-color: #f2c84a;
+  border-color: #b02c2c;
   border-style: solid;
   border-width: 1px;
 }
 
 .chatname {
+  padding-left: 4px;
   font-weight: 500;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  max-width: 200px;  /* Adjust based on your design */
+  background-color: #ebf2f9;
+  max-width: 150px;
 }
 
 .chatts {
   color: #83839f;
   font-size: 10px;
   white-space: nowrap;
-  flex-shrink: 0;  /* Prevent timestamp from wrapping */
+  flex-shrink: 0;
 }
 /*
 .chatts {

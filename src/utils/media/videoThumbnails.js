@@ -15,7 +15,7 @@ export default async function createVideoThumbnails(filePath) {
         '-i', filePath,
         '-ss', '00:00:01',
         '-vframes', '1',
-        '-vf', 'scale=320:240:force_original_aspect_ratio=decrease',
+        '-vf', 'scale=200:150:force_original_aspect_ratio=decrease',
         '-qscale:v', 80,
         '-compression_level', '6',
         '-y',

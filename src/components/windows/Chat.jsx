@@ -260,6 +260,7 @@ const Chat = () => {
             />
             <FileUpload
               key="fui"
+              maxFiles={3}
               uploadRef={uploadRef}
               printErrors={printWarnings}
             />
