@@ -92,10 +92,12 @@ const MdParagraph = ({ text, pArray, className }) => {
     <EmbedContext.Provider value={contextData}>
       <div className={className}>
         <RecursiveMdParagraph text={text} pArray={pArray} />
-        {shownEmbeds.map(([desc, href]) => {
-          const Embed = EMBEDS[desc][0];
-          return <Embed key={href} url={href} maxHeight={300} />;
-        })}
+        <div>
+          {shownEmbeds.map(([desc, href]) => {
+            const Embed = EMBEDS[desc][0];
+            return <Embed key={href} url={href} maxHeight={300} />;
+          })}
+        </div>
       </div>
     </EmbedContext.Provider>
   );

@@ -35,6 +35,7 @@ const DirectLinkEmbed = ({
         left: (maxHeight) && '50%',
         transform: (maxHeight) && 'translateX(-50%)',
         textAlign: 'initial',
+        margin: 3,
       }}
     >
       {iFrame}

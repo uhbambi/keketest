@@ -1047,6 +1047,7 @@ table td span {
   font-size: 16px;
 }
 .embtr {
+  background-color: rgba(0, 0, 0, 0.65);
   position: absolute;
   top: 0;
   right: 0;
@@ -1061,7 +1062,6 @@ table td span {
   color: #4646ff;
 }
 .ebem {
-  background-color: rgba(0, 0, 0, 0.7);
   color: white;
   width: 24px;
   height: 18px;

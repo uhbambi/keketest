@@ -45,8 +45,42 @@ const MdLocalMedia = ({ url, fill }) => {
     }
   };
 
+  const style = (fill) ? {
+    height: '100%',
+    alignContent: 'center',
+    textAlign: 'center',
+  } : {
+    display: 'inline-block',
+    margin: 3,
+  }
+
+  if (thumbnail && !expanded && !fill) {
+    return (
+      <div className="embtrc" style={style}>
+        <img
+          alt={idName}
+          src={thumbnail}
+          style={{
+            maxWidth: '100%',
+            maxHeight: '100%',
+          }}
+          referrerPolicy="no-referrer"
+          onClick={toggleExpand}
+        />
+      </div>
+    );
+  }
+
   const buttons = (
     <span className="embtr">
+      <a
+        href={uri}
+        target="_blank"
+        title={t`Download`}
+        rel="noreferrer"
+      >
+        <MdFileDownload className="ebem" />
+      </a>
       {(!fill) && (
         <>
           <span
@@ -82,38 +116,12 @@ const MdLocalMedia = ({ url, fill }) => {
           </span>
         </>
       )}
-      <a
-        href={uri}
-        target="_blank"
-        title={t`Download`}
-        rel="noreferrer"
-      >
-        <MdFileDownload className="ebem" />
-      </a>
     </span>
   );
 
   return (
-    <div
-      className="embtrc"
-      style={{
-        height: fill && '100%',
-        alignContent: fill && 'center',
-        textAlign: fill && 'center',
-      }}
-    >
-      {(thumbnail && !expanded && !fill) ? (
-        <img
-          alt={idName}
-          src={thumbnail}
-          style={{
-            maxWidth: '100%',
-            maxHeight: '100%',
-          }}
-          referrerPolicy="no-referrer"
-          onClick={toggleExpand}
-        />
-      ) : (() => {
+    <div className="embtrc" style={style}>
+      {(() => {
         switch (contentType) {
           case 'image':
             return (
