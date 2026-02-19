@@ -11,6 +11,7 @@ import webpack from 'webpack';
 import validate from 'ttag-cli/dist/src/commands/validate.js';
 
 import minifyCss from './minifyCss.js';
+import mapFlags from './mapFlags.js';
 import minifyJs from './minifyJs.js';
 import buildLanguages from './buildLanguageBundles.js';
 import createImages from './createImages.js';
@@ -314,6 +315,8 @@ async function build() {
   const st = Date.now();
   // cleanup old files
   cleanUpBeforeBuild(doBuildServer, doBuildClient);
+
+  await mapFlags();
 
   const promises = [];
 
