@@ -12,6 +12,7 @@ import leaveChan from './leavechan.js';
 import block from './block.js';
 import blockdm from './blockdm.js';
 import privatize from './privatize.js';
+import profilechange from './profilechange.js';
 import modtools from './modtools.js';
 import baninfo from './baninfo.js';
 import getiid from './getiid.js';
@@ -98,6 +99,8 @@ router.post('/block', block);
 router.post('/blockdm', blockdm);
 
 router.post('/privatize', privatize);
+
+router.post('/profilechange', profilechange);
 
 router.use(errorJson);
 

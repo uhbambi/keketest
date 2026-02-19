@@ -3,7 +3,7 @@
  * Also provides previews
  * Links are assumed to start with protocol (http:// etc.)
  */
-import React, { useContext, useMemo } from 'react';
+import React, { useContext, useMemo, useEffect } from 'react';
 import { HiArrowsExpand, HiStop } from 'react-icons/hi';
 import { HiWindow } from 'react-icons/hi2';
 import { t } from 'ttag';
@@ -51,12 +51,17 @@ const MdLink = ({ href, title }) => {
     // local media will get opened immediately
     // eslint-disable-next-line max-len
     if (href.startsWith('/m/') && !href.includes('/t/') && !href.includes('/i/')) {
-      openEmbed([newDesc, href]);
       newDesc = null;
     }
     return [newDesc, newUri];
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [href]);
+
+  useEffect(() => {
+    if (desc === null) {
+      openEmbed(['/', uri]);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   if (!desc) {
     return null;

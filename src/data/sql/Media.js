@@ -212,6 +212,7 @@ export async function hasMedia(hashes) {
           if (fs.existsSync(filePath)) {
             hash.extension = model.extension;
             hash.shortId = model.shortId;
+            hash.mediaId = `${model.shortId}:${model.extension}`;
             hash.existed = true;
           } else {
             deregisterMedia(model.shortId, model.extension);
@@ -268,11 +269,37 @@ export async function registerMedia(
     }
     model.shortId = shortId;
     model.existed = false;
+    model.mediaId = `${shortId}:${extension}`;
     return true;
   } catch (error) {
     console.error(`SQL Error on registerMedia: ${error.message}`);
   }
   return false;
+}
+
+/**
+ * get type of media by mediaId
+ * @param mediaId
+ * @return 'image' | 'video' | ... or null if not exists
+ */
+export async function getMediaType(mediaId) {
+  try {
+    const [shortId, extension] = mediaId.split(':');
+    if (!shortId || !extension) {
+      return null;
+    }
+    const model = await sequelize.query(
+      'SELECT type FROM Media WHERE shortId = ? AND extension = ?', {
+        replacements: [shortId, extension],
+        type: QueryTypes.SELECT,
+        plain: true,
+      },
+    );
+    return model?.type;
+  } catch (err) {
+    console.error('SQL Error on getMediaType:', err.message);
+    return null;
+  }
 }
 
 export default Media;

@@ -18,6 +18,8 @@ export default async function getMe(user, ip, lang) {
   let havePassword;
   let blockDm;
   let priv;
+  let avatarId;
+  let customFlag;
 
   /* [[id, name], ...] */
   let blocked;
@@ -26,7 +28,7 @@ export default async function getMe(user, ip, lang) {
 
   if (user) {
     const { data } = user;
-    ({ id, name, username, userlvl } = data);
+    ({ id, name, username, userlvl, avatarId, customFlag } = data);
     blockDm = !!(data.flags & (0x01 << USER_FLAGS.BLOCK_DM));
     priv = !!(data.flags & (0x01 << USER_FLAGS.PRIV));
     havePassword = data.password !== null;
@@ -44,6 +46,8 @@ export default async function getMe(user, ip, lang) {
     blockDm = false;
     blockDm = false;
     priv = false;
+    avatarId = null;
+    customFlag = null;
     blocked = [];
   }
 
@@ -60,6 +64,7 @@ export default async function getMe(user, ip, lang) {
 
   const me = {
     id, name, username, userlvl, havePassword, blockDm, priv, channels, blocked,
+    avatarId, customFlag,
   };
 
   if (ranks) {

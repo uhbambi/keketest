@@ -12,6 +12,7 @@ import {
   requestRankings,
   requestProfile,
   requestChatMessages,
+  requestChangeProfile,
   requestMe,
 } from './fetch.js';
 import {
@@ -22,6 +23,7 @@ import {
   unblockUser,
   blockingDm,
   privatize,
+  profileChange,
   selectPencilMode,
 } from './index.js';
 import {
@@ -180,6 +182,24 @@ export function setPrivatize(priv) {
       ));
     } else {
       dispatch(privatize(priv));
+    }
+    dispatch(setApiFetching(false));
+  };
+}
+
+export function changeProfile(profile) {
+  return async (dispatch) => {
+    dispatch(setApiFetching(true));
+    const res = await requestChangeProfile(profile);
+    if (res) {
+      dispatch(pAlert(
+        'Changing Profile Settings Error',
+        res,
+        'error',
+        'OK',
+      ));
+    } else {
+      dispatch(profileChange(profile));
     }
     dispatch(setApiFetching(false));
   };

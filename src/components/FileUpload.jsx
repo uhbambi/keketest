@@ -4,6 +4,7 @@
 import React, {
   useEffect, useState, useCallback, useRef, useLayoutEffect,
 } from 'react';
+import { t } from 'ttag';
 import { ImAttachment } from 'react-icons/im';
 
 import FileUploadElement from './FileUploadElement.jsx';
@@ -17,6 +18,8 @@ import {
 const FileUpload = ({
   acceptedTypes = 'image/*,video/*',
   maxFiles = 4,
+  // minimum height of elements
+  minHeight,
   // callback to print errors, gets array of error messages
   printErrors,
   // ref that we define a function on, that the parent calls when all should
@@ -412,6 +415,7 @@ const FileUpload = ({
           completion={completion}
           close={closeFileUploadElement}
           removeFile={removeFile}
+          minHeight={minHeight}
         />
       ))}
       {inputButtonState !== 3 && (
@@ -423,9 +427,10 @@ const FileUpload = ({
           <button
             key="ipt"
             type="button"
-            style={{ width: '100%' }}
+            style={{ width: '100%', height: '100%' }}
             className="fileupload"
             tabIndex={0}
+            title={t`Attach File`}
             onClick={handleInputClick}
           >
             <ImAttachment />

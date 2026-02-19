@@ -469,6 +469,13 @@ export function privatize(priv) {
   };
 }
 
+export function profileChange(profile) {
+  return {
+    type: 's/CHANGED_PROFILE',
+    profile,
+  };
+}
+
 export function muteChatChannel(cid) {
   return {
     type: 's/MUTE_CHAT_CHANNEL',

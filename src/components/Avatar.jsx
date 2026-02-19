@@ -12,8 +12,9 @@ const Avatar = ({ uid, isDarkMode, avatarId }) => {
     color: (isDarkMode) ? '#636363' : '#a7a5a5',
   };
   if (avatarId) {
-    const [, extension] = avatarId.split(':');
-    avatarStyle.backgroundImage = cdn`/m/t/shortId/avatar.${extension}.webp`;
+    const [shortId, extension] = avatarId.split(':');
+    // eslint-disable-next-line max-len
+    avatarStyle.backgroundImage = `url(${cdn`/m/t/${shortId}/avatar.${extension}.webp`})`;
   }
 
   return (

@@ -197,7 +197,6 @@ export default class MString {
     }
 
     this.iter = zEnd;
-    console.log('got enclosure', [y, z]);
     return [y, z];
   }
 

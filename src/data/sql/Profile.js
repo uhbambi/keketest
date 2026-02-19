@@ -52,15 +52,27 @@ export async function setCustomFlag(uid, code = null) {
  * @param uid userId
  * @param mediaId shortId:extension of media
  */
-export async function setUserAvatar(uid, mediaId) {
+export async function setUserAvatar(uid, mediaId = null) {
   try {
+    if (!mediaId) {
+      await sequelize.query(
+        // eslint-disable-next-line max-len
+        'INSERT INTO Profiles (uid, avatar) VALUES (?, ?) ON DUPLICATE KEY UPDATE avatar = VALUES(avatar)', {
+          replacements: [uid, null],
+          raw: true,
+          type: QueryTypes.INSERT,
+        },
+      );
+      return true;
+    }
+
     const [shortId, extension] = mediaId.split(':');
     if (!shortId || !extension) {
       return false;
     }
     await sequelize.query(
       // eslint-disable-next-line max-len
-      'INSERT INTO Profiles (uid, avatar) VALUES SELECT ?, m.id AS hash FROM Media m WHERE m.shortId = ? AND m.extension = ? ON DUPLCATE KEY UPDATE avatar = VALUES(avatar)', {
+      'INSERT INTO Profiles (uid, avatar) SELECT ?, m.id AS hash FROM Media m WHERE m.shortId = ? AND m.extension = ? ON DUPLICATE KEY UPDATE avatar = VALUES(avatar)', {
         replacements: [uid, shortId, extension],
         raw: true,
         type: QueryTypes.INSERT,

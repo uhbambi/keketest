@@ -14,6 +14,8 @@ const FileUploadElement = ({
   active,
   // number of upload progress (parent does the uploading)
   completion,
+  // minimum height of elements
+  minHeight,
 
   // callback to call to close, argument must be id
   close,
@@ -61,6 +63,7 @@ const FileUploadElement = ({
 
   const buttonStyle = {
     width: active && render ? 40 : 0,
+    minHeight,
     transition: 'width 200ms ease-in-out',
     padding: 0,
     overflow: 'hidden',

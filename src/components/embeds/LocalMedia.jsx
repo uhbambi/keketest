@@ -19,8 +19,6 @@ const MdLocalMedia = ({ url, fill }) => {
 
   const link = useLink();
 
-  console.log('RENDER LOCAL', url);
-
   const [path, ext] = splitUrl(url);
   const seperator = path.indexOf('/m/');
   if (!ext || seperator === -1) {
@@ -52,7 +50,7 @@ const MdLocalMedia = ({ url, fill }) => {
   } : {
     display: 'inline-block',
     margin: 3,
-  }
+  };
 
   if (thumbnail && !expanded && !fill) {
     return (

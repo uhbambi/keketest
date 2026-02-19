@@ -23,6 +23,10 @@ const initialState = {
   isOnMobile: false,
   // small notifications for received cooldown
   notification: null,
+  // mediaId of avatar
+  avatarId: null,
+  // code of customFlag
+  customFlag: null,
   /*
    * can be: {
    *   type, size,
@@ -84,6 +88,13 @@ export default function user(
       };
     }
 
+    case 's/CHANGED_PROFILE': {
+      return {
+        ...state,
+        ...action.profile,
+      };
+    }
+
     case 's/REC_ME':
     case 's/LOGIN': {
       const {
@@ -94,6 +105,8 @@ export default function user(
         blockDm,
         priv,
         userlvl,
+        avatarId,
+        customFlag,
       } = action;
       const messages = (action.messages) ? action.messages : [];
       return {
@@ -106,6 +119,8 @@ export default function user(
         blockDm,
         priv,
         userlvl,
+        avatarId,
+        customFlag,
       };
     }
 

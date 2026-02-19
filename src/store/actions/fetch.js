@@ -174,6 +174,27 @@ export async function requestStartDm(query) {
   return t`Unknown Error`;
 }
 
+/**
+ * change stuff in profile
+ * @param profile {
+ *   [avatarId],
+ * }
+ * @return error string or null if successful
+ */
+export async function requestChangeProfile(profile) {
+  const res = await makeAPIPOSTRequest(
+    '/api/profilechange',
+    { profile },
+  );
+  if (res.errors) {
+    return res.errors[0];
+  }
+  if (res.status === 'ok') {
+    return null;
+  }
+  return t`Unknown Error`;
+}
+
 /*
  * set receiving of all DMs on/off
  * @param block true if blocking all dms, false if unblocking
