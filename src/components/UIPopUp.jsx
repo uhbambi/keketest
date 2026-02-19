@@ -22,7 +22,7 @@ const UIPopUp = () => {
   const args = useSelector(selectWindowArgs);
   const fsPopUps = useSelector((state) => state.gui.fsPopUps);
 
-  const [Content] = COMPONENTS[windowType];
+  const [Content,, showInModal] = COMPONENTS[windowType];
 
   const dispatch = useDispatch();
 
@@ -39,14 +39,16 @@ const UIPopUp = () => {
 
   return (
     <div
-      className={`popup-modal${(isFullscreen) ? ' fs' : ''}`}
+      className={`popup-modal${(isFullscreen || !showInModal) ? ' fs' : ''}`}
     >
-      <div className="popup-fsbtn-wrapper">
-        <div
-          className="popup-fsbtn"
-          onClick={() => dispatch(togglePopUpfs(windowType))}
-        ><span>{(isFullscreen) ? '⇙' : '⇗'}</span></div>
-      </div>
+      {(showInModal) && (
+        <div key="fsbtnw" className="popup-fsbtn-wrapper">
+          <div
+            className="popup-fsbtn"
+            onClick={() => dispatch(togglePopUpfs(windowType))}
+          ><span>{(isFullscreen) ? '⇙' : '⇗'}</span></div>
+        </div>
+      )}
       <div className="popup-content">
         <WindowContext.Provider value={contextData}>
           {(windowType)

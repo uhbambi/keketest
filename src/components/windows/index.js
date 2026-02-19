@@ -12,15 +12,19 @@ import BadgeDisplay from './BadgeDisplay.jsx';
 import OIDCConsent from './OIDCConsent.jsx';
 
 export default {
-  HELP: [Help, t`Help`],
-  SETTINGS: [Settings, t`Settings`],
-  USERAREA: [UserArea, t`User Area`],
-  CHAT: [Chat, t`Chat`],
-  CANVAS_SELECTION: [CanvasSelect, t`Canvas Selection`],
-  ARCHIVE: [Archive, t`Canvas Archive`],
-  PLAYER: [Player, t`Player`],
-  FISH_DISPLAY: [FishDisplay, t`Fish Display`],
-  BADGE_DISPLAY: [BadgeDisplay, t`Badge Display`],
+  /*
+   * third argument is whether or not the window should be minimized content,
+   * like a modal within the browser window
+   */
+  HELP: [Help, t`Help`, true],
+  SETTINGS: [Settings, t`Settings`, true],
+  USERAREA: [UserArea, t`User Area`, false],
+  CHAT: [Chat, t`Chat`, false],
+  CANVAS_SELECTION: [CanvasSelect, t`Canvas Selection`, true],
+  ARCHIVE: [Archive, t`Canvas Archive`, true],
+  PLAYER: [Player, t`Player`, false],
+  FISH_DISPLAY: [FishDisplay, t`Fish Display`, true],
+  BADGE_DISPLAY: [BadgeDisplay, t`Badge Display`, true],
   /*
    * OIDC Consent is a very special case, because it is only available as
    * seperate popup, hoever, this is a single-page-applications, so we include
@@ -33,7 +37,7 @@ export default {
    * Maybe every single window should be lazy loaded and we additional set the
    * current script in popupHtml?
    */
-  OIDC: [OIDCConsent, t`OIDC LogIn`],
+  OIDC: [OIDCConsent, t`OIDC LogIn`, true],
   /* other windows */
 };
 
