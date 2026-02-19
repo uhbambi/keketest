@@ -8,6 +8,8 @@ import { DataTypes, QueryTypes } from 'sequelize';
 import sequelize from './sequelize.js';
 import { CHANNEL_TYPES } from '../../core/constants.js';
 import mapFlag from '../../utils/flagMapping.js';
+import parseLinksFromMd from '../../utils/markdown/linkParser.js';
+import { getMediaFromLinks } from '../../utils/media/serverUtils.js';
 
 const Message = sequelize.define('Message', {
   id: {
@@ -50,13 +52,21 @@ const Message = sequelize.define('Message', {
 });
 
 /**
- * store message
+ * store message, may throw an Error
  * @param message
  * @param cid channel id
  * @param uid user id
  * @return message id or null
  */
 export async function storeMessage(message, cid, uid) {
+  if (message.length > 200) {
+    throw new Error('too_long');
+  }
+  const media = getMediaFromLinks(parseLinksFromMd(message));
+  if (media.length > 3) {
+    throw new Error('too_many_files');
+  }
+
   try {
     const transaction = await sequelize.transaction();
 
@@ -87,17 +97,35 @@ export async function storeMessage(message, cid, uid) {
           transaction,
         },
       );
+      if (!model.id) {
+        throw new Error('no_id');
+      }
+
+      if (media.length) {
+        await sequelize.query(
+          // eslint-disable-next-line max-len
+          `INSERT INTO MessageMedia (sid, mid) SELECT ?, m.id FROM Media m WHERE ${
+            media.map(
+              () => '( m.shortId = ? AND m.extension = ? )',
+            ).join(' OR ')
+          }`, {
+            replacements: [model.id, ...media.flat()],
+            raw: true,
+            type: QueryTypes.INSERT,
+            transaction,
+          });
+      }
 
       await transaction.commit();
-      return model?.id;
+      return model.id;
     } catch (error) {
       await transaction.rollback();
       throw error;
     }
   } catch (error) {
     console.error(`SQL Error on storeMessage: ${error.message}`);
+    throw new Error('store_error');
   }
-  return null;
 }
 
 /**

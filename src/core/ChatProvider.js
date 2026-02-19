@@ -164,11 +164,34 @@ export class ChatProvider {
     const cmd = cmdArr[0].substring(1);
     const args = cmdArr.slice(1);
     const initiator = `@[${escapeMd(user.name)}](${user.id})`;
-    switch (cmd) {
-      case 'mute': {
-        const timeMin = Number(args.slice(-1));
-        if (args.length < 2 || Number.isNaN(timeMin)) {
+
+    try {
+      switch (cmd) {
+        case 'mute': {
+          const timeMin = Number(args.slice(-1));
+          if (args.length < 2 || Number.isNaN(timeMin)) {
+            return this.mute(
+              getUserFromMd(args.join(' ')),
+              {
+                printChannel: channelId,
+                initiator,
+                muid: user.id,
+              },
+            );
+          }
           return this.mute(
+            getUserFromMd(args.slice(0, -1).join(' ')),
+            {
+              printChannel: channelId,
+              initiator,
+              duration: timeMin,
+              muid: user.id,
+            },
+          );
+        }
+
+        case 'unmute':
+          return this.unmute(
             getUserFromMd(args.join(' ')),
             {
               printChannel: channelId,
@@ -176,102 +199,87 @@ export class ChatProvider {
               muid: user.id,
             },
           );
+
+        case 'purge':
+          return this.purge(
+            getUserFromMd(args.join(' ')),
+            {
+              printChannel: channelId,
+              initiator,
+              muid: user.id,
+            },
+          );
+
+        case 'mutec': {
+          if (args[0]) {
+            const cc = args[0].toLowerCase();
+            const ret = await mutec(channelId, cc);
+            if (ret === null) {
+              return 'No legit country defined';
+            }
+            if (!ret) {
+              return `Country ${cc} is already muted`;
+            }
+            if (ret) {
+              await this.broadcastChatMessage(
+                'info',
+                // eslint-disable-next-line max-len
+                `Country ${cc} has been muted from this channel by ${initiator}`,
+                channelId,
+                this.infoUserId,
+              );
+            }
+            return null;
+          }
+          return 'No country defined for mutec';
         }
-        return this.mute(
-          getUserFromMd(args.slice(0, -1).join(' ')),
-          {
-            printChannel: channelId,
-            initiator,
-            duration: timeMin,
-            muid: user.id,
-          },
-        );
-      }
 
-      case 'unmute':
-        return this.unmute(
-          getUserFromMd(args.join(' ')),
-          {
-            printChannel: channelId,
-            initiator,
-            muid: user.id,
-          },
-        );
-
-      case 'purge':
-        return this.purge(
-          getUserFromMd(args.join(' ')),
-          {
-            printChannel: channelId,
-            initiator,
-            muid: user.id,
-          },
-        );
-
-      case 'mutec': {
-        if (args[0]) {
-          const cc = args[0].toLowerCase();
-          const ret = await mutec(channelId, cc);
-          if (ret === null) {
-            return 'No legit country defined';
-          }
-          if (!ret) {
-            return `Country ${cc} is already muted`;
-          }
-          if (ret) {
-            this.broadcastChatMessage(
+        case 'unmutec': {
+          if (args[0]) {
+            const cc = args[0].toLowerCase();
+            const ret = await unmutec(channelId, cc);
+            if (ret === null) {
+              return 'No legit country defined';
+            }
+            if (!ret) {
+              return `Country ${cc} is not muted`;
+            }
+            await this.broadcastChatMessage(
               'info',
-              `Country ${cc} has been muted from this channel by ${initiator}`,
+              // eslint-disable-next-line max-len
+              `Country ${cc} has been unmuted from this channel by ${initiator}`,
               channelId,
               this.infoUserId,
             );
+            return null;
           }
-          return null;
-        }
-        return 'No country defined for mutec';
-      }
-
-      case 'unmutec': {
-        if (args[0]) {
-          const cc = args[0].toLowerCase();
-          const ret = await unmutec(channelId, cc);
-          if (ret === null) {
-            return 'No legit country defined';
+          const ret = await unmutecAll(channelId);
+          if (ret) {
+            await this.broadcastChatMessage(
+              'info',
+              `All countries unmuted from this channel by ${initiator}`,
+              channelId,
+              this.infoUserId,
+            );
+            return null;
           }
-          if (!ret) {
-            return `Country ${cc} is not muted`;
+          return 'No country is currently muted from this channel';
+        }
+
+        case 'listmc': {
+          const ccArr = await listMutec(channelId);
+          if (ccArr.length) {
+            return `Muted countries: ${ccArr}`;
           }
-          this.broadcastChatMessage(
-            'info',
-            `Country ${cc} has been unmuted from this channel by ${initiator}`,
-            channelId,
-            this.infoUserId,
-          );
-          return null;
+          return 'No country is currently muted from this channel';
         }
-        const ret = await unmutecAll(channelId);
-        if (ret) {
-          this.broadcastChatMessage(
-            'info',
-            `All countries unmuted from this channel by ${initiator}`,
-            channelId,
-            this.infoUserId,
-          );
-          return null;
-        }
-        return 'No country is currently muted from this channel';
-      }
 
-      case 'listmc': {
-        const ccArr = await listMutec(channelId);
-        if (ccArr.length) {
-          return `Muted countries: ${ccArr}`;
-        }
-        return 'No country is currently muted from this channel';
+        default:
+          return `Couldn't parse command ${cmd}`;
       }
-
-      default:
-        return `Couldn't parse command ${cmd}`;
+    } catch (error) {
+      console.error(`Error on Chat Mod command ${error.message}`);
+      return 'Error on parsing command';
     }
   }
 
@@ -355,11 +363,6 @@ export class ChatProvider {
       message = message.replace(substitute.regexp, substitute.replace);
     }
 
-    if (message.length > 200) {
-      // eslint-disable-next-line max-len
-      return t`You can\'t send a message this long :(`;
-    }
-
     if (message.match(this.cyrillic) && channelId === this.enChannelId) {
       return t`Please use int channel`;
     }
@@ -379,15 +382,26 @@ export class ChatProvider {
     logger.info(
       `Received chat message ${message} from ${name} / ${ip.ipString}`,
     );
-    this.broadcastChatMessage(
-      name,
-      message,
-      channelId,
-      id,
-      displayCountry,
-      flagLegit,
-      avatarId,
-    );
+    try {
+      await this.broadcastChatMessage(
+        name,
+        message,
+        channelId,
+        id,
+        displayCountry,
+        flagLegit,
+        avatarId,
+      );
+    } catch (error) {
+      switch (error) {
+        case 'too_long':
+          return t`You can\'t send a message this long :(`;
+        case 'too_many_files':
+          return t`You attached too many files`;
+        default:
+          return 'Server Error';
+      }
+    }
     return null;
   }
 
@@ -410,26 +424,30 @@ export class ChatProvider {
 
     ban(null, id, null, true, false, 'mute', timeMin && timeMin * 60, muid);
 
-    if (printChannel) {
-      if (timeMin) {
-        this.broadcastChatMessage(
-          'info',
-          (initiator)
-            ? `${userPing} has been muted for ${timeMin}min by ${initiator}`
-            : `${userPing} has been muted for ${timeMin}min`,
-          printChannel,
-          this.infoUserId,
-        );
-      } else {
-        this.broadcastChatMessage(
-          'info',
-          (initiator)
-            ? `${userPing} has been muted forever by ${initiator}`
-            : `${userPing} has been muted forever`,
-          printChannel,
-          this.infoUserId,
-        );
+    try {
+      if (printChannel) {
+        if (timeMin) {
+          await this.broadcastChatMessage(
+            'info',
+            (initiator)
+              ? `${userPing} has been muted for ${timeMin}min by ${initiator}`
+              : `${userPing} has been muted for ${timeMin}min`,
+            printChannel,
+            this.infoUserId,
+          );
+        } else {
+          await this.broadcastChatMessage(
+            'info',
+            (initiator)
+              ? `${userPing} has been muted forever by ${initiator}`
+              : `${userPing} has been muted forever`,
+            printChannel,
+            this.infoUserId,
+          );
+        }
       }
+    } catch {
+      // nothing
     }
     logger.info(`${initiator} muted user ${userPing}`);
     return null;
@@ -452,14 +470,18 @@ export class ChatProvider {
       return `User ${userPing} is not muted`;
     }
     if (printChannel) {
-      this.broadcastChatMessage(
-        'info',
-        (initiator)
-          ? `${userPing} has been unmuted by ${initiator}`
-          : `${userPing} has been unmuted`,
-        printChannel,
-        this.infoUserId,
-      );
+      try {
+        await this.broadcastChatMessage(
+          'info',
+          (initiator)
+            ? `${userPing} has been unmuted by ${initiator}`
+            : `${userPing} has been unmuted`,
+          printChannel,
+          this.infoUserId,
+        );
+      } catch {
+        // nothing
+      }
     }
     logger.info(`Unmuted user ${userPing}`);
     return null;
@@ -478,14 +500,18 @@ export class ChatProvider {
 
     this.chatMessageBuffer.broadcastUserPublicChatMessageDeletion(id);
     if (printChannel) {
-      this.broadcastChatMessage(
-        'info',
-        (initiator)
-          ? `Messages of ${userPing} purged by ${initiator}`
-          : `Messages of ${userPing} purged`,
-        printChannel,
-        this.infoUserId,
-      );
+      try {
+        await this.broadcastChatMessage(
+          'info',
+          (initiator)
+            ? `Messages of ${userPing} purged by ${initiator}`
+            : `Messages of ${userPing} purged`,
+          printChannel,
+          this.infoUserId,
+        );
+      } catch {
+        // nothing
+      }
     }
     logger.info(`Purging public messages of user ${userPing}`);
     return null;

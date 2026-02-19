@@ -151,7 +151,7 @@ export default class MString {
       }
       if (zIsLink && !z) {
         if (chr === '/' && (
-          zEnd === zStart || MString.isWhiteSpace(this.text[zEnd - 1])
+          zEnd === zStart || MString.isWhiteSpace(this.txt[zEnd - 1])
         )) {
           // absolute link
           zStart = zEnd;

@@ -109,7 +109,7 @@ function registerCatchedFish(user, ip, type, size) {
         `${userString} caught a phish! It's a ${FISH_TYPES[type].name} with ${size}kg`,
         chatProvider.enChannelId,
         chatProvider.eventUserId,
-      );
+      ).catch(() => {});
     }
   }
 

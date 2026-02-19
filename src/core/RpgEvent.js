@@ -195,7 +195,7 @@ class RpgEvent {
         message,
         chatProvider.enChannelId,
         chatProvider.eventUserId,
-      );
+      ).catch(() => {});
     }
   }
 

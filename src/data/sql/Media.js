@@ -158,7 +158,6 @@ export async function hasMedia(hashes) {
   if (!hashes.length) {
     return true;
   }
-  console.log('check if media exists', hashes);
 
   try {
     const replacements = [];
@@ -183,7 +182,6 @@ export async function hasMedia(hashes) {
     );
 
     if (mediaModels.length) {
-      console.log('media already exists');
       /*
        * upldate lastUpload timestamp, if we would be on MariaDB only, we could
        * use RETURNING and merge it together with the SELECT query
@@ -225,6 +223,62 @@ export async function hasMedia(hashes) {
     return false;
   }
   return true;
+}
+
+/**
+ * lnk media to user and / or ip
+ * @param shortId
+ * @param extension
+ * @param [userId]
+ * @param [ip]
+ */
+export async function linkMedia(models, userId, ip) {
+  if (!models) {
+    return;
+  }
+  if (!Array.isArray(models)) {
+    models = [models];
+  }
+  const flattenedModels = [];
+  let where = '';
+  for (let i = 0; i < models.length; i += 1) {
+    const { shortId, extension } = models[i];
+    if (shortId && extension) {
+      flattenedModels.push(shortId, extension);
+      if (where) {
+        where += ' OR ';
+      }
+      where += '( m.shortId = ? AND m.extension = ? )';
+    }
+  }
+  if (!flattenedModels.length) {
+    return;
+  }
+
+  try {
+    const promises = [];
+    if (userId) {
+      promises.push(sequelize.query(
+      // eslint-disable-next-line max-len
+        `INSERT IGNORE INTO UserMedia (uid, mid) SELECT ?, m.id FROM Media m WHERE ${where}`, {
+          replacements: [userId, ...flattenedModels],
+          raw: true,
+          type: QueryTypes.INSERT,
+        }));
+    }
+    if (ip) {
+      promises.push(sequelize.query(
+      // eslint-disable-next-line max-len
+        `INSERT IGNORE INTO IPMedia (ip, mid) SELECT IP_TO_BIN(?), m.id FROM Media m WHERE ${where}`, {
+          replacements: [ip, ...flattenedModels],
+          raw: true,
+          type: QueryTypes.INSERT,
+        }));
+    }
+    await Promise.all(promises);
+  } catch (error) {
+    console.error(`SQL Error on linkMedia: ${error.message}`);
+  }
 }
 
 /**

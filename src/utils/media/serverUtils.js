@@ -81,3 +81,27 @@ export function isMimeTypeAllowed(mimeType) {
   }
   return false;
 }
+
+/**
+ * get all media from a list of links
+ * @param links Array of links
+ * @return [[shortId, extension], ...]
+ */
+export function getMediaFromLinks(links) {
+  const media = [];
+  for (let i = 0; i < links.length; i += 1) {
+    const link = links[i];
+    if (link.startsWith('/m/') && link[4] !== '/' && link[9] === '/') {
+      const shortId = link.substring(3, 9);
+      let extEnd = link.indexOf('&', 10);
+      if (extEnd === -1) {
+        extEnd = link.length;
+      }
+      const extension = link.substring(
+        link.lastIndexOf('.', extEnd) + 1, extEnd,
+      );
+      media.push([shortId, extension]);
+    }
+  }
+  return media;
+}

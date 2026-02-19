@@ -37,6 +37,7 @@ import OIDCConsent from './OIDCConsent.js';
 import Media from './Media.js';
 import ImageHash from './ImageHash.js';
 import UserMedia from './association_models/UserMedia.js';
+import MessageMedia from './association_models/MessageMedia.js';
 import IPMedia from './association_models/IPMedia.js';
 import MediaBan from './MediaBan.js';
 import { HourlyCron } from '../../utils/cron.js';
@@ -553,6 +554,16 @@ User.belongsToMany(Media, {
   as: 'medias',
   through: UserMedia,
   foreignKey: 'uid',
+});
+Media.belongsToMany(Message, {
+  as: 'messages',
+  through: MessageMedia,
+  foreignKey: 'mid',
+});
+Message.belongsToMany(Media, {
+  as: 'medias',
+  through: MessageMedia,
+  foreignKey: 'sid',
 });
 Media.belongsToMany(IP, {
   as: 'ips',

@@ -356,33 +356,37 @@ class APISocketServer {
           }
         }
 
-        if (accepted) {
-          /*
-          * do not send message back up ws that sent it
-          */
-          const [ts, msgId] = chatProvider.broadcastChatMessage(
-            name,
-            msg,
-            channelId,
-            uid,
-            country,
-            flagLegit,
-            avatarId,
-            false,
-          );
-          this.broadcastChatMessage(
-            name,
-            msg,
-            channelId,
-            uid,
-            country,
-            ts,
-            msgId,
-            flagLegit,
-            avatarId,
-            true,
-            ws = null,
-          );
+        try {
+          if (accepted) {
+            /*
+            * do not send message back up ws that sent it
+            */
+            const [ts, msgId] = await chatProvider.broadcastChatMessage(
+              name,
+              msg,
+              channelId,
+              uid,
+              country,
+              flagLegit,
+              avatarId,
+              false,
+            );
+            this.broadcastChatMessage(
+              name,
+              msg,
+              channelId,
+              uid,
+              country,
+              ts,
+              msgId,
+              flagLegit,
+              avatarId,
+              true,
+              ws = null,
+            );
+          }
+        } catch {
+          accepted = false;
         }
 
         ws.send(JSON.stringify([

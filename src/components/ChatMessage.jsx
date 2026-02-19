@@ -16,7 +16,6 @@ function ChatMessage({
   country,
   msg,
   ts,
-  msgId,
   flagLegit,
   avatarId,
   openCm,

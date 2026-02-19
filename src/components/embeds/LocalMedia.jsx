@@ -165,7 +165,11 @@ const MdLocalMedia = ({ url, fill }) => {
 export default [
   React.memo(MdLocalMedia),
   (url) => {
-    const [, ext] = splitUrl(url);
+    const [path, ext] = splitUrl(url);
+    const seperator = path.indexOf('/m/');
+    if (!ext || seperator === -1 || path[seperator + 4] === '/') {
+      return false;
+    }
     return (VIDEO_EXTENSIONS.includes(ext) || IMAGE_EXTENSIONS.includes(ext));
   },
   null,

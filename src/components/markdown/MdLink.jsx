@@ -41,17 +41,20 @@ const MdLink = ({ href, title }) => {
   const [desc, uri] = useMemo(() => {
     let newDesc = getLinkDesc(href);
     let newUri = href;
+    /*
+     * local media will get opened immediately, but only if it is already a
+     * relative path
+     */
+    // eslint-disable-next-line max-len
+    if (href.startsWith('/m/') && !href.includes('/t/') && !href.includes('/i/')) {
+      newDesc = null;
+    }
     // make full urls of our own wesbite relative
     if (newDesc === getLinkDesc(window.location.host)) {
       newDesc = '/';
       newUri = href.substring(
         href.indexOf(window.location.host) + window.location.host.length,
       );
-    }
-    // local media will get opened immediately
-    // eslint-disable-next-line max-len
-    if (href.startsWith('/m/') && !href.includes('/t/') && !href.includes('/i/')) {
-      newDesc = null;
     }
     return [newDesc, newUri];
   }, [href]);

@@ -72,15 +72,10 @@ class ChatMessageBuffer {
     avatarId = null,
     sendapi = true,
   ) {
-    if (message.length > 200) {
-      return null;
-    }
     const ts = Math.floor(Date.now() / 1000);
+    // this may throw!
     const msgId = await storeMessage(message, cid, uid);
-    if (!msgId) {
-      return null;
-    }
-    console.log('message', message, 'has id', msgId);
+
     /*
      * goes through socket events and then comes
      * back at addMessage

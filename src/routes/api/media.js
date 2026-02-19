@@ -9,7 +9,7 @@ import {
 } from '../../utils/media/index.js';
 import { splitFilename } from '../../utils/media/utils.js';
 import { MAX_MEDIA_SIZE, MAX_UPLOAD_AMOUNT } from '../../core/constants.js';
-import { hasMedia } from '../../data/sql/Media.js';
+import { hasMedia, linkMedia } from '../../data/sql/Media.js';
 
 const router = express.Router();
 
@@ -150,6 +150,7 @@ router.post('/preflight', (req, res) => {
           readyToUpload.splice(MAX_UPLOAD_AMOUNT);
         }
 
+        linkMedia(availableFiles, req.user?.id, req.ip.ipString);
         const data = { readyToUpload, availableFiles };
         if (errors.length) {
           data.errors = errors;
@@ -206,6 +207,7 @@ router.post('/upload', (req, res) => {
       error = error.message;
     }
 
+    linkMedia(availableFiles, req.user?.id, req.ip.ipString);
     const data = { availableFiles };
     let status = 200;
 
