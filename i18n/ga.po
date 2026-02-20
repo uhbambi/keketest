@@ -18,6 +18,9 @@ msgstr " a bhfuil i "
 msgid "# Today"
 msgstr ""
 
+msgid "# Total"
+msgstr ""
+
 #, javascript-format
 msgid "${ mouseSymbol } Hold left mouse button and drag mouse to rotate"
 msgstr ""
@@ -98,8 +101,14 @@ msgstr "Cartlann"
 msgid "Assign new Mod"
 msgstr "Sannadh Mod nua"
 
+msgid "Attach File"
+msgstr ""
+
 msgid "Auto Zoom In"
 msgstr "Uathsúmáilte isteach"
+
+msgid "Avatar"
+msgstr ""
 
 msgid "Back"
 msgstr "Ar ais"
@@ -260,6 +269,9 @@ msgstr ""
 msgid "Cleaners can use 0cd blank colors."
 msgstr "Is féidir le glantóirí dathanna bána 0cd a úsáid."
 
+msgid "Clear"
+msgstr ""
+
 #, javascript-format
 msgid ""
 "Click ${ mouseSymbol } middle mouse button or ${ touchSymbol } long-tap to "
@@ -276,6 +288,9 @@ msgstr "Cliceáil anseo chun ríomhphost fíoraithe nua a iarraidh."
 
 msgid "Click to Load Captcha"
 msgstr "Cliceáil chun Captcha a Luchtú"
+
+msgid "Click to remove"
+msgstr ""
 
 msgid "Clone"
 msgstr "Clón"
@@ -357,12 +372,18 @@ msgstr "Cóipeáil Aitheantas Úsáideora chuig ann Gearrthaisce"
 msgid "Copy to Clipboard"
 msgstr "Cóip chun Bórd Coipailí"
 
+msgid "Could not connect to server"
+msgstr ""
+
 msgid "Could not connect to server, please try again later :("
 msgstr ""
 "Níorbh fhéidir ceangal leis an bhfreastalaí, déan iarracht arís ar ball :("
 
 msgid "Could not load captcha"
 msgstr "Níorbh fhéidir an captcha a luchtú"
+
+msgid "Could not process files"
+msgstr ""
 
 msgid "Couldn't set Pixel"
 msgstr "Ní féidir picteilíní a cuir isteach"
@@ -390,6 +411,9 @@ msgstr "Athruithe Fuarúcháin Reatha in aghaidh na Tíre"
 
 msgid "Custom Cursor"
 msgstr "Cúrsóir Saincheaptha"
+
+msgid "Custom Flag"
+msgstr ""
 
 msgid "DM"
 msgstr "DM"
@@ -452,6 +476,9 @@ msgstr "Ní cuimhin liom"
 
 msgid "Don't show me in global stats"
 msgstr "Ná taispeáin mé i staitisticí domhanda"
+
+msgid "Download"
+msgstr ""
 
 msgid "Download Template"
 msgstr "Íoslódáil Teimpléad"
@@ -843,11 +870,17 @@ msgstr "Ainm úsáideora nua"
 msgid "No"
 msgstr "Níl"
 
+msgid "No File selected to upload"
+msgstr ""
+
 msgid "No Phish!"
 msgstr "Gan Éisc!"
 
 msgid "No captcha id given"
 msgstr "Níor thugtar captcha id"
+
+msgid "No flag selected"
+msgstr ""
 
 msgid "No or invalid captcha text"
 msgstr "Níl nó neamhbhailí captcha teics"
@@ -1178,6 +1211,9 @@ msgstr "Roghnaigh Dáta thuas"
 msgid "Select File"
 msgstr "Roghnaigh Comhad"
 
+msgid "Select Flag"
+msgstr ""
+
 msgid "Select Language"
 msgstr "Roghnaigh Teanga"
 
@@ -1192,8 +1228,14 @@ msgstr ""
 "éagsúla aige.\n"
 "Is féidir rochtain a fháil ar chanbháis chartlannaithe anseo:"
 
+msgid "Select your Avatar. Supported Formats: jpg, gif, png, webp"
+msgstr ""
+
 msgid "Selected Color"
 msgstr "Dath a Roghnaigh Tú"
+
+msgid "Selected Flag:"
+msgstr ""
 
 msgid "Send"
 msgstr "Cuir amach"
@@ -1253,6 +1295,9 @@ msgstr ""
 
 msgid "Show templates as overlays ingame."
 msgstr "Taispeáin teimpléid mar fhorleagan sa chluiche."
+
+msgid "Shrink"
+msgstr ""
 
 msgid "Size"
 msgstr ""
@@ -1409,6 +1454,9 @@ msgstr "San iomlán"
 
 msgid "Total Online Users"
 msgstr "Úsáideoirí ar líne san Iomlán"
+
+msgid "Total Pixels"
+msgstr ""
 
 msgid "Total Pixels per Player"
 msgstr "Líon Iomlán Picteilí in aghaidh an Imreora"

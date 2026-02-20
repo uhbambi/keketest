@@ -18,6 +18,9 @@ msgstr " welke is in "
 msgid "# Today"
 msgstr ""
 
+msgid "# Total"
+msgstr ""
+
 #, javascript-format
 msgid "${ mouseSymbol } Hold left mouse button and drag mouse to rotate"
 msgstr ""
@@ -99,8 +102,14 @@ msgstr "Archief"
 msgid "Assign new Mod"
 msgstr "Wijs nieuwe mod"
 
+msgid "Attach File"
+msgstr ""
+
 msgid "Auto Zoom In"
 msgstr "Automatisch inzoomen"
+
+msgid "Avatar"
+msgstr ""
 
 msgid "Back"
 msgstr ""
@@ -258,6 +267,9 @@ msgstr ""
 msgid "Cleaners can use 0cd blank colors."
 msgstr ""
 
+msgid "Clear"
+msgstr ""
+
 #, javascript-format
 msgid ""
 "Click ${ mouseSymbol } middle mouse button or ${ touchSymbol } long-tap to "
@@ -274,6 +286,9 @@ msgstr "Klik hier om een nieuwe verificatiemail aan te vragen."
 
 msgid "Click to Load Captcha"
 msgstr "Klik om Captcha te laden"
+
+msgid "Click to remove"
+msgstr ""
 
 msgid "Clone"
 msgstr "Kloon"
@@ -356,11 +371,17 @@ msgstr ""
 msgid "Copy to Clipboard"
 msgstr "Kopieer naar klembord"
 
+msgid "Could not connect to server"
+msgstr ""
+
 msgid "Could not connect to server, please try again later :("
 msgstr "Kan geen verbinding maken met de server, probeer het later opnieuw :("
 
 msgid "Could not load captcha"
 msgstr "Kan captcha niet laden"
+
+msgid "Could not process files"
+msgstr ""
 
 msgid "Couldn't set Pixel"
 msgstr "Kan Pixel niet instellen"
@@ -387,6 +408,9 @@ msgid "Current Cooldown Changes per Country"
 msgstr ""
 
 msgid "Custom Cursor"
+msgstr ""
+
+msgid "Custom Flag"
 msgstr ""
 
 msgid "DM"
@@ -456,6 +480,9 @@ msgstr ""
 
 msgid "Don't show me in global stats"
 msgstr "Laat me niet zien in wereldwijde statistieken"
+
+msgid "Download"
+msgstr ""
 
 msgid "Download Template"
 msgstr "Sjabloon downloaden"
@@ -831,11 +858,17 @@ msgstr "Nieuwe gebruikersnaam"
 msgid "No"
 msgstr "Nee"
 
+msgid "No File selected to upload"
+msgstr ""
+
 msgid "No Phish!"
 msgstr ""
 
 msgid "No captcha id given"
 msgstr "Geen captcha-ID opgegeven"
+
+msgid "No flag selected"
+msgstr ""
 
 msgid "No or invalid captcha text"
 msgstr "Geen of ongeldige captcha-tekst"
@@ -1170,6 +1203,9 @@ msgstr "Datum selecteren hierboven"
 msgid "Select File"
 msgstr "Selecteer Taal"
 
+msgid "Select Flag"
+msgstr ""
+
 msgid "Select Language"
 msgstr "Selecteer Taal"
 
@@ -1184,9 +1220,15 @@ msgstr ""
 "verschillende paletten, cooldowns en vereisten. Archief van gesloten doeken "
 "is hier toegankelijk:"
 
+msgid "Select your Avatar. Supported Formats: jpg, gif, png, webp"
+msgstr ""
+
 #, fuzzy
 msgid "Selected Color"
 msgstr "Selecteer Taal"
+
+msgid "Selected Flag:"
+msgstr ""
 
 msgid "Send"
 msgstr "Versturen"
@@ -1245,6 +1287,9 @@ msgid "Show overlay as small individual pixels on high zoomlevels."
 msgstr ""
 
 msgid "Show templates as overlays ingame."
+msgstr ""
+
+msgid "Shrink"
 msgstr ""
 
 msgid "Size"
@@ -1399,6 +1444,9 @@ msgstr "Totaal"
 
 msgid "Total Online Users"
 msgstr "Totaal aantal online gebruikers"
+
+msgid "Total Pixels"
+msgstr ""
 
 #, fuzzy
 msgid "Total Pixels per Player"

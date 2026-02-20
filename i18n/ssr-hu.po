@@ -33,6 +33,9 @@ msgstr ""
 "Az előző nap legaktívabb játékosainak vászna. A napi rangsor UTC idő szerint "
 "00:00-kor frissül."
 
+msgid "A file was too large"
+msgstr ""
+
 msgid "Access modtools"
 msgstr "Hozzáférés a Moderátori eszközökhöz"
 
@@ -57,10 +60,19 @@ msgstr ""
 msgid "Application successfully added"
 msgstr ""
 
+msgid "Avatar can only be an image"
+msgstr ""
+
 msgid "Black and White canvas"
 msgstr "Fekete-fehér vászon"
 
 msgid "Can not chat while being banned"
+msgstr ""
+
+#, javascript-format
+msgid ""
+"Can not upload this many files at once, only 5 are allowed, you have $"
+"{ amountOfFiles }"
 msgstr ""
 
 msgid "Click here"
@@ -92,6 +104,12 @@ msgid "Could not close this Session."
 msgstr ""
 
 msgid "Could not find this login method"
+msgstr ""
+
+msgid "Could not set your avtar"
+msgstr ""
+
+msgid "Could not upload all files"
 msgstr ""
 
 msgid "Couldn't find this mail in our database"
@@ -137,6 +155,19 @@ msgid "Error"
 msgstr ""
 
 msgid "Failed to create a new user :("
+msgstr ""
+
+#, javascript-format
+msgid ""
+"File ${ filename } has ${ sizeMB } MB and is too large. It may only be $"
+"{ maxSizeMB } MB"
+msgstr ""
+
+#, javascript-format
+msgid "File ${ filename } has an invalid extension"
+msgstr ""
+
+msgid "File is broken"
 msgstr ""
 
 #. 'client_secret' is a technical term and should not be translated
@@ -185,6 +216,9 @@ msgstr ""
 msgid "Incorrect password!"
 msgstr "Hibás jelszó!"
 
+msgid "Invalid type of media"
+msgstr ""
+
 msgid "Invalid url :( Please check your mail again."
 msgstr "Érvénytelen link :( Kérjük, ellenőrizd újra a leveled."
 
@@ -215,6 +249,13 @@ msgstr "Az e-mail cím nincs beállítva a szerveren"
 
 msgid "Mail verification"
 msgstr "E-mail hitelesítés"
+
+msgid "MimeType or extension not known or supported"
+msgstr ""
+
+#, javascript-format
+msgid "Mimetype ${ mimeType } of file ${ filename } is invalid or not allowed"
+msgstr ""
 
 msgid "Minimap"
 msgstr "Kistérkép"
@@ -262,6 +303,9 @@ msgstr "Új jelszó"
 
 msgid "No Captcha given"
 msgstr "Nincs Captcha megadva"
+
+msgid "No file metadata given"
+msgstr ""
 
 msgid "No or invalid fish id."
 msgstr "Nem vagy érvénytelen hal id."
@@ -358,6 +402,9 @@ msgstr ""
 msgid "Regularly update this data"
 msgstr "Rendszeresen frissítsd az adatokat"
 
+msgid "Request stalled"
+msgstr ""
+
 #. 'client_secret' is a technical term and should not be translated
 msgid "Reroll client_secret"
 msgstr ""
@@ -367,6 +414,12 @@ msgstr "Jelszó visszaállítása"
 
 msgid "Reset your password here"
 msgstr "Jelszó visszaállítása itt"
+
+msgid "Server Eror"
+msgstr ""
+
+msgid "Server Error"
+msgstr ""
 
 msgid "Server error when deleting user."
 msgstr "Szerver hiba felhasználó törlése közben."
@@ -449,6 +502,24 @@ msgstr ""
 msgid "This email provider is not allowed"
 msgstr "Ez az e-mail szolgáltató nem engedélyezett"
 
+msgid "This media is banned because it is propaganda"
+msgstr ""
+
+msgid "This media is banned for being an attempt to scam people"
+msgstr ""
+
+msgid "This media is banned for being degenerate"
+msgstr ""
+
+msgid "This media is banned for containing CSAM"
+msgstr ""
+
+msgid "This media is banned for containing graphic violence"
+msgstr ""
+
+msgid "This media is banned for glorifying terrorism"
+msgstr ""
+
 msgid "This password-reset link isn't valid anymore :("
 msgstr "Ez a jelszó-visszaállítási link már nem érvényes :("
 
@@ -461,6 +532,10 @@ msgstr "Top10"
 
 msgid "Unknown Captcha Error"
 msgstr "Ismeretlen captcha hiba"
+
+#, javascript-format
+msgid "Unknown field ${ name } in request"
+msgstr ""
 
 msgid "Update Application"
 msgstr ""
@@ -547,6 +622,9 @@ msgid "You are sending messages too fast, you have to wait ${ waitTime }s :("
 msgstr ""
 "Túl gyorsan küldöd az üzeneteket, várnod kell ${ waitTime } másodpercet :("
 
+msgid "You attached too many files"
+msgstr ""
+
 msgid ""
 "You can not delete this login method, because you have nothing else left."
 msgstr "Nem törölheted ezt a bejelentkezési módszert, mivel nem marad több."
@@ -567,6 +645,9 @@ msgstr ""
 
 msgid "You can't send a message this long :("
 msgstr "Nem tudsz ilyen hosszú üzenetet küldeni :("
+
+msgid "You did not provide all neccessary information"
+msgstr ""
 
 msgid ""
 "You do not have any email adress set. Please add one under \"Login Methods\"."

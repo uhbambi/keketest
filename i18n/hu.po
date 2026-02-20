@@ -20,6 +20,9 @@ msgstr " addig hátravan még "
 msgid "# Today"
 msgstr ""
 
+msgid "# Total"
+msgstr ""
+
 #, javascript-format
 msgid "${ mouseSymbol } Hold left mouse button and drag mouse to rotate"
 msgstr ""
@@ -98,8 +101,14 @@ msgstr "Archívum"
 msgid "Assign new Mod"
 msgstr "Új moderátor kijelölése"
 
+msgid "Attach File"
+msgstr ""
+
 msgid "Auto Zoom In"
 msgstr "Automatikus zoomolás"
+
+msgid "Avatar"
+msgstr ""
 
 msgid "Back"
 msgstr ""
@@ -258,6 +267,9 @@ msgstr ""
 msgid "Cleaners can use 0cd blank colors."
 msgstr ""
 
+msgid "Clear"
+msgstr ""
+
 #, javascript-format
 msgid ""
 "Click ${ mouseSymbol } middle mouse button or ${ touchSymbol } long-tap to "
@@ -274,6 +286,9 @@ msgstr "Kattints ide, ha új ellenőrző levelet szeretnél kérni."
 
 msgid "Click to Load Captcha"
 msgstr "Kattints ide a Captcha betöltéséhez"
+
+msgid "Click to remove"
+msgstr ""
 
 msgid "Clone"
 msgstr "Klónozás"
@@ -353,11 +368,17 @@ msgstr ""
 msgid "Copy to Clipboard"
 msgstr "Vágólapra másolás"
 
+msgid "Could not connect to server"
+msgstr ""
+
 msgid "Could not connect to server, please try again later :("
 msgstr "Nem sikerült csatlakozni a szerverhez, próbáld meg újra később :("
 
 msgid "Could not load captcha"
 msgstr "Nem sikerült betölteni a captchat"
+
+msgid "Could not process files"
+msgstr ""
 
 msgid "Couldn't set Pixel"
 msgstr "Nem sikerült kiválasztani a pixelt"
@@ -385,6 +406,9 @@ msgstr ""
 
 msgid "Custom Cursor"
 msgstr "Egyedi Kurzor"
+
+msgid "Custom Flag"
+msgstr ""
 
 msgid "DM"
 msgstr "Közvetlen üzenet"
@@ -448,6 +472,9 @@ msgstr ""
 
 msgid "Don't show me in global stats"
 msgstr "Ne jelenítsen meg a globális statisztikákban"
+
+msgid "Download"
+msgstr ""
 
 msgid "Download Template"
 msgstr "Sablon letöltése"
@@ -821,11 +848,17 @@ msgstr "Új Felhasználónév"
 msgid "No"
 msgstr "Nem"
 
+msgid "No File selected to upload"
+msgstr ""
+
 msgid "No Phish!"
 msgstr ""
 
 msgid "No captcha id given"
 msgstr "Nincs megadva captcha-azonosító"
+
+msgid "No flag selected"
+msgstr ""
 
 msgid "No or invalid captcha text"
 msgstr "Nincs vagy érvénytelen captcha szöveg"
@@ -1162,6 +1195,9 @@ msgstr "Válassz a fenti dátumokból"
 msgid "Select File"
 msgstr "Fájl kiválasztása"
 
+msgid "Select Flag"
+msgstr ""
+
 msgid "Select Language"
 msgstr "Nyelv kiválasztása"
 
@@ -1176,8 +1212,14 @@ msgstr ""
 "követelményekkel rendelkezik.\n"
 "Az eltávolított vásznak archívuma itt érhető el:"
 
+msgid "Select your Avatar. Supported Formats: jpg, gif, png, webp"
+msgstr ""
+
 msgid "Selected Color"
 msgstr "Kiválasztott szín"
+
+msgid "Selected Flag:"
+msgstr ""
 
 msgid "Send"
 msgstr "Küldés"
@@ -1234,6 +1276,9 @@ msgstr "Az overlay kis egyedi pixelként jelenik meg nagy zoomolási szinteken."
 
 msgid "Show templates as overlays ingame."
 msgstr "Sablonok megjelenítése overlay-ként a játékban."
+
+msgid "Shrink"
+msgstr ""
 
 msgid "Size"
 msgstr ""
@@ -1389,6 +1434,9 @@ msgstr "Összes"
 
 msgid "Total Online Users"
 msgstr "Összes online felhasználó"
+
+msgid "Total Pixels"
+msgstr ""
 
 #, fuzzy
 msgid "Total Pixels per Player"

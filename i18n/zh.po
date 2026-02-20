@@ -17,6 +17,9 @@ msgstr " 包含在 "
 msgid "# Today"
 msgstr ""
 
+msgid "# Total"
+msgstr ""
+
 #, javascript-format
 msgid "${ mouseSymbol } Hold left mouse button and drag mouse to rotate"
 msgstr "${ mouseSymbol } 按住鼠标左键并拖拽以回转"
@@ -89,8 +92,14 @@ msgstr "文档"
 msgid "Assign new Mod"
 msgstr "指定新管理员"
 
+msgid "Attach File"
+msgstr ""
+
 msgid "Auto Zoom In"
 msgstr "自动放大"
+
+msgid "Avatar"
+msgstr ""
 
 msgid "Back"
 msgstr "回退"
@@ -245,6 +254,9 @@ msgstr "清理未被至少1个已绘画像素包围的空闲像素"
 msgid "Cleaners can use 0cd blank colors."
 msgstr "清理人员可以使用不消耗等待时间的空白颜料。"
 
+msgid "Clear"
+msgstr ""
+
 #, javascript-format
 msgid ""
 "Click ${ mouseSymbol } middle mouse button or ${ touchSymbol } long-tap to "
@@ -259,6 +271,9 @@ msgstr "点击此处以请求新验证电子邮件。"
 
 msgid "Click to Load Captcha"
 msgstr "点击此处加载验证码"
+
+msgid "Click to remove"
+msgstr ""
 
 msgid "Clone"
 msgstr "复制"
@@ -338,10 +353,16 @@ msgstr ""
 msgid "Copy to Clipboard"
 msgstr ""
 
+msgid "Could not connect to server"
+msgstr ""
+
 msgid "Could not connect to server, please try again later :("
 msgstr ""
 
 msgid "Could not load captcha"
+msgstr ""
+
+msgid "Could not process files"
 msgstr ""
 
 msgid "Couldn't set Pixel"
@@ -369,6 +390,9 @@ msgid "Current Cooldown Changes per Country"
 msgstr ""
 
 msgid "Custom Cursor"
+msgstr ""
+
+msgid "Custom Flag"
 msgstr ""
 
 msgid "DM"
@@ -428,6 +452,9 @@ msgid "Don't remember"
 msgstr ""
 
 msgid "Don't show me in global stats"
+msgstr ""
+
+msgid "Download"
 msgstr ""
 
 msgid "Download Template"
@@ -796,10 +823,16 @@ msgstr ""
 msgid "No"
 msgstr ""
 
+msgid "No File selected to upload"
+msgstr ""
+
 msgid "No Phish!"
 msgstr ""
 
 msgid "No captcha id given"
+msgstr ""
+
+msgid "No flag selected"
 msgstr ""
 
 msgid "No or invalid captcha text"
@@ -1116,6 +1149,9 @@ msgstr ""
 msgid "Select File"
 msgstr ""
 
+msgid "Select Flag"
+msgstr ""
+
 msgid "Select Language"
 msgstr ""
 
@@ -1126,7 +1162,13 @@ msgid ""
 "Archived canvases can be accessed here:"
 msgstr ""
 
+msgid "Select your Avatar. Supported Formats: jpg, gif, png, webp"
+msgstr ""
+
 msgid "Selected Color"
+msgstr ""
+
+msgid "Selected Flag:"
 msgstr ""
 
 msgid "Send"
@@ -1180,6 +1222,9 @@ msgid "Show overlay as small individual pixels on high zoomlevels."
 msgstr ""
 
 msgid "Show templates as overlays ingame."
+msgstr ""
+
+msgid "Shrink"
 msgstr ""
 
 msgid "Size"
@@ -1322,6 +1367,9 @@ msgid "Total"
 msgstr ""
 
 msgid "Total Online Users"
+msgstr ""
+
+msgid "Total Pixels"
 msgstr ""
 
 msgid "Total Pixels per Player"

@@ -19,6 +19,9 @@ msgstr " wcyg "
 msgid "# Today"
 msgstr ""
 
+msgid "# Total"
+msgstr ""
+
 #, javascript-format
 msgid "${ mouseSymbol } Hold left mouse button and drag mouse to rotate"
 msgstr "Przetrzëmôj lewą knąpã mëszë ${ mouseSymbol } i przecygni żebë òbrócëc"
@@ -98,8 +101,14 @@ msgstr "Archiwùm"
 msgid "Assign new Mod"
 msgstr "Przëpiszë nową Szandarã"
 
+msgid "Attach File"
+msgstr ""
+
 msgid "Auto Zoom In"
 msgstr "Aùtomaticzné przëblëżenié"
+
+msgid "Avatar"
+msgstr ""
 
 msgid "Back"
 msgstr ""
@@ -257,6 +266,9 @@ msgstr ""
 msgid "Cleaners can use 0cd blank colors."
 msgstr ""
 
+msgid "Clear"
+msgstr ""
+
 #, javascript-format
 msgid ""
 "Click ${ mouseSymbol } middle mouse button or ${ touchSymbol } long-tap to "
@@ -273,6 +285,9 @@ msgstr "Nacësni tuwò żebë pòprosëc ò nowi sprôwdzënkòwi e-mail."
 
 msgid "Click to Load Captcha"
 msgstr "Wcësni, żebë zaladowac Captchã"
+
+msgid "Click to remove"
+msgstr ""
 
 msgid "Clone"
 msgstr "Zdëbeltni"
@@ -353,11 +368,17 @@ msgstr ""
 msgid "Copy to Clipboard"
 msgstr "Skòpieruj do Tacnika"
 
+msgid "Could not connect to server"
+msgstr ""
+
 msgid "Could not connect to server, please try again later :("
 msgstr "To sã nie dało pòłączec ze serwerã, spróbùj pòzdze :("
 
 msgid "Could not load captcha"
 msgstr "Nie szło zaladowac Captcha'ë"
+
+msgid "Could not process files"
+msgstr ""
 
 msgid "Couldn't set Pixel"
 msgstr "Nie ùdało sã wstawic piksela"
@@ -384,6 +405,9 @@ msgid "Current Cooldown Changes per Country"
 msgstr ""
 
 msgid "Custom Cursor"
+msgstr ""
+
+msgid "Custom Flag"
 msgstr ""
 
 msgid "DM"
@@ -450,6 +474,9 @@ msgstr ""
 
 msgid "Don't show me in global stats"
 msgstr "Nie pòkôzuj mie na swiatowëch statistikach"
+
+msgid "Download"
+msgstr ""
 
 msgid "Download Template"
 msgstr "Pòbierzë pòdkłôdë"
@@ -824,11 +851,17 @@ msgstr "Nowô Pòzwa"
 msgid "No"
 msgstr "Nie"
 
+msgid "No File selected to upload"
+msgstr ""
+
 msgid "No Phish!"
 msgstr ""
 
 msgid "No captcha id given"
 msgstr "Felënk ID testu captcha"
+
+msgid "No flag selected"
+msgstr ""
 
 msgid "No or invalid captcha text"
 msgstr "Felënk abò lëchi tekst captcha"
@@ -1159,6 +1192,9 @@ msgstr "Wëbierzë datã na górze"
 msgid "Select File"
 msgstr "Wëbierzë lópk"
 
+msgid "Select Flag"
+msgstr ""
+
 msgid "Select Language"
 msgstr "Wëbierzë jãzëk"
 
@@ -1173,9 +1209,15 @@ msgstr ""
 "Kòżdé płótno je òsoblëwé i mô jiné palétë, cząd òpòzdzeniégò a wëmôgania.\n"
 "Archiwùm rëmniãtëch płótnów nalézesz tuwò:"
 
+msgid "Select your Avatar. Supported Formats: jpg, gif, png, webp"
+msgstr ""
+
 #, fuzzy
 msgid "Selected Color"
 msgstr "Wëbierzë lópk"
+
+msgid "Selected Flag:"
+msgstr ""
 
 msgid "Send"
 msgstr "Wëslë"
@@ -1235,6 +1277,9 @@ msgstr ""
 
 msgid "Show templates as overlays ingame."
 msgstr "Wëskrzëniwôj mòdła jakno nakłôdczi òb granié."
+
+msgid "Shrink"
+msgstr ""
 
 msgid "Size"
 msgstr ""
@@ -1390,6 +1435,9 @@ msgstr "Òglowò"
 
 msgid "Total Online Users"
 msgstr "Całownô lëczba Aktiwnëch Brëkòwników"
+
+msgid "Total Pixels"
+msgstr ""
 
 #, fuzzy
 msgid "Total Pixels per Player"

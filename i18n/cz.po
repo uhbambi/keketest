@@ -20,6 +20,9 @@ msgstr " Což je za "
 msgid "# Today"
 msgstr ""
 
+msgid "# Total"
+msgstr ""
+
 #, javascript-format
 msgid "${ mouseSymbol } Hold left mouse button and drag mouse to rotate"
 msgstr ""
@@ -101,8 +104,14 @@ msgstr "Archiv"
 msgid "Assign new Mod"
 msgstr "Přidat nového Moderátora"
 
+msgid "Attach File"
+msgstr ""
+
 msgid "Auto Zoom In"
 msgstr "Automatické přiblížení"
+
+msgid "Avatar"
+msgstr ""
 
 msgid "Back"
 msgstr ""
@@ -259,6 +268,9 @@ msgstr ""
 msgid "Cleaners can use 0cd blank colors."
 msgstr ""
 
+msgid "Clear"
+msgstr ""
+
 #, javascript-format
 msgid ""
 "Click ${ mouseSymbol } middle mouse button or ${ touchSymbol } long-tap to "
@@ -275,6 +287,9 @@ msgstr "Klikněte tu aby jste požádali o nový ověřující mail."
 
 msgid "Click to Load Captcha"
 msgstr "Klikněte aby jste načetli Captcha"
+
+msgid "Click to remove"
+msgstr ""
 
 msgid "Clone"
 msgstr "Rozdvojit"
@@ -356,11 +371,17 @@ msgstr ""
 msgid "Copy to Clipboard"
 msgstr "Zkopírováno do schránky"
 
+msgid "Could not connect to server"
+msgstr ""
+
 msgid "Could not connect to server, please try again later :("
 msgstr "Nelze se připojit na server, zkuste znovu později :("
 
 msgid "Could not load captcha"
 msgstr "Nemohlo se načíst captcha"
+
+msgid "Could not process files"
+msgstr ""
 
 msgid "Couldn't set Pixel"
 msgstr "Nemohl se položit pixel"
@@ -388,6 +409,9 @@ msgstr "Aktuální změny Cooldownu pro jednotlivé zemích"
 
 msgid "Custom Cursor"
 msgstr "Vlastní Kurzor"
+
+msgid "Custom Flag"
+msgstr ""
 
 msgid "DM"
 msgstr "DM"
@@ -449,6 +473,9 @@ msgstr ""
 
 msgid "Don't show me in global stats"
 msgstr "Neukazujte mě v globálních statistik"
+
+msgid "Download"
+msgstr ""
 
 msgid "Download Template"
 msgstr "Stáhnout Šabnlonu"
@@ -820,11 +847,17 @@ msgstr "Nové Jméno"
 msgid "No"
 msgstr "Ne"
 
+msgid "No File selected to upload"
+msgstr ""
+
 msgid "No Phish!"
 msgstr ""
 
 msgid "No captcha id given"
 msgstr "Nebylo uvedeno captcha id"
+
+msgid "No flag selected"
+msgstr ""
 
 msgid "No or invalid captcha text"
 msgstr "Žádný nebo neplatný captcha text"
@@ -1155,6 +1188,9 @@ msgstr "Zde Vyberte Datum"
 msgid "Select File"
 msgstr "Vybrat Soubor"
 
+msgid "Select Flag"
+msgstr ""
+
 msgid "Select Language"
 msgstr "Vybrat Jazyk"
 
@@ -1168,8 +1204,14 @@ msgstr ""
 "Každé plátno je unikátní a má jinačí barvy, cooldown a požadavky.↩\n"
 "Archiv zavřených pláten můžete najít tady:"
 
+msgid "Select your Avatar. Supported Formats: jpg, gif, png, webp"
+msgstr ""
+
 msgid "Selected Color"
 msgstr "Vybraná Barva"
+
+msgid "Selected Flag:"
+msgstr ""
 
 msgid "Send"
 msgstr "Poslat"
@@ -1225,6 +1267,9 @@ msgstr "Ukázat overlay jako málé individuální pixely na velikých zoom levl
 
 msgid "Show templates as overlays ingame."
 msgstr "Ukázat šablony jako overlay ve hře."
+
+msgid "Shrink"
+msgstr ""
 
 msgid "Size"
 msgstr ""
@@ -1377,6 +1422,9 @@ msgstr "Celkem"
 
 msgid "Total Online Users"
 msgstr "Celkem online uživatelů"
+
+msgid "Total Pixels"
+msgstr ""
 
 msgid "Total Pixels per Player"
 msgstr "Celkový počet pixelů na hráče"

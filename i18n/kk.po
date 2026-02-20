@@ -19,6 +19,9 @@ msgstr " , қалған уақыт "
 msgid "# Today"
 msgstr ""
 
+msgid "# Total"
+msgstr ""
+
 #, javascript-format
 msgid "${ mouseSymbol } Hold left mouse button and drag mouse to rotate"
 msgstr ""
@@ -98,8 +101,14 @@ msgstr "Мұрағат"
 msgid "Assign new Mod"
 msgstr "Модератор тағайындау"
 
+msgid "Attach File"
+msgstr ""
+
 msgid "Auto Zoom In"
 msgstr "Авто-үлкейту"
+
+msgid "Avatar"
+msgstr ""
 
 msgid "Back"
 msgstr ""
@@ -255,6 +264,9 @@ msgstr ""
 msgid "Cleaners can use 0cd blank colors."
 msgstr ""
 
+msgid "Clear"
+msgstr ""
+
 #, javascript-format
 msgid ""
 "Click ${ mouseSymbol } middle mouse button or ${ touchSymbol } long-tap to "
@@ -271,6 +283,9 @@ msgstr "Жаңа растау хатын сұрау үшін осында бас
 
 msgid "Click to Load Captcha"
 msgstr "Captcha жүктеу үшін басыңыз"
+
+msgid "Click to remove"
+msgstr ""
 
 msgid "Clone"
 msgstr "Көшірмесін жасау"
@@ -350,11 +365,17 @@ msgstr ""
 msgid "Copy to Clipboard"
 msgstr "Алмасу буферіне көшіру"
 
+msgid "Could not connect to server"
+msgstr ""
+
 msgid "Could not connect to server, please try again later :("
 msgstr "Серверге байланысу мүмкін емес, кейінірек қайталап көріңіз :("
 
 msgid "Could not load captcha"
 msgstr "Captcha жүктеу мүмкін емес"
+
+msgid "Could not process files"
+msgstr ""
 
 msgid "Couldn't set Pixel"
 msgstr "Пиксел салу мүмкін емес"
@@ -382,6 +403,9 @@ msgstr ""
 
 msgid "Custom Cursor"
 msgstr "Арнаулы курсор"
+
+msgid "Custom Flag"
+msgstr ""
 
 msgid "DM"
 msgstr "Жекеге жазу"
@@ -444,6 +468,9 @@ msgstr ""
 
 msgid "Don't show me in global stats"
 msgstr "Мені ғаламдық статистикада көрсетпеу"
+
+msgid "Download"
+msgstr ""
 
 msgid "Download Template"
 msgstr "Үлгіні жүктеп алу"
@@ -817,11 +844,17 @@ msgstr "Жаңа қолданушы аты"
 msgid "No"
 msgstr "Жоқ"
 
+msgid "No File selected to upload"
+msgstr ""
+
 msgid "No Phish!"
 msgstr ""
 
 msgid "No captcha id given"
 msgstr "Captcha ID берілмеген"
+
+msgid "No flag selected"
+msgstr ""
 
 msgid "No or invalid captcha text"
 msgstr "Бос немесе қате Captcha мәтіні"
@@ -1154,6 +1187,9 @@ msgstr "Жоғарыдан күнді таңдаңыз"
 msgid "Select File"
 msgstr "Файл таңдаңыз"
 
+msgid "Select Flag"
+msgstr ""
+
 msgid "Select Language"
 msgstr "Тілді таңдаңыз"
 
@@ -1167,8 +1203,14 @@ msgstr ""
 "Әр кенептің өз палитрасы, күту уақыты және талаптары бар. \n"
 "Жабылған кенептер мұрағатын мына жерден көре аласыз:"
 
+msgid "Select your Avatar. Supported Formats: jpg, gif, png, webp"
+msgstr ""
+
 msgid "Selected Color"
 msgstr "Түс таңдау"
+
+msgid "Selected Flag:"
+msgstr ""
 
 msgid "Send"
 msgstr "Жіберу"
@@ -1228,6 +1270,9 @@ msgstr ""
 
 msgid "Show templates as overlays ingame."
 msgstr "Үлгілерді ойын ішіндегі қабаттасу ретінде көрсету."
+
+msgid "Shrink"
+msgstr ""
 
 msgid "Size"
 msgstr ""
@@ -1382,6 +1427,9 @@ msgstr "Жалпы"
 
 msgid "Total Online Users"
 msgstr "Желідегі қолданушылар (жалпы)"
+
+msgid "Total Pixels"
+msgstr ""
 
 #, fuzzy
 msgid "Total Pixels per Player"

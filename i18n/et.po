@@ -16,6 +16,9 @@ msgstr " , milleni on "
 msgid "# Today"
 msgstr ""
 
+msgid "# Total"
+msgstr ""
+
 #, javascript-format
 msgid "${ mouseSymbol } Hold left mouse button and drag mouse to rotate"
 msgstr ""
@@ -90,8 +93,14 @@ msgstr "Arhiiv"
 msgid "Assign new Mod"
 msgstr "Lisa uus Moderaator"
 
+msgid "Attach File"
+msgstr ""
+
 msgid "Auto Zoom In"
 msgstr "Automaatselt Suumi Sisse"
+
+msgid "Avatar"
+msgstr ""
 
 msgid "Back"
 msgstr ""
@@ -252,6 +261,9 @@ msgstr ""
 msgid "Cleaners can use 0cd blank colors."
 msgstr ""
 
+msgid "Clear"
+msgstr ""
+
 #, javascript-format
 msgid ""
 "Click ${ mouseSymbol } middle mouse button or ${ touchSymbol } long-tap to "
@@ -266,6 +278,9 @@ msgstr "Kliki siia, et taotleda uus verifikatsioonimeil."
 
 msgid "Click to Load Captcha"
 msgstr "Kliki, et laadida Captcha"
+
+msgid "Click to remove"
+msgstr ""
 
 msgid "Clone"
 msgstr "Klooni"
@@ -345,11 +360,17 @@ msgstr ""
 msgid "Copy to Clipboard"
 msgstr "Kopeeri Lõikelauale"
 
+msgid "Could not connect to server"
+msgstr ""
+
 msgid "Could not connect to server, please try again later :("
 msgstr "Ei leidnud serveriga ühendust, proovi hiljem uuesti :("
 
 msgid "Could not load captcha"
 msgstr "Captcha't ei laetud"
+
+msgid "Could not process files"
+msgstr ""
 
 msgid "Couldn't set Pixel"
 msgstr "Pikslit ei joonistatud"
@@ -377,6 +398,9 @@ msgstr ""
 
 msgid "Custom Cursor"
 msgstr "Eriline Kursor"
+
+msgid "Custom Flag"
+msgstr ""
 
 msgid "DM"
 msgstr "Saada Sõnum"
@@ -441,6 +465,9 @@ msgstr ""
 
 msgid "Don't show me in global stats"
 msgstr "Ära näita mind edetabelis"
+
+msgid "Download"
+msgstr ""
 
 msgid "Download Template"
 msgstr "Lae alla Šabloon"
@@ -815,11 +842,17 @@ msgstr "Uus Kasutajanimi"
 msgid "No"
 msgstr "Ei"
 
+msgid "No File selected to upload"
+msgstr ""
+
 msgid "No Phish!"
 msgstr ""
 
 msgid "No captcha id given"
 msgstr "Captcha ID-d ei antud"
+
+msgid "No flag selected"
+msgstr ""
 
 msgid "No or invalid captcha text"
 msgstr "Puudulik või sobimatu captcha tekst"
@@ -1148,6 +1181,9 @@ msgstr "Vali Kuupäev"
 msgid "Select File"
 msgstr "Vali Fail"
 
+msgid "Select Flag"
+msgstr ""
+
 msgid "Select Language"
 msgstr "Vali Keel"
 
@@ -1161,8 +1197,14 @@ msgstr ""
 "Igal lõuendil on eripärane palett, jahtumisaeg ja ligipääsu tingimused. \n"
 "Arhiveeritud lõuendid on saadaval siin:"
 
+msgid "Select your Avatar. Supported Formats: jpg, gif, png, webp"
+msgstr ""
+
 msgid "Selected Color"
 msgstr "Valitud Värv"
+
+msgid "Selected Flag:"
+msgstr ""
 
 msgid "Send"
 msgstr "Saada"
@@ -1218,6 +1260,9 @@ msgstr "Näita ülekatet väikeste pikslitena kõrgel suumitasemel."
 
 msgid "Show templates as overlays ingame."
 msgstr "Näita šabloone mängus ülekattena."
+
+msgid "Shrink"
+msgstr ""
 
 msgid "Size"
 msgstr ""
@@ -1368,6 +1413,9 @@ msgstr "Kokku"
 
 msgid "Total Online Users"
 msgstr "Mängus Olevate Kasutajate Arv"
+
+msgid "Total Pixels"
+msgstr ""
 
 #, fuzzy
 msgid "Total Pixels per Player"

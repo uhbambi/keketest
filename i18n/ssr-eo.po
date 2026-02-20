@@ -33,6 +33,9 @@ msgstr ""
 "Kanvaso por la plej aktivaj ludantoj de la antaŭa tago. Ĉiutage la "
 "rangotabelo ĝisdatigiĝas je 00:00 UTC."
 
+msgid "A file was too large"
+msgstr ""
+
 msgid "Access modtools"
 msgstr "Aliru moderigajn ilojn"
 
@@ -57,11 +60,20 @@ msgstr "Aplikaĵo forigita"
 msgid "Application successfully added"
 msgstr "Aplikaĵo sukcese aldonita"
 
+msgid "Avatar can only be an image"
+msgstr ""
+
 msgid "Black and White canvas"
 msgstr "Nigra-Blanka kanvaso"
 
 msgid "Can not chat while being banned"
 msgstr "Ne eblas babili dum malpermesita"
+
+#, javascript-format
+msgid ""
+"Can not upload this many files at once, only 5 are allowed, you have $"
+"{ amountOfFiles }"
+msgstr ""
 
 msgid "Click here"
 msgstr "Klaku ĉi tien"
@@ -93,6 +105,12 @@ msgstr "Ne eblis fermi ĉi tiun sesion."
 
 msgid "Could not find this login method"
 msgstr "Ne eblis trovi ĉi tiun ensalutan metodon"
+
+msgid "Could not set your avtar"
+msgstr ""
+
+msgid "Could not upload all files"
+msgstr ""
 
 msgid "Couldn't find this mail in our database"
 msgstr "Ne trovis tion retpostmensaĝon en la datumbazon"
@@ -138,6 +156,19 @@ msgstr "Erar'"
 
 msgid "Failed to create a new user :("
 msgstr "Malsukcesis krei novan uzanton :("
+
+#, javascript-format
+msgid ""
+"File ${ filename } has ${ sizeMB } MB and is too large. It may only be $"
+"{ maxSizeMB } MB"
+msgstr ""
+
+#, javascript-format
+msgid "File ${ filename } has an invalid extension"
+msgstr ""
+
+msgid "File is broken"
+msgstr ""
 
 #. 'client_secret' is a technical term and should not be translated
 msgid ""
@@ -187,6 +218,9 @@ msgstr ""
 msgid "Incorrect password!"
 msgstr "Pasvorto erara!"
 
+msgid "Invalid type of media"
+msgstr ""
+
 msgid "Invalid url :( Please check your mail again."
 msgstr "Nevalida URL ŭwŭ. Relegu vian retpostmensaĝujon."
 
@@ -217,6 +251,13 @@ msgstr "Retpoŝto ne estas agordita sur la servilo"
 
 msgid "Mail verification"
 msgstr "Retpostmensaĝa verigo"
+
+msgid "MimeType or extension not known or supported"
+msgstr ""
+
+#, javascript-format
+msgid "Mimetype ${ mimeType } of file ${ filename } is invalid or not allowed"
+msgstr ""
 
 msgid "Minimap"
 msgstr "Minimapo"
@@ -266,6 +307,9 @@ msgstr "Nova Pasvorto"
 #, fuzzy
 msgid "No Captcha given"
 msgstr "Pasvorton ne donita."
+
+msgid "No file metadata given"
+msgstr ""
 
 msgid "No or invalid fish id."
 msgstr "Neniu aŭ malvalida fiŝidentigilo."
@@ -366,6 +410,9 @@ msgstr "Alidirektaj URI-oj"
 msgid "Regularly update this data"
 msgstr "Regule ĝisdatigu ĉi tiujn datumojn"
 
+msgid "Request stalled"
+msgstr ""
+
 #. 'client_secret' is a technical term and should not be translated
 msgid "Reroll client_secret"
 msgstr "Rerulu client_secret"
@@ -375,6 +422,12 @@ msgstr "Renovigu Pasvorton"
 
 msgid "Reset your password here"
 msgstr "Renovigu pasvorton vian ĉi tien"
+
+msgid "Server Eror"
+msgstr ""
+
+msgid "Server Error"
+msgstr ""
 
 msgid "Server error when deleting user."
 msgstr "Servila eraro dum forigo de uzanto."
@@ -462,6 +515,24 @@ msgstr ""
 msgid "This email provider is not allowed"
 msgstr "Ĉi tiu retpoŝta provizanto ne estas permesita"
 
+msgid "This media is banned because it is propaganda"
+msgstr ""
+
+msgid "This media is banned for being an attempt to scam people"
+msgstr ""
+
+msgid "This media is banned for being degenerate"
+msgstr ""
+
+msgid "This media is banned for containing CSAM"
+msgstr ""
+
+msgid "This media is banned for containing graphic violence"
+msgstr ""
+
+msgid "This media is banned for glorifying terrorism"
+msgstr ""
+
 msgid "This password-reset link isn't valid anymore :("
 msgstr "Ĉi tio renovigopasvortoligon malestas valido nun ŭwŭ"
 
@@ -474,6 +545,10 @@ msgstr "Supraj 10"
 
 msgid "Unknown Captcha Error"
 msgstr "Nekonata Captcha-eraro"
+
+#, javascript-format
+msgid "Unknown field ${ name } in request"
+msgstr ""
 
 msgid "Update Application"
 msgstr "Ĝisdatigu Aplikaĵon"
@@ -560,6 +635,9 @@ msgstr "Vi estas silentata senfine, eniru je l' guilded por malfari ĝi"
 msgid "You are sending messages too fast, you have to wait ${ waitTime }s :("
 msgstr "Vi sendas mensaĝojn tro rapide, atendu ${ waitTime }s ŭwŭ"
 
+msgid "You attached too many files"
+msgstr ""
+
 msgid ""
 "You can not delete this login method, because you have nothing else left."
 msgstr ""
@@ -585,6 +663,9 @@ msgstr ""
 
 msgid "You can't send a message this long :("
 msgstr "Ne sendus mensaĝon tiom longa ŭwŭ"
+
+msgid "You did not provide all neccessary information"
+msgstr ""
 
 msgid ""
 "You do not have any email adress set. Please add one under \"Login Methods\"."

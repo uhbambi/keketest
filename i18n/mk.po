@@ -16,6 +16,9 @@ msgstr " која е во "
 msgid "# Today"
 msgstr ""
 
+msgid "# Total"
+msgstr ""
+
 #, javascript-format
 msgid "${ mouseSymbol } Hold left mouse button and drag mouse to rotate"
 msgstr ""
@@ -94,8 +97,14 @@ msgstr "Архива"
 msgid "Assign new Mod"
 msgstr "Доделете нов режим"
 
+msgid "Attach File"
+msgstr ""
+
 msgid "Auto Zoom In"
 msgstr "Автоматско зумирање"
+
+msgid "Avatar"
+msgstr ""
 
 msgid "Back"
 msgstr ""
@@ -254,6 +263,9 @@ msgstr ""
 msgid "Cleaners can use 0cd blank colors."
 msgstr ""
 
+msgid "Clear"
+msgstr ""
+
 #, javascript-format
 msgid ""
 "Click ${ mouseSymbol } middle mouse button or ${ touchSymbol } long-tap to "
@@ -270,6 +282,9 @@ msgstr "Кликнете тука за да побарате нова вериф
 
 msgid "Click to Load Captcha"
 msgstr "Кликнете за да ја вчитате Captcha"
+
+msgid "Click to remove"
+msgstr ""
 
 msgid "Clone"
 msgstr "Клон"
@@ -351,11 +366,17 @@ msgstr ""
 msgid "Copy to Clipboard"
 msgstr "Копирај во таблата со исечоци"
 
+msgid "Could not connect to server"
+msgstr ""
+
 msgid "Could not connect to server, please try again later :("
 msgstr "Не можев да се поврзам со серверот, обидете се повторно подоцна :("
 
 msgid "Could not load captcha"
 msgstr "Не може да се вчита captcha"
+
+msgid "Could not process files"
+msgstr ""
 
 msgid "Couldn't set Pixel"
 msgstr "Неможеше да го поставиш пикселот"
@@ -383,6 +404,9 @@ msgstr "Тековни промени за ладење по земја"
 
 msgid "Custom Cursor"
 msgstr "Прилагоден курсор"
+
+msgid "Custom Flag"
+msgstr ""
 
 msgid "DM"
 msgstr "ДМ"
@@ -446,6 +470,9 @@ msgstr ""
 
 msgid "Don't show me in global stats"
 msgstr "Не ми покажувај во глобалната статистика"
+
+msgid "Download"
+msgstr ""
 
 msgid "Download Template"
 msgstr "Исталирај Темплејт"
@@ -821,11 +848,17 @@ msgstr "Ново корисничко име"
 msgid "No"
 msgstr "Не"
 
+msgid "No File selected to upload"
+msgstr ""
+
 msgid "No Phish!"
 msgstr ""
 
 msgid "No captcha id given"
 msgstr "Не е даден captcha ID"
+
+msgid "No flag selected"
+msgstr ""
 
 msgid "No or invalid captcha text"
 msgstr "Македонија срање"
@@ -1156,6 +1189,9 @@ msgstr "Изберете Датум погоре"
 msgid "Select File"
 msgstr "Избери фајл"
 
+msgid "Select Flag"
+msgstr ""
+
 msgid "Select Language"
 msgstr "Изберете Јазик"
 
@@ -1169,8 +1205,14 @@ msgstr ""
 "Секое платно е уникатно и има различни палети, разладување и барања.\n"
 "Архивираните платна може да се пристапат овде:"
 
+msgid "Select your Avatar. Supported Formats: jpg, gif, png, webp"
+msgstr ""
+
 msgid "Selected Color"
 msgstr "Селектирана Боја"
+
+msgid "Selected Flag:"
+msgstr ""
 
 msgid "Send"
 msgstr "Прати"
@@ -1227,6 +1269,9 @@ msgstr ""
 
 msgid "Show templates as overlays ingame."
 msgstr "Прикажи ги шаблоните како преклопени во играта."
+
+msgid "Shrink"
+msgstr ""
 
 msgid "Size"
 msgstr ""
@@ -1380,6 +1425,9 @@ msgstr "Вкупно"
 
 msgid "Total Online Users"
 msgstr "Вкупно луге во играта"
+
+msgid "Total Pixels"
+msgstr ""
 
 msgid "Total Pixels per Player"
 msgstr "Вкупно пиксели по играч"

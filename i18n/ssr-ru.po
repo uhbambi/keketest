@@ -34,6 +34,9 @@ msgstr ""
 "Полотно для самых активных игроков за предыдущий день. Ежедневное обновление "
 "рейтинга в 00:00 UTC."
 
+msgid "A file was too large"
+msgstr ""
+
 msgid "Access modtools"
 msgstr "Доступ к инструментам модератора"
 
@@ -58,11 +61,20 @@ msgstr "Приложение удалено"
 msgid "Application successfully added"
 msgstr "Приложение успешно добавлено"
 
+msgid "Avatar can only be an image"
+msgstr ""
+
 msgid "Black and White canvas"
 msgstr "Чёрно-белое полотно"
 
 msgid "Can not chat while being banned"
 msgstr "Нельзя писать в чат находясь в бане"
+
+#, javascript-format
+msgid ""
+"Can not upload this many files at once, only 5 are allowed, you have $"
+"{ amountOfFiles }"
+msgstr ""
 
 msgid "Click here"
 msgstr "Нажмите здесь"
@@ -94,6 +106,12 @@ msgstr "Не удалось закрыть эту сессию."
 
 msgid "Could not find this login method"
 msgstr "Не удалось найти этот способ входа"
+
+msgid "Could not set your avtar"
+msgstr ""
+
+msgid "Could not upload all files"
+msgstr ""
 
 msgid "Couldn't find this mail in our database"
 msgstr "Не удалось найти эту почту в нашей базе данных"
@@ -139,6 +157,19 @@ msgstr "Ошибка"
 
 msgid "Failed to create a new user :("
 msgstr "Не удалось создать нового пользователя:("
+
+#, javascript-format
+msgid ""
+"File ${ filename } has ${ sizeMB } MB and is too large. It may only be $"
+"{ maxSizeMB } MB"
+msgstr ""
+
+#, javascript-format
+msgid "File ${ filename } has an invalid extension"
+msgstr ""
+
+msgid "File is broken"
+msgstr ""
 
 #. 'client_secret' is a technical term and should not be translated
 msgid ""
@@ -192,6 +223,9 @@ msgstr ""
 msgid "Incorrect password!"
 msgstr "Неверный пароль!"
 
+msgid "Invalid type of media"
+msgstr ""
+
 msgid "Invalid url :( Please check your mail again."
 msgstr "Неверный адрес :( Пожалуйста, проверьте свою почту еще раз."
 
@@ -222,6 +256,13 @@ msgstr "Почта не настроена на сервере"
 
 msgid "Mail verification"
 msgstr "Подтверждение почты"
+
+msgid "MimeType or extension not known or supported"
+msgstr ""
+
+#, javascript-format
+msgid "Mimetype ${ mimeType } of file ${ filename } is invalid or not allowed"
+msgstr ""
 
 msgid "Minimap"
 msgstr "Миникарта"
@@ -269,6 +310,9 @@ msgstr "Новый пароль"
 
 msgid "No Captcha given"
 msgstr "Капча не введена"
+
+msgid "No file metadata given"
+msgstr ""
 
 msgid "No or invalid fish id."
 msgstr "Не найден или указан некорректный ID рыбы."
@@ -370,6 +414,9 @@ msgstr "URI переадресации"
 msgid "Regularly update this data"
 msgstr "Регулярно обновлять эти данные"
 
+msgid "Request stalled"
+msgstr ""
+
 #. 'client_secret' is a technical term and should not be translated
 msgid "Reroll client_secret"
 msgstr "Пересоздать client_secret"
@@ -379,6 +426,12 @@ msgstr "Сбросить пароль"
 
 msgid "Reset your password here"
 msgstr "Сбросьте пароль здесь"
+
+msgid "Server Eror"
+msgstr ""
+
+msgid "Server Error"
+msgstr ""
 
 msgid "Server error when deleting user."
 msgstr "Ошибка сервера при удалении пользователя."
@@ -468,6 +521,24 @@ msgstr ""
 msgid "This email provider is not allowed"
 msgstr "Этот провайдер электронной почты не разрешен"
 
+msgid "This media is banned because it is propaganda"
+msgstr ""
+
+msgid "This media is banned for being an attempt to scam people"
+msgstr ""
+
+msgid "This media is banned for being degenerate"
+msgstr ""
+
+msgid "This media is banned for containing CSAM"
+msgstr ""
+
+msgid "This media is banned for containing graphic violence"
+msgstr ""
+
+msgid "This media is banned for glorifying terrorism"
+msgstr ""
+
 msgid "This password-reset link isn't valid anymore :("
 msgstr "Эта ссылка для сброса пароля больше недействительна :("
 
@@ -480,6 +551,10 @@ msgstr "Топ-10"
 
 msgid "Unknown Captcha Error"
 msgstr "Неизвестная ошибка капчи"
+
+#, javascript-format
+msgid "Unknown field ${ name } in request"
+msgstr ""
 
 msgid "Update Application"
 msgstr "Обновить приложение"
@@ -566,6 +641,9 @@ msgstr ""
 "Вы отправляете сообщения слишком быстро, вам нужно подождать ${ waitTime }с :"
 "("
 
+msgid "You attached too many files"
+msgstr ""
+
 msgid ""
 "You can not delete this login method, because you have nothing else left."
 msgstr "Вы не можете удалить этот способ входа, потому что он единственный."
@@ -588,6 +666,9 @@ msgstr ""
 
 msgid "You can't send a message this long :("
 msgstr "Вы не можете отправить сообщение такой длины :("
+
+msgid "You did not provide all neccessary information"
+msgstr ""
 
 msgid ""
 "You do not have any email adress set. Please add one under \"Login Methods\"."

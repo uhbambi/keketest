@@ -25,6 +25,9 @@ msgid ""
 "ranking updates at 00:00 UTC."
 msgstr ""
 
+msgid "A file was too large"
+msgstr ""
+
 msgid "Access modtools"
 msgstr ""
 
@@ -49,10 +52,19 @@ msgstr ""
 msgid "Application successfully added"
 msgstr ""
 
+msgid "Avatar can only be an image"
+msgstr ""
+
 msgid "Black and White canvas"
 msgstr ""
 
 msgid "Can not chat while being banned"
+msgstr ""
+
+#, javascript-format
+msgid ""
+"Can not upload this many files at once, only 5 are allowed, you have $"
+"{ amountOfFiles }"
 msgstr ""
 
 msgid "Click here"
@@ -82,6 +94,12 @@ msgid "Could not close this Session."
 msgstr ""
 
 msgid "Could not find this login method"
+msgstr ""
+
+msgid "Could not set your avtar"
+msgstr ""
+
+msgid "Could not upload all files"
 msgstr ""
 
 msgid "Couldn't find this mail in our database"
@@ -129,6 +147,19 @@ msgstr ""
 msgid "Failed to create a new user :("
 msgstr ""
 
+#, javascript-format
+msgid ""
+"File ${ filename } has ${ sizeMB } MB and is too large. It may only be $"
+"{ maxSizeMB } MB"
+msgstr ""
+
+#, javascript-format
+msgid "File ${ filename } has an invalid extension"
+msgstr ""
+
+msgid "File is broken"
+msgstr ""
+
 #. 'client_secret' is a technical term and should not be translated
 msgid ""
 "Generate a new client_secret. The old secret will become invalid immediately."
@@ -171,6 +202,9 @@ msgstr ""
 msgid "Incorrect password!"
 msgstr ""
 
+msgid "Invalid type of media"
+msgstr ""
+
 msgid "Invalid url :( Please check your mail again."
 msgstr ""
 
@@ -200,6 +234,13 @@ msgid "Mail is not configured on the server"
 msgstr ""
 
 msgid "Mail verification"
+msgstr ""
+
+msgid "MimeType or extension not known or supported"
+msgstr ""
+
+#, javascript-format
+msgid "Mimetype ${ mimeType } of file ${ filename } is invalid or not allowed"
 msgstr ""
 
 msgid "Minimap"
@@ -244,6 +285,9 @@ msgid "New Password"
 msgstr ""
 
 msgid "No Captcha given"
+msgstr ""
+
+msgid "No file metadata given"
 msgstr ""
 
 msgid "No or invalid fish id."
@@ -340,6 +384,9 @@ msgstr ""
 msgid "Regularly update this data"
 msgstr ""
 
+msgid "Request stalled"
+msgstr ""
+
 #. 'client_secret' is a technical term and should not be translated
 msgid "Reroll client_secret"
 msgstr ""
@@ -348,6 +395,12 @@ msgid "Reset Password"
 msgstr ""
 
 msgid "Reset your password here"
+msgstr ""
+
+msgid "Server Eror"
+msgstr ""
+
+msgid "Server Error"
 msgstr ""
 
 msgid "Server error when deleting user."
@@ -423,6 +476,24 @@ msgstr ""
 msgid "This email provider is not allowed"
 msgstr ""
 
+msgid "This media is banned because it is propaganda"
+msgstr ""
+
+msgid "This media is banned for being an attempt to scam people"
+msgstr ""
+
+msgid "This media is banned for being degenerate"
+msgstr ""
+
+msgid "This media is banned for containing CSAM"
+msgstr ""
+
+msgid "This media is banned for containing graphic violence"
+msgstr ""
+
+msgid "This media is banned for glorifying terrorism"
+msgstr ""
+
 msgid "This password-reset link isn't valid anymore :("
 msgstr ""
 
@@ -434,6 +505,10 @@ msgid "Top10"
 msgstr ""
 
 msgid "Unknown Captcha Error"
+msgstr ""
+
+#, javascript-format
+msgid "Unknown field ${ name } in request"
 msgstr ""
 
 msgid "Update Application"
@@ -514,6 +589,9 @@ msgstr ""
 msgid "You are sending messages too fast, you have to wait ${ waitTime }s :("
 msgstr ""
 
+msgid "You attached too many files"
+msgstr ""
+
 msgid ""
 "You can not delete this login method, because you have nothing else left."
 msgstr ""
@@ -533,6 +611,9 @@ msgid ""
 msgstr ""
 
 msgid "You can't send a message this long :("
+msgstr ""
+
+msgid "You did not provide all neccessary information"
 msgstr ""
 
 msgid ""

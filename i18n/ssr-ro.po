@@ -34,6 +34,9 @@ msgstr ""
 "Un convas pentru cei mai activi jucători din ziua precedentă. Actualizări "
 "zilnice de clasare la 00:00 UTC."
 
+msgid "A file was too large"
+msgstr ""
+
 msgid "Access modtools"
 msgstr "Accesează unelte de moderator"
 
@@ -58,11 +61,20 @@ msgstr "Cererea a fost ștearsă"
 msgid "Application successfully added"
 msgstr "Cerere adăugată cu succes"
 
+msgid "Avatar can only be an image"
+msgstr ""
+
 msgid "Black and White canvas"
 msgstr "Convas negru-alb"
 
 msgid "Can not chat while being banned"
 msgstr "Nu poți vorbi cât timp ești interzis"
+
+#, javascript-format
+msgid ""
+"Can not upload this many files at once, only 5 are allowed, you have $"
+"{ amountOfFiles }"
+msgstr ""
 
 msgid "Click here"
 msgstr "Apasă aici"
@@ -94,6 +106,12 @@ msgstr "Nu s-a putut închide această Sesiune."
 
 msgid "Could not find this login method"
 msgstr "Nu s-a putut găsi această metodă de autentificare"
+
+msgid "Could not set your avtar"
+msgstr ""
+
+msgid "Could not upload all files"
+msgstr ""
 
 msgid "Couldn't find this mail in our database"
 msgstr "Nu am putut găsi acest mail în datele noastre de bază"
@@ -139,6 +157,19 @@ msgstr "Eroare"
 
 msgid "Failed to create a new user :("
 msgstr "Nu s-a putut crea un utilizator nou :("
+
+#, javascript-format
+msgid ""
+"File ${ filename } has ${ sizeMB } MB and is too large. It may only be $"
+"{ maxSizeMB } MB"
+msgstr ""
+
+#, javascript-format
+msgid "File ${ filename } has an invalid extension"
+msgstr ""
+
+msgid "File is broken"
+msgstr ""
 
 #. 'client_secret' is a technical term and should not be translated
 msgid ""
@@ -188,6 +219,9 @@ msgstr ""
 msgid "Incorrect password!"
 msgstr "Parolă incorrectă!"
 
+msgid "Invalid type of media"
+msgstr ""
+
 msgid "Invalid url :( Please check your mail again."
 msgstr "Url invalid :( Te rog verifică mailul din nou."
 
@@ -218,6 +252,13 @@ msgstr "Mail nu este configurat pe server"
 
 msgid "Mail verification"
 msgstr "Mail verificat"
+
+msgid "MimeType or extension not known or supported"
+msgstr ""
+
+#, javascript-format
+msgid "Mimetype ${ mimeType } of file ${ filename } is invalid or not allowed"
+msgstr ""
 
 msgid "Minimap"
 msgstr "Minimap"
@@ -265,6 +306,9 @@ msgstr "Parola Nouă"
 
 msgid "No Captcha given"
 msgstr "Niciun captcha dat"
+
+msgid "No file metadata given"
+msgstr ""
 
 msgid "No or invalid fish id."
 msgstr "Nu este sau id-ul de pește este invalid."
@@ -366,6 +410,9 @@ msgstr "Redirecționeaza URIs"
 msgid "Regularly update this data"
 msgstr "Actualizeaza în mod regulat aceste date"
 
+msgid "Request stalled"
+msgstr ""
+
 #. 'client_secret' is a technical term and should not be translated
 msgid "Reroll client_secret"
 msgstr "Dă reroll la client_secret"
@@ -375,6 +422,12 @@ msgstr "Resetează Parola"
 
 msgid "Reset your password here"
 msgstr "Resetează-ți parola aici"
+
+msgid "Server Eror"
+msgstr ""
+
+msgid "Server Error"
+msgstr ""
 
 msgid "Server error when deleting user."
 msgstr "Eroare de server la încercarea ștergerii utilizatorul."
@@ -464,6 +517,24 @@ msgstr ""
 msgid "This email provider is not allowed"
 msgstr "Acest furnizor de mail nu este permis"
 
+msgid "This media is banned because it is propaganda"
+msgstr ""
+
+msgid "This media is banned for being an attempt to scam people"
+msgstr ""
+
+msgid "This media is banned for being degenerate"
+msgstr ""
+
+msgid "This media is banned for containing CSAM"
+msgstr ""
+
+msgid "This media is banned for containing graphic violence"
+msgstr ""
+
+msgid "This media is banned for glorifying terrorism"
+msgstr ""
+
 msgid "This password-reset link isn't valid anymore :("
 msgstr "Acest parolă-reset link deja nu este valid :("
 
@@ -476,6 +547,10 @@ msgstr "Top10"
 
 msgid "Unknown Captcha Error"
 msgstr "Eroare de Captcha necunoscută"
+
+#, javascript-format
+msgid "Unknown field ${ name } in request"
+msgstr ""
 
 msgid "Update Application"
 msgstr "Actualizează Aplicația"
@@ -559,6 +634,9 @@ msgstr "Ești dezactivat permanent, intră în guilded pentru a face apel"
 msgid "You are sending messages too fast, you have to wait ${ waitTime }s :("
 msgstr "Trimiți mesaje prea repede, trebuie să aștepți ${ waitTime }s :("
 
+msgid "You attached too many files"
+msgstr ""
+
 msgid ""
 "You can not delete this login method, because you have nothing else left."
 msgstr ""
@@ -583,6 +661,9 @@ msgstr ""
 
 msgid "You can't send a message this long :("
 msgstr "Nu poți trimite un mesaj atât de lung :("
+
+msgid "You did not provide all neccessary information"
+msgstr ""
 
 msgid ""
 "You do not have any email adress set. Please add one under \"Login Methods\"."

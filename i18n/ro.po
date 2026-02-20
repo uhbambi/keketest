@@ -21,6 +21,9 @@ msgstr " care este în "
 msgid "# Today"
 msgstr ""
 
+msgid "# Total"
+msgstr ""
+
 #, javascript-format
 msgid "${ mouseSymbol } Hold left mouse button and drag mouse to rotate"
 msgstr ""
@@ -100,8 +103,14 @@ msgstr "Arhivă"
 msgid "Assign new Mod"
 msgstr "Atribuiți un nou moderator"
 
+msgid "Attach File"
+msgstr ""
+
 msgid "Auto Zoom In"
 msgstr "Zoom In automat"
+
+msgid "Avatar"
+msgstr ""
 
 msgid "Back"
 msgstr "Înapoi"
@@ -262,6 +271,9 @@ msgstr ""
 msgid "Cleaners can use 0cd blank colors."
 msgstr "Curațatorii pot folosii culori goale cu 0cd."
 
+msgid "Clear"
+msgstr ""
+
 #, javascript-format
 msgid ""
 "Click ${ mouseSymbol } middle mouse button or ${ touchSymbol } long-tap to "
@@ -278,6 +290,9 @@ msgstr "Dă click aici pentru a cere un nou mail de verificare."
 
 msgid "Click to Load Captcha"
 msgstr "Click pentru a încărca Captchaul"
+
+msgid "Click to remove"
+msgstr ""
 
 msgid "Clone"
 msgstr "Clonează"
@@ -359,11 +374,17 @@ msgstr "Copiază UserId-ul în Clipboard"
 msgid "Copy to Clipboard"
 msgstr "Copiază către Clipboard"
 
+msgid "Could not connect to server"
+msgstr ""
+
 msgid "Could not connect to server, please try again later :("
 msgstr "Nu s-a putut conecta la server, încearcă mai târziu :("
 
 msgid "Could not load captcha"
 msgstr "Nu am putut încărca captchaul"
+
+msgid "Could not process files"
+msgstr ""
 
 msgid "Couldn't set Pixel"
 msgstr "Nu s-a putut seta pixelul"
@@ -391,6 +412,9 @@ msgstr "Cooldown-ul Actual se Schimbă per Țară"
 
 msgid "Custom Cursor"
 msgstr "Cursor Custom"
+
+msgid "Custom Flag"
+msgstr ""
 
 msgid "DM"
 msgstr "DM"
@@ -452,6 +476,9 @@ msgstr "Nu îmi amintesc"
 
 msgid "Don't show me in global stats"
 msgstr "Nu mă arăta în statisticile globale"
+
+msgid "Download"
+msgstr ""
 
 msgid "Download Template"
 msgstr "Descarcă Templateul"
@@ -840,11 +867,17 @@ msgstr "Nume de utilizator Nou"
 msgid "No"
 msgstr "Nu"
 
+msgid "No File selected to upload"
+msgstr ""
+
 msgid "No Phish!"
 msgstr "Niciun pește!"
 
 msgid "No captcha id given"
 msgstr "Niciun id captcha primit"
+
+msgid "No flag selected"
+msgstr ""
 
 msgid "No or invalid captcha text"
 msgstr "Fără captcha text sau invalid"
@@ -1174,6 +1207,9 @@ msgstr "Selectează Data deasupra"
 msgid "Select File"
 msgstr "Selectează Fișier"
 
+msgid "Select Flag"
+msgstr ""
+
 msgid "Select Language"
 msgstr "Selectează limba"
 
@@ -1187,8 +1223,14 @@ msgstr ""
 "Fiecare canvas este unic și are palete diferite, cooldownuri și obligații. \n"
 "Arhiva canvasurilor închise poate fi accesată aici:"
 
+msgid "Select your Avatar. Supported Formats: jpg, gif, png, webp"
+msgstr ""
+
 msgid "Selected Color"
 msgstr "Selectează Culoare"
+
+msgid "Selected Flag:"
+msgstr ""
 
 msgid "Send"
 msgstr "Trimite"
@@ -1246,6 +1288,9 @@ msgstr "Arată Overlay-ul ca pixeli individuali mici la niveluri mari de zoom."
 
 msgid "Show templates as overlays ingame."
 msgstr "Arată șablonul ca Overlay ingame."
+
+msgid "Shrink"
+msgstr ""
 
 msgid "Size"
 msgstr "Mărime"
@@ -1406,6 +1451,9 @@ msgstr "Total"
 
 msgid "Total Online Users"
 msgstr "Utilizatori Online în Total"
+
+msgid "Total Pixels"
+msgstr ""
 
 msgid "Total Pixels per Player"
 msgstr "Pixeli puși în total per Player"

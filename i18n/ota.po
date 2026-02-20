@@ -16,6 +16,9 @@ msgstr ""
 msgid "# Today"
 msgstr ""
 
+msgid "# Total"
+msgstr ""
+
 #, javascript-format
 msgid "${ mouseSymbol } Hold left mouse button and drag mouse to rotate"
 msgstr ""
@@ -87,7 +90,13 @@ msgstr ""
 msgid "Assign new Mod"
 msgstr ""
 
+msgid "Attach File"
+msgstr ""
+
 msgid "Auto Zoom In"
+msgstr ""
+
+msgid "Avatar"
 msgstr ""
 
 msgid "Back"
@@ -239,6 +248,9 @@ msgstr ""
 msgid "Cleaners can use 0cd blank colors."
 msgstr ""
 
+msgid "Clear"
+msgstr ""
+
 #, javascript-format
 msgid ""
 "Click ${ mouseSymbol } middle mouse button or ${ touchSymbol } long-tap to "
@@ -252,6 +264,9 @@ msgid "Click here to request a new verification mail."
 msgstr ""
 
 msgid "Click to Load Captcha"
+msgstr ""
+
+msgid "Click to remove"
 msgstr ""
 
 msgid "Clone"
@@ -332,10 +347,16 @@ msgstr ""
 msgid "Copy to Clipboard"
 msgstr ""
 
+msgid "Could not connect to server"
+msgstr ""
+
 msgid "Could not connect to server, please try again later :("
 msgstr ""
 
 msgid "Could not load captcha"
+msgstr ""
+
+msgid "Could not process files"
 msgstr ""
 
 msgid "Couldn't set Pixel"
@@ -363,6 +384,9 @@ msgid "Current Cooldown Changes per Country"
 msgstr ""
 
 msgid "Custom Cursor"
+msgstr ""
+
+msgid "Custom Flag"
 msgstr ""
 
 msgid "DM"
@@ -424,6 +448,9 @@ msgid "Don't remember"
 msgstr ""
 
 msgid "Don't show me in global stats"
+msgstr ""
+
+msgid "Download"
 msgstr ""
 
 msgid "Download Template"
@@ -796,10 +823,16 @@ msgstr ""
 msgid "No"
 msgstr ""
 
+msgid "No File selected to upload"
+msgstr ""
+
 msgid "No Phish!"
 msgstr ""
 
 msgid "No captcha id given"
+msgstr ""
+
+msgid "No flag selected"
 msgstr ""
 
 msgid "No or invalid captcha text"
@@ -1119,6 +1152,9 @@ msgstr ""
 msgid "Select File"
 msgstr ""
 
+msgid "Select Flag"
+msgstr ""
+
 msgid "Select Language"
 msgstr ""
 
@@ -1129,7 +1165,13 @@ msgid ""
 "Archived canvases can be accessed here:"
 msgstr ""
 
+msgid "Select your Avatar. Supported Formats: jpg, gif, png, webp"
+msgstr ""
+
 msgid "Selected Color"
+msgstr ""
+
+msgid "Selected Flag:"
 msgstr ""
 
 msgid "Send"
@@ -1183,6 +1225,9 @@ msgid "Show overlay as small individual pixels on high zoomlevels."
 msgstr ""
 
 msgid "Show templates as overlays ingame."
+msgstr ""
+
+msgid "Shrink"
 msgstr ""
 
 msgid "Size"
@@ -1325,6 +1370,9 @@ msgid "Total"
 msgstr ""
 
 msgid "Total Online Users"
+msgstr ""
+
+msgid "Total Pixels"
 msgstr ""
 
 msgid "Total Pixels per Player"

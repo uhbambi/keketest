@@ -31,6 +31,9 @@ msgstr ""
 "Klajds dēnan aktiviskajāusians piłs naudingimans pa prīkstinān dėinan. "
 "Dīnniskai rengimai atnaujinami prei 00:00 UTC."
 
+msgid "A file was too large"
+msgstr ""
+
 msgid "Access modtools"
 msgstr ""
 
@@ -55,11 +58,20 @@ msgstr ""
 msgid "Application successfully added"
 msgstr ""
 
+msgid "Avatar can only be an image"
+msgstr ""
+
 msgid "Black and White canvas"
 msgstr "Melne un Balte audekla"
 
 msgid "Can not chat while being banned"
 msgstr "Ne galēi lābutunīs kai esi uzsprēstas"
+
+#, javascript-format
+msgid ""
+"Can not upload this many files at once, only 5 are allowed, you have $"
+"{ amountOfFiles }"
+msgstr ""
 
 msgid "Click here"
 msgstr "Spausk dēnt"
@@ -91,6 +103,12 @@ msgstr "Nepatīkanškas šīntan Sesījan."
 
 msgid "Could not find this login method"
 msgstr "Nī finden bartinnan gīwīdeinan sikīmtinan"
+
+msgid "Could not set your avtar"
+msgstr ""
+
+msgid "Could not upload all files"
+msgstr ""
 
 msgid "Couldn't find this mail in our database"
 msgstr "Nī pasteīgtan tānkun ēmaiļan mūson datubāzion"
@@ -136,6 +154,19 @@ msgstr "Klaida"
 
 msgid "Failed to create a new user :("
 msgstr "Nepavyko sukūrti naują naudotoją :("
+
+#, javascript-format
+msgid ""
+"File ${ filename } has ${ sizeMB } MB and is too large. It may only be $"
+"{ maxSizeMB } MB"
+msgstr ""
+
+#, javascript-format
+msgid "File ${ filename } has an invalid extension"
+msgstr ""
+
+msgid "File is broken"
+msgstr ""
 
 #. 'client_secret' is a technical term and should not be translated
 msgid ""
@@ -187,6 +218,9 @@ msgstr ""
 msgid "Incorrect password!"
 msgstr "Neteisinga slaptāžodis!"
 
+msgid "Invalid type of media"
+msgstr ""
+
 msgid "Invalid url :( Please check your mail again."
 msgstr "Neteisinga entrustedīnė :( Prašau tiktinti twēian mailan nanīn."
 
@@ -217,6 +251,13 @@ msgstr "Posti ni īr nūstātītās pi servera"
 
 msgid "Mail verification"
 msgstr "Pausta patikrinsana"
+
+msgid "MimeType or extension not known or supported"
+msgstr ""
+
+#, javascript-format
+msgid "Mimetype ${ mimeType } of file ${ filename } is invalid or not allowed"
+msgstr ""
 
 msgid "Minimap"
 msgstr "Mażītlapis"
@@ -263,6 +304,9 @@ msgstr "Nawīnīs Skirsnanūmins"
 
 msgid "No Captcha given"
 msgstr "Ni kāptča dāts"
+
+msgid "No file metadata given"
+msgstr ""
 
 msgid "No or invalid fish id."
 msgstr "Nēīgnaī aba nēistājgs pūwis id."
@@ -360,6 +404,9 @@ msgstr "reīklaīst URIs"
 msgid "Regularly update this data"
 msgstr "Staikintēi rinktwei datans"
 
+msgid "Request stalled"
+msgstr ""
+
 #. 'client_secret' is a technical term and should not be translated
 msgid "Reroll client_secret"
 msgstr ""
@@ -369,6 +416,12 @@ msgstr "Atstatīt Surīktan"
 
 msgid "Reset your password here"
 msgstr "Apgriztwei twei Surīktan tūsei"
+
+msgid "Server Eror"
+msgstr ""
+
+msgid "Server Error"
+msgstr ""
 
 msgid "Server error when deleting user."
 msgstr "Klaida serveriō briukstantēi upītą."
@@ -456,6 +509,24 @@ msgstr ""
 msgid "This email provider is not allowed"
 msgstr "Tawai E-pastas perwidimai ni pastatai neleidžiama"
 
+msgid "This media is banned because it is propaganda"
+msgstr ""
+
+msgid "This media is banned for being an attempt to scam people"
+msgstr ""
+
+msgid "This media is banned for being degenerate"
+msgstr ""
+
+msgid "This media is banned for containing CSAM"
+msgstr ""
+
+msgid "This media is banned for containing graphic violence"
+msgstr ""
+
+msgid "This media is banned for glorifying terrorism"
+msgstr ""
+
 msgid "This password-reset link isn't valid anymore :("
 msgstr "Tas slaptāźodis atnaujintins saitas nawien prawīsts :("
 
@@ -468,6 +539,10 @@ msgstr "Top10"
 
 msgid "Unknown Captcha Error"
 msgstr "Nezināms kaptčas klaida"
+
+#, javascript-format
+msgid "Unknown field ${ name } in request"
+msgstr ""
 
 msgid "Update Application"
 msgstr "Atnaujint Applikatiun"
@@ -554,6 +629,9 @@ msgstr ""
 "twajs stwi waīstis pēr pastenīks, twajs papaltwei prēi gēistwei $"
 "{ waitTime } āntars :("
 
+msgid "You attached too many files"
+msgstr ""
+
 msgid ""
 "You can not delete this login method, because you have nothing else left."
 msgstr ""
@@ -574,6 +652,9 @@ msgstr ""
 
 msgid "You can't send a message this long :("
 msgstr "jūs mazzi ni tenginna waīstis šis ilgai"
+
+msgid "You did not provide all neccessary information"
+msgstr ""
 
 msgid ""
 "You do not have any email adress set. Please add one under \"Login Methods\"."

@@ -20,6 +20,9 @@ msgstr " que està dins "
 msgid "# Today"
 msgstr ""
 
+msgid "# Total"
+msgstr ""
+
 #, javascript-format
 msgid "${ mouseSymbol } Hold left mouse button and drag mouse to rotate"
 msgstr ""
@@ -98,8 +101,14 @@ msgstr "Arxiu"
 msgid "Assign new Mod"
 msgstr "Assigna Moderador nou"
 
+msgid "Attach File"
+msgstr ""
+
 msgid "Auto Zoom In"
 msgstr "Zoom Automàtic"
+
+msgid "Avatar"
+msgstr ""
 
 msgid "Back"
 msgstr "Enrere"
@@ -254,6 +263,9 @@ msgstr ""
 msgid "Cleaners can use 0cd blank colors."
 msgstr "Els netejadors poden utilitzar colors base amb 0cd."
 
+msgid "Clear"
+msgstr ""
+
 #, javascript-format
 msgid ""
 "Click ${ mouseSymbol } middle mouse button or ${ touchSymbol } long-tap to "
@@ -270,6 +282,9 @@ msgstr "Clica aquí per solicitar un nou correu electrònic de verificació."
 
 msgid "Click to Load Captcha"
 msgstr "Clica per Carregar el Captcha"
+
+msgid "Click to remove"
+msgstr ""
 
 msgid "Clone"
 msgstr "Clonar"
@@ -352,6 +367,9 @@ msgstr "Copia l'ID d'Usuari al Porta-Retalls"
 msgid "Copy to Clipboard"
 msgstr "Copia al Porta-Retalls"
 
+msgid "Could not connect to server"
+msgstr ""
+
 msgid "Could not connect to server, please try again later :("
 msgstr ""
 "No s'ha pogut connectar amb el servidor, si us plau torna a provar-ho més "
@@ -359,6 +377,9 @@ msgstr ""
 
 msgid "Could not load captcha"
 msgstr "No s'ha pogut carregar el captcha"
+
+msgid "Could not process files"
+msgstr ""
 
 msgid "Couldn't set Pixel"
 msgstr "No s'ha pogut col·locar el Píxel"
@@ -389,6 +410,9 @@ msgstr "Canvis Actuals al Temps de Refredament per País"
 
 msgid "Custom Cursor"
 msgstr "Cursor Personalitzat"
+
+msgid "Custom Flag"
+msgstr ""
 
 msgid "DM"
 msgstr "Missatge Privat"
@@ -451,6 +475,9 @@ msgstr "No recordar"
 
 msgid "Don't show me in global stats"
 msgstr "No em mostris a les estadístiques globals"
+
+msgid "Download"
+msgstr ""
 
 msgid "Download Template"
 msgstr "Descarregar Plantilla"
@@ -842,11 +869,17 @@ msgstr "Nom d'Usuari Nou"
 msgid "No"
 msgstr "No"
 
+msgid "No File selected to upload"
+msgstr ""
+
 msgid "No Phish!"
 msgstr ""
 
 msgid "No captcha id given"
 msgstr "No s'ha proporcionat cap captcha"
+
+msgid "No flag selected"
+msgstr ""
 
 msgid "No or invalid captcha text"
 msgstr "No hi ha text de captcha o és invàlid"
@@ -1181,6 +1214,9 @@ msgstr "Selecciona la Data amunt"
 msgid "Select File"
 msgstr "Selecciona l'Arxiu"
 
+msgid "Select Flag"
+msgstr ""
+
 msgid "Select Language"
 msgstr "Selecciona l'Idioma"
 
@@ -1195,8 +1231,14 @@ msgstr ""
 "requisits. \n"
 "Els llenços arxivats es poden accedir aquí:"
 
+msgid "Select your Avatar. Supported Formats: jpg, gif, png, webp"
+msgstr ""
+
 msgid "Selected Color"
 msgstr "Color Seleccionat"
+
+msgid "Selected Flag:"
+msgstr ""
 
 msgid "Send"
 msgstr "Envia"
@@ -1261,6 +1303,9 @@ msgstr ""
 
 msgid "Show templates as overlays ingame."
 msgstr "Mostra les plantilles com a superposicions dins del joc."
+
+msgid "Shrink"
+msgstr ""
 
 msgid "Size"
 msgstr "Mida"
@@ -1421,6 +1466,9 @@ msgstr "Total"
 
 msgid "Total Online Users"
 msgstr "Usuaris en Línia Totals"
+
+msgid "Total Pixels"
+msgstr ""
 
 msgid "Total Pixels per Player"
 msgstr "Total de Píxels per Jugador"

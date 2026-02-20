@@ -18,6 +18,9 @@ msgstr " čo je v "
 msgid "# Today"
 msgstr ""
 
+msgid "# Total"
+msgstr ""
+
 #, javascript-format
 msgid "${ mouseSymbol } Hold left mouse button and drag mouse to rotate"
 msgstr ""
@@ -90,8 +93,14 @@ msgstr "Archív"
 msgid "Assign new Mod"
 msgstr "Pridaj nového moda"
 
+msgid "Attach File"
+msgstr ""
+
 msgid "Auto Zoom In"
 msgstr "Automaticky priblíž"
+
+msgid "Avatar"
+msgstr ""
 
 msgid "Back"
 msgstr ""
@@ -247,6 +256,9 @@ msgstr ""
 msgid "Cleaners can use 0cd blank colors."
 msgstr ""
 
+msgid "Clear"
+msgstr ""
+
 #, javascript-format
 msgid ""
 "Click ${ mouseSymbol } middle mouse button or ${ touchSymbol } long-tap to "
@@ -263,6 +275,9 @@ msgstr "Klikni sem na žiadanie nového verifikačného mailu."
 
 msgid "Click to Load Captcha"
 msgstr "Klikni na načítanie Captcha"
+
+msgid "Click to remove"
+msgstr ""
 
 msgid "Clone"
 msgstr "Klonovať"
@@ -344,11 +359,17 @@ msgstr ""
 msgid "Copy to Clipboard"
 msgstr "Kopírovať"
 
+msgid "Could not connect to server"
+msgstr ""
+
 msgid "Could not connect to server, please try again later :("
 msgstr "Nedokázal sa spojiť na server, prosím skús neskôr :("
 
 msgid "Could not load captcha"
 msgstr "Nedokázal sa načítat captcha"
+
+msgid "Could not process files"
+msgstr ""
 
 msgid "Couldn't set Pixel"
 msgstr "Nevedno nastaviť pixel"
@@ -376,6 +397,9 @@ msgstr "Príomne zmeny cooldownu za krajinu"
 
 msgid "Custom Cursor"
 msgstr "Vlastný kurzor"
+
+msgid "Custom Flag"
+msgstr ""
 
 msgid "DM"
 msgstr "DM"
@@ -438,6 +462,9 @@ msgstr ""
 
 msgid "Don't show me in global stats"
 msgstr "Neukazuj ma v globálnych štatistikác"
+
+msgid "Download"
+msgstr ""
 
 msgid "Download Template"
 msgstr "Stiahni si šablonu"
@@ -811,11 +838,17 @@ msgstr "Nové meno"
 msgid "No"
 msgstr "Nie"
 
+msgid "No File selected to upload"
+msgstr ""
+
 msgid "No Phish!"
 msgstr ""
 
 msgid "No captcha id given"
 msgstr "Žiadne zadané captcha id"
+
+msgid "No flag selected"
+msgstr ""
 
 msgid "No or invalid captcha text"
 msgstr "Žiadny alebo neplatný captcha text"
@@ -1142,6 +1175,9 @@ msgstr "Vyber dátum hore"
 msgid "Select File"
 msgstr "Vyber súbor"
 
+msgid "Select Flag"
+msgstr ""
+
 msgid "Select Language"
 msgstr "Vyber jazyk"
 
@@ -1155,8 +1191,14 @@ msgstr ""
 "Každé plátno je jedinečné a má rôzne palety, cooldown a požiadavky.\n"
 "Archivované plátna sú dostupné tu:"
 
+msgid "Select your Avatar. Supported Formats: jpg, gif, png, webp"
+msgstr ""
+
 msgid "Selected Color"
 msgstr "Vybraná farba"
+
+msgid "Selected Flag:"
+msgstr ""
 
 msgid "Send"
 msgstr "Pošli"
@@ -1213,6 +1255,9 @@ msgstr ""
 
 msgid "Show templates as overlays ingame."
 msgstr "Ukáž šablony ako overlays v hre."
+
+msgid "Shrink"
+msgstr ""
 
 msgid "Size"
 msgstr ""
@@ -1365,6 +1410,9 @@ msgstr "Celkovo"
 
 msgid "Total Online Users"
 msgstr "Celý počet online uživatelov"
+
+msgid "Total Pixels"
+msgstr ""
 
 msgid "Total Pixels per Player"
 msgstr "Celkové pixely za hráča"

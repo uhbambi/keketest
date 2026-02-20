@@ -20,6 +20,9 @@ msgstr " kiu estas en "
 msgid "# Today"
 msgstr ""
 
+msgid "# Total"
+msgstr ""
+
 #, javascript-format
 msgid "${ mouseSymbol } Hold left mouse button and drag mouse to rotate"
 msgstr ""
@@ -99,8 +102,14 @@ msgstr "Arkiv'"
 msgid "Assign new Mod"
 msgstr "Faru novan moderigiston"
 
+msgid "Attach File"
+msgstr ""
+
 msgid "Auto Zoom In"
 msgstr "Aŭto Zomi"
+
+msgid "Avatar"
+msgstr ""
 
 msgid "Back"
 msgstr "Reen"
@@ -266,6 +275,9 @@ msgstr ""
 msgid "Cleaners can use 0cd blank colors."
 msgstr "Purigistoj povas uzi 0cd blankajn kolorojn."
 
+msgid "Clear"
+msgstr ""
+
 #, javascript-format
 msgid ""
 "Click ${ mouseSymbol } middle mouse button or ${ touchSymbol } long-tap to "
@@ -282,6 +294,9 @@ msgstr "Klaku jen peti novan verigan retpostmensaĝon."
 
 msgid "Click to Load Captcha"
 msgstr "Alklaku por Ŝargi Captcha-on"
+
+msgid "Click to remove"
+msgstr ""
 
 msgid "Clone"
 msgstr "Klono"
@@ -365,11 +380,17 @@ msgstr "Kopii Uzanto-ID-on al Poŝbreto"
 msgid "Copy to Clipboard"
 msgstr "Kopiu je l' poŝ'"
 
+msgid "Could not connect to server"
+msgstr ""
+
 msgid "Could not connect to server, please try again later :("
 msgstr "Malligita al servilo, tentu poste ŭwŭ"
 
 msgid "Could not load captcha"
 msgstr "Ne eblis ŝargi la captcha-on"
+
+msgid "Could not process files"
+msgstr ""
 
 msgid "Couldn't set Pixel"
 msgstr "Ne povis meti pikselon"
@@ -397,6 +418,9 @@ msgstr "Aktualaj Ŝanĝoj de Malvarmigtempo laŭ Lando"
 
 msgid "Custom Cursor"
 msgstr "Propra kursoro"
+
+msgid "Custom Flag"
+msgstr ""
 
 msgid "DM"
 msgstr "Mesaĝi Rekte"
@@ -461,6 +485,9 @@ msgstr "Ne memoras"
 
 msgid "Don't show me in global stats"
 msgstr "Ne montri min en tutmondaj statistikoj"
+
+msgid "Download"
+msgstr ""
 
 msgid "Download Template"
 msgstr "Elŝultu Modelon"
@@ -851,12 +878,18 @@ msgstr "Nova Uzantnom'"
 msgid "No"
 msgstr "Ne"
 
+msgid "No File selected to upload"
+msgstr ""
+
 msgid "No Phish!"
 msgstr "Neniu Fiŝo!"
 
 #, fuzzy
 msgid "No captcha id given"
 msgstr "Pasvorton ne donita."
+
+msgid "No flag selected"
+msgstr ""
 
 msgid "No or invalid captcha text"
 msgstr "Neniu aŭ malvalida captcha-teksto"
@@ -1188,6 +1221,9 @@ msgstr "Selektu Lingvon"
 msgid "Select File"
 msgstr "Selektu Lingvon"
 
+msgid "Select Flag"
+msgstr ""
+
 msgid "Select Language"
 msgstr "Selektu Lingvon"
 
@@ -1202,9 +1238,15 @@ msgstr ""
 "palestrojn, malvarmiĝon, kaj postulojn. Arkivon de fermitaj kanvasoj alirus "
 "jen:"
 
+msgid "Select your Avatar. Supported Formats: jpg, gif, png, webp"
+msgstr ""
+
 #, fuzzy
 msgid "Selected Color"
 msgstr "Selektu Lingvon"
+
+msgid "Selected Flag:"
+msgstr ""
 
 msgid "Send"
 msgstr "Sendi"
@@ -1266,6 +1308,9 @@ msgstr ""
 
 msgid "Show templates as overlays ingame."
 msgstr "Montru ŝablonojn kiel paŭsaĵojn en la ludo."
+
+msgid "Shrink"
+msgstr ""
 
 msgid "Size"
 msgstr "Grandeco"
@@ -1428,6 +1473,9 @@ msgstr "La Tuto"
 
 msgid "Total Online Users"
 msgstr "Totalaj Interretaj Uzantoj"
+
+msgid "Total Pixels"
+msgstr ""
 
 #, fuzzy
 msgid "Total Pixels per Player"

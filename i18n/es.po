@@ -19,6 +19,9 @@ msgstr " que es en "
 msgid "# Today"
 msgstr ""
 
+msgid "# Total"
+msgstr ""
+
 #, javascript-format
 msgid "${ mouseSymbol } Hold left mouse button and drag mouse to rotate"
 msgstr ""
@@ -98,8 +101,14 @@ msgstr "Archivo"
 msgid "Assign new Mod"
 msgstr "Asignar nuevo Mod"
 
+msgid "Attach File"
+msgstr ""
+
 msgid "Auto Zoom In"
 msgstr "Zoom automático"
+
+msgid "Avatar"
+msgstr ""
 
 msgid "Back"
 msgstr ""
@@ -256,6 +265,9 @@ msgstr ""
 msgid "Cleaners can use 0cd blank colors."
 msgstr ""
 
+msgid "Clear"
+msgstr ""
+
 #, javascript-format
 msgid ""
 "Click ${ mouseSymbol } middle mouse button or ${ touchSymbol } long-tap to "
@@ -272,6 +284,9 @@ msgstr "Haz clic aquí para solicitar un nuevo correo de verificación."
 
 msgid "Click to Load Captcha"
 msgstr "Haga clic para cargar el captcha"
+
+msgid "Click to remove"
+msgstr ""
 
 msgid "Clone"
 msgstr "Clon"
@@ -353,12 +368,18 @@ msgstr ""
 msgid "Copy to Clipboard"
 msgstr "Copia al Portapapeles"
 
+msgid "Could not connect to server"
+msgstr ""
+
 msgid "Could not connect to server, please try again later :("
 msgstr ""
 "No se pudo conectar al servidor, por favor inténtalo de nuevo más tarde :("
 
 msgid "Could not load captcha"
 msgstr "No se pudo cargar el captcha"
+
+msgid "Could not process files"
+msgstr ""
 
 msgid "Couldn't set Pixel"
 msgstr "No se pudo colocar el Píxel"
@@ -386,6 +407,9 @@ msgstr "Cambios de tiempo de reutilización actuales por país"
 
 msgid "Custom Cursor"
 msgstr "Cursor Personalizado"
+
+msgid "Custom Flag"
+msgstr ""
 
 msgid "DM"
 msgstr "Mensaje Directo"
@@ -449,6 +473,9 @@ msgstr ""
 
 msgid "Don't show me in global stats"
 msgstr "No mostrarme en las estadísticas globales"
+
+msgid "Download"
+msgstr ""
 
 msgid "Download Template"
 msgstr "Descargar Plantilla"
@@ -823,11 +850,17 @@ msgstr "Nombre de Usuario Nuevo"
 msgid "No"
 msgstr "No"
 
+msgid "No File selected to upload"
+msgstr ""
+
 msgid "No Phish!"
 msgstr ""
 
 msgid "No captcha id given"
 msgstr "No se proporciona ninguna id de captcha"
+
+msgid "No flag selected"
+msgstr ""
 
 msgid "No or invalid captcha text"
 msgstr "Texto captcha inexistente o no válido"
@@ -1161,6 +1194,9 @@ msgstr "Selecciona la fecha"
 msgid "Select File"
 msgstr "Seleccionar Archivo"
 
+msgid "Select Flag"
+msgstr ""
+
 msgid "Select Language"
 msgstr "Seleccionar Lenguaje"
 
@@ -1175,8 +1211,14 @@ msgstr ""
 "requisitos.\n"
 "Puedes acceder a un archivo de los lienzos cerrados aquí:"
 
+msgid "Select your Avatar. Supported Formats: jpg, gif, png, webp"
+msgstr ""
+
 msgid "Selected Color"
 msgstr "Color seleccionado"
+
+msgid "Selected Flag:"
+msgstr ""
 
 msgid "Send"
 msgstr "Enviar"
@@ -1236,6 +1278,9 @@ msgstr ""
 
 msgid "Show templates as overlays ingame."
 msgstr "Muestra plantillas como superposiciones dentro del juego."
+
+msgid "Shrink"
+msgstr ""
 
 msgid "Size"
 msgstr ""
@@ -1390,6 +1435,9 @@ msgstr "Total"
 
 msgid "Total Online Users"
 msgstr "Total de usuarios en línea"
+
+msgid "Total Pixels"
+msgstr ""
 
 msgid "Total Pixels per Player"
 msgstr "Píxeles totales por jugador"

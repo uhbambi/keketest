@@ -16,6 +16,9 @@ msgstr " ku tê de ye "
 msgid "# Today"
 msgstr ""
 
+msgid "# Total"
+msgstr ""
+
 #, javascript-format
 msgid "${ mouseSymbol } Hold left mouse button and drag mouse to rotate"
 msgstr ""
@@ -95,8 +98,14 @@ msgstr "Arşîv"
 msgid "Assign new Mod"
 msgstr "Moda nû destnîşan bikin"
 
+msgid "Attach File"
+msgstr ""
+
 msgid "Auto Zoom In"
 msgstr "Zêdekirina Xweser"
+
+msgid "Avatar"
+msgstr ""
 
 msgid "Back"
 msgstr ""
@@ -255,6 +264,9 @@ msgstr ""
 msgid "Cleaners can use 0cd blank colors."
 msgstr ""
 
+msgid "Clear"
+msgstr ""
+
 #, javascript-format
 msgid ""
 "Click ${ mouseSymbol } middle mouse button or ${ touchSymbol } long-tap to "
@@ -271,6 +283,9 @@ msgstr "Li vir bikirtînin ku hûn e-nameyek verastkirinê ya nû bixwazin."
 
 msgid "Click to Load Captcha"
 msgstr "Ji bo Barkirina Captchayê Bitikîne"
+
+msgid "Click to remove"
+msgstr ""
 
 msgid "Clone"
 msgstr "Klon"
@@ -352,12 +367,18 @@ msgstr ""
 msgid "Copy to Clipboard"
 msgstr "Kopî li Clipboardê"
 
+msgid "Could not connect to server"
+msgstr ""
+
 msgid "Could not connect to server, please try again later :("
 msgstr ""
 "Nekarî bi serverê ve were girêdan, ji kerema xwe paşê dîsa biceribîne :("
 
 msgid "Could not load captcha"
 msgstr "nikare captcha bar bike"
+
+msgid "Could not process files"
+msgstr ""
 
 msgid "Couldn't set Pixel"
 msgstr "Pixel nehat danîn"
@@ -385,6 +406,9 @@ msgstr "Guhertinên Rojane yên sarbûn li her welatekê"
 
 msgid "Custom Cursor"
 msgstr "Hûnbunî kursor"
+
+msgid "Custom Flag"
+msgstr ""
 
 msgid "DM"
 msgstr "DM"
@@ -446,6 +470,9 @@ msgstr ""
 
 msgid "Don't show me in global stats"
 msgstr "Di statîstîkên gerdûnî de nîşanî min nedin"
+
+msgid "Download"
+msgstr ""
 
 msgid "Download Template"
 msgstr "Şablon dakêşin"
@@ -821,11 +848,17 @@ msgstr "Navê bikarhênerê nû"
 msgid "No"
 msgstr "Na"
 
+msgid "No File selected to upload"
+msgstr ""
+
 msgid "No Phish!"
 msgstr ""
 
 msgid "No captcha id given"
 msgstr "Captcha id na dayîn"
+
+msgid "No flag selected"
+msgstr ""
 
 msgid "No or invalid captcha text"
 msgstr "Nivîsara captcha tune an nederbasdar e"
@@ -1159,6 +1192,9 @@ msgstr "Dîroka Jorîn hilbijêrin"
 msgid "Select File"
 msgstr "Pelî Hilbijêre"
 
+msgid "Select Flag"
+msgstr ""
+
 msgid "Select Language"
 msgstr "Ziman hilbijêrin"
 
@@ -1172,8 +1208,14 @@ msgstr ""
 "Her tuval bêhempa ye û palet, sarbûn û pêdiviyên wan ên cuda hene\n"
 "Tuvalên arşîvkirî dikarin bigihîjin vir:"
 
+msgid "Select your Avatar. Supported Formats: jpg, gif, png, webp"
+msgstr ""
+
 msgid "Selected Color"
 msgstr "Rengê Hilbijartî"
+
+msgid "Selected Flag:"
+msgstr ""
 
 msgid "Send"
 msgstr "Şandin"
@@ -1235,6 +1277,9 @@ msgstr ""
 
 msgid "Show templates as overlays ingame."
 msgstr "Şablonan wekî lîstika serpêhatî nîşan bidin."
+
+msgid "Shrink"
+msgstr ""
 
 msgid "Size"
 msgstr ""
@@ -1387,6 +1432,9 @@ msgstr "Hemî"
 
 msgid "Total Online Users"
 msgstr "Tevahiya Bikarhênerên Serhêl"
+
+msgid "Total Pixels"
+msgstr ""
 
 msgid "Total Pixels per Player"
 msgstr "hemî piksel her yarîker"

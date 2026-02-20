@@ -19,6 +19,9 @@ msgstr " الذي هو في "
 msgid "# Today"
 msgstr ""
 
+msgid "# Total"
+msgstr ""
+
 #, javascript-format
 msgid "${ mouseSymbol } Hold left mouse button and drag mouse to rotate"
 msgstr ""
@@ -95,8 +98,14 @@ msgstr "ارشيف"
 msgid "Assign new Mod"
 msgstr "تعيين مشرف جديد"
 
+msgid "Attach File"
+msgstr ""
+
 msgid "Auto Zoom In"
 msgstr "تكبير تلقائي"
+
+msgid "Avatar"
+msgstr ""
 
 msgid "Back"
 msgstr ""
@@ -252,6 +261,9 @@ msgstr ""
 msgid "Cleaners can use 0cd blank colors."
 msgstr ""
 
+msgid "Clear"
+msgstr ""
+
 #, javascript-format
 msgid ""
 "Click ${ mouseSymbol } middle mouse button or ${ touchSymbol } long-tap to "
@@ -268,6 +280,9 @@ msgstr "انقر هنا لطلب بريد إلكتروني تحقق جديد."
 
 msgid "Click to Load Captcha"
 msgstr "انقر لتحميل الكابتشا"
+
+msgid "Click to remove"
+msgstr ""
 
 msgid "Clone"
 msgstr "نسخ"
@@ -347,11 +362,17 @@ msgstr ""
 msgid "Copy to Clipboard"
 msgstr "نسخ إلى الحافظة"
 
+msgid "Could not connect to server"
+msgstr ""
+
 msgid "Could not connect to server, please try again later :("
 msgstr "لم نتمكن من الاتصال بالخادم، يرجى المحاولة مرة أخرى لاحقًا :("
 
 msgid "Could not load captcha"
 msgstr "لم يتم تحميل الكابتشا"
+
+msgid "Could not process files"
+msgstr ""
 
 msgid "Couldn't set Pixel"
 msgstr "لم يتم وضع البكسل"
@@ -378,6 +399,9 @@ msgid "Current Cooldown Changes per Country"
 msgstr ""
 
 msgid "Custom Cursor"
+msgstr ""
+
+msgid "Custom Flag"
 msgstr ""
 
 msgid "DM"
@@ -438,6 +462,9 @@ msgstr ""
 
 msgid "Don't show me in global stats"
 msgstr "لا تظهرني بالاحصائيات العامة"
+
+msgid "Download"
+msgstr ""
 
 msgid "Download Template"
 msgstr "تحمبل القالب"
@@ -809,11 +836,17 @@ msgstr "اسم المستخدم الجديد"
 msgid "No"
 msgstr "لا"
 
+msgid "No File selected to upload"
+msgstr ""
+
 msgid "No Phish!"
 msgstr ""
 
 msgid "No captcha id given"
 msgstr "لم يتم تقديم معرف الكابتشا"
+
+msgid "No flag selected"
+msgstr ""
 
 msgid "No or invalid captcha text"
 msgstr "لا يوجد نص الكابتشا أو نص الكابتشا غير صالح"
@@ -1138,6 +1171,9 @@ msgstr "حدد التاريخ أعلاه"
 msgid "Select File"
 msgstr "اختيار الملف"
 
+msgid "Select Flag"
+msgstr ""
+
 msgid "Select Language"
 msgstr "اختيار اللغة"
 
@@ -1154,7 +1190,13 @@ msgstr ""
 "\n"
 "يمكنك الوصول إلى اللوحات المؤرشفة هنا:"
 
+msgid "Select your Avatar. Supported Formats: jpg, gif, png, webp"
+msgstr ""
+
 msgid "Selected Color"
+msgstr ""
+
+msgid "Selected Flag:"
 msgstr ""
 
 msgid "Send"
@@ -1213,6 +1255,9 @@ msgstr "إظهار التراكب على هيئة بكسلات فردية صغي
 
 msgid "Show templates as overlays ingame."
 msgstr "إظهار القوالب كتراكبات داخل اللعبة."
+
+msgid "Shrink"
+msgstr ""
 
 msgid "Size"
 msgstr ""
@@ -1363,6 +1408,9 @@ msgstr "اجمالي"
 
 msgid "Total Online Users"
 msgstr "إجمالي المستخدمين المتواجدين"
+
+msgid "Total Pixels"
+msgstr ""
 
 msgid "Total Pixels per Player"
 msgstr ""

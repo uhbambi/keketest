@@ -19,6 +19,9 @@ msgstr " ʻa ia ʻoku ʻi he "
 msgid "# Today"
 msgstr ""
 
+msgid "# Total"
+msgstr ""
+
 #, javascript-format
 msgid "${ mouseSymbol } Hold left mouse button and drag mouse to rotate"
 msgstr ""
@@ -101,8 +104,14 @@ msgstr "ʻAkaivi"
 msgid "Assign new Mod"
 msgstr "Vahe ha Mod foʻou"
 
+msgid "Attach File"
+msgstr ""
+
 msgid "Auto Zoom In"
 msgstr "Fakaʻata ʻa e meʻalele ʻi he"
+
+msgid "Avatar"
+msgstr ""
 
 msgid "Back"
 msgstr ""
@@ -261,6 +270,9 @@ msgstr ""
 msgid "Cleaners can use 0cd blank colors."
 msgstr ""
 
+msgid "Clear"
+msgstr ""
+
 #, javascript-format
 msgid ""
 "Click ${ mouseSymbol } middle mouse button or ${ touchSymbol } long-tap to "
@@ -277,6 +289,9 @@ msgstr "Lomiʻi heni ke kole ha meili fakapapauʻi foʻou."
 
 msgid "Click to Load Captcha"
 msgstr "Lomiʻi ke load Captcha"
+
+msgid "Click to remove"
+msgstr ""
 
 msgid "Clone"
 msgstr "Ko e f pe"
@@ -359,12 +374,18 @@ msgstr ""
 msgid "Copy to Clipboard"
 msgstr "Hiki Tatau ki he Papafakamaʻú"
 
+msgid "Could not connect to server"
+msgstr ""
+
 msgid "Could not connect to server, please try again later :("
 msgstr ""
 "ʻIkai lava ʻo fakafehokotaki ki he server, kataki ʻo toe feinga ʻamui ange :("
 
 msgid "Could not load captcha"
 msgstr "ʻIkai lava ʻo load captcha"
+
+msgid "Could not process files"
+msgstr ""
 
 msgid "Couldn't set Pixel"
 msgstr "ʻIkai lava ʻo fokotuʻu pixel"
@@ -396,6 +417,9 @@ msgid "Current Cooldown Changes per Country"
 msgstr ""
 
 msgid "Custom Cursor"
+msgstr ""
+
+msgid "Custom Flag"
 msgstr ""
 
 msgid "DM"
@@ -463,6 +487,9 @@ msgstr ""
 
 msgid "Don't show me in global stats"
 msgstr "ʻOua te ke fakaʻaliʻali mai kiate au ʻi he fakamāmani lahí stats"
+
+msgid "Download"
+msgstr ""
 
 msgid "Download Template"
 msgstr "Download Template"
@@ -841,11 +868,17 @@ msgstr "Hingoa Ngāue Foʻou ki he Polo"
 msgid "No"
 msgstr "ʻIkai"
 
+msgid "No File selected to upload"
+msgstr ""
+
 msgid "No Phish!"
 msgstr ""
 
 msgid "No captcha id given"
 msgstr "ʻIkai foaki ha captcha ID"
+
+msgid "No flag selected"
+msgstr ""
 
 msgid "No or invalid captcha text"
 msgstr "ʻIkai pe ʻikai tonu captcha text"
@@ -1180,6 +1213,9 @@ msgstr "Fili ʻa e ʻAho ʻi ʻolungá"
 msgid "Select File"
 msgstr "Fili ʻa e Lea Fakafonuá"
 
+msgid "Select Flag"
+msgstr ""
+
 msgid "Select Language"
 msgstr "Fili ʻa e Lea Fakafonuá"
 
@@ -1194,9 +1230,15 @@ msgstr ""
 "kotoa pe pea ʻoku kehekehe ʻa e palettes, cooldown mo e ngaahi fie maʻu. ʻE "
 "lava ke maʻu heni ʻa e ʻakaivi ʻo e canvases kuo tapuni:"
 
+msgid "Select your Avatar. Supported Formats: jpg, gif, png, webp"
+msgstr ""
+
 #, fuzzy
 msgid "Selected Color"
 msgstr "Fili ʻa e Lea Fakafonuá"
+
+msgid "Selected Flag:"
+msgstr ""
 
 msgid "Send"
 msgstr "ʻAve"
@@ -1256,6 +1298,9 @@ msgid "Show overlay as small individual pixels on high zoomlevels."
 msgstr ""
 
 msgid "Show templates as overlays ingame."
+msgstr ""
+
+msgid "Shrink"
 msgstr ""
 
 msgid "Size"
@@ -1410,6 +1455,9 @@ msgstr "Fakakatoa"
 
 msgid "Total Online Users"
 msgstr "Fakakatoa ʻo e kau fakaʻaongaʻi ʻi he"
+
+msgid "Total Pixels"
+msgstr ""
 
 #, fuzzy
 msgid "Total Pixels per Player"

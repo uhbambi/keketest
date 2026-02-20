@@ -34,6 +34,9 @@ msgstr ""
 "Əvvəlki günün ən aktiv oyunçuları üçün lövhə. Gündəlik reytinq yeniləmələri "
 "00:00 UTC'də həyata keçirilir."
 
+msgid "A file was too large"
+msgstr ""
+
 msgid "Access modtools"
 msgstr ""
 
@@ -58,11 +61,20 @@ msgstr "Tətbiq silindi"
 msgid "Application successfully added"
 msgstr "Tətbiq uğurla qoşuldu"
 
+msgid "Avatar can only be an image"
+msgstr ""
+
 msgid "Black and White canvas"
 msgstr "Ağ-Qara Lövhə"
 
 msgid "Can not chat while being banned"
 msgstr "Qadağa olunmuş ikən söhbət edilə bilməz"
+
+#, javascript-format
+msgid ""
+"Can not upload this many files at once, only 5 are allowed, you have $"
+"{ amountOfFiles }"
+msgstr ""
 
 msgid "Click here"
 msgstr "Bura basın"
@@ -95,6 +107,12 @@ msgstr "Bu Sessiya bağlanıla bilmədi."
 
 msgid "Could not find this login method"
 msgstr "Bu giriş üsulu tapıla bilmədi"
+
+msgid "Could not set your avtar"
+msgstr ""
+
+msgid "Could not upload all files"
+msgstr ""
 
 msgid "Couldn't find this mail in our database"
 msgstr "Bu emaili databazamızda tapabilmədik"
@@ -140,6 +158,19 @@ msgstr "Xəta"
 
 msgid "Failed to create a new user :("
 msgstr "Yeni istifadəçi yaradıla bilmədi :("
+
+#, javascript-format
+msgid ""
+"File ${ filename } has ${ sizeMB } MB and is too large. It may only be $"
+"{ maxSizeMB } MB"
+msgstr ""
+
+#, javascript-format
+msgid "File ${ filename } has an invalid extension"
+msgstr ""
+
+msgid "File is broken"
+msgstr ""
 
 #. 'client_secret' is a technical term and should not be translated
 msgid ""
@@ -191,6 +222,9 @@ msgstr ""
 msgid "Incorrect password!"
 msgstr "Səhv Parol!"
 
+msgid "Invalid type of media"
+msgstr ""
+
 msgid "Invalid url :( Please check your mail again."
 msgstr "Keçərsiz bağlantı :( Zəhmət olmasa emailinizi yenidən yoxlayın."
 
@@ -221,6 +255,13 @@ msgstr "Email serverdə konfiqurasiya edilməyib"
 
 msgid "Mail verification"
 msgstr "Email doğrulaması"
+
+msgid "MimeType or extension not known or supported"
+msgstr ""
+
+#, javascript-format
+msgid "Mimetype ${ mimeType } of file ${ filename } is invalid or not allowed"
+msgstr ""
 
 msgid "Minimap"
 msgstr "Mini xəritə"
@@ -268,6 +309,9 @@ msgstr "Yeni Parol"
 
 msgid "No Captcha given"
 msgstr "Captcha mətni verilməyib"
+
+msgid "No file metadata given"
+msgstr ""
 
 msgid "No or invalid fish id."
 msgstr "Balıq id-si səhvdir və ya yoxdur."
@@ -369,6 +413,9 @@ msgstr ""
 msgid "Regularly update this data"
 msgstr ""
 
+msgid "Request stalled"
+msgstr ""
+
 #. 'client_secret' is a technical term and should not be translated
 msgid "Reroll client_secret"
 msgstr ""
@@ -378,6 +425,12 @@ msgstr "Parolu Sıfırla"
 
 msgid "Reset your password here"
 msgstr "Parolunuzu burdan sıfırlayın"
+
+msgid "Server Eror"
+msgstr ""
+
+msgid "Server Error"
+msgstr ""
 
 msgid "Server error when deleting user."
 msgstr ""
@@ -453,6 +506,24 @@ msgstr ""
 msgid "This email provider is not allowed"
 msgstr "Bu email provayderinə icazə verilmir"
 
+msgid "This media is banned because it is propaganda"
+msgstr ""
+
+msgid "This media is banned for being an attempt to scam people"
+msgstr ""
+
+msgid "This media is banned for being degenerate"
+msgstr ""
+
+msgid "This media is banned for containing CSAM"
+msgstr ""
+
+msgid "This media is banned for containing graphic violence"
+msgstr ""
+
+msgid "This media is banned for glorifying terrorism"
+msgstr ""
+
 msgid "This password-reset link isn't valid anymore :("
 msgstr "Parol dəyişdirmə bağlantısı artıq keçərli deyil :("
 
@@ -465,6 +536,10 @@ msgstr "Top10"
 
 msgid "Unknown Captcha Error"
 msgstr "Naməlum Captcha Xətası"
+
+#, javascript-format
+msgid "Unknown field ${ name } in request"
+msgstr ""
 
 msgid "Update Application"
 msgstr ""
@@ -548,6 +623,9 @@ msgstr "Daimi olaraq susturuldun,qaldırtmaq üçün guilded serverinə qatıl"
 msgid "You are sending messages too fast, you have to wait ${ waitTime }s :("
 msgstr "Çox tez mesaj göndərirsən, ${ waitTime } saniyə gözləmən lazımdır :("
 
+msgid "You attached too many files"
+msgstr ""
+
 msgid ""
 "You can not delete this login method, because you have nothing else left."
 msgstr ""
@@ -569,6 +647,9 @@ msgstr ""
 
 msgid "You can't send a message this long :("
 msgstr "Bu qədər uzun bir mesaj göndərəbilməzsən :("
+
+msgid "You did not provide all neccessary information"
+msgstr ""
 
 msgid ""
 "You do not have any email adress set. Please add one under \"Login Methods\"."

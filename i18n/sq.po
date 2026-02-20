@@ -20,6 +20,9 @@ msgstr " e cila është në "
 msgid "# Today"
 msgstr "# Sot"
 
+msgid "# Total"
+msgstr ""
+
 #, javascript-format
 msgid "${ mouseSymbol } Hold left mouse button and drag mouse to rotate"
 msgstr ""
@@ -101,8 +104,14 @@ msgstr "Arkivi"
 msgid "Assign new Mod"
 msgstr "Cakto Mod të ri"
 
+msgid "Attach File"
+msgstr ""
+
 msgid "Auto Zoom In"
 msgstr "Zmadhimi Automatik"
+
+msgid "Avatar"
+msgstr ""
 
 msgid "Back"
 msgstr "Mbrapa"
@@ -264,6 +273,9 @@ msgstr ""
 msgid "Cleaners can use 0cd blank colors."
 msgstr "Pastruesit mund të përdorin ngjyra boshe 0cd."
 
+msgid "Clear"
+msgstr ""
+
 #, javascript-format
 msgid ""
 "Click ${ mouseSymbol } middle mouse button or ${ touchSymbol } long-tap to "
@@ -280,6 +292,9 @@ msgstr "Kliko këtu për të kërkuar një email të ri verifikimi."
 
 msgid "Click to Load Captcha"
 msgstr "Klikoni për të Ngarkuar Captcha"
+
+msgid "Click to remove"
+msgstr ""
 
 msgid "Clone"
 msgstr "Klon"
@@ -361,11 +376,17 @@ msgstr "Kopjo UserId në Memorie"
 msgid "Copy to Clipboard"
 msgstr "Kopjo në Memorie"
 
+msgid "Could not connect to server"
+msgstr ""
+
 msgid "Could not connect to server, please try again later :("
 msgstr "Nuk mund të lidhet me serverin, ju lutem provoni përsëri më vonë :("
 
 msgid "Could not load captcha"
 msgstr "Nuk mund të ngarkohej captcha"
+
+msgid "Could not process files"
+msgstr ""
 
 msgid "Couldn't set Pixel"
 msgstr "Nuk mund të vendosej Pikseli"
@@ -393,6 +414,9 @@ msgstr "Ndryshimet Aktuale të Kohës se Pritjes për Shtet"
 
 msgid "Custom Cursor"
 msgstr "Kursori i Personalizuar"
+
+msgid "Custom Flag"
+msgstr ""
 
 msgid "DM"
 msgstr "DM"
@@ -454,6 +478,9 @@ msgstr "Mos mbaj mend"
 
 msgid "Don't show me in global stats"
 msgstr "Mos më shfaq në statistikat globale"
+
+msgid "Download"
+msgstr ""
 
 msgid "Download Template"
 msgstr "Shkarko Shabllonin"
@@ -844,11 +871,17 @@ msgstr "Emri i Përdoruesit i Ri"
 msgid "No"
 msgstr "Jo"
 
+msgid "No File selected to upload"
+msgstr ""
+
 msgid "No Phish!"
 msgstr "Nuk ka Peshk!"
 
 msgid "No captcha id given"
 msgstr "Asnjë id captcha nuk është dhënë"
+
+msgid "No flag selected"
+msgstr ""
 
 msgid "No or invalid captcha text"
 msgstr "Asnjë captcha ose tekst i pavlefshëm"
@@ -1181,6 +1214,9 @@ msgstr "Zgjidhni Datën më lart"
 msgid "Select File"
 msgstr "Zgjidhni Skedarin"
 
+msgid "Select Flag"
+msgstr ""
+
 msgid "Select Language"
 msgstr "Zgjidhni Gjuhën"
 
@@ -1195,8 +1231,14 @@ msgstr ""
 "ndryshme.\n"
 "Kanavacat e arkivuara mund të aksesohen këtu:"
 
+msgid "Select your Avatar. Supported Formats: jpg, gif, png, webp"
+msgstr ""
+
 msgid "Selected Color"
 msgstr "Ngjyra e Zgjedhur"
+
+msgid "Selected Flag:"
+msgstr ""
 
 msgid "Send"
 msgstr "Dërgo"
@@ -1256,6 +1298,9 @@ msgstr ""
 
 msgid "Show templates as overlays ingame."
 msgstr "Shfaq shabllonet si mbivendosje në lojë."
+
+msgid "Shrink"
+msgstr ""
 
 msgid "Size"
 msgstr "Madhësia"
@@ -1418,6 +1463,9 @@ msgstr "Total"
 
 msgid "Total Online Users"
 msgstr "Përdoruesit Online Gjithsej"
+
+msgid "Total Pixels"
+msgstr ""
 
 msgid "Total Pixels per Player"
 msgstr "Pikselët për Lojtar Gjithsej"

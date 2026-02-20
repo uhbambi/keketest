@@ -20,10 +20,12 @@ msgstr " ༡ ནང་ཡོད། "
 msgid "# Today"
 msgstr "# ད་རེས"
 
+msgid "# Total"
+msgstr ""
+
 #, javascript-format
 msgid "${ mouseSymbol } Hold left mouse button and drag mouse to rotate"
-msgstr ""
-"${ mouseSymbol } མཱའུསི་གི་གཡོན་ཨེབ་རྟ་འདི་བཟུང་ཞིནམ་ལས་བསྒྱིར་ནི་ལུ་མཱའུསི་འདྲུད།"
+msgstr "${ mouseSymbol } མཱའུསི་གི་གཡོན་ཨེབ་རྟ་འདི་བཟུང་ཞིནམ་ལས་བསྒྱིར་ནི་ལུ་མཱའུསི་འདྲུད།"
 
 #, javascript-format
 msgid "${ mouseSymbol } Left click or ${ touchSymbol } tap to place a pixel"
@@ -98,7 +100,13 @@ msgstr ""
 msgid "Assign new Mod"
 msgstr ""
 
+msgid "Attach File"
+msgstr ""
+
 msgid "Auto Zoom In"
+msgstr ""
+
+msgid "Avatar"
 msgstr ""
 
 msgid "Back"
@@ -252,6 +260,9 @@ msgstr ""
 msgid "Cleaners can use 0cd blank colors."
 msgstr ""
 
+msgid "Clear"
+msgstr ""
+
 #, javascript-format
 msgid ""
 "Click ${ mouseSymbol } middle mouse button or ${ touchSymbol } long-tap to "
@@ -265,6 +276,9 @@ msgid "Click here to request a new verification mail."
 msgstr ""
 
 msgid "Click to Load Captcha"
+msgstr ""
+
+msgid "Click to remove"
 msgstr ""
 
 msgid "Clone"
@@ -348,10 +362,16 @@ msgstr ""
 msgid "Copy to Clipboard"
 msgstr "ཀ་དཔེ། ཨིན།འདུགཡོད། ཆོས་རྒྱུགས་བཀོད་ཚོགས།"
 
+msgid "Could not connect to server"
+msgstr ""
+
 msgid "Could not connect to server, please try again later :("
 msgstr ""
 
 msgid "Could not load captcha"
+msgstr ""
+
+msgid "Could not process files"
 msgstr ""
 
 msgid "Couldn't set Pixel"
@@ -379,6 +399,9 @@ msgid "Current Cooldown Changes per Country"
 msgstr ""
 
 msgid "Custom Cursor"
+msgstr ""
+
+msgid "Custom Flag"
 msgstr ""
 
 msgid "DM"
@@ -440,6 +463,9 @@ msgid "Don't remember"
 msgstr ""
 
 msgid "Don't show me in global stats"
+msgstr ""
+
+msgid "Download"
 msgstr ""
 
 msgid "Download Template"
@@ -651,10 +677,10 @@ msgid ""
 "mail to ${ mailLink } and, in case of a ban, include the BID you got in the "
 "ban message."
 msgstr ""
-"ཁྱོད་ཀྱིས་ ངོ་ཚབ་སྦེ་ བརྟག་དཔྱད་འབད་དེ་ཡོད་རུང་ ཁྱོད་ཀྱིས་ ལག་ལེན་འཐབ་མ་བཏུབ་པ་ཅིན་ ཡང་ན་ ཁྱོད་ཀྱིས"
-"་ འཛོལ་བ་སྦེ་ བཀག་ཆ་འབད་ཡི་ཟེར་ མནོ་བསམ་གཏང་པ་ཅིན་ ང་བཅས་ཀྱི་ ${ guildedLink } ལུ་འགྱོ་ "
-"ཡང་ན་ ${ mailLink } ལུ་ གློག་འཕྲིན་གཏང་ཞིནམ་ལས་ བཀག་ཆ་འབད་བའི་སྐབས་ ཁྱོད་ཀྱིས་ བཀག་ཆ་འབད་"
-"བའི་བརྡ་འཕྲིན་ནང་ ཁྱོད་ཀྱིས་ཐོབ་མི་ BID འདི་ བཙུགས་གནང་།"
+"ཁྱོད་ཀྱིས་ ངོ་ཚབ་སྦེ་ བརྟག་དཔྱད་འབད་དེ་ཡོད་རུང་ ཁྱོད་ཀྱིས་ ལག་ལེན་འཐབ་མ་བཏུབ་པ་ཅིན་ ཡང་ན་ ཁྱོད་"
+"ཀྱིས་ འཛོལ་བ་སྦེ་ བཀག་ཆ་འབད་ཡི་ཟེར་ མནོ་བསམ་གཏང་པ་ཅིན་ ང་བཅས་ཀྱི་ ${ guildedLink } ལུ་"
+"འགྱོ་ ཡང་ན་ ${ mailLink } ལུ་ གློག་འཕྲིན་གཏང་ཞིནམ་ལས་ བཀག་ཆ་འབད་བའི་སྐབས་ ཁྱོད་ཀྱིས་ བཀག་ཆ་"
+"འབད་བའི་བརྡ་འཕྲིན་ནང་ ཁྱོད་ཀྱིས་ཐོབ་མི་ BID འདི་ བཙུགས་གནང་།"
 
 msgid ""
 "If you talk to moderators or administrators, you might get asked for one of "
@@ -814,10 +840,16 @@ msgstr ""
 msgid "No"
 msgstr ""
 
+msgid "No File selected to upload"
+msgstr ""
+
 msgid "No Phish!"
 msgstr ""
 
 msgid "No captcha id given"
+msgstr ""
+
+msgid "No flag selected"
 msgstr ""
 
 msgid "No or invalid captcha text"
@@ -1137,6 +1169,9 @@ msgstr ""
 msgid "Select File"
 msgstr ""
 
+msgid "Select Flag"
+msgstr ""
+
 msgid "Select Language"
 msgstr ""
 
@@ -1147,7 +1182,13 @@ msgid ""
 "Archived canvases can be accessed here:"
 msgstr ""
 
+msgid "Select your Avatar. Supported Formats: jpg, gif, png, webp"
+msgstr ""
+
 msgid "Selected Color"
+msgstr ""
+
+msgid "Selected Flag:"
 msgstr ""
 
 msgid "Send"
@@ -1201,6 +1242,9 @@ msgid "Show overlay as small individual pixels on high zoomlevels."
 msgstr ""
 
 msgid "Show templates as overlays ingame."
+msgstr ""
+
+msgid "Shrink"
 msgstr ""
 
 msgid "Size"
@@ -1345,6 +1389,9 @@ msgstr ""
 msgid "Total Online Users"
 msgstr ""
 
+msgid "Total Pixels"
+msgstr ""
+
 #, fuzzy
 msgid "Total Pixels per Player"
 msgstr "གློག་རིག་ཡོངས་འབྲེལ། སྐུ་དང་མཆོད་རྟེན་གྱི་སྲོག་ཤིང༌།"
@@ -1483,8 +1530,8 @@ msgid ""
 "You are banned. You think it is unjustified? Check out the ${ helpButton } "
 "on how to appeal. And don't forget to include the BID you can get below."
 msgstr ""
-"ཁྱོད་བཀག་ཡོད། ཁྱོད་ཀྱིས་འདི་བདེན་པ་མེདཔ་སྦེ་མནོཝ་ཨིན་ན? མཐོ་གཏུགས་འབད་ཐངས་སྐོར་ལས་ ${ "
-"helpButton } ལུ་བལྟ། དེ་ལས་ གཤམ་ལུ་ཐོབ་ཚུགས་པའི་ BID འདི་བཙུགས་ནི་མ་བརྗེད།"
+"ཁྱོད་བཀག་ཡོད། ཁྱོད་ཀྱིས་འདི་བདེན་པ་མེདཔ་སྦེ་མནོཝ་ཨིན་ན? མཐོ་གཏུགས་འབད་ཐངས་སྐོར་ལས་ $"
+"{ helpButton } ལུ་བལྟ། དེ་ལས་ གཤམ་ལུ་ཐོབ་ཚུགས་པའི་ BID འདི་བཙུགས་ནི་མ་བརྗེད།"
 
 msgid "You are currently not allowed to access this game."
 msgstr ""
@@ -1493,8 +1540,7 @@ msgid "You are not allowed to play this game right now :("
 msgstr ""
 
 msgid "You are using a Proxy."
-msgstr ""
-"ཁྱེད། གཡོ་སྒྱུ་དང་མགོ་སྐོར་གྱི་མིང་ཅིག་ཨིན། གློག་རིག་ཡོངས་འབྲེལ། ངོ་རྟགས།"
+msgstr "ཁྱེད། གཡོ་སྒྱུ་དང་མགོ་སྐོར་གྱི་མིང་ཅིག་ཨིན། གློག་རིག་ཡོངས་འབྲེལ། ངོ་རྟགས།"
 
 msgid "You are weird"
 msgstr ""

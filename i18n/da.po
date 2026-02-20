@@ -20,6 +20,9 @@ msgstr " som er i "
 msgid "# Today"
 msgstr ""
 
+msgid "# Total"
+msgstr ""
+
 #, javascript-format
 msgid "${ mouseSymbol } Hold left mouse button and drag mouse to rotate"
 msgstr "${ mouseSymbol } Hold venstre museknap og træk din mus for at rotere"
@@ -98,8 +101,14 @@ msgstr "Arkiv"
 msgid "Assign new Mod"
 msgstr "Tildel ny Mod"
 
+msgid "Attach File"
+msgstr ""
+
 msgid "Auto Zoom In"
 msgstr "Auto Zoom In"
+
+msgid "Avatar"
+msgstr ""
 
 msgid "Back"
 msgstr "Tilbage"
@@ -257,6 +266,9 @@ msgstr ""
 msgid "Cleaners can use 0cd blank colors."
 msgstr "Rengørere kan bruge 0cd tomme farver."
 
+msgid "Clear"
+msgstr ""
+
 #, javascript-format
 msgid ""
 "Click ${ mouseSymbol } middle mouse button or ${ touchSymbol } long-tap to "
@@ -273,6 +285,9 @@ msgstr "Klik her for at anmode om et nyt bekræftelsesmail."
 
 msgid "Click to Load Captcha"
 msgstr "Klik for at indlæse Captcha"
+
+msgid "Click to remove"
+msgstr ""
 
 msgid "Clone"
 msgstr "Klon"
@@ -354,11 +369,17 @@ msgstr "Kopiér UserID til Clipboard"
 msgid "Copy to Clipboard"
 msgstr "Kopier til Klipboard"
 
+msgid "Could not connect to server"
+msgstr ""
+
 msgid "Could not connect to server, please try again later :("
 msgstr "Kun ikke forbinde til server, prøv igen senere :("
 
 msgid "Could not load captcha"
 msgstr "Kun ikke indlæse captchaen"
+
+msgid "Could not process files"
+msgstr ""
 
 msgid "Couldn't set Pixel"
 msgstr "Kun ikke placere Pixel"
@@ -386,6 +407,9 @@ msgstr "Nuværende Nedkølingsændringer per Land"
 
 msgid "Custom Cursor"
 msgstr "Brugerdefineret Markør"
+
+msgid "Custom Flag"
+msgstr ""
 
 msgid "DM"
 msgstr "DM"
@@ -447,6 +471,9 @@ msgstr "Gem ikke"
 
 msgid "Don't show me in global stats"
 msgstr "Vis mig ikke i globale statistikker"
+
+msgid "Download"
+msgstr ""
 
 msgid "Download Template"
 msgstr "Hent Template"
@@ -835,11 +862,17 @@ msgstr "Nye Brugernavn"
 msgid "No"
 msgstr "Nej"
 
+msgid "No File selected to upload"
+msgstr ""
+
 msgid "No Phish!"
 msgstr "Ingen Phisk!"
 
 msgid "No captcha id given"
 msgstr "Ingen captcha id givet"
+
+msgid "No flag selected"
+msgstr ""
 
 msgid "No or invalid captcha text"
 msgstr "Ingen eller ugyldig captcha text"
@@ -1167,6 +1200,9 @@ msgstr "Vælg Dato Ovenfor"
 msgid "Select File"
 msgstr "Vælg fil"
 
+msgid "Select Flag"
+msgstr ""
+
 msgid "Select Language"
 msgstr "Vælg Sprog"
 
@@ -1180,8 +1216,14 @@ msgstr ""
 "Hvert kanvas er unikt og har forskellige paletter, nedkøling og krav. \n"
 "Du kan få adgang til arkiverede kanvasser her:"
 
+msgid "Select your Avatar. Supported Formats: jpg, gif, png, webp"
+msgstr ""
+
 msgid "Selected Color"
 msgstr "Valgt Farve"
+
+msgid "Selected Flag:"
+msgstr ""
 
 msgid "Send"
 msgstr "Send"
@@ -1241,6 +1283,9 @@ msgstr "Vis overlejring som små individuelle pixels på høje zoomniveauer."
 
 msgid "Show templates as overlays ingame."
 msgstr "Vis skabeloner som overlejring i spillet."
+
+msgid "Shrink"
+msgstr ""
 
 msgid "Size"
 msgstr "Størrelse"
@@ -1399,6 +1444,9 @@ msgstr "I Alt"
 
 msgid "Total Online Users"
 msgstr "Online Brugere i alt"
+
+msgid "Total Pixels"
+msgstr ""
 
 msgid "Total Pixels per Player"
 msgstr "Antal Pixels per Spiller"

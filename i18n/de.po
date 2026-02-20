@@ -20,6 +20,9 @@ msgstr " was dieser Dauer entspricht: "
 msgid "# Today"
 msgstr ""
 
+msgid "# Total"
+msgstr ""
+
 #, javascript-format
 msgid "${ mouseSymbol } Hold left mouse button and drag mouse to rotate"
 msgstr ""
@@ -100,8 +103,14 @@ msgstr "Archiv"
 msgid "Assign new Mod"
 msgstr "Moderator zuweisen"
 
+msgid "Attach File"
+msgstr ""
+
 msgid "Auto Zoom In"
 msgstr "Automaticher Zoom"
+
+msgid "Avatar"
+msgstr ""
 
 msgid "Back"
 msgstr "Zurück"
@@ -262,6 +271,9 @@ msgstr ""
 msgid "Cleaners can use 0cd blank colors."
 msgstr "Putzfrauen können 0cd-Farben (ungesetzte Pixel) verwenden."
 
+msgid "Clear"
+msgstr ""
+
 #, javascript-format
 msgid ""
 "Click ${ mouseSymbol } middle mouse button or ${ touchSymbol } long-tap to "
@@ -278,6 +290,9 @@ msgstr "Klicke hier um eine neue Bestätigungsmail zu beantragen."
 
 msgid "Click to Load Captcha"
 msgstr "Klicke um Captcha zu laden"
+
+msgid "Click to remove"
+msgstr ""
 
 msgid "Clone"
 msgstr "Klonen"
@@ -359,12 +374,18 @@ msgstr "Kopiere UserID in die Zwischenablage"
 msgid "Copy to Clipboard"
 msgstr "In die Zwischenablage kopiert"
 
+msgid "Could not connect to server"
+msgstr ""
+
 msgid "Could not connect to server, please try again later :("
 msgstr ""
 "Kann nicht zum Server verbinden, bitte versuche es später noch einmal :("
 
 msgid "Could not load captcha"
 msgstr "Konnte Captcha nicht laden"
+
+msgid "Could not process files"
+msgstr ""
 
 msgid "Couldn't set Pixel"
 msgstr "Konnte keinen Pixel setzen"
@@ -392,6 +413,9 @@ msgstr "Aktuell modifizierte Abklingzeit per Land"
 
 msgid "Custom Cursor"
 msgstr "Spezieller Zeiger"
+
+msgid "Custom Flag"
+msgstr ""
 
 msgid "DM"
 msgstr "DM"
@@ -454,6 +478,9 @@ msgstr "nicht merken"
 
 msgid "Don't show me in global stats"
 msgstr "Zeige mich nicht in globalen Statistiken"
+
+msgid "Download"
+msgstr ""
 
 msgid "Download Template"
 msgstr "Bild herunterladen"
@@ -847,11 +874,17 @@ msgstr "Neuer Name"
 msgid "No"
 msgstr "Nein"
 
+msgid "No File selected to upload"
+msgstr ""
+
 msgid "No Phish!"
 msgstr "Kein Fisch!"
 
 msgid "No captcha id given"
 msgstr "Keine Captcha-ID angegeben"
+
+msgid "No flag selected"
+msgstr ""
 
 msgid "No or invalid captcha text"
 msgstr "Kein oder falscher Captcha Text"
@@ -1184,6 +1217,9 @@ msgstr "Datum auswählen"
 msgid "Select File"
 msgstr "Datei auswählen"
 
+msgid "Select Flag"
+msgstr ""
+
 msgid "Select Language"
 msgstr "Sprache Auswählen"
 
@@ -1198,8 +1234,14 @@ msgstr ""
 "Abklingzeiten und Voraussetzungen.\n"
 "Das Archiv vergangenen Leinwänden kann hier eingesehen werden:"
 
+msgid "Select your Avatar. Supported Formats: jpg, gif, png, webp"
+msgstr ""
+
 msgid "Selected Color"
 msgstr "Ausgewählte Farbe"
+
+msgid "Selected Flag:"
+msgstr ""
 
 msgid "Send"
 msgstr "Senden"
@@ -1258,6 +1300,9 @@ msgstr "Zeige Vorlagen als kleine einzelne Pixel in hohen Vergrößerungsstufen.
 
 msgid "Show templates as overlays ingame."
 msgstr "Zeige Vorlagen als Bild über der Leinwand."
+
+msgid "Shrink"
+msgstr ""
 
 msgid "Size"
 msgstr "Größe"
@@ -1419,6 +1464,9 @@ msgstr "Gesamt"
 
 msgid "Total Online Users"
 msgstr "Spieler insgesamt"
+
+msgid "Total Pixels"
+msgstr ""
 
 msgid "Total Pixels per Player"
 msgstr "Pixel pro Tag und Spieler"

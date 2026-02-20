@@ -21,6 +21,9 @@ msgstr "koje je"
 msgid "# Today"
 msgstr ""
 
+msgid "# Total"
+msgstr ""
+
 #, javascript-format
 msgid "${ mouseSymbol } Hold left mouse button and drag mouse to rotate"
 msgstr ""
@@ -101,8 +104,14 @@ msgstr "Arhiva"
 msgid "Assign new Mod"
 msgstr "Dodaj novog moderatora"
 
+msgid "Attach File"
+msgstr ""
+
 msgid "Auto Zoom In"
 msgstr "Automatično zumiranje"
+
+msgid "Avatar"
+msgstr ""
 
 msgid "Back"
 msgstr ""
@@ -259,6 +268,9 @@ msgstr ""
 msgid "Cleaners can use 0cd blank colors."
 msgstr ""
 
+msgid "Clear"
+msgstr ""
+
 #, javascript-format
 msgid ""
 "Click ${ mouseSymbol } middle mouse button or ${ touchSymbol } long-tap to "
@@ -275,6 +287,9 @@ msgstr "Kliknite ovde da biste zahtevali novi verifikacijski e-mail."
 
 msgid "Click to Load Captcha"
 msgstr "Kliknite da bi ste učitali verifikaciju"
+
+msgid "Click to remove"
+msgstr ""
 
 msgid "Clone"
 msgstr "Kloniraj"
@@ -354,11 +369,17 @@ msgstr ""
 msgid "Copy to Clipboard"
 msgstr "Kopiraj"
 
+msgid "Could not connect to server"
+msgstr ""
+
 msgid "Could not connect to server, please try again later :("
 msgstr "Nije se moglo konektovati sa serverom, pokušajte kasnije :("
 
 msgid "Could not load captcha"
 msgstr "Nismo mogli učitati verifikaciju"
+
+msgid "Could not process files"
+msgstr ""
 
 msgid "Couldn't set Pixel"
 msgstr "Nije moglo postaviti piksel"
@@ -385,6 +406,9 @@ msgid "Current Cooldown Changes per Country"
 msgstr ""
 
 msgid "Custom Cursor"
+msgstr ""
+
+msgid "Custom Flag"
 msgstr ""
 
 msgid "DM"
@@ -448,6 +472,9 @@ msgstr ""
 
 msgid "Don't show me in global stats"
 msgstr "Ne pokazuj moj račun u globalnim statistikama"
+
+msgid "Download"
+msgstr ""
 
 msgid "Download Template"
 msgstr "Preuzmi šablon"
@@ -821,11 +848,17 @@ msgstr "Novo ime"
 msgid "No"
 msgstr "Ne"
 
+msgid "No File selected to upload"
+msgstr ""
+
 msgid "No Phish!"
 msgstr ""
 
 msgid "No captcha id given"
 msgstr "Nije data verifikacija"
+
+msgid "No flag selected"
+msgstr ""
 
 msgid "No or invalid captcha text"
 msgstr "Pogrešan verifikacijski tekst"
@@ -1155,6 +1188,9 @@ msgstr "Izaberite datum iznad"
 msgid "Select File"
 msgstr "Izaberite fajl"
 
+msgid "Select Flag"
+msgstr ""
+
 msgid "Select Language"
 msgstr "Izaberite jezik"
 
@@ -1168,9 +1204,15 @@ msgstr ""
 "druge palete, tajmer i potrebne stvari. Arhiva zatvorenih platna se može "
 "pogledati ovde:"
 
+msgid "Select your Avatar. Supported Formats: jpg, gif, png, webp"
+msgstr ""
+
 #, fuzzy
 msgid "Selected Color"
 msgstr "Izaberite fajl"
+
+msgid "Selected Flag:"
+msgstr ""
 
 msgid "Send"
 msgstr "Pošalji"
@@ -1230,6 +1272,9 @@ msgstr ""
 
 msgid "Show templates as overlays ingame."
 msgstr "Pokaži šablone kao preklapač slika u igrici."
+
+msgid "Shrink"
+msgstr ""
 
 msgid "Size"
 msgstr ""
@@ -1383,6 +1428,9 @@ msgstr "Ukupno"
 
 msgid "Total Online Users"
 msgstr "Ukupno onlajn korisnika"
+
+msgid "Total Pixels"
+msgstr ""
 
 #, fuzzy
 msgid "Total Pixels per Player"

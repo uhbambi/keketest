@@ -31,6 +31,9 @@ msgstr ""
 "Canbhás do na úsáideoirí is gníomhach ón lá faoi dheireadh. nuashonruithe "
 "rangú gach lá ar 00:00 UTC."
 
+msgid "A file was too large"
+msgstr ""
+
 msgid "Access modtools"
 msgstr "Rochtain ar uirlisí mod"
 
@@ -55,11 +58,20 @@ msgstr "Feidhmchlár scriosta"
 msgid "Application successfully added"
 msgstr "Cuireadh an feidhmchlár leis go rathúil"
 
+msgid "Avatar can only be an image"
+msgstr ""
+
 msgid "Black and White canvas"
 msgstr "Canbhás dubh agus bán"
 
 msgid "Can not chat while being banned"
 msgstr "Ní féidir comhrá a dhéanamh agus cosc á chur ort"
+
+#, javascript-format
+msgid ""
+"Can not upload this many files at once, only 5 are allowed, you have $"
+"{ amountOfFiles }"
+msgstr ""
 
 msgid "Click here"
 msgstr "Cliceáil anseo"
@@ -91,6 +103,12 @@ msgstr "Níorbh fhéidir an Seisiún seo a dhúnadh."
 
 msgid "Could not find this login method"
 msgstr "Níorbh fhéidir an modh logála isteach seo a aimsiú"
+
+msgid "Could not set your avtar"
+msgstr ""
+
+msgid "Could not upload all files"
+msgstr ""
 
 msgid "Couldn't find this mail in our database"
 msgstr "Níorbh fhéidir teacht ar an bpost i ár mbunachar sonraí"
@@ -136,6 +154,19 @@ msgstr "Earráid"
 
 msgid "Failed to create a new user :("
 msgstr "Theip ar úsáideoir nua a chruthú :("
+
+#, javascript-format
+msgid ""
+"File ${ filename } has ${ sizeMB } MB and is too large. It may only be $"
+"{ maxSizeMB } MB"
+msgstr ""
+
+#, javascript-format
+msgid "File ${ filename } has an invalid extension"
+msgstr ""
+
+msgid "File is broken"
+msgstr ""
 
 #. 'client_secret' is a technical term and should not be translated
 msgid ""
@@ -187,6 +218,9 @@ msgstr ""
 msgid "Incorrect password!"
 msgstr "Phasfhocal mícheart!"
 
+msgid "Invalid type of media"
+msgstr ""
+
 msgid "Invalid url :( Please check your mail again."
 msgstr "URL neamhbhailí :( cuir seic ar do phost arís."
 
@@ -217,6 +251,13 @@ msgstr "Níl an phost cumraithe ar an freastalaí"
 
 msgid "Mail verification"
 msgstr "Fíorú phost"
+
+msgid "MimeType or extension not known or supported"
+msgstr ""
+
+#, javascript-format
+msgid "Mimetype ${ mimeType } of file ${ filename } is invalid or not allowed"
+msgstr ""
 
 msgid "Minimap"
 msgstr "léarscáil Beag"
@@ -264,6 +305,9 @@ msgstr "Phasfhocal Nua"
 
 msgid "No Captcha given"
 msgstr "Níl Captcha ar fail"
+
+msgid "No file metadata given"
+msgstr ""
 
 msgid "No or invalid fish id."
 msgstr "Gan aon aitheantas éisc nó aitheantas éisc neamhbhailí."
@@ -367,6 +411,9 @@ msgstr "URIanna atreoraithe"
 msgid "Regularly update this data"
 msgstr "Nuashonraigh na sonraí seo go rialta"
 
+msgid "Request stalled"
+msgstr ""
+
 #. 'client_secret' is a technical term and should not be translated
 msgid "Reroll client_secret"
 msgstr "Athrolláil client_secret"
@@ -376,6 +423,12 @@ msgstr "Athshocraigh Pasfhocal"
 
 msgid "Reset your password here"
 msgstr "Athshocraigh do phasfhocal anseo"
+
+msgid "Server Eror"
+msgstr ""
+
+msgid "Server Error"
+msgstr ""
 
 msgid "Server error when deleting user."
 msgstr "Earráid freastalaí agus úsáideoir á scriosadh."
@@ -468,6 +521,24 @@ msgstr ""
 msgid "This email provider is not allowed"
 msgstr "Níl cead tugtha ar an Soláthraí Ríomhphost sin"
 
+msgid "This media is banned because it is propaganda"
+msgstr ""
+
+msgid "This media is banned for being an attempt to scam people"
+msgstr ""
+
+msgid "This media is banned for being degenerate"
+msgstr ""
+
+msgid "This media is banned for containing CSAM"
+msgstr ""
+
+msgid "This media is banned for containing graphic violence"
+msgstr ""
+
+msgid "This media is banned for glorifying terrorism"
+msgstr ""
+
 msgid "This password-reset link isn't valid anymore :("
 msgstr "Níl an pasfhocal-nasc a athshocrú bailí níos mó:("
 
@@ -480,6 +551,10 @@ msgstr "Barr Deich"
 
 msgid "Unknown Captcha Error"
 msgstr "Earráid Captcha Nach bhfuil are eolas"
+
+#, javascript-format
+msgid "Unknown field ${ name } in request"
+msgstr ""
 
 msgid "Update Application"
 msgstr ""
@@ -567,6 +642,9 @@ msgstr ""
 "sheolann tú teachtaireachtaí raibh giste, caithfidh tú fanacht do $"
 "{ waitTime } :("
 
+msgid "You attached too many files"
+msgstr ""
+
 msgid ""
 "You can not delete this login method, because you have nothing else left."
 msgstr ""
@@ -591,6 +669,9 @@ msgstr ""
 
 msgid "You can't send a message this long :("
 msgstr "Ní chúig leat teachtaireacht comh fhada le seo a cuir amach :("
+
+msgid "You did not provide all neccessary information"
+msgstr ""
 
 msgid ""
 "You do not have any email adress set. Please add one under \"Login Methods\"."

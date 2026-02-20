@@ -32,6 +32,9 @@ msgid ""
 msgstr ""
 "Kanvas za najaktivnije igrače od juče. Dnevni rang se ažurira u 00:00 UTC."
 
+msgid "A file was too large"
+msgstr ""
+
 msgid "Access modtools"
 msgstr ""
 
@@ -56,10 +59,19 @@ msgstr ""
 msgid "Application successfully added"
 msgstr ""
 
+msgid "Avatar can only be an image"
+msgstr ""
+
 msgid "Black and White canvas"
 msgstr "Crno-beli kanvas"
 
 msgid "Can not chat while being banned"
+msgstr ""
+
+#, javascript-format
+msgid ""
+"Can not upload this many files at once, only 5 are allowed, you have $"
+"{ amountOfFiles }"
 msgstr ""
 
 msgid "Click here"
@@ -91,6 +103,12 @@ msgid "Could not close this Session."
 msgstr ""
 
 msgid "Could not find this login method"
+msgstr ""
+
+msgid "Could not set your avtar"
+msgstr ""
+
+msgid "Could not upload all files"
 msgstr ""
 
 msgid "Couldn't find this mail in our database"
@@ -136,6 +154,19 @@ msgid "Error"
 msgstr ""
 
 msgid "Failed to create a new user :("
+msgstr ""
+
+#, javascript-format
+msgid ""
+"File ${ filename } has ${ sizeMB } MB and is too large. It may only be $"
+"{ maxSizeMB } MB"
+msgstr ""
+
+#, javascript-format
+msgid "File ${ filename } has an invalid extension"
+msgstr ""
+
+msgid "File is broken"
 msgstr ""
 
 #. 'client_secret' is a technical term and should not be translated
@@ -184,6 +215,9 @@ msgstr ""
 msgid "Incorrect password!"
 msgstr "Neispravna lozinka!"
 
+msgid "Invalid type of media"
+msgstr ""
+
 msgid "Invalid url :( Please check your mail again."
 msgstr "Nevažeći url :( Molimo vas da proverite e-mail opet."
 
@@ -214,6 +248,13 @@ msgstr "E-mail nije verifikovan na serveru"
 
 msgid "Mail verification"
 msgstr "Verifikacija mail-a"
+
+msgid "MimeType or extension not known or supported"
+msgstr ""
+
+#, javascript-format
+msgid "Mimetype ${ mimeType } of file ${ filename } is invalid or not allowed"
+msgstr ""
 
 msgid "Minimap"
 msgstr "Mini-mapa"
@@ -260,6 +301,9 @@ msgstr "Nova lozinka"
 
 msgid "No Captcha given"
 msgstr "Verifikacija nije data"
+
+msgid "No file metadata given"
+msgstr ""
 
 msgid "No or invalid fish id."
 msgstr ""
@@ -357,6 +401,9 @@ msgstr ""
 msgid "Regularly update this data"
 msgstr ""
 
+msgid "Request stalled"
+msgstr ""
+
 #. 'client_secret' is a technical term and should not be translated
 msgid "Reroll client_secret"
 msgstr ""
@@ -366,6 +413,12 @@ msgstr "Resetuj lozinku"
 
 msgid "Reset your password here"
 msgstr "Ovde možete da resetujete lozinku"
+
+msgid "Server Eror"
+msgstr ""
+
+msgid "Server Error"
+msgstr ""
 
 msgid "Server error when deleting user."
 msgstr ""
@@ -440,6 +493,24 @@ msgstr ""
 msgid "This email provider is not allowed"
 msgstr "Ovaj e-mail provajder nije dostupan"
 
+msgid "This media is banned because it is propaganda"
+msgstr ""
+
+msgid "This media is banned for being an attempt to scam people"
+msgstr ""
+
+msgid "This media is banned for being degenerate"
+msgstr ""
+
+msgid "This media is banned for containing CSAM"
+msgstr ""
+
+msgid "This media is banned for containing graphic violence"
+msgstr ""
+
+msgid "This media is banned for glorifying terrorism"
+msgstr ""
+
 msgid "This password-reset link isn't valid anymore :("
 msgstr "Ovaj link za resetovanje lozinke ne radi više :("
 
@@ -452,6 +523,10 @@ msgstr "Top10"
 
 msgid "Unknown Captcha Error"
 msgstr "Nepoznata verifikacijska greška"
+
+#, javascript-format
+msgid "Unknown field ${ name } in request"
+msgstr ""
 
 msgid "Update Application"
 msgstr ""
@@ -536,6 +611,9 @@ msgstr "Vi ste zauvek nemo, dođite u naš guilded da bi ste napravili zahtev"
 msgid "You are sending messages too fast, you have to wait ${ waitTime }s :("
 msgstr "Prebrzo šaljate poruke, morate sačekati ${ waitTime }s :("
 
+msgid "You attached too many files"
+msgstr ""
+
 msgid ""
 "You can not delete this login method, because you have nothing else left."
 msgstr ""
@@ -556,6 +634,9 @@ msgstr ""
 
 msgid "You can't send a message this long :("
 msgstr "Nemožete poslati ovoliku poruku :("
+
+msgid "You did not provide all neccessary information"
+msgstr ""
 
 msgid ""
 "You do not have any email adress set. Please add one under \"Login Methods\"."

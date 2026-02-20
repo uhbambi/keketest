@@ -19,6 +19,9 @@ msgstr " което е на "
 msgid "# Today"
 msgstr ""
 
+msgid "# Total"
+msgstr ""
+
 #, javascript-format
 msgid "${ mouseSymbol } Hold left mouse button and drag mouse to rotate"
 msgstr "${ mouseSymbol } задръжте ляв бутон и движете мишката, за да завъртите"
@@ -96,8 +99,14 @@ msgstr "Архив"
 msgid "Assign new Mod"
 msgstr "Добавяне на нов модератор"
 
+msgid "Attach File"
+msgstr ""
+
 msgid "Auto Zoom In"
 msgstr "Автоматично увеличение"
+
+msgid "Avatar"
+msgstr ""
 
 msgid "Back"
 msgstr ""
@@ -253,6 +262,9 @@ msgstr ""
 msgid "Cleaners can use 0cd blank colors."
 msgstr ""
 
+msgid "Clear"
+msgstr ""
+
 #, javascript-format
 msgid ""
 "Click ${ mouseSymbol } middle mouse button or ${ touchSymbol } long-tap to "
@@ -269,6 +281,9 @@ msgstr "Натиснете тук, за да заявите нов имейл з
 
 msgid "Click to Load Captcha"
 msgstr "Натиснете, за да заредите Captcha"
+
+msgid "Click to remove"
+msgstr ""
 
 msgid "Clone"
 msgstr "Клонирай"
@@ -350,11 +365,17 @@ msgstr ""
 msgid "Copy to Clipboard"
 msgstr "Копиране в клипборда"
 
+msgid "Could not connect to server"
+msgstr ""
+
 msgid "Could not connect to server, please try again later :("
 msgstr "Не може да се свърже със сървъра, моля опитайте отново по-късно :("
 
 msgid "Could not load captcha"
 msgstr "Не може да се зареди captcha"
+
+msgid "Could not process files"
+msgstr ""
 
 msgid "Couldn't set Pixel"
 msgstr "Не може да се избере пиксел"
@@ -382,6 +403,9 @@ msgstr "Текущи промени на Cool-down на Държава"
 
 msgid "Custom Cursor"
 msgstr "Персонализиран Курсор"
+
+msgid "Custom Flag"
+msgstr ""
 
 msgid "DM"
 msgstr "ЛС"
@@ -444,6 +468,9 @@ msgstr ""
 
 msgid "Don't show me in global stats"
 msgstr "Не ме показвай в глобалните статистики"
+
+msgid "Download"
+msgstr ""
 
 msgid "Download Template"
 msgstr "Изтегли шаблон"
@@ -818,11 +845,17 @@ msgstr "Ново потребителско име"
 msgid "No"
 msgstr "Не"
 
+msgid "No File selected to upload"
+msgstr ""
+
 msgid "No Phish!"
 msgstr ""
 
 msgid "No captcha id given"
 msgstr "Не е дадена captcha ID"
+
+msgid "No flag selected"
+msgstr ""
 
 msgid "No or invalid captcha text"
 msgstr "Няма или е невалиден captcha текстът"
@@ -1153,6 +1186,9 @@ msgstr "Изберете дата отгоре"
 msgid "Select File"
 msgstr "Избиране на файл"
 
+msgid "Select Flag"
+msgstr ""
+
 msgid "Select Language"
 msgstr "Избиране на език"
 
@@ -1167,8 +1203,14 @@ msgstr ""
 "изисквания.\n"
 "Архивът на затворените платна, може да бъде достъпен тук:"
 
+msgid "Select your Avatar. Supported Formats: jpg, gif, png, webp"
+msgstr ""
+
 msgid "Selected Color"
 msgstr "Избран цвят"
+
+msgid "Selected Flag:"
+msgstr ""
 
 msgid "Send"
 msgstr "Изпрати"
@@ -1228,6 +1270,9 @@ msgstr ""
 
 msgid "Show templates as overlays ingame."
 msgstr "Покажи шаблоните като овърлейове в в играта."
+
+msgid "Shrink"
+msgstr ""
 
 msgid "Size"
 msgstr ""
@@ -1381,6 +1426,9 @@ msgstr "Общо"
 
 msgid "Total Online Users"
 msgstr "Общо онлайн потребители"
+
+msgid "Total Pixels"
+msgstr ""
 
 msgid "Total Pixels per Player"
 msgstr "Общо пиксели сложени на Играч"

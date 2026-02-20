@@ -33,6 +33,9 @@ msgstr ""
 "Un llenç per als jugadors més actius del dia anterior. La classificació "
 "diària s'actualitza a les 00:00 UTC."
 
+msgid "A file was too large"
+msgstr ""
+
 msgid "Access modtools"
 msgstr "Accedeix a les eines de moderador"
 
@@ -57,11 +60,20 @@ msgstr "L'aplicació s'ha suprimit"
 msgid "Application successfully added"
 msgstr "L'aplicació s'ha afegit amb èxit"
 
+msgid "Avatar can only be an image"
+msgstr ""
+
 msgid "Black and White canvas"
 msgstr "Llenç en Blanc i Negre"
 
 msgid "Can not chat while being banned"
 msgstr "No pots xatejar mentre estàs banejat"
+
+#, javascript-format
+msgid ""
+"Can not upload this many files at once, only 5 are allowed, you have $"
+"{ amountOfFiles }"
+msgstr ""
 
 msgid "Click here"
 msgstr "Clica aquí"
@@ -93,6 +105,12 @@ msgstr "No s'ha pogut tancar aquesta Sessió."
 
 msgid "Could not find this login method"
 msgstr "No s'ha pogut trobar aquest mètode d'inici de sessió"
+
+msgid "Could not set your avtar"
+msgstr ""
+
+msgid "Could not upload all files"
+msgstr ""
 
 msgid "Couldn't find this mail in our database"
 msgstr "No hem pogut trobar aquest correu electrònic a la nostra base de dades"
@@ -138,6 +156,19 @@ msgstr "Error"
 
 msgid "Failed to create a new user :("
 msgstr "No s'ha pogut crear un usuari nou :("
+
+#, javascript-format
+msgid ""
+"File ${ filename } has ${ sizeMB } MB and is too large. It may only be $"
+"{ maxSizeMB } MB"
+msgstr ""
+
+#, javascript-format
+msgid "File ${ filename } has an invalid extension"
+msgstr ""
+
+msgid "File is broken"
+msgstr ""
 
 #. 'client_secret' is a technical term and should not be translated
 msgid ""
@@ -186,6 +217,9 @@ msgstr ""
 msgid "Incorrect password!"
 msgstr "Contrasenya incorrecta!"
 
+msgid "Invalid type of media"
+msgstr ""
+
 msgid "Invalid url :( Please check your mail again."
 msgstr ""
 "URL invàlida :( Si us plau, comprova el teu correu electrònic un altre cop."
@@ -217,6 +251,13 @@ msgstr ""
 
 msgid "Mail verification"
 msgstr "Verificació del correu electrònic"
+
+msgid "MimeType or extension not known or supported"
+msgstr ""
+
+#, javascript-format
+msgid "Mimetype ${ mimeType } of file ${ filename } is invalid or not allowed"
+msgstr ""
 
 msgid "Minimap"
 msgstr ""
@@ -264,6 +305,9 @@ msgstr "Contrasenya nova"
 
 msgid "No Captcha given"
 msgstr "No s'ha rebut el captcha"
+
+msgid "No file metadata given"
+msgstr ""
 
 msgid "No or invalid fish id."
 msgstr ""
@@ -363,6 +407,9 @@ msgstr ""
 msgid "Regularly update this data"
 msgstr ""
 
+msgid "Request stalled"
+msgstr ""
+
 #. 'client_secret' is a technical term and should not be translated
 msgid "Reroll client_secret"
 msgstr ""
@@ -372,6 +419,12 @@ msgstr "Restablir la contrasenya"
 
 msgid "Reset your password here"
 msgstr "Restableix la teva contrasenya aquí"
+
+msgid "Server Eror"
+msgstr ""
+
+msgid "Server Error"
+msgstr ""
 
 msgid "Server error when deleting user."
 msgstr ""
@@ -447,6 +500,24 @@ msgstr ""
 msgid "This email provider is not allowed"
 msgstr ""
 
+msgid "This media is banned because it is propaganda"
+msgstr ""
+
+msgid "This media is banned for being an attempt to scam people"
+msgstr ""
+
+msgid "This media is banned for being degenerate"
+msgstr ""
+
+msgid "This media is banned for containing CSAM"
+msgstr ""
+
+msgid "This media is banned for containing graphic violence"
+msgstr ""
+
+msgid "This media is banned for glorifying terrorism"
+msgstr ""
+
 msgid "This password-reset link isn't valid anymore :("
 msgstr "Aquest enllaç per restablir la contrasenya ja no és vàlid :("
 
@@ -459,6 +530,10 @@ msgstr "Top10"
 
 msgid "Unknown Captcha Error"
 msgstr "Error Desconegut del Captcha"
+
+#, javascript-format
+msgid "Unknown field ${ name } in request"
+msgstr ""
 
 msgid "Update Application"
 msgstr ""
@@ -547,6 +622,9 @@ msgstr ""
 msgid "You are sending messages too fast, you have to wait ${ waitTime }s :("
 msgstr "Estàs enviant missatges massa ràpid, has d'esperar ${ waitTime }s :("
 
+msgid "You attached too many files"
+msgstr ""
+
 msgid ""
 "You can not delete this login method, because you have nothing else left."
 msgstr ""
@@ -569,6 +647,9 @@ msgstr ""
 
 msgid "You can't send a message this long :("
 msgstr "No pots enviar un missatge tan llarg :("
+
+msgid "You did not provide all neccessary information"
+msgstr ""
 
 msgid ""
 "You do not have any email adress set. Please add one under \"Login Methods\"."

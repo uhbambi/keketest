@@ -30,6 +30,9 @@ msgstr ""
 "Canvas dla najaktywniejszych graczy z poprzedniego dnia. Codzienne "
 "aktualizacje rankingów o godzinie 00:00 UTC."
 
+msgid "A file was too large"
+msgstr ""
+
 msgid "Access modtools"
 msgstr ""
 
@@ -54,10 +57,19 @@ msgstr ""
 msgid "Application successfully added"
 msgstr ""
 
+msgid "Avatar can only be an image"
+msgstr ""
+
 msgid "Black and White canvas"
 msgstr "Czarno-białe płótno"
 
 msgid "Can not chat while being banned"
+msgstr ""
+
+#, javascript-format
+msgid ""
+"Can not upload this many files at once, only 5 are allowed, you have $"
+"{ amountOfFiles }"
 msgstr ""
 
 msgid "Click here"
@@ -89,6 +101,12 @@ msgid "Could not close this Session."
 msgstr ""
 
 msgid "Could not find this login method"
+msgstr ""
+
+msgid "Could not set your avtar"
+msgstr ""
+
+msgid "Could not upload all files"
 msgstr ""
 
 msgid "Couldn't find this mail in our database"
@@ -134,6 +152,19 @@ msgid "Error"
 msgstr ""
 
 msgid "Failed to create a new user :("
+msgstr ""
+
+#, javascript-format
+msgid ""
+"File ${ filename } has ${ sizeMB } MB and is too large. It may only be $"
+"{ maxSizeMB } MB"
+msgstr ""
+
+#, javascript-format
+msgid "File ${ filename } has an invalid extension"
+msgstr ""
+
+msgid "File is broken"
 msgstr ""
 
 #. 'client_secret' is a technical term and should not be translated
@@ -182,6 +213,9 @@ msgstr ""
 msgid "Incorrect password!"
 msgstr "Niepoprawne hasło!"
 
+msgid "Invalid type of media"
+msgstr ""
+
 msgid "Invalid url :( Please check your mail again."
 msgstr "Nieprawidłowy adres URL :( Sprawdź maila ponownie."
 
@@ -212,6 +246,13 @@ msgstr "mail nie jest skonfigurowany na serwerze"
 
 msgid "Mail verification"
 msgstr "weryfikacja maila"
+
+msgid "MimeType or extension not known or supported"
+msgstr ""
+
+#, javascript-format
+msgid "Mimetype ${ mimeType } of file ${ filename } is invalid or not allowed"
+msgstr ""
 
 msgid "Minimap"
 msgstr "Minimapa"
@@ -259,6 +300,9 @@ msgstr "Nowe hasło"
 
 msgid "No Captcha given"
 msgstr "Nie podano Captcha"
+
+msgid "No file metadata given"
+msgstr ""
 
 msgid "No or invalid fish id."
 msgstr ""
@@ -356,6 +400,9 @@ msgstr ""
 msgid "Regularly update this data"
 msgstr ""
 
+msgid "Request stalled"
+msgstr ""
+
 #. 'client_secret' is a technical term and should not be translated
 msgid "Reroll client_secret"
 msgstr ""
@@ -365,6 +412,12 @@ msgstr "Zresetuj Hasło"
 
 msgid "Reset your password here"
 msgstr "Zresetuj swoje hasło tutaj"
+
+msgid "Server Eror"
+msgstr ""
+
+msgid "Server Error"
+msgstr ""
 
 msgid "Server error when deleting user."
 msgstr ""
@@ -440,6 +493,24 @@ msgstr ""
 msgid "This email provider is not allowed"
 msgstr "Ten dostawca maila jest niedozwolony"
 
+msgid "This media is banned because it is propaganda"
+msgstr ""
+
+msgid "This media is banned for being an attempt to scam people"
+msgstr ""
+
+msgid "This media is banned for being degenerate"
+msgstr ""
+
+msgid "This media is banned for containing CSAM"
+msgstr ""
+
+msgid "This media is banned for containing graphic violence"
+msgstr ""
+
+msgid "This media is banned for glorifying terrorism"
+msgstr ""
+
 msgid "This password-reset link isn't valid anymore :("
 msgstr "Ten link do resetowania hasła jest już nieważny :("
 
@@ -452,6 +523,10 @@ msgstr "Top10"
 
 msgid "Unknown Captcha Error"
 msgstr "Nieznany błąd Captcha"
+
+#, javascript-format
+msgid "Unknown field ${ name } in request"
+msgstr ""
 
 msgid "Update Application"
 msgstr ""
@@ -537,6 +612,9 @@ msgstr ""
 msgid "You are sending messages too fast, you have to wait ${ waitTime }s :("
 msgstr "Wysyłasz wiadomości za szybko, musisz poczekać ${waitTime } s :("
 
+msgid "You attached too many files"
+msgstr ""
+
 msgid ""
 "You can not delete this login method, because you have nothing else left."
 msgstr ""
@@ -557,6 +635,9 @@ msgstr ""
 
 msgid "You can't send a message this long :("
 msgstr "Nie możesz wysłać tak długiej wiadomości :("
+
+msgid "You did not provide all neccessary information"
+msgstr ""
 
 msgid ""
 "You do not have any email adress set. Please add one under \"Login Methods\"."

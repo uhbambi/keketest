@@ -20,6 +20,9 @@ msgstr ""
 msgid "# Today"
 msgstr ""
 
+msgid "# Total"
+msgstr ""
+
 #, javascript-format
 msgid "${ mouseSymbol } Hold left mouse button and drag mouse to rotate"
 msgstr ""
@@ -99,8 +102,14 @@ msgstr "Arhiv"
 msgid "Assign new Mod"
 msgstr "Dodaj novega Moderatorja"
 
+msgid "Attach File"
+msgstr ""
+
 msgid "Auto Zoom In"
 msgstr "Avtomatsko se približaj"
+
+msgid "Avatar"
+msgstr ""
 
 msgid "Back"
 msgstr ""
@@ -259,6 +268,9 @@ msgstr ""
 msgid "Cleaners can use 0cd blank colors."
 msgstr ""
 
+msgid "Clear"
+msgstr ""
+
 #, javascript-format
 msgid ""
 "Click ${ mouseSymbol } middle mouse button or ${ touchSymbol } long-tap to "
@@ -276,6 +288,9 @@ msgstr "Kliknite tukaj za to da prejmete novo sporočilo za preverjanje."
 #, fuzzy
 msgid "Click to Load Captcha"
 msgstr "Nismo morali naložiti captcho"
+
+msgid "Click to remove"
+msgstr ""
 
 msgid "Clone"
 msgstr ""
@@ -358,12 +373,18 @@ msgstr ""
 msgid "Copy to Clipboard"
 msgstr "Kopiraj v Odložišče"
 
+msgid "Could not connect to server"
+msgstr ""
+
 msgid "Could not connect to server, please try again later :("
 msgstr ""
 "Ne moremo se povezati s serverjem, prosim poskušajte ponovno kasneje :c"
 
 msgid "Could not load captcha"
 msgstr "Nismo morali naložiti captcho"
+
+msgid "Could not process files"
+msgstr ""
 
 msgid "Couldn't set Pixel"
 msgstr "Ne moremo postaviti Pixel"
@@ -390,6 +411,9 @@ msgid "Current Cooldown Changes per Country"
 msgstr ""
 
 msgid "Custom Cursor"
+msgstr ""
+
+msgid "Custom Flag"
 msgstr ""
 
 msgid "DM"
@@ -455,6 +479,9 @@ msgid "Don't remember"
 msgstr ""
 
 msgid "Don't show me in global stats"
+msgstr ""
+
+msgid "Download"
 msgstr ""
 
 msgid "Download Template"
@@ -837,12 +864,18 @@ msgstr "Novo Uporabniško ime"
 msgid "No"
 msgstr ""
 
+msgid "No File selected to upload"
+msgstr ""
+
 msgid "No Phish!"
 msgstr ""
 
 #, fuzzy
 msgid "No captcha id given"
 msgstr "Niste vnesli gesla"
+
+msgid "No flag selected"
+msgstr ""
 
 msgid "No or invalid captcha text"
 msgstr ""
@@ -1180,6 +1213,9 @@ msgstr "Izberite Jezik"
 msgid "Select File"
 msgstr "Izberite Jezik"
 
+msgid "Select Flag"
+msgstr ""
+
 msgid "Select Language"
 msgstr "Izberite Jezik"
 
@@ -1194,9 +1230,15 @@ msgstr ""
 "drugačno paleto barv, čakalno dobo in zahteve. Do arhiva zaprtih kanvasov "
 "lahko dostopate tukaj:"
 
+msgid "Select your Avatar. Supported Formats: jpg, gif, png, webp"
+msgstr ""
+
 #, fuzzy
 msgid "Selected Color"
 msgstr "Izberite Jezik"
+
+msgid "Selected Flag:"
+msgstr ""
 
 msgid "Send"
 msgstr "Pošlji"
@@ -1252,6 +1294,9 @@ msgid "Show overlay as small individual pixels on high zoomlevels."
 msgstr ""
 
 msgid "Show templates as overlays ingame."
+msgstr ""
+
+msgid "Shrink"
 msgstr ""
 
 msgid "Size"
@@ -1402,6 +1447,9 @@ msgid "Total"
 msgstr "Skupaj"
 
 msgid "Total Online Users"
+msgstr ""
+
+msgid "Total Pixels"
 msgstr ""
 
 #, fuzzy

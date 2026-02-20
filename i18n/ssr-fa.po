@@ -33,6 +33,9 @@ msgstr ""
 "بوم برای فعال ترین بازیکنان روز قبل. به روز رسانی رتبه بندی روزانه در ساعت "
 "00:00 UTC."
 
+msgid "A file was too large"
+msgstr ""
+
 msgid "Access modtools"
 msgstr "دسترسی به ابزار های مادریتوری"
 
@@ -57,11 +60,20 @@ msgstr "برنامه حذف شد"
 msgid "Application successfully added"
 msgstr "برنامه با موفقیت اضافه شد"
 
+msgid "Avatar can only be an image"
+msgstr ""
+
 msgid "Black and White canvas"
 msgstr "بوم سیاه و سفید"
 
 msgid "Can not chat while being banned"
 msgstr "تا زمانی که بن هستی نمیتونی چت کنی"
+
+#, javascript-format
+msgid ""
+"Can not upload this many files at once, only 5 are allowed, you have $"
+"{ amountOfFiles }"
+msgstr ""
 
 msgid "Click here"
 msgstr "اینجا کلیک کنید"
@@ -93,6 +105,12 @@ msgstr "نتوانستیم این جلسه را ببندیم."
 
 msgid "Could not find this login method"
 msgstr "این روش ورود به سیستم پیدا نشد"
+
+msgid "Could not set your avtar"
+msgstr ""
+
+msgid "Could not upload all files"
+msgstr ""
 
 msgid "Couldn't find this mail in our database"
 msgstr "این ایمیل در پایگاه داده ما یافت نشد"
@@ -138,6 +156,19 @@ msgstr "خطا"
 
 msgid "Failed to create a new user :("
 msgstr "ایجاد کاربر جدید ناموفق بود :("
+
+#, javascript-format
+msgid ""
+"File ${ filename } has ${ sizeMB } MB and is too large. It may only be $"
+"{ maxSizeMB } MB"
+msgstr ""
+
+#, javascript-format
+msgid "File ${ filename } has an invalid extension"
+msgstr ""
+
+msgid "File is broken"
+msgstr ""
 
 #. 'client_secret' is a technical term and should not be translated
 msgid ""
@@ -187,6 +218,9 @@ msgstr ""
 msgid "Incorrect password!"
 msgstr "رمزت رو غلط وارد کردی!"
 
+msgid "Invalid type of media"
+msgstr ""
+
 msgid "Invalid url :( Please check your mail again."
 msgstr "آدرس اینترنتی نامعتبر :( لطفا دوباره ایمیل خود را بررسی کنید."
 
@@ -217,6 +251,13 @@ msgstr "ایمیل روی سرور پیکربندی نشده است"
 
 msgid "Mail verification"
 msgstr "تایید ایمیل"
+
+msgid "MimeType or extension not known or supported"
+msgstr ""
+
+#, javascript-format
+msgid "Mimetype ${ mimeType } of file ${ filename } is invalid or not allowed"
+msgstr ""
 
 msgid "Minimap"
 msgstr "مینی‌مپ"
@@ -263,6 +304,9 @@ msgstr "رمز عبور جدید"
 
 msgid "No Captcha given"
 msgstr "کپچا داده نشده است"
+
+msgid "No file metadata given"
+msgstr ""
 
 msgid "No or invalid fish id."
 msgstr "شناسه ماهی وجود ندارد یا نامعتبر است."
@@ -363,6 +407,9 @@ msgstr "لینک های مرجوعی"
 msgid "Regularly update this data"
 msgstr "مرتباً این اطلاعات رو به‌روزرسانی کنید"
 
+msgid "Request stalled"
+msgstr ""
+
 #. 'client_secret' is a technical term and should not be translated
 msgid "Reroll client_secret"
 msgstr ""
@@ -372,6 +419,12 @@ msgstr "بازنشانی رمز عبور"
 
 msgid "Reset your password here"
 msgstr "رمز عبور خود را در اینجا بازنشانی کنید"
+
+msgid "Server Eror"
+msgstr ""
+
+msgid "Server Error"
+msgstr ""
 
 msgid "Server error when deleting user."
 msgstr "خطای سرور هنگام حذف کاربر!"
@@ -457,6 +510,24 @@ msgstr ""
 msgid "This email provider is not allowed"
 msgstr "این ارائه دهنده ایمیل مجاز نیست"
 
+msgid "This media is banned because it is propaganda"
+msgstr ""
+
+msgid "This media is banned for being an attempt to scam people"
+msgstr ""
+
+msgid "This media is banned for being degenerate"
+msgstr ""
+
+msgid "This media is banned for containing CSAM"
+msgstr ""
+
+msgid "This media is banned for containing graphic violence"
+msgstr ""
+
+msgid "This media is banned for glorifying terrorism"
+msgstr ""
+
 msgid "This password-reset link isn't valid anymore :("
 msgstr "این password-reset دیگر معتبر نیست :("
 
@@ -469,6 +540,10 @@ msgstr "ده نفر برتر"
 
 msgid "Unknown Captcha Error"
 msgstr "کپچا یه خطایی داده که خودمم نمیدونم چیه"
+
+#, javascript-format
+msgid "Unknown field ${ name } in request"
+msgstr ""
 
 msgid "Update Application"
 msgstr "به‌روزرسانی برنامه"
@@ -553,6 +628,9 @@ msgstr "شما برای همیشه بی‌صدا شده‌اید، به گیلد
 msgid "You are sending messages too fast, you have to wait ${ waitTime }s :("
 msgstr "خیلی داری تند تند پیام میفرستی. باید ${ waitTime } صبر کنی"
 
+msgid "You attached too many files"
+msgstr ""
+
 msgid ""
 "You can not delete this login method, because you have nothing else left."
 msgstr ""
@@ -574,6 +652,9 @@ msgstr ""
 
 msgid "You can't send a message this long :("
 msgstr "نمیشه اینقدر پیام بدی :("
+
+msgid "You did not provide all neccessary information"
+msgstr ""
 
 msgid ""
 "You do not have any email adress set. Please add one under \"Login Methods\"."

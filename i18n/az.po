@@ -19,6 +19,9 @@ msgstr " O da "
 msgid "# Today"
 msgstr ""
 
+msgid "# Total"
+msgstr ""
+
 #, javascript-format
 msgid "${ mouseSymbol } Hold left mouse button and drag mouse to rotate"
 msgstr ""
@@ -97,8 +100,14 @@ msgstr "Arxiv"
 msgid "Assign new Mod"
 msgstr "Yeni Mod təyin edin"
 
+msgid "Attach File"
+msgstr ""
+
 msgid "Auto Zoom In"
 msgstr "avtomatik yaxınlaşdır"
+
+msgid "Avatar"
+msgstr ""
 
 msgid "Back"
 msgstr ""
@@ -255,6 +264,9 @@ msgstr ""
 msgid "Cleaners can use 0cd blank colors."
 msgstr ""
 
+msgid "Clear"
+msgstr ""
+
 #, javascript-format
 msgid ""
 "Click ${ mouseSymbol } middle mouse button or ${ touchSymbol } long-tap to "
@@ -271,6 +283,9 @@ msgstr "Yeni doğrulama maili tələb etmək üçün bura basın."
 
 msgid "Click to Load Captcha"
 msgstr "Captchanı yükləmək üçün basın"
+
+msgid "Click to remove"
+msgstr ""
 
 msgid "Clone"
 msgstr "Klon"
@@ -350,11 +365,17 @@ msgstr ""
 msgid "Copy to Clipboard"
 msgstr "Löhvəyə kopyalayın"
 
+msgid "Could not connect to server"
+msgstr ""
+
 msgid "Could not connect to server, please try again later :("
 msgstr "Servere bağlanılabilmədi,zəhmət olmasa sonra yenidən dənəyin :("
 
 msgid "Could not load captcha"
 msgstr "Captcha yüklənəmədi"
+
+msgid "Could not process files"
+msgstr ""
 
 msgid "Couldn't set Pixel"
 msgstr "Pixel ayarlanabilmədi"
@@ -381,6 +402,9 @@ msgid "Current Cooldown Changes per Country"
 msgstr ""
 
 msgid "Custom Cursor"
+msgstr ""
+
+msgid "Custom Flag"
 msgstr ""
 
 msgid "DM"
@@ -444,6 +468,9 @@ msgstr ""
 
 msgid "Don't show me in global stats"
 msgstr "Məni qlobal statistikada göstərməyin"
+
+msgid "Download"
+msgstr ""
 
 msgid "Download Template"
 msgstr "Template yüklə"
@@ -820,11 +847,17 @@ msgstr "Yeni ad"
 msgid "No"
 msgstr "Yox"
 
+msgid "No File selected to upload"
+msgstr ""
+
 msgid "No Phish!"
 msgstr ""
 
 msgid "No captcha id given"
 msgstr "Heçbir captcha idsi verilmədi"
+
+msgid "No flag selected"
+msgstr ""
 
 msgid "No or invalid captcha text"
 msgstr "captcha mətni yoxdur və ya etibarsızdır"
@@ -1156,6 +1189,9 @@ msgstr "Tarixi seçin"
 msgid "Select File"
 msgstr "Faylı seçin"
 
+msgid "Select Flag"
+msgstr ""
+
 msgid "Select Language"
 msgstr "Dili seçin"
 
@@ -1170,9 +1206,15 @@ msgstr ""
 "tələbləri var.\n"
 "Qapalı lövhələrin arxivinə buradan daxil olmaq olar:"
 
+msgid "Select your Avatar. Supported Formats: jpg, gif, png, webp"
+msgstr ""
+
 #, fuzzy
 msgid "Selected Color"
 msgstr "Faylı seçin"
+
+msgid "Selected Flag:"
+msgstr ""
 
 msgid "Send"
 msgstr "Göndər"
@@ -1230,6 +1272,9 @@ msgstr "Şablonu yüsək böyüdülmədə kiçik fərdi piksellər kimi göstər
 
 msgid "Show templates as overlays ingame."
 msgstr "Şablonları oyun içində üst-üstə düşmə kimi göstər."
+
+msgid "Shrink"
+msgstr ""
 
 msgid "Size"
 msgstr ""
@@ -1385,6 +1430,9 @@ msgstr "Toplam"
 
 msgid "Total Online Users"
 msgstr "Toplam onlayn istifadəçilər"
+
+msgid "Total Pixels"
+msgstr ""
 
 #, fuzzy
 msgid "Total Pixels per Player"
