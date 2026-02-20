@@ -103,7 +103,7 @@ export async function storeMessage(message, cid, uid) {
         if (insertedRows > 0) {
           const models = await sequelize.query(
             // eslint-disable-next-line max-len
-            `SELECT CONCAT(shortId, ':', b.extension) AS mediaId, b.type AS mediaType, b.size AS mediaSize, b.width AS mediaWidth, b.height AS mediaHeight FROM Media b
+            `SELECT CONCAT(shortId, ':', b.extension) AS mediaId, b.type AS mediaType, b.size AS mediaSize, b.width AS mediaWidth, b.height AS mediaHeight, b.avgColor AS mediaAvgColor FROM Media b
   INNER JOIN MessageMedia mm ON mm.mid = b.id
 WHERE mm.sid = ?`, {
               replacements: [id],
@@ -115,9 +115,11 @@ WHERE mm.sid = ?`, {
           for (let i = 0; i < models.length; i += 1) {
             const {
               mediaId, mediaType, mediaSize, mediaWidth, mediaHeight,
+              mediaAvgColor,
             } = models[i];
             attachments.push([
               mediaId, mediaType, mediaSize, mediaWidth, mediaHeight,
+              mediaAvgColor,
             ]);
           }
         }
@@ -199,7 +201,7 @@ export async function getMessagesForChannel(cid, limit) {
       `SELECT m.id AS msgId, m.message, m.uid AS userId,
 UNIX_TIMESTAMP(m.createdAt) AS 'ts',
 u.name, u.userlvl, p.customFlag, s.country,
-CONCAT(b.shortId, ':', b.extension) AS mediaId, b.type AS mediaType, b.size AS mediaSize, b.width AS mediaWidth, b.height AS mediaHeight,
+CONCAT(b.shortId, ':', b.extension) AS mediaId, b.type AS mediaType, b.size AS mediaSize, b.width AS mediaWidth, b.height AS mediaHeight, b.avgColor AS mediaAvgColor,
 CONCAT(a.shortId, ':', a.extension) AS avatarId FROM Messages m
   INNER JOIN Users u ON u.id = m.uid
   LEFT JOIN Profiles p ON p.uid = u.id
@@ -237,9 +239,11 @@ WHERE m.cid = ? ORDER BY m.createdAt DESC LIMIT ?`, {
           );
           mediaReferences.set(msgId, attachments);
         }
-        const { mediaType, mediaSize, mediaWidth, mediaHeight } = model;
+        const {
+          mediaType, mediaSize, mediaWidth, mediaHeight, mediaAvgColor,
+        } = model;
         attachments.push([
-          mediaId, mediaType, mediaSize, mediaWidth, mediaHeight,
+          mediaId, mediaType, mediaSize, mediaWidth, mediaHeight, mediaAvgColor,
         ]);
       } else {
         rows.push(

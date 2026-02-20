@@ -78,6 +78,13 @@ const Media = sequelize.define('Media', {
   },
 
   /*
+   * average color as a 32bit RGB
+   */
+  avgColor: {
+    type: DataTypes.INTEGER.UNSIGNED,
+  },
+
+  /*
    * from lowest to highest bit:
    * 0: registeredUsersOnly (if only registered users can view it)
    * 1: allowCORS (if allowing cors)
@@ -190,7 +197,7 @@ export async function hasMedia(hashes) {
 
     const mediaModels = await sequelize.query(
       // eslint-disable-next-line max-len
-      `SELECT id, LOWER(HEX(hash)) AS hash, mimeType, extension, shortId, type, width, height FROM Media WHERE ${
+      `SELECT id, LOWER(HEX(hash)) AS hash, mimeType, extension, shortId, type, width, height, avgColor FROM Media WHERE ${
         hashes.map(
           () => '( hash = UNHEX(?) AND mimeType = ? )',
         ).join(' OR ')
@@ -233,6 +240,7 @@ export async function hasMedia(hashes) {
             hash.type = model.type;
             hash.width = model.width;
             hash.height = model.height;
+            hash.avgColor = model.avgColor;
             hash.mediaId = `${model.shortId}:${model.extension}`;
             hash.existed = true;
           } else {
@@ -310,7 +318,7 @@ export async function linkMedia(models, userId, ip) {
  * @return success boolean
  */
 export async function registerMedia(
-  model, size, width = null, height = null, pHash = null,
+  model, size, width = null, height = null, avgColor = null, pHash = null,
 ) {
   const { hash, mimeType, extension } = model;
   try {
@@ -333,9 +341,9 @@ export async function registerMedia(
     } while (exists);
     await sequelize.query(
       // eslint-disable-next-line max-len
-      'INSERT INTO Media (hash, shortId, extension, mimeType, size, width, height, lastUpload) VALUES (UNHEX(?), ?, ?, ?, ?, ?, ?, NOW()) ON DUPLICATE KEY UPDATE lastUpload = VALUES(lastUpload)', {
+      'INSERT INTO Media (hash, shortId, extension, mimeType, size, width, height, avgColor, lastUpload) VALUES (UNHEX(?), ?, ?, ?, ?, ?, ?, ?, NOW()) ON DUPLICATE KEY UPDATE lastUpload = VALUES(lastUpload)', {
         replacements: [
-          hash, shortId, extension, mimeType, size, width, height,
+          hash, shortId, extension, mimeType, size, width, height, avgColor,
         ],
         raw: true,
         type: QueryTypes.INSERT,

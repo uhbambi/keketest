@@ -117,11 +117,12 @@ const MdParagraph = ({
           {pAttachments.map(([title, mediaId]) => {
             let width;
             let height;
+            let avgColor;
             let type;
             const fileInfo = attachmentInfo.find(([id]) => id === mediaId);
             if (fileInfo) {
               console.log('FOUND FILEINFO', fileInfo);
-              [, type, , width, height] = fileInfo;
+              [, type, , width, height, avgColor] = fileInfo;
             }
             return (
               <Attachment
@@ -130,6 +131,7 @@ const MdParagraph = ({
                 title={title}
                 width={width}
                 height={height}
+                avgColor={avgColor}
                 type={type}
                 scrollRef={scrollRef}
               />

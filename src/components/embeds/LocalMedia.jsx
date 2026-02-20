@@ -19,13 +19,14 @@ import {
 import { VIDEO_EXTENSIONS, IMAGE_EXTENSIONS } from '../../core/constants.js';
 
 const LocalMedia = ({
-  url, fill, mediaId, title: gTitle, width, height, type: gType, scrollRef,
+  url, fill, mediaId, width, height, scrollRef, avgColor,
+  title: gTitle, type: gType,
 }) => {
   const [expanded, setExpanded] = useState(false);
 
   const link = useLink();
 
-  const [fullUrl, thumbUrl,, title, type] = useMemo(() => {
+  const [fullUrl, thumbUrl,, title, type, backgroundColor] = useMemo(() => {
     let mid = mediaId;
     let oTitle = gTitle;
     let oType = gType;
@@ -46,8 +47,9 @@ const LocalMedia = ({
     return [
       ...getUrlsFromMediaIdAndName(mid, oTitle),
       oTitle, oType,
+      avgColor && `#${avgColor.toString(16).padStart(6, '0')}`,
     ];
-  }, [url, gTitle, gType, mediaId]);
+  }, [url, gTitle, gType, mediaId, avgColor]);
 
   if (!fullUrl || !thumbUrl || !type) {
     return null;
@@ -78,13 +80,14 @@ const LocalMedia = ({
     textAlign: 'center',
     maxWidth: '100%',
     flex: '0 1 auto',
+    backgroundColor,
   } : {
     display: 'inline-block',
-    backgroundColor: 'rgb(240, 240, 240)',
     flex: '0 1 auto',
     width: '100%',
     maxHeight: '100%',
-    aspectRatio: `${width} / ${height}`,
+    backgroundColor,
+    aspectRatio: (width && height) ? `${width} / ${height}` : undefined,
   };
 
   if (!fill && width && height) {
@@ -109,7 +112,6 @@ const LocalMedia = ({
           style={{
             maxWidth: '100%',
             maxHeight: '100%',
-            backgroundColor: '#f0f0f0',
             objectFit: 'contain',
           }}
         />
@@ -146,19 +148,11 @@ const LocalMedia = ({
           <span
             onClick={toggleExpand}
           >
-            {(expanded)
-              ? (
-                <HiStop
-                  className="ebcl"
-                  title={t`Shrink`}
-                />
-              )
-              : (
-                <HiArrowsExpand
-                  className="ebex"
-                  title={t`Expand`}
-                />
-              )}
+            <HiStop
+              className="ebem"
+              style={{ color: 'red' }}
+              title={t`Shrink`}
+            />
           </span>
         </>
       )}

@@ -26,7 +26,7 @@ const initialState = {
    * ],...], ... }
    *
    * with attachments:
-   * [[mediaId, type, size, width, height], ...]
+   * [[mediaId, type, size, width, height, avgColor], ...]
    */
   messages: {},
 };

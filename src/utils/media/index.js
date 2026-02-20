@@ -241,15 +241,16 @@ export async function storeMediaStream(
     const tempIconFilePath = `${temporaryFile}_icon`;
     let width = null;
     let height = null;
+    let avgColor = null;
     if (type === 'image' || type === 'video') {
       tempFileList.push(tempThumbFilePath, tempIconFilePath);
       if (type === 'image') {
-        ({ width, height } = await createImageThumbnails(
+        ({ width, height, avgColor } = await createImageThumbnails(
           temporaryFile, tempThumbFilePath, tempIconFilePath,
         ));
       } else if (type === 'video') {
         tempFileList.push(tempScreencapFilePath);
-        ({ width, height } = await createVideoThumbnails(
+        ({ width, height, avgColor } = await createVideoThumbnails(
           temporaryFile,
           tempScreencapFilePath, tempThumbFilePath, tempIconFilePath,
         ));
@@ -259,7 +260,7 @@ export async function storeMediaStream(
     /*
      * register media, this gives us the shortId for storage
      */
-    await registerMedia(model, size, width, height, pHash);
+    await registerMedia(model, size, width, height, avgColor, pHash);
     if (!model.shortId) {
       throw new Error('server_error');
     }

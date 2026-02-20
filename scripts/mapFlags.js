@@ -10,7 +10,7 @@ const FORBIDDEN_FLAGS = ['zz', 'z1', 'z2', 'z3', 'xx', 'a1', 'a2', 'yy', 'ap'];
 const MARGIN = 2;
 const FLAG_WIDTH = 16;
 const FLAG_HEIGHT = 11;
-const SCALE = 2;
+const SCALE = 1.5;
 
 const __dirname = import.meta.dirname;
 
@@ -26,7 +26,7 @@ async function mapFlags() {
   const ts = Date.now();
   process.stdout.write(`\x1b[33mGenerating Country Flag texture map\x1b[0m\n`);
   const flagCodes = fs.readdirSync(flagdir)
-    .filter((e) => e.endsWith('.gif'))
+    .filter((e) => e.endsWith('.gif') && e.length === 6)
     .map((e) => e.substring(0, 2))
     .filter((e) => !FORBIDDEN_FLAGS.includes(e))
     .sort();
