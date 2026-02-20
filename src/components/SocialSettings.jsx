@@ -119,7 +119,7 @@ const SocialSettings = ({ done }) => {
           </div>
         </div>
         <div className="modaldesc">{
-          t`Select your Avatar. Supported Formats: jpg, gif, png, webm`
+          t`Select your Avatar. Supported Formats: jpg, gif, png, webp`
         }</div>
         <div className="modaldivider" />
       </div>

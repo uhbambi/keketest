@@ -1048,8 +1048,8 @@ table td span {
   background-color: rgba(0, 0, 0, 0.65);
   position: absolute;
   top: 0;
-  right: 5;
-  padding: 3;
+  right: 5px;
+  padding: 3px;
 }
 .embtrc {
   position: relative;

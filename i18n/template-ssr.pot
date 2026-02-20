@@ -25,6 +25,10 @@ msgid ""
 "ranking updates at 00:00 UTC."
 msgstr ""
 
+#: src/routes/api/media.js:239
+msgid "A file was too large"
+msgstr ""
+
 #: src/routes/oidc/register.js:161
 msgid "Access modtools"
 msgstr ""
@@ -57,12 +61,23 @@ msgstr ""
 msgid "Application successfully added"
 msgstr ""
 
+#: src/routes/api/profilechange.js:41
+msgid "Avatar can only be an image"
+msgstr ""
+
 #: src/canvasesDesc.js:39
 msgid "Black and White canvas"
 msgstr ""
 
-#: src/core/ChatProvider.js:326
+#: src/core/ChatProvider.js:334
 msgid "Can not chat while being banned"
+msgstr ""
+
+#: src/routes/api/media.js:83
+#, javascript-format
+msgid ""
+"Can not upload this many files at once, only 5 are allowed, you have ${ "
+"amountOfFiles }"
 msgstr ""
 
 #: src/ssr/modalShell.js:30
@@ -104,6 +119,14 @@ msgstr ""
 
 #: src/routes/api/auth/remove_tpid.js:25
 msgid "Could not find this login method"
+msgstr ""
+
+#: src/routes/api/profilechange.js:47
+msgid "Could not set your avtar"
+msgstr ""
+
+#: src/routes/api/media.js:243
+msgid "Could not upload all files"
 msgstr ""
 
 #: src/core/MailProvider.js:163
@@ -169,6 +192,22 @@ msgstr ""
 msgid "Failed to create a new user :("
 msgstr ""
 
+#: src/routes/api/media.js:102
+#, javascript-format
+msgid ""
+"File ${ filename } has ${ sizeMB } MB and is too large. It may only be ${ "
+"maxSizeMB } MB"
+msgstr ""
+
+#: src/routes/api/media.js:114
+#, javascript-format
+msgid "File ${ filename } has an invalid extension"
+msgstr ""
+
+#: src/routes/api/media.js:229
+msgid "File is broken"
+msgstr ""
+
 #: src/routes/oidc/register.js:294
 #. 'client_secret' is a technical term and should not be translated
 msgid ""
@@ -222,6 +261,10 @@ msgstr ""
 msgid "Incorrect password!"
 msgstr ""
 
+#: src/routes/api/media.js:226
+msgid "Invalid type of media"
+msgstr ""
+
 #: src/routes/reset_password.js:95
 msgid "Invalid url :( Please check your mail again."
 msgstr ""
@@ -265,6 +308,15 @@ msgstr ""
 #: src/routes/api/auth/verify.js:23
 #: src/routes/api/auth/verify.js:33
 msgid "Mail verification"
+msgstr ""
+
+#: src/routes/api/media.js:223
+msgid "MimeType or extension not known or supported"
+msgstr ""
+
+#: src/routes/api/media.js:109
+#, javascript-format
+msgid "Mimetype ${ mimeType } of file ${ filename } is invalid or not allowed"
 msgstr ""
 
 #: src/canvasesDesc.js:30
@@ -325,6 +377,10 @@ msgstr ""
 
 #: src/routes/api/auth/register.js:32
 msgid "No Captcha given"
+msgstr ""
+
+#: src/routes/api/media.js:220
+msgid "No file metadata given"
 msgstr ""
 
 #: src/routes/api/badge.js:16
@@ -434,7 +490,7 @@ msgstr ""
 msgid "Please try again."
 msgstr ""
 
-#: src/core/ChatProvider.js:363
+#: src/core/ChatProvider.js:367
 msgid "Please use int channel"
 msgstr ""
 
@@ -455,6 +511,10 @@ msgstr ""
 msgid "Regularly update this data"
 msgstr ""
 
+#: src/routes/api/media.js:236
+msgid "Request stalled"
+msgstr ""
+
 #: src/routes/oidc/register.js:290
 #. 'client_secret' is a technical term and should not be translated
 msgid "Reroll client_secret"
@@ -470,6 +530,14 @@ msgstr ""
 #: src/routes/reset_password.js:91
 #: src/routes/reset_password.js:110
 msgid "Reset your password here"
+msgstr ""
+
+#: src/routes/api/media.js:232
+msgid "Server Eror"
+msgstr ""
+
+#: src/routes/api/media.js:130
+msgid "Server Error"
 msgstr ""
 
 #: src/routes/api/auth/delete_account.js:53
@@ -505,7 +573,7 @@ msgstr ""
 msgid "Special canvas to spread awareness of SARS-CoV2 (take the vax)."
 msgstr ""
 
-#: src/core/ChatProvider.js:371
+#: src/core/ChatProvider.js:375
 msgid "Stop flooding."
 msgstr ""
 
@@ -527,24 +595,24 @@ msgstr ""
 msgid "The user owning this fish is private"
 msgstr ""
 
-#: src/middleware/oidc.js:225
-#: src/middleware/oidc.js:248
+#: src/middleware/oidc.js:226
+#: src/middleware/oidc.js:249
 msgid "This application is not allowed to login"
 msgstr ""
 
-#: src/middleware/oidc.js:267
+#: src/middleware/oidc.js:268
 msgid "This application redirects to an unallowed page"
 msgstr ""
 
-#: src/middleware/oidc.js:262
+#: src/middleware/oidc.js:263
 msgid "This application sent a faulty login request with no redirection"
 msgstr ""
 
-#: src/middleware/oidc.js:235
+#: src/middleware/oidc.js:236
 msgid "This application uses a PKCE method we do not support"
 msgstr ""
 
-#: src/middleware/oidc.js:221
+#: src/middleware/oidc.js:222
 msgid "This application uses a login method we do not support"
 msgstr ""
 
@@ -569,6 +637,30 @@ msgstr ""
 msgid "This email provider is not allowed"
 msgstr ""
 
+#: src/routes/api/media.js:265
+msgid "This media is banned because it is propaganda"
+msgstr ""
+
+#: src/routes/api/media.js:259
+msgid "This media is banned for being an attempt to scam people"
+msgstr ""
+
+#: src/routes/api/media.js:256
+msgid "This media is banned for being degenerate"
+msgstr ""
+
+#: src/routes/api/media.js:253
+msgid "This media is banned for containing CSAM"
+msgstr ""
+
+#: src/routes/api/media.js:250
+msgid "This media is banned for containing graphic violence"
+msgstr ""
+
+#: src/routes/api/media.js:262
+msgid "This media is banned for glorifying terrorism"
+msgstr ""
+
 #: src/routes/reset_password.js:48
 msgid "This password-reset link isn't valid anymore :("
 msgstr ""
@@ -584,6 +676,12 @@ msgstr ""
 
 #: src/routes/api/auth/register.js:72
 msgid "Unknown Captcha Error"
+msgstr ""
+
+#: src/routes/api/media.js:301
+#: src/routes/api/media.js:342
+#, javascript-format
+msgid "Unknown field ${ name } in request"
 msgstr ""
 
 #: src/routes/oidc/register.js:332
@@ -652,12 +750,12 @@ msgstr ""
 msgid "You are already verified."
 msgstr ""
 
-#: src/core/ChatProvider.js:336
+#: src/core/ChatProvider.js:344
 #, javascript-format
 msgid "You are muted for another ${ timeMin } minutes"
 msgstr ""
 
-#: src/core/ChatProvider.js:338
+#: src/core/ChatProvider.js:346
 #, javascript-format
 msgid "You are muted for another ${ ttl } seconds"
 msgstr ""
@@ -670,7 +768,7 @@ msgstr ""
 msgid "You are not banned"
 msgstr ""
 
-#: src/middleware/session.js:217
+#: src/middleware/session.js:219
 #: src/routes/api/modtools.js:66
 msgid "You are not logged in"
 msgstr ""
@@ -679,13 +777,17 @@ msgstr ""
 msgid "You are now verified :)"
 msgstr ""
 
-#: src/core/ChatProvider.js:331
+#: src/core/ChatProvider.js:339
 msgid "You are permanently muted, join our guilded to appeal the mute"
 msgstr ""
 
-#: src/core/ChatProvider.js:301
+#: src/core/ChatProvider.js:309
 #, javascript-format
 msgid "You are sending messages too fast, you have to wait ${ waitTime }s :("
+msgstr ""
+
+#: src/core/ChatProvider.js:400
+msgid "You attached too many files"
 msgstr ""
 
 #: src/routes/api/auth/remove_tpid.js:34
@@ -700,7 +802,7 @@ msgstr ""
 msgid "You can not register an account with a proxy"
 msgstr ""
 
-#: src/core/ChatProvider.js:323
+#: src/core/ChatProvider.js:331
 msgid "You can not send chat messages while using a proxy"
 msgstr ""
 
@@ -710,8 +812,12 @@ msgid ""
 "client_secret needed to make use of this."
 msgstr ""
 
-#: src/core/ChatProvider.js:359
+#: src/core/ChatProvider.js:398
 msgid "You can't send a message this long :("
+msgstr ""
+
+#: src/routes/api/media.js:77
+msgid "You did not provide all neccessary information"
 msgstr ""
 
 #: src/routes/api/auth/resend_verify.js:21
@@ -720,7 +826,7 @@ msgid ""
 "Methods\"."
 msgstr ""
 
-#: src/core/ChatProvider.js:305
+#: src/core/ChatProvider.js:313
 msgid "You don't have access to this channel"
 msgstr ""
 
@@ -775,11 +881,11 @@ msgstr ""
 msgid "Your account needs to be verified to access this page"
 msgstr ""
 
-#: src/core/ChatProvider.js:310
+#: src/core/ChatProvider.js:318
 msgid "Your country is temporary muted from this chat channel"
 msgstr ""
 
-#: src/core/ChatProvider.js:349
+#: src/core/ChatProvider.js:358
 msgid "Your mail has to be verified in order to chat"
 msgstr ""
 
