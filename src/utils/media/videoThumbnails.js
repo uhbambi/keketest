@@ -16,6 +16,7 @@ export default async function createVideoThumbnails(
         '-vframes', '1',
         '-qscale:v', 80,
         '-compression_level', '6',
+        '-f', 'webp',
         '-y',
         screencapFilePath,
       ]);

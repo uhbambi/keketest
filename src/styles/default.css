@@ -939,7 +939,7 @@ table td span {
   font-size: 13px;
   display: flex;
   gap: 6px;
-  padding: 5px 0 5px 2px;
+  padding: 5px 2px 5px 2px;
   list-style: none;
   align-items: flex-start;
 }

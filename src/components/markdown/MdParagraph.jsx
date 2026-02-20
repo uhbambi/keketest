@@ -63,7 +63,9 @@ const RecursiveMdParagraph = ({ pArray }) => pArray.map((part) => {
   }
 });
 
-const MdParagraph = ({ text, attachmentInfo = [], className }) => {
+const MdParagraph = ({
+  text, attachmentInfo = [], className, scrollRef,
+}) => {
   /*
    * [[desc, href], ...]
    */
@@ -73,10 +75,18 @@ const MdParagraph = ({ text, attachmentInfo = [], className }) => {
     isEmbedOpen: (href) => shownEmbeds.some(
       (embedOpts) => embedOpts[1] === href,
     ),
-    openEmbed: (embedOpts) => setShownEmbeds((cs) => [...cs, embedOpts]),
+    openEmbed: (embedOpts) => {
+      if (scrollRef?.current) {
+        requestAnimationFrame(() => {
+          scrollRef?.current?.();
+        });
+      }
+      return setShownEmbeds((cs) => [...cs, embedOpts]);
+    },
     closeEmbed: (href) => setShownEmbeds(
       (cs) => cs.filter((embedOpts) => embedOpts[1] !== href),
     ),
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }), [shownEmbeds]);
 
   const [pArray, pAttachments] = useMemo(() => parseParagraph(text), [text]);
@@ -87,10 +97,22 @@ const MdParagraph = ({ text, attachmentInfo = [], className }) => {
     <EmbedContext.Provider value={contextData}>
       <div className={className}>
         <RecursiveMdParagraph pArray={pArray} />
-        <div>
+        <div style={{
+          display: 'flex',
+          flexWrap: 'wrap',
+          gap: '3px',
+        }}
+        >
           {shownEmbeds.map(([desc, href]) => {
             const Embed = EMBEDS[desc][0];
-            return <Embed key={href} url={href} maxHeight={300} />;
+            return (
+              <Embed
+                key={href}
+                url={href}
+                maxHeight={300}
+                scrollRef={scrollRef}
+              />
+            );
           })}
           {pAttachments.map(([title, mediaId]) => {
             let width;
@@ -109,6 +131,7 @@ const MdParagraph = ({ text, attachmentInfo = [], className }) => {
                 width={width}
                 height={height}
                 type={type}
+                scrollRef={scrollRef}
               />
             );
           })}

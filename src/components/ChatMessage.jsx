@@ -20,6 +20,7 @@ function ChatMessage({
   avatarId,
   attachments,
   openCm,
+  scrollRef,
 }) {
   const isDarkMode = useSelector(selectIsDarkMode);
 
@@ -95,6 +96,7 @@ function ChatMessage({
           text={msg}
           className={className}
           attachmentInfo={attachments}
+          scrollRef={scrollRef}
         />
       </div>
     </li>

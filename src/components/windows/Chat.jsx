@@ -31,6 +31,7 @@ const Chat = () => {
   const targetRef = useRef();
   const inputRef = useRef();
   const uploadRef = useRef();
+  const scrollRef = useRef();
 
   const [blockedIds, setBlockedIds] = useState([]);
   const [btnSize, setBtnSize] = useState(20);
@@ -123,6 +124,10 @@ const Chat = () => {
   useLayoutEffect(() => {
     stayScrolled();
   }, [channelMessages.length, stayScrolled]);
+
+  useEffect(() => {
+    scrollRef.current = stayScrolled;
+  }, [stayScrolled]);
 
   useEffect(() => {
     setTimeout(() => {
@@ -233,6 +238,7 @@ const Chat = () => {
                 attachments={message[8]}
                 key={message[5]}
                 openCm={openUserCm}
+                scrollRef={scrollRef}
               />
             )))
         }

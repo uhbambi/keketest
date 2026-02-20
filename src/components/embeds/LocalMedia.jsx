@@ -18,8 +18,8 @@ import {
 } from '../../utils/media/utils.js';
 import { VIDEO_EXTENSIONS, IMAGE_EXTENSIONS } from '../../core/constants.js';
 
-const MdLocalMedia = ({
-  url, fill, mediaId, title: gTitle, width, height, type: gType,
+const LocalMedia = ({
+  url, fill, mediaId, title: gTitle, width, height, type: gType, scrollRef,
 }) => {
   const [expanded, setExpanded] = useState(false);
 
@@ -54,18 +54,21 @@ const MdLocalMedia = ({
   }
 
   let thumbWidth = width;
-  let thumbHeight = height;
   if (width && height) {
     if (width > 200 || height > 150) {
       const ratio = Math.min(200 / width, 150 / height);
       thumbWidth = Math.round(width * ratio);
-      thumbHeight = Math.round(height * ratio);
     }
   }
 
   const toggleExpand = () => {
     if (!fill) {
       setExpanded(!expanded);
+      if (scrollRef?.current) {
+        requestAnimationFrame(() => {
+          scrollRef?.current?.();
+        });
+      }
     }
   };
 
@@ -73,19 +76,22 @@ const MdLocalMedia = ({
     height: '100%',
     alignContent: 'center',
     textAlign: 'center',
+    maxWidth: '100%',
+    flex: '0 1 auto',
   } : {
     display: 'inline-block',
-    margin: 3,
     backgroundColor: 'rgb(240, 240, 240)',
+    flex: '0 1 auto',
+    width: '100%',
+    maxHeight: '100%',
+    aspectRatio: `${width} / ${height}`,
   };
 
-  if (!fill) {
+  if (!fill && width && height) {
     if (expanded) {
-      style.width = width;
-      style.height = height;
+      style.maxWidth = width;
     } else {
       style.width = thumbWidth;
-      style.height = thumbHeight;
     }
   }
 
@@ -104,6 +110,7 @@ const MdLocalMedia = ({
             maxWidth: '100%',
             maxHeight: '100%',
             backgroundColor: '#f0f0f0',
+            objectFit: 'contain',
           }}
         />
       </div>
@@ -171,11 +178,10 @@ const MdLocalMedia = ({
               <img
                 alt={title}
                 src={fullUrl}
-                width={width}
-                height={height}
                 style={{
-                  maxWidth: '100%',
-                  maxHeight: '100%',
+                  width: '100%',
+                  height: '100%',
+                  objectFit: 'contain',
                 }}
                 referrerPolicy="no-referrer"
               />
@@ -184,10 +190,11 @@ const MdLocalMedia = ({
             return (
               <video
                 style={{
-                  maxWidth: '100%',
-                  maxHeight: '100%',
-                  height: fill && '100%',
-                  width: fill && '100%',
+                  width: '100%',
+                  height: '100%',
+                  // height: fill && '100%',
+                  // width: fill && '100%',
+                  objectFit: 'contain',
                 }}
                 controls
                 autoPlay
@@ -204,7 +211,7 @@ const MdLocalMedia = ({
 };
 
 export default [
-  React.memo(MdLocalMedia),
+  React.memo(LocalMedia),
   (url) => {
     const [path, ext] = splitUrl(url);
     if (!ext || !path.startsWith('/m/') || path[4] === '/') {
