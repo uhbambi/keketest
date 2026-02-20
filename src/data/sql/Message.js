@@ -71,33 +71,16 @@ export async function storeMessage(message, cid, uid) {
     const transaction = await sequelize.transaction();
 
     try {
-      await Promise.all([
-        sequelize.query(
-          'UPDATE Channels SET lastMessage = NOW() WHERE id = ?', {
-            replacements: [cid],
-            raw: true,
-            type: QueryTypes.UPDATE,
-            transaction,
-          },
-        ),
-        sequelize.query(
-          // eslint-disable-next-line max-len
-          'INSERT INTO Messages (message, uid, cid, createdAt) VALUES (?, ?, ?, NOW())', {
-            replacements: [message, uid, cid],
-            raw: true,
-            type: QueryTypes.INSERT,
-            transaction,
-          },
-        ),
-      ]);
       const model = await sequelize.query(
-        'SELECT LAST_INSERT_ID() AS id', {
+        'CALL STORE_CHAT_MESSAGE(?, ?, ?)', {
+          replacements: [cid, uid, message],
           plain: true,
           type: QueryTypes.SELECT,
           transaction,
         },
       );
-      if (!model.id) {
+      const id = model[0]?.id;
+      if (!id) {
         throw new Error('no_id');
       }
 
@@ -109,7 +92,7 @@ export async function storeMessage(message, cid, uid) {
               () => '( m.shortId = ? AND m.extension = ? )',
             ).join(' OR ')
           }`, {
-            replacements: [model.id, ...media.flat()],
+            replacements: [id, ...media.flat()],
             raw: true,
             type: QueryTypes.INSERT,
             transaction,
@@ -117,7 +100,7 @@ export async function storeMessage(message, cid, uid) {
       }
 
       await transaction.commit();
-      return model.id;
+      return id;
     } catch (error) {
       await transaction.rollback();
       throw error;

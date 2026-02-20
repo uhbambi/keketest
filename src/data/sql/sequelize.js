@@ -235,10 +235,6 @@ BEGIN
   END IF;
   RETURN (LOWER(CONCAT(REPLACE(SUBSTRING_INDEX(SUBSTRING_INDEX(tip, '@', 1), '+', 1), '.', ''),'@',(SUBSTRING_INDEX(tip, '@', -1)))));
 END`,
-    NAME_TO_USERNAME: `CREATE FUNCTION IF NOT EXISTS NAME_TO_USERNAME(name VARCHAR(32)) RETURNS VARCHAR(32) DETERMINISTIC
-BEGIN
-  RETURN CONCAT('pp_', REGEXP_REPLACE(name, '[^a-zA-Z0-9._-]', ''));
-END`,
     UUID_TO_BIN: `CREATE FUNCTION IF NOT EXISTS UUID_TO_BIN(uuid CHAR(36)) RETURNS BINARY(16) DETERMINISTIC
 BEGIN
   RETURN UNHEX(REPLACE(uuid, '-', ''));
@@ -255,34 +251,11 @@ BEGIN
         SUBSTR(hex_uuid, 21, 12)
     ));
 END`,
-    RANGE_OF_IP: `CREATE PROCEDURE IF NOT EXISTS RANGE_OF_IP(ip VARCHAR(39)) READS SQL DATA
+    STORE_CHAT_MESSAGE: `CREATE PROCEDURE IF NOT EXISTS STORE_CHAT_MESSAGE(IN p_cid INT UNSIGNED, IN p_uid INT UNSIGNED, IN p_message VARCHAR(200) CHARSET utf8mb4) NOT DETERMINISTIC MODIFIES SQL DATA
 BEGIN
-  DECLARE binIp VARBINARY(8);
-  SET binIp = IP_TO_BIN(ip);
-  SELECT id as wid, CONCAT(BIN_TO_IP(min), '/', mask) AS cidr, country, org, descr, asn FROM Ranges WHERE min <= binIp AND max >= binIp AND LENGTH(binIP) = LENGTH(min) AND expires > NOW() LIMIT 1;
-  IF FOUND_ROWS() = 0
-    THEN
-      SELECT host FROM WhoisReferrals WHERE min <= binIp AND max >= binIp AND LENGTH(binIp) = LENGTH(min) AND expires > NOW() LIMIT 1;
-  END IF;
-END`,
-    RANGE_OF_IP_OI: `CREATE PROCEDURE IF NOT EXISTS RANGE_OF_IP_OI(ip VARCHAR(39)) MODIFIES SQL DATA
-BEGIN
-  DECLARE binIp VARBINARY(8);
-  DECLARE q_id INTEGER UNSIGNED;
-  DECLARE q_cidr VARCHAR(22);
-  DECLARE q_country CHAR(2);
-  DECLARE q_org, q_descr VARCHAR(60) CHARSET utf8mb4 COLLATE utf8mb4_unicode_ci;
-  DECLARE q_asn VARCHAR(12);
-  DECLARE whois_host VARCHAR(60);
-  SET binIp = IP_TO_BIN(ip);
-  SELECT id, CONCAT(BIN_TO_IP(min), '/', mask), country, org, descr, asn FROM Ranges WHERE min <= binIp AND max >= binIp AND LENGTH(binIp) = LENGTH(min) AND expires > NOW() LIMIT 1 INTO q_id, q_cidr, q_country, q_org, q_descr, q_asn;
-  IF q_id IS NULL
-    THEN
-      SELECT host FROM WhoisReferrals WHERE min <= binIp AND max >= binIp AND LENGTH(binIp) = LENGTH(min) AND expires > NOW() LIMIT 1 INTO whois_host;
-    ELSE
-      INSERT INTO IPs (ip, uuid, rid) VALUES (binIP, UUID_TO_BIN(UUID()), q_id) ON DUPLICATE KEY UPDATE rid = q_id;
-  END IF;
-  SELECT q_cidr AS cidr, q_country AS country, q_org AS org, q_descr AS descr, q_asn AS asn, whois_host;
+  UPDATE Channels SET lastMessage = NOW() WHERE id = p_cid;
+  INSERT INTO Messages (message, uid, cid, createdAt) VALUES (p_message, p_uid, p_cid, NOW());
+  SELECT LAST_INSERT_ID() AS id;
 END`,
     GET_USER_ALLOWANCE: `CREATE PROCEDURE IF NOT EXISTS GET_USER_ALLOWANCE(uid INTEGER UNSIGNED) READS SQL DATA
 BEGIN
