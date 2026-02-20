@@ -17,12 +17,22 @@ export default async (req, res) => {
     res.redirect(`${req.protocol}://${CDN_HOST}${req.originalUrl}`);
     return;
   }
+  req.tickRateLimiter(400);
 
   const {
     s: shortId,
     e: extension,
     t: type,
   } = req.params;
+
+  if (shortId.indexOf('.') !== -1 || extension.indexOf('.') !== -1
+    || (type && type.length !== 1)
+  ) {
+    res.set({
+      'Cache-Control': `public, s-maxage=${24 * 3600}, max-age=${24 * 3600}`,
+    });
+    res.status(404).end();
+  }
 
   res.set({
     'Cache-Control': 'public, s-maxage=5184000, max-age=5184000',

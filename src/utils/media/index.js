@@ -18,7 +18,9 @@ import createVideoThumbnails from './videoThumbnails.js';
 import createImageThumbnails from './imageThumbnails.js';
 import checkIfBanned from './ban.js';
 import { splitFilename } from './utils.js';
-import { mimeTypeFitsToExt, isMimeTypeAllowed } from './serverUtils.js';
+import {
+  mimeTypeFitsToExt, isMimeTypeAllowed, getThumbnailPaths,
+} from './serverUtils.js';
 
 export {
   createImageThumbnails, createVideoThumbnails,
@@ -172,6 +174,7 @@ export async function storeMediaStream(
   const temporaryFile = path.join(
     tmpFolder, `${getRandomString() + getRandomString()}.${extension}`,
   );
+  const tempFileList = [temporaryFile];
   let targetFile;
 
   /*
@@ -231,47 +234,73 @@ export async function storeMediaStream(
     }
 
     /*
+     * create thumbnails and get dimensions
+     */
+    const tempScreencapFilePath = `${temporaryFile}_full`;
+    const tempThumbFilePath = `${temporaryFile}_thumb`;
+    const tempIconFilePath = `${temporaryFile}_icon`;
+    let width = null;
+    let height = null;
+    if (type === 'image' || type === 'video') {
+      tempFileList.push(tempThumbFilePath, tempIconFilePath);
+      if (type === 'image') {
+        ({ width, height } = await createImageThumbnails(
+          temporaryFile, tempThumbFilePath, tempIconFilePath,
+        ));
+      } else if (type === 'video') {
+        tempFileList.push(tempScreencapFilePath);
+        ({ width, height } = await createVideoThumbnails(
+          temporaryFile,
+          tempScreencapFilePath, tempThumbFilePath, tempIconFilePath,
+        ));
+      }
+    }
+
+    /*
      * register media, this gives us the shortId for storage
      */
-    await registerMedia(model, type, size, pHash);
+    await registerMedia(model, size, width, height, pHash);
     if (!model.shortId) {
       throw new Error('server_error');
     }
 
-    /*
-     * move it to target folder by hash
-     */
-    targetFile = `${model.shortId}.${extension}`;
-    const targetFolder = path.resolve(
-      MEDIA_FOLDER,
-      targetFile.substring(0, 2),
-      targetFile.substring(2, 4),
-    );
-    if (!fs.existsSync(targetFolder)) {
-      fs.mkdirSync(targetFolder, { recursive: true });
+    try {
+      /*
+      * move files to target folder by hash
+      */
+      targetFile = `${model.shortId}.${extension}`;
+      const targetFolder = path.resolve(
+        MEDIA_FOLDER,
+        targetFile.substring(0, 2),
+        targetFile.substring(2, 4),
+      );
+      if (!fs.existsSync(targetFolder)) {
+        fs.mkdirSync(targetFolder, { recursive: true });
+      }
+      targetFile = path.resolve(targetFolder, targetFile.substring(4));
+      fs.renameSync(temporaryFile, targetFile);
+
+      if (type === 'image' || type === 'video') {
+        const {
+          thumbFilePath, iconFilePath, screencapFilePath,
+        } = getThumbnailPaths(targetFile);
+        fs.renameSync(tempThumbFilePath, thumbFilePath);
+        fs.renameSync(tempIconFilePath, iconFilePath);
+        if (type === 'video') {
+          fs.renameSync(tempScreencapFilePath, screencapFilePath);
+        }
+      }
+      return model;
+    } catch (error) {
+      await deregisterMedia(model.shortId, model.mimeType, model.extension);
+      throw error;
     }
-    targetFile = path.resolve(targetFolder, targetFile.substring(4));
-    fs.renameSync(temporaryFile, targetFile);
   } finally {
-    if (fs.existsSync(temporaryFile)) {
-      fs.rmSync(temporaryFile);
+    for (let i = 0; i < tempFileList.length; i += 1) {
+      const file = tempFileList[i];
+      if (fs.existsSync(file)) {
+        fs.rmSync(file);
+      }
     }
-  }
-
-  try {
-    /*
-     * create thumbnails
-     */
-    if (type === 'image') {
-      await createImageThumbnails(targetFile);
-    } else if (type === 'video') {
-      await createVideoThumbnails(targetFile);
-    }
-
-    console.log('parse leave');
-    return model;
-  } catch (error) {
-    await deregisterMedia(model.shortId, model.mimeType, model.extension);
-    throw error;
   }
 }

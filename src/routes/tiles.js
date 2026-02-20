@@ -5,6 +5,7 @@
  */
 
 import fs from 'fs';
+import path from 'path';
 import express from 'express';
 
 import canvases from '../core/canvases.js';
@@ -77,7 +78,7 @@ router.use(express.static(TILE_FOLDER));
 router.use(async (req, res) => {
   const { canvasId } = req;
 
-  const filename = `${TILE_FOLDER}/${canvasId}/emptytile.webp`;
+  const filename = path.join(TILE_FOLDER, String(canvasId), 'emptytile.webp');
   if (!fs.existsSync(filename)) {
     res.set({
       'Cache-Control': `public, s-maxage=${24 * 3600}, max-age=${24 * 3600}`,

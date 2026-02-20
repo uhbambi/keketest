@@ -3,7 +3,7 @@
  * Also provides previews
  * Links are assumed to start with protocol (http:// etc.)
  */
-import React, { useContext, useMemo, useEffect } from 'react';
+import React, { useContext, useMemo } from 'react';
 import { HiArrowsExpand, HiStop } from 'react-icons/hi';
 import { HiWindow } from 'react-icons/hi2';
 import { t } from 'ttag';
@@ -27,6 +27,7 @@ const titleAllowed = [
   'play.afreecatv',
   'vod.afreecatv',
   'twitch.tv',
+  '/',
 ];
 
 const MdLink = ({ href, title }) => {
@@ -41,14 +42,6 @@ const MdLink = ({ href, title }) => {
   const [desc, uri] = useMemo(() => {
     let newDesc = getLinkDesc(href);
     let newUri = href;
-    /*
-     * local media will get opened immediately, but only if it is already a
-     * relative path
-     */
-    // eslint-disable-next-line max-len
-    if (href.startsWith('/m/') && !href.includes('/t/') && !href.includes('/i/')) {
-      newDesc = null;
-    }
     // make full urls of our own wesbite relative
     if (newDesc === getLinkDesc(window.location.host)) {
       newDesc = '/';
@@ -59,14 +52,7 @@ const MdLink = ({ href, title }) => {
     return [newDesc, newUri];
   }, [href]);
 
-  useEffect(() => {
-    if (desc === null) {
-      openEmbed(['/', uri]);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  if (!desc) {
+  if (!desc || !uri) {
     return null;
   }
 

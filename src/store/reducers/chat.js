@@ -22,8 +22,11 @@ const initialState = {
   blocked: [],
   /*
    * { cid: [[
-   *   name, text, country, userId, ts, msgId, flagLegit, avatarId,
+   *   name, text, country, userId, ts, msgId, flagLegit, avatarId, attachments
    * ],...], ... }
+   *
+   * with attachments:
+   * [[mediaId, type, size, width, height], ...]
    */
   messages: {},
 };
@@ -138,34 +141,33 @@ export default function chat(
     }
 
     case 's/REC_CHAT_MESSAGE': {
-      const {
-        name, text, country, channel, userId, ts, msgId, flagLegit, avatarId,
-      } = action;
-      if (!state.messages[channel] || !state.channels[channel]) {
+      const { cid, messageArray } = action;
+      if (!state.messages[cid] || !state.channels[cid]) {
         return state;
       }
+      console.log('REC CHAT', messageArray);
       const messages = {
         ...state.messages,
-        [channel]: [
-          ...state.messages[channel],
-          [name, text, country, userId, ts, msgId, flagLegit, avatarId],
+        [cid]: [
+          ...state.messages[cid],
+          messageArray,
         ],
       };
-      if (messages[channel].length > MAX_CHAT_MESSAGES) {
-        messages[channel].splice(0, 2);
+      if (messages[cid].length > MAX_CHAT_MESSAGES) {
+        messages[cid].splice(0, 2);
       }
 
       /*
        * update timestamp of last message
        */
-      const channelArray = [...state.channels[channel]];
+      const channelArray = [...state.channels[cid]];
       channelArray[2] = Date.now();
 
       return {
         ...state,
         channels: {
           ...state.channels,
-          [channel]: channelArray,
+          [cid]: channelArray,
         },
         messages,
       };

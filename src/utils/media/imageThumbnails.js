@@ -4,17 +4,21 @@
 import fs from 'fs';
 import sharp from 'sharp';
 
-import { getThumbnailPaths } from './serverUtils.js';
-
-export default async function createImageThumbnails(filePath) {
+export default async function createImageThumbnails(
+  filePath, thumbFilePath, iconFilePath,
+) {
   try {
-    const { thumbFilePath, iconFilePath } = getThumbnailPaths(filePath);
-
+    const image = sharp(filePath);
+    const metadata = await image.metadata();
+    const dimensions = {
+      width: metadata.width,
+      height: metadata.height,
+    };
     /*
      * first attempt: 320x240
      * second: 200x150
      */
-    const previewBuffer = await sharp(filePath).resize(200, 150, {
+    const previewBuffer = await image.resize(200, 150, {
       fit: 'inside',
       withoutEnlargement: true,
     }).webp({
@@ -29,10 +33,12 @@ export default async function createImageThumbnails(filePath) {
         position: 'center',
       }).webp({ quality: 75 }).toFile(iconFilePath),
     ]);
+
+    return dimensions;
   } catch (error) {
     console.error(
       `MEDIA: Could not create thumbnails for ${filePath} ${error.message}`,
     );
-    throw error;
+    throw new Error('Could not create image thumbnails');
   }
 }

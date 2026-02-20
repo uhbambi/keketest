@@ -6,7 +6,7 @@ import React from 'react';
 import { getColorFromId, getCharFromId } from '../core/utils.js';
 import { cdn } from '../utils/utag.js';
 import useLink from './hooks/link.js';
-import { getUrlFromMediaId } from '../utils/media/utils.js';
+import { getUrlsFromMediaIdAndName } from '../utils/media/utils.js';
 
 const Avatar = ({ uid, isDarkMode, avatarId }) => {
   const link = useLink();
@@ -15,7 +15,7 @@ const Avatar = ({ uid, isDarkMode, avatarId }) => {
     backgroundColor: getColorFromId(uid, isDarkMode),
     color: (isDarkMode) ? '#636363' : '#a7a5a5',
   };
-  const [image, thumb] = getUrlFromMediaId(avatarId);
+  const [image, thumb] = getUrlsFromMediaIdAndName(avatarId, 'avatar');
   if (thumb) {
     avatarStyle.backgroundImage = `url(${cdn`${thumb}`})`;
   }

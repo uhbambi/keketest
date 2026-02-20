@@ -199,6 +199,7 @@ class SocketEvents extends EventEmitter {
     msgId,
     flagLegit,
     avatarId,
+    attachments,
     sendapi = true,
   ) {
     this.emit(
@@ -212,6 +213,7 @@ class SocketEvents extends EventEmitter {
       msgId,
       flagLegit,
       avatarId,
+      attachments,
       sendapi,
     );
   }

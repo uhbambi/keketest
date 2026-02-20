@@ -74,7 +74,7 @@ class ChatMessageBuffer {
   ) {
     const ts = Math.floor(Date.now() / 1000);
     // this may throw!
-    const msgId = await storeMessage(message, cid, uid);
+    const [msgId, attachments] = await storeMessage(message, cid, uid);
 
     /*
      * goes through socket events and then comes
@@ -90,9 +90,10 @@ class ChatMessageBuffer {
       msgId,
       flagLegit,
       avatarId,
+      attachments,
       sendapi,
     );
-    return [ts, msgId];
+    return [ts, msgId, attachments];
   }
 
   async addMessage(
@@ -105,6 +106,7 @@ class ChatMessageBuffer {
     msgId,
     flagLegit,
     avatarId,
+    attachments,
   ) {
     const messages = this.buffer.get(cid);
     if (messages) {
@@ -117,6 +119,7 @@ class ChatMessageBuffer {
         msgId,
         flagLegit,
         avatarId,
+        attachments,
       ]);
     }
   }

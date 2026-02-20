@@ -19,30 +19,21 @@ export function longTimeout() {
   };
 }
 
-export function receiveChatMessage(
-  name,
-  text,
-  country,
-  channel,
-  userId,
-  ts,
-  msgId,
-  flagLegit,
-  avatarId,
-) {
+export function receiveChatMessage(...messageArray) {
   return (dispatch, getState) => {
-    channel = Number(channel);
+    // channelId
+    const cid = Number(messageArray.shift());
     const state = getState();
     let isRead;
     if (state.windows) {
       isRead = state.windows.windows.some(
         (win) => win.windowType === 'CHAT' && !win.hidden,
       ) && Object.values(state.windows.args).some(
-        (args) => args.chatChannel === channel,
+        (args) => args.chatChannel === cid,
       );
     } else {
       isRead = state.popup.windowType === 'CHAT'
-        || state.popup.args.chatChannel === channel;
+        || state.popup.args.chatChannel === cid;
     }
 
     // TODO ping doesn't work since update
@@ -50,15 +41,8 @@ export function receiveChatMessage(
     // const isPing = (nameRegExp && text.match(nameRegExp));
     dispatch({
       type: 's/REC_CHAT_MESSAGE',
-      name,
-      text,
-      country,
-      channel,
-      userId,
-      ts,
-      msgId,
-      flagLegit,
-      avatarId,
+      cid,
+      messageArray,
       isPing: false,
       isRead,
     });

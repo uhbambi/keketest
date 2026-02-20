@@ -55,11 +55,25 @@ const Media = sequelize.define('Media', {
    * 'image', 'audio', 'video', etc.
    */
   type: {
-    type: DataTypes.STRING(128),
-    allowNull: false,
+    // eslint-disable-next-line max-len
+    type: 'VARCHAR(128) GENERATED ALWAYS AS (SUBSTR(mimeType, 1, INSTR(mimeType, \'/\') - 1)) VIRTUAL',
   },
 
+  /*
+   * file size in bytes
+   */
   size: {
+    type: DataTypes.INTEGER.UNSIGNED,
+  },
+
+  /*
+   * dimensions
+   */
+  width: {
+    type: DataTypes.INTEGER.UNSIGNED,
+  },
+
+  height: {
     type: DataTypes.INTEGER.UNSIGNED,
   },
 
@@ -124,12 +138,17 @@ export async function deregisterMedia(shortId, extension) {
     if (fs.existsSync(filePath)) {
       fs.rmSync(filePath);
     }
-    const { thumbFilePath, iconFilePath } = getThumbnailPaths(filePath);
+    const {
+      thumbFilePath, iconFilePath, screencapFilePath,
+    } = getThumbnailPaths(filePath);
     if (fs.existsSync(thumbFilePath)) {
       fs.rmSync(thumbFilePath);
     }
     if (fs.existsSync(iconFilePath)) {
       fs.rmSync(iconFilePath);
+    }
+    if (fs.existsSync(screencapFilePath)) {
+      fs.rmSync(screencapFilePath);
     }
   } catch (error) {
     console.error(`SQL Error on deregisterMedia: ${error.message}`);
@@ -137,7 +156,8 @@ export async function deregisterMedia(shortId, extension) {
 }
 
 /**
- * get filename of media if exists, adds 'shortId', 'existed' and 'extension'
+ * get filename of media if exists, adds 'shortId', 'existed' and
+ *   'extension', 'type', 'width', 'height'
  * to hashes objects where a corresponding hash exists
  * @param hashes [{
  *   hash,
@@ -170,7 +190,7 @@ export async function hasMedia(hashes) {
 
     const mediaModels = await sequelize.query(
       // eslint-disable-next-line max-len
-      `SELECT id, LOWER(HEX(hash)) AS hash, mimeType, extension, shortId FROM Media WHERE ${
+      `SELECT id, LOWER(HEX(hash)) AS hash, mimeType, extension, shortId, type, width, height FROM Media WHERE ${
         hashes.map(
           () => '( hash = UNHEX(?) AND mimeType = ? )',
         ).join(' OR ')
@@ -210,6 +230,9 @@ export async function hasMedia(hashes) {
           if (fs.existsSync(filePath)) {
             hash.extension = model.extension;
             hash.shortId = model.shortId;
+            hash.type = model.type;
+            hash.width = model.width;
+            hash.height = model.height;
             hash.mediaId = `${model.shortId}:${model.extension}`;
             hash.existed = true;
           } else {
@@ -287,7 +310,7 @@ export async function linkMedia(models, userId, ip) {
  * @return success boolean
  */
 export async function registerMedia(
-  model, type, size, pHash = null,
+  model, size, width = null, height = null, pHash = null,
 ) {
   const { hash, mimeType, extension } = model;
   try {
@@ -310,15 +333,15 @@ export async function registerMedia(
     } while (exists);
     await sequelize.query(
       // eslint-disable-next-line max-len
-      'INSERT INTO Media (hash, shortId, extension, mimeType, type, size, lastUpload) VALUES (UNHEX(?), ?, ?, ?, ?, ?, NOW()) ON DUPLICATE KEY UPDATE lastUpload = VALUES(lastUpload)', {
+      'INSERT INTO Media (hash, shortId, extension, mimeType, size, width, height, lastUpload) VALUES (UNHEX(?), ?, ?, ?, ?, ?, ?, NOW()) ON DUPLICATE KEY UPDATE lastUpload = VALUES(lastUpload)', {
         replacements: [
-          hash, shortId, extension, mimeType, type, size,
+          hash, shortId, extension, mimeType, size, width, height,
         ],
         raw: true,
         type: QueryTypes.INSERT,
       },
     );
-    if (type === 'image' && pHash) {
+    if (pHash) {
       await addImageHash(shortId, extension, pHash);
     }
     model.shortId = shortId;

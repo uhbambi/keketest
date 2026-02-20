@@ -11,8 +11,9 @@ export function getThumbnailPaths(filePath) {
   const { dir, name, ext } = path.parse(filePath);
   let thumbFilePath = path.join(dir, `${name}_${ext.substring(1)}`);
   const iconFilePath = `${thumbFilePath}_icon.webp`;
+  const screencapFilePath = `${thumbFilePath}_full.webp`;
   thumbFilePath += '_thumb.webp';
-  return { thumbFilePath, iconFilePath };
+  return { thumbFilePath, iconFilePath, screencapFilePath };
 }
 
 /**
@@ -24,7 +25,7 @@ export function getThumbnailPaths(filePath) {
  */
 export function constructMediaPath(shortId, extension, type) {
   // eslint-disable-next-line max-len
-  const folder = path.resolve(MEDIA_FOLDER, shortId.substring(0, 2), shortId.substring(2, 4));
+  const folder = path.join(MEDIA_FOLDER, shortId.substring(0, 2), shortId.substring(2, 4));
   if (type === 't') {
     // thumbnail
     return path.join(folder, `${shortId.substring(4)}_${extension}_thumb.webp`);
@@ -84,7 +85,7 @@ export function isMimeTypeAllowed(mimeType) {
 
 /**
  * get all media from a list of links
- * @param links Array of links
+ * @param links Array of links or mediaIds
  * @return [[shortId, extension], ...]
  */
 export function getMediaFromLinks(links) {
@@ -92,6 +93,9 @@ export function getMediaFromLinks(links) {
   for (let i = 0; i < links.length; i += 1) {
     const link = links[i];
     if (link.startsWith('/m/') && link[4] !== '/' && link[9] === '/') {
+      /*
+       * relative llink
+       */
       const shortId = link.substring(3, 9);
       let extEnd = link.indexOf('&', 10);
       if (extEnd === -1) {
@@ -101,6 +105,11 @@ export function getMediaFromLinks(links) {
         link.lastIndexOf('.', extEnd) + 1, extEnd,
       );
       media.push([shortId, extension]);
+    } else if (link[6] === ':' && link.length > 8) {
+      /*
+       * mediaId
+       */
+      media.push(link.split(':'));
     }
   }
   return media;

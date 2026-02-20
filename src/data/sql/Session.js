@@ -259,7 +259,7 @@ export async function resolveSession(token) {
     let user = await sequelize.query(
       `SELECT u.id, u.name, u.username, u.password, u.userlvl, u.flags, u.lastSeen, u.createdAt,
 p.customFlag,
-COALESCE(CONCAT(a.shortId, ':', a.extension), NULL) AS avatarId,
+CONCAT(a.shortId, ':', a.extension) AS avatarId,
 c.id AS 'channels.cid', c.name AS 'channels.name', c.\`type\` AS 'channels.type', c.lastMessage AS 'channels.lastDate', ucm.lastRead AS 'channels.lastReadDate' FROM Users u
   INNER JOIN Sessions s ON s.uid = u.id
   LEFT JOIN Profiles p ON p.uid = u.id

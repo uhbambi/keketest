@@ -289,7 +289,7 @@ class SocketClient {
     const key = message.slice(0, comma);
     const val = JSON.parse(message.slice(comma + 1));
     switch (key) {
-      case 'cm':
+      case 'ck':
         this.store.dispatch(receiveChatMessage(...val));
         break;
       case 'ac':

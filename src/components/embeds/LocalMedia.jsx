@@ -3,7 +3,7 @@
  */
 /* eslint-disable jsx-a11y/media-has-caption */
 
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import { t } from 'ttag';
 import { MdFileDownload } from 'react-icons/md';
 import { HiArrowsExpand, HiStop } from 'react-icons/hi';
@@ -12,29 +12,55 @@ import { HiWindow } from 'react-icons/hi2';
 import useLink from '../hooks/link.js';
 import { cdn } from '../../utils/utag.js';
 import { splitUrl } from '../../core/utils.js';
+import {
+  getMediaDetailsFromUrl,
+  getUrlsFromMediaIdAndName,
+} from '../../utils/media/utils.js';
 import { VIDEO_EXTENSIONS, IMAGE_EXTENSIONS } from '../../core/constants.js';
 
-const MdLocalMedia = ({ url, fill }) => {
+const MdLocalMedia = ({
+  url, fill, mediaId, title: gTitle, width, height, type: gType,
+}) => {
   const [expanded, setExpanded] = useState(false);
 
   const link = useLink();
 
-  const [path, ext] = splitUrl(url);
-  const seperator = path.indexOf('/m/');
-  if (!ext || seperator === -1) {
+  const [fullUrl, thumbUrl,, title, type] = useMemo(() => {
+    let mid = mediaId;
+    let oTitle = gTitle;
+    let oType = gType;
+
+    if (url) {
+      [mid, oTitle] = getMediaDetailsFromUrl(url).map((u) => cdn`${u}`);
+    }
+    const oExtension = mid?.substring(mid.indexOf(':') + 1);
+
+    if (!oType) {
+      if (IMAGE_EXTENSIONS.includes(oExtension)) {
+        oType = 'image';
+      } else if (VIDEO_EXTENSIONS.includes(oExtension)) {
+        oType = 'video';
+      }
+    }
+
+    return [
+      ...getUrlsFromMediaIdAndName(mid, oTitle),
+      oTitle, oType,
+    ];
+  }, [url, gTitle, gType, mediaId]);
+
+  if (!fullUrl || !thumbUrl || !type) {
     return null;
   }
-  const uri = cdn`${path.substring(seperator)}.${ext}`;
-  const idName = path.substring(seperator + 3);
-  const thumbnail = cdn`/m/t/${idName}.${ext}.webp`;
 
-  let contentType;
-  if (IMAGE_EXTENSIONS.includes(ext)) {
-    contentType = 'image';
-  } else if (VIDEO_EXTENSIONS.includes(ext)) {
-    contentType = 'video';
-  } else {
-    return null;
+  let thumbWidth = width;
+  let thumbHeight = height;
+  if (width && height) {
+    if (width > 200 || height > 150) {
+      const ratio = Math.min(200 / width, 150 / height);
+      thumbWidth = Math.round(width * ratio);
+      thumbHeight = Math.round(height * ratio);
+    }
   }
 
   const toggleExpand = () => {
@@ -50,9 +76,20 @@ const MdLocalMedia = ({ url, fill }) => {
   } : {
     display: 'inline-block',
     margin: 3,
+    backgroundColor: 'rgb(240, 240, 240)',
   };
 
-  if (thumbnail && !expanded && !fill) {
+  if (!fill) {
+    if (expanded) {
+      style.width = width;
+      style.height = height;
+    } else {
+      style.width = thumbWidth;
+      style.height = thumbHeight;
+    }
+  }
+
+  if (thumbUrl && !expanded && !fill) {
     return (
       <div
         className="embtrc"
@@ -60,11 +97,13 @@ const MdLocalMedia = ({ url, fill }) => {
         onClick={toggleExpand}
       >
         <img
-          alt={idName}
-          src={thumbnail}
+          alt={title}
+          src={thumbUrl}
+          loading="lazy"
           style={{
             maxWidth: '100%',
             maxHeight: '100%',
+            backgroundColor: '#f0f0f0',
           }}
         />
       </div>
@@ -74,7 +113,7 @@ const MdLocalMedia = ({ url, fill }) => {
   const buttons = (
     <span className="embtr">
       <a
-        href={uri}
+        href={fullUrl}
         target="_blank"
         title={t`Download`}
         rel="noreferrer"
@@ -89,7 +128,7 @@ const MdLocalMedia = ({ url, fill }) => {
               link('PLAYER', {
                 reuse: true,
                 target: 'blank',
-                args: { uri },
+                args: { uri: fullUrl },
               });
             }}
             title={t`Open in PopUp`}
@@ -126,12 +165,14 @@ const MdLocalMedia = ({ url, fill }) => {
       onClick={toggleExpand}
     >
       {(() => {
-        switch (contentType) {
+        switch (type) {
           case 'image':
             return (
               <img
-                alt={idName}
-                src={url}
+                alt={title}
+                src={fullUrl}
+                width={width}
+                height={height}
                 style={{
                   maxWidth: '100%',
                   maxHeight: '100%',
@@ -150,7 +191,7 @@ const MdLocalMedia = ({ url, fill }) => {
                 }}
                 controls
                 autoPlay
-                src={url}
+                src={fullUrl}
               />
             );
           default:
@@ -166,8 +207,7 @@ export default [
   React.memo(MdLocalMedia),
   (url) => {
     const [path, ext] = splitUrl(url);
-    const seperator = path.indexOf('/m/');
-    if (!ext || seperator === -1 || path[seperator + 4] === '/') {
+    if (!ext || !path.startsWith('/m/') || path[4] === '/') {
       return false;
     }
     return (VIDEO_EXTENSIONS.includes(ext) || IMAGE_EXTENSIONS.includes(ext));

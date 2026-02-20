@@ -1,25 +1,23 @@
 /*
  * create media thumbnails
  */
+import fs from 'fs';
 import sharp from 'sharp';
 import { spawn } from 'child_process';
 
-import { getThumbnailPaths } from './serverUtils.js';
-
-export default async function createVideoThumbnails(filePath) {
+export default async function createVideoThumbnails(
+  filePath, screencapFilePath, thumbFilePath, iconFilePath,
+) {
   try {
-    const { thumbFilePath, iconFilePath } = getThumbnailPaths(filePath);
-
     await new Promise((resolve, reject) => {
       const ffmpegProcess = spawn('ffmpeg', [
         '-i', filePath,
         '-ss', '00:00:01',
         '-vframes', '1',
-        '-vf', 'scale=200:150:force_original_aspect_ratio=decrease',
         '-qscale:v', 80,
         '-compression_level', '6',
         '-y',
-        thumbFilePath,
+        screencapFilePath,
       ]);
 
       let stderr = '';
@@ -38,14 +36,37 @@ export default async function createVideoThumbnails(filePath) {
       ffmpegProcess.on('error', reject);
     });
 
-    await sharp(thumbFilePath).resize(48, 48, {
-      fit: 'cover',
-      position: 'center',
-    }).webp({ quality: 75 }).toFile(iconFilePath);
+    const image = sharp(screencapFilePath);
+    const metadata = await image.metadata();
+    const dimensions = {
+      width: metadata.width,
+      height: metadata.height,
+    };
+    /*
+     * first attempt: 320x240
+     * second: 200x150
+     */
+    const previewBuffer = await image.resize(200, 150, {
+      fit: 'inside',
+      withoutEnlargement: true,
+    }).webp({
+      quality: 80,
+      effort: 4,
+    }).toBuffer();
+
+    await Promise.all([
+      fs.promises.writeFile(thumbFilePath, previewBuffer),
+      sharp(previewBuffer).resize(48, 48, {
+        fit: 'cover',
+        position: 'center',
+      }).webp({ quality: 75 }).toFile(iconFilePath),
+    ]);
+
+    return dimensions;
   } catch (error) {
     console.error(
       `MEDIA: Could not create thumbnails for ${filePath} ${error.message}`,
     );
-    throw error;
+    throw new Error('Could not create video thumbnails');
   }
 }

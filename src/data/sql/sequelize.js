@@ -46,7 +46,7 @@ const sequelize = new Sequelize(MYSQL_DATABASE, MYSQL_USER, MYSQL_PW, {
  * nest the results
  * @param query query return object, which is an array
  * @param primaryKey any key that is unique to nest for, if null, nest all and
- *   return only onw object
+ *   return only one object
  * @return nested query
  */
 export function nestQuery(query, primaryKey) {

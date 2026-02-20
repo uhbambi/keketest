@@ -84,8 +84,9 @@ export async function storeMessage(message, cid, uid) {
         throw new Error('no_id');
       }
 
+      const attachments = [];
       if (media.length) {
-        await sequelize.query(
+        const [, insertedRows] = await sequelize.query(
           // eslint-disable-next-line max-len
           `INSERT INTO MessageMedia (sid, mid) SELECT ?, m.id FROM Media m WHERE ${
             media.map(
@@ -96,11 +97,35 @@ export async function storeMessage(message, cid, uid) {
             raw: true,
             type: QueryTypes.INSERT,
             transaction,
-          });
+          },
+        );
+        console.log('inserted', insertedRows);
+        if (insertedRows > 0) {
+          const models = await sequelize.query(
+            // eslint-disable-next-line max-len
+            `SELECT CONCAT(shortId, ':', b.extension) AS mediaId, b.type AS mediaType, b.size AS mediaSize, b.width AS mediaWidth, b.height AS mediaHeight FROM Media b
+  INNER JOIN MessageMedia mm ON mm.mid = b.id
+WHERE mm.sid = ?`, {
+              replacements: [id],
+              raw: true,
+              type: QueryTypes.SELECT,
+              transaction,
+            },
+          );
+          for (let i = 0; i < models.length; i += 1) {
+            const {
+              mediaId, mediaType, mediaSize, mediaWidth, mediaHeight,
+            } = models[i];
+            attachments.push([
+              mediaId, mediaType, mediaSize, mediaWidth, mediaHeight,
+            ]);
+          }
+        }
       }
+      console.log('attachments', attachments);
 
       await transaction.commit();
-      return id;
+      return [id, attachments];
     } catch (error) {
       await transaction.rollback();
       throw error;
@@ -170,30 +195,57 @@ export async function deleteMessage(mid) {
 export async function getMessagesForChannel(cid, limit) {
   try {
     const models = await sequelize.query(
+      /* eslint-disable max-len */
       `SELECT m.id AS msgId, m.message, m.uid AS userId,
 UNIX_TIMESTAMP(m.createdAt) AS 'ts',
 u.name, u.userlvl, p.customFlag, s.country,
-COALESCE(CONCAT(a.shortId, ':', a.extension), NULL) AS avatarId FROM Messages m
+CONCAT(b.shortId, ':', b.extension) AS mediaId, b.type AS mediaType, b.size AS mediaSize, b.width AS mediaWidth, b.height AS mediaHeight,
+CONCAT(a.shortId, ':', a.extension) AS avatarId FROM Messages m
   INNER JOIN Users u ON u.id = m.uid
   LEFT JOIN Profiles p ON p.uid = u.id
   LEFT JOIN Media a ON a.id = p.avatar
+  LEFT JOIN MessageMedia mm ON mm.sid = m.id
+  LEFT JOIN Media b ON b.id = mm.mid
   LEFT JOIN Sessions s ON s.uid = u.id AND s.country != 'xx'
 WHERE m.cid = ? ORDER BY m.createdAt DESC LIMIT ?`, {
+      /* eslint-enable max-len */
         replacements: [cid, limit],
         raw: true,
         type: QueryTypes.SELECT,
       },
     );
     const rows = [];
+    const mediaReferences = new Map();
+
     let i = models.length;
     while (i > 0) {
       i -= 1;
       const model = models[i];
-      const { name, message, userId, ts, msgId, avatarId } = model;
+      const { name, message, userId, ts, msgId, avatarId, mediaId } = model;
       const [flagLegit, flag] = mapFlag(
         model.customFlag, model.userlvl, model.country,
       );
-      rows.push([name, message, flag, userId, ts, msgId, flagLegit, avatarId]);
+      if (mediaId) {
+        let attachments = mediaReferences.get(msgId);
+        if (!attachments) {
+          attachments = [];
+          rows.push(
+            [
+              name, message, flag, userId, ts, msgId, flagLegit, avatarId,
+              attachments,
+            ],
+          );
+          mediaReferences.set(msgId, attachments);
+        }
+        const { mediaType, mediaSize, mediaWidth, mediaHeight } = model;
+        attachments.push([
+          mediaId, mediaType, mediaSize, mediaWidth, mediaHeight,
+        ]);
+      } else {
+        rows.push(
+          [name, message, flag, userId, ts, msgId, flagLegit, avatarId, []],
+        );
+      }
     }
     return rows;
   } catch (error) {

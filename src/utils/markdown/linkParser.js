@@ -30,7 +30,20 @@ export default function parseLinksFromMd(rawText, ownHost = null) {
       /*
        * x[y](z) enclosure
        */
-      const encArr = text.checkIfEnclosure(true);
+      let zIsLink = true;
+      let trimZ = false;
+      if (text.iter > 0) {
+        text.move(-1);
+        /*
+         * mediaId in the form shortId:extension
+         */
+        if (text.getChar() === '$') {
+          zIsLink = false;
+          trimZ = true;
+        }
+        text.moveForward();
+      }
+      const encArr = text.checkIfEnclosure(zIsLink, trimZ);
       if (encArr !== null) {
         links.push(encArr[1]);
       }

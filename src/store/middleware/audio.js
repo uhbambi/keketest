@@ -222,11 +222,11 @@ export default (store) => (next) => (action) => {
       }
 
       case 's/REC_CHAT_MESSAGE': {
-        if (chatNotify) break;
+        if (!chatNotify) break;
 
-        const { isPing, channel } = action;
+        const { isPing, cid } = action;
         const { mute: muteCh, chatChannel } = state.chatRead;
-        if (muteCh.includes(channel) || muteCh.includes(`${channel}`)) {
+        if (muteCh.includes(cid) || muteCh.includes(`${cid}`)) {
           break;
         }
         const { channels } = state.chat;
@@ -243,10 +243,10 @@ export default (store) => (next) => (action) => {
          */
         const freq = (isPing
           || (
-            channels[channel]
-            && channels[channel][1] === 1
+            channels[cid]
+            && channels[cid][1] === 1
             // eslint-disable-next-line eqeqeq
-            && channel != chatChannel
+            && cid != chatChannel
           )
         ) ? 540 : 355;
         oscillatorNode.frequency.exponentialRampToValueAtTime(

@@ -13,10 +13,12 @@ let parseMText = () => {};
 
 /**
  * Parse Paragraph till next newline or breakChar (for recursion)
+ * @return [pArray, pAttachments]
  */
 const paraElems = ['*', '~', '+', '_'];
 function parseMParagraph(text, opts, breakChar) {
   const pArray = [];
+  let pAttachments = [];
   let pStart = text.iter;
   let chr = null;
   while (!text.done()) {
@@ -58,12 +60,13 @@ function parseMParagraph(text, opts, breakChar) {
        */
       const oldPos = text.iter;
       text.moveForward();
-      const children = parseMParagraph(text, opts, chr);
+      const [children, attachedChildren] = parseMParagraph(text, opts, chr);
       if (text.getChar() === chr) {
         if (pStart !== oldPos) {
           pArray.push(text.slice(pStart, oldPos));
         }
         pArray.push([chr, children]);
+        pAttachments = pAttachments.concat(attachedChildren);
         pStart = text.iter + 1;
       } else {
         text.setIter(oldPos);
@@ -112,6 +115,7 @@ function parseMParagraph(text, opts, breakChar) {
        */
       let tag = 'l';
       let zIsLink = true;
+      let trimZ = false;
       if (x === '!') {
         tag = 'img';
         oldPos -= 1;
@@ -119,14 +123,29 @@ function parseMParagraph(text, opts, breakChar) {
         zIsLink = false;
         tag = '@';
         oldPos -= 1;
+      } else if (x === '$') {
+        /*
+         * attachment, z: mediaId in the form shortId:extension
+         */
+        zIsLink = false;
+        trimZ = true;
+        tag = '$';
+        oldPos -= 1;
       }
 
-      const encArr = text.checkIfEnclosure(zIsLink);
+      const encArr = text.checkIfEnclosure(zIsLink, trimZ);
       if (encArr !== null) {
         if (pStart < oldPos) {
           pArray.push(text.slice(pStart, oldPos));
         }
-        pArray.push([tag, encArr[0], encArr[1]]);
+        if (x === '$') {
+          /*
+           * while attachments can be inline, they get summed up per paragraph
+           */
+          pAttachments.push(encArr);
+        } else {
+          pArray.push([tag, encArr[0], encArr[1]]);
+        }
         pStart = text.iter + 1;
       }
     }
@@ -136,7 +155,7 @@ function parseMParagraph(text, opts, breakChar) {
   if (pStart !== text.iter) {
     pArray.push(text.slice(pStart));
   }
-  return pArray;
+  return [pArray, pAttachments];
 }
 
 /*
@@ -196,6 +215,7 @@ function parseMSection(
 ) {
   const mdArray = [];
   let pArray = [];
+  let pAttachments = [];
   let lineNr = 0;
 
   while (!text.done()) {
@@ -252,9 +272,10 @@ function parseMSection(
       /*
        * parse lists
        */
-      if (pArray.length) {
-        mdArray.push(['p', pArray]);
+      if (pArray.length || pAttachments.length) {
+        mdArray.push(['p', pArray, pAttachments]);
         pArray = [];
+        pAttachments = [];
       }
       let childMdArray;
       childMdArray = parseMSection(
@@ -301,16 +322,20 @@ function parseMSection(
       /*
        * ordinary text aka paragraph
        */
-      const pPArray = parseMParagraph(text, opts);
-      if (pPArray) {
+      const [pPArray, pPAttachments] = parseMParagraph(text, opts);
+      if (pPArray.length) {
         pArray = pArray.concat(pPArray);
+      }
+      if (pPAttachments.length) {
+        pAttachments = pAttachments.concat(pPAttachments);
       }
       continue;
     }
 
-    if (pushPArray && pArray.length) {
-      mdArray.push(['p', pArray]);
+    if (pushPArray && (pArray.length || pAttachments.length)) {
+      mdArray.push(['p', pArray, pAttachments]);
       pArray = [];
+      pAttachments = [];
     }
 
     if (insertElem) {
@@ -318,8 +343,8 @@ function parseMSection(
     }
   }
 
-  if (pArray.length) {
-    mdArray.push(['p', pArray]);
+  if (pArray.length || pAttachments.length) {
+    mdArray.push(['p', pArray, pAttachments]);
   }
 
   return mdArray;

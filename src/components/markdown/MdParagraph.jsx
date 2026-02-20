@@ -17,62 +17,53 @@ import { parseParagraph } from '../../utils/markdown/MarkdownParser.js';
  *   pArray: parsed markdown array
  * }
  */
-const RecursiveMdParagraph = ({ text, pArray }) => {
-  if (!pArray) {
-    if (!text) {
-      return null;
-    }
-    pArray = parseParagraph(text);
+const RecursiveMdParagraph = ({ pArray }) => pArray.map((part) => {
+  if (!Array.isArray(part)) {
+    return part;
   }
+  const type = part[0];
+  switch (type) {
+    case 'c':
+      return (<code>{part[1]}</code>);
+    case '*':
+      return (
+        <strong>
+          <MdParagraph pArray={part[1]} />
+        </strong>
+      );
+    case '~':
+      return (
+        <s>
+          <MdParagraph pArray={part[1]} />
+        </s>
+      );
+    case '+':
+      return (
+        <em>
+          <MdParagraph pArray={part[1]} />
+        </em>
+      );
+    case '_':
+      return (
+        <u>
+          <MdParagraph pArray={part[1]} />
+        </u>
+      );
+    case 'img':
+    case 'l':
+      return (
+        <MdLink href={part[2]} title={part[1]} />
+      );
+    case '@':
+      return (
+        <MdMention uid={part[2]} name={part[1]} />
+      );
+    default:
+      return type;
+  }
+});
 
-  return pArray.map((part) => {
-    if (!Array.isArray(part)) {
-      return part;
-    }
-    const type = part[0];
-    switch (type) {
-      case 'c':
-        return (<code>{part[1]}</code>);
-      case '*':
-        return (
-          <strong>
-            <MdParagraph pArray={part[1]} />
-          </strong>
-        );
-      case '~':
-        return (
-          <s>
-            <MdParagraph pArray={part[1]} />
-          </s>
-        );
-      case '+':
-        return (
-          <em>
-            <MdParagraph pArray={part[1]} />
-          </em>
-        );
-      case '_':
-        return (
-          <u>
-            <MdParagraph pArray={part[1]} />
-          </u>
-        );
-      case 'img':
-      case 'l':
-        return (
-          <MdLink href={part[2]} title={part[1]} />
-        );
-      case '@':
-        return (
-          <MdMention uid={part[2]} name={part[1]} />
-        );
-      default:
-        return type;
-    }
-  });
-};
-
-const MdParagraph = ({ text, pArray, className }) => {
+const MdParagraph = ({ text, attachmentInfo = [], className }) => {
   /*
    * [[desc, href], ...]
    */
@@ -88,14 +79,38 @@ const MdParagraph = ({ text, pArray, className }) => {
     ),
   }), [shownEmbeds]);
 
+  const [pArray, pAttachments] = useMemo(() => parseParagraph(text), [text]);
+  const Attachment = EMBEDS['/'][0];
+  console.log('MARKDOWN', pArray, pAttachments, attachmentInfo);
+
   return (
     <EmbedContext.Provider value={contextData}>
       <div className={className}>
-        <RecursiveMdParagraph text={text} pArray={pArray} />
+        <RecursiveMdParagraph pArray={pArray} />
         <div>
           {shownEmbeds.map(([desc, href]) => {
             const Embed = EMBEDS[desc][0];
             return <Embed key={href} url={href} maxHeight={300} />;
+          })}
+          {pAttachments.map(([title, mediaId]) => {
+            let width;
+            let height;
+            let type;
+            const fileInfo = attachmentInfo.find(([id]) => id === mediaId);
+            if (fileInfo) {
+              console.log('FOUND FILEINFO', fileInfo);
+              [, type, , width, height] = fileInfo;
+            }
+            return (
+              <Attachment
+                key={mediaId}
+                mediaId={mediaId}
+                title={title}
+                width={width}
+                height={height}
+                type={type}
+              />
+            );
           })}
         </div>
       </div>

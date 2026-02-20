@@ -55,7 +55,7 @@ const Markdown = ({ text, mdArray, parseLinks = false }) => {
       /* Paragraph */
       case 'p': {
         return (
-          <MdParagraph pArray={part[1]} />
+          <MdParagraph pArray={part[1]} attachmentInfo={part[2]} />
         );
       }
       /* Code Block */

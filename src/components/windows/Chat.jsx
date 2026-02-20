@@ -16,6 +16,7 @@ import ChatMessage from '../ChatMessage.jsx';
 import FileUpload from '../FileUpload.jsx';
 import ChannelDropDown from '../contextmenus/ChannelDropDown.jsx';
 import { CHANNEL_TYPES } from '../../core/constants.js';
+import { escapeMd } from '../../core/utils.js';
 
 import {
   markChannelAsRead,
@@ -147,7 +148,7 @@ const Chat = () => {
     if (files.length) {
       const attachments = files.map(
         // eslint-disable-next-line max-len
-        (i) => `![${i.name}](/m/${i.shortId}/${encodeURIComponent(`${i.name}.${i.extension}`)})`,
+        (i) => `$[${escapeMd(i.name)}](${i.shortId}:${i.extension})`,
       ).join(' ');
       if (attachments) {
         inptMsg = `${attachments} ${inptMsg}`;
@@ -229,6 +230,7 @@ const Chat = () => {
                 msgId={message[5]}
                 flagLegit={message[6]}
                 avatarId={message[7]}
+                attachments={message[8]}
                 key={message[5]}
                 openCm={openUserCm}
               />

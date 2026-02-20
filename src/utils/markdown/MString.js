@@ -111,7 +111,7 @@ export default class MString {
    * returns [y, z] if it is enclosure, null otherwise
    * moves iter to last closing braked if it is enclosure
    */
-  checkIfEnclosure(zIsLink) {
+  checkIfEnclosure(zIsLink, trimZ) {
     let yStart = this.iter + 1;
 
     let yEnd = yStart;
@@ -182,7 +182,18 @@ export default class MString {
     }
 
     if (!zIsLink) {
-      z = this.txt.slice(zStart, zEnd);
+      if (trimZ) {
+        for (; MString.isWhiteSpace(this.txt[zStart])
+          && zStart < zEnd; zStart += 1
+        );
+        let trimmedEnd = zEnd;
+        for (; MString.isWhiteSpace(this.txt[trimmedEnd])
+          && zStart < trimmedEnd; trimmedEnd -= 1
+        );
+        z = this.txt.slice(zStart, trimmedEnd);
+      } else {
+        z = this.txt.slice(zStart, zEnd);
+      }
     }
 
     let y = '';

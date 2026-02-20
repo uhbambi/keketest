@@ -170,6 +170,7 @@ class APISocketServer {
     msgId,
     flagLegit,
     avatarId,
+    attachments,
     sendapi,
     ws = null,
   ) {
@@ -361,7 +362,9 @@ class APISocketServer {
             /*
             * do not send message back up ws that sent it
             */
-            const [ts, msgId] = await chatProvider.broadcastChatMessage(
+            const [
+              ts, msgId, attachments,
+            ] = await chatProvider.broadcastChatMessage(
               name,
               msg,
               channelId,
@@ -381,6 +384,7 @@ class APISocketServer {
               msgId,
               flagLegit,
               avatarId,
+              attachments,
               true,
               ws = null,
             );

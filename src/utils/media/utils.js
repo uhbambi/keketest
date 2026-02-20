@@ -48,11 +48,48 @@ export function extractIdFromFilename(filename) {
 }
 
 /**
- * generate urls from media id
+ * get mediaId from url
+ * @param url
+ */
+export function getMediaDetailsFromUrl(url) {
+  if (url) {
+    if (url.startsWith('/') && url[4] !== '/' && url[9] === '/') {
+      const shortId = url.substring(3, 9);
+      let extEnd = url.indexOf('&', 10);
+      if (extEnd === -1) {
+        extEnd = url.length;
+      }
+      const extStart = url.lastIndexOf('.', extEnd) + 1;
+      const extension = url.substring(extStart, extEnd);
+      const name = decodeURIComponent(url.substring(10, extStart - 1));
+      return [`${shortId}:${extension}`, name];
+    }
+  }
+  return [null, null];
+}
+
+/**
+ * generate url from media id and name
+ * @param mediaId
+ * @return url or null
+ */
+export function getUrlFromMediaIdAndName(mediaId, name) {
+  if (!mediaId) {
+    return null;
+  }
+  const [shortId, extension] = mediaId.split(':');
+  if (!shortId || !extension) {
+    return null;
+  }
+  return `/m/${shortId}/${encodeURIComponent(name || 'm')}.${extension}`;
+}
+
+/**
+ * generate urls with tumbnail and icons from media id
  * @param mediaId
  * @return [ url, thumbnail, icon ] or null
  */
-export function getUrlFromMediaId(mediaId) {
+export function getUrlsFromMediaIdAndName(mediaId, name) {
   if (!mediaId) {
     return [null, null, null];
   }
@@ -60,9 +97,10 @@ export function getUrlFromMediaId(mediaId) {
   if (!shortId || !extension) {
     return [null, null, null];
   }
+  name = encodeURIComponent(name);
   return [
-    `/m/${shortId}/m.${extension}`,
-    `/m/t/${shortId}/m.${extension}.webp`,
-    `/m/i/${shortId}/m.${extension}.webp`,
+    `/m/${shortId}/${name}.${extension}`,
+    `/m/t/${shortId}/${name}.${extension}.webp`,
+    `/m/i/${shortId}/${name}.${extension}.webp`,
   ];
 }

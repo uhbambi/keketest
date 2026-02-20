@@ -77,7 +77,7 @@ export default function chatRead(
     }
 
     case 's/REC_CHAT_MESSAGE': {
-      const { channel: cid, isRead } = action;
+      const { cid, isRead } = action;
       const readTs = isRead
         ? {
           ...state.readTs,

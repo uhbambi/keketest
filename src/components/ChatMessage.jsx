@@ -18,6 +18,7 @@ function ChatMessage({
   ts,
   flagLegit,
   avatarId,
+  attachments,
   openCm,
 }) {
   const isDarkMode = useSelector(selectIsDarkMode);
@@ -90,7 +91,11 @@ function ChatMessage({
             {getDateTimeString(ts)}
           </span>
         </div>
-        <MdParagraph text={msg} className={className} />
+        <MdParagraph
+          text={msg}
+          className={className}
+          attachmentInfo={attachments}
+        />
       </div>
     </li>
   );
