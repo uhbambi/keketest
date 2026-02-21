@@ -236,7 +236,7 @@ router.post('/upload', (req, res) => {
 
     if (error) {
       status = 400;
-      if (error.startsWidth('media_banned_reason_')) {
+      if (error.startsWith('media_banned_reason_')) {
         const reason = Number(error[20]);
         const mbid = error.substring(22);
         error = mediaBanReasonToDescription(req.ttag, reason, mbid);

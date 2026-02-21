@@ -167,7 +167,7 @@ export async function banMedia(mediaId, reason, muid = null) {
       // eslint-disable-next-line max-len
       `Autoban users ${userIds.join(', ')} and ips ${ipStrings.join(', ')} for posting CSAM`,
     );
-    await ban(ipStrings, userIds, null, true, true, 'Posting CSAM', null);
+    await ban(ipStrings, userIds, null, true, true, 'Posting CSAM', null, muid);
   } else if (userIds.length) {
     /*
      * they could have it as avatar
