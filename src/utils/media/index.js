@@ -113,8 +113,8 @@ function storeFileStream(fileStream, filePath) {
  * store media file from filestream
  * @param fileStream
  * @param info { mimeType, filename }
- * @param [user] user object from middleware
- * @param [ip] ip object from middleware
+ * @param [userId]
+ * @param [ipString]
  * @param [hashCheck] sha256 hash in hex that we check against
  * @param [restrictType] exclusive type to allow 'audio', 'video', 'image', ...
  * @return {
@@ -128,9 +128,8 @@ function storeFileStream(fileStream, filePath) {
  * }
  */
 export async function storeMediaStream(
-  fileStream, info, user, ip, hashCheck, restrictType,
+  fileStream, info, userId, ipString, hashCheck, restrictType,
 ) {
-  console.log('parse enter');
   const { mimeType } = info;
 
   /*
@@ -226,7 +225,7 @@ export async function storeMediaStream(
     /*
      * check if media is banned
      */
-    const bans = await checkIfMediaBanned(model.hash, pHash, user, ip);
+    const bans = await checkIfMediaBanned(model.hash, pHash, userId, ipString);
     if (bans.length) {
       const { reason, mbid } = bans[0];
       throw new Error(`media_banned_reason_${String(reason)}_${mbid}`);

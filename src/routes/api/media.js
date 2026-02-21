@@ -323,7 +323,9 @@ router.post('/upload', (req, res) => {
 
     let model;
     try {
-      model = await storeMediaStream(fileStream, info, req.user, req.ip);
+      model = await storeMediaStream(
+        fileStream, info, req.user?.id, req.ip?.ipString,
+      );
     } catch (error) {
       console.log('storemediaerror', error.message);
       if (!fileStream.destroyed && !fileStream.closed) {
