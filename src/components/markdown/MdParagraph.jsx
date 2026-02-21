@@ -65,6 +65,7 @@ const RecursiveMdParagraph = ({ pArray }) => pArray.map((part) => {
 
 const MdParagraph = ({
   text, attachmentInfo = [], className, scrollRef,
+  pArray: gPArray, pAttachments: gPAttachments,
 }) => {
   /*
    * [[desc, href], ...]
@@ -89,55 +90,53 @@ const MdParagraph = ({
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }), [shownEmbeds]);
 
-  const [pArray, pAttachments] = useMemo(() => parseParagraph(text), [text]);
+  const [pArray, pAttachments] = useMemo(() => {
+    if (gPArray) {
+      return [gPArray, gPAttachments || []];
+    }
+    return parseParagraph(text);
+  }, [text, gPArray, gPAttachments]);
+
   const Attachment = EMBEDS['/'][0];
-  console.log('MARKDOWN', pArray, pAttachments, attachmentInfo);
 
   return (
     <EmbedContext.Provider value={contextData}>
-      <div className={className}>
+      <div className={className || 'md-paragraph'}>
         <RecursiveMdParagraph pArray={pArray} />
-        <div style={{
-          display: 'flex',
-          flexWrap: 'wrap',
-          gap: '3px',
-        }}
-        >
-          {shownEmbeds.map(([desc, href]) => {
-            const Embed = EMBEDS[desc][0];
-            return (
-              <Embed
-                key={href}
-                url={href}
-                maxHeight={300}
-                scrollRef={scrollRef}
-              />
-            );
-          })}
-          {pAttachments.map(([title, mediaId]) => {
-            let width;
-            let height;
-            let avgColor;
-            let type;
-            const fileInfo = attachmentInfo.find(([id]) => id === mediaId);
-            if (fileInfo) {
-              console.log('FOUND FILEINFO', fileInfo);
-              [, type, , width, height, avgColor] = fileInfo;
-            }
-            return (
-              <Attachment
-                key={mediaId}
-                mediaId={mediaId}
-                title={title}
-                width={width}
-                height={height}
-                avgColor={avgColor}
-                type={type}
-                scrollRef={scrollRef}
-              />
-            );
-          })}
-        </div>
+        {(shownEmbeds.length > 0 || pAttachments.length > 0) && (
+          <div className="att-and-embeds">
+            {shownEmbeds.map(([desc, href]) => {
+              const Embed = EMBEDS[desc][0];
+              return (
+                <Embed
+                  key={href}
+                  url={href}
+                  maxHeight={300}
+                  scrollRef={scrollRef}
+                />
+              );
+            })}
+            {pAttachments.map(([title, mediaId]) => {
+              const fileInfo = attachmentInfo.find(([id]) => id === mediaId);
+              if (!fileInfo) {
+                return null;
+              }
+              const [, type, , width, height, avgColor] = fileInfo;
+              return (
+                <Attachment
+                  key={mediaId}
+                  mediaId={mediaId}
+                  title={title}
+                  width={width}
+                  height={height}
+                  avgColor={avgColor}
+                  type={type}
+                  scrollRef={scrollRef}
+                />
+              );
+            })}
+          </div>
+        )}
       </div>
     </EmbedContext.Provider>
   );

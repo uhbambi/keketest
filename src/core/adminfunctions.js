@@ -10,15 +10,17 @@ import sharp from 'sharp';
 import { validateCoorRange, validateUsername } from '../utils/validation.js';
 import CanvasCleaner from './CanvasCleaner.js';
 import socketEvents from '../socket/socketEvents.js';
-import { USERLVL } from '../data/sql/index.js';
 import { giveEveryoneAFish } from './Fishing.js';
 import { forceCaptcha, resetAllCaptchas } from '../data/redis/captcha.js';
 import { rollCaptchaFonts } from './captchaserver.js';
 import { getBanInfos } from '../data/sql/Ban.js';
 import { getTPIDsOfUser, getTPIDHistoryOfUser } from '../data/sql/ThreePID.js';
-import { ban, unban, whitelist, unwhitelist } from './ban.js';
+import {
+  ban, unban, whitelist, unwhitelist, banMedia, unbanMedia,
+} from './ban.js';
 import { setState } from './SharedState.js';
 import { censorIdentifier } from './utils.js';
+import { MEDIA_BAN_REASONS, USERLVL } from './constants.js';
 import {
   getIPInfos,
   getIPofIID,
@@ -448,8 +450,50 @@ export async function executeIIDAction(
   }
 }
 
+/**
+ * execute media specific action
+ * @param action what to do
+ * @param mediaId
+ */
+export async function executeMediaAction(
+  action, mediaIdOrMbid, reason, logger = null,
+) {
+  if (logger) {
+    logger(`media ${action} ${mediaIdOrMbid} ${reason}`);
+  }
 
-/*
+  switch (action) {
+    case 'ban': {
+      if (!mediaIdOrMbid) {
+        throw new Error('No mediaId defined');
+      }
+      reason = MEDIA_BAN_REASONS[reason?.toUpperCase()];
+      if (!reason) {
+        throw new Error('No valid reason given');
+      }
+      const result = await banMedia(mediaIdOrMbid, reason);
+      if (!result) {
+        throw new Error('Could not ban media');
+      }
+      // eslint-disable-next-line max-len
+      return `Successfully banned media, affected:\n${result[0]} users\n${result[1]} IPs\n ${result[2]} channels`;
+    }
+    case 'unban': {
+      if (!mediaIdOrMbid) {
+        throw new Error('No Media BID defined');
+      }
+      const success = await unbanMedia(mediaIdOrMbid);
+      if (!success) {
+        throw new Error('Could not unban media');
+      }
+      return 'Successfully unbaned media';
+    }
+    default:
+      throw new Error(`Failed to ${action} media`);
+  }
+}
+
+/**
  * Execute Image based actions (upload, protect, etc.)
  * @param action what to do with the image
  * @param file imagefile

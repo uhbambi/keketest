@@ -230,6 +230,17 @@ class SocketEvents extends EventEmitter {
   }
 
   /**
+   * broadcast deletion of chat messages
+   * @param channelId
+   * @param messageIds array of message is
+   * TODO: Does not arrive at API socket currently, since it isn't aware of
+   * message ids in the first place
+   */
+  broadcastMessageDeletion(channelId, messageIds) {
+    this.emit('deleteMessages', channelId, messageIds);
+  }
+
+  /**
    * send an announcmeent to all players
    * @param text can be markdown text
    */

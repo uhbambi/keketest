@@ -3,6 +3,7 @@ import { createPortal } from 'react-dom';
 
 import UserContextMenu from './UserContextMenu.jsx';
 import ChannelContextMenu from './ChannelContextMenu.jsx';
+import BanMediaContextMenu from './BanMediaContextMenu.jsx';
 import {
   useClickOutside,
 } from '../hooks/clickOutside.js';
@@ -10,6 +11,7 @@ import {
 export const types = {
   USER: UserContextMenu,
   CHANNEL: ChannelContextMenu,
+  BANMEDIA: BanMediaContextMenu,
 };
 
 const ContextMenu = ({
@@ -49,6 +51,10 @@ const ContextMenu = ({
 
   const Content = types[type];
 
+  /*
+   * TODO: no create portal, use a context instead, similar to how we did it to
+   * attacment in MdParagraph
+   */
   return createPortal((
     <div
       ref={wrapperRef}

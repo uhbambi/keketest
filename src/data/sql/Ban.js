@@ -529,7 +529,7 @@ export async function prolongExistingBan(ipString, userId, duration, reason) {
  * @param reason reasoning as string
  * @param duration duration in seconds
  * @param muid id of the mod that bans
- * @return boolean success
+ * @return [ipStrings, userIds] that got banned
  */
 export async function ban(
   // eslint-disable-next-line no-shadow

@@ -56,6 +56,14 @@ export function deletePublicUserMessages(user) {
   };
 }
 
+export function deleteMessages(cid, msgIds) {
+  return {
+    type: 's/DELETE_CHAT_MSGS',
+    cid,
+    msgIds,
+  };
+}
+
 export function receiveCoolDown(wait) {
   return {
     type: 'REC_COOLDOWN',

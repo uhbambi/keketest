@@ -38,6 +38,7 @@ import {
   addChatChannel,
   removeChatChannel,
   deletePublicUserMessages,
+  deleteMessages,
 } from '../store/actions/socket.js';
 import {
   pRefresh, fishAppears, catchedFish, pAlert,
@@ -300,6 +301,9 @@ class SocketClient {
         break;
       case 'dpum':
         this.store.dispatch(deletePublicUserMessages(val));
+        break;
+      case 'dmm':
+        this.store.dispatch(deleteMessages(...val));
         break;
       case 'an':
         this.store.dispatch(pAlert('Announcement', val, 'info'));

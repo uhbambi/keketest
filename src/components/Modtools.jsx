@@ -8,6 +8,7 @@ import { useSelector } from 'react-redux';
 import Canvastools from './ModCanvastools.jsx';
 import Admintools from './Admintools.jsx';
 import Watchtools from './ModWatchtools.jsx';
+import Mediatools from './ModMediatools.jsx';
 import IIDTools from './ModIIDtools.jsx';
 import { USERLVL } from '../core/constants.js';
 
@@ -17,6 +18,7 @@ const CONTENT = {
   Admin: Admintools,
   Watch: Watchtools,
   IID: IIDTools,
+  Media: Mediatools,
 };
 
 function Modtools() {
@@ -34,8 +36,10 @@ function Modtools() {
         case 'Watch':
         case 'IID':
           return userlvl >= USERLVL.MOD;
+        case 'Media':
+          return userlvl >= USERLVL.MOD || userlvl === USERLVL.CHATMOD;
         default:
-          return true;
+          return userlvl >= USERLVL.JANNY;
       }
     });
 

@@ -44,7 +44,6 @@ const UserContextMenu = ({ args, close }) => {
           addToInput(ping);
           close();
         }}
-        style={{ borderTop: 'none' }}
       >
         {t`Ping`}
       </div>

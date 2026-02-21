@@ -15,12 +15,13 @@ import { parse } from '../../utils/markdown/MarkdownParser.js';
  *   refEmbed: a reference to the element where we can attach an embed to
  * }
  */
-const Markdown = ({ text, mdArray, parseLinks = false }) => {
+const Markdown = ({ text, mdArray, attachmentInfo, parseLinks = false }) => {
   if (!mdArray) {
     if (!text) {
       return null;
     }
     mdArray = parse(text, { parseLinks });
+    console.log('parsed markdown', mdArray);
   }
 
   const markdown = mdArray.map((part) => {
@@ -55,7 +56,11 @@ const Markdown = ({ text, mdArray, parseLinks = false }) => {
       /* Paragraph */
       case 'p': {
         return (
-          <MdParagraph pArray={part[1]} attachmentInfo={part[2]} />
+          <MdParagraph
+            pArray={part[1]}
+            pAttachments={part[2]}
+            attachmentInfo={attachmentInfo}
+          />
         );
       }
       /* Code Block */
@@ -70,7 +75,7 @@ const Markdown = ({ text, mdArray, parseLinks = false }) => {
           <blockquote
             className={(type === '>') ? 'gt' : 'rt'}
           >
-            <Markdown mdArray={children} />
+            <Markdown mdArray={children} attachmentInfo={attachmentInfo} />
           </blockquote>
         );
       }
@@ -78,7 +83,7 @@ const Markdown = ({ text, mdArray, parseLinks = false }) => {
         const children = part[1];
         return (
           <ul>
-            <Markdown mdArray={children} />
+            <Markdown mdArray={children} attachmentInfo={attachmentInfo} />
           </ul>
         );
       }
@@ -86,7 +91,7 @@ const Markdown = ({ text, mdArray, parseLinks = false }) => {
         const children = part[1];
         return (
           <ol>
-            <Markdown mdArray={children} />
+            <Markdown mdArray={children} attachmentInfo={attachmentInfo} />
           </ol>
         );
       }
@@ -94,7 +99,7 @@ const Markdown = ({ text, mdArray, parseLinks = false }) => {
         const children = part[1];
         return (
           <li>
-            <Markdown mdArray={children} />
+            <Markdown mdArray={children} attachmentInfo={attachmentInfo} />
           </li>
         );
       }

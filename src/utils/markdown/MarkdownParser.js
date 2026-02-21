@@ -13,6 +13,7 @@ let parseMText = () => {};
 
 /**
  * Parse Paragraph till next newline or breakChar (for recursion)
+ * TODO the opts don't do anything?
  * @return [pArray, pAttachments]
  */
 const paraElems = ['*', '~', '+', '_'];

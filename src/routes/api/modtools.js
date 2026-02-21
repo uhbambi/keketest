@@ -24,6 +24,7 @@ import {
   demoteUser,
   promoteUser,
   executeQuickAction,
+  executeMediaAction,
 } from '../../core/adminfunctions.js';
 import { getState } from '../../core/SharedState.js';
 import { getHighUserLvlUsers, findUserById } from '../../data/sql/User.js';
@@ -67,7 +68,7 @@ router.use(async (req, res, next) => {
     return;
   }
   const { userlvl } = req.user;
-  if (!userlvl || userlvl < USERLVL.JANNY) {
+  if (!userlvl || (userlvl < USERLVL.JANNY && userlvl !== USERLVL.CHATMOD)) {
     logger.warn(
       `MODTOOLS: ${req.ip.ipString} / ${req.user.id} tried to access modtools`,
     );
@@ -84,6 +85,42 @@ router.use(async (req, res, next) => {
   next();
 });
 
+/*
+ * Post for chatmod + janny + mod + admin
+ */
+router.post('/', async (req, res, next) => {
+  const bLogger = (text) => {
+    logger.info(
+      `MODTOOLS>IID>${req.user.name}[${req.user.id}]> ${text}`,
+    );
+  };
+
+  try {
+    if (req.body.mediaaction) {
+      const { mediaidormbid, mediaaction, reason } = req.body;
+      const msg = await executeMediaAction(
+        mediaaction, mediaidormbid, reason, bLogger,
+      );
+      res.send(msg);
+      return;
+    }
+    next();
+  } catch (err) {
+    next(err);
+  }
+});
+
+/*
+ * just janny + mod + admin past here, no chatmods
+ */
+router.use(async (req, res, next) => {
+  if (req.user.userlvl < USERLVL.JANNY) {
+    const { t } = req.ttag;
+    res.status(403).send(t`Just janny, mod or admin can do that`);
+    return;
+  }
+  next();
+});
 
 /*
  * Post for janny + mod + admin
@@ -177,7 +214,7 @@ router.post('/', async (req, res, next) => {
 router.use(async (req, res, next) => {
   if (req.user.userlvl < USERLVL.MOD) {
     const { t } = req.ttag;
-    res.status(403).send(t`Just admins can do that`);
+    res.status(403).send(t`Just mods and admins can do that`);
     return;
   }
   next();
@@ -211,13 +248,12 @@ router.post('/', async (req, res, next) => {
   try {
     if (req.body.cleanerstat) {
       const ret = CanvasCleaner.reportStatus();
-      res.status(200);
       res.json(ret);
       return;
     }
     if (req.body.cleanercancel) {
       const ret = CanvasCleaner.stop();
-      res.status(200).send(ret);
+      res.send(ret);
       return;
     }
     if (req.body.watchaction) {
@@ -239,7 +275,7 @@ router.post('/', async (req, res, next) => {
         maxrows,
         maxentities,
       );
-      res.status(200).json(ret);
+      res.json(ret);
       return;
     }
     if (req.body.iidaction) {
@@ -259,7 +295,7 @@ router.post('/', async (req, res, next) => {
         req.user.id,
         bLogger,
       );
-      res.status(200).send(ret);
+      res.send(ret);
       return;
     }
     if (req.body.cleaneraction) {
@@ -326,37 +362,34 @@ router.post('/', async (req, res, next) => {
         req.body.text,
         aLogger,
       );
-      res.status(200).send(ret);
+      res.send(ret);
       return;
     }
     if (req.body.modlist) {
       const ret = await getHighUserLvlUsers();
-      res.status(200);
       res.json(ret);
       return;
     }
     if (req.body.gamestate) {
       const ret = getState();
-      res.status(200);
       res.json(ret);
       return;
     }
     if (req.body.remmod) {
       const ret = await demoteUser(req.body.remmod);
-      res.status(200).send(ret);
+      res.send(ret);
       return;
     }
     if (req.body.makemod) {
       const ret = await promoteUser(
         req.body.makemod, parseInt(req.body.userlvl, 10),
       );
-      res.status(200);
       res.json(ret);
       return;
     }
     if (req.body.quickaction) {
       const ret = await executeQuickAction(req.body.quickaction, aLogger);
-      res.status(200).send(ret);
+      res.send(ret);
       return;
     }
     next();

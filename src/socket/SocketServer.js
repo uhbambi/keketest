@@ -173,6 +173,17 @@ class SocketServer {
       this.broadcast(`dpum,${JSON.stringify(uid)}`);
     });
 
+    socketEvents.on('deleteMessages', (channelId, messageIds) => {
+      const text = `dmm,${JSON.stringify([channelId, messageIds])}`;
+      const clientArray = [];
+      this.wss.clients.forEach((ws) => {
+        if (chatProvider.userHasChannelAccess(ws.user, ws.lang, channelId)) {
+          clientArray.push(ws);
+        }
+      });
+      SocketServer.broadcastSelected(clientArray, text);
+    });
+
     socketEvents.on('addChatChannel', (userId, channelId, channelArray) => {
       this.findAllWsByUerId(userId).forEach((ws) => {
         ws.user.addChannel(channelId, channelArray);

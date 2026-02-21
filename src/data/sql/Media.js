@@ -131,7 +131,11 @@ const Media = sequelize.define('Media', {
   }],
 });
 
-
+/**
+ * deregister media either by shortId and extension
+ * @param shortId
+ * @param extension
+ */
 export async function deregisterMedia(shortId, extension) {
   try {
     console.log(`MEDIA: deregister ${shortId} ${extension}`);
@@ -381,10 +385,96 @@ export async function getMediaType(mediaId) {
       },
     );
     return model?.type;
-  } catch (err) {
-    console.error('SQL Error on getMediaType:', err.message);
+  } catch (error) {
+    console.error('SQL Error on getMediaType:', error.message);
     return null;
   }
+}
+
+/**
+ * get users associated with media
+ * @param mediaSqlId
+ * @return [userId, ...]
+ */
+export async function getUsersOfMedia(mediaSqlId) {
+  const userIds = [];
+  try {
+    const models = await sequelize.query(
+      `SELECT DISTINCT u.id AS uid FROM Users u
+  LEFT JOIN Profiles p ON p.uid = u.id
+  LEFT JOIN UserMedia um ON um.uid = u.id
+WHERE p.avatar = ? OR um.mid = ?`, {
+        replacements: [mediaSqlId, mediaSqlId],
+        raw: true,
+        type: QueryTypes.SELECT,
+      },
+    );
+    for (let i = 0; i < models.length; i += 1) {
+      userIds.push(models[i].uid);
+    }
+  } catch (error) {
+    console.error('SQL Error on getUsersOfMedia:', error.message);
+  }
+  return userIds;
+}
+
+/**
+ * get messages associated with media
+ * @param mediaSqlId
+ * @return
+ * {
+ *   cid: [messageIds, ...],
+ * }
+ */
+export async function getMessagesOfMedia(mediaSqlId) {
+  const messagesByChannel = {};
+  try {
+    const models = await sequelize.query(
+      `SELECT s.cid, s.id AS sid FROM Messages s
+  LEFT JOIN MessageMedia mm ON mm.sid = s.id
+WHERE mm.mid = ?`, {
+        replacements: [mediaSqlId],
+        raw: true,
+        type: QueryTypes.SELECT,
+      },
+    );
+    for (let i = 0; i < models.length; i += 1) {
+      const { cid, sid } = models[i];
+      let cidMessages = messagesByChannel[cid];
+      if (!cidMessages) {
+        cidMessages = [];
+        messagesByChannel[cid] = cidMessages;
+      }
+      cidMessages.push(sid);
+    }
+  } catch (error) {
+    console.error('SQL Error on getMessagesOfMedia:', error.message);
+  }
+  return messagesByChannel;
+}
+
+/**
+ * get ips associated with media
+ * @param mediaSqlId
+ * @return [ipString, ...]
+ */
+export async function getIpsOfMedia(mediaSqlId) {
+  const ipStrings = [];
+  try {
+    const models = await sequelize.query(
+      'SELECT BIN_TO_IP(ip) AS ip FROM IPMedia WHERE mid = ?', {
+        replacements: [mediaSqlId],
+        raw: true,
+        type: QueryTypes.SELECT,
+      },
+    );
+    for (let i = 0; i < models.length; i += 1) {
+      ipStrings.push(models[i].ip);
+    }
+  } catch (error) {
+    console.error('SQL Error on getMessagesOfMedia:', error.message);
+  }
+  return ipStrings;
 }
 
 export default Media;

@@ -27,6 +27,10 @@ class ChatMessageBuffer {
      * which channels exactly got affected
      */
     socketEvents.on('deletePublicUserMessages', this.resetBuffers);
+    /*
+     * if messages from a channel got deleted, just reset this channel
+     */
+    socketEvents.on('deleteMessages', (cid) => this.buffer.delete(cid));
   }
 
   async getMessages(cid, limit = 30) {

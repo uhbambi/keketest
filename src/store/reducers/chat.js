@@ -194,6 +194,25 @@ export default function chat(
       };
     }
 
+    case 's/DELETE_CHAT_MSGS': {
+      const { cid, msgIds } = action;
+
+      const channelMessages = state.messages[cid];
+      if (!channelMessages) {
+        return state;
+      }
+
+      return {
+        ...state,
+        messages: {
+          ...state.messages,
+          [cid]: channelMessages.filter(
+            ([,,,,, msgId]) => !msgIds.includes(msgId),
+          ),
+        },
+      };
+    }
+
     case 's/REC_CHAT_HISTORY': {
       const { cid, history } = action;
       return {

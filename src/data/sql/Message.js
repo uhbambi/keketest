@@ -165,6 +165,38 @@ WHERE m.uid = ? AND c.type = ?`, {
 }
 
 /**
+ * delete messages by ids
+ * @param ids ids of messages
+ * @return success
+ */
+export async function deleteMessagesByIds(ids) {
+  if (!ids) {
+    return false;
+  }
+  if (!Array.isArray(ids)) {
+    ids = [ids];
+  }
+  if (!ids.length) {
+    return false;
+  }
+  try {
+    await sequelize.query(
+      `DELETE m FROM Messages m WHERE id in (${
+        ids.map(() => '?').join(', ')
+      })`, {
+        replacements: ids,
+        raw: true,
+        type: QueryTypes.DELETE,
+      },
+    );
+    return true;
+  } catch (error) {
+    console.error(`SQL Error on deleteMessagesByIds: ${error.message}`);
+  }
+  return false;
+}
+
+/**
  * delete speciic message
  * @param mid message id
  * @return success

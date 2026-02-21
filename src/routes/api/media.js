@@ -8,8 +8,10 @@ import {
   storeMediaStream, isMimeTypeAllowed, mimeTypeFitsToExt,
 } from '../../utils/media/index.js';
 import { splitFilename } from '../../utils/media/utils.js';
+import { mediaBanReasonToDescription } from '../../utils/media/serverUtils.js';
 import { MAX_MEDIA_SIZE, MAX_UPLOAD_AMOUNT } from '../../core/constants.js';
 import { hasMedia, linkMedia } from '../../data/sql/Media.js';
+import { checkIfMediaBanned } from '../../core/ban.js';
 
 const router = express.Router();
 
@@ -66,7 +68,7 @@ router.post('/preflight', (req, res) => {
     });
   });
 
-  bb.on('close', () => {
+  bb.on('close', async () => {
     if (res.headersSent) {
       return;
     }
@@ -86,12 +88,15 @@ router.post('/preflight', (req, res) => {
 
       const models = [];
 
-      while (mimeTypes.length) {
+      let i = Math.min(MAX_UPLOAD_AMOUNT * 3, mimeTypes.length);
+
+      while (i > 0) {
+        i -= 1;
         let fileErrors = false;
-        const mimeType = decodeURIComponent(mimeTypes.shift());
-        const filename = decodeURIComponent(filenames.shift());
-        const hash = hashes.shift();
-        const size = sizes.shift();
+        const mimeType = decodeURIComponent(mimeTypes[i]);
+        const filename = decodeURIComponent(filenames[i]);
+        const hash = hashes[i];
+        const size = sizes[i];
         console.log('preflight', filename, mimeType, hash, size);
 
         if (size > MAX_MEDIA_SIZE) {
@@ -124,41 +129,58 @@ router.post('/preflight', (req, res) => {
           });
         }
       }
+      mimeTypes.length = 0;
+      filenames.length = 0;
+      sizes.length = 0;
 
-      hasMedia(models).then((success) => {
-        if (!success) {
-          errors.push(t`Server Error`);
+      const bans = await checkIfMediaBanned(
+        hashes, null, req.user?.id, req.ip?.ipString,
+      );
+      for (let u = 0; u < bans.length; u += 1) {
+        const { hash, reason, mbid } = bans[u];
+        const modelIndex = models.findIndex((h) => h.hash === hash);
+        if (modelIndex !== -1) {
+          errors.push(mediaBanReasonToDescription(
+            req.ttag, reason, mbid, models[modelIndex].originalFilename,
+          ));
+          models.splice(modelIndex, 1);
         }
-        const readyToUpload = [];
-        const availableFiles = [];
-        let i = models.length;
-        while (i > 0) {
-          i -= 1;
-          const model = models[i];
-          /*
-            *  [{
-            *    hash, name, mimeType, extension, shortId, originalFilename,
-            *  }, ... ]
-            */
-          if (model.shortId) {
-            availableFiles.push(model);
-          } else {
-            readyToUpload.push(model);
-          }
-        }
+      }
 
-        if (readyToUpload.length > MAX_UPLOAD_AMOUNT) {
-          readyToUpload.splice(MAX_UPLOAD_AMOUNT);
-        }
+      const checkSuccess = await hasMedia(models);
+      if (!checkSuccess) {
+        errors.push(t`Server Error`);
+      }
+      const readyToUpload = [];
+      const availableFiles = [];
 
-        linkMedia(availableFiles, req.user?.id, req.ip.ipString);
-        const data = { readyToUpload, availableFiles };
-        if (errors.length) {
-          data.errors = errors;
-          res.status(400);
+      i = models.length;
+      while (i > 0) {
+        i -= 1;
+        const model = models[i];
+        /*
+          *  [{
+          *    hash, name, mimeType, extension, shortId, originalFilename,
+          *  }, ... ]
+          */
+        if (model.shortId) {
+          availableFiles.push(model);
+        } else if (checkSuccess) {
+          readyToUpload.push(model);
         }
-        res.json(data);
-      });
+      }
+
+      if (readyToUpload.length > MAX_UPLOAD_AMOUNT) {
+        readyToUpload.splice(MAX_UPLOAD_AMOUNT);
+      }
+
+      linkMedia(availableFiles, req.user?.id, req.ip?.ipString);
+      const data = { readyToUpload, availableFiles };
+      if (errors.length) {
+        data.errors = errors;
+        res.status(400);
+      }
+      res.json(data);
     } catch (error) {
       if (res.headersSent) {
         return;
@@ -199,7 +221,6 @@ router.post('/upload', (req, res) => {
   let ended = false;
 
   const finalize = (error) => {
-    console.log('finalize', error);
     if (ended || (!error && (!requestDone || readingFiles > 0))) {
       return;
     }
@@ -215,61 +236,47 @@ router.post('/upload', (req, res) => {
 
     if (error) {
       status = 400;
-      switch (error) {
-        case 'no_info':
-          error = t`No file metadata given`;
-          break;
-        case 'unknown_type':
-          error = t`MimeType or extension not known or supported`;
-          break;
-        case 'invalid_type':
-          error = t`Invalid type of media`;
-          break;
-        case 'broken_file':
-          error = t`File is broken`;
-          break;
-        case 'server_error':
-          error = t`Server Eror`;
-          status = 500;
-          break;
-        case 'stalled':
-          error = t`Request stalled`;
-          break;
-        case 'too_long':
-          error = t`A file was too large`;
-          status = 413;
-          break;
-        case 'too_many_files':
-          error = t`Could not upload all files`;
-          status = 413;
-          break;
-        /*
-         * according to MEDIA_BAN_REASONS in constants.js
-         */
-        case 'media_banned_reason_1':
-          error = t`This media is banned for containing graphic violence`;
-          break;
-        case 'media_banned_reason_2':
-          error = t`This media is banned for containing CSAM`;
-          break;
-        case 'media_banned_reason_3':
-          error = t`This media is banned for being degenerate`;
-          break;
-        case 'media_banned_reason_4':
-          error = t`This media is banned for being an attempt to scam people`;
-          break;
-        case 'media_banned_reason_5':
-          error = t`This media is banned for glorifying terrorism`;
-          break;
-        case 'media_banned_reason_6':
-          error = t`This media is banned because it is propaganda`;
-          break;
-        case 'already_exists':
-          /* this is not an error, but treated as one to cancel request */
-          error = null;
-          break;
-        default:
-          // nothing
+      if (error.startsWidth('media_banned_reason_')) {
+        const reason = Number(error[20]);
+        const mbid = error.substring(22);
+        error = mediaBanReasonToDescription(req.ttag, reason, mbid);
+      } else {
+        switch (error) {
+          case 'no_info':
+            error = t`No file metadata given`;
+            break;
+          case 'unknown_type':
+            error = t`MimeType or extension not known or supported`;
+            break;
+          case 'invalid_type':
+            error = t`Invalid type of media`;
+            break;
+          case 'broken_file':
+            error = t`File is broken`;
+            break;
+          case 'server_error':
+            error = t`Server Eror`;
+            status = 500;
+            break;
+          case 'stalled':
+            error = t`Request stalled`;
+            break;
+          case 'too_long':
+            error = t`A file was too large`;
+            status = 413;
+            break;
+          case 'too_many_files':
+            error = t`Could not upload all files`;
+            status = 413;
+            break;
+          case 'already_exists':
+            /* this is not an error, but treated as one to cancel request */
+            error = null;
+            status = 200;
+            break;
+          default:
+            // nothing
+        }
       }
     }
     res.status(status);

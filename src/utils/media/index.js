@@ -16,7 +16,7 @@ import calculatePHash from './phash.js';
 import stripExif, { destruct } from './stripExif.js';
 import createVideoThumbnails from './videoThumbnails.js';
 import createImageThumbnails from './imageThumbnails.js';
-import checkIfBanned from './ban.js';
+import { checkIfMediaBanned } from '../../core/ban.js';
 import { splitFilename } from './utils.js';
 import {
   mimeTypeFitsToExt, isMimeTypeAllowed, getThumbnailPaths,
@@ -226,11 +226,10 @@ export async function storeMediaStream(
     /*
      * check if media is banned
      */
-    const reason = await checkIfBanned(
-      temporaryFile, model.hash, pHash, user, ip,
-    );
-    if (reason) {
-      throw new Error(`media_banned_reason_${String(reason)}`);
+    const bans = await checkIfMediaBanned(model.hash, pHash, user, ip);
+    if (bans.length) {
+      const { reason, mbid } = bans[0];
+      throw new Error(`media_banned_reason_${String(reason)}_${mbid}`);
     }
 
     /*

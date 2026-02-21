@@ -41,7 +41,6 @@ const ChannelContextMenu = ({ args, close }) => {
           }
         }}
         tabIndex={0}
-        style={{ borderTop: 'none' }}
       >
         {`${(isMuted) ? '✔' : '✘'} ${t`Mute`}`}
       </div>

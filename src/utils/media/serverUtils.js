@@ -114,3 +114,46 @@ export function getMediaFromLinks(links) {
   }
   return media;
 }
+
+/**
+ * get translated reason for media ban
+ * @param ttag for translation
+ * @param reason reason as number
+ * @param mbid uuid of ban
+ * @param [filename]
+ */
+export function mediaBanReasonToDescription(ttag, reason, mbid, filename) {
+  const { t } = ttag;
+  switch (reason) {
+    case 1:
+      /* t: This media is banned xyz */
+      reason = t`for containing graphic violence`;
+      break;
+    case 2:
+      /* t: This media is banned xyz */
+      reason = t`for containing CSAM`;
+      break;
+    case 3:
+      /* t: This media is banned xyz */
+      reason = t`for being degenerate`;
+      break;
+    case 4:
+      /* t: This media is banned xyz */
+      reason = t`for being an attempt to scam people`;
+      break;
+    case 5:
+      /* t: This media is banned xyz */
+      reason = t`for glorifying terrorism`;
+      break;
+    case 6:
+      /* t: This media is banned xyz */
+      reason = t`because it is propaganda`;
+      break;
+    default:
+      reason = '';
+  }
+  if (filename) {
+    return t`The file ${filename} is banned ${reason}. Ban ID: ${mbid}`;
+  }
+  return t`This media is banned ${reason}. Ban ID: ${mbid}`;
+}

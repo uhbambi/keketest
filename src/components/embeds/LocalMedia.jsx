@@ -4,6 +4,7 @@
 /* eslint-disable jsx-a11y/media-has-caption */
 
 import React, { useState, useMemo } from 'react';
+import { useSelector } from 'react-redux';
 import { t } from 'ttag';
 import { MdFileDownload } from 'react-icons/md';
 import { HiStop } from 'react-icons/hi';
@@ -12,30 +13,37 @@ import { HiWindow } from 'react-icons/hi2';
 import useLink from '../hooks/link.js';
 import { cdn } from '../../utils/utag.js';
 import { splitUrl } from '../../core/utils.js';
+import ContextMenu from '../contextmenus/index.jsx';
 import {
   getMediaDetailsFromUrl,
   getUrlsFromMediaIdAndName,
 } from '../../utils/media/utils.js';
-import { VIDEO_EXTENSIONS, IMAGE_EXTENSIONS } from '../../core/constants.js';
+import {
+  VIDEO_EXTENSIONS, IMAGE_EXTENSIONS, USERLVL,
+} from '../../core/constants.js';
 
 const LocalMedia = ({
-  url, fill, mediaId, width, height, scrollRef, avgColor,
-  title: gTitle, type: gType,
+  url, fill, width, height, scrollRef, avgColor,
+  title: gTitle, type: gType, mediaId: gMediaId,
 }) => {
   const [expanded, setExpanded] = useState(false);
   const [imageLoaded, setImageLoaded] = useState(false);
+  const [contextMenuArgs, setContextMenuArgs] = useState(false);
 
   const link = useLink();
+  const userlvl = useSelector((state) => state.user.userlvl);
 
-  const [fullUrl, thumbUrl,, title, type, backgroundColor] = useMemo(() => {
-    let mid = mediaId;
+  const [
+    mediaId, fullUrl, thumbUrl,, title, type, backgroundColor,
+  ] = useMemo(() => {
+    let oMediaId = gMediaId;
     let oTitle = gTitle;
     let oType = gType;
 
     if (url) {
-      [mid, oTitle] = getMediaDetailsFromUrl(url).map((u) => cdn`${u}`);
+      [oMediaId, oTitle] = getMediaDetailsFromUrl(url).map((u) => cdn`${u}`);
     }
-    const oExtension = mid?.substring(mid.indexOf(':') + 1);
+    const oExtension = oMediaId?.substring(oMediaId.indexOf(':') + 1);
 
     if (!oType) {
       if (IMAGE_EXTENSIONS.includes(oExtension)) {
@@ -46,11 +54,12 @@ const LocalMedia = ({
     }
 
     return [
-      ...getUrlsFromMediaIdAndName(mid, oTitle),
+      oMediaId,
+      ...getUrlsFromMediaIdAndName(oMediaId, oTitle),
       oTitle, oType,
       avgColor && `#${avgColor.toString(16).padStart(6, '0')}`,
     ];
-  }, [url, gTitle, gType, mediaId, avgColor]);
+  }, [url, gTitle, gType, gMediaId, avgColor]);
 
   if (!fullUrl || !thumbUrl || !type) {
     return null;
@@ -144,6 +153,8 @@ const LocalMedia = ({
     );
   }
 
+  const isMod = userlvl >= USERLVL.MOD || userlvl === USERLVL.CHATMOD;
+
   return (
     <div
       className={containerClass}
@@ -177,7 +188,31 @@ const LocalMedia = ({
             return null;
         }
       })()}
+      {(contextMenuArgs) && (
+        <ContextMenu
+          type="BANMEDIA"
+          x={contextMenuArgs.x}
+          y={contextMenuArgs.y}
+          args={{ mediaId }}
+          close={() => setContextMenuArgs(null)}
+          align="tr"
+        />
+      )}
       <span className="embtr">
+        {(isMod) && (
+          <span
+            onClick={(evt) => {
+              evt.stopPropagation();
+              setContextMenuArgs({
+                x: evt.clientX,
+                y: evt.clientY,
+              });
+            }}
+            className="ebem"
+            title={t`Ban Media`}
+            key="emebb"
+          >🔨</span>
+        )}
         <a
           href={fullUrl}
           target="_blank"

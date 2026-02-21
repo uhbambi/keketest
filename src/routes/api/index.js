@@ -68,7 +68,6 @@ router.get('/baninfo', baninfo);
 
 router.post('/lanme', banme);
 
-router.use('/media', media);
 
 router.use((req, res, next) => {
   req.tickRateLimiter(3000);
@@ -87,6 +86,8 @@ router.use('/modtools', modtools);
  * only with session
  */
 router.use(ensureLoggedIn);
+
+router.use('/media', media);
 
 router.get('/profile', profile);
 

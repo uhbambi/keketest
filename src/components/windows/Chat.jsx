@@ -63,7 +63,10 @@ const Chat = () => {
 
   const printWarnings = useCallback((warnings) => {
     warnings.forEach((warning) => {
-      dispatch(receiveChatMessage('info', warning, 'xx', chatChannel, 0));
+      dispatch(receiveChatMessage(
+        chatChannel, 'info', warning, 'xx', 0, Math.floor(Date.now() / 1000),
+        0, false, null, [],
+      ));
     });
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [chatChannel]);

@@ -3,8 +3,7 @@
  */
 
 import logger from '../../core/logger.js';
-import { ban } from '../../core/ban.js';
-import { prolongExistingBan } from '../../data/sql/Ban.js';
+import { upsertBan } from '../../core/ban.js';
 
 async function banme(req, res) {
   req.tickRateLimiter(3000);
@@ -46,10 +45,7 @@ async function banme(req, res) {
     });
     return;
   }
-  const didProlong = await prolongExistingBan(ipString, uid, duration, reason);
-  if (!didProlong) {
-    await ban(ipString, uid, null, false, true, reason, duration);
-  }
+  await upsertBan(ipString, uid, reason, duration);
   res.json({
     status: 'ok',
   });
