@@ -1038,8 +1038,41 @@ table td span {
 }
 
 /*
- * ========================== END CHAT STUFF ===================================
+ * ============================ ATTACHMENTS ====================================
  */
+
+.attcontainer {
+  position: relative;
+  overflow: hidden;
+}
+
+.attcontainer.fill {
+  text-align: center;
+  align-content: center;
+  width: 100%;
+  height: 100%;
+}
+
+.attcontainer.thumb {
+  flex: 0 1 auto;
+  display: inline-block;
+}
+
+.attcontainer.expanded {
+  flex: 0 1 auto;
+  display: inline-block;
+  min-width: 89px;
+  min-height: 30px;
+}
+
+.attcontainer.thumb > .attachment {
+  object-fit: contain;
+}
+
+.attcontainer.expanded > .attachment {
+  object-fit: contain;
+}
+
 
 .embbtn {
   font-size: 16px;
@@ -1050,10 +1083,6 @@ table td span {
   top: 0;
   right: 5px;
   padding: 3px;
-}
-.embtrc {
-  position: relative;
-  overflow: hidden;
 }
 .ebex {
   vertical-align: middle;

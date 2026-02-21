@@ -6,7 +6,7 @@
 import React, { useState, useMemo } from 'react';
 import { t } from 'ttag';
 import { MdFileDownload } from 'react-icons/md';
-import { HiArrowsExpand, HiStop } from 'react-icons/hi';
+import { HiStop } from 'react-icons/hi';
 import { HiWindow } from 'react-icons/hi2';
 
 import useLink from '../hooks/link.js';
@@ -23,6 +23,7 @@ const LocalMedia = ({
   title: gTitle, type: gType,
 }) => {
   const [expanded, setExpanded] = useState(false);
+  const [imageLoaded, setImageLoaded] = useState(false);
 
   const link = useLink();
 
@@ -74,95 +75,79 @@ const LocalMedia = ({
     }
   };
 
-  const style = (fill) ? {
-    height: '100%',
-    alignContent: 'center',
-    textAlign: 'center',
-    maxWidth: '100%',
-    flex: '0 1 auto',
-    backgroundColor,
-  } : {
-    display: 'inline-block',
-    flex: '0 1 auto',
-    width: '100%',
-    maxHeight: '100%',
-    backgroundColor,
-    aspectRatio: (width && height) ? `${width} / ${height}` : undefined,
-  };
-
-  if (!fill && width && height) {
-    if (expanded) {
-      style.maxWidth = width;
+  let containerClass;
+  const containerStyle = {};
+  const attachmentStyle = {};
+  if (fill) {
+    containerClass = 'fill';
+    containerStyle.width = '100%';
+    containerStyle.height = '100%';
+    if (type === 'video') {
+      attachmentStyle.width = '100%';
+      attachmentStyle.height = '100%';
     } else {
-      style.width = thumbWidth;
+      attachmentStyle.maxWidth = '100%';
+      attachmentStyle.maxHeight = '100%';
+    }
+  } else {
+    if (expanded) {
+      containerClass = 'expanded';
+    } else {
+      containerClass = 'thumb';
+    }
+
+    if (width && height) {
+      /*
+      * if dimensions are known, container will occupy the space and image will
+      * be 100%
+      */
+      containerStyle.aspectRatio = `${width} / ${height}`;
+      containerStyle.width = '100%';
+      containerStyle.maxHeight = '100%';
+      attachmentStyle.width = '100%';
+      attachmentStyle.height = '100%';
+
+      if (expanded) {
+        containerStyle.maxWidth = width;
+      } else {
+        containerStyle.maxWidth = thumbWidth;
+      }
+    } else {
+      attachmentStyle.maxWidth = '100%';
+      attachmentStyle.maxHeight = '100%';
     }
   }
+
+  const onLoad = () => setImageLoaded(true);
+  if (backgroundColor && !imageLoaded) {
+    containerStyle.backgroundColor = backgroundColor;
+  }
+
+  containerClass += ' attcontainer';
 
   if (thumbUrl && !expanded && !fill) {
     return (
       <div
-        className="embtrc"
-        style={style}
+        className={containerClass}
+        style={containerStyle}
         onClick={toggleExpand}
       >
         <img
           alt={title}
           src={thumbUrl}
           loading="lazy"
-          style={{
-            maxWidth: '100%',
-            maxHeight: '100%',
-            objectFit: 'contain',
-          }}
+          className="attachment"
+          style={attachmentStyle}
+          onLoad={onLoad}
         />
       </div>
     );
   }
 
-  const buttons = (
-    <span className="embtr">
-      <a
-        href={fullUrl}
-        target="_blank"
-        title={t`Download`}
-        rel="noreferrer"
-      >
-        <MdFileDownload className="ebem" />
-      </a>
-      {(!fill) && (
-        <>
-          <span
-            onClick={(evt) => {
-              evt.stopPropagation();
-              link('PLAYER', {
-                reuse: true,
-                target: 'blank',
-                args: { uri: fullUrl },
-              });
-            }}
-            title={t`Open in PopUp`}
-            key="emebp"
-          >
-            <HiWindow className="ebem" />
-          </span>
-          <span
-            onClick={toggleExpand}
-          >
-            <HiStop
-              className="ebem"
-              style={{ color: 'red' }}
-              title={t`Shrink`}
-            />
-          </span>
-        </>
-      )}
-    </span>
-  );
-
   return (
     <div
-      className="embtrc"
-      style={style}
+      className={containerClass}
+      style={containerStyle}
       onClick={toggleExpand}
     >
       {(() => {
@@ -172,24 +157,17 @@ const LocalMedia = ({
               <img
                 alt={title}
                 src={fullUrl}
-                style={{
-                  width: '100%',
-                  height: '100%',
-                  objectFit: 'contain',
-                }}
+                className="attachment"
+                style={attachmentStyle}
                 referrerPolicy="no-referrer"
+                onLoad={onLoad}
               />
             );
           case 'video':
             return (
               <video
-                style={{
-                  width: '100%',
-                  height: '100%',
-                  // height: fill && '100%',
-                  // width: fill && '100%',
-                  objectFit: 'contain',
-                }}
+                className="attachment"
+                style={attachmentStyle}
                 controls
                 autoPlay
                 src={fullUrl}
@@ -199,7 +177,43 @@ const LocalMedia = ({
             return null;
         }
       })()}
-      {buttons}
+      <span className="embtr">
+        <a
+          href={fullUrl}
+          target="_blank"
+          title={t`Download`}
+          rel="noreferrer"
+        >
+          <MdFileDownload className="ebem" />
+        </a>
+        {(!fill) && (
+          <>
+            <span
+              onClick={(evt) => {
+                evt.stopPropagation();
+                link('PLAYER', {
+                  reuse: true,
+                  target: 'blank',
+                  args: { uri: fullUrl },
+                });
+              }}
+              title={t`Open in PopUp`}
+              key="emebp"
+            >
+              <HiWindow className="ebem" />
+            </span>
+            <span
+              onClick={toggleExpand}
+            >
+              <HiStop
+                className="ebem"
+                style={{ color: 'red' }}
+                title={t`Shrink`}
+              />
+            </span>
+          </>
+        )}
+      </span>
     </div>
   );
 };
