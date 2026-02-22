@@ -170,7 +170,7 @@ export async function storeMediaStream(
     throw new Error('total_quota_reached');
   }
 
-  if (await checkUserQuotaReached(userId)) {
+  if (await checkUserQuotaReached(userId, ipString)) {
     throw new Error('user_quota_reached');
   }
 

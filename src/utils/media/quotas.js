@@ -38,11 +38,11 @@ export async function checkTotalQuotaReached() {
  * check if user reached his quota
  * @return boolean, true if quota surpassed
  */
-export async function checkUserQuotaReached(userId) {
-  if (!userId) {
+export async function checkUserQuotaReached(userId, ipString) {
+  if (!userId && !ipString) {
     return false;
   }
-  const sizeMb = await getUserUsedSpace(userId);
+  const sizeMb = await getUserUsedSpace(userId, ipString);
   if (sizeMb === null) {
     // default to quota-reached for user
     return true;

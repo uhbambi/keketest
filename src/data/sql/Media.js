@@ -534,19 +534,34 @@ export async function getTotalUsedSpace() {
 
 /**
  * get total user used space
+ * @param [userId]
+ * @param [ipString]
  * @return size in MB or null if failure
  */
-export async function getUserUsedSpace(userId) {
-  if (!userId) {
+export async function getUserUsedSpace(userId, ipString) {
+  const unions = [];
+  const replacements = [];
+
+  if (userId) {
+    unions.push('SELECT um.mid AS id FROM UserMedia um WHERE um.uid = ?');
+    replacements.push(userId);
+  }
+  if (ipString) {
+    unions.push('SELECT im.mid AS id FROM IPMedia im WHERE im.ip = IP_TO_BIN(?)');
+    replacements.push(ipString);
+  }
+
+  if (!unions.length) {
     return null;
   }
+
   try {
     const model = await sequelize.query(
       // eslint-disable-next-line max-len
-      `SELECT COALESCE(CAST(SUM(size) / (1024 * 1024) AS UNSIGNED), 0) AS sizeMb FROM Media m
-  INNER JOIN UserMedia um ON um.mid = m.id
-WHERE um.uid = ?`, {
-        replacements: [userId],
+      `SELECT COALESCE(CAST(SUM(m.size) / (1024 * 1024) AS UNSIGNED), 0) AS sizeMb FROM Media m WHERE m.id IN (SELECT l.id FROM (\n ${
+        unions.join('\n  UNION\n  ')
+      }\n) AS l)`, {
+        replacements,
         plain: true,
         type: QueryTypes.SELECT,
       },

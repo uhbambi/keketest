@@ -97,7 +97,7 @@ router.post('/preflight', (req, res) => {
         errors.push(t`We currently do not allow file uploads`);
       }
 
-      if (await checkUserQuotaReached(req.user?.id)) {
+      if (await checkUserQuotaReached(req.user?.id, req.ip?.ipString)) {
         allowUploads = false;
         errors.push(
           // eslint-disable-next-line max-len
