@@ -116,6 +116,12 @@ msgstr ""
 msgid "Badges"
 msgstr ""
 
+msgid "Ban Media"
+msgstr ""
+
+msgid "Ban media"
+msgstr ""
+
 msgid "Banned"
 msgstr "Tu Qedexeyî"
 
@@ -206,6 +212,9 @@ msgid "Change Password"
 msgstr "Şîfre biguherînin"
 
 msgid "Change your Mail Adress here:"
+msgstr ""
+
+msgid "Channel"
 msgstr ""
 
 msgid "Channel settings"
@@ -796,6 +805,9 @@ msgstr "Daneyên nexşeyê"
 
 msgid "Maximize"
 msgstr "Mezintirîn Bike"
+
+msgid "Media Actions"
+msgstr ""
 
 msgid "Minimum Color Distance"
 msgstr "Kêmtirîn Dûrahiya Rengê"
@@ -1461,6 +1473,9 @@ msgstr ""
 msgid "Type the characters from the following image:"
 msgstr "Tîpan ji wêneya jêr binivîse:"
 
+msgid "Unban media"
+msgstr ""
+
 msgid "Unblock Users"
 msgstr "Astengkirina Bikarhêneran"
 
@@ -1640,6 +1655,9 @@ msgstr ""
 
 msgid "You must enter a duration"
 msgstr "Divê hûn demek binivîsin"
+
+msgid "You must enter a mediaId or media BID"
+msgstr ""
 
 msgid "You must enter a reason"
 msgstr ""

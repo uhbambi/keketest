@@ -117,6 +117,12 @@ msgstr ""
 msgid "Badges"
 msgstr ""
 
+msgid "Ban Media"
+msgstr ""
+
+msgid "Ban media"
+msgstr ""
+
 msgid "Banned"
 msgstr "Баннат"
 
@@ -205,6 +211,9 @@ msgid "Change Password"
 msgstr "Промяна на паролата"
 
 msgid "Change your Mail Adress here:"
+msgstr ""
+
+msgid "Channel"
 msgstr ""
 
 msgid "Channel settings"
@@ -793,6 +802,9 @@ msgstr "Картографски данни"
 
 msgid "Maximize"
 msgstr "Максимизирай"
+
+msgid "Media Actions"
+msgstr ""
 
 msgid "Minimum Color Distance"
 msgstr "Минимална дължина между цветове"
@@ -1455,6 +1467,9 @@ msgstr ""
 msgid "Type the characters from the following image:"
 msgstr "Изпишете знаците от следното изображение:"
 
+msgid "Unban media"
+msgstr ""
+
 msgid "Unblock Users"
 msgstr "Отблокиране на потребители"
 
@@ -1636,6 +1651,9 @@ msgstr ""
 
 msgid "You must enter a duration"
 msgstr "Трябва да изберете продължителност"
+
+msgid "You must enter a mediaId or media BID"
+msgstr ""
 
 msgid "You must enter a reason"
 msgstr ""

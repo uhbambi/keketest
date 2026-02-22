@@ -117,6 +117,12 @@ msgstr ""
 msgid "Badges"
 msgstr ""
 
+msgid "Ban Media"
+msgstr ""
+
+msgid "Ban media"
+msgstr ""
+
 msgid "Banned"
 msgstr "Դուք արգելափակված եք"
 
@@ -208,6 +214,9 @@ msgid "Change Password"
 msgstr "Փոխել գաղտնաբառը"
 
 msgid "Change your Mail Adress here:"
+msgstr ""
+
+msgid "Channel"
 msgstr ""
 
 msgid "Channel settings"
@@ -800,6 +809,9 @@ msgstr "Քարտեզի տվյալներ"
 
 msgid "Maximize"
 msgstr "Առավելագույնի մեծացնել"
+
+msgid "Media Actions"
+msgstr ""
 
 msgid "Minimum Color Distance"
 msgstr "Նվազագույն գույների հեռավորություն"
@@ -1464,6 +1476,9 @@ msgstr ""
 msgid "Type the characters from the following image:"
 msgstr "Գրեք այն նշանները, որը տեսնում եք տվյալ նկարի մեջ."
 
+msgid "Unban media"
+msgstr ""
+
 msgid "Unblock Users"
 msgstr "Արգելափակումից հանել օգտատիրոջը"
 
@@ -1644,6 +1659,9 @@ msgstr ""
 
 msgid "You must enter a duration"
 msgstr "Դուք պետք է մուտքագրեք տևողություն"
+
+msgid "You must enter a mediaId or media BID"
+msgstr ""
 
 msgid "You must enter a reason"
 msgstr ""

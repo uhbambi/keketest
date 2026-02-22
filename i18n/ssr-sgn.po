@@ -153,7 +153,7 @@ msgstr ""
 #, javascript-format
 msgid ""
 "File ${ filename } has ${ sizeMB } MB and is too large. It may only be $"
-"{ maxSizeMB } MB"
+"{ MAX_FILE_SIZE_MB } MB"
 msgstr ""
 
 #, javascript-format
@@ -216,6 +216,12 @@ msgstr "🤞👇🤜✌️👍🤞🤚 🙌☝️👍 😔 👎👍🤙✌️�
 
 msgid "Just admins can do that"
 msgstr "✊🙌🖖👋 ✌️🤚👆🤞👇🖖 🤘✌️👇 🤚👌 👋🖐✌️👋"
+
+msgid "Just janny, mod or admin can do that"
+msgstr ""
+
+msgid "Just mods and admins can do that"
+msgstr ""
 
 msgid "Know that an account exists"
 msgstr ""
@@ -447,6 +453,10 @@ msgstr "🖖🙌👈👆🤞👋"
 msgid "Thanks"
 msgstr "👋🖐✌️👇👊🖖"
 
+#, javascript-format
+msgid "The file ${ filename } is banned ${ reason }. Ban ID: ${ mbid }"
+msgstr ""
+
 msgid "The user owning this badge is private"
 msgstr ""
 
@@ -485,22 +495,8 @@ msgstr ""
 msgid "This email provider is not allowed"
 msgstr "👋🖐🤞🖖 🤙👆✌️🤞👍 👎☝️👌🤜🤞🤚🤙☝️ 🤞🖖 👇👌👋 ✌️👍👍👌👐🤙🤚"
 
-msgid "This media is banned because it is propaganda"
-msgstr ""
-
-msgid "This media is banned for being an attempt to scam people"
-msgstr ""
-
-msgid "This media is banned for being degenerate"
-msgstr ""
-
-msgid "This media is banned for containing CSAM"
-msgstr ""
-
-msgid "This media is banned for containing graphic violence"
-msgstr ""
-
-msgid "This media is banned for glorifying terrorism"
+#, javascript-format
+msgid "This media is banned ${ reason }. Ban ID: ${ mbid }"
 msgstr ""
 
 msgid "This password-reset link isn't valid anymore :("
@@ -559,6 +555,9 @@ msgstr ""
 msgid ""
 "We already sent you a verification mail, you can request another one in $"
 "{ minLeft } minutes."
+msgstr ""
+
+msgid "We currently do not allow file uploads"
 msgstr ""
 
 #, javascript-format
@@ -660,6 +659,10 @@ msgstr ""
 msgid "You need to directly access this page in the browser :("
 msgstr ""
 
+#, javascript-format
+msgid "You reached your maximum upload quota of ${ MAX_USER_MEDIA_SIZE_MB } MB"
+msgstr ""
+
 msgid ""
 "You requested to get a new password. You can change your password within the "
 "next 30min here: "
@@ -699,6 +702,30 @@ msgstr ""
 
 msgid "Your passwords do not match :("
 msgstr "👏👌🙌☝️ 👎✌️🖖🖖👐👌☝️🤚🖖 🤚👌 👇👌👋 👆✌️👋🤘🖐 😔"
+
+#. This media is banned xyz
+msgid "because it is propaganda"
+msgstr ""
+
+#. This media is banned xyz
+msgid "for being an attempt to scam people"
+msgstr ""
+
+#. This media is banned xyz
+msgid "for being degenerate"
+msgstr ""
+
+#. This media is banned xyz
+msgid "for containing CSAM"
+msgstr ""
+
+#. This media is banned xyz
+msgid "for containing graphic violence"
+msgstr ""
+
+#. This media is banned xyz
+msgid "for glorifying terrorism"
+msgstr ""
 
 #. "redirect_uris" is a technical term and should not be translated
 msgid "redirect_uris does not look legit"

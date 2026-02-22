@@ -120,6 +120,12 @@ msgstr ""
 msgid "Badges"
 msgstr ""
 
+msgid "Ban Media"
+msgstr ""
+
+msgid "Ban media"
+msgstr ""
+
 msgid "Banned"
 msgstr "აკრძალული"
 
@@ -209,6 +215,9 @@ msgid "Change Password"
 msgstr "Პაროლის შეცვლა"
 
 msgid "Change your Mail Adress here:"
+msgstr ""
+
+msgid "Channel"
 msgstr ""
 
 msgid "Channel settings"
@@ -797,6 +806,9 @@ msgstr "რუკის მონაცემები"
 
 msgid "Maximize"
 msgstr "მაქსიმიზაცია"
+
+msgid "Media Actions"
+msgstr ""
 
 msgid "Minimum Color Distance"
 msgstr "მინიმალური ფერის მანძილი"
@@ -1458,6 +1470,9 @@ msgstr ""
 msgid "Type the characters from the following image:"
 msgstr "ჩაწერეთ სიმბოლოები შემდეგი სურათიდან:"
 
+msgid "Unban media"
+msgstr ""
+
 msgid "Unblock Users"
 msgstr "მომხმარებლების განბლოკვა"
 
@@ -1637,6 +1652,9 @@ msgstr ""
 
 msgid "You must enter a duration"
 msgstr "თქვენ უნდა შეიყვანოთ ხანგრძლივობა"
+
+msgid "You must enter a mediaId or media BID"
+msgstr ""
 
 msgid "You must enter a reason"
 msgstr ""

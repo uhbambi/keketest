@@ -110,6 +110,12 @@ msgstr "徽章显示"
 msgid "Badges"
 msgstr "徽章"
 
+msgid "Ban Media"
+msgstr ""
+
+msgid "Ban media"
+msgstr ""
+
 msgid "Banned"
 msgstr "已封禁"
 
@@ -201,6 +207,9 @@ msgstr "更改密码"
 
 msgid "Change your Mail Adress here:"
 msgstr "此处更改你的邮箱地址："
+
+msgid "Channel"
+msgstr ""
 
 msgid "Channel settings"
 msgstr "频道设置"
@@ -770,6 +779,9 @@ msgid "Map Data"
 msgstr ""
 
 msgid "Maximize"
+msgstr ""
+
+msgid "Media Actions"
 msgstr ""
 
 msgid "Minimum Color Distance"
@@ -1395,6 +1407,9 @@ msgstr ""
 msgid "Type the characters from the following image:"
 msgstr ""
 
+msgid "Unban media"
+msgstr ""
+
 msgid "Unblock Users"
 msgstr ""
 
@@ -1563,6 +1578,9 @@ msgid "You must enter a UserId"
 msgstr ""
 
 msgid "You must enter a duration"
+msgstr ""
+
+msgid "You must enter a mediaId or media BID"
 msgstr ""
 
 msgid "You must enter a reason"

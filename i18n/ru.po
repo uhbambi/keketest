@@ -123,6 +123,12 @@ msgstr "Отображение значков"
 msgid "Badges"
 msgstr "Значки"
 
+msgid "Ban Media"
+msgstr ""
+
+msgid "Ban media"
+msgstr ""
+
 msgid "Banned"
 msgstr "Забанен"
 
@@ -217,6 +223,9 @@ msgstr "Изменить пароль"
 
 msgid "Change your Mail Adress here:"
 msgstr "Измените ваш адрес почты здесь:"
+
+msgid "Channel"
+msgstr ""
 
 msgid "Channel settings"
 msgstr "Настройки канала"
@@ -822,6 +831,9 @@ msgstr "Картографические данные"
 
 msgid "Maximize"
 msgstr "Увеличить"
+
+msgid "Media Actions"
+msgstr ""
 
 msgid "Minimum Color Distance"
 msgstr "Минимальное цветовое расстояние"
@@ -1496,6 +1508,9 @@ msgstr "Тип модератора"
 msgid "Type the characters from the following image:"
 msgstr "Введите символы с изображения:"
 
+msgid "Unban media"
+msgstr ""
+
 msgid "Unblock Users"
 msgstr "Разблокировать пользователей"
 
@@ -1684,6 +1699,9 @@ msgstr "Необходимо указать ID пользователя"
 
 msgid "You must enter a duration"
 msgstr "Необходимо указать продолжительность"
+
+msgid "You must enter a mediaId or media BID"
+msgstr ""
 
 msgid "You must enter a reason"
 msgstr "Необходимо указать причину"

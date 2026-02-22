@@ -119,6 +119,12 @@ msgstr "Medaljeviser"
 msgid "Badges"
 msgstr "Medaljer"
 
+msgid "Ban Media"
+msgstr ""
+
+msgid "Ban media"
+msgstr ""
+
 msgid "Banned"
 msgstr "Bannet"
 
@@ -211,6 +217,9 @@ msgstr "Skift Adgangskode"
 
 msgid "Change your Mail Adress here:"
 msgstr "Skift din Mail adresse her:"
+
+msgid "Channel"
+msgstr ""
 
 msgid "Channel settings"
 msgstr "Kanal indstillinger"
@@ -810,6 +819,9 @@ msgstr "Kort Data"
 
 msgid "Maximize"
 msgstr "Maximer"
+
+msgid "Media Actions"
+msgstr ""
 
 msgid "Minimum Color Distance"
 msgstr "Minimum Farve Afstand"
@@ -1473,6 +1485,9 @@ msgstr "Modtype"
 msgid "Type the characters from the following image:"
 msgstr "Skriv tegnene fra det følgene billede:"
 
+msgid "Unban media"
+msgstr ""
+
 msgid "Unblock Users"
 msgstr "Fjern Blokering af Brugere"
 
@@ -1661,6 +1676,9 @@ msgstr "Du skal angive en BrugerId"
 
 msgid "You must enter a duration"
 msgstr "Du skal angive en varighed"
+
+msgid "You must enter a mediaId or media BID"
+msgstr ""
 
 msgid "You must enter a reason"
 msgstr "Du skal angive en grund"

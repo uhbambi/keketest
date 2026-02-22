@@ -116,6 +116,12 @@ msgstr ""
 msgid "Badges"
 msgstr ""
 
+msgid "Ban Media"
+msgstr ""
+
+msgid "Ban media"
+msgstr ""
+
 msgid "Banned"
 msgstr "محظور"
 
@@ -204,6 +210,9 @@ msgid "Change Password"
 msgstr "تغير كلمة السر"
 
 msgid "Change your Mail Adress here:"
+msgstr ""
+
+msgid "Channel"
 msgstr ""
 
 msgid "Channel settings"
@@ -784,6 +793,9 @@ msgstr "بيانات الخريطة"
 
 msgid "Maximize"
 msgstr "تكبير"
+
+msgid "Media Actions"
+msgstr ""
 
 msgid "Minimum Color Distance"
 msgstr "الحد الأدنى لمسافة اللون"
@@ -1437,6 +1449,9 @@ msgstr ""
 msgid "Type the characters from the following image:"
 msgstr "اكتب الأحرف من الصورة التالية:"
 
+msgid "Unban media"
+msgstr ""
+
 msgid "Unblock Users"
 msgstr "إلغاء حظر المستخدمين"
 
@@ -1613,6 +1628,9 @@ msgstr ""
 
 msgid "You must enter a duration"
 msgstr "يجب عليك إدخال مدة"
+
+msgid "You must enter a mediaId or media BID"
+msgstr ""
 
 msgid "You must enter a reason"
 msgstr ""

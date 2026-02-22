@@ -122,6 +122,12 @@ msgstr ""
 msgid "Badges"
 msgstr ""
 
+msgid "Ban Media"
+msgstr ""
+
+msgid "Ban media"
+msgstr ""
+
 msgid "Banned"
 msgstr "Banned"
 
@@ -213,6 +219,9 @@ msgid "Change Password"
 msgstr "Liliu ʻa e Lea Fufuú"
 
 msgid "Change your Mail Adress here:"
+msgstr ""
+
+msgid "Channel"
 msgstr ""
 
 msgid "Channel settings"
@@ -816,6 +825,9 @@ msgstr "Fakamatala ki he mape"
 
 msgid "Maximize"
 msgstr "Fakalōloa e Taimi ʻ"
+
+msgid "Media Actions"
+msgstr ""
 
 msgid "Minimum Color Distance"
 msgstr "Mamaʻo siʻisiʻi taha ʻo e lanu"
@@ -1483,6 +1495,9 @@ msgstr ""
 msgid "Type the characters from the following image:"
 msgstr "Taipeʻi ʻa e ngaahi mataʻitohi mei he ʻimisi ko ʻeni:"
 
+msgid "Unban media"
+msgstr ""
+
 msgid "Unblock Users"
 msgstr "Taʻofi e kau fakaʻaongaʻi"
 
@@ -1669,6 +1684,9 @@ msgstr ""
 
 msgid "You must enter a duration"
 msgstr "Kuo pau ke ke fakahū ha taimi"
+
+msgid "You must enter a mediaId or media BID"
+msgstr ""
 
 msgid "You must enter a reason"
 msgstr ""

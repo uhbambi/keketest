@@ -120,6 +120,12 @@ msgstr "Insigno-Ekspozicio"
 msgid "Badges"
 msgstr "Insignoj"
 
+msgid "Ban Media"
+msgstr ""
+
+msgid "Ban media"
+msgstr ""
+
 msgid "Banned"
 msgstr "Malpermesita"
 
@@ -219,6 +225,9 @@ msgstr "Ŝanĝu Pasvorton"
 
 msgid "Change your Mail Adress here:"
 msgstr "Ŝanĝu vian retpoŝtadreson ĉi tie:"
+
+msgid "Channel"
+msgstr ""
 
 msgid "Channel settings"
 msgstr "Kanal' agordoj"
@@ -825,6 +834,9 @@ msgstr "Mapa Datumo"
 #, fuzzy
 msgid "Maximize"
 msgstr "maksimumigu"
+
+msgid "Media Actions"
+msgstr ""
 
 msgid "Minimum Color Distance"
 msgstr "Minimuma Kolordistanco"
@@ -1504,6 +1516,9 @@ msgstr "Tipo de Mod"
 msgid "Type the characters from the following image:"
 msgstr "Tajpu la signojn el la sekva bildo:"
 
+msgid "Unban media"
+msgstr ""
+
 msgid "Unblock Users"
 msgstr "Malblokigu Uzantojn"
 
@@ -1682,6 +1697,9 @@ msgid "You must enter a UserId"
 msgstr ""
 
 msgid "You must enter a duration"
+msgstr ""
+
+msgid "You must enter a mediaId or media BID"
 msgstr ""
 
 msgid "You must enter a reason"

@@ -117,6 +117,12 @@ msgstr ""
 msgid "Badges"
 msgstr ""
 
+msgid "Ban Media"
+msgstr ""
+
+msgid "Ban media"
+msgstr ""
+
 msgid "Banned"
 msgstr ""
 
@@ -213,6 +219,9 @@ msgid "Change Password"
 msgstr "Паролы Аивын"
 
 msgid "Change your Mail Adress here:"
+msgstr ""
+
+msgid "Channel"
 msgstr ""
 
 msgid "Channel settings"
@@ -804,6 +813,9 @@ msgstr "Карты Бæрæггæнæнтæ"
 #, fuzzy
 msgid "Maximize"
 msgstr "иуыл Стыр"
+
+msgid "Media Actions"
+msgstr ""
 
 msgid "Minimum Color Distance"
 msgstr ""
@@ -1466,6 +1478,9 @@ msgstr ""
 msgid "Type the characters from the following image:"
 msgstr "Символы бакæн иннæ сурæтимæ:"
 
+msgid "Unban media"
+msgstr ""
+
 msgid "Unblock Users"
 msgstr "Пайдагæнæжы Хъоды айс"
 
@@ -1648,6 +1663,9 @@ msgid "You must enter a UserId"
 msgstr ""
 
 msgid "You must enter a duration"
+msgstr ""
+
+msgid "You must enter a mediaId or media BID"
 msgstr ""
 
 msgid "You must enter a reason"

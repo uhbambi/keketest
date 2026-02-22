@@ -119,6 +119,12 @@ msgstr ""
 msgid "Badges"
 msgstr ""
 
+msgid "Ban Media"
+msgstr ""
+
+msgid "Ban media"
+msgstr ""
+
 msgid "Banned"
 msgstr "Prohibido"
 
@@ -208,6 +214,9 @@ msgid "Change Password"
 msgstr "Cambiar Contraseña"
 
 msgid "Change your Mail Adress here:"
+msgstr ""
+
+msgid "Channel"
 msgstr ""
 
 msgid "Channel settings"
@@ -798,6 +807,9 @@ msgstr "Información del Mapa"
 
 msgid "Maximize"
 msgstr "Maximizar"
+
+msgid "Media Actions"
+msgstr ""
 
 msgid "Minimum Color Distance"
 msgstr "Distancia mínima de color"
@@ -1464,6 +1476,9 @@ msgstr ""
 msgid "Type the characters from the following image:"
 msgstr "Escribe los caracteres de la siguiente imagen:"
 
+msgid "Unban media"
+msgstr ""
+
 msgid "Unblock Users"
 msgstr "Desbloquear Usuarios"
 
@@ -1645,6 +1660,9 @@ msgstr ""
 
 msgid "You must enter a duration"
 msgstr "Debes ingresar una duración"
+
+msgid "You must enter a mediaId or media BID"
+msgstr ""
 
 msgid "You must enter a reason"
 msgstr ""

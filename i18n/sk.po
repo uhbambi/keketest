@@ -111,6 +111,12 @@ msgstr ""
 msgid "Badges"
 msgstr ""
 
+msgid "Ban Media"
+msgstr ""
+
+msgid "Ban media"
+msgstr ""
+
 msgid "Banned"
 msgstr "Zabanovaný"
 
@@ -199,6 +205,9 @@ msgid "Change Password"
 msgstr "Zmeniť heslo"
 
 msgid "Change your Mail Adress here:"
+msgstr ""
+
+msgid "Channel"
 msgstr ""
 
 msgid "Channel settings"
@@ -786,6 +795,9 @@ msgstr "Mapové údaje"
 
 msgid "Maximize"
 msgstr "Maximalizovať"
+
+msgid "Media Actions"
+msgstr ""
 
 msgid "Minimum Color Distance"
 msgstr "Minimálna vzdialenosť farby"
@@ -1439,6 +1451,9 @@ msgstr ""
 msgid "Type the characters from the following image:"
 msgstr "Napíš písmenká z následujúceho obrázku:"
 
+msgid "Unban media"
+msgstr ""
+
 msgid "Unblock Users"
 msgstr "Odblokovať uživatelov"
 
@@ -1615,6 +1630,9 @@ msgstr ""
 
 msgid "You must enter a duration"
 msgstr "Musíš zadať trvanie"
+
+msgid "You must enter a mediaId or media BID"
+msgstr ""
 
 msgid "You must enter a reason"
 msgstr ""

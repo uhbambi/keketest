@@ -120,6 +120,12 @@ msgstr ""
 msgid "Badges"
 msgstr ""
 
+msgid "Ban Media"
+msgstr ""
+
+msgid "Ban media"
+msgstr ""
+
 msgid "Banned"
 msgstr ""
 
@@ -216,6 +222,9 @@ msgid "Change Password"
 msgstr "Spremeni Geslo"
 
 msgid "Change your Mail Adress here:"
+msgstr ""
+
+msgid "Channel"
 msgstr ""
 
 msgid "Channel settings"
@@ -811,6 +820,9 @@ msgstr "Podatki Zemljevida"
 #, fuzzy
 msgid "Maximize"
 msgstr "maksimiraj"
+
+msgid "Media Actions"
+msgstr ""
 
 msgid "Minimum Color Distance"
 msgstr ""
@@ -1477,6 +1489,9 @@ msgstr ""
 msgid "Type the characters from the following image:"
 msgstr "Vnesite znake iz naslednje slike:"
 
+msgid "Unban media"
+msgstr ""
+
 msgid "Unblock Users"
 msgstr "Odblokirajte Uporabnike"
 
@@ -1659,6 +1674,9 @@ msgid "You must enter a UserId"
 msgstr ""
 
 msgid "You must enter a duration"
+msgstr ""
+
+msgid "You must enter a mediaId or media BID"
 msgstr ""
 
 msgid "You must enter a reason"

@@ -119,6 +119,12 @@ msgstr "Белги көрсөтүү"
 msgid "Badges"
 msgstr "Белгилер"
 
+msgid "Ban Media"
+msgstr ""
+
+msgid "Ban media"
+msgstr ""
+
 msgid "Banned"
 msgstr "Бан"
 
@@ -212,6 +218,9 @@ msgstr "Сырсөздү өзгөртүү"
 
 msgid "Change your Mail Adress here:"
 msgstr "Почта дарегиңизди бул жерден өзгөртүңүз:"
+
+msgid "Channel"
+msgstr ""
 
 msgid "Channel settings"
 msgstr "Каналдын жөндөөлөрү"
@@ -799,6 +808,9 @@ msgstr "Карта маалыматтары"
 
 msgid "Maximize"
 msgstr "­Максималдуу кылуу"
+
+msgid "Media Actions"
+msgstr ""
 
 msgid "Minimum Color Distance"
 msgstr ""
@@ -1444,6 +1456,9 @@ msgstr ""
 msgid "Type the characters from the following image:"
 msgstr ""
 
+msgid "Unban media"
+msgstr ""
+
 msgid "Unblock Users"
 msgstr ""
 
@@ -1617,6 +1632,9 @@ msgid "You must enter a UserId"
 msgstr ""
 
 msgid "You must enter a duration"
+msgstr ""
+
+msgid "You must enter a mediaId or media BID"
 msgstr ""
 
 msgid "You must enter a reason"

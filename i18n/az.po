@@ -118,6 +118,12 @@ msgstr ""
 msgid "Badges"
 msgstr ""
 
+msgid "Ban Media"
+msgstr ""
+
+msgid "Ban media"
+msgstr ""
+
 msgid "Banned"
 msgstr "Banlandın"
 
@@ -207,6 +213,9 @@ msgid "Change Password"
 msgstr "Şifrəni dəyişdirin"
 
 msgid "Change your Mail Adress here:"
+msgstr ""
+
+msgid "Channel"
 msgstr ""
 
 msgid "Channel settings"
@@ -795,6 +804,9 @@ msgstr "Xəritə Qaynağı"
 
 msgid "Maximize"
 msgstr "Maksimallaşdır"
+
+msgid "Media Actions"
+msgstr ""
 
 msgid "Minimum Color Distance"
 msgstr "Minimum rəng məsafəsi"
@@ -1460,6 +1472,9 @@ msgstr ""
 msgid "Type the characters from the following image:"
 msgstr "Şəkildə gördüyünüz simvolları daxil edin:"
 
+msgid "Unban media"
+msgstr ""
+
 msgid "Unblock Users"
 msgstr "İstifadəçinin blokunu aç"
 
@@ -1639,6 +1654,9 @@ msgstr ""
 
 msgid "You must enter a duration"
 msgstr "Bir müddət daxil etməlisiniz"
+
+msgid "You must enter a mediaId or media BID"
+msgstr ""
 
 msgid "You must enter a reason"
 msgstr ""

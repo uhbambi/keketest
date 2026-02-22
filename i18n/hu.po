@@ -119,6 +119,12 @@ msgstr ""
 msgid "Badges"
 msgstr ""
 
+msgid "Ban Media"
+msgstr ""
+
+msgid "Ban media"
+msgstr ""
+
 msgid "Banned"
 msgstr "Kitiltva"
 
@@ -210,6 +216,9 @@ msgid "Change Password"
 msgstr "Jelszó megváltoztatása"
 
 msgid "Change your Mail Adress here:"
+msgstr ""
+
+msgid "Channel"
 msgstr ""
 
 msgid "Channel settings"
@@ -796,6 +805,9 @@ msgstr "Térkép adatok"
 
 msgid "Maximize"
 msgstr "Maximalizálás"
+
+msgid "Media Actions"
+msgstr ""
 
 msgid "Minimum Color Distance"
 msgstr "Minimális színtartomány"
@@ -1464,6 +1476,9 @@ msgstr ""
 msgid "Type the characters from the following image:"
 msgstr "Írd be az alábbi képen látható karaktereket:"
 
+msgid "Unban media"
+msgstr ""
+
 msgid "Unblock Users"
 msgstr "Felhasználók letiltásának feloldása"
 
@@ -1645,6 +1660,9 @@ msgstr ""
 
 msgid "You must enter a duration"
 msgstr "Meg kell adnod egy időtartamot"
+
+msgid "You must enter a mediaId or media BID"
+msgstr ""
 
 msgid "You must enter a reason"
 msgstr ""

@@ -117,6 +117,12 @@ msgstr ""
 msgid "Badges"
 msgstr ""
 
+msgid "Ban Media"
+msgstr ""
+
+msgid "Ban media"
+msgstr ""
+
 msgid "Banned"
 msgstr "بن شدی سید، بهت گفتیم یاهود بازی در نیار"
 
@@ -207,6 +213,9 @@ msgid "Change Password"
 msgstr "پسوردت رو عوض کن"
 
 msgid "Change your Mail Adress here:"
+msgstr ""
+
+msgid "Channel"
 msgstr ""
 
 msgid "Channel settings"
@@ -801,6 +810,9 @@ msgstr "اطلاعات نقشه"
 
 msgid "Maximize"
 msgstr "به حداکثر برسون"
+
+msgid "Media Actions"
+msgstr ""
 
 msgid "Minimum Color Distance"
 msgstr "حداقل فاصله رنگ"
@@ -1461,6 +1473,9 @@ msgstr ""
 msgid "Type the characters from the following image:"
 msgstr "چیز میزایی که توی این عکس هست رو توی باکس بنویس:"
 
+msgid "Unban media"
+msgstr ""
+
 msgid "Unblock Users"
 msgstr "کاربران رو غیر مسدود کن"
 
@@ -1646,6 +1661,9 @@ msgstr ""
 
 msgid "You must enter a duration"
 msgstr "باید مدت زمان را وارد کنید"
+
+msgid "You must enter a mediaId or media BID"
+msgstr ""
 
 msgid "You must enter a reason"
 msgstr ""

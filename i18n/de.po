@@ -121,6 +121,12 @@ msgstr "Abzeichen-Anzeige"
 msgid "Badges"
 msgstr "Abzeichen"
 
+msgid "Ban Media"
+msgstr ""
+
+msgid "Ban media"
+msgstr ""
+
 msgid "Banned"
 msgstr "Gebannt"
 
@@ -214,6 +220,9 @@ msgstr "Passwort ändern"
 
 msgid "Change your Mail Adress here:"
 msgstr "Hier können Sie Ihre E-Mail-Adresse ändern:"
+
+msgid "Channel"
+msgstr ""
 
 msgid "Channel settings"
 msgstr "Kanal Einstellungen"
@@ -820,6 +829,9 @@ msgstr "Karten Dateien"
 
 msgid "Maximize"
 msgstr "Maximieren"
+
+msgid "Media Actions"
+msgstr ""
 
 msgid "Minimum Color Distance"
 msgstr "Minimum Farb Distanz"
@@ -1493,6 +1505,9 @@ msgstr "Typ des Moderators"
 msgid "Type the characters from the following image:"
 msgstr "Gebe die Zeichen aus dem folgenden Bild ein:"
 
+msgid "Unban media"
+msgstr ""
+
 msgid "Unblock Users"
 msgstr "Entblocke Spieler"
 
@@ -1680,6 +1695,9 @@ msgstr "Eine Benutzer ID muss angegeben werden"
 
 msgid "You must enter a duration"
 msgstr "Du musst eine Dauer angeben"
+
+msgid "You must enter a mediaId or media BID"
+msgstr ""
 
 msgid "You must enter a reason"
 msgstr "Keinen Grund angegeben"

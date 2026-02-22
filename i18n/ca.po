@@ -119,6 +119,12 @@ msgstr "Visualització d'Insígnies"
 msgid "Badges"
 msgstr "Insígnies"
 
+msgid "Ban Media"
+msgstr ""
+
+msgid "Ban media"
+msgstr ""
+
 msgid "Banned"
 msgstr "Banejat"
 
@@ -212,6 +218,9 @@ msgstr "Canvia la Contrasenya"
 
 msgid "Change your Mail Adress here:"
 msgstr "Canvia la teva Adreça de Correu aquí:"
+
+msgid "Channel"
+msgstr ""
 
 msgid "Channel settings"
 msgstr "Configuració del canal"
@@ -817,6 +826,9 @@ msgstr "Dades del Mapa"
 
 msgid "Maximize"
 msgstr "Maximitza"
+
+msgid "Media Actions"
+msgstr ""
 
 msgid "Minimum Color Distance"
 msgstr "Distància de Color Mínima"
@@ -1495,6 +1507,9 @@ msgstr "Tipus de Moderador"
 msgid "Type the characters from the following image:"
 msgstr "Escriu els caràcters de la següent imatge:"
 
+msgid "Unban media"
+msgstr ""
+
 msgid "Unblock Users"
 msgstr "Desbloqueja Usuaris"
 
@@ -1682,6 +1697,9 @@ msgstr "Has d'introduir una ID d'Usuari"
 
 msgid "You must enter a duration"
 msgstr "Has d'introduir una durada"
+
+msgid "You must enter a mediaId or media BID"
+msgstr ""
 
 msgid "You must enter a reason"
 msgstr "Has d'introduir una raó"

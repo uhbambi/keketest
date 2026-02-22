@@ -119,6 +119,12 @@ msgstr ""
 msgid "Badges"
 msgstr ""
 
+msgid "Ban Media"
+msgstr ""
+
+msgid "Ban media"
+msgstr ""
+
 msgid "Banned"
 msgstr "Бұғатталғансыз"
 
@@ -208,6 +214,9 @@ msgid "Change Password"
 msgstr "Құпиясөзді өзгерту"
 
 msgid "Change your Mail Adress here:"
+msgstr ""
+
+msgid "Channel"
 msgstr ""
 
 msgid "Channel settings"
@@ -792,6 +801,9 @@ msgstr "Карта деректері"
 
 msgid "Maximize"
 msgstr "Шегіне дейін үлкейту"
+
+msgid "Media Actions"
+msgstr ""
 
 msgid "Minimum Color Distance"
 msgstr "Түстер арасындағы ең аз қашықтық"
@@ -1457,6 +1469,9 @@ msgstr ""
 msgid "Type the characters from the following image:"
 msgstr "Мына суреттегі таңбаларды енгізіңіз:"
 
+msgid "Unban media"
+msgstr ""
+
 msgid "Unblock Users"
 msgstr "Қолданушы блоктаудан шығару"
 
@@ -1636,6 +1651,9 @@ msgstr ""
 
 msgid "You must enter a duration"
 msgstr "Мерзімін енгізуіңіз қажет"
+
+msgid "You must enter a mediaId or media BID"
+msgstr ""
 
 msgid "You must enter a reason"
 msgstr ""

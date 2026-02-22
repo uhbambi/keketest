@@ -119,6 +119,12 @@ msgstr ""
 msgid "Badges"
 msgstr ""
 
+msgid "Ban Media"
+msgstr ""
+
+msgid "Ban media"
+msgstr ""
+
 msgid "Banned"
 msgstr "Wënëkóny"
 
@@ -209,6 +215,9 @@ msgid "Change Password"
 msgstr "Spòleznowé nastôwë"
 
 msgid "Change your Mail Adress here:"
+msgstr ""
+
+msgid "Channel"
 msgstr ""
 
 msgid "Channel settings"
@@ -799,6 +808,9 @@ msgstr "Dóné kôrtë"
 
 msgid "Maximize"
 msgstr "Zmaksymalizuj"
+
+msgid "Media Actions"
+msgstr ""
 
 msgid "Minimum Color Distance"
 msgstr "Minimalnô dôlëzna farwów"
@@ -1463,6 +1475,9 @@ msgstr ""
 msgid "Type the characters from the following image:"
 msgstr "Wëpiszë merczi z tegò wej òbrôzka:"
 
+msgid "Unban media"
+msgstr ""
+
 msgid "Unblock Users"
 msgstr "Òdblokùj brëkòwników"
 
@@ -1644,6 +1659,9 @@ msgstr ""
 
 msgid "You must enter a duration"
 msgstr "Mùszisz wprowadzëc czas derowaniô"
+
+msgid "You must enter a mediaId or media BID"
+msgstr ""
 
 msgid "You must enter a reason"
 msgstr ""

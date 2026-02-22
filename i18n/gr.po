@@ -122,6 +122,12 @@ msgstr "Παρουσίαση Εμβλημάτων"
 msgid "Badges"
 msgstr "Εμβλήματα"
 
+msgid "Ban Media"
+msgstr ""
+
+msgid "Ban media"
+msgstr ""
+
 msgid "Banned"
 msgstr "Αποκλείστηκες"
 
@@ -216,6 +222,9 @@ msgstr "Άλλαξτε κωδικό"
 
 msgid "Change your Mail Adress here:"
 msgstr "Άλλαξε το mail address σου εδώ:"
+
+msgid "Channel"
+msgstr ""
 
 msgid "Channel settings"
 msgstr "Ρυθμίσεις καναλιού"
@@ -826,6 +835,9 @@ msgstr "Δεδομένα χάρτη"
 
 msgid "Maximize"
 msgstr "Αύξηση ανώτερου βαθμού"
+
+msgid "Media Actions"
+msgstr ""
 
 msgid "Minimum Color Distance"
 msgstr "Επιλέχθηκε μη έγκυρο χρώμα"
@@ -1492,6 +1504,9 @@ msgstr ""
 msgid "Type the characters from the following image:"
 msgstr "Πληκτρολογήστε τους χαρακτήρες από την παρακάτω εικόνα:"
 
+msgid "Unban media"
+msgstr ""
+
 msgid "Unblock Users"
 msgstr "Ξεμπλοκάρισμα χρηστών"
 
@@ -1676,6 +1691,9 @@ msgstr ""
 
 msgid "You must enter a duration"
 msgstr "Πρέπει να εισαγάγετε μια διάρκεια"
+
+msgid "You must enter a mediaId or media BID"
+msgstr ""
 
 msgid "You must enter a reason"
 msgstr ""

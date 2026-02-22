@@ -121,6 +121,12 @@ msgstr "Afișare insigne"
 msgid "Badges"
 msgstr "Insigne"
 
+msgid "Ban Media"
+msgstr ""
+
+msgid "Ban media"
+msgstr ""
+
 msgid "Banned"
 msgstr "Banat"
 
@@ -215,6 +221,9 @@ msgstr "Schimbă Parola"
 
 msgid "Change your Mail Adress here:"
 msgstr "Schimbă-ți adresa de Mail aici:"
+
+msgid "Channel"
+msgstr ""
 
 msgid "Channel settings"
 msgstr "Setări de Canal"
@@ -813,6 +822,9 @@ msgstr "Dată de hartă"
 
 msgid "Maximize"
 msgstr "Maximizează"
+
+msgid "Media Actions"
+msgstr ""
 
 msgid "Minimum Color Distance"
 msgstr "Distanța Minimă de Culoare"
@@ -1480,6 +1492,9 @@ msgstr "Tipul de mod"
 msgid "Type the characters from the following image:"
 msgstr "Scrie literele din imaginea următoare:"
 
+msgid "Unban media"
+msgstr ""
+
 msgid "Unblock Users"
 msgstr "Deblochează Utilizatori"
 
@@ -1664,6 +1679,9 @@ msgstr "Trebuie să introduci un UserId"
 
 msgid "You must enter a duration"
 msgstr "Trebuie să pui o durată"
+
+msgid "You must enter a mediaId or media BID"
+msgstr ""
 
 msgid "You must enter a reason"
 msgstr "Trebuie să introduci un motiv"

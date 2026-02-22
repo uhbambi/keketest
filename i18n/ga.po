@@ -119,6 +119,12 @@ msgstr "Taispeántas Suaitheantais"
 msgid "Badges"
 msgstr "Suaitheantais"
 
+msgid "Ban Media"
+msgstr ""
+
+msgid "Ban media"
+msgstr ""
+
 msgid "Banned"
 msgstr "Cuirtear amach"
 
@@ -213,6 +219,9 @@ msgstr "Athraigh Pasfhocal"
 
 msgid "Change your Mail Adress here:"
 msgstr "Athraigh do Sheoladh Poist anseo:"
+
+msgid "Channel"
+msgstr ""
 
 msgid "Channel settings"
 msgstr "Socruithe cainéal"
@@ -816,6 +825,9 @@ msgstr "Sonraí Mhapa"
 
 msgid "Maximize"
 msgstr "Uasmhéid"
+
+msgid "Media Actions"
+msgstr ""
 
 msgid "Minimum Color Distance"
 msgstr "Fad Íosta Dathanna"
@@ -1483,6 +1495,9 @@ msgstr ""
 msgid "Type the characters from the following image:"
 msgstr "Clóscríobh na carachtair ón íomhá seo a leanas:"
 
+msgid "Unban media"
+msgstr ""
+
 msgid "Unblock Users"
 msgstr "Díbhlocáil Úsáideoirí"
 
@@ -1669,6 +1684,9 @@ msgid "You must enter a UserId"
 msgstr ""
 
 msgid "You must enter a duration"
+msgstr ""
+
+msgid "You must enter a mediaId or media BID"
 msgstr ""
 
 msgid "You must enter a reason"
