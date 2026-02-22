@@ -145,7 +145,6 @@ export default function chat(
       if (!state.messages[cid] || !state.channels[cid]) {
         return state;
       }
-      console.log('REC CHAT', messageArray);
       const messages = {
         ...state.messages,
         [cid]: [

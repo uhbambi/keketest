@@ -33,7 +33,6 @@ export { unbanMedia } from '../data/sql/MediaBan.js';
  * @param userIds Array of user ids
  */
 export function notifyUserIpChanges(ipStrings, userIds) {
-  console.log('NOTIFY', ipStrings, userIds);
   if (userIds) {
     if (Array.isArray(userIds)) {
       userIds.forEach((id) => socketEvents.reloadUser(id, true));

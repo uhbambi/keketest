@@ -99,7 +99,6 @@ export async function storeMessage(message, cid, uid) {
             transaction,
           },
         );
-        console.log('inserted', insertedRows);
         if (insertedRows > 0) {
           const models = await sequelize.query(
             // eslint-disable-next-line max-len
@@ -124,7 +123,6 @@ WHERE mm.sid = ?`, {
           }
         }
       }
-      console.log('attachments', attachments);
 
       await transaction.commit();
       return [id, attachments];

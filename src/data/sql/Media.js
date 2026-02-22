@@ -123,7 +123,6 @@ const Media = sequelize.define('Media', {
  */
 export async function deregisterMedia(shortId, extension) {
   try {
-    console.log(`MEDIA: deregister ${shortId} ${extension}`);
     await sequelize.query(
       'DELETE FROM Media WHERE shortId = ? AND extension = ?', {
         replacements: [shortId, extension],
@@ -376,7 +375,6 @@ export async function registerMedia(
           type: QueryTypes.SELECT,
         },
       );
-      console.log('roll', shortId);
     } while (exists);
     await sequelize.query(
       // eslint-disable-next-line max-len

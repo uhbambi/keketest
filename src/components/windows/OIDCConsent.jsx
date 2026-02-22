@@ -112,7 +112,6 @@ const OIDCConsent = () => {
       expirationHours,
       reauthToken: authReturn?.token,
     });
-    console.log('consent reply', errors, code);
     let urlParams;
     if (errors) {
       urlParams = {

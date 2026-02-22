@@ -640,7 +640,6 @@ export async function unban(
     const bans = await getBanInfos(
       ipStrings, userIds, ipUuids, banUuids, mute, ban,
     );
-    console.log('UNBAN', bans);
     if (!bans.length) {
       return [unbannedIpStrings, unbannedUserIds];
     }
@@ -658,8 +657,6 @@ export async function unban(
         }
       });
     });
-    console.log('UNBAN', unbannedIpStrings);
-    console.log('UNBAN', unbannedUserIds);
     return [unbannedIpStrings, unbannedUserIds];
   } catch (error) {
     console.error(`SQL Error on unban: ${error.message}`);

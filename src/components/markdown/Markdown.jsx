@@ -21,7 +21,6 @@ const Markdown = ({ text, mdArray, attachmentInfo, parseLinks = false }) => {
       return null;
     }
     mdArray = parse(text, { parseLinks });
-    console.log('parsed markdown', mdArray);
   }
 
   const markdown = mdArray.map((part) => {

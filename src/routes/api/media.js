@@ -37,7 +37,6 @@ router.post('/preflight', (req, res) => {
 
   bb.on('file', () => {
     if (!bb.destroyed) {
-      console.log('destroy bb');
       bb.destroy();
     }
     req.destroy();
@@ -116,7 +115,6 @@ router.post('/preflight', (req, res) => {
         const filename = decodeURIComponent(filenames[i]);
         const hash = hashes[i];
         const size = sizes[i];
-        console.log('preflight', filename, mimeType, hash, size);
 
         if (MAX_FILE_SIZE_MB && size > MAX_FILE_SIZE_MB * 1024 * 1024) {
           const sizeMB = Math.floor(size / 1024 / 102.4) / 10;
@@ -214,7 +212,6 @@ router.post('/preflight', (req, res) => {
 
 router.post('/upload', (req, res) => {
   req.tickRateLimiter(1000);
-  console.log('got upload');
   const { ttag: { t } } = req;
   const bb = busboy({ headers: req.headers });
 
@@ -315,18 +312,15 @@ router.post('/upload', (req, res) => {
        */
       res.on('finish', () => setTimeout(() => {
         if (!bb.destroyed) {
-          console.log('destroy bb');
           bb.destroy();
         }
         req.destroy();
       }, 500));
     }
-    console.log('send', data);
     res.json(data);
   };
 
   bb.on('file', async (name, fileStream, info) => {
-    console.log(`File [${name}]:`, info);
     if (name !== 'file') {
       if (!fileStream.destroyed) {
         fileStream.destroy();
@@ -353,7 +347,6 @@ router.post('/upload', (req, res) => {
         fileStream, info, req.user?.id, req.ip?.ipString,
       );
     } catch (error) {
-      console.log('storemediaerror', error.message);
       if (!fileStream.destroyed && !fileStream.closed) {
         fileStream.destroy();
       }
@@ -361,7 +354,6 @@ router.post('/upload', (req, res) => {
       return;
     }
 
-    console.log('push', model);
     availableFiles.push(model);
     if (!fileStream.closed) {
       fileStream.resume();

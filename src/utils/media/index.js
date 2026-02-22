@@ -94,12 +94,10 @@ function storeFileStream(fileStream, filePath) {
     fileStream.on('limit', cancel);
     writeStream.on('error', cancel);
 
-    fileStream.on('close', () => console.log('reading done'));
     writeStream.on('close', () => {
       if (ended) {
         return;
       }
-      console.log('writing done');
       ended = true;
       clearTimeout(timeout);
       resolve(totalSize);

@@ -9,7 +9,7 @@ let exiftoolProcess;
 let responseBuffer = '';
 
 function spawnExiftool(resultCallback) {
-  console.log('spawn exiftool');
+  console.log('Spawn exiftool');
   exiftoolProcess = spawn('exiftool', [
     '-stay_open', 'True', '-@', '-',
   ], {
