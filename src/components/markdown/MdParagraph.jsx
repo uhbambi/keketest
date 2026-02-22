@@ -28,25 +28,25 @@ const RecursiveMdParagraph = ({ pArray }) => pArray.map((part) => {
     case '*':
       return (
         <strong>
-          <MdParagraph pArray={part[1]} />
+          <RecursiveMdParagraph pArray={part[1]} />
         </strong>
       );
     case '~':
       return (
         <s>
-          <MdParagraph pArray={part[1]} />
+          <RecursiveMdParagraph pArray={part[1]} />
         </s>
       );
     case '+':
       return (
         <em>
-          <MdParagraph pArray={part[1]} />
+          <RecursiveMdParagraph pArray={part[1]} />
         </em>
       );
     case '_':
       return (
         <u>
-          <MdParagraph pArray={part[1]} />
+          <RecursiveMdParagraph pArray={part[1]} />
         </u>
       );
     case 'img':

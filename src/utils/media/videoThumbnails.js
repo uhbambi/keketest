@@ -14,6 +14,7 @@ export default async function createVideoThumbnails(
         '-i', filePath,
         '-ss', '00:00:01',
         '-vframes', '1',
+        '-c:v', 'libwebp',
         '-qscale:v', 80,
         '-compression_level', '6',
         '-f', 'webp',

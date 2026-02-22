@@ -42,7 +42,7 @@ const LocalMedia = ({
     let oType = gType;
 
     if (url) {
-      [oMediaId, oTitle] = getMediaDetailsFromUrl(url).map((u) => cdn`${u}`);
+      [oMediaId, oTitle] = getMediaDetailsFromUrl(url);
     }
     const oExtension = oMediaId?.substring(oMediaId.indexOf(':') + 1);
 
@@ -144,7 +144,7 @@ const LocalMedia = ({
       >
         <img
           alt={title}
-          src={thumbUrl}
+          src={cdn`${thumbUrl}`}
           loading="lazy"
           className="attachment"
           style={attachmentStyle}
@@ -173,7 +173,7 @@ const LocalMedia = ({
             return (
               <img
                 alt={title}
-                src={fullUrl}
+                src={cdn`${fullUrl}`}
                 className="attachment"
                 style={attachmentStyle}
                 referrerPolicy="no-referrer"
@@ -183,11 +183,11 @@ const LocalMedia = ({
           case 'video':
             return (
               <video
+                src={cdn`${fullUrl}`}
                 className="attachment"
                 style={attachmentStyle}
                 controls
                 autoPlay
-                src={fullUrl}
               />
             );
           default:
@@ -220,7 +220,7 @@ const LocalMedia = ({
           >🔨</span>
         )}
         <a
-          href={fullUrl}
+          href={cdn`${fullUrl}`}
           target="_blank"
           className="att-button"
           title={t`Download`}

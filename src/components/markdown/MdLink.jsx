@@ -61,11 +61,11 @@ const MdLink = ({ href, title }) => {
     const coords = uri.substring(2);
     if (isPopUp() && window.opener && !window.opener.closed) {
       return (
-        <a href={u`/${coords}`} target="main">{title || coords}</a>
+        <a href={u`/#${coords}`} target="main">{title || coords}</a>
       );
     }
     return (
-      <a href={u`/${coords}`}>{title || coords}</a>
+      <a href={u`/#${coords}`}>{title || coords}</a>
     );
   }
 

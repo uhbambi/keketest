@@ -386,7 +386,7 @@ class APISocketServer {
               avatarId,
               attachments,
               true,
-              ws = null,
+              ws,
             );
           }
         } catch {

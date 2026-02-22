@@ -199,6 +199,7 @@ const Chat = () => {
     <div
       ref={targetRef}
       className="chat-container"
+      key={chatChannel}
     >
       <ContextMenu
         type={cmArgs.type}
@@ -277,7 +278,7 @@ const Chat = () => {
             />
             <button
               className="sendbtn"
-              style={{ flexGrow: 0, width: 24 }}
+              style={{ flexGrow: 0, width: 32 }}
               type="submit"
             >
               ‣
