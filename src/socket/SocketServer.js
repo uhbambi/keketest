@@ -10,7 +10,6 @@ import Counter from '../utils/Counter.js';
 import {
   REG_CANVAS_OP,
   PIXEL_UPDATE_OP,
-  OLD_PIXEL_UPDATE_OP,
   REG_CHUNK_OP,
   REG_MCHUNKS_OP,
   DEREG_CHUNK_OP,
@@ -519,7 +518,7 @@ class SocketServer {
       const val = JSON.parse(text.slice(comma + 1));
       const { user } = ws;
       switch (key) {
-        case 'cm': {
+        case 'ck': {
           // chat message
           const message = val[0].trim();
           if (!user || !message) {
@@ -543,6 +542,13 @@ class SocketServer {
         case 'mr': {
           // malware evaluation
           await evaluateMalware(user, ws.ip, ...val);
+          break;
+        }
+        case 'cm': {
+          /*
+           * TODO only temporary for update notifications
+           */
+          ws.send(dehydrateRefresh());
           break;
         }
         default:
@@ -670,10 +676,6 @@ class SocketServer {
             }
           }
           ws.send(dehydrateFishCatched(false, 0, 0));
-          break;
-        }
-        case OLD_PIXEL_UPDATE_OP: {
-          ws.send(dehydrateRefresh());
           break;
         }
         default:

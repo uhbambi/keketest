@@ -25,7 +25,7 @@ msgid ""
 "ranking updates at 00:00 UTC."
 msgstr ""
 
-#: src/routes/api/media.js:239
+#: src/routes/api/media.js:287
 msgid "A file was too large"
 msgstr ""
 
@@ -73,7 +73,7 @@ msgstr ""
 msgid "Can not chat while being banned"
 msgstr ""
 
-#: src/routes/api/media.js:83
+#: src/routes/api/media.js:89
 #, javascript-format
 msgid ""
 "Can not upload this many files at once, only 5 are allowed, you have ${ "
@@ -125,7 +125,7 @@ msgstr ""
 msgid "Could not set your avtar"
 msgstr ""
 
-#: src/routes/api/media.js:243
+#: src/routes/api/media.js:291
 msgid "Could not upload all files"
 msgstr ""
 
@@ -192,19 +192,19 @@ msgstr ""
 msgid "Failed to create a new user :("
 msgstr ""
 
-#: src/routes/api/media.js:102
+#: src/routes/api/media.js:123
 #, javascript-format
 msgid ""
 "File ${ filename } has ${ sizeMB } MB and is too large. It may only be ${ "
-"maxSizeMB } MB"
+"MAX_FILE_SIZE_MB } MB"
 msgstr ""
 
-#: src/routes/api/media.js:114
+#: src/routes/api/media.js:135
 #, javascript-format
 msgid "File ${ filename } has an invalid extension"
 msgstr ""
 
-#: src/routes/api/media.js:229
+#: src/routes/api/media.js:277
 msgid "File is broken"
 msgstr ""
 
@@ -261,7 +261,7 @@ msgstr ""
 msgid "Incorrect password!"
 msgstr ""
 
-#: src/routes/api/media.js:226
+#: src/routes/api/media.js:267
 msgid "Invalid type of media"
 msgstr ""
 
@@ -269,9 +269,16 @@ msgstr ""
 msgid "Invalid url :( Please check your mail again."
 msgstr ""
 
-#: src/routes/api/modtools.js:180
-#: src/routes/api/modtools.js:304
+#: src/routes/api/modtools.js:340
 msgid "Just admins can do that"
+msgstr ""
+
+#: src/routes/api/modtools.js:119
+msgid "Just janny, mod or admin can do that"
+msgstr ""
+
+#: src/routes/api/modtools.js:217
+msgid "Just mods and admins can do that"
 msgstr ""
 
 #: src/routes/oidc/register.js:141
@@ -310,11 +317,11 @@ msgstr ""
 msgid "Mail verification"
 msgstr ""
 
-#: src/routes/api/media.js:223
+#: src/routes/api/media.js:264
 msgid "MimeType or extension not known or supported"
 msgstr ""
 
-#: src/routes/api/media.js:109
+#: src/routes/api/media.js:130
 #, javascript-format
 msgid "Mimetype ${ mimeType } of file ${ filename } is invalid or not allowed"
 msgstr ""
@@ -379,7 +386,7 @@ msgstr ""
 msgid "No Captcha given"
 msgstr ""
 
-#: src/routes/api/media.js:220
+#: src/routes/api/media.js:261
 msgid "No file metadata given"
 msgstr ""
 
@@ -511,7 +518,7 @@ msgstr ""
 msgid "Regularly update this data"
 msgstr ""
 
-#: src/routes/api/media.js:236
+#: src/routes/api/media.js:284
 msgid "Request stalled"
 msgstr ""
 
@@ -532,11 +539,11 @@ msgstr ""
 msgid "Reset your password here"
 msgstr ""
 
-#: src/routes/api/media.js:232
+#: src/routes/api/media.js:280
 msgid "Server Eror"
 msgstr ""
 
-#: src/routes/api/media.js:130
+#: src/routes/api/media.js:168
 msgid "Server Error"
 msgstr ""
 
@@ -585,6 +592,11 @@ msgstr ""
 #: src/core/MailProvider.js:110
 #: src/core/MailProvider.js:140
 msgid "Thanks"
+msgstr ""
+
+#: src/utils/media/serverUtils.js:156
+#, javascript-format
+msgid "The file ${ filename } is banned ${ reason }. Ban ID: ${ mbid }"
 msgstr ""
 
 #: src/routes/api/badge.js:25
@@ -637,28 +649,9 @@ msgstr ""
 msgid "This email provider is not allowed"
 msgstr ""
 
-#: src/routes/api/media.js:265
-msgid "This media is banned because it is propaganda"
-msgstr ""
-
-#: src/routes/api/media.js:259
-msgid "This media is banned for being an attempt to scam people"
-msgstr ""
-
-#: src/routes/api/media.js:256
-msgid "This media is banned for being degenerate"
-msgstr ""
-
-#: src/routes/api/media.js:253
-msgid "This media is banned for containing CSAM"
-msgstr ""
-
-#: src/routes/api/media.js:250
-msgid "This media is banned for containing graphic violence"
-msgstr ""
-
-#: src/routes/api/media.js:262
-msgid "This media is banned for glorifying terrorism"
+#: src/utils/media/serverUtils.js:158
+#, javascript-format
+msgid "This media is banned ${ reason }. Ban ID: ${ mbid }"
 msgstr ""
 
 #: src/routes/reset_password.js:48
@@ -678,8 +671,8 @@ msgstr ""
 msgid "Unknown Captcha Error"
 msgstr ""
 
-#: src/routes/api/media.js:301
-#: src/routes/api/media.js:342
+#: src/routes/api/media.js:328
+#: src/routes/api/media.js:369
 #, javascript-format
 msgid "Unknown field ${ name } in request"
 msgstr ""
@@ -733,6 +726,11 @@ msgid ""
 "minLeft } minutes."
 msgstr ""
 
+#: src/routes/api/media.js:96
+#: src/routes/api/media.js:270
+msgid "We currently do not allow file uploads"
+msgstr ""
+
 #: src/core/MailProvider.js:70
 #, javascript-format
 msgid "Welcome ${ name } to PixelPlanet, please verify your mail"
@@ -760,7 +758,7 @@ msgstr ""
 msgid "You are muted for another ${ ttl } seconds"
 msgstr ""
 
-#: src/routes/api/modtools.js:75
+#: src/routes/api/modtools.js:76
 msgid "You are not allowed to access this page"
 msgstr ""
 
@@ -769,7 +767,7 @@ msgid "You are not banned"
 msgstr ""
 
 #: src/middleware/session.js:219
-#: src/routes/api/modtools.js:66
+#: src/routes/api/modtools.js:67
 msgid "You are not logged in"
 msgstr ""
 
@@ -816,7 +814,7 @@ msgstr ""
 msgid "You can't send a message this long :("
 msgstr ""
 
-#: src/routes/api/media.js:77
+#: src/routes/api/media.js:83
 msgid "You did not provide all neccessary information"
 msgstr ""
 
@@ -853,6 +851,12 @@ msgstr ""
 
 #: src/routes/reset_password.js:29
 msgid "You need to directly access this page in the browser :("
+msgstr ""
+
+#: src/routes/api/media.js:103
+#: src/routes/api/media.js:274
+#, javascript-format
+msgid "You reached your maximum upload quota of ${ MAX_USER_MEDIA_SIZE_MB } MB"
 msgstr ""
 
 #: src/core/MailProvider.js:138
@@ -897,6 +901,36 @@ msgstr ""
 
 #: src/routes/reset_password.js:57
 msgid "Your passwords do not match :("
+msgstr ""
+
+#: src/utils/media/serverUtils.js:150
+#. This media is banned xyz
+msgid "because it is propaganda"
+msgstr ""
+
+#: src/utils/media/serverUtils.js:142
+#. This media is banned xyz
+msgid "for being an attempt to scam people"
+msgstr ""
+
+#: src/utils/media/serverUtils.js:138
+#. This media is banned xyz
+msgid "for being degenerate"
+msgstr ""
+
+#: src/utils/media/serverUtils.js:134
+#. This media is banned xyz
+msgid "for containing CSAM"
+msgstr ""
+
+#: src/utils/media/serverUtils.js:130
+#. This media is banned xyz
+msgid "for containing graphic violence"
+msgstr ""
+
+#: src/utils/media/serverUtils.js:146
+#. This media is banned xyz
+msgid "for glorifying terrorism"
 msgstr ""
 
 #: src/routes/oidc/register.js:83

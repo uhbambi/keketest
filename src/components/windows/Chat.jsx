@@ -119,7 +119,7 @@ const Chat = () => {
   useEffect(() => {
     if (channels[chatChannel]) {
       const channelName = channels[chatChannel][0];
-      setTitle(`Chan: ${channelName}`);
+      setTitle(`${t`Channel`}: ${channelName}`);
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [chatChannel, channels]);
@@ -159,7 +159,7 @@ const Chat = () => {
         (i) => `$[${escapeMd(i.name)}](${i.shortId}:${i.extension})`,
       ).join(' ');
       if (attachments) {
-        inptMsg = `${attachments} ${inptMsg}`;
+        inptMsg = `${inptMsg} ${attachments}`;
       }
     }
     if (!inptMsg) return;

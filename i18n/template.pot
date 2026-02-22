@@ -133,6 +133,14 @@ msgstr ""
 msgid "Badges"
 msgstr ""
 
+#: src/components/embeds/LocalMedia.jsx:218
+msgid "Ban Media"
+msgstr ""
+
+#: src/components/ModMediatools.jsx:83
+msgid "Ban media"
+msgstr ""
+
 #: src/ui/PixelTransferController.js:155
 msgid "Banned"
 msgstr ""
@@ -141,7 +149,7 @@ msgstr ""
 msgid "Banned? Detected as Proxy?"
 msgstr ""
 
-#: src/components/contextmenus/UserContextMenu.jsx:86
+#: src/components/contextmenus/UserContextMenu.jsx:85
 msgid "Block"
 msgstr ""
 
@@ -267,7 +275,11 @@ msgstr ""
 msgid "Change your Mail Adress here:"
 msgstr ""
 
-#: src/components/windows/Chat.jsx:329
+#: src/components/windows/Chat.jsx:122
+msgid "Channel"
+msgstr ""
+
+#: src/components/windows/Chat.jsx:332
 msgid "Channel settings"
 msgstr ""
 
@@ -280,7 +292,7 @@ msgstr ""
 msgid "Chat"
 msgstr ""
 
-#: src/components/windows/Chat.jsx:267
+#: src/components/windows/Chat.jsx:270
 msgid "Chat here"
 msgstr ""
 
@@ -288,7 +300,7 @@ msgstr ""
 msgid "Check out past versions of the canvas."
 msgstr ""
 
-#: src/components/windows/OIDCConsent.jsx:242
+#: src/components/windows/OIDCConsent.jsx:241
 msgid "Check to allow"
 msgstr ""
 
@@ -371,7 +383,7 @@ msgstr ""
 #: src/components/ModCanvastools.jsx:230
 #: src/components/ModWatchtools.jsx:128
 #: src/components/Window.jsx:256
-#: src/components/contextmenus/ChannelContextMenu.jsx:59
+#: src/components/contextmenus/ChannelContextMenu.jsx:58
 msgid "Close"
 msgstr ""
 
@@ -406,7 +418,7 @@ msgstr ""
 msgid "Connection error ${ code } :("
 msgstr ""
 
-#: src/components/windows/OIDCConsent.jsx:230
+#: src/components/windows/OIDCConsent.jsx:229
 msgid "Consent"
 msgstr ""
 
@@ -542,7 +554,7 @@ msgstr ""
 msgid "Custom Flag"
 msgstr ""
 
-#: src/components/contextmenus/UserContextMenu.jsx:75
+#: src/components/contextmenus/UserContextMenu.jsx:74
 msgid "DM"
 msgstr ""
 
@@ -574,8 +586,8 @@ msgstr ""
 msgid "Delete Account"
 msgstr ""
 
-#: src/components/windows/OIDCConsent.jsx:279
-#: src/components/windows/OIDCConsent.jsx:317
+#: src/components/windows/OIDCConsent.jsx:278
+#: src/components/windows/OIDCConsent.jsx:316
 msgid "Deny"
 msgstr ""
 
@@ -616,7 +628,7 @@ msgstr ""
 msgid "Do stuff with IPs (one IP per line)"
 msgstr ""
 
-#: src/components/windows/OIDCConsent.jsx:266
+#: src/components/windows/OIDCConsent.jsx:265
 msgid "Don't remember"
 msgstr ""
 
@@ -624,7 +636,7 @@ msgstr ""
 msgid "Don't show me in global stats"
 msgstr ""
 
-#: src/components/embeds/LocalMedia.jsx:127
+#: src/components/embeds/LocalMedia.jsx:226
 msgid "Download"
 msgstr ""
 
@@ -730,7 +742,7 @@ msgstr ""
 #: src/components/LogInForm.jsx:387
 #: src/components/windows/BadgeDisplay.jsx:39
 #: src/components/windows/FishDisplay.jsx:40
-#: src/components/windows/OIDCConsent.jsx:295
+#: src/components/windows/OIDCConsent.jsx:294
 msgid "Error"
 msgstr ""
 
@@ -781,25 +793,25 @@ msgid ""
 "relevant traces. Your placed pixels will of course not be deleted."
 msgstr ""
 
-#: src/components/windows/OIDCConsent.jsx:267
+#: src/components/windows/OIDCConsent.jsx:266
 msgid "For one day"
 msgstr ""
 
 #: src/components/LogInForm.jsx:223
 #: src/components/LogInForm.jsx:374
-#: src/components/windows/OIDCConsent.jsx:269
+#: src/components/windows/OIDCConsent.jsx:268
 msgid "For one month"
 msgstr ""
 
 #: src/components/LogInForm.jsx:222
 #: src/components/LogInForm.jsx:373
-#: src/components/windows/OIDCConsent.jsx:268
+#: src/components/windows/OIDCConsent.jsx:267
 msgid "For one week"
 msgstr ""
 
 #: src/components/LogInForm.jsx:224
 #: src/components/LogInForm.jsx:375
-#: src/components/windows/OIDCConsent.jsx:270
+#: src/components/windows/OIDCConsent.jsx:269
 msgid "For one year"
 msgstr ""
 
@@ -809,7 +821,7 @@ msgstr ""
 
 #: src/components/LogInForm.jsx:225
 #: src/components/LogInForm.jsx:376
-#: src/components/windows/OIDCConsent.jsx:271
+#: src/components/windows/OIDCConsent.jsx:270
 msgid "Forever"
 msgstr ""
 
@@ -851,7 +863,7 @@ msgstr ""
 msgid "Go to"
 msgstr ""
 
-#: src/components/windows/OIDCConsent.jsx:286
+#: src/components/windows/OIDCConsent.jsx:285
 msgid "Grant"
 msgstr ""
 
@@ -980,7 +992,7 @@ msgstr ""
 msgid "Invited to Chat"
 msgstr ""
 
-#: src/components/windows/OIDCConsent.jsx:226
+#: src/components/windows/OIDCConsent.jsx:225
 msgid "It requests the following permissions. Uncheck what you don't want to grant:"
 msgstr ""
 
@@ -1053,7 +1065,7 @@ msgstr ""
 msgid "Login to grant access to other application."
 msgstr ""
 
-#: src/components/windows/OIDCConsent.jsx:208
+#: src/components/windows/OIDCConsent.jsx:207
 msgid "Login to other application"
 msgstr ""
 
@@ -1077,6 +1089,10 @@ msgstr ""
 msgid "Maximize"
 msgstr ""
 
+#: src/components/ModMediatools.jsx:58
+msgid "Media Actions"
+msgstr ""
+
 #: src/components/Converter.jsx:301
 msgid "Minimum Color Distance"
 msgstr ""
@@ -1093,7 +1109,7 @@ msgstr ""
 msgid "Move"
 msgstr ""
 
-#: src/components/contextmenus/ChannelContextMenu.jsx:46
+#: src/components/contextmenus/ChannelContextMenu.jsx:45
 msgid "Mute"
 msgstr ""
 
@@ -1177,7 +1193,7 @@ msgstr ""
 msgid "Not allowed"
 msgstr ""
 
-#: src/components/windows/OIDCConsent.jsx:253
+#: src/components/windows/OIDCConsent.jsx:252
 msgid "Note"
 msgstr ""
 
@@ -1231,7 +1247,7 @@ msgstr ""
 msgid "Open Palette"
 msgstr ""
 
-#: src/components/embeds/LocalMedia.jsx:143
+#: src/components/embeds/LocalMedia.jsx:243
 #: src/components/markdown/MdLink.jsx:119
 msgid "Open in PopUp"
 msgstr ""
@@ -1305,7 +1321,7 @@ msgstr ""
 msgid "Pencil picks: "
 msgstr ""
 
-#: src/components/windows/OIDCConsent.jsx:231
+#: src/components/windows/OIDCConsent.jsx:230
 msgid "Permission"
 msgstr ""
 
@@ -1317,7 +1333,7 @@ msgstr ""
 msgid "Phishes"
 msgstr ""
 
-#: src/components/contextmenus/UserContextMenu.jsx:49
+#: src/components/contextmenus/UserContextMenu.jsx:48
 msgid "Ping"
 msgstr ""
 
@@ -1467,6 +1483,7 @@ msgstr ""
 
 #: src/components/BanInfo.jsx:97
 #: src/components/ModIIDtools.jsx:142
+#: src/components/ModMediatools.jsx:100
 msgid "Reason"
 msgstr ""
 
@@ -1490,7 +1507,7 @@ msgstr ""
 msgid "Reload"
 msgstr ""
 
-#: src/components/windows/OIDCConsent.jsx:258
+#: src/components/windows/OIDCConsent.jsx:257
 msgid "Remember this decision: "
 msgstr ""
 
@@ -1579,7 +1596,7 @@ msgstr ""
 #: src/components/SocialSettings.jsx:114
 #: src/components/SocialSettings.jsx:164
 #: src/components/TemplateItemEdit.jsx:209
-#: src/components/windows/OIDCConsent.jsx:322
+#: src/components/windows/OIDCConsent.jsx:321
 msgid "Save"
 msgstr ""
 
@@ -1698,7 +1715,7 @@ msgstr ""
 msgid "Show templates as overlays ingame."
 msgstr ""
 
-#: src/components/embeds/LocalMedia.jsx:154
+#: src/components/embeds/LocalMedia.jsx:251
 msgid "Shrink"
 msgstr ""
 
@@ -1723,7 +1740,7 @@ msgstr ""
 msgid "Stacking till"
 msgstr ""
 
-#: src/components/windows/Chat.jsx:222
+#: src/components/windows/Chat.jsx:225
 msgid "Start chatting here"
 msgstr ""
 
@@ -1765,10 +1782,11 @@ msgstr ""
 #: src/components/ModCanvastools.jsx:488
 #: src/components/ModCanvastools.jsx:591
 #: src/components/ModIIDtools.jsx:270
+#: src/components/ModMediatools.jsx:147
 msgid "Submit"
 msgstr ""
 
-#: src/components/windows/OIDCConsent.jsx:219
+#: src/components/windows/OIDCConsent.jsx:218
 msgid "Switch Account"
 msgstr ""
 
@@ -1785,7 +1803,7 @@ msgstr ""
 msgid "Templates"
 msgstr ""
 
-#: src/components/windows/OIDCConsent.jsx:210
+#: src/components/windows/OIDCConsent.jsx:209
 #, javascript-format
 msgid ""
 "The application ${ appName } at ${ appUrl } wants to login with your "
@@ -1830,11 +1848,11 @@ msgid ""
 "any time. All characters except @, /, , >, < and # are allowed."
 msgstr ""
 
-#: src/components/windows/OIDCConsent.jsx:253
+#: src/components/windows/OIDCConsent.jsx:252
 msgid "This login may only work if your account is verified."
 msgstr ""
 
-#: src/components/windows/OIDCConsent.jsx:242
+#: src/components/windows/OIDCConsent.jsx:241
 msgid "This permission is required"
 msgstr ""
 
@@ -1934,6 +1952,10 @@ msgstr ""
 msgid "Type the characters from the following image:"
 msgstr ""
 
+#: src/components/ModMediatools.jsx:122
+msgid "Unban media"
+msgstr ""
+
 #: src/components/SocialSettings.jsx:205
 msgid "Unblock Users"
 msgstr ""
@@ -1990,7 +2012,7 @@ msgstr ""
 #: src/components/Admintools.jsx:366
 #: src/components/LogInForm.jsx:331
 #: src/components/LogInForm.jsx:338
-#: src/components/windows/OIDCConsent.jsx:311
+#: src/components/windows/OIDCConsent.jsx:310
 msgid "User Name"
 msgstr ""
 
@@ -2003,7 +2025,7 @@ msgid "Username can only contain the characters: a-z . _ and -"
 msgstr ""
 
 #: src/components/ChangeUsername.jsx:60
-#: src/components/windows/OIDCConsent.jsx:305
+#: src/components/windows/OIDCConsent.jsx:304
 msgid "Username can only contain the characters: a-z A-z . _ and -"
 msgstr ""
 
@@ -2066,7 +2088,7 @@ msgid "Wrong Color"
 msgstr ""
 
 #: src/components/ChangeUsername.jsx:59
-#: src/components/windows/OIDCConsent.jsx:304
+#: src/components/windows/OIDCConsent.jsx:303
 msgid "YOU CAN ONLY CHOOSE YOUR USERNAME ONCE!"
 msgstr ""
 
@@ -2132,7 +2154,7 @@ msgid ""
 "a bonus, your cooldown is reduced."
 msgstr ""
 
-#: src/components/windows/OIDCConsent.jsx:180
+#: src/components/windows/OIDCConsent.jsx:179
 msgid "You did not consent"
 msgstr ""
 
@@ -2157,7 +2179,7 @@ msgstr ""
 msgid "You made too many requests"
 msgstr ""
 
-#: src/components/windows/Chat.jsx:299
+#: src/components/windows/Chat.jsx:302
 msgid "You must be logged in to chat"
 msgstr ""
 
@@ -2169,7 +2191,12 @@ msgstr ""
 msgid "You must enter a duration"
 msgstr ""
 
+#: src/components/ModMediatools.jsx:19
+msgid "You must enter a mediaId or media BID"
+msgstr ""
+
 #: src/components/ModIIDtools.jsx:67
+#: src/components/ModMediatools.jsx:24
 msgid "You must enter a reason"
 msgstr ""
 
@@ -2215,7 +2242,7 @@ msgstr ""
 msgid "Your ban expires at "
 msgstr ""
 
-#: src/components/windows/OIDCConsent.jsx:291
+#: src/components/windows/OIDCConsent.jsx:290
 msgid ""
 "Your did not set your username yet. A username is required to login to "
 "other applications. You can set it now:"

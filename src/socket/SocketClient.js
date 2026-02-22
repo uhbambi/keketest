@@ -263,7 +263,7 @@ class SocketClient {
 
   sendChatMessage(message, channelId) {
     this.sendWhenReady(
-      `cm,${JSON.stringify([message, channelId])}`,
+      `ck,${JSON.stringify([message, channelId])}`,
     );
   }
 
