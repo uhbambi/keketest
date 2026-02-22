@@ -21,12 +21,6 @@ const ImageHash = sequelize.define('ImageHash', {
     type: DataTypes.BIGINT.UNSIGNED,
     allowNull: false,
   },
-}, {
-  indexes: [{
-    unique: false,
-    name: 'phash',
-    fields: ['pHash'],
-  }],
 });
 
 

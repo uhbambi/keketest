@@ -125,9 +125,6 @@ const Media = sequelize.define('Media', {
     unique: true,
     name: 'filename',
     fields: ['shortId', 'extension'],
-  }, {
-    name: 'hashtype',
-    fields: ['hash', 'mimeType'],
   }],
 });
 

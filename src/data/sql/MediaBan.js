@@ -103,7 +103,7 @@ export async function hasMediaBan(hashes, pHashes) {
             const pHash = pHashes[i];
             // eslint-disable-next-line no-await-in-loop
             const models = await sequelize.query(
-              'CALL GET_CLOSES_BANNED_IMAGE(?)', {
+              'CALL GET_CLOSE_BANNED_IMAGE(?)', {
                 replacements: [pHash],
                 raw: true,
                 types: QueryTypes.SELECT,
@@ -117,7 +117,7 @@ export async function hasMediaBan(hashes, pHashes) {
         }
       } else {
         const models = await sequelize.query(
-          'CALL GET_CLOSES_BANNED_IMAGE(?)', {
+          'CALL GET_CLOSE_BANNED_IMAGE(?)', {
             replacements: [pHashes],
             raw: true,
             types: QueryTypes.SELECT,
