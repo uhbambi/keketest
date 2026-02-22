@@ -204,7 +204,7 @@ export default async function drawByOffsets(
       cdIfNull = 0;
     }
 
-    if (getState().needVerification && (
+    if ((await getState('needVerification')) && (
       !user || user.userlvl < USERLVL.VERIFIED
     )) {
       throw new Error(17);

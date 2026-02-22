@@ -1,54 +1,44 @@
 /*
- * A game-wide state shared between shards and saved to disk, must be
- * serializable.
- * It should be used for settings or similar. Don't pound it too hard.
+ * A game-wide state shared between shards, must be serializable
  */
-import fs from 'fs';
-import path from 'path';
 
+import {
+  getState as getStateQuery,
+  setState as setStateQuery,
+} from '../data/sql/Config.js';
 import socketEvents from '../socket/socketEvents.js';
-import { shallowCombineObjects } from './utils.js';
 
-let state = {};
+const cache = new Map();
 
-function loadStateFromFile() {
-  const file = path.resolve('state.json');
-  if (!fs.existsSync(file)) {
-    return;
+export async function getState(key) {
+  let value = cache.get(key);
+  if (!value) {
+    value = await getStateQuery(key);
+    cache.set(key, value);
   }
-  let fileState;
-  try {
-    fileState = JSON.parse(fs.readFileSync(file));
-  } catch (error) {
-    console.error(`SharedState loadStateFromFile: Error ${error.message}`);
-    return;
+  return value;
+}
+
+export async function setState(key, value) {
+  const success = await setStateQuery(key, value);
+  if (success) {
+    cache.set(key, value);
+    socketEvents.updateSharedState(key, value);
   }
-  state = shallowCombineObjects(state, fileState);
+  return success;
 }
 
-loadStateFromFile();
-
-function writeStateToFile() {
-  const file = path.resolve('state.json');
-  try {
-    fs.writeFileSync(file, JSON.stringify(state));
-  } catch (error) {
-    console.error(`SharedState writeStateToFile: Error ${error.message}`);
+export async function getMultipleStates(keys) {
+  const ret = {};
+  for (let i = 0; i < keys.length; i += 1) {
+    const key = keys[i];
+    // eslint-disable-next-line no-await-in-loop
+    ret[key] = await getState(key);
   }
+  return ret;
 }
 
-export function setState(stateUpdate) {
-  socketEvents.updateSharedState(stateUpdate);
-}
-
-export function getState() {
-  return state;
-}
-
-socketEvents.on('sharedstate', (stateUpdate) => {
+socketEvents.on('sharedstate', (key, value) => {
   console.log('SharedState received update');
-  state = shallowCombineObjects(state, stateUpdate);
-  if (socketEvents.important) {
-    writeStateToFile();
-  }
+  cache.set(key, value);
 });

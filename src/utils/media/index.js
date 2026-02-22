@@ -8,8 +8,7 @@ import { getRandomString } from '../../core/utils.js';
 import {
   registerMedia, deregisterMedia, hasMedia, hasSimilarMedia,
 } from '../../data/sql/Media.js';
-import { MAX_MEDIA_SIZE } from '../../core/constants.js';
-import { MEDIA_FOLDER } from '../../core/config.js';
+import { MEDIA_FOLDER, MAX_FILE_SIZE_MB } from '../../core/config.js';
 
 import calculateHash from './hash.js';
 import calculatePHash from './phash.js';
@@ -18,6 +17,7 @@ import createVideoThumbnails from './videoThumbnails.js';
 import createImageThumbnails from './imageThumbnails.js';
 import { checkIfMediaBanned } from '../../core/ban.js';
 import { splitFilename } from './utils.js';
+import { checkTotalQuotaReached, checkUserQuotaReached } from './quotas.js';
 import {
   mimeTypeFitsToExt, isMimeTypeAllowed, getThumbnailPaths,
 } from './serverUtils.js';
@@ -76,7 +76,7 @@ function storeFileStream(fileStream, filePath) {
         return;
       }
       totalSize += chunk.length;
-      if (totalSize > MAX_MEDIA_SIZE) {
+      if (MAX_FILE_SIZE_MB && totalSize > MAX_FILE_SIZE_MB * 1024 * 1024) {
         cancel('too_long');
         return;
       }
@@ -166,6 +166,14 @@ export async function storeMediaStream(
     }
   }
 
+  if (await checkTotalQuotaReached()) {
+    throw new Error('total_quota_reached');
+  }
+
+  if (await checkUserQuotaReached(userId)) {
+    throw new Error('user_quota_reached');
+  }
+
   /*
    * store file temporary until we got hash
    */
@@ -222,11 +230,6 @@ export async function storeMediaStream(
     }
 
     /*
-     * strip exif data
-     */
-    await stripExif(temporaryFile);
-
-    /*
      * check if media is banned
      */
     const bans = await checkIfMediaBanned(model.hash, pHash, userId, ipString);
@@ -234,6 +237,12 @@ export async function storeMediaStream(
       const { reason, mbid } = bans[0];
       throw new Error(`media_banned_reason_${String(reason)}_${mbid}`);
     }
+
+    /*
+     * strip exif data
+     */
+    await stripExif(temporaryFile);
+
 
     /*
      * create thumbnails and get dimensions

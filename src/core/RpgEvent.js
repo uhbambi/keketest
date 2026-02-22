@@ -125,9 +125,8 @@ class RpgEvent {
        * This state is being updated in parallel now, while we do follow
        * redis. This update only happens to have other shards know when there
        * is void
-       * TODO: use sharedState for storage and revoery instead of redis
        */
-      setState({ void: { eventTimestamp } });
+      await setState('void', { eventTimestamp });
       this.eventTimestamp = eventTimestamp;
       await this.calcEventCenter();
       logger.info('initialized Event');

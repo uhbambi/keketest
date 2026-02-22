@@ -22,18 +22,6 @@ const Media = sequelize.define('Media', {
   },
 
   /*
-   * SELECT
-   i d,  *
-   filename,
-   BIT_COUNT(phash ^ @target_hash) AS hamming_distance,
-                               phash
-                               FROM images
-                               WHERE BIT_COUNT(phash ^ @target_hash) <= 5
-                               ORDER BY hamming_distance
-                               LIMIT 20;
-  */
-
-  /*
    * short identifier for file, will be 6 chars usually, but can be more
    */
   shortId: {
@@ -522,6 +510,52 @@ export async function getIpsOfMedia(mediaSqlId) {
     console.error('SQL Error on getMessagesOfMedia:', error.message);
   }
   return ipStrings;
+}
+
+/**
+ * get total used space
+ * @return size in MB or null if failure
+ */
+export async function getTotalUsedSpace() {
+  try {
+    const model = await sequelize.query(
+      // eslint-disable-next-line max-len
+      'SELECT COALESCE(CAST(SUM(size) / (1024 * 1024) AS UNSIGNED), 0) AS sizeMb FROM Media', {
+        plain: true,
+        type: QueryTypes.SELECT,
+      },
+    );
+    return model.sizeMb;
+  } catch (error) {
+    console.error('SQL Error on getTotalUsedSpace:', error.message);
+  }
+  return null;
+}
+
+/**
+ * get total user used space
+ * @return size in MB or null if failure
+ */
+export async function getUserUsedSpace(userId) {
+  if (!userId) {
+    return null;
+  }
+  try {
+    const model = await sequelize.query(
+      // eslint-disable-next-line max-len
+      `SELECT COALESCE(CAST(SUM(size) / (1024 * 1024) AS UNSIGNED), 0) AS sizeMb FROM Media m
+  INNER JOIN UserMedia um ON um.mid = m.id
+WHERE um.uid = ?`, {
+        replacements: [userId],
+        plain: true,
+        type: QueryTypes.SELECT,
+      },
+    );
+    return model.sizeMb;
+  } catch (error) {
+    console.error('SQL Error on getUserUsedSpace:', error.message);
+  }
+  return null;
 }
 
 export default Media;

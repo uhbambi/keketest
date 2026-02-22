@@ -388,11 +388,11 @@ class SocketEvents extends EventEmitter {
 
   /**
    * update shared state (see core/SharedState.js), this can
-   * be a partial state, that will then be merged together
-   * @param state shared state
+   * @param key string
+   * @param value any serializable object
    */
-  updateSharedState(state) {
-    this.emit('sharedstate', state);
+  updateSharedState(key, value) {
+    this.emit('sharedstate', key, value);
   }
 
   /**

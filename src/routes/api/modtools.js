@@ -26,7 +26,7 @@ import {
   executeQuickAction,
   executeMediaAction,
 } from '../../core/adminfunctions.js';
-import { getState } from '../../core/SharedState.js';
+import { getMultipleStates } from '../../core/SharedState.js';
 import { getHighUserLvlUsers, findUserById } from '../../data/sql/User.js';
 import { USERLVL } from '../../data/sql/index.js';
 
@@ -371,7 +371,9 @@ router.post('/', async (req, res, next) => {
       return;
     }
     if (req.body.gamestate) {
-      const ret = getState();
+      const ret = await getMultipleStates([
+        'needVerification', 'malwareCheck',
+      ]);
       res.json(ret);
       return;
     }

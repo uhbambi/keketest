@@ -114,19 +114,19 @@ export async function executeQuickAction(action, logger = null) {
       return `Reset ${amount} Captchas and JS Challenges!`;
     }
     case 'enableverify': {
-      setState({ needVerification: true });
+      await setState('needVerification', true);
       return 'Enabled Verification Requirement';
     }
     case 'disableverify': {
-      setState({ needVerification: false });
+      await setState('needVerification', false);
       return 'Disabled Verification Requirement';
     }
     case 'enablemalware': {
-      setState({ malwareCheck: true });
+      await setState('malwareCheck', true);
       return 'Enabled Verification Requirement';
     }
     case 'disablemalware': {
-      setState({ malwareCheck: false });
+      await setState('malwareCheck', false);
       return 'Disabled Verification Requirement';
     }
     case 'givefishes': {

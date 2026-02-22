@@ -8,8 +8,13 @@ import {
   storeMediaStream, isMimeTypeAllowed, mimeTypeFitsToExt,
 } from '../../utils/media/index.js';
 import { splitFilename } from '../../utils/media/utils.js';
+import {
+  checkTotalQuotaReached, checkUserQuotaReached,
+} from '../../utils/media/quotas.js';
 import { mediaBanReasonToDescription } from '../../utils/media/serverUtils.js';
-import { MAX_MEDIA_SIZE, MAX_UPLOAD_AMOUNT } from '../../core/constants.js';
+import {
+  MAX_FILE_SIZE_MB, MAX_UPLOAD_AMOUNT, MAX_USER_MEDIA_SIZE_MB,
+} from '../../core/config.js';
 import { hasMedia, linkMedia } from '../../data/sql/Media.js';
 import { checkIfMediaBanned } from '../../core/ban.js';
 
@@ -86,6 +91,20 @@ router.post('/preflight', (req, res) => {
         );
       }
 
+      let allowUploads = true;
+      if (await checkTotalQuotaReached()) {
+        allowUploads = false;
+        errors.push(t`We currently do not allow file uploads`);
+      }
+
+      if (await checkUserQuotaReached(req.user?.id)) {
+        allowUploads = false;
+        errors.push(
+          // eslint-disable-next-line max-len
+          t`You reached your maximum upload quota of ${MAX_USER_MEDIA_SIZE_MB} MB`,
+        );
+      }
+
       const models = [];
 
       let i = Math.min(MAX_UPLOAD_AMOUNT * 3, mimeTypes.length);
@@ -99,12 +118,11 @@ router.post('/preflight', (req, res) => {
         const size = sizes[i];
         console.log('preflight', filename, mimeType, hash, size);
 
-        if (size > MAX_MEDIA_SIZE) {
-          const maxSizeMB = Math.floor(MAX_MEDIA_SIZE / 1024 / 10.24) / 100;
+        if (MAX_FILE_SIZE_MB && size > MAX_FILE_SIZE_MB * 1024 * 1024) {
           const sizeMB = Math.floor(size / 1024 / 102.4) / 10;
           errors.push(
             // eslint-disable-next-line max-len
-            t`File ${filename} has ${sizeMB} MB and is too large. It may only be ${maxSizeMB} MB`,
+            t`File ${filename} has ${sizeMB} MB and is too large. It may only be ${MAX_FILE_SIZE_MB} MB`,
           );
           fileErrors = true;
         }
@@ -147,8 +165,8 @@ router.post('/preflight', (req, res) => {
         }
       }
 
-      const checkSuccess = await hasMedia(models);
-      if (!checkSuccess) {
+      if (!(await hasMedia(models))) {
+        allowUploads = false;
         errors.push(t`Server Error`);
       }
       const readyToUpload = [];
@@ -165,7 +183,7 @@ router.post('/preflight', (req, res) => {
           */
         if (model.shortId) {
           availableFiles.push(model);
-        } else if (checkSuccess) {
+        } else if (allowUploads) {
           readyToUpload.push(model);
         }
       }
@@ -250,6 +268,13 @@ router.post('/upload', (req, res) => {
             break;
           case 'invalid_type':
             error = t`Invalid type of media`;
+            break;
+          case 'total_quota_reached':
+            error = t`We currently do not allow file uploads`;
+            break;
+          case 'user_quota_reached':
+            // eslint-disable-next-line max-len
+            error = t`You reached your maximum upload quota of ${MAX_USER_MEDIA_SIZE_MB} MB`;
             break;
           case 'broken_file':
             error = t`File is broken`;
