@@ -34,12 +34,13 @@ import OIDCAuthCode from './OIDCAuthCode.js';
 import OIDCAccessToken from './OIDCAccessToken.js';
 import OIDCRefreshToken from './OIDCRefreshToken.js';
 import OIDCConsent from './OIDCConsent.js';
-import Media from './Media.js';
+import Media, { cleanMedia } from './Media.js';
 import ImageHash from './ImageHash.js';
 import UserMedia from './association_models/UserMedia.js';
 import MessageMedia from './association_models/MessageMedia.js';
 import IPMedia from './association_models/IPMedia.js';
 import MediaBan from './MediaBan.js';
+import Config from './Config.js';
 import { HourlyCron } from '../../utils/cron.js';
 
 /*
@@ -63,12 +64,14 @@ export async function cleanDB() {
     'DELETE FROM OIDCAccessTokens WHERE expires < NOW()',
     'DELETE FROM OIDCAuthCodes WHERE expires < NOW()',
     'DELETE FROM OIDCRefreshTokens WHERE expires < NOW()',
-    // eslint-disable-next-line
+    /* eslint-disable max-len */
     'DELETE c FROM Channels c WHERE c.type = 1 AND (SELECT COUNT(*) FROM UserChannels uc WHERE uc.cid =c.id) <= 1',
+    /* eslint-enable max-len */
   ];
   const functions = [
     cleanBans,
     cleanRangeBans,
+    cleanMedia,
   ];
   for (let i = 0; i < queries.length; i += 1) {
     try {
@@ -599,6 +602,7 @@ export {
   WhoisReferral,
   ThreePID,
   Fish,
+  Config,
   // constants
   USERLVL,
   THREEPID_PROVIDERS,

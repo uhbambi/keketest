@@ -573,4 +573,66 @@ export async function getUserUsedSpace(userId, ipString) {
   return null;
 }
 
+/**
+ * clean up unused and expired files
+ */
+export async function cleanMedia() {
+  try {
+    const expiredModels = await sequelize.query(
+      // eslint-disable-next-line max-len
+      'SELECT Media.id, shortId, extension FROM Media WHERE (expires IS NOT NULL AND expires < NOW()) OR (lastUpload < NOW() - INTERVAL 1 HOUR AND refCounter = 0 AND NOT EXISTS (SELECT 1 FROM Profiles WHERE avatar = Media.id) AND NOT EXISTS (SELECT 1 FROM MessageMedia WHERE mid = Media.id))', {
+        raw: true,
+        type: QueryTypes.SELECT,
+      },
+    );
+    if (expiredModels?.length) {
+      for (let i = 0; i < expiredModels.length; i += 1) {
+        const { shortId, extension } = expiredModels[i];
+        if (!shortId || !extension) {
+          console.error(
+            // eslint-disable-next-line max-len
+            `Error on cleanMedia: Got invalide shortId: ${shortId} or extension: ${extension}`,
+          );
+          continue;
+        }
+        const filePath = constructMediaPath(shortId, extension);
+        try {
+          if (fs.existsSync(filePath)) {
+            fs.rmSync(filePath);
+          }
+          const {
+            thumbFilePath, iconFilePath, screencapFilePath,
+          } = getThumbnailPaths(filePath);
+          if (fs.existsSync(thumbFilePath)) {
+            fs.rmSync(thumbFilePath);
+          }
+          if (fs.existsSync(iconFilePath)) {
+            fs.rmSync(iconFilePath);
+          }
+          if (fs.existsSync(screencapFilePath)) {
+            fs.rmSync(screencapFilePath);
+          }
+        } catch (error) {
+          console.error(
+            `Error on cleanMedia for ${filePath}: ${error.message}`,
+          );
+        }
+      }
+      await sequelize.query(
+        `DELETE FROM Media where id IN (${
+          expiredModels.map(() => '?').join(', ')
+        })`, {
+          replacements: expiredModels.map(({ id }) => id),
+          raw: true,
+          type: QueryTypes.SELECT,
+        },
+      );
+    } else {
+      console.log('No Media to delete for cleanMedia');
+    }
+  } catch (error) {
+    console.error(`SQL Error on cleanMedia: ${error.message}`);
+  }
+}
+
 export default Media;
