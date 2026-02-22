@@ -25,7 +25,7 @@ const router = express.Router();
  * and if the file is already uploaded
  */
 router.post('/preflight', (req, res) => {
-  req.tickRateLimiter(2000);
+  req.tickRateLimiter(1000);
   const { ttag: { t } } = req;
   const bb = busboy({ headers: req.headers, limits: { fields: 50 } });
 
@@ -213,7 +213,7 @@ router.post('/preflight', (req, res) => {
 });
 
 router.post('/upload', (req, res) => {
-  req.tickRateLimiter(3000);
+  req.tickRateLimiter(1000);
   console.log('got upload');
   const { ttag: { t } } = req;
   const bb = busboy({ headers: req.headers });
@@ -308,6 +308,7 @@ router.post('/upload', (req, res) => {
     if (error) {
       data.errors = [error];
 
+      req.tickRateLimiter(3000);
       /*
        * chrome will show the apropriate error, firefox will get a generatic
        * connection reset error

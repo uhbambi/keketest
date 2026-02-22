@@ -11,6 +11,7 @@ import IPBanHistory from './association_models/IPBanHistory.js';
 import UserBanHistory from './association_models/UserBanHistory.js';
 import ThreePIDBanHistory from './association_models/ThreePIDBanHistory.js';
 import { generateUUID } from '../../utils/hash.js';
+import { sanitizeIPString } from '../../utils/intel/ip.js';
 
 const Ban = sequelize.define('Ban', {
   id: {
@@ -577,7 +578,9 @@ export async function ban(
       if (ipUuids?.length) {
         /* returns a Map */
         let mappedIPStrings = await getIPsOfIIDs(ipUuids);
-        mappedIPStrings = Array.from(mappedIPStrings.values());
+        mappedIPStrings = Array.from(mappedIPStrings.values()).map(
+          (ipString) => sanitizeIPString(ipString),
+        );
         if (Array.isArray(ipStrings)) {
           ipStrings = ipStrings.concat(mappedIPStrings);
         } else if (ipStrings) {
@@ -649,8 +652,9 @@ export async function unban(
         }
       });
       b.ips.forEach(({ ipString }) => {
-        if (!unbannedIpStrings.includes(ipString)) {
-          unbannedIpStrings.push(ipString);
+        const sanitizedIPString = sanitizeIPString(ipString);
+        if (!unbannedIpStrings.includes(sanitizedIPString)) {
+          unbannedIpStrings.push(sanitizedIPString);
         }
       });
     });
