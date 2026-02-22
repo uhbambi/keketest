@@ -228,7 +228,7 @@ export async function getMessagesForChannel(cid, limit) {
   try {
     const models = await sequelize.query(
       /* eslint-disable max-len */
-      `SELECT m.id AS msgId, m.message, m.uid AS userId,
+      `SELECT DISTINCT m.createdAt, m.id AS msgId, m.message, m.uid AS userId,
 UNIX_TIMESTAMP(m.createdAt) AS 'ts',
 u.name, u.userlvl, p.customFlag, s.country,
 CONCAT(b.shortId, ':', b.extension) AS mediaId, b.type AS mediaType, b.size AS mediaSize, b.width AS mediaWidth, b.height AS mediaHeight, b.avgColor AS mediaAvgColor,
