@@ -9,7 +9,7 @@ import { t } from 'ttag';
 import { MdFileDownload } from 'react-icons/md';
 import { HiStop } from 'react-icons/hi';
 import { HiWindow } from 'react-icons/hi2';
-import { LuFileVideo2 } from "react-icons/lu";
+import { LuFileVideo2 } from 'react-icons/lu';
 
 import useLink from '../hooks/link.js';
 import { cdn } from '../../utils/utag.js';
@@ -253,7 +253,7 @@ const LocalMedia = ({
             >
               <HiStop />
             </span>
-          </ React.Fragment>
+          </React.Fragment>
         )}
       </span>
     </div>

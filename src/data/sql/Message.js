@@ -8,7 +8,7 @@ import { DataTypes, QueryTypes } from 'sequelize';
 import sequelize from './sequelize.js';
 import { CHANNEL_TYPES } from '../../core/constants.js';
 import mapFlag from '../../utils/flagMapping.js';
-import parseLinksFromMd from '../../utils/markdown/linkParser.js';
+import parseAttachmentsFromMd from '../../utils/markdown/attachmentParser.js';
 import { getMediaFromLinks } from '../../utils/media/serverUtils.js';
 
 const Message = sequelize.define('Message', {
@@ -62,7 +62,7 @@ export async function storeMessage(message, cid, uid) {
   if (message.length > 200) {
     throw new Error('too_long');
   }
-  const media = getMediaFromLinks(parseLinksFromMd(message));
+  const media = getMediaFromLinks(parseAttachmentsFromMd(message));
   if (media.length > 3) {
     throw new Error('too_many_files');
   }

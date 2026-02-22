@@ -547,7 +547,9 @@ export async function getUserUsedSpace(userId, ipString) {
     replacements.push(userId);
   }
   if (ipString) {
-    unions.push('SELECT im.mid AS id FROM IPMedia im WHERE im.ip = IP_TO_BIN(?)');
+    unions.push(
+      'SELECT im.mid AS id FROM IPMedia im WHERE im.ip = IP_TO_BIN(?)',
+    );
     replacements.push(ipString);
   }
 
