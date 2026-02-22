@@ -388,14 +388,16 @@ async function build() {
   cleanUpAfterBuild();
   if (doBuildServer && doBuildClient) {
     const ts = Date.now();
-    process.stdout.write(`\x1b[33mArchiving Source\x1b[0m\n`);
-    await zipDir(
-      path.resolve(__dirname, '..'),
-      path.resolve(__dirname, '..', 'dist', 'public', 'legal',
-        `${pkg.name}-${pkg.version}-source.zip`,
-      ),
-    );
-    process.stdout.write(`\x1b[33mArchiving Source took ${Math.round((Date.now() - ts) / 1000)}s\x1b[0m\n`);
+    if (!development) {
+      process.stdout.write(`\x1b[33mArchiving Source\x1b[0m\n`);
+      await zipDir(
+        path.resolve(__dirname, '..'),
+        path.resolve(__dirname, '..', 'dist', 'public', 'legal',
+          `${pkg.name}-${pkg.version}-source.zip`,
+        ),
+      );
+      process.stdout.write(`\x1b[33mArchiving Source took ${Math.round((Date.now() - ts) / 1000)}s\x1b[0m\n`);
+    }
   }
   console.log(`Finished building in ${(Date.now() - st) / 1000}s`);
 }

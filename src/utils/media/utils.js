@@ -97,7 +97,7 @@ export function getUrlsFromMediaIdAndName(mediaId, name) {
   if (!shortId || !extension) {
     return [null, null, null];
   }
-  name = encodeURIComponent(name);
+  name = encodeURIComponent(name || 'm');
   return [
     `/m/${shortId}/${name}.${extension}`,
     `/m/t/${shortId}/${name}.${extension}.webp`,

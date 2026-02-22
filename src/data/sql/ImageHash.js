@@ -18,7 +18,7 @@ const ImageHash = sequelize.define('ImageHash', {
    * perceptive hash, 64bit integer, resolved via hamming distance
    */
   pHash: {
-    type: 'BINARY(8)',
+    type: DataTypes.BIGINT.UNSIGNED,
     allowNull: false,
   },
 }, {
@@ -34,7 +34,7 @@ export async function addImageHash(shortId, extension, pHash) {
   try {
     await sequelize.query(
       // eslint-disable-next-line max-len
-      'INSERT INTO ImageHashes (mid, pHash) SELECT m.id, UNHEX(?) FROM Media m WHERE m.shortId = ? AND m.extension = ?', {
+      'INSERT INTO ImageHashes (mid, pHash) SELECT m.id, CONV(?, 16, 10) AS pHash FROM Media m WHERE m.shortId = ? AND m.extension = ?', {
         replacements: [pHash, shortId, extension],
         raw: true,
         type: QueryTypes.INSERT,

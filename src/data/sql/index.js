@@ -536,12 +536,12 @@ OIDCConsent.hasMany(OIDCRefreshToken, {
 /*
  * Media repository
  */
-Media.belongsTo(ImageHash, {
+ImageHash.belongsTo(Media, {
   as: 'imagedata',
   foreignKey: 'mid',
   onDelete: 'CASCADE',
 });
-ImageHash.hasOne(Media, {
+Media.hasOne(ImageHash, {
   as: 'media',
   foreignKey: 'mid',
 });
