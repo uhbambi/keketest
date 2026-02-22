@@ -6,7 +6,7 @@ import fs from 'fs';
 
 import { getRandomString } from '../../core/utils.js';
 import {
-  registerMedia, deregisterMedia, hasMedia,
+  registerMedia, deregisterMedia, hasMedia, hasSimilarMedia,
 } from '../../data/sql/Media.js';
 import { MAX_MEDIA_SIZE } from '../../core/constants.js';
 import { MEDIA_FOLDER } from '../../core/config.js';
@@ -204,23 +204,27 @@ export async function storeMediaStream(
     /*
      * calculate hash
      */
-    console.log('calculate hash');
     model.hash = await calculateHash(temporaryFile);
-
-    /*
-     * strip exif data
-     */
-    console.log('strip exif');
-    await stripExif(temporaryFile);
 
     /*
      * check if file already exists
      */
-    console.log('save model');
     await hasMedia(model);
     if (model.shortId) {
       return model;
     }
+
+    if (pHash) {
+      await hasSimilarMedia(model, pHash);
+      if (model.shortId) {
+        return model;
+      }
+    }
+
+    /*
+     * strip exif data
+     */
+    await stripExif(temporaryFile);
 
     /*
      * check if media is banned

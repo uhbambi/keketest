@@ -168,7 +168,7 @@ export async function deregisterMedia(shortId, extension) {
 
 /**
  * get filename of media if exists, adds 'shortId', 'existed' and
- *   'extension', 'type', 'width', 'height'
+ *   'extension', 'type', 'width', 'height', 'avgColor'
  * to hashes objects where a corresponding hash exists
  * @param hashes [{
  *   hash,
@@ -195,16 +195,14 @@ export async function hasMedia(hashes) {
     for (let i = 0; i < hashes.length; i += 1) {
       const { hash } = hashes[i];
       if (hash) {
-        replacements.push(hashes[i].hash, hashes[i].mimeType);
+        replacements.push(hashes[i].hash);
       }
     }
 
     const mediaModels = await sequelize.query(
       // eslint-disable-next-line max-len
-      `SELECT id, LOWER(HEX(hash)) AS hash, mimeType, extension, shortId, type, width, height, avgColor FROM Media WHERE ${
-        hashes.map(
-          () => '( hash = UNHEX(?) AND mimeType = ? )',
-        ).join(' OR ')
+      `SELECT id, LOWER(HEX(hash)) AS hash, extension, shortId, type, width, height, avgColor FROM Media WHERE ${
+        replacements.map(() => 'hash = UNHEX(?)').join(' OR ')
       }`, {
         replacements,
         type: QueryTypes.SELECT,
@@ -230,9 +228,7 @@ export async function hasMedia(hashes) {
 
       for (let i = 0; i < mediaModels.length; i += 1) {
         const model = mediaModels[i];
-        const hash = hashes.find(
-          (h) => h.hash === model.hash && h.mimeType === model.mimeType,
-        );
+        const hash = hashes.find((h) => h.hash === model.hash);
         if (hash) {
           /*
            * make sure that file actually exists
@@ -255,6 +251,60 @@ export async function hasMedia(hashes) {
     }
   } catch (error) {
     console.error(`SQL Error on hasMedia: ${error.message}`);
+    return false;
+  }
+  return true;
+}
+
+/**
+ * get filename of media if a perceptive similar on exist,
+ * adds 'shortId', 'existed' and 'extension', 'type', 'width', 'height' to model
+ * @param model {
+ *   hash,
+ *   name,
+ *   mimeType,
+ *   extension,
+ *   originalFilename,
+ * }
+ * @param pHash perceptive hash in a 16 width hex string
+ * @return success boolean
+ */
+export async function hasSimilarMedia(model, pHash) {
+  if (!pHash || !model) {
+    return true;
+  }
+
+  try {
+    const models = await sequelize.query(
+      'CALL GET_CLOSE_IMAGE(?)', {
+        replacements: [pHash],
+        raw: true,
+        types: QueryTypes.SELECT,
+      },
+    );
+    if (models?.length) {
+      const similarModel = models[0];
+      /*
+      * make sure that file actually exists
+      */
+      const filePath = constructMediaPath(
+        similarModel.shortId, similarModel.extension,
+      );
+      if (fs.existsSync(filePath)) {
+        model.extension = similarModel.extension;
+        model.shortId = similarModel.shortId;
+        model.type = similarModel.type;
+        model.width = similarModel.width;
+        model.height = similarModel.height;
+        model.avgColor = similarModel.avgColor;
+        model.mediaId = `${similarModel.shortId}:${similarModel.extension}`;
+        model.existed = true;
+      } else {
+        deregisterMedia(model.shortId, model.extension);
+      }
+    }
+  } catch (error) {
+    console.error(`SQL Error on hasSimilarMedia: ${error.message}`);
     return false;
   }
   return true;
