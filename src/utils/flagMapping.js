@@ -21,7 +21,7 @@ export default function mapFlag(customFlag, userlvl, country) {
       default:
         customFlag = 'zz';
     }
-    return [false, customFlag];
+    return [true, customFlag];
   }
   return [true, country || 'xx'];
 }
