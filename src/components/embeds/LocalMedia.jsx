@@ -9,6 +9,7 @@ import { t } from 'ttag';
 import { MdFileDownload } from 'react-icons/md';
 import { HiStop } from 'react-icons/hi';
 import { HiWindow } from 'react-icons/hi2';
+import { LuFileVideo2 } from "react-icons/lu";
 
 import useLink from '../hooks/link.js';
 import { cdn } from '../../utils/utag.js';
@@ -149,6 +150,11 @@ const LocalMedia = ({
           style={attachmentStyle}
           onLoad={onLoad}
         />
+        {type === 'video' && (
+          <div className="attplaybutton">
+            <LuFileVideo2 />
+          </div>
+        )}
       </div>
     );
   }
@@ -198,7 +204,7 @@ const LocalMedia = ({
           align="tr"
         />
       )}
-      <span className="embtr">
+      <span className="att-buttoncontainer">
         {(isMod) && (
           <span
             onClick={(evt) => {
@@ -208,7 +214,7 @@ const LocalMedia = ({
                 y: evt.clientY,
               });
             }}
-            className="ebem"
+            className="att-button"
             title={t`Ban Media`}
             key="emebb"
           >🔨</span>
@@ -216,13 +222,14 @@ const LocalMedia = ({
         <a
           href={fullUrl}
           target="_blank"
+          className="att-button"
           title={t`Download`}
           rel="noreferrer"
         >
-          <MdFileDownload className="ebem" />
+          <MdFileDownload />
         </a>
         {(!fill) && (
-          <>
+          <React.Fragment key="fillbtn">
             <span
               onClick={(evt) => {
                 evt.stopPropagation();
@@ -232,21 +239,21 @@ const LocalMedia = ({
                   args: { uri: fullUrl },
                 });
               }}
+              className="att-button"
               title={t`Open in PopUp`}
               key="emebp"
             >
-              <HiWindow className="ebem" />
+              <HiWindow />
             </span>
             <span
               onClick={toggleExpand}
+              className="att-redbutton"
+              title={t`Shrink`}
+              key="embr"
             >
-              <HiStop
-                className="ebem"
-                style={{ color: 'red' }}
-                title={t`Shrink`}
-              />
+              <HiStop />
             </span>
-          </>
+          </ React.Fragment>
         )}
       </span>
     </div>

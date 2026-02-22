@@ -93,7 +93,7 @@ const MdLink = ({ href, title }) => {
         {parsedTitle}
       </a>
       {(embedAvailable) && (
-        <span className="embbtn">
+        <span className="mdlink-buttoncontainer">
           &nbsp;
           {(embedObj[3])
             && (
@@ -118,7 +118,7 @@ const MdLink = ({ href, title }) => {
             }}
             title={t`Open in PopUp`}
           >
-            <HiWindow className="ebex" />
+            <HiWindow className="mdlink-button" />
           </span>
           <span
             onClick={() => {
@@ -132,13 +132,13 @@ const MdLink = ({ href, title }) => {
             {(isOpen)
               ? (
                 <HiStop
-                  className="ebcl"
+                  className="mdlink-redbutton"
                   title={t`Hide Embed`}
                 />
               )
               : (
                 <HiArrowsExpand
-                  className="ebex"
+                  className="mdlink-button"
                   title={t`Show Embedded`}
                 />
               )}

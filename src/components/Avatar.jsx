@@ -19,7 +19,6 @@ const Avatar = ({ uid, isDarkMode, avatarId }) => {
   if (thumb) {
     avatarStyle.backgroundImage = `url(${cdn`${thumb}`})`;
   }
-  console.log(image, thumb);
 
   return (
     <div
