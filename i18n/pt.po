@@ -120,9 +120,6 @@ msgstr "Mostrar Crachás"
 msgid "Badges"
 msgstr "Crachás"
 
-msgid "Ban Media"
-msgstr ""
-
 msgid "Ban media"
 msgstr ""
 

@@ -119,9 +119,6 @@ msgstr "Taispeántas Suaitheantais"
 msgid "Badges"
 msgstr "Suaitheantais"
 
-msgid "Ban Media"
-msgstr ""
-
 msgid "Ban media"
 msgstr ""
 

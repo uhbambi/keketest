@@ -419,9 +419,6 @@ msgstr "Ponovno postavite lozinku"
 msgid "Reset your password here"
 msgstr "Ponovno postavite lozinku ovdje"
 
-msgid "Server Eror"
-msgstr ""
-
 msgid "Server Error"
 msgstr ""
 
@@ -634,7 +631,7 @@ msgstr ""
 msgid "You can't send a message this long :("
 msgstr "Ne možete poslati poruku ovoliko dugo :("
 
-msgid "You did not provide all neccessary information"
+msgid "You did not provide all necessary information"
 msgstr ""
 
 msgid ""

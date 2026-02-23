@@ -413,9 +413,6 @@ msgstr "Resetoi Salasana"
 msgid "Reset your password here"
 msgstr "Resetoi salasanasi täältä"
 
-msgid "Server Eror"
-msgstr ""
-
 msgid "Server Error"
 msgstr ""
 
@@ -624,7 +621,7 @@ msgstr ""
 msgid "You can't send a message this long :("
 msgstr "Et voi lähettää noin pitkää viestiä:("
 
-msgid "You did not provide all neccessary information"
+msgid "You did not provide all necessary information"
 msgstr ""
 
 msgid ""

@@ -432,9 +432,6 @@ msgstr "Parolu Sıfırla"
 msgid "Reset your password here"
 msgstr "Parolunuzu burdan sıfırlayın"
 
-msgid "Server Eror"
-msgstr ""
-
 msgid "Server Error"
 msgstr ""
 
@@ -647,7 +644,7 @@ msgstr ""
 msgid "You can't send a message this long :("
 msgstr "Bu qədər uzun bir mesaj göndərəbilməzsən :("
 
-msgid "You did not provide all neccessary information"
+msgid "You did not provide all necessary information"
 msgstr ""
 
 msgid ""

@@ -119,9 +119,6 @@ msgstr "Visualització d'Insígnies"
 msgid "Badges"
 msgstr "Insígnies"
 
-msgid "Ban Media"
-msgstr ""
-
 msgid "Ban media"
 msgstr ""
 

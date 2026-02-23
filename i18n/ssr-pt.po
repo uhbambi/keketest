@@ -429,9 +429,6 @@ msgstr "Trocar Senha"
 msgid "Reset your password here"
 msgstr "Troque sua senha aqui"
 
-msgid "Server Eror"
-msgstr ""
-
 msgid "Server Error"
 msgstr ""
 
@@ -651,7 +648,7 @@ msgstr ""
 msgid "You can't send a message this long :("
 msgstr "Você não pode mandar mensagens tão grandes :("
 
-msgid "You did not provide all neccessary information"
+msgid "You did not provide all necessary information"
 msgstr ""
 
 msgid ""

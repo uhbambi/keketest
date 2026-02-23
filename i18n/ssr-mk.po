@@ -419,9 +419,6 @@ msgstr "Ресетирање на Лозинка"
 msgid "Reset your password here"
 msgstr "Ресетирајте ја лозинката овде"
 
-msgid "Server Eror"
-msgstr ""
-
 msgid "Server Error"
 msgstr ""
 
@@ -635,7 +632,7 @@ msgstr ""
 msgid "You can't send a message this long :("
 msgstr "Не можеш толку долго да праќаш порака :("
 
-msgid "You did not provide all neccessary information"
+msgid "You did not provide all necessary information"
 msgstr ""
 
 msgid ""

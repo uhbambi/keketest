@@ -421,9 +421,6 @@ msgstr "Құпиясөзді арылту"
 msgid "Reset your password here"
 msgstr "Кұпиясөзіңізді осында арылта аласыз"
 
-msgid "Server Eror"
-msgstr ""
-
 msgid "Server Error"
 msgstr ""
 
@@ -639,7 +636,7 @@ msgstr ""
 msgid "You can't send a message this long :("
 msgstr "Сондай ұзын хат жібере алмайсыз :("
 
-msgid "You did not provide all neccessary information"
+msgid "You did not provide all necessary information"
 msgstr ""
 
 msgid ""

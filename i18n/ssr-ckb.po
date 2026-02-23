@@ -418,9 +418,6 @@ msgstr "وشەی نهێنی ڕێکبخەرەوە"
 msgid "Reset your password here"
 msgstr "لێرەدا وشەی نهێنی خۆت بگۆڕە"
 
-msgid "Server Eror"
-msgstr ""
-
 msgid "Server Error"
 msgstr ""
 
@@ -633,7 +630,7 @@ msgstr ""
 msgid "You can't send a message this long :("
 msgstr "بەم درێژاییە ناتوانن نامە بنێرن :("
 
-msgid "You did not provide all neccessary information"
+msgid "You did not provide all necessary information"
 msgstr ""
 
 msgid ""

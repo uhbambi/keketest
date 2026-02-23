@@ -429,9 +429,6 @@ msgstr "Resetează Parola"
 msgid "Reset your password here"
 msgstr "Resetează-ți parola aici"
 
-msgid "Server Eror"
-msgstr ""
-
 msgid "Server Error"
 msgstr ""
 
@@ -661,7 +658,7 @@ msgstr ""
 msgid "You can't send a message this long :("
 msgstr "Nu poți trimite un mesaj atât de lung :("
 
-msgid "You did not provide all neccessary information"
+msgid "You did not provide all necessary information"
 msgstr ""
 
 msgid ""

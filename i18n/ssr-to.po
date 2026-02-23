@@ -425,9 +425,6 @@ msgstr "Toe Fakafoʻou ʻa e Lea Fufuú"
 msgid "Reset your password here"
 msgstr "Fakafoʻou heni hoʻo lea fufuú"
 
-msgid "Server Eror"
-msgstr ""
-
 msgid "Server Error"
 msgstr ""
 
@@ -648,7 +645,7 @@ msgstr ""
 msgid "You can't send a message this long :("
 msgstr "He ʻikai lava ke ke ʻave ha popoaki fuoloa peheni :("
 
-msgid "You did not provide all neccessary information"
+msgid "You did not provide all necessary information"
 msgstr ""
 
 msgid ""

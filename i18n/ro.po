@@ -121,9 +121,6 @@ msgstr "Afișare insigne"
 msgid "Badges"
 msgstr "Insigne"
 
-msgid "Ban Media"
-msgstr ""
-
 msgid "Ban media"
 msgstr ""
 

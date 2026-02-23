@@ -122,9 +122,6 @@ msgstr "Παρουσίαση Εμβλημάτων"
 msgid "Badges"
 msgstr "Εμβλήματα"
 
-msgid "Ban Media"
-msgstr ""
-
 msgid "Ban media"
 msgstr ""
 

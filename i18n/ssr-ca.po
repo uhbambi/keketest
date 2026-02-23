@@ -426,9 +426,6 @@ msgstr "Restablir la contrasenya"
 msgid "Reset your password here"
 msgstr "Restableix la teva contrasenya aquí"
 
-msgid "Server Eror"
-msgstr ""
-
 msgid "Server Error"
 msgstr ""
 
@@ -647,7 +644,7 @@ msgstr ""
 msgid "You can't send a message this long :("
 msgstr "No pots enviar un missatge tan llarg :("
 
-msgid "You did not provide all neccessary information"
+msgid "You did not provide all necessary information"
 msgstr ""
 
 msgid ""

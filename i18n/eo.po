@@ -120,9 +120,6 @@ msgstr "Insigno-Ekspozicio"
 msgid "Badges"
 msgstr "Insignoj"
 
-msgid "Ban Media"
-msgstr ""
-
 msgid "Ban media"
 msgstr ""
 

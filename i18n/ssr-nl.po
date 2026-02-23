@@ -423,9 +423,6 @@ msgstr "Wachtwoord opnieuw instellen"
 msgid "Reset your password here"
 msgstr "Stel hier uw wachtwoord opnieuw in"
 
-msgid "Server Eror"
-msgstr ""
-
 msgid "Server Error"
 msgstr ""
 
@@ -643,7 +640,7 @@ msgstr ""
 msgid "You can't send a message this long :("
 msgstr "Je kunt niet zo lang een bericht sturen :("
 
-msgid "You did not provide all neccessary information"
+msgid "You did not provide all necessary information"
 msgstr ""
 
 msgid ""

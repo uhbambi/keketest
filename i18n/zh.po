@@ -110,9 +110,6 @@ msgstr "徽章显示"
 msgid "Badges"
 msgstr "徽章"
 
-msgid "Ban Media"
-msgstr ""
-
 msgid "Ban media"
 msgstr ""
 

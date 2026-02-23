@@ -419,9 +419,6 @@ msgstr "Επαναφορά κωδικού"
 msgid "Reset your password here"
 msgstr "Επαναφορά του κωδικού σου δαχαμέ"
 
-msgid "Server Eror"
-msgstr ""
-
 msgid "Server Error"
 msgstr ""
 
@@ -633,7 +630,7 @@ msgstr ""
 msgid "You can't send a message this long :("
 msgstr "Εν' μπορείς να στείλεις μήνυμα τόσον μακρύ :("
 
-msgid "You did not provide all neccessary information"
+msgid "You did not provide all necessary information"
 msgstr ""
 
 msgid ""

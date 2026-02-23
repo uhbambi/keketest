@@ -122,9 +122,6 @@ msgstr "Адлюстраванне значкоў"
 msgid "Badges"
 msgstr "Значкі"
 
-msgid "Ban Media"
-msgstr ""
-
 msgid "Ban media"
 msgstr ""
 

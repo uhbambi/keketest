@@ -420,9 +420,6 @@ msgstr "Reset Password"
 msgid "Reset your password here"
 msgstr "Resetta la tua password qui"
 
-msgid "Server Eror"
-msgstr ""
-
 msgid "Server Error"
 msgstr ""
 
@@ -638,7 +635,7 @@ msgstr ""
 msgid "You can't send a message this long :("
 msgstr "Non puoi mandare un messaggio così lungo :("
 
-msgid "You did not provide all neccessary information"
+msgid "You did not provide all necessary information"
 msgstr ""
 
 msgid ""

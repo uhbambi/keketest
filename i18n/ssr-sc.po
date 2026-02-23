@@ -420,9 +420,6 @@ msgstr "Resetta a password"
 msgid "Reset your password here"
 msgstr "Resetta a password ca"
 
-msgid "Server Eror"
-msgstr ""
-
 msgid "Server Error"
 msgstr ""
 
@@ -636,7 +633,7 @@ msgstr ""
 msgid "You can't send a message this long :("
 msgstr "Umpo mannari messaggia accussi longa"
 
-msgid "You did not provide all neccessary information"
+msgid "You did not provide all necessary information"
 msgstr ""
 
 msgid ""

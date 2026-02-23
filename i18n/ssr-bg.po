@@ -420,9 +420,6 @@ msgstr "Нулиране на парола"
 msgid "Reset your password here"
 msgstr "Нулирайте Вашата парола от тук"
 
-msgid "Server Eror"
-msgstr ""
-
 msgid "Server Error"
 msgstr ""
 
@@ -634,7 +631,7 @@ msgstr ""
 msgid "You can't send a message this long :("
 msgstr "Не можете да изпращате толкова дълги съобщения :("
 
-msgid "You did not provide all neccessary information"
+msgid "You did not provide all necessary information"
 msgstr ""
 
 msgid ""

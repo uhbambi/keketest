@@ -119,9 +119,6 @@ msgstr "Medaljeviser"
 msgid "Badges"
 msgstr "Medaljer"
 
-msgid "Ban Media"
-msgstr ""
-
 msgid "Ban media"
 msgstr ""
 

@@ -121,9 +121,6 @@ msgstr "Abzeichen-Anzeige"
 msgid "Badges"
 msgstr "Abzeichen"
 
-msgid "Ban Media"
-msgstr ""
-
 msgid "Ban media"
 msgstr ""
 

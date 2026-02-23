@@ -429,9 +429,6 @@ msgstr "Renovigu Pasvorton"
 msgid "Reset your password here"
 msgstr "Renovigu pasvorton vian ĉi tien"
 
-msgid "Server Eror"
-msgstr ""
-
 msgid "Server Error"
 msgstr ""
 
@@ -663,7 +660,7 @@ msgstr ""
 msgid "You can't send a message this long :("
 msgstr "Ne sendus mensaĝon tiom longa ŭwŭ"
 
-msgid "You did not provide all neccessary information"
+msgid "You did not provide all necessary information"
 msgstr ""
 
 msgid ""

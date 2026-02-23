@@ -423,9 +423,6 @@ msgstr "Atstatīt Surīktan"
 msgid "Reset your password here"
 msgstr "Apgriztwei twei Surīktan tūsei"
 
-msgid "Server Eror"
-msgstr ""
-
 msgid "Server Error"
 msgstr ""
 
@@ -652,7 +649,7 @@ msgstr ""
 msgid "You can't send a message this long :("
 msgstr "jūs mazzi ni tenginna waīstis šis ilgai"
 
-msgid "You did not provide all neccessary information"
+msgid "You did not provide all necessary information"
 msgstr ""
 
 msgid ""

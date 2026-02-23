@@ -103,9 +103,6 @@ msgstr ""
 msgid "Badges"
 msgstr ""
 
-msgid "Ban Media"
-msgstr ""
-
 msgid "Ban media"
 msgstr ""
 

@@ -119,9 +119,6 @@ msgstr "Белги көрсөтүү"
 msgid "Badges"
 msgstr "Белгилер"
 
-msgid "Ban Media"
-msgstr ""
-
 msgid "Ban media"
 msgstr ""
 

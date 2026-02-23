@@ -420,9 +420,6 @@ msgstr "Resetuj lozinku"
 msgid "Reset your password here"
 msgstr "Ovde možete da resetujete lozinku"
 
-msgid "Server Eror"
-msgstr ""
-
 msgid "Server Error"
 msgstr ""
 
@@ -634,7 +631,7 @@ msgstr ""
 msgid "You can't send a message this long :("
 msgstr "Nemožete poslati ovoliku poruku :("
 
-msgid "You did not provide all neccessary information"
+msgid "You did not provide all necessary information"
 msgstr ""
 
 msgid ""
