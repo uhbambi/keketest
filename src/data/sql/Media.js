@@ -578,13 +578,21 @@ export async function getUserUsedSpace(userId, ipString) {
  */
 export async function cleanMedia() {
   try {
-    const expiredModels = await sequelize.query(
-      // eslint-disable-next-line max-len
-      'SELECT Media.id, shortId, extension FROM Media WHERE (expires IS NOT NULL AND expires < NOW()) OR (lastUpload < NOW() - INTERVAL 1 HOUR AND refCounter = 0 AND NOT EXISTS (SELECT 1 FROM Profiles WHERE avatar = Media.id) AND NOT EXISTS (SELECT 1 FROM MessageMedia WHERE mid = Media.id))', {
-        raw: true,
-        type: QueryTypes.SELECT,
-      },
-    );
+    let expiredModels;
+    try {
+      expiredModels = await sequelize.query(
+        // eslint-disable-next-line max-len
+        'SELECT Media.id, shortId, extension FROM Media WHERE (expires IS NOT NULL AND expires < NOW()) OR (lastUpload < NOW() - INTERVAL 1 HOUR AND refCounter = 0 AND NOT EXISTS (SELECT 1 FROM Profiles WHERE avatar = Media.id) AND NOT EXISTS (SELECT 1 FROM MessageMedia WHERE mid = Media.id))', {
+          raw: true,
+          type: QueryTypes.SELECT,
+        },
+      );
+    } catch (error) {
+      console.error(
+        `SQL Error on cleanMedia gathering: ${error.message}`,
+        expiredModels,
+      );
+    }
     if (expiredModels?.length) {
       for (let i = 0; i < expiredModels.length; i += 1) {
         const { shortId, extension } = expiredModels[i];

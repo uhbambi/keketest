@@ -238,6 +238,9 @@ const LocalMedia = ({
                   target: 'blank',
                   args: { uri: fullUrl },
                 });
+                if (type === 'video') {
+                  toggleExpand();
+                }
               }}
               className="att-button"
               title={t`Open in PopUp`}

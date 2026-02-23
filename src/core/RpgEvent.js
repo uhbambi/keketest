@@ -394,7 +394,7 @@ class RpgEvent {
       if (socketEvents.onlineCounter.total < USER_THRESHOLD) {
         const eventTimestamp = await RpgEvent.setNextEvent();
         this.eventTimestamp = eventTimestamp;
-        setState({ void: { eventTimestamp } });
+        setState('void', { eventTimestamp });
         await this.calcEventCenter();
         const [x, y, w, h] = this.eventArea;
         await protectCanvasArea(CANVAS_ID, x, y, w, h, true);
