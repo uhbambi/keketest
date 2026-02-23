@@ -215,7 +215,7 @@ const LocalMedia = ({
               });
             }}
             className="att-button"
-            title={t`Ban Media`}
+            title={t`Ban media`}
             key="emebb"
           >🔨</span>
         )}

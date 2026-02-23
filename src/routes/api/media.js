@@ -80,7 +80,7 @@ router.post('/preflight', (req, res) => {
     try {
       // eslint-disable-next-line max-len
       if (mimeTypes.length !== filenames.length || filenames.length !== hashes.length || hashes.length !== sizes.length) {
-        throw new Error(t`You did not provide all neccessary information`);
+        throw new Error(t`You did not provide all necessary information`);
       }
       if (mimeTypes.length > MAX_UPLOAD_AMOUNT) {
         const amountOfFiles = mimeTypes.length;
@@ -277,7 +277,7 @@ router.post('/upload', (req, res) => {
             error = t`File is broken`;
             break;
           case 'server_error':
-            error = t`Server Eror`;
+            error = t`Server Error`;
             status = 500;
             break;
           case 'stalled':
