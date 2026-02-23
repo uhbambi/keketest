@@ -35,7 +35,8 @@ export function validateName(name) {
       || name.indexOf('\\') !== -1
       || name.indexOf('>') !== -1
       || name.indexOf('<') !== -1
-      || name.indexOf('#') !== -1) {
+      || name.indexOf('#') !== -1
+      || name.indexOf(String.fromCharCode(27)) !== -1) {
     return t`Name contains invalid character like @, /, \\ or #`;
   }
   return false;

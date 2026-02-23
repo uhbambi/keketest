@@ -230,7 +230,8 @@ export async function getMessagesForChannel(cid, limit) {
       /* eslint-disable max-len */
       `SELECT DISTINCT m.createdAt, m.id AS msgId, m.message, m.uid AS userId,
 UNIX_TIMESTAMP(m.createdAt) AS 'ts',
-u.name, u.userlvl, p.customFlag, s.country,
+u.name, u.userlvl, p.customFlag,
+COALESCE((SELECT s.country FROM Sessions s WHERE s.uid = u.id ORDER BY s.id DESC LIMIT 1), 'xx') AS country,
 CONCAT(b.shortId, ':', b.extension) AS mediaId, b.type AS mediaType, b.size AS mediaSize, b.width AS mediaWidth, b.height AS mediaHeight, b.avgColor AS mediaAvgColor,
 CONCAT(a.shortId, ':', a.extension) AS avatarId FROM Messages m
   INNER JOIN Users u ON u.id = m.uid
@@ -238,7 +239,6 @@ CONCAT(a.shortId, ':', a.extension) AS avatarId FROM Messages m
   LEFT JOIN Media a ON a.id = p.avatar
   LEFT JOIN MessageMedia mm ON mm.sid = m.id
   LEFT JOIN Media b ON b.id = mm.mid
-  LEFT JOIN Sessions s ON s.uid = u.id AND s.country != 'xx'
 WHERE m.cid = ? ORDER BY m.createdAt DESC LIMIT ?`, {
       /* eslint-enable max-len */
         replacements: [cid, limit],
