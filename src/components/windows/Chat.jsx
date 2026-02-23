@@ -105,7 +105,7 @@ const Chat = () => {
 
   const { stayScrolled } = useStayScrolled(listRef, {
     initialScroll: Infinity,
-    inaccuracy: 10,
+    inaccuracy: 5,
   });
 
   const channelMessages = messages[chatChannel] || [];
