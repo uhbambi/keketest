@@ -133,11 +133,8 @@ msgstr ""
 msgid "Badges"
 msgstr ""
 
-#: src/components/embeds/LocalMedia.jsx:218
-msgid "Ban Media"
-msgstr ""
-
 #: src/components/ModMediatools.jsx:83
+#: src/components/embeds/LocalMedia.jsx:218
 msgid "Ban media"
 msgstr ""
 
@@ -279,7 +276,7 @@ msgstr ""
 msgid "Channel"
 msgstr ""
 
-#: src/components/windows/Chat.jsx:332
+#: src/components/windows/Chat.jsx:333
 msgid "Channel settings"
 msgstr ""
 
@@ -292,7 +289,7 @@ msgstr ""
 msgid "Chat"
 msgstr ""
 
-#: src/components/windows/Chat.jsx:270
+#: src/components/windows/Chat.jsx:271
 msgid "Chat here"
 msgstr ""
 
@@ -1740,7 +1737,7 @@ msgstr ""
 msgid "Stacking till"
 msgstr ""
 
-#: src/components/windows/Chat.jsx:225
+#: src/components/windows/Chat.jsx:226
 msgid "Start chatting here"
 msgstr ""
 
@@ -2179,7 +2176,7 @@ msgstr ""
 msgid "You made too many requests"
 msgstr ""
 
-#: src/components/windows/Chat.jsx:302
+#: src/components/windows/Chat.jsx:303
 msgid "You must be logged in to chat"
 msgstr ""
 
