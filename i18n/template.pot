@@ -134,7 +134,7 @@ msgid "Badges"
 msgstr ""
 
 #: src/components/ModMediatools.jsx:83
-#: src/components/embeds/LocalMedia.jsx:239
+#: src/components/embeds/LocalMedia.jsx:240
 msgid "Ban media"
 msgstr ""
 
@@ -272,11 +272,11 @@ msgstr ""
 msgid "Change your Mail Adress here:"
 msgstr ""
 
-#: src/components/windows/Chat.jsx:122
+#: src/components/windows/Chat.jsx:123
 msgid "Channel"
 msgstr ""
 
-#: src/components/windows/Chat.jsx:334
+#: src/components/windows/Chat.jsx:348
 msgid "Channel settings"
 msgstr ""
 
@@ -289,7 +289,7 @@ msgstr ""
 msgid "Chat"
 msgstr ""
 
-#: src/components/windows/Chat.jsx:272
+#: src/components/windows/Chat.jsx:285
 msgid "Chat here"
 msgstr ""
 
@@ -637,7 +637,7 @@ msgstr ""
 msgid "Don't show me in global stats"
 msgstr ""
 
-#: src/components/embeds/LocalMedia.jsx:247
+#: src/components/embeds/LocalMedia.jsx:248
 msgid "Download"
 msgstr ""
 
@@ -1248,7 +1248,7 @@ msgstr ""
 msgid "Open Palette"
 msgstr ""
 
-#: src/components/embeds/LocalMedia.jsx:267
+#: src/components/embeds/LocalMedia.jsx:268
 #: src/components/markdown/MdLink.jsx:119
 msgid "Open in PopUp"
 msgstr ""
@@ -1716,7 +1716,7 @@ msgstr ""
 msgid "Show templates as overlays ingame."
 msgstr ""
 
-#: src/components/embeds/LocalMedia.jsx:275
+#: src/components/embeds/LocalMedia.jsx:276
 msgid "Shrink"
 msgstr ""
 
@@ -1741,7 +1741,7 @@ msgstr ""
 msgid "Stacking till"
 msgstr ""
 
-#: src/components/windows/Chat.jsx:226
+#: src/components/windows/Chat.jsx:236
 msgid "Start chatting here"
 msgstr ""
 
@@ -2180,7 +2180,7 @@ msgstr ""
 msgid "You made too many requests"
 msgstr ""
 
-#: src/components/windows/Chat.jsx:304
+#: src/components/windows/Chat.jsx:318
 msgid "You must be logged in to chat"
 msgstr ""
 

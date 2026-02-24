@@ -32,6 +32,7 @@ const Chat = () => {
   const inputRef = useRef();
   const uploadRef = useRef();
   const scrollRef = useRef();
+  const waitingForUpload = useRef();
 
   const [blockedIds, setBlockedIds] = useState([]);
   const [btnSize, setBtnSize] = useState(20);
@@ -150,22 +151,33 @@ const Chat = () => {
 
   async function handleSubmit(evt) {
     evt.preventDefault();
-    let inptMsg = inputRef.current.value.trim();
-    // if there are files to upload, do that and add links to them
-    const files = await uploadRef.current?.();
-    if (files.length) {
-      const attachments = files.map(
-        // eslint-disable-next-line max-len
-        (i) => `$[${escapeMd(i.name)}](${i.shortId}:${i.extension})`,
-      ).join(' ');
-      if (attachments) {
-        inptMsg = `${inptMsg} ${attachments}`;
-      }
+    if (waitingForUpload.current) {
+      return;
     }
-    if (!inptMsg) return;
-    // send message via websocket
-    dispatch(sendChatMessage(inptMsg, chatChannel));
-    inputRef.current.value = '';
+    waitingForUpload.current = true;
+
+    try {
+      let inptMsg = inputRef.current.value.trim();
+      // if there are files to upload, do that and add links to them
+      const files = await uploadRef.current?.();
+      if (files.length) {
+        const attachments = files.map(
+          // eslint-disable-next-line max-len
+          (i) => `$[${escapeMd(i.name)}](${i.shortId}:${i.extension})`,
+        ).join(' ');
+        if (attachments) {
+          inptMsg = `${inptMsg} ${attachments}`;
+        }
+      }
+      if (!inptMsg) {
+        return;
+      }
+      // send message via websocket
+      dispatch(sendChatMessage(inptMsg, chatChannel));
+      inputRef.current.value = '';
+    } finally {
+      waitingForUpload.current = false;
+    }
   }
 
   /*
@@ -215,9 +227,7 @@ const Chat = () => {
         style={{ flexGrow: 1 }}
         role="presentation"
       >
-        {
-          (!channelMessages.length)
-          && (
+        {(!channelMessages.length) && (
           <ChatMessage
             key="initm"
             uid={0}
@@ -225,8 +235,7 @@ const Chat = () => {
             country="xx"
             msg={t`Start chatting here`}
           />
-          )
-        }
+        )}
         {
           channelMessages.map((message) => (
             (!blockedIds.includes(message[3])) && (
@@ -248,10 +257,9 @@ const Chat = () => {
             )))
         }
       </ul>
-      <form
+      <div
         className="chatinput"
         key="iptfl"
-        onSubmit={(e) => handleSubmit(e)}
         style={{
           display: 'flex',
         }}
@@ -265,6 +273,11 @@ const Chat = () => {
                 minWidth: 40,
               }}
               ref={inputRef}
+              onKeyDown={(evt) => {
+                if (evt.key === 'Enter') {
+                  handleSubmit(evt);
+                }
+              }}
               autoComplete="off"
               maxLength="200"
               type="text"
@@ -280,7 +293,8 @@ const Chat = () => {
             <button
               className="sendbtn"
               style={{ flexGrow: 0, width: 32 }}
-              type="submit"
+              type="button"
+              onClick={handleSubmit}
             >
               ‣
             </button>
@@ -309,7 +323,7 @@ const Chat = () => {
           setChatChannel={setChannel}
           chatChannel={chatChannel}
         />
-      </form>
+      </div>
       <div
         className="chatlink"
         style={{

@@ -1036,9 +1036,11 @@ table td span {
 }
 .msg.info {
   color: #cc0000;
+  margin-left: 18px;
 }
 .msg.event {
   color: #3955c6;
+  margin-left: 18px;
 }
 .msg.greentext{
   color: green;
@@ -1080,7 +1082,7 @@ table td span {
   flex: 0 1 auto;
   display: inline-block;
   min-width: 89px;
-  min-height: 30px;
+  min-height: 48px;
 }
 
 .attcontainer.thumb > .attachment {

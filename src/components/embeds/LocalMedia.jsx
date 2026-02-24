@@ -127,7 +127,7 @@ const LocalMedia = ({
       containerClass = 'thumb';
     }
 
-    if (width && height) {
+    if (width && height && !compact) {
       /*
       * if dimensions are known, container will occupy the space and image will
       * be 100%
@@ -207,6 +207,7 @@ const LocalMedia = ({
                 src={cdn`${fullUrl}`}
                 className="attachment"
                 style={attachmentStyle}
+                onLoadedData={onLoad}
                 controls
                 autoPlay
               />
