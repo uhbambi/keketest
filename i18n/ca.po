@@ -307,6 +307,9 @@ msgstr "Tanca el Menú"
 msgid "Close Palette"
 msgstr "Tanca la Paleta"
 
+msgid "Compact Chat"
+msgstr ""
+
 msgid "Compact Palette"
 msgstr "Paleta Compacta"
 
@@ -839,8 +842,8 @@ msgstr "Eines de Moderador"
 msgid "Move"
 msgstr "Mou"
 
-msgid "Mute"
-msgstr "Silencia"
+msgid "Mute Channel"
+msgstr ""
 
 msgid "Muted Sound"
 msgstr "So Silenciat"
@@ -1849,6 +1852,9 @@ msgstr "W"
 msgctxt "keybinds"
 msgid "X"
 msgstr "X"
+
+#~ msgid "Mute"
+#~ msgstr "Silencia"
 
 #~ msgid "Source for pixelplanet on "
 #~ msgstr "Codi font de PixelPlanet a "

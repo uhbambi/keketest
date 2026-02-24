@@ -310,6 +310,9 @@ msgstr "Luk Menu"
 msgid "Close Palette"
 msgstr "Luk Palet"
 
+msgid "Compact Chat"
+msgstr ""
+
 msgid "Compact Palette"
 msgstr "Kompakt Palet"
 
@@ -832,8 +835,8 @@ msgstr "Modværktøjer"
 msgid "Move"
 msgstr "Bevæg"
 
-msgid "Mute"
-msgstr "Gør Stum"
+msgid "Mute Channel"
+msgstr ""
 
 msgid "Muted Sound"
 msgstr "Stummet Lyd"
@@ -1828,6 +1831,9 @@ msgstr "W"
 msgctxt "keybinds"
 msgid "X"
 msgstr "X"
+
+#~ msgid "Mute"
+#~ msgstr "Gør Stum"
 
 #~ msgid "Source for pixelplanet on "
 #~ msgstr "Kilde for pixelplanet på "

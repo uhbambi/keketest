@@ -319,6 +319,9 @@ msgstr "Fermu je l' menu'"
 msgid "Close Palette"
 msgstr "Fermi je L' Kolorar'"
 
+msgid "Compact Chat"
+msgstr ""
+
 msgid "Compact Palette"
 msgstr "Kompakta Kolorar'"
 
@@ -847,8 +850,8 @@ msgstr "Moderigiloj"
 msgid "Move"
 msgstr "Movi"
 
-msgid "Mute"
-msgstr "Silentu"
+msgid "Mute Channel"
+msgstr ""
 
 msgid "Muted Sound"
 msgstr "Silentigita Sono"
@@ -1845,6 +1848,9 @@ msgstr "W"
 msgctxt "keybinds"
 msgid "X"
 msgstr "X"
+
+#~ msgid "Mute"
+#~ msgstr "Silentu"
 
 #~ msgid "Source for pixelplanet on "
 #~ msgstr "Fonto por pixelplanet ĉe "

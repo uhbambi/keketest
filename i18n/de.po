@@ -315,6 +315,9 @@ msgstr "Schließe Menü"
 msgid "Close Palette"
 msgstr "Schließe Palette"
 
+msgid "Compact Chat"
+msgstr ""
+
 msgid "Compact Palette"
 msgstr "Kompakte Palette"
 
@@ -844,8 +847,8 @@ msgstr "Moderationshilfen"
 msgid "Move"
 msgstr "Verschieben"
 
-msgid "Mute"
-msgstr "Stummschalten"
+msgid "Mute Channel"
+msgstr ""
 
 msgid "Muted Sound"
 msgstr "Ton stummgeschaltet"
@@ -1847,6 +1850,9 @@ msgstr "W"
 msgctxt "keybinds"
 msgid "X"
 msgstr "X"
+
+#~ msgid "Mute"
+#~ msgstr "Stummschalten"
 
 #~ msgid "Source for pixelplanet on "
 #~ msgstr "Quelltext von pixelplanet auf "

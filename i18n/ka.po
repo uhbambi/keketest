@@ -312,6 +312,9 @@ msgstr "მენიუს დახურვა"
 msgid "Close Palette"
 msgstr "დახურეთ პალიტრა"
 
+msgid "Compact Chat"
+msgstr ""
+
 msgid "Compact Palette"
 msgstr "კომპაქტური პალიტრა"
 
@@ -819,8 +822,8 @@ msgstr "მოდერატორისტულები"
 msgid "Move"
 msgstr "გადაადგილება"
 
-msgid "Mute"
-msgstr "დადუმება"
+msgid "Mute Channel"
+msgstr ""
 
 msgid "Muted Sound"
 msgstr "ხმა გამორთულია"
@@ -1802,6 +1805,9 @@ msgstr "წ"
 msgctxt "keybinds"
 msgid "X"
 msgstr "ხ"
+
+#~ msgid "Mute"
+#~ msgstr "დადუმება"
 
 #~ msgid "PopUp"
 #~ msgstr "ამომხტარი"

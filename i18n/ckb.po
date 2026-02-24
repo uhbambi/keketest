@@ -306,6 +306,9 @@ msgstr "مێنۆ دابخە"
 msgid "Close Palette"
 msgstr "داخستنی پالێت"
 
+msgid "Compact Chat"
+msgstr ""
+
 msgid "Compact Palette"
 msgstr "پالێتی کۆمپاکت"
 
@@ -811,8 +814,8 @@ msgstr "مۆدتۆڵز"
 msgid "Move"
 msgstr "جووڵە"
 
-msgid "Mute"
-msgstr "بێدەنگ"
+msgid "Mute Channel"
+msgstr ""
 
 msgid "Muted Sound"
 msgstr "دەنگی بێدەنگ"
@@ -1792,6 +1795,9 @@ msgstr "W"
 msgctxt "keybinds"
 msgid "X"
 msgstr "X"
+
+#~ msgid "Mute"
+#~ msgstr "بێدەنگ"
 
 #~ msgid "PopUp"
 #~ msgstr "پۆپ ئەپ"

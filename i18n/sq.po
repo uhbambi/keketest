@@ -317,6 +317,9 @@ msgstr "Mbyll Menunë"
 msgid "Close Palette"
 msgstr "Mbyll Paletën"
 
+msgid "Compact Chat"
+msgstr ""
+
 msgid "Compact Palette"
 msgstr "Paleta Kompakte"
 
@@ -841,8 +844,8 @@ msgstr "Veglat e moderatorit"
 msgid "Move"
 msgstr "Lëviz"
 
-msgid "Mute"
-msgstr "Hesht"
+msgid "Mute Channel"
+msgstr ""
 
 msgid "Muted Sound"
 msgstr "Tingull i Heshtur"
@@ -1851,6 +1854,9 @@ msgstr "W"
 msgctxt "keybinds"
 msgid "X"
 msgstr "X"
+
+#~ msgid "Mute"
+#~ msgstr "Hesht"
 
 #~ msgid "Source for pixelplanet on "
 #~ msgstr "Burimi për pixelplanet në "

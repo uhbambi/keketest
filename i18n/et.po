@@ -303,6 +303,9 @@ msgstr "Sule Menüü"
 msgid "Close Palette"
 msgstr "Sule Palett"
 
+msgid "Compact Chat"
+msgstr ""
+
 msgid "Compact Palette"
 msgstr "Kompaktne Palett"
 
@@ -812,8 +815,8 @@ msgstr "Modereerimine"
 msgid "Move"
 msgstr "Liiguta"
 
-msgid "Mute"
-msgstr "Vaigista"
+msgid "Mute Channel"
+msgstr ""
 
 msgid "Muted Sound"
 msgstr "Heli Vaigistatud"
@@ -1789,6 +1792,9 @@ msgstr "W"
 msgctxt "keybinds"
 msgid "X"
 msgstr "X"
+
+#~ msgid "Mute"
+#~ msgstr "Vaigista"
 
 #~ msgid "PopUp"
 #~ msgstr "PopUp"

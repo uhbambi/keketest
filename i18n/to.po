@@ -314,6 +314,9 @@ msgstr "Tapuniʻi ʻa e menu"
 msgid "Close Palette"
 msgstr "Tapuni Palette"
 
+msgid "Compact Chat"
+msgstr ""
+
 msgid "Compact Palette"
 msgstr "Maʻuʻanga Fakamatala Palette"
 
@@ -838,8 +841,8 @@ msgstr "Modtools"
 msgid "Move"
 msgstr "Hiki"
 
-msgid "Mute"
-msgstr "Fakalongo"
+msgid "Mute Channel"
+msgstr ""
 
 msgid "Muted Sound"
 msgstr "Ongo ʻoku ʻikai ke ʻi ai ha me"
@@ -1837,6 +1840,9 @@ msgstr "W"
 msgctxt "keybinds"
 msgid "X"
 msgstr "X"
+
+#~ msgid "Mute"
+#~ msgstr "Fakalongo"
 
 #~ msgid "PopUp"
 #~ msgstr "PopUp"

@@ -310,6 +310,9 @@ msgstr "Меню Сæхгæнын"
 msgid "Close Palette"
 msgstr "Палитры Сæхгæнын"
 
+msgid "Compact Chat"
+msgstr ""
+
 msgid "Compact Palette"
 msgstr "Æнгом Палитрæ"
 
@@ -826,8 +829,8 @@ msgstr "Modtools"
 msgid "Move"
 msgstr ""
 
-msgid "Mute"
-msgstr "Фæбынæй кæн"
+msgid "Mute Channel"
+msgstr ""
 
 msgid "Muted Sound"
 msgstr ""
@@ -1812,6 +1815,9 @@ msgstr "W"
 msgctxt "keybinds"
 msgid "X"
 msgstr "X"
+
+#~ msgid "Mute"
+#~ msgstr "Фæбынæй кæн"
 
 #, fuzzy
 #~ msgid "Registration"

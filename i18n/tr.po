@@ -312,6 +312,9 @@ msgstr "Menüyü Kapat"
 msgid "Close Palette"
 msgstr "Paleti Kapat"
 
+msgid "Compact Chat"
+msgstr ""
+
 msgid "Compact Palette"
 msgstr "Sıklaştırılmış Palet"
 
@@ -822,8 +825,8 @@ msgstr "Mod Araçları"
 msgid "Move"
 msgstr "Taşı"
 
-msgid "Mute"
-msgstr "Sustur"
+msgid "Mute Channel"
+msgstr ""
 
 msgid "Muted Sound"
 msgstr "Ses Kapatıldı"
@@ -1810,6 +1813,9 @@ msgstr "W"
 msgctxt "keybinds"
 msgid "X"
 msgstr "X"
+
+#~ msgid "Mute"
+#~ msgstr "Sustur"
 
 #~ msgid "PopUp"
 #~ msgstr "Açılır Pencere"

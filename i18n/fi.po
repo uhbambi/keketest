@@ -302,6 +302,9 @@ msgstr "Sulje valikko"
 msgid "Close Palette"
 msgstr "Sulje väripaletti"
 
+msgid "Compact Chat"
+msgstr ""
+
 msgid "Compact Palette"
 msgstr "Pienempi väripaletti"
 
@@ -810,7 +813,7 @@ msgstr "Modityökalut"
 msgid "Move"
 msgstr "Siirrä"
 
-msgid "Mute"
+msgid "Mute Channel"
 msgstr ""
 
 msgid "Muted Sound"

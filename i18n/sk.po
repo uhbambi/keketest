@@ -300,6 +300,9 @@ msgstr "Zatvoriť menu"
 msgid "Close Palette"
 msgstr "Zatvoriť paletu"
 
+msgid "Compact Chat"
+msgstr ""
+
 msgid "Compact Palette"
 msgstr "Kompaktná paleta"
 
@@ -808,8 +811,8 @@ msgstr "Modove náradie"
 msgid "Move"
 msgstr "Hýbať"
 
-msgid "Mute"
-msgstr "Stľmíť"
+msgid "Mute Channel"
+msgstr ""
 
 msgid "Muted Sound"
 msgstr "Stlmený zvuk"
@@ -1780,6 +1783,9 @@ msgstr "W"
 msgctxt "keybinds"
 msgid "X"
 msgstr "X"
+
+#~ msgid "Mute"
+#~ msgstr "Stľmíť"
 
 #~ msgid "PopUp"
 #~ msgstr "Vyskočiť"

@@ -290,6 +290,9 @@ msgstr ""
 msgid "Close Palette"
 msgstr ""
 
+msgid "Compact Chat"
+msgstr ""
+
 msgid "Compact Palette"
 msgstr ""
 
@@ -789,7 +792,7 @@ msgstr ""
 msgid "Move"
 msgstr ""
 
-msgid "Mute"
+msgid "Mute Channel"
 msgstr ""
 
 msgid "Muted Sound"

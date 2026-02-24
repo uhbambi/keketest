@@ -309,6 +309,9 @@ msgstr "Փակել ընտրացանկը"
 msgid "Close Palette"
 msgstr "Փակել ներկապնակը"
 
+msgid "Compact Chat"
+msgstr ""
+
 msgid "Compact Palette"
 msgstr "Կոմպակտ ներկապնակ"
 
@@ -822,8 +825,8 @@ msgstr "Մոդերատորի գործիքներ"
 msgid "Move"
 msgstr "Տեղափոխել"
 
-msgid "Mute"
-msgstr "Լռեցնել"
+msgid "Mute Channel"
+msgstr ""
 
 msgid "Muted Sound"
 msgstr "Ձայնը անջատված է"
@@ -1810,6 +1813,9 @@ msgstr "W"
 msgctxt "keybinds"
 msgid "X"
 msgstr "X"
+
+#~ msgid "Mute"
+#~ msgstr "Լռեցնել"
 
 #~ msgid "PopUp"
 #~ msgstr "PopUp"

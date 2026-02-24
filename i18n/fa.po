@@ -309,6 +309,9 @@ msgstr "منو رو ببند"
 msgid "Close Palette"
 msgstr "جعبه رنگ ها رو ببند"
 
+msgid "Compact Chat"
+msgstr ""
+
 msgid "Compact Palette"
 msgstr "حعبه رنگ فشرده"
 
@@ -823,8 +826,8 @@ msgstr "چیزای ادمینا"
 msgid "Move"
 msgstr "جا به جا کن"
 
-msgid "Mute"
-msgstr "سکوت"
+msgid "Mute Channel"
+msgstr ""
 
 msgid "Muted Sound"
 msgstr "صدا ساکت است"
@@ -1811,6 +1814,9 @@ msgstr ""
 msgctxt "keybinds"
 msgid "X"
 msgstr ""
+
+#~ msgid "Mute"
+#~ msgstr "سکوت"
 
 #~ msgid "PopUp"
 #~ msgstr "پاپ آپ"

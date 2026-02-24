@@ -316,6 +316,9 @@ msgstr "Κλείσιμο μενού"
 msgid "Close Palette"
 msgstr "Κλείσιμο παλέτας"
 
+msgid "Compact Chat"
+msgstr ""
+
 msgid "Compact Palette"
 msgstr "Συμπαγής παλέτα"
 
@@ -848,8 +851,8 @@ msgstr "Υλικά διαχειριστή"
 msgid "Move"
 msgstr "Κίνηση"
 
-msgid "Mute"
-msgstr "Σίγαση"
+msgid "Mute Channel"
+msgstr ""
 
 msgid "Muted Sound"
 msgstr "Σίγαση ήχου"
@@ -1845,6 +1848,9 @@ msgstr ""
 msgctxt "keybinds"
 msgid "X"
 msgstr "x εκτός ορίων"
+
+#~ msgid "Mute"
+#~ msgstr "Σίγαση"
 
 #~ msgid "PopUp"
 #~ msgstr "Αναδυόμενο παράθυρο"

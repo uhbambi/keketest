@@ -312,6 +312,9 @@ msgstr "Κλείσιμο μενού"
 msgid "Close Palette"
 msgstr "Κλείσιμο παλέτας"
 
+msgid "Compact Chat"
+msgstr ""
+
 msgid "Compact Palette"
 msgstr "Μιτσιά παλέτα"
 
@@ -818,8 +821,8 @@ msgstr "Εργαλεία διαχείρισης"
 msgid "Move"
 msgstr "Κίνηση"
 
-msgid "Mute"
-msgstr "Σίγασε"
+msgid "Mute Channel"
+msgstr ""
 
 msgid "Muted Sound"
 msgstr "Ο ήχος έσβησε"
@@ -1798,6 +1801,9 @@ msgstr ""
 msgctxt "keybinds"
 msgid "X"
 msgstr ""
+
+#~ msgid "Mute"
+#~ msgstr "Σίγασε"
 
 #~ msgid "Source for pixelplanet on "
 #~ msgstr "Πηγή για το pixelplanet δαμέ "

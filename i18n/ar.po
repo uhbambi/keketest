@@ -305,6 +305,9 @@ msgstr "اغلاق القائمة"
 msgid "Close Palette"
 msgstr "إغلاق لوحة الألوان"
 
+msgid "Compact Chat"
+msgstr ""
+
 msgid "Compact Palette"
 msgstr "لوحة ألوان مدمجة"
 
@@ -806,8 +809,8 @@ msgstr "ادوات الادمن"
 msgid "Move"
 msgstr "تحريك"
 
-msgid "Mute"
-msgstr "ميوت"
+msgid "Mute Channel"
+msgstr ""
 
 msgid "Muted Sound"
 msgstr "صوت صامت"
@@ -1776,6 +1779,9 @@ msgstr "W"
 msgctxt "keybinds"
 msgid "X"
 msgstr "X"
+
+#~ msgid "Mute"
+#~ msgstr "ميوت"
 
 #~ msgid "Source for pixelplanet on "
 #~ msgstr "المصدر لـ pixelplanet على "

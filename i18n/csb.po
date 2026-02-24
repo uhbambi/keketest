@@ -310,6 +310,9 @@ msgstr "Zamkni Menu"
 msgid "Close Palette"
 msgstr "Wëłączë palétã"
 
+msgid "Compact Chat"
+msgstr ""
+
 msgid "Compact Palette"
 msgstr "Kòmpaktowô Paléta"
 
@@ -821,8 +824,8 @@ msgstr "Nôrzãdzé dlô Szandrë"
 msgid "Move"
 msgstr "Przeniesë"
 
-msgid "Mute"
-msgstr "Wëcëszë"
+msgid "Mute Channel"
+msgstr ""
 
 msgid "Muted Sound"
 msgstr "Wëcëszono zwãczi"
@@ -1810,6 +1813,9 @@ msgstr "W"
 msgctxt "keybinds"
 msgid "X"
 msgstr "X"
+
+#~ msgid "Mute"
+#~ msgstr "Wëcëszë"
 
 #~ msgid "PopUp"
 #~ msgstr "Wëskakùjącé òczenko"

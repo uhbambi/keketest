@@ -308,6 +308,9 @@ msgstr "Menûyê Bigire"
 msgid "Close Palette"
 msgstr "Depkê Rengan Bigire"
 
+msgid "Compact Chat"
+msgstr ""
+
 msgid "Compact Palette"
 msgstr "Gişt paleta"
 
@@ -818,8 +821,8 @@ msgstr "Amûrên Mod"
 msgid "Move"
 msgstr "Bilebine"
 
-msgid "Mute"
-msgstr "Bêdeng"
+msgid "Mute Channel"
+msgstr ""
 
 msgid "Muted Sound"
 msgstr "Bêdengî"
@@ -1805,6 +1808,9 @@ msgstr "W"
 msgctxt "keybinds"
 msgid "X"
 msgstr "X"
+
+#~ msgid "Mute"
+#~ msgstr "Bêdeng"
 
 #~ msgid "PopUp"
 #~ msgstr "PopUp"

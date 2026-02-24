@@ -318,6 +318,9 @@ msgstr "Fechar o menu"
 msgid "Close Palette"
 msgstr "Fechar paleta"
 
+msgid "Compact Chat"
+msgstr ""
+
 msgid "Compact Palette"
 msgstr "Paleta Compacta"
 
@@ -832,8 +835,8 @@ msgstr "Ferramentas de Moderador"
 msgid "Move"
 msgstr "Mover"
 
-msgid "Mute"
-msgstr "Silenciar"
+msgid "Mute Channel"
+msgstr ""
 
 msgid "Muted Sound"
 msgstr "Som DESATIVADO"
@@ -1832,6 +1835,9 @@ msgstr "W"
 msgctxt "keybinds"
 msgid "X"
 msgstr "X"
+
+#~ msgid "Mute"
+#~ msgstr "Silenciar"
 
 #~ msgid "You are banned. You think it is unjustified? Check out the "
 #~ msgstr "Você está banido. Gostaria de recorrer da decisão? Veja o "

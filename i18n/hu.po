@@ -311,6 +311,9 @@ msgstr "Menü bezárása"
 msgid "Close Palette"
 msgstr "Paletta bezárása"
 
+msgid "Compact Chat"
+msgstr ""
+
 msgid "Compact Palette"
 msgstr "Kompakt paletta"
 
@@ -818,8 +821,8 @@ msgstr "Moderátori eszközök"
 msgid "Move"
 msgstr "Mozgatás"
 
-msgid "Mute"
-msgstr "Némít"
+msgid "Mute Channel"
+msgstr ""
 
 msgid "Muted Sound"
 msgstr "Némítva"
@@ -1810,6 +1813,9 @@ msgstr "W"
 msgctxt "keybinds"
 msgid "X"
 msgstr "X"
+
+#~ msgid "Mute"
+#~ msgstr "Némít"
 
 #~ msgid "PopUp"
 #~ msgstr "Felugró"

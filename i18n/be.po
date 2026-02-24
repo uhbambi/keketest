@@ -314,6 +314,9 @@ msgstr "Закрыць Меню"
 msgid "Close Palette"
 msgstr "Закрыць Палітру"
 
+msgid "Compact Chat"
+msgstr ""
+
 msgid "Compact Palette"
 msgstr "Кампактная Палітра"
 
@@ -836,8 +839,8 @@ msgstr "Інструменты Мадэратара"
 msgid "Move"
 msgstr "Перамясціць"
 
-msgid "Mute"
-msgstr "Зам'юціць"
+msgid "Mute Channel"
+msgstr ""
 
 msgid "Muted Sound"
 msgstr "Гукі Укл"
@@ -1824,6 +1827,9 @@ msgstr "W"
 msgctxt "keybinds"
 msgid "X"
 msgstr "X"
+
+#~ msgid "Mute"
+#~ msgstr "Зам'юціць"
 
 #~ msgid "PopUp"
 #~ msgstr "Усплывальнае Акно"

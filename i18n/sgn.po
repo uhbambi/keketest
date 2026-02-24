@@ -309,6 +309,9 @@ msgstr "🤘👍👌🖖🤙 👆🤙👇🙌"
 msgid "Close Palette"
 msgstr "🤘👍👌🖖🤙 👎✌️👍🤙👋👋🤙"
 
+msgid "Compact Chat"
+msgstr ""
+
 msgid "Compact Palette"
 msgstr "🤘👌👆👎✌️🤘👋 👎✌️👍🤙👋👋🤙"
 
@@ -823,8 +826,8 @@ msgstr "👆👌🤚👋👌👌👍🖖"
 msgid "Move"
 msgstr "👆👌🤜🤙"
 
-msgid "Mute"
-msgstr "👆🙌👋🤙"
+msgid "Mute Channel"
+msgstr ""
 
 msgid "Muted Sound"
 msgstr "👆🙌👋🤙🤚 🖖👌🙌👇🤚"
@@ -1841,6 +1844,9 @@ msgstr "👐"
 msgctxt "keybinds"
 msgid "X"
 msgstr "👉"
+
+#~ msgid "Mute"
+#~ msgstr "👆🙌👋🤙"
 
 #~ msgid "PopUp"
 #~ msgstr "👎👌👎🙌👎"

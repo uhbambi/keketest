@@ -306,6 +306,9 @@ msgstr "Затваряне на менюто"
 msgid "Close Palette"
 msgstr "Затваряне на палитра"
 
+msgid "Compact Chat"
+msgstr ""
+
 msgid "Compact Palette"
 msgstr "Компактна палитра"
 
@@ -815,8 +818,8 @@ msgstr "Инструменти за модератори"
 msgid "Move"
 msgstr "Премести"
 
-msgid "Mute"
-msgstr "Заглуши"
+msgid "Mute Channel"
+msgstr ""
 
 msgid "Muted Sound"
 msgstr "Заглушен звук"
@@ -1801,6 +1804,9 @@ msgstr "W"
 msgctxt "keybinds"
 msgid "X"
 msgstr "X"
+
+#~ msgid "Mute"
+#~ msgstr "Заглуши"
 
 #~ msgid "PopUp"
 #~ msgstr "Изскачащ прозорец"

@@ -309,6 +309,9 @@ msgstr "Cerrar Menú"
 msgid "Close Palette"
 msgstr "Cerrar Paleta"
 
+msgid "Compact Chat"
+msgstr ""
+
 msgid "Compact Palette"
 msgstr "Paleta de colores compacta"
 
@@ -820,8 +823,8 @@ msgstr "Herramientas de Moderación"
 msgid "Move"
 msgstr "Mover"
 
-msgid "Mute"
-msgstr "Silenciar"
+msgid "Mute Channel"
+msgstr ""
 
 msgid "Muted Sound"
 msgstr "Sonido silenciado"
@@ -1810,6 +1813,9 @@ msgstr "W"
 msgctxt "keybinds"
 msgid "X"
 msgstr "X"
+
+#~ msgid "Mute"
+#~ msgstr "Silenciar"
 
 #~ msgid "PopUp"
 #~ msgstr "Ventana emergente"

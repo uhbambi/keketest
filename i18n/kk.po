@@ -308,6 +308,9 @@ msgstr "Мәзірді жабу"
 msgid "Close Palette"
 msgstr "Палитраны жабу"
 
+msgid "Compact Chat"
+msgstr ""
+
 msgid "Compact Palette"
 msgstr "Ықшам палитра"
 
@@ -814,8 +817,8 @@ msgstr "Модератор құралдары"
 msgid "Move"
 msgstr "Жылжыту"
 
-msgid "Mute"
-msgstr "Үнсіз ету"
+msgid "Mute Channel"
+msgstr ""
 
 msgid "Muted Sound"
 msgstr "Дыбыс өшірілді"
@@ -1800,6 +1803,9 @@ msgstr "W"
 msgctxt "keybinds"
 msgid "X"
 msgstr "X"
+
+#~ msgid "Mute"
+#~ msgstr "Үнсіз ету"
 
 #~ msgid "PopUp"
 #~ msgstr "Қалқымалы терезе"

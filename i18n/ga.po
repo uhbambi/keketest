@@ -313,6 +313,9 @@ msgstr "Roghchlár droidte"
 msgid "Close Palette"
 msgstr "Droid pailéad"
 
+msgid "Compact Chat"
+msgstr ""
+
 msgid "Compact Palette"
 msgstr "Pailéad dlúth"
 
@@ -840,8 +843,8 @@ msgstr "Uirlisí modhnóireachta"
 msgid "Move"
 msgstr "Bóg"
 
-msgid "Mute"
-msgstr "Balbhaigh"
+msgid "Mute Channel"
+msgstr ""
 
 msgid "Muted Sound"
 msgstr "Fuaim Mhúchta"
@@ -1835,6 +1838,9 @@ msgstr "W"
 msgctxt "keybinds"
 msgid "X"
 msgstr "X"
+
+#~ msgid "Mute"
+#~ msgstr "Balbhaigh"
 
 #~ msgid ""
 #~ "You can connect to pixelplanet and use pixelplanet accounts for oauth / "

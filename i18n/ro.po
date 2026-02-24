@@ -315,6 +315,9 @@ msgstr "Închide Meniul"
 msgid "Close Palette"
 msgstr "Închide Paleta"
 
+msgid "Compact Chat"
+msgstr ""
+
 msgid "Compact Palette"
 msgstr "Paletă Compactă"
 
@@ -837,8 +840,8 @@ msgstr "Unelte pentru moderatori"
 msgid "Move"
 msgstr "Mișcă"
 
-msgid "Mute"
-msgstr "Mutează"
+msgid "Mute Channel"
+msgstr ""
 
 msgid "Muted Sound"
 msgstr "Sunet Oprit"
@@ -1831,6 +1834,9 @@ msgstr "W"
 msgctxt "keybinds"
 msgid "X"
 msgstr "X"
+
+#~ msgid "Mute"
+#~ msgstr "Mutează"
 
 #~ msgid "Source for pixelplanet on "
 #~ msgstr "Sursa cod pentru pixelplanet: "

@@ -318,6 +318,9 @@ msgstr "Закрыть меню"
 msgid "Close Palette"
 msgstr "Закрыть палитру"
 
+msgid "Compact Chat"
+msgstr ""
+
 msgid "Compact Palette"
 msgstr "Компактная палитра"
 
@@ -846,8 +849,8 @@ msgstr "Инструменты модератора"
 msgid "Move"
 msgstr "Двигать"
 
-msgid "Mute"
-msgstr "Замьютить"
+msgid "Mute Channel"
+msgstr ""
 
 msgid "Muted Sound"
 msgstr "Звук выключен"
@@ -1852,6 +1855,9 @@ msgstr "W"
 msgctxt "keybinds"
 msgid "X"
 msgstr "X"
+
+#~ msgid "Mute"
+#~ msgstr "Замьютить"
 
 #~ msgid "Ban Media"
 #~ msgstr "Забанить медиафайл"

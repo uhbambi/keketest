@@ -308,6 +308,9 @@ msgstr "Menuyu bağla"
 msgid "Close Palette"
 msgstr "Palitranı aç"
 
+msgid "Compact Chat"
+msgstr ""
+
 msgid "Compact Palette"
 msgstr "Komplakt Palitra"
 
@@ -817,8 +820,8 @@ msgstr "Mod Aracları"
 msgid "Move"
 msgstr "Daşı"
 
-msgid "Mute"
-msgstr "Sustur"
+msgid "Mute Channel"
+msgstr ""
 
 msgid "Muted Sound"
 msgstr "Səs bağlandı"
@@ -1803,6 +1806,9 @@ msgstr "W"
 msgctxt "keybinds"
 msgid "X"
 msgstr "X"
+
+#~ msgid "Mute"
+#~ msgstr "Sustur"
 
 #~ msgid "PopUp"
 #~ msgstr "PopUp"

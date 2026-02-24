@@ -312,6 +312,9 @@ msgstr "Fermer le menu"
 msgid "Close Palette"
 msgstr "Fermer la palette"
 
+msgid "Compact Chat"
+msgstr ""
+
 msgid "Compact Palette"
 msgstr "Palette compacte"
 
@@ -834,8 +837,8 @@ msgstr "Outils de mod"
 msgid "Move"
 msgstr "Déplacer"
 
-msgid "Mute"
-msgstr "Muter"
+msgid "Mute Channel"
+msgstr ""
 
 msgid "Muted Sound"
 msgstr "Son mis en sourdine"
@@ -1830,6 +1833,9 @@ msgstr "W"
 msgctxt "keybinds"
 msgid "X"
 msgstr "X"
+
+#~ msgid "Mute"
+#~ msgstr "Muter"
 
 #~ msgid "Registration"
 #~ msgstr "Inscription"

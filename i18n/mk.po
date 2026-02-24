@@ -307,6 +307,9 @@ msgstr "Затвори го менито"
 msgid "Close Palette"
 msgstr "Затворете ја палетата"
 
+msgid "Compact Chat"
+msgstr ""
+
 msgid "Compact Palette"
 msgstr "Компактна палета"
 
@@ -818,8 +821,8 @@ msgstr "Модерацијски алати"
 msgid "Move"
 msgstr "Премести"
 
-msgid "Mute"
-msgstr "Исклучи звук"
+msgid "Mute Channel"
+msgstr ""
 
 msgid "Muted Sound"
 msgstr "Исклучен Звук"
@@ -1799,6 +1802,9 @@ msgstr "W"
 msgctxt "keybinds"
 msgid "X"
 msgstr "Х"
+
+#~ msgid "Mute"
+#~ msgstr "Исклучи звук"
 
 #~ msgid "PopUp"
 #~ msgstr "Појавен прозорец"

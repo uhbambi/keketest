@@ -311,6 +311,9 @@ msgstr "Menu sluiten"
 msgid "Close Palette"
 msgstr "Palet sluiten"
 
+msgid "Compact Chat"
+msgstr ""
+
 msgid "Compact Palette"
 msgstr "Compact palet"
 
@@ -828,8 +831,8 @@ msgstr "Modtools"
 msgid "Move"
 msgstr "Verplaatsen"
 
-msgid "Mute"
-msgstr "Dempen"
+msgid "Mute Channel"
+msgstr ""
 
 msgid "Muted Sound"
 msgstr "Gedempt geluid"
@@ -1821,6 +1824,9 @@ msgstr "W"
 msgctxt "keybinds"
 msgid "X"
 msgstr "X"
+
+#~ msgid "Mute"
+#~ msgstr "Dempen"
 
 #~ msgid "PopUp"
 #~ msgstr "Pop-up"
