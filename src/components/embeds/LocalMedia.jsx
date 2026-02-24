@@ -24,7 +24,7 @@ import {
 } from '../../core/constants.js';
 
 const LocalMedia = ({
-  url, fill, width, height, scrollRef, avgColor,
+  url, fill, width, height, scrollRef, avgColor, compact,
   title: gTitle, type: gType, mediaId: gMediaId,
 }) => {
   const [expanded, setExpanded] = useState(false);
@@ -35,7 +35,7 @@ const LocalMedia = ({
   const userlvl = useSelector((state) => state.user.userlvl);
 
   const [
-    mediaId, fullUrl, thumbUrl,, title, type, backgroundColor,
+    mediaId, fullUrl, thumbUrl, iconUrl, title, type, backgroundColor,
   ] = useMemo(() => {
     let oMediaId = gMediaId;
     let oTitle = gTitle;
@@ -62,16 +62,8 @@ const LocalMedia = ({
     ];
   }, [url, gTitle, gType, gMediaId, avgColor]);
 
-  if (!fullUrl || !thumbUrl || !type) {
+  if (!fullUrl || !type) {
     return null;
-  }
-
-  let thumbWidth = width;
-  if (width && height) {
-    if (width > 200 || height > 150) {
-      const ratio = Math.min(200 / width, 150 / height);
-      thumbWidth = Math.round(width * ratio);
-    }
   }
 
   const toggleExpand = () => {
@@ -84,6 +76,35 @@ const LocalMedia = ({
       }
     }
   };
+
+  if (compact && iconUrl && !expanded && !fill) {
+    return (
+      <div
+        className="attcontainer icon"
+        onClick={toggleExpand}
+      >
+        <img
+          alt={title}
+          src={cdn`${iconUrl}`}
+          loading="lazy"
+          className="icon"
+        />
+        {type === 'video' && (
+          <div className="attplaybutton icon">
+            <LuFileVideo2 />
+          </div>
+        )}
+      </div>
+    );
+  }
+
+  let thumbWidth = width;
+  if (width && height) {
+    if (width > 200 || height > 150) {
+      const ratio = Math.min(200 / width, 150 / height);
+      thumbWidth = Math.round(width * ratio);
+    }
+  }
 
   let containerClass;
   const containerStyle = {};

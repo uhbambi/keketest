@@ -21,6 +21,7 @@ function ChatMessage({
   attachments,
   openCm,
   scrollRef,
+  compact,
 }) {
   const isDarkMode = useSelector(selectIsDarkMode);
 
@@ -46,7 +47,6 @@ function ChatMessage({
   if (isInfo || isEvent) {
     return (
       <li className="chatmsg">
-        <div className="avatar" />
         <div className="msgcontent">
           <MdParagraph text={msg} className={className} />
         </div>
@@ -54,40 +54,59 @@ function ChatMessage({
     );
   }
 
+  const msgUser = (
+    <span
+      key="name"
+      role="button"
+      tabIndex={-1}
+      className="msguser"
+      style={{
+        cursor: 'pointer',
+      }}
+      onClick={(event) => {
+        openCm(event.clientX, event.clientY, name, uid);
+      }}
+    >
+      <img
+        className={flagClass}
+        alt=""
+        title={country}
+        src={cdn`/cf/${country}.gif`}
+      />
+      <span
+        className="chatname"
+        style={{
+          color: setBrightness(colorFromText(name), isDarkMode),
+        }}
+        title={name}
+      >
+        {name}
+      </span>
+      {': '}
+    </span>
+  );
+
+  if (compact) {
+    return (
+      <li className="chatmsg compact">
+        {msgUser}
+        <MdParagraph
+          text={msg}
+          className={className}
+          attachmentInfo={attachments}
+          scrollRef={scrollRef}
+          compact
+        />
+      </li>
+    );
+  }
+
   return (
-    <li className="chatmsg">
+    <li className="chatmsg full">
       <Avatar uid={uid} isDarkMode={isDarkMode} avatarId={avatarId} />
       <div className="msgcontent">
         <div className="msgheader">
-          <span
-            key="name"
-            role="button"
-            tabIndex={-1}
-            className="msgheaderuser"
-            style={{
-              cursor: 'pointer',
-            }}
-            onClick={(event) => {
-              openCm(event.clientX, event.clientY, name, uid);
-            }}
-          >
-            <img
-              className={flagClass}
-              alt=""
-              title={country}
-              src={cdn`/cf/${country}.gif`}
-            />
-            <span
-              className="chatname"
-              style={{
-                color: setBrightness(colorFromText(name), isDarkMode),
-              }}
-              title={name}
-            >
-              {name}
-            </span>
-            {': '}
-          </span>
+          {msgUser}
           <span className="chatts">
             {getDateTimeString(ts)}
           </span>

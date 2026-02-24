@@ -9,6 +9,7 @@ import { t } from 'ttag';
 import {
   muteChatChannel,
   unmuteChatChannel,
+  toggleChatCompact,
 } from '../../store/actions/index.js';
 import {
   setLeaveChannel,
@@ -22,6 +23,7 @@ import {
 const ChannelContextMenu = ({ args, close }) => {
   const channels = useSelector((state) => state.chat.channels);
   const muteArr = useSelector((state) => state.chatRead.mute);
+  const chatCompact = useSelector((state) => state.gui.chatCompact);
 
   const { cid } = args;
   const dispatch = useDispatch();
@@ -42,7 +44,7 @@ const ChannelContextMenu = ({ args, close }) => {
         }}
         tabIndex={0}
       >
-        {`${(isMuted) ? '✔' : '✘'} ${t`Mute`}`}
+        {`${(isMuted) ? '✔' : '✘'} ${t`Mute Channel`}`}
       </div>
       {(channels[cid][1] !== 0)
         && (
@@ -58,6 +60,14 @@ const ChannelContextMenu = ({ args, close }) => {
           {t`Close`}
         </div>
         )}
+      <div
+        role="button"
+        key="style"
+        onClick={() => dispatch(toggleChatCompact())}
+        tabIndex={0}
+      >
+        {`${(chatCompact) ? '✔' : '✘'} ${t`Compact Chat`}`}
+      </div>
     </>
   );
 };

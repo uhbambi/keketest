@@ -41,6 +41,7 @@ const Chat = () => {
 
   const ownName = useSelector((state) => state.user.name);
   const fetching = useSelector((state) => state.fetching.fetchingChat);
+  const chatCompact = useSelector((state) => state.gui.chatCompact);
   const { channels, messages, blocked } = useSelector((state) => state.chat);
 
   const {
@@ -105,7 +106,6 @@ const Chat = () => {
 
   const { stayScrolled } = useStayScrolled(listRef, {
     initialScroll: Infinity,
-    inaccuracy: 5,
   });
 
   const channelMessages = messages[chatChannel] || [];
@@ -199,7 +199,7 @@ const Chat = () => {
     <div
       ref={targetRef}
       className="chat-container"
-      key={chatChannel}
+      // key={chatChannel}
     >
       <ContextMenu
         type={cmArgs.type}
@@ -228,8 +228,8 @@ const Chat = () => {
           )
         }
         {
-          channelMessages.map((message) => ((blockedIds.includes(message[3]))
-            ? null : (
+          channelMessages.map((message) => (
+            (!blockedIds.includes(message[3])) && (
               <ChatMessage
                 name={message[0]}
                 msg={message[1]}
@@ -243,6 +243,7 @@ const Chat = () => {
                 key={message[5]}
                 openCm={openUserCm}
                 scrollRef={scrollRef}
+                compact={chatCompact}
               />
             )))
         }

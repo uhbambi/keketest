@@ -358,7 +358,7 @@ msgstr ""
 msgid "Name can't be empty."
 msgstr ""
 
-#: src/utils/validation.js:39
+#: src/utils/validation.js:40
 msgid "Name contains invalid character like @, /, \\ or #"
 msgstr ""
 
@@ -395,7 +395,7 @@ msgstr ""
 msgid "No or invalid fish id."
 msgstr ""
 
-#: src/utils/validation.js:68
+#: src/utils/validation.js:69
 msgid "No password given."
 msgstr ""
 
@@ -444,11 +444,11 @@ msgstr ""
 msgid "Our main canvas, a huge map of the world. Place anywhere you like!"
 msgstr ""
 
-#: src/utils/validation.js:71
+#: src/utils/validation.js:72
 msgid "Password must be at least 6 characters long."
 msgstr ""
 
-#: src/utils/validation.js:74
+#: src/utils/validation.js:75
 msgid "Password must be shorter than 60 characters."
 msgstr ""
 
@@ -694,19 +694,19 @@ msgstr ""
 msgid "Username can not start with pp_"
 msgstr ""
 
-#: src/utils/validation.js:53
+#: src/utils/validation.js:54
 msgid "Username can only contain the characters: a-z . _ and -"
 msgstr ""
 
-#: src/utils/validation.js:45
+#: src/utils/validation.js:46
 msgid "Username can't be empty."
 msgstr ""
 
-#: src/utils/validation.js:47
+#: src/utils/validation.js:48
 msgid "Username must be at least 2 characters long"
 msgstr ""
 
-#: src/utils/validation.js:50
+#: src/utils/validation.js:51
 msgid "Username must be shorter than 26 characters"
 msgstr ""
 

@@ -99,6 +99,12 @@ export function toggleChatNotify() {
   };
 }
 
+export function toggleChatCompact() {
+  return {
+    type: 's/TGL_CHAT_COMPACT',
+  };
+}
+
 export function togglePotatoMode() {
   return {
     type: 's/TGL_POTATO_MODE',

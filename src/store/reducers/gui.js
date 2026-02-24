@@ -9,6 +9,7 @@ const initialState = {
   paletteOpen: true,
   mute: false,
   chatNotify: false,
+  chatCompact: false,
   cursor: true,
   // popups that are set to show fullscreen
   fsPopUps: [],
@@ -130,6 +131,12 @@ export default function gui(
       return {
         ...state,
         chatNotify: !state.chatNotify,
+      };
+
+    case 's/TGL_CHAT_COMPACT':
+      return {
+        ...state,
+        chatCompact: !state.chatCompact,
       };
 
     case 's/TGL_EASTER_EGG': {

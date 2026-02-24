@@ -64,7 +64,7 @@ const RecursiveMdParagraph = ({ pArray }) => pArray.map((part) => {
 });
 
 const MdParagraph = ({
-  text, attachmentInfo = [], className, scrollRef,
+  text, attachmentInfo = [], className, scrollRef, compact,
   pArray: gPArray, pAttachments: gPAttachments,
 }) => {
   /*
@@ -132,6 +132,7 @@ const MdParagraph = ({
                   avgColor={avgColor}
                   type={type}
                   scrollRef={scrollRef}
+                  compact={compact}
                 />
               );
             })}

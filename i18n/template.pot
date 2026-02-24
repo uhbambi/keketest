@@ -134,7 +134,7 @@ msgid "Badges"
 msgstr ""
 
 #: src/components/ModMediatools.jsx:83
-#: src/components/embeds/LocalMedia.jsx:218
+#: src/components/embeds/LocalMedia.jsx:239
 msgid "Ban media"
 msgstr ""
 
@@ -276,7 +276,7 @@ msgstr ""
 msgid "Channel"
 msgstr ""
 
-#: src/components/windows/Chat.jsx:333
+#: src/components/windows/Chat.jsx:334
 msgid "Channel settings"
 msgstr ""
 
@@ -289,7 +289,7 @@ msgstr ""
 msgid "Chat"
 msgstr ""
 
-#: src/components/windows/Chat.jsx:271
+#: src/components/windows/Chat.jsx:272
 msgid "Chat here"
 msgstr ""
 
@@ -380,7 +380,7 @@ msgstr ""
 #: src/components/ModCanvastools.jsx:230
 #: src/components/ModWatchtools.jsx:128
 #: src/components/Window.jsx:256
-#: src/components/contextmenus/ChannelContextMenu.jsx:58
+#: src/components/contextmenus/ChannelContextMenu.jsx:60
 msgid "Close"
 msgstr ""
 
@@ -394,6 +394,10 @@ msgstr ""
 
 #: src/components/buttons/PalselButton.jsx:30
 msgid "Close Palette"
+msgstr ""
+
+#: src/components/contextmenus/ChannelContextMenu.jsx:69
+msgid "Compact Chat"
 msgstr ""
 
 #: src/components/windows/Settings.jsx:127
@@ -633,7 +637,7 @@ msgstr ""
 msgid "Don't show me in global stats"
 msgstr ""
 
-#: src/components/embeds/LocalMedia.jsx:226
+#: src/components/embeds/LocalMedia.jsx:247
 msgid "Download"
 msgstr ""
 
@@ -1106,8 +1110,8 @@ msgstr ""
 msgid "Move"
 msgstr ""
 
-#: src/components/contextmenus/ChannelContextMenu.jsx:45
-msgid "Mute"
+#: src/components/contextmenus/ChannelContextMenu.jsx:47
+msgid "Mute Channel"
 msgstr ""
 
 #: src/controls/keypress.js:198
@@ -1123,7 +1127,7 @@ msgstr ""
 msgid "Name can't be empty."
 msgstr ""
 
-#: src/utils/validation.js:39
+#: src/utils/validation.js:40
 msgid "Name contains invalid character like @, /, \\ or #"
 msgstr ""
 
@@ -1164,7 +1168,7 @@ msgstr ""
 msgid "No File selected to upload"
 msgstr ""
 
-#: src/store/actions/index.js:417
+#: src/store/actions/index.js:423
 msgid "No Phish!"
 msgstr ""
 
@@ -1180,7 +1184,7 @@ msgstr ""
 msgid "No or invalid captcha text"
 msgstr ""
 
-#: src/utils/validation.js:68
+#: src/utils/validation.js:69
 msgid "No password given."
 msgstr ""
 
@@ -1208,7 +1212,7 @@ msgstr ""
 msgid "Offset"
 msgstr ""
 
-#: src/store/actions/index.js:418
+#: src/store/actions/index.js:424
 msgid "Oh no, the phish escaped. Better luck next time!"
 msgstr ""
 
@@ -1244,7 +1248,7 @@ msgstr ""
 msgid "Open Palette"
 msgstr ""
 
-#: src/components/embeds/LocalMedia.jsx:243
+#: src/components/embeds/LocalMedia.jsx:267
 #: src/components/markdown/MdLink.jsx:119
 msgid "Open in PopUp"
 msgstr ""
@@ -1293,11 +1297,11 @@ msgstr ""
 msgid "Password"
 msgstr ""
 
-#: src/utils/validation.js:71
+#: src/utils/validation.js:72
 msgid "Password must be at least 6 characters long."
 msgstr ""
 
-#: src/utils/validation.js:74
+#: src/utils/validation.js:75
 msgid "Password must be shorter than 60 characters."
 msgstr ""
 
@@ -1322,7 +1326,7 @@ msgstr ""
 msgid "Permission"
 msgstr ""
 
-#: src/store/actions/index.js:410
+#: src/store/actions/index.js:416
 msgid "Phish!"
 msgstr ""
 
@@ -1712,7 +1716,7 @@ msgstr ""
 msgid "Show templates as overlays ingame."
 msgstr ""
 
-#: src/components/embeds/LocalMedia.jsx:251
+#: src/components/embeds/LocalMedia.jsx:275
 msgid "Shrink"
 msgstr ""
 
@@ -2017,7 +2021,7 @@ msgstr ""
 msgid "Username"
 msgstr ""
 
-#: src/utils/validation.js:53
+#: src/utils/validation.js:54
 msgid "Username can only contain the characters: a-z . _ and -"
 msgstr ""
 
@@ -2026,15 +2030,15 @@ msgstr ""
 msgid "Username can only contain the characters: a-z A-z . _ and -"
 msgstr ""
 
-#: src/utils/validation.js:45
+#: src/utils/validation.js:46
 msgid "Username can't be empty."
 msgstr ""
 
-#: src/utils/validation.js:47
+#: src/utils/validation.js:48
 msgid "Username must be at least 2 characters long"
 msgstr ""
 
-#: src/utils/validation.js:50
+#: src/utils/validation.js:51
 msgid "Username must be shorter than 26 characters"
 msgstr ""
 
@@ -2144,7 +2148,7 @@ msgstr ""
 msgid "You can now place more on pixelplanet.fun :)"
 msgstr ""
 
-#: src/store/actions/index.js:412
+#: src/store/actions/index.js:418
 #, javascript-format
 msgid ""
 "You caught a Phish! It is a ${ FISH_TYPES[type].name } with ${ size }kg! As "
@@ -2176,7 +2180,7 @@ msgstr ""
 msgid "You made too many requests"
 msgstr ""
 
-#: src/components/windows/Chat.jsx:303
+#: src/components/windows/Chat.jsx:304
 msgid "You must be logged in to chat"
 msgstr ""
 
