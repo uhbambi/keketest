@@ -16,6 +16,7 @@ import Menu from './Menu.jsx';
 import UI from './UI.jsx';
 import ExpandMenuButton from './buttons/ExpandMenuButton.jsx';
 import WindowManager from './WindowManager.jsx';
+import ContextMenuProvider from './contextmenus/index.jsx';
 
 const iconContextValue = { style: { verticalAlign: 'middle' } };
 
@@ -23,14 +24,16 @@ const App = () => (
   <>
     <Style />
     <IconContext.Provider value={iconContextValue}>
-      <CanvasSwitchButton />
-      <Menu />
-      <ChatButton />
-      <OnlineBox />
-      <CoordinatesBox />
-      <ExpandMenuButton />
-      <UI />
-      <WindowManager />
+      <ContextMenuProvider>
+        <CanvasSwitchButton />
+        <Menu />
+        <ChatButton />
+        <OnlineBox />
+        <CoordinatesBox />
+        <ExpandMenuButton />
+        <UI />
+        <WindowManager />
+      </ContextMenuProvider>
     </IconContext.Provider>
   </>
 );

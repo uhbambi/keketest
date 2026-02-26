@@ -1,69 +1,40 @@
-import React, { useRef } from 'react';
-import { createPortal } from 'react-dom';
+import React, { useState, useCallback } from 'react';
 
-import UserContextMenu from './UserContextMenu.jsx';
-import ChannelContextMenu from './ChannelContextMenu.jsx';
-import BanMediaContextMenu from './BanMediaContextMenu.jsx';
-import {
-  useClickOutside,
-} from '../hooks/clickOutside.js';
+import ContextMenuContext from '../context/contextmenu.js';
+import ContextMenu from './ContextMenu.jsx';
 
-export const types = {
-  USER: UserContextMenu,
-  CHANNEL: ChannelContextMenu,
-  BANMEDIA: BanMediaContextMenu,
+const ContextMenuProvider = ({ children }) => {
+  const [menuState, setMenuState] = useState(null);
+
+  const showContextMenu = useCallback((type, x, y, args, align) => {
+    setMenuState({ active: true, type, x, y, align, args });
+  }, []);
+
+  const remove = useCallback(() => {
+    setMenuState((state) => ({ ...state, active: false }));
+  }, []);
+
+  const close = useCallback(() => {
+    setMenuState(null);
+  }, []);
+
+  return (
+    <ContextMenuContext.Provider value={showContextMenu}>
+      {children}
+      {(menuState) && (
+      <ContextMenu
+        type={menuState.type}
+        x={menuState.x}
+        y={menuState.y}
+        args={menuState.args}
+        align={menuState.align}
+        active={menuState.active}
+        remove={remove}
+        close={close}
+      />
+      )}
+    </ContextMenuContext.Provider>
+  );
 };
 
-const ContextMenu = ({
-  type, x, y, args, close, align,
-}) => {
-  const wrapperRef = useRef(null);
-
-  useClickOutside([wrapperRef], close);
-
-  if (!type) {
-    return null;
-  }
-
-  const style = {};
-  switch (align) {
-    case 'tr': {
-      style.right = window.innerWidth - x;
-      style.top = y;
-      break;
-    }
-    case 'br': {
-      style.right = window.innerWidth - x;
-      style.bottom = window.innerHeight - y;
-      break;
-    }
-    case 'bl': {
-      style.left = x;
-      style.bottom = window.innerHeight - y;
-      break;
-    }
-    default: {
-      // also 'tl'
-      style.left = x;
-      style.top = y;
-    }
-  }
-
-  const Content = types[type];
-
-  /*
-   * TODO: no create portal, use a context instead, similar to how we did it to
-   * attacment in MdParagraph
-   */
-  return createPortal((
-    <div
-      ref={wrapperRef}
-      className={`contextmenu ${type}`}
-      style={style}
-    >
-      <Content close={close} args={args} />
-    </div>
-  ), document.getElementById('app'));
-};
-
-export default React.memo(ContextMenu);
+export default ContextMenuProvider;

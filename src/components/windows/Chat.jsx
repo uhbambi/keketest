@@ -10,8 +10,8 @@ import { useSelector, useDispatch } from 'react-redux';
 import { t } from 'ttag';
 
 import WindowContext from '../context/window.js';
+import ContextMenuContext from '../context/contextmenu.js';
 import useLink from '../hooks/link.js';
-import ContextMenu from '../contextmenus/index.jsx';
 import ChatMessage from '../ChatMessage.jsx';
 import FileUpload from '../FileUpload.jsx';
 import ChannelDropDown from '../contextmenus/ChannelDropDown.jsx';
@@ -36,7 +36,6 @@ const Chat = () => {
 
   const [blockedIds, setBlockedIds] = useState([]);
   const [btnSize, setBtnSize] = useState(20);
-  const [cmArgs, setCmArgs] = useState({});
 
   const dispatch = useDispatch();
 
@@ -45,11 +44,8 @@ const Chat = () => {
   const chatCompact = useSelector((state) => state.gui.chatCompact);
   const { channels, messages, blocked } = useSelector((state) => state.chat);
 
-  const {
-    args,
-    setArgs,
-    setTitle,
-  } = useContext(WindowContext);
+  const { args, setArgs, setTitle } = useContext(WindowContext);
+  const showContextMenu = useContext(ContextMenuContext);
 
   const chatChannel = args.chatChannel || 0;
 
@@ -87,23 +83,11 @@ const Chat = () => {
     inputRef.current.focus();
   }, []);
 
-  const closeCm = useCallback(() => {
-    setCmArgs({});
-  }, []);
-
   const openUserCm = useCallback((x, y, name, uid) => {
-    setCmArgs({
-      type: 'USER',
-      x,
-      y,
-      args: {
-        name,
-        uid,
-        setChannel,
-        addToInput,
-      },
-    });
-  }, [setChannel, addToInput]);
+    showContextMenu(
+      'USER', x, y, { name, uid, setChannel, addToInput },
+    );
+  }, [setChannel, addToInput, showContextMenu]);
 
   const { stayScrolled } = useStayScrolled(listRef, {
     initialScroll: Infinity,
@@ -213,14 +197,6 @@ const Chat = () => {
       className="chat-container"
       // key={chatChannel}
     >
-      <ContextMenu
-        type={cmArgs.type}
-        x={cmArgs.x}
-        y={cmArgs.y}
-        args={cmArgs.args}
-        close={closeCm}
-        align={cmArgs.align}
-      />
       <ul
         className="chatarea"
         ref={listRef}
@@ -331,18 +307,10 @@ const Chat = () => {
         }}
       >
         <span
-          onClick={(event) => {
-            const {
-              clientX: x,
-              clientY: y,
-            } = event;
-            setCmArgs({
-              type: 'CHANNEL',
-              x,
-              y,
-              args: { cid: chatChannel },
-              align: 'tr',
-            });
+          onClick={(evt) => {
+            showContextMenu(
+              'CHANNEL', evt.clientX, evt.clientY, { cid: chatChannel }, 'tr',
+            );
           }}
           role="button"
           title={t`Channel settings`}

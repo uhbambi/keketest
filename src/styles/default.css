@@ -295,6 +295,12 @@ tr:nth-child(even) {
   border-width: thin;
   color: #212121;
   box-shadow: 0 0 2px 2px rgba(0,0,0,.2);
+  transition: opacity 70ms ease-in-out;
+  opacity: 0;
+}
+
+.contextmenu.show {
+  opacity: 1;
 }
 
 .contextmenu > div {

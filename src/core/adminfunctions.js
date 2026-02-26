@@ -456,7 +456,7 @@ export async function executeIIDAction(
  * @param mediaId
  */
 export async function executeMediaAction(
-  action, mediaIdOrMbid, reason, logger = null,
+  action, mediaIdOrMbid, reason, muid, logger = null,
 ) {
   if (logger) {
     logger(`media ${action} ${mediaIdOrMbid} ${reason}`);
@@ -471,7 +471,7 @@ export async function executeMediaAction(
       if (!reason) {
         throw new Error('No valid reason given');
       }
-      const result = await banMedia(mediaIdOrMbid, reason);
+      const result = await banMedia(mediaIdOrMbid, reason, muid);
       if (!result) {
         throw new Error('Could not ban media');
       }

@@ -99,7 +99,7 @@ router.post('/', async (req, res, next) => {
     if (req.body.mediaaction) {
       const { mediaidormbid, mediaaction, reason } = req.body;
       const msg = await executeMediaAction(
-        mediaaction, mediaidormbid, reason, bLogger,
+        mediaaction, mediaidormbid, reason, req.user.id, bLogger,
       );
       res.send(msg);
       return;

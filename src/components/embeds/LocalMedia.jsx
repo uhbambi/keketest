@@ -3,7 +3,7 @@
  */
 /* eslint-disable jsx-a11y/media-has-caption */
 
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useContext } from 'react';
 import { useSelector } from 'react-redux';
 import { t } from 'ttag';
 import { MdFileDownload } from 'react-icons/md';
@@ -14,7 +14,7 @@ import { LuFileVideo2 } from 'react-icons/lu';
 import useLink from '../hooks/link.js';
 import { cdn } from '../../utils/utag.js';
 import { splitUrl } from '../../core/utils.js';
-import ContextMenu from '../contextmenus/index.jsx';
+import ContextMenuContext from '../context/contextmenu.js';
 import {
   getMediaDetailsFromUrl,
   getUrlsFromMediaIdAndName,
@@ -29,10 +29,10 @@ const LocalMedia = ({
 }) => {
   const [expanded, setExpanded] = useState(false);
   const [imageLoaded, setImageLoaded] = useState(false);
-  const [contextMenuArgs, setContextMenuArgs] = useState(false);
 
   const link = useLink();
   const userlvl = useSelector((state) => state.user.userlvl);
+  const showContextMenu = useContext(ContextMenuContext);
 
   const [
     mediaId, fullUrl, thumbUrl, iconUrl, title, type, backgroundColor,
@@ -216,25 +216,14 @@ const LocalMedia = ({
             return null;
         }
       })()}
-      {(contextMenuArgs) && (
-        <ContextMenu
-          type="BANMEDIA"
-          x={contextMenuArgs.x}
-          y={contextMenuArgs.y}
-          args={{ mediaId }}
-          close={() => setContextMenuArgs(null)}
-          align="tr"
-        />
-      )}
       <span className="att-buttoncontainer">
         {(isMod) && (
           <span
             onClick={(evt) => {
               evt.stopPropagation();
-              setContextMenuArgs({
-                x: evt.clientX,
-                y: evt.clientY,
-              });
+              showContextMenu(
+                'BANMEDIA', evt.clientX, evt.clientY, { mediaId }, 'tr',
+              );
             }}
             className="att-button"
             title={t`Ban media`}
