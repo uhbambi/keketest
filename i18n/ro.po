@@ -3,8 +3,8 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: admin@pixelplanet.fun\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2025-11-08 07:40+0000\n"
-"Last-Translator: Extreme Motorsex <em@noreply.pixelplanet.fun>\n"
+"PO-Revision-Date: 2026-02-28 01:30+0000\n"
+"Last-Translator: Negru <nigger@noreply.pixelplanet.fun>\n"
 "Language-Team: Romanian <https://translate.gs-os.com/projects/ppfun/client/"
 "ro/>\n"
 "Language: ro\n"
@@ -13,16 +13,16 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n==1 ? 0 : (n==0 || (n%100 > 0 && n%100 < "
 "20)) ? 1 : 2;\n"
-"X-Generator: Weblate 5.14\n"
+"X-Generator: Weblate 5.15.2\n"
 
 msgid " which is in "
 msgstr " care este în "
 
 msgid "# Today"
-msgstr ""
+msgstr "# azi"
 
 msgid "# Total"
-msgstr ""
+msgstr "# Total"
 
 #, javascript-format
 msgid "${ mouseSymbol } Hold left mouse button and drag mouse to rotate"
@@ -104,13 +104,13 @@ msgid "Assign new Mod"
 msgstr "Atribuiți un nou moderator"
 
 msgid "Attach File"
-msgstr ""
+msgstr "Atașează fișier"
 
 msgid "Auto Zoom In"
 msgstr "Zoom In automat"
 
 msgid "Avatar"
-msgstr ""
+msgstr "Avatar"
 
 msgid "Back"
 msgstr "Înapoi"
@@ -122,7 +122,7 @@ msgid "Badges"
 msgstr "Insigne"
 
 msgid "Ban media"
-msgstr ""
+msgstr "Interzice media"
 
 msgid "Banned"
 msgstr "Banat"
@@ -220,7 +220,7 @@ msgid "Change your Mail Adress here:"
 msgstr "Schimbă-ți adresa de Mail aici:"
 
 msgid "Channel"
-msgstr ""
+msgstr "Canal"
 
 msgid "Channel settings"
 msgstr "Setări de Canal"
@@ -278,7 +278,7 @@ msgid "Cleaners can use 0cd blank colors."
 msgstr "Curațatorii pot folosii culori goale cu 0cd."
 
 msgid "Clear"
-msgstr ""
+msgstr "Curăță"
 
 #, javascript-format
 msgid ""
@@ -298,7 +298,7 @@ msgid "Click to Load Captcha"
 msgstr "Click pentru a încărca Captchaul"
 
 msgid "Click to remove"
-msgstr ""
+msgstr "Click pentru a elimina"
 
 msgid "Clone"
 msgstr "Clonează"
@@ -316,7 +316,7 @@ msgid "Close Palette"
 msgstr "Închide Paleta"
 
 msgid "Compact Chat"
-msgstr ""
+msgstr "Compactează Chatul"
 
 msgid "Compact Palette"
 msgstr "Paletă Compactă"
@@ -384,7 +384,7 @@ msgid "Copy to Clipboard"
 msgstr "Copiază către Clipboard"
 
 msgid "Could not connect to server"
-msgstr ""
+msgstr "Nu s-a putut conecta la server"
 
 msgid "Could not connect to server, please try again later :("
 msgstr "Nu s-a putut conecta la server, încearcă mai târziu :("
@@ -393,7 +393,7 @@ msgid "Could not load captcha"
 msgstr "Nu am putut încărca captchaul"
 
 msgid "Could not process files"
-msgstr ""
+msgstr "Nu s-au putut procesa fișierele"
 
 msgid "Couldn't set Pixel"
 msgstr "Nu s-a putut seta pixelul"
@@ -423,7 +423,7 @@ msgid "Custom Cursor"
 msgstr "Cursor Custom"
 
 msgid "Custom Flag"
-msgstr ""
+msgstr "Steag Personalizat"
 
 msgid "DM"
 msgstr "DM"
@@ -487,7 +487,7 @@ msgid "Don't show me in global stats"
 msgstr "Nu mă arăta în statisticile globale"
 
 msgid "Download"
-msgstr ""
+msgstr "Descarcă"
 
 msgid "Download Template"
 msgstr "Descarcă Templateul"
@@ -824,7 +824,7 @@ msgid "Maximize"
 msgstr "Maximizează"
 
 msgid "Media Actions"
-msgstr ""
+msgstr "Acțiuni media"
 
 msgid "Minimum Color Distance"
 msgstr "Distanța Minimă de Culoare"
@@ -841,7 +841,7 @@ msgid "Move"
 msgstr "Mișcă"
 
 msgid "Mute Channel"
-msgstr ""
+msgstr "Amuțește Canalul"
 
 msgid "Muted Sound"
 msgstr "Sunet Oprit"
@@ -880,7 +880,7 @@ msgid "No"
 msgstr "Nu"
 
 msgid "No File selected to upload"
-msgstr ""
+msgstr "Niciun fișier selectat pentru încărcare"
 
 msgid "No Phish!"
 msgstr "Niciun pește!"
@@ -889,7 +889,7 @@ msgid "No captcha id given"
 msgstr "Niciun id captcha primit"
 
 msgid "No flag selected"
-msgstr ""
+msgstr "Niciun steag selectat"
 
 msgid "No or invalid captcha text"
 msgstr "Fără captcha text sau invalid"
@@ -901,7 +901,7 @@ msgid "Not allowed"
 msgstr "Nu este permis"
 
 msgid "Note"
-msgstr ""
+msgstr "Notiţă"
 
 msgid "OIDC LogIn"
 msgstr "Login OIDC"
@@ -1023,10 +1023,10 @@ msgid "Pixel protected"
 msgstr "Pixel protejat"
 
 msgid "Pixels"
-msgstr ""
+msgstr "Pixeli"
 
 msgid "Pixels Today"
-msgstr ""
+msgstr "Pixeli Astăzi"
 
 msgid "Place color pixels on a large canvas with other players online!"
 msgstr "Pune pixeli colorați pe un canvas mare cu alți jucători online!"
@@ -1148,7 +1148,7 @@ msgid "Remove"
 msgstr "Scoate"
 
 msgid "Remove Chatmod"
-msgstr ""
+msgstr "Eliminați Chatmod"
 
 msgid "Remove Cleaner"
 msgstr "Scoate Cleaner"
@@ -1220,7 +1220,7 @@ msgid "Select File"
 msgstr "Selectează Fișier"
 
 msgid "Select Flag"
-msgstr ""
+msgstr "Selectați Steag"
 
 msgid "Select Language"
 msgstr "Selectează limba"
@@ -1236,13 +1236,13 @@ msgstr ""
 "Arhiva canvasurilor închise poate fi accesată aici:"
 
 msgid "Select your Avatar. Supported Formats: jpg, gif, png, webp"
-msgstr ""
+msgstr "Selectați Avatarul dvs. Formate acceptate: jpg, gif, png, webp"
 
 msgid "Selected Color"
 msgstr "Selectează Culoare"
 
 msgid "Selected Flag:"
-msgstr ""
+msgstr "Steagul selectat:"
 
 msgid "Send"
 msgstr "Trimite"
@@ -1302,7 +1302,7 @@ msgid "Show templates as overlays ingame."
 msgstr "Arată șablonul ca Overlay ingame."
 
 msgid "Shrink"
-msgstr ""
+msgstr "Micşora"
 
 msgid "Size"
 msgstr "Mărime"
@@ -1315,7 +1315,7 @@ msgstr "Setări Sociale"
 
 #, javascript-format
 msgid "Source for pixelplanet on ${ gitLink } or ${ downloadHereLink }."
-msgstr ""
+msgstr "Sursă pentru pixelplanet pe ${gitLink} sau ${downloadHereLink}."
 
 msgid "Stacking till"
 msgstr "Se stachează până la"
@@ -1412,6 +1412,7 @@ msgstr ""
 
 msgid "This login may only work if your account is verified."
 msgstr ""
+"Această conectare poate funcționa numai dacă contul dvs. este verificat."
 
 msgid "This permission is required"
 msgstr "Această permisiune este necesară"
@@ -1465,7 +1466,7 @@ msgid "Total Online Users"
 msgstr "Utilizatori Online în Total"
 
 msgid "Total Pixels"
-msgstr ""
+msgstr "Pixeli totali"
 
 msgid "Total Pixels per Player"
 msgstr "Pixeli puși în total per Player"
@@ -1493,7 +1494,7 @@ msgid "Type the characters from the following image:"
 msgstr "Scrie literele din imaginea următoare:"
 
 msgid "Unban media"
-msgstr ""
+msgstr "Dezinterzice media"
 
 msgid "Unblock Users"
 msgstr "Deblochează Utilizatori"
@@ -1638,6 +1639,8 @@ msgid ""
 "You can connect to pixelplanet and use pixelplanet accounts for oauth / oidc "
 "login. See here: "
 msgstr ""
+"Vă puteți conecta la pixelplanet și puteți utiliza conturile pixelplanet "
+"pentru autentificare oauth/oidc. Vezi aici: "
 
 msgid "You can not access this canvas yet, because your pixel score is too low"
 msgstr "Momentan nu poți accesa acest canvas. Trebuie să pui mai mulți pixeli"
@@ -1681,7 +1684,7 @@ msgid "You must enter a duration"
 msgstr "Trebuie să pui o durată"
 
 msgid "You must enter a mediaId or media BID"
-msgstr ""
+msgstr "Trebuie să introduceți un mediaId sau un media BID"
 
 msgid "You must enter a reason"
 msgstr "Trebuie să introduci un motiv"
@@ -1748,7 +1751,7 @@ msgid "check compliance here"
 msgstr "Verifică conformitatea aici"
 
 msgid "download here"
-msgstr ""
+msgstr "descarcă aici"
 
 msgid "mentioned you"
 msgstr "te-a menționat"

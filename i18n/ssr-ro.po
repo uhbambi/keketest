@@ -3,8 +3,8 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: admin@pixelplanet.fun\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2025-11-08 07:40+0000\n"
-"Last-Translator: Extreme Motorsex <em@noreply.pixelplanet.fun>\n"
+"PO-Revision-Date: 2026-02-28 01:30+0000\n"
+"Last-Translator: Negru <nigger@noreply.pixelplanet.fun>\n"
 "Language-Team: Romanian <https://translate.gs-os.com/projects/ppfun/server/"
 "ro/>\n"
 "Language: ro\n"
@@ -13,7 +13,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n==1 ? 0 : (n==0 || (n%100 > 0 && n%100 < "
 "20)) ? 1 : 2;\n"
-"X-Generator: Weblate 5.14\n"
+"X-Generator: Weblate 5.15.2\n"
 
 msgid "1bit"
 msgstr "1bit"
@@ -35,7 +35,7 @@ msgstr ""
 "zilnice de clasare la 00:00 UTC."
 
 msgid "A file was too large"
-msgstr ""
+msgstr "O filă era prea mare"
 
 msgid "Access modtools"
 msgstr "Accesează unelte de moderator"
@@ -62,7 +62,7 @@ msgid "Application successfully added"
 msgstr "Cerere adăugată cu succes"
 
 msgid "Avatar can only be an image"
-msgstr ""
+msgstr "Avatarul poate fi doar o imagine"
 
 msgid "Black and White canvas"
 msgstr "Convas negru-alb"
@@ -75,6 +75,8 @@ msgid ""
 "Can not upload this many files at once, only 5 are allowed, you have $"
 "{ amountOfFiles }"
 msgstr ""
+"Nu se pot încărca atât de multe fișiere simultan, doar 5 sunt permise, aveți "
+"${ amountOfFiles }"
 
 msgid "Click here"
 msgstr "Apasă aici"
@@ -108,10 +110,10 @@ msgid "Could not find this login method"
 msgstr "Nu s-a putut găsi această metodă de autentificare"
 
 msgid "Could not set your avtar"
-msgstr ""
+msgstr "Nu ți-am putut seta avtarul"
 
 msgid "Could not upload all files"
-msgstr ""
+msgstr "Nu s-au putut încărca toate fișierele"
 
 msgid "Couldn't find this mail in our database"
 msgstr "Nu am putut găsi acest mail în datele noastre de bază"
@@ -163,13 +165,15 @@ msgid ""
 "File ${ filename } has ${ sizeMB } MB and is too large. It may only be $"
 "{ MAX_FILE_SIZE_MB } MB"
 msgstr ""
+"Fișierul ${ filename } are ${sizeMB } MB și este prea mare. Poate fi doar ${ "
+"MAX_FILE_SIZE_MB } MB"
 
 #, javascript-format
 msgid "File ${ filename } has an invalid extension"
-msgstr ""
+msgstr "Fișierul ${ filename } are o extensie nevalidă"
 
 msgid "File is broken"
-msgstr ""
+msgstr "Fișierul este stricat"
 
 #. 'client_secret' is a technical term and should not be translated
 msgid ""
@@ -220,7 +224,7 @@ msgid "Incorrect password!"
 msgstr "Parolă incorrectă!"
 
 msgid "Invalid type of media"
-msgstr ""
+msgstr "Tip nevalid de media"
 
 msgid "Invalid url :( Please check your mail again."
 msgstr "Url invalid :( Te rog verifică mailul din nou."
@@ -229,10 +233,10 @@ msgid "Just admins can do that"
 msgstr "Numai admini pot face asta"
 
 msgid "Just janny, mod or admin can do that"
-msgstr ""
+msgstr "Doar janny, mod sau admin pot face asta"
 
 msgid "Just mods and admins can do that"
-msgstr ""
+msgstr "Doar moderatorii și administratorii pot face asta"
 
 msgid "Know that an account exists"
 msgstr "Să știe ca există un account"
@@ -260,11 +264,13 @@ msgid "Mail verification"
 msgstr "Mail verificat"
 
 msgid "MimeType or extension not known or supported"
-msgstr ""
+msgstr "MimeType sau extensie necunoscută sau acceptată"
 
 #, javascript-format
 msgid "Mimetype ${ mimeType } of file ${ filename } is invalid or not allowed"
 msgstr ""
+"Mimetype ${ mimeType } al fișierului ${ filename } este invalid sau nu este "
+"permis"
 
 msgid "Minimap"
 msgstr "Minimap"
@@ -314,7 +320,7 @@ msgid "No Captcha given"
 msgstr "Niciun captcha dat"
 
 msgid "No file metadata given"
-msgstr ""
+msgstr "Nu sunt date metadate ale fișierului"
 
 msgid "No or invalid fish id."
 msgstr "Nu este sau id-ul de pește este invalid."
@@ -417,7 +423,7 @@ msgid "Regularly update this data"
 msgstr "Actualizeaza în mod regulat aceste date"
 
 msgid "Request stalled"
-msgstr ""
+msgstr "Solicitare blocată"
 
 #. 'client_secret' is a technical term and should not be translated
 msgid "Reroll client_secret"
@@ -430,7 +436,7 @@ msgid "Reset your password here"
 msgstr "Resetează-ți parola aici"
 
 msgid "Server Error"
-msgstr ""
+msgstr "Eroare server"
 
 msgid "Server error when deleting user."
 msgstr "Eroare de server la încercarea ștergerii utilizatorul."
@@ -475,7 +481,7 @@ msgstr "Mulțumim"
 
 #, javascript-format
 msgid "The file ${ filename } is banned ${ reason }. Ban ID: ${ mbid }"
-msgstr ""
+msgstr "Fișierul ${ filename } este interzis ${ reason }. ID ban: ${ mbid }"
 
 msgid "The user owning this badge is private"
 msgstr "Utilizatorul care deține această insignă este privat"
@@ -526,7 +532,7 @@ msgstr "Acest furnizor de mail nu este permis"
 
 #, javascript-format
 msgid "This media is banned ${ reason }. Ban ID: ${ mbid }"
-msgstr ""
+msgstr "Această media este interzisă ${ reason }. ID ban: ${ mbid }"
 
 msgid "This password-reset link isn't valid anymore :("
 msgstr "Acest parolă-reset link deja nu este valid :("
@@ -543,7 +549,7 @@ msgstr "Eroare de Captcha necunoscută"
 
 #, javascript-format
 msgid "Unknown field ${ name } in request"
-msgstr ""
+msgstr "Câmp necunoscut ${ name } la cerere"
 
 msgid "Update Application"
 msgstr "Actualizează Aplicația"
@@ -588,7 +594,7 @@ msgstr ""
 "minute."
 
 msgid "We currently do not allow file uploads"
-msgstr ""
+msgstr "În prezent, nu permitem încărcarea fișierelor"
 
 #, javascript-format
 msgid "Welcome ${ name } to PixelPlanet, please verify your mail"
@@ -631,7 +637,7 @@ msgid "You are sending messages too fast, you have to wait ${ waitTime }s :("
 msgstr "Trimiți mesaje prea repede, trebuie să aștepți ${ waitTime }s :("
 
 msgid "You attached too many files"
-msgstr ""
+msgstr "Ai ataşat prea multe fişiere"
 
 msgid ""
 "You can not delete this login method, because you have nothing else left."
@@ -659,7 +665,7 @@ msgid "You can't send a message this long :("
 msgstr "Nu poți trimite un mesaj atât de lung :("
 
 msgid "You did not provide all necessary information"
-msgstr ""
+msgstr "Nu ai dat toate informaţiile necesare"
 
 msgid ""
 "You do not have any email adress set. Please add one under \"Login Methods\"."
@@ -690,7 +696,7 @@ msgstr "Trebuie să acesezi direct această pagină în browserul tau :("
 
 #, javascript-format
 msgid "You reached your maximum upload quota of ${ MAX_USER_MEDIA_SIZE_MB } MB"
-msgstr ""
+msgstr "Ai atins cota maximă de încărcare de ${ MAX_USER_MEDIA_SIZE_MB } MB"
 
 msgid ""
 "You requested to get a new password. You can change your password within the "
@@ -732,27 +738,27 @@ msgstr "Parolele nu sunt identifice :("
 
 #. This media is banned xyz
 msgid "because it is propaganda"
-msgstr ""
+msgstr "pentru că e propagandă"
 
 #. This media is banned xyz
 msgid "for being an attempt to scam people"
-msgstr ""
+msgstr "pentru că a fost o încercare de a înșela oamenii"
 
 #. This media is banned xyz
 msgid "for being degenerate"
-msgstr ""
+msgstr "pentru că este degenerata"
 
 #. This media is banned xyz
 msgid "for containing CSAM"
-msgstr ""
+msgstr "pentru a conține CSAM"
 
 #. This media is banned xyz
 msgid "for containing graphic violence"
-msgstr ""
+msgstr "pentru a conține violență grafică"
 
 #. This media is banned xyz
 msgid "for glorifying terrorism"
-msgstr ""
+msgstr "pentru glorificarea terorismului"
 
 #. "redirect_uris" is a technical term and should not be translated
 msgid "redirect_uris does not look legit"
