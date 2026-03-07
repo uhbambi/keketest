@@ -114,7 +114,7 @@ export async function getCustomFlagById(uid) {
 export async function getAvatarById(uid) {
   try {
     const model = await sequelize.query(
-      `SELECT CONCAT(a.shortId, ':', a.extension) AS avatarId FROM Profiles
+      `SELECT CONCAT(a.shortId, ':', a.extension) AS avatarId FROM Profiles p
   LEFT JOIN Media a ON a.id = p.avatar
 WHERE p.uid = ?`, {
         replacements: [uid],

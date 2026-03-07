@@ -89,6 +89,7 @@ async function startDm(req, res) {
       userName,
       ts,
       ts,
+      false,
       avatarId,
     ],
   });
