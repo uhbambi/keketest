@@ -6,12 +6,12 @@ import { t } from 'ttag';
 import {
   requestStartDm,
   requestBlock,
+  requestMute,
   requestBlockDm,
   requestPrivatize,
   requestLeaveChan,
   requestRankings,
   requestProfile,
-  requestChatMessages,
   requestChangeProfile,
   requestMe,
 } from './fetch.js';
@@ -31,7 +31,7 @@ import {
   removeChatChannel,
 } from './socket.js';
 import { isIntervalActive } from '../../core/utils.js';
-import { PENCIL_MODE } from '../../core/constants.js';
+import { PENCIL_MODE, CHANNEL_TYPES } from '../../core/constants.js';
 
 function setApiFetching(fetching) {
   return {
@@ -40,14 +40,7 @@ function setApiFetching(fetching) {
   };
 }
 
-function setChatFetching(fetching) {
-  return {
-    type: 's/SET_CHAT_FETCHING',
-    fetching,
-  };
-}
-
-function receiveChatHistory(
+export function receiveChatHistory(
   cid,
   history,
 ) {
@@ -73,10 +66,9 @@ export function startDm(query, cb = null) {
         'OK',
       ));
     } else {
-      const cid = Number(Object.keys(res)[0]);
-      dispatch(addChatChannel(res));
+      dispatch(addChatChannel(CHANNEL_TYPES.DM, res));
       if (cb) {
-        cb(cid);
+        cb(res[0]);
       }
     }
     dispatch(setApiFetching(false));
@@ -114,19 +106,6 @@ export function fetchMe() {
   };
 }
 
-export function fetchChatMessages(cid) {
-  return async (dispatch) => {
-    dispatch(setChatFetching(true));
-    const history = await requestChatMessages(cid);
-    if (history) {
-      setTimeout(() => { dispatch(setChatFetching(false)); }, 500);
-      dispatch(receiveChatHistory(cid, history));
-    } else {
-      setTimeout(() => { dispatch(setChatFetching(false)); }, 5000);
-    }
-  };
-}
-
 export function setUserBlock(
   userId,
   userName,
@@ -148,6 +127,23 @@ export function setUserBlock(
       dispatch(unblockUser(userId, userName));
     }
     dispatch(setApiFetching(false));
+  };
+}
+
+export function setChannelMute(channelId, mute) {
+  return async (dispatch) => {
+    dispatch(setApiFetching(true));
+    const res = await requestMute(channelId, mute);
+    if (res) {
+      dispatch(pAlert(
+        'Channel Mute Error',
+        res,
+        'error',
+        'OK',
+      ));
+    }
+    dispatch(setApiFetching(false));
+    return !res;
   };
 }
 

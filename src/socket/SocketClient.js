@@ -35,8 +35,6 @@ import {
   receiveOnline,
   receiveCoolDown,
   receiveChatMessage,
-  addChatChannel,
-  removeChatChannel,
   deletePublicUserMessages,
   deleteMessages,
 } from '../store/actions/socket.js';
@@ -50,21 +48,23 @@ class SocketClient {
   store = null;
   pixelTransferController = null;
   ws = null;
+  /*
+    * properties set in connect and open:
+    * this.timeLastConnecting
+    * this.timeLastPing
+    * this.timeLastSent
+    */
+  readyState = WebSocket.CLOSED;
+  /* set by initialization */
   getRenderer;
+  /* queues */
+  #msgQueue = [];
+  #reqQueue = [];
+  /* chat channels we listen to, with ref counters */
+  openChatChannels = new Map();
 
   constructor() {
     console.log('Creating WebSocketClient');
-    this.channelId = 0;
-    /*
-     * properties set in connect and open:
-     * this.timeLastConnecting
-     * this.timeLastPing
-     * this.timeLastSent
-     */
-    this.readyState = WebSocket.CLOSED;
-    this.msgQueue = [];
-    this.reqQueue = [];
-
     this.checkHealth = this.checkHealth.bind(this);
     setInterval(this.checkHealth, 2000);
   }
@@ -83,10 +83,6 @@ class SocketClient {
   connect() {
     this.readyState = WebSocket.CONNECTING;
     if (this.ws) {
-      /*
-       * TODO there seems to be no return for ages now,
-       * needs testing if there even should be one
-       */
       console.log('WebSocket already open, not starting');
     }
     this.timeLastConnecting = Date.now();
@@ -134,7 +130,7 @@ class SocketClient {
       this.ws.send(msg);
     } else {
       console.log('Tried sending message when websocket was closed!');
-      this.msgQueue.push(msg);
+      this.#msgQueue.push(msg);
     }
   }
 
@@ -145,8 +141,8 @@ class SocketClient {
   }
 
   processMsgQueue() {
-    while (this.msgQueue.length > 0) {
-      this.sendWhenReady(this.msgQueue.shift());
+    while (this.#msgQueue.length > 0) {
+      this.sendWhenReady(this.#msgQueue.shift());
     }
   }
 
@@ -162,6 +158,7 @@ class SocketClient {
 
     this.store.dispatch(socketOpen());
     this.readyState = WebSocket.OPEN;
+    // register canvas
     this.send(dehydrateRegCanvas(
       this.store.getState().canvas.canvasId,
     ));
@@ -171,6 +168,8 @@ class SocketClient {
       console.log(`Register ${chunkids.length} chunks`);
       this.send(dehydrateRegMChunks(chunkids));
     }
+    // register chat channels
+    this.sendChatView();
     // flush queue
     this.processMsgQueue();
 
@@ -204,6 +203,19 @@ class SocketClient {
     }
   }
 
+  sendChatView() {
+    const { channelViews } = this.store.getState().chat;
+    if (this.readyState === WebSocket.OPEN) {
+      this.send(`cv,${JSON.stringify([
+        Date.now(), Object.keys(channelViews).map(Number),
+      ])}`);
+    }
+  }
+
+  isChatChannelRegistered(channelId) {
+    return this.openChatChannels.has(channelId);
+  }
+
   /*
    * send captcha solution
    * @param solution text
@@ -216,10 +228,10 @@ class SocketClient {
         resolve(arg);
         clearTimeout(id);
       }];
-      this.reqQueue.push(queueObj);
+      this.#reqQueue.push(queueObj);
       id = setTimeout(() => {
-        const pos = this.reqQueue.indexOf(queueObj);
-        if (~pos) this.reqQueue.splice(pos, 1);
+        const pos = this.#reqQueue.indexOf(queueObj);
+        if (~pos) this.#reqQueue.splice(pos, 1);
         reject(new Error('Timeout'));
       }, 20000);
       const args = [solution, captchaid];
@@ -244,10 +256,10 @@ class SocketClient {
         resolve(arg);
         clearTimeout(id);
       }];
-      this.reqQueue.push(queueObj);
+      this.#reqQueue.push(queueObj);
       id = setTimeout(() => {
-        const pos = this.reqQueue.indexOf(queueObj);
-        if (~pos) this.reqQueue.splice(pos, 1);
+        const pos = this.#reqQueue.indexOf(queueObj);
+        if (~pos) this.#reqQueue.splice(pos, 1);
         reject(new Error('Timeout'));
       }, 20000);
       this.sendWhenReady(dehydratePixelUpdate(i, j, pixels));
@@ -283,6 +295,7 @@ class SocketClient {
   }
 
   onTextMessage(message) {
+    console.log(message);
     const comma = message.indexOf(',');
     if (comma === -1) {
       return;
@@ -292,12 +305,6 @@ class SocketClient {
     switch (key) {
       case 'ck':
         this.store.dispatch(receiveChatMessage(...val));
-        break;
-      case 'ac':
-        this.store.dispatch(addChatChannel(val));
-        break;
-      case 'rc':
-        this.store.dispatch(removeChatChannel(val));
         break;
       case 'dpum':
         this.store.dispatch(deletePublicUserMessages(val));
@@ -329,9 +336,9 @@ class SocketClient {
         }
         break;
       case PIXEL_RETURN_OP: {
-        const pos = this.reqQueue.findIndex((q) => q[0] === 'pu');
+        const pos = this.#reqQueue.findIndex((q) => q[0] === 'pu');
         if (~pos) {
-          this.reqQueue.splice(pos, 1)[0][1](hydratePixelReturn(data));
+          this.#reqQueue.splice(pos, 1)[0][1](hydratePixelReturn(data));
         }
         break;
       }
@@ -347,9 +354,9 @@ class SocketClient {
         this.reconnect();
         break;
       case CAPTCHA_RETURN_OP: {
-        const pos = this.reqQueue.findIndex((q) => q[0] === 'cs');
+        const pos = this.#reqQueue.findIndex((q) => q[0] === 'cs');
         if (~pos) {
-          this.reqQueue.splice(pos, 1)[0][1](hydrateCaptchaReturn(data));
+          this.#reqQueue.splice(pos, 1)[0][1](hydrateCaptchaReturn(data));
         }
         break;
       }

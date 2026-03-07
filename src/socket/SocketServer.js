@@ -39,6 +39,7 @@ import drawByOffsets from '../core/draw.js';
 import { HOUR } from '../core/constants.js';
 import { checkCaptchaSolution } from '../data/redis/captcha.js';
 import { getCoolDown } from '../data/redis/cooldown.js';
+import { markChannelsRead } from '../data/sql/Channel.js';
 import { isCORSAllowed } from '../middleware/cors.js';
 import evaluateMalware from '../core/malwareEvaluation.js';
 
@@ -82,6 +83,8 @@ class SocketServer {
       ws.connectedTs = ws.timeLastMsg;
       ws.canvasId = null;
       ws.chunkCnt = 0;
+      ws.openChatChannels = new Set();
+      ws.openChatChannelsTs = 0;
       /* populate data from request */
       const { user, ip, lang, ttag } = req;
       ws.user = user;
@@ -136,7 +139,7 @@ class SocketServer {
     ) => {
       const text = `ck,${JSON.stringify(
         // eslint-disable-next-line max-len
-        [channelId, name, message, country, id, Math.floor(Date.now / 1000), 0, false, null, []],
+        [channelId, false, name, message, country, id, Math.floor(Date.now / 1000), 0, false, null, []],
       )}`;
       this.findAllWsByUerId(userId).forEach((ws) => {
         ws.send(text);
@@ -155,17 +158,53 @@ class SocketServer {
       avatarId,
       attachments,
     ) => {
-      const text = `ck,${JSON.stringify(
-        // eslint-disable-next-line max-len
-        [channelId, name, message, flag, userId, ts, msgId, flagLegit, avatarId, attachments],
-      )}`;
-      const clientArray = [];
+      const isPublicChannel = chatProvider.isPublicChannel(channelId);
+      // ws objects
+      const viewingClientArray = [];
+      const viewingClientArrayNotify = [];
+      // user ids
+      const readMarkingArray = [];
+
       this.wss.clients.forEach((ws) => {
-        if (chatProvider.userHasChannelAccess(ws.user, ws.lang, channelId)) {
-          clientArray.push(ws);
+        const hasChannelOpen = ws.openChatChannels.has(channelId);
+
+        if (isPublicChannel) {
+          if (hasChannelOpen) {
+            viewingClientArray.push(ws);
+          }
+          return;
+        }
+        if (ws.user?.hasChannel(channelId)) {
+          if (ws.user?.hasChannelMuted(channelId) || hasChannelOpen) {
+            viewingClientArray.push(ws);
+          } else {
+            viewingClientArrayNotify.push(ws);
+          }
+          if (hasChannelOpen) {
+            readMarkingArray.push(ws.user.id);
+          }
         }
       });
-      SocketServer.broadcastSelected(clientArray, text);
+
+      if (viewingClientArray.length) {
+        const text = `ck,${JSON.stringify(
+          // eslint-disable-next-line max-len
+          [channelId, false, name, message, flag, userId, ts, msgId, flagLegit, avatarId, attachments],
+        )}`;
+        SocketServer.broadcastSelected(viewingClientArray, text);
+      }
+
+      if (viewingClientArrayNotify.length) {
+        const text = `ck,${JSON.stringify(
+          // eslint-disable-next-line max-len
+          [channelId, true, name, message, flag, userId, ts, msgId, flagLegit, avatarId, attachments],
+        )}`;
+        SocketServer.broadcastSelected(viewingClientArrayNotify, text);
+      }
+
+      if (readMarkingArray.length) {
+        markChannelsRead(channelId, readMarkingArray);
+      }
     });
 
     socketEvents.on('deletePublicUserMessages', (uid) => {
@@ -175,30 +214,16 @@ class SocketServer {
     socketEvents.on('deleteMessages', (channelId, messageIds) => {
       const text = `dmm,${JSON.stringify([channelId, messageIds])}`;
       const clientArray = [];
+      const isPublicChannel = chatProvider.isPublicChannel(channelId);
       this.wss.clients.forEach((ws) => {
-        if (chatProvider.userHasChannelAccess(ws.user, ws.lang, channelId)) {
+        const hasChannelOpen = ws.openChatChannels.has(channelId);
+        if (hasChannelOpen && (
+          isPublicChannel || ws.user?.hasChannel(channelId)
+        )) {
           clientArray.push(ws);
         }
       });
       SocketServer.broadcastSelected(clientArray, text);
-    });
-
-    socketEvents.on('addChatChannel', (userId, channelId, channelArray) => {
-      this.findAllWsByUerId(userId).forEach((ws) => {
-        ws.user.addChannel(channelId, channelArray);
-        const text = `ac,${JSON.stringify({
-          [channelId]: channelArray,
-        })}`;
-        ws.send(text);
-      });
-    });
-
-    socketEvents.on('remChatChannel', (userId, channelId) => {
-      this.findAllWsByUerId(userId).forEach((ws) => {
-        ws.user.removeChannel(channelId);
-        const text = `rc,${JSON.stringify(channelId)}`;
-        ws.send(text);
-      });
     });
 
     socketEvents.on('rateLimitTrigger', (ip, blockTime) => {
@@ -527,6 +552,19 @@ class SocketServer {
           socketEvents.recvChatMessage(
             user, ws.ip, message, val[1], ws.lang, ws.ttag,
           );
+          break;
+        }
+        case 'cv': {
+          const openChatChannelsTs = val[0];
+          const openChatChannels = val[1];
+          if (openChatChannelsTs > ws.openChatChannelsTs) {
+            ws.openChatChannels = new Set(openChatChannels.slice(0, 50));
+            ws.openChatChannelsTs = openChatChannelsTs;
+            markChannelsRead(
+              chatProvider.filterPublicChannels([...ws.openChatChannels]),
+              ws.user?.id,
+            );
+          }
           break;
         }
         case 'cs': {

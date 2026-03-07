@@ -180,7 +180,7 @@ const LocalMedia = ({
     );
   }
 
-  const isMod = userlvl >= USERLVL.MOD || userlvl === USERLVL.CHATMOD;
+  const isMod = userlvl >= USERLVL.CHATMOD;
 
   return (
     <div

@@ -70,19 +70,7 @@ class APISocketServer {
   }
 
   static async getPublicChannelsAndStaff() {
-    const chanReply = [];
-    const defaultChanKeys = Object.keys(chatProvider.defaultChannels);
-    const langChanKeys = Object.keys(chatProvider.langChannels);
-    for (let i = 0; i < defaultChanKeys.length; i += 1) {
-      const id = defaultChanKeys[i];
-      const [name] = chatProvider.defaultChannels[id];
-      chanReply.push([parseInt(id, 10), name]);
-    }
-    for (let i = 0; i < langChanKeys.length; i += 1) {
-      const name = langChanKeys[i];
-      const { id } = chatProvider.langChannels[name];
-      chanReply.push([id, name]);
-    }
+    const chanReply = chatProvider.getPublicChannels();
     const staff = await getChatStaff();
     return ['chans', chanReply, staff];
   }
@@ -178,7 +166,7 @@ class APISocketServer {
       return;
     }
     // send only messages from default and lang channels
-    if (!chatProvider.publicChannelIds.includes(channelId)) {
+    if (!chatProvider.isPublicChannel(channelId)) {
       return;
     }
 

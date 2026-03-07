@@ -20,32 +20,15 @@ export function longTimeout() {
 }
 
 export function receiveChatMessage(...messageArray) {
-  return (dispatch, getState) => {
-    // channelId
-    const cid = Number(messageArray.shift());
-    const state = getState();
-    let isRead;
-    if (state.windows) {
-      isRead = state.windows.windows.some(
-        (win) => win.windowType === 'CHAT' && !win.hidden,
-      ) && Object.values(state.windows.args).some(
-        (args) => args.chatChannel === cid,
-      );
-    } else {
-      isRead = state.popup.windowType === 'CHAT'
-        || state.popup.args.chatChannel === cid;
-    }
+  // channelId
+  const cid = Number(messageArray.shift());
+  const notify = messageArray.shift();
 
-    // TODO ping doesn't work since update
-    // const { nameRegExp } = state.user;
-    // const isPing = (nameRegExp && text.match(nameRegExp));
-    dispatch({
-      type: 's/REC_CHAT_MESSAGE',
-      cid,
-      messageArray,
-      isPing: false,
-      isRead,
-    });
+  return {
+    type: 's/REC_CHAT_MESSAGE',
+    cid,
+    messageArray,
+    notify,
   };
 }
 
@@ -78,9 +61,11 @@ export function receiveOnline(online) {
   };
 }
 
-export function addChatChannel(channel) {
+export function addChatChannel(channelType, channel) {
+  /* [ cid, name, lastTs, lastReadTs, muted, avatarId ] */
   return {
     type: 's/ADD_CHAT_CHANNEL',
+    channelType,
     channel,
   };
 }

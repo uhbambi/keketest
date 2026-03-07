@@ -106,4 +106,27 @@ export async function getCustomFlagById(uid) {
   return null;
 }
 
+/**
+ * get avatar of user
+ * @param uid user id
+ * @return two letter flag code or null
+ */
+export async function getAvatarById(uid) {
+  try {
+    const model = await sequelize.query(
+      `SELECT CONCAT(a.shortId, ':', a.extension) AS avatarId FROM Profiles
+  LEFT JOIN Media a ON a.id = p.avatar
+WHERE p.uid = ?`, {
+        replacements: [uid],
+        type: QueryTypes.SELECT,
+        plain: true,
+      },
+    );
+    return model?.avatarId;
+  } catch (error) {
+    console.error(`SQL Error on getAvatarById: ${error.message}`);
+  }
+  return null;
+}
+
 export default Profile;

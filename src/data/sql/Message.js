@@ -19,7 +19,7 @@ const Message = sequelize.define('Message', {
   },
 
   cid: {
-    type: DataTypes.INTEGER.UNSIGNED,
+    type: DataTypes.BIGINT.UNSIGNED,
     allowNull: false,
   },
 

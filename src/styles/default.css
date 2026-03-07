@@ -12,6 +12,12 @@
   --cursor-move-color: url(/cursors/move-color-1.png), move;
   --cursor-move-template: url(/cursors/move-template-1.png), move;
   --cursor-move-history: url(/cursors/move-history-1.png), move;
+
+  --control-bg: #f7f7f7;
+  --control-bg-highlight: #e4e4e4;
+  --control-bg-selected: #e8e8e8;
+  --control-txt-color: black;
+  --button-bg-pressed: #cbcbcb;
 }
 
 /* --- fonts --- */
@@ -224,12 +230,13 @@ tr:nth-child(even) {
 .win-topbar {
   display: flex;
   height: 24px;
+  color: var(--control-txt-color);
 }
 
 .win-title {
   border: solid black;
   border-width: thin;
-  background-color: #e8e8e8;
+  background-color: var(--control-bg-selected);
   cursor: move;
   flex-grow: 1;
   line-height: 17px;
@@ -242,13 +249,13 @@ tr:nth-child(even) {
 }
 
 .win-title:hover {
-  background-color: #e4e4e4;
+  background-color: var(--control-bg-highlight);
 }
 
 .win-topbtn {
   border: solid black;
   border-width: thin;
-  background-color: #f7f7f7;
+  background-color: var(--control-bg);
   cursor: pointer;
   margin: 2px;
   text-align: center;
@@ -368,38 +375,6 @@ tr:nth-child(even) {
   padding: 2;
   display: inline-block;
   vertical-align: middle;
-}
-
-.channeldd {
-  background-color: rgba(226, 226, 226);
-  color: #212121;
-  border: solid black;
-  border-width: thin;
-  width: 90px;
-  box-shadow: 0 0 2px 2px rgba(0,0,0,.2);
-}
-
-.channeldds {
-  height: 120px;
-  overflow-y: auto;
-  overflow-x: hidden;
-  margin: 2px;
-  scrollbar-width: thin;
-}
-
-/* won't be needed anymore with chrome 90+ */
-.channeldds::-webkit-scrollbar {
-  width: 6px;
-}
-.channeldds::-webkit-scrollbar-thumb {
-  border-radius: 10px;
-  border: 1px solid;
-}
-
-.chntop {
-  display: flex;
-  height: 24px;
-  border-bottom: solid thin;
 }
 
 .actionbuttons, .coorbox, .onlinebox, .cooldownbox, #palettebox {
@@ -673,6 +648,10 @@ tr:nth-child(even) {
   font-size: 16px;
 }
 
+button.selected {
+  background-color: var(--button-bg-pressed);
+}
+
 .Alert .md-paragraph {
   margin-top: 12px;
   margin-bottom: 12px;
@@ -908,6 +887,99 @@ table td span {
 }
 
 /*
+ * =========================== CHANNEL DROP DOWN ===============================
+ */
+
+.channeldd-button {
+  width: 35px;
+  font-family: monospace;
+  overflow: hidden;
+  height: 100%;
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  font-size: 10px;
+}
+
+.channeldd {
+  position: absolute;
+  right: 0px;
+  bottom: 24px;
+}
+
+.channeldd {
+  background-color: var(--control-bg);
+  color: var(--control-txt-color);
+  border: solid black;
+  border-width: thin;
+  width: 125px;
+  box-shadow: 0 0 2px 2px rgba(0,0,0,.2);
+}
+
+.channeldd-category {
+  cursor: pointer;
+  border: solid;
+  border-width: thin;
+  padding: 4px;
+  background-color: var(--control-bg-highlight);
+  margin: 2px;
+  font-size: 12px;
+}
+
+.channeldd-category.selected {
+  background-color: var(--control-bg-selected);
+  font-weight: bold;
+}
+
+.channeldd-category > .expand-btn {
+  float: right;
+  padding-right: 4px;
+}
+
+.channeldd-channellist {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 200ms;
+}
+
+.channeldd-channellist.expanded {
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+.channeldd-channel {
+  display: flex;
+  gap: 9px;
+  padding: 4px;
+  font-family: monospace;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.channeldd-channel.selected {
+  background-color: var(--control-bg-selected);
+  font-weight: bold;
+}
+
+.channeldd-channel.unread, .channeldd-category.unread, .channeldd-button.unread {
+  box-shadow: inset 0 0 6px 2px rgba(204, 172, 130, 0.7), 0 1px 3px rgba(0,0,0,0.2);
+}
+
+.channeldd-channel:hover {
+  background-color: var(--control-bg-highlight);
+}
+
+.channeldd-channel.unread {
+  border: #f4f3f3;
+}
+
+.channeldd-name {
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+/*
  * ========================= CHAT STUFF HERE ===================================
  */
 
@@ -917,6 +989,7 @@ table td span {
   flex-direction: column;
   width: 100%;
   height: 100%;
+  overflow-y: hidden;
 }
 
 .chatbox div .chatarea  {
@@ -961,21 +1034,33 @@ table td span {
   flex-wrap: wrap;
 }
 
-.avatar {
-  width: 28px;
-  height: 28px;
-  border-radius: 15%;
+.avatar, .channelavatar {
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 14px;
   font-weight: 600;
 }
 
+.avatar {
+  width: 28px;
+  height: 28px;
+  font-size: 14px;
+  border-radius: 15%;
+}
+
 .chatmsg > .avatar {
+  flex-shrink: 0;
+}
+
+.channelavatar {
+  width: 20px;
+  height: 20px;
+  font-size: 12px;
+  border: solid;
+  border-width: thin;
   flex-shrink: 0;
 }
 
@@ -1206,45 +1291,8 @@ table td span {
   cursor: pointer;
 }
 
-.chn {
-  position: relative;
-  background-color: #ebebeb;
-  white-space: nowrap;
-  border-bottom: solid thin #b1b1b2;
-  padding: 1px;
-  font-size: 15px;
-  height: 22px;
-}
-
-.chn.selected, .chn:hover, .channelbtn.selected, .channelbtn:hover {
-  cursor: pointer;
-  background-color: #c9c9c9;
-}
-
 button:hover {
   cursor: pointer;
-  background-color: #c9c9c9;
-}
-
-.chnunread {
-  position: absolute;
-  top: -1px;
-  right: 1px;
-  font-weight: bold;
-  font-size: 12px;
-  color: red;
-}
-
-.chntype {
-  position: relative;
-  flex: auto;
-  text-align: center;
-  background-color: #ebebeb;
-  border-left: solid thin #b1b1b2;
-}
-.chntype.selected, .chntype:hover {
-  cursor: pointer;
-  font-size: 110%;
   background-color: #c9c9c9;
 }
 

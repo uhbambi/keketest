@@ -9,7 +9,6 @@ import storage from 'redux-persist/es/storage/index.js';
 
 import gui from './reducers/gui.js';
 import ranks from './reducers/ranks.js';
-import chatRead from './reducers/chatRead.js';
 import user from './reducers/user.js';
 import canvas from './reducers/canvas.js';
 import templates from './reducers/templates.js';
@@ -42,17 +41,10 @@ const ranksPersist = persistReducer({
   migrate,
 }, ranks);
 
-const chatReadPersist = persistReducer({
-  key: 'cr',
-  storage,
-  version: 17,
-  migrate,
-}, chatRead);
-
 const templatesPersist = persistReducer({
   key: 'tem',
   storage,
-  version: 17,
+  version: 18,
   migrate,
 }, templates);
 
@@ -67,11 +59,10 @@ const canvasPersist = persistReducer({
 export default {
   gui: guiPersist,
   ranks: ranksPersist,
-  chatRead: chatReadPersist,
   templates: templatesPersist,
   canvas: canvasPersist,
-  user,
   chat,
+  user,
   fetching,
   profile,
 };

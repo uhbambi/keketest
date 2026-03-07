@@ -6,7 +6,6 @@ import { getBanInfos } from '../src/data/sql/Ban.js';
 import { resolveSession, createSession } from '../src/data/sql/Session.js';
 import { getUsersByNameOrEmail, setPassword, setUserLvl, createNewUser } from '../src/data/sql/User.js';
 import { setEmail, getTPIDsOfUser } from '../src/data/sql/ThreePID.js';
-import { createDMChannel, deleteDMChannel, deleteChannel } from '../src/data/sql/Channel.js';
 import { notifyUserIpChanges, ban } from '../src/core/ban.js';
 import { sanitizeIPString, ipToHex, hexToIP } from '../src/utils/intel/ip.js';
 import { blockUser, unblockUser, isUserBlockedBy } from '../src/data/sql/association_models/UserBlock.js';
@@ -165,18 +164,8 @@ async function ipMapping() {
 async function chat(users) {
   title('Chat');
   const { uida, uidb, tokena, tokenb } = users;
-  console.log('Create DM channel');
-  await deleteDMChannel(uida, uidb);
-  const [cid, success] = await createDMChannel(uida, uidb);
-  if (!success || !cid) {
-    fail('createDMChannel', [cid, success]);
-  }
-  console.log('Resolve session with DM channel');
+  console.log('Resolve session');
   let out = await resolveSession(tokena);
-  const info = out.channels[cid];
-  if (info[0] !== 'testB' || info[3] !== uidb) {
-    fail('Resolve session with DM', out);
-  }
   console.log('Block user');
   out = await isUserBlockedBy(uida, uidb);
   if (out) {

@@ -7,7 +7,7 @@
 import { USERLVL } from '../data/sql/index.js';
 import { getUserRanks } from '../data/redis/ranks.js';
 import { USE_MAILER, TIMEBLOCK_USERS, TIMEBLOCK_IPS } from './config.js';
-import { USER_FLAGS } from './constants.js';
+import { USER_FLAGS, CHANNEL_TYPES } from './constants.js';
 import chatProvider from './ChatProvider.js';
 
 export default async function getMe(user, ip, lang) {
@@ -23,8 +23,10 @@ export default async function getMe(user, ip, lang) {
 
   /* [[id, name], ...] */
   let blocked;
-  /* { id: [name, type, lastTs, dmu] } */
-  let channels = { ...chatProvider.getDefaultChannels(lang) };
+  /* { type: [cid, name, lastTs, lastReadTs, muted, avatarId] } */
+  let channels = {
+    [CHANNEL_TYPES.PUBLIC]: chatProvider.getAccessiblePublicChannels(lang),
+  };
 
   if (user) {
     const { data } = user;

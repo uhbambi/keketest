@@ -109,7 +109,6 @@ export async function hasMediaBan(hashes, pHashes) {
                 types: QueryTypes.SELECT,
               },
             );
-            console.log(models);
             if (models?.length) {
               return models;
             }
@@ -123,7 +122,6 @@ export async function hasMediaBan(hashes, pHashes) {
             types: QueryTypes.SELECT,
           },
         );
-        console.log(models);
         if (models?.length) {
           return models;
         }

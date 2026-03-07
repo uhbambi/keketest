@@ -2,6 +2,7 @@
  * Hooks for websocket client to store changes
  *
  */
+import { shallowEqual } from 'react-redux';
 
 import SocketClient from '../../socket/SocketClient.js';
 
@@ -46,12 +47,23 @@ export default (store) => (next) => (action) => {
     case 'RELOAD_URL':
     case 's/SELECT_CANVAS':
     case 's/REC_CANVASES': {
-      const prevState = store.getState();
+      const prevState = store.getState().canvas;
       const ret = next(action);
-      const state = store.getState();
-      const { canvasId } = state.canvas;
-      if (prevState.canvas.canvasId !== canvasId) {
+      const state = store.getState().canvas;
+      const { canvasId } = state;
+      if (prevState.canvasId !== canvasId) {
         SocketClient.setCanvas(canvasId);
+      }
+      return ret;
+    }
+
+    case 's/REG_CHAT_CHAN':
+    case 's/DEREG_CHAT_CHAN': {
+      const prevState = Object.keys(store.getState().chat.channelViews);
+      const ret = next(action);
+      const state = Object.keys(store.getState().chat.channelViews);
+      if (!shallowEqual(prevState, state)) {
+        SocketClient.sendChatView();
       }
       return ret;
     }

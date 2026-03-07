@@ -10,6 +10,7 @@ import {
 } from '../../data/sql/association_models/UserBlock.js';
 import { findUserByIdOrName } from '../../data/sql/User.js';
 import { createDMChannel } from '../../data/sql/Channel.js';
+import { getAvatarById } from '../../data/sql/Profile.js';
 import { USER_FLAGS } from '../../core/constants.js';
 
 async function startDm(req, res) {
@@ -71,30 +72,25 @@ async function startDm(req, res) {
   const [channelId] = await createDMChannel(user.id, userId);
 
   if (channelId) {
-    const curTime = Date.now();
-    socketEvents.broadcastAddChatChannel(
-      user.id,
-      channelId,
-      [userName, 1, curTime, userId],
-    );
-    socketEvents.broadcastAddChatChannel(
-      userId,
-      channelId,
-      [user.name, 1, curTime, user.id],
-    );
+    socketEvents.reloadUser(user.id);
+    socketEvents.reloadUser(userId);
   } else {
     throw new Error(`Couldn't create a DM with ${userName}, try again later.`);
   }
 
+  const avatarId = await getAvatarById(userId);
+
+  const ts = Date.now();
+
   res.json({
-    channel: {
-      [channelId]: [
-        userName,
-        1,
-        Date.now(),
-        userId,
-      ],
-    },
+    status: 'ok',
+    channel: [
+      channelId,
+      userName,
+      ts,
+      ts,
+      avatarId,
+    ],
   });
 }
 

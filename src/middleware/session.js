@@ -32,8 +32,7 @@ export class User {
    *   tpids: [ { tpid, provider }, ... ],
    *   blocked: [ { id, name }, ...],
    *   channels: {
-   *     cid: [ name, type, lastTs, [dmuid] ],
-   *     ...
+   *     PUBLIC: [[cid, name, lastTs, lastReadTs, muted, avatar], ...], ...
    *   },
    * }
    */
@@ -44,6 +43,11 @@ export class User {
   isBanned = null;
   /* null | boolean */
   isMuted = null;
+  /*
+   * map of available channel Ids ans whether or not they are muted, populated
+   * by session data for quick resolve
+   */
+  channelIds = new Map();
   /*
    * Blocked users can not see the canvas during defined daytimes, but see a
    * message instead and can interact with chat
@@ -61,6 +65,21 @@ export class User {
     this.userlvl = data.userlvl;
     this.#token = token;
     this.#data = data;
+
+    /*
+     * data.channels:
+     *   { PUBLIC: [[cid, name, lastTs, lastReadTs, muted, avatar], ...], ... }
+     */
+    const channelsByType = Object.values(data.channels);
+    for (let i = 0; i < channelsByType.length; i += 1) {
+      const typeChannels = channelsByType[i];
+      for (let u = 0; u < typeChannels.length; u += 1) {
+        const typeChannel = typeChannels[u];
+        // Map<isMuted>
+        this.channelIds.set(typeChannel[0], typeChannel[4]);
+      }
+    }
+
     const [isBanned, isMuted, banRecheckTs] = parseListOfBans(data.bans);
     this.isBanned = isBanned;
     this.isMuted = isMuted;
@@ -103,19 +122,11 @@ export class User {
   }
 
   hasChannel(cid) {
-    return !!this.#data.channels[cid];
+    return this.channelIds.has(cid);
   }
 
-  getChannel(cid) {
-    return this.#data.channels[cid];
-  }
-
-  removeChannel(cid) {
-    delete this.#data.channels[cid];
-  }
-
-  addChannel(cid, channelArray) {
-    this.#data.channels[cid] = channelArray;
+  hasChannelMuted(cid) {
+    return this.channelIds.get(cid);
   }
 
   refresh() {

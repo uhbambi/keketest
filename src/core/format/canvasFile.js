@@ -2,6 +2,8 @@
  * Manage stored canvas files
  * Format description in doc/FORMAT.md
  */
+
+/* eslint-disable */
 import fs, { promises as fsPromises } from 'fs';
 
 class StoredCanvas {

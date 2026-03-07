@@ -69,7 +69,7 @@ msgstr ""
 msgid "Black and White canvas"
 msgstr ""
 
-#: src/core/ChatProvider.js:334
+#: src/core/ChatProvider.js:354
 msgid "Can not chat while being banned"
 msgstr ""
 
@@ -119,6 +119,10 @@ msgstr ""
 
 #: src/routes/api/auth/remove_tpid.js:25
 msgid "Could not find this login method"
+msgstr ""
+
+#: src/routes/api/leavechan.js:35
+msgid "Could not leave this channel"
 msgstr ""
 
 #: src/routes/api/profilechange.js:47
@@ -497,7 +501,7 @@ msgstr ""
 msgid "Please try again."
 msgstr ""
 
-#: src/core/ChatProvider.js:367
+#: src/core/ChatProvider.js:387
 msgid "Please use int channel"
 msgstr ""
 
@@ -545,7 +549,7 @@ msgid "Server Error"
 msgstr ""
 
 #: src/routes/api/auth/delete_account.js:53
-msgid "Server error when deleting user."
+msgid "Server error while deleting user."
 msgstr ""
 
 #: src/core/MailProvider.js:108
@@ -577,7 +581,7 @@ msgstr ""
 msgid "Special canvas to spread awareness of SARS-CoV2 (take the vax)."
 msgstr ""
 
-#: src/core/ChatProvider.js:375
+#: src/core/ChatProvider.js:395
 msgid "Stop flooding."
 msgstr ""
 
@@ -745,12 +749,12 @@ msgstr ""
 msgid "You are already verified."
 msgstr ""
 
-#: src/core/ChatProvider.js:344
+#: src/core/ChatProvider.js:364
 #, javascript-format
 msgid "You are muted for another ${ timeMin } minutes"
 msgstr ""
 
-#: src/core/ChatProvider.js:346
+#: src/core/ChatProvider.js:366
 #, javascript-format
 msgid "You are muted for another ${ ttl } seconds"
 msgstr ""
@@ -763,7 +767,7 @@ msgstr ""
 msgid "You are not banned"
 msgstr ""
 
-#: src/middleware/session.js:219
+#: src/middleware/session.js:230
 #: src/routes/api/modtools.js:67
 msgid "You are not logged in"
 msgstr ""
@@ -772,16 +776,16 @@ msgstr ""
 msgid "You are now verified :)"
 msgstr ""
 
-#: src/core/ChatProvider.js:339
+#: src/core/ChatProvider.js:359
 msgid "You are permanently muted, join our guilded to appeal the mute"
 msgstr ""
 
-#: src/core/ChatProvider.js:309
+#: src/core/ChatProvider.js:329
 #, javascript-format
 msgid "You are sending messages too fast, you have to wait ${ waitTime }s :("
 msgstr ""
 
-#: src/core/ChatProvider.js:400
+#: src/core/ChatProvider.js:420
 msgid "You attached too many files"
 msgstr ""
 
@@ -797,7 +801,7 @@ msgstr ""
 msgid "You can not register an account with a proxy"
 msgstr ""
 
-#: src/core/ChatProvider.js:331
+#: src/core/ChatProvider.js:351
 msgid "You can not send chat messages while using a proxy"
 msgstr ""
 
@@ -807,7 +811,7 @@ msgid ""
 "client_secret needed to make use of this."
 msgstr ""
 
-#: src/core/ChatProvider.js:398
+#: src/core/ChatProvider.js:418
 msgid "You can't send a message this long :("
 msgstr ""
 
@@ -821,7 +825,7 @@ msgid ""
 "Methods\"."
 msgstr ""
 
-#: src/core/ChatProvider.js:313
+#: src/core/ChatProvider.js:333
 msgid "You don't have access to this channel"
 msgstr ""
 
@@ -882,11 +886,11 @@ msgstr ""
 msgid "Your account needs to be verified to access this page"
 msgstr ""
 
-#: src/core/ChatProvider.js:318
+#: src/core/ChatProvider.js:338
 msgid "Your country is temporary muted from this chat channel"
 msgstr ""
 
-#: src/core/ChatProvider.js:358
+#: src/core/ChatProvider.js:378
 msgid "Your mail has to be verified in order to chat"
 msgstr ""
 

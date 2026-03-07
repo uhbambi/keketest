@@ -27,15 +27,11 @@ let cdnUrl = window.ssv?.cdnUrl || basename;
  * check if cdnTestUrl is reachable, and use it as cdn if it is
  */
 if (window.ssv.cdnTestUrl) {
-  fetch(`${window.ssv.cdnTestUrl}/test.bmp`).then((res) => {
-    if (res.ok) {
-      cdnUrl = window.ssv.cdnTestUrl;
-    } else {
-      throw new Error();
-    }
-  }).catch(() => {
-    console.warn('Cloudflare is blocked by your ISP.');
-  });
+  const img = new Image();
+  img.addEventListener('load', () => {
+    cdnUrl = window.ssv.cdnTestUrl;
+  }, { once: true });
+  img.src = 'https://cdn.ponybooru.org/img/view/2026/2/21/3987750.jpg';
 }
 
 /**

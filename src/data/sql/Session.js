@@ -260,7 +260,7 @@ export async function resolveSession(token) {
       `SELECT u.id, u.name, u.username, u.password, u.userlvl, u.flags, u.lastSeen, u.createdAt,
 p.customFlag,
 CONCAT(a.shortId, ':', a.extension) AS avatarId,
-c.id AS 'channels.cid', c.name AS 'channels.name', c.\`type\` AS 'channels.type', c.lastMessage AS 'channels.lastDate', ucm.lastRead AS 'channels.lastReadDate' FROM Users u
+c.id AS 'channels.cid', c.name AS 'channels.name', c.\`type\` AS 'channels.type', c.lastMessage AS 'channels.lastDate', ucm.lastRead AS 'channels.lastReadDate', ucm.muted AS 'channels.muted' FROM Users u
   INNER JOIN Sessions s ON s.uid = u.id
   LEFT JOIN Profiles p ON p.uid = u.id
   LEFT JOIN Media a ON a.id = p.avatar
@@ -293,8 +293,11 @@ WHERE s.token = $1 AND (s.expires > NOW() OR s.expires IS NULL)`, {
     ).map(({ cid }) => cid);
     if (dmChannelIds.length) {
       promises.push(sequelize.query(
-        `SELECT uc.cid, dmu.id AS 'dmuid', dmu.name AS 'dmname' FROM UserChannels uc
+        // eslint-disable-next-line max-len
+        `SELECT uc.cid, dmu.name AS 'dmname', CONCAT(a.shortId, ':', a.extension) AS avatarId FROM UserChannels uc
     INNER JOIN Users dmu ON dmu.id = uc.uid
+    LEFT JOIN Profiles p ON p.uid = dmu.id
+    LEFT JOIN Media a ON a.id = p.avatar
   WHERE dmu.id != ? AND uc.cid IN (?)`, {
           replacements: [userId, dmChannelIds],
           raw: true,
@@ -334,11 +337,11 @@ WHERE ub.uid = ?`, {
 
     /*
      * dmChannels:
-     *   [{ cid, dmuid, dmname }, ...]
+     *   [{ cid, dmname, muted, avatarId }, ...]
      * user.channels:
      *   [{ cid, name, type, lastDate, lastReadDate }, ...]
      * target user.channels:
-     *   { cid: [ name, type, lastTs, [dmuid]], ... }
+     *   { PUBLIC: [[cid, name, lastTs, lastReadTs, muted, avatarIdOrCc], ...], ... }
      */
     if (user.channels.length) {
       const { channels } = user;
@@ -346,9 +349,15 @@ WHERE ub.uid = ?`, {
       let i = channels.length;
       while (i > 0) {
         i -= 1;
-        const { cid, name, type, lastDate } = channels[i];
-        const channel = [name, type, lastDate.getTime()];
+        const { cid, name, type, lastDate, lastReadDate, muted } = channels[i];
+        const channel = [
+          // eslint-disable-next-line max-len
+          cid, name, lastDate.getTime(), lastReadDate.getTime(), muted === 1, null,
+        ];
         if (type === CHANNEL_TYPES.DM) {
+          /*
+           * if it is a dm channel, set the name to the name of the other user
+           */
           const dmChannel = dmChannels.find(({ cid: dmcid }) => dmcid === cid);
           if (!dmChannel) {
             console.error(
@@ -357,11 +366,14 @@ WHERE ub.uid = ?`, {
             );
             continue;
           }
-          const { dmuid, dmname } = dmChannel;
-          channel.push(dmuid);
-          channel[0] = dmname;
+          channel[1] = dmChannel.dmname;
+          channel[5] = dmChannel.avatarId;
         }
-        user.channels[cid] = channel;
+        if (user.channels[type]) {
+          user.channels[type].push(channel);
+        } else {
+          user.channels[type] = [channel];
+        }
       }
     }
 

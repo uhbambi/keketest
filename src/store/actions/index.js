@@ -297,7 +297,7 @@ export function receiveBigChunkFailure(chunk, error) {
 
 export function parseCanvases() {
   /*
-   * can only do this once and requires winsoe.ssv
+   * can only do this once and requires window.ssv
    */
   const { canvases, defaultCanvas } = window.ssv;
   delete window.ssv.canvases;
@@ -403,8 +403,23 @@ export function markChannelAsRead(
   cid,
 ) {
   return {
-    type: 'MARK_CHANNEL_AS_READ',
-    cid,
+    type: 's/MARK_CHANNEL_AS_READ', cid,
+  };
+}
+
+export function registerChatChannel(
+  cid,
+) {
+  return {
+    type: 's/REG_CHAT_CHAN', cid,
+  };
+}
+
+export function deRegisterChatChannel(
+  cid,
+) {
+  return {
+    type: 's/DEREG_CHAT_CHAN', cid,
   };
 }
 
@@ -479,20 +494,6 @@ export function profileChange(profile) {
   return {
     type: 's/CHANGED_PROFILE',
     profile,
-  };
-}
-
-export function muteChatChannel(cid) {
-  return {
-    type: 's/MUTE_CHAT_CHANNEL',
-    cid,
-  };
-}
-
-export function unmuteChatChannel(cid) {
-  return {
-    type: 's/UNMUTE_CHAT_CHANNEL',
-    cid,
   };
 }
 

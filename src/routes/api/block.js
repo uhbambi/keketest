@@ -34,10 +34,7 @@ async function block(req, res) {
     errors.push('You can not block yourself.');
   }
   if (errors.length) {
-    res.status(400);
-    res.json({
-      errors,
-    });
+    res.status(400).json({ errors });
     return;
   }
 
@@ -58,8 +55,8 @@ async function block(req, res) {
     ret = await blockUser(user.id, userId);
     const dmChannelId = await deleteDMChannel(user.id, userId);
     if (dmChannelId) {
-      socketEvents.broadcastRemoveChatChannel(user.id, dmChannelId);
-      socketEvents.broadcastRemoveChatChannel(userId, dmChannelId);
+      socketEvents.reloadUser(user.id);
+      socketEvents.reloadUser(userId);
     }
   } else {
     ret = await unblockUser(user.id, userId);

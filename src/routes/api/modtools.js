@@ -68,7 +68,7 @@ router.use(async (req, res, next) => {
     return;
   }
   const { userlvl } = req.user;
-  if (!userlvl || (userlvl < USERLVL.JANNY && userlvl !== USERLVL.CHATMOD)) {
+  if (!userlvl || userlvl < USERLVL.CHATMOD) {
     logger.warn(
       `MODTOOLS: ${req.ip.ipString} / ${req.user.id} tried to access modtools`,
     );
@@ -86,7 +86,7 @@ router.use(async (req, res, next) => {
 });
 
 /*
- * Post for chatmod + janny + mod + admin
+ * Post for chatmod + cleaner + janny + mod + admin
  */
 router.post('/', async (req, res, next) => {
   const bLogger = (text) => {

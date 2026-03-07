@@ -4,6 +4,7 @@
 
 import React, {
   useRef, useLayoutEffect, useState, useEffect, useCallback, useContext,
+  useMemo,
 } from 'react';
 import useStayScrolled from 'react-stay-scrolled';
 import { useSelector, useDispatch } from 'react-redux';
@@ -14,16 +15,17 @@ import ContextMenuContext from '../context/contextmenu.js';
 import useLink from '../hooks/link.js';
 import ChatMessage from '../ChatMessage.jsx';
 import FileUpload from '../FileUpload.jsx';
-import ChannelDropDown from '../contextmenus/ChannelDropDown.jsx';
+import ChannelDropDown from '../ChannelDropDown.jsx';
 import { CHANNEL_TYPES } from '../../core/constants.js';
 import { escapeMd } from '../../core/utils.js';
 
 import {
-  markChannelAsRead,
-  sendChatMessage,
+  markChannelAsRead, sendChatMessage,
+  registerChatChannel, deRegisterChatChannel,
 } from '../../store/actions/index.js';
 import { receiveChatMessage } from '../../store/actions/socket.js';
-import { fetchChatMessages } from '../../store/actions/thunks.js';
+import { receiveChatHistory } from '../../store/actions/thunks.js';
+import { requestChatMessages } from '../../store/actions/fetch.js';
 
 
 const Chat = () => {
@@ -34,36 +36,87 @@ const Chat = () => {
   const scrollRef = useRef();
   const waitingForUpload = useRef();
 
+  const historyFetchRef = useRef();
+
   const [blockedIds, setBlockedIds] = useState([]);
   const [btnSize, setBtnSize] = useState(20);
 
   const dispatch = useDispatch();
 
   const ownName = useSelector((state) => state.user.name);
-  const fetching = useSelector((state) => state.fetching.fetchingChat);
   const chatCompact = useSelector((state) => state.gui.chatCompact);
-  const { channels, messages, blocked } = useSelector((state) => state.chat);
+  const {
+    channels, messages, blocked, channelViews,
+  } = useSelector((state) => state.chat);
 
   const { args, setArgs, setTitle } = useContext(WindowContext);
   const showContextMenu = useContext(ContextMenuContext);
 
   const chatChannel = args.chatChannel || 0;
 
-  const link = useLink();
-
   const setChannel = useCallback((cid) => {
-    dispatch(markChannelAsRead(cid));
     setArgs({
       chatChannel: Number(cid),
     });
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [dispatch]);
+  }, []);
+
+  const [
+    channelName, channelType, channelMuted, channelAvatarId,
+  ] = useMemo(() => {
+    const types = Object.keys(channels);
+    for (let i = 0; i < types.length; i += 1) {
+      const typeChannels = channels[types[i]];
+      for (let u = 0; u < typeChannels.length; u += 1) {
+        const typeChannel = typeChannels[u];
+        if (typeChannel[0] === chatChannel) {
+          return [
+            typeChannel[1], Number(types[i]), typeChannel[4], typeChannel[5],
+          ];
+        }
+      }
+    }
+    return ['', CHANNEL_TYPES.PUBLIC, true, null];
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [chatChannel, channels]);
+
+  useEffect(() => {
+    if (channelName) {
+      setTitle(`${t`Channel`}: ${channelName}`);
+    } else {
+      /*
+       * set channel if not exists
+       */
+      let replacementChannel = channels[CHANNEL_TYPES.PUBLIC]?.[0];
+      if (!replacementChannel) {
+        replacementChannel = channels[CHANNEL_TYPES.FACTION]?.[0];
+      }
+      if (replacementChannel) {
+        setChannel(replacementChannel[0]);
+      }
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [channelName, channels[CHANNEL_TYPES.PUBLIC]?.length]);
+
+  const link = useLink();
+
+  useEffect(() => {
+    if (!chatChannel) {
+      return undefined;
+    }
+    dispatch(markChannelAsRead(chatChannel));
+    dispatch(registerChatChannel(chatChannel));
+    return () => {
+      dispatch(deRegisterChatChannel(chatChannel));
+    };
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [chatChannel]);
 
   const printWarnings = useCallback((warnings) => {
     warnings.forEach((warning) => {
       dispatch(receiveChatMessage(
-        chatChannel, 'info', warning, 'xx', 0, Math.floor(Date.now() / 1000),
-        0, false, null, [],
+        // eslint-disable-next-line max-len
+        chatChannel, false, 'info', warning, 'xx', 0, Math.floor(Date.now() / 1000), 0, false, null, [],
       ));
     });
   // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -83,9 +136,9 @@ const Chat = () => {
     inputRef.current.focus();
   }, []);
 
-  const openUserCm = useCallback((x, y, name, uid) => {
+  const openUserCm = useCallback((x, y, userName, uid) => {
     showContextMenu(
-      'USER', x, y, { name, uid, setChannel, addToInput },
+      'USER', x, y, { name: userName, uid, setChannel, addToInput },
     );
   }, [setChannel, addToInput, showContextMenu]);
 
@@ -93,25 +146,39 @@ const Chat = () => {
     initialScroll: Infinity,
   });
 
-  const channelMessages = messages[chatChannel] || [];
-  useEffect(() => {
-    if (channels[chatChannel] && !messages[chatChannel] && !fetching) {
-      dispatch(fetchChatMessages(chatChannel));
-    }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [channels, messages, chatChannel, fetching]);
+  const channelMessages = messages[chatChannel];
 
   useEffect(() => {
-    if (channels[chatChannel]) {
-      const channelName = channels[chatChannel][0];
-      setTitle(`${t`Channel`}: ${channelName}`);
+    if (messages[chatChannel] || !channelViews[chatChannel] || !channelName) {
+      return;
     }
+
+    if (historyFetchRef.current) {
+      const { controller, cid } = historyFetchRef.current;
+      if (cid === chatChannel) {
+        return;
+      }
+      controller.abort();
+    }
+
+    const fetchHistory = async () => {
+      const controller = new AbortController();
+      historyFetchRef.current = { controller, cid: chatChannel };
+      const history = await requestChatMessages(chatChannel, controller);
+      if (history) {
+        dispatch(receiveChatHistory(chatChannel, history));
+        historyFetchRef.current = null;
+      } else if (!controller.signal.aborted) {
+        setTimeout(fetchHistory, 5000);
+      }
+    };
+    fetchHistory();
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [chatChannel, channels]);
+  }, [chatChannel, messages, channelName, channelViews]);
 
   useLayoutEffect(() => {
     stayScrolled();
-  }, [channelMessages.length, stayScrolled]);
+  }, [channelMessages?.length, stayScrolled]);
 
   useEffect(() => {
     scrollRef.current = stayScrolled;
@@ -164,38 +231,10 @@ const Chat = () => {
     }
   }
 
-  /*
-   * if selected channel isn't in channel list anymore
-   * for whatever reason (left faction etc.)
-   * set channel to first available one
-   */
-  useEffect(() => {
-    if (!chatChannel || !channels[chatChannel]) {
-      let chosenChannel;
-      for (const [cid, [name, type]] of Object.entries(channels)) {
-        if (!chosenChannel) {
-          chosenChannel = cid;
-        }
-        if (type === CHANNEL_TYPES.PUBLIC) {
-          chosenChannel = cid;
-          if (name === 'en') {
-            chosenChannel = cid;
-            break;
-          }
-        }
-      }
-      if (chosenChannel) {
-        setChannel(chosenChannel);
-      }
-    }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [channels, chatChannel]);
-
   return (
     <div
       ref={targetRef}
       className="chat-container"
-      // key={chatChannel}
     >
       <ul
         className="chatarea"
@@ -203,7 +242,7 @@ const Chat = () => {
         style={{ flexGrow: 1 }}
         role="presentation"
       >
-        {(!channelMessages.length) && (
+        {(channelMessages?.length === 0) && (
           <ChatMessage
             key="initm"
             uid={0}
@@ -213,7 +252,7 @@ const Chat = () => {
           />
         )}
         {
-          channelMessages.map((message) => (
+          channelMessages?.map((message) => (
             (!blockedIds.includes(message[3])) && (
               <ChatMessage
                 name={message[0]}
@@ -298,6 +337,9 @@ const Chat = () => {
           key="cdd"
           setChatChannel={setChannel}
           chatChannel={chatChannel}
+          channelName={channelName}
+          channelType={channelType}
+          channelAvatarId={channelAvatarId}
         />
       </div>
       <div
@@ -309,7 +351,9 @@ const Chat = () => {
         <span
           onClick={(evt) => {
             showContextMenu(
-              'CHANNEL', evt.clientX, evt.clientY, { cid: chatChannel }, 'tr',
+              'CHANNEL', evt.clientX, evt.clientY, {
+                cid: chatChannel, type: channelType, muted: channelMuted,
+              }, 'tr',
             );
           }}
           role="button"

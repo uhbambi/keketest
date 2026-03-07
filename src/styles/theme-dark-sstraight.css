@@ -1,3 +1,9 @@
+:root {
+  --control-bg-selected: #c1c1c1;
+  --control-bg-highlight: #dedede;
+  --control-bg: #a6a4a4;
+}
+
 a:link {
   color: #91ffe0;
 }
@@ -53,42 +59,24 @@ tr:nth-child(even) {
   border-radius: 4px;
 }
 
-.win-topbar, .modal-topbtn {
-  color: black;
-}
-
 .win-title {
-  background-color: #c1c1c1;
   color: #8a5007;
 }
 
-.win-title:hover {
-  background-color: #dedede;
-}
-
-.win-topbtn, .modal-topbtn {
-  background-color: #a6a4a4;
-}
-
-.win-topbtn:hover, .modal-topbtn:hover {
+.win-topbtn:hover {
   background-color: #8b8b8b;
 }
 
-.channeldd, .contextmenu {
+.contextmenu {
   background-color: #353535;
   color: #efefef;
   border-radius: 4px;
 }
 
-.chntop {
-  margin-top: 4px;
-}
-
-.chn, .chntype, .contextmenu > div {
+.contextmenu > div {
   background-color: #353535;
 }
 
-.chn.selected, .chn:hover, .chntype.selected, .chntype:hover,
 .contextmenu > div:hover {
   background-color: #404040;
 }

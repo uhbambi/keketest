@@ -8,7 +8,7 @@ const initialState = {
   compactPalette: false,
   paletteOpen: true,
   mute: false,
-  chatNotify: false,
+  chatNotify: true,
   chatCompact: false,
   cursor: true,
   // popups that are set to show fullscreen

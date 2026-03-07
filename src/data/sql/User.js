@@ -783,9 +783,6 @@ export async function setPassword(id, password) {
 export async function deleteUser(id) {
   try {
     const dmChannels = await deleteAllDMChannelsOfUser(id);
-    if (dmChannels === null) {
-      throw new Error('Could not destroy DM channels');
-    }
     await User.destroy({ where: { id } });
     return { dmChannels };
   } catch (error) {
@@ -895,8 +892,8 @@ export async function getChatStaff() {
         type: QueryTypes.SELECT,
       }),
       // eslint-disable-next-line max-len
-      sequelize.query('SELECT id, username FROM Users WHERE userlvl >= ? OR userlvl = ?', {
-        replacements: [USERLVL.MOD, USERLVL.CHATMOD],
+      sequelize.query('SELECT id, username FROM Users WHERE userlvl >= ?', {
+        replacements: [USERLVL.CHATMOD],
         raw: true,
         type: QueryTypes.SELECT,
       }),

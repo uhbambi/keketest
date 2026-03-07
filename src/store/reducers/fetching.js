@@ -5,7 +5,6 @@
 
 const initialState = {
   fetchingChunks: 0,
-  fetchingChat: false,
   fetchingPixel: false,
   fetchingApi: false,
 };
@@ -15,14 +14,6 @@ export default function fetching(
   action,
 ) {
   switch (action.type) {
-    case 's/SET_CHAT_FETCHING': {
-      const { fetching: fetchingChat } = action;
-      return {
-        ...state,
-        fetchingChat,
-      };
-    }
-
     case 'SET_API_FETCHING': {
       const { fetching: fetchingApi } = action;
       return {

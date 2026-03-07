@@ -50,15 +50,14 @@ export default async (req, res) => {
   if (!ret) {
     res.status(500);
     res.json({
-      errors: [t`Server error when deleting user.`],
+      errors: [t`Server error while deleting user.`],
     });
     return;
   }
   const { dmChannels } = ret;
   if (dmChannels.length) {
-    dmChannels.forEach(({ cid, dmuid }) => {
-      socketEvents.broadcastRemoveChatChannel(user.id, cid);
-      socketEvents.broadcastRemoveChatChannel(dmuid, cid);
+    dmChannels.forEach(({ dmuid }) => {
+      socketEvents.reloadUser(dmuid);
     });
   }
   clearCookie(req, res);

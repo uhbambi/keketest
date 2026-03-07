@@ -9,6 +9,7 @@ import auth from './auth/index.js';
 import chatHistory from './chathistory.js';
 import startDm from './startdm.js';
 import leaveChan from './leavechan.js';
+import mute from './mute.js';
 import block from './block.js';
 import blockdm from './blockdm.js';
 import privatize from './privatize.js';
@@ -17,6 +18,7 @@ import modtools from './modtools.js';
 import baninfo from './baninfo.js';
 import getiid from './getiid.js';
 import shards from './shards.js';
+import pubchannels from './pubchannels.js';
 import profile from './profile.js';
 import canvases from './canvases.js';
 import fish from './fish.js';
@@ -54,6 +56,8 @@ router.use((req, res, next) => {
 
 // routes that don't need a user
 router.get('/shards', shards);
+
+router.get('/pubchannels', pubchannels);
 
 router.get('/getiid', getiid);
 
@@ -96,6 +100,8 @@ router.post('/startdm', startDm);
 router.post('/leavechan', leaveChan);
 
 router.post('/block', block);
+
+router.post('/mute', mute);
 
 router.post('/blockdm', blockdm);
 

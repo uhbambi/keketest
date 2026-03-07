@@ -42,21 +42,30 @@ function getUserFromMd(mdUserLink) {
 
 export class ChatProvider {
   constructor() {
-    this.defaultChannels = {};
-    this.langChannels = {};
-    this.publicChannelIds = [];
+    /*
+     * array of default channels (NOT including language channels)
+     */
+    this.defaultChannels = [];
+    /*
+     * map of lang channels to lang code
+     */
+    this.langChannels = new Map();
+    /*
+     * map of all public channels (default channel + lang channels) to id
+     */
+    this.publicChannels = new Map();
+    /*
+     * ids of default channels
+     */
+    this.defaultChannelIds = new Set();
     this.enChannelId = 0;
     this.infoUserId = 1;
     this.eventUserId = 1;
     this.apiSocketUserId = 1;
     this.caseCheck = /^[A-Z !.]*$/;
     this.cyrillic = /[\u0436-\u043B]'/;
-    this.substitutes = [
-      {
-        regexp: /http[s]?:\/\/(old.)?pixelplanet\.fun\/#/g,
-        replace: '#',
-      },
-    ];
+    // unused as of 2026-03-03
+    this.substitutes = [];
     this.chatMessageBuffer = new ChatMessageBuffer(socketEvents);
 
     /**
@@ -93,12 +102,14 @@ export class ChatProvider {
       const { name } = CHAT_CHANNELS[i];
       // eslint-disable-next-line no-await-in-loop
       const channel = await getDefaultChannel(name);
-      const { id, type, lastTs } = channel[0];
+      const { id, lastTs } = channel[0];
       if (name === 'en') {
         this.enChannelId = id;
       }
-      this.defaultChannels[id] = [name, type, lastTs];
-      this.publicChannelIds.push(id);
+      const channelArray = [id, name, lastTs, null, true, null];
+      this.defaultChannels.push(channelArray);
+      this.publicChannels.set(id, channelArray);
+      this.defaultChannelIds.add(id);
     }
     // find or create non-english lang channels
     const langs = Object.keys(ttags);
@@ -109,9 +120,10 @@ export class ChatProvider {
       }
       // eslint-disable-next-line no-await-in-loop
       const channel = await getDefaultChannel(name);
-      const { id, type, lastTs } = channel[0];
-      this.langChannels[name] = { id, type, lastTs };
-      this.publicChannelIds.push(id);
+      const { id, lastTs } = channel[0];
+      const channelArray = [id, name, lastTs, null, true, null];
+      this.langChannels.set(name, channelArray);
+      this.publicChannels.set(id, channelArray);
     }
     // find or create default users
     this.infoUserId = await getDummyUser(INFO_USER_NAME);
@@ -119,39 +131,47 @@ export class ChatProvider {
     this.apiSocketUserId = await getDummyUser(APISOCKET_USER_NAME);
   }
 
-  getDefaultChannels(lang) {
-    const langChannel = {};
+  /**
+   * return all the public channels someone has access to, given a language
+   * code
+   * @return [[cid, name, lastTs, null (lastReadTs), true (muted), null (avatarId)], ...]
+   */
+  getAccessiblePublicChannels(lang) {
+    const ret = [...this.defaultChannels];
     if (lang && lang !== 'en') {
-      const { langChannels } = this;
-      if (langChannels[lang]) {
-        const {
-          id, type, lastTs,
-        } = langChannels[lang];
-        langChannel[id] = [lang, type, lastTs];
+      const langChannel = this.langChannels.get(lang);
+      if (langChannel) {
+        ret.push(langChannel);
       }
     }
-    return {
-      ...langChannel,
-      ...this.defaultChannels,
-    };
+    return ret;
   }
 
   /**
-   * check if a user has access to a channel
-   * @param user user object
-   * @param lang language code
-   * @param cid channel id
-   * @return boolean whether or not the user has access to this channel
+   * get all public channels with names
+   * @return [[cid, name], ...]
    */
-  userHasChannelAccess(user, lang, cid) {
-    if (this.defaultChannels[cid]) {
-      return true;
-    }
-    if (user?.hasChannel(cid)) {
-      return true;
-    }
-    return !!(this.langChannels[lang]
-      && this.langChannels[lang].id === cid);
+  getPublicChannels() {
+    return [...this.publicChannels.values()].map(([cid, name]) => [cid, name]);
+  }
+
+  /**
+   * check if chanenl is public
+   * @param channelid
+   * @return boolean
+   */
+  isPublicChannel(cid) {
+    return this.publicChannels.has(cid);
+  }
+
+
+  /**
+   * filter private channels from channel list
+   * @param channelIds list of channel ids
+   * @return challelIds list of channel ids, but without public channels
+   */
+  filterPublicChannels(channelIds) {
+    return channelIds.filter((cid) => !this.publicChannels.has(cid));
   }
 
   getHistory(cid, limit = 30) {
@@ -309,11 +329,11 @@ export class ChatProvider {
       return t`You are sending messages too fast, you have to wait ${waitTime}s :(`;
     }
 
-    if (!this.userHasChannelAccess(user, lang, channelId)) {
+    if (!this.publicChannels.has(channelId) && !user?.hasChannel(channelId)) {
       return t`You don\'t have access to this channel`;
     }
 
-    if (user.userlvl < USERLVL.MOD && user.userlvl !== USERLVL.CHATMOD) {
+    if (user.userlvl < USERLVL.CHATMOD) {
       if (await isCountryMuted(country, channelId)) {
         return t`Your country is temporary muted from this chat channel`;
       }
@@ -406,6 +426,14 @@ export class ChatProvider {
   }
 
   broadcastChatMessage(...args) {
+    /*
+     * update cache public channel lastTs
+     */
+    const publicChannel = this.publicChannels.get(args[2]);
+    if (publicChannel) {
+      publicChannel[2] = Date.now();
+    }
+
     return this.chatMessageBuffer.broadcastChatMessage(...args);
   }
 

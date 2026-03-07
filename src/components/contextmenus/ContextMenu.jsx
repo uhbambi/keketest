@@ -51,7 +51,7 @@ const ContextMenu = ({ type, x, y, align, args, active, remove, close }) => {
     }
   }
 
-  let className = 'contextmenu ' + type;
+  let className = `contextmenu ${type}`;
   if (active && render) {
     className += ' show';
   }
@@ -74,7 +74,7 @@ const ContextMenu = ({ type, x, y, align, args, active, remove, close }) => {
   return (
     <div
       ref={wrapperRef}
-      className={`contextmenu ${type}`}
+      className={className}
       style={style}
       onTransitionEnd={active ? undefined : close}
     >

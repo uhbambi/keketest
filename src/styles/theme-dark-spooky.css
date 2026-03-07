@@ -1,3 +1,10 @@
+:root {
+  --control-bg-selected: #b20707;
+  --control-bg-highlight: #dc660e;
+  --control-bg: #92b0e8;
+  --button-bg-pressed: #b57b7b;
+}
+
 body {
   font-weight: bold; 
 }
@@ -42,23 +49,14 @@ h4 {
 
 .win-title {
   border: solid #330033;
-  background-color: #b20707;
   color: #ffffff;
   font-weight: bold;
-}
-
-.win-title:hover {
-  background-color: #dc660e;
 }
 
 .win-topbtn {
   border: solid #330033;
   background-color: #827000;
   color: white;
-}
-
-.win-topbtn:hover {
-  background-color: #92b0e8;
 }
 
 .win-topbtn.close:hover {
@@ -97,10 +95,6 @@ tr:nth-child(odd) {
 
 .cvbtn:hover {
   background: rgba(0,0,0,0.2); 
-}
-
-.channeldd {
-  background-color: #4b0a0a;
 }
 
 .onlinebox {
@@ -207,11 +201,6 @@ tr:nth-child(odd) {
   color: #e2e2e2;
 }
 
-.modal-topbtn {
-  background-color: #0743B2;
-  color: white;
-}
-
 .overlay {
   background-color: rgba(255, 255, 204, 0.4);
 }
@@ -279,15 +268,6 @@ tr:nth-child(odd) {
 button {
   background-color: #CE0000;
   color: white;
-}
-
-.chntype {
-  background-color: #0743B2;
-  color: white;
-}
-
-.chntype.selected, .chntype:hover {
-  background-color: #92b0e8;
 }
 
 .statvalue {

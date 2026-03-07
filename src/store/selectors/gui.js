@@ -1,10 +1,13 @@
 /*
  * selectors related to gui
  */
+import { createSelector } from 'reselect';
+
 import { CANVAS_TYPES } from '../../core/constants.js';
 
-export const selectIsDarkMode = (state) => (
-  state.gui.style.indexOf('dark') !== -1
+export const selectIsDarkMode = createSelector(
+  (state) => state.gui.style,
+  (style) => style.indexOf('dark') !== -1,
 );
 
 export const selectMovementControlProps = (state) => [

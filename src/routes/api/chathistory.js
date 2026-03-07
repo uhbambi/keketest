@@ -4,6 +4,7 @@
  *
  */
 import chatProvider from '../../core/ChatProvider.js';
+import { markChannelsRead } from '../../data/sql/Channel.js';
 
 async function chatHistory(req, res) {
   req.tickRateLimiter(1000);
@@ -28,7 +29,8 @@ async function chatHistory(req, res) {
     return;
   }
 
-  if (!chatProvider.userHasChannelAccess(req.user, req.lang, cid)) {
+  const isPublicChannel = chatProvider.isPublicChannel(cid);
+  if (!isPublicChannel && !req.user?.hasChannel(cid)) {
     res.status(401);
     res.json({
       errors: ['You don\'t have access to this channel'],
@@ -36,7 +38,13 @@ async function chatHistory(req, res) {
     return;
   }
 
-  const history = await chatProvider.getHistory(cid, limit);
+  const promises = [
+    chatProvider.getHistory(cid, limit),
+  ];
+  if (!isPublicChannel) {
+    promises.push(markChannelsRead(cid, req.user.id));
+  }
+  const [history] = await Promise.all(promises);
   res.json({
     history,
   });

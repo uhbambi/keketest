@@ -15,6 +15,12 @@ const UserChannel = sequelize.define('UserChannel', {
     defaultValue: DataTypes.NOW,
     allowNull: false,
   },
+
+  muted: {
+    type: DataTypes.BOOLEAN,
+    defaultValue: false,
+    allowNull: false,
+  },
 });
 
 export default UserChannel;

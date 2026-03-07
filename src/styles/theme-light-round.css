@@ -1,4 +1,4 @@
-.channeldd, .contextmenu {
+.contextmenu {
   border-radius: 8px;
 }
 
@@ -6,8 +6,12 @@
   border-radius: 5px;
 }
 
-.chntop {
-  margin-top: 4px;
+.channeldd-category {
+  border-radius: 3px;
+}
+
+.channeldd {
+  border-radius: 5px;
 }
 
 .actionbuttons, .coorbox, .onlinebox, .cooldownbox, .historyselect {

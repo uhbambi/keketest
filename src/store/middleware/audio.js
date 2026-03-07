@@ -222,14 +222,7 @@ export default (store) => (next) => (action) => {
       }
 
       case 's/REC_CHAT_MESSAGE': {
-        if (!chatNotify) break;
-
-        const { isPing, cid } = action;
-        const { mute: muteCh, chatChannel } = state.chatRead;
-        if (muteCh.includes(cid) || muteCh.includes(`${cid}`)) {
-          break;
-        }
-        const { channels } = state.chat;
+        if (!chatNotify || !action.notify) break;
 
         const oscillatorNode = context.createOscillator();
         const gainNode = context.createGain();
@@ -237,20 +230,8 @@ export default (store) => (next) => (action) => {
 
         oscillatorNode.type = 'sine';
         oscillatorNode.frequency.setValueAtTime(310, currentTime);
-        /*
-         * ping if user mention or
-         * message in DM channel that is not currently open
-         */
-        const freq = (isPing
-          || (
-            channels[cid]
-            && channels[cid][1] === 1
-            // eslint-disable-next-line eqeqeq
-            && cid != chatChannel
-          )
-        ) ? 540 : 355;
         oscillatorNode.frequency.exponentialRampToValueAtTime(
-          freq,
+          355,
           currentTime + 0.025,
         );
 
@@ -269,10 +250,6 @@ export default (store) => (next) => (action) => {
       }
 
       case 'FISH_APPEARS': {
-        /*
-         * TODO: this one is generated using DeepSeek, make an own one
-         */
-
         // Create noise buffer (like water movement)
         const bufferSize = context.sampleRate * 0.5;
         const noiseBuffer = context.createBuffer(

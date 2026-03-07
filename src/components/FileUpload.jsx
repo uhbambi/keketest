@@ -27,14 +27,14 @@ const FileUpload = ({
   uploadRef,
 }) => {
   /*
-   * whether or not input button is active annd rendered, used for animating it
+   * whether or not input button is active and rendered, used for animating it
    * similar to FileUploadElement
    * 0: fade-in width:0
    * 1: shown
    * 2: fade-out width:0
    * 3: hidden
    */
-  const [inputButtonState, setInputButtonState] = useState(2);
+  const [inputButtonState, setInputButtonState] = useState(1);
   /*
    * amount of currently displayed FileUploadElements, tracked for efficient
    * inputButton fade-in fade-out

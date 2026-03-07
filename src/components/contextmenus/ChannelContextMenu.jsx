@@ -2,63 +2,59 @@
  *
  */
 
-import React from 'react';
+import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { t } from 'ttag';
 
-import {
-  muteChatChannel,
-  unmuteChatChannel,
-  toggleChatCompact,
-} from '../../store/actions/index.js';
-import {
-  setLeaveChannel,
-} from '../../store/actions/thunks.js';
+import { toggleChatCompact } from '../../store/actions/index.js';
+import { setLeaveChannel, setChannelMute } from '../../store/actions/thunks.js';
+import { CHANNEL_TYPES } from '../../core/constants.js';
 
 /*
  * args: {
- *   cid,
+ *   cid, type, muted,
  * }
  */
 const ChannelContextMenu = ({ args, close }) => {
-  const channels = useSelector((state) => state.chat.channels);
-  const muteArr = useSelector((state) => state.chatRead.mute);
   const chatCompact = useSelector((state) => state.gui.chatCompact);
+  const fetching = useSelector((state) => state.fetching.fetchingApi);
+  const [muted, setMuted] = useState(args.muted);
 
-  const { cid } = args;
+  const { cid, type } = args;
   const dispatch = useDispatch();
-
-  const isMuted = muteArr.includes(cid);
 
   return (
     <>
-      <div
-        role="button"
-        key="mute"
-        onClick={() => {
-          if (isMuted) {
-            dispatch(unmuteChatChannel(cid));
-          } else {
-            dispatch(muteChatChannel(cid));
-          }
-        }}
-        tabIndex={0}
-      >
-        {`${(isMuted) ? '✔' : '✘'} ${t`Mute Channel`}`}
-      </div>
-      {(channels[cid][1] !== 0)
+      {(type !== CHANNEL_TYPES.PUBLIC)
         && (
-        <div
-          key="leave"
-          role="button"
-          onClick={() => {
-            dispatch(setLeaveChannel(cid));
-            close();
-          }}
-          tabIndex={0}
-        >
-          {t`Close`}
-        </div>
+          <React.Fragment key="dmc">
+            <div
+              role="button"
+              key="mute"
+              onClick={async () => {
+                if (!fetching) {
+                  const success = await dispatch(setChannelMute(cid, !muted));
+                  if (success) {
+                    setMuted(!muted);
+                  }
+                }
+              }}
+              tabIndex={0}
+            >
+              {`${(muted) ? '✔' : '✘'} ${t`Mute Channel`}`}
+            </div>
+            <div
+              key="leave"
+              role="button"
+              onClick={() => {
+                dispatch(setLeaveChannel(cid));
+                close();
+              }}
+              tabIndex={0}
+            >
+              {t`Close`}
+            </div>
+          </React.Fragment>
         )}
       <div
         role="button"

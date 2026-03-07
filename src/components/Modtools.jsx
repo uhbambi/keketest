@@ -37,7 +37,7 @@ function Modtools() {
         case 'IID':
           return userlvl >= USERLVL.MOD;
         case 'Media':
-          return userlvl >= USERLVL.MOD || userlvl === USERLVL.CHATMOD;
+          return userlvl >= USERLVL.CHATMOD;
         default:
           return userlvl >= USERLVL.JANNY;
       }

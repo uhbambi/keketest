@@ -271,38 +271,6 @@ class SocketEvents extends EventEmitter {
   }
 
   /**
-   * broadcast Assigning chat channel to user
-   * @param userId numerical id of user
-   * @param channelId numerical id of chat channel
-   * @param channelArray array with channel info [name, type, lastTs]
-   */
-  broadcastAddChatChannel(
-    userId,
-    channelId,
-    channelArray,
-  ) {
-    this.emit(
-      'addChatChannel',
-      userId,
-      channelId,
-      channelArray,
-    );
-  }
-
-  /*
-   * broadcast Removing chat channel from user
-   * @param userId numerical id of user
-   * @param channelId numerical id of chat channel
-   *        (i.e. false if the user already gets it via api response)
-   */
-  broadcastRemoveChatChannel(
-    userId,
-    channelId,
-  ) {
-    this.emit('remChatChannel', userId, channelId);
-  }
-
-  /**
    * broadcast change of fonts used by captcha
    * @param fontFilenames Array of filenams
    */

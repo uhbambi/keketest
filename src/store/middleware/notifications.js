@@ -40,27 +40,6 @@ export default (store) => (next) => (action) => {
           break;
         }
 
-        case 's/REC_CHAT_MESSAGE': {
-          const state = store.getState();
-          const { chatNotify } = state.gui;
-          if (!chatNotify) break;
-
-          const { isPing } = action;
-          if (!isPing) break;
-          const { name } = action;
-
-          if (window.Notification && Notification.permission === 'granted') {
-            // eslint-disable-next-line no-new
-            new Notification(`${name} ${t`mentioned you`}`, {
-              icon: '/tile.png',
-              silent: false,
-              vibrate: [200, 100],
-              body: t`You have new messages in chat`,
-            });
-          }
-          break;
-        }
-
         default:
           // nothing
       }

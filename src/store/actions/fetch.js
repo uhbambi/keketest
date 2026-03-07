@@ -116,7 +116,7 @@ async function makeAPIGETRequest(
   }
 }
 
-/*
+/**
  * block / unblock user
  * @param userId id of user to block
  * @param block true if block, false if unblock
@@ -126,6 +126,26 @@ export async function requestBlock(userId, block) {
   const res = await makeAPIPOSTRequest(
     '/api/block',
     { userId, block },
+  );
+  if (res.errors) {
+    return res.errors[0];
+  }
+  if (res.status === 'ok') {
+    return null;
+  }
+  return t`Unknown Error`;
+}
+
+/**
+ * mute / unmute channel
+ * @param channelId id of user to block
+ * @param mute true if mute, false if unmute
+ * @return error string or null if successful
+ */
+export async function requestMute(channelId, mute) {
+  const res = await makeAPIPOSTRequest(
+    '/api/mute',
+    { channelId, mute },
   );
   if (res.errors) {
     return res.errors[0];
@@ -265,15 +285,21 @@ export async function requestHistoricalTimes(day, canvasId) {
   }
 }
 
-export async function requestChatMessages(cid) {
-  const response = await fetch(
-    api`/api/chathistory?cid=${cid}&limit=50`,
-    { credentials: 'include' },
-  );
-  // timeout in order to not spam api requests and get rate limited
-  if (response.ok) {
-    const { history } = await response.json();
-    return history;
+export async function requestChatMessages(cid, controller) {
+  try {
+    const response = await fetch(
+      api`/api/chathistory?cid=${cid}&limit=50`,
+      {
+        credentials: 'include',
+        signal: controller.signal,
+      },
+    );
+    if (response.ok) {
+      const { history } = await response.json();
+      return history;
+    }
+  } catch {
+    // nothing
   }
   return null;
 }

@@ -1,21 +1,24 @@
 import { MAX_CHAT_MESSAGES, CHANNEL_TYPES } from '../../core/constants.js';
 
+function getChannelIndexAndType(state, cid) {
+  const types = Object.keys(state.channels);
+  for (let i = 0; i < types.length; i += 1) {
+    const type = Number(types[i]);
+    const typeChannels = state.channels[type];
+    for (let u = 0; u < typeChannels.length; u += 1) {
+      if (typeChannels[u][0] === cid) {
+        return [type, u];
+      }
+    }
+  }
+  return [null, -1];
+}
+
 const initialState = {
   /*
-   * {
-   *   cid: [
-   *     name,
-   *     type,
-   *     lastTs,
-   *   ],
-   *   cid2: [
-   *     name,
-   *     type,
-   *     lastTs,
-   *     dmUserId,
-   *   ],
-   *   ...
-   * }
+   * { [CHANNEL_TYPES.PUBLIC]: [[
+   *   cid, name, lastTs, lastReadTs, muted, avatarId
+   * ], ...], ... }
    */
   channels: {},
   // [[uId, userName], [userId2, userName2],...]
@@ -29,6 +32,11 @@ const initialState = {
    * [[mediaId, type, size, width, height, avgColor], ...]
    */
   messages: {},
+  /*
+   * channels we are currently viewing at
+   * { cid: refCounter }
+   */
+  channelViews: {},
 };
 
 export default function chat(
@@ -38,65 +46,79 @@ export default function chat(
   switch (action.type) {
     case 's/REC_ME':
     case 's/LOGIN': {
-      // making sure object keys are numbers
-      const channels = {};
-      const channelsJson = action.channels;
-      const cids = Object.keys(channelsJson);
-      for (let i = 0; i < cids.length; i += 1) {
-        const cid = cids[i];
-        channels[Number(cid)] = channelsJson[cid];
-      }
       return {
         ...state,
-        channels,
+        channels: action.channels,
         blocked: action.blocked,
       };
     }
 
     case 's/LOGOUT': {
-      const channels = { ...state.channels };
       const messages = { ...state.messages };
-      const keys = Object.keys(channels);
+      const publicChannels = state.channels[CHANNEL_TYPES.PUBLIC];
+      const keys = Object.keys(messages);
       for (let i = 0; i < keys.length; i += 1) {
         const cid = keys[i];
-        if (channels[cid][1] !== 0) {
+        if (!publicChannels?.some(([c]) => c === cid)) {
           delete messages[cid];
-          delete channels[cid];
         }
       }
       return {
         ...state,
-        channels,
+        channels: {
+          [CHANNEL_TYPES.PUBLIC]: publicChannels,
+        },
         blocked: [],
         messages,
       };
     }
 
-    case 's/BLOCK_USER': {
-      const { userId, userName } = action;
-      const blocked = [
-        ...state.blocked,
-        [userId, userName],
-      ];
-      /*
-       * remove DM channel if exists
-       */
-      const channels = { ...state.channels };
-      const chanKeys = Object.keys(channels);
-      for (let i = 0; i < chanKeys.length; i += 1) {
-        const cid = chanKeys[i];
-        if (channels[cid][1] === 1 && channels[cid][3] === userId) {
-          delete channels[cid];
-          return {
-            ...state,
-            channels,
-            blocked,
-          };
-        }
+    case 's/REG_CHAT_CHAN': {
+      const { cid } = action;
+      let refCount = state.channelViews[cid];
+      if (!refCount) {
+        refCount = 0;
       }
       return {
         ...state,
-        blocked,
+        channelViews: {
+          ...state.channelViews,
+          [cid]: refCount + 1,
+        },
+      };
+    }
+
+    case 's/DEREG_CHAT_CHAN': {
+      const { cid } = action;
+      const refCount = state.channelViews[cid];
+      if (!refCount) {
+        return state;
+      }
+      const channelViews = { ...state.channelViews };
+      let { messages } = state;
+
+      if (refCount <= 1) {
+        messages = { ...messages };
+        delete messages[cid];
+        delete channelViews[cid];
+      } else {
+        channelViews[cid] = refCount - 1;
+      }
+
+      return {
+        ...state,
+        messages,
+        channelViews,
+      };
+    }
+
+    case 's/BLOCK_USER': {
+      return {
+        ...state,
+        blocked: [
+          ...state.blocked,
+          [action.userId, action.userName],
+        ],
       };
     }
 
@@ -109,64 +131,107 @@ export default function chat(
       };
     }
 
+    case 's/MARK_CHANNEL_AS_READ': {
+      const { cid } = action;
+
+      const [type, channelIndex] = getChannelIndexAndType(state, cid);
+      if (!type) {
+        /* included PUBLIC */
+        return state;
+      }
+
+      const typeChannels = [...state.channels[type]];
+      typeChannels[channelIndex] = [...typeChannels[channelIndex]];
+      typeChannels[channelIndex][3] = Date.now();
+
+      return {
+        ...state,
+        channels: {
+          ...state.channels,
+          [type]: typeChannels,
+        },
+      };
+    }
+
     case 's/ADD_CHAT_CHANNEL': {
-      const { channel } = action;
-      const cid = Number(Object.keys(channel)[0]);
-      if (state.channels[cid]) {
+      const { channelType, channel } = action;
+      const cid = channel[0];
+      if (state.channels[channelType]?.some(([i]) => i === cid)) {
         return state;
       }
       return {
         ...state,
         channels: {
           ...state.channels,
-          ...channel,
+          [channelType]: [
+            ...(state.channels[channelType] || []),
+            channel,
+          ],
         },
       };
     }
 
     case 's/REMOVE_CHAT_CHANNEL': {
       const { cid } = action;
-      if (!state.channels[cid]) {
+
+      const [type, channelIndex] = getChannelIndexAndType(state, cid);
+      if (type === null) {
         return state;
       }
-      const channels = { ...state.channels };
+
       const messages = { ...state.messages };
       delete messages[cid];
-      delete channels[cid];
-      return {
-        ...state,
-        channels,
-        messages,
-      };
-    }
-
-    case 's/REC_CHAT_MESSAGE': {
-      const { cid, messageArray } = action;
-      if (!state.messages[cid] || !state.channels[cid]) {
-        return state;
-      }
-      const messages = {
-        ...state.messages,
-        [cid]: [
-          ...state.messages[cid],
-          messageArray,
-        ],
-      };
-      if (messages[cid].length > MAX_CHAT_MESSAGES) {
-        messages[cid].splice(0, 2);
-      }
-
-      /*
-       * update timestamp of last message
-       */
-      const channelArray = [...state.channels[cid]];
-      channelArray[2] = Date.now();
+      const typeChannels = state.channels[type];
 
       return {
         ...state,
         channels: {
           ...state.channels,
-          [cid]: channelArray,
+          [type]: [
+            ...typeChannels.slice(0, channelIndex),
+            ...typeChannels.slice(channelIndex + 1),
+          ],
+        },
+        messages,
+      };
+    }
+
+    case 's/REC_CHAT_MESSAGE': {
+      const { cid, messageArray, notify } = action;
+
+      const [type, channelIndex] = getChannelIndexAndType(state, cid);
+      if (type === null) {
+        return state;
+      }
+
+      let typeChannels = state.channels[type];
+      if (type !== CHANNEL_TYPES.PUBLIC) {
+        typeChannels = [...typeChannels];
+        typeChannels[channelIndex] = [...typeChannels[channelIndex]];
+        const ts = Date.now();
+        typeChannels[channelIndex][2] = ts;
+        if (!notify) {
+          typeChannels[channelIndex][3] = ts;
+        }
+      }
+
+      const { messages } = state;
+      if (messages[cid]) {
+        const channelMessages = [
+          ...messages[cid],
+          messageArray,
+        ];
+        if (channelMessages.length > MAX_CHAT_MESSAGES) {
+          channelMessages.splice(0, 2);
+        }
+        messages[cid] = channelMessages;
+      }
+
+      return {
+        ...state,
+        channels: {
+          ...state.channels,
+          [type]: typeChannels,
         },
         messages,
       };
@@ -179,12 +244,10 @@ export default function chat(
         ...state.messages,
       };
 
-      const cids = Object.keys(state.channels);
-      for (let i = 0; i < cids.length; i += 1) {
-        const cid = cids[i];
-        if (state.channels[cid][1] === CHANNEL_TYPES.PUBLIC && messages[cid]) {
-          messages[cid] = messages[cid].filter((m) => m[3] !== user);
-        }
+      const publicChannels = state.channels[CHANNEL_TYPES.PUBLIC];
+      for (let i = 0; i < publicChannels.length; i += 1) {
+        const [cid] = publicChannels[i];
+        messages[cid] = messages[cid]?.filter((m) => m[3] !== user);
       }
 
       return {
@@ -214,6 +277,9 @@ export default function chat(
 
     case 's/REC_CHAT_HISTORY': {
       const { cid, history } = action;
+      if (!state.channelViews[cid]) {
+        return state;
+      }
       return {
         ...state,
         messages: {

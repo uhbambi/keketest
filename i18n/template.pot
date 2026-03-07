@@ -134,7 +134,7 @@ msgid "Badges"
 msgstr ""
 
 #: src/components/ModMediatools.jsx:83
-#: src/components/embeds/LocalMedia.jsx:240
+#: src/components/embeds/LocalMedia.jsx:229
 msgid "Ban media"
 msgstr ""
 
@@ -272,11 +272,11 @@ msgstr ""
 msgid "Change your Mail Adress here:"
 msgstr ""
 
-#: src/components/windows/Chat.jsx:123
+#: src/components/windows/Chat.jsx:85
 msgid "Channel"
 msgstr ""
 
-#: src/components/windows/Chat.jsx:348
+#: src/components/windows/Chat.jsx:360
 msgid "Channel settings"
 msgstr ""
 
@@ -289,7 +289,7 @@ msgstr ""
 msgid "Chat"
 msgstr ""
 
-#: src/components/windows/Chat.jsx:285
+#: src/components/windows/Chat.jsx:300
 msgid "Chat here"
 msgstr ""
 
@@ -380,11 +380,11 @@ msgstr ""
 #: src/components/ModCanvastools.jsx:230
 #: src/components/ModWatchtools.jsx:128
 #: src/components/Window.jsx:256
-#: src/components/contextmenus/ChannelContextMenu.jsx:60
+#: src/components/contextmenus/ChannelContextMenu.jsx:55
 msgid "Close"
 msgstr ""
 
-#: src/components/buttons/ChatButton.jsx:79
+#: src/components/buttons/ChatButton.jsx:41
 msgid "Close Chat"
 msgstr ""
 
@@ -396,7 +396,7 @@ msgstr ""
 msgid "Close Palette"
 msgstr ""
 
-#: src/components/contextmenus/ChannelContextMenu.jsx:69
+#: src/components/contextmenus/ChannelContextMenu.jsx:65
 msgid "Compact Chat"
 msgstr ""
 
@@ -496,8 +496,8 @@ msgstr ""
 msgid "Copy to Clipboard"
 msgstr ""
 
-#: src/store/actions/fetch.js:500
-#: src/store/actions/fetch.js:588
+#: src/store/actions/fetch.js:526
+#: src/store/actions/fetch.js:614
 msgid "Could not connect to server"
 msgstr ""
 
@@ -510,8 +510,8 @@ msgstr ""
 msgid "Could not load captcha"
 msgstr ""
 
-#: src/store/actions/fetch.js:478
-#: src/store/actions/fetch.js:577
+#: src/store/actions/fetch.js:504
+#: src/store/actions/fetch.js:603
 msgid "Could not process files"
 msgstr ""
 
@@ -555,6 +555,7 @@ msgstr ""
 msgid "Custom Flag"
 msgstr ""
 
+#: src/components/ChannelDropDown.jsx:82
 #: src/components/contextmenus/UserContextMenu.jsx:74
 msgid "DM"
 msgstr ""
@@ -637,7 +638,7 @@ msgstr ""
 msgid "Don't show me in global stats"
 msgstr ""
 
-#: src/components/embeds/LocalMedia.jsx:248
+#: src/components/embeds/LocalMedia.jsx:237
 msgid "Download"
 msgstr ""
 
@@ -766,6 +767,10 @@ msgstr ""
 msgid "Export enabled templates"
 msgstr ""
 
+#: src/components/ChannelDropDown.jsx:84
+msgid "Factions"
+msgstr ""
+
 #: src/components/CooldownChanges.jsx:27
 msgid "Factor"
 msgstr ""
@@ -827,12 +832,12 @@ msgid "Forever"
 msgstr ""
 
 #: src/components/windows/Settings.jsx:67
-#: src/store/actions/thunks.js:270
+#: src/store/actions/thunks.js:266
 msgid "From History"
 msgstr ""
 
 #: src/components/windows/Settings.jsx:66
-#: src/store/actions/thunks.js:267
+#: src/store/actions/thunks.js:263
 msgid "From Template"
 msgstr ""
 
@@ -874,6 +879,10 @@ msgstr ""
 
 #: src/controls/keypress.js:181
 msgid "Grid ON"
+msgstr ""
+
+#: src/components/ChannelDropDown.jsx:83
+msgid "Groups"
 msgstr ""
 
 #: src/components/windows/Help.jsx:75
@@ -1110,7 +1119,7 @@ msgstr ""
 msgid "Move"
 msgstr ""
 
-#: src/components/contextmenus/ChannelContextMenu.jsx:47
+#: src/components/contextmenus/ChannelContextMenu.jsx:44
 msgid "Mute Channel"
 msgstr ""
 
@@ -1163,12 +1172,12 @@ msgstr ""
 msgid "No"
 msgstr ""
 
-#: src/store/actions/fetch.js:451
-#: src/store/actions/fetch.js:518
+#: src/store/actions/fetch.js:477
+#: src/store/actions/fetch.js:544
 msgid "No File selected to upload"
 msgstr ""
 
-#: src/store/actions/index.js:423
+#: src/store/actions/index.js:438
 msgid "No Phish!"
 msgstr ""
 
@@ -1212,7 +1221,7 @@ msgstr ""
 msgid "Offset"
 msgstr ""
 
-#: src/store/actions/index.js:424
+#: src/store/actions/index.js:439
 msgid "Oh no, the phish escaped. Better luck next time!"
 msgstr ""
 
@@ -1236,7 +1245,7 @@ msgstr ""
 msgid "Opacity of Overlay in percent."
 msgstr ""
 
-#: src/components/buttons/ChatButton.jsx:79
+#: src/components/buttons/ChatButton.jsx:41
 msgid "Open Chat"
 msgstr ""
 
@@ -1248,7 +1257,7 @@ msgstr ""
 msgid "Open Palette"
 msgstr ""
 
-#: src/components/embeds/LocalMedia.jsx:268
+#: src/components/embeds/LocalMedia.jsx:257
 #: src/components/markdown/MdLink.jsx:119
 msgid "Open in PopUp"
 msgstr ""
@@ -1318,7 +1327,7 @@ msgstr ""
 msgid "Pencil Mode for ${ canvasName } canvas"
 msgstr ""
 
-#: src/store/actions/thunks.js:261
+#: src/store/actions/thunks.js:257
 msgid "Pencil picks: "
 msgstr ""
 
@@ -1326,7 +1335,7 @@ msgstr ""
 msgid "Permission"
 msgstr ""
 
-#: src/store/actions/index.js:416
+#: src/store/actions/index.js:431
 msgid "Phish!"
 msgstr ""
 
@@ -1456,6 +1465,10 @@ msgstr ""
 #: src/components/windows/UserArea.jsx:33
 #: src/components/windows/UserArea.jsx:53
 msgid "Profile"
+msgstr ""
+
+#: src/components/ChannelDropDown.jsx:80
+msgid "Public"
 msgstr ""
 
 #: src/components/Admintools.jsx:239
@@ -1639,7 +1652,7 @@ msgid "Select your Avatar. Supported Formats: jpg, gif, png, webp"
 msgstr ""
 
 #: src/components/windows/Settings.jsx:66
-#: src/store/actions/thunks.js:264
+#: src/store/actions/thunks.js:260
 msgid "Selected Color"
 msgstr ""
 
@@ -1659,7 +1672,7 @@ msgstr ""
 msgid "Serpentine"
 msgstr ""
 
-#: src/store/actions/fetch.js:243
+#: src/store/actions/fetch.js:263
 msgid "Server answered with gibberish :("
 msgstr ""
 
@@ -1716,7 +1729,7 @@ msgstr ""
 msgid "Show templates as overlays ingame."
 msgstr ""
 
-#: src/components/embeds/LocalMedia.jsx:276
+#: src/components/embeds/LocalMedia.jsx:265
 msgid "Shrink"
 msgstr ""
 
@@ -1741,7 +1754,7 @@ msgstr ""
 msgid "Stacking till"
 msgstr ""
 
-#: src/components/windows/Chat.jsx:236
+#: src/components/windows/Chat.jsx:251
 msgid "Start chatting here"
 msgstr ""
 
@@ -1966,11 +1979,12 @@ msgid "Unknown Captcha Error"
 msgstr ""
 
 #: src/store/actions/fetch.js:136
-#: src/store/actions/fetch.js:155
-#: src/store/actions/fetch.js:174
-#: src/store/actions/fetch.js:195
-#: src/store/actions/fetch.js:214
-#: src/store/actions/fetch.js:233
+#: src/store/actions/fetch.js:156
+#: src/store/actions/fetch.js:175
+#: src/store/actions/fetch.js:194
+#: src/store/actions/fetch.js:215
+#: src/store/actions/fetch.js:234
+#: src/store/actions/fetch.js:253
 msgid "Unknown Error"
 msgstr ""
 
@@ -2148,7 +2162,7 @@ msgstr ""
 msgid "You can now place more on pixelplanet.fun :)"
 msgstr ""
 
-#: src/store/actions/index.js:418
+#: src/store/actions/index.js:433
 #, javascript-format
 msgid ""
 "You caught a Phish! It is a ${ FISH_TYPES[type].name } with ${ size }kg! As "
@@ -2163,10 +2177,6 @@ msgstr ""
 msgid "You failed your captcha"
 msgstr ""
 
-#: src/store/middleware/notifications.js:58
-msgid "You have new messages in chat"
-msgstr ""
-
 #: src/components/SocialSettings.jsx:218
 msgid "You have no users blocked"
 msgstr ""
@@ -2176,11 +2186,11 @@ msgid "You have to be logged in to place on this canvas"
 msgstr ""
 
 #: src/store/actions/fetch.js:40
-#: src/store/actions/fetch.js:558
+#: src/store/actions/fetch.js:584
 msgid "You made too many requests"
 msgstr ""
 
-#: src/components/windows/Chat.jsx:318
+#: src/components/windows/Chat.jsx:333
 msgid "You must be logged in to chat"
 msgstr ""
 
@@ -2274,10 +2284,6 @@ msgstr ""
 
 #: src/components/windows/Help.jsx:46
 msgid "download here"
-msgstr ""
-
-#: src/store/middleware/notifications.js:54
-msgid "mentioned you"
 msgstr ""
 
 #: src/components/LogInForm.jsx:246

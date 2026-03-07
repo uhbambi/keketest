@@ -141,6 +141,7 @@ export const getIPIntel = queue(async (
 const disposableEmailDomainCache = new Map([
   ['aminating.com', true],
   ['fuckmeuwu.shop', true],
+  ['bscse.okcx.edu.rs', true],
 ]);
 
 export const checkMail = queue(async (email) => {
@@ -149,7 +150,7 @@ export const checkMail = queue(async (email) => {
   }
   const domain = email.substring(email.lastIndexOf('@') + 1);
   const tld = domain.substring(domain.lastIndexOf('.') + 1);
-  if (tld === 'sbs' || tld === 'cyou' || domain === 'fuckmeuwu.shop') {
+  if (tld === 'sbs' || tld === 'cyou') {
     return true;
   }
   const cache = disposableEmailDomainCache.get(domain);
