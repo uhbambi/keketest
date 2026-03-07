@@ -574,6 +574,9 @@ msgstr "Erweitern"
 msgid "Export enabled templates"
 msgstr "Exportiere eingeschaltete Vorlagen"
 
+msgid "Factions"
+msgstr ""
+
 msgid "Factor"
 msgstr "Faktor"
 
@@ -653,6 +656,9 @@ msgstr "Raster Aus"
 
 msgid "Grid ON"
 msgstr "Raster Ein"
+
+msgid "Groups"
+msgstr ""
 
 msgid "Have fun!"
 msgstr "Viel Spaß!"
@@ -1112,6 +1118,9 @@ msgstr "Privat"
 
 msgid "Profile"
 msgstr "Profil"
+
+msgid "Public"
+msgstr ""
 
 msgid "Quick Actions"
 msgstr "Schnellzugriff"
@@ -1675,9 +1684,6 @@ msgstr "Keine Einwilligung erteilt"
 msgid "You failed your captcha"
 msgstr "Captcha Text ist falsch"
 
-msgid "You have new messages in chat"
-msgstr "Du hast neue Nachrichten in der Kommentarsektion"
-
 msgid "You have no users blocked"
 msgstr "Du hast keine Benutzer blockiert"
 
@@ -1766,9 +1772,6 @@ msgstr "hier auf Konformität prüfen"
 msgid "download here"
 msgstr ""
 
-msgid "mentioned you"
-msgstr "hat dich erwähnt"
-
 msgid "or login with:"
 msgstr "oder melde dich an mit:"
 
@@ -1850,6 +1853,12 @@ msgstr "W"
 msgctxt "keybinds"
 msgid "X"
 msgstr "X"
+
+#~ msgid "You have new messages in chat"
+#~ msgstr "Du hast neue Nachrichten in der Kommentarsektion"
+
+#~ msgid "mentioned you"
+#~ msgstr "hat dich erwähnt"
 
 #~ msgid "Mute"
 #~ msgstr "Stummschalten"

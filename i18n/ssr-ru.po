@@ -109,6 +109,9 @@ msgstr "Не удалось закрыть эту сессию."
 msgid "Could not find this login method"
 msgstr "Не удалось найти этот способ входа"
 
+msgid "Could not leave this channel"
+msgstr ""
+
 msgid "Could not set your avtar"
 msgstr "Не удалось установить аватар"
 
@@ -441,8 +444,8 @@ msgstr "Сбросьте пароль здесь"
 msgid "Server Error"
 msgstr "Ошибка сервера"
 
-msgid "Server error when deleting user."
-msgstr "Ошибка сервера при удалении пользователя."
+msgid "Server error while deleting user."
+msgstr ""
 
 msgid "Someone logged into your account from a new location, with the IP:"
 msgstr "Кто то вошёл в ваш аккаунт из нового местоположения, IP:"
@@ -781,6 +784,9 @@ msgstr ""
 "добро пожаловать в наше маленькое сообщество тех, кто ставит пиксели, чтобы "
 "использовать свою учетную запись, вы должны подтвердить свою почту. Вы "
 "можете сделать это здесь: "
+
+#~ msgid "Server error when deleting user."
+#~ msgstr "Ошибка сервера при удалении пользователя."
 
 #~ msgid "You did not provide all neccessary information"
 #~ msgstr "Вы не предоставили всю необходимую информацию"

@@ -577,6 +577,9 @@ msgstr ""
 msgid "Export enabled templates"
 msgstr ""
 
+msgid "Factions"
+msgstr ""
+
 msgid "Factor"
 msgstr ""
 
@@ -654,6 +657,9 @@ msgstr "Grille OFF"
 
 msgid "Grid ON"
 msgstr "Grille ON"
+
+msgid "Groups"
+msgstr ""
 
 msgid "Have fun!"
 msgstr "Amusez-vous bien !"
@@ -1106,6 +1112,9 @@ msgstr ""
 
 msgid "Profile"
 msgstr "Profil"
+
+msgid "Public"
+msgstr ""
 
 msgid "Quick Actions"
 msgstr ""
@@ -1660,9 +1669,6 @@ msgstr ""
 msgid "You failed your captcha"
 msgstr "Impossible de charger le captcha"
 
-msgid "You have new messages in chat"
-msgstr ""
-
 msgid "You have no users blocked"
 msgstr "Vous n'avez bloqué personne"
 
@@ -1747,9 +1753,6 @@ msgid "check compliance here"
 msgstr ""
 
 msgid "download here"
-msgstr ""
-
-msgid "mentioned you"
 msgstr ""
 
 msgid "or login with:"

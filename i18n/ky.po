@@ -569,6 +569,9 @@ msgstr ""
 msgid "Export enabled templates"
 msgstr ""
 
+msgid "Factions"
+msgstr ""
+
 msgid "Factor"
 msgstr ""
 
@@ -644,6 +647,9 @@ msgstr "Белдеу OFF"
 
 msgid "Grid ON"
 msgstr "Белдеу ON"
+
+msgid "Groups"
+msgstr ""
 
 msgid "Have fun!"
 msgstr "Көңүл ачуу!"
@@ -1089,6 +1095,9 @@ msgid "Private"
 msgstr ""
 
 msgid "Profile"
+msgstr ""
+
+msgid "Public"
 msgstr ""
 
 msgid "Quick Actions"
@@ -1613,9 +1622,6 @@ msgstr ""
 msgid "You failed your captcha"
 msgstr "Сиз captcha'ны аткара алган жоксуз"
 
-msgid "You have new messages in chat"
-msgstr "Чатта жаңы билдирүүлөрүңүз бар"
-
 msgid "You have no users blocked"
 msgstr ""
 
@@ -1698,9 +1704,6 @@ msgstr ""
 msgid "download here"
 msgstr ""
 
-msgid "mentioned you"
-msgstr "сени эске салды"
-
 msgid "or login with:"
 msgstr ""
 
@@ -1782,6 +1785,12 @@ msgstr ""
 msgctxt "keybinds"
 msgid "X"
 msgstr ""
+
+#~ msgid "You have new messages in chat"
+#~ msgstr "Чатта жаңы билдирүүлөрүңүз бар"
+
+#~ msgid "mentioned you"
+#~ msgstr "сени эске салды"
 
 #~ msgid "PopUp"
 #~ msgstr "Калкыма"

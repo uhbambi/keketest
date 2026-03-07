@@ -566,6 +566,9 @@ msgstr ""
 msgid "Export enabled templates"
 msgstr "Εξάγαρε τα πρότυπα που είναι ενεργά"
 
+msgid "Factions"
+msgstr ""
+
 msgid "Factor"
 msgstr ""
 
@@ -641,6 +644,9 @@ msgstr "Kάτζελο Ανένεργο"
 
 msgid "Grid ON"
 msgstr "Kάτζελο Ενεργό"
+
+msgid "Groups"
+msgstr ""
 
 msgid "Have fun!"
 msgstr "Καλή φάση!"
@@ -1083,6 +1089,9 @@ msgstr "Ιδιωτικό"
 
 msgid "Profile"
 msgstr "Προφίλ"
+
+msgid "Public"
+msgstr ""
 
 msgid "Quick Actions"
 msgstr ""
@@ -1630,9 +1639,6 @@ msgstr ""
 msgid "You failed your captcha"
 msgstr "Εν εκούτσισες το captcha σου"
 
-msgid "You have new messages in chat"
-msgstr "Έχετε νέα μηνύματα μες την συνομιλία"
-
 msgid "You have no users blocked"
 msgstr "\"Εν έσιεις χρήστες μπλοκαρισμένους"
 
@@ -1717,9 +1723,6 @@ msgstr "Έλεγξε αν συμμορφώνεσαι δαμέ"
 msgid "download here"
 msgstr ""
 
-msgid "mentioned you"
-msgstr "Ανέφερε σε"
-
 msgid "or login with:"
 msgstr "ή σύνδεθου με:"
 
@@ -1801,6 +1804,12 @@ msgstr ""
 msgctxt "keybinds"
 msgid "X"
 msgstr ""
+
+#~ msgid "You have new messages in chat"
+#~ msgstr "Έχετε νέα μηνύματα μες την συνομιλία"
+
+#~ msgid "mentioned you"
+#~ msgstr "Ανέφερε σε"
 
 #~ msgid "Mute"
 #~ msgstr "Σίγασε"

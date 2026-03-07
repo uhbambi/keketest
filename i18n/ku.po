@@ -563,6 +563,9 @@ msgstr ""
 msgid "Export enabled templates"
 msgstr "Şablonên çalakkirî derxînin"
 
+msgid "Factions"
+msgstr ""
+
 msgid "Factor"
 msgstr "Faktor"
 
@@ -638,6 +641,9 @@ msgstr "Tor GIRTÎ"
 
 msgid "Grid ON"
 msgstr "Tor VEKIRÎ"
+
+msgid "Groups"
+msgstr ""
 
 msgid "Have fun!"
 msgstr "Baş derbas be!"
@@ -1086,6 +1092,9 @@ msgstr "Taybet"
 
 msgid "Profile"
 msgstr "Tengal"
+
+msgid "Public"
+msgstr ""
 
 msgid "Quick Actions"
 msgstr ""
@@ -1635,9 +1644,6 @@ msgstr ""
 msgid "You failed your captcha"
 msgstr "Te captcha xwe bi ser neket"
 
-msgid "You have new messages in chat"
-msgstr "Di suhbetê de peyamên nû hene"
-
 msgid "You have no users blocked"
 msgstr "Tu bikarhênerên astengkirî tune"
 
@@ -1724,9 +1730,6 @@ msgstr ""
 msgid "download here"
 msgstr ""
 
-msgid "mentioned you"
-msgstr "Behsa te kir"
-
 msgid "or login with:"
 msgstr "an têkevin bi:"
 
@@ -1808,6 +1811,12 @@ msgstr "W"
 msgctxt "keybinds"
 msgid "X"
 msgstr "X"
+
+#~ msgid "You have new messages in chat"
+#~ msgstr "Di suhbetê de peyamên nû hene"
+
+#~ msgid "mentioned you"
+#~ msgstr "Behsa te kir"
 
 #~ msgid "Mute"
 #~ msgstr "Bêdeng"

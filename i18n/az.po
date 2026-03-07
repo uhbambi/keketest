@@ -562,6 +562,9 @@ msgstr ""
 msgid "Export enabled templates"
 msgstr "Açıq şablonları xaric et"
 
+msgid "Factions"
+msgstr ""
+
 msgid "Factor"
 msgstr ""
 
@@ -638,6 +641,9 @@ msgstr "Tor bağlandı"
 
 msgid "Grid ON"
 msgstr "Tor qoşuldu"
+
+msgid "Groups"
+msgstr ""
 
 msgid "Have fun!"
 msgstr "Əylənin!"
@@ -1083,6 +1089,9 @@ msgstr "Özəl"
 
 msgid "Profile"
 msgstr "Profil"
+
+msgid "Public"
+msgstr ""
 
 msgid "Quick Actions"
 msgstr ""
@@ -1634,9 +1643,6 @@ msgstr ""
 msgid "You failed your captcha"
 msgstr "Captchanızı düzgün yerinə yetirmədiniz"
 
-msgid "You have new messages in chat"
-msgstr "Sizin söhbətdə yeni mesajlarınız var"
-
 msgid "You have no users blocked"
 msgstr "Heçbir istifadəçiyi bloklamamısınız"
 
@@ -1722,9 +1728,6 @@ msgstr ""
 msgid "download here"
 msgstr ""
 
-msgid "mentioned you"
-msgstr "səndən bəhs etdi"
-
 msgid "or login with:"
 msgstr "vəya bunlar ilə daxil olun:"
 
@@ -1806,6 +1809,12 @@ msgstr "W"
 msgctxt "keybinds"
 msgid "X"
 msgstr "X"
+
+#~ msgid "You have new messages in chat"
+#~ msgstr "Sizin söhbətdə yeni mesajlarınız var"
+
+#~ msgid "mentioned you"
+#~ msgstr "səndən bəhs etdi"
 
 #~ msgid "Mute"
 #~ msgstr "Sustur"

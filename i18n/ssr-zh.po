@@ -99,6 +99,9 @@ msgstr "无法关闭此会话。"
 msgid "Could not find this login method"
 msgstr "找不到此登录方式"
 
+msgid "Could not leave this channel"
+msgstr ""
+
 msgid "Could not set your avtar"
 msgstr ""
 
@@ -414,7 +417,7 @@ msgstr ""
 msgid "Server Error"
 msgstr ""
 
-msgid "Server error when deleting user."
+msgid "Server error while deleting user."
 msgstr ""
 
 msgid "Someone logged into your account from a new location, with the IP:"

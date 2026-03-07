@@ -107,6 +107,9 @@ msgstr "Não foi possível fechar esta Sessão."
 msgid "Could not find this login method"
 msgstr "Não foi possível encontrar este método de login"
 
+msgid "Could not leave this channel"
+msgstr ""
+
 msgid "Could not set your avtar"
 msgstr ""
 
@@ -432,7 +435,7 @@ msgstr "Troque sua senha aqui"
 msgid "Server Error"
 msgstr ""
 
-msgid "Server error when deleting user."
+msgid "Server error while deleting user."
 msgstr ""
 
 msgid "Someone logged into your account from a new location, with the IP:"

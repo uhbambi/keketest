@@ -106,6 +106,9 @@ msgstr "No s'ha pogut tancar aquesta Sessió."
 msgid "Could not find this login method"
 msgstr "No s'ha pogut trobar aquest mètode d'inici de sessió"
 
+msgid "Could not leave this channel"
+msgstr ""
+
 msgid "Could not set your avtar"
 msgstr ""
 
@@ -429,7 +432,7 @@ msgstr "Restableix la teva contrasenya aquí"
 msgid "Server Error"
 msgstr ""
 
-msgid "Server error when deleting user."
+msgid "Server error while deleting user."
 msgstr ""
 
 msgid "Someone logged into your account from a new location, with the IP:"

@@ -558,6 +558,9 @@ msgstr ""
 msgid "Export enabled templates"
 msgstr "Ekspordi sisse lülitatud šabloonid"
 
+msgid "Factions"
+msgstr ""
+
 msgid "Factor"
 msgstr "Tegur"
 
@@ -633,6 +636,9 @@ msgstr "Teljestik VÄLJAS"
 
 msgid "Grid ON"
 msgstr "Teljestik SEES"
+
+msgid "Groups"
+msgstr ""
 
 msgid "Have fun!"
 msgstr "Lõbutse!"
@@ -1077,6 +1083,9 @@ msgstr "Privaatne"
 
 msgid "Profile"
 msgstr "Profiil"
+
+msgid "Public"
+msgstr ""
 
 msgid "Quick Actions"
 msgstr ""
@@ -1619,9 +1628,6 @@ msgstr ""
 msgid "You failed your captcha"
 msgstr "Sa lahendasid captcha valesti"
 
-msgid "You have new messages in chat"
-msgstr "Sul on jututoas uus sõnum"
-
 msgid "You have no users blocked"
 msgstr "Sa ei ole blokeerinud ühtegi kasutajat"
 
@@ -1708,9 +1714,6 @@ msgstr ""
 msgid "download here"
 msgstr ""
 
-msgid "mentioned you"
-msgstr "mainis sind"
-
 msgid "or login with:"
 msgstr "või logi sisse kasutades:"
 
@@ -1792,6 +1795,12 @@ msgstr "W"
 msgctxt "keybinds"
 msgid "X"
 msgstr "X"
+
+#~ msgid "You have new messages in chat"
+#~ msgstr "Sul on jututoas uus sõnum"
+
+#~ msgid "mentioned you"
+#~ msgstr "mainis sind"
 
 #~ msgid "Mute"
 #~ msgstr "Vaigista"

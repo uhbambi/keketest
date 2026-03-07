@@ -574,6 +574,9 @@ msgstr "Zgjero"
 msgid "Export enabled templates"
 msgstr "Eksporto shabllonet aktive"
 
+msgid "Factions"
+msgstr ""
+
 msgid "Factor"
 msgstr "Faktori"
 
@@ -653,6 +656,9 @@ msgstr "Rrjeta OFF"
 
 msgid "Grid ON"
 msgstr "Rrjeta ON"
+
+msgid "Groups"
+msgstr ""
 
 msgid "Have fun!"
 msgstr "Argëtohuni!"
@@ -1110,6 +1116,9 @@ msgstr "Privat"
 
 msgid "Profile"
 msgstr "Profili"
+
+msgid "Public"
+msgstr ""
 
 msgid "Quick Actions"
 msgstr "Veprimet e Shpejta"
@@ -1678,9 +1687,6 @@ msgstr "Ju nuk pranuat"
 msgid "You failed your captcha"
 msgstr "Ju keni dështuar captcha-n tuaj"
 
-msgid "You have new messages in chat"
-msgstr "Ju keni mesazhe të reja në bisedë"
-
 msgid "You have no users blocked"
 msgstr "Ju nuk keni përdorues të bllokuar"
 
@@ -1770,9 +1776,6 @@ msgstr "kontrolloni pajtueshmërinë këtu"
 msgid "download here"
 msgstr "shkarko këtu"
 
-msgid "mentioned you"
-msgstr "ju përmendi"
-
 msgid "or login with:"
 msgstr "ose identifikohuni me:"
 
@@ -1854,6 +1857,12 @@ msgstr "W"
 msgctxt "keybinds"
 msgid "X"
 msgstr "X"
+
+#~ msgid "You have new messages in chat"
+#~ msgstr "Ju keni mesazhe të reja në bisedë"
+
+#~ msgid "mentioned you"
+#~ msgstr "ju përmendi"
 
 #~ msgid "Mute"
 #~ msgstr "Hesht"

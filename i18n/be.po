@@ -577,6 +577,9 @@ msgstr "Разгарнуць"
 msgid "Export enabled templates"
 msgstr "Экспартаваць уключаныя шаблоны"
 
+msgid "Factions"
+msgstr ""
+
 msgid "Factor"
 msgstr "Фактар"
 
@@ -657,6 +660,9 @@ msgstr "Сетка Выкл"
 
 msgid "Grid ON"
 msgstr "Сетка Укл"
+
+msgid "Groups"
+msgstr ""
 
 msgid "Have fun!"
 msgstr "Гоооойда!"
@@ -1102,6 +1108,9 @@ msgstr "Прыватны Рэжым"
 
 msgid "Profile"
 msgstr "Профіль"
+
+msgid "Public"
+msgstr ""
 
 msgid "Quick Actions"
 msgstr ""
@@ -1652,9 +1661,6 @@ msgstr ""
 msgid "You failed your captcha"
 msgstr "Вы не прайшлі капчу"
 
-msgid "You have new messages in chat"
-msgstr "Ёсць новыя паведамленні ў чаце"
-
 msgid "You have no users blocked"
 msgstr "У вас няма заблакаваных карыстальнікаў"
 
@@ -1742,9 +1748,6 @@ msgstr ""
 msgid "download here"
 msgstr ""
 
-msgid "mentioned you"
-msgstr "згадаў вас"
-
 msgid "or login with:"
 msgstr "або ўвайдзіце праз:"
 
@@ -1827,6 +1830,12 @@ msgstr "W"
 msgctxt "keybinds"
 msgid "X"
 msgstr "X"
+
+#~ msgid "You have new messages in chat"
+#~ msgstr "Ёсць новыя паведамленні ў чаце"
+
+#~ msgid "mentioned you"
+#~ msgstr "згадаў вас"
 
 #~ msgid "Mute"
 #~ msgstr "Зам'юціць"

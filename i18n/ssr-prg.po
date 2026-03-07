@@ -104,6 +104,9 @@ msgstr "Nepatīkanškas šīntan Sesījan."
 msgid "Could not find this login method"
 msgstr "Nī finden bartinnan gīwīdeinan sikīmtinan"
 
+msgid "Could not leave this channel"
+msgstr ""
+
 msgid "Could not set your avtar"
 msgstr ""
 
@@ -426,8 +429,8 @@ msgstr "Apgriztwei twei Surīktan tūsei"
 msgid "Server Error"
 msgstr ""
 
-msgid "Server error when deleting user."
-msgstr "Klaida serveriō briukstantēi upītą."
+msgid "Server error while deleting user."
+msgstr ""
 
 msgid "Someone logged into your account from a new location, with the IP:"
 msgstr "Kaskas pagubbis prei twais accaunts stawītinimai naujā postan, so IP:"
@@ -758,6 +761,9 @@ msgid ""
 msgstr ""
 "Kaīls prēi nūss pērā pēr pikselan deiktammans, tērpautun twajs kōnts, jūs "
 "papalla izbāndātun twajs pōstikastens. jūs mazzi segēi stas šāi: "
+
+#~ msgid "Server error when deleting user."
+#~ msgstr "Klaida serveriō briukstantēi upītą."
 
 #, javascript-format
 #~ msgid ""

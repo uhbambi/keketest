@@ -564,6 +564,9 @@ msgstr ""
 msgid "Export enabled templates"
 msgstr "Šabloni omogućeni za izvoz"
 
+msgid "Factions"
+msgstr ""
+
 msgid "Factor"
 msgstr ""
 
@@ -640,6 +643,9 @@ msgstr "Rešetka ISKLJUČENA"
 
 msgid "Grid ON"
 msgstr "Rešetka UKLJUČENA"
+
+msgid "Groups"
+msgstr ""
 
 msgid "Have fun!"
 msgstr "Zabavite se!"
@@ -1084,6 +1090,9 @@ msgstr "Privatno"
 
 msgid "Profile"
 msgstr "Račun"
+
+msgid "Public"
+msgstr ""
 
 msgid "Quick Actions"
 msgstr ""
@@ -1630,9 +1639,6 @@ msgstr ""
 msgid "You failed your captcha"
 msgstr "Neuspela verifikacija"
 
-msgid "You have new messages in chat"
-msgstr "Imaš nove poruke u ćaskanju"
-
 msgid "You have no users blocked"
 msgstr "Nemate nikakve korisnike blokirane"
 
@@ -1718,9 +1724,6 @@ msgstr ""
 msgid "download here"
 msgstr ""
 
-msgid "mentioned you"
-msgstr "označio te je"
-
 msgid "or login with:"
 msgstr "ili se uloguj sa:"
 
@@ -1802,6 +1805,12 @@ msgstr "W"
 msgctxt "keybinds"
 msgid "X"
 msgstr "X"
+
+#~ msgid "You have new messages in chat"
+#~ msgstr "Imaš nove poruke u ćaskanju"
+
+#~ msgid "mentioned you"
+#~ msgstr "označio te je"
 
 #~ msgid "Mute"
 #~ msgstr "Utišaj"

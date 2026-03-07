@@ -580,6 +580,9 @@ msgstr ""
 msgid "Export enabled templates"
 msgstr ""
 
+msgid "Factions"
+msgstr ""
+
 msgid "Factor"
 msgstr ""
 
@@ -656,6 +659,9 @@ msgstr "Grid mavahe mei he"
 
 msgid "Grid ON"
 msgstr "Grid ʻi he"
+
+msgid "Groups"
+msgstr ""
 
 msgid "Have fun!"
 msgstr "Fiefia!"
@@ -1106,6 +1112,9 @@ msgstr "Fakafoʻituitui"
 
 msgid "Profile"
 msgstr "Fakamatala Fakafoʻituituí"
+
+msgid "Public"
+msgstr ""
 
 msgid "Quick Actions"
 msgstr ""
@@ -1664,9 +1673,6 @@ msgstr ""
 msgid "You failed your captcha"
 msgstr "Naʻe ʻikai ke ke lava hoʻo captcha"
 
-msgid "You have new messages in chat"
-msgstr "ʻOku ʻi ai haʻo ngaahi popoaki foʻou ʻi he chat"
-
 msgid "You have no users blocked"
 msgstr "ʻOku ʻikai ke ʻi ai haʻo loka"
 
@@ -1755,9 +1761,6 @@ msgstr ""
 msgid "download here"
 msgstr ""
 
-msgid "mentioned you"
-msgstr "naʻa ke lau ki ai"
-
 msgid "or login with:"
 msgstr "pe login mo e:"
 
@@ -1840,6 +1843,12 @@ msgstr "W"
 msgctxt "keybinds"
 msgid "X"
 msgstr "X"
+
+#~ msgid "You have new messages in chat"
+#~ msgstr "ʻOku ʻi ai haʻo ngaahi popoaki foʻou ʻi he chat"
+
+#~ msgid "mentioned you"
+#~ msgstr "naʻa ke lau ki ai"
 
 #~ msgid "Mute"
 #~ msgstr "Fakalongo"

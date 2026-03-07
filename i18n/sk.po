@@ -555,6 +555,9 @@ msgstr ""
 msgid "Export enabled templates"
 msgstr "Exportuj zapnuté šablony"
 
+msgid "Factions"
+msgstr ""
+
 msgid "Factor"
 msgstr "Faktor"
 
@@ -630,6 +633,9 @@ msgstr "Mriežka vypnutá"
 
 msgid "Grid ON"
 msgstr "Mriežka zapnutá"
+
+msgid "Groups"
+msgstr ""
 
 msgid "Have fun!"
 msgstr "Zabav sa!"
@@ -1070,6 +1076,9 @@ msgstr "Súkromné"
 
 msgid "Profile"
 msgstr "Profi"
+
+msgid "Public"
+msgstr ""
 
 msgid "Quick Actions"
 msgstr ""
@@ -1610,9 +1619,6 @@ msgstr ""
 msgid "You failed your captcha"
 msgstr "Zlyhal si v captcha"
 
-msgid "You have new messages in chat"
-msgstr "Máš nové spravy v chate"
-
 msgid "You have no users blocked"
 msgstr "Nemáš zablokovaných žiadnych uživatelov"
 
@@ -1699,9 +1705,6 @@ msgstr ""
 msgid "download here"
 msgstr ""
 
-msgid "mentioned you"
-msgstr "ťa zmienil"
-
 msgid "or login with:"
 msgstr "alebo sa prihlás s:"
 
@@ -1783,6 +1786,12 @@ msgstr "W"
 msgctxt "keybinds"
 msgid "X"
 msgstr "X"
+
+#~ msgid "You have new messages in chat"
+#~ msgstr "Máš nové spravy v chate"
+
+#~ msgid "mentioned you"
+#~ msgstr "ťa zmienil"
 
 #~ msgid "Mute"
 #~ msgstr "Stľmíť"

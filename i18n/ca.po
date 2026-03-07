@@ -573,6 +573,9 @@ msgstr "Amplia"
 msgid "Export enabled templates"
 msgstr "Exporta les plantilles habilitades"
 
+msgid "Factions"
+msgstr ""
+
 msgid "Factor"
 msgstr "Factor"
 
@@ -652,6 +655,9 @@ msgstr "Quadrícula Desactivada"
 
 msgid "Grid ON"
 msgstr "Quadrícula Activada"
+
+msgid "Groups"
+msgstr ""
 
 msgid "Have fun!"
 msgstr "Passa-t'ho bé!"
@@ -1109,6 +1115,9 @@ msgstr "Privat"
 
 msgid "Profile"
 msgstr "Perfil"
+
+msgid "Public"
+msgstr ""
 
 msgid "Quick Actions"
 msgstr "Accions Ràpides"
@@ -1677,9 +1686,6 @@ msgstr "No has donat consentiment"
 msgid "You failed your captcha"
 msgstr "Has fallat el captcha"
 
-msgid "You have new messages in chat"
-msgstr "Tens missatges nous al xat"
-
 msgid "You have no users blocked"
 msgstr "No tens bloquejat a cap usuari"
 
@@ -1768,9 +1774,6 @@ msgstr ""
 msgid "download here"
 msgstr ""
 
-msgid "mentioned you"
-msgstr "t'ha mencionat"
-
 msgid "or login with:"
 msgstr "o inicia sessió amb:"
 
@@ -1852,6 +1855,12 @@ msgstr "W"
 msgctxt "keybinds"
 msgid "X"
 msgstr "X"
+
+#~ msgid "You have new messages in chat"
+#~ msgstr "Tens missatges nous al xat"
+
+#~ msgid "mentioned you"
+#~ msgstr "t'ha mencionat"
 
 #~ msgid "Mute"
 #~ msgstr "Silencia"

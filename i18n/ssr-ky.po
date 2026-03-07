@@ -103,6 +103,9 @@ msgstr "Бул сессия жабылган жок."
 msgid "Could not find this login method"
 msgstr "Бул кирүү ыкмасын таба алган жок"
 
+msgid "Could not leave this channel"
+msgstr ""
+
 msgid "Could not set your avtar"
 msgstr ""
 
@@ -431,8 +434,8 @@ msgstr "Сырсөзүңүздү бул жерден баштапкы абалг
 msgid "Server Error"
 msgstr ""
 
-msgid "Server error when deleting user."
-msgstr "Колдонуучуну жок кылууда серверде ката кетти."
+msgid "Server error while deleting user."
+msgstr ""
 
 msgid "Someone logged into your account from a new location, with the IP:"
 msgstr "Кимдир бирөө сиздин аккаунтуңузга жаңы жерден, IP дарек менен кирди:"
@@ -764,6 +767,9 @@ msgstr ""
 "‐биздин кичинекей пикселди жайгаштыргыч коомчулугубузга кош келиңиз, "
 "аккаунтуңузду колдонуу үчүн почтаңызды ырасташыңыз керек. Сен бул жерде эмне "
 "кыла алышат: "
+
+#~ msgid "Server error when deleting user."
+#~ msgstr "Колдонуучуну жок кылууда серверде ката кетти."
 
 #~ msgid "You are banned"
 #~ msgstr "Сиз тыюу салынган"

@@ -567,6 +567,9 @@ msgstr ""
 msgid "Export enabled templates"
 msgstr ""
 
+msgid "Factions"
+msgstr ""
+
 msgid "Factor"
 msgstr ""
 
@@ -643,6 +646,9 @@ msgstr "شبکه  خاموش است"
 
 msgid "Grid ON"
 msgstr "شبکه  روشن است"
+
+msgid "Groups"
+msgstr ""
 
 msgid "Have fun!"
 msgstr "خوش بگذره!"
@@ -1090,6 +1096,9 @@ msgstr "خصوصی"
 
 msgid "Profile"
 msgstr "پروفایل"
+
+msgid "Public"
+msgstr ""
 
 msgid "Quick Actions"
 msgstr ""
@@ -1641,9 +1650,6 @@ msgstr ""
 msgid "You failed your captcha"
 msgstr "کَپچا رو نتونستی جواب بدی"
 
-msgid "You have new messages in chat"
-msgstr "توی چت پیام های حدید داری"
-
 msgid "You have no users blocked"
 msgstr "تو هیچ کاربر مسدود شده نداری"
 
@@ -1729,9 +1735,6 @@ msgstr ""
 msgid "download here"
 msgstr ""
 
-msgid "mentioned you"
-msgstr "منشنت کرد"
-
 msgid "or login with:"
 msgstr "یا با :"
 
@@ -1814,6 +1817,12 @@ msgstr ""
 msgctxt "keybinds"
 msgid "X"
 msgstr ""
+
+#~ msgid "You have new messages in chat"
+#~ msgstr "توی چت پیام های حدید داری"
+
+#~ msgid "mentioned you"
+#~ msgstr "منشنت کرد"
 
 #~ msgid "Mute"
 #~ msgstr "سکوت"

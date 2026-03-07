@@ -550,6 +550,9 @@ msgstr ""
 msgid "Export enabled templates"
 msgstr ""
 
+msgid "Factions"
+msgstr ""
+
 msgid "Factor"
 msgstr ""
 
@@ -624,6 +627,9 @@ msgid "Grid OFF"
 msgstr ""
 
 msgid "Grid ON"
+msgstr ""
+
+msgid "Groups"
 msgstr ""
 
 msgid "Have fun!"
@@ -1063,6 +1069,9 @@ msgid "Private"
 msgstr ""
 
 msgid "Profile"
+msgstr ""
+
+msgid "Public"
 msgstr ""
 
 msgid "Quick Actions"
@@ -1581,9 +1590,6 @@ msgstr ""
 msgid "You failed your captcha"
 msgstr "Rixi morto Fallisti u captcha"
 
-msgid "You have new messages in chat"
-msgstr ""
-
 #, fuzzy
 msgid "You have no users blocked"
 msgstr "Unsi mancu loggatu."
@@ -1668,9 +1674,6 @@ msgid "check compliance here"
 msgstr ""
 
 msgid "download here"
-msgstr ""
-
-msgid "mentioned you"
 msgstr ""
 
 msgid "or login with:"

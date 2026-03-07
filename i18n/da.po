@@ -566,6 +566,9 @@ msgstr "Udvid"
 msgid "Export enabled templates"
 msgstr "Eksportér aktiverede skabeloner"
 
+msgid "Factions"
+msgstr ""
+
 msgid "Factor"
 msgstr "Faktor"
 
@@ -645,6 +648,9 @@ msgstr "Gitter Fra"
 
 msgid "Grid ON"
 msgstr "Gitter På"
+
+msgid "Groups"
+msgstr ""
 
 msgid "Have fun!"
 msgstr "Hav' det sjovt!"
@@ -1097,6 +1103,9 @@ msgstr "Privat"
 
 msgid "Profile"
 msgstr "Profil"
+
+msgid "Public"
+msgstr ""
 
 msgid "Quick Actions"
 msgstr "Hurtige Handlinger"
@@ -1656,9 +1665,6 @@ msgstr "Du gav ikke samtykke"
 msgid "You failed your captcha"
 msgstr "Du mislykkede din captcha"
 
-msgid "You have new messages in chat"
-msgstr "Du har nye beskeder i chat"
-
 msgid "You have no users blocked"
 msgstr "Du har ingen brugere blokeret"
 
@@ -1747,9 +1753,6 @@ msgstr "Check overholdelse her"
 msgid "download here"
 msgstr ""
 
-msgid "mentioned you"
-msgstr "nævnte dig"
-
 msgid "or login with:"
 msgstr "eller login med:"
 
@@ -1831,6 +1834,12 @@ msgstr "W"
 msgctxt "keybinds"
 msgid "X"
 msgstr "X"
+
+#~ msgid "You have new messages in chat"
+#~ msgstr "Du har nye beskeder i chat"
+
+#~ msgid "mentioned you"
+#~ msgstr "nævnte dig"
 
 #~ msgid "Mute"
 #~ msgstr "Gør Stum"

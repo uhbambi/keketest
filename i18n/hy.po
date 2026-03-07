@@ -566,6 +566,9 @@ msgstr ""
 msgid "Export enabled templates"
 msgstr "Արտահանել միացված կաղապարները"
 
+msgid "Factions"
+msgstr ""
+
 msgid "Factor"
 msgstr ""
 
@@ -642,6 +645,9 @@ msgstr "Ցանցը անջատված է"
 
 msgid "Grid ON"
 msgstr "Ցանցը միացված է"
+
+msgid "Groups"
+msgstr ""
 
 msgid "Have fun!"
 msgstr "Զվարճացեք!"
@@ -1088,6 +1094,9 @@ msgstr "Անձնական"
 
 msgid "Profile"
 msgstr "Պրոֆիլ"
+
+msgid "Public"
+msgstr ""
 
 msgid "Quick Actions"
 msgstr ""
@@ -1639,9 +1648,6 @@ msgstr ""
 msgid "You failed your captcha"
 msgstr "Դուք ձեր captcha-ն ձախողեցիք"
 
-msgid "You have new messages in chat"
-msgstr "Դուք ունեք նոր նամակներ չատում"
-
 msgid "You have no users blocked"
 msgstr "Դուք արգելափակված օգտատերեր չունեք"
 
@@ -1729,9 +1735,6 @@ msgstr ""
 msgid "download here"
 msgstr ""
 
-msgid "mentioned you"
-msgstr "Դուք հիշատակված եք"
-
 msgid "or login with:"
 msgstr "կամ մուտք գործեք հետևյալով ."
 
@@ -1813,6 +1816,12 @@ msgstr "W"
 msgctxt "keybinds"
 msgid "X"
 msgstr "X"
+
+#~ msgid "You have new messages in chat"
+#~ msgstr "Դուք ունեք նոր նամակներ չատում"
+
+#~ msgid "mentioned you"
+#~ msgstr "Դուք հիշատակված եք"
 
 #~ msgid "Mute"
 #~ msgstr "Լռեցնել"

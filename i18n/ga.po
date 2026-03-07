@@ -571,6 +571,9 @@ msgstr "Leathnaigh"
 msgid "Export enabled templates"
 msgstr "Easpórtáil teimpléid chumasaithe"
 
+msgid "Factions"
+msgstr ""
+
 msgid "Factor"
 msgstr "Fachtóir"
 
@@ -650,6 +653,9 @@ msgstr "Eangach AS"
 
 msgid "Grid ON"
 msgstr "Eangach AR"
+
+msgid "Groups"
+msgstr ""
 
 msgid "Have fun!"
 msgstr "Bíodh sult agat!"
@@ -1106,6 +1112,9 @@ msgstr "Príobháideach"
 
 msgid "Profile"
 msgstr "Próifíl"
+
+msgid "Public"
+msgstr ""
 
 msgid "Quick Actions"
 msgstr ""
@@ -1665,9 +1674,6 @@ msgstr "Níor thoiligh tú"
 msgid "You failed your captcha"
 msgstr "Theip ort don Captcha"
 
-msgid "You have new messages in chat"
-msgstr "Tá tú teachtaireachtaí nua sa comhrá"
-
 msgid "You have no users blocked"
 msgstr "Níl aon úsáideoirí blocáilte agat"
 
@@ -1754,9 +1760,6 @@ msgstr ""
 msgid "download here"
 msgstr ""
 
-msgid "mentioned you"
-msgstr "lughaidh sé tú"
-
 msgid "or login with:"
 msgstr "nó logáil isteach le:"
 
@@ -1838,6 +1841,12 @@ msgstr "W"
 msgctxt "keybinds"
 msgid "X"
 msgstr "X"
+
+#~ msgid "You have new messages in chat"
+#~ msgstr "Tá tú teachtaireachtaí nua sa comhrá"
+
+#~ msgid "mentioned you"
+#~ msgstr "lughaidh sé tú"
 
 #~ msgid "Mute"
 #~ msgstr "Balbhaigh"

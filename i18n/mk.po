@@ -564,6 +564,9 @@ msgstr ""
 msgid "Export enabled templates"
 msgstr "Извези овозможени шаблони"
 
+msgid "Factions"
+msgstr ""
+
 msgid "Factor"
 msgstr "Фактор"
 
@@ -639,6 +642,9 @@ msgstr "Табела од коцки исклучена"
 
 msgid "Grid ON"
 msgstr "Табела од коцки оклучена"
+
+msgid "Groups"
+msgstr ""
 
 msgid "Have fun!"
 msgstr "Имај забава!"
@@ -1084,6 +1090,9 @@ msgstr "Приватен"
 
 msgid "Profile"
 msgstr "Профил"
+
+msgid "Public"
+msgstr ""
 
 msgid "Quick Actions"
 msgstr ""
@@ -1629,9 +1638,6 @@ msgstr ""
 msgid "You failed your captcha"
 msgstr "Не успеавте со вашата captcha"
 
-msgid "You have new messages in chat"
-msgstr "Имате нови пораки во разговорот"
-
 msgid "You have no users blocked"
 msgstr "Ти немаш блокирано никого"
 
@@ -1718,9 +1724,6 @@ msgstr ""
 msgid "download here"
 msgstr ""
 
-msgid "mentioned you"
-msgstr "те спомна"
-
 msgid "or login with:"
 msgstr "или најавете се со:"
 
@@ -1802,6 +1805,12 @@ msgstr "W"
 msgctxt "keybinds"
 msgid "X"
 msgstr "Х"
+
+#~ msgid "You have new messages in chat"
+#~ msgstr "Имате нови пораки во разговорот"
+
+#~ msgid "mentioned you"
+#~ msgstr "те спомна"
 
 #~ msgid "Mute"
 #~ msgstr "Исклучи звук"

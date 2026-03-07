@@ -108,6 +108,9 @@ msgstr "Bu Sessiya bağlanıla bilmədi."
 msgid "Could not find this login method"
 msgstr "Bu giriş üsulu tapıla bilmədi"
 
+msgid "Could not leave this channel"
+msgstr ""
+
 msgid "Could not set your avtar"
 msgstr ""
 
@@ -435,7 +438,7 @@ msgstr "Parolunuzu burdan sıfırlayın"
 msgid "Server Error"
 msgstr ""
 
-msgid "Server error when deleting user."
+msgid "Server error while deleting user."
 msgstr ""
 
 msgid "Someone logged into your account from a new location, with the IP:"

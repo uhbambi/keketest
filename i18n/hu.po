@@ -566,6 +566,9 @@ msgstr ""
 msgid "Export enabled templates"
 msgstr "Bekapcsolt sablonok exportálása"
 
+msgid "Factions"
+msgstr ""
+
 msgid "Factor"
 msgstr ""
 
@@ -641,6 +644,9 @@ msgstr "Rács kikapcsolva"
 
 msgid "Grid ON"
 msgstr "Rács bekapcsolva"
+
+msgid "Groups"
+msgstr ""
 
 msgid "Have fun!"
 msgstr "Jó szórakozást!"
@@ -1088,6 +1094,9 @@ msgstr "Privát"
 
 msgid "Profile"
 msgstr "Profil"
+
+msgid "Public"
+msgstr ""
 
 msgid "Quick Actions"
 msgstr ""
@@ -1640,9 +1649,6 @@ msgstr ""
 msgid "You failed your captcha"
 msgstr "Nem sikerült a captcha"
 
-msgid "You have new messages in chat"
-msgstr "Új üzeneteid vannak a chaten"
-
 msgid "You have no users blocked"
 msgstr "Nincsenek letiltott felhasználóid"
 
@@ -1729,9 +1735,6 @@ msgstr ""
 msgid "download here"
 msgstr ""
 
-msgid "mentioned you"
-msgstr "megemlített téged"
-
 msgid "or login with:"
 msgstr "vagy jelentkezz be a következővel:"
 
@@ -1813,6 +1816,12 @@ msgstr "W"
 msgctxt "keybinds"
 msgid "X"
 msgstr "X"
+
+#~ msgid "You have new messages in chat"
+#~ msgstr "Új üzeneteid vannak a chaten"
+
+#~ msgid "mentioned you"
+#~ msgstr "megemlített téged"
 
 #~ msgid "Mute"
 #~ msgstr "Némít"

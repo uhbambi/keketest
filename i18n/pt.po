@@ -575,6 +575,9 @@ msgstr ""
 msgid "Export enabled templates"
 msgstr "Exportar templates habilitadas"
 
+msgid "Factions"
+msgstr ""
+
 msgid "Factor"
 msgstr ""
 
@@ -651,6 +654,9 @@ msgstr "Grelha DESATIVADA"
 
 msgid "Grid ON"
 msgstr "Grelha ATIVADA"
+
+msgid "Groups"
+msgstr ""
 
 msgid "Have fun!"
 msgstr "Se divirta!"
@@ -1100,6 +1106,9 @@ msgstr "Privado"
 
 msgid "Profile"
 msgstr "Perfil"
+
+msgid "Public"
+msgstr ""
 
 msgid "Quick Actions"
 msgstr ""
@@ -1661,9 +1670,6 @@ msgstr ""
 msgid "You failed your captcha"
 msgstr "Você errou o seu captcha"
 
-msgid "You have new messages in chat"
-msgstr "Você tem novas mensagens no bate-papo"
-
 msgid "You have no users blocked"
 msgstr "Você não tem nenhum usuário bloqueado"
 
@@ -1751,9 +1757,6 @@ msgstr ""
 msgid "download here"
 msgstr ""
 
-msgid "mentioned you"
-msgstr "mencionou você"
-
 msgid "or login with:"
 msgstr "ou entre aqui:"
 
@@ -1835,6 +1838,12 @@ msgstr "W"
 msgctxt "keybinds"
 msgid "X"
 msgstr "X"
+
+#~ msgid "You have new messages in chat"
+#~ msgstr "Você tem novas mensagens no bate-papo"
+
+#~ msgid "mentioned you"
+#~ msgstr "mencionou você"
 
 #~ msgid "Mute"
 #~ msgstr "Silenciar"

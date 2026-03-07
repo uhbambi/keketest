@@ -541,6 +541,9 @@ msgstr ""
 msgid "Export enabled templates"
 msgstr ""
 
+msgid "Factions"
+msgstr ""
+
 msgid "Factor"
 msgstr ""
 
@@ -616,6 +619,9 @@ msgstr "اسقاره نهفته"
 
 msgid "Grid ON"
 msgstr "اسقاره بارز"
+
+msgid "Groups"
+msgstr ""
 
 msgid "Have fun!"
 msgstr ""
@@ -1050,6 +1056,9 @@ msgid "Private"
 msgstr ""
 
 msgid "Profile"
+msgstr ""
+
+msgid "Public"
 msgstr ""
 
 msgid "Quick Actions"
@@ -1565,9 +1574,6 @@ msgstr ""
 msgid "You failed your captcha"
 msgstr ""
 
-msgid "You have new messages in chat"
-msgstr ""
-
 msgid "You have no users blocked"
 msgstr ""
 
@@ -1649,9 +1655,6 @@ msgid "check compliance here"
 msgstr ""
 
 msgid "download here"
-msgstr ""
-
-msgid "mentioned you"
 msgstr ""
 
 msgid "or login with:"

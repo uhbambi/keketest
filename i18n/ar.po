@@ -555,6 +555,9 @@ msgstr ""
 msgid "Export enabled templates"
 msgstr "تصدير القوالب الممكّنة"
 
+msgid "Factions"
+msgstr ""
+
 msgid "Factor"
 msgstr ""
 
@@ -630,6 +633,9 @@ msgstr "إيقاف تشغيل الشبكة"
 
 msgid "Grid ON"
 msgstr "تشغيل الشبكة"
+
+msgid "Groups"
+msgstr ""
 
 msgid "Have fun!"
 msgstr "استمتع!"
@@ -1068,6 +1074,9 @@ msgstr "خاص"
 
 msgid "Profile"
 msgstr "الملف"
+
+msgid "Public"
+msgstr ""
 
 msgid "Quick Actions"
 msgstr ""
@@ -1608,9 +1617,6 @@ msgstr ""
 msgid "You failed your captcha"
 msgstr "لقد فشلت في اختبار الكابتشا الخاص بك"
 
-msgid "You have new messages in chat"
-msgstr "لديك رسائل جديدة في الدردشة"
-
 msgid "You have no users blocked"
 msgstr "ليس لديك أي مستخدمين محظورين"
 
@@ -1695,9 +1701,6 @@ msgstr "التحقق من الامتثال هنا"
 msgid "download here"
 msgstr ""
 
-msgid "mentioned you"
-msgstr "ذكرك"
-
 msgid "or login with:"
 msgstr "أو تسجيل الدخول باستخدام:"
 
@@ -1779,6 +1782,12 @@ msgstr "W"
 msgctxt "keybinds"
 msgid "X"
 msgstr "X"
+
+#~ msgid "You have new messages in chat"
+#~ msgstr "لديك رسائل جديدة في الدردشة"
+
+#~ msgid "mentioned you"
+#~ msgstr "ذكرك"
 
 #~ msgid "Mute"
 #~ msgstr "ميوت"

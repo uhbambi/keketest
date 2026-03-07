@@ -556,6 +556,9 @@ msgstr ""
 msgid "Export enabled templates"
 msgstr "Vie käytössä olevat mallineet"
 
+msgid "Factions"
+msgstr ""
+
 msgid "Factor"
 msgstr ""
 
@@ -632,6 +635,9 @@ msgstr "Ruudukko POIS"
 
 msgid "Grid ON"
 msgstr "Ruudukko PÄÄLLÄ"
+
+msgid "Groups"
+msgstr ""
 
 msgid "Have fun!"
 msgstr "Pidä hauskaa!"
@@ -1078,6 +1084,9 @@ msgstr ""
 
 msgid "Profile"
 msgstr "Profiili"
+
+msgid "Public"
+msgstr ""
 
 msgid "Quick Actions"
 msgstr ""
@@ -1624,9 +1633,6 @@ msgstr ""
 msgid "You failed your captcha"
 msgstr "Sinä epäonnistuit captchassasi"
 
-msgid "You have new messages in chat"
-msgstr "Sinulla on uusia viestejä keskustelussa"
-
 msgid "You have no users blocked"
 msgstr ""
 
@@ -1712,9 +1718,6 @@ msgstr ""
 msgid "download here"
 msgstr ""
 
-msgid "mentioned you"
-msgstr "mainitsi sinut"
-
 msgid "or login with:"
 msgstr "Tai kirjaudu:"
 
@@ -1796,6 +1799,12 @@ msgstr "W"
 msgctxt "keybinds"
 msgid "X"
 msgstr "X"
+
+#~ msgid "You have new messages in chat"
+#~ msgstr "Sinulla on uusia viestejä keskustelussa"
+
+#~ msgid "mentioned you"
+#~ msgstr "mainitsi sinut"
 
 #~ msgid "PopUp"
 #~ msgstr "Ponnahdusikkuna"

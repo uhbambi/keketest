@@ -566,6 +566,9 @@ msgstr ""
 msgid "Export enabled templates"
 msgstr "ჩართული თემფლეითების დაექსპორტება"
 
+msgid "Factions"
+msgstr ""
+
 msgid "Factor"
 msgstr ""
 
@@ -642,6 +645,9 @@ msgstr "ბადე გამორთულია"
 
 msgid "Grid ON"
 msgstr "ბადე ჩართულია"
+
+msgid "Groups"
+msgstr ""
 
 msgid "Have fun!"
 msgstr "გაერთე!"
@@ -1085,6 +1091,9 @@ msgstr "პირადი"
 
 msgid "Profile"
 msgstr "პროფილი"
+
+msgid "Public"
+msgstr ""
 
 msgid "Quick Actions"
 msgstr ""
@@ -1632,9 +1641,6 @@ msgstr ""
 msgid "You failed your captcha"
 msgstr "თქვენ ვერ მოახერხეთ თქვენი კაპტჩა"
 
-msgid "You have new messages in chat"
-msgstr "თქვენ გაქვთ ახალი შეტყობინებები ჩატში"
-
 msgid "You have no users blocked"
 msgstr "თქვენ არ გაქვთ დაბლოკილი მომხმარებელი"
 
@@ -1721,9 +1727,6 @@ msgstr ""
 msgid "download here"
 msgstr ""
 
-msgid "mentioned you"
-msgstr "მოგახსენათ"
-
 msgid "or login with:"
 msgstr "ან შედით სისტემაში:"
 
@@ -1805,6 +1808,12 @@ msgstr "წ"
 msgctxt "keybinds"
 msgid "X"
 msgstr "ხ"
+
+#~ msgid "You have new messages in chat"
+#~ msgstr "თქვენ გაქვთ ახალი შეტყობინებები ჩატში"
+
+#~ msgid "mentioned you"
+#~ msgstr "მოგახსენათ"
 
 #~ msgid "Mute"
 #~ msgstr "დადუმება"

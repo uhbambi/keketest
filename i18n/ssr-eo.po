@@ -106,6 +106,9 @@ msgstr "Ne eblis fermi ĉi tiun sesion."
 msgid "Could not find this login method"
 msgstr "Ne eblis trovi ĉi tiun ensalutan metodon"
 
+msgid "Could not leave this channel"
+msgstr ""
+
 msgid "Could not set your avtar"
 msgstr ""
 
@@ -432,8 +435,8 @@ msgstr "Renovigu pasvorton vian ĉi tien"
 msgid "Server Error"
 msgstr ""
 
-msgid "Server error when deleting user."
-msgstr "Servila eraro dum forigo de uzanto."
+msgid "Server error while deleting user."
+msgstr ""
 
 msgid "Someone logged into your account from a new location, with the IP:"
 msgstr "Iu ensalutis vian konton de nova loko, kun la IP-adreso:"
@@ -771,6 +774,9 @@ msgid ""
 msgstr ""
 "bonvenon al nia comunumeta de pixelmetistoj; por uzi vian konton, vi devus "
 "verigi vian retpostadreson. Povus fari ĝin ĉi tie: "
+
+#~ msgid "Server error when deleting user."
+#~ msgstr "Servila eraro dum forigo de uzanto."
 
 #, fuzzy
 #~ msgid "You are banned"

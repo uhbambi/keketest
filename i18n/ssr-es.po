@@ -106,6 +106,9 @@ msgstr "No se pudo cerrar esta sesión."
 msgid "Could not find this login method"
 msgstr "No se pudo encontrar este método de acceso"
 
+msgid "Could not leave this channel"
+msgstr ""
+
 msgid "Could not set your avtar"
 msgstr ""
 
@@ -426,8 +429,8 @@ msgstr "Reinicia tu contraseña aquí"
 msgid "Server Error"
 msgstr ""
 
-msgid "Server error when deleting user."
-msgstr "Error de servidor al eliminar usuario."
+msgid "Server error while deleting user."
+msgstr ""
 
 msgid "Someone logged into your account from a new location, with the IP:"
 msgstr "Alguien accedió a tu cuenta desde un nuevo lugar, con la IP:"
@@ -754,6 +757,9 @@ msgid ""
 msgstr ""
 "bienvenido a nuestra pequeña comunidad de colocadores de píxeles, para "
 "utilizar tu cuenta necesitas verificar tu correo. Puedes hacerlo acá: "
+
+#~ msgid "Server error when deleting user."
+#~ msgstr "Error de servidor al eliminar usuario."
 
 #, javascript-format
 #~ msgid ""

@@ -572,6 +572,9 @@ msgstr ""
 msgid "Export enabled templates"
 msgstr ""
 
+msgid "Factions"
+msgstr ""
+
 msgid "Factor"
 msgstr ""
 
@@ -648,6 +651,9 @@ msgstr "Raster UIT"
 
 msgid "Grid ON"
 msgstr "Raster AAN"
+
+msgid "Groups"
+msgstr ""
 
 msgid "Have fun!"
 msgstr "Veel plezier!"
@@ -1096,6 +1102,9 @@ msgstr "Privé"
 
 msgid "Profile"
 msgstr "Profiel"
+
+msgid "Public"
+msgstr ""
 
 msgid "Quick Actions"
 msgstr ""
@@ -1649,9 +1658,6 @@ msgstr ""
 msgid "You failed your captcha"
 msgstr "Je captcha is mislukt"
 
-msgid "You have new messages in chat"
-msgstr "Je hebt nieuwe berichten in de chat"
-
 msgid "You have no users blocked"
 msgstr "U heeft geen geblokkeerde gebruikers"
 
@@ -1739,9 +1745,6 @@ msgstr ""
 msgid "download here"
 msgstr ""
 
-msgid "mentioned you"
-msgstr "heeft je naam genoemd"
-
 msgid "or login with:"
 msgstr "of log in met:"
 
@@ -1824,6 +1827,12 @@ msgstr "W"
 msgctxt "keybinds"
 msgid "X"
 msgstr "X"
+
+#~ msgid "You have new messages in chat"
+#~ msgstr "Je hebt nieuwe berichten in de chat"
+
+#~ msgid "mentioned you"
+#~ msgstr "heeft je naam genoemd"
 
 #~ msgid "Mute"
 #~ msgstr "Dempen"

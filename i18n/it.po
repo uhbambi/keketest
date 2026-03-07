@@ -571,6 +571,9 @@ msgstr ""
 msgid "Export enabled templates"
 msgstr ""
 
+msgid "Factions"
+msgstr ""
+
 msgid "Factor"
 msgstr ""
 
@@ -647,6 +650,9 @@ msgstr "Griglia DISATTIVA"
 
 msgid "Grid ON"
 msgstr "Griglia ATTIVA"
+
+msgid "Groups"
+msgstr ""
 
 msgid "Have fun!"
 msgstr "BELEZA"
@@ -1091,6 +1097,9 @@ msgstr "Privato"
 
 msgid "Profile"
 msgstr "Profilo"
+
+msgid "Public"
+msgstr ""
 
 msgid "Quick Actions"
 msgstr ""
@@ -1639,9 +1648,6 @@ msgstr ""
 msgid "You failed your captcha"
 msgstr "Hai sbagliato il captcha"
 
-msgid "You have new messages in chat"
-msgstr "Hai nuovi messaggi in chat"
-
 msgid "You have no users blocked"
 msgstr "Non hai utenti bloccati"
 
@@ -1728,9 +1734,6 @@ msgstr ""
 msgid "download here"
 msgstr ""
 
-msgid "mentioned you"
-msgstr "ti ha menzionato"
-
 msgid "or login with:"
 msgstr "o accedi con: "
 
@@ -1813,6 +1816,12 @@ msgstr ""
 msgctxt "keybinds"
 msgid "X"
 msgstr ""
+
+#~ msgid "You have new messages in chat"
+#~ msgstr "Hai nuovi messaggi in chat"
+
+#~ msgid "mentioned you"
+#~ msgstr "ti ha menzionato"
 
 #~ msgid "Mute"
 #~ msgstr "Muta"

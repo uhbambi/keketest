@@ -579,6 +579,9 @@ msgstr "Malfermi"
 msgid "Export enabled templates"
 msgstr "Eksporti ebligitajn ŝablonojn"
 
+msgid "Factions"
+msgstr ""
+
 msgid "Factor"
 msgstr "Faktoro"
 
@@ -659,6 +662,9 @@ msgstr "Krado MALŜALTITA"
 
 msgid "Grid ON"
 msgstr "Krado ŜALTITA"
+
+msgid "Groups"
+msgstr ""
 
 msgid "Have fun!"
 msgstr "Ne havu amuzaĝon, strangulo!"
@@ -1117,6 +1123,9 @@ msgstr "Privata"
 
 msgid "Profile"
 msgstr "Profil'"
+
+msgid "Public"
+msgstr ""
 
 msgid "Quick Actions"
 msgstr "Rapidaj Agoj"
@@ -1678,9 +1687,6 @@ msgstr ""
 msgid "You failed your captcha"
 msgstr "Vi malsukcesis vian captcha-on"
 
-msgid "You have new messages in chat"
-msgstr ""
-
 msgid "You have no users blocked"
 msgstr "Ne havas vi uzantojn blokatajn"
 
@@ -1762,9 +1768,6 @@ msgid "check compliance here"
 msgstr ""
 
 msgid "download here"
-msgstr ""
-
-msgid "mentioned you"
 msgstr ""
 
 msgid "or login with:"

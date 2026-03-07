@@ -109,6 +109,9 @@ msgstr "Nu s-a putut închide această Sesiune."
 msgid "Could not find this login method"
 msgstr "Nu s-a putut găsi această metodă de autentificare"
 
+msgid "Could not leave this channel"
+msgstr ""
+
 msgid "Could not set your avtar"
 msgstr "Nu ți-am putut seta avtarul"
 
@@ -165,8 +168,8 @@ msgid ""
 "File ${ filename } has ${ sizeMB } MB and is too large. It may only be $"
 "{ MAX_FILE_SIZE_MB } MB"
 msgstr ""
-"Fișierul ${ filename } are ${sizeMB } MB și este prea mare. Poate fi doar ${ "
-"MAX_FILE_SIZE_MB } MB"
+"Fișierul ${ filename } are ${sizeMB } MB și este prea mare. Poate fi doar $"
+"{ MAX_FILE_SIZE_MB } MB"
 
 #, javascript-format
 msgid "File ${ filename } has an invalid extension"
@@ -438,8 +441,8 @@ msgstr "Resetează-ți parola aici"
 msgid "Server Error"
 msgstr "Eroare server"
 
-msgid "Server error when deleting user."
-msgstr "Eroare de server la încercarea ștergerii utilizatorul."
+msgid "Server error while deleting user."
+msgstr ""
 
 msgid "Someone logged into your account from a new location, with the IP:"
 msgstr ""
@@ -773,6 +776,9 @@ msgid ""
 msgstr ""
 "Bine ai venit în mica noastră comunitate de pixelplacers, pentru a-ți folosi "
 "contul, trebuie să-ți verifici e-mailul. Poți face asta aici: "
+
+#~ msgid "Server error when deleting user."
+#~ msgstr "Eroare de server la încercarea ștergerii utilizatorul."
 
 #~ msgid "You are banned"
 #~ msgstr "Ești banat"

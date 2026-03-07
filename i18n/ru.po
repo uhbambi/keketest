@@ -576,6 +576,9 @@ msgstr "Развернуть"
 msgid "Export enabled templates"
 msgstr "Экспортировать включенные шаблоны"
 
+msgid "Factions"
+msgstr ""
+
 msgid "Factor"
 msgstr "Фактор"
 
@@ -655,6 +658,9 @@ msgstr "Сетка выключена"
 
 msgid "Grid ON"
 msgstr "Сетка включена"
+
+msgid "Groups"
+msgstr ""
 
 msgid "Have fun!"
 msgstr "Развлекайтесь!"
@@ -1113,6 +1119,9 @@ msgstr "Закрытый профиль"
 
 msgid "Profile"
 msgstr "Профиль"
+
+msgid "Public"
+msgstr ""
 
 msgid "Quick Actions"
 msgstr "Быстрые действия"
@@ -1679,9 +1688,6 @@ msgstr "Вы не дали согласие"
 msgid "You failed your captcha"
 msgstr "Вы неправильно решили капчу"
 
-msgid "You have new messages in chat"
-msgstr "У вас есть новые сообщения в чате"
-
 msgid "You have no users blocked"
 msgstr "У вас нет заблокированных пользователей"
 
@@ -1771,9 +1777,6 @@ msgstr "проверьте соответствие здесь"
 msgid "download here"
 msgstr "скачать здесь"
 
-msgid "mentioned you"
-msgstr "упомянул Вас"
-
 msgid "or login with:"
 msgstr "или войдите с помощью:"
 
@@ -1855,6 +1858,12 @@ msgstr "W"
 msgctxt "keybinds"
 msgid "X"
 msgstr "X"
+
+#~ msgid "You have new messages in chat"
+#~ msgstr "У вас есть новые сообщения в чате"
+
+#~ msgid "mentioned you"
+#~ msgstr "упомянул Вас"
 
 #~ msgid "Mute"
 #~ msgstr "Замьютить"

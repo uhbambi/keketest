@@ -562,6 +562,9 @@ msgstr ""
 msgid "Export enabled templates"
 msgstr "Қосылған үлгілерді экспорттау"
 
+msgid "Factions"
+msgstr ""
+
 msgid "Factor"
 msgstr ""
 
@@ -637,6 +640,9 @@ msgstr "Тор өшірілді"
 
 msgid "Grid ON"
 msgstr "Тор қосылды"
+
+msgid "Groups"
+msgstr ""
 
 msgid "Have fun!"
 msgstr "Уақытты жақсы өткізуіңізді тілейміз!"
@@ -1080,6 +1086,9 @@ msgstr "Құпия режім"
 
 msgid "Profile"
 msgstr "Бейін"
+
+msgid "Public"
+msgstr ""
 
 msgid "Quick Actions"
 msgstr ""
@@ -1631,9 +1640,6 @@ msgstr ""
 msgid "You failed your captcha"
 msgstr "Captcha-ны шешпедіңіз"
 
-msgid "You have new messages in chat"
-msgstr "Чатқа жаңа хаттар келді"
-
 msgid "You have no users blocked"
 msgstr "Ешкімді блоктаған жоқсыз"
 
@@ -1719,9 +1725,6 @@ msgstr ""
 msgid "download here"
 msgstr ""
 
-msgid "mentioned you"
-msgstr "сізді атап өтті"
-
 msgid "or login with:"
 msgstr "немесе бұлардың көмегімен кіру:"
 
@@ -1803,6 +1806,12 @@ msgstr "W"
 msgctxt "keybinds"
 msgid "X"
 msgstr "X"
+
+#~ msgid "You have new messages in chat"
+#~ msgstr "Чатқа жаңа хаттар келді"
+
+#~ msgid "mentioned you"
+#~ msgstr "сізді атап өтті"
 
 #~ msgid "Mute"
 #~ msgstr "Үнсіз ету"

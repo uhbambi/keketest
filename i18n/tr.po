@@ -568,6 +568,9 @@ msgstr ""
 msgid "Export enabled templates"
 msgstr "Etkin olan şablonları dışa aktar"
 
+msgid "Factions"
+msgstr ""
+
 msgid "Factor"
 msgstr "Çarpan"
 
@@ -643,6 +646,9 @@ msgstr "Izgara KAPALI"
 
 msgid "Grid ON"
 msgstr "Izgara AÇIK"
+
+msgid "Groups"
+msgstr ""
 
 msgid "Have fun!"
 msgstr "İyi eğlenceler!"
@@ -1093,6 +1099,9 @@ msgstr "Gizli"
 
 msgid "Profile"
 msgstr "Profil"
+
+msgid "Public"
+msgstr ""
 
 msgid "Quick Actions"
 msgstr ""
@@ -1640,9 +1649,6 @@ msgstr ""
 msgid "You failed your captcha"
 msgstr "Doğrulamayı yanlış çözdünüz"
 
-msgid "You have new messages in chat"
-msgstr "Sohbette yeni mesajlarınız var"
-
 msgid "You have no users blocked"
 msgstr "Engellediğin kullanıcı yok"
 
@@ -1729,9 +1735,6 @@ msgstr ""
 msgid "download here"
 msgstr ""
 
-msgid "mentioned you"
-msgstr "senden bahsetti"
-
 msgid "or login with:"
 msgstr "veya bunlar ile giriş yap:"
 
@@ -1813,6 +1816,12 @@ msgstr "W"
 msgctxt "keybinds"
 msgid "X"
 msgstr "X"
+
+#~ msgid "You have new messages in chat"
+#~ msgstr "Sohbette yeni mesajlarınız var"
+
+#~ msgid "mentioned you"
+#~ msgstr "senden bahsetti"
 
 #~ msgid "Mute"
 #~ msgstr "Sustur"

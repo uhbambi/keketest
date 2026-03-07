@@ -571,6 +571,9 @@ msgstr "Expandă"
 msgid "Export enabled templates"
 msgstr "Exportă șabloanele activate"
 
+msgid "Factions"
+msgstr ""
+
 msgid "Factor"
 msgstr "Factor"
 
@@ -650,6 +653,9 @@ msgstr "Grilă Oprită"
 
 msgid "Grid ON"
 msgstr "Grilă Pornită"
+
+msgid "Groups"
+msgstr ""
 
 msgid "Have fun!"
 msgstr "Distrează-te!"
@@ -1102,6 +1108,9 @@ msgstr "Privat"
 
 msgid "Profile"
 msgstr "Profil"
+
+msgid "Public"
+msgstr ""
 
 msgid "Quick Actions"
 msgstr "Acțiuni rapide"
@@ -1662,9 +1671,6 @@ msgstr "Nu ți-ai dat consimțământul"
 msgid "You failed your captcha"
 msgstr "Nu ai trecut captchaul tău"
 
-msgid "You have new messages in chat"
-msgstr "Ai mesaje noi pe chat"
-
 msgid "You have no users blocked"
 msgstr "Nu ai niciun utilizator blocat"
 
@@ -1753,9 +1759,6 @@ msgstr "Verifică conformitatea aici"
 msgid "download here"
 msgstr "descarcă aici"
 
-msgid "mentioned you"
-msgstr "te-a menționat"
-
 msgid "or login with:"
 msgstr "sau loghează-te cu:"
 
@@ -1837,6 +1840,12 @@ msgstr "W"
 msgctxt "keybinds"
 msgid "X"
 msgstr "X"
+
+#~ msgid "You have new messages in chat"
+#~ msgstr "Ai mesaje noi pe chat"
+
+#~ msgid "mentioned you"
+#~ msgstr "te-a menționat"
 
 #~ msgid "Mute"
 #~ msgstr "Mutează"

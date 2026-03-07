@@ -106,6 +106,9 @@ msgstr "Kunne ikke lukke denne Session."
 msgid "Could not find this login method"
 msgstr "Kunne ikke finde denne login metode"
 
+msgid "Could not leave this channel"
+msgstr ""
+
 msgid "Could not set your avtar"
 msgstr ""
 
@@ -433,8 +436,8 @@ msgstr "Nulstil din adgangskode her"
 msgid "Server Error"
 msgstr ""
 
-msgid "Server error when deleting user."
-msgstr "Serverfejl når man sletter bruger."
+msgid "Server error while deleting user."
+msgstr ""
 
 msgid "Someone logged into your account from a new location, with the IP:"
 msgstr "Nogen loggede ind på din konto fra en ny placering, med IP'en:"
@@ -765,6 +768,9 @@ msgid ""
 msgstr ""
 "velkommen til vores lille samfund of pixelplacere, for at bruge din konto, "
 "har du brug for at bekræfte din mail. Du kan gøre det her: "
+
+#~ msgid "Server error when deleting user."
+#~ msgstr "Serverfejl når man sletter bruger."
 
 #~ msgid "You are banned"
 #~ msgstr "Du er bannet"

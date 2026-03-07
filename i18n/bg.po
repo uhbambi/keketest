@@ -562,6 +562,9 @@ msgstr ""
 msgid "Export enabled templates"
 msgstr "Експортиране на включени темплейтове"
 
+msgid "Factions"
+msgstr ""
+
 msgid "Factor"
 msgstr "Фактор"
 
@@ -637,6 +640,9 @@ msgstr "Решетки ИЗКЛ"
 
 msgid "Grid ON"
 msgstr "Решетки ВКЛ"
+
+msgid "Groups"
+msgstr ""
 
 msgid "Have fun!"
 msgstr "Забавлявайте се!"
@@ -1081,6 +1087,9 @@ msgstr "Лични"
 
 msgid "Profile"
 msgstr "Профил"
+
+msgid "Public"
+msgstr ""
 
 msgid "Quick Actions"
 msgstr ""
@@ -1631,9 +1640,6 @@ msgstr ""
 msgid "You failed your captcha"
 msgstr "Не успяхте да направите captcha"
 
-msgid "You have new messages in chat"
-msgstr "Имате нови съобщения в чата"
-
 msgid "You have no users blocked"
 msgstr "Нямате блокирани потребители"
 
@@ -1720,9 +1726,6 @@ msgstr ""
 msgid "download here"
 msgstr ""
 
-msgid "mentioned you"
-msgstr "ви споменаха"
-
 msgid "or login with:"
 msgstr "или влезте с:"
 
@@ -1804,6 +1807,12 @@ msgstr "W"
 msgctxt "keybinds"
 msgid "X"
 msgstr "X"
+
+#~ msgid "You have new messages in chat"
+#~ msgstr "Имате нови съобщения в чата"
+
+#~ msgid "mentioned you"
+#~ msgstr "ви споменаха"
 
 #~ msgid "Mute"
 #~ msgstr "Заглуши"
