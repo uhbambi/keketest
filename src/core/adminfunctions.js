@@ -343,6 +343,16 @@ export async function executeIIDAction(
       }
       return out;
     }
+    case 'listonline': {
+      const { onlineIPUsers } = socketEvents;
+      let out = '';
+      const ipToIdMap = await getIIDsOfIPs(Object.keys(onlineIPUsers));
+      for (const [ip, uidList] of Object.entries(onlineIPUsers)) {
+        // eslint-disable-next-line max-len
+        out += `${ipToIdMap.get(ip) || 'N/A'} ${uidList.join(' ')}\n`;
+      }
+      return out;
+    }
     case 'searchalts': {
       let userId;
       if (iidOrUserIdOrName.indexOf('-') !== -1) {

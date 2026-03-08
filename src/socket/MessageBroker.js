@@ -11,12 +11,10 @@
 
 import SocketEvents from './SockEvents.js';
 import {
-  ONLINE_COUNTER_OP,
   PIXEL_UPDATE_MB_OP,
   CHUNK_UPDATE_MB_OP,
 } from './packets/op.js';
 import {
-  hydrateOnlineCounter,
   hydratePixelUpdateMB,
   hydrateChunkUpdateMB,
   dehydratePixelUpdate,
@@ -320,7 +318,7 @@ class MessageBroker extends SocketEvents {
     });
   }
 
-  updateShardOnlineData(shard, onlineData) {
+  updateShardOnlineData(shard, onlineData, ipUsers) {
     let amountOnlineIPs = 0;
     for (const ipList of Object.values(onlineData)) {
       amountOnlineIPs += ipList.length;
@@ -330,11 +328,12 @@ class MessageBroker extends SocketEvents {
       (c) => c[0] === shard,
     );
     if (!shardCounter) {
-      this.shardsData.push([shard, amountOnlineIPs, onlineData]);
+      this.shardsData.push([shard, amountOnlineIPs, onlineData, ipUsers]);
       this.shardsData.sort((a, b) => a[0].localeCompare(b[0]));
     } else {
       shardCounter[1] = amountOnlineIPs;
       shardCounter[2] = onlineData;
+      shardCounter[3] = ipUsers;
     }
     this.sumOnlineCounters();
   }
@@ -367,13 +366,6 @@ class MessageBroker extends SocketEvents {
           super.emit('chunkUpdate', ...hydrateChunkUpdateMB(buffer));
           break;
         }
-        case ONLINE_COUNTER_OP: {
-          const cnt = hydrateOnlineCounter(buffer);
-          this.updateShardOnlineData(shard, cnt);
-          // use online counter as ping for binary shard channel
-          this.pings[shard] = Date.now();
-          break;
-        }
         default:
           // nothing
       }
@@ -388,6 +380,7 @@ class MessageBroker extends SocketEvents {
    */
   sumOnlineCounters() {
     const newOnlineCounter = {};
+    const newOnlineIPUsers = {};
     const newOnlineIPs = [];
 
     const onlineDataSum = {};
@@ -404,6 +397,19 @@ class MessageBroker extends SocketEvents {
           onlineDataSum[canvasId] = [...ipList];
         }
       }
+
+      for (const [ipString, uidList] of Object.entries(shardData[3])) {
+        const ipUidList = newOnlineIPUsers[ipString];
+        if (ipUidList) {
+          for (const uid of uidList) {
+            if (!ipUidList.includes(uid)) {
+              ipUidList.push(uid);
+            }
+          }
+        } else {
+          newOnlineIPUsers[ipString] = [...uidList];
+        }
+      }
     });
 
     for (const [canvasId, ipList] of Object.entries(onlineDataSum)) {
@@ -417,6 +423,7 @@ class MessageBroker extends SocketEvents {
     newOnlineCounter.total = newOnlineIPs.length;
     this.onlineCounter = newOnlineCounter;
     this.onlineIPs = newOnlineIPs;
+    this.onlineIPUsers = newOnlineIPUsers;
   }
 
   /*
@@ -477,17 +484,21 @@ class MessageBroker extends SocketEvents {
     super.emit('chunkUpdate', canvasId, chunk);
   }
 
-  /*
+  /**
    * receive information about online users
    * @param online Object with information of online users
    *   {
    *     canvasId1: [IP1, IP2, IP2, ...],
    *     ...
    *   }
+   * @param ipUsers {
+   *     ipString: [userId1, userId2,...],
+   *     ...
+   *   }
    */
-  setOnlineUsers(onlineData) {
-    this.updateShardOnlineData(this.thisShard, onlineData);
-    this.emit('onlineShardData', onlineData);
+  setOnlineUsers(onlineData, ipUsers) {
+    this.updateShardOnlineData(this.thisShard, onlineData, ipUsers);
+    this.emit('onlineShardData', onlineData, ipUsers);
     super.emit('onlineCounter', this.onlineCounter);
   }
 

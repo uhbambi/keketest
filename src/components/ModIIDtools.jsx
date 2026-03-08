@@ -127,7 +127,7 @@ function ModIIDtools() {
           {[
             'status', 'baninfo', 'ban', 'unban',
             'whitelist', 'unwhitelist',
-            'givecaptcha', 'changeusername', 'searchalts',
+            'givecaptcha', 'changeusername', 'listonline', 'searchalts',
           ].map((opt) => (
             <option
               key={opt}

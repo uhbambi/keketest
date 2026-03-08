@@ -28,6 +28,13 @@ class SocketEvents extends EventEmitter {
     };
     // array of IPs that are online
     this.onlineIPs = [];
+    /*
+     * {
+     *   ipString: [uid1, uid2,...],
+     *   ...
+     * }
+     */
+    this.onlineIPUsers = {};
   }
 
   // eslint-disable-next-line class-methods-use-this
@@ -318,8 +325,12 @@ class SocketEvents extends EventEmitter {
    *     canvasId1: [IP1, IP2, IP2, ...],
    *     ...
    *   }
+   * @param ipUsers {
+   *     ipString: [userId1, userId2,...],
+   *     ...
+   *   }
    */
-  setOnlineUsers(onlineData) {
+  setOnlineUsers(onlineData, ipUsers) {
     const newOnlineCounter = {};
     const newOnlineIPs = [];
     for (const [canvasId, ipList] of Object.entries(onlineData)) {
@@ -333,6 +344,7 @@ class SocketEvents extends EventEmitter {
     newOnlineCounter.total = newOnlineIPs.length;
     this.onlineCounter = newOnlineCounter;
     this.onlineIPs = newOnlineIPs;
+    this.onlineIPUsers = ipUsers;
 
     this.broadcastOnlineCounter();
   }

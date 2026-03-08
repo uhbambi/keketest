@@ -496,25 +496,30 @@ class SocketServer {
        * }
        */
       const online = {};
+      const ipUsers = {};
       const it = this.wss.clients.keys();
       let client = it.next();
       while (!client.done) {
         const ws = client.value;
         if (ws.readyState === WebSocket.OPEN && ws.canvasId !== null) {
-          const { canvasId, ip: { ipString } } = ws;
+          const { canvasId, ip: { ipString }, user } = ws;
+          // ip to user mapping, not logged in = 0
+          const uid = user?.id || 0;
+          if (!ipUsers[ipString]) {
+            ipUsers[ipString] = [uid];
+          } else if (!ipUsers[ipString].includes(uid)) {
+            ipUsers[ipString].push(uid);
+          }
           // only count unique IPs per canvas
           if (!online[canvasId]) {
             online[canvasId] = [ipString];
-          } else if (online[canvasId].includes(ipString)) {
-            client = it.next();
-            continue;
-          } else {
+          } else if (!online[canvasId].includes(ipString)) {
             online[canvasId].push(ipString);
           }
         }
         client = it.next();
       }
-      socketEvents.setOnlineUsers(online);
+      socketEvents.setOnlineUsers(online, ipUsers);
     } catch (err) {
       logger.error(`WebSocket online broadcast error: ${err.message}`);
     }
