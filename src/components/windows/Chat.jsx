@@ -20,8 +20,7 @@ import { CHANNEL_TYPES } from '../../core/constants.js';
 import { escapeMd } from '../../core/utils.js';
 
 import {
-  markChannelAsRead, sendChatMessage,
-  registerChatChannel, deRegisterChatChannel,
+  markChannelAsRead, sendChatMessage, refCountChatChannel,
 } from '../../store/actions/index.js';
 import { receiveChatMessage } from '../../store/actions/socket.js';
 import { receiveChatHistory } from '../../store/actions/thunks.js';
@@ -35,7 +34,6 @@ const Chat = () => {
   const uploadRef = useRef();
   const scrollRef = useRef();
   const waitingForUpload = useRef();
-
   const historyFetchRef = useRef();
 
   const [blockedIds, setBlockedIds] = useState([]);
@@ -53,13 +51,40 @@ const Chat = () => {
   const showContextMenu = useContext(ContextMenuContext);
 
   const chatChannel = args.chatChannel || 0;
+  const previousChatChannelRef = useRef();
 
   const setChannel = useCallback((cid) => {
-    setArgs({
-      chatChannel: Number(cid),
-    });
+    setArgs({ chatChannel: Number(cid) });
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  useEffect(() => {
+    const previousChatChannel = previousChatChannelRef.current;
+    if (!previousChatChannel && !chatChannel) {
+      return;
+    }
+    previousChatChannelRef.current = chatChannel;
+    const cidRefCountAdditions = {};
+    if (previousChatChannel) {
+      cidRefCountAdditions[previousChatChannel] = -1;
+    }
+    if (chatChannel) {
+      cidRefCountAdditions[chatChannel] = 1;
+      dispatch(markChannelAsRead(chatChannel));
+    }
+    dispatch(refCountChatChannel(cidRefCountAdditions));
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [chatChannel]);
+
+  useEffect(() => () => {
+    if (previousChatChannelRef.current) {
+      dispatch(refCountChatChannel({
+        [previousChatChannelRef.current]: -1,
+      }));
+    }
+  },
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  []);
 
   const [
     channelName, channelType, channelMuted, channelAvatarId,
@@ -100,18 +125,6 @@ const Chat = () => {
 
   const link = useLink();
 
-  useEffect(() => {
-    if (!chatChannel) {
-      return undefined;
-    }
-    dispatch(markChannelAsRead(chatChannel));
-    dispatch(registerChatChannel(chatChannel));
-    return () => {
-      dispatch(deRegisterChatChannel(chatChannel));
-    };
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [chatChannel]);
-
   const printWarnings = useCallback((warnings) => {
     warnings.forEach((warning) => {
       dispatch(receiveChatMessage(
@@ -144,6 +157,7 @@ const Chat = () => {
 
   const { stayScrolled } = useStayScrolled(listRef, {
     initialScroll: Infinity,
+    inaccuracy: 20,
   });
 
   const channelMessages = messages[chatChannel];
@@ -178,7 +192,7 @@ const Chat = () => {
 
   useLayoutEffect(() => {
     stayScrolled();
-  }, [channelMessages?.length, stayScrolled]);
+  }, [channelMessages, stayScrolled]);
 
   useEffect(() => {
     scrollRef.current = stayScrolled;

@@ -84,7 +84,6 @@ class SocketServer {
       ws.canvasId = null;
       ws.chunkCnt = 0;
       ws.openChatChannels = new Set();
-      ws.openChatChannelsTs = 0;
       /* populate data from request */
       const { user, ip, lang, ttag } = req;
       ws.user = user;
@@ -555,16 +554,11 @@ class SocketServer {
           break;
         }
         case 'cv': {
-          const openChatChannelsTs = val[0];
-          const openChatChannels = val[1];
-          if (openChatChannelsTs > ws.openChatChannelsTs) {
-            ws.openChatChannels = new Set(openChatChannels.slice(0, 50));
-            ws.openChatChannelsTs = openChatChannelsTs;
-            markChannelsRead(
-              chatProvider.filterPublicChannels([...ws.openChatChannels]),
-              ws.user?.id,
-            );
-          }
+          ws.openChatChannels = new Set(val[1].slice(0, 50));
+          markChannelsRead(
+            chatProvider.filterPublicChannels([...ws.openChatChannels]),
+            ws.user?.id,
+          );
           break;
         }
         case 'cs': {

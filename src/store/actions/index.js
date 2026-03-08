@@ -399,27 +399,15 @@ export function remFromMessages(
   };
 }
 
-export function markChannelAsRead(
-  cid,
-) {
+export function markChannelAsRead(cid) {
   return {
     type: 's/MARK_CHANNEL_AS_READ', cid,
   };
 }
 
-export function registerChatChannel(
-  cid,
-) {
+export function refCountChatChannel(cidAdditions) {
   return {
-    type: 's/REG_CHAT_CHAN', cid,
-  };
-}
-
-export function deRegisterChatChannel(
-  cid,
-) {
-  return {
-    type: 's/DEREG_CHAT_CHAN', cid,
+    type: 's/REF_CHAT_CHAN', cidAdditions,
   };
 }
 

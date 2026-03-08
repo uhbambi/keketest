@@ -295,7 +295,6 @@ class SocketClient {
   }
 
   onTextMessage(message) {
-    console.log(message);
     const comma = message.indexOf(',');
     if (comma === -1) {
       return;

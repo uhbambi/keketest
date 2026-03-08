@@ -73,41 +73,24 @@ export default function chat(
       };
     }
 
-    case 's/REG_CHAT_CHAN': {
-      const { cid } = action;
-      let refCount = state.channelViews[cid];
-      if (!refCount) {
-        refCount = 0;
-      }
-      return {
-        ...state,
-        channelViews: {
-          ...state.channelViews,
-          [cid]: refCount + 1,
-        },
-      };
-    }
+    case 's/REF_CHAT_CHAN': {
+      const { cidAdditions } = action;
 
-    case 's/DEREG_CHAT_CHAN': {
-      const { cid } = action;
-      const refCount = state.channelViews[cid];
-      if (!refCount) {
-        return state;
-      }
       const channelViews = { ...state.channelViews };
-      let { messages } = state;
-
-      if (refCount <= 1) {
-        messages = { ...messages };
-        delete messages[cid];
-        delete channelViews[cid];
-      } else {
-        channelViews[cid] = refCount - 1;
+      const cids = Object.keys(cidAdditions);
+      for (let i = 0; i < cids.length; i += 1) {
+        const cid = cids[i];
+        let refCount = channelViews[cid] || 0;
+        refCount += cidAdditions[cid];
+        if (refCount > 0) {
+          channelViews[cid] = refCount;
+        } else {
+          delete channelViews[cid];
+        }
       }
 
       return {
         ...state,
-        messages,
         channelViews,
       };
     }

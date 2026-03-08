@@ -4,7 +4,7 @@
 
 /* eslint-disable consistent-return */
 
-import { useEffect, useLayoutEffect, useCallback } from 'react';
+import { useEffect } from 'react';
 
 /*
  * Keeps listening to outside clicks or window resize
@@ -14,30 +14,41 @@ import { useEffect, useLayoutEffect, useCallback } from 'react';
  * @param active boolean if we should listen or not
  */
 export function useConditionalClickOutside(insideRefs, active, callback) {
-  const handleClickOutside = useCallback((event) => {
-    if (insideRefs.every((ref) => !ref.current
-      || !ref.current.contains(event.target))) {
-      callback();
+  useEffect(() => {
+    if (!active) {
+      return undefined;
     }
-  }, [callback, insideRefs]);
 
-  const handleWindowResize = useCallback(() => {
-    callback();
-  }, [callback]);
+    const insideElems = insideRefs.some((ref) => ref.current)
+      ? insideRefs.map((ref) => ref.current)
+      : null;
 
-  useLayoutEffect(() => {
-    if (active) {
-      document.addEventListener('mousedown', handleClickOutside, {
-        capture: true,
-      });
-      window.addEventListener('resize', handleWindowResize);
-    } else {
+    if (insideElems === null) {
+      return;
+    }
+
+    const handleClickOutside = (event) => {
+      if (insideElems.every((elem) => !elem || !elem.contains(event.target))) {
+        callback();
+      }
+    };
+
+    const handleWindowResize = () => {
+      callback();
+    };
+
+    document.addEventListener('mousedown', handleClickOutside, {
+      capture: true,
+    });
+    window.addEventListener('resize', handleWindowResize);
+
+    return () => {
       document.removeEventListener('mousedown', handleClickOutside, {
         capture: true,
       });
       window.removeEventListener('resize', handleWindowResize);
-    }
-  }, [active, handleClickOutside, handleWindowResize]);
+    };
+  }, [active, insideRefs, callback]);
 }
 
 /*

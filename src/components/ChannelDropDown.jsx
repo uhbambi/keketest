@@ -72,7 +72,7 @@ const ChannelDropDown = ({
 
   useConditionalClickOutside(
     [wrapperRef],
-    dropDownState !== 3,
+    dropDownState < 2,
     useCallback(() => setDropDownState(2), []),
   );
 
@@ -157,7 +157,10 @@ const ChannelDropDown = ({
                 <span className="expand-btn">{(selectedType === type) ? '▼' : '▶'}</span>
               </div>
               <div className={`channeldd-channellist${(selectedType === type) ? ' expanded' : ''}`}>
-                {channels[type].map((channelArray) => {
+                {(type !== CHANNEL_TYPES.PUBLIC
+                  ? channels[type].sort((a, b) => b[2] - a[2])
+                  : channels[type]
+                ).map((channelArray) => {
                   const isUnread = isChannelUnread(channelArray);
                   const [cid, name] = channelArray;
                   const avatarId = channelArray[5];
