@@ -149,6 +149,10 @@ export function mediaBanReasonToDescription(ttag, reason, mbid, filename) {
       /* t: This media is banned xyz */
       reason = t`because it is propaganda`;
       break;
+    case 7:
+      /* t: This media is banned xyz */
+      reason = t`for containing personal information`;
+      break;
     default:
       reason = '';
   }

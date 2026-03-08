@@ -91,6 +91,7 @@ export const MEDIA_BAN_REASONS = {
   SCAM: 4,
   TERRORISM: 5,
   PROPAGANDA: 6,
+  DOXING: 7,
 };
 
 export const CHANNEL_TYPES = {

@@ -263,7 +263,7 @@ BEGIN
   SET i_pHash = CONV(p_pHash, 16, 10);
   SELECT extension, shortId, type, width, height, avgColor FROM ImageHashes ih
     INNER JOIN Media m ON m.id = ih.mid
-  WHERE BIT_COUNT(pHash ^ i_pHash) < 4 LIMIT 1;
+  WHERE BIT_COUNT(pHash ^ i_pHash) < 2 LIMIT 1;
 END`,
     GET_CLOSE_BANNED_IMAGE: `CREATE PROCEDURE IF NOT EXISTS GET_CLOSE_BANNED_IMAGE(IN p_pHash CHAR(16)) READS SQL DATA
 BEGIN

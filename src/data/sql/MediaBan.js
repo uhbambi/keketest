@@ -32,6 +32,7 @@ const MediaBan = sequelize.define('MediaBan', {
    * 4: scam,
    * 5: terrorism,
    * 6: propaganda,
+   * 7: doxing,
    */
   reason: {
     type: DataTypes.TINYINT.UNSIGNED,
