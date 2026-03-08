@@ -345,13 +345,10 @@ export async function executeIIDAction(
     }
     case 'listonline': {
       const { onlineIPUsers } = socketEvents;
-      let out = '';
       const ipToIdMap = await getIIDsOfIPs(Object.keys(onlineIPUsers));
-      for (const [ip, uidList] of Object.entries(onlineIPUsers)) {
-        // eslint-disable-next-line max-len
-        out += `${ipToIdMap.get(ip) || 'N/A'} ${uidList.join(' ')}\n`;
-      }
-      return out;
+      return Object.entries(onlineIPUsers).map(
+        ([ip, uidList]) => `${uidList.join(' ')} ${ipToIdMap.get(ip) || 'N/A'}`,
+      ).sort().join('\n');
     }
     case 'searchalts': {
       let userId;
