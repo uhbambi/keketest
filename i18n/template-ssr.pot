@@ -595,7 +595,7 @@ msgstr ""
 msgid "Thanks"
 msgstr ""
 
-#: src/utils/media/serverUtils.js:156
+#: src/utils/media/serverUtils.js:160
 #, javascript-format
 msgid "The file ${ filename } is banned ${ reason }. Ban ID: ${ mbid }"
 msgstr ""
@@ -650,7 +650,7 @@ msgstr ""
 msgid "This email provider is not allowed"
 msgstr ""
 
-#: src/utils/media/serverUtils.js:158
+#: src/utils/media/serverUtils.js:162
 #, javascript-format
 msgid "This media is banned ${ reason }. Ban ID: ${ mbid }"
 msgstr ""
@@ -927,6 +927,11 @@ msgstr ""
 #: src/utils/media/serverUtils.js:130
 #. This media is banned xyz
 msgid "for containing graphic violence"
+msgstr ""
+
+#: src/utils/media/serverUtils.js:154
+#. This media is banned xyz
+msgid "for containing personal information"
 msgstr ""
 
 #: src/utils/media/serverUtils.js:146
