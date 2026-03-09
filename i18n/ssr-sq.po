@@ -489,7 +489,8 @@ msgstr "Faleminderit"
 
 #, javascript-format
 msgid "The file ${ filename } is banned ${ reason }. Ban ID: ${ mbid }"
-msgstr "Skedari ${ filename } është i ndaluar ${ reason }. BID Media: ${ mbid }"
+msgstr ""
+"Skedari ${ filename } është i ndaluar ${ reason }. BID Media: ${ mbid }"
 
 msgid "The user owning this badge is private"
 msgstr "Përdoruesi i cili zotëron këtë stemë është privat"
@@ -712,8 +713,8 @@ msgstr ""
 #, javascript-format
 msgid "You reached your maximum upload quota of ${ MAX_USER_MEDIA_SIZE_MB } MB"
 msgstr ""
-"Ju arritët kuotën tuaj maksimale të ngarkimeve prej ${ "
-"MAX_USER_MEDIA_SIZE_MB } MB"
+"Ju arritët kuotën tuaj maksimale të ngarkimeve prej $"
+"{ MAX_USER_MEDIA_SIZE_MB } MB"
 
 msgid ""
 "You requested to get a new password. You can change your password within the "
@@ -772,6 +773,10 @@ msgstr ""
 #. This media is banned xyz
 msgid "for containing graphic violence"
 msgstr "për shkak se përmban dhunë grafike"
+
+#. This media is banned xyz
+msgid "for containing personal information"
+msgstr ""
 
 #. This media is banned xyz
 msgid "for glorifying terrorism"

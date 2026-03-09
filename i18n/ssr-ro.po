@@ -760,6 +760,10 @@ msgid "for containing graphic violence"
 msgstr "pentru a conține violență grafică"
 
 #. This media is banned xyz
+msgid "for containing personal information"
+msgstr ""
+
+#. This media is banned xyz
 msgid "for glorifying terrorism"
 msgstr "pentru glorificarea terorismului"
 
