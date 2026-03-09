@@ -75,8 +75,10 @@ export default function chat(
 
     case 's/REF_CHAT_CHAN': {
       const { cidAdditions } = action;
-
+      let { messages } = state;
+      let isMessagesRecreated = false;
       const channelViews = { ...state.channelViews };
+
       const cids = Object.keys(cidAdditions);
       for (let i = 0; i < cids.length; i += 1) {
         const cid = cids[i];
@@ -86,12 +88,18 @@ export default function chat(
           channelViews[cid] = refCount;
         } else {
           delete channelViews[cid];
+          if (!isMessagesRecreated) {
+            isMessagesRecreated = true;
+            messages = { ...messages };
+          }
+          delete messages[cid];
         }
       }
 
       return {
         ...state,
         channelViews,
+        messages,
       };
     }
 

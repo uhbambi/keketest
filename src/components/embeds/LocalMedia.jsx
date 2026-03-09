@@ -210,6 +210,7 @@ const LocalMedia = ({
                 onLoadedData={onLoad}
                 controls
                 autoPlay
+                onClick={(e) => e.stopPropagation()}
               />
             );
           default:
