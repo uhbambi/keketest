@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: admin@pixelplanet.fun\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2025-11-13 16:39+0000\n"
+"PO-Revision-Date: 2026-03-09 08:30+0000\n"
 "Last-Translator: Extreme Motorsex <em@noreply.pixelplanet.fun>\n"
 "Language-Team: Albanian <https://translate.gs-os.com/projects/ppfun/server/"
 "sq/>\n"
@@ -12,7 +12,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.14\n"
+"X-Generator: Weblate 5.15.2\n"
 
 msgid "1bit"
 msgstr "1bit"
@@ -34,7 +34,7 @@ msgstr ""
 "përditësohet në 00:00 UTC."
 
 msgid "A file was too large"
-msgstr ""
+msgstr "Një skedar ishte tepër i madh"
 
 msgid "Access modtools"
 msgstr "Akseso veglat e moderatorit"
@@ -61,7 +61,7 @@ msgid "Application successfully added"
 msgstr "Aplikacioni u shtua me sukses"
 
 msgid "Avatar can only be an image"
-msgstr ""
+msgstr "Avatari mund të jetë vetëm një imazh"
 
 msgid "Black and White canvas"
 msgstr "Kanavacë Bardhë e Zi"
@@ -74,6 +74,8 @@ msgid ""
 "Can not upload this many files at once, only 5 are allowed, you have $"
 "{ amountOfFiles }"
 msgstr ""
+"Nuk mund të ngarkohen kaq shumë skedarë njëherësh, vetëm 5 lejohen, ju keni $"
+"{ amountOfFiles }"
 
 msgid "Click here"
 msgstr "Kliko këtu"
@@ -107,13 +109,13 @@ msgid "Could not find this login method"
 msgstr "Nuk u gjet kjo mënyrë hyrjeje"
 
 msgid "Could not leave this channel"
-msgstr ""
+msgstr "Nuk mund të largohej nga ky kanal"
 
 msgid "Could not set your avtar"
-msgstr ""
+msgstr "Nuk mund të vendosej avatari juaj"
 
 msgid "Could not upload all files"
-msgstr ""
+msgstr "Nuk mund të ngarkohen të gjithë skedarët"
 
 msgid "Couldn't find this mail in our database"
 msgstr "Kjo adresë nuk u gjet në bazën tonë të të dhënave"
@@ -165,13 +167,15 @@ msgid ""
 "File ${ filename } has ${ sizeMB } MB and is too large. It may only be $"
 "{ MAX_FILE_SIZE_MB } MB"
 msgstr ""
+"Skedari ${ filename } ka ${ sizeMB } MB dhe është shumë i madh. Duhet të "
+"jetë nën ${ MAX_FILE_SIZE_MB } MB"
 
 #, javascript-format
 msgid "File ${ filename } has an invalid extension"
-msgstr ""
+msgstr "Skedari ${ filename } ka një prapashtesë të pavlefshme"
 
 msgid "File is broken"
-msgstr ""
+msgstr "Skedari është prishur"
 
 #. 'client_secret' is a technical term and should not be translated
 msgid ""
@@ -226,7 +230,7 @@ msgid "Incorrect password!"
 msgstr "Fjalëkalim i gabuar!"
 
 msgid "Invalid type of media"
-msgstr ""
+msgstr "Lloj i pavlefshëm media"
 
 msgid "Invalid url :( Please check your mail again."
 msgstr "Url e pavlefshme :( Ju lutemi kontrolloni përsëri email-in tuaj."
@@ -235,10 +239,10 @@ msgid "Just admins can do that"
 msgstr "Vetëm administratorët mund ta bëjnë këtë"
 
 msgid "Just janny, mod or admin can do that"
-msgstr ""
+msgstr "Vetëm pastruesit, moderatorët ose administratorët mund ta bëjnë këtë"
 
 msgid "Just mods and admins can do that"
-msgstr ""
+msgstr "Vetëm moderatorët dhe administratorët mund ta bëjnë këtë"
 
 msgid "Know that an account exists"
 msgstr "Të dijë që një llogari ekziston"
@@ -266,11 +270,13 @@ msgid "Mail verification"
 msgstr "Verifikim me email"
 
 msgid "MimeType or extension not known or supported"
-msgstr ""
+msgstr "Lloji MIME ose prapashtesa është e panjohur ose nuk mbështetet"
 
 #, javascript-format
 msgid "Mimetype ${ mimeType } of file ${ filename } is invalid or not allowed"
 msgstr ""
+"Lloji MIME ${ mimeType } i skedarit ${ filename } është i pavlefshëm ose i "
+"palejuar"
 
 msgid "Minimap"
 msgstr "Miniharta"
@@ -320,7 +326,7 @@ msgid "No Captcha given"
 msgstr "Nuk është dhënë asnjë Captcha"
 
 msgid "No file metadata given"
-msgstr ""
+msgstr "Nuk janë dhënë informacione shtesë për skedarin"
 
 msgid "No or invalid fish id."
 msgstr "Asnjë ID ose ID e pavlefshme peshku."
@@ -425,7 +431,7 @@ msgid "Regularly update this data"
 msgstr "Përditëso këto të dhëna rregullisht"
 
 msgid "Request stalled"
-msgstr ""
+msgstr "Kërkesa u vonua"
 
 #. 'client_secret' is a technical term and should not be translated
 msgid "Reroll client_secret"
@@ -438,10 +444,10 @@ msgid "Reset your password here"
 msgstr "Rivendosni fjalëkalimin tuaj këtu"
 
 msgid "Server Error"
-msgstr ""
+msgstr "Gabim i serverit"
 
 msgid "Server error while deleting user."
-msgstr ""
+msgstr "Gabim i serverit gjatë fshirjes së përdoruesit."
 
 msgid "Someone logged into your account from a new location, with the IP:"
 msgstr "Dikush hyri në llogarinë tuaj nga një vendndodhje e re, me IP:"
@@ -483,7 +489,7 @@ msgstr "Faleminderit"
 
 #, javascript-format
 msgid "The file ${ filename } is banned ${ reason }. Ban ID: ${ mbid }"
-msgstr ""
+msgstr "Skedari ${ filename } është i ndaluar ${ reason }. BID Media: ${ mbid }"
 
 msgid "The user owning this badge is private"
 msgstr "Përdoruesi i cili zotëron këtë stemë është privat"
@@ -534,7 +540,7 @@ msgstr "Ky ofrues i emailit nuk lejohet"
 
 #, javascript-format
 msgid "This media is banned ${ reason }. Ban ID: ${ mbid }"
-msgstr ""
+msgstr "Kjo media është e ndaluar ${ reason }. BID Media: ${ mbid }"
 
 msgid "This password-reset link isn't valid anymore :("
 msgstr "Kjo lidhje e rivendosjes së fjalëkalimit nuk është më e vlefshme :("
@@ -551,7 +557,7 @@ msgstr "Gabim i Panjohur Captcha"
 
 #, javascript-format
 msgid "Unknown field ${ name } in request"
-msgstr ""
+msgstr "Fushë e panjohur ${ name } në kërkesë"
 
 msgid "Update Application"
 msgstr "Përditëso aplikacionin"
@@ -596,7 +602,7 @@ msgstr ""
 "{ minLeft } minutash."
 
 msgid "We currently do not allow file uploads"
-msgstr ""
+msgstr "Ngarkimi i skedarëve nuk lejohet për momentin"
 
 #, javascript-format
 msgid "Welcome ${ name } to PixelPlanet, please verify your mail"
@@ -643,7 +649,7 @@ msgstr ""
 "Ju po dërgoni mesazhe shumë shpejt, duhet të prisni ${ waitTime } sekonda :("
 
 msgid "You attached too many files"
-msgstr ""
+msgstr "Ju bashkangjitët shumë skedarë"
 
 msgid ""
 "You can not delete this login method, because you have nothing else left."
@@ -672,7 +678,7 @@ msgid "You can't send a message this long :("
 msgstr "Nuk mund të dërgoni mesazh kaq të gjatë :("
 
 msgid "You did not provide all necessary information"
-msgstr ""
+msgstr "Ju nuk dhatë të gjitha informacionet e nevojshme"
 
 msgid ""
 "You do not have any email adress set. Please add one under \"Login Methods\"."
@@ -706,6 +712,8 @@ msgstr ""
 #, javascript-format
 msgid "You reached your maximum upload quota of ${ MAX_USER_MEDIA_SIZE_MB } MB"
 msgstr ""
+"Ju arritët kuotën tuaj maksimale të ngarkimeve prej ${ "
+"MAX_USER_MEDIA_SIZE_MB } MB"
 
 msgid ""
 "You requested to get a new password. You can change your password within the "
@@ -747,15 +755,15 @@ msgstr "Fjalëkalimet tuaja nuk përputhen :("
 
 #. This media is banned xyz
 msgid "because it is propaganda"
-msgstr ""
+msgstr "sepse është propagandë"
 
 #. This media is banned xyz
 msgid "for being an attempt to scam people"
-msgstr ""
+msgstr "duke qenë një përpjekje për mashtrim"
 
 #. This media is banned xyz
 msgid "for being degenerate"
-msgstr ""
+msgstr "për degjenerim"
 
 #. This media is banned xyz
 msgid "for containing CSAM"
@@ -763,11 +771,11 @@ msgstr ""
 
 #. This media is banned xyz
 msgid "for containing graphic violence"
-msgstr ""
+msgstr "për shkak se përmban dhunë grafike"
 
 #. This media is banned xyz
 msgid "for glorifying terrorism"
-msgstr ""
+msgstr "për shkak se promovon terrorizmin"
 
 #. "redirect_uris" is a technical term and should not be translated
 msgid "redirect_uris does not look legit"

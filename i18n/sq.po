@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: admin@pixelplanet.fun\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2026-02-16 15:30+0000\n"
+"PO-Revision-Date: 2026-03-09 08:30+0000\n"
 "Last-Translator: Extreme Motorsex <em@noreply.pixelplanet.fun>\n"
 "Language-Team: Albanian <https://translate.gs-os.com/projects/ppfun/client/"
 "sq/>\n"
@@ -21,7 +21,7 @@ msgid "# Today"
 msgstr "# Sot"
 
 msgid "# Total"
-msgstr ""
+msgstr "# Totale"
 
 #, javascript-format
 msgid "${ mouseSymbol } Hold left mouse button and drag mouse to rotate"
@@ -105,13 +105,13 @@ msgid "Assign new Mod"
 msgstr "Cakto Mod të ri"
 
 msgid "Attach File"
-msgstr ""
+msgstr "Bashkangjit Skedar"
 
 msgid "Auto Zoom In"
 msgstr "Zmadhimi Automatik"
 
 msgid "Avatar"
-msgstr ""
+msgstr "Avatari"
 
 msgid "Back"
 msgstr "Mbrapa"
@@ -123,7 +123,7 @@ msgid "Badges"
 msgstr "Stemat"
 
 msgid "Ban media"
-msgstr ""
+msgstr "Ndaloni media"
 
 msgid "Banned"
 msgstr "Përjashtuar"
@@ -222,7 +222,7 @@ msgid "Change your Mail Adress here:"
 msgstr "Ndrysho Adresën tënde të Postës këtu:"
 
 msgid "Channel"
-msgstr ""
+msgstr "Kanal"
 
 msgid "Channel settings"
 msgstr "Cilësimet e kanalit"
@@ -280,7 +280,7 @@ msgid "Cleaners can use 0cd blank colors."
 msgstr "Pastruesit mund të përdorin ngjyra boshe 0cd."
 
 msgid "Clear"
-msgstr ""
+msgstr "Pastro"
 
 #, javascript-format
 msgid ""
@@ -300,7 +300,7 @@ msgid "Click to Load Captcha"
 msgstr "Klikoni për të Ngarkuar Captcha"
 
 msgid "Click to remove"
-msgstr ""
+msgstr "Kliko për të hequr"
 
 msgid "Clone"
 msgstr "Klon"
@@ -318,7 +318,7 @@ msgid "Close Palette"
 msgstr "Mbyll Paletën"
 
 msgid "Compact Chat"
-msgstr ""
+msgstr "Bisedë Kompakte"
 
 msgid "Compact Palette"
 msgstr "Paleta Kompakte"
@@ -386,7 +386,7 @@ msgid "Copy to Clipboard"
 msgstr "Kopjo në Memorie"
 
 msgid "Could not connect to server"
-msgstr ""
+msgstr "Nuk mund të lidhej me serverin"
 
 msgid "Could not connect to server, please try again later :("
 msgstr "Nuk mund të lidhet me serverin, ju lutem provoni përsëri më vonë :("
@@ -395,7 +395,7 @@ msgid "Could not load captcha"
 msgstr "Nuk mund të ngarkohej captcha"
 
 msgid "Could not process files"
-msgstr ""
+msgstr "Nuk mund të përpunohen skedarët"
 
 msgid "Couldn't set Pixel"
 msgstr "Nuk mund të vendosej Pikseli"
@@ -425,7 +425,7 @@ msgid "Custom Cursor"
 msgstr "Kursori i Personalizuar"
 
 msgid "Custom Flag"
-msgstr ""
+msgstr "Flamur i personalizuar"
 
 msgid "DM"
 msgstr "DM"
@@ -489,7 +489,7 @@ msgid "Don't show me in global stats"
 msgstr "Mos më shfaq në statistikat globale"
 
 msgid "Download"
-msgstr ""
+msgstr "Shkarko"
 
 msgid "Download Template"
 msgstr "Shkarko Shabllonin"
@@ -658,7 +658,7 @@ msgid "Grid ON"
 msgstr "Rrjeta ON"
 
 msgid "Groups"
-msgstr ""
+msgstr "Grupet"
 
 msgid "Have fun!"
 msgstr "Argëtohuni!"
@@ -836,7 +836,7 @@ msgid "Maximize"
 msgstr "Maksimizoni"
 
 msgid "Media Actions"
-msgstr ""
+msgstr "Veprimet Media"
 
 msgid "Minimum Color Distance"
 msgstr "Distanca Minimale e Ngjyrave"
@@ -851,7 +851,7 @@ msgid "Move"
 msgstr "Lëviz"
 
 msgid "Mute Channel"
-msgstr ""
+msgstr "Hesht Kanalin"
 
 msgid "Muted Sound"
 msgstr "Tingull i Heshtur"
@@ -890,7 +890,7 @@ msgid "No"
 msgstr "Jo"
 
 msgid "No File selected to upload"
-msgstr ""
+msgstr "Nuk është përzgjedhur asnjë skedar për t'u ngarkuar"
 
 msgid "No Phish!"
 msgstr "Nuk ka Peshk!"
@@ -899,7 +899,7 @@ msgid "No captcha id given"
 msgstr "Asnjë id captcha nuk është dhënë"
 
 msgid "No flag selected"
-msgstr ""
+msgstr "Nuk është përzgjedhur flamur"
 
 msgid "No or invalid captcha text"
 msgstr "Asnjë captcha ose tekst i pavlefshëm"
@@ -1118,7 +1118,7 @@ msgid "Profile"
 msgstr "Profili"
 
 msgid "Public"
-msgstr ""
+msgstr "Publike"
 
 msgid "Quick Actions"
 msgstr "Veprimet e Shpejta"
@@ -1236,7 +1236,7 @@ msgid "Select File"
 msgstr "Zgjidhni Skedarin"
 
 msgid "Select Flag"
-msgstr ""
+msgstr "Zgjidh Flamurin"
 
 msgid "Select Language"
 msgstr "Zgjidhni Gjuhën"
@@ -1253,13 +1253,13 @@ msgstr ""
 "Kanavacat e arkivuara mund të aksesohen këtu:"
 
 msgid "Select your Avatar. Supported Formats: jpg, gif, png, webp"
-msgstr ""
+msgstr "Zgjidhni avatarin tuaj. Formatet e mbështetura: jpg, gif, png, webp"
 
 msgid "Selected Color"
 msgstr "Ngjyra e Zgjedhur"
 
 msgid "Selected Flag:"
-msgstr ""
+msgstr "Flamuri i përzgjedhur:"
 
 msgid "Send"
 msgstr "Dërgo"
@@ -1321,7 +1321,7 @@ msgid "Show templates as overlays ingame."
 msgstr "Shfaq shabllonet si mbivendosje në lojë."
 
 msgid "Shrink"
-msgstr ""
+msgstr "Zvogëlo"
 
 msgid "Size"
 msgstr "Madhësia"
@@ -1486,7 +1486,7 @@ msgid "Total Online Users"
 msgstr "Përdoruesit Online Gjithsej"
 
 msgid "Total Pixels"
-msgstr ""
+msgstr "Pikselë total"
 
 msgid "Total Pixels per Player"
 msgstr "Pikselët për Lojtar Gjithsej"
@@ -1514,7 +1514,7 @@ msgid "Type the characters from the following image:"
 msgstr "Shkruani karakteret nga imazhi i mëposhtëm:"
 
 msgid "Unban media"
-msgstr ""
+msgstr "Rilejo media"
 
 msgid "Unblock Users"
 msgstr "Zhbllokoni Përdoruesit"
@@ -1706,7 +1706,7 @@ msgid "You must enter a duration"
 msgstr "Ju duhet të futni një kohëzgjatje"
 
 msgid "You must enter a mediaId or media BID"
-msgstr ""
+msgstr "Ju duhet të shkruani një ID media ose një BID media"
 
 msgid "You must enter a reason"
 msgstr "Ju duhet të shkruani një arsye"
