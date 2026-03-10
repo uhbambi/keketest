@@ -413,7 +413,7 @@ export class ChatProvider {
         avatarId,
       );
     } catch (error) {
-      switch (error) {
+      switch (error.message) {
         case 'too_long':
           return t`You can\'t send a message this long :(`;
         case 'too_many_files':
