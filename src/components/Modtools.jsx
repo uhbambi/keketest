@@ -22,7 +22,7 @@ const CONTENT = {
 };
 
 function Modtools() {
-  const [selectedPart, selectPart] = useState('Canvas');
+  const [selectedPart, selectPart] = useState(null);
 
   const userlvl = useSelector((state) => state.user.userlvl);
 
