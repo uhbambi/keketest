@@ -19,6 +19,13 @@ router.use(expressTTag);
 
 router.use(promises);
 
+router.use((req, res, next) => {
+  const { user, ip } = req;
+  user?.touch(ip.ipString);
+  ip.touch();
+  next();
+});
+
 function authenticateClient(req) {
   return new Promise(
     (resolve) => {

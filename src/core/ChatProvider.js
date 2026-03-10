@@ -449,8 +449,11 @@ export class ChatProvider {
     }
     const { name, id } = searchResult;
     const userPing = `@[${escapeMd(name)}](${id})`;
+    const ipStrings = socketEvents.getIPsOfOnlineUser(id);
 
-    ban(null, id, null, true, false, 'mute', timeMin && timeMin * 60, muid);
+    ban(
+      ipStrings, id, null, true, false, 'mute', timeMin && timeMin * 60, muid,
+    );
 
     try {
       if (printChannel) {

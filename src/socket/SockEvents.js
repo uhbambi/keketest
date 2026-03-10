@@ -349,6 +349,21 @@ class SocketEvents extends EventEmitter {
     this.broadcastOnlineCounter();
   }
 
+  /**
+   * get used ips of online user
+   * @param uid
+   * @return ipStrings array of ipStrings
+   */
+  getIPsOfOnlineUser(uid) {
+    const ipStrings = [];
+    for (const [ipString, uidList] of Object.entries(this.onlineIPUsers)) {
+      if (uidList.includes(uid)) {
+        ipStrings.push(ipString);
+      }
+    }
+    return ipStrings;
+  }
+
   /*
    * broadcast online counter
    */

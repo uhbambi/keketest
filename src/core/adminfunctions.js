@@ -308,7 +308,7 @@ export async function executeIIDAction(
         } = ipInfo;
         // eslint-disable-next-line max-len
         out = `IP: ${iidOrUserIdOrName}\nCountry: ${country}\nCIDR: ${cidr}\norg: ${org}\ndesc: ${descr}\nasn: ${asn}\nType: ${type}\nisProxy: ${isProxy}\nisWhitelisted: ${isWhitelisted}\n`;
-        banInfos = await getBanInfos(ipInfo.ipString, null, null, null);
+        banInfos = await getBanInfos(null, null, ipInfo.iid, null);
       } else {
         /* UserID */
         const user = await findUserByIdOrName(iidOrUserIdOrName);

@@ -265,7 +265,6 @@ ON DUPLICATE KEY UPDATE isProxy = VALUES(isProxy), type = VALUES(type), operator
  * @param ipUuids Array of multiple or single ip uuids (IID)
  * @return [{
  *   iid,
- *   ipString,
  *   country,
  *   cidr,
  *   org,
