@@ -495,8 +495,9 @@ export class ChatProvider {
     }
     const { name, id } = searchResult;
     const userPing = `@[${escapeMd(name)}](${id})`;
+    const ipStrings = socketEvents.getIPsOfOnlineUser(id);
 
-    const succ = await unban(null, id, null, null, true, false, muid);
+    const succ = await unban(ipStrings, id, null, null, true, false, muid);
     if (!succ) {
       return `User ${userPing} is not muted`;
     }
