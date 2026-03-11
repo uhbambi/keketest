@@ -344,29 +344,27 @@ export class ChatProvider {
     }
 
     // eslint-disable-next-line prefer-const
-    let { isBanned, isMuted, isProxy, isWhitelisted } = await ip.getAllowance();
-    if (!isBanned && !isMuted && !isProxy && !isWhitelisted) {
+    let { isBanned, isMuted, isProxy } = await ip.getAllowance();
+    if (!isBanned && !isMuted && !isProxy) {
       ({ isBanned, isMuted } = await user.getAllowance());
     }
-    if (!isWhitelisted) {
-      if (isProxy) {
-        return t`You can not send chat messages while using a proxy`;
+    if (isProxy) {
+      return t`You can not send chat messages while using a proxy`;
+    }
+    if (isBanned) {
+      return t`Can not chat while being banned`;
+    }
+    if (isMuted) {
+      if (isMuted === true) {
+        // eslint-disable-next-line max-len
+        return t`You are permanently muted, join our guilded to appeal the mute`;
       }
-      if (isBanned) {
-        return t`Can not chat while being banned`;
+      const ttl = Math.ceil((isMuted - Date.now()) / 1000);
+      if (ttl > 120) {
+        const timeMin = Math.round(ttl / 60);
+        return t`You are muted for another ${timeMin} minutes`;
       }
-      if (isMuted) {
-        if (isMuted === true) {
-          // eslint-disable-next-line max-len
-          return t`You are permanently muted, join our guilded to appeal the mute`;
-        }
-        const ttl = Math.ceil((isMuted - Date.now()) / 1000);
-        if (ttl > 120) {
-          const timeMin = Math.round(ttl / 60);
-          return t`You are muted for another ${timeMin} minutes`;
-        }
-        return t`You are muted for another ${ttl} seconds`;
-      }
+      return t`You are muted for another ${ttl} seconds`;
     }
 
     if (name.trim() === '') {
