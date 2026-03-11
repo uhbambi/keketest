@@ -4,7 +4,9 @@
 import logger from './logger.js';
 import RateLimiter from '../utils/RateLimiter.js';
 import { USERLVL } from '../data/sql/index.js';
-import { findIdByNameOrId, getDummyUser } from '../data/sql/User.js';
+import {
+  findIdByNameOrId, getDummyUser, getLastIPOfUser,
+} from '../data/sql/User.js';
 import { getDefaultChannel } from '../data/sql/Channel.js';
 import ChatMessageBuffer from './ChatMessageBuffer.js';
 import socketEvents from '../socket/socketEvents.js';
@@ -450,6 +452,10 @@ export class ChatProvider {
     const { name, id } = searchResult;
     const userPing = `@[${escapeMd(name)}](${id})`;
     const ipStrings = socketEvents.getIPsOfOnlineUser(id);
+    const lastOnlineIPString = await getLastIPOfUser(id);
+    if (lastOnlineIPString && !ipStrings.includes(lastOnlineIPString)) {
+      ipStrings.push(lastOnlineIPString);
+    }
 
     ban(
       ipStrings, id, null, true, false, 'mute', timeMin && timeMin * 60, muid,
@@ -496,9 +502,13 @@ export class ChatProvider {
     const { name, id } = searchResult;
     const userPing = `@[${escapeMd(name)}](${id})`;
     const ipStrings = socketEvents.getIPsOfOnlineUser(id);
+    const lastOnlineIPString = await getLastIPOfUser(id);
+    if (lastOnlineIPString && !ipStrings.includes(lastOnlineIPString)) {
+      ipStrings.push(lastOnlineIPString);
+    }
 
     const succ = await unban(ipStrings, id, null, null, true, false, muid);
-    if (!succ) {
+    if (!succ[0].length && !succ[1].length) {
       return `User ${userPing} is not muted`;
     }
     if (printChannel) {

@@ -131,6 +131,29 @@ export async function touchUser(id, ipString) {
 }
 
 /**
+ * get last used IP of user
+ * @param id user id
+ * @return ipString or null
+ */
+export async function getLastIPOfUser(id) {
+  try {
+    const model = await sequelize.query(
+      // eslint-disable-next-line max-len
+      'SELECT BIN_TO_IP(ip) AS ipString FROM UserIPs WHERE lastSeen > NOW() - INTERVAL 1 DAY AND uid = ? ORDER BY lastSeen DESC LIMIT 1', {
+        replacements: [id],
+        plain: true,
+        type: QueryTypes.INSERT,
+      },
+    );
+    return model?.ipString;
+  } catch (error) {
+    console.error(`SQL Error on getLastIPOfUser: ${error.message}`);
+  }
+  return null;
+}
+
+
+/**
  * find or create a dummmy user. This is used for bot users.
  * @param name name of user
  */

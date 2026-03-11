@@ -141,6 +141,7 @@ export const getIPIntel = queue(async (
 const disposableEmailDomainCache = new Map([
   ['aminating.com', true],
   ['fuckmeuwu.shop', true],
+  ['pindush.net', true],
 ]);
 
 export const checkMail = queue(async (email) => {
