@@ -454,13 +454,10 @@ WHERE p.avatar = ? OR um.mid = ?`, {
 /**
  * get messages associated with media
  * @param mediaSqlId
- * @return
- * {
- *   cid: [messageIds, ...],
- * }
+ * @return Map<cid, [messageId, ...]>
  */
 export async function getMessagesOfMedia(mediaSqlId) {
-  const messagesByChannel = {};
+  const messagesByChannel = new Map();
   try {
     const models = await sequelize.query(
       `SELECT s.cid, s.id AS sid FROM Messages s
@@ -473,10 +470,10 @@ WHERE mm.mid = ?`, {
     );
     for (let i = 0; i < models.length; i += 1) {
       const { cid, sid } = models[i];
-      let cidMessages = messagesByChannel[cid];
+      let cidMessages = messagesByChannel.get(cid);
       if (!cidMessages) {
         cidMessages = [];
-        messagesByChannel[cid] = cidMessages;
+        messagesByChannel.set(cid, cidMessages);
       }
       cidMessages.push(sid);
     }

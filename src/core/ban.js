@@ -177,20 +177,15 @@ export async function banMedia(mediaId, reason, muid = null) {
 
   await deregisterMediaQuery(...mediaId.split(':'));
 
-  const channels = Object.keys(messagesByChannel);
-  if (channels.length) {
-    for (let i = 0; i < channels.length; i += 1) {
-      const channelId = channels[i];
-      const messageIds = messagesByChannel[channelId];
-      if (messageIds.length) {
-        // eslint-disable-next-line no-await-in-loop
-        await deleteMessagesByIdsQuery(messageIds);
-        socketEvents.broadcastMessageDeletion(channelId, messageIds);
-      }
+  for (const [channelId, messageIds] of messagesByChannel.entries()) {
+    if (messageIds.length) {
+      // eslint-disable-next-line no-await-in-loop
+      await deleteMessagesByIdsQuery(messageIds);
+      socketEvents.broadcastMessageDeletion(channelId, messageIds);
     }
   }
 
-  return [userIds.length, ipStrings.length, channels.length];
+  return [userIds.length, ipStrings.length, messagesByChannel.size];
 }
 
 /**
