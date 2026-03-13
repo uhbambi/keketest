@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: admin@pixelplanet.fun\n"
-"PO-Revision-Date: 2026-03-09 08:30+0000\n"
+"PO-Revision-Date: 2026-03-13 21:30+0000\n"
 "Last-Translator: Extreme Motorsex <em@noreply.pixelplanet.fun>\n"
 "Language-Team: Chinese (Simplified Han script) <https://translate.gs-os.com/"
 "projects/ppfun/client/zh_Hans/>\n"
@@ -15,10 +15,10 @@ msgid " which is in "
 msgstr " 包含在 "
 
 msgid "# Today"
-msgstr ""
+msgstr "＃今天"
 
 msgid "# Total"
-msgstr ""
+msgstr "＃全部的"
 
 #, javascript-format
 msgid "${ mouseSymbol } Hold left mouse button and drag mouse to rotate"
@@ -93,13 +93,13 @@ msgid "Assign new Mod"
 msgstr "指定新管理员"
 
 msgid "Attach File"
-msgstr ""
+msgstr "附加文件"
 
 msgid "Auto Zoom In"
 msgstr "自动放大"
 
 msgid "Avatar"
-msgstr ""
+msgstr "阿凡达"
 
 msgid "Back"
 msgstr "回退"
@@ -111,7 +111,7 @@ msgid "Badges"
 msgstr "徽章"
 
 msgid "Ban media"
-msgstr ""
+msgstr "禁止媒体"
 
 msgid "Banned"
 msgstr "已封禁"
@@ -206,7 +206,7 @@ msgid "Change your Mail Adress here:"
 msgstr "此处更改你的邮箱地址："
 
 msgid "Channel"
-msgstr ""
+msgstr "渠道"
 
 msgid "Channel settings"
 msgstr "频道设置"
@@ -261,7 +261,7 @@ msgid "Cleaners can use 0cd blank colors."
 msgstr "清理人员可以使用不消耗等待时间的空白颜料。"
 
 msgid "Clear"
-msgstr ""
+msgstr "清除"
 
 #, javascript-format
 msgid ""
@@ -279,7 +279,7 @@ msgid "Click to Load Captcha"
 msgstr "点击此处加载验证码"
 
 msgid "Click to remove"
-msgstr ""
+msgstr "点击移除"
 
 msgid "Clone"
 msgstr "复制"
@@ -294,199 +294,199 @@ msgid "Close Menu"
 msgstr "关闭菜单"
 
 msgid "Close Palette"
-msgstr ""
+msgstr "关闭调色板"
 
 msgid "Compact Chat"
-msgstr ""
+msgstr "紧凑聊天"
 
 msgid "Compact Palette"
-msgstr ""
+msgstr "便携调色盘"
 
 msgid "Confirm New Password"
 msgstr "确认新密码"
 
 msgid "Confirm Password"
-msgstr ""
+msgstr "确认密码"
 
 #, javascript-format
 msgid "Connection error ${ code } :("
-msgstr ""
+msgstr "连接错误 ${ code } :("
 
 msgid "Consent"
 msgstr "同意"
 
 msgid "Consider joining us on Matrix:"
-msgstr ""
+msgstr "欢迎加入我们的 Matrix 项目："
 
 msgid "Controls"
-msgstr ""
+msgstr "控制"
 
 msgid "Convert an image to canvas colors"
-msgstr ""
+msgstr "将图像转换为画布颜色"
 
 msgid "Converter"
-msgstr ""
+msgstr "转换器"
 
 msgid "Cooldown"
-msgstr ""
+msgstr "冷却"
 
 msgid ""
 "Cooldown is usually automatically changed for a country that is dominating. "
 "In example in the case of a streamer raid."
-msgstr ""
+msgstr "对于占据优势的国家，冷却时间通常会自动调整。例如，在主播突袭的情况下。"
 
 msgid "Coordinates"
-msgstr ""
+msgstr "坐标"
 
 msgid "Coordinates:"
-msgstr ""
+msgstr "坐标："
 
 msgid "Copied"
-msgstr ""
+msgstr "已复制"
 
 msgid "Copy"
-msgstr ""
+msgstr "复制"
 
 msgid "Copy Link"
-msgstr ""
+msgstr "复制链接"
 
 msgid "Copy Selected to Clipboard"
-msgstr ""
+msgstr "复制到剪贴板"
 
 msgid "Copy URL"
-msgstr ""
+msgstr "复制链接"
 
 msgid "Copy UserId to Clipboard"
-msgstr ""
+msgstr "将 UID 复制到剪贴板"
 
 msgid "Copy to Clipboard"
-msgstr ""
+msgstr "复制到剪贴板"
 
 msgid "Could not connect to server"
-msgstr ""
+msgstr "无法连接到服务器"
 
 msgid "Could not connect to server, please try again later :("
-msgstr ""
+msgstr "无法连接到服务器，请稍后再试 :("
 
 msgid "Could not load captcha"
-msgstr ""
+msgstr "验证码加载失败"
 
 msgid "Could not process files"
-msgstr ""
+msgstr "无法处理文件"
 
 msgid "Couldn't set Pixel"
-msgstr ""
+msgstr "无法设置像素"
 
 msgid "Countries Today"
-msgstr ""
+msgstr "今日国家"
 
 msgid "Country"
-msgstr ""
+msgstr "国家"
 
 #, javascript-format
 msgid "Credit for the Palette of the 2bit canvas goes to ${ donendoLink }."
-msgstr ""
+msgstr "2bit 画布调色板的功劳归于 ${ donendoLink }。"
 
 #, javascript-format
 msgid "Credit for the Palette of the Moon goes to ${ starhouseLink }."
-msgstr ""
+msgstr "月亮调色板的功劳归于 ${ starhouseLink }。"
 
 #, javascript-format
 msgid "Credit for the Palette of the Top10 canvas goes to ${ vinikLink }."
 msgstr ""
 
 msgid "Current Cooldown Changes per Country"
-msgstr ""
+msgstr "当前各国冷却时间变化"
 
 msgid "Custom Cursor"
-msgstr ""
+msgstr "自定义光标"
 
 msgid "Custom Flag"
-msgstr ""
+msgstr "自定义旗帜"
 
 msgid "DM"
-msgstr ""
+msgstr "私信"
 
 msgid "Daily Pixels per Country"
-msgstr ""
+msgstr "各国每日像素数"
 
 msgid "Daily Pixels per Player"
-msgstr ""
+msgstr "玩家每日像素数"
 
 msgid "Daily Rank"
-msgstr ""
+msgstr "每日排名"
 
 msgid "Date of Award"
-msgstr ""
+msgstr "颁奖日期"
 
 msgid "Date of catch"
-msgstr ""
+msgstr "捕捞日期"
 
 msgid "Delete"
-msgstr ""
+msgstr "删除"
 
 msgid "Delete Account"
-msgstr ""
+msgstr "删除帐户"
 
 msgid "Deny"
-msgstr ""
+msgstr "否定"
 
 msgid ""
 "Didn't get an answer from pixelplanet. Try to refresh if this problem "
 "persists."
-msgstr ""
+msgstr "我还没收到 pixelplanet 的回复。如果问题仍然存在，请尝试刷新页面。"
 
 msgid "Dimensions"
-msgstr ""
+msgstr "方面"
 
 msgid "Disable Game Sounds"
-msgstr ""
+msgstr "关闭游戏音效"
 
 msgid "Disable History Pencil"
-msgstr ""
+msgstr "禁用历史记录铅笔"
 
 msgid "Disable Overlay Pencil"
-msgstr ""
+msgstr "禁用叠加铅笔"
 
 msgid "Disable Pencil"
-msgstr ""
+msgstr "禁用铅笔"
 
 msgid "Display Palette in a compact form that takes less screen space."
-msgstr ""
+msgstr "以紧凑的形式显示调色板，占用更少的屏幕空间。"
 
 msgid "Do stuff with IPs (one IP per line)"
-msgstr ""
+msgstr "对 IP 地址进行操作（每行一个 IP 地址）"
 
 msgid "Don't remember"
-msgstr ""
+msgstr "不记得了"
 
 msgid "Don't show me in global stats"
-msgstr ""
+msgstr "不要在全球统计数据中显示"
 
 msgid "Download"
-msgstr ""
+msgstr "下载"
 
 msgid "Download Template"
-msgstr ""
+msgstr "下载模板"
 
 #, javascript-format
 msgid "Drag ${ mouseSymbol } mouse or ${ touchSymbol } pan to move"
-msgstr ""
+msgstr "拖动鼠标符号 ${ mouseSymbol } 或触摸符号 ${ touchSymbol } 进行移动"
 
 msgid "Duration"
-msgstr ""
+msgstr "期间"
 
 msgid "Easter Egg OFF"
-msgstr ""
+msgstr "复活节彩蛋关闭"
 
 msgid "Easter Egg ON"
-msgstr ""
+msgstr "复活节彩蛋开启"
 
 msgid "Edit"
-msgstr ""
+msgstr "编辑"
 
 msgid "Email"
-msgstr ""
+msgstr "电子邮件"
 
 msgid "Email can't be empty."
 msgstr "邮箱地址不能为空。"
@@ -497,7 +497,7 @@ msgstr "电子邮件长度不能超过 40 个字符。"
 msgid ""
 "Email is used to verify your account. You might get a cofirmation mail after "
 "registering."
-msgstr ""
+msgstr "我们会使用您的邮箱地址来验证您的账户。注册后您可能会收到一封确认邮件。"
 
 msgid "Email should at least contain a dot"
 msgstr "电子邮件至少应该包含一个句点"
@@ -509,59 +509,59 @@ msgid "Email should contain a @"
 msgstr "电子邮件地址应包含 @ 符号"
 
 msgid "Enable Overlay"
-msgstr ""
+msgstr "启用叠加层"
 
 msgid "Enable Pencil"
-msgstr ""
+msgstr "启用铅笔"
 
 msgid "Enable chat notifications"
-msgstr ""
+msgstr "启用聊天通知"
 
 msgid "Enter Characters"
-msgstr ""
+msgstr "输入字符"
 
 msgid "Enter Reason"
-msgstr ""
+msgstr "请输入原因"
 
 msgid "Enter UserName of new Mod"
-msgstr ""
+msgstr "输入新版主的用户名"
 
 msgid "Enter your mail address and we will send you a new password:"
-msgstr ""
+msgstr "请输入您的邮箱地址，我们将向您发送新密码："
 
 msgid "Error"
 msgstr "错误"
 
 #, javascript-format
 msgid "Error ${ retCode }"
-msgstr ""
+msgstr "错误 ${retCode}"
 
 msgid "Error :("
-msgstr ""
+msgstr "错误 :("
 
 msgid "Expand"
-msgstr ""
+msgstr "扩张"
 
 msgid "Export enabled templates"
-msgstr ""
+msgstr "已启用导出功能的模板"
 
 msgid "Factions"
-msgstr ""
+msgstr "派系"
 
 msgid "Factor"
-msgstr ""
+msgstr "因素"
 
 msgid "File"
-msgstr ""
+msgstr "文件"
 
 msgid "Fish Display"
-msgstr ""
+msgstr "鱼类展示"
 
 msgid "For"
-msgstr ""
+msgstr "为了"
 
 msgid "For Developers"
-msgstr ""
+msgstr "面向开发者"
 
 #, javascript-format
 msgid ""
@@ -569,39 +569,41 @@ msgid ""
 "your data, simply delete your account, this in fact wipes all privacy "
 "relevant traces. Your placed pixels will of course not be deleted."
 msgstr ""
+"如有任何法律问题，请联系 ${mailLink}。如果您想删除您的数据，只需删除您的帐户"
+"即可，这实际上会清除所有与隐私相关的痕迹。您放置的像素当然不会受到影响。"
 
 msgid "For one day"
-msgstr ""
+msgstr "一天"
 
 msgid "For one month"
-msgstr ""
+msgstr "一个月"
 
 msgid "For one week"
-msgstr ""
+msgstr "一周"
 
 msgid "For one year"
-msgstr ""
+msgstr "一年"
 
 msgid "For when you are playing on a potato."
-msgstr ""
+msgstr "当你用土豆玩游戏的时候。"
 
 msgid "Forever"
-msgstr ""
+msgstr "永远"
 
 msgid "From History"
-msgstr ""
+msgstr "从历史"
 
 msgid "From Template"
-msgstr ""
+msgstr "从模板"
 
 msgid "Get IID"
-msgstr ""
+msgstr "获取 IID"
 
 msgid "Get Pixels"
-msgstr ""
+msgstr "获取像素"
 
 msgid "Get Users"
-msgstr ""
+msgstr "获取用户"
 
 msgid "Get email address"
 msgstr "获取电子邮件地址"
@@ -610,28 +612,28 @@ msgid "Get the amount of Pixels placed and ranking"
 msgstr "获取投放的像素数量和排名"
 
 msgid "Globe View"
-msgstr ""
+msgstr "环球视角"
 
 msgid "Go to"
-msgstr ""
+msgstr "前往"
 
 msgid "Grant"
-msgstr ""
+msgstr "授予"
 
 msgid "Grid OFF"
-msgstr ""
+msgstr "电网关闭"
 
 msgid "Grid ON"
-msgstr ""
+msgstr "电网开启"
 
 msgid "Groups"
-msgstr ""
+msgstr "团体"
 
 msgid "Have fun!"
-msgstr ""
+msgstr "玩得开心！"
 
 msgid "Height"
-msgstr ""
+msgstr "高度"
 
 msgid "Help"
 msgstr "帮助"
@@ -639,40 +641,40 @@ msgstr "帮助"
 msgid ""
 "Here we collect removed canvases to archive them properly. Which is "
 "currently only one."
-msgstr ""
+msgstr "我们在此收集已移除的画布，以便妥善归档。目前只有一幅。"
 
 msgid "Hide Embed"
-msgstr ""
+msgstr "隐藏嵌入内容"
 
 msgid ""
 "Higher zoomlevels take some time to update, the 3D globe gets updated at "
 "least once per day."
-msgstr ""
+msgstr "更高的缩放级别需要一些时间才能更新，3D 地球每天至少更新一次。"
 
 msgid "Historical View"
-msgstr ""
+msgstr "历史视角"
 
 #, javascript-format
 msgid "Hold left ${ bindShift } for pencil (to place while moving mouse)"
-msgstr ""
+msgstr "按住左 ${ bindShift } 键可插入铅笔图标（移动鼠标时可放置铅笔）"
 
 msgid "How pixelplanet should look like."
-msgstr ""
+msgstr "pixelplanet 应该是什么样子。"
 
 msgid "I forgot my Password."
-msgstr ""
+msgstr "我忘记密码了。"
 
 msgid "IID (optional)"
-msgstr ""
+msgstr "IID（可选）"
 
 msgid "IID Actions"
-msgstr ""
+msgstr "IID 操作"
 
 msgid "IP Actions"
-msgstr ""
+msgstr "IP 操作"
 
 msgid "Identifiers"
-msgstr ""
+msgstr "标识符"
 
 #, javascript-format
 msgid ""
@@ -681,63 +683,66 @@ msgid ""
 "mail to ${ mailLink } and, in case of a ban, include the BID you got in the "
 "ban message."
 msgstr ""
+"如果您被检测为代理用户，但您并未使用代理，或者您认为自己被错误封禁，请访问我"
+"们的 ${guildedLink} 或发送电子邮件至 ${mailLink}，如果被封禁，请在封禁信息中"
+"包含您收到的 BID。"
 
 msgid ""
 "If you talk to moderators or administrators, you might get asked for one of "
 "the following identifiers:"
-msgstr ""
+msgstr "如果您与版主或管理员交谈，他们可能会要求您提供以下身份标识之一："
 
 msgid "Image Converter"
-msgstr ""
+msgstr "图片转换器"
 
 msgid "Image Upload"
-msgstr ""
+msgstr "图片上传"
 
 msgid "Import templates"
-msgstr ""
+msgstr "导入模板"
 
 msgid "Interval"
-msgstr ""
+msgstr "间隔"
 
 msgid "Interval is invalid"
-msgstr ""
+msgstr "间隔无效"
 
 msgid "Invalid Canvas"
-msgstr ""
+msgstr "无效画布"
 
 msgid "Invalid Coordinates"
-msgstr ""
+msgstr "无效坐标"
 
 msgid "Invalid color selected"
-msgstr ""
+msgstr "选择了无效的颜色"
 
 msgid "Invited to Chat"
-msgstr ""
+msgstr "受邀聊天"
 
 msgid ""
 "It requests the following permissions. Uncheck what you don't want to grant:"
-msgstr ""
+msgstr "它会请求以下权限。取消勾选您不想授予的权限："
 
 msgid "Jannies can rollback and protect, but not watch or ban."
-msgstr ""
+msgstr "管理员可以回滚和保护，但不能监视或封禁。"
 
 msgid "Just for registered Users"
-msgstr ""
+msgstr "仅限注册用户"
 
 msgid "Just for verified Users"
-msgstr ""
+msgstr "仅限已验证用户"
 
 msgid "Just the Top10 of yesterday can place here"
-msgstr ""
+msgstr "只有昨天的前十名才能排在这里"
 
 msgid "Keep Ratio"
-msgstr ""
+msgstr "保持比例"
 
 msgid "Know that an account exists"
 msgstr "确认账户存在"
 
 msgid "Legal Requests"
-msgstr ""
+msgstr "法律请求"
 
 msgid "Light Grid"
 msgstr ""
@@ -936,13 +941,13 @@ msgid "Password"
 msgstr ""
 
 msgid "Password must be at least 6 characters long."
-msgstr ""
+msgstr "密码长度必须至少为 6 个字符。"
 
 msgid "Password must be shorter than 60 characters."
-msgstr ""
+msgstr "密码长度必须少于 60 个字符。"
 
 msgid "Password successfully changed."
-msgstr ""
+msgstr "密码已成功更改。"
 
 msgid "Passwords do not match."
 msgstr ""
@@ -955,7 +960,7 @@ msgid "Pencil picks: "
 msgstr ""
 
 msgid "Permission"
-msgstr ""
+msgstr "允许"
 
 msgid "Phish!"
 msgstr ""
@@ -1003,7 +1008,7 @@ msgid "Please prove that you are human"
 msgstr ""
 
 msgid "Please refresh the website"
-msgstr ""
+msgstr "请刷新网站"
 
 msgid ""
 "Please verify your mail address or add a new one, otherwise your account "
@@ -1071,10 +1076,10 @@ msgid "Ranking updates every 5 min. Daily rankings get reset at midnight UTC."
 msgstr ""
 
 msgid "Read Badges and fishes"
-msgstr ""
+msgstr "阅读徽章和鱼"
 
 msgid "Read name, username and account age"
-msgstr ""
+msgstr "读取名称、用户名和帐户年龄"
 
 msgid "Reason"
 msgstr ""
@@ -1089,7 +1094,7 @@ msgid "Register new account here"
 msgstr ""
 
 msgid "Regularly update this data"
-msgstr ""
+msgstr "定期更新这些数据"
 
 msgid "Reload"
 msgstr ""
@@ -1289,7 +1294,7 @@ msgid "Stop requiring Verification to Place"
 msgstr ""
 
 msgid "Submit"
-msgstr ""
+msgstr "提交"
 
 msgid "Switch Account"
 msgstr ""
@@ -1423,7 +1428,7 @@ msgid "Unblock Users"
 msgstr ""
 
 msgid "Unknown Captcha Error"
-msgstr ""
+msgstr "未知验证码错误"
 
 msgid "Unknown Error"
 msgstr ""
@@ -1450,7 +1455,7 @@ msgid "User Area"
 msgstr ""
 
 msgid "User ID and verification level"
-msgstr ""
+msgstr "用户 ID 和验证级别"
 
 msgid "User Name"
 msgstr ""
@@ -1459,19 +1464,19 @@ msgid "Username"
 msgstr ""
 
 msgid "Username can only contain the characters: a-z . _ and -"
-msgstr ""
+msgstr "用户名只能包含以下字符：a-z . _ 和 -"
 
 msgid "Username can only contain the characters: a-z A-z . _ and -"
 msgstr ""
 
 msgid "Username can't be empty."
-msgstr ""
+msgstr "用户名不能为空。"
 
 msgid "Username must be at least 2 characters long"
-msgstr ""
+msgstr "用户名长度必须至少为 2 个字符"
 
 msgid "Username must be shorter than 26 characters"
-msgstr ""
+msgstr "用户名长度必须少于 26 个字符"
 
 #, javascript-format
 msgid "We are Libre Software under the ${ agplLink }, "
@@ -1525,7 +1530,7 @@ msgstr ""
 msgid ""
 "You are a teacher and a pupil is playing this game, despite it not being "
 "suitable for them? Send us an email."
-msgstr ""
+msgstr "您是一名教师，而您的学生正在玩这款不适合他们的游戏？请给我们发送电子邮件。"
 
 #, javascript-format
 msgid ""
@@ -1568,7 +1573,7 @@ msgid "You did not consent"
 msgstr ""
 
 msgid "You failed your captcha"
-msgstr ""
+msgstr "你的验证码验证失败了"
 
 msgid "You have no users blocked"
 msgstr ""
@@ -1618,7 +1623,7 @@ msgid ""
 msgstr ""
 
 msgid "Your Browser looks shady"
-msgstr ""
+msgstr "你的浏览器看起来可疑"
 
 msgid "Your Internet Provider is banned from this game"
 msgstr ""

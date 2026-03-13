@@ -1,15 +1,15 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: admin@pixelplanet.fun\n"
-"PO-Revision-Date: 2026-01-15 14:40+0000\n"
-"Last-Translator: Sakuya <sakuya@noreply.pixelplanet.fun>\n"
+"PO-Revision-Date: 2026-03-13 21:30+0000\n"
+"Last-Translator: Extreme Motorsex <em@noreply.pixelplanet.fun>\n"
 "Language-Team: Chinese (Simplified Han script) <https://translate.gs-os.com/"
 "projects/ppfun/server/zh_Hans/>\n"
 "Language: zh\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.14\n"
+"X-Generator: Weblate 5.15.2\n"
 
 msgid "1bit"
 msgstr "1字元"
@@ -29,7 +29,7 @@ msgid ""
 msgstr "这是前一天最活跃玩家的排行榜，每日排名更新时间为世界协调时00:00。"
 
 msgid "A file was too large"
-msgstr ""
+msgstr "文件过大"
 
 msgid "Access modtools"
 msgstr "访问管理员工具"
@@ -56,7 +56,7 @@ msgid "Application successfully added"
 msgstr "应用程序已成功添加"
 
 msgid "Avatar can only be an image"
-msgstr ""
+msgstr "头像只能是一张图片"
 
 msgid "Black and White canvas"
 msgstr "黑白画布"
@@ -68,7 +68,7 @@ msgstr "被禁期间无法聊天"
 msgid ""
 "Can not upload this many files at once, only 5 are allowed, you have $"
 "{ amountOfFiles }"
-msgstr ""
+msgstr "一次上传的文件数量不能超过 5 个，您有 ${ amountOfFiles } 个文件"
 
 msgid "Click here"
 msgstr "点击这里"
@@ -100,13 +100,13 @@ msgid "Could not find this login method"
 msgstr "找不到此登录方式"
 
 msgid "Could not leave this channel"
-msgstr ""
+msgstr "无法离开此频道"
 
 msgid "Could not set your avtar"
-msgstr ""
+msgstr "无法设置您的头像"
 
 msgid "Could not upload all files"
-msgstr ""
+msgstr "无法上传所有文件"
 
 msgid "Couldn't find this mail in our database"
 msgstr "我们的数据库中找不到这封邮件"
@@ -158,13 +158,15 @@ msgid ""
 "File ${ filename } has ${ sizeMB } MB and is too large. It may only be $"
 "{ MAX_FILE_SIZE_MB } MB"
 msgstr ""
+"文件 ${ filename } 的大小为 ${ sizeMB } MB，过大。它的大小应该只有 ${ "
+"MAX_FILE_SIZE_MB } MB"
 
 #, javascript-format
 msgid "File ${ filename } has an invalid extension"
-msgstr ""
+msgstr "文件 ${filename} 的扩展名无效"
 
 msgid "File is broken"
-msgstr ""
+msgstr "文件已损坏"
 
 #. 'client_secret' is a technical term and should not be translated
 msgid ""
@@ -212,7 +214,7 @@ msgid "Incorrect password!"
 msgstr "密码错误！"
 
 msgid "Invalid type of media"
-msgstr ""
+msgstr "媒体类型无效"
 
 msgid "Invalid url :( Please check your mail again."
 msgstr "无效网址 :( 请再次检查您的邮件。"
@@ -221,10 +223,10 @@ msgid "Just admins can do that"
 msgstr "只有管理员才能这样做"
 
 msgid "Just janny, mod or admin can do that"
-msgstr ""
+msgstr "只有管理员、版主或管理员才能做到这一点"
 
 msgid "Just mods and admins can do that"
-msgstr ""
+msgstr "只有版主和管理员才能这样做"
 
 msgid "Know that an account exists"
 msgstr "确认账户存在"
@@ -252,11 +254,11 @@ msgid "Mail verification"
 msgstr "邮件验证"
 
 msgid "MimeType or extension not known or supported"
-msgstr ""
+msgstr "MIME 类型或扩展名未知或不受支持"
 
 #, javascript-format
 msgid "Mimetype ${ mimeType } of file ${ filename } is invalid or not allowed"
-msgstr ""
+msgstr "文件 ${filename} 的 MIME 类型 ${mimeType} 无效或不允许"
 
 msgid "Minimap"
 msgstr "小地图"
@@ -305,7 +307,7 @@ msgid "No Captcha given"
 msgstr "无可用验证码"
 
 msgid "No file metadata given"
-msgstr ""
+msgstr "未提供文件元数据"
 
 msgid "No or invalid fish id."
 msgstr "不存在或无效Fish ID。"
@@ -331,40 +333,40 @@ msgstr "每行1个重定向通用资源识别号（网页链接）"
 
 #. "redirect_uris" is a technical term and should not be translated
 msgid "Only five redirect_uris are allowed per client"
-msgstr ""
+msgstr "每个客户端最多只允许五个 redirect_uris"
 
 msgid "Only four colors. Same rules as moon!"
-msgstr ""
+msgstr "只有四种颜色。规则和月亮一样！"
 
 msgid "OpenID Connect specs"
-msgstr ""
+msgstr "OpenID Connect 规范"
 
 msgid "Or by copying following url:"
-msgstr ""
+msgstr "或者复制以下网址："
 
 msgid "Our main canvas, a huge map of the world. Place anywhere you like!"
-msgstr ""
+msgstr "我们的主要画布是一张巨大的世界地图。您可以把它放在任何您喜欢的地方！"
 
 msgid "Password must be at least 6 characters long."
-msgstr ""
+msgstr "密码长度必须至少为 6 个字符。"
 
 msgid "Password must be shorter than 60 characters."
-msgstr ""
+msgstr "密码长度必须少于 60 个字符。"
 
 msgid "Password successfully changed."
-msgstr ""
+msgstr "密码已成功更改。"
 
 msgid "Permission"
-msgstr ""
+msgstr "允许"
 
 msgid "PixelCanvas"
-msgstr ""
+msgstr "PixelCanvas"
 
 msgid "PixelPlanet.Fun 3DGlobe"
-msgstr ""
+msgstr "PixelPlanet.Fun 3D地球仪"
 
 msgid "PixelZone"
-msgstr ""
+msgstr "PixelZone"
 
 #, javascript-format
 msgid ""
@@ -373,109 +375,114 @@ msgid ""
 "pixelplanet accounts. The required endpoints can be auto-discovered via the $"
 "{ wellKnownUrl } URL."
 msgstr ""
+"Pixelplanet 符合 OpenID Connect (OIDC) 规范。因此，支持 OIDC 的应用程序可以请"
+"求用户授权并使用 Pixelplanet 帐户登录。可以通过 ${ wellKnownUrl } URL 自动发"
+"现所需的端点。"
 
 msgid "Place Voxels on a 3D canvas with others."
-msgstr ""
+msgstr "将体素与其他体素一起放置在 3D 画布上。"
 
 msgid "Place color pixels on an map styled canvas with other players online"
-msgstr ""
+msgstr "在地图风格的画布上放置彩色像素，并与其他玩家在线互动"
 
 msgid "Please refresh the website"
-msgstr ""
+msgstr "请刷新网站"
 
 msgid "Please try again."
-msgstr ""
+msgstr "请重试。"
 
 msgid "Please use int channel"
-msgstr ""
+msgstr "请使用国际频道"
 
 msgid "Read Badges and fishes"
-msgstr ""
+msgstr "阅读徽章和鱼"
 
 msgid "Read name, username and account age"
-msgstr ""
+msgstr "读取名称、用户名和帐户年龄"
 
 msgid "Redirect URIs"
-msgstr ""
+msgstr "重定向 URI"
 
 msgid "Regularly update this data"
-msgstr ""
+msgstr "定期更新这些数据"
 
 msgid "Request stalled"
-msgstr ""
+msgstr "请求已停滞"
 
 #. 'client_secret' is a technical term and should not be translated
 msgid "Reroll client_secret"
-msgstr ""
+msgstr "重新掷骰 client_secret"
 
 msgid "Reset Password"
-msgstr ""
+msgstr "重置密码"
 
 msgid "Reset your password here"
-msgstr ""
+msgstr "在此重置密码"
 
 msgid "Server Error"
-msgstr ""
+msgstr "服务器错误"
 
 msgid "Server error while deleting user."
-msgstr ""
+msgstr "删除用户时发生服务器错误。"
 
 msgid "Someone logged into your account from a new location, with the IP:"
-msgstr ""
+msgstr "有人使用以下 IP 地址从新位置登录了您的帐户："
 
 msgid "Space-separated list of available scopes"
-msgstr ""
+msgstr "可用范围列表（以空格分隔）"
 
 msgid ""
 "Space-separated list of default scopes, they will be used on requests if no "
 "other scope is given."
 msgstr ""
+"以空格分隔的默认作用域列表，如果没有指定其他作用域，则将在请求中使用这些作用"
+"域。"
 
 #. 'scope' is used as a technical term here, do not translate that word
 msgid ""
 "Space-separated list of default scopes, they will be used on requests where "
 "no other scope is given."
-msgstr ""
+msgstr "以空格分隔的默认作用域列表，当没有提供其他 scope 时，将使用这些作用域。"
 
 msgid "Space-separated list of scopes that should be available"
-msgstr ""
+msgstr "可用作用域列表（以空格分隔）"
 
 msgid "Special canvas to spread awareness of SARS-CoV2 (take the vax)."
-msgstr ""
+msgstr "特别设计的画布，用于宣传对 SARS-CoV-2 的认识（接种疫苗）。"
 
 msgid "Stop flooding."
-msgstr ""
+msgstr "停止洪水泛滥。"
 
 msgid "Submit"
-msgstr ""
+msgstr "提交"
 
 msgid "Thanks"
-msgstr ""
+msgstr "谢谢"
 
 #, javascript-format
 msgid "The file ${ filename } is banned ${ reason }. Ban ID: ${ mbid }"
-msgstr ""
+msgstr "文件 ${ filename } 已被封禁${ reason }。封禁 ID：${ mbid }"
 
 msgid "The user owning this badge is private"
-msgstr ""
+msgstr "拥有此徽章的用户是私密的"
 
 msgid "The user owning this fish is private"
-msgstr ""
+msgstr "这条鱼的拥有者是匿名用户"
 
 msgid "This application is not allowed to login"
-msgstr ""
+msgstr "此应用程序无权登录"
 
 msgid "This application redirects to an unallowed page"
-msgstr ""
+msgstr "此应用程序重定向到未经允许的页面"
 
 msgid "This application sent a faulty login request with no redirection"
-msgstr ""
+msgstr "此应用程序发送了错误的登录请求，且未进行重定向"
 
 msgid "This application uses a PKCE method we do not support"
-msgstr ""
+msgstr "此应用程序使用我们不支持的 PKCE 方法"
 
 msgid "This application uses a login method we do not support"
-msgstr ""
+msgstr "此应用程序使用的登录方式我们不支持"
 
 msgid ""
 "This email / password combination got hacked and leaked. To protect this "
@@ -483,6 +490,8 @@ msgid ""
 "function below to set a new password. In the future, consider not installing "
 "malware, Thank You."
 msgstr ""
+"您的邮箱／密码组合已被盗用并泄露。为保护此账户，密码已重置。请使用下方的“忘记"
+"密码”功能设置新密码。今后请尽量不要安装恶意软件，谢谢。"
 
 msgid ""
 "This email / password combination got hacked and leaked. To protect this "
@@ -490,239 +499,245 @@ msgid ""
 "function on the LogIn page to set a new password. In the future, consider "
 "not installing malware, Thank You."
 msgstr ""
+"您的邮箱／密码组合已被盗用并泄露。为保护此账户，密码已重置。请使用登录页面上"
+"的“忘记密码”功能设置新密码。今后请尽量不要安装恶意软件，谢谢。"
 
 msgid "This email provider is not allowed"
-msgstr ""
+msgstr "此电子邮件提供商未被允许"
 
 #, javascript-format
 msgid "This media is banned ${ reason }. Ban ID: ${ mbid }"
-msgstr ""
+msgstr "此媒体已被禁${ reason }。禁播 ID：${ mbid }"
 
 msgid "This password-reset link isn't valid anymore :("
-msgstr ""
+msgstr "这个密码重置链接已经失效了 :("
 
 #. "redirect_uris" is a technical term and should not be translated
 msgid "Too many or too long redirect_uris"
-msgstr ""
+msgstr "redirect_uris 过多或过长"
 
 msgid "Top10"
-msgstr ""
+msgstr "前十名"
 
 msgid "Unknown Captcha Error"
-msgstr ""
+msgstr "未知验证码错误"
 
 #, javascript-format
 msgid "Unknown field ${ name } in request"
-msgstr ""
+msgstr "请求中存在未知字段 ${ name }"
 
 msgid "Update Application"
-msgstr ""
+msgstr "更新应用程序"
 
 msgid "User ID and verification level"
-msgstr ""
+msgstr "用户 ID 和验证级别"
 
 msgid "User doesn't exist in our database :("
-msgstr ""
+msgstr "我们的数据库中不存在该用户 :("
 
 msgid "Username already in use."
-msgstr ""
+msgstr "用户名已被使用。"
 
 msgid "Username can not start with pp_"
-msgstr ""
+msgstr "用户名不能以“pp_”开头"
 
 msgid "Username can only contain the characters: a-z . _ and -"
-msgstr ""
+msgstr "用户名只能包含以下字符：a-z . _ 和 -"
 
 msgid "Username can't be empty."
-msgstr ""
+msgstr "用户名不能为空。"
 
 msgid "Username must be at least 2 characters long"
-msgstr ""
+msgstr "用户名长度必须至少为 2 个字符"
 
 msgid "Username must be shorter than 26 characters"
-msgstr ""
+msgstr "用户名长度必须少于 26 个字符"
 
 msgid ""
 "We already sent you a mail with instructions. Please wait before requesting "
 "another mail."
-msgstr ""
+msgstr "我们已向您发送了一封包含说明的邮件。请稍等片刻，不要再申请发送另一封邮件。"
 
 #, javascript-format
 msgid ""
 "We already sent you a verification mail, you can request another one in $"
 "{ minLeft } minutes."
-msgstr ""
+msgstr "我们已经向您发送了一封验证邮件，可以在 ${ minLeft } 分钟后申请另一封。"
 
 msgid "We currently do not allow file uploads"
-msgstr ""
+msgstr "我们目前不允许上传文件"
 
 #, javascript-format
 msgid "Welcome ${ name } to PixelPlanet, please verify your mail"
-msgstr ""
+msgstr "欢迎 ${ name } 来到 PixelPlanet，请验证您的邮箱"
 
 msgid "You already chose your username"
-msgstr ""
+msgstr "您已选择用户名"
 
 msgid "You already have that name."
-msgstr ""
+msgstr "你已经有这个名字了。"
 
 msgid "You are already verified."
-msgstr ""
+msgstr "您已通过验证。"
 
 #, javascript-format
 msgid "You are muted for another ${ timeMin } minutes"
-msgstr ""
+msgstr "您已被静音，剩余 ${ timeMin } 分钟"
 
 #, javascript-format
 msgid "You are muted for another ${ ttl } seconds"
-msgstr ""
+msgstr "您已被静音，剩余 ${ ttl } 秒钟"
 
 msgid "You are not allowed to access this page"
-msgstr ""
+msgstr "您无权访问此页面"
 
 msgid "You are not banned"
-msgstr ""
+msgstr "您并未被封禁"
 
 msgid "You are not logged in"
-msgstr ""
+msgstr "您尚未登录"
 
 msgid "You are now verified :)"
-msgstr ""
+msgstr "您已通过验证 :)"
 
 msgid "You are permanently muted, join our guilded to appeal the mute"
-msgstr ""
+msgstr "你已被永久禁言，请加入我们的公会 Guilded 以申诉禁言"
 
 #, javascript-format
 msgid "You are sending messages too fast, you have to wait ${ waitTime }s :("
-msgstr ""
+msgstr "你发送消息的速度太快了，需要等待 ${ waitTime } 秒 :("
 
 msgid "You attached too many files"
-msgstr ""
+msgstr "您附加的文件过多"
 
 msgid ""
 "You can not delete this login method, because you have nothing else left."
-msgstr ""
+msgstr "您无法删除此登录方式，因为您已经没有其他登录方式了。"
 
 msgid "You can not register an account while you are banned"
-msgstr ""
+msgstr "被封禁期间无法注册账号"
 
 msgid "You can not register an account with a proxy"
-msgstr ""
+msgstr "您无法使用代理注册帐户"
 
 msgid "You can not send chat messages while using a proxy"
-msgstr ""
+msgstr "使用代理时无法发送聊天消息"
 
 msgid ""
 "You can register your own application here to get the client_id and "
 "client_secret needed to make use of this."
 msgstr ""
+"您可以在这里注册您自己的应用程序，以获取使用此功能所需的 client_id 和 "
+"client_secret。"
 
 msgid "You can't send a message this long :("
-msgstr ""
+msgstr "你不能发送这么长的消息 :("
 
 msgid "You did not provide all necessary information"
-msgstr ""
+msgstr "您未提供所有必要信息"
 
 msgid ""
 "You do not have any email adress set. Please add one under \"Login Methods\"."
-msgstr ""
+msgstr "您尚未设置电子邮件地址。请在“登录方式”下添加一个。"
 
 msgid "You don't have access to this channel"
-msgstr ""
+msgstr "您无权访问此频道"
 
 msgid "You failed your captcha"
-msgstr ""
+msgstr "你的验证码验证失败了"
 
 msgid "You forgot your password for PixelPlanet? Get a new one here"
-msgstr ""
+msgstr "您忘记了 PixelPlanet 的密码吗？点击此处获取新密码"
 
 msgid "You have to fill out all fields"
-msgstr ""
+msgstr "您必须填写所有字段"
 
 msgid "You must be logged in to access this page"
-msgstr ""
+msgstr "您必须登录才能访问此页面"
 
 #. "scope" is a technical term and should not be translated
 msgid "You need to define a valid scope"
-msgstr ""
+msgstr "您需要定义一个有效的 scope"
 
 msgid "You need to directly access this page in the browser :("
-msgstr ""
+msgstr "您需要直接在浏览器中访问此页面 :("
 
 #, javascript-format
 msgid "You reached your maximum upload quota of ${ MAX_USER_MEDIA_SIZE_MB } MB"
-msgstr ""
+msgstr "您已达到最大上传配额 ${ MAX_USER_MEDIA_SIZE_MB } MB"
 
 msgid ""
 "You requested to get a new password. You can change your password within the "
 "next 30min here: "
-msgstr ""
+msgstr "您已申请重置密码。您可以在30分钟内在此处更改密码： "
 
 msgid "You sent an empty password or invalid data :("
-msgstr ""
+msgstr "您发送了空密码或无效数据 :("
 
 msgid "You took too long, try again"
-msgstr ""
+msgstr "你用时太久了，请重试"
 
 msgid "You will be automatically redirected after 15s"
-msgstr ""
+msgstr "15秒后您将被自动重定向"
 
 msgid "Your Browser looks shady"
-msgstr ""
+msgstr "你的浏览器看起来可疑"
 
 msgid "Your account needs to be verified to access this page"
-msgstr ""
+msgstr "您的帐户需要验证才能访问此页面"
 
 msgid "Your country is temporary muted from this chat channel"
-msgstr ""
+msgstr "您的国家／地区已被暂时从此聊天频道中屏蔽"
 
 msgid "Your mail has to be verified in order to chat"
-msgstr ""
+msgstr "您需要验证电子邮件地址才能聊天"
 
 msgid ""
 "Your mail verification code is invalid or already expired :(, please request "
 "a new one."
-msgstr ""
+msgstr "您的邮件验证码无效或已过期 :( ，请申请新的验证码。"
 
 msgid "Your passwords do not match :("
-msgstr ""
+msgstr "您的密码不匹配 :("
 
 #. This media is banned xyz
 msgid "because it is propaganda"
-msgstr ""
+msgstr "因为这是宣传"
 
 #. This media is banned xyz
 msgid "for being an attempt to scam people"
-msgstr ""
+msgstr "因为这是企图诈骗"
 
 #. This media is banned xyz
 msgid "for being degenerate"
-msgstr ""
+msgstr "因为堕落"
 
 #. This media is banned xyz
 msgid "for containing CSAM"
-msgstr ""
+msgstr "用于含有CSAM"
 
 #. This media is banned xyz
 msgid "for containing graphic violence"
-msgstr ""
+msgstr "因包含暴力画面"
 
 #. This media is banned xyz
 msgid "for containing personal information"
-msgstr ""
+msgstr "用于包含个人信息"
 
 #. This media is banned xyz
 msgid "for glorifying terrorism"
-msgstr ""
+msgstr "美化恐怖主义"
 
 #. "redirect_uris" is a technical term and should not be translated
 msgid "redirect_uris does not look legit"
-msgstr ""
+msgstr "redirect_uris 看起来不合法"
 
 msgid "to go back to pixelplanet"
-msgstr ""
+msgstr "返回像素星球"
 
 msgid ""
 "welcome to our little community of pixelplacers, to use your account, you "
 "have to verify your mail. You can do that here: "
 msgstr ""
+"欢迎来到我们的像素画爱好者小社区！要使用您的账号，您需要验证邮箱。您可以在这"
+"里进行验证： "
