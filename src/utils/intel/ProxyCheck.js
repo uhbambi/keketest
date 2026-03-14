@@ -8,6 +8,8 @@ import https from 'https';
 
 import { HourlyCron } from '../cron.js';
 
+import { PROXY_FLAGS } from '../../core/constants.js';
+
 const HYSTERESIS = 60;
 
 /*
@@ -255,7 +257,7 @@ class ProxyCheck {
 
       const options = {
         hostname: 'proxycheck.io',
-        path: `/v2/?vpn=1&asn=1&key=${key}`,
+        path: `/v3/?key=${key}`,
         method: 'POST',
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded',
@@ -264,8 +266,12 @@ class ProxyCheck {
       };
 
       const req = https.request(options, (res) => {
-        if (res.statusCode !== 200) {
-          reject(new Error(`Status not 200: ${res.statusCode}`));
+        if (res.statusCode < 200 || res.statusCode > 429) {
+          /*
+           * should not happen, 401, 403, 429, etc. return error messages that
+           * get caught later
+           */
+          reject(new Error(`Status failure: ${res.statusCode}`));
           return;
         }
         res.setEncoding('utf8');
@@ -288,9 +294,10 @@ class ProxyCheck {
                  * */
                 resolve({
                   [values[0]]: {
-                    proxy: 'yes',
-                    type: 'Invalid IP',
-                    disposable: 'yes',
+                    detections: {
+                      invalid: true,
+                    },
+                    disposable: true,
                   },
                 });
                 return;
@@ -307,9 +314,10 @@ class ProxyCheck {
             values.forEach((value) => {
               if (result[value] && result[value].error) {
                 result[value] = {
-                  proxy: 'yes',
-                  type: 'Invalid IP',
-                  disposable: 'yes',
+                  detections: {
+                    invalid: true,
+                  },
+                  disposable: true,
                 };
               }
             });
@@ -364,7 +372,7 @@ class ProxyCheck {
 
         if (res[value]) {
           this.logger.info(`Email ${value}: ${JSON.stringify(res[value])}`);
-          disposable = res[value].disposable === 'yes';
+          disposable = !!res[value].disposable;
         }
 
         cb(disposable);
@@ -373,15 +381,68 @@ class ProxyCheck {
         // eslint-disable-next-line no-lonely-if
         if (res[value]) {
           this.logger.info(`IP ${value}: ${JSON.stringify(res[value])}`);
-          const result = res[value];
-          cb({
-            isProxy: result.proxy !== 'no',
-            type: result.type || null,
-            operator: result.operator?.name || null,
-            city: result.city || null,
-            devices: result.devices?.address || 1,
-            subnetDevices: result.devices?.subnet || 1,
-          });
+          const {
+            detections, location, network, device_estimate: deviceEstimate,
+          } = res[value];
+
+          const pcData = { isProxy: 0 };
+          if (network) {
+            pcData.type = network.type;
+            pcData.operator = network.provider;
+            if (pcData.operator?.length > 60) {
+              pcData.operator = pcData.operator.substring(0, 60);
+            }
+          }
+          if (location) {
+            pcData.city = location.city_name;
+            if (pcData.city?.length > 60) {
+              pcData.city = pcData.city.substring(0, 60);
+            }
+          }
+          if (deviceEstimate) {
+            pcData.devices = deviceEstimate.address;
+            pcData.subnetDevices = deviceEstimate.subnet;
+          }
+          if (detections) {
+            if (detections.proxy) {
+              pcData.isProxy |= 0x01 << PROXY_FLAGS.PROXY;
+              pcData.type = 'Proxy';
+            }
+            if (detections.vpn) {
+              pcData.isProxy |= 0x01 << PROXY_FLAGS.VPN;
+              pcData.type = 'VPN';
+            }
+            if (detections.compromised) {
+              pcData.isProxy |= 0x01 << PROXY_FLAGS.COMPROMISED;
+              pcData.type = 'Compromised';
+            }
+            if (detections.scraper) {
+              pcData.isProxy |= 0x01 << PROXY_FLAGS.SCRAPER;
+              pcData.type = 'Scraper';
+            }
+            if (detections.tor) {
+              pcData.isProxy |= 0x01 << PROXY_FLAGS.TOR;
+              pcData.type = 'Tor';
+            }
+            if (detections.hosting) {
+              pcData.isProxy |= 0x01 << PROXY_FLAGS.HOSTING;
+              pcData.type = 'Hosting';
+            }
+            if (detections.anonymous) {
+              pcData.isProxy |= 0x01 << PROXY_FLAGS.ANONYMOUS;
+              pcData.type = 'Anonymous';
+            }
+            if (detections.invalid) {
+              pcData.isProxy |= 0x01 << PROXY_FLAGS.INVALID;
+              pcData.type = 'Invalid IP';
+            }
+            pcData.risk = detections.risk;
+            pcData.confidence = detections.confidence;
+          } else {
+            pcData.isProxy = 1;
+          }
+
+          cb(pcData);
         } else {
           this.logger.error(`IP ${value} could not be checked for proxy.`);
           cb(null);
@@ -395,12 +456,14 @@ class ProxyCheck {
    * check if ip is proxy in queue
    * @param ip as string
    * @return Promise null | {
-   *   isProxy: true or false,
+   *   isProxy: type of proxy, 0 if none,
    *   type: Residential, Wireless, VPN, SOCKS,...,
    *   operator: name of proxy operator if available,
    *   city: name of city,
    *   devices: amount of devices using this ip,
    *   subnetDevices: amount of devices in this subnet,
+  *    risk: risk score,
+  *    confidence: confidence score (percent),
    * }
    */
   checkIp(ip) {

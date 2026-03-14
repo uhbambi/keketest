@@ -69,6 +69,17 @@ export const USERLVL = {
   ADMIN: 100,
 };
 
+export const PROXY_FLAGS = {
+  PROXY: 0,
+  VPN: 1,
+  COMPROMISED: 2,
+  SCRAPER: 3,
+  TOR: 4,
+  HOSTING: 5,
+  ANONYMOUS: 6,
+  INVALID: 7,
+};
+
 export const THREEPID_ABBR = {
   d: 'DISCORD',
   g: 'GOOGLE',

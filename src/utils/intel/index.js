@@ -10,9 +10,9 @@ import { getWhoisHostOfIP } from '../../data/sql/WhoisReferral.js';
 import { saveIPIntel, getProviderOfIP } from '../../data/sql/IP.js';
 import { queue } from './queue.js';
 import {
-  USE_PROXYCHECK, PROXYCHECK_KEY, WHOIS_DURATION, PROXYCHECK_DURATION,
+  USE_PROXYCHECK, PROXYCHECK_KEY, WHOIS_DURATION,
 } from '../../core/config.js';
-import { DO_NOTHING } from '../../core/constants.js';
+import { DO_NOTHING, PROXY_FLAGS } from '../../core/constants.js';
 
 let proxyChecker = () => null;
 let mailChecker = () => null;
@@ -77,7 +77,7 @@ async function whoisWithStorage(ipString) {
  *   referralRange as [start: hex, end: hex, mask: number],
  * }, null | {
  *   expiresTs: timestamp when data expires,
- *   isProxy: true or false,
+ *   isProxy: type of proxy, 0 if none,
  *   type: Residential, Wireless, VPN, SOCKS,...,
  *   operator: name of proxy operator if available,
  *   city: name of city,
@@ -116,7 +116,7 @@ export const getIPIntel = queue(async (
   }
   if (proxyCheckNeeded && !proxyCheckData) {
     proxyCheckData = {
-      isProxy: false,
+      isProxy: 0x01 << PROXY_FLAGS.INVALID,
       expiresTs: nowTs + 12 * 3600 * 1000,
     };
   }
@@ -126,7 +126,19 @@ export const getIPIntel = queue(async (
     whoisData.expiresTs = nowTs + WHOIS_DURATION * 3600 * 1000;
   }
   if (proxyCheckData && !proxyCheckData.expiresTs) {
-    proxyCheckData.expiresTs = nowTs + PROXYCHECK_DURATION * 3600 * 1000;
+    /*
+     * choose duration based on detection
+     */
+    let durationMs = 600 * 1000;
+    if (!proxyCheckData.isProxy) {
+      durationMs = 900 * 1000;
+    } else if (proxyCheckData.isProxy & (
+      // eslint-disable-next-line max-len
+      (0x01 << PROXY_FLAGS.VPN) | (0x01 << PROXY_FLAGS.TOR) | (0x01 << PROXY_FLAGS.HOSTING)
+    )) {
+      durationMs = 7 * 24 * 3600 * 1000;
+    }
+    proxyCheckData.expiresTs = nowTs + durationMs;
   }
 
   await saveIPIntel(ipString, whoisData, proxyCheckData);

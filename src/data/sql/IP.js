@@ -34,7 +34,7 @@ const IP = sequelize.define('IP', {
 });
 
 /**
- * Get basic values to check if an ip is allows, may throw Error
+ * Get basic values to check if an ip is allowed, may throw Error
  * @param ipString ip as string
  * @return {
  *   lastSeen,
@@ -52,7 +52,7 @@ export async function getIPAllowance(ipString) {
     ipAllowance = await sequelize.query(
       /* eslint-disable max-len */
       `SELECT COALESCE(i.lastSeen, NOW() - INTERVAL 5 MINUTE) as lastSeen,
-COALESCE(p.isProxy, 0) AS isProxy, w.ip IS NOT NULL AS isWhitelisted,
+p.isProxy > 0 AS isProxy, w.ip IS NOT NULL AS isWhitelisted,
 COALESCE(r.country, 'xx') AS country,
 COALESCE(r.expires, NOW() - INTERVAL 5 MINUTE) AS whoisExpires,
 COALESCE(p.expires, NOW() - INTERVAL 5 MINUTE) AS proxyCheckExpires,
@@ -122,7 +122,7 @@ WHERE i.ip = IP_TO_BIN(?)`, {
  * }
  * @param pcData null | {
  *   expiresTs: timestamp when data expires,
- *   isProxy: true or false,
+ *   isProxy: type of proxy and 0 if none,
  *   type: Residential, Wireless, VPN, SOCKS,...,
  *   operator: name of proxy operator if available,
  *   city: name of city,
@@ -228,13 +228,15 @@ ON DUPLICATE KEY UPDATE min = VALUES(min), max = VALUES(max), mask = VALUES(mask
         const {
           isProxy, type = null, operator = null, city = null,
           devices = 1, subnetDevices = 1,
+          risk = null, confidence = null,
         } = pcData;
         await sequelize.query(
-          `INSERT INTO Proxies (ip, isProxy, type, operator, city, devices, subnetDevices, expires) VALUES (IP_TO_BIN(?), ?, ?, ?, ?, ?, ?, ?)
-ON DUPLICATE KEY UPDATE isProxy = VALUES(isProxy), type = VALUES(type), operator = VALUES(operator), city = VALUES(city), devices = VALUES(devices), subnetDevices = VALUES(subnetDevices), ip = VALUES(ip), expires = VALUES(expires)`, {
+          `INSERT INTO Proxies (ip, isProxy, type, operator, city, devices, subnetDevices, risk, confidence, expires) VALUES (IP_TO_BIN(?), ?, ?, ?, ?, ?, ?, ?, ?, ?)
+ON DUPLICATE KEY UPDATE isProxy = VALUES(isProxy), type = VALUES(type), operator = VALUES(operator), city = VALUES(city), devices = VALUES(devices), subnetDevices = VALUES(subnetDevices), confidence = VALUES(confidence), risk = VALUES(risk), ip = VALUES(ip), expires = VALUES(expires)`, {
             replacements: [
               ipString,
               isProxy, type, operator, city, devices, subnetDevices,
+              risk, confidence,
               new Date(pcData.expiresTs),
             ],
             raw: true,

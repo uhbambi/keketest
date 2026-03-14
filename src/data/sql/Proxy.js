@@ -14,7 +14,7 @@ const ProxyData = sequelize.define('Proxy', {
   },
 
   isProxy: {
-    type: DataTypes.BOOLEAN,
+    type: DataTypes.TINYINT.UNSIGNED,
     allowNull: false,
   },
 
@@ -41,6 +41,14 @@ const ProxyData = sequelize.define('Proxy', {
    */
   city: {
     type: `${DataTypes.STRING(60)} CHARSET utf8mb4 COLLATE utf8mb4_unicode_ci`,
+  },
+
+  risk: {
+    type: DataTypes.TINYINT.UNSIGNED,
+  },
+
+  confidence: {
+    type: DataTypes.TINYINT.UNSIGNED,
   },
 
   /*
