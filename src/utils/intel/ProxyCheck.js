@@ -389,15 +389,9 @@ class ProxyCheck {
           if (network) {
             pcData.type = network.type;
             pcData.operator = network.provider;
-            if (pcData.operator?.length > 60) {
-              pcData.operator = pcData.operator.substring(0, 60);
-            }
           }
           if (location) {
             pcData.city = location.city_name;
-            if (pcData.city?.length > 60) {
-              pcData.city = pcData.city.substring(0, 60);
-            }
           }
           if (deviceEstimate) {
             pcData.devices = deviceEstimate.address;

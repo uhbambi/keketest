@@ -230,6 +230,12 @@ ON DUPLICATE KEY UPDATE min = VALUES(min), max = VALUES(max), mask = VALUES(mask
           devices = 1, subnetDevices = 1,
           risk = null, confidence = null,
         } = pcData;
+        if (pcData.operator?.length > 60) {
+          pcData.operator = pcData.operator.substring(0, 60);
+        }
+        if (pcData.city?.length > 60) {
+          pcData.city = pcData.city.substring(0, 60);
+        }
         await sequelize.query(
           `INSERT INTO Proxies (ip, isProxy, type, operator, city, devices, subnetDevices, risk, confidence, expires) VALUES (IP_TO_BIN(?), ?, ?, ?, ?, ?, ?, ?, ?, ?)
 ON DUPLICATE KEY UPDATE isProxy = VALUES(isProxy), type = VALUES(type), operator = VALUES(operator), city = VALUES(city), devices = VALUES(devices), subnetDevices = VALUES(subnetDevices), confidence = VALUES(confidence), risk = VALUES(risk), ip = VALUES(ip), expires = VALUES(expires)`, {

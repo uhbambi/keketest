@@ -129,9 +129,9 @@ export const getIPIntel = queue(async (
     /*
      * choose duration based on detection
      */
-    let durationMs = 600 * 1000;
+    let durationMs = 300 * 1000;
     if (!proxyCheckData.isProxy) {
-      durationMs = 900 * 1000;
+      durationMs = 600 * 1000;
     } else if (proxyCheckData.isProxy & (
       // eslint-disable-next-line max-len
       (0x01 << PROXY_FLAGS.VPN) | (0x01 << PROXY_FLAGS.TOR) | (0x01 << PROXY_FLAGS.HOSTING)
