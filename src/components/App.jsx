@@ -9,14 +9,12 @@ import { IconContext } from 'react-icons';
 
 import Style from './Style.jsx';
 import CoordinatesBox from './CoordinatesBox.jsx';
-import CanvasSwitchButton from './buttons/CanvasSwitchButton.jsx';
 import OnlineBox from './OnlineBox.jsx';
 import ChatButton from './buttons/ChatButton.jsx';
-import Menu from './Menu.jsx';
+import MenuButton from './buttons/MenuButton.jsx';
 import UI from './UI.jsx';
-import ExpandMenuButton from './buttons/ExpandMenuButton.jsx';
 import WindowManager from './WindowManager.jsx';
-import ContextMenuProvider from './contextmenus/index.jsx';
+import MenuProvider from './menus/index.jsx';
 
 const iconContextValue = { style: { verticalAlign: 'middle' } };
 
@@ -24,16 +22,14 @@ const App = () => (
   <>
     <Style />
     <IconContext.Provider value={iconContextValue}>
-      <ContextMenuProvider>
-        <CanvasSwitchButton />
-        <Menu />
+      <MenuProvider>
         <ChatButton />
         <OnlineBox />
         <CoordinatesBox />
-        <ExpandMenuButton />
+        <MenuButton />
         <UI />
         <WindowManager />
-      </ContextMenuProvider>
+      </MenuProvider>
     </IconContext.Provider>
   </>
 );

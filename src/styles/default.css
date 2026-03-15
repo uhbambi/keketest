@@ -409,22 +409,6 @@ tr:nth-child(even) {
   top: 16px;
 }
 
-.menu > div {
-  z-index: 1;
-  background-color: rgb(213, 238, 255);
-}
-
-.menu {
-  opacity: 0;
-  visibility: hidden;
-  transition: all .15s cubic-bezier(.46,.03,.52,.96);
-}
-
-.menu.show {
-  opacity: 1;
-  visibility: visible;
-}
-
 .convBox {
   border-style: solid;
   border-color: #D4D4D4;
@@ -441,32 +425,8 @@ tr:nth-child(even) {
   max-height: 160px;
 }
 
-#helpbutton {
-  left: 16px;
-  top: 180px;
-}
-#settingsbutton {
-  left: 16px;
-  top: 57px;
-}
-#loginbutton {
-  left: 16px;
-  top: 98px;
-}
-#downloadbutton {
-  left: 16px;
-  top: 139px;
-}
-#globebutton {
-  left: 98px;
-  top: 16px;
-}
 #voxelbutton {
   left: 180px;
-  top: 16px;
-}
-#canvasbutton {
-  left: 57px;
   top: 16px;
 }
 #palselbutton {
@@ -886,6 +846,72 @@ table td span {
   cursor: pointer;
 }
 
+.menu {
+  position: fixed;
+  font-size: 12px;
+  z-index: 10;
+  border: solid black;
+  border-width: thin;
+  box-shadow: 0 0 2px 2px rgba(0,0,0,.2);
+  background-color: var(--control-bg);
+  color: var(--control-txt-color);
+  transition: opacity 150ms ease-in-out;
+  opacity: 0;
+}
+
+.menu.MAIN {
+  font-size: 14px;
+}
+
+.menu.show {
+  opacity: 1;
+}
+
+.menu > .menuelement:not(:first-child) {
+  border-top: thin solid #b1b1b2;
+}
+
+.menu > .menuspacer:not(:first-child) {
+  border-top: thin solid #b1b1b2;
+}
+
+.menuelement {
+  padding: 8px 6px 8px 6px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.menu.MAIN > .menuelement {
+  padding: 9px 7px 9px 7px;
+  gap: 8px;
+}
+
+.menuicon {
+  display: flex;
+}
+
+.menutext {
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+.menuspacer {
+  height: 6px;
+  background-color: var(--control-bg-highlight);
+}
+
+.menuelement.selected {
+  background-color: var(--control-bg-selected);
+}
+
+.menuelement > .expand-btn {
+  position: absolute;
+  right: 4px;
+}
+
 /*
  * =========================== CHANNEL DROP DOWN ===============================
  */
@@ -924,6 +950,9 @@ table td span {
   background-color: var(--control-bg-highlight);
   margin: 2px;
   font-size: 12px;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
 }
 
 .channeldd-category.selected {
@@ -932,8 +961,8 @@ table td span {
 }
 
 .channeldd-category > .expand-btn {
-  float: right;
-  padding-right: 4px;
+  position: absolute;
+  right: 4px;
 }
 
 .channeldd-channellist {
@@ -1446,7 +1475,7 @@ button:hover {
   padding: 0;
 }
 
-.actionbuttons:hover, .coorbox:hover, .menu > div:hover, .onlinebox:hover {
+.actionbuttons:hover, .coorbox:hover, .onlinebox:hover {
   background-color: #d2d2d2cc;
 }
 

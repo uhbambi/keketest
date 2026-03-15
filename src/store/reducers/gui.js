@@ -13,8 +13,6 @@ const initialState = {
   cursor: true,
   // popups that are set to show fullscreen
   fsPopUps: [],
-  // top-left button menu
-  menuOpen: false,
   // show online users per canvas instead of total
   onlineCanvas: false,
   // show daily pixels instead o total pixels
@@ -111,13 +109,6 @@ export default function gui(
       return {
         ...state,
         paletteOpen: !state.paletteOpen,
-      };
-    }
-
-    case 's/TGL_OPEN_MENU': {
-      return {
-        ...state,
-        menuOpen: !state.menuOpen,
       };
     }
 

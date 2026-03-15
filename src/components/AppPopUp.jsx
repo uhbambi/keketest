@@ -9,7 +9,7 @@ import { IconContext } from 'react-icons';
 
 import Style from './Style.jsx';
 import UIPopUp from './UIPopUp.jsx';
-import ContextMenuProvider from './contextmenus/index.jsx';
+import MenuProvider from './menus/index.jsx';
 
 const iconContextValue = { style: { verticalAlign: 'middle' } };
 
@@ -17,9 +17,9 @@ const AppPopUp = () => (
   <>
     <Style />
     <IconContext.Provider value={iconContextValue}>
-      <ContextMenuProvider>
+      <MenuProvider>
         <UIPopUp />
-      </ContextMenuProvider>
+      </MenuProvider>
     </IconContext.Provider>
   </>
 );

@@ -1,14 +1,17 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useMemo } from 'react';
 
-import ContextMenuContext from '../context/contextmenu.js';
-import ContextMenu from './ContextMenu.jsx';
+import MenuContext from '../context/menu.js';
+import Menu from './Menu.jsx';
 
 const ContextMenuProvider = ({ children }) => {
   const [menuState, setMenuState] = useState(null);
 
-  const showContextMenu = useCallback((type, x, y, args, align) => {
-    setMenuState({ active: true, type, x, y, align, args });
-  }, []);
+  const contextData = useMemo(() => ({
+    openMenu: (type, x, y, args, align, id) => {
+      setMenuState({ active: true, type, x, y, args, align, id });
+    },
+    openMenuId: menuState?.id,
+  }), [menuState?.id]);
 
   const remove = useCallback(() => {
     setMenuState((state) => ({ ...state, active: false }));
@@ -19,21 +22,21 @@ const ContextMenuProvider = ({ children }) => {
   }, []);
 
   return (
-    <ContextMenuContext.Provider value={showContextMenu}>
+    <MenuContext.Provider value={contextData}>
       {children}
       {(menuState) && (
-      <ContextMenu
+      <Menu
         type={menuState.type}
         x={menuState.x}
         y={menuState.y}
         args={menuState.args}
         align={menuState.align}
-        active={menuState.active}
+        isOpen={menuState.active}
         remove={remove}
         close={close}
       />
       )}
-    </ContextMenuContext.Provider>
+    </MenuContext.Provider>
   );
 };
 

@@ -11,7 +11,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { t } from 'ttag';
 
 import WindowContext from '../context/window.js';
-import ContextMenuContext from '../context/contextmenu.js';
+import MenuContext from '../context/menu.js';
 import useLink from '../hooks/link.js';
 import ChatMessage from '../ChatMessage.jsx';
 import FileUpload from '../FileUpload.jsx';
@@ -48,7 +48,7 @@ const Chat = () => {
   } = useSelector((state) => state.chat);
 
   const { args, setArgs, setTitle } = useContext(WindowContext);
-  const showContextMenu = useContext(ContextMenuContext);
+  const { openMenu } = useContext(MenuContext);
 
   const chatChannel = args.chatChannel || 0;
   const previousChatChannelRef = useRef();
@@ -150,10 +150,10 @@ const Chat = () => {
   }, []);
 
   const openUserCm = useCallback((x, y, userName, uid) => {
-    showContextMenu(
+    openMenu(
       'USER', x, y, { name: userName, uid, setChannel, addToInput },
     );
-  }, [setChannel, addToInput, showContextMenu]);
+  }, [setChannel, addToInput, openMenu]);
 
   const { stayScrolled } = useStayScrolled(listRef, {
     initialScroll: Infinity,
@@ -364,7 +364,7 @@ const Chat = () => {
       >
         <span
           onClick={(evt) => {
-            showContextMenu(
+            openMenu(
               'CHANNEL', evt.clientX, evt.clientY, {
                 cid: chatChannel, type: channelType, muted: channelMuted,
               }, 'tr',

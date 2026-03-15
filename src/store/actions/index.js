@@ -157,12 +157,6 @@ export function selectStyle(style) {
   };
 }
 
-export function toggleOpenMenu() {
-  return {
-    type: 's/TGL_OPEN_MENU',
-  };
-}
-
 export function setHover(hover) {
   return {
     type: 'SET_HOVER',

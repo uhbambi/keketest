@@ -14,7 +14,7 @@ import { LuFileVideo2 } from 'react-icons/lu';
 import useLink from '../hooks/link.js';
 import { cdn } from '../../utils/utag.js';
 import { splitUrl } from '../../core/utils.js';
-import ContextMenuContext from '../context/contextmenu.js';
+import MenuContext from '../context/menu.js';
 import {
   getMediaDetailsFromUrl,
   getUrlsFromMediaIdAndName,
@@ -32,7 +32,7 @@ const LocalMedia = ({
 
   const link = useLink();
   const userlvl = useSelector((state) => state.user.userlvl);
-  const showContextMenu = useContext(ContextMenuContext);
+  const { openMenu } = useContext(MenuContext);
 
   const [
     mediaId, fullUrl, thumbUrl, iconUrl, title, type, backgroundColor,
@@ -222,7 +222,7 @@ const LocalMedia = ({
           <span
             onClick={(evt) => {
               evt.stopPropagation();
-              showContextMenu(
+              openMenu(
                 'BANMEDIA', evt.clientX, evt.clientY, { mediaId }, 'tr',
               );
             }}

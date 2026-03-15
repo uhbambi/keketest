@@ -8,7 +8,6 @@ import { useSelector, shallowEqual } from 'react-redux';
 import CoolDownBox from './CoolDownBox.jsx';
 import NotifyBox from './NotifyBox.jsx';
 import ReplacementMessage from './ReplacementMessage.jsx';
-import GlobeButton from './buttons/GlobeButton.jsx';
 import PalselButton from './buttons/PalselButton.jsx';
 import PencilButton from './buttons/PencilButton.jsx';
 import MovementControls from './buttons/MovementControls.jsx';
@@ -48,7 +47,6 @@ const UI = () => {
         <>
           <PalselButton />
           <Palette />
-          {(!is3D) && <GlobeButton />}
           {(!is3D && isOnMobile) && <PencilButton />}
           <CoolDownBox />
         </>
