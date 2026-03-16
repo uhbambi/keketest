@@ -8,6 +8,8 @@ import {
   FaQuestion,
   // canvas icon
   FaFlipboard,
+  // paint roller for templates
+  FaPaintRoller,
 } from 'react-icons/fa';
 import {
   // download symbol
@@ -22,6 +24,7 @@ import { t } from 'ttag';
 
 import { getRenderer } from '../../ui/rendererFactory.js';
 import { CANVAS_TYPES } from '../../core/constants.js';
+import { selectCanvas, setViewCoordinates } from '../../store/actions/index.js';
 
 function download() {
   const renderer = getRenderer();
@@ -34,9 +37,17 @@ function download() {
 }
 
 export default function mainMenu(store) {
-  let elements = [];
+  let elements = [{
+    id: 'ca1',
+    type: 'link',
+    symbol: FaFlipboard,
+    link: 'CANVAS_SELECTION',
+    text: t`Canvas Selection`,
+  }];
 
-  if (store.getState().canvas.rendererType !== CANVAS_TYPES.THREED) {
+  const state = store.getState();
+
+  if (state.canvas.rendererType !== CANVAS_TYPES.THREED) {
     elements.push({
       id: 'gl',
       type: 'func',
@@ -55,26 +66,11 @@ export default function mainMenu(store) {
 
   elements = elements.concat([
     {
-      id: 'ca',
-      type: 'submenu',
-      symbol: FaFlipboard,
-      text: 'Submenu 1',
-      elements: [
-        {
-          id: 'sc1',
-          type: 'func',
-          symbol: MdFileDownload,
-          func: download,
-          text: t`Make Screenshot`,
-        },
-        {
-          id: 'ca1',
-          type: 'link',
-          symbol: FaFlipboard,
-          link: 'CANVAS_SELECTION',
-          text: t`Canvas Selection`,
-        },
-      ],
+      id: 'sc1',
+      type: 'func',
+      symbol: MdFileDownload,
+      func: download,
+      text: t`Make Screenshot`,
     },
     { id: 's1', type: 'spacer' },
     {
@@ -84,28 +80,43 @@ export default function mainMenu(store) {
       link: 'USERAREA',
       text: t`User Area`,
     },
-    {
-      id: 'cb',
+  ]);
+
+  if (state.templates.available) {
+    let templateSubmenu = [{
+      id: 'te',
+      type: 'link',
+      link: 'TEMPLATES',
+      text: t`Manage Templates`,
+    }];
+    const templateList = state.templates.list.map((template, index) => ({
+      id: `template-${template.title}${index}`,
+      type: 'func',
+      text: template.title,
+      func: () => {
+        store.dispatch(selectCanvas(template.canvasId));
+        store.dispatch(setViewCoordinates([
+          template.x + template.width / 2, template.y + template.height / 2,
+        ]));
+      },
+    }));
+    if (templateList.length) {
+      templateSubmenu = templateSubmenu.concat(
+        { id: 'st1', type: 'spacer' },
+        templateList,
+      );
+    }
+
+    elements = elements.concat({
+      id: 'te',
       type: 'submenu',
-      symbol: FaFlipboard,
-      text: 'Submenu 2',
-      elements: [
-        {
-          id: 'sc2',
-          type: 'func',
-          symbol: MdFileDownload,
-          func: download,
-          text: t`Make Screenshot`,
-        },
-        {
-          id: 'ca2',
-          type: 'link',
-          symbol: FaFlipboard,
-          link: 'CANVAS_SELECTION',
-          text: t`Canvas Selection`,
-        },
-      ],
-    },
+      symbol: FaPaintRoller,
+      text: t`Templates`,
+      elements: templateSubmenu,
+    });
+  }
+
+  elements = elements.concat([
     { id: 's2', type: 'spacer' },
     {
       id: 'se',

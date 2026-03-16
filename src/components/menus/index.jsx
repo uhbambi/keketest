@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useMemo, useEffect } from 'react';
+import React, { useState, useCallback, useMemo } from 'react';
 
 import MenuContext from '../context/menu.js';
 import Menu from './Menu.jsx';
@@ -14,10 +14,6 @@ const ContextMenuProvider = ({ children }) => {
     },
     openMenuId: menuState?.id,
   }), [menuState?.id]);
-
-  useEffect(() => {
-    console.log(menuState);
-  }, [menuState]);
 
   const remove = useCallback(() => {
     setMenuState((state) => {

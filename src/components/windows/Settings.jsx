@@ -9,7 +9,6 @@ import { c, t } from 'ttag';
 import SettingsItem from '../SettingsItem.jsx';
 import SettingsItemSelect from '../SettingsItemSelect.jsx';
 import LanguageSelect from '../LanguageSelect.jsx';
-import TemplateSettings from '../TemplateSettings.jsx';
 import {
   toggleGrid,
   togglePixelNotify,
@@ -42,7 +41,6 @@ const Settings = () => {
     pencilMode,
     isHistoricalView,
     canvasName,
-    templatesAvailable,
   ] = useSelector((state) => [
     state.gui.showGrid,
     state.gui.showPixelNotify,
@@ -58,7 +56,6 @@ const Settings = () => {
     state.canvas.pencilMode,
     state.canvas.isHistoricalView,
     state.canvas.canvases[state.canvas.canvasId]?.title,
-    state.templates.available,
   ], shallowEqual);
   const dispatch = useDispatch();
   const audioAvailable = window.AudioContext || window.webkitAudioContext;
@@ -193,8 +190,6 @@ const Settings = () => {
           </div>
         </div>
       )}
-      <div className="modaldivider" />
-      {(templatesAvailable) && <TemplateSettings />}
     </div>
   );
 };

@@ -9,18 +9,18 @@ import { useSelector, useDispatch, shallowEqual } from 'react-redux';
 import fileDownload from 'js-file-download';
 import { c, t } from 'ttag';
 
-import TemplateItem from './TemplateItem.jsx';
-import TemplateItemEdit from './TemplateItemEdit.jsx';
-import SettingsItem from './SettingsItem.jsx';
-import templateLoader from '../ui/templateLoader.js';
+import TemplateItem from '../TemplateItem.jsx';
+import TemplateItemEdit from '../TemplateItemEdit.jsx';
+import SettingsItem from '../SettingsItem.jsx';
+import templateLoader from '../../ui/templateLoader.js';
 import {
   toggleOVEnabled,
   toggleSmallPxls,
   setOvOpacity,
-} from '../store/actions/templates.js';
+} from '../../store/actions/templates.js';
 
 
-const TemplateSettings = () => {
+const Templates = () => {
   const [showAdd, setShowAdd] = useState(false);
   const [
     list,
@@ -48,7 +48,7 @@ const TemplateSettings = () => {
   }, [list, editingIndices]);
 
   return (
-    <>
+    <div className="content">
       <h2>{t`Templates`}</h2>
       <p>
         {
@@ -172,8 +172,8 @@ const TemplateSettings = () => {
           templateLoader.importTemplates(evt.target.files?.[0]);
         }}
       />
-    </>
+    </div>
   );
 };
 
-export default TemplateSettings;
+export default Templates;

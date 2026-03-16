@@ -10,6 +10,7 @@ import Player from './Player.jsx';
 import FishDisplay from './FishDisplay.jsx';
 import BadgeDisplay from './BadgeDisplay.jsx';
 import OIDCConsent from './OIDCConsent.jsx';
+import Templates from './Templates.jsx';
 
 export default {
   /*
@@ -25,6 +26,7 @@ export default {
   PLAYER: [Player, t`Player`, false],
   FISH_DISPLAY: [FishDisplay, t`Fish Display`, true],
   BADGE_DISPLAY: [BadgeDisplay, t`Badge Display`, true],
+  TEMPLATES: [Templates, t`Templates`, false],
   /*
    * OIDC Consent is a very special case, because it is only available as
    * seperate popup, hoever, this is a single-page-applications, so we include
