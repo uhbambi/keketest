@@ -17,6 +17,7 @@ const TIME_CACHE = new Map();
 
 const HistorySelect = ({ id }) => {
   const dateSelect = useRef(null);
+  const requestControllerRef = useRef(null);
 
   const [submitting, setSubmitting] = useState(false);
   const [times, setTimes] = useState([]);
@@ -50,8 +51,23 @@ const HistorySelect = ({ id }) => {
     if (cache && cache[1] > Date.now() - 30 * 60 * 1000) {
       return cache[0];
     }
+
+    if (requestControllerRef.current
+      && !requestControllerRef.current.signal.aborted
+    ) {
+      requestControllerRef.current.abort();
+    }
+    const controller = new AbortController();
+    requestControllerRef.current = controller;
+
     setSubmitting(true);
-    const newTimes = await requestHistoricalTimes(date, canvasId);
+    const newTimes = await requestHistoricalTimes(date, canvasId, controller);
+    if (controller.signal.aborted) {
+      // got aborted by future request
+      return null;
+    }
+
+    requestControllerRef.current = null;
     TIME_CACHE.set(key, [newTimes, Date.now()]);
     setSubmitting(false);
     return newTimes;
@@ -72,6 +88,9 @@ const HistorySelect = ({ id }) => {
       }
       date = dateSelect.current.value;
       const newTimes = await handleDateChange(date);
+      if (newTimes === null) {
+        return;
+      }
       let newTime;
       if (newPos < 0 && newTimes.length > 0) {
         newTime = newTimes[newTimes.length - 1];
@@ -120,6 +139,9 @@ const HistorySelect = ({ id }) => {
         onChange={async (evt) => {
           const date = evt.target.value;
           const newTimes = await handleDateChange(date);
+          if (newTimes === null) {
+            return;
+          }
           setTimes(newTimes);
           setTime(date, newTimes[0] || '00:00');
         }}

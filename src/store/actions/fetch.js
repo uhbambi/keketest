@@ -266,7 +266,7 @@ export async function requestSolveCaptcha(text, captchaid) {
   return res;
 }
 
-export async function requestHistoricalTimes(day, canvasId) {
+export async function requestHistoricalTimes(day, canvasId, controller) {
   try {
     const date = dateToString(day);
     // Not going over shard url
@@ -274,6 +274,7 @@ export async function requestHistoricalTimes(day, canvasId) {
     const response = await fetchWithTimeout(url, {
       credentials: 'omit',
       timeout: 45000,
+      signal: controller.signal,
     });
     if (response.status !== 200) {
       return [];

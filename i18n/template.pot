@@ -7,11 +7,11 @@ msgstr ""
 msgid " which is in "
 msgstr ""
 
-#: src/components/Rankings.jsx:218
+#: src/components/windows/Statistics.jsx:229
 msgid "# Today"
 msgstr ""
 
-#: src/components/Rankings.jsx:227
+#: src/components/windows/Statistics.jsx:238
 msgid "# Total"
 msgstr ""
 
@@ -45,11 +45,11 @@ msgid ""
 "button and drag to zoom"
 msgstr ""
 
-#: src/components/ModIIDtools.jsx:166
+#: src/components/IIDTools.jsx:174
 msgid "(0 = infinite)"
 msgstr ""
 
-#: src/components/Rankings.jsx:244
+#: src/components/windows/Statistics.jsx:255
 msgid "+last hour"
 msgstr ""
 
@@ -77,7 +77,9 @@ msgstr ""
 msgid "Add Template"
 msgstr ""
 
-#: src/components/windows/UserArea.jsx:67
+#: src/components/menus/mainMenu.js:148
+#: src/components/menus/mainMenu.js:157
+#. This if for moderation tools, it's not important to translate this
 msgid "Admintools"
 msgstr ""
 
@@ -97,7 +99,7 @@ msgstr ""
 msgid "Anti Aliasing"
 msgstr ""
 
-#: src/components/ModCanvastools.jsx:498
+#: src/components/Canvastools.jsx:502
 msgid "Apply a filter to clean trash in large canvas areas."
 msgstr ""
 
@@ -105,7 +107,7 @@ msgstr ""
 msgid "Archive"
 msgstr ""
 
-#: src/components/Admintools.jsx:354
+#: src/components/Admintools.jsx:360
 msgid "Assign new Mod"
 msgstr ""
 
@@ -125,7 +127,7 @@ msgstr ""
 msgid "Back"
 msgstr ""
 
-#: src/components/windows/index.js:28
+#: src/components/windows/index.js:34
 msgid "Badge Display"
 msgstr ""
 
@@ -133,7 +135,7 @@ msgstr ""
 msgid "Badges"
 msgstr ""
 
-#: src/components/ModMediatools.jsx:83
+#: src/components/Mediatools.jsx:89
 #: src/components/embeds/LocalMedia.jsx:230
 msgid "Ban media"
 msgstr ""
@@ -165,22 +167,22 @@ msgstr ""
 msgid "Blocked"
 msgstr ""
 
-#: src/components/ModCanvastools.jsx:370
-#: src/components/ModCanvastools.jsx:447
-#: src/components/ModCanvastools.jsx:543
-#: src/components/ModWatchtools.jsx:206
+#: src/components/Canvastools.jsx:374
+#: src/components/Canvastools.jsx:451
+#: src/components/Canvastools.jsx:547
+#: src/components/Watchtools.jsx:213
 msgid "Bottom-right corner"
 msgstr ""
 
-#: src/components/ModCanvastools.jsx:175
+#: src/components/Canvastools.jsx:175
 msgid "Build image and set it to protected."
 msgstr ""
 
-#: src/components/ModCanvastools.jsx:172
+#: src/components/Canvastools.jsx:172
 msgid "Build image on canvas."
 msgstr ""
 
-#: src/components/ModCanvastools.jsx:178
+#: src/components/Canvastools.jsx:178
 msgid "Build image, but reset cooldown to unset-pixel cd."
 msgstr ""
 
@@ -225,17 +227,17 @@ msgstr ""
 msgid "Cancel adding Template"
 msgstr ""
 
-#: src/components/ModWatchtools.jsx:133
 #: src/components/TemplateItem.jsx:54
 #: src/components/TemplateItemEdit.jsx:122
+#: src/components/Watchtools.jsx:140
 msgid "Canvas"
 msgstr ""
 
-#: src/components/windows/index.js:25
+#: src/components/windows/index.js:31
 msgid "Canvas Archive"
 msgstr ""
 
-#: src/components/ModCanvastools.jsx:496
+#: src/components/Canvastools.jsx:500
 msgid "Canvas Cleaner"
 msgstr ""
 
@@ -243,9 +245,14 @@ msgstr ""
 msgid "Canvas Error"
 msgstr ""
 
-#: src/components/menus/mainMenu.js:47
-#: src/components/windows/index.js:24
+#: src/components/menus/mainMenu.js:51
+#: src/components/windows/index.js:30
 msgid "Canvas Selection"
+msgstr ""
+
+#: src/components/menus/mainMenu.js:121
+#. This if for moderation tools, it's not important to translate this
+msgid "Canvastools"
 msgstr ""
 
 #: src/components/LogInForm.jsx:379
@@ -280,12 +287,12 @@ msgstr ""
 msgid "Channel settings"
 msgstr ""
 
-#: src/components/Rankings.jsx:187
-#: src/components/Rankings.jsx:204
+#: src/components/windows/Statistics.jsx:198
+#: src/components/windows/Statistics.jsx:215
 msgid "Charts"
 msgstr ""
 
-#: src/components/windows/index.js:23
+#: src/components/windows/index.js:29
 msgid "Chat"
 msgstr ""
 
@@ -301,12 +308,12 @@ msgstr ""
 msgid "Check to allow"
 msgstr ""
 
-#: src/components/ModWatchtools.jsx:132
+#: src/components/Watchtools.jsx:139
 msgid "Check who placed in an area"
 msgstr ""
 
+#: src/components/Canvastools.jsx:238
 #: src/components/Converter.jsx:191
-#: src/components/ModCanvastools.jsx:234
 msgid "Choose Canvas"
 msgstr ""
 
@@ -322,24 +329,24 @@ msgstr ""
 msgid "Choose Username"
 msgstr ""
 
-#: src/components/ModCanvastools.jsx:196
+#: src/components/Canvastools.jsx:196
 msgid ""
 "Clean spare pixels that are surrounded by a single other color or unset "
 "pixels (VERY AGGRESSIVE ON CANVASES THAT ALLOW UNSET PIXELS (where there "
 "are two cooldowns)!)"
 msgstr ""
 
-#: src/components/ModCanvastools.jsx:188
+#: src/components/Canvastools.jsx:188
 msgid "Clean spare pixels that are surrounded by unset pixels"
 msgstr ""
 
-#: src/components/ModCanvastools.jsx:192
+#: src/components/Canvastools.jsx:192
 msgid ""
 "Clean spare pixels that are surrounded by unset pixels and up to 1 other "
 "set pixels"
 msgstr ""
 
-#: src/components/Admintools.jsx:399
+#: src/components/Admintools.jsx:405
 msgid "Cleaners can use 0cd blank colors."
 msgstr ""
 
@@ -376,9 +383,9 @@ msgstr ""
 msgid "Clone"
 msgstr ""
 
-#: src/components/Admintools.jsx:185
-#: src/components/ModCanvastools.jsx:230
-#: src/components/ModWatchtools.jsx:128
+#: src/components/Admintools.jsx:191
+#: src/components/Canvastools.jsx:234
+#: src/components/Watchtools.jsx:135
 #: src/components/Window.jsx:256
 #: src/components/menus/channelContextMenu.js:31
 msgid "Close"
@@ -419,7 +426,7 @@ msgstr ""
 msgid "Consent"
 msgstr ""
 
-#: src/components/windows/UserArea.jsx:75
+#: src/components/windows/UserArea.jsx:45
 msgid "Consider joining us on Matrix:"
 msgstr ""
 
@@ -432,7 +439,7 @@ msgstr ""
 msgid "Convert an image to canvas colors"
 msgstr ""
 
-#: src/components/windows/UserArea.jsx:61
+#: src/components/windows/UserArea.jsx:38
 msgid "Converter"
 msgstr ""
 
@@ -451,7 +458,7 @@ msgstr ""
 msgid "Coordinates"
 msgstr ""
 
-#: src/components/ModCanvastools.jsx:279
+#: src/components/Canvastools.jsx:283
 msgid "Coordinates:"
 msgstr ""
 
@@ -472,7 +479,7 @@ msgstr ""
 msgid "Copy Link"
 msgstr ""
 
-#: src/components/ModWatchtools.jsx:476
+#: src/components/Watchtools.jsx:483
 msgid "Copy Selected to Clipboard"
 msgstr ""
 
@@ -481,19 +488,19 @@ msgstr ""
 msgid "Copy URL"
 msgstr ""
 
-#: src/components/ModWatchtools.jsx:447
+#: src/components/Watchtools.jsx:454
 msgid "Copy UserId to Clipboard"
 msgstr ""
 
 #: src/components/Converter.jsx:566
 #: src/components/CoordinatesBox.jsx:46
-#: src/components/ModWatchtools.jsx:398
-#: src/components/ModWatchtools.jsx:421
+#: src/components/Watchtools.jsx:405
+#: src/components/Watchtools.jsx:428
 msgid "Copy to Clipboard"
 msgstr ""
 
-#: src/store/actions/fetch.js:526
-#: src/store/actions/fetch.js:614
+#: src/store/actions/fetch.js:527
+#: src/store/actions/fetch.js:615
 msgid "Could not connect to server"
 msgstr ""
 
@@ -506,8 +513,8 @@ msgstr ""
 msgid "Could not load captcha"
 msgstr ""
 
-#: src/store/actions/fetch.js:504
-#: src/store/actions/fetch.js:603
+#: src/store/actions/fetch.js:505
+#: src/store/actions/fetch.js:604
 msgid "Could not process files"
 msgstr ""
 
@@ -515,12 +522,12 @@ msgstr ""
 msgid "Couldn't set Pixel"
 msgstr ""
 
-#: src/components/Rankings.jsx:178
+#: src/components/windows/Statistics.jsx:189
 msgid "Countries Today"
 msgstr ""
 
 #: src/components/CooldownChanges.jsx:26
-#: src/components/Rankings.jsx:241
+#: src/components/windows/Statistics.jsx:252
 msgid "Country"
 msgstr ""
 
@@ -556,11 +563,11 @@ msgstr ""
 msgid "DM"
 msgstr ""
 
-#: src/components/Rankings.jsx:198
+#: src/components/windows/Statistics.jsx:209
 msgid "Daily Pixels per Country"
 msgstr ""
 
-#: src/components/Rankings.jsx:193
+#: src/components/windows/Statistics.jsx:204
 msgid "Daily Pixels per Player"
 msgstr ""
 
@@ -622,7 +629,7 @@ msgstr ""
 msgid "Display Palette in a compact form that takes less screen space."
 msgstr ""
 
-#: src/components/Admintools.jsx:193
+#: src/components/Admintools.jsx:199
 msgid "Do stuff with IPs (one IP per line)"
 msgstr ""
 
@@ -648,7 +655,7 @@ msgid "Drag ${ mouseSymbol } mouse or ${ touchSymbol } pan to move"
 msgstr ""
 
 #: src/components/BanInfo.jsx:108
-#: src/components/ModIIDtools.jsx:153
+#: src/components/IIDTools.jsx:161
 msgid "Duration"
 msgstr ""
 
@@ -714,12 +721,12 @@ msgstr ""
 msgid "Enter Characters"
 msgstr ""
 
-#: src/components/ModIIDtools.jsx:149
-#: src/components/ModIIDtools.jsx:247
+#: src/components/IIDTools.jsx:157
+#: src/components/IIDTools.jsx:255
 msgid "Enter Reason"
 msgstr ""
 
-#: src/components/Admintools.jsx:357
+#: src/components/Admintools.jsx:363
 msgid "Enter UserName of new Mod"
 msgstr ""
 
@@ -771,11 +778,11 @@ msgstr ""
 msgid "Factor"
 msgstr ""
 
-#: src/components/ModCanvastools.jsx:258
+#: src/components/Canvastools.jsx:262
 msgid "File"
 msgstr ""
 
-#: src/components/windows/index.js:27
+#: src/components/windows/index.js:33
 msgid "Fish Display"
 msgstr ""
 
@@ -841,11 +848,11 @@ msgstr ""
 msgid "Get IID"
 msgstr ""
 
-#: src/components/ModWatchtools.jsx:257
+#: src/components/Watchtools.jsx:264
 msgid "Get Pixels"
 msgstr ""
 
-#: src/components/ModWatchtools.jsx:289
+#: src/components/Watchtools.jsx:296
 msgid "Get Users"
 msgstr ""
 
@@ -857,7 +864,7 @@ msgstr ""
 msgid "Get the amount of Pixels placed and ranking"
 msgstr ""
 
-#: src/components/menus/mainMenu.js:65
+#: src/components/menus/mainMenu.js:69
 msgid "Globe View"
 msgstr ""
 
@@ -890,8 +897,8 @@ msgid "Height"
 msgstr ""
 
 #: src/components/BanInfo.jsx:80
-#: src/components/menus/mainMenu.js:148
-#: src/components/windows/index.js:20
+#: src/components/menus/mainMenu.js:219
+#: src/components/windows/index.js:26
 msgid "Help"
 msgstr ""
 
@@ -911,7 +918,7 @@ msgid ""
 "least once per day."
 msgstr ""
 
-#: src/components/menus/mainMenu.js:78
+#: src/components/menus/mainMenu.js:84
 #: src/components/windows/Settings.jsx:154
 msgid "Historical View"
 msgstr ""
@@ -929,15 +936,20 @@ msgstr ""
 msgid "I forgot my Password."
 msgstr ""
 
-#: src/components/ModWatchtools.jsx:167
+#: src/components/Watchtools.jsx:174
 msgid "IID (optional)"
 msgstr ""
 
-#: src/components/ModIIDtools.jsx:119
+#: src/components/IIDTools.jsx:127
 msgid "IID Actions"
 msgstr ""
 
-#: src/components/Admintools.jsx:191
+#: src/components/menus/mainMenu.js:138
+#. This if for moderation tools, it's not important to translate this
+msgid "IIDTools"
+msgstr ""
+
+#: src/components/Admintools.jsx:197
 msgid "IP Actions"
 msgstr ""
 
@@ -964,7 +976,7 @@ msgstr ""
 msgid "Image Converter"
 msgstr ""
 
-#: src/components/ModCanvastools.jsx:255
+#: src/components/Canvastools.jsx:259
 msgid "Image Upload"
 msgstr ""
 
@@ -972,11 +984,11 @@ msgstr ""
 msgid "Import templates"
 msgstr ""
 
-#: src/components/ModWatchtools.jsx:152
+#: src/components/Watchtools.jsx:159
 msgid "Interval"
 msgstr ""
 
-#: src/components/ModWatchtools.jsx:49
+#: src/components/Watchtools.jsx:50
 msgid "Interval is invalid"
 msgstr ""
 
@@ -995,7 +1007,7 @@ msgid "Invalid color selected"
 msgstr ""
 
 #: src/components/windows/Help.jsx:77
-#: src/components/windows/UserArea.jsx:76
+#: src/components/windows/UserArea.jsx:46
 msgid "Invited to Chat"
 msgstr ""
 
@@ -1003,7 +1015,7 @@ msgstr ""
 msgid "It requests the following permissions. Uncheck what you don't want to grant:"
 msgstr ""
 
-#: src/components/Admintools.jsx:397
+#: src/components/Admintools.jsx:403
 msgid "Jannies can rollback and protect, but not watch or ban."
 msgstr ""
 
@@ -1040,11 +1052,13 @@ msgstr ""
 msgid "Load Captcha"
 msgstr ""
 
-#: src/components/HistorySelect.jsx:156
+#: src/components/HistorySelect.jsx:178
 msgid "Loading"
 msgstr ""
 
-#: src/components/windows/UserArea.jsx:68
+#: src/components/UIPopUp.jsx:58
+#: src/components/UIPopUp.jsx:62
+#: src/components/Window.jsx:276
 msgid "Loading..."
 msgstr ""
 
@@ -1080,15 +1094,15 @@ msgstr ""
 msgid "Login with Name or Mail:"
 msgstr ""
 
-#: src/components/menus/mainMenu.js:88
+#: src/components/menus/mainMenu.js:93
 msgid "Make Screenshot"
 msgstr ""
 
-#: src/components/Admintools.jsx:304
+#: src/components/Admintools.jsx:310
 msgid "Manage Moderators"
 msgstr ""
 
-#: src/components/menus/mainMenu.js:105
+#: src/components/menus/mainMenu.js:168
 msgid "Manage Templates"
 msgstr ""
 
@@ -1100,19 +1114,26 @@ msgstr ""
 msgid "Maximize"
 msgstr ""
 
-#: src/components/ModMediatools.jsx:58
+#: src/components/Mediatools.jsx:64
 msgid "Media Actions"
+msgstr ""
+
+#: src/components/menus/mainMenu.js:112
+#. This if for moderation tools, it's not important to translate this
+msgid "Mediatools"
 msgstr ""
 
 #: src/components/Converter.jsx:301
 msgid "Minimum Color Distance"
 msgstr ""
 
-#: src/components/Admintools.jsx:395
+#: src/components/Admintools.jsx:401
 msgid "Moderators can access all Canvas, Watch and IID tools."
 msgstr ""
 
-#: src/components/windows/UserArea.jsx:67
+#: src/components/menus/mainMenu.js:157
+#: src/components/windows/index.js:37
+#. This if for moderation tools, it's not important to translate this
 msgid "Modtools"
 msgstr ""
 
@@ -1173,8 +1194,8 @@ msgstr ""
 msgid "No"
 msgstr ""
 
-#: src/store/actions/fetch.js:477
-#: src/store/actions/fetch.js:544
+#: src/store/actions/fetch.js:478
+#: src/store/actions/fetch.js:545
 msgid "No File selected to upload"
 msgstr ""
 
@@ -1198,6 +1219,14 @@ msgstr ""
 msgid "No password given."
 msgstr ""
 
+#: src/components/Admintools.jsx:173
+#: src/components/Canvastools.jsx:211
+#: src/components/IIDTools.jsx:108
+#: src/components/Mediatools.jsx:46
+#: src/components/Watchtools.jsx:111
+msgid "Not Allowed"
+msgstr ""
+
 #: src/ui/PixelTransferController.js:126
 #: src/ui/PixelTransferController.js:142
 #: src/ui/PixelTransferController.js:146
@@ -1208,7 +1237,7 @@ msgstr ""
 msgid "Note"
 msgstr ""
 
-#: src/components/windows/index.js:42
+#: src/components/windows/index.js:51
 msgid "OIDC LogIn"
 msgstr ""
 
@@ -1352,7 +1381,7 @@ msgstr ""
 msgid "Pixel Notify ON"
 msgstr ""
 
-#: src/components/ModCanvastools.jsx:324
+#: src/components/Canvastools.jsx:328
 msgid "Pixel Protection"
 msgstr ""
 
@@ -1360,13 +1389,13 @@ msgstr ""
 msgid "Pixel protected"
 msgstr ""
 
-#: src/components/Rankings.jsx:217
-#: src/components/Rankings.jsx:226
-#: src/components/Rankings.jsx:235
+#: src/components/windows/Statistics.jsx:228
+#: src/components/windows/Statistics.jsx:237
+#: src/components/windows/Statistics.jsx:246
 msgid "Pixels"
 msgstr ""
 
-#: src/components/Rankings.jsx:219
+#: src/components/windows/Statistics.jsx:230
 msgid "Pixels Today"
 msgstr ""
 
@@ -1383,7 +1412,7 @@ msgstr ""
 msgid "Play a sound when new chat messages arrive"
 msgstr ""
 
-#: src/components/windows/index.js:26
+#: src/components/windows/index.js:32
 msgid "Player"
 msgstr ""
 
@@ -1459,8 +1488,8 @@ msgstr ""
 msgid "Private"
 msgstr ""
 
-#: src/components/windows/UserArea.jsx:33
-#: src/components/windows/UserArea.jsx:53
+#: src/components/windows/UserArea.jsx:22
+#: src/components/windows/UserArea.jsx:35
 msgid "Profile"
 msgstr ""
 
@@ -1468,7 +1497,7 @@ msgstr ""
 msgid "Public"
 msgstr ""
 
-#: src/components/Admintools.jsx:239
+#: src/components/Admintools.jsx:245
 msgid "Quick Actions"
 msgstr ""
 
@@ -1480,7 +1509,7 @@ msgstr ""
 msgid "Ranked"
 msgstr ""
 
-#: src/components/Rankings.jsx:315
+#: src/components/windows/Statistics.jsx:326
 msgid "Ranking updates every 5 min. Daily rankings get reset at midnight UTC."
 msgstr ""
 
@@ -1493,8 +1522,8 @@ msgid "Read name, username and account age"
 msgstr ""
 
 #: src/components/BanInfo.jsx:97
-#: src/components/ModIIDtools.jsx:142
-#: src/components/ModMediatools.jsx:100
+#: src/components/IIDTools.jsx:150
+#: src/components/Mediatools.jsx:106
 msgid "Reason"
 msgstr ""
 
@@ -1526,19 +1555,19 @@ msgstr ""
 msgid "Remove"
 msgstr ""
 
-#: src/components/Admintools.jsx:343
+#: src/components/Admintools.jsx:349
 msgid "Remove Chatmod"
 msgstr ""
 
-#: src/components/Admintools.jsx:331
+#: src/components/Admintools.jsx:337
 msgid "Remove Cleaner"
 msgstr ""
 
-#: src/components/Admintools.jsx:319
+#: src/components/Admintools.jsx:325
 msgid "Remove Janny"
 msgstr ""
 
-#: src/components/Admintools.jsx:307
+#: src/components/Admintools.jsx:313
 msgid "Remove Moderator"
 msgstr ""
 
@@ -1546,7 +1575,7 @@ msgstr ""
 msgid "Remove a Login method:"
 msgstr ""
 
-#: src/components/Admintools.jsx:274
+#: src/components/Admintools.jsx:280
 msgid "Require Verification to Place"
 msgstr ""
 
@@ -1558,7 +1587,7 @@ msgstr ""
 msgid "Reset"
 msgstr ""
 
-#: src/components/Admintools.jsx:244
+#: src/components/Admintools.jsx:250
 msgid "Reset Captchas of ALL Users"
 msgstr ""
 
@@ -1587,15 +1616,15 @@ msgstr ""
 msgid "Revoke consent of third party applications:"
 msgstr ""
 
-#: src/components/Admintools.jsx:251
+#: src/components/Admintools.jsx:257
 msgid "Roll different Captcha Fonts"
 msgstr ""
 
-#: src/components/ModCanvastools.jsx:420
+#: src/components/Canvastools.jsx:424
 msgid "Rollback an area of the canvas to a set date and time"
 msgstr ""
 
-#: src/components/ModCanvastools.jsx:416
+#: src/components/Canvastools.jsx:420
 msgid "Rollback to Date"
 msgstr ""
 
@@ -1620,7 +1649,7 @@ msgstr ""
 msgid "Scroll ${ mouseSymbol } mouse wheel or ${ touchSymbol } pinch to zoom"
 msgstr ""
 
-#: src/components/HistorySelect.jsx:157
+#: src/components/HistorySelect.jsx:179
 msgid "Select Date above"
 msgstr ""
 
@@ -1681,7 +1710,7 @@ msgstr ""
 msgid "Set Password"
 msgstr ""
 
-#: src/components/ModCanvastools.jsx:328
+#: src/components/Canvastools.jsx:332
 msgid ""
 "Set protection of areas (if you need finer grained control, use protect "
 "with image upload and alpha layers)"
@@ -1693,8 +1722,8 @@ msgid ""
 "only relying on 3rd party login."
 msgstr ""
 
-#: src/components/menus/mainMenu.js:141
-#: src/components/windows/index.js:21
+#: src/components/menus/mainMenu.js:211
+#: src/components/windows/index.js:27
 msgid "Settings"
 msgstr ""
 
@@ -1755,15 +1784,16 @@ msgstr ""
 msgid "Start chatting here"
 msgstr ""
 
-#: src/components/Admintools.jsx:298
+#: src/components/Admintools.jsx:304
 msgid "Start checking for Malware"
 msgstr ""
 
-#: src/components/windows/UserArea.jsx:56
+#: src/components/menus/mainMenu.js:203
+#: src/components/windows/index.js:38
 msgid "Statistics"
 msgstr ""
 
-#: src/components/ModCanvastools.jsx:211
+#: src/components/Canvastools.jsx:215
 msgid "Status: Not running"
 msgstr ""
 
@@ -1772,28 +1802,28 @@ msgstr ""
 msgid "Stay logged in: "
 msgstr ""
 
-#: src/components/ModCanvastools.jsx:609
+#: src/components/Canvastools.jsx:613
 msgid "Stop Cleaner"
 msgstr ""
 
-#: src/components/Admintools.jsx:287
+#: src/components/Admintools.jsx:293
 msgid "Stop checking for Malware"
 msgstr ""
 
-#: src/components/Admintools.jsx:263
+#: src/components/Admintools.jsx:269
 msgid "Stop requiring Verification to Place"
 msgstr ""
 
-#: src/components/Admintools.jsx:234
-#: src/components/Admintools.jsx:408
+#: src/components/Admintools.jsx:240
+#: src/components/Admintools.jsx:414
+#: src/components/Canvastools.jsx:322
+#: src/components/Canvastools.jsx:414
+#: src/components/Canvastools.jsx:492
+#: src/components/Canvastools.jsx:595
+#: src/components/IIDTools.jsx:278
 #: src/components/LogInForm.jsx:304
 #: src/components/LogInForm.jsx:394
-#: src/components/ModCanvastools.jsx:318
-#: src/components/ModCanvastools.jsx:410
-#: src/components/ModCanvastools.jsx:488
-#: src/components/ModCanvastools.jsx:591
-#: src/components/ModIIDtools.jsx:270
-#: src/components/ModMediatools.jsx:147
+#: src/components/Mediatools.jsx:153
 msgid "Submit"
 msgstr ""
 
@@ -1810,9 +1840,9 @@ msgstr ""
 msgid "Template Name"
 msgstr ""
 
-#: src/components/menus/mainMenu.js:129
+#: src/components/menus/mainMenu.js:192
 #: src/components/windows/Templates.jsx:52
-#: src/components/windows/index.js:29
+#: src/components/windows/index.js:35
 msgid "Templates"
 msgstr ""
 
@@ -1891,7 +1921,7 @@ msgid "To use this page, enter your Password:"
 msgstr ""
 
 #: src/components/OnlineBox.jsx:92
-#: src/components/Rankings.jsx:160
+#: src/components/windows/Statistics.jsx:171
 msgid "Today"
 msgstr ""
 
@@ -1911,19 +1941,19 @@ msgstr ""
 msgid "Top 10 Players [pxls / day]"
 msgstr ""
 
-#: src/components/Rankings.jsx:194
+#: src/components/windows/Statistics.jsx:205
 msgid "Top 10 Players from Yesterday"
 msgstr ""
 
-#: src/components/ModCanvastools.jsx:348
-#: src/components/ModCanvastools.jsx:425
-#: src/components/ModCanvastools.jsx:521
-#: src/components/ModWatchtools.jsx:184
+#: src/components/Canvastools.jsx:352
+#: src/components/Canvastools.jsx:429
+#: src/components/Canvastools.jsx:525
+#: src/components/Watchtools.jsx:191
 msgid "Top-left corner"
 msgstr ""
 
 #: src/components/OnlineBox.jsx:92
-#: src/components/Rankings.jsx:151
+#: src/components/windows/Statistics.jsx:162
 msgid "Total"
 msgstr ""
 
@@ -1931,11 +1961,11 @@ msgstr ""
 msgid "Total Online Users"
 msgstr ""
 
-#: src/components/Rankings.jsx:228
+#: src/components/windows/Statistics.jsx:239
 msgid "Total Pixels"
 msgstr ""
 
-#: src/components/Rankings.jsx:192
+#: src/components/windows/Statistics.jsx:203
 msgid "Total Pixels per Player"
 msgstr ""
 
@@ -1947,7 +1977,7 @@ msgstr ""
 msgid "Total Rank"
 msgstr ""
 
-#: src/components/ModCanvastools.jsx:200
+#: src/components/Canvastools.jsx:200
 msgid ""
 "Turn every pixel in area to 0 (YOU REALLY SHOULDN'T DO THAT ON ANY AREA "
 "THAT ISN'T ALREADY MOSTLY 0)"
@@ -1957,7 +1987,7 @@ msgstr ""
 msgid "Turn on grid to highlight pixel borders."
 msgstr ""
 
-#: src/components/Admintools.jsx:374
+#: src/components/Admintools.jsx:380
 msgid "Type of Mod"
 msgstr ""
 
@@ -1965,7 +1995,7 @@ msgstr ""
 msgid "Type the characters from the following image:"
 msgstr ""
 
-#: src/components/ModMediatools.jsx:122
+#: src/components/Mediatools.jsx:128
 msgid "Unban media"
 msgstr ""
 
@@ -1996,7 +2026,7 @@ msgstr ""
 msgid "Until the browser closes"
 msgstr ""
 
-#: src/components/ModCanvastools.jsx:256
+#: src/components/Canvastools.jsx:260
 msgid "Upload images to canvas"
 msgstr ""
 
@@ -2004,9 +2034,9 @@ msgstr ""
 msgid "Use our custom cursor"
 msgstr ""
 
-#: src/components/Rankings.jsx:216
-#: src/components/Rankings.jsx:225
-#: src/components/Rankings.jsx:234
+#: src/components/windows/Statistics.jsx:227
+#: src/components/windows/Statistics.jsx:236
+#: src/components/windows/Statistics.jsx:245
 msgid "User"
 msgstr ""
 
@@ -2014,8 +2044,8 @@ msgstr ""
 msgid "User Account"
 msgstr ""
 
-#: src/components/menus/mainMenu.js:96
-#: src/components/windows/index.js:22
+#: src/components/menus/mainMenu.js:101
+#: src/components/windows/index.js:28
 msgid "User Area"
 msgstr ""
 
@@ -2023,14 +2053,14 @@ msgstr ""
 msgid "User ID and verification level"
 msgstr ""
 
-#: src/components/Admintools.jsx:366
+#: src/components/Admintools.jsx:372
 #: src/components/LogInForm.jsx:331
 #: src/components/LogInForm.jsx:338
 #: src/components/windows/OIDCConsent.jsx:310
 msgid "User Name"
 msgstr ""
 
-#: src/components/ModIIDtools.jsx:240
+#: src/components/IIDTools.jsx:248
 msgid "Username"
 msgstr ""
 
@@ -2053,6 +2083,11 @@ msgstr ""
 
 #: src/utils/validation.js:51
 msgid "Username must be shorter than 26 characters"
+msgstr ""
+
+#: src/components/menus/mainMenu.js:131
+#. This if for moderation tools, it's not important to translate this
+msgid "Watchtools"
 msgstr ""
 
 #: src/components/windows/Help.jsx:79
@@ -2114,7 +2149,7 @@ msgstr ""
 msgid "Yes, Delete My Account!"
 msgstr ""
 
-#: src/components/Rankings.jsx:169
+#: src/components/windows/Statistics.jsx:180
 msgid "Yesterday"
 msgstr ""
 
@@ -2185,7 +2220,7 @@ msgid "You have to be logged in to place on this canvas"
 msgstr ""
 
 #: src/store/actions/fetch.js:40
-#: src/store/actions/fetch.js:584
+#: src/store/actions/fetch.js:585
 msgid "You made too many requests"
 msgstr ""
 
@@ -2193,40 +2228,40 @@ msgstr ""
 msgid "You must be logged in to chat"
 msgstr ""
 
-#: src/components/ModIIDtools.jsx:52
+#: src/components/IIDTools.jsx:54
 msgid "You must enter a UserId"
 msgstr ""
 
-#: src/components/ModIIDtools.jsx:64
+#: src/components/IIDTools.jsx:66
 msgid "You must enter a duration"
 msgstr ""
 
-#: src/components/ModMediatools.jsx:19
+#: src/components/Mediatools.jsx:20
 msgid "You must enter a mediaId or media BID"
 msgstr ""
 
-#: src/components/ModIIDtools.jsx:67
-#: src/components/ModMediatools.jsx:24
+#: src/components/IIDTools.jsx:69
+#: src/components/Mediatools.jsx:25
 msgid "You must enter a reason"
 msgstr ""
 
-#: src/components/ModIIDtools.jsx:55
+#: src/components/IIDTools.jsx:57
 msgid "You must enter a username"
 msgstr ""
 
-#: src/components/ModIIDtools.jsx:37
+#: src/components/IIDTools.jsx:39
 msgid "You must enter an BID"
 msgstr ""
 
-#: src/components/ModIIDtools.jsx:30
+#: src/components/IIDTools.jsx:32
 msgid "You must enter an IID"
 msgstr ""
 
-#: src/components/ModIIDtools.jsx:45
+#: src/components/IIDTools.jsx:47
 msgid "You must enter an IID or UserId"
 msgstr ""
 
-#: src/components/ModIIDtools.jsx:75
+#: src/components/IIDTools.jsx:77
 msgid "You must enter at least one IID, User Id or BID"
 msgstr ""
 
