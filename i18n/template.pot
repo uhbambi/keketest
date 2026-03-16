@@ -73,7 +73,7 @@ msgstr ""
 msgid "Add Grid (uncheck if you need a 1:1 template)"
 msgstr ""
 
-#: src/components/TemplateSettings.jsx:139
+#: src/components/windows/Templates.jsx:139
 msgid "Add Template"
 msgstr ""
 
@@ -81,15 +81,15 @@ msgstr ""
 msgid "Admintools"
 msgstr ""
 
-#: src/components/windows/Settings.jsx:102
+#: src/components/windows/Settings.jsx:99
 msgid "All sound effects will be disabled."
 msgstr ""
 
-#: src/components/windows/Settings.jsx:88
+#: src/components/windows/Settings.jsx:85
 msgid "Always show Movement Controls"
 msgstr ""
 
-#: src/components/windows/Settings.jsx:93
+#: src/components/windows/Settings.jsx:90
 msgid "Always show movement control buttons"
 msgstr ""
 
@@ -109,11 +109,11 @@ msgstr ""
 msgid "Assign new Mod"
 msgstr ""
 
-#: src/components/FileUpload.jsx:433
+#: src/components/FileUpload.jsx:577
 msgid "Attach File"
 msgstr ""
 
-#: src/components/windows/Settings.jsx:119
+#: src/components/windows/Settings.jsx:116
 msgid "Auto Zoom In"
 msgstr ""
 
@@ -125,7 +125,7 @@ msgstr ""
 msgid "Back"
 msgstr ""
 
-#: src/components/windows/index.js:27
+#: src/components/windows/index.js:28
 msgid "Badge Display"
 msgstr ""
 
@@ -146,7 +146,7 @@ msgstr ""
 msgid "Banned? Detected as Proxy?"
 msgstr ""
 
-#: src/components/contextmenus/UserContextMenu.jsx:85
+#: src/components/menus/userContextMenu.js:53
 msgid "Block"
 msgstr ""
 
@@ -221,7 +221,7 @@ msgstr ""
 msgid "Cancel"
 msgstr ""
 
-#: src/components/TemplateSettings.jsx:132
+#: src/components/windows/Templates.jsx:132
 msgid "Cancel adding Template"
 msgstr ""
 
@@ -231,7 +231,7 @@ msgstr ""
 msgid "Canvas"
 msgstr ""
 
-#: src/components/windows/index.js:24
+#: src/components/windows/index.js:25
 msgid "Canvas Archive"
 msgstr ""
 
@@ -243,8 +243,8 @@ msgstr ""
 msgid "Canvas Error"
 msgstr ""
 
-#: src/components/buttons/CanvasSwitchButton.jsx:20
-#: src/components/windows/index.js:23
+#: src/components/menus/mainMenu.js:45
+#: src/components/windows/index.js:24
 msgid "Canvas Selection"
 msgstr ""
 
@@ -285,7 +285,7 @@ msgstr ""
 msgid "Charts"
 msgstr ""
 
-#: src/components/windows/index.js:22
+#: src/components/windows/index.js:23
 msgid "Chat"
 msgstr ""
 
@@ -293,7 +293,7 @@ msgstr ""
 msgid "Chat here"
 msgstr ""
 
-#: src/components/windows/Settings.jsx:162
+#: src/components/windows/Settings.jsx:159
 msgid "Check out past versions of the canvas."
 msgstr ""
 
@@ -368,7 +368,7 @@ msgstr ""
 msgid "Click to Load Captcha"
 msgstr ""
 
-#: src/components/FileUploadElement.jsx:135
+#: src/components/FileUpload.jsx:145
 msgid "Click to remove"
 msgstr ""
 
@@ -380,7 +380,7 @@ msgstr ""
 #: src/components/ModCanvastools.jsx:230
 #: src/components/ModWatchtools.jsx:128
 #: src/components/Window.jsx:256
-#: src/components/contextmenus/ChannelContextMenu.jsx:55
+#: src/components/menus/channelContextMenu.js:31
 msgid "Close"
 msgstr ""
 
@@ -388,19 +388,15 @@ msgstr ""
 msgid "Close Chat"
 msgstr ""
 
-#: src/components/buttons/ExpandMenuButton.jsx:22
-msgid "Close Menu"
-msgstr ""
-
 #: src/components/buttons/PalselButton.jsx:30
 msgid "Close Palette"
 msgstr ""
 
-#: src/components/contextmenus/ChannelContextMenu.jsx:65
+#: src/components/menus/channelContextMenu.js:42
 msgid "Compact Chat"
 msgstr ""
 
-#: src/components/windows/Settings.jsx:127
+#: src/components/windows/Settings.jsx:124
 msgid "Compact Palette"
 msgstr ""
 
@@ -547,7 +543,7 @@ msgstr ""
 msgid "Current Cooldown Changes per Country"
 msgstr ""
 
-#: src/components/windows/Settings.jsx:149
+#: src/components/windows/Settings.jsx:146
 msgid "Custom Cursor"
 msgstr ""
 
@@ -556,7 +552,7 @@ msgid "Custom Flag"
 msgstr ""
 
 #: src/components/ChannelDropDown.jsx:82
-#: src/components/contextmenus/UserContextMenu.jsx:74
+#: src/components/menus/userContextMenu.js:46
 msgid "DM"
 msgstr ""
 
@@ -606,7 +602,7 @@ msgstr ""
 msgid "Dimensions"
 msgstr ""
 
-#: src/components/windows/Settings.jsx:96
+#: src/components/windows/Settings.jsx:93
 msgid "Disable Game Sounds"
 msgstr ""
 
@@ -622,7 +618,7 @@ msgstr ""
 msgid "Disable Pencil"
 msgstr ""
 
-#: src/components/windows/Settings.jsx:132
+#: src/components/windows/Settings.jsx:129
 msgid "Display Palette in a compact form that takes less screen space."
 msgstr ""
 
@@ -702,7 +698,7 @@ msgstr ""
 msgid "Email should contain a @"
 msgstr ""
 
-#: src/components/TemplateSettings.jsx:60
+#: src/components/windows/Templates.jsx:60
 msgid "Enable Overlay"
 msgstr ""
 
@@ -710,7 +706,7 @@ msgstr ""
 msgid "Enable Pencil"
 msgstr ""
 
-#: src/components/windows/Settings.jsx:112
+#: src/components/windows/Settings.jsx:109
 msgid "Enable chat notifications"
 msgstr ""
 
@@ -763,7 +759,7 @@ msgstr ""
 msgid "Expand"
 msgstr ""
 
-#: src/components/TemplateSettings.jsx:156
+#: src/components/windows/Templates.jsx:156
 msgid "Export enabled templates"
 msgstr ""
 
@@ -779,7 +775,7 @@ msgstr ""
 msgid "File"
 msgstr ""
 
-#: src/components/windows/index.js:26
+#: src/components/windows/index.js:27
 msgid "Fish Display"
 msgstr ""
 
@@ -821,7 +817,7 @@ msgstr ""
 msgid "For one year"
 msgstr ""
 
-#: src/components/windows/Settings.jsx:139
+#: src/components/windows/Settings.jsx:136
 msgid "For when you are playing on a potato."
 msgstr ""
 
@@ -831,12 +827,12 @@ msgstr ""
 msgid "Forever"
 msgstr ""
 
-#: src/components/windows/Settings.jsx:67
+#: src/components/windows/Settings.jsx:64
 #: src/store/actions/thunks.js:266
 msgid "From History"
 msgstr ""
 
-#: src/components/windows/Settings.jsx:66
+#: src/components/windows/Settings.jsx:63
 #: src/store/actions/thunks.js:263
 msgid "From Template"
 msgstr ""
@@ -861,7 +857,7 @@ msgstr ""
 msgid "Get the amount of Pixels placed and ranking"
 msgstr ""
 
-#: src/components/buttons/GlobeButton.jsx:34
+#: src/components/menus/mainMenu.js:63
 msgid "Globe View"
 msgstr ""
 
@@ -894,8 +890,8 @@ msgid "Height"
 msgstr ""
 
 #: src/components/BanInfo.jsx:80
-#: src/components/buttons/HelpButton.jsx:20
-#: src/components/windows/index.js:19
+#: src/components/menus/mainMenu.js:133
+#: src/components/windows/index.js:20
 msgid "Help"
 msgstr ""
 
@@ -915,7 +911,7 @@ msgid ""
 "least once per day."
 msgstr ""
 
-#: src/components/windows/Settings.jsx:157
+#: src/components/windows/Settings.jsx:154
 msgid "Historical View"
 msgstr ""
 
@@ -924,7 +920,7 @@ msgstr ""
 msgid "Hold left ${ bindShift } for pencil (to place while moving mouse)"
 msgstr ""
 
-#: src/components/windows/Settings.jsx:183
+#: src/components/windows/Settings.jsx:180
 msgid "How pixelplanet should look like."
 msgstr ""
 
@@ -971,7 +967,7 @@ msgstr ""
 msgid "Image Upload"
 msgstr ""
 
-#: src/components/TemplateSettings.jsx:165
+#: src/components/windows/Templates.jsx:165
 msgid "Import templates"
 msgstr ""
 
@@ -1035,7 +1031,7 @@ msgid "Legal Requests"
 msgstr ""
 
 #: src/components/Converter.jsx:381
-#: src/components/windows/Settings.jsx:142
+#: src/components/windows/Settings.jsx:139
 msgid "Light Grid"
 msgstr ""
 
@@ -1083,12 +1079,16 @@ msgstr ""
 msgid "Login with Name or Mail:"
 msgstr ""
 
-#: src/components/buttons/DownloadButton.jsx:36
+#: src/components/menus/mainMenu.js:73
 msgid "Make Screenshot"
 msgstr ""
 
 #: src/components/Admintools.jsx:304
 msgid "Manage Moderators"
+msgstr ""
+
+#: src/components/menus/mainMenu.js:90
+msgid "Manage Templates"
 msgstr ""
 
 #: src/components/windows/Help.jsx:83
@@ -1119,7 +1119,7 @@ msgstr ""
 msgid "Move"
 msgstr ""
 
-#: src/components/contextmenus/ChannelContextMenu.jsx:44
+#: src/components/menus/channelContextMenu.js:22
 msgid "Mute Channel"
 msgstr ""
 
@@ -1177,7 +1177,7 @@ msgstr ""
 msgid "No File selected to upload"
 msgstr ""
 
-#: src/store/actions/index.js:426
+#: src/store/actions/index.js:420
 msgid "No Phish!"
 msgstr ""
 
@@ -1207,7 +1207,7 @@ msgstr ""
 msgid "Note"
 msgstr ""
 
-#: src/components/windows/index.js:40
+#: src/components/windows/index.js:42
 msgid "OIDC LogIn"
 msgstr ""
 
@@ -1221,7 +1221,7 @@ msgstr ""
 msgid "Offset"
 msgstr ""
 
-#: src/store/actions/index.js:427
+#: src/store/actions/index.js:421
 msgid "Oh no, the phish escaped. Better luck next time!"
 msgstr ""
 
@@ -1241,16 +1241,12 @@ msgstr ""
 msgid "Only verified Users are currently allowed to play."
 msgstr ""
 
-#: src/components/TemplateSettings.jsx:94
+#: src/components/windows/Templates.jsx:94
 msgid "Opacity of Overlay in percent."
 msgstr ""
 
 #: src/components/buttons/ChatButton.jsx:41
 msgid "Open Chat"
-msgstr ""
-
-#: src/components/buttons/ExpandMenuButton.jsx:22
-msgid "Open Menu"
 msgstr ""
 
 #: src/components/buttons/PalselButton.jsx:30
@@ -1284,7 +1280,7 @@ msgstr ""
 msgid "Overlay ON"
 msgstr ""
 
-#: src/components/TemplateSettings.jsx:80
+#: src/components/windows/Templates.jsx:80
 msgid "Overlay Opacity"
 msgstr ""
 
@@ -1322,7 +1318,7 @@ msgstr ""
 msgid "Passwords do not match."
 msgstr ""
 
-#: src/components/windows/Settings.jsx:166
+#: src/components/windows/Settings.jsx:163
 #, javascript-format
 msgid "Pencil Mode for ${ canvasName } canvas"
 msgstr ""
@@ -1335,7 +1331,7 @@ msgstr ""
 msgid "Permission"
 msgstr ""
 
-#: src/store/actions/index.js:419
+#: src/store/actions/index.js:413
 msgid "Phish!"
 msgstr ""
 
@@ -1343,7 +1339,7 @@ msgstr ""
 msgid "Phishes"
 msgstr ""
 
-#: src/components/contextmenus/UserContextMenu.jsx:48
+#: src/components/menus/userContextMenu.js:21
 msgid "Ping"
 msgstr ""
 
@@ -1382,11 +1378,11 @@ msgstr ""
 msgid "Placed Pixels"
 msgstr ""
 
-#: src/components/windows/Settings.jsx:116
+#: src/components/windows/Settings.jsx:113
 msgid "Play a sound when new chat messages arrive"
 msgstr ""
 
-#: src/components/windows/index.js:25
+#: src/components/windows/index.js:26
 msgid "Player"
 msgstr ""
 
@@ -1412,7 +1408,7 @@ msgstr ""
 msgid "Political Compass Canvas"
 msgstr ""
 
-#: src/components/windows/Settings.jsx:135
+#: src/components/windows/Settings.jsx:132
 msgid "Potato Mode"
 msgstr ""
 
@@ -1635,7 +1631,7 @@ msgstr ""
 msgid "Select Flag"
 msgstr ""
 
-#: src/components/windows/Settings.jsx:190
+#: src/components/windows/Settings.jsx:187
 msgid "Select Language"
 msgstr ""
 
@@ -1651,7 +1647,7 @@ msgstr ""
 msgid "Select your Avatar. Supported Formats: jpg, gif, png, webp"
 msgstr ""
 
-#: src/components/windows/Settings.jsx:66
+#: src/components/windows/Settings.jsx:63
 #: src/store/actions/thunks.js:260
 msgid "Selected Color"
 msgstr ""
@@ -1696,8 +1692,8 @@ msgid ""
 "only relying on 3rd party login."
 msgstr ""
 
-#: src/components/buttons/SettingsButton.jsx:21
-#: src/components/windows/index.js:20
+#: src/components/menus/mainMenu.js:126
+#: src/components/windows/index.js:21
 msgid "Settings"
 msgstr ""
 
@@ -1705,27 +1701,27 @@ msgstr ""
 msgid "Show Embedded"
 msgstr ""
 
-#: src/components/windows/Settings.jsx:72
+#: src/components/windows/Settings.jsx:69
 msgid "Show Grid"
 msgstr ""
 
-#: src/components/windows/Settings.jsx:146
+#: src/components/windows/Settings.jsx:143
 msgid "Show Grid in white instead of black."
 msgstr ""
 
-#: src/components/windows/Settings.jsx:80
+#: src/components/windows/Settings.jsx:77
 msgid "Show Pixel Activity"
 msgstr ""
 
-#: src/components/windows/Settings.jsx:85
+#: src/components/windows/Settings.jsx:82
 msgid "Show circles where pixels are placed."
 msgstr ""
 
-#: src/components/TemplateSettings.jsx:73
+#: src/components/windows/Templates.jsx:73
 msgid "Show overlay as small individual pixels on high zoomlevels."
 msgstr ""
 
-#: src/components/TemplateSettings.jsx:65
+#: src/components/windows/Templates.jsx:65
 msgid "Show templates as overlays ingame."
 msgstr ""
 
@@ -1737,7 +1733,7 @@ msgstr ""
 msgid "Size"
 msgstr ""
 
-#: src/components/TemplateSettings.jsx:68
+#: src/components/windows/Templates.jsx:68
 msgid "Small Pixels When Zoomed"
 msgstr ""
 
@@ -1813,7 +1809,9 @@ msgstr ""
 msgid "Template Name"
 msgstr ""
 
-#: src/components/TemplateSettings.jsx:52
+#: src/components/menus/mainMenu.js:114
+#: src/components/windows/Templates.jsx:52
+#: src/components/windows/index.js:29
 msgid "Templates"
 msgstr ""
 
@@ -1836,7 +1834,7 @@ msgid ""
 "allowed. It is permanent, you can not change it later."
 msgstr ""
 
-#: src/components/windows/Settings.jsx:178
+#: src/components/windows/Settings.jsx:175
 msgid "Themes"
 msgstr ""
 
@@ -1879,7 +1877,7 @@ msgstr ""
 msgid "Tip: Not case-sensitive; I and l are the same"
 msgstr ""
 
-#: src/components/TemplateSettings.jsx:56
+#: src/components/windows/Templates.jsx:56
 msgid ""
 "Tired of always spaming one single color? Want to create art instead, but "
 "you have to count pixels from some other image? Templates can help you with "
@@ -1954,7 +1952,7 @@ msgid ""
 "THAT ISN'T ALREADY MOSTLY 0)"
 msgstr ""
 
-#: src/components/windows/Settings.jsx:77
+#: src/components/windows/Settings.jsx:74
 msgid "Turn on grid to highlight pixel borders."
 msgstr ""
 
@@ -2001,7 +1999,7 @@ msgstr ""
 msgid "Upload images to canvas"
 msgstr ""
 
-#: src/components/windows/Settings.jsx:153
+#: src/components/windows/Settings.jsx:150
 msgid "Use our custom cursor"
 msgstr ""
 
@@ -2015,8 +2013,8 @@ msgstr ""
 msgid "User Account"
 msgstr ""
 
-#: src/components/buttons/LogInButton.jsx:20
-#: src/components/windows/index.js:21
+#: src/components/menus/mainMenu.js:81
+#: src/components/windows/index.js:22
 msgid "User Area"
 msgstr ""
 
@@ -2078,7 +2076,7 @@ msgstr ""
 msgid "Weird"
 msgstr ""
 
-#: src/components/windows/Settings.jsx:174
+#: src/components/windows/Settings.jsx:171
 msgid "What the pencil should draw on the current canvas."
 msgstr ""
 
@@ -2162,7 +2160,7 @@ msgstr ""
 msgid "You can now place more on pixelplanet.fun :)"
 msgstr ""
 
-#: src/store/actions/index.js:421
+#: src/store/actions/index.js:415
 #, javascript-format
 msgid ""
 "You caught a Phish! It is a ${ FISH_TYPES[type].name } with ${ size }kg! As "
@@ -2235,7 +2233,7 @@ msgstr ""
 msgid "You took too long, try again."
 msgstr ""
 
-#: src/components/windows/Settings.jsx:106
+#: src/components/windows/Settings.jsx:103
 msgid ""
 "Your Browser doesn't allow us to use AudioContext to play sounds. Do you "
 "have some privacy feature blocking us?"
@@ -2267,7 +2265,7 @@ msgstr ""
 msgid "Your next pixels are ready"
 msgstr ""
 
-#: src/components/windows/Settings.jsx:124
+#: src/components/windows/Settings.jsx:121
 msgid ""
 "Zoom in instead of placing a pixel when you tap the canvas and your zoom is "
 "small."
@@ -2320,7 +2318,7 @@ msgctxt "keybinds"
 msgid "A"
 msgstr ""
 
-#: src/components/windows/Settings.jsx:169
+#: src/components/windows/Settings.jsx:166
 msgctxt "keybinds"
 msgid "B"
 msgstr ""
@@ -2336,23 +2334,23 @@ msgid "E"
 msgstr ""
 
 #: src/components/windows/Help.jsx:21
-#: src/components/windows/Settings.jsx:73
+#: src/components/windows/Settings.jsx:70
 msgctxt "keybinds"
 msgid "G"
 msgstr ""
 
 #: src/components/windows/Help.jsx:23
-#: src/components/windows/Settings.jsx:159
+#: src/components/windows/Settings.jsx:156
 msgctxt "keybinds"
 msgid "H"
 msgstr ""
 
-#: src/components/windows/Settings.jsx:97
+#: src/components/windows/Settings.jsx:94
 msgctxt "keybinds"
 msgid "M"
 msgstr ""
 
-#: src/components/windows/Settings.jsx:89
+#: src/components/windows/Settings.jsx:86
 msgctxt "keybinds"
 msgid "N"
 msgstr ""
@@ -2377,7 +2375,7 @@ msgctxt "keybinds"
 msgid "Shift"
 msgstr ""
 
-#: src/components/TemplateSettings.jsx:61
+#: src/components/windows/Templates.jsx:61
 msgctxt "keybinds"
 msgid "T"
 msgstr ""
@@ -2388,7 +2386,7 @@ msgid "W"
 msgstr ""
 
 #: src/components/windows/Help.jsx:22
-#: src/components/windows/Settings.jsx:81
+#: src/components/windows/Settings.jsx:78
 msgctxt "keybinds"
 msgid "X"
 msgstr ""
