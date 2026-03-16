@@ -50,7 +50,7 @@ const User = sequelize.define('User', {
   },
 
   userlvl: {
-    type: DataTypes.TINYINT.UNSIGNED,
+    type: DataTypes.TINYINT,
     allowNull: false,
     defaultValue: USERLVL.REGISTERED,
   },

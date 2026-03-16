@@ -15,7 +15,7 @@ export { CHANNEL_TYPES };
 
 const Channel = sequelize.define('Channel', {
   id: {
-    type: DataTypes.BIGINT.UNSIGNED,
+    type: DataTypes.INTEGER.UNSIGNED,
     autoIncrement: true,
     primaryKey: true,
   },

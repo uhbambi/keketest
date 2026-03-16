@@ -41,6 +41,14 @@ import MessageMedia from './association_models/MessageMedia.js';
 import IPMedia from './association_models/IPMedia.js';
 import MediaBan from './MediaBan.js';
 import Config from './Config.js';
+import Faction from './Faction.js';
+import FactionRole from './FactionRole.js';
+import FactionBan from './FactionBan.js';
+import FactionInvite from './FactionInvite.js';
+import UserFactionBan from './association_models/UserFactionBan.js';
+import IPFactionBan from './association_models/IPFactionBan.js';
+import UserFaction from './association_models/UserFaction.js';
+import UserFactionRole from './association_models/UserFactionRole.js';
 import { HourlyCron } from '../../utils/cron.js';
 
 /*
@@ -162,7 +170,7 @@ User.belongsToMany(Badge, {
 });
 
 /*
- * custom flags
+ * Profile
  */
 Profile.belongsTo(User, {
   as: 'userid',
@@ -180,6 +188,110 @@ Profile.belongsTo(Media, {
 Media.hasMany(Profile, {
   as: 'proiles',
   foreignKey: 'avatar',
+});
+Profile.belongsTo(FactionRole, {
+  as: 'factionRole',
+  foreignKey: 'activeRole',
+});
+FactionRole.hasMany(Profile, {
+  as: 'activeProfiles',
+  foreignKey: 'activeRole',
+});
+
+/*
+ * Factions
+ */
+Faction.belongsTo(Media, {
+  as: 'avatarMedia',
+  foreignKey: 'avatar',
+});
+Media.hasMany(Faction, {
+  as: 'factionAvatars',
+  foreignKey: 'avatar',
+});
+FactionBan.belongsTo(Faction, {
+  as: 'faction',
+  foreignKey: 'fid',
+  onDelete: 'CASCADE',
+});
+Faction.hasMany(FactionBan, {
+  as: 'bans',
+  foreignKey: 'fid',
+});
+Faction.belongsTo(Channel, {
+  as: 'channel',
+  foreignKey: 'cid',
+  onDelete: 'CASCADE',
+});
+Channel.hasMany(Faction, {
+  as: 'factionChannels',
+  foreignKey: 'cid',
+});
+FactionRole.belongsTo(Faction, {
+  as: 'faction',
+  foreignKey: 'fid',
+  onDelete: 'CASCADE',
+});
+Faction.hasMany(FactionRole, {
+  as: 'roles',
+  foreignKey: 'fid',
+});
+FactionInvite.belongsTo(Faction, {
+  as: 'faction',
+  foreignKey: 'fid',
+  onDelete: 'CASCADE',
+});
+Faction.hasMany(FactionInvite, {
+  as: 'invites',
+  foreignKey: 'fid',
+});
+FactionRole.belongsTo(Media, {
+  as: 'flagMedia',
+  foreignKey: 'customFlag',
+});
+Media.hasMany(FactionRole, {
+  as: 'factionFlags',
+  foreignKey: 'customFlag',
+});
+Faction.belongsToMany(User, {
+  as: 'members',
+  through: UserFaction,
+  foreignKey: 'fid',
+});
+User.belongsToMany(Faction, {
+  as: 'factions',
+  through: UserFaction,
+  foreignKey: 'uid',
+});
+FactionRole.belongsToMany(User, {
+  as: 'members',
+  through: UserFactionRole,
+  foreignKey: 'frid',
+});
+User.belongsToMany(FactionRole, {
+  as: 'factionRoles',
+  through: UserFactionRole,
+  foreignKey: 'uid',
+});
+FactionBan.belongsToMany(IP, {
+  as: 'ips',
+  through: IPFactionBan,
+  foreignKey: 'bid',
+});
+IP.belongsToMany(FactionBan, {
+  as: 'factionBans',
+  through: IPFactionBan,
+  foreignKey: 'ip',
+});
+FactionBan.belongsToMany(User, {
+  as: 'users',
+  through: UserFactionBan,
+  foreignKey: 'bid',
+});
+User.belongsToMany(FactionBan, {
+  as: 'factionBans',
+  through: UserFactionBan,
+  foreignKey: 'uid',
 });
 
 /*
@@ -603,6 +715,8 @@ export {
   ThreePID,
   Fish,
   Config,
+  Faction,
+  FactionBan,
   // constants
   USERLVL,
   THREEPID_PROVIDERS,

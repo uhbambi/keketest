@@ -8,8 +8,22 @@ const Profile = sequelize.define('Profile', {
     primaryKey: true,
   },
 
+  /*
+   * custom flags set by user
+   */
   customFlag: {
     type: DataTypes.STRING(2),
+    allowNull: true,
+  },
+
+  /*
+   * active faction role,
+   * have to manually ensure on changes that this role is from a faction the
+   * user is actually a member of.
+   * If this role has a flag set, use that instead of ours.
+   */
+  activeRole: {
+    type: DataTypes.BIGINT.UNSIGNED,
     allowNull: true,
   },
 

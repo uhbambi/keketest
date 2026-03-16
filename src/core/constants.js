@@ -133,6 +133,23 @@ export const USER_FLAGS = {
   PRIV: 1,
 };
 
+export const FACTION_FLAGS = {
+  // whether it is searchable
+  PRIV: 0,
+  // whether everybody can join withhout invite
+  PUBLIC: 1,
+};
+
+export const FACTIONLVL = {
+  PEASANT: 0,
+  MAGISTRATE: 80,
+  SOVEREIGN: 100,
+};
+
+export const MAX_FACTIONS_PER_USER = 20;
+
+export const MAX_FLAGS_PER_FACTION = 10;
+
 // Mode for shift-painting or phone pencil, HISTORY has to be last
 export const PENCIL_MODE = {
   COLOR: 0,
