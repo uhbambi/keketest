@@ -66,7 +66,7 @@ export default function mainMenu(store) {
     });
   }
 
-  if (window.ssv?.backupurl) {
+  if (window.ssv?.backupurl && state.canvas.rendererType !== CANVAS_TYPES.THREED) {
     elements.push({
       id: 'hi',
       type: 'boolean',
