@@ -136,10 +136,10 @@ export async function saveIPIntel(ipString, whoisData, pcData) {
     const transaction = await sequelize.transaction();
 
     try {
-      const promises = [];
-      let rid = null;
-
       if (whoisData) {
+        let rid = null;
+        const promises = [];
+
         if (whoisData.rid) {
           rid = whoisData.rid;
         } else {
@@ -213,16 +213,27 @@ ON DUPLICATE KEY UPDATE min = VALUES(min), max = VALUES(max), mask = VALUES(mask
             rid = whoisResult[0].id;
           }
         }
-      }
 
-      await sequelize.query(
-        'INSERT INTO IPs (ip, uuid, rid, lastSeen) VALUES (IP_TO_BIN(?), ?, ?, NOW()) ON DUPLICATE KEY UPDATE rid = VALUES(rid)', {
-          replacements: [ipString, generateUUID(), rid],
-          raw: true,
-          type: QueryTypes.INSERT,
-          transaction,
-        },
-      );
+        if (rid) {
+          await sequelize.query(
+            'INSERT INTO IPs (ip, uuid, rid, lastSeen) VALUES (IP_TO_BIN(?), ?, ?, NOW()) ON DUPLICATE KEY UPDATE rid = VALUES(rid), lastSeen = VALUES(lastSeen)', {
+              replacements: [ipString, generateUUID(), rid],
+              raw: true,
+              type: QueryTypes.INSERT,
+              transaction,
+            },
+          );
+        }
+      } else {
+        await sequelize.query(
+          'INSERT INTO IPs (ip, uuid, lastSeen) VALUES (IP_TO_BIN(?), ?, NOW()) ON DUPLICATE KEY UPDATE lastSeen = VALUES(lastSeen)', {
+            replacements: [ipString, generateUUID()],
+            raw: true,
+            type: QueryTypes.INSERT,
+            transaction,
+          },
+        );
+      }
 
       if (pcData) {
         const {
