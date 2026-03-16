@@ -69,28 +69,66 @@ const MenuList = ({
    */
   const [childrenStates, setChildrenStates] = useState({});
 
-  const width = (className === 'MAIN') ? 152 : 125;
-  const style = { width };
+  const style = {
+    width: (className === 'MAIN') ? 152 : 125,
+  };
   switch (align) {
     case 'tr': {
-      style.right = clamp(window.innerWidth - x, 0, window.innerWidth - width);
+      style.right = window.innerWidth - x;
       style.top = y;
       break;
     }
     case 'br': {
-      style.right = clamp(window.innerWidth - x, 0, window.innerWidth - width);
-      style.bottom = Math.ceil(window.innerHeight - y, 0);
+      style.right = window.innerWidth - x;
+      style.bottom = window.innerHeight - y;
       break;
     }
     case 'bl': {
-      style.left = clamp(x, 0, window.innerWidth - width);
-      style.bottom = Math.ceil(window.innerHeight - y, 0);
+      style.left = x;
+      style.bottom = window.innerHeight - y;
       break;
     }
     default: {
       // also 'tl'
-      style.left = clamp(x, 0, window.innerWidth - width);
+      style.left = x;
       style.top = y;
+    }
+  }
+
+  if (style.right) {
+    style.right = clamp(style.right, 0, window.innerWidth - style.width);
+  } else if (style.left) {
+    style.left = clamp(style.left, 0, window.innerWidth - style.width);
+  }
+
+  /*
+   * we try to predict the resulting height, so a hardcoded row height value it
+   * is, and then move the menu up / down accordingly
+   */
+  const predictedHeight = elements.length * 37;
+  if (predictedHeight > window.innerHeight) {
+    style.maxHeight = window.innerHeight - 20;
+    style.overflow = 'auto';
+    if (style.top) {
+      style.top = 10;
+    } else {
+      style.bottom = 10;
+    }
+  } else if (style.top) {
+    if (style.top < 0) {
+      style.top = 0;
+    }
+    const gap = window.innerHeight - style.top - predictedHeight;
+    if (gap < 0) {
+      style.top += gap;
+    }
+  } else {
+    if (style.bottom < 0) {
+      style.bottom = 0;
+    }
+    const gap = window.innerHeight - style.bottom - predictedHeight;
+    if (gap < 0) {
+      style.bottom += gap;
     }
   }
 
@@ -207,6 +245,9 @@ const MenuList = ({
                 key={childId}
                 className={elementClassName}
                 onClick={() => onClick(element)}
+                title={element.text}
+                role="button"
+                tabIndex={0}
                 onMouseEnter={(evt) => changeChildActive(evt, childId)}
               >
                 {text}
@@ -217,6 +258,9 @@ const MenuList = ({
               <div
                 key={childId}
                 className={elementClassName}
+                title={element.text}
+                role="button"
+                tabIndex={0}
                 onClick={() => onClick(element)}
                 onMouseEnter={(evt) => changeChildActive(evt, childId)}
               >
@@ -242,6 +286,9 @@ const MenuList = ({
                 style={
                   (element.state) ? { backgroundColor: 'red' } : undefined
                 }
+                title={element.text}
+                role="button"
+                tabIndex={0}
                 onClick={() => onClick(element)}
                 onMouseEnter={(evt) => changeChildActive(evt, childId)}
               >
@@ -262,6 +309,9 @@ const MenuList = ({
               <React.Fragment key={childId}>
                 <div
                   className={elementClassName}
+                  title={element.text}
+                  role="button"
+                  tabIndex={0}
                   onMouseEnter={(evt) => {
                     changeChildActive(evt, childId, true);
                   }}

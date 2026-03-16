@@ -24,7 +24,9 @@ import { t } from 'ttag';
 
 import { getRenderer } from '../../ui/rendererFactory.js';
 import { CANVAS_TYPES } from '../../core/constants.js';
-import { selectCanvas, setViewCoordinates } from '../../store/actions/index.js';
+import {
+  selectCanvas, setViewCoordinates, toggleHistoricalView,
+} from '../../store/actions/index.js';
 
 function download() {
   const renderer = getRenderer();
@@ -61,6 +63,19 @@ export default function mainMenu(store) {
         window.location.href = `globe#${canvasIdent},${canvasId},${canvasSize},${x},${y}`;
       },
       text: t`Globe View`,
+    });
+  }
+
+  if (window.ssv?.backupurl) {
+    elements.push({
+      id: 'hi',
+      type: 'boolean',
+      func: () => {
+        store.dispatch(toggleHistoricalView());
+        return true;
+      },
+      state: state.canvas.isHistoricalView,
+      text: t`Historical View`,
     });
   }
 

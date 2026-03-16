@@ -243,7 +243,7 @@ msgstr ""
 msgid "Canvas Error"
 msgstr ""
 
-#: src/components/menus/mainMenu.js:45
+#: src/components/menus/mainMenu.js:47
 #: src/components/windows/index.js:24
 msgid "Canvas Selection"
 msgstr ""
@@ -857,7 +857,7 @@ msgstr ""
 msgid "Get the amount of Pixels placed and ranking"
 msgstr ""
 
-#: src/components/menus/mainMenu.js:63
+#: src/components/menus/mainMenu.js:65
 msgid "Globe View"
 msgstr ""
 
@@ -890,7 +890,7 @@ msgid "Height"
 msgstr ""
 
 #: src/components/BanInfo.jsx:80
-#: src/components/menus/mainMenu.js:133
+#: src/components/menus/mainMenu.js:148
 #: src/components/windows/index.js:20
 msgid "Help"
 msgstr ""
@@ -911,6 +911,7 @@ msgid ""
 "least once per day."
 msgstr ""
 
+#: src/components/menus/mainMenu.js:78
 #: src/components/windows/Settings.jsx:154
 msgid "Historical View"
 msgstr ""
@@ -1079,7 +1080,7 @@ msgstr ""
 msgid "Login with Name or Mail:"
 msgstr ""
 
-#: src/components/menus/mainMenu.js:73
+#: src/components/menus/mainMenu.js:88
 msgid "Make Screenshot"
 msgstr ""
 
@@ -1087,7 +1088,7 @@ msgstr ""
 msgid "Manage Moderators"
 msgstr ""
 
-#: src/components/menus/mainMenu.js:90
+#: src/components/menus/mainMenu.js:105
 msgid "Manage Templates"
 msgstr ""
 
@@ -1692,7 +1693,7 @@ msgid ""
 "only relying on 3rd party login."
 msgstr ""
 
-#: src/components/menus/mainMenu.js:126
+#: src/components/menus/mainMenu.js:141
 #: src/components/windows/index.js:21
 msgid "Settings"
 msgstr ""
@@ -1809,7 +1810,7 @@ msgstr ""
 msgid "Template Name"
 msgstr ""
 
-#: src/components/menus/mainMenu.js:114
+#: src/components/menus/mainMenu.js:129
 #: src/components/windows/Templates.jsx:52
 #: src/components/windows/index.js:29
 msgid "Templates"
@@ -2013,7 +2014,7 @@ msgstr ""
 msgid "User Account"
 msgstr ""
 
-#: src/components/menus/mainMenu.js:81
+#: src/components/menus/mainMenu.js:96
 #: src/components/windows/index.js:22
 msgid "User Area"
 msgstr ""
