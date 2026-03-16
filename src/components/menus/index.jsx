@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useMemo } from 'react';
+import React, { useState, useCallback, useMemo, useEffect } from 'react';
 
 import MenuContext from '../context/menu.js';
 import Menu from './Menu.jsx';
@@ -8,13 +8,24 @@ const ContextMenuProvider = ({ children }) => {
 
   const contextData = useMemo(() => ({
     openMenu: (type, x, y, args, align, id) => {
-      setMenuState({ active: true, type, x, y, args, align, id });
+      setMenuState({
+        active: true, type, x, y, args, align, id,
+      });
     },
     openMenuId: menuState?.id,
   }), [menuState?.id]);
 
+  useEffect(() => {
+    console.log(menuState);
+  }, [menuState]);
+
   const remove = useCallback(() => {
-    setMenuState((state) => ({ ...state, active: false }));
+    setMenuState((state) => {
+      if (state?.active) {
+        return { ...state, active: false };
+      }
+      return state;
+    });
   }, []);
 
   const close = useCallback(() => {

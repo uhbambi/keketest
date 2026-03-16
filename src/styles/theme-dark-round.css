@@ -105,11 +105,6 @@ tr:nth-child(even) {
   background-color: rgba(117, 31, 31, 0.8);
 }
 
-.menu > div {
-  z-index: 1;
-  background-color: #15374fd1;
-}
-
 .modal, .Alert, .popup-modal {
   background: #444242 none repeat scroll 0 0;;
   color: #f4f4f4;
@@ -193,7 +188,7 @@ h3, h4 {
   color: #ecc9ff;
 }
 
-.actionbuttons:hover, .onlinebox:hover, .coorbox:hover, .menu > div:hover {
+.actionbuttons:hover, .onlinebox:hover, .coorbox:hover {
   background-color: #363637;
 }
 

@@ -26,7 +26,7 @@ tr:nth-child(odd) {
   background: linear-gradient(1deg,#61dcea ,#ffb1e1,#ecffec,#fff9b1,#61dcea);
 }
 
-.actionbuttons:hover, .menu > div:hover, .channeldd, .contextmenu {
+.actionbuttons:hover, .channeldd, .contextmenu {
   background: linear-gradient(160deg, #61dcea , #ffb1e1, #ecffec, #ffb1e1, #61dcea);
 }
 

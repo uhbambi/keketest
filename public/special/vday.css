@@ -6,11 +6,3 @@
   background-color: #ff9898;
   color: black;
 }
-
-.menu > div {
-  background-color: #c3ddffd1;
-}
-
-.menu > div:hover {
-  background-color: #94c2ffd1;
-}

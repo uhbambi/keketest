@@ -156,7 +156,15 @@ const MenuList = ({
       requestAnimationFrame(() => {
         setDoRender(true);
       });
+    } else if (!isOpen && !doRender) {
+      /*
+       * when quickly clicking on/off before transition finished,
+       * we could enter an irrecoverable state, make sure we remove in such
+       * an event
+       */
+      close(id);
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isOpen, doRender]);
 
   let menuClassName = 'menu';

@@ -123,10 +123,6 @@ tr:nth-child(odd) {
   background-color: #7d5f5f;
 }
 
-.menu > div {
-  background-color: rgb(, 238, 255);
-}
-
 #helpbutton {
   background-color: rgb(112 0 0 / 80%);
   color: white;
@@ -274,7 +270,7 @@ button {
   color: #ff49ff;
 }
 
-.actionbuttons:hover, .onlinebox:hover, .menu > div:hover{
+.actionbuttons:hover, .onlinebox:hover {
   background-color: #ff1818f2; 
 }
 
