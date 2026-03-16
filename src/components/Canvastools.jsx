@@ -207,6 +207,10 @@ function ModCanvastools() {
     getCleanerStats((stats) => setCleanerStats(stats));
   }, 10000);
 
+  if (userlvl < USERLVL.JANNY) {
+    return (<div className="content"><h1>{t`Not Allowed`}</h1></div>);
+  }
+
   const cleanerStatusString = (!cleanerstats.running)
     ? t`Status: Not running`
   // eslint-disable-next-line max-len

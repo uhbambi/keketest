@@ -395,7 +395,11 @@ const Menu = ({ type, x, y, args, align, isOpen, remove, close }) => {
     try {
       switch (element.type) {
         case 'link': {
-          link(element.link, { target: 'parent' });
+          link(element.link, {
+            target: element.target || 'parent',
+            reuse: element.reuse,
+            args: element.args,
+          });
           break;
         }
         case 'func': {

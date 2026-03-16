@@ -148,6 +148,7 @@ export const OVERLAY_SP_TH = 8;
  */
 export const POPUP_ARGS = {
   USERAREA: ['activeTab'],
+  MODTOOLS: ['activeTab'],
   CHAT: [['chatChannel', 'int']],
   FISH_DISPLAY: [['id', 'int']],
   BADGE_DISPLAY: [['id', 'int']],
@@ -167,6 +168,8 @@ export const AVAILABLE_POPUPS = [
   'PLAYER',
   'FISH_DISPLAY',
   'BADGE_DISPLAY',
+  'STATISTICS',
+  'MODTOOLS',
 ];
 
 /*

@@ -12,6 +12,12 @@ import generateMainHTML from './mainHTML.js';
  * @return {html, csp, etab} html, content-security-policy and etag for mainpage
  */
 export default function generateMainPage(req, params) {
+  /*
+   * TODO:
+   * if the window needs a lazy loaded chunk, include it with
+   * <link rel="preload" href="/modtools.abc123.js" as="script">
+   * to make it download immediately
+   */
   const scripts = getJsAssets('popup', req.lang);
   return generateMainHTML(req, 'ppfun', scripts, 'popup', params);
 }

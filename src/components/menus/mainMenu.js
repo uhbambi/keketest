@@ -19,11 +19,15 @@ import {
   // 3d symbol,
   Md3dRotation,
 } from 'react-icons/md';
+import {
+  // bar chart
+  IoIosStats,
+} from 'react-icons/io';
 import fileDownload from 'js-file-download';
 import { t } from 'ttag';
 
 import { getRenderer } from '../../ui/rendererFactory.js';
-import { CANVAS_TYPES } from '../../core/constants.js';
+import { CANVAS_TYPES, USERLVL } from '../../core/constants.js';
 import {
   selectCanvas, setViewCoordinates, toggleHistoricalView,
 } from '../../store/actions/index.js';
@@ -39,7 +43,7 @@ function download() {
 }
 
 export default function mainMenu(store) {
-  let elements = [{
+  const elements = [{
     id: 'ca1',
     type: 'link',
     symbol: FaFlipboard,
@@ -66,7 +70,9 @@ export default function mainMenu(store) {
     });
   }
 
-  if (window.ssv?.backupurl && state.canvas.rendererType !== CANVAS_TYPES.THREED) {
+  if (window.ssv?.backupurl
+    && state.canvas.rendererType !== CANVAS_TYPES.THREED
+  ) {
     elements.push({
       id: 'hi',
       type: 'boolean',
@@ -79,26 +85,83 @@ export default function mainMenu(store) {
     });
   }
 
-  elements = elements.concat([
-    {
-      id: 'sc1',
-      type: 'func',
-      symbol: MdFileDownload,
-      func: download,
-      text: t`Make Screenshot`,
-    },
-    { id: 's1', type: 'spacer' },
-    {
-      id: 'pe',
+  elements.push({
+    id: 'sc1',
+    type: 'func',
+    symbol: MdFileDownload,
+    func: download,
+    text: t`Make Screenshot`,
+  },
+  { id: 's1', type: 'spacer' },
+  {
+    id: 'pe',
+    type: 'link',
+    symbol: MdPerson,
+    link: 'USERAREA',
+    text: t`User Area`,
+  });
+
+  if (state.user.userlvl >= USERLVL.CHATMOD) {
+    /* eslint-disable max-len */
+    const modtoolsSubmenu = [{
+      id: 'mtme',
       type: 'link',
+      link: 'MODTOOLS',
+      args: { activeTab: 'Media' },
+      /* t: This if for moderation tools, it's not important to translate this */
+      text: t`Mediatools`,
+    }];
+    if (state.user.userlvl >= USERLVL.JANNY) {
+      modtoolsSubmenu.push({
+        id: 'mtca',
+        type: 'link',
+        link: 'MODTOOLS',
+        args: { activeTab: 'Canvas' },
+        /* t: This if for moderation tools, it's not important to translate this */
+        text: t`Canvastools`,
+      });
+    }
+    if (state.user.userlvl >= USERLVL.MOD) {
+      modtoolsSubmenu.push({
+        id: 'mtwt',
+        type: 'link',
+        link: 'MODTOOLS',
+        args: { activeTab: 'Watch' },
+        /* t: This if for moderation tools, it's not important to translate this */
+        text: t`Watchtools`,
+      }, {
+        id: 'mtii',
+        type: 'link',
+        link: 'MODTOOLS',
+        args: { activeTab: 'IID' },
+        /* t: This if for moderation tools, it's not important to translate this */
+        text: t`IIDTools`,
+      });
+    }
+    if (state.user.userlvl >= USERLVL.ADMIN) {
+      modtoolsSubmenu.push({
+        id: 'mtad',
+        type: 'link',
+        link: 'MODTOOLS',
+        args: { activeTab: 'Admin' },
+        /* t: This if for moderation tools, it's not important to translate this */
+        text: t`Admintools`,
+      });
+    }
+
+    elements.push({
+      id: 'mtsu',
+      type: 'submenu',
       symbol: MdPerson,
-      link: 'USERAREA',
-      text: t`User Area`,
-    },
-  ]);
+      /* t: This if for moderation tools, it's not important to translate this */
+      text: (state.user.userlvl >= USERLVL.ADMIN) ? t`Admintools` : t`Modtools`,
+      elements: modtoolsSubmenu,
+    });
+    /* eslint-enable max-len */
+  }
 
   if (state.templates.available) {
-    let templateSubmenu = [{
+    const templateSubmenu = [{
       id: 'te',
       type: 'link',
       link: 'TEMPLATES',
@@ -116,13 +179,13 @@ export default function mainMenu(store) {
       },
     }));
     if (templateList.length) {
-      templateSubmenu = templateSubmenu.concat(
+      templateSubmenu.push(
         { id: 'st1', type: 'spacer' },
         templateList,
       );
     }
 
-    elements = elements.concat({
+    elements.push({
       id: 'te',
       type: 'submenu',
       symbol: FaPaintRoller,
@@ -131,7 +194,14 @@ export default function mainMenu(store) {
     });
   }
 
-  elements = elements.concat([
+  elements.push(
+    {
+      id: 'st',
+      type: 'link',
+      symbol: IoIosStats,
+      link: 'STATISTICS',
+      text: t`Statistics`,
+    },
     { id: 's2', type: 'spacer' },
     {
       id: 'se',
@@ -145,9 +215,10 @@ export default function mainMenu(store) {
       type: 'link',
       symbol: FaQuestion,
       link: 'HELP',
+      reuse: true,
       text: t`Help`,
     },
-  ]);
+  );
 
   return elements;
 }

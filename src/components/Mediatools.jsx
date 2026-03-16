@@ -5,9 +5,10 @@
 /* eslint-disable max-len */
 
 import React, { useState } from 'react';
+import { useSelector } from 'react-redux';
 import { t } from 'ttag';
 
-import { MEDIA_BAN_REASONS } from '../core/constants.js';
+import { MEDIA_BAN_REASONS, USERLVL } from '../core/constants.js';
 import { api } from '../utils/utag.js';
 
 async function submitMediaAcion(
@@ -40,8 +41,13 @@ function ModMediatools() {
   const [resp, setResp] = useState('');
   const [submitting, setSubmitting] = useState(false);
 
+  const userlvl = useSelector((state) => state.user.userlvl);
+  if (userlvl < USERLVL.CHATMOD) {
+    return (<div className="content"><h1>{t`Not Allowed`}</h1></div>);
+  }
+
   return (
-    <div style={{ textAlign: 'center', paddingLeft: '5%', paddingRight: '5%' }}>
+    <div className="content">
       <form
         onSubmit={async (evt) => {
           evt.preventDefault();

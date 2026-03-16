@@ -5,7 +5,7 @@
 /* eslint-disable max-len */
 
 import React, { useState, useMemo } from 'react';
-import { shallowEqual, useSelector } from 'react-redux';
+import { shallowEqual, useSelector, useDispatch } from 'react-redux';
 import { t } from 'ttag';
 import {
   Chart as ChartJS,
@@ -20,11 +20,13 @@ import {
   ArcElement,
 } from 'chart.js';
 import { Line, Pie } from 'react-chartjs-2';
-import { cdn } from '../utils/utag.js';
 
-import { numberToString, numberToStringFull } from '../core/utils.js';
-import { selectIsDarkMode } from '../store/selectors/gui.js';
-import { selectStats } from '../store/selectors/ranks.js';
+import { cdn } from '../../utils/utag.js';
+import { fetchStats } from '../../store/actions/thunks.js';
+import useInterval from '../hooks/interval.js';
+import { numberToString, numberToStringFull } from '../../core/utils.js';
+import { selectIsDarkMode } from '../../store/selectors/gui.js';
+import { selectStats } from '../../store/selectors/ranks.js';
 import {
   getCHistChartOpts,
   getCHistChartData,
@@ -36,8 +38,8 @@ import {
   getCPieData,
   getPDailyStatsOpts,
   getPDailyStatsData,
-} from '../core/chartSettings.js';
-import CooldownChanges from './CooldownChanges.jsx';
+} from '../../core/chartSettings.js';
+import CooldownChanges from '../CooldownChanges.jsx';
 
 ChartJS.register(
   CategoryScale,
@@ -53,6 +55,8 @@ ChartJS.register(
 );
 
 const Rankings = () => {
+  const lastStatsFetch = useSelector((state) => state.ranks.lastFetch);
+
   const [area, setArea] = useState('total');
   const [
     totalRanking,
@@ -67,6 +71,13 @@ const Rankings = () => {
     pHourlyStats,
   ] = useSelector(selectStats, shallowEqual);
   const isDarkMode = useSelector(selectIsDarkMode);
+  const dispatch = useDispatch();
+
+  useInterval(() => {
+    if (Date.now() - 300000 > lastStatsFetch) {
+      dispatch(fetchStats());
+    }
+  }, 300000);
 
   const cHistData = useMemo(() => {
     if (area !== 'charts') {
@@ -139,7 +150,7 @@ const Rankings = () => {
   }, [area]);
 
   return (
-    <>
+    <div style={{ textAlign: 'center', marginTop: 34 }}>
       <div className="content">
         <span
           role="button"
@@ -314,7 +325,7 @@ const Rankings = () => {
       <p>
         {t`Ranking updates every 5 min. Daily rankings get reset at midnight UTC.`}
       </p>
-    </>
+    </div>
   );
 };
 

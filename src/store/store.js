@@ -40,7 +40,7 @@ import extensions from './middleware/extensions.js';
 const windowsPersist = persistReducer({
   key: 'wind',
   storage,
-  version: 17,
+  version: 18,
   migrate,
 }, windows);
 

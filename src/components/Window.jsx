@@ -3,7 +3,7 @@
  */
 
 import React, {
-  useState, useCallback, useRef, useEffect, useMemo,
+  useState, useCallback, useRef, useEffect, useMemo, Suspense,
 } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { BiChalkboard } from 'react-icons/bi';
@@ -273,7 +273,9 @@ const Window = ({ id }) => {
         key="content"
       >
         <WindowContext.Provider value={contextData}>
-          <Content />
+          <Suspense fallback={<div className="content">{t`Loading...`}</div>}>
+            <Content />
+          </Suspense>
         </WindowContext.Provider>
       </div>
     </div>

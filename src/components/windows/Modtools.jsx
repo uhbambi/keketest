@@ -1,17 +1,16 @@
 /*
  * Modtools
  */
-
-import React, { useState, useEffect } from 'react';
+import React, { useLayoutEffect, useContext, useCallback } from 'react';
 import { useSelector } from 'react-redux';
 
-import Canvastools from './ModCanvastools.jsx';
-import Admintools from './Admintools.jsx';
-import Watchtools from './ModWatchtools.jsx';
-import Mediatools from './ModMediatools.jsx';
-import IIDTools from './ModIIDtools.jsx';
-import { USERLVL } from '../core/constants.js';
-
+import WindowContext from '../context/window.js';
+import Canvastools from '../Canvastools.jsx';
+import Admintools from '../Admintools.jsx';
+import Watchtools from '../Watchtools.jsx';
+import Mediatools from '../Mediatools.jsx';
+import IIDTools from '../IIDTools.jsx';
+import { USERLVL } from '../../core/constants.js';
 
 const CONTENT = {
   Canvas: Canvastools,
@@ -22,11 +21,21 @@ const CONTENT = {
 };
 
 function Modtools() {
-  const [selectedPart, selectPart] = useState(null);
+  const {
+    args,
+    setArgs,
+    setTitle,
+  } = useContext(WindowContext);
+  const { activeTab } = args;
+
+  const setActiveTab = useCallback((label) => {
+    setArgs({
+      activeTab: label,
+    });
+    setTitle(label);
+  }, [setArgs, setTitle]);
 
   const userlvl = useSelector((state) => state.user.userlvl);
-
-  const Content = CONTENT[selectedPart];
 
   const parts = Object.keys(CONTENT)
     .filter((part) => {
@@ -36,19 +45,23 @@ function Modtools() {
         case 'Watch':
         case 'IID':
           return userlvl >= USERLVL.MOD;
+        case 'Canvas':
+          return userlvl >= USERLVL.JANNY;
         case 'Media':
           return userlvl >= USERLVL.CHATMOD;
         default:
-          return userlvl >= USERLVL.JANNY;
+          return false;
       }
     });
 
-  useEffect(() => {
-    if (!parts.includes(selectedPart)) {
-      selectPart(parts[0]);
+  useLayoutEffect(() => {
+    if (!activeTab) {
+      setActiveTab(parts[0]);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [userlvl, selectedPart]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [activeTab]);
+
+  const Content = CONTENT[activeTab];
 
   return (
     <>
@@ -56,7 +69,7 @@ function Modtools() {
         <div
           key="tabm"
           className="content"
-          style={{ overflowWrap: 'anywhere' }}
+          style={{ overflowWrap: 'anywhere', marginTop: 34 }}
         >
           {parts.map((part, ind) => (
             <React.Fragment key={part}>
@@ -64,9 +77,9 @@ function Modtools() {
                 role="button"
                 tabIndex={-1}
                 className={
-                  (selectedPart === part) ? 'modallink selected' : 'modallink'
+                  (activeTab === part) ? 'modallink selected' : 'modallink'
                 }
-                onClick={() => selectPart(part)}
+                onClick={() => setActiveTab(part)}
               >{part}</span>
               {(ind !== parts.length - 1)
                 && <span className="hdivider" />}

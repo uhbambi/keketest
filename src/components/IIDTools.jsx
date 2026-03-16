@@ -5,10 +5,12 @@
 /* eslint-disable max-len */
 
 import React, { useState } from 'react';
+import { useSelector } from 'react-redux';
 import { t } from 'ttag';
 
 import { parseInterval } from '../core/utils.js';
 import { api } from '../utils/utag.js';
+import { USERLVL } from '../core/constants.js';
 
 async function submitIIDAction(
   action,
@@ -100,8 +102,14 @@ function ModIIDtools() {
   const [resp, setResp] = useState('');
   const [submitting, setSubmitting] = useState(false);
 
+
+  const userlvl = useSelector((state) => state.user.userlvl);
+  if (userlvl < USERLVL.MOD) {
+    return (<div className="content"><h1>{t`Not Allowed`}</h1></div>);
+  }
+
   return (
-    <div style={{ textAlign: 'center', paddingLeft: '5%', paddingRight: '5%' }}>
+    <div className="content">
       <form
         onSubmit={async (evt) => {
           evt.preventDefault();

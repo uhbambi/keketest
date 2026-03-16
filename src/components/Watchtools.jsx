@@ -11,6 +11,7 @@ import copyTextToClipboard from '../utils/clipboard.js';
 import { parseInterval, coordsFromString } from '../core/utils.js';
 import { api, cdn } from '../utils/utag.js';
 import { selectCanvas } from '../store/actions/index.js';
+import { USERLVL } from '../core/constants.js';
 
 const keepState = {
   tlcoords: '',
@@ -97,12 +98,18 @@ function ModWatchtools() {
   const [
     canvasId,
     canvases,
+    userlvl,
   ] = useSelector((state) => [
     state.canvas.canvasId,
     state.canvas.canvases,
+    state.user.userlvl,
   ], shallowEqual);
 
   const dispatch = useDispatch();
+
+  if (userlvl < USERLVL.MOD) {
+    return (<div className="content"><h1>{t`Not Allowed`}</h1></div>);
+  }
 
   const {
     columns, types, rows, ts,
@@ -110,7 +117,7 @@ function ModWatchtools() {
   const cidColumn = (types) ? (types.indexOf('cid')) : -1;
 
   return (
-    <>
+    <div style={{ textAlign: 'center' }}>
       <div className="content">
         {resp && (
           <div className="respbox">
@@ -477,7 +484,7 @@ function ModWatchtools() {
           </button>
         </React.Fragment>
       )}
-    </>
+    </div>
   );
 }
 

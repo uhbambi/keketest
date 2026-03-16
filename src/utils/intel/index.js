@@ -174,8 +174,8 @@ export const getIPIntel = queue(async (
   }
   if (proxyCheckNeeded && !proxyCheckData) {
     proxyCheckData = {
-      isProxy: 0x01 << PROXY_FLAGS.INVALID,
-      expiresTs: nowTs + 12 * 3600 * 1000,
+      isProxy: 0,
+      expiresTs: nowTs + 900 * 1000,
     };
   }
 

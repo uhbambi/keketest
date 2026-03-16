@@ -3,6 +3,7 @@
  */
 
 import React, { useState, useEffect, useCallback } from 'react';
+import { useSelector } from 'react-redux';
 import { t } from 'ttag';
 
 import DeleteList from './DeleteList.jsx';
@@ -166,6 +167,11 @@ function Admintools() {
       setResp(ret);
     });
   }, [submitting, modlist]);
+
+  const userlvl = useSelector((state) => state.user.userlvl);
+  if (userlvl < USERLVL.ADMIN) {
+    return (<div className="content"><h1>{t`Not Allowed`}</h1></div>);
+  }
 
   return (
     <div className="content">
