@@ -8,6 +8,7 @@ import { getLowHexSubnetOfIP } from './ip.js';
 import { getRangeOfIP } from '../../data/sql/Range.js';
 import { getWhoisHostOfIP } from '../../data/sql/WhoisReferral.js';
 import { saveIPIntel, getProviderOfIP } from '../../data/sql/IP.js';
+import { getProxCheckHistory } from '../../data/sql/Proxy.js';
 import { queue } from './queue.js';
 import {
   USE_PROXYCHECK, PROXYCHECK_KEY, WHOIS_DURATION,
@@ -62,6 +63,60 @@ async function whoisWithStorage(ipString) {
 }
 
 /**
+ * get proxycheck and add expiration and repetition according to previously
+ * stored results
+ * @param ipString ip as String
+ * @return null | {
+ *   expiresTs: timestamp when data expires,
+ *   isProxy: type of proxy, 0 if none,
+ *   type: Residential, Wireless, VPN, SOCKS,...,
+ *   operator: name of proxy operator if available,
+ *   city: name of city,
+ *   repetition: number of how many times we encountered the same result,
+ *   devices: amount of devices using this ip,
+ *   risk: score of risk,
+ *   confidence: percentage of confidence,
+ *   subnetDevices: amount of devices in this subnet,
+ * }
+ */
+async function proxyCheckWithStorage(ipString) {
+  const [proxyCheckHistory, proxyCheckData] = await Promise.all([
+    getProxCheckHistory(ipString),
+    proxyChecker(ipString),
+  ]);
+  if (!proxyCheckData) {
+    return proxyCheckData;
+  }
+
+  let repetition = 0;
+  if (proxyCheckHistory && (
+    (proxyCheckHistory.isProxy > 0) === (proxyCheckData.isProxy > 0)
+  )) {
+    repetition = proxyCheckHistory.repetition + 1;
+  }
+  proxyCheckData.repetition = repetition;
+
+  let durationMs;
+  if (proxyCheckData.isProxy & (
+    // eslint-disable-next-line max-len
+    (0x01 << PROXY_FLAGS.VPN) | (0x01 << PROXY_FLAGS.TOR) | (0x01 << PROXY_FLAGS.HOSTING)
+  )) {
+    durationMs = 7 * 24 * 3600 * 1000;
+  } else if (repetition === 0) {
+    durationMs = 180 * 1000;
+  } else if (repetition === 1) {
+    durationMs = 300 * 1000;
+  } else if (proxyCheckData.isProxy) {
+    durationMs = 300 * 1000;
+  } else {
+    durationMs = 600 * 1000;
+  }
+
+  proxyCheckData.expiresTs = Date.now() + durationMs;
+  return proxyCheckData;
+}
+
+/**
  * Get IP intel (whois and proxycheck)
  * @param ipString ip as string
  * @param whoisNeeded if we shouldfetch whois
@@ -81,7 +136,10 @@ async function whoisWithStorage(ipString) {
  *   type: Residential, Wireless, VPN, SOCKS,...,
  *   operator: name of proxy operator if available,
  *   city: name of city,
+ *   repetition: number of how many times we encountered the same result,
  *   devices: amount of devices using this ip,
+ *   risk: score of risk,
+ *   confidence: percentage of confidence,
  *   subnetDevices: amount of devices in this subnet,
  * }]>
  */
@@ -97,7 +155,7 @@ export const getIPIntel = queue(async (
 
   let [whoisData, proxyCheckData] = await Promise.all([
     (whoisNeeded) ? whoisWithStorage(ipString) : null,
-    (proxyCheckNeeded) ? proxyChecker(ipString) : null,
+    (proxyCheckNeeded) ? proxyCheckWithStorage(ipString) : null,
   ]);
 
   const nowTs = Date.now();
@@ -126,19 +184,7 @@ export const getIPIntel = queue(async (
     whoisData.expiresTs = nowTs + WHOIS_DURATION * 3600 * 1000;
   }
   if (proxyCheckData && !proxyCheckData.expiresTs) {
-    /*
-     * choose duration based on detection
-     */
-    let durationMs = 300 * 1000;
-    if (!proxyCheckData.isProxy) {
-      durationMs = 600 * 1000;
-    } else if (proxyCheckData.isProxy & (
-      // eslint-disable-next-line max-len
-      (0x01 << PROXY_FLAGS.VPN) | (0x01 << PROXY_FLAGS.TOR) | (0x01 << PROXY_FLAGS.HOSTING)
-    )) {
-      durationMs = 7 * 24 * 3600 * 1000;
-    }
-    proxyCheckData.expiresTs = nowTs + durationMs;
+    proxyCheckData.expiresTs = nowTs + 600 * 1000;
   }
 
   await saveIPIntel(ipString, whoisData, proxyCheckData);

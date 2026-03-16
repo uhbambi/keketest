@@ -126,7 +126,10 @@ WHERE i.ip = IP_TO_BIN(?)`, {
  *   type: Residential, Wireless, VPN, SOCKS,...,
  *   operator: name of proxy operator if available,
  *   city: name of city,
+ *   repetition: number of how many times we encountered the same result,
  *   devices: amount of devices using this ip,
+ *   risk: score of risk,
+ *   confidence: percentage of confidence,
  *   subnetDevices: amount of devices in this subnet,
  * }
  * @return success boolean
@@ -237,23 +240,25 @@ ON DUPLICATE KEY UPDATE min = VALUES(min), max = VALUES(max), mask = VALUES(mask
 
       if (pcData) {
         const {
-          isProxy, type = null, operator = null, city = null,
+          isProxy, type = null,
           devices = 1, subnetDevices = 1,
+          repetition = 0,
           risk = null, confidence = null,
         } = pcData;
-        if (pcData.operator?.length > 60) {
-          pcData.operator = pcData.operator.substring(0, 60);
+        let { operator = null, city = null } = pcData;
+        if (operator?.length > 60) {
+          operator = operator.substring(0, 60);
         }
-        if (pcData.city?.length > 60) {
-          pcData.city = pcData.city.substring(0, 60);
+        if (city?.length > 60) {
+          city = city.substring(0, 60);
         }
         await sequelize.query(
-          `INSERT INTO Proxies (ip, isProxy, type, operator, city, devices, subnetDevices, risk, confidence, expires) VALUES (IP_TO_BIN(?), ?, ?, ?, ?, ?, ?, ?, ?, ?)
-ON DUPLICATE KEY UPDATE isProxy = VALUES(isProxy), type = VALUES(type), operator = VALUES(operator), city = VALUES(city), devices = VALUES(devices), subnetDevices = VALUES(subnetDevices), confidence = VALUES(confidence), risk = VALUES(risk), ip = VALUES(ip), expires = VALUES(expires)`, {
+          `INSERT INTO Proxies (ip, isProxy, type, operator, city, devices, subnetDevices, risk, confidence, repetition, expires) VALUES (IP_TO_BIN(?), ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+ON DUPLICATE KEY UPDATE isProxy = VALUES(isProxy), type = VALUES(type), operator = VALUES(operator), city = VALUES(city), devices = VALUES(devices), subnetDevices = VALUES(subnetDevices), confidence = VALUES(confidence), risk = VALUES(risk), repetition = VALUES(repetition), ip = VALUES(ip), expires = VALUES(expires)`, {
             replacements: [
               ipString,
               isProxy, type, operator, city, devices, subnetDevices,
-              risk, confidence,
+              risk, confidence, repetition,
               new Date(pcData.expiresTs),
             ],
             raw: true,

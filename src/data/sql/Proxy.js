@@ -1,5 +1,5 @@
 
-import { DataTypes } from 'sequelize';
+import { DataTypes, QueryTypes } from 'sequelize';
 
 import sequelize from './sequelize.js';
 
@@ -43,6 +43,16 @@ const ProxyData = sequelize.define('Proxy', {
     type: `${DataTypes.STRING(60)} CHARSET utf8mb4 COLLATE utf8mb4_unicode_ci`,
   },
 
+  /*
+   * how many times we got the same result in a row,
+   * used to decide for expiration time
+   */
+  repetition: {
+    type: DataTypes.INTEGER.UNSIGNED,
+    defaultValue: 0,
+    allowNull: false,
+  },
+
   risk: {
     type: DataTypes.TINYINT.UNSIGNED,
   },
@@ -77,5 +87,22 @@ const ProxyData = sequelize.define('Proxy', {
     allowNull: false,
   },
 });
+
+export async function getProxCheckHistory(ipString) {
+  try {
+    const result = await sequelize.query(
+      // eslint-disable-next-line max-len
+      'SELECT isProxy, repetition FROM Proxies WHERE ip = IP_TO_BIN(?)', {
+        replacements: [ipString],
+        plain: true,
+        type: QueryTypes.SELECT,
+      },
+    );
+    return result;
+  } catch (error) {
+    console.error(`SQL Error on getProxCheckHistory: ${error.message}`);
+  }
+  return null;
+}
 
 export default ProxyData;
