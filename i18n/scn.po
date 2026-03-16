@@ -282,9 +282,6 @@ msgstr ""
 msgid "Close Chat"
 msgstr ""
 
-msgid "Close Menu"
-msgstr ""
-
 msgid "Close Palette"
 msgstr ""
 
@@ -773,6 +770,9 @@ msgstr ""
 msgid "Manage Moderators"
 msgstr ""
 
+msgid "Manage Templates"
+msgstr ""
+
 msgid "Map Data"
 msgstr ""
 
@@ -885,9 +885,6 @@ msgid "Opacity of Overlay in percent."
 msgstr ""
 
 msgid "Open Chat"
-msgstr ""
-
-msgid "Open Menu"
 msgstr ""
 
 msgid "Open Palette"

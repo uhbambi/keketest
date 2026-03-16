@@ -301,9 +301,6 @@ msgstr "Tanca"
 msgid "Close Chat"
 msgstr "Tanca el Xat"
 
-msgid "Close Menu"
-msgstr "Tanca el Menú"
-
 msgid "Close Palette"
 msgstr "Tanca la Paleta"
 
@@ -827,6 +824,9 @@ msgstr "Fes Captura de Pantalla"
 msgid "Manage Moderators"
 msgstr "Administrar Moderadors"
 
+msgid "Manage Templates"
+msgstr ""
+
 msgid "Map Data"
 msgstr "Dades del Mapa"
 
@@ -941,9 +941,6 @@ msgstr "Opacitat de la Superposició (percentatge)."
 
 msgid "Open Chat"
 msgstr "Obre el Xat"
-
-msgid "Open Menu"
-msgstr "Obre el Menú"
 
 msgid "Open Palette"
 msgstr "Obre la Paleta"
@@ -1855,6 +1852,12 @@ msgstr "W"
 msgctxt "keybinds"
 msgid "X"
 msgstr "X"
+
+#~ msgid "Close Menu"
+#~ msgstr "Tanca el Menú"
+
+#~ msgid "Open Menu"
+#~ msgstr "Obre el Menú"
 
 #~ msgid "You have new messages in chat"
 #~ msgstr "Tens missatges nous al xat"

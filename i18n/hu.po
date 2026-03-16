@@ -305,9 +305,6 @@ msgstr "Bezárás"
 msgid "Close Chat"
 msgstr "Chat bezárása"
 
-msgid "Close Menu"
-msgstr "Menü bezárása"
-
 msgid "Close Palette"
 msgstr "Paletta bezárása"
 
@@ -806,6 +803,9 @@ msgstr "Képernyőkép készítése"
 msgid "Manage Moderators"
 msgstr "Moderátorok kezelése"
 
+msgid "Manage Templates"
+msgstr ""
+
 msgid "Map Data"
 msgstr "Térkép adatok"
 
@@ -919,9 +919,6 @@ msgstr "Az overlay átlátszósága százalékban."
 
 msgid "Open Chat"
 msgstr "Chat kinyitása"
-
-msgid "Open Menu"
-msgstr "Menü kinyitása"
 
 msgid "Open Palette"
 msgstr "Paletta kinyitása"
@@ -1816,6 +1813,12 @@ msgstr "W"
 msgctxt "keybinds"
 msgid "X"
 msgstr "X"
+
+#~ msgid "Close Menu"
+#~ msgstr "Menü bezárása"
+
+#~ msgid "Open Menu"
+#~ msgstr "Menü kinyitása"
 
 #~ msgid "You have new messages in chat"
 #~ msgstr "Új üzeneteid vannak a chaten"

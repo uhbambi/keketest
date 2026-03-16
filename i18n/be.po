@@ -308,9 +308,6 @@ msgstr "Закрыць"
 msgid "Close Chat"
 msgstr "Закрыць Чат"
 
-msgid "Close Menu"
-msgstr "Закрыць Меню"
-
 msgid "Close Palette"
 msgstr "Закрыць Палітру"
 
@@ -824,6 +821,9 @@ msgstr "Зрабіць Скрыншот"
 msgid "Manage Moderators"
 msgstr "Кіраваць Мадэратарамі"
 
+msgid "Manage Templates"
+msgstr ""
+
 msgid "Map Data"
 msgstr "Дадзеныя Мапы"
 
@@ -937,9 +937,6 @@ msgstr ""
 
 msgid "Open Chat"
 msgstr "Адкрыць Чат"
-
-msgid "Open Menu"
-msgstr "Адкрыць Меню"
 
 msgid "Open Palette"
 msgstr "Адкрыць Палітру"
@@ -1830,6 +1827,12 @@ msgstr "W"
 msgctxt "keybinds"
 msgid "X"
 msgstr "X"
+
+#~ msgid "Close Menu"
+#~ msgstr "Закрыць Меню"
+
+#~ msgid "Open Menu"
+#~ msgstr "Адкрыць Меню"
 
 #~ msgid "You have new messages in chat"
 #~ msgstr "Ёсць новыя паведамленні ў чаце"

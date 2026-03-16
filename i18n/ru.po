@@ -312,9 +312,6 @@ msgstr "Закрыть"
 msgid "Close Chat"
 msgstr "Закрыть чат"
 
-msgid "Close Menu"
-msgstr "Закрыть меню"
-
 msgid "Close Palette"
 msgstr "Закрыть палитру"
 
@@ -832,6 +829,9 @@ msgstr "Сделать снимок экрана"
 msgid "Manage Moderators"
 msgstr "Управление модераторами"
 
+msgid "Manage Templates"
+msgstr ""
+
 msgid "Map Data"
 msgstr "Картографические данные"
 
@@ -947,9 +947,6 @@ msgstr "Прозрачность оверлея в процентах."
 
 msgid "Open Chat"
 msgstr "Открыть чат"
-
-msgid "Open Menu"
-msgstr "Открыть меню"
 
 msgid "Open Palette"
 msgstr "Открыть палитру"
@@ -1858,6 +1855,12 @@ msgstr "W"
 msgctxt "keybinds"
 msgid "X"
 msgstr "X"
+
+#~ msgid "Close Menu"
+#~ msgstr "Закрыть меню"
+
+#~ msgid "Open Menu"
+#~ msgstr "Открыть меню"
 
 #~ msgid "You have new messages in chat"
 #~ msgstr "У вас есть новые сообщения в чате"

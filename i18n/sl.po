@@ -307,9 +307,6 @@ msgstr "Zapri"
 msgid "Close Chat"
 msgstr "Zapri Klepet"
 
-msgid "Close Menu"
-msgstr "Zapri Meni"
-
 msgid "Close Palette"
 msgstr "Zapri Paleto"
 
@@ -820,6 +817,9 @@ msgstr "Ustvari Zajem zaslona"
 msgid "Manage Moderators"
 msgstr "Upravljaj Moderatorje"
 
+msgid "Manage Templates"
+msgstr ""
+
 msgid "Map Data"
 msgstr "Podatki Zemljevida"
 
@@ -937,9 +937,6 @@ msgstr ""
 
 msgid "Open Chat"
 msgstr "Odpri Klepet"
-
-msgid "Open Menu"
-msgstr "Odpri Meni"
 
 msgid "Open Palette"
 msgstr "Odpri Paleto"
@@ -1829,6 +1826,12 @@ msgstr "W"
 msgctxt "keybinds"
 msgid "X"
 msgstr "X"
+
+#~ msgid "Close Menu"
+#~ msgstr "Zapri Meni"
+
+#~ msgid "Open Menu"
+#~ msgstr "Odpri Meni"
 
 #~ msgid "Mute"
 #~ msgstr "Utišaj"

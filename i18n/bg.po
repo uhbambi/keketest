@@ -300,9 +300,6 @@ msgstr "Затваряне"
 msgid "Close Chat"
 msgstr "Затваряне на чата"
 
-msgid "Close Menu"
-msgstr "Затваряне на менюто"
-
 msgid "Close Palette"
 msgstr "Затваряне на палитра"
 
@@ -803,6 +800,9 @@ msgstr "Направи скрийншот"
 msgid "Manage Moderators"
 msgstr "Управление на модератори"
 
+msgid "Manage Templates"
+msgstr ""
+
 msgid "Map Data"
 msgstr "Картографски данни"
 
@@ -916,9 +916,6 @@ msgstr "Прозрачност на овърлей в проценти."
 
 msgid "Open Chat"
 msgstr "Отваряне на чата"
-
-msgid "Open Menu"
-msgstr "Отваряне на менюто"
 
 msgid "Open Palette"
 msgstr "Отваряне на палитра"
@@ -1807,6 +1804,12 @@ msgstr "W"
 msgctxt "keybinds"
 msgid "X"
 msgstr "X"
+
+#~ msgid "Close Menu"
+#~ msgstr "Затваряне на менюто"
+
+#~ msgid "Open Menu"
+#~ msgstr "Отваряне на менюто"
 
 #~ msgid "You have new messages in chat"
 #~ msgstr "Имате нови съобщения в чата"

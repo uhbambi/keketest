@@ -296,9 +296,6 @@ msgstr "Sulje"
 msgid "Close Chat"
 msgstr "Sulje keskustelu"
 
-msgid "Close Menu"
-msgstr "Sulje valikko"
-
 msgid "Close Palette"
 msgstr "Sulje väripaletti"
 
@@ -798,6 +795,9 @@ msgstr "Ota näyttökuva"
 msgid "Manage Moderators"
 msgstr ""
 
+msgid "Manage Templates"
+msgstr ""
+
 msgid "Map Data"
 msgstr "Karttatiedot"
 
@@ -913,9 +913,6 @@ msgstr "Päällysteen läpinäkymättömyys prosenteissa."
 
 msgid "Open Chat"
 msgstr "Avaa keskustelu"
-
-msgid "Open Menu"
-msgstr "Avaa valikko"
 
 msgid "Open Palette"
 msgstr "Avaa väripaletti"
@@ -1799,6 +1796,12 @@ msgstr "W"
 msgctxt "keybinds"
 msgid "X"
 msgstr "X"
+
+#~ msgid "Close Menu"
+#~ msgstr "Sulje valikko"
+
+#~ msgid "Open Menu"
+#~ msgstr "Avaa valikko"
 
 #~ msgid "You have new messages in chat"
 #~ msgstr "Sinulla on uusia viestejä keskustelussa"

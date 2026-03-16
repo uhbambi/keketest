@@ -306,9 +306,6 @@ msgstr "Chiudi"
 msgid "Close Chat"
 msgstr "Chiudi la chat"
 
-msgid "Close Menu"
-msgstr "Chiudi il menù"
-
 msgid "Close Palette"
 msgstr "Chiudi la Palette"
 
@@ -813,6 +810,9 @@ msgstr "Fai uno Screenshot"
 msgid "Manage Moderators"
 msgstr "Gestisci moderatori"
 
+msgid "Manage Templates"
+msgstr ""
+
 msgid "Map Data"
 msgstr "Data della mappa"
 
@@ -926,9 +926,6 @@ msgstr ""
 
 msgid "Open Chat"
 msgstr "Apri la chat"
-
-msgid "Open Menu"
-msgstr "Apri il menù"
 
 msgid "Open Palette"
 msgstr "Apri la Palette"
@@ -1816,6 +1813,12 @@ msgstr ""
 msgctxt "keybinds"
 msgid "X"
 msgstr ""
+
+#~ msgid "Close Menu"
+#~ msgstr "Chiudi il menù"
+
+#~ msgid "Open Menu"
+#~ msgstr "Apri il menù"
 
 #~ msgid "You have new messages in chat"
 #~ msgstr "Hai nuovi messaggi in chat"

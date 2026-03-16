@@ -313,9 +313,6 @@ msgstr "Fermu"
 msgid "Close Chat"
 msgstr "Fermu je l' babil'"
 
-msgid "Close Menu"
-msgstr "Fermu je l' menu'"
-
 msgid "Close Palette"
 msgstr "Fermi je L' Kolorar'"
 
@@ -834,6 +831,9 @@ msgstr "Faru Ekrankopio"
 msgid "Manage Moderators"
 msgstr "Mastrumu Moderigistojn"
 
+msgid "Manage Templates"
+msgstr ""
+
 msgid "Map Data"
 msgstr "Mapa Datumo"
 
@@ -951,9 +951,6 @@ msgstr "Opakeco de la tegaĵo en procento."
 
 msgid "Open Chat"
 msgstr "Malfermu je l' babil'"
-
-msgid "Open Menu"
-msgstr "Malfermu je l' menu'"
 
 msgid "Open Palette"
 msgstr "Malfermi je L' Kolorar'"
@@ -1851,6 +1848,12 @@ msgstr "W"
 msgctxt "keybinds"
 msgid "X"
 msgstr "X"
+
+#~ msgid "Close Menu"
+#~ msgstr "Fermu je l' menu'"
+
+#~ msgid "Open Menu"
+#~ msgstr "Malfermu je l' menu'"
 
 #~ msgid "Mute"
 #~ msgstr "Silentu"

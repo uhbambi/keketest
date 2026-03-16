@@ -303,9 +303,6 @@ msgstr "Փակել"
 msgid "Close Chat"
 msgstr "Փակել չատը"
 
-msgid "Close Menu"
-msgstr "Փակել ընտրացանկը"
-
 msgid "Close Palette"
 msgstr "Փակել ներկապնակը"
 
@@ -810,6 +807,9 @@ msgstr "Անել սքրինշոթ"
 msgid "Manage Moderators"
 msgstr "Կառավարել մոդերատորներին"
 
+msgid "Manage Templates"
+msgstr ""
+
 msgid "Map Data"
 msgstr "Քարտեզի տվյալներ"
 
@@ -923,9 +923,6 @@ msgstr "Overlay-ի թափանցիկությունը տոկոսներով"
 
 msgid "Open Chat"
 msgstr "Բացել չատը"
-
-msgid "Open Menu"
-msgstr "Բացել ընտրացանկը"
 
 msgid "Open Palette"
 msgstr "Բացել ներկապնակը"
@@ -1816,6 +1813,12 @@ msgstr "W"
 msgctxt "keybinds"
 msgid "X"
 msgstr "X"
+
+#~ msgid "Close Menu"
+#~ msgstr "Փակել ընտրացանկը"
+
+#~ msgid "Open Menu"
+#~ msgstr "Բացել ընտրացանկը"
 
 #~ msgid "You have new messages in chat"
 #~ msgstr "Դուք ունեք նոր նամակներ չատում"

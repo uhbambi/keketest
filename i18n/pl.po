@@ -305,9 +305,6 @@ msgstr "Zamknij"
 msgid "Close Chat"
 msgstr "Zamknij czat"
 
-msgid "Close Menu"
-msgstr "Zamknij Menu"
-
 msgid "Close Palette"
 msgstr "Zamknij Palete"
 
@@ -808,6 +805,9 @@ msgstr "Zrób Zrzut Ekranu"
 msgid "Manage Moderators"
 msgstr "Zarządzaj moderatorami"
 
+msgid "Manage Templates"
+msgstr ""
+
 msgid "Map Data"
 msgstr "Dane mapy"
 
@@ -921,9 +921,6 @@ msgstr "przezroczystość nakładki w procentach."
 
 msgid "Open Chat"
 msgstr "Otwórz Czat"
-
-msgid "Open Menu"
-msgstr "Otwórz Menu"
 
 msgid "Open Palette"
 msgstr "Otwórz Palete"
@@ -1810,6 +1807,12 @@ msgstr "W"
 msgctxt "keybinds"
 msgid "X"
 msgstr "X"
+
+#~ msgid "Close Menu"
+#~ msgstr "Zamknij Menu"
+
+#~ msgid "Open Menu"
+#~ msgstr "Otwórz Menu"
 
 #~ msgid "You have new messages in chat"
 #~ msgstr "Masz nowe wiadomości w czacie"

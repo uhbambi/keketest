@@ -304,9 +304,6 @@ msgstr "Luk"
 msgid "Close Chat"
 msgstr "Luk Chat"
 
-msgid "Close Menu"
-msgstr "Luk Menu"
-
 msgid "Close Palette"
 msgstr "Luk Palet"
 
@@ -820,6 +817,9 @@ msgstr "Lav Skærmbillede"
 msgid "Manage Moderators"
 msgstr "Administrer Moderatorer"
 
+msgid "Manage Templates"
+msgstr ""
+
 msgid "Map Data"
 msgstr "Kort Data"
 
@@ -933,9 +933,6 @@ msgstr "Gennemsigtighed af Overlejring i procent."
 
 msgid "Open Chat"
 msgstr "Åben Chat"
-
-msgid "Open Menu"
-msgstr "Åben Menu"
 
 msgid "Open Palette"
 msgstr "Åben"
@@ -1834,6 +1831,12 @@ msgstr "W"
 msgctxt "keybinds"
 msgid "X"
 msgstr "X"
+
+#~ msgid "Close Menu"
+#~ msgstr "Luk Menu"
+
+#~ msgid "Open Menu"
+#~ msgstr "Åben Menu"
 
 #~ msgid "You have new messages in chat"
 #~ msgstr "Du har nye beskeder i chat"

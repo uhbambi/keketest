@@ -285,9 +285,6 @@ msgstr "Укрыти"
 msgid "Close Chat"
 msgstr "Укрыти Чет"
 
-msgid "Close Menu"
-msgstr "Укрыти Меню"
-
 msgid "Close Palette"
 msgstr "Спрятати Палету"
 
@@ -778,6 +775,9 @@ msgstr "Зробити Скріншот"
 msgid "Manage Moderators"
 msgstr ""
 
+msgid "Manage Templates"
+msgstr ""
+
 msgid "Map Data"
 msgstr "Дані мапи"
 
@@ -891,9 +891,6 @@ msgstr ""
 
 msgid "Open Chat"
 msgstr "Одомкти Чет"
-
-msgid "Open Menu"
-msgstr "Одомкти Меню"
 
 msgid "Open Palette"
 msgstr "Одкрыти Палету"
@@ -1743,6 +1740,12 @@ msgstr ""
 msgctxt "keybinds"
 msgid "X"
 msgstr ""
+
+#~ msgid "Close Menu"
+#~ msgstr "Укрыти Меню"
+
+#~ msgid "Open Menu"
+#~ msgstr "Одомкти Меню"
 
 #~ msgid "You have new messages in chat"
 #~ msgstr "У вас появились нові сообщеня у чете"

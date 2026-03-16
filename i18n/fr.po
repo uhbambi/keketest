@@ -306,9 +306,6 @@ msgstr "Fermer"
 msgid "Close Chat"
 msgstr "Fermer le chat"
 
-msgid "Close Menu"
-msgstr "Fermer le menu"
-
 msgid "Close Palette"
 msgstr "Fermer la palette"
 
@@ -822,6 +819,9 @@ msgstr "Prendre une capture d'écran"
 msgid "Manage Moderators"
 msgstr "Gérer les modérateurs"
 
+msgid "Manage Templates"
+msgstr ""
+
 msgid "Map Data"
 msgstr "Données cartographiques"
 
@@ -938,9 +938,6 @@ msgstr ""
 
 msgid "Open Chat"
 msgstr "Ourvir le chat"
-
-msgid "Open Menu"
-msgstr "Ouvrir le menu"
 
 msgid "Open Palette"
 msgstr "Ouvrir la palette"
@@ -1839,6 +1836,12 @@ msgstr "W"
 msgctxt "keybinds"
 msgid "X"
 msgstr "X"
+
+#~ msgid "Close Menu"
+#~ msgstr "Fermer le menu"
+
+#~ msgid "Open Menu"
+#~ msgstr "Ouvrir le menu"
 
 #~ msgid "Mute"
 #~ msgstr "Muter"

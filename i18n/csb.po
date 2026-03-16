@@ -304,9 +304,6 @@ msgstr "Zamkni"
 msgid "Close Chat"
 msgstr "Zamkni Czat"
 
-msgid "Close Menu"
-msgstr "Zamkni Menu"
-
 msgid "Close Palette"
 msgstr "Wëłączë palétã"
 
@@ -809,6 +806,9 @@ msgstr "Zrobi Zdrzucënk ekrana"
 msgid "Manage Moderators"
 msgstr "Zarządzôj szandarama"
 
+msgid "Manage Templates"
+msgstr ""
+
 msgid "Map Data"
 msgstr "Dóné kôrtë"
 
@@ -922,9 +922,6 @@ msgstr "Widzawnosc nakłôdków w procentach."
 
 msgid "Open Chat"
 msgstr "Òdemkni Czat"
-
-msgid "Open Menu"
-msgstr "Òdemkni Menu"
 
 msgid "Open Palette"
 msgstr "Włączë palétã"
@@ -1816,6 +1813,12 @@ msgstr "W"
 msgctxt "keybinds"
 msgid "X"
 msgstr "X"
+
+#~ msgid "Close Menu"
+#~ msgstr "Zamkni Menu"
+
+#~ msgid "Open Menu"
+#~ msgstr "Òdemkni Menu"
 
 #~ msgid "You have new messages in chat"
 #~ msgstr "Môsz nowé wiadë na czace"

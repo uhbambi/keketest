@@ -309,9 +309,6 @@ msgstr "Schließen"
 msgid "Close Chat"
 msgstr "Schließe Kommentarsektion"
 
-msgid "Close Menu"
-msgstr "Schließe Menü"
-
 msgid "Close Palette"
 msgstr "Schließe Palette"
 
@@ -830,6 +827,9 @@ msgstr "Bildschirmaufnahme machen"
 msgid "Manage Moderators"
 msgstr "Verwalte Moderatoren"
 
+msgid "Manage Templates"
+msgstr ""
+
 msgid "Map Data"
 msgstr "Karten Dateien"
 
@@ -945,9 +945,6 @@ msgstr "Deckkraft der Vorlage in Prozent."
 
 msgid "Open Chat"
 msgstr "Öffne Kommentarsektion"
-
-msgid "Open Menu"
-msgstr "Öffne Menü"
 
 msgid "Open Palette"
 msgstr "Öffne Palette"
@@ -1853,6 +1850,12 @@ msgstr "W"
 msgctxt "keybinds"
 msgid "X"
 msgstr "X"
+
+#~ msgid "Close Menu"
+#~ msgstr "Schließe Menü"
+
+#~ msgid "Open Menu"
+#~ msgstr "Öffne Menü"
 
 #~ msgid "You have new messages in chat"
 #~ msgstr "Du hast neue Nachrichten in der Kommentarsektion"

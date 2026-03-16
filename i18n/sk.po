@@ -294,9 +294,6 @@ msgstr "Zatvoriť"
 msgid "Close Chat"
 msgstr "Zatvoriť chat"
 
-msgid "Close Menu"
-msgstr "Zatvoriť menu"
-
 msgid "Close Palette"
 msgstr "Zatvoriť paletu"
 
@@ -796,6 +793,9 @@ msgstr "Urobiť screenshot"
 msgid "Manage Moderators"
 msgstr "Spravuj moderátorov"
 
+msgid "Manage Templates"
+msgstr ""
+
 msgid "Map Data"
 msgstr "Mapové údaje"
 
@@ -909,9 +909,6 @@ msgstr "Nepriehladnosť overlayu v percentách."
 
 msgid "Open Chat"
 msgstr "Otvoriť chat"
-
-msgid "Open Menu"
-msgstr "Otvoriť menu"
 
 msgid "Open Palette"
 msgstr "Otvoriť paletu"
@@ -1786,6 +1783,12 @@ msgstr "W"
 msgctxt "keybinds"
 msgid "X"
 msgstr "X"
+
+#~ msgid "Close Menu"
+#~ msgstr "Zatvoriť menu"
+
+#~ msgid "Open Menu"
+#~ msgstr "Otvoriť menu"
 
 #~ msgid "You have new messages in chat"
 #~ msgstr "Máš nové spravy v chate"

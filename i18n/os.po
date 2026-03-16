@@ -304,9 +304,6 @@ msgstr "Сæхгæнын"
 msgid "Close Chat"
 msgstr "Чаты Сæхгæнын"
 
-msgid "Close Menu"
-msgstr "Меню Сæхгæнын"
-
 msgid "Close Palette"
 msgstr "Палитры Сæхгæнын"
 
@@ -813,6 +810,9 @@ msgstr "Скриншоты Саразын"
 msgid "Manage Moderators"
 msgstr "Модератæгтæ Тæрын"
 
+msgid "Manage Templates"
+msgstr ""
+
 msgid "Map Data"
 msgstr "Карты Бæрæггæнæнтæ"
 
@@ -930,9 +930,6 @@ msgstr ""
 
 msgid "Open Chat"
 msgstr "Чаты Бакæнын"
-
-msgid "Open Menu"
-msgstr "Меню Бакæнын"
 
 msgid "Open Palette"
 msgstr "Палитры Бакæнын"
@@ -1818,6 +1815,12 @@ msgstr "W"
 msgctxt "keybinds"
 msgid "X"
 msgstr "X"
+
+#~ msgid "Close Menu"
+#~ msgstr "Меню Сæхгæнын"
+
+#~ msgid "Open Menu"
+#~ msgstr "Меню Бакæнын"
 
 #~ msgid "Mute"
 #~ msgstr "Фæбынæй кæн"

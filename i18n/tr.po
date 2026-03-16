@@ -307,9 +307,6 @@ msgstr "Kapat"
 msgid "Close Chat"
 msgstr "Sohbeti Kapat"
 
-msgid "Close Menu"
-msgstr "Menüyü Kapat"
-
 msgid "Close Palette"
 msgstr "Paleti Kapat"
 
@@ -811,6 +808,9 @@ msgstr "Ekran Görüntüsü Al"
 msgid "Manage Moderators"
 msgstr "Moderatörleri Yönet"
 
+msgid "Manage Templates"
+msgstr ""
+
 msgid "Map Data"
 msgstr "Harita Verisi"
 
@@ -925,9 +925,6 @@ msgstr "Overlay'in yüzde olarak opaklığı."
 
 msgid "Open Chat"
 msgstr "Sohbeti Aç"
-
-msgid "Open Menu"
-msgstr "Menüyü Aç"
 
 msgid "Open Palette"
 msgstr "Paleti Aç"
@@ -1820,6 +1817,12 @@ msgstr "W"
 msgctxt "keybinds"
 msgid "X"
 msgstr "X"
+
+#~ msgid "Close Menu"
+#~ msgstr "Menüyü Kapat"
+
+#~ msgid "Open Menu"
+#~ msgstr "Menüyü Aç"
 
 #~ msgid "You have new messages in chat"
 #~ msgstr "Sohbette yeni mesajlarınız var"

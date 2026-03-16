@@ -308,9 +308,6 @@ msgstr "Tāpuni"
 msgid "Close Chat"
 msgstr "Tapuniʻi ʻa e chat"
 
-msgid "Close Menu"
-msgstr "Tapuniʻi ʻa e menu"
-
 msgid "Close Palette"
 msgstr "Tapuni Palette"
 
@@ -826,6 +823,9 @@ msgstr "Faʻu ha ʻata"
 msgid "Manage Moderators"
 msgstr "Tokangaʻi ʻo e moderators"
 
+msgid "Manage Templates"
+msgstr ""
+
 msgid "Map Data"
 msgstr "Fakamatala ki he mape"
 
@@ -939,9 +939,6 @@ msgstr ""
 
 msgid "Open Chat"
 msgstr "Fakaava ʻa e chat"
-
-msgid "Open Menu"
-msgstr "Fakaava ʻa e menu"
 
 msgid "Open Palette"
 msgstr "Fakaava Palette"
@@ -1843,6 +1840,12 @@ msgstr "W"
 msgctxt "keybinds"
 msgid "X"
 msgstr "X"
+
+#~ msgid "Close Menu"
+#~ msgstr "Tapuniʻi ʻa e menu"
+
+#~ msgid "Open Menu"
+#~ msgstr "Fakaava ʻa e menu"
 
 #~ msgid "You have new messages in chat"
 #~ msgstr "ʻOku ʻi ai haʻo ngaahi popoaki foʻou ʻi he chat"

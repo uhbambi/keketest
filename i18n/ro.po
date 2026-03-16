@@ -309,9 +309,6 @@ msgstr "Închide"
 msgid "Close Chat"
 msgstr "Închide Chatul"
 
-msgid "Close Menu"
-msgstr "Închide Meniul"
-
 msgid "Close Palette"
 msgstr "Închide Paleta"
 
@@ -823,6 +820,9 @@ msgstr "Fă un Screenshot"
 msgid "Manage Moderators"
 msgstr "Gestionați moderatorii"
 
+msgid "Manage Templates"
+msgstr ""
+
 msgid "Map Data"
 msgstr "Dată de hartă"
 
@@ -938,9 +938,6 @@ msgstr "Opacitate de Overlay în procente."
 
 msgid "Open Chat"
 msgstr "Deschide Chatul"
-
-msgid "Open Menu"
-msgstr "Deschide Meniul"
 
 msgid "Open Palette"
 msgstr "Deschide Paleta"
@@ -1840,6 +1837,12 @@ msgstr "W"
 msgctxt "keybinds"
 msgid "X"
 msgstr "X"
+
+#~ msgid "Close Menu"
+#~ msgstr "Închide Meniul"
+
+#~ msgid "Open Menu"
+#~ msgstr "Deschide Meniul"
 
 #~ msgid "You have new messages in chat"
 #~ msgstr "Ai mesaje noi pe chat"

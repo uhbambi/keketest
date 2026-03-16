@@ -305,9 +305,6 @@ msgstr "Sluiten"
 msgid "Close Chat"
 msgstr "Chat sluiten"
 
-msgid "Close Menu"
-msgstr "Menu sluiten"
-
 msgid "Close Palette"
 msgstr "Palet sluiten"
 
@@ -816,6 +813,9 @@ msgstr "Screenshot maken"
 msgid "Manage Moderators"
 msgstr "Beheer moderatoren"
 
+msgid "Manage Templates"
+msgstr ""
+
 msgid "Map Data"
 msgstr "Kaartgegevens"
 
@@ -929,9 +929,6 @@ msgstr ""
 
 msgid "Open Chat"
 msgstr "Chat openen"
-
-msgid "Open Menu"
-msgstr "Menu openen"
 
 msgid "Open Palette"
 msgstr "Palet openen"
@@ -1827,6 +1824,12 @@ msgstr "W"
 msgctxt "keybinds"
 msgid "X"
 msgstr "X"
+
+#~ msgid "Close Menu"
+#~ msgstr "Menu sluiten"
+
+#~ msgid "Open Menu"
+#~ msgstr "Menu openen"
 
 #~ msgid "You have new messages in chat"
 #~ msgstr "Je hebt nieuwe berichten in de chat"

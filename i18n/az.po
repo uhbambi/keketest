@@ -302,9 +302,6 @@ msgstr "Bağla"
 msgid "Close Chat"
 msgstr "Söhbəti bağla"
 
-msgid "Close Menu"
-msgstr "Menuyu bağla"
-
 msgid "Close Palette"
 msgstr "Palitranı aç"
 
@@ -805,6 +802,9 @@ msgstr "Ekran görüntüsü al"
 msgid "Manage Moderators"
 msgstr "Moderatorları düzənlə"
 
+msgid "Manage Templates"
+msgstr ""
+
 msgid "Map Data"
 msgstr "Xəritə Qaynağı"
 
@@ -918,9 +918,6 @@ msgstr "Şablonun faiz olaraq şəffaflığı."
 
 msgid "Open Chat"
 msgstr "Söhbəti aç"
-
-msgid "Open Menu"
-msgstr "Menuyu aç"
 
 msgid "Open Palette"
 msgstr "Palitranı bağla"
@@ -1809,6 +1806,12 @@ msgstr "W"
 msgctxt "keybinds"
 msgid "X"
 msgstr "X"
+
+#~ msgid "Close Menu"
+#~ msgstr "Menuyu bağla"
+
+#~ msgid "Open Menu"
+#~ msgstr "Menuyu aç"
 
 #~ msgid "You have new messages in chat"
 #~ msgstr "Sizin söhbətdə yeni mesajlarınız var"

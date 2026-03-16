@@ -311,9 +311,6 @@ msgstr "Mbyll"
 msgid "Close Chat"
 msgstr "Mbyll Bisedën"
 
-msgid "Close Menu"
-msgstr "Mbyll Menunë"
-
 msgid "Close Palette"
 msgstr "Mbyll Paletën"
 
@@ -829,6 +826,9 @@ msgstr "Bëni Screenshot"
 msgid "Manage Moderators"
 msgstr "Menaxhoni Moderatorët"
 
+msgid "Manage Templates"
+msgstr ""
+
 msgid "Map Data"
 msgstr "Të Dhënat e Hartës"
 
@@ -942,9 +942,6 @@ msgstr "Tejdukshmëria e Mbivendosjes në përqindje."
 
 msgid "Open Chat"
 msgstr "Hap Bisedën"
-
-msgid "Open Menu"
-msgstr "Hap Menunë"
 
 msgid "Open Palette"
 msgstr "Hap Paletën"
@@ -1857,6 +1854,12 @@ msgstr "W"
 msgctxt "keybinds"
 msgid "X"
 msgstr "X"
+
+#~ msgid "Close Menu"
+#~ msgstr "Mbyll Menunë"
+
+#~ msgid "Open Menu"
+#~ msgstr "Hap Menunë"
 
 #~ msgid "You have new messages in chat"
 #~ msgstr "Ju keni mesazhe të reja në bisedë"

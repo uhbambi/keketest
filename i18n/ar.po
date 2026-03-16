@@ -299,9 +299,6 @@ msgstr "اغلاق"
 msgid "Close Chat"
 msgstr "اغلاق الدردشة"
 
-msgid "Close Menu"
-msgstr "اغلاق القائمة"
-
 msgid "Close Palette"
 msgstr "إغلاق لوحة الألوان"
 
@@ -794,6 +791,9 @@ msgstr "التقاط لقطة شاشة"
 msgid "Manage Moderators"
 msgstr "إدارة المشرفين"
 
+msgid "Manage Templates"
+msgstr ""
+
 msgid "Map Data"
 msgstr "بيانات الخريطة"
 
@@ -907,9 +907,6 @@ msgstr "عتامة التراكب كنسبة مئوية."
 
 msgid "Open Chat"
 msgstr "فتح الدردشة"
-
-msgid "Open Menu"
-msgstr "فتح القائمة"
 
 msgid "Open Palette"
 msgstr "فتح لوحة الألوان"
@@ -1782,6 +1779,12 @@ msgstr "W"
 msgctxt "keybinds"
 msgid "X"
 msgstr "X"
+
+#~ msgid "Close Menu"
+#~ msgstr "اغلاق القائمة"
+
+#~ msgid "Open Menu"
+#~ msgstr "فتح القائمة"
 
 #~ msgid "You have new messages in chat"
 #~ msgstr "لديك رسائل جديدة في الدردشة"

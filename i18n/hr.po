@@ -302,9 +302,6 @@ msgstr "Zatvori"
 msgid "Close Chat"
 msgstr "Zatvori chat"
 
-msgid "Close Menu"
-msgstr "Zatvori izbornik"
-
 msgid "Close Palette"
 msgstr "Zatvori paletu"
 
@@ -802,6 +799,9 @@ msgstr "Napravite snimak zaslona"
 msgid "Manage Moderators"
 msgstr "Upravljanje moderatorima"
 
+msgid "Manage Templates"
+msgstr ""
+
 msgid "Map Data"
 msgstr "Podaci karte"
 
@@ -915,9 +915,6 @@ msgstr "Neprozirnost sloja u postocima."
 
 msgid "Open Chat"
 msgstr "Otvorite Chat"
-
-msgid "Open Menu"
-msgstr "Otvori izbornik"
 
 msgid "Open Palette"
 msgstr "Otvorite paletu"
@@ -1797,6 +1794,12 @@ msgstr "W"
 msgctxt "keybinds"
 msgid "X"
 msgstr "X"
+
+#~ msgid "Close Menu"
+#~ msgstr "Zatvori izbornik"
+
+#~ msgid "Open Menu"
+#~ msgstr "Otvori izbornik"
 
 #~ msgid "You have new messages in chat"
 #~ msgstr "Imate nove poruke u chatu"

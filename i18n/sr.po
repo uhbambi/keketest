@@ -306,9 +306,6 @@ msgstr "Zatvori"
 msgid "Close Chat"
 msgstr "Zatvori ćaskanje"
 
-msgid "Close Menu"
-msgstr "Zatvori meni"
-
 msgid "Close Palette"
 msgstr "Izađi iz palete"
 
@@ -806,6 +803,9 @@ msgstr "Skrinšotuj"
 msgid "Manage Moderators"
 msgstr "Upravljaj moderatore"
 
+msgid "Manage Templates"
+msgstr ""
+
 msgid "Map Data"
 msgstr "Podaci mape"
 
@@ -919,9 +919,6 @@ msgstr "Neprozirnost preklapača slika u procentima."
 
 msgid "Open Chat"
 msgstr "Otvori ćaskanje"
-
-msgid "Open Menu"
-msgstr "Otvori meni"
 
 msgid "Open Palette"
 msgstr "Otvori paletu"
@@ -1805,6 +1802,12 @@ msgstr "W"
 msgctxt "keybinds"
 msgid "X"
 msgstr "X"
+
+#~ msgid "Close Menu"
+#~ msgstr "Zatvori meni"
+
+#~ msgid "Open Menu"
+#~ msgstr "Otvori meni"
 
 #~ msgid "You have new messages in chat"
 #~ msgstr "Imaš nove poruke u ćaskanju"

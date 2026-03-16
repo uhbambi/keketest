@@ -302,9 +302,6 @@ msgstr "Bigire"
 msgid "Close Chat"
 msgstr "Suhbetê Bigire"
 
-msgid "Close Menu"
-msgstr "Menûyê Bigire"
-
 msgid "Close Palette"
 msgstr "Depkê Rengan Bigire"
 
@@ -806,6 +803,9 @@ msgstr "Wêneya Ekranê Bigirin"
 msgid "Manage Moderators"
 msgstr "Birêvebirina Moderatoran"
 
+msgid "Manage Templates"
+msgstr ""
+
 msgid "Map Data"
 msgstr "Daneyên nexşeyê"
 
@@ -919,9 +919,6 @@ msgstr "Nerazîbûna Overlay ji sedî."
 
 msgid "Open Chat"
 msgstr "Suhbetê Veke"
-
-msgid "Open Menu"
-msgstr "Menûyê Veke"
 
 msgid "Open Palette"
 msgstr "Depkê Rengan Veke"
@@ -1811,6 +1808,12 @@ msgstr "W"
 msgctxt "keybinds"
 msgid "X"
 msgstr "X"
+
+#~ msgid "Close Menu"
+#~ msgstr "Menûyê Bigire"
+
+#~ msgid "Open Menu"
+#~ msgstr "Menûyê Veke"
 
 #~ msgid "You have new messages in chat"
 #~ msgstr "Di suhbetê de peyamên nû hene"

@@ -303,9 +303,6 @@ msgstr "Cerrar"
 msgid "Close Chat"
 msgstr "Cerrar Chat"
 
-msgid "Close Menu"
-msgstr "Cerrar Menú"
-
 msgid "Close Palette"
 msgstr "Cerrar Paleta"
 
@@ -808,6 +805,9 @@ msgstr "Tomar Captura de Pantalla"
 msgid "Manage Moderators"
 msgstr "Administrar Moderadores"
 
+msgid "Manage Templates"
+msgstr ""
+
 msgid "Map Data"
 msgstr "Información del Mapa"
 
@@ -921,9 +921,6 @@ msgstr "Opacidad del overlay en porcentaje."
 
 msgid "Open Chat"
 msgstr "Abrir Chat"
-
-msgid "Open Menu"
-msgstr "Abrir Menú"
 
 msgid "Open Palette"
 msgstr "Abrir Paleta"
@@ -1816,6 +1813,12 @@ msgstr "W"
 msgctxt "keybinds"
 msgid "X"
 msgstr "X"
+
+#~ msgid "Close Menu"
+#~ msgstr "Cerrar Menú"
+
+#~ msgid "Open Menu"
+#~ msgstr "Abrir Menú"
 
 #~ msgid "You have new messages in chat"
 #~ msgstr "Tienes nuevos mensajes en el chat"

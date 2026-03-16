@@ -290,9 +290,6 @@ msgstr "关闭"
 msgid "Close Chat"
 msgstr "关闭聊天"
 
-msgid "Close Menu"
-msgstr "关闭菜单"
-
 msgid "Close Palette"
 msgstr "关闭调色板"
 
@@ -786,6 +783,9 @@ msgstr ""
 msgid "Manage Moderators"
 msgstr ""
 
+msgid "Manage Templates"
+msgstr ""
+
 msgid "Map Data"
 msgstr ""
 
@@ -898,9 +898,6 @@ msgid "Opacity of Overlay in percent."
 msgstr ""
 
 msgid "Open Chat"
-msgstr ""
-
-msgid "Open Menu"
 msgstr ""
 
 msgid "Open Palette"
@@ -1530,7 +1527,8 @@ msgstr ""
 msgid ""
 "You are a teacher and a pupil is playing this game, despite it not being "
 "suitable for them? Send us an email."
-msgstr "您是一名教师，而您的学生正在玩这款不适合他们的游戏？请给我们发送电子邮件。"
+msgstr ""
+"您是一名教师，而您的学生正在玩这款不适合他们的游戏？请给我们发送电子邮件。"
 
 #, javascript-format
 msgid ""
@@ -1738,3 +1736,6 @@ msgstr ""
 msgctxt "keybinds"
 msgid "X"
 msgstr ""
+
+#~ msgid "Close Menu"
+#~ msgstr "关闭菜单"

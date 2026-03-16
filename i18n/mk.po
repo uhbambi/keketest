@@ -301,9 +301,6 @@ msgstr "Затвори"
 msgid "Close Chat"
 msgstr "Затвори Разговор"
 
-msgid "Close Menu"
-msgstr "Затвори го менито"
-
 msgid "Close Palette"
 msgstr "Затворете ја палетата"
 
@@ -806,6 +803,9 @@ msgstr "Направете Скриншот"
 msgid "Manage Moderators"
 msgstr "Управувајте со модераторите"
 
+msgid "Manage Templates"
+msgstr ""
+
 msgid "Map Data"
 msgstr "Податоците за Мапата"
 
@@ -919,9 +919,6 @@ msgstr "Непроѕирност на преклопување во процен
 
 msgid "Open Chat"
 msgstr "Отворете го разговорот"
-
-msgid "Open Menu"
-msgstr "Отворете го менито"
 
 msgid "Open Palette"
 msgstr "Отворете ја палетата"
@@ -1805,6 +1802,12 @@ msgstr "W"
 msgctxt "keybinds"
 msgid "X"
 msgstr "Х"
+
+#~ msgid "Close Menu"
+#~ msgstr "Затвори го менито"
+
+#~ msgid "Open Menu"
+#~ msgstr "Отворете го менито"
 
 #~ msgid "You have new messages in chat"
 #~ msgstr "Имате нови пораки во разговорот"

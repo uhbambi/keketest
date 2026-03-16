@@ -306,9 +306,6 @@ msgstr "Zavřít"
 msgid "Close Chat"
 msgstr "Zavřít Chat"
 
-msgid "Close Menu"
-msgstr "Zavřít Menu"
-
 msgid "Close Palette"
 msgstr "Zavřít Paletu"
 
@@ -805,6 +802,9 @@ msgstr "Udělat Snímek"
 msgid "Manage Moderators"
 msgstr "Spravovat Moderátory"
 
+msgid "Manage Templates"
+msgstr ""
+
 msgid "Map Data"
 msgstr "Mapová data"
 
@@ -918,9 +918,6 @@ msgstr "Průhlednost v procentech."
 
 msgid "Open Chat"
 msgstr "Otevřít chat"
-
-msgid "Open Menu"
-msgstr "Otevřít Menu"
 
 msgid "Open Palette"
 msgstr "Otevřít Paletu"
@@ -1798,6 +1795,12 @@ msgstr "W"
 msgctxt "keybinds"
 msgid "X"
 msgstr "X"
+
+#~ msgid "Close Menu"
+#~ msgstr "Zavřít Menu"
+
+#~ msgid "Open Menu"
+#~ msgstr "Otevřít Menu"
 
 #~ msgid "You have new messages in chat"
 #~ msgstr "Nové zprávy byly poslány do chatu"

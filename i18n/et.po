@@ -297,9 +297,6 @@ msgstr "Sule"
 msgid "Close Chat"
 msgstr "Sule Jututuba"
 
-msgid "Close Menu"
-msgstr "Sule Menüü"
-
 msgid "Close Palette"
 msgstr "Sule Palett"
 
@@ -800,6 +797,9 @@ msgstr "Tee Kuvatõmmis"
 msgid "Manage Moderators"
 msgstr "Halda Moderaatoreid"
 
+msgid "Manage Templates"
+msgstr ""
+
 msgid "Map Data"
 msgstr "Kaardi Andmed"
 
@@ -913,9 +913,6 @@ msgstr "Ülekatte läbipaistvus protsendina."
 
 msgid "Open Chat"
 msgstr "Ava Jututuba"
-
-msgid "Open Menu"
-msgstr "Ava Menüü"
 
 msgid "Open Palette"
 msgstr "Ava Palett"
@@ -1795,6 +1792,12 @@ msgstr "W"
 msgctxt "keybinds"
 msgid "X"
 msgstr "X"
+
+#~ msgid "Close Menu"
+#~ msgstr "Sule Menüü"
+
+#~ msgid "Open Menu"
+#~ msgstr "Ava Menüü"
 
 #~ msgid "You have new messages in chat"
 #~ msgstr "Sul on jututoas uus sõnum"

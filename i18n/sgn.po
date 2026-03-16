@@ -303,9 +303,6 @@ msgstr "🤘👍👌🖖🤙"
 msgid "Close Chat"
 msgstr "🤘👍👌🖖🤙 🤘🖐✌️👋"
 
-msgid "Close Menu"
-msgstr "🤘👍👌🖖🤙 👆🤙👇🙌"
-
 msgid "Close Palette"
 msgstr "🤘👍👌🖖🤙 👎✌️👍🤙👋👋🤙"
 
@@ -811,6 +808,9 @@ msgstr "👆✌️👊🤙 🖖🤘☝️🤙🤙👇🖖🖐👌👋"
 msgid "Manage Moderators"
 msgstr ""
 
+msgid "Manage Templates"
+msgstr ""
+
 msgid "Map Data"
 msgstr "👆✌️👎 🤚✌️👋✌️"
 
@@ -925,9 +925,6 @@ msgstr "👌👎✌️🤘🤞👋👏 👌✋ 👌🤜🤙☝️👍✌️👏 
 
 msgid "Open Chat"
 msgstr "👌👎🤙👇 🤘🖐✌️👋"
-
-msgid "Open Menu"
-msgstr "👌👎🤙👇 👆🤙👇🙌"
 
 msgid "Open Palette"
 msgstr "👌👎🤙👇 👎✌️👍🤙👋👋🤙"
@@ -1847,6 +1844,12 @@ msgstr "👐"
 msgctxt "keybinds"
 msgid "X"
 msgstr "👉"
+
+#~ msgid "Close Menu"
+#~ msgstr "🤘👍👌🖖🤙 👆🤙👇🙌"
+
+#~ msgid "Open Menu"
+#~ msgstr "👌👎🤙👇 👆🤙👇🙌"
 
 #~ msgid "You have new messages in chat"
 #~ msgstr "👏👌🙌 🖐✌️🤜🤙 👇🤙👐 👆🤙🖖🖖✌️🤛🤙🖖 🤞👇 🤘🖐✌️👋"

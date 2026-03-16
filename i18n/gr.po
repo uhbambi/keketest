@@ -310,9 +310,6 @@ msgstr "Κλείσιμο"
 msgid "Close Chat"
 msgstr "Κλείσιμο συνομιλίας"
 
-msgid "Close Menu"
-msgstr "Κλείσιμο μενού"
-
 msgid "Close Palette"
 msgstr "Κλείσιμο παλέτας"
 
@@ -836,6 +833,9 @@ msgstr "Δημιουργία στιγμιότυπου οθόνης"
 msgid "Manage Moderators"
 msgstr "Διαχείριση συντονιστών"
 
+msgid "Manage Templates"
+msgstr ""
+
 msgid "Map Data"
 msgstr "Δεδομένα χάρτη"
 
@@ -949,9 +949,6 @@ msgstr ""
 
 msgid "Open Chat"
 msgstr "Άνοιγμα συνομιλίας"
-
-msgid "Open Menu"
-msgstr "Άνοιγμα Μενού"
 
 msgid "Open Palette"
 msgstr "Άνοιγμα Παλέτας"
@@ -1851,6 +1848,12 @@ msgstr ""
 msgctxt "keybinds"
 msgid "X"
 msgstr "x εκτός ορίων"
+
+#~ msgid "Close Menu"
+#~ msgstr "Κλείσιμο μενού"
+
+#~ msgid "Open Menu"
+#~ msgstr "Άνοιγμα Μενού"
 
 #~ msgid "You have new messages in chat"
 #~ msgstr "Έχετε νέα μηνύματα στο Chat"

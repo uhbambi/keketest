@@ -302,9 +302,6 @@ msgstr "Жабу"
 msgid "Close Chat"
 msgstr "Чатты жабу"
 
-msgid "Close Menu"
-msgstr "Мәзірді жабу"
-
 msgid "Close Palette"
 msgstr "Палитраны жабу"
 
@@ -802,6 +799,9 @@ msgstr "Скриншот түсіру"
 msgid "Manage Moderators"
 msgstr "Модераторларды басқару"
 
+msgid "Manage Templates"
+msgstr ""
+
 msgid "Map Data"
 msgstr "Карта деректері"
 
@@ -915,9 +915,6 @@ msgstr "Пайызбен қабаттасудың мөлдірлігі."
 
 msgid "Open Chat"
 msgstr "Чатты ашу"
-
-msgid "Open Menu"
-msgstr "Мәзірді ашу"
 
 msgid "Open Palette"
 msgstr "Палитраны ашу"
@@ -1806,6 +1803,12 @@ msgstr "W"
 msgctxt "keybinds"
 msgid "X"
 msgstr "X"
+
+#~ msgid "Close Menu"
+#~ msgstr "Мәзірді жабу"
+
+#~ msgid "Open Menu"
+#~ msgstr "Мәзірді ашу"
 
 #~ msgid "You have new messages in chat"
 #~ msgstr "Чатқа жаңа хаттар келді"

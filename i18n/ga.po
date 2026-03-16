@@ -307,9 +307,6 @@ msgstr "Droid"
 msgid "Close Chat"
 msgstr "Comhrá Droidte"
 
-msgid "Close Menu"
-msgstr "Roghchlár droidte"
-
 msgid "Close Palette"
 msgstr "Droid pailéad"
 
@@ -826,6 +823,9 @@ msgstr "Déan Screenshot"
 msgid "Manage Moderators"
 msgstr "Bainistigh Modhnóirí"
 
+msgid "Manage Templates"
+msgstr ""
+
 msgid "Map Data"
 msgstr "Sonraí Mhapa"
 
@@ -941,9 +941,6 @@ msgstr "Teimhneacht an Fhorleagan i gcéatadán."
 
 msgid "Open Chat"
 msgstr "Comhrá Oscailte"
-
-msgid "Open Menu"
-msgstr "Roghchlár Oscailte"
 
 msgid "Open Palette"
 msgstr "Oscail pailéad"
@@ -1841,6 +1838,12 @@ msgstr "W"
 msgctxt "keybinds"
 msgid "X"
 msgstr "X"
+
+#~ msgid "Close Menu"
+#~ msgstr "Roghchlár droidte"
+
+#~ msgid "Open Menu"
+#~ msgstr "Roghchlár Oscailte"
 
 #~ msgid "You have new messages in chat"
 #~ msgstr "Tá tú teachtaireachtaí nua sa comhrá"

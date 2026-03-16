@@ -303,9 +303,6 @@ msgstr "ببند"
 msgid "Close Chat"
 msgstr "چت رو ببند"
 
-msgid "Close Menu"
-msgstr "منو رو ببند"
-
 msgid "Close Palette"
 msgstr "جعبه رنگ ها رو ببند"
 
@@ -811,6 +808,9 @@ msgstr "اسکرین شات بگیر"
 msgid "Manage Moderators"
 msgstr "ادمین ها رو مدیریت کنین"
 
+msgid "Manage Templates"
+msgstr ""
+
 msgid "Map Data"
 msgstr "اطلاعات نقشه"
 
@@ -924,9 +924,6 @@ msgstr ""
 
 msgid "Open Chat"
 msgstr "چت رو باز کن"
-
-msgid "Open Menu"
-msgstr "منو رو باز کن"
 
 msgid "Open Palette"
 msgstr "جعبه رنگ ها رو باز کن"
@@ -1817,6 +1814,12 @@ msgstr ""
 msgctxt "keybinds"
 msgid "X"
 msgstr ""
+
+#~ msgid "Close Menu"
+#~ msgstr "منو رو ببند"
+
+#~ msgid "Open Menu"
+#~ msgstr "منو رو باز کن"
 
 #~ msgid "You have new messages in chat"
 #~ msgstr "توی چت پیام های حدید داری"

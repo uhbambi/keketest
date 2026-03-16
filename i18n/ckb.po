@@ -300,9 +300,6 @@ msgstr "داخستن"
 msgid "Close Chat"
 msgstr "داخستنی چات"
 
-msgid "Close Menu"
-msgstr "مێنۆ دابخە"
-
 msgid "Close Palette"
 msgstr "داخستنی پالێت"
 
@@ -799,6 +796,9 @@ msgstr "دروستکردنی سکرین شۆت"
 msgid "Manage Moderators"
 msgstr "بەڕێوەبردنی بەڕێوەبەران"
 
+msgid "Manage Templates"
+msgstr ""
+
 msgid "Map Data"
 msgstr "داتاکانی نەخشە"
 
@@ -912,9 +912,6 @@ msgstr "ناڕوونی ئۆڤەرلای بە ڕێژەی لەسەدا."
 
 msgid "Open Chat"
 msgstr "چات بکەرەوە"
-
-msgid "Open Menu"
-msgstr "مێنۆ بکەرەوە"
 
 msgid "Open Palette"
 msgstr "پالێت بکەرەوە"
@@ -1798,6 +1795,12 @@ msgstr "W"
 msgctxt "keybinds"
 msgid "X"
 msgstr "X"
+
+#~ msgid "Close Menu"
+#~ msgstr "مێنۆ دابخە"
+
+#~ msgid "Open Menu"
+#~ msgstr "مێنۆ بکەرەوە"
 
 #~ msgid "You have new messages in chat"
 #~ msgstr "لە چاتدا نامەی نوێت هەیە"

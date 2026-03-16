@@ -312,9 +312,6 @@ msgstr "Fechar"
 msgid "Close Chat"
 msgstr "Fechar o bate-papo"
 
-msgid "Close Menu"
-msgstr "Fechar o menu"
-
 msgid "Close Palette"
 msgstr "Fechar paleta"
 
@@ -820,6 +817,9 @@ msgstr "Faça uma captura de tela"
 msgid "Manage Moderators"
 msgstr "Administrar Moderadores"
 
+msgid "Manage Templates"
+msgstr ""
+
 msgid "Map Data"
 msgstr "Dado do mapa"
 
@@ -933,9 +933,6 @@ msgstr "Opacidade do Overlay em percentagem."
 
 msgid "Open Chat"
 msgstr "Abrir o bate-papo"
-
-msgid "Open Menu"
-msgstr "Abrir o menu"
 
 msgid "Open Palette"
 msgstr "Abrir paleta"
@@ -1838,6 +1835,12 @@ msgstr "W"
 msgctxt "keybinds"
 msgid "X"
 msgstr "X"
+
+#~ msgid "Close Menu"
+#~ msgstr "Fechar o menu"
+
+#~ msgid "Open Menu"
+#~ msgstr "Abrir o menu"
 
 #~ msgid "You have new messages in chat"
 #~ msgstr "Você tem novas mensagens no bate-papo"
