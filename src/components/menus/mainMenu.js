@@ -161,7 +161,7 @@ export default function mainMenu(store) {
   }
 
   if (state.templates.available) {
-    const templateSubmenu = [{
+    let templateSubmenu = [{
       id: 'te',
       type: 'link',
       link: 'TEMPLATES',
@@ -179,7 +179,7 @@ export default function mainMenu(store) {
       },
     }));
     if (templateList.length) {
-      templateSubmenu.push(
+      templateSubmenu = templateSubmenu.concat(
         { id: 'st1', type: 'spacer' },
         templateList,
       );
