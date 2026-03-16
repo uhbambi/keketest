@@ -3,6 +3,7 @@
   --control-bg-highlight: #dc660e;
   --control-bg: #92b0e8;
   --button-bg-pressed: #b57b7b;
+  --menu-bg: rgba(222, 158, 158, 0.95);
 }
 
 body {

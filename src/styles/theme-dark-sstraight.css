@@ -2,6 +2,7 @@
   --control-bg-selected: #c1c1c1;
   --control-bg-highlight: #dedede;
   --control-bg: #a6a4a4;
+  --menu-bg: rgba(169, 169, 169, 0.95);
 }
 
 a:link {
@@ -26,6 +27,10 @@ a:hover {
 
 .inarea {
   border-color: #d5d5d5;
+}
+
+.menu, .menuelement {
+  border-radius: 8px;
 }
 
 .deletelistitem.selected {
