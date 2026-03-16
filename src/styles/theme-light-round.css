@@ -14,6 +14,10 @@
   border-radius: 5px;
 }
 
+.menu, .menuelement {
+  border-radius: 10px;
+}
+
 .actionbuttons, .coorbox, .onlinebox, .cooldownbox, .historyselect {
   border-radius: 21px;
 }

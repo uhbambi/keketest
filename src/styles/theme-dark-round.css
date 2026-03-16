@@ -24,6 +24,10 @@ a:hover {
   color: #d9f68a;
 }
 
+.menu, .menuelement {
+  border-radius: 10px;
+}
+
 .inarea {
   border-color: #d5d5d5;
 }
