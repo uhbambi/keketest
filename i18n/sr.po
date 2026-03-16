@@ -80,6 +80,7 @@ msgstr "Stavi rešetku (nemoj čekirati ako ti treba 1:1 templejt)"
 msgid "Add Template"
 msgstr "Dodaj šablon"
 
+#. This if for moderation tools, it's not important to translate this
 msgid "Admintools"
 msgstr "Adminalati"
 
@@ -196,6 +197,10 @@ msgstr "Greška sa kanvasom"
 
 msgid "Canvas Selection"
 msgstr "Selekcija platna"
+
+#. This if for moderation tools, it's not important to translate this
+msgid "Canvastools"
+msgstr ""
 
 msgid "Captcha"
 msgstr "Verifikacija"
@@ -690,6 +695,10 @@ msgstr "IID (opcionalno)"
 msgid "IID Actions"
 msgstr "Radnje sa IID"
 
+#. This if for moderation tools, it's not important to translate this
+msgid "IIDTools"
+msgstr ""
+
 msgid "IP Actions"
 msgstr "Radnje sa IP-om"
 
@@ -815,12 +824,17 @@ msgstr "Uveličaj"
 msgid "Media Actions"
 msgstr ""
 
+#. This if for moderation tools, it's not important to translate this
+msgid "Mediatools"
+msgstr ""
+
 msgid "Minimum Color Distance"
 msgstr "Minimalna udaljenost boja"
 
 msgid "Moderators can access all Canvas, Watch and IID tools."
 msgstr ""
 
+#. This if for moderation tools, it's not important to translate this
 msgid "Modtools"
 msgstr "Alatke za moderatore"
 
@@ -883,6 +897,9 @@ msgstr "Pogrešan verifikacijski tekst"
 
 msgid "No password given."
 msgstr "Nije data lozinka"
+
+msgid "Not Allowed"
+msgstr ""
 
 msgid "Not allowed"
 msgstr "Nije dozvoljeno"
@@ -1531,6 +1548,10 @@ msgid "Username must be at least 2 characters long"
 msgstr ""
 
 msgid "Username must be shorter than 26 characters"
+msgstr ""
+
+#. This if for moderation tools, it's not important to translate this
+msgid "Watchtools"
 msgstr ""
 
 #, javascript-format

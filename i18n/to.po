@@ -78,6 +78,7 @@ msgstr "Tanaki atu ʻa e grid (uncheck kapau ʻoku ke fie maʻu ha template 1:1)
 msgid "Add Template"
 msgstr "Download Template"
 
+#. This if for moderation tools, it's not important to translate this
 msgid "Admintools"
 msgstr ""
 
@@ -198,6 +199,10 @@ msgstr ""
 
 msgid "Canvas Selection"
 msgstr "Fili ʻo e fakatataa"
+
+#. This if for moderation tools, it's not important to translate this
+msgid "Canvastools"
+msgstr ""
 
 msgid "Captcha"
 msgstr "Captcha"
@@ -708,6 +713,10 @@ msgstr "IID (fili pē)"
 msgid "IID Actions"
 msgstr "Ngaahi ngaue IID"
 
+#. This if for moderation tools, it's not important to translate this
+msgid "IIDTools"
+msgstr ""
+
 msgid "IP Actions"
 msgstr "Ngaahi ngaue IP"
 
@@ -835,12 +844,17 @@ msgstr "Fakalōloa e Taimi ʻ"
 msgid "Media Actions"
 msgstr ""
 
+#. This if for moderation tools, it's not important to translate this
+msgid "Mediatools"
+msgstr ""
+
 msgid "Minimum Color Distance"
 msgstr "Mamaʻo siʻisiʻi taha ʻo e lanu"
 
 msgid "Moderators can access all Canvas, Watch and IID tools."
 msgstr ""
 
+#. This if for moderation tools, it's not important to translate this
 msgid "Modtools"
 msgstr "Modtools"
 
@@ -903,6 +917,9 @@ msgstr "ʻIkai pe ʻikai tonu captcha text"
 
 msgid "No password given."
 msgstr "ʻIkai ʻoange ha lea fufū."
+
+msgid "Not Allowed"
+msgstr ""
 
 msgid "Not allowed"
 msgstr "ʻIkai ngofua"
@@ -1556,6 +1573,10 @@ msgid "Username must be at least 2 characters long"
 msgstr ""
 
 msgid "Username must be shorter than 26 characters"
+msgstr ""
+
+#. This if for moderation tools, it's not important to translate this
+msgid "Watchtools"
 msgstr ""
 
 #, javascript-format

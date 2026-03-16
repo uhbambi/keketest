@@ -77,6 +77,7 @@ msgstr "Afegeix Quadrícula (desactiva-ho si necessites una plantilla 1:1)"
 msgid "Add Template"
 msgstr "Afegeix una Plantilla"
 
+#. This if for moderation tools, it's not important to translate this
 msgid "Admintools"
 msgstr "Eines d'administrador"
 
@@ -197,6 +198,10 @@ msgstr "Error del Llenç"
 
 msgid "Canvas Selection"
 msgstr "Selecció de Llenç"
+
+#. This if for moderation tools, it's not important to translate this
+msgid "Canvastools"
+msgstr ""
 
 msgid "Captcha"
 msgstr "Captcha"
@@ -703,6 +708,10 @@ msgstr "IID (opcional)"
 msgid "IID Actions"
 msgstr "Accions de l'IID"
 
+#. This if for moderation tools, it's not important to translate this
+msgid "IIDTools"
+msgstr ""
+
 msgid "IP Actions"
 msgstr "Accions de l'IP"
 
@@ -836,12 +845,17 @@ msgstr "Maximitza"
 msgid "Media Actions"
 msgstr ""
 
+#. This if for moderation tools, it's not important to translate this
+msgid "Mediatools"
+msgstr ""
+
 msgid "Minimum Color Distance"
 msgstr "Distància de Color Mínima"
 
 msgid "Moderators can access all Canvas, Watch and IID tools."
 msgstr "Els Moderadors poden accedir a totes les eines de Llenç, Watch i IID."
 
+#. This if for moderation tools, it's not important to translate this
 msgid "Modtools"
 msgstr "Eines de Moderador"
 
@@ -904,6 +918,9 @@ msgstr "No hi ha text de captcha o és invàlid"
 
 msgid "No password given."
 msgstr "No s'ha escrit cap contrasenya."
+
+msgid "Not Allowed"
+msgstr ""
 
 msgid "Not allowed"
 msgstr "No tens permisos"
@@ -1569,6 +1586,10 @@ msgstr "El nom d'usuari ha de contenir 2 caràcters com a mínim"
 
 msgid "Username must be shorter than 26 characters"
 msgstr "El nom d'usuari ha de tenir menys de 26 caràcters"
+
+#. This if for moderation tools, it's not important to translate this
+msgid "Watchtools"
+msgstr ""
 
 #, javascript-format
 msgid "We are Libre Software under the ${ agplLink }, "

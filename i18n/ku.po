@@ -74,6 +74,7 @@ msgstr "Tor lê zêde bikin (heke we pêdivî bi şablonek 1:1 heye, hilnebijêr
 msgid "Add Template"
 msgstr "Şablon lê zêde bike"
 
+#. This if for moderation tools, it's not important to translate this
 msgid "Admintools"
 msgstr ""
 
@@ -191,6 +192,10 @@ msgstr "Şaşîye Kanvas"
 
 msgid "Canvas Selection"
 msgstr "Hilbijartina Kanvas"
+
+#. This if for moderation tools, it's not important to translate this
+msgid "Canvastools"
+msgstr ""
 
 msgid "Captcha"
 msgstr "kaptcha"
@@ -689,6 +694,10 @@ msgstr "IID (vebijarkî)"
 msgid "IID Actions"
 msgstr "IID Çalakiyên"
 
+#. This if for moderation tools, it's not important to translate this
+msgid "IIDTools"
+msgstr ""
+
 msgid "IP Actions"
 msgstr "Çalakiyên IP"
 
@@ -815,12 +824,17 @@ msgstr "Mezintirîn Bike"
 msgid "Media Actions"
 msgstr ""
 
+#. This if for moderation tools, it's not important to translate this
+msgid "Mediatools"
+msgstr ""
+
 msgid "Minimum Color Distance"
 msgstr "Kêmtirîn Dûrahiya Rengê"
 
 msgid "Moderators can access all Canvas, Watch and IID tools."
 msgstr ""
 
+#. This if for moderation tools, it's not important to translate this
 msgid "Modtools"
 msgstr "Amûrên Mod"
 
@@ -883,6 +897,9 @@ msgstr "Nivîsara captcha tune an nederbasdar e"
 
 msgid "No password given."
 msgstr "Tu şîfre nehat dayîn."
+
+msgid "Not Allowed"
+msgstr ""
 
 msgid "Not allowed"
 msgstr "Destûr nayê dayîn"
@@ -1534,6 +1551,10 @@ msgid "Username must be at least 2 characters long"
 msgstr ""
 
 msgid "Username must be shorter than 26 characters"
+msgstr ""
+
+#. This if for moderation tools, it's not important to translate this
+msgid "Watchtools"
 msgstr ""
 
 #, javascript-format

@@ -80,6 +80,7 @@ msgstr "Izgara ekle (eğer 1:1 bir şablon istiyorsanız bu seçeneği kapatın)
 msgid "Add Template"
 msgstr "Şablon Ekle"
 
+#. This if for moderation tools, it's not important to translate this
 msgid "Admintools"
 msgstr ""
 
@@ -198,6 +199,10 @@ msgstr "Tuval Hatası"
 
 msgid "Canvas Selection"
 msgstr "Tuval Seçimi"
+
+#. This if for moderation tools, it's not important to translate this
+msgid "Canvastools"
+msgstr ""
 
 msgid "Captcha"
 msgstr "Captcha"
@@ -695,6 +700,10 @@ msgstr "IID (tercihen)"
 msgid "IID Actions"
 msgstr "IID Eylemleri"
 
+#. This if for moderation tools, it's not important to translate this
+msgid "IIDTools"
+msgstr ""
+
 msgid "IP Actions"
 msgstr "IP Eylemleri"
 
@@ -820,12 +829,17 @@ msgstr "Büyüt"
 msgid "Media Actions"
 msgstr ""
 
+#. This if for moderation tools, it's not important to translate this
+msgid "Mediatools"
+msgstr ""
+
 msgid "Minimum Color Distance"
 msgstr "Minimum Renk Farkı"
 
 msgid "Moderators can access all Canvas, Watch and IID tools."
 msgstr ""
 
+#. This if for moderation tools, it's not important to translate this
 msgid "Modtools"
 msgstr "Mod Araçları"
 
@@ -889,6 +903,9 @@ msgstr "Olmayan veya yanlış captcha metni"
 
 msgid "No password given."
 msgstr "Bir parola girilmedi."
+
+msgid "Not Allowed"
+msgstr ""
 
 msgid "Not allowed"
 msgstr "İzin yok"
@@ -1542,6 +1559,10 @@ msgid "Username must be at least 2 characters long"
 msgstr ""
 
 msgid "Username must be shorter than 26 characters"
+msgstr ""
+
+#. This if for moderation tools, it's not important to translate this
+msgid "Watchtools"
 msgstr ""
 
 #, javascript-format

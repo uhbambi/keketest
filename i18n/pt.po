@@ -78,6 +78,7 @@ msgstr "Adicionar grade (desmarque se você precisa de um modelo 1:1)"
 msgid "Add Template"
 msgstr "Adicionar Template"
 
+#. This if for moderation tools, it's not important to translate this
 msgid "Admintools"
 msgstr "Ferramentas de Administrador"
 
@@ -202,6 +203,10 @@ msgstr "Erro do canvas"
 
 msgid "Canvas Selection"
 msgstr "Seleção de Canvas"
+
+#. This if for moderation tools, it's not important to translate this
+msgid "Canvastools"
+msgstr ""
 
 msgid "Captcha"
 msgstr "Captcha"
@@ -703,6 +708,10 @@ msgstr "IID (opcional)"
 msgid "IID Actions"
 msgstr "Ações com IP"
 
+#. This if for moderation tools, it's not important to translate this
+msgid "IIDTools"
+msgstr ""
+
 msgid "IP Actions"
 msgstr "Ações com IP"
 
@@ -829,12 +838,17 @@ msgstr "Maximizar"
 msgid "Media Actions"
 msgstr ""
 
+#. This if for moderation tools, it's not important to translate this
+msgid "Mediatools"
+msgstr ""
+
 msgid "Minimum Color Distance"
 msgstr ""
 
 msgid "Moderators can access all Canvas, Watch and IID tools."
 msgstr ""
 
+#. This if for moderation tools, it's not important to translate this
 msgid "Modtools"
 msgstr "Ferramentas de Moderador"
 
@@ -897,6 +911,9 @@ msgstr "Não ou texto de captcha inválido"
 
 msgid "No password given."
 msgstr "Nenhuma senha fornecida."
+
+msgid "Not Allowed"
+msgstr ""
 
 msgid "Not allowed"
 msgstr "Não é permitido"
@@ -1556,6 +1573,10 @@ msgid "Username must be at least 2 characters long"
 msgstr ""
 
 msgid "Username must be shorter than 26 characters"
+msgstr ""
+
+#. This if for moderation tools, it's not important to translate this
+msgid "Watchtools"
 msgstr ""
 
 #, javascript-format

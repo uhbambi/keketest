@@ -76,6 +76,7 @@ msgstr "Cuir Eangach leis (díthiceáil más gá teimpléad 1:1 duit)"
 msgid "Add Template"
 msgstr "Cuir Teimpléad leis"
 
+#. This if for moderation tools, it's not important to translate this
 msgid "Admintools"
 msgstr "Uirlisí riaracháin"
 
@@ -198,6 +199,10 @@ msgstr "Earráid chanbhás"
 
 msgid "Canvas Selection"
 msgstr "Rogha Canbhás"
+
+#. This if for moderation tools, it's not important to translate this
+msgid "Canvastools"
+msgstr ""
 
 msgid "Captcha"
 msgstr "Captcha"
@@ -699,6 +704,10 @@ msgstr "IID (roghnach)"
 msgid "IID Actions"
 msgstr "Gníomhartha IID"
 
+#. This if for moderation tools, it's not important to translate this
+msgid "IIDTools"
+msgstr ""
+
 msgid "IP Actions"
 msgstr "Gníomhartha IP"
 
@@ -835,6 +844,10 @@ msgstr "Uasmhéid"
 msgid "Media Actions"
 msgstr ""
 
+#. This if for moderation tools, it's not important to translate this
+msgid "Mediatools"
+msgstr ""
+
 msgid "Minimum Color Distance"
 msgstr "Fad Íosta Dathanna"
 
@@ -843,6 +856,7 @@ msgstr ""
 "Is féidir le modhnóirí rochtain a fháil ar gach uirlis Canvas, Watch agus "
 "IID."
 
+#. This if for moderation tools, it's not important to translate this
 msgid "Modtools"
 msgstr "Uirlisí modhnóireachta"
 
@@ -905,6 +919,9 @@ msgstr "Níl nó neamhbhailí captcha teics"
 
 msgid "No password given."
 msgstr "Níor thabhar tu phasfhocal."
+
+msgid "Not Allowed"
+msgstr ""
 
 msgid "Not allowed"
 msgstr "Níl cead"
@@ -1557,6 +1574,10 @@ msgstr "Ní mór dhá charachtar ar a laghad a bheith san ainm úsáideora"
 
 msgid "Username must be shorter than 26 characters"
 msgstr "Ní mór d'ainm úsáideora a bheith níos giorra ná 26 carachtar"
+
+#. This if for moderation tools, it's not important to translate this
+msgid "Watchtools"
+msgstr ""
 
 #, javascript-format
 msgid "We are Libre Software under the ${ agplLink }, "

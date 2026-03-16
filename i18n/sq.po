@@ -80,6 +80,7 @@ msgstr "Shto Rrjetën (hiqni shenjën nëse keni nevojë për një shabllon 1:1)
 msgid "Add Template"
 msgstr "Shto Shabllon"
 
+#. This if for moderation tools, it's not important to translate this
 msgid "Admintools"
 msgstr "Veglat e administratorit"
 
@@ -202,6 +203,10 @@ msgstr "Gabim i Kanavacës"
 
 msgid "Canvas Selection"
 msgstr "Përzgjedhja e Kanavacës"
+
+#. This if for moderation tools, it's not important to translate this
+msgid "Canvastools"
+msgstr ""
 
 msgid "Captcha"
 msgstr "Captcha"
@@ -703,6 +708,10 @@ msgstr "IID (opsionale)"
 msgid "IID Actions"
 msgstr "Veprimet IID"
 
+#. This if for moderation tools, it's not important to translate this
+msgid "IIDTools"
+msgstr ""
+
 msgid "IP Actions"
 msgstr "Veprimet IP"
 
@@ -838,12 +847,17 @@ msgstr "Maksimizoni"
 msgid "Media Actions"
 msgstr "Veprimet Media"
 
+#. This if for moderation tools, it's not important to translate this
+msgid "Mediatools"
+msgstr ""
+
 msgid "Minimum Color Distance"
 msgstr "Distanca Minimale e Ngjyrave"
 
 msgid "Moderators can access all Canvas, Watch and IID tools."
 msgstr "Moderatorët mund të aksesojnë të gjitha veglat Canvas, Watch dhe IID."
 
+#. This if for moderation tools, it's not important to translate this
 msgid "Modtools"
 msgstr "Veglat e moderatorit"
 
@@ -906,6 +920,9 @@ msgstr "Asnjë captcha ose tekst i pavlefshëm"
 
 msgid "No password given."
 msgstr "Nuk është dhënë asnjë fjalëkalim."
+
+msgid "Not Allowed"
+msgstr ""
 
 msgid "Not allowed"
 msgstr "Nuk lejohet"
@@ -1567,6 +1584,10 @@ msgstr "Emri i përdoruesit duhet të jetë të paktën 2 karaktere i gjatë"
 
 msgid "Username must be shorter than 26 characters"
 msgstr "Emri i përdoruesit duhet të jetë më i shkurtër se 26 karaktere"
+
+#. This if for moderation tools, it's not important to translate this
+msgid "Watchtools"
+msgstr ""
 
 #, javascript-format
 msgid "We are Libre Software under the ${ agplLink }, "

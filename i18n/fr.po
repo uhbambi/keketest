@@ -77,6 +77,7 @@ msgstr "Ajouter grille (décochez-vous si vous avez besoin d'une modèle 1:1)"
 msgid "Add Template"
 msgstr "Ajouter un Template"
 
+#. This if for moderation tools, it's not important to translate this
 msgid "Admintools"
 msgstr "Outils d'admin"
 
@@ -200,6 +201,10 @@ msgstr "Archive de toile"
 
 msgid "Canvas Selection"
 msgstr "Sélection de toile"
+
+#. This if for moderation tools, it's not important to translate this
+msgid "Canvastools"
+msgstr ""
 
 msgid "Captcha"
 msgstr ""
@@ -705,6 +710,10 @@ msgstr ""
 msgid "IID Actions"
 msgstr "Actions d'IP"
 
+#. This if for moderation tools, it's not important to translate this
+msgid "IIDTools"
+msgstr ""
+
 msgid "IP Actions"
 msgstr "Actions d'IP"
 
@@ -831,12 +840,17 @@ msgstr "Maximiser"
 msgid "Media Actions"
 msgstr ""
 
+#. This if for moderation tools, it's not important to translate this
+msgid "Mediatools"
+msgstr ""
+
 msgid "Minimum Color Distance"
 msgstr ""
 
 msgid "Moderators can access all Canvas, Watch and IID tools."
 msgstr ""
 
+#. This if for moderation tools, it's not important to translate this
 msgid "Modtools"
 msgstr "Outils de mod"
 
@@ -901,6 +915,9 @@ msgstr ""
 
 msgid "No password given."
 msgstr "Mot de passe pas indiqué."
+
+msgid "Not Allowed"
+msgstr ""
 
 msgid "Not allowed"
 msgstr ""
@@ -1556,6 +1573,10 @@ msgid "Username must be at least 2 characters long"
 msgstr ""
 
 msgid "Username must be shorter than 26 characters"
+msgstr ""
+
+#. This if for moderation tools, it's not important to translate this
+msgid "Watchtools"
 msgstr ""
 
 #, javascript-format

@@ -79,6 +79,7 @@ msgstr "Zeichne Raster (deaktiviere falls du eine 1:1 Vorlage benötigst)"
 msgid "Add Template"
 msgstr "Vorlage hinzufügen"
 
+#. This if for moderation tools, it's not important to translate this
 msgid "Admintools"
 msgstr "Admin Werkzeuge"
 
@@ -199,6 +200,10 @@ msgstr "Leinwandfehler"
 
 msgid "Canvas Selection"
 msgstr "Leinwandauswahl"
+
+#. This if for moderation tools, it's not important to translate this
+msgid "Canvastools"
+msgstr ""
 
 msgid "Captcha"
 msgstr "Captcha"
@@ -704,6 +709,10 @@ msgstr "IID (optional)"
 msgid "IID Actions"
 msgstr "IID Aktionen"
 
+#. This if for moderation tools, it's not important to translate this
+msgid "IIDTools"
+msgstr ""
+
 msgid "IP Actions"
 msgstr "IP Aktionen"
 
@@ -839,6 +848,10 @@ msgstr "Maximieren"
 msgid "Media Actions"
 msgstr ""
 
+#. This if for moderation tools, it's not important to translate this
+msgid "Mediatools"
+msgstr ""
+
 msgid "Minimum Color Distance"
 msgstr "Minimum Farb Distanz"
 
@@ -847,6 +860,7 @@ msgstr ""
 "Moderatoren können bannen, Pixel ansehen, zurückspulen und ungesetzte 0cd "
 "Pixel verwenden."
 
+#. This if for moderation tools, it's not important to translate this
 msgid "Modtools"
 msgstr "Moderationshilfen"
 
@@ -909,6 +923,9 @@ msgstr "Kein oder falscher Captcha Text"
 
 msgid "No password given."
 msgstr "Kein Passwort eingegeben."
+
+msgid "Not Allowed"
+msgstr ""
 
 msgid "Not allowed"
 msgstr "Nicht erlaubt"
@@ -1567,6 +1584,10 @@ msgstr "Benutzername muss mindestens zwei Zeichen lang sein"
 
 msgid "Username must be shorter than 26 characters"
 msgstr "Benutzername muss kürzer als 26 Zeichen sein"
+
+#. This if for moderation tools, it's not important to translate this
+msgid "Watchtools"
+msgstr ""
 
 #, javascript-format
 msgid "We are Libre Software under the ${ agplLink }, "
