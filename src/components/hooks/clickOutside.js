@@ -37,13 +37,13 @@ export function useConditionalClickOutside(insideRefs, active, callback) {
       callback();
     };
 
-    document.addEventListener('mousedown', handleClickOutside, {
+    document.addEventListener('click', handleClickOutside, {
       capture: true,
     });
     window.addEventListener('resize', handleWindowResize);
 
     return () => {
-      document.removeEventListener('mousedown', handleClickOutside, {
+      document.removeEventListener('click', handleClickOutside, {
         capture: true,
       });
       window.removeEventListener('resize', handleWindowResize);
@@ -76,13 +76,13 @@ export function useClickOutside(insideRefs, callback) {
       callback();
     };
 
-    document.addEventListener('mousedown', handleClickOutside, {
+    document.addEventListener('click', handleClickOutside, {
       capture: true,
     });
     window.addEventListener('resize', handleWindowResize);
 
     return () => {
-      document.removeEventListener('mousedown', handleClickOutside, {
+      document.removeEventListener('click', handleClickOutside, {
         capture: true,
       });
       window.removeEventListener('resize', handleWindowResize);

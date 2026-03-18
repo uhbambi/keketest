@@ -28,10 +28,10 @@ class APISocketServer {
    * [usernameOrId]: {
    *   id,
    *   name,
+   *   flagLegit,
    *   country,
    *   userlvl,
    *   isMuted,
-   *   customFlag
    * },
    */
   static #usernameMapping = new Map();
@@ -44,9 +44,13 @@ class APISocketServer {
         userData.fetchedAt = Date.now();
         APISocketServer.#usernameMapping.set(usernameOrId, userData);
         [userData.flagLegit, userData.country] = mapFlag(
-          userData.customFlag, userData.userlvl, userData.country || 'yy',
+          userData.customRoleFlagId,
+          userData.customFlag,
+          userData.userlvl,
+          userData.country || 'yy',
         );
         delete userData.customFlag;
+        delete userData.customRoleFlagId;
       }
     }
     if (Math.random() < 0.07) {

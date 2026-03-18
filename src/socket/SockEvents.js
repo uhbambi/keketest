@@ -320,6 +320,15 @@ class SocketEvents extends EventEmitter {
   }
 
   /**
+   * change a users profile,
+   * @param userId userId or Array of userIds
+   * @param patch object describing the profile state
+   */
+  patchUserState(userId, state, patch) {
+    this.emit('patchState', userId, state, patch);
+  }
+
+  /**
    * receive information about online users
    * @param online {
    *     canvasId1: [IP1, IP2, IP2, ...],
@@ -405,13 +414,6 @@ class SocketEvents extends EventEmitter {
    */
   registerCatchedFish(user, ip, type, size) {
     this.emit('registerCatchedFish', user, ip, type, size);
-  }
-
-  /**
-   * broadcast caught fish to all connections of ip
-   */
-  catchedFish(user, ip, type, size) {
-    this.emit('catchedFish', user, ip, type, size);
   }
 }
 

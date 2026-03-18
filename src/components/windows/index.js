@@ -12,6 +12,7 @@ import FishDisplay from './FishDisplay.jsx';
 import BadgeDisplay from './BadgeDisplay.jsx';
 import OIDCConsent from './OIDCConsent.jsx';
 import Templates from './Templates.jsx';
+import MyFactions from './MyFactions.jsx';
 
 // eslint-disable-next-line max-len
 const Modtools = React.lazy(() => import(/* webpackChunkName: "modtools" */ './Modtools.jsx'));
@@ -36,6 +37,7 @@ export default {
   /* t: This if for moderation tools, it's not important to translate this */
   MODTOOLS: [Modtools, t`Modtools`, false],
   STATISTICS: [Statistics, t`Statistics`, false],
+  MYFACTIONS: [MyFactions, t`My Factions`, false],
   /*
    * OIDC Consent is a very special case, because it is only available as
    * seperate popup, hoever, this is a single-page-applications, so we include

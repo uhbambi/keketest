@@ -3,7 +3,12 @@
  */
 import { USERLVL } from '../core/constants.js';
 
-export default function mapFlag(customFlag, userlvl, country) {
+export default function mapFlag(
+  customRoleFlagId, customFlag, userlvl, country,
+) {
+  if (customRoleFlagId) {
+    return [false, customRoleFlagId];
+  }
   if (customFlag) {
     return [false, customFlag];
   }

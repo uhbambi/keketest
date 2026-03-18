@@ -33,14 +33,18 @@ const Fish = sequelize.define('Fish', {
 
 export async function storeFish(uid, type, size) {
   try {
-    await Fish.create({
-      uid,
-      type,
-      size,
-    });
+    const model = await sequelize.query(
+      'CALL STORE_FISH(?, ?, ?)', {
+        replacements: [uid, type, size],
+        plain: true,
+        type: QueryTypes.SELECT,
+      },
+    );
+    return model?.[0]?.id;
   } catch (error) {
     console.error(`SQL Error on storeFish: ${error.message}`);
   }
+  return null;
 }
 
 /**

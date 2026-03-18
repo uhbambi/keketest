@@ -33,6 +33,11 @@ import {
 import { isIntervalActive } from '../../core/utils.js';
 import { PENCIL_MODE, CHANNEL_TYPES } from '../../core/constants.js';
 
+/*
+ * for ongoing fetches to avoid multiple fetching
+ */
+const fetchStates = {};
+
 function setApiFetching(fetching) {
   return {
     type: 'SET_API_FETCHING',
@@ -85,10 +90,24 @@ export function fetchStats() {
 }
 
 export function fetchProfile() {
-  return async (dispatch) => {
-    const profile = await requestProfile();
-    if (!profile.errors) {
-      dispatch({ type: 'REC_PROFILE', profile });
+  return async (dispatch, getState) => {
+    if (fetchStates.profile) {
+      return;
+    }
+    fetchStates.profile = true;
+
+    try {
+      if (!getState().user.username) {
+        dispatch({ type: 's/REC_PROFILE', profile: {} });
+        return;
+      }
+      let profile = await requestProfile();
+      if (profile.errors) {
+        profile = {};
+      }
+      dispatch({ type: 's/REC_PROFILE', profile });
+    } finally {
+      delete fetchStates.profile;
     }
   };
 }

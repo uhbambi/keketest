@@ -10,6 +10,7 @@ import {
 } from '../data/sql/Session.js';
 import { parseListOfBans } from '../data/sql/Ban.js';
 import { touchUser } from '../data/sql/User.js';
+import { patchState } from '../store/index.js';
 import { sign, unsign } from '../utils/hash.js';
 
 
@@ -28,6 +29,7 @@ export class User {
    *   havePassword,
    *   avatarId,
    *   customFlag,
+   *   customRoleFlagId,
    *   bans: [ { expires, flags }, ... ],
    *   tpids: [ { tpid, provider }, ... ],
    *   blocked: [ { id, name }, ...],
@@ -66,19 +68,7 @@ export class User {
     this.#token = token;
     this.#data = data;
 
-    /*
-     * data.channels:
-     *   { PUBLIC: [[cid, name, lastTs, lastReadTs, muted, avatar], ...], ... }
-     */
-    const channelsByType = Object.values(data.channels);
-    for (let i = 0; i < channelsByType.length; i += 1) {
-      const typeChannels = channelsByType[i];
-      for (let u = 0; u < typeChannels.length; u += 1) {
-        const typeChannel = typeChannels[u];
-        // Map<isMuted>
-        this.channelIds.set(typeChannel[0], typeChannel[4]);
-      }
-    }
+    this.populateChannelIds();
 
     const [isBanned, isMuted, banRecheckTs] = parseListOfBans(data.bans);
     this.isBanned = isBanned;
@@ -88,6 +78,23 @@ export class User {
       const timeBlockProps = TIMEBLOCK_USERS.get(this.id);
       if (timeBlockProps) {
         [this.blockedInterval] = timeBlockProps;
+      }
+    }
+  }
+
+  populateChannelIds() {
+    this.channelIds.clear();
+    /*
+     * data.channels:
+     *   { PUBLIC: [[cid, name, lastTs, lastReadTs, muted, avatar], ...], ... }
+     */
+    const channelsByType = Object.values(this.#data.channels);
+    for (let i = 0; i < channelsByType.length; i += 1) {
+      const typeChannels = channelsByType[i];
+      for (let u = 0; u < typeChannels.length; u += 1) {
+        const typeChannel = typeChannels[u];
+        // Map<isMuted>
+        this.channelIds.set(typeChannel[0], typeChannel[4]);
       }
     }
   }
@@ -131,6 +138,19 @@ export class User {
 
   refresh() {
     return this.getAllowance(true);
+  }
+
+  patchUserState(state, patch) {
+    if (state === 'chat') {
+      const [newState, target, hasChanged] = patchState(this.#data, patch);
+      if (!hasChanged) {
+        return;
+      }
+      this.#data = newState;
+      if (target === 'channels') {
+        this.populateChannelIds();
+      }
+    }
   }
 
   /**

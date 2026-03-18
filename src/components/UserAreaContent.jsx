@@ -2,7 +2,7 @@
  * Menu to change user credentials
  */
 
-import React, { useState, useCallback, useEffect } from 'react';
+import React, { useState, useCallback } from 'react';
 import { useSelector, shallowEqual, useDispatch } from 'react-redux';
 import { t } from 'ttag';
 
@@ -20,7 +20,6 @@ import { logoutUser } from '../store/actions/index.js';
 import { requestLogOut } from '../store/actions/fetch.js';
 import { numberToString } from '../core/utils.js';
 import { selectIsDarkMode } from '../store/selectors/gui.js';
-import { fetchProfile } from '../store/actions/thunks.js';
 
 const AREAS = {
   CHANGE_NAME: ChangeName,
@@ -53,7 +52,6 @@ const UserAreaContent = () => {
   }, [dispatch]);
 
   const isDarkMode = useSelector(selectIsDarkMode);
-  const lastProfileFetch = useSelector((state) => state.profile.lastFetch);
   const [
     name,
     havePassword,
@@ -74,13 +72,6 @@ const UserAreaContent = () => {
     state.ranks.ranking,
     state.ranks.dailyRanking,
   ], shallowEqual);
-
-  useEffect(() => {
-    if (username && Date.now() - 600000 > lastProfileFetch) {
-      dispatch(fetchProfile());
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [lastProfileFetch, username]);
 
   if (!name) {
     return <LogInForm title={t`Login to access more features and stats.`} />;

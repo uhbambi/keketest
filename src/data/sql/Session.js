@@ -228,6 +228,7 @@ WHERE token = ? AND (expires > NOW() OR expires IS NULL)`, {
  *   lastSeen,
  *   createdAt,
  *   customFlag,
+ *   customRoleFlagId,
  *   blocked: [ { id, name }, ...],
  *   bans: [ { expires, flags }, ... ],
  *   channels: {
@@ -260,10 +261,13 @@ export async function resolveSession(token) {
       `SELECT u.id, u.name, u.username, u.password, u.userlvl, u.flags, u.lastSeen, u.createdAt,
 p.customFlag,
 CONCAT(a.shortId, ':', a.extension) AS avatarId,
+CONCAT(frm.shortId, ':', frm.extension) AS customRoleFlagId,
 c.id AS 'channels.cid', c.name AS 'channels.name', c.\`type\` AS 'channels.type', c.lastMessage AS 'channels.lastDate', ucm.lastRead AS 'channels.lastReadDate', ucm.muted AS 'channels.muted' FROM Users u
   INNER JOIN Sessions s ON s.uid = u.id
   LEFT JOIN Profiles p ON p.uid = u.id
   LEFT JOIN Media a ON a.id = p.avatar
+  LEFT JOIN FactionRoles fr ON fr.id = p.activeRole
+  LEFT JOIN Media frm ON frm.id = fr.customFlag
   LEFT JOIN UserChannels ucm ON ucm.uid = u.id
   LEFT JOIN Channels c ON c.id = ucm.cid
 WHERE s.token = $1 AND (s.expires > NOW() OR s.expires IS NULL)`, {

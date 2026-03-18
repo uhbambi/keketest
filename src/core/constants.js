@@ -187,6 +187,7 @@ export const AVAILABLE_POPUPS = [
   'BADGE_DISPLAY',
   'STATISTICS',
   'MODTOOLS',
+  'MYFACTIONS',
 ];
 
 /*

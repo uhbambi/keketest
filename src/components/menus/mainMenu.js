@@ -23,6 +23,10 @@ import {
   // bar chart
   IoIosStats,
 } from 'react-icons/io';
+import {
+  // battle axe
+  PiAxeFill,
+} from 'react-icons/pi';
 import fileDownload from 'js-file-download';
 import { t } from 'ttag';
 
@@ -93,13 +97,37 @@ export default function mainMenu(store) {
     text: t`Make Screenshot`,
   },
   { id: 's1', type: 'spacer' },
-  {
-    id: 'pe',
-    type: 'link',
-    symbol: MdPerson,
-    link: 'USERAREA',
-    text: t`User Area`,
-  });
+  );
+
+  if (state.user.name) {
+    elements.push({
+      id: 'pe',
+      type: 'submenu',
+      symbol: MdPerson,
+      test: t`User Area`,
+      elements: [{
+        id: 'uapr',
+        type: 'link',
+        symbol: MdPerson,
+        link: 'USERAREA',
+        text: t`Profile`,
+      }, {
+        id: 'uafa',
+        type: 'link',
+        symbol: PiAxeFill,
+        link: 'MYFACTIONS',
+        text: t`My Factions`,
+      }],
+    });
+  } else {
+    elements.push({
+      id: 'pe',
+      type: 'link',
+      symbol: MdPerson,
+      link: 'USERAREA',
+      text: t`Log in or Register`,
+    });
+  }
 
   if (state.user.userlvl >= USERLVL.CHATMOD) {
     /* eslint-disable max-len */

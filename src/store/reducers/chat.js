@@ -24,8 +24,10 @@ const initialState = {
   // [[uId, userName], [userId2, userName2],...]
   blocked: [],
   /*
+   * flag can be two letter country code or mediaId
+   *
    * { cid: [[
-   *   name, text, country, userId, ts, msgId, flagLegit, avatarId, attachments
+   *   name, text, flag, userId, ts, msgId, flagLegit, avatarId, attachments
    * ],...], ... }
    *
    * with attachments:

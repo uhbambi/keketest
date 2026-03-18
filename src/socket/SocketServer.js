@@ -59,6 +59,7 @@ class SocketServer {
     this.broadcastPixelBuffer = this.broadcastPixelBuffer.bind(this);
     this.reloadUser = this.reloadUser.bind(this);
     this.reloadIP = this.reloadIP.bind(this);
+    this.patchUserState = this.patchUserState.bind(this);
     this.getOnlineUsers = this.getOnlineUsers.bind(this);
     this.checkHealth = this.checkHealth.bind(this);
   }
@@ -119,6 +120,7 @@ class SocketServer {
     socketEvents.on('pixelUpdate', this.broadcastPixelBuffer);
     socketEvents.on('reloadUser', this.reloadUser);
     socketEvents.on('reloadIP', this.reloadIP);
+    socketEvents.on('patchState', this.patchUserState);
 
     socketEvents.on('onlineCounter', (online) => {
       this.broadcast(dehydrateOnlineCounter(online));
@@ -258,15 +260,6 @@ class SocketServer {
         chosenWs.sentFish = [Date.now(), type, size];
         chosenWs.send(dehydrateFishAppears(type, size));
       }
-    });
-
-    socketEvents.on('catchedFish', (ip, type, size) => {
-      const buffer = dehydrateFishCatched(true, type, size);
-      this.wss.clients.forEach(async (ws) => {
-        if (ws.ip.ipString === ip) {
-          ws.send(buffer);
-        }
-      });
     });
 
     // when changing interval, remember that online counter gets used as ping
@@ -460,6 +453,35 @@ class SocketServer {
         }
       }
     });
+  }
+
+  patchUserState(userIds, state, patch) {
+    const text = `ps,${JSON.stringify([
+      state, patch.op, patch.path, patch.value,
+    ])}`;
+
+    const clientArray = [];
+    if (Array.isArray(userIds)) {
+      this.wss.clients.forEach((ws) => {
+        if (ws.readyState === WebSocket.OPEN
+          && ws.user && userIds.includes(ws.user.id)
+        ) {
+          ws.user.patchUserState(state, patch);
+          clientArray.push(ws);
+        }
+      });
+    } else {
+      this.wss.clients.forEach((ws) => {
+        if (ws.readyState === WebSocket.OPEN
+          && ws.user?.id === userIds
+        ) {
+          ws.user.patchUserState(state, patch);
+          clientArray.push(ws);
+        }
+      });
+    }
+
+    SocketServer.broadcastSelected(clientArray, text);
   }
 
   checkHealth() {
@@ -705,8 +727,7 @@ class SocketServer {
             delete ws.sentFish;
             const [timeSent, type, size] = sentFish;
             if (timeSent > Date.now() - 18000) {
-              // broadcast to all connections of ip
-              socketEvents.catchedFish(ipString, type, size);
+              ws.send(dehydrateFishCatched(true, type, size));
               // register ourselves to store it in database
               socketEvents.registerCatchedFish(ws.user, ipString, type, size);
               break;

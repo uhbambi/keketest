@@ -7,13 +7,14 @@ import {
   colorFromText, setBrightness, getDateTimeString,
 } from '../core/utils.js';
 import { selectIsDarkMode } from '../store/selectors/gui.js';
+import { getUrlFromMediaIdAndName } from '../utils/media/utils.js';
 import { cdn } from '../utils/utag.js';
 
 
 function ChatMessage({
   name,
   uid,
-  country,
+  flag,
   msg,
   ts,
   flagLegit,
@@ -70,8 +71,10 @@ function ChatMessage({
       <img
         className={flagClass}
         alt=""
-        title={country}
-        src={cdn`/cf/${country}.gif`}
+        title={flag}
+        src={(flag.length === 2)
+          ? cdn`/cf/${flag}.gif`
+          : cdn`${getUrlFromMediaIdAndName(flag, 'flag')}`}
       />
       <span
         className="chatname"

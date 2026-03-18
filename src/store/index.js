@@ -22,7 +22,15 @@
  *   path: 'factions[id:1234]',
  * }
  * @param state
- * @param patch { op, path, [value] }
+ * @param patch {
+ *   op:
+ *     'add':  add into an array and create array if not exists,
+ *     'push': push into an array only if it exists,
+ *     'set': set a target value,
+ *     'del': delete a target value,
+ *   path: a path description,
+ *   [value]: given for all operations except del
+ * }
  * @return [newState, firstTarget, success]
  */
 export function patchState(state, patch) {
@@ -129,7 +137,11 @@ export function patchState(state, patch) {
       case 'add': {
         if (!location[target]) {
           location[target] = [value];
-        } else if (!Array.isArray(location[target])) {
+          break;
+        }
+      }
+      case 'push': {
+        if (!Array.isArray(location[target])) {
           failed = true;
         } else {
           location[target].push(value);

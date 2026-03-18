@@ -261,7 +261,7 @@ const Chat = () => {
             key="initm"
             uid={0}
             name="info"
-            country="xx"
+            flag="xx"
             msg={t`Start chatting here`}
           />
         )}
@@ -271,7 +271,7 @@ const Chat = () => {
               <ChatMessage
                 name={message[0]}
                 msg={message[1]}
-                country={message[2]}
+                flag={message[2]}
                 uid={message[3]}
                 ts={message[4]}
                 msgId={message[5]}

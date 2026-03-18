@@ -289,6 +289,14 @@ export function receiveBigChunkFailure(chunk, error) {
   };
 }
 
+export function patchState(state, op, path, value) {
+  return {
+    type: 's/PATCH_STATE',
+    state,
+    patch: { op, path, value },
+  };
+}
+
 export function parseCanvases() {
   /*
    * can only do this once and requires window.ssv

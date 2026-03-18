@@ -16,7 +16,7 @@ const UserFaction = sequelize.define('UserFaction', {
 
   /*
    * from lowest to highest bit
-   * 0: hide from menu
+   * 0: hide from profile
    */
   flags: {
     type: DataTypes.TINYINT.UNSIGNED,

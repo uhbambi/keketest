@@ -93,7 +93,7 @@ function runEventLoop() {
   setTimeout(runEventLoop, 300000);
 }
 
-function registerCatchedFish(user, ip, type, size) {
+async function registerCatchedFish(user, ip, type, size) {
   const duration = calculateFishBonusDuration(size);
   logger.info(
     // eslint-disable-next-line max-len
@@ -114,7 +114,12 @@ function registerCatchedFish(user, ip, type, size) {
   }
 
   if (user.id) {
-    storeFish(user.id, type, size);
+    const id = await storeFish(user.id, type, size);
+    socketEvents.patchUserState(user.id, 'profile', {
+      op: 'push',
+      path: 'fishes',
+      value: { id, type, size, ts: Date.now() },
+    });
   }
 
   socketEvents.broadcastIPCooldownModifier(

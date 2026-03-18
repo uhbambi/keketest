@@ -15,6 +15,12 @@ const FactionRole = sequelize.define('FactionRole', {
     primaryKey: true,
   },
 
+  uuid: {
+    type: 'BINARY(16)',
+    allowNull: false,
+    unique: 'uuid',
+  },
+
   fid: {
     type: DataTypes.BIGINT.UNSIGNED,
     allowNull: false,
@@ -29,8 +35,9 @@ const FactionRole = sequelize.define('FactionRole', {
     allowNull: true,
   },
 
-  title: {
-    type: `${DataTypes.STRING(32)} CHARSET utf8mb4 COLLATE utf8mb4_unicode_ci`,
+  name: {
+    // eslint-disable-next-line max-len
+    type: `${DataTypes.STRING(32)} CHARACTER SET ascii COLLATE ascii_general_ci`,
     allowNull: false,
   },
 
