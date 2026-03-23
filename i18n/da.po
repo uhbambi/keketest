@@ -77,6 +77,7 @@ msgstr ""
 msgid "Add Template"
 msgstr "Tilføj skabelon"
 
+#. This if for moderation tools, it's not important to translate this
 msgid "Admintools"
 msgstr "Adminværktøjer"
 
@@ -196,6 +197,10 @@ msgstr "Kanvas Fejl"
 
 msgid "Canvas Selection"
 msgstr "Kanvas Udvælgelse"
+
+#. This if for moderation tools, it's not important to translate this
+msgid "Canvastools"
+msgstr ""
 
 msgid "Captcha"
 msgstr "Captcha"
@@ -696,6 +701,10 @@ msgstr "IID (valgfrit)"
 msgid "IID Actions"
 msgstr "IID Handlinger"
 
+#. This if for moderation tools, it's not important to translate this
+msgid "IIDTools"
+msgstr ""
+
 msgid "IP Actions"
 msgstr "IP Handlinger"
 
@@ -829,12 +838,17 @@ msgstr "Maximer"
 msgid "Media Actions"
 msgstr ""
 
+#. This if for moderation tools, it's not important to translate this
+msgid "Mediatools"
+msgstr ""
+
 msgid "Minimum Color Distance"
 msgstr "Minimum Farve Afstand"
 
 msgid "Moderators can access all Canvas, Watch and IID tools."
 msgstr "Moderatorerer kan tilgå alle kanvas, Watch og IID værktøjer."
 
+#. This if for moderation tools, it's not important to translate this
 msgid "Modtools"
 msgstr "Modværktøjer"
 
@@ -897,6 +911,9 @@ msgstr "Ingen eller ugyldig captcha text"
 
 msgid "No password given."
 msgstr "Ingen adgangskode angivet."
+
+msgid "Not Allowed"
+msgstr ""
 
 msgid "Not allowed"
 msgstr "Ikke tilladt"
@@ -1547,6 +1564,10 @@ msgstr "Brugernavn skal være mindst 2 tegn langt"
 
 msgid "Username must be shorter than 26 characters"
 msgstr "Brugernavn skal være kortere end 26 tegn"
+
+#. This if for moderation tools, it's not important to translate this
+msgid "Watchtools"
+msgstr ""
 
 #, javascript-format
 msgid "We are Libre Software under the ${ agplLink }, "

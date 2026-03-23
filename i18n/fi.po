@@ -74,6 +74,7 @@ msgstr "Lisää Ruudukko (Jätä rastittamatta jos tarvitset 1:1 mallikkeen)"
 msgid "Add Template"
 msgstr "Lisää malline"
 
+#. This if for moderation tools, it's not important to translate this
 msgid "Admintools"
 msgstr ""
 
@@ -191,6 +192,10 @@ msgstr "Kehyksessä virhe"
 
 msgid "Canvas Selection"
 msgstr "Kehysvalikko"
+
+#. This if for moderation tools, it's not important to translate this
+msgid "Canvastools"
+msgstr ""
 
 msgid "Captcha"
 msgstr "Captcha"
@@ -682,6 +687,10 @@ msgstr ""
 msgid "IID Actions"
 msgstr ""
 
+#. This if for moderation tools, it's not important to translate this
+msgid "IIDTools"
+msgstr ""
+
 msgid "IP Actions"
 msgstr ""
 
@@ -807,12 +816,17 @@ msgstr "Maksimoi"
 msgid "Media Actions"
 msgstr ""
 
+#. This if for moderation tools, it's not important to translate this
+msgid "Mediatools"
+msgstr ""
+
 msgid "Minimum Color Distance"
 msgstr "Minimi värien etäisyys"
 
 msgid "Moderators can access all Canvas, Watch and IID tools."
 msgstr ""
 
+#. This if for moderation tools, it's not important to translate this
 msgid "Modtools"
 msgstr "Modityökalut"
 
@@ -877,6 +891,9 @@ msgstr "Virheellinen tai ei ollenkaan Captcha-tekstiä"
 
 msgid "No password given."
 msgstr "Salasana jäi nyt antamatta jätkällä."
+
+msgid "Not Allowed"
+msgstr ""
 
 msgid "Not allowed"
 msgstr "Kielletty"
@@ -1522,6 +1539,10 @@ msgid "Username must be at least 2 characters long"
 msgstr ""
 
 msgid "Username must be shorter than 26 characters"
+msgstr ""
+
+#. This if for moderation tools, it's not important to translate this
+msgid "Watchtools"
 msgstr ""
 
 #, javascript-format

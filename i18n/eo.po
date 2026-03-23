@@ -78,6 +78,7 @@ msgstr "Aldonu Kradon (ne elektu se necesus 1:1 proporcion)"
 msgid "Add Template"
 msgstr "Elŝultu Modelon"
 
+#. This if for moderation tools, it's not important to translate this
 msgid "Admintools"
 msgstr "Administriloj"
 
@@ -203,6 +204,10 @@ msgstr "Kanvasarkivo"
 
 msgid "Canvas Selection"
 msgstr "Kanvasselekaĵ'"
+
+#. This if for moderation tools, it's not important to translate this
+msgid "Canvastools"
+msgstr ""
 
 msgid "Captcha"
 msgstr ""
@@ -710,6 +715,10 @@ msgstr "IID (nedeviga)"
 msgid "IID Actions"
 msgstr "IP Aktoj"
 
+#. This if for moderation tools, it's not important to translate this
+msgid "IIDTools"
+msgstr ""
+
 msgid "IP Actions"
 msgstr "IP Aktoj"
 
@@ -844,12 +853,17 @@ msgstr "maksimumigu"
 msgid "Media Actions"
 msgstr ""
 
+#. This if for moderation tools, it's not important to translate this
+msgid "Mediatools"
+msgstr ""
+
 msgid "Minimum Color Distance"
 msgstr "Minimuma Kolordistanco"
 
 msgid "Moderators can access all Canvas, Watch and IID tools."
 msgstr "Moderigantoj povas aliri ĉiujn ilojn de Canvas, Watch kaj IID."
 
+#. This if for moderation tools, it's not important to translate this
 msgid "Modtools"
 msgstr "Moderigiloj"
 
@@ -914,6 +928,9 @@ msgstr "Neniu aŭ malvalida captcha-teksto"
 
 msgid "No password given."
 msgstr "Pasvorton ne donita."
+
+msgid "Not Allowed"
+msgstr ""
 
 msgid "Not allowed"
 msgstr "Ne permesita"
@@ -1579,6 +1596,10 @@ msgstr "Uzantnomo devas esti almenaŭ 2 signojn longa"
 
 msgid "Username must be shorter than 26 characters"
 msgstr "Uzantnomo devas esti pli mallonga ol 26 signoj"
+
+#. This if for moderation tools, it's not important to translate this
+msgid "Watchtools"
+msgstr ""
 
 #, javascript-format
 msgid "We are Libre Software under the ${ agplLink }, "

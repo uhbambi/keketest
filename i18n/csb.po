@@ -77,6 +77,7 @@ msgstr "Dodôj mrzéżkã (òdmerkôj żelë brëkùjesz mòdła 1:1)"
 msgid "Add Template"
 msgstr "Dodaj Nakłôdkã"
 
+#. This if for moderation tools, it's not important to translate this
 msgid "Admintools"
 msgstr ""
 
@@ -194,6 +195,10 @@ msgstr "Błãd płótna"
 
 msgid "Canvas Selection"
 msgstr "Wëbór Płótna"
+
+#. This if for moderation tools, it's not important to translate this
+msgid "Canvastools"
+msgstr ""
 
 msgid "Captcha"
 msgstr "Captcha"
@@ -693,6 +698,10 @@ msgstr "IID (òptacëjno)"
 msgid "IID Actions"
 msgstr "Dzejônia IID"
 
+#. This if for moderation tools, it's not important to translate this
+msgid "IIDTools"
+msgstr ""
+
 msgid "IP Actions"
 msgstr "Dzejania na IP"
 
@@ -818,12 +827,17 @@ msgstr "Zmaksymalizuj"
 msgid "Media Actions"
 msgstr ""
 
+#. This if for moderation tools, it's not important to translate this
+msgid "Mediatools"
+msgstr ""
+
 msgid "Minimum Color Distance"
 msgstr "Minimalnô dôlëzna farwów"
 
 msgid "Moderators can access all Canvas, Watch and IID tools."
 msgstr ""
 
+#. This if for moderation tools, it's not important to translate this
 msgid "Modtools"
 msgstr "Nôrzãdzé dlô Szandrë"
 
@@ -886,6 +900,9 @@ msgstr "Felënk abò lëchi tekst captcha"
 
 msgid "No password given."
 msgstr "Nie pòdano parolë."
+
+msgid "Not Allowed"
+msgstr ""
 
 msgid "Not allowed"
 msgstr "Nie dozwòloné"
@@ -1536,6 +1553,10 @@ msgid "Username must be at least 2 characters long"
 msgstr ""
 
 msgid "Username must be shorter than 26 characters"
+msgstr ""
+
+#. This if for moderation tools, it's not important to translate this
+msgid "Watchtools"
 msgstr ""
 
 #, javascript-format

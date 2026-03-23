@@ -78,6 +78,7 @@ msgstr "Grid-ის დამატება (არ მონიშნოთ, �
 msgid "Add Template"
 msgstr "თემფლეითის დამატება"
 
+#. This if for moderation tools, it's not important to translate this
 msgid "Admintools"
 msgstr ""
 
@@ -194,6 +195,10 @@ msgstr "კანვასის შეცდომა"
 
 msgid "Canvas Selection"
 msgstr "კანვასის შერჩევა"
+
+#. This if for moderation tools, it's not important to translate this
+msgid "Canvastools"
+msgstr ""
 
 msgid "Captcha"
 msgstr "კაპჩა"
@@ -691,6 +696,10 @@ msgstr "IID (არასავალდებულო)"
 msgid "IID Actions"
 msgstr "IID მოქმედებები"
 
+#. This if for moderation tools, it's not important to translate this
+msgid "IIDTools"
+msgstr ""
+
 msgid "IP Actions"
 msgstr "IP მოქმედებები"
 
@@ -816,12 +825,17 @@ msgstr "მაქსიმიზაცია"
 msgid "Media Actions"
 msgstr ""
 
+#. This if for moderation tools, it's not important to translate this
+msgid "Mediatools"
+msgstr ""
+
 msgid "Minimum Color Distance"
 msgstr "მინიმალური ფერის მანძილი"
 
 msgid "Moderators can access all Canvas, Watch and IID tools."
 msgstr ""
 
+#. This if for moderation tools, it's not important to translate this
 msgid "Modtools"
 msgstr "მოდერატორისტულები"
 
@@ -884,6 +898,9 @@ msgstr "კაპჩას ტექსტი არ არის ან არ�
 
 msgid "No password given."
 msgstr "პაროლი არ არის მოცემული."
+
+msgid "Not Allowed"
+msgstr ""
 
 msgid "Not allowed"
 msgstr "არ შეიძლება"
@@ -1531,6 +1548,10 @@ msgid "Username must be at least 2 characters long"
 msgstr ""
 
 msgid "Username must be shorter than 26 characters"
+msgstr ""
+
+#. This if for moderation tools, it's not important to translate this
+msgid "Watchtools"
 msgstr ""
 
 #, javascript-format

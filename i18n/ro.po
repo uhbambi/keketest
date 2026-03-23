@@ -79,6 +79,7 @@ msgstr "Adaugă o Grilă (debifează dacă ai nevoie de template 1:1)"
 msgid "Add Template"
 msgstr "Încarcă Templateul"
 
+#. This if for moderation tools, it's not important to translate this
 msgid "Admintools"
 msgstr "Unelte Administrator"
 
@@ -200,6 +201,10 @@ msgstr "Eroare de la Canvas"
 
 msgid "Canvas Selection"
 msgstr "Selectare a Canvasurilor"
+
+#. This if for moderation tools, it's not important to translate this
+msgid "Canvastools"
+msgstr ""
 
 msgid "Captcha"
 msgstr "Captcha"
@@ -700,6 +705,10 @@ msgstr "IID (opțional)"
 msgid "IID Actions"
 msgstr "Acțiuni IID"
 
+#. This if for moderation tools, it's not important to translate this
+msgid "IIDTools"
+msgstr ""
+
 msgid "IP Actions"
 msgstr "Acțiuni IP"
 
@@ -832,6 +841,10 @@ msgstr "Maximizează"
 msgid "Media Actions"
 msgstr "Acțiuni media"
 
+#. This if for moderation tools, it's not important to translate this
+msgid "Mediatools"
+msgstr ""
+
 msgid "Minimum Color Distance"
 msgstr "Distanța Minimă de Culoare"
 
@@ -840,6 +853,7 @@ msgstr ""
 "Moderatorii pot accesa toate instrumentele legate de Canvas, de Urmarire și "
 "IID."
 
+#. This if for moderation tools, it's not important to translate this
 msgid "Modtools"
 msgstr "Unelte pentru moderatori"
 
@@ -902,6 +916,9 @@ msgstr "Fără captcha text sau invalid"
 
 msgid "No password given."
 msgstr "Nu ai pus o parolă."
+
+msgid "Not Allowed"
+msgstr ""
 
 msgid "Not allowed"
 msgstr "Nu este permis"
@@ -1555,6 +1572,10 @@ msgstr "Numele de utilizator trebuie să aibă cel puțin 2 caractere"
 
 msgid "Username must be shorter than 26 characters"
 msgstr "Numele de utilizator trebuie să fie mai scurt de 26 de caractere"
+
+#. This if for moderation tools, it's not important to translate this
+msgid "Watchtools"
+msgstr ""
 
 #, javascript-format
 msgid "We are Libre Software under the ${ agplLink }, "

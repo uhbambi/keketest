@@ -66,6 +66,7 @@ msgstr ""
 msgid "Add Template"
 msgstr "Наддати Шаблон"
 
+#. This if for moderation tools, it's not important to translate this
 msgid "Admintools"
 msgstr ""
 
@@ -182,6 +183,10 @@ msgstr "Хыба полотна"
 
 msgid "Canvas Selection"
 msgstr "Збраня Верета"
+
+#. This if for moderation tools, it's not important to translate this
+msgid "Canvastools"
+msgstr ""
 
 msgid "Captcha"
 msgstr "Капча"
@@ -662,6 +667,10 @@ msgstr ""
 msgid "IID Actions"
 msgstr ""
 
+#. This if for moderation tools, it's not important to translate this
+msgid "IIDTools"
+msgstr ""
+
 msgid "IP Actions"
 msgstr ""
 
@@ -787,12 +796,17 @@ msgstr "Максімузувати"
 msgid "Media Actions"
 msgstr ""
 
+#. This if for moderation tools, it's not important to translate this
+msgid "Mediatools"
+msgstr ""
+
 msgid "Minimum Color Distance"
 msgstr ""
 
 msgid "Moderators can access all Canvas, Watch and IID tools."
 msgstr ""
 
+#. This if for moderation tools, it's not important to translate this
 msgid "Modtools"
 msgstr ""
 
@@ -855,6 +869,9 @@ msgstr "Хыбеня ци невірный текст з капчой"
 
 msgid "No password given."
 msgstr "Парол не провказан."
+
+msgid "Not Allowed"
+msgstr ""
 
 msgid "Not allowed"
 msgstr "Не дозволено"
@@ -1478,6 +1495,10 @@ msgid "Username must be at least 2 characters long"
 msgstr ""
 
 msgid "Username must be shorter than 26 characters"
+msgstr ""
+
+#. This if for moderation tools, it's not important to translate this
+msgid "Watchtools"
 msgstr ""
 
 #, javascript-format
