@@ -196,10 +196,6 @@ msgstr "კანვასის შეცდომა"
 msgid "Canvas Selection"
 msgstr "კანვასის შერჩევა"
 
-#. This if for moderation tools, it's not important to translate this
-msgid "Canvastools"
-msgstr ""
-
 msgid "Captcha"
 msgstr "კაპჩა"
 
@@ -696,10 +692,6 @@ msgstr "IID (არასავალდებულო)"
 msgid "IID Actions"
 msgstr "IID მოქმედებები"
 
-#. This if for moderation tools, it's not important to translate this
-msgid "IIDTools"
-msgstr ""
-
 msgid "IP Actions"
 msgstr "IP მოქმედებები"
 
@@ -823,10 +815,6 @@ msgid "Maximize"
 msgstr "მაქსიმიზაცია"
 
 msgid "Media Actions"
-msgstr ""
-
-#. This if for moderation tools, it's not important to translate this
-msgid "Mediatools"
 msgstr ""
 
 msgid "Minimum Color Distance"
@@ -1548,10 +1536,6 @@ msgid "Username must be at least 2 characters long"
 msgstr ""
 
 msgid "Username must be shorter than 26 characters"
-msgstr ""
-
-#. This if for moderation tools, it's not important to translate this
-msgid "Watchtools"
 msgstr ""
 
 #, javascript-format

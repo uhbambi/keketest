@@ -199,10 +199,6 @@ msgstr "Error del Llenç"
 msgid "Canvas Selection"
 msgstr "Selecció de Llenç"
 
-#. This if for moderation tools, it's not important to translate this
-msgid "Canvastools"
-msgstr ""
-
 msgid "Captcha"
 msgstr "Captcha"
 
@@ -708,10 +704,6 @@ msgstr "IID (opcional)"
 msgid "IID Actions"
 msgstr "Accions de l'IID"
 
-#. This if for moderation tools, it's not important to translate this
-msgid "IIDTools"
-msgstr ""
-
 msgid "IP Actions"
 msgstr "Accions de l'IP"
 
@@ -843,10 +835,6 @@ msgid "Maximize"
 msgstr "Maximitza"
 
 msgid "Media Actions"
-msgstr ""
-
-#. This if for moderation tools, it's not important to translate this
-msgid "Mediatools"
 msgstr ""
 
 msgid "Minimum Color Distance"
@@ -1586,10 +1574,6 @@ msgstr "El nom d'usuari ha de contenir 2 caràcters com a mínim"
 
 msgid "Username must be shorter than 26 characters"
 msgstr "El nom d'usuari ha de tenir menys de 26 caràcters"
-
-#. This if for moderation tools, it's not important to translate this
-msgid "Watchtools"
-msgstr ""
 
 #, javascript-format
 msgid "We are Libre Software under the ${ agplLink }, "

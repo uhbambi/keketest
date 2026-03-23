@@ -184,10 +184,6 @@ msgstr ""
 msgid "Canvas Selection"
 msgstr ""
 
-#. This if for moderation tools, it's not important to translate this
-msgid "Canvastools"
-msgstr ""
-
 msgid "Captcha"
 msgstr ""
 
@@ -666,10 +662,6 @@ msgstr ""
 msgid "IID Actions"
 msgstr ""
 
-#. This if for moderation tools, it's not important to translate this
-msgid "IIDTools"
-msgstr ""
-
 msgid "IP Actions"
 msgstr ""
 
@@ -793,10 +785,6 @@ msgid "Maximize"
 msgstr ""
 
 msgid "Media Actions"
-msgstr ""
-
-#. This if for moderation tools, it's not important to translate this
-msgid "Mediatools"
 msgstr ""
 
 msgid "Minimum Color Distance"
@@ -1481,10 +1469,6 @@ msgid "Username must be at least 2 characters long"
 msgstr ""
 
 msgid "Username must be shorter than 26 characters"
-msgstr ""
-
-#. This if for moderation tools, it's not important to translate this
-msgid "Watchtools"
 msgstr ""
 
 #, javascript-format

@@ -194,10 +194,6 @@ msgstr "ارور بوم"
 msgid "Canvas Selection"
 msgstr "انتخاب بوم"
 
-#. This if for moderation tools, it's not important to translate this
-msgid "Canvastools"
-msgstr ""
-
 msgid "Captcha"
 msgstr "کَپچا"
 
@@ -700,10 +696,6 @@ msgstr "آیدی (اختیاری)"
 msgid "IID Actions"
 msgstr "اقدامات آیدی"
 
-#. This if for moderation tools, it's not important to translate this
-msgid "IIDTools"
-msgstr ""
-
 msgid "IP Actions"
 msgstr "اقدامات آیپی"
 
@@ -827,10 +819,6 @@ msgid "Maximize"
 msgstr "به حداکثر برسون"
 
 msgid "Media Actions"
-msgstr ""
-
-#. This if for moderation tools, it's not important to translate this
-msgid "Mediatools"
 msgstr ""
 
 msgid "Minimum Color Distance"
@@ -1551,10 +1539,6 @@ msgid "Username must be at least 2 characters long"
 msgstr ""
 
 msgid "Username must be shorter than 26 characters"
-msgstr ""
-
-#. This if for moderation tools, it's not important to translate this
-msgid "Watchtools"
 msgstr ""
 
 #, javascript-format

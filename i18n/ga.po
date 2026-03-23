@@ -200,10 +200,6 @@ msgstr "Earráid chanbhás"
 msgid "Canvas Selection"
 msgstr "Rogha Canbhás"
 
-#. This if for moderation tools, it's not important to translate this
-msgid "Canvastools"
-msgstr ""
-
 msgid "Captcha"
 msgstr "Captcha"
 
@@ -704,10 +700,6 @@ msgstr "IID (roghnach)"
 msgid "IID Actions"
 msgstr "Gníomhartha IID"
 
-#. This if for moderation tools, it's not important to translate this
-msgid "IIDTools"
-msgstr ""
-
 msgid "IP Actions"
 msgstr "Gníomhartha IP"
 
@@ -842,10 +834,6 @@ msgid "Maximize"
 msgstr "Uasmhéid"
 
 msgid "Media Actions"
-msgstr ""
-
-#. This if for moderation tools, it's not important to translate this
-msgid "Mediatools"
 msgstr ""
 
 msgid "Minimum Color Distance"
@@ -1574,10 +1562,6 @@ msgstr "Ní mór dhá charachtar ar a laghad a bheith san ainm úsáideora"
 
 msgid "Username must be shorter than 26 characters"
 msgstr "Ní mór d'ainm úsáideora a bheith níos giorra ná 26 carachtar"
-
-#. This if for moderation tools, it's not important to translate this
-msgid "Watchtools"
-msgstr ""
 
 #, javascript-format
 msgid "We are Libre Software under the ${ agplLink }, "

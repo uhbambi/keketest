@@ -192,10 +192,6 @@ msgstr "کانڤاس هەڵەیە"
 msgid "Canvas Selection"
 msgstr "هەڵبژاردنی کانڤاس"
 
-#. This if for moderation tools, it's not important to translate this
-msgid "Canvastools"
-msgstr ""
-
 msgid "Captcha"
 msgstr "کاپچا"
 
@@ -688,10 +684,6 @@ msgstr "IID (ئیختیاری)"
 msgid "IID Actions"
 msgstr "کردارەکانی IID"
 
-#. This if for moderation tools, it's not important to translate this
-msgid "IIDTools"
-msgstr ""
-
 msgid "IP Actions"
 msgstr "کردارەکانی ئایپی"
 
@@ -815,10 +807,6 @@ msgid "Maximize"
 msgstr "زۆرترین"
 
 msgid "Media Actions"
-msgstr ""
-
-#. This if for moderation tools, it's not important to translate this
-msgid "Mediatools"
 msgstr ""
 
 msgid "Minimum Color Distance"
@@ -1538,10 +1526,6 @@ msgid "Username must be at least 2 characters long"
 msgstr ""
 
 msgid "Username must be shorter than 26 characters"
-msgstr ""
-
-#. This if for moderation tools, it's not important to translate this
-msgid "Watchtools"
 msgstr ""
 
 #, javascript-format

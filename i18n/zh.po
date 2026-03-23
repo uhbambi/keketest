@@ -188,10 +188,6 @@ msgstr "画布错误"
 msgid "Canvas Selection"
 msgstr "画布选择"
 
-#. This if for moderation tools, it's not important to translate this
-msgid "Canvastools"
-msgstr ""
-
 msgid "Captcha"
 msgstr "验证码"
 
@@ -672,10 +668,6 @@ msgstr "IID（可选）"
 msgid "IID Actions"
 msgstr "IID 操作"
 
-#. This if for moderation tools, it's not important to translate this
-msgid "IIDTools"
-msgstr ""
-
 msgid "IP Actions"
 msgstr "IP 操作"
 
@@ -802,10 +794,6 @@ msgid "Maximize"
 msgstr ""
 
 msgid "Media Actions"
-msgstr ""
-
-#. This if for moderation tools, it's not important to translate this
-msgid "Mediatools"
 msgstr ""
 
 msgid "Minimum Color Distance"
@@ -1491,10 +1479,6 @@ msgstr "用户名长度必须至少为 2 个字符"
 
 msgid "Username must be shorter than 26 characters"
 msgstr "用户名长度必须少于 26 个字符"
-
-#. This if for moderation tools, it's not important to translate this
-msgid "Watchtools"
-msgstr ""
 
 #, javascript-format
 msgid "We are Libre Software under the ${ agplLink }, "
