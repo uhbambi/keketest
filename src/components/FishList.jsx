@@ -12,7 +12,7 @@ import { cdn } from '../utils/utag.js';
 
 const FishList = () => {
   const [expanded, setExpanded] = useState(false);
-  const fishes = useProfile((profile) => profile.fishes);
+  const [fishes] = useProfile((profile) => profile.fishes);
   const link = useLink();
   if (!fishes.length) {
     return null;

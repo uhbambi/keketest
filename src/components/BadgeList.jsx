@@ -10,7 +10,7 @@ import { cdn } from '../utils/utag.js';
 
 const BadgeList = () => {
   const [expanded, setExpanded] = useState(false);
-  const badges = useProfile((profile) => profile.badges);
+  const [badges] = useProfile((profile) => profile.badges);
   const link = useLink();
   if (!badges.length) {
     return null;

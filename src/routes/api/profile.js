@@ -10,11 +10,11 @@ export default async (req, res) => {
   const [
     fishes,
     badges,
-    factions,
+    factionObject,
   ] = await Promise.all([
     getFishesOfUser(uid),
     getBadgesOfUser(uid),
     getFactionsOfUser(uid),
   ]);
-  res.status(200).json({ fishes, badges, factions });
+  res.status(200).json({ fishes, badges, ...factionObject });
 };

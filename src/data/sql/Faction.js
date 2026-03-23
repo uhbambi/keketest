@@ -5,7 +5,7 @@
 import { DataTypes, QueryTypes } from 'sequelize';
 
 import sequelize, { nestQuery } from './sequelize.js';
-import { FACTION_FLAGS } from '../../core/constants.js';
+import { FACTION_FLAGS, USER_FACTION_FLAGS } from '../../core/constants.js';
 
 const Faction = sequelize.define('Faction', {
   id: {
@@ -18,6 +18,13 @@ const Faction = sequelize.define('Faction', {
     type: 'BINARY(16)',
     allowNull: false,
     unique: 'uuid',
+  },
+
+  /*
+   * id of default faction role that gets assigned to new members
+   */
+  defaultRole: {
+    type: DataTypes.BIGINT.UNSIGNED,
   },
 
   /* [a-zA-Z0-9._-] */
@@ -80,28 +87,44 @@ const Faction = sequelize.define('Faction', {
 /**
  * get factions of a user
  * @param uid user id
- * @return [{
- *   id,
- *   name,
- *   title,
- *   description,
- *   isPrivate,
- *   isPublic,
- *   avatarId,
- *   roles: [{
+ * @param isOwnProfile if the information is given to the user itself, if not,
+ *   we have to hide hidden factions
+ * @return {
+ *   factions: [{
+ *     fid,
  *     name,
- *     customFlagId,
- *     factionlvl,
- *     isMember,
+ *     title,
+ *     description,
+ *     isPrivate,
+ *     isPublic,
+ *     isHidden,
+ *     avatarId,
+ *     roles: [{
+ *       frid,
+ *       name,
+ *       customFlagId,
+ *       factionlvl,
+ *       isMember,
+ *     }, ...],
  *   }, ...],
- * }, ...]
+ *   activeFactionRole,
+ *   }
  */
-export async function getFactionsOfUser(uid) {
+export async function getFactionsOfUser(uid, isOwnProfile) {
+  let factions = [];
+  let activeFactionRole = null;
   try {
-    let models = await sequelize.query(
-      `SELECT BIN_TO_UUID(f.uuid) AS id, f.name, f.title, f.description, f.flags,
+    const [factionModels, activeFactionModel] = await Promise.all([
+      /*
+       * a user could be member of a faction without having a role, but we
+       * disallow that case in routes to avoid confusion
+       */
+      sequelize.query(
+        `SELECT BIN_TO_UUID(f.uuid) AS fid, f.name, f.title, f.description, f.flags,
 CONCAT(a.shortId, ':', a.extension) AS avatarId,
 CONCAT(frm.shortId, ':', frm.extension) AS 'roles.customFlagId',
+uf.flags AS userFactionFlags,
+BIN_TO_UUID(fr.uuid) AS 'roles.frid',
 EXISTS(SELECT 1 FROM UserFactionRoles ufr WHERE ufr.uid = uf.uid AND ufr.frid = fr.id) AS isMember,
 ufr.title AS 'roles.title', ufr.factionlvl AS 'roles.factionlvl' FROM Factions f
   INNER JOIN UserFactions uf ON uf.fid = f.id
@@ -109,25 +132,62 @@ ufr.title AS 'roles.title', ufr.factionlvl AS 'roles.factionlvl' FROM Factions f
   LEFT JOIN Media a ON a.id = f.avatar
   LEFT JOIN Media frm ON frm.id = fr.customFlag
 WHERE uf.uid = ?`, {
-        replacements: [uid],
-        raw: true,
-        type: QueryTypes.SELECT,
-      },
-    );
-    if (models) {
-      models = nestQuery(models);
-      for (let i = 0; i < models.length; i += 1) {
-        const model = models[i];
-        model.isPrivate = (model.flags & (0x01 << FACTION_FLAGS.PRIV)) !== 0;
-        model.isPublic = (model.flags & (0x01 << FACTION_FLAGS.PUBLIC)) !== 0;
-        delete model.flags;
+          replacements: [uid],
+          raw: true,
+          type: QueryTypes.SELECT,
+        },
+      ),
+      sequelize.query(
+        `SELECT BIN_TO_UUID(f.uuid) AS fid BIN_TO_UUID(fr.uuid) FROM Factions f
+  INNER JOIN FactionRoles fr ON fr.fid = f.id
+  INNER JOIN Profiles p ON fr.id = p.activeRole
+WHERE p.uid = ?`, {
+          replacements: [uid],
+          plain: true,
+          type: QueryTypes.SELECT,
+        },
+      ),
+    ]);
+    if (factionModels) {
+      let activeFid;
+      if (activeFactionModel) {
+        activeFid = activeFactionModel.fid;
+        activeFactionRole = activeFactionModel.frid;
       }
-      return models;
+      factions = nestQuery(factionModels);
+
+      for (let i = 0; i < factions.length; i += 1) {
+        const model = factions[i];
+        // whether or not searchable
+        model.isPrivate = (model.flags & (0x01 << FACTION_FLAGS.PRIV)) !== 0;
+        // whether or not joinable without invite
+        model.isPublic = (model.flags & (0x01 << FACTION_FLAGS.PUBLIC)) !== 0;
+        model.isHidden = false;
+        if (model.userFactionFlags) {
+          if (model.userFactionFlags & (0x01 << USER_FACTION_FLAGS.HIDDEN)) {
+            if (model.fid === activeFid && !isOwnProfile) {
+              activeFactionRole = null;
+            }
+            model.isHidden = true;
+          }
+          delete model.userFactionFlags;
+        }
+        delete model.flags;
+
+        if (!model.roles) {
+          model.roles = [];
+        }
+      }
+
+      /* filter for public */
+      if (!isOwnProfile) {
+        factions = factions.filter((m) => !m.isHidden);
+      }
     }
   } catch (error) {
-    console.error(`SQL Error on deleteAllDMChannelsOfUser: ${error.message}`);
+    console.error(`SQL Error on getFactionsOfUser: ${error.message}`);
   }
-  return [];
+  return { factions, activeFactionRole };
 }
 
 export default Faction;

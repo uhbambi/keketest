@@ -3,7 +3,27 @@ import patchState from '../index.js';
 const initialState = {
   fishes: [],
   badges: [],
+  /*
+   * [{
+   *     fid,
+   *     name,
+   *     title,
+   *     description,
+   *     isPrivate,
+   *     isPublic,
+   *     isHidden,
+   *     avatarId,
+   *     roles: [{
+   *       frid,
+   *       name,
+   *       customFlagId,
+   *       factionlvl,
+   *       isMember,
+   *     }, ...],
+   *   }, ...],
+   */
   factions: [],
+  activeFactionRole: null,
   /*
    * 0: not fetched
    * 1: requested

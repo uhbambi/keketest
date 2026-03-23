@@ -2,6 +2,8 @@
  * state related functions
  */
 
+/* eslint-disable import/prefer-default-export */
+
 /**
  * Apply a patch to a state. In example:
  * Add a channel:
@@ -140,6 +142,7 @@ export function patchState(state, patch) {
           break;
         }
       }
+      // eslint-disable-next-line no-fallthrough
       case 'push': {
         if (!Array.isArray(location[target])) {
           failed = true;

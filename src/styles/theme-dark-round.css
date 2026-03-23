@@ -72,26 +72,12 @@ tr:nth-child(even) {
   background-color: #8b8b8b;
 }
 
-.contextmenu {
-  background-color: #535356;
-  color: #efefef;
-  border-radius: 8px;
-}
-
 .channeldd-category {
   border-radius: 3px;
 }
 
 .channeldd {
   border-radius: 5px;
-}
-
-.contextmenu > div {
-  background-color: #5f5f5f;
-}
-
-.contextmenu > div:hover {
-  background-color: #404040;
 }
 
 .actionbuttons, .coorbox, .onlinebox, .cooldownbox, .historyselect {

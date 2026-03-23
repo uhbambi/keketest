@@ -34,12 +34,8 @@ tr:nth-child(odd) {
   background: linear-gradient(1deg,#61dcea ,#ffb1e1,#ecffec,#fff9b1,#61dcea);
 }
 
-.actionbuttons:hover, .channeldd, .contextmenu {
+.actionbuttons:hover, .channeldd {
   background: linear-gradient(160deg, #61dcea , #ffb1e1, #ecffec, #ffb1e1, #61dcea);
-}
-
-.contextmenu > div {
-  background-color: #ebebeb80;
 }
 
 #chatbutton {

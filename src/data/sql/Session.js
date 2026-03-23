@@ -262,6 +262,7 @@ export async function resolveSession(token) {
 p.customFlag,
 CONCAT(a.shortId, ':', a.extension) AS avatarId,
 CONCAT(frm.shortId, ':', frm.extension) AS customRoleFlagId,
+fr.fid AS activeFactionId,
 c.id AS 'channels.cid', c.name AS 'channels.name', c.\`type\` AS 'channels.type', c.lastMessage AS 'channels.lastDate', ucm.lastRead AS 'channels.lastReadDate', ucm.muted AS 'channels.muted' FROM Users u
   INNER JOIN Sessions s ON s.uid = u.id
   LEFT JOIN Profiles p ON p.uid = u.id
