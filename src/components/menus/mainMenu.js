@@ -10,6 +10,8 @@ import {
   FaFlipboard,
   // paint roller for templates
   FaPaintRoller,
+  // shield
+  FaShieldAlt,
 } from 'react-icons/fa';
 import {
   // download symbol
@@ -102,60 +104,21 @@ export default function mainMenu(store) {
   });
 
   if (state.user.userlvl >= USERLVL.CHATMOD) {
-    /* eslint-disable max-len */
-    const modtoolsSubmenu = [{
-      id: 'mtme',
-      type: 'link',
-      link: 'MODTOOLS',
-      args: { activeTab: 'Media' },
-      /* t: This if for moderation tools, it's not important to translate this */
-      text: t`Mediatools`,
-    }];
-    if (state.user.userlvl >= USERLVL.JANNY) {
-      modtoolsSubmenu.push({
-        id: 'mtca',
-        type: 'link',
-        link: 'MODTOOLS',
-        args: { activeTab: 'Canvas' },
-        /* t: This if for moderation tools, it's not important to translate this */
-        text: t`Canvastools`,
-      });
-    }
+    let activeTab = 'Media';
     if (state.user.userlvl >= USERLVL.MOD) {
-      modtoolsSubmenu.push({
-        id: 'mtwt',
-        type: 'link',
-        link: 'MODTOOLS',
-        args: { activeTab: 'Watch' },
-        /* t: This if for moderation tools, it's not important to translate this */
-        text: t`Watchtools`,
-      }, {
-        id: 'mtii',
-        type: 'link',
-        link: 'MODTOOLS',
-        args: { activeTab: 'IID' },
-        /* t: This if for moderation tools, it's not important to translate this */
-        text: t`IIDTools`,
-      });
-    }
-    if (state.user.userlvl >= USERLVL.ADMIN) {
-      modtoolsSubmenu.push({
-        id: 'mtad',
-        type: 'link',
-        link: 'MODTOOLS',
-        args: { activeTab: 'Admin' },
-        /* t: This if for moderation tools, it's not important to translate this */
-        text: t`Admintools`,
-      });
+      activeTab = 'Watch';
+    } else if (state.user.userlvl >= USERLVL.JANNY) {
+      activeTab = 'Canvas';
     }
 
     elements.push({
       id: 'mtsu',
-      type: 'submenu',
-      symbol: MdPerson,
+      type: 'link',
+      link: 'MODTOOLS',
+      args: { activeTab },
+      symbol: FaShieldAlt,
       /* t: This if for moderation tools, it's not important to translate this */
       text: (state.user.userlvl >= USERLVL.ADMIN) ? t`Admintools` : t`Modtools`,
-      elements: modtoolsSubmenu,
     });
     /* eslint-enable max-len */
   }

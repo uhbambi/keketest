@@ -77,8 +77,7 @@ msgstr ""
 msgid "Add Template"
 msgstr ""
 
-#: src/components/menus/mainMenu.js:148
-#: src/components/menus/mainMenu.js:157
+#: src/components/menus/mainMenu.js:121
 #. This if for moderation tools, it's not important to translate this
 msgid "Admintools"
 msgstr ""
@@ -245,14 +244,9 @@ msgstr ""
 msgid "Canvas Error"
 msgstr ""
 
-#: src/components/menus/mainMenu.js:51
+#: src/components/menus/mainMenu.js:53
 #: src/components/windows/index.js:30
 msgid "Canvas Selection"
-msgstr ""
-
-#: src/components/menus/mainMenu.js:121
-#. This if for moderation tools, it's not important to translate this
-msgid "Canvastools"
 msgstr ""
 
 #: src/components/LogInForm.jsx:379
@@ -479,7 +473,7 @@ msgstr ""
 msgid "Copy Link"
 msgstr ""
 
-#: src/components/Watchtools.jsx:483
+#: src/components/Watchtools.jsx:503
 msgid "Copy Selected to Clipboard"
 msgstr ""
 
@@ -488,14 +482,14 @@ msgstr ""
 msgid "Copy URL"
 msgstr ""
 
-#: src/components/Watchtools.jsx:454
+#: src/components/Watchtools.jsx:474
 msgid "Copy UserId to Clipboard"
 msgstr ""
 
 #: src/components/Converter.jsx:566
 #: src/components/CoordinatesBox.jsx:46
-#: src/components/Watchtools.jsx:405
-#: src/components/Watchtools.jsx:428
+#: src/components/Watchtools.jsx:425
+#: src/components/Watchtools.jsx:448
 msgid "Copy to Clipboard"
 msgstr ""
 
@@ -864,7 +858,7 @@ msgstr ""
 msgid "Get the amount of Pixels placed and ranking"
 msgstr ""
 
-#: src/components/menus/mainMenu.js:69
+#: src/components/menus/mainMenu.js:71
 msgid "Globe View"
 msgstr ""
 
@@ -897,7 +891,7 @@ msgid "Height"
 msgstr ""
 
 #: src/components/BanInfo.jsx:80
-#: src/components/menus/mainMenu.js:219
+#: src/components/menus/mainMenu.js:182
 #: src/components/windows/index.js:26
 msgid "Help"
 msgstr ""
@@ -918,7 +912,7 @@ msgid ""
 "least once per day."
 msgstr ""
 
-#: src/components/menus/mainMenu.js:84
+#: src/components/menus/mainMenu.js:86
 #: src/components/windows/Settings.jsx:154
 msgid "Historical View"
 msgstr ""
@@ -942,11 +936,6 @@ msgstr ""
 
 #: src/components/IIDTools.jsx:127
 msgid "IID Actions"
-msgstr ""
-
-#: src/components/menus/mainMenu.js:138
-#. This if for moderation tools, it's not important to translate this
-msgid "IIDTools"
 msgstr ""
 
 #: src/components/Admintools.jsx:197
@@ -1094,7 +1083,7 @@ msgstr ""
 msgid "Login with Name or Mail:"
 msgstr ""
 
-#: src/components/menus/mainMenu.js:93
+#: src/components/menus/mainMenu.js:95
 msgid "Make Screenshot"
 msgstr ""
 
@@ -1102,7 +1091,7 @@ msgstr ""
 msgid "Manage Moderators"
 msgstr ""
 
-#: src/components/menus/mainMenu.js:168
+#: src/components/menus/mainMenu.js:131
 msgid "Manage Templates"
 msgstr ""
 
@@ -1118,11 +1107,6 @@ msgstr ""
 msgid "Media Actions"
 msgstr ""
 
-#: src/components/menus/mainMenu.js:112
-#. This if for moderation tools, it's not important to translate this
-msgid "Mediatools"
-msgstr ""
-
 #: src/components/Converter.jsx:301
 msgid "Minimum Color Distance"
 msgstr ""
@@ -1131,7 +1115,7 @@ msgstr ""
 msgid "Moderators can access all Canvas, Watch and IID tools."
 msgstr ""
 
-#: src/components/menus/mainMenu.js:157
+#: src/components/menus/mainMenu.js:121
 #: src/components/windows/index.js:37
 #. This if for moderation tools, it's not important to translate this
 msgid "Modtools"
@@ -1722,7 +1706,7 @@ msgid ""
 "only relying on 3rd party login."
 msgstr ""
 
-#: src/components/menus/mainMenu.js:211
+#: src/components/menus/mainMenu.js:174
 #: src/components/windows/index.js:27
 msgid "Settings"
 msgstr ""
@@ -1788,7 +1772,7 @@ msgstr ""
 msgid "Start checking for Malware"
 msgstr ""
 
-#: src/components/menus/mainMenu.js:203
+#: src/components/menus/mainMenu.js:166
 #: src/components/windows/index.js:38
 msgid "Statistics"
 msgstr ""
@@ -1840,7 +1824,7 @@ msgstr ""
 msgid "Template Name"
 msgstr ""
 
-#: src/components/menus/mainMenu.js:192
+#: src/components/menus/mainMenu.js:155
 #: src/components/windows/Templates.jsx:52
 #: src/components/windows/index.js:35
 msgid "Templates"
@@ -2044,7 +2028,7 @@ msgstr ""
 msgid "User Account"
 msgstr ""
 
-#: src/components/menus/mainMenu.js:101
+#: src/components/menus/mainMenu.js:103
 #: src/components/windows/index.js:28
 msgid "User Area"
 msgstr ""
@@ -2083,11 +2067,6 @@ msgstr ""
 
 #: src/utils/validation.js:51
 msgid "Username must be shorter than 26 characters"
-msgstr ""
-
-#: src/components/menus/mainMenu.js:131
-#. This if for moderation tools, it's not important to translate this
-msgid "Watchtools"
 msgstr ""
 
 #: src/components/windows/Help.jsx:79
