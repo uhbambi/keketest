@@ -392,6 +392,26 @@ function ModWatchtools() {
                           const ident = canvases[val]?.ident;
                           return (<td key={type}>{ident}</td>);
                         }
+                        case 'code': {
+                          const code = Number(val);
+                          let color = '#8eff8e';
+                          if (code === 9) {
+                            /* stack used up */
+                            color = 'yellow';
+                          } else if (code === 10) {
+                            /* captcha */
+                            color = 'orange';
+                          } else if (code > 0) {
+                            /* other error */
+                            color = 'red';
+                          }
+                          return (
+                            <td
+                              key={type}
+                              style={{ backgroundColor: color }}
+                            >{val}</td>
+                          );
+                        }
                         case 'cidr': {
                           return (
                             <td key={type}>

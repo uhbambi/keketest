@@ -115,6 +115,13 @@ export default async function drawByOffsets(
       throw new Error(3);
     }
 
+    /*
+     * errors that we want to be logged later on
+     * In example: The user should not know that he is detected as a proxy,
+     * unless he already solved a captcha
+     */
+    let errorLater;
+
     // eslint-disable-next-line prefer-const
     let { isBanned, isProxy } = await ip.getAllowance();
     if (!isProxy && !isBanned && user) {
@@ -122,6 +129,9 @@ export default async function drawByOffsets(
     }
     if (isBanned) {
       throw new Error(14);
+    }
+    if (isProxy) {
+      errorLater = 11;
     }
 
     const isAdmin = (user?.userlvl >= USERLVL.ADMIN);
@@ -146,8 +156,6 @@ export default async function drawByOffsets(
       const [offset, color] = pixels[u];
       pxlOffsets.push(offset);
 
-      const [x, y, z] = getPixelFromChunkOffset(i, j, offset, canvasSize, is3d);
-
       const maxSize = (is3d) ? tileSize * tileSize * THREE_CANVAS_HEIGHT
         : tileSize * tileSize;
       if (offset >= maxSize) {
@@ -169,10 +177,10 @@ export default async function drawByOffsets(
         }
       } else if (factor === 0.0 && !isAdmin) {
         /*
-         * i.e.: mod sends ordianry pixels together with a started 0 cd pixel,
-         * a rare or impossible occurance, unless malicious
+         * e.g.: mod sends ordianry pixels together with a started 0 cd pixel,
+         * an impossible occurance, unless malicious
          * NOTE: in case of future additions of 0cd possibilities, this needs
-         * a refactors
+         * a refactor
          */
         throw new Error(5);
       }
@@ -186,14 +194,13 @@ export default async function drawByOffsets(
         throw new Error(8);
       }
 
-      pixelLogger.info(
-        // eslint-disable-next-line max-len
-        `${startTime} ${ipString} ${userId} ${canvasId} ${x} ${y} ${z} ${color}`,
-      );
-
       /* dont rank antarctica */
-      if (canvasId === 0 && y > 14450) {
-        ranked = false;
+      if (canvasId === 0) {
+        const cy = Math.floor(offset / TILE_SIZE);
+        const y = ((j - (canvasSize / 2 / TILE_SIZE)) * TILE_SIZE) + cy;
+        if (y > 14450) {
+          ranked = false;
+        }
       }
     }
 
@@ -207,7 +214,7 @@ export default async function drawByOffsets(
     if ((await getState('needVerification')) && (
       !user || user.userlvl < USERLVL.VERIFIED
     )) {
-      throw new Error(17);
+      errorLater = 17;
     }
 
     /* temporary blocks */
@@ -237,16 +244,38 @@ export default async function drawByOffsets(
       cds,
       cdIfNull,
       /*
-       * don't increase counter if we are detected as a proxy, but still check
-       * redis for captcha, since it is not smart to tell the user that he is
-       * detected before he solved his captcha
+       * don't increase counter if we are will error
        */
-      isProxy,
+      errorLater,
       pxlOffsets,
     );
 
-    if (pxlCnt > 0 && isProxy) {
-      throw new Error(11);
+
+    for (let u = 0; u < pixels.length; u += 1) {
+      const [offset, color] = pixels[u];
+      const coords = getPixelFromChunkOffset(i, j, offset, canvasSize, is3d)
+        .join(' ');
+
+      let logRetCode;
+      if (errorLater) {
+        logRetCode = errorLater;
+      } else if (u < pxlCnt) {
+        logRetCode = 0;
+      } else {
+        logRetCode = retCode;
+      }
+
+      pixelLogger.info(
+        // eslint-disable-next-line max-len
+        `${startTime} ${ipString} ${userId} ${canvasId} ${coords} ${color} ${logRetCode}`,
+      );
+    }
+
+    /*
+     * pxlCnt is only larger than 0 if we don't need a captcha or other stuff
+     */
+    if (pxlCnt > 0 && errorLater) {
+      throw new Error(errorLater);
     }
 
     for (let u = 0; u < pxlCnt; u += 1) {

@@ -56,7 +56,7 @@ export async function getIIDSummary(
 
   try {
     await parseFile((parts) => {
-      const [tsStr, ipString,, cid, x, y,, clrStr] = parts;
+      const [tsStr, ipString,, cid, x, y,, clrStr, retCode] = parts;
       const ts = parseInt(tsStr, 10);
       if (ts >= time) {
         if (ipString === filterIP) {
@@ -70,7 +70,8 @@ export async function getIIDSummary(
           curVals[1] = x;
           curVals[2] = y;
           curVals[3] = clr;
-          curVals[4] = ts;
+          curVals[4] = retCode;
+          curVals[5] = ts;
         }
       }
     });
@@ -78,19 +79,20 @@ export async function getIIDSummary(
     return `Could not parse logfile: ${err.message}`;
   }
 
-  const columns = ['rid', '#', 'canvas', 'last', 'clr', 'time'];
-  const types = ['number', 'number', 'cid', 'coord', 'clr', 'ts'];
+  const columns = ['rid', '#', 'canvas', 'last', 'clr', 'ret', 'time'];
+  const types = ['number', 'number', 'cid', 'coord', 'clr', 'code', 'ts'];
   const rows = [];
   const cidKeys = Object.keys(cids);
   for (let i = 0; i < cidKeys.length; i += 1) {
     const cid = cidKeys[i];
-    const [pxls, x, y, clr, ts] = cids[cid];
+    const [pxls, x, y, clr, retCode, ts] = cids[cid];
     rows.push([
       i,
       pxls,
       cid,
       `${x},${y}`,
       clr,
+      retCode,
       ts,
     ]);
   }
@@ -122,7 +124,7 @@ export async function getIIDPixels(
 
   try {
     await parseFile((parts) => {
-      const [tsStr, ipString,, cid, x, y,, clrStr] = parts;
+      const [tsStr, ipString,, cid, x, y,, clrStr, retCode] = parts;
       const ts = parseInt(tsStr, 10);
       if (ts >= time) {
         if (ipString === filterIP) {
@@ -132,6 +134,7 @@ export async function getIIDPixels(
             x,
             y,
             clr,
+            retCode,
             ts,
           ]);
         }
@@ -145,16 +148,17 @@ export async function getIIDPixels(
     ? pixels.slice(maxRows * -1)
     : pixels;
 
-  const columns = ['rid', 'canvas', 'coord', 'clr', 'time'];
-  const types = ['number', 'cid', 'coord', 'clr', 'ts'];
+  const columns = ['rid', 'canvas', 'coord', 'clr', 'ret', 'time'];
+  const types = ['number', 'cid', 'coord', 'clr', 'code', 'ts'];
   const rows = [];
   for (let i = 0; i < pixelF.length; i += 1) {
-    const [cid, x, y, clr, ts] = pixelF[i];
+    const [cid, x, y, clr, retCode, ts] = pixelF[i];
     rows.push([
       i,
       cid,
       `${x},${y}`,
       clr,
+      retCode,
       ts,
     ]);
   }
@@ -205,7 +209,7 @@ export async function getSummaryFromArea(
         return;
       }
 
-      const [tsStr, ipString, uidStr, cid, x, y,, clrStr] = parts;
+      const [tsStr, ipString, uidStr, cid, x, y,, clrStr, retCode] = parts;
       const ts = parseInt(tsStr, 10);
       if (ts >= time
         // eslint-disable-next-line eqeqeq
@@ -233,7 +237,8 @@ export async function getSummaryFromArea(
         curVals[2] = x;
         curVals[3] = y;
         curVals[4] = clr;
-        curVals[5] = ts;
+        curVals[5] = retCode;
+        curVals[6] = ts;
       }
     });
   } catch (err) {
@@ -241,18 +246,18 @@ export async function getSummaryFromArea(
   }
 
   const columns = [
-    'rid', '#', 'ipString', 'uid', 'last', 'clr', 'time',
+    'rid', '#', 'ipString', 'uid', 'last', 'clr', 'ret', 'time',
   ];
   const types = [
-    'number', 'number', 'string', 'number', 'coord', 'clr', 'ts',
+    'number', 'number', 'string', 'number', 'coord', 'clr', 'code', 'ts',
   ];
 
   const rows = [];
   const ipKeys = Object.keys(ips);
   for (let i = 0; i < ipKeys.length; i += 1) {
     const ip = ipKeys[i];
-    const [pxls, uid, x, y, clr, ts] = ips[ip];
-    rows.push([i, pxls, ip, uid, `${x},${y}`, clr, ts]);
+    const [pxls, uid, x, y, clr, retCode, ts] = ips[ip];
+    rows.push([i, pxls, ip, uid, `${x},${y}`, clr, retCode, ts]);
   }
 
   return {
@@ -296,7 +301,7 @@ export async function getPixelsFromArea(
         return;
       }
 
-      const [tsStr, ipString, uidStr, cid, x, y,, clrStr] = parts;
+      const [tsStr, ipString, uidStr, cid, x, y,, clrStr, retCode] = parts;
       const ts = parseInt(tsStr, 10);
       if (ts >= time
         // eslint-disable-next-line eqeqeq
@@ -314,7 +319,7 @@ export async function getPixelsFromArea(
           return;
         }
         const uid = parseInt(uidStr, 10);
-        pixels.push([ipString, uid, x, y, clr, ts]);
+        pixels.push([ipString, uid, x, y, clr, retCode, ts]);
         ipStrings.add(ipString);
       }
     });
@@ -328,17 +333,17 @@ export async function getPixelsFromArea(
     columns.push('ip2IID', 'uid');
     types.push('string', 'number');
   }
-  columns.push('coord', 'clr', 'time');
-  types.push('coord', 'clr', 'ts');
+  columns.push('coord', 'clr', 'ret', 'time');
+  types.push('coord', 'clr', 'code', 'ts');
 
   const rows = [];
   for (let i = 0; i < pixels.length; i += 1) {
-    const [ip, uid, x, y, clr, ts] = pixels[i];
+    const [ip, uid, x, y, clr, retCode, ts] = pixels[i];
     const row = [i];
     if (!filterIP) {
       row.push(ip, uid);
     }
-    row.push(`${x},${y}`, clr, ts);
+    row.push(`${x},${y}`, clr, retCode, ts);
     rows.push(row);
   }
 
