@@ -7,18 +7,7 @@ import { t } from 'ttag';
 import { useDispatch } from 'react-redux';
 
 import { validateName } from '../utils/validation.js';
-import { requestNameChange } from '../store/actions/fetch.js';
-import { setName } from '../store/actions/index.js';
-
-
-function validate(name) {
-  const errors = [];
-
-  const nameerror = validateName(name);
-  if (nameerror) errors.push(nameerror);
-
-  return errors;
-}
+import { changeUser } from '../store/actions/thunks.js';
 
 const ChangeName = ({ done }) => {
   const [name, setStName] = useState('');
@@ -33,20 +22,19 @@ const ChangeName = ({ done }) => {
       return;
     }
 
-    const valErrors = validate(name);
-    if (valErrors.length > 0) {
-      setErrors(valErrors);
+    const error = validateName(name);
+    if (error) {
+      setErrors([error]);
       return;
     }
 
     setSubmitting(true);
-    const { errors: respErrors } = await requestNameChange(name);
+    const { errors: respErrors } = await dispatch(changeUser({ name }, true));
     setSubmitting(false);
     if (respErrors) {
       setErrors(respErrors);
       return;
     }
-    dispatch(setName(name));
     done();
   };
 

@@ -27,7 +27,6 @@ export default (store) => (next) => (action) => {
       break;
     }
 
-    case 's/SET_NAME':
     case 's/LOGIN':
     case 's/LOGOUT': {
       SocketClient.reconnect();

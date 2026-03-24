@@ -188,13 +188,13 @@ export async function requestChangeUser(user) {
     '/api/userchange',
     { user },
   );
-  if (res.errors) {
-    return res.errors[0];
+  if (res.errors?.length) {
+    return res.errors;
   }
   if (res.status === 'ok') {
     return null;
   }
-  return t`Unknown Error`;
+  return [t`Unknown Error`];
 }
 
 /**
@@ -209,13 +209,13 @@ export async function requestChangeProfile(profile) {
     '/api/profilechange',
     { profile },
   );
-  if (res.errors) {
-    return res.errors[0];
+  if (res.errors?.length) {
+    return res.errors;
   }
   if (res.status === 'ok') {
     return null;
   }
-  return t`Unknown Error`;
+  return [t`Unknown Error`];
 }
 
 /*
@@ -311,21 +311,6 @@ export async function requestLogOut() {
 
 export async function requestConsent(params) {
   return makeAPIPOSTRequest('/oidc/consent', params);
-}
-
-export function requestNameChange(name) {
-  return makeAPIPOSTRequest(
-    '/api/auth/change_name',
-    { name },
-  );
-}
-
-export function requestUsernameChange(username, token) {
-  const data = { username };
-  if (token) {
-    data.token = token;
-  }
-  return makeAPIPOSTRequest('/api/auth/change_username', data);
 }
 
 export function requestMailChange(email, password) {

@@ -86,43 +86,50 @@ export function fetchStats() {
   };
 }
 
-export function changeUser(userChanges) {
+export function changeUser(userChanges, returnErrors) {
   return async (dispatch, getState) => {
     if (fetchStates.changeUser) {
-      return;
+      return null;
     }
     fetchStates.changeUser = true;
 
-    const state = getState().profile;
     const revertOperations = [];
-    for (const [key, value] of Object.entries(userChanges)) {
-      revertOperations.push([key, state[key]]);
-      dispatch(patchState('user', key, value));
+    /*
+    * we can define a token, which will then be used instead of the logged
+    * in user
+    */
+    if (!userChanges.token) {
+      const state = getState().user;
+      for (const [key, value] of Object.entries(userChanges)) {
+        revertOperations.push([key, state[key]]);
+        dispatch(patchState('user', 'set', key, value));
+      }
     }
 
     try {
       const res = await requestChangeUser(userChanges);
-      if (res) {
+      if (res && !returnErrors) {
         revertOperations.forEach((...args) => dispatch(
-          patchState('user', ...args),
+          patchState('user', 'set', ...args),
         ));
         dispatch(pAlert(
           'Changing User Settings Error',
-          res,
+          res[0],
           'error',
           'OK',
         ));
       }
+      return res;
     } finally {
       delete fetchStates.changeUser;
     }
   };
 }
 
-export function changeProfile(profileChanges) {
+export function changeProfile(profileChanges, returnErrors) {
   return async (dispatch, getState) => {
     if (fetchStates.changeProfile) {
-      return;
+      return null;
     }
     fetchStates.changeProfile = true;
 
@@ -130,22 +137,23 @@ export function changeProfile(profileChanges) {
     const revertOperations = [];
     for (const [key, value] of Object.entries(profileChanges)) {
       revertOperations.push([key, state[key]]);
-      dispatch(patchState('profile', key, value));
+      dispatch(patchState('profile', 'set', key, value));
     }
 
     try {
       const res = await requestChangeProfile(profileChanges);
-      if (res) {
+      if (res && !returnErrors) {
         revertOperations.forEach((...args) => dispatch(
-          patchState('profile', ...args),
+          patchState('profile', 'set', ...args),
         ));
         dispatch(pAlert(
           'Changing Profile Settings Error',
-          res,
+          res[0],
           'error',
           'OK',
         ));
       }
+      return res;
     } finally {
       delete fetchStates.changeProfile;
     }

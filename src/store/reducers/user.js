@@ -131,14 +131,6 @@ export default function user(
       };
     }
 
-    case 's/SET_NAME': {
-      return {
-        ...state,
-        name: action.name || state.name,
-        username: action.username || state.username,
-      };
-    }
-
     case 'SET_NOTIFICATION': {
       return {
         ...state,

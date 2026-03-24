@@ -375,14 +375,6 @@ export function loginUser(
   };
 }
 
-export function setName(name, username) {
-  return {
-    type: 's/SET_NAME',
-    name,
-    username,
-  };
-}
-
 export function setHavePassword(
   havePassword,
 ) {

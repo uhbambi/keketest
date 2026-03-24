@@ -21,6 +21,7 @@ export class User {
    * {
    *   id,
    *   name,
+   *   username,
    *   password,
    *   userlvl,
    *   flags,

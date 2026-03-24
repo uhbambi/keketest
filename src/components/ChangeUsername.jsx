@@ -7,8 +7,7 @@ import { t } from 'ttag';
 import { useDispatch } from 'react-redux';
 
 import { validateUsername } from '../utils/validation.js';
-import { requestUsernameChange } from '../store/actions/fetch.js';
-import { setName } from '../store/actions/index.js';
+import { changeUser } from '../store/actions/thunks.js';
 
 const ChangeUsername = ({ done }) => {
   const [username, setStUsername] = useState('');
@@ -30,13 +29,14 @@ const ChangeUsername = ({ done }) => {
     }
 
     setSubmitting(true);
-    const { errors: respErrors } = await requestUsernameChange(username);
+    const { errors: respErrors } = await dispatch(
+      changeUser({ username }, true),
+    );
     setSubmitting(false);
     if (respErrors) {
       setErrors(respErrors);
       return;
     }
-    dispatch(setName(null, username));
     done();
   };
 

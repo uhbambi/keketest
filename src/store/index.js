@@ -29,6 +29,7 @@
  *     'add':  add into an array and create array if not exists,
  *     'push': push into an array only if it exists,
  *     'set': set a target value,
+ *     'setex': set a target value, but only if its target already exists,
  *     'del': delete a target value,
  *   path: a path description,
  *   [value]: given for all operations except del
@@ -151,6 +152,13 @@ export function patchState(state, patch) {
         }
         break;
       }
+      case 'setex': {
+        if (typeof location[target] === 'undefined') {
+          failed = true;
+          break;
+        }
+      }
+      // eslint-disable-next-line no-fallthrough
       case 'set': {
         location[target] = value;
         break;

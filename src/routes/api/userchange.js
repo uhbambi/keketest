@@ -4,42 +4,107 @@
  *
  */
 import logger from '../../core/logger.js';
-import { setFlagOfUser } from '../../data/sql/User.js';
 import socketEvents from '../../socket/socketEvents.js';
+import { setFlagOfUser, setUsername, setName } from '../../data/sql/User.js';
+import { resolveSession } from '../../data/sql/Session.js';
+import { validateUsername, validateName } from '../../utils/validation.js';
 import { USER_FLAGS } from '../../core/constants.js';
 
 async function userchange(req, res) {
   req.tickRateLimiter(15000);
-  const { ttag: { t }, user, body: { user: userData } } = req;
+  const { ttag: { t, gettext }, body: { user: userData } } = req;
 
   if (!userData || typeof userData !== 'object') {
     throw new Error('Invalid request, no user object included');
   }
 
-  const { blockDm, priv } = userData;
+  const { blockDm, priv, token } = userData;
+  let { username, name } = userData;
   let changed = false;
   const userChanges = {};
+
+  let { user } = req;
+  if (token) {
+    /*
+     * We can change user data for a different user than the requesting one,
+     * if a token is given.
+     * This is used in the OIDC login portal, where a "Change Account" button
+     * exists.
+     */
+    user = await resolveSession(token);
+    if (!user) {
+      throw new Error('Could not resolve user session');
+    }
+  }
 
   if (typeof priv === 'boolean') {
     changed = true;
     userChanges.prv = priv;
     const success = await setFlagOfUser(user.id, USER_FLAGS.PRIV, priv);
-    if (success) {
-      logger.info(`User ${user.name} changed priv to ${priv}`);
-    } else {
+    if (!success) {
       throw new Error(t`Could not change this setting. Maybe try again later.`);
     }
+    logger.info(`User ${user.name} changed priv to ${priv}`);
   }
 
   if (typeof blockDm === 'boolean') {
     changed = true;
     userChanges.blockDm = blockDm;
     const success = await setFlagOfUser(user.id, USER_FLAGS.BLOCK_DM, blockDm);
-    if (success) {
-      logger.info(`User ${user.name} changed blockDm to ${blockDm}`);
-    } else {
+    if (!success) {
       throw new Error(t`Could not change this setting. Maybe try again later.`);
     }
+    logger.info(`User ${user.name} changed blockDm to ${blockDm}`);
+  }
+
+  if (username) {
+    changed = true;
+    let error;
+    if (!user.data.username.startsWith('pp_')) {
+      error = t`You already chose your username`;
+    } else if (username.startsWith('pp_')) {
+      error = t`Username can not start with pp_`;
+    } else {
+      username = username?.toLowerCase();
+      error = gettext(validateUsername(username));
+    }
+    if (error) {
+      throw new Error(error);
+    }
+    userChanges.username = username;
+
+    const success = await setUsername(user.id, username);
+    if (!success) {
+      throw new Error(t`Name already in use.`);
+    }
+    logger.info(
+      // eslint-disable-next-line max-len
+      `AUTH: Changed username for user ${user.name}(${user.id}) to ${username} by ${req.ip.ipString}`,
+    );
+  }
+
+  if (name) {
+    changed = true;
+    let error;
+    if (user.name === name) {
+      error = t`You already have that name.`;
+    } else {
+      name = name?.trim();
+      error = gettext(validateName(name));
+    }
+    if (error) {
+      throw new Error(error);
+    }
+    userChanges.name = name;
+
+    const success = await setName(user.id, name);
+    if (!success) {
+      throw new Error(t`Name already in use.`);
+    }
+    logger.info(
+      // eslint-disable-next-line max-len
+      `AUTH: Changed name for user ${user.name}(${user.id}) to ${name} by ${req.ip.ipString}`,
+    );
   }
 
   if (!changed) {
@@ -51,7 +116,7 @@ async function userchange(req, res) {
     const key = changedKeys[i];
     const value = userChanges[key];
     socketEvents.patchUserState(user.id, 'user', {
-      op: 'set',
+      op: 'setex',
       path: key,
       value,
     });

@@ -29,11 +29,10 @@ async function profilechange(req, res) {
     changed = true;
     profileChanges.avatarId = null;
     const success = await setUserAvatar(user.id, null);
-    if (success) {
-      logger.info(`User ${user.name} removed his avatar`);
-    } else {
+    if (!success) {
       throw new Error('Could not remove your avatar');
     }
+    logger.info(`User ${user.name} removed his avatar`);
   } else if (typeof avatarId === 'string') {
     changed = true;
     profileChanges.avatarId = avatarId;
@@ -42,22 +41,20 @@ async function profilechange(req, res) {
       throw new Error(t`Avatar can only be an image`);
     }
     const success = await setUserAvatar(user.id, avatarId);
-    if (success) {
-      logger.info(`User ${user.name} changed avatar to ${avatarId}`);
-    } else {
+    if (!success) {
       throw new Error(t`Could not set your avtar`);
     }
+    logger.info(`User ${user.name} changed avatar to ${avatarId}`);
   }
 
   if (customFlag === null) {
     changed = true;
     profileChanges.customFlag = null;
     const success = await setCustomFlag(user.id, null);
-    if (success) {
-      logger.info(`User ${user.name} removed his custom flag`);
-    } else {
+    if (!success) {
       throw new Error('Could not remove your custom flag');
     }
+    logger.info(`User ${user.name} removed his custom flag`);
   } else if (typeof customFlag === 'string') {
     changed = true;
     profileChanges.customFlag = customFlag;
@@ -71,24 +68,22 @@ async function profilechange(req, res) {
       throw new Error('This custom flag is invalid');
     }
     const success = await setCustomFlag(user.id, customFlag);
-    if (success) {
-      logger.info(`User ${user.name} changed flag to ${customFlag}`);
-    } else {
+    if (!success) {
       throw new Error('Could not set your custom flag');
     }
+    logger.info(`User ${user.name} changed flag to ${customFlag}`);
   }
 
   if (activeFactionRole === null || typeof activeFactionRole === 'string') {
     changed = true;
     profileChanges.activeFactionRole = activeFactionRole;
     const success = await setActiveFactionRole(user.id, activeFactionRole);
-    if (success) {
-      logger.info(
-        `User ${user.name} changed active faction to ${activeFactionRole}`,
-      );
-    } else {
+    if (!success) {
       throw new Error(t`Could not set your faction role`);
     }
+    logger.info(
+      `User ${user.name} changed active faction to ${activeFactionRole}`,
+    );
   }
 
   if (!changed) {

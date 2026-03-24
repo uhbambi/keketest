@@ -14,10 +14,11 @@ import { t, jt } from 'ttag';
 
 import WindowContext from '../context/window.js';
 import LogInForm from '../LogInForm.jsx';
-import { requestConsent, requestUsernameChange } from '../../store/actions/fetch.js';
+import { requestConsent } from '../../store/actions/fetch.js';
+import { patchState } from '../../store/actions/index.js';
+import { changeUser } from '../../store/actions/thunks.js';
 /* for ability to change username if require */
 import { validateUsername } from '../../utils/validation.js';
-import { setName } from '../../store/actions/index.js';
 
 const OIDCConsent = () => {
   const [expirationHours, setExpirationHours] = useState(String(24 * 7));
@@ -142,7 +143,9 @@ const OIDCConsent = () => {
     const token = authReturn?.token;
 
     setSubmitting(true);
-    const { errors } = await requestUsernameChange(newUsername, token);
+    const errors = await dispatch(
+      changeUser({ username: newUsername, token }, true),
+    );
     if (errors) {
       setUsernameErrors(errors);
       return;
@@ -158,7 +161,7 @@ const OIDCConsent = () => {
         },
       });
     } else {
-      dispatch(setName(null, newUsername));
+      dispatch(patchState('user', 'set', 'username', newUsername));
     }
   };
 
