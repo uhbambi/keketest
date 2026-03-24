@@ -181,6 +181,10 @@ const initialState = {
    * wheter or not we are currecntly withint eh interval
    */
   replacementActive: false,
+  /*
+   * whether or not we are currenctly requesting pixels
+   */
+  fetchingPixel: false,
   // from where the pencil takes its color from
   pencilMode: PENCIL_MODE.COLOR,
   // view is not up-to-date, changes are delayed compared to renderer.view
@@ -290,6 +294,14 @@ export default function canvasReducer(
       return {
         ...state,
         hover: null,
+      };
+    }
+
+    case 'SET_PXLS_FETCHING': {
+      const { fetching: fetchingPixel } = action;
+      return {
+        ...state,
+        fetchingPixel,
       };
     }
 

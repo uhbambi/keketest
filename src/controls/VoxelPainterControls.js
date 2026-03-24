@@ -449,7 +449,7 @@ class VoxelPainterControls {
   handleMouseUp(event) {
     if (!this.clickTapStartTime
       || Date.now() - this.clickTapStartTime > 300
-      || this.store.getState().fetching.fetchingPixel
+      || this.store.getState().canvas.fetchingPixel
     ) {
       return;
     }
@@ -479,7 +479,7 @@ class VoxelPainterControls {
     if (event.touches.length
       || !this.clickTapStartTime
       || Date.now() - this.clickTapStartTime > 300
-      || this.store.getState().fetching.fetchingPixel
+      || this.store.getState().canvas.fetchingPixel
     ) {
       return;
     }
@@ -492,7 +492,7 @@ class VoxelPainterControls {
 
   onLongTap(event) {
     if (!this.clickTapStartTime
-      || this.store.getState().fetching.fetchingPixel
+      || this.store.getState().canvas.fetchingPixel
     ) {
       return;
     }

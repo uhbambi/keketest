@@ -475,11 +475,9 @@ class Renderer2D extends Renderer {
       isLightGrid,
     } = state.gui;
     const {
-      fetchingPixel,
-    } = state.fetching;
-    const {
       canvasSize,
       hover,
+      fetchingPixel,
     } = state.canvas;
 
     const [x, y] = _view;

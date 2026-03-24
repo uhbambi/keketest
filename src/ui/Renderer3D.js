@@ -449,9 +449,7 @@ class Renderer3D extends Renderer {
       camera,
     } = this;
     const state = store.getState();
-    const {
-      fetchingPixel,
-    } = state.fetching;
+    const { fetchingPixel } = state.canvas;
 
     mouse.set(sx, sy);
     raycaster.setFromCamera(mouse, camera);
