@@ -53,7 +53,7 @@ const Faction = sequelize.define('Faction', {
    */
   cid: {
     type: DataTypes.INTEGER.UNSIGNED,
-    allowNll: false,
+    allowNull: false,
   },
 
   avatar: {
@@ -188,6 +188,43 @@ WHERE p.uid = ?`, {
     console.error(`SQL Error on getFactionsOfUser: ${error.message}`);
   }
   return { factions, activeFactionRole };
+}
+
+/**
+ * set one bit in flags of user
+ * @param uid user id
+ * @param fid faction uuid (NOT sql id)
+ * @param index index of flag
+ * @param value 0 or 1, true or false
+ * @return success boolean
+ */
+export async function setFlagOfUserFaction(uid, fid, index, value) {
+  try {
+    const mask = 0x01 << index;
+    /* eslint-disable max-len */
+    if (value) {
+      await sequelize.query(
+        'UPDATE UserFactions SET flags = flags | ? WHERE uid = ? AND fid = (SELECT id FROM Factions WHERE uuid = UUID_TO_BIN(?))', {
+          replacements: [mask, uid, fid],
+          raw: true,
+          type: QueryTypes.UPDATE,
+        },
+      );
+    } else {
+      await sequelize.query(
+        'UPDATE Users SET flags = flags & ~(?) WHERE uid = ? AND fid = (SELECT id FROM Factions WHERE uuid = UUID_TO_BIN(?))', {
+          replacements: [mask, uid, fid],
+          raw: true,
+          type: QueryTypes.UPDATE,
+        },
+      );
+    }
+    /* eslint-enable max-len */
+    return true;
+  } catch (error) {
+    console.error(`SQL Error on setFlagOfUserFaction: ${error.message}`);
+  }
+  return false;
 }
 
 export default Faction;

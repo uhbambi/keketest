@@ -181,12 +181,12 @@ export async function requestStartDm(query) {
  *   [priv],
  *   [blockDm]
  * }
- * @return error string or null if successful
+ * @return error array or null if successful
  */
 export async function requestChangeUser(user) {
   const res = await makeAPIPOSTRequest(
     '/api/userchange',
-    { user },
+    user,
   );
   if (res.errors?.length) {
     return res.errors;
@@ -201,13 +201,37 @@ export async function requestChangeUser(user) {
  * change stuff in profile
  * @param profile {
  *   [avatarId],
+ *   [customFlag],
+ *   [activeFactionRole],
  * }
- * @return error string or null if successful
+ * @return error array or null if successful
  */
 export async function requestChangeProfile(profile) {
   const res = await makeAPIPOSTRequest(
     '/api/profilechange',
-    { profile },
+    profile,
+  );
+  if (res.errors?.length) {
+    return res.errors;
+  }
+  if (res.status === 'ok') {
+    return null;
+  }
+  return [t`Unknown Error`];
+}
+
+/**
+ * change stuff in a users faction
+ * @param fid faction uuid
+ * @param userFaction {
+ *   [isHidden],
+ * }
+ * @return error array or null if successful
+ */
+export async function requestChangeUserFaction(fid, userFaction) {
+  const res = await makeAPIPOSTRequest(
+    '/api/userfactionchange',
+    { fid, userFaction },
   );
   if (res.errors?.length) {
     return res.errors;

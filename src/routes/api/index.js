@@ -11,8 +11,9 @@ import startDm from './startdm.js';
 import leaveChan from './leavechan.js';
 import mute from './mute.js';
 import block from './block.js';
-import profilechange from './profilechange.js';
 import userchange from './userchange.js';
+import profilechange from './profilechange.js';
+import userfactionchange from './userfactionchange.js';
 import modtools from './modtools.js';
 import baninfo from './baninfo.js';
 import getiid from './getiid.js';
@@ -105,6 +106,8 @@ router.post('/mute', mute);
 router.post('/userchange', userchange);
 
 router.post('/profilechange', profilechange);
+
+router.post('/userfactionchange', userfactionchange);
 
 router.use(errorJson);
 

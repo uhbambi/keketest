@@ -12,6 +12,7 @@ import {
   requestProfile,
   requestChangeProfile,
   requestChangeUser,
+  requestChangeUserFaction,
   requestMe,
 } from './fetch.js';
 import {
@@ -86,10 +87,10 @@ export function fetchStats() {
   };
 }
 
-export function changeUser(userChanges, returnErrors) {
+export function changeUser(userChanges, alert) {
   return async (dispatch, getState) => {
     if (fetchStates.changeUser) {
-      return null;
+      return [];
     }
     fetchStates.changeUser = true;
 
@@ -108,16 +109,18 @@ export function changeUser(userChanges, returnErrors) {
 
     try {
       const res = await requestChangeUser(userChanges);
-      if (res && !returnErrors) {
+      if (res) {
         revertOperations.forEach((...args) => dispatch(
           patchState('user', 'set', ...args),
         ));
-        dispatch(pAlert(
-          'Changing User Settings Error',
-          res[0],
-          'error',
-          'OK',
-        ));
+        if (alert) {
+          dispatch(pAlert(
+            'Changing User Settings Error',
+            res[0],
+            'error',
+            'OK',
+          ));
+        }
       }
       return res;
     } finally {
@@ -126,10 +129,10 @@ export function changeUser(userChanges, returnErrors) {
   };
 }
 
-export function changeProfile(profileChanges, returnErrors) {
+export function changeProfile(profileChanges, alert) {
   return async (dispatch, getState) => {
     if (fetchStates.changeProfile) {
-      return null;
+      return [];
     }
     fetchStates.changeProfile = true;
 
@@ -142,20 +145,54 @@ export function changeProfile(profileChanges, returnErrors) {
 
     try {
       const res = await requestChangeProfile(profileChanges);
-      if (res && !returnErrors) {
+      if (res) {
         revertOperations.forEach((...args) => dispatch(
           patchState('profile', 'set', ...args),
         ));
-        dispatch(pAlert(
-          'Changing Profile Settings Error',
-          res[0],
-          'error',
-          'OK',
-        ));
+        if (alert) {
+          dispatch(pAlert(
+            'Changing Profile Settings Error',
+            res[0],
+            'error',
+            'OK',
+          ));
+        }
       }
       return res;
     } finally {
       delete fetchStates.changeProfile;
+    }
+  };
+}
+
+export function changeUserFaction(fid, userFactionChanges) {
+  return async (dispatch, getState) => {
+    if (fetchStates.changeUserFaction) {
+      return [];
+    }
+    fetchStates.changeUserFaction = true;
+
+    const state = getState().profile.factions.find((f) => f.fid === fid);
+    if (!state) {
+      return [];
+    }
+    const revertOperations = [];
+    for (const [key, value] of Object.entries(userFactionChanges)) {
+      const path = `factions[fid:${fid}].${key}`;
+      revertOperations.push([path, state[key]]);
+      dispatch(patchState('profile', 'set', path, value));
+    }
+
+    try {
+      const res = await requestChangeUserFaction(fid, userFactionChanges);
+      if (res) {
+        revertOperations.forEach((...args) => dispatch(
+          patchState('profile', 'set', ...args),
+        ));
+      }
+      return res;
+    } finally {
+      delete fetchStates.changeUserFaction;
     }
   };
 }

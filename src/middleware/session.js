@@ -154,6 +154,8 @@ export class User {
       if (!hasChanged) {
         return;
       }
+      // TODO
+      console.log('PATCHED USER STATE', newState);
       this.#data = newState;
       if (target === 'channels') {
         this.populateChannelIds();

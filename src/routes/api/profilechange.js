@@ -14,8 +14,8 @@ import {
 } from '../../data/sql/Profile.js';
 
 async function profilechange(req, res) {
-  req.tickRateLimiter(15000);
-  const { ttag: { t }, user, body: { profile } } = req;
+  req.tickRateLimiter(7000);
+  const { ttag: { t }, user, body: profile } = req;
 
   if (!profile || typeof profile !== 'object') {
     throw new Error('Invalid request, no profile object included');

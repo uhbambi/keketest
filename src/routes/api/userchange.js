@@ -11,8 +11,8 @@ import { validateUsername, validateName } from '../../utils/validation.js';
 import { USER_FLAGS } from '../../core/constants.js';
 
 async function userchange(req, res) {
-  req.tickRateLimiter(15000);
-  const { ttag: { t, gettext }, body: { user: userData } } = req;
+  req.tickRateLimiter(10000);
+  const { ttag: { t, gettext }, body: userData } = req;
 
   if (!userData || typeof userData !== 'object') {
     throw new Error('Invalid request, no user object included');

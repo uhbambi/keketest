@@ -96,7 +96,7 @@ const SocialSettings = ({ done }) => {
               onClick={async () => {
                 if (!fetchChange) {
                   setFetchChange(true);
-                  await dispatch(changeProfile({ avatarId: null }));
+                  await dispatch(changeProfile({ avatarId: null }, true));
                   setFetchChange(false);
                 }
               }}
@@ -114,7 +114,7 @@ const SocialSettings = ({ done }) => {
                     setFetchChange(true);
                     await dispatch(changeProfile({
                       avatarId: files[0].mediaId,
-                    }));
+                    }, true));
                     setFetchChange(false);
                   }
                 }
@@ -167,7 +167,9 @@ const SocialSettings = ({ done }) => {
           onClick={async () => {
             if (!fetchChange) {
               setFetchChange(true);
-              await dispatch(changeProfile({ customFlag: selectedCustomFlag }));
+              await dispatch(changeProfile({
+                customFlag: selectedCustomFlag,
+              }, true));
               setFetchChange(false);
             }
           }}
@@ -195,7 +197,7 @@ const SocialSettings = ({ done }) => {
         onToggle={async () => {
           if (!fetchChange) {
             setFetchChange(true);
-            await dispatch(changeUser({ blockDm: !blockDm }));
+            await dispatch(changeUser({ blockDm: !blockDm }, true));
             setFetchChange(false);
           }
         }}
@@ -206,7 +208,7 @@ const SocialSettings = ({ done }) => {
         onToggle={async () => {
           if (!fetchChange) {
             setFetchChange(true);
-            await dispatch(changeUser({ priv: !priv }));
+            await dispatch(changeUser({ priv: !priv }, true));
             setFetchChange(false);
           }
         }}

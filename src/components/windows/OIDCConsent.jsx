@@ -144,7 +144,7 @@ const OIDCConsent = () => {
 
     setSubmitting(true);
     const errors = await dispatch(
-      changeUser({ username: newUsername, token }, true),
+      changeUser({ username: newUsername, token }),
     );
     if (errors) {
       setUsernameErrors(errors);

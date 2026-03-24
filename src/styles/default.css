@@ -18,6 +18,7 @@
   --control-bg-selected: #e8e8e8;
   --control-txt-color: black;
   --button-bg-pressed: #cbcbcb;
+  --button-bg-confirm: red;
   --menu-bg: rgba(226,226,226,.95);
 }
 
@@ -611,6 +612,10 @@ tr:nth-child(even) {
 
 button.selected {
   background-color: var(--button-bg-pressed);
+}
+
+button.confirm {
+  background-color: var(--button-bg-confirm);
 }
 
 .Alert .md-paragraph {
