@@ -157,25 +157,6 @@ export async function requestMute(channelId, mute) {
 }
 
 /*
- * set / unset profile as private
- * @param priv
- * @return error string or null if successful
- */
-export async function requestPrivatize(priv) {
-  const res = await makeAPIPOSTRequest(
-    '/api/privatize',
-    { priv },
-  );
-  if (res.errors) {
-    return res.errors[0];
-  }
-  if (res.status === 'ok') {
-    return null;
-  }
-  return t`Unknown Error`;
-}
-
-/*
  * start new DM channel with user
  * @param query Object with either userId or userName: string
  * @return channel Array on success, error string if not
@@ -195,16 +176,17 @@ export async function requestStartDm(query) {
 }
 
 /**
- * change stuff in profile
- * @param profile {
- *   [avatarId],
+ * change stuff for user
+ * @param user {
+ *   [priv],
+ *   [blockDm]
  * }
  * @return error string or null if successful
  */
-export async function requestChangeProfile(profile) {
+export async function requestChangeUser(user) {
   const res = await makeAPIPOSTRequest(
-    '/api/profilechange',
-    { profile },
+    '/api/userchange',
+    { user },
   );
   if (res.errors) {
     return res.errors[0];
@@ -215,15 +197,17 @@ export async function requestChangeProfile(profile) {
   return t`Unknown Error`;
 }
 
-/*
- * set receiving of all DMs on/off
- * @param block true if blocking all dms, false if unblocking
+/**
+ * change stuff in profile
+ * @param profile {
+ *   [avatarId],
+ * }
  * @return error string or null if successful
  */
-export async function requestBlockDm(block) {
+export async function requestChangeProfile(profile) {
   const res = await makeAPIPOSTRequest(
-    '/api/blockdm',
-    { block },
+    '/api/profilechange',
+    { profile },
   );
   if (res.errors) {
     return res.errors[0];

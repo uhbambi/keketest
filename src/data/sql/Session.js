@@ -229,6 +229,7 @@ WHERE token = ? AND (expires > NOW() OR expires IS NULL)`, {
  *   createdAt,
  *   customFlag,
  *   customRoleFlagId,
+ *   activeFactionId,
  *   blocked: [ { id, name }, ...],
  *   bans: [ { expires, flags }, ... ],
  *   channels: {

@@ -29,6 +29,7 @@ export class User {
    *   havePassword,
    *   avatarId,
    *   customFlag,
+   *   activeFactionId,
    *   customRoleFlagId,
    *   bans: [ { expires, flags }, ... ],
    *   tpids: [ { tpid, provider }, ... ],
@@ -63,17 +64,9 @@ export class User {
   banRecheckTs = null;
 
   constructor(data, token) {
-    this.id = data.id;
-    this.userlvl = data.userlvl;
     this.#token = token;
-    this.#data = data;
 
-    this.populateChannelIds();
-
-    const [isBanned, isMuted, banRecheckTs] = parseListOfBans(data.bans);
-    this.isBanned = isBanned;
-    this.isMuted = isMuted;
-    this.banRecheckTs = banRecheckTs;
+    this.populateFromData(data);
     if (TIMEBLOCK_USERS) {
       const timeBlockProps = TIMEBLOCK_USERS.get(this.id);
       if (timeBlockProps) {
@@ -82,7 +75,16 @@ export class User {
     }
   }
 
-  populateChannelIds() {
+  populateFromData(data) {
+    this.#data = data;
+    this.id = data.id;
+    this.userlvl = data.userlvl;
+
+    const [isBanned, isMuted, banRecheckTs] = parseListOfBans(data.bans);
+    this.isBanned = isBanned;
+    this.isMuted = isMuted;
+    this.banRecheckTs = banRecheckTs;
+
     this.channelIds.clear();
     /*
      * data.channels:
@@ -141,7 +143,12 @@ export class User {
   }
 
   patchUserState(state, patch) {
-    if (state === 'chat') {
+    if (state === 'chat' || state === 'profile') {
+      if (patch.path === 'activeFactionRole') {
+        this.refresh();
+        return;
+      }
+
       const [newState, target, hasChanged] = patchState(this.#data, patch);
       if (!hasChanged) {
         return;
@@ -164,12 +171,7 @@ export class User {
     ) {
       const data = await resolveSession(this.#token);
       if (data) {
-        this.userlvl = data.userlvl;
-        this.#data = data;
-        const [isBanned, isMuted, banRecheckTs] = parseListOfBans(data.bans);
-        this.isBanned = isBanned;
-        this.isMuted = isMuted;
-        this.banRecheckTs = banRecheckTs;
+        this.populateFromData(data);
       } else {
         return {
           isBanned: this.isBanned, isMuted: this.isMuted, loggedOut: true,

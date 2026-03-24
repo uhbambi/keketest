@@ -6,7 +6,6 @@
 const initialState = {
   fetchingChunks: 0,
   fetchingPixel: false,
-  fetchingApi: false,
 };
 
 export default function fetching(
@@ -14,14 +13,6 @@ export default function fetching(
   action,
 ) {
   switch (action.type) {
-    case 'SET_API_FETCHING': {
-      const { fetching: fetchingApi } = action;
-      return {
-        ...state,
-        fetchingApi,
-      };
-    }
-
     case 'REQ_BIG_CHUNK': {
       const {
         fetchingChunks,

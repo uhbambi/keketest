@@ -25,6 +25,14 @@ const initialState = {
   factions: [],
   activeFactionRole: null,
   /*
+   * two letter custom flag code
+   */
+  customFlag: null,
+  /*
+   * media id of user avtar
+   */
+  avatarId: null,
+  /*
    * 0: not fetched
    * 1: requested
    * 2: fetched

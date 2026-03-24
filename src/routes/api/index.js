@@ -11,9 +11,8 @@ import startDm from './startdm.js';
 import leaveChan from './leavechan.js';
 import mute from './mute.js';
 import block from './block.js';
-import blockdm from './blockdm.js';
-import privatize from './privatize.js';
 import profilechange from './profilechange.js';
+import userchange from './userchange.js';
 import modtools from './modtools.js';
 import baninfo from './baninfo.js';
 import getiid from './getiid.js';
@@ -103,9 +102,7 @@ router.post('/block', block);
 
 router.post('/mute', mute);
 
-router.post('/blockdm', blockdm);
-
-router.post('/privatize', privatize);
+router.post('/userchange', userchange);
 
 router.post('/profilechange', profilechange);
 

@@ -1,8 +1,6 @@
 /*
  *
  * change stuff in a users profile
- * TODO: this should be an universal api, privatize etc. should be merged into
- * it
  *
  */
 import fs from 'fs';
@@ -11,7 +9,9 @@ import path from 'path';
 import logger from '../../core/logger.js';
 import socketEvents from '../../socket/socketEvents.js';
 import { getMediaType } from '../../data/sql/Media.js';
-import { setUserAvatar, setCustomFlag } from '../../data/sql/Profile.js';
+import {
+  setUserAvatar, setCustomFlag, setActiveFactionRole,
+} from '../../data/sql/Profile.js';
 
 async function profilechange(req, res) {
   req.tickRateLimiter(15000);
@@ -21,12 +21,13 @@ async function profilechange(req, res) {
     throw new Error('Invalid request, no profile object included');
   }
 
-  const { avatarId, customFlag } = profile;
+  const { avatarId, customFlag, activeFactionRole } = profile;
   let changed = false;
-  let needsReload = false;
+  const profileChanges = {};
+
   if (avatarId === null) {
     changed = true;
-    needsReload = true;
+    profileChanges.avatarId = null;
     const success = await setUserAvatar(user.id, null);
     if (success) {
       logger.info(`User ${user.name} removed his avatar`);
@@ -35,7 +36,7 @@ async function profilechange(req, res) {
     }
   } else if (typeof avatarId === 'string') {
     changed = true;
-    needsReload = true;
+    profileChanges.avatarId = avatarId;
     const isLegitMedia = await getMediaType(avatarId) === 'image';
     if (!isLegitMedia) {
       throw new Error(t`Avatar can only be an image`);
@@ -50,7 +51,7 @@ async function profilechange(req, res) {
 
   if (customFlag === null) {
     changed = true;
-    needsReload = true;
+    profileChanges.customFlag = null;
     const success = await setCustomFlag(user.id, null);
     if (success) {
       logger.info(`User ${user.name} removed his custom flag`);
@@ -59,7 +60,7 @@ async function profilechange(req, res) {
     }
   } else if (typeof customFlag === 'string') {
     changed = true;
-    needsReload = true;
+    profileChanges.customFlag = customFlag;
     if (customFlag.length !== 2
       /* eslint-disable max-len */
       || customFlag.includes('/') || customFlag.includes('\\') || customFlag.includes('.')
@@ -77,12 +78,32 @@ async function profilechange(req, res) {
     }
   }
 
+  if (activeFactionRole === null || typeof activeFactionRole === 'string') {
+    changed = true;
+    profileChanges.activeFactionRole = activeFactionRole;
+    const success = await setActiveFactionRole(user.id, activeFactionRole);
+    if (success) {
+      logger.info(
+        `User ${user.name} changed active faction to ${activeFactionRole}`,
+      );
+    } else {
+      throw new Error(t`Could not set your faction role`);
+    }
+  }
+
   if (!changed) {
     throw new Error('You did not define anything to change');
   }
 
-  if (needsReload) {
-    socketEvents.reloadUser(user.id);
+  const changedKeys = Object.keys(profileChanges);
+  for (let i = 0; i < changedKeys.length; i += 1) {
+    const key = changedKeys[i];
+    const value = profileChanges[key];
+    socketEvents.patchUserState(user.id, 'profile', {
+      op: 'set',
+      path: key,
+      value,
+    });
   }
 
   res.json({

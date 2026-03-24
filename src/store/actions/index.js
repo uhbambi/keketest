@@ -466,27 +466,6 @@ export function unblockUser(userId, userName) {
   };
 }
 
-export function blockingDm(blockDm) {
-  return {
-    type: 's/SET_BLOCKING_DM',
-    blockDm,
-  };
-}
-
-export function privatize(priv) {
-  return {
-    type: 's/SET_PRIVATE',
-    priv,
-  };
-}
-
-export function profileChange(profile) {
-  return {
-    type: 's/CHANGED_PROFILE',
-    profile,
-  };
-}
-
 export function selectHistoricalTime(date, time) {
   return {
     type: 'SET_HISTORICAL_TIME',

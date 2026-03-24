@@ -115,6 +115,7 @@ class APISocketServer {
     this.broadcastOnlineCounter = this.broadcastOnlineCounter.bind(this);
     this.broadcastPixelBuffer = this.broadcastPixelBuffer.bind(this);
     this.reloadUser = this.reloadUser.bind(this);
+    this.patchUserState = this.patchUserState.bind(this);
     this.ping = this.ping.bind(this);
     this.broadcastChatMessage = this.broadcastChatMessage.bind(this);
     this.refreshChatClients = this.refreshChatClients.bind(this);
@@ -128,6 +129,7 @@ class APISocketServer {
       this.broadcastUserPublicChatMessageDeletion.bind(this),
     );
     socketEvents.onAsync('reloadUser', this.reloadUser.bind(this));
+    socketEvents.on('patchState', this.patchUserState);
 
     setInterval(this.ping, 45 * 1000);
   }
@@ -276,6 +278,21 @@ class APISocketServer {
       JSON.stringify(['reloadUser', userId]),
       (client) => client.subReloadUser,
     );
+  }
+
+  patchUserState(userId, state, patch) {
+    if (state === 'profile') {
+      if (patch.path === 'customFlag' || patch.path === 'avatarId'
+        || patch.path === 'activeFactionRole'
+      ) {
+        APISocketServer.#deleteUserFromMapping(userId);
+
+        this.broadcast(
+          JSON.stringify(['reloadUser', userId]),
+          (client) => client.subReloadUser,
+        );
+      }
+    }
   }
 
   async onTextMessage(message, ws) {

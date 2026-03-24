@@ -7,12 +7,11 @@ import {
   requestStartDm,
   requestBlock,
   requestMute,
-  requestBlockDm,
-  requestPrivatize,
   requestLeaveChan,
   requestRankings,
   requestProfile,
   requestChangeProfile,
+  requestChangeUser,
   requestMe,
 } from './fetch.js';
 import {
@@ -21,10 +20,8 @@ import {
   receiveMe,
   blockUser,
   unblockUser,
-  blockingDm,
-  privatize,
-  profileChange,
   selectPencilMode,
+  patchState,
 } from './index.js';
 import {
   addChatChannel,
@@ -37,13 +34,6 @@ import { PENCIL_MODE, CHANNEL_TYPES } from '../../core/constants.js';
  * for ongoing fetches to avoid multiple fetching
  */
 const fetchStates = {};
-
-function setApiFetching(fetching) {
-  return {
-    type: 'SET_API_FETCHING',
-    fetching,
-  };
-}
 
 export function receiveChatHistory(
   cid,
@@ -61,22 +51,29 @@ export function receiveChatHistory(
  */
 export function startDm(query, cb = null) {
   return async (dispatch) => {
-    dispatch(setApiFetching(true));
-    const res = await requestStartDm(query);
-    if (typeof res === 'string') {
-      dispatch(pAlert(
-        'Direct Message Error',
-        res,
-        'error',
-        'OK',
-      ));
-    } else {
-      dispatch(addChatChannel(CHANNEL_TYPES.DM, res));
-      if (cb) {
-        cb(res[0]);
-      }
+    if (fetchStates.startDm) {
+      return;
     }
-    dispatch(setApiFetching(false));
+    fetchStates.startDm = true;
+
+    try {
+      const res = await requestStartDm(query);
+      if (typeof res === 'string') {
+        dispatch(pAlert(
+          'Direct Message Error',
+          res,
+          'error',
+          'OK',
+        ));
+      } else {
+        dispatch(addChatChannel(CHANNEL_TYPES.DM, res));
+        if (cb) {
+          cb(res[0]);
+        }
+      }
+    } finally {
+      delete fetchStates.startDm;
+    }
   };
 }
 
@@ -85,6 +82,72 @@ export function fetchStats() {
     const rankings = await requestRankings();
     if (!rankings.errors) {
       dispatch(receiveStats(rankings));
+    }
+  };
+}
+
+export function changeUser(userChanges) {
+  return async (dispatch, getState) => {
+    if (fetchStates.changeUser) {
+      return;
+    }
+    fetchStates.changeUser = true;
+
+    const state = getState().profile;
+    const revertOperations = [];
+    for (const [key, value] of Object.entries(userChanges)) {
+      revertOperations.push([key, state[key]]);
+      dispatch(patchState('user', key, value));
+    }
+
+    try {
+      const res = await requestChangeUser(userChanges);
+      if (res) {
+        revertOperations.forEach((...args) => dispatch(
+          patchState('user', ...args),
+        ));
+        dispatch(pAlert(
+          'Changing User Settings Error',
+          res,
+          'error',
+          'OK',
+        ));
+      }
+    } finally {
+      delete fetchStates.changeUser;
+    }
+  };
+}
+
+export function changeProfile(profileChanges) {
+  return async (dispatch, getState) => {
+    if (fetchStates.changeProfile) {
+      return;
+    }
+    fetchStates.changeProfile = true;
+
+    const state = getState().profile;
+    const revertOperations = [];
+    for (const [key, value] of Object.entries(profileChanges)) {
+      revertOperations.push([key, state[key]]);
+      dispatch(patchState('profile', key, value));
+    }
+
+    try {
+      const res = await requestChangeProfile(profileChanges);
+      if (res) {
+        revertOperations.forEach((...args) => dispatch(
+          patchState('profile', ...args),
+        ));
+        dispatch(pAlert(
+          'Changing Profile Settings Error',
+          res,
+          'error',
+          'OK',
+        ));
+      }
+    } finally {
+      delete fetchStates.changeProfile;
     }
   };
 }
@@ -125,33 +188,35 @@ export function fetchMe() {
   };
 }
 
-export function setUserBlock(
-  userId,
-  userName,
-  block,
-) {
+export function setUserBlock(userId, userName, block) {
   return async (dispatch) => {
-    dispatch(setApiFetching(true));
-    const res = await requestBlock(userId, block);
-    if (res) {
-      dispatch(pAlert(
-        'User Block Error',
-        res,
-        'error',
-        'OK',
-      ));
-    } else if (block) {
-      dispatch(blockUser(userId, userName));
-    } else {
-      dispatch(unblockUser(userId, userName));
+    if (fetchStates.userBlock) {
+      return;
     }
-    dispatch(setApiFetching(false));
+    fetchStates.userBlock = true;
+
+    try {
+      const res = await requestBlock(userId, block);
+      if (res) {
+        dispatch(pAlert(
+          'User Block Error',
+          res,
+          'error',
+          'OK',
+        ));
+      } else if (block) {
+        dispatch(blockUser(userId, userName));
+      } else {
+        dispatch(unblockUser(userId, userName));
+      }
+    } finally {
+      delete fetchStates.userBlock;
+    }
   };
 }
 
 export function setChannelMute(channelId, mute) {
   return async (dispatch) => {
-    dispatch(setApiFetching(true));
     const res = await requestMute(channelId, mute);
     if (res) {
       dispatch(pAlert(
@@ -161,62 +226,7 @@ export function setChannelMute(channelId, mute) {
         'OK',
       ));
     }
-    dispatch(setApiFetching(false));
     return !res;
-  };
-}
-
-export function setBlockingDm(block) {
-  return async (dispatch) => {
-    dispatch(setApiFetching(true));
-    const res = await requestBlockDm(block);
-    if (res) {
-      dispatch(pAlert(
-        'Blocking DMs Error',
-        res,
-        'error',
-        'OK',
-      ));
-    } else {
-      dispatch(blockingDm(block));
-    }
-    dispatch(setApiFetching(false));
-  };
-}
-
-export function setPrivatize(priv) {
-  return async (dispatch) => {
-    dispatch(setApiFetching(true));
-    const res = await requestPrivatize(priv);
-    if (res) {
-      dispatch(pAlert(
-        'Setting User Private Error',
-        res,
-        'error',
-        'OK',
-      ));
-    } else {
-      dispatch(privatize(priv));
-    }
-    dispatch(setApiFetching(false));
-  };
-}
-
-export function changeProfile(profile) {
-  return async (dispatch) => {
-    dispatch(setApiFetching(true));
-    const res = await requestChangeProfile(profile);
-    if (res) {
-      dispatch(pAlert(
-        'Changing Profile Settings Error',
-        res,
-        'error',
-        'OK',
-      ));
-    } else {
-      dispatch(profileChange(profile));
-    }
-    dispatch(setApiFetching(false));
   };
 }
 
@@ -224,7 +234,6 @@ export function setLeaveChannel(
   cid,
 ) {
   return async (dispatch) => {
-    dispatch(setApiFetching(true));
     const res = await requestLeaveChan(cid);
     if (res) {
       dispatch(pAlert(
@@ -236,7 +245,6 @@ export function setLeaveChannel(
     } else {
       dispatch(removeChatChannel(cid));
     }
-    dispatch(setApiFetching(false));
   };
 }
 

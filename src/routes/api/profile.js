@@ -6,7 +6,7 @@ import { getBadgesOfUser } from '../../data/sql/Badge.js';
 import { getFactionsOfUser } from '../../data/sql/Faction.js';
 
 export default async (req, res) => {
-  const { user: { id: uid } } = req;
+  const { user: { id: uid, data: { customFlag, avatarId } } } = req;
   const [
     fishes,
     badges,
@@ -16,5 +16,11 @@ export default async (req, res) => {
     getBadgesOfUser(uid),
     getFactionsOfUser(uid),
   ]);
-  res.status(200).json({ fishes, badges, ...factionObject });
+  res.status(200).json({
+    fishes,
+    badges,
+    ...factionObject,
+    customFlag,
+    avatarId,
+  });
 };
