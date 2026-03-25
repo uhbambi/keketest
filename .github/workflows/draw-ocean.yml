@@ -1,0 +1,32 @@
+name: Draw Ocean Map
+
+on:
+  workflow_dispatch:
+
+jobs:
+  draw:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout utils repo
+        uses: actions/checkout@v3
+        with:
+          repository: uhbambi/Tetetetetst
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20'
+
+      - name: Install dependencies
+        working-directory: ocean-tiles
+        run: npm install
+
+      - name: Extract ocean tiles
+        working-directory: ocean-tiles
+        run: tar -xf ocean.tar.xz
+
+      - name: Draw ocean
+        working-directory: ocean-tiles
+        env:
+          REDIS_URL: ${{ secrets.REDIS_URL }}
+        run: node drawOcean.js
