@@ -12,7 +12,7 @@ import {
 import { getMediaDimensions } from '../../data/sql/Media.js';
 import { FACTIONLVL } from '../../core/constants.js';
 
-async function userfactionchange(req, res) {
+export default async function factionrolechange(req, res) {
   req.tickRateLimiter(7000);
   const { ttag: { t, gettext }, user, body: factionRoleData } = req;
   const { frid, customFlagId, factionlvl } = factionRoleData;
@@ -131,5 +131,3 @@ async function userfactionchange(req, res) {
     status: 'ok',
   });
 }
-
-export default userfactionchange;

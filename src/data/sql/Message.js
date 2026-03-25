@@ -127,7 +127,9 @@ WHERE mm.sid = ?`, {
       await transaction.commit();
       return [id, attachments];
     } catch (error) {
-      await transaction.rollback();
+      if (transaction && !transaction.finished) {
+        await transaction.rollback();
+      }
       throw error;
     }
   } catch (error) {

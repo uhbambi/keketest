@@ -272,7 +272,9 @@ ON DUPLICATE KEY UPDATE isProxy = VALUES(isProxy), type = VALUES(type), operator
       await transaction.commit();
       return true;
     } catch (error) {
-      await transaction.rollback();
+      if (transaction && !transaction.finished) {
+        await transaction.rollback();
+      }
       throw error;
     }
   } catch (error) {

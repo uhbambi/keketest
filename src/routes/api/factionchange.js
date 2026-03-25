@@ -5,7 +5,7 @@
 import logger from '../../core/logger.js';
 import socketEvents from '../../socket/socketEvents.js';
 import {
-  validateFactionTitle, validateFactionName,
+  validateFactionTitle, validateFactionName, validateDescription,
 } from '../../utils/validation.js';
 import {
   getFactionLvlOfUser, getAllMembersOfFaction,
@@ -14,7 +14,7 @@ import {
 import { getMediaType } from '../../data/sql/Media.js';
 import { FACTIONLVL, FACTION_FLAGS } from '../../core/constants.js';
 
-async function userfactionchange(req, res) {
+export default async function factionchange(req, res) {
   req.tickRateLimiter(7000);
   const { ttag: { gettext, t }, user, body: factionData } = req;
   const { fid, isPrivate, isPublic, avatarId } = factionData;
@@ -104,8 +104,9 @@ async function userfactionchange(req, res) {
     changed = true;
 
     description = description.trim();
-    if (description.length > 1000) {
-      throw new Error(t`Description must be shorter than 1000 characters`);
+    const error = validateDescription(description);
+    if (error) {
+      throw new Error(gettext(error));
     }
     factionChanges.description = description;
     const success = await setFactionProperty(
@@ -129,7 +130,7 @@ async function userfactionchange(req, res) {
     }
     const success = await setFactionAvatar(sqlFid, avatarId);
     if (!success) {
-      throw new Error(t`Could not this factions avatar`);
+      throw new Error(t`Could not set this factions avatar`);
     }
     logger.info(`User ${user.id} changed faction ${fid} avatar to ${avatarId}`);
   }
@@ -156,5 +157,3 @@ async function userfactionchange(req, res) {
     status: 'ok',
   });
 }
-
-export default userfactionchange;

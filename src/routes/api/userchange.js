@@ -10,7 +10,7 @@ import { resolveSession } from '../../data/sql/Session.js';
 import { validateUsername, validateName } from '../../utils/validation.js';
 import { USER_FLAGS } from '../../core/constants.js';
 
-async function userchange(req, res) {
+export default async function userchange(req, res) {
   req.tickRateLimiter(10000);
   const { ttag: { t, gettext }, body: userData } = req;
 
@@ -126,5 +126,3 @@ async function userchange(req, res) {
     status: 'ok',
   });
 }
-
-export default userchange;

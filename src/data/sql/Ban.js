@@ -216,7 +216,9 @@ async function removeBans(bans, modUid) {
 
     await transaction.commit();
   } catch (error) {
-    await transaction.rollback();
+    if (transaction && !transaction.finished) {
+      await transaction.rollback();
+    }
     throw error;
   }
 }
@@ -609,7 +611,9 @@ export async function ban(
       await transaction.commit();
       return [ipStrings || [], userIds || []];
     } catch (error) {
-      await transaction.rollback();
+      if (transaction && !transaction.finished) {
+        await transaction.rollback();
+      }
       throw error;
     }
   } catch (error) {

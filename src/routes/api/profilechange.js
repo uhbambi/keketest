@@ -13,7 +13,7 @@ import {
   setUserAvatar, setCustomFlag, setActiveFactionRole,
 } from '../../data/sql/Profile.js';
 
-async function profilechange(req, res) {
+export default async function profilechange(req, res) {
   req.tickRateLimiter(7000);
   const { ttag: { t }, user, body: profile } = req;
 
@@ -99,5 +99,3 @@ async function profilechange(req, res) {
     status: 'ok',
   });
 }
-
-export default profilechange;

@@ -153,6 +153,8 @@ export const FACTIONLVL = {
 
 export const MAX_FACTIONS_PER_USER = 20;
 
+export const MAX_OWNED_FACTIONS_PER_USER = 10;
+
 export const MAX_FLAGS_PER_FACTION = 10;
 
 // Mode for shift-painting or phone pencil, HISTORY has to be last

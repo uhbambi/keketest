@@ -110,10 +110,7 @@ export default async (req, res) => {
   }
 
   if (errors.length > 0) {
-    res.status(400);
-    res.json({
-      errors,
-    });
+    res.status(400).json({ errors });
     return;
   }
 

@@ -120,7 +120,9 @@ export async function createDMChannel(uidA, uidB) {
     await transaction.commit();
     return [cid, true];
   } catch (error) {
-    await transaction.rollback();
+    if (transaction && !transaction.finished) {
+      await transaction.rollback();
+    }
     console.error(`SQL Error on createDMChannel: ${error.message}`);
     throw error;
   }

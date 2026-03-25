@@ -86,6 +86,16 @@ export function validateFactionName(name) {
   return false;
 }
 
+export function validateDescription(description) {
+  if (typeof description !== 'string') {
+    return t`Description can't be empty`;
+  }
+  if (description.length > 1000) {
+    return t`Description must be shorter than 1000 characters`;
+  }
+  return false;
+}
+
 export function sanitizeName(name) {
   name = name.substring(0, 25);
   // just sanitizes @ for now, other characters do not seem

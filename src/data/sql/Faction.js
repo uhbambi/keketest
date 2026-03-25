@@ -5,7 +5,11 @@
 import { DataTypes, QueryTypes } from 'sequelize';
 
 import sequelize, { nestQuery } from './sequelize.js';
-import { FACTION_FLAGS, USER_FACTION_FLAGS } from '../../core/constants.js';
+import { generateUUID, bufferToUUID } from '../../utils/hash.js';
+import {
+  FACTION_FLAGS, USER_FACTION_FLAGS, FACTIONLVL, CHANNEL_TYPES,
+  MAX_FACTIONS_PER_USER, MAX_OWNED_FACTIONS_PER_USER,
+} from '../../core/constants.js';
 
 const Faction = sequelize.define('Faction', {
   id: {
@@ -299,6 +303,40 @@ WHERE ufr.uid = ? AND f.uuid = UUID_TO_BIN(?) ORDER BY fr.factionlvl DESC LIMIT 
 }
 
 /**
+ * get amount of factions by user, total and owned
+ * @param uid user id
+ * @return [amount, amountOwned]
+ */
+export async function getFactionsAmountOfUser(uid, fid) {
+  try {
+    const model = await sequelize.query(
+      /* eslint-disable max-len */
+      `SELECT COUNT(*) AS total,
+  COUNT(CASE WHEN isOwner = TRUE THEN 1 END) AS owned
+FROM (
+  SELECT EXISTS(
+    SELECT 1 FROM UserFactionRoles ufr
+      INNER JOIN FactionRoles fr ON ufr.frid = fr.id
+    WHERE ufr.uid = uf.uid AND fr.fid = uf.fid AND fr.factionlvl >= ${FACTIONLVL.SOVEREIGN}
+  ) AS isOwner
+  FROM UserFactions uf WHERE uf.uid = ?
+) AS ufc`, {
+        /* eslint-enable max-len */
+        replacements: [uid, fid],
+        plain: true,
+        type: QueryTypes.SELECT,
+      },
+    );
+    if (model) {
+      return [model.total, model.owned];
+    }
+  } catch (error) {
+    console.error(`SQL Error on getFactionsAmountOfUser: ${error.message}`);
+  }
+  return [MAX_FACTIONS_PER_USER, MAX_OWNED_FACTIONS_PER_USER];
+}
+
+/**
  * get all members of a faction
  * @param sqlFid sql id of faction
  * @return [ userId1, userId2, ...]
@@ -319,6 +357,29 @@ export async function getAllMembersOfFaction(sqlFid) {
     console.error(`SQL Error on getAllMembersOfFaction: ${error.message}`);
   }
   return [];
+}
+
+/**
+ * check if a faction with a given name exists
+ * @param name
+ * @return boolean
+ */
+export async function checkIfFactionExists(name) {
+  try {
+    const model = await sequelize.query(
+      'SELECT 1 FROM Factions WHERE name = ?', {
+        replacements: [name],
+        plain: true,
+        type: QueryTypes.SELECT,
+      },
+    );
+    if (!model) {
+      return false;
+    }
+  } catch (error) {
+    console.error(`SQL Error on checkIfFactionExists: ${error.message}`);
+  }
+  return true;
 }
 
 /**
@@ -344,10 +405,157 @@ export async function setFactionAvatar(sqlFid, mediaId = null) {
       },
     );
     return true;
-  } catch (err) {
-    console.error('SQL Error on setFactionAvatar:', err.message);
+  } catch (error) {
+    console.error('SQL Error on setFactionAvatar:', error.message);
     return false;
   }
+}
+
+/**
+ * create a new faction
+ * @param uid user id of owner
+ * @return factionObject | null
+ */
+export async function createFaction(
+  uid, name, title, description, isPrivate, isPublic, avatarId,
+) {
+  try {
+    const transaction = await sequelize.transaction();
+
+    let flags = 0;
+    if (isPrivate) {
+      flags |= 0x01 << FACTION_FLAGS.PRIV;
+    }
+    if (isPublic) {
+      flags |= 0x01 << FACTION_FLAGS.PUBLIC;
+    }
+
+    try {
+      const [shortId, extension] = avatarId.split(':');
+      if (!shortId || !extension) {
+        return false;
+      }
+      /* eslint-disable max-len */
+      const mediaModel = await sequelize.query(
+        'SELECT id AS mediaSqlId FROM Media m WHERE m.shortId = ? AND m.extension = ?', {
+          replacements: [shortId, extension],
+          plain: true,
+          type: QueryTypes.SELECT,
+          transaction,
+        },
+      );
+      if (!mediaModel) {
+        throw new Error('Media not found');
+      }
+      const { mediaSqlId } = mediaModel;
+
+      /*
+       * creat faction chat channel
+       */
+      await sequelize.query(
+        'INSERT INTO Channels (name, type, lastMessage, createdAt) VALUES (?, ?, NOW(), NOW())', {
+          replacements: [name, CHANNEL_TYPES.FACTION],
+          raw: true,
+          type: QueryTypes.INSERT,
+          transaction,
+        },
+      );
+
+      /*
+       * create faction
+       */
+      const fid = bufferToUUID(generateUUID());
+      await sequelize.query(
+        'INSERT INTO Factions (uuid, name, title, description, avatar, flags, createdAt, cid) SELECT UUID_TO_BIN(?), ?, ?, ?, ?, ?, NOW(), c.id FROM Channels c WHERE c.name = ? AND c.type = ?', {
+          replacements: [
+            fid, name, title, description,
+            mediaSqlId, flags, name, CHANNEL_TYPES.FACTION,
+          ],
+          raw: true,
+          type: QueryTypes.INSERT,
+          transaction,
+        },
+      );
+      /*
+       * create default roles
+       */
+      const sovereignFrid = bufferToUUID(generateUUID());
+      const peasantFrid = bufferToUUID(generateUUID());
+      await sequelize.query(
+        `INSERT INTO FactionRoles (uuid, fid, name, factionlvl)
+  SELECT roles.uuid, f.id AS fid, roles.name, roles.factionlvl FROM Factions f
+    CROSS JOIN (
+      SELECT UUID_TO_BIN(?) AS uuid, 'Sovereign' AS name, ? AS factionlvl
+      UNION ALL
+      SELECT UUID_TO_BIN(?) AS uuid, 'Peasant' AS name, ? AS factionlvl
+    ) AS roles
+  WHERE f.name = ?`, {
+          replacements: [
+            sovereignFrid, FACTIONLVL.SOVEREIGN,
+            peasantFrid, FACTIONLVL.PEASANT,
+            name,
+          ],
+          raw: true,
+          type: QueryTypes.INSERT,
+          transaction,
+        },
+      );
+      /*
+       * add user to faction and give him the sovereign role
+       */
+      await Promise.all([
+        sequelize.query(
+          'INSERT INTO UserFactions (uid, fid, joined) SELECT ?, fr.id, NOW() FROM Factions f WHERE f.name = ?', {
+            replacements: [uid, name],
+            raw: true,
+            type: QueryTypes.INSERT,
+            transaction,
+          },
+        ),
+        sequelize.query(
+          'INSERT INTO UserFactionRoles (uid, frid) SELECT ?, fr.id FROM FactionRoles fr WHERE fr.uuid = UUID_TO_BIN(?)', {
+            replacements: [uid, sovereignFrid],
+            raw: true,
+            type: QueryTypes.INSERT,
+            transaction,
+          },
+        ),
+      ]);
+      /* eslint-enable max-len */
+      await transaction.commit();
+      return {
+        fid,
+        name,
+        title,
+        description,
+        isPrivate,
+        isPublic,
+        isHidden: false,
+        avatarId,
+        roles: [{
+          frid: sovereignFrid,
+          name: 'Sovereign',
+          customFlagId: null,
+          factionlvl: FACTIONLVL.SOVEREIGN,
+          isMember: true,
+        }, {
+          frid: sovereignFrid,
+          name: 'Peasant',
+          customFlagId: null,
+          factionlvl: FACTIONLVL.PEASANT,
+          isMember: false,
+        }],
+      };
+    } catch (error) {
+      if (transaction && !transaction.finished) {
+        await transaction.rollback();
+      }
+      throw error;
+    }
+  } catch (error) {
+    console.error('SQL Error on createFaction:', error.message);
+  }
+  return null;
 }
 
 /**

@@ -9,7 +9,7 @@ import socketEvents from '../../socket/socketEvents.js';
 import { setFlagOfUserFaction } from '../../data/sql/Faction.js';
 import { USER_FACTION_FLAGS } from '../../core/constants.js';
 
-async function userfactionchange(req, res) {
+export default async function userfactionchange(req, res) {
   req.tickRateLimiter(7000);
   const { user, body: { fid, isHidden } } = req;
 
@@ -53,5 +53,3 @@ async function userfactionchange(req, res) {
     status: 'ok',
   });
 }
-
-export default userfactionchange;

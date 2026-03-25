@@ -69,7 +69,9 @@ async function removeRangeBans(bans, modUid) {
 
     await transaction.commit();
   } catch (error) {
-    await transaction.rollback();
+    if (transaction && !transaction.finished) {
+      await transaction.rollback();
+    }
     throw error;
   }
 }
