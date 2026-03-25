@@ -30,4 +30,6 @@ jobs:
         working-directory: utils/ocean-tiles
         env:
           REDIS_URL: ${{ secrets.REDIS_URL }}
-        run: node drawOcean.js
+        run: |
+          echo "REDIS_URL is set: ${{ secrets.REDIS_URL != '' }}"
+          node drawOcean.js
