@@ -122,6 +122,7 @@ export async function getFactionsOfUser(uid, isOwnProfile) {
        * disallow that case in routes to avoid confusion
        */
       sequelize.query(
+        /* eslint-disable max-len */
         `SELECT BIN_TO_UUID(f.uuid) AS fid, f.name, f.title, f.description, f.flags,
 CONCAT(a.shortId, ':', a.extension) AS avatarId,
 CONCAT(frm.shortId, ':', frm.extension) AS 'roles.customFlagId',
@@ -134,6 +135,7 @@ ufr.title AS 'roles.title', ufr.factionlvl AS 'roles.factionlvl' FROM Factions f
   LEFT JOIN Media a ON a.id = f.avatar
   LEFT JOIN Media frm ON frm.id = fr.customFlag
 WHERE uf.uid = ?`, {
+        /* eslint-enable max-len */
           replacements: [uid],
           raw: true,
           type: QueryTypes.SELECT,
@@ -250,6 +252,7 @@ export async function setFlagOfFaction(uid, fid, index, value) {
       );
     } else {
       await sequelize.query(
+        // eslint-disable-next-line max-len
         'UPDATE Factions SET flags = flags & ~(?) WHERE uuid = UUID_TO_BIN(?)', {
           replacements: [mask, uid, fid],
           raw: true,
@@ -268,15 +271,15 @@ export async function setFlagOfFaction(uid, fid, index, value) {
  * get powerlevel and faction sql id of user in faction
  * @param uid user id
  * @param fid faction uuid (NOT sql id)
- * @return { sqlFId | null, powerlvl | null }
+ * @return { sqlFid | null, powerlvl | null }
  */
 export async function getFactionLvlOfUser(uid, fid) {
-  let sqlFId = null;
+  let sqlFid = null;
   let powerlvl = 0;
   try {
     const model = await sequelize.query(
       /* eslint-disable max-len */
-      `SELECT f.id AS sqlFId, fr.factionlvl AS powerlvl FROM Factions f
+      `SELECT f.id AS sqlFid, fr.factionlvl AS powerlvl FROM Factions f
   INNER JOIN FactionRoles fr ON fr.fid = f.id
   INNER JOIN UserFactionRoles ufr ON ufr.frid = fr.id
 WHERE ufr.uid = ? AND f.uuid = UUID_TO_BIN(?) ORDER BY fr.factionlvl DESC LIMIT 1`, {
@@ -287,24 +290,24 @@ WHERE ufr.uid = ? AND f.uuid = UUID_TO_BIN(?) ORDER BY fr.factionlvl DESC LIMIT 
       },
     );
     if (model) {
-      ({ sqlFId, powerlvl } = model);
+      ({ sqlFid, powerlvl } = model);
     }
   } catch (error) {
     console.error(`SQL Error on getFactionLvlOfUser: ${error.message}`);
   }
-  return { sqlFId, powerlvl };
+  return { sqlFid, powerlvl };
 }
 
 /**
  * get all members of a faction
- * @param sqlFId sql id of faction
+ * @param sqlFid sql id of faction
  * @return [ userId1, userId2, ...]
  */
-export async function getAllMembersOfFaction(sqlFId) {
+export async function getAllMembersOfFaction(sqlFid) {
   try {
     const models = await sequelize.query(
       'SELECT uid FROM UserFactions WHERE fid = ?', {
-        replacements: [sqlFId],
+        replacements: [sqlFid],
         raw: true,
         type: QueryTypes.SELECT,
       },
@@ -337,7 +340,7 @@ export async function setFactionAvatar(sqlFid, mediaId = null) {
       'UPDATE Factions f INNER JOIN Media m on m.shortId = ? AND m.extension = ? SET f.avatar = m.id WHERE f.id = ?', {
         replacements: [shortId, extension, sqlFid],
         raw: true,
-        type: QueryTypes.INSERT,
+        type: QueryTypes.UPDATE,
       },
     );
     return true;
@@ -354,11 +357,11 @@ export async function setFactionAvatar(sqlFid, mediaId = null) {
  * @param value
  * @return success
  */
-export async function setFactionProperty(sqlFId, property, value) {
+export async function setFactionProperty(sqlFid, property, value) {
   try {
     await sequelize.query(
       `UPDATE Factions SET ${property} = ? WHERE id = ?`, {
-        replacements: [value, sqlFId],
+        replacements: [value, sqlFid],
         raw: true,
         type: QueryTypes.UPDATE,
       },

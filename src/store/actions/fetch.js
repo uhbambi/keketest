@@ -228,10 +228,62 @@ export async function requestChangeProfile(profile) {
  * }
  * @return error array or null if successful
  */
-export async function requestChangeUserFaction(fid, userFaction) {
+export async function requestChangeUserFaction(userFaction) {
   const res = await makeAPIPOSTRequest(
     '/api/userfactionchange',
     userFaction,
+  );
+  if (res.errors?.length) {
+    return res.errors;
+  }
+  if (res.status === 'ok') {
+    return null;
+  }
+  return [t`Unknown Error`];
+}
+
+
+/**
+ * change stuff in a faction
+ * @param faction {
+ *   fid: faction uuid,
+ *   [isPrivate],
+ *   [isPublic],
+ *   [avatarId],
+ *   [name],
+ *   [title],
+ *   [description],
+ * }
+ * @return error array or null if successful
+ */
+export async function requestChangeFaction(faction) {
+  const res = await makeAPIPOSTRequest(
+    '/api/factionchange',
+    faction,
+  );
+  if (res.errors?.length) {
+    return res.errors;
+  }
+  if (res.status === 'ok') {
+    return null;
+  }
+  return [t`Unknown Error`];
+}
+
+/**
+ * change stuff in a faction role
+ * @param factionRole {
+ *   frid: faction role uuid,
+ *   [customFlagId],
+ *   [factionlvl],
+ *   [name],
+ * }
+ * @return error array or null if successful
+ */
+export async function requestChangeFactionRole(factionRole) {
+  const res = await makeAPIPOSTRequest(
+    '/api/factionrolechange',
+    factionRole,
   );
   if (res.errors?.length) {
     return res.errors;
@@ -460,9 +512,12 @@ export function requestIID() {
  * file upload api preflight to check which files are available
  * @param files File or FileList
  * @param [controller] AbortController
+ * @param [route] which /api/media route to use
  * @return { availableFiles } or null if aborted
  */
-export async function requestFileUploadPreflight(files, controller) {
+export async function requestFileUploadPreflight(
+  files, controller, route,
+) {
   if (files instanceof File) {
     files = [files];
   }
@@ -470,6 +525,9 @@ export async function requestFileUploadPreflight(files, controller) {
     return {
       errors: [t`No File selected to upload`],
     };
+  }
+  if (!route) {
+    route = 'preflight';
   }
 
   const formData = new FormData();
@@ -510,7 +568,7 @@ export async function requestFileUploadPreflight(files, controller) {
   }
 
   try {
-    const response = await fetch(api`/api/media/preflight`, options);
+    const response = await fetch(api`/api/media/${route}`, options);
     return parseAPIresponse(response);
   } catch (error) {
     if (error.name === 'AbortError') {
@@ -527,9 +585,12 @@ export async function requestFileUploadPreflight(files, controller) {
  * @param files File or FileList
  * @param [controller] AbortController
  * @param [onProgress] callback for progress
+ * @param [route] which /api/media route to use
  * @return response or null if aborted
  */
-export async function requestFileUpload(files, controller, onProgress) {
+export async function requestFileUpload(
+  files, controller, onProgress, route,
+) {
   if (files instanceof File) {
     files = [files];
   }
@@ -537,6 +598,9 @@ export async function requestFileUpload(files, controller, onProgress) {
     return {
       errors: [t`No File selected to upload`],
     };
+  }
+  if (!route) {
+    route = 'upload';
   }
 
   let request;
@@ -589,7 +653,7 @@ export async function requestFileUpload(files, controller, onProgress) {
       xhr.addEventListener('abort', () => reject(true));
       /* eslint-enable prefer-promise-reject-errors */
 
-      xhr.open('POST', api`/api/media/upload`);
+      xhr.open('POST', api`/api/media/${route}`);
       xhr.send(formData);
     });
   } catch {

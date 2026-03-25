@@ -15,6 +15,7 @@ import calculatePHash from './phash.js';
 import stripExif, { destruct } from './stripExif.js';
 import createVideoThumbnails from './videoThumbnails.js';
 import createImageThumbnails from './imageThumbnails.js';
+import resizeImage from './resizeImage.js';
 import { checkIfMediaBanned } from '../../core/ban.js';
 import { splitFilename } from './utils.js';
 import { checkTotalQuotaReached, checkUserQuotaReached } from './quotas.js';
@@ -115,6 +116,7 @@ function storeFileStream(fileStream, filePath) {
  * @param [ipString]
  * @param [hashCheck] sha256 hash in hex that we check against
  * @param [restrictType] exclusive type to allow 'audio', 'video', 'image', ...
+ * @param [resize] resize to target dimension [width, height]
  * @return {
  *   hash,
  *   extension,
@@ -126,7 +128,7 @@ function storeFileStream(fileStream, filePath) {
  * }
  */
 export async function storeMediaStream(
-  fileStream, info, userId, ipString, hashCheck, restrictType,
+  fileStream, info, userId, ipString, hashCheck, restrictType, resize,
 ) {
   const { mimeType } = info;
 
@@ -241,7 +243,6 @@ export async function storeMediaStream(
      */
     await stripExif(temporaryFile);
 
-
     /*
      * create thumbnails and get dimensions
      */
@@ -263,6 +264,18 @@ export async function storeMediaStream(
           temporaryFile,
           tempScreencapFilePath, tempThumbFilePath, tempIconFilePath,
         ));
+      }
+    }
+
+    /*
+     * resize image if wanted
+     */
+    if (type === 'image' && resize) {
+      const [targetWidth, targetHeight] = resize;
+      if (targetWidth !== width || targetHeight !== height) {
+        await resizeImage(temporaryFile, targetWidth, targetHeight);
+        width = targetWidth;
+        height = targetHeight;
       }
     }
 

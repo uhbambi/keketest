@@ -146,6 +146,7 @@ export const USER_FACTION_FLAGS = {
 
 export const FACTIONLVL = {
   PEASANT: 0,
+  NOBLE: 50,
   MAGISTRATE: 80,
   SOVEREIGN: 100,
 };

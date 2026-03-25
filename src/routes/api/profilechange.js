@@ -25,20 +25,14 @@ async function profilechange(req, res) {
   let changed = false;
   const profileChanges = {};
 
-  if (avatarId === null) {
-    changed = true;
-    profileChanges.avatarId = null;
-    const success = await setUserAvatar(user.id, null);
-    if (!success) {
-      throw new Error('Could not remove your avatar');
-    }
-    logger.info(`User ${user.name} removed his avatar`);
-  } else if (typeof avatarId === 'string') {
+  if (avatarId === null || typeof avatarId === 'string') {
     changed = true;
     profileChanges.avatarId = avatarId;
-    const isLegitMedia = await getMediaType(avatarId) === 'image';
-    if (!isLegitMedia) {
-      throw new Error(t`Avatar can only be an image`);
+    if (avatarId) {
+      const isLegitMedia = await getMediaType(avatarId) === 'image';
+      if (!isLegitMedia) {
+        throw new Error(t`Avatar can only be an image`);
+      }
     }
     const success = await setUserAvatar(user.id, avatarId);
     if (!success) {

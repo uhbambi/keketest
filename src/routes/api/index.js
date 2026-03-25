@@ -15,6 +15,7 @@ import userchange from './userchange.js';
 import profilechange from './profilechange.js';
 import factionchange from './factionchange.js';
 import userfactionchange from './userfactionchange.js';
+import factionrolechange from './factionrolechange.js';
 import modtools from './modtools.js';
 import baninfo from './baninfo.js';
 import getiid from './getiid.js';
@@ -111,6 +112,8 @@ router.post('/profilechange', profilechange);
 router.post('/factionchange', factionchange);
 
 router.post('/userfactionchange', userfactionchange);
+
+router.post('/factionrolechange', factionrolechange);
 
 router.use(errorJson);
 

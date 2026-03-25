@@ -13,6 +13,8 @@ import {
   requestChangeProfile,
   requestChangeUser,
   requestChangeUserFaction,
+  requestChangeFaction,
+  requestChangeFactionRole,
   requestMe,
 } from './fetch.js';
 import {
@@ -196,6 +198,87 @@ export function changeUserFaction(userFactionChanges) {
       return res;
     } finally {
       delete fetchStates.changeUserFaction;
+    }
+  };
+}
+
+export function changeFaction(factionChanges) {
+  return async (dispatch, getState) => {
+    if (fetchStates.changeFaction) {
+      return [];
+    }
+    fetchStates.changeFaction = true;
+
+    const { fid } = factionChanges;
+    const state = getState().profile.factions.find((f) => f.fid === fid);
+    if (!state) {
+      return [];
+    }
+    const revertOperations = [];
+    for (const [key, value] of Object.entries(factionChanges)) {
+      if (key !== 'fid') {
+        const path = `factions[fid:${fid}].${key}`;
+        revertOperations.push([path, state[key]]);
+        dispatch(patchState('profile', 'setex', path, value));
+      }
+    }
+
+    try {
+      const res = await requestChangeFaction(factionChanges);
+      if (res) {
+        revertOperations.forEach((...args) => dispatch(
+          patchState('profile', 'setex', ...args),
+        ));
+      }
+      return res;
+    } finally {
+      delete fetchStates.changeFaction;
+    }
+  };
+}
+
+export function changeFactionRole(factionRoleChanges) {
+  return async (dispatch, getState) => {
+    if (fetchStates.changeFaction) {
+      return [];
+    }
+    fetchStates.changeFaction = true;
+
+    const { frid } = factionRoleChanges;
+    let fid;
+    let state;
+    const factionsState = getState().profile.factions;
+    for (let i = 0; i < factionsState.length; i += 1) {
+      const factionState = factionsState[i];
+      state = factionState.roles.find((r) => r.frid === frid);
+      if (state) {
+        fid = factionState.fid;
+        break;
+      }
+    }
+    if (!state) {
+      return [];
+    }
+
+    const revertOperations = [];
+    for (const [key, value] of Object.entries(factionRoleChanges)) {
+      if (key !== 'frid') {
+        const path = `factions[fid:${fid}].roles[frid:${frid}].${key}`;
+        revertOperations.push([path, state[key]]);
+        dispatch(patchState('profile', 'setex', path, value));
+      }
+    }
+
+    try {
+      const res = await requestChangeFactionRole(factionRoleChanges);
+      if (res) {
+        revertOperations.forEach((...args) => dispatch(
+          patchState('profile', 'setex', ...args),
+        ));
+      }
+      return res;
+    } finally {
+      delete fetchStates.changeFaction;
     }
   };
 }

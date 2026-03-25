@@ -23,8 +23,8 @@ async function userfactionchange(req, res) {
     throw new Error('No faction given');
   }
 
-  const { sqlFId, powerlvl } = await getFactionLvlOfUser(user.id, fid);
-  if (!sqlFId) {
+  const { sqlFid, powerlvl } = await getFactionLvlOfUser(user.id, fid);
+  if (!sqlFid) {
     throw new Error('This faction does not exist');
   }
   if (!powerlvl || powerlvl < FACTIONLVL.MAGISTRATE) {
@@ -73,7 +73,7 @@ async function userfactionchange(req, res) {
       throw new Error(gettext(error));
     }
     factionChanges.name = name;
-    const success = await setFactionProperty(sqlFId, 'name', name);
+    const success = await setFactionProperty(sqlFid, 'name', name);
     if (!success) {
       throw new Error(t`Name already in use.`);
     }
@@ -91,7 +91,7 @@ async function userfactionchange(req, res) {
       throw new Error(gettext(error));
     }
     factionChanges.title = title;
-    const success = await setFactionProperty(sqlFId, 'title', title);
+    const success = await setFactionProperty(sqlFid, 'title', title);
     if (!success) {
       throw new Error('Title could not be set.');
     }
@@ -109,7 +109,7 @@ async function userfactionchange(req, res) {
     }
     factionChanges.description = description;
     const success = await setFactionProperty(
-      sqlFId, 'description', description,
+      sqlFid, 'description', description,
     );
     if (!success) {
       throw new Error('Description could not be set.');
@@ -127,7 +127,7 @@ async function userfactionchange(req, res) {
     if (!isLegitMedia) {
       throw new Error(t`Avatar can only be an image`);
     }
-    const success = await setFactionAvatar(sqlFId, avatarId);
+    const success = await setFactionAvatar(sqlFid, avatarId);
     if (!success) {
       throw new Error(t`Could not this factions avatar`);
     }
@@ -138,7 +138,7 @@ async function userfactionchange(req, res) {
     throw new Error('You did not define anything to change');
   }
 
-  const affectedUserIds = await getAllMembersOfFaction(sqlFId);
+  const affectedUserIds = await getAllMembersOfFaction(sqlFid);
   if (affectedUserIds.length) {
     const changedKeys = Object.keys(factionChanges);
     for (let i = 0; i < changedKeys.length; i += 1) {

@@ -425,6 +425,32 @@ export async function getMediaType(mediaId) {
 }
 
 /**
+ * get dimensions of media by mediaId
+ * @param mediaId
+ * @return { type, width, height } | null
+ */
+export async function getMediaDimensions(mediaId) {
+  try {
+    const [shortId, extension] = mediaId.split(':');
+    if (!shortId || !extension) {
+      return null;
+    }
+    const model = await sequelize.query(
+      // eslint-disable-next-line max-len
+      'SELECT type, width, height FROM Media WHERE shortId = ? AND extension = ?', {
+        replacements: [shortId, extension],
+        type: QueryTypes.SELECT,
+        plain: true,
+      },
+    );
+    return model;
+  } catch (error) {
+    console.error('SQL Error on getMediaType:', error.message);
+    return null;
+  }
+}
+
+/**
  * get users associated with media
  * @param mediaSqlId
  * @return [userId, ...]
