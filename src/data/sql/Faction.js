@@ -67,6 +67,11 @@ const Faction = sequelize.define('Faction', {
     allowNull: true,
   },
 
+  memberCount: {
+    type: DataTypes.INTEGER.UNSIGNED,
+    defaultValue: 1,
+  },
+
   /*
    * from lowest to highest bit, see FACTION_FLAGS:
    * 0: priv (if faction is unfindable)
@@ -101,6 +106,7 @@ const Faction = sequelize.define('Faction', {
  *     name,
  *     title,
  *     description,
+ *     memberCount,
  *     isPrivate,
  *     isPublic,
  *     isHidden,
@@ -127,13 +133,13 @@ export async function getFactionsOfUser(uid, isOwnProfile) {
        */
       sequelize.query(
         /* eslint-disable max-len */
-        `SELECT BIN_TO_UUID(f.uuid) AS fid, f.name, f.title, f.description, f.flags,
+        `SELECT BIN_TO_UUID(f.uuid) AS fid, f.name, f.title, f.description, f.memberCount, f.flags,
 CONCAT(a.shortId, ':', a.extension) AS avatarId,
-CONCAT(frm.shortId, ':', frm.extension) AS 'roles.customFlagId',
 uf.flags AS userFactionFlags,
 BIN_TO_UUID(fr.uuid) AS 'roles.frid',
-EXISTS(SELECT 1 FROM UserFactionRoles ufr WHERE ufr.uid = uf.uid AND ufr.frid = fr.id) AS isMember,
-ufr.title AS 'roles.title', ufr.factionlvl AS 'roles.factionlvl' FROM Factions f
+CONCAT(frm.shortId, ':', frm.extension) AS 'roles.customFlagId',
+EXISTS(SELECT 1 FROM UserFactionRoles ufr WHERE ufr.uid = uf.uid AND ufr.frid = fr.id) AS 'roles.isMember',
+fr.name AS 'roles.name', fr.factionlvl AS 'roles.factionlvl' FROM Factions f
   INNER JOIN UserFactions uf ON uf.fid = f.id
   LEFT JOIN FactionRole fr ON fr.fid = f.id
   LEFT JOIN Media a ON a.id = f.avatar
@@ -162,7 +168,7 @@ WHERE p.uid = ?`, {
         activeFid = activeFactionModel.fid;
         activeFactionRole = activeFactionModel.frid;
       }
-      factions = nestQuery(factionModels);
+      factions = nestQuery(factionModels, 'fid');
 
       for (let i = 0; i < factions.length; i += 1) {
         const model = factions[i];
@@ -181,10 +187,6 @@ WHERE p.uid = ?`, {
           delete model.userFactionFlags;
         }
         delete model.flags;
-
-        if (!model.roles) {
-          model.roles = [];
-        }
       }
 
       /* filter for public */
@@ -466,7 +468,7 @@ export async function createFaction(
        */
       const fid = bufferToUUID(generateUUID());
       await sequelize.query(
-        'INSERT INTO Factions (uuid, name, title, description, avatar, flags, createdAt, cid) SELECT UUID_TO_BIN(?), ?, ?, ?, ?, ?, NOW(), c.id FROM Channels c WHERE c.name = ? AND c.type = ?', {
+        'INSERT INTO Factions (uuid, name, title, description, avatar, flags, memberCount, createdAt, cid) SELECT UUID_TO_BIN(?), ?, ?, ?, ?, ?, 1, NOW(), c.id FROM Channels c WHERE c.name = ? AND c.type = ?', {
           replacements: [
             fid, name, title, description,
             mediaSqlId, flags, name, CHANNEL_TYPES.FACTION,
@@ -501,7 +503,8 @@ export async function createFaction(
         },
       );
       /*
-       * add user to faction and give him the sovereign role
+       * add user to faction and give him the sovereign role and set the peasent
+       * role as default
        */
       await Promise.all([
         sequelize.query(
@@ -520,6 +523,14 @@ export async function createFaction(
             transaction,
           },
         ),
+        sequelize.query(
+          'UPDATE Factions SET defaultRole = (SELECT id FROM FactionRoles fr WHERE fr.uuid = UUID_TO_BIN(?)) WHERE f.name = ?', {
+            replacements: [peasantFrid, name],
+            raw: true,
+            type: QueryTypes.UPDATE,
+            transaction,
+          },
+        ),
       ]);
       /* eslint-enable max-len */
       await transaction.commit();
@@ -531,6 +542,7 @@ export async function createFaction(
         isPrivate,
         isPublic,
         isHidden: false,
+        memberCount: 1,
         avatarId,
         roles: [{
           frid: sovereignFrid,
@@ -575,7 +587,7 @@ export async function deleteFaction(sqlFid) {
       'DELETE FROM Channels WHERE id = (SELECT f.cid FROM Factions f WHERE f.id = ?)', {
         replacements: [sqlFid],
         raw: true,
-        type: QueryTypes.UPDATE,
+        type: QueryTypes.DELETE,
       },
     );
     return affectedUsers;
@@ -583,6 +595,93 @@ export async function deleteFaction(sqlFid) {
     console.error('SQL Error on deleteFaction:', error.message);
   }
   return [];
+}
+
+/**
+ * join user to a faction
+ * @param uid user id
+ * @param sqlFid sql faction id
+ * @return success
+ */
+export async function joinFaction(uid, sqlFid) {
+  try {
+    await sequelize.query(
+      'INSERT INTO UserFactions (uid, fid) VALUES (?, ?)', {
+        replacements: [uid, sqlFid],
+        raw: true,
+        type: QueryTypes.INSERT,
+      },
+    );
+    await sequelize.query(
+      // eslint-disable-next-line max-len
+      'INSERT INTO UserFactionRoles (uid, frid) SELECT ?, f.defaultRole FROM Factions f WHERE f.id = ? AND f.defaultRole IS NOT NULL', {
+        replacements: [uid, sqlFid],
+        raw: true,
+        type: QueryTypes.INSERT,
+      },
+    );
+    return true;
+  } catch (error) {
+    console.error('SQL Error on joinFaction:', error.message);
+  }
+  return false;
+}
+
+/**
+ * get public info of faction
+ * @param fid uuid of faction
+ * @return {
+ *   fid,
+ *   name,
+ *   title,
+ *   description,
+ *   memberCount,
+ *   isPrivate,
+ *   isPublic,
+ *   avatarId,
+ *   defaultFrid,
+ *   roles: [{
+ *     frid,
+ *     customFlagId,
+ *     name,
+ *     factionlvl,
+ *   }, ...]
+ * } | null
+ */
+export async function getFactionInfo(fid) {
+  try {
+    let model = await sequelize.query(
+      // eslint-disable-next-line max-len
+      `SELECT f.id AS sqlFid, f.name, f.ttle, f.description, f.memberCount, f.flags,
+CONCAT(a.shortId, ':', a.extension) AS avatarId,
+BIN_TO_UUID(fr.uuid) AS 'roles.frid',
+BIN_TO_UUID(drf.uuid) AS 'defaultFrid',
+CONCAT(frm.shortId, ':', frm.extension) AS 'roles.customFlagId',
+fr.name AS 'roles.name', fr.factionlvl AS 'roles.factionlvl' FROM Factions f
+  LEFT JOIN Media a ON a.id = f.avatar
+  LEFT JOIN FactionRole fr ON fr.fid = f.id
+  LEFT JOIN FactionRole dfr ON drf.id = f.defaultRole,
+  LEFT JOIN Media frm ON frm.id = fr.customFlag
+WHERE f.uuid = UUID_TO_BIN(fid)`, {
+        replacements: [fid],
+        raw: true,
+        type: QueryTypes.UPDATE,
+      },
+    );
+    if (model) {
+      model = nestQuery(model);
+      // whether or not searchable
+      model.isPrivate = (model.flags & (0x01 << FACTION_FLAGS.PRIV)) !== 0;
+      // whether or not joinable without invite
+      model.isPublic = (model.flags & (0x01 << FACTION_FLAGS.PUBLIC)) !== 0;
+      delete model.flags;
+      model.fid = fid;
+      return model;
+    }
+  } catch (error) {
+    console.error('SQL Error on getFactionInfo:', error.message);
+  }
+  return null;
 }
 
 /**

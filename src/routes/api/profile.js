@@ -14,7 +14,7 @@ export default async (req, res) => {
   ] = await Promise.all([
     getFishesOfUser(uid),
     getBadgesOfUser(uid),
-    getFactionsOfUser(uid),
+    getFactionsOfUser(uid, true),
   ]);
   res.status(200).json({
     fishes,
