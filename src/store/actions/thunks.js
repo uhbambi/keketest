@@ -165,29 +165,32 @@ export function changeProfile(profileChanges, alert) {
   };
 }
 
-export function changeUserFaction(fid, userFactionChanges) {
+export function changeUserFaction(userFactionChanges) {
   return async (dispatch, getState) => {
     if (fetchStates.changeUserFaction) {
       return [];
     }
     fetchStates.changeUserFaction = true;
 
+    const { fid } = userFactionChanges;
     const state = getState().profile.factions.find((f) => f.fid === fid);
     if (!state) {
       return [];
     }
     const revertOperations = [];
     for (const [key, value] of Object.entries(userFactionChanges)) {
-      const path = `factions[fid:${fid}].${key}`;
-      revertOperations.push([path, state[key]]);
-      dispatch(patchState('profile', 'set', path, value));
+      if (key !== 'fid') {
+        const path = `factions[fid:${fid}].${key}`;
+        revertOperations.push([path, state[key]]);
+        dispatch(patchState('profile', 'setex', path, value));
+      }
     }
 
     try {
-      const res = await requestChangeUserFaction(fid, userFactionChanges);
+      const res = await requestChangeUserFaction(userFactionChanges);
       if (res) {
         revertOperations.forEach((...args) => dispatch(
-          patchState('profile', 'set', ...args),
+          patchState('profile', 'setex', ...args),
         ));
       }
       return res;

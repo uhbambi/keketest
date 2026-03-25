@@ -222,8 +222,8 @@ export async function requestChangeProfile(profile) {
 
 /**
  * change stuff in a users faction
- * @param fid faction uuid
  * @param userFaction {
+ *   fid: faction uuid,
  *   [isHidden],
  * }
  * @return error array or null if successful
@@ -231,7 +231,7 @@ export async function requestChangeProfile(profile) {
 export async function requestChangeUserFaction(fid, userFaction) {
   const res = await makeAPIPOSTRequest(
     '/api/userfactionchange',
-    { fid, userFaction },
+    userFaction,
   );
   if (res.errors?.length) {
     return res.errors;

@@ -280,18 +280,25 @@ class APISocketServer {
     );
   }
 
-  patchUserState(userId, state, patch) {
-    if (state === 'profile') {
-      if (patch.path === 'customFlag' || patch.path === 'avatarId'
-        || patch.path === 'activeFactionRole'
-      ) {
-        APISocketServer.#deleteUserFromMapping(userId);
+  patchUserState(userIds, state, patch) {
+    if (state !== 'profile' || (
+      patch.path !== 'customFlag' && patch.path !== 'avatarId'
+      && patch.path !== 'activeFactionRole'
+    )) {
+      return;
+    }
 
-        this.broadcast(
-          JSON.stringify(['reloadUser', userId]),
-          (client) => client.subReloadUser,
-        );
-      }
+    if (!Array.isArray(userIds)) {
+      userIds = [userIds];
+    }
+    for (let i = 0; i < userIds.length; i += 1) {
+      const userId = userIds[i];
+      APISocketServer.#deleteUserFromMapping(userId);
+
+      this.broadcast(
+        JSON.stringify(['reloadUser', userId]),
+        (client) => client.subReloadUser,
+      );
     }
   }
 

@@ -41,7 +41,9 @@ const Faction = sequelize.define('Faction', {
   },
 
   description: {
-    type: `${DataTypes.STRING(250)} CHARSET utf8mb4 COLLATE utf8mb4_unicode_ci`,
+    // eslint-disable-next-line max-len
+    type: `${DataTypes.STRING(1000)} CHARSET utf8mb4 COLLATE utf8mb4_unicode_ci`,
+    defaultValue: '',
     allowNull: false,
   },
 
@@ -212,7 +214,7 @@ export async function setFlagOfUserFaction(uid, fid, index, value) {
       );
     } else {
       await sequelize.query(
-        'UPDATE Users SET flags = flags & ~(?) WHERE uid = ? AND fid = (SELECT id FROM Factions WHERE uuid = UUID_TO_BIN(?))', {
+        'UPDATE UserFactions SET flags = flags & ~(?) WHERE uid = ? AND fid = (SELECT id FROM Factions WHERE uuid = UUID_TO_BIN(?))', {
           replacements: [mask, uid, fid],
           raw: true,
           type: QueryTypes.UPDATE,
@@ -223,6 +225,147 @@ export async function setFlagOfUserFaction(uid, fid, index, value) {
     return true;
   } catch (error) {
     console.error(`SQL Error on setFlagOfUserFaction: ${error.message}`);
+  }
+  return false;
+}
+
+/**
+ * set one bit in flags of faction
+ * @param uid user id
+ * @param fid faction uuid (NOT sql id)
+ * @param index index of flag
+ * @param value 0 or 1, true or false
+ * @return success boolean
+ */
+export async function setFlagOfFaction(uid, fid, index, value) {
+  try {
+    const mask = 0x01 << index;
+    if (value) {
+      await sequelize.query(
+        'UPDATE Factions SET flags = flags | ? WHERE uuid = UUID_TO_BIN(?)', {
+          replacements: [mask, uid, fid],
+          raw: true,
+          type: QueryTypes.UPDATE,
+        },
+      );
+    } else {
+      await sequelize.query(
+        'UPDATE Factions SET flags = flags & ~(?) WHERE uuid = UUID_TO_BIN(?)', {
+          replacements: [mask, uid, fid],
+          raw: true,
+          type: QueryTypes.UPDATE,
+        },
+      );
+    }
+    return true;
+  } catch (error) {
+    console.error(`SQL Error on setFlagOfFaction: ${error.message}`);
+  }
+  return false;
+}
+
+/**
+ * get powerlevel and faction sql id of user in faction
+ * @param uid user id
+ * @param fid faction uuid (NOT sql id)
+ * @return { sqlFId | null, powerlvl | null }
+ */
+export async function getFactionLvlOfUser(uid, fid) {
+  let sqlFId = null;
+  let powerlvl = 0;
+  try {
+    const model = await sequelize.query(
+      /* eslint-disable max-len */
+      `SELECT f.id AS sqlFId, fr.factionlvl AS powerlvl FROM Factions f
+  INNER JOIN FactionRoles fr ON fr.fid = f.id
+  INNER JOIN UserFactionRoles ufr ON ufr.frid = fr.id
+WHERE ufr.uid = ? AND f.uuid = UUID_TO_BIN(?) ORDER BY fr.factionlvl DESC LIMIT 1`, {
+      /* eslint-enable max-len */
+        replacements: [uid, fid],
+        plain: true,
+        type: QueryTypes.SELECT,
+      },
+    );
+    if (model) {
+      ({ sqlFId, powerlvl } = model);
+    }
+  } catch (error) {
+    console.error(`SQL Error on getFactionLvlOfUser: ${error.message}`);
+  }
+  return { sqlFId, powerlvl };
+}
+
+/**
+ * get all members of a faction
+ * @param sqlFId sql id of faction
+ * @return [ userId1, userId2, ...]
+ */
+export async function getAllMembersOfFaction(sqlFId) {
+  try {
+    const models = await sequelize.query(
+      'SELECT uid FROM UserFactions WHERE fid = ?', {
+        replacements: [sqlFId],
+        raw: true,
+        type: QueryTypes.SELECT,
+      },
+    );
+    if (models) {
+      return models.map(({ uid }) => uid);
+    }
+  } catch (error) {
+    console.error(`SQL Error on getAllMembersOfFaction: ${error.message}`);
+  }
+  return [];
+}
+
+/**
+ * set avatar of faction
+ * @param sqlFid sql id of faction
+ * @param mediaId shortId:extension of media
+ */
+export async function setFactionAvatar(sqlFid, mediaId = null) {
+  if (!mediaId) {
+    return false;
+  }
+  try {
+    const [shortId, extension] = mediaId.split(':');
+    if (!shortId || !extension) {
+      return false;
+    }
+    await sequelize.query(
+      // eslint-disable-next-line max-len
+      'UPDATE Factions f INNER JOIN Media m on m.shortId = ? AND m.extension = ? SET f.avatar = m.id WHERE f.id = ?', {
+        replacements: [shortId, extension, sqlFid],
+        raw: true,
+        type: QueryTypes.INSERT,
+      },
+    );
+    return true;
+  } catch (err) {
+    console.error('SQL Error on setFactionAvatar:', err.message);
+    return false;
+  }
+}
+
+/**
+ * change a property of a faction
+ * @param sqlFid sql id of faction
+ * @param property
+ * @param value
+ * @return success
+ */
+export async function setFactionProperty(sqlFId, property, value) {
+  try {
+    await sequelize.query(
+      `UPDATE Factions SET ${property} = ? WHERE id = ?`, {
+        replacements: [value, sqlFId],
+        raw: true,
+        type: QueryTypes.UPDATE,
+      },
+    );
+    return true;
+  } catch (error) {
+    console.error(`SQL Error on setFactionProperty: ${error.message}`);
   }
   return false;
 }

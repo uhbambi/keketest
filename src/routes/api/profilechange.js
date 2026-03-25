@@ -42,7 +42,7 @@ async function profilechange(req, res) {
     }
     const success = await setUserAvatar(user.id, avatarId);
     if (!success) {
-      throw new Error(t`Could not set your avtar`);
+      throw new Error(t`Could not set your avatar`);
     }
     logger.info(`User ${user.name} changed avatar to ${avatarId}`);
   }

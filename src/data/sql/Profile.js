@@ -86,7 +86,7 @@ export async function setUserAvatar(uid, mediaId = null) {
     }
     await sequelize.query(
       // eslint-disable-next-line max-len
-      'INSERT INTO Profiles (uid, avatar) SELECT ?, m.id AS hash FROM Media m WHERE m.shortId = ? AND m.extension = ? ON DUPLICATE KEY UPDATE avatar = VALUES(avatar)', {
+      'INSERT INTO Profiles (uid, avatar) SELECT ?, m.id FROM Media m WHERE m.shortId = ? AND m.extension = ? ON DUPLICATE KEY UPDATE avatar = VALUES(avatar)', {
         replacements: [uid, shortId, extension],
         raw: true,
         type: QueryTypes.INSERT,

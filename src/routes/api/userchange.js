@@ -57,7 +57,7 @@ async function userchange(req, res) {
     logger.info(`User ${user.name} changed blockDm to ${blockDm}`);
   }
 
-  if (username) {
+  if (typeof username === 'string') {
     changed = true;
     let error;
     if (!user.data.username.startsWith('pp_')) {
@@ -65,7 +65,7 @@ async function userchange(req, res) {
     } else if (username.startsWith('pp_')) {
       error = t`Username can not start with pp_`;
     } else {
-      username = username?.toLowerCase();
+      username = username.toLowerCase();
       error = gettext(validateUsername(username));
     }
     if (error) {
@@ -75,7 +75,7 @@ async function userchange(req, res) {
 
     const success = await setUsername(user.id, username);
     if (!success) {
-      throw new Error(t`Name already in use.`);
+      throw new Error(t`Username already in use.`);
     }
     logger.info(
       // eslint-disable-next-line max-len
@@ -83,13 +83,13 @@ async function userchange(req, res) {
     );
   }
 
-  if (name) {
+  if (typeof name === 'string') {
     changed = true;
     let error;
     if (user.name === name) {
       error = t`You already have that name.`;
     } else {
-      name = name?.trim();
+      name = name.trim();
       error = gettext(validateName(name));
     }
     if (error) {

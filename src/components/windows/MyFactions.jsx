@@ -75,7 +75,7 @@ const MyFactions = () => {
 
   const setFactionHidden = useCallback(async (fid, isHidden) => {
     const respErrors = await dispatch(
-      changeUserFaction(fid, { isHidden }),
+      changeUserFaction({ fid, isHidden }),
     );
     setErrors((oErrors) => {
       if (respErrors) {
