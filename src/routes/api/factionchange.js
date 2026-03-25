@@ -25,7 +25,7 @@ export default async function factionchange(req, res) {
 
   const { sqlFid, powerlvl } = await getFactionLvlOfUser(user.id, fid);
   if (!sqlFid) {
-    throw new Error('This faction does not exist');
+    throw new Error('This faction does not exist or you are not a member');
   }
   if (!powerlvl || powerlvl < FACTIONLVL.MAGISTRATE) {
     throw new Error('Insufficient permissions on this faction');

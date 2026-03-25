@@ -559,6 +559,33 @@ export async function createFaction(
 }
 
 /**
+ * delete faction
+ * @param sqlFid sql faction id
+ * @return [userId1, userId2, ...] affected users
+ */
+export async function deleteFaction(sqlFid) {
+  try {
+    const affectedUsers = await getAllMembersOfFaction();
+    /*
+     * faction channel deletion should cascade to everything related, since
+     * faction depends on it
+     */
+    await sequelize.query(
+      // eslint-disable-next-line max-len
+      'DELETE FROM Channels WHERE id = (SELECT f.cid FROM Factions f WHERE f.id = ?)', {
+        replacements: [sqlFid],
+        raw: true,
+        type: QueryTypes.UPDATE,
+      },
+    );
+    return affectedUsers;
+  } catch (error) {
+    console.error('SQL Error on deleteFaction:', error.message);
+  }
+  return [];
+}
+
+/**
  * change a property of a faction
  * @param sqlFid sql id of faction
  * @param property
