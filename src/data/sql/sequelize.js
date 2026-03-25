@@ -262,6 +262,30 @@ BEGIN
   INSERT INTO Fishes (uid, type, size, createdAt) VALUES (p_uid, p_type, p_size, NOW());
   SELECT LAST_INSERT_ID() AS id;
 END`,
+    JOIN_FACTION: `CREATE PROCEDURE IF NOT EXISTS JOIN_FACTION(IN p_uid INT UNSIGNED, IN p_ipString VARCHAR(39), IN p_fid BIGINT UNSIGNED) NOT DETERMINISTIC MODIFIES SQL DATA
+BEGIN
+  DECLARE i_return INT DEFAULT 0;
+  DECLARE i_ip VARBINARY(8);
+  SET i_ip = IP_TO_BIN(p_ipString);
+
+  SELECT 1 INTO i_return FROM FactionBans fb
+    LEFT JOIN UserFactionBans ufb ON ufb.bid = fb.id AND ufb.uid = p_uid
+    LEFT JOIN IPFactionBans ifb ON ifb.bid = fb.id AND ifb.ip = i_ip
+  WHERE fb.fid = p_fid AND (fb.expires > NOW() OR fb.expires IS NULL) AND (ufb.uid IS NOT NULL OR ifb.ip IS NOT NULL)
+  LIMIT 1;
+
+  if i_return = 0 THEN
+    SELECT 2 INTO i_return FROM UserFactions WHERE uid = p_uid AND fid = p_fid;
+  END IF:
+
+  IF i_return = 0 THEN
+    INSERT INTO UserFactions (uid, fid) VALUES (p_uid, p_fid);
+    INSERT INTO UserFactionRoles (uid, frid)
+      SELECT p_uid, f.defaultRole FROM Factions f WHERE f.id = p_fid AND f.defaultRole IS NOT NULL;
+  END IF:
+
+  SELECT i_return AS \`return\`;
+END`,
     GET_CLOSE_IMAGE: `CREATE PROCEDURE IF NOT EXISTS GET_CLOSE_IMAGE(IN p_pHash CHAR(16)) READS SQL DATA
 BEGIN
   DECLARE i_pHash BIGINT UNSIGNED;

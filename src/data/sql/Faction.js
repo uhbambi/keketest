@@ -601,30 +601,29 @@ export async function deleteFaction(sqlFid) {
  * join user to a faction
  * @param uid user id
  * @param sqlFid sql faction id
- * @return success
+ * @return number
+ *   0 success
+ *   1 banned
+ *   2 already joined
+ *   3 failure
  */
-export async function joinFaction(uid, sqlFid) {
+export async function joinFaction(uid, ipString, sqlFid) {
   try {
-    await sequelize.query(
-      'INSERT INTO UserFactions (uid, fid) VALUES (?, ?)', {
-        replacements: [uid, sqlFid],
-        raw: true,
-        type: QueryTypes.INSERT,
+    const model = await sequelize.query(
+      'CALL JOIN_FACTION(?, ?, ?)', {
+        replacements: [uid, ipString, sqlFid],
+        plain: true,
+        type: QueryTypes.SELECT,
       },
     );
-    await sequelize.query(
-      // eslint-disable-next-line max-len
-      'INSERT INTO UserFactionRoles (uid, frid) SELECT ?, f.defaultRole FROM Factions f WHERE f.id = ? AND f.defaultRole IS NOT NULL', {
-        replacements: [uid, sqlFid],
-        raw: true,
-        type: QueryTypes.INSERT,
-      },
-    );
-    return true;
+    const ret = model?.[0]?.return;
+    if (ret || ret === 0) {
+      return ret;
+    }
   } catch (error) {
     console.error('SQL Error on joinFaction:', error.message);
   }
-  return false;
+  return 3;
 }
 
 /**

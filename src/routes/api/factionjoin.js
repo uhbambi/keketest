@@ -7,7 +7,7 @@ import { getFactionInfo, joinFaction } from '../../data/sql/Faction.js';
 
 export default async function factionjoin(req, res) {
   req.tickRateLimiter(7000);
-  const { user, body: { fid } } = req;
+  const { ttag: { t }, user, id: { ipString }, body: { fid } } = req;
 
   if (!fid || typeof fid !== 'string') {
     throw new Error('No faction given');
@@ -21,9 +21,16 @@ export default async function factionjoin(req, res) {
     throw new Error('You need an invite to join this faction');
   }
 
-  const success = await joinFaction(user.id, factionInfo.sqlFid);
-  if (!success) {
-    throw new Error('Could not join faction');
+  const ret = await joinFaction(user.id, ipString, factionInfo.sqlFid);
+  switch (ret) {
+    case 0:
+      break;
+    case 1:
+      throw new Error(t`You are banned from this faction`);
+    case 2:
+      throw new Error(t`You are already part of this faction`);
+    default:
+      throw new Error(t`Server Error`);
   }
 
   /*
