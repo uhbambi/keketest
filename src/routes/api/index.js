@@ -19,6 +19,7 @@ import factionrolechange from './factionrolechange.js';
 import factioncreate from './factioncreate.js';
 import factiondelete from './factiondelete.js';
 import factionjoin from './factionjoin.js';
+import factionleave from './factionleave.js';
 import modtools from './modtools.js';
 import baninfo from './baninfo.js';
 import getiid from './getiid.js';
@@ -123,6 +124,8 @@ router.post('/factioncreate', factioncreate);
 router.post('/factiondelete', factiondelete);
 
 router.post('/factionjoin', factionjoin);
+
+router.post('/factionleave', factionleave);
 
 router.use(errorJson);
 

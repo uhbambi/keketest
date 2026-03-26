@@ -490,6 +490,35 @@ export async function deleteFaction(sqlFid) {
 }
 
 /**
+ * leave faction
+ * @param uid user id
+ * @param fid uuid of faction
+ * @return number
+ *   0 success
+ *   1 no such faction
+ *   2 no other sovereign
+ *   3 failure
+ */
+export async function leaveFaction(uid, fid) {
+  try {
+    const model = await sequelize.query(
+      'CALL LEAVE_FACTION(?, ?)', {
+        replacements: [uid, fid],
+        plain: true,
+        type: QueryTypes.SELECT,
+      },
+    );
+    const ret = model?.[0]?.result;
+    if (ret || ret === 0) {
+      return ret;
+    }
+  } catch (error) {
+    console.error('SQL Error on leaveFaction:', error.message);
+  }
+  return 3;
+}
+
+/**
  * join user to a faction
  * @param uid user id
  * @param fid uuid of faction

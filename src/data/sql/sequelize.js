@@ -379,6 +379,13 @@ BEGIN
   IF v_fid IS NULL THEN
     SELECT 1 AS result;
     ROLLBACK;
+  ELSEIF NOT EXISTS(
+    SELECT 1 FROM UserFactionRoles ufr
+      INNER JOIN FactionRoles fr ON ufr.frid = fr.id
+    WHERE fr.fid = v_fid AND ufr.uid != p_uid AND fr.factionlvl >= ${FACTIONLVL.SOVEREIGN}
+  ) THEN
+    SELECT 2 AS result;
+    ROLLBACK;
   ELSE
     DELETE uc FROM UserChannels uc
       INNER JOIN Factions f ON f.cid = uc.cid
