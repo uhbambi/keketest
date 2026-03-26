@@ -87,8 +87,9 @@ const User = sequelize.define('User', {
  * starts with pp_.
  * NOTE: This trigger doesn't like bulk inserts!
  */
-User.afterSync(() => sequelize.query(
-  `CREATE TRIGGER IF NOT EXISTS set_username
+User.afterSync(async () => {
+  await sequelize.query(
+    `CREATE TRIGGER IF NOT EXISTS set_username
 BEFORE INSERT ON Users FOR EACH ROW
 BEGIN
   IF NEW.username IS NULL OR NEW.username = '=' THEN
@@ -99,8 +100,19 @@ BEGIN
   ELSE
     SET NEW.username = REGEXP_REPLACE(NEW.username, '[^a-zA-Z0-9._-]', '');
   END IF;
-END`,
-));
+END`);
+  await sequelize.query(
+    `CREATE TRIGGER IF NOT EXISTS before_user_delete
+BEFORE DELETE ON Users FOR EACH ROW
+BEGIN
+  UPDATE FactionRoles
+    INNER JOIN UserFactionRoles ufr ON ufr.frid = FactionRoles.id
+  SET memberCount = memberCount - 1 WHERE ufr.uid = OLD.id;
+  UPDATE Factions
+    INNER JOIN UserFactions uf ON uf.fid = Factions.id
+  SET memberCount = memberCount - 1 WHERE uf.uid = OLD.id;
+END`);
+});
 
 /**
  * update lastSeen timestamps of User

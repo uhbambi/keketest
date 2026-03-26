@@ -304,17 +304,17 @@ BEGIN
     );
     SELECT LAST_INSERT_ID() INTO v_cid;
     INSERT INTO Factions (
-      uuid, name, title, description, avatar, flags, createdAt, cid
+      uuid, name, title, description, avatar, flags, memberCount, createdAt, cid
     ) VALUES (
-      UUID_TO_BIN(p_faction_uuid), p_name, p_title, p_description, v_mid, p_flags, NOW(), v_cid
+      UUID_TO_BIN(p_faction_uuid), p_name, p_title, p_description, v_mid, p_flags, 1, NOW(), v_cid
     );
     SELECT LAST_INSERT_ID() INTO v_fid;
     INSERT INTO FactionRoles (
-      uuid, fid, name, factionlvl
+      uuid, fid, name, memberCount, factionlvl
     ) VALUES (
-      UUID_TO_BIN(p_sovereign_uuid), v_fid, 'Sovereign', ${FACTIONLVL.SOVEREIGN}
+      UUID_TO_BIN(p_sovereign_uuid), v_fid, 'Sovereign', 1, ${FACTIONLVL.SOVEREIGN}
     ), (
-      UUID_TO_BIN(p_peasant_uuid), v_fid, 'Peasant', ${FACTIONLVL.PEASANT}
+      UUID_TO_BIN(p_peasant_uuid), v_fid, 'Peasant', 0, ${FACTIONLVL.PEASANT}
     );
     INSERT INTO UserFactions (uid, fid, joined) VALUES (p_uid, v_fid, NOW());
     INSERT INTO UserFactionRoles (uid, frid)
@@ -390,6 +390,12 @@ BEGIN
       SELECT p_uid, f.defaultRole FROM Factions f WHERE f.id = p_fid AND f.defaultRole IS NOT NULL;
     INSERT INTO UserChannels (uid, cid, lastRead)
       SELECT p_uid, f.cid, NOW() FROM Factions f WHERE f.id = p_fid AND f.cid IS NOT NULL;
+
+    UPDATE FactionRoles
+      INNER JOIN UserFactionRoles ufr ON ufr.frid = FactionRoles.id
+    SET memberCount = memberCount + 1 WHERE ufr.uid = p_uid AND FactionRoles.fid = p_fid;
+    UPDATE Factions SET memberCount = memberCount + 1 WHERE id = p_fid;
+
     COMMIT;
     SELECT 0 AS result;
   END IF;
@@ -426,6 +432,11 @@ BEGIN
     SELECT 2 AS result;
     ROLLBACK;
   ELSE
+    UPDATE FactionRoles
+      INNER JOIN UserFactionRoles ufr ON ufr.frid = FactionRoles.id
+    SET memberCount = memberCount - 1 WHERE ufr.uid = p_uid AND FactionRoles.fid = v_fid;
+    UPDATE Factions SET memberCount = memberCount - 1 WHERE id = v_fid;
+
     DELETE uc FROM UserChannels uc
       INNER JOIN Factions f ON f.cid = uc.cid
     WHERE uc.uid = p_uid AND f.id = v_fid;
@@ -433,6 +444,7 @@ BEGIN
       INNER JOIN FactionRoles fr ON fr.id = ufr.frid
     WHERE ufr.uid = p_uid  AND fr.fid = v_fid;
     DELETE FROM UserFactions WHERE uid = p_uid AND fid = v_fid;
+
     COMMIT;
     SELECT 0 AS result;
   END IF;

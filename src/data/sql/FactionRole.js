@@ -117,7 +117,7 @@ export async function setFactionRoleFlag(sqlFrid, mediaId = null) {
     }
     await sequelize.query(
       // eslint-disable-next-line max-len
-      'UPDATE FactionRoles fr INNER JOIN Media m on m.shortId = ? AND m.extension = ? SET fr.customFlag = m.id WHERE fr.id = ?', {
+      'UPDATE FactionRoles INNER JOIN Media m on m.shortId = ? AND m.extension = ? SET customFlag = m.id WHERE FactionRoles.id = ?', {
         replacements: [shortId, extension, sqlFrid],
         raw: true,
         type: QueryTypes.UPDATE,

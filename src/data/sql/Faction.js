@@ -401,7 +401,7 @@ export async function setFactionAvatar(sqlFid, mediaId = null) {
     }
     await sequelize.query(
       // eslint-disable-next-line max-len
-      'UPDATE Factions f INNER JOIN Media m on m.shortId = ? AND m.extension = ? SET f.avatar = m.id WHERE f.id = ?', {
+      'UPDATE Factions INNER JOIN Media m on m.shortId = ? AND m.extension = ? SET avatar = m.id WHERE Factions.id = ?', {
         replacements: [shortId, extension, sqlFid],
         raw: true,
         type: QueryTypes.UPDATE,
