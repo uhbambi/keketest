@@ -69,7 +69,7 @@ const Faction = sequelize.define('Faction', {
 
   memberCount: {
     type: DataTypes.INTEGER.UNSIGNED,
-    defaultValue: 1,
+    defaultValue: 0,
   },
 
   /*
@@ -434,18 +434,14 @@ export async function createFaction(
   }
 
   try {
-    const [shortId, extension] = avatarId.split(':');
-    if (!shortId || !extension) {
-      return [1, null];
-    }
     const fid = bufferToUUID(generateUUID());
     const sovereignFrid = bufferToUUID(generateUUID());
     const peasantFrid = bufferToUUID(generateUUID());
 
     const model = await sequelize.query(
-      'CALL CREATE_FACTION(?, ?, ?)', {
+      'CALL CREATE_FACTION(?, ?, ?, ?, ?, ?, ?, ?, ?)', {
         replacements: [
-          uid, name, title, description, flags, shortId, extension,
+          uid, name, title, description, flags, avatarId,
           fid, sovereignFrid, peasantFrid,
         ],
         plain: true,
@@ -527,8 +523,9 @@ export async function leaveFaction(uid, fid) {
  *   1 no such faction
  *   2 banned
  *   3 already joined
- *   4 faction not public
- *   5 failure
+ *   4 faction full
+ *   5 faction not public
+ *   6 failure
  */
 export async function joinFactionPublic(uid, ipString, fid) {
   try {
@@ -546,7 +543,7 @@ export async function joinFactionPublic(uid, ipString, fid) {
   } catch (error) {
     console.error('SQL Error on joinFaction:', error.message);
   }
-  return 5;
+  return 6;
 }
 
 /**

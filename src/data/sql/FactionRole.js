@@ -6,6 +6,7 @@
 import { DataTypes, QueryTypes } from 'sequelize';
 
 import sequelize from './sequelize.js';
+import { generateUUID, bufferToUUID } from '../../utils/hash.js';
 import { FACTIONLVL } from '../../core/constants.js';
 
 const FactionRole = sequelize.define('FactionRole', {
@@ -144,6 +145,41 @@ export async function setFactionRoleProperty(sqlFrid, property, value) {
     console.error(`SQL Error on setFactionRoleProperty: ${error.message}`);
   }
   return false;
+}
+
+
+/**
+ * create a new faction role
+ * @param fid uuid of faction
+ * @return [number, frid]
+ *   0 success
+ *   1 faction doesn't exist
+ *   2 customFlagId invalid
+ *   3 failure
+ */
+export async function createFactionRole(
+  fid, name, factionlvl, customFlagId,
+) {
+  try {
+    const frid = bufferToUUID(generateUUID());
+
+    const model = await sequelize.query(
+      'CALL CREATE_FACTION_ROLE(?, ?, ?, ?, ?)', {
+        replacements: [
+          fid, frid, name, factionlvl, customFlagId,
+        ],
+        plain: true,
+        type: QueryTypes.SELECT,
+      },
+    );
+    const ret = model?.[0]?.result;
+    if (ret || ret === 0) {
+      return [ret, ret === 0 ? fid : null];
+    }
+  } catch (error) {
+    console.error('SQL Error on createFactionRole:', error.message);
+  }
+  return [3, null];
 }
 
 export default FactionRole;

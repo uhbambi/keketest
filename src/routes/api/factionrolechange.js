@@ -5,7 +5,9 @@
 import logger from '../../core/logger.js';
 import socketEvents from '../../socket/socketEvents.js';
 import { validateFactionName } from '../../utils/validation.js';
-import { getFactionLvlOfUser } from '../../data/sql/Faction.js';
+import {
+  getFactionLvlOfUser, getAllMembersOfFaction,
+} from '../../data/sql/Faction.js';
 import {
   getFactionRole, setFactionRoleFlag, setFactionRoleProperty,
 } from '../../data/sql/FactionRole.js';
@@ -27,12 +29,15 @@ export default async function factionrolechange(req, res) {
     throw new Error('This faction or faction role does not exist');
   }
 
-  const { sqlFid, powerlvl } = await getFactionLvlOfUser(user.id, frid);
+  const { sqlFid, powerlvl } = await getFactionLvlOfUser(user.id, fid);
   if (!sqlFid) {
     throw new Error('This faction does not exist or you are not a member');
   }
   if (!powerlvl || powerlvl < FACTIONLVL.MAGISTRATE) {
     throw new Error('Insufficient permissions on this faction');
+  }
+  if (cFactionlvl > powerlvl) {
+    throw new Error(t`Can not change a role above your own`);
   }
 
   let { name } = factionRoleData;
@@ -51,14 +56,9 @@ export default async function factionrolechange(req, res) {
         t`Can not change the powerlevel of a role equal or above you`,
       );
     }
-    if (factionlvl > powerlvl) {
+    if (factionlvl >= powerlvl) {
       throw new Error(
-        t`Can not elevate the powerlevel of a role beyond yours`,
-      );
-    }
-    if (factionlvl >= FACTIONLVL.SOVEREIGN) {
-      throw new Error(
-        t`Can not elevate the powerlevel of a role to Sovereign.`,
+        t`Can not elevate the powerlevel of a role to yours or beyond`,
       );
     }
     if (factionlvl > 127 || factionlvl < -128) {
@@ -116,15 +116,18 @@ export default async function factionrolechange(req, res) {
     throw new Error('You did not define anything to change');
   }
 
-  const changedKeys = Object.keys(factionRoleChanges);
-  for (let i = 0; i < changedKeys.length; i += 1) {
-    const key = changedKeys[i];
-    const value = factionRoleChanges[key];
-    socketEvents.patchUserState(user.id, 'profile', {
-      op: 'setex',
-      path: `factions[fid:${fid}].roles[frid:${frid}].${key}`,
-      value,
-    });
+  const affectedUserIds = await getAllMembersOfFaction(sqlFid);
+  if (affectedUserIds.length) {
+    const changedKeys = Object.keys(factionRoleChanges);
+    for (let i = 0; i < changedKeys.length; i += 1) {
+      const key = changedKeys[i];
+      const value = factionRoleChanges[key];
+      socketEvents.patchUserState(user.id, 'profile', {
+        op: 'setex',
+        path: `factions[fid:${fid}].roles[frid:${frid}].${key}`,
+        value,
+      });
+    }
   }
 
   res.json({

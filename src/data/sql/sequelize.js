@@ -266,16 +266,15 @@ BEGIN
   SELECT LAST_INSERT_ID() AS id;
 END`,
     CREATE_FACTION: `CREATE PROCEDURE IF NOT EXISTS CREATE_FACTION(
-      IN p_uid INT UNSIGNED,
-      IN p_name VARCHAR(32) CHARACTER SET ascii COLLATE ascii_general_ci,
-      IN p_title VARCHAR(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
-      IN p_description VARCHAR(1000) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
-      IN p_flags TINYINT UNSIGNED,
-      IN p_avatar_shortId VARCHAR(16),
-      IN p_avatar_extension VARCHAR(12),
-      IN p_faction_uuid CHAR(36),
-      IN p_sovereign_uuid CHAR(36),
-      IN p_peasant_uuid CHAR(36)
+  IN p_uid INT UNSIGNED,
+  IN p_name VARCHAR(32) CHARACTER SET ascii COLLATE ascii_general_ci,
+  IN p_title VARCHAR(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
+  IN p_description VARCHAR(1000) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
+  IN p_flags TINYINT UNSIGNED,
+  IN p_avatar_id VARCHAR(29),
+  IN p_faction_uuid CHAR(36),
+  IN p_sovereign_uuid CHAR(36),
+  IN p_peasant_uuid CHAR(36)
 ) NOT DETERMINISTIC MODIFIES SQL DATA
 BEGIN
   DECLARE v_mid BIGINT UNSIGNED;
@@ -283,8 +282,12 @@ BEGIN
   DECLARE v_fid BIGINT UNSIGNED;
   START TRANSACTION;
 
-  SELECT MAX(id) INTO v_mid FROM Media m
-    WHERE m.shortId = p_avatar_shortId AND m.extension = p_avatar_extension AND m.type = 'image';
+
+  SELECT MAX(id) INTO v_mid  FROM Media m
+    WHERE LOCATE(':', p_avatar_id) > 0
+      AND m.type = 'image'
+      AND m.shortId = SUBSTRING_INDEX(p_avatar_id, ':', 1)
+      AND m.extension = SUBSTRING_INDEX(p_avatar_id, ':', -1);
   IF v_mid IS NULL THEN
     SELECT 1 AS result;
     ROLLBACK;
@@ -301,9 +304,9 @@ BEGIN
     );
     SELECT LAST_INSERT_ID() INTO v_cid;
     INSERT INTO Factions (
-      uuid, name, title, description, avatar, flags, memberCount, createdAt, cid
+      uuid, name, title, description, avatar, flags, createdAt, cid
     ) VALUES (
-      UUID_TO_BIN(p_faction_uuid), p_name, p_title, p_description, v_mid, p_flags, 1, NOW(), v_cid
+      UUID_TO_BIN(p_faction_uuid), p_name, p_title, p_description, v_mid, p_flags, NOW(), v_cid
     );
     SELECT LAST_INSERT_ID() INTO v_fid;
     INSERT INTO FactionRoles (
@@ -322,6 +325,38 @@ BEGIN
     INSERT INTO UserChannels (uid, cid, lastRead) VALUES (p_uid, v_cid, NOW());
     COMMIT;
     SELECT 0 AS result;
+  END IF;
+END`,
+    CREATE_FACTION_ROLE: `CREATE PROCEDURE IF NOT EXISTS CREATE_FACTION_ROLE(
+  IN p_faction_uuid CHAR(36),
+  IN p_factionrole_uuid CHAR(36),
+  IN p_name VARCHAR(32) CHARACTER SET ascii COLLATE ascii_general_ci,
+  IN p_factionlvl TINYINT SIGNED,
+  IN p_custom_flag_id VARCHAR(29)
+) NOT DETERMINISTIC MODIFIES SQL DATA
+BEGIN
+  DECLARE v_fid BIGINT UNSIGNED;
+  DECLARE v_mid BIGINT UNSIGNED;
+
+  SELECT MAX(id) INTO v_fid FROM Factions WHERE uuid = UUID_TO_BIN(p_faction_uuid);
+  IF v_fid IS NULL THEN
+    SELECT 1 AS result;
+  ELSE
+    SELECT MAX(id) INTO v_mid  FROM Media m
+      WHERE LOCATE(':', p_custom_flag_id) > 0
+        AND m.type = 'image'
+        AND m.shortId = SUBSTRING_INDEX(p_custom_flag_id, ':', 1)
+        AND m.extension = SUBSTRING_INDEX(p_custom_flag_id, ':', -1);
+    IF p_custom_flag_id IS NOT NULL AND v_mid IS NULL THEN
+      SELECT 2 AS result;
+    ELSE
+      INSERT INTO FactionRoles (
+        uuid, fid, customFlag, name, factionlvl
+      ) VALUES (
+        UUID_TO_BIN(p_factionrole_uuid), v_fid, v_mid, p_name, p_factionlvl
+      );
+      SELECT 0 AS result;
+    END IF;
   END IF;
 END`,
     JOIN_FACTION: `CREATE PROCEDURE IF NOT EXISTS JOIN_FACTION(IN p_uid INT UNSIGNED, IN p_ipString VARCHAR(39), IN p_fid BIGINT UNSIGNED) NOT DETERMINISTIC MODIFIES SQL DATA
@@ -344,9 +379,13 @@ BEGIN
   ) THEN
     SELECT 3 AS result;
     ROLLBACK;
+  ELSEIF EXISTS(
+    SELECT 1 FROM Factions WHERE id = p_fid AND memberCount >= 10000
+  ) THEN
+    SELECT 4 AS result;
+    ROLLBACK;
   ELSE
     INSERT INTO UserFactions (uid, fid, joined) VALUES (p_uid, p_fid, NOW());
-    UPDATE Factions SET memberCount = memberCount + 1 WHERE id = p_fid;
     INSERT INTO UserFactionRoles (uid, frid)
       SELECT p_uid, f.defaultRole FROM Factions f WHERE f.id = p_fid AND f.defaultRole IS NOT NULL;
     INSERT INTO UserChannels (uid, cid, lastRead)
@@ -365,7 +404,7 @@ BEGIN
   ELSEIF EXISTS(
     SELECT 1 FROM Factions WHERE id = v_fid AND (flags & ${0x01 << FACTION_FLAGS.PUBLIC}) = 0
   ) THEN
-    SELECT 4 AS result;
+    SELECT 5 AS result;
   ELSE
     CALL JOIN_FACTION(p_uid, p_ipString, v_fid);
   END IF;
@@ -394,7 +433,6 @@ BEGIN
       INNER JOIN FactionRoles fr ON fr.id = ufr.frid
     WHERE ufr.uid = p_uid  AND fr.fid = v_fid;
     DELETE FROM UserFactions WHERE uid = p_uid AND fid = v_fid;
-    UPDATE Factions SET memberCount = memberCount - 1 WHERE id = v_fid;
     COMMIT;
     SELECT 0 AS result;
   END IF;

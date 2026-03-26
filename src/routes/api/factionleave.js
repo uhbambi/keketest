@@ -24,7 +24,7 @@ export default async function factionleave(req, res) {
       throw new Error(t`This faction does not exist`);
     case 2:
       /* t: when leaving a faction and you are the last owner */
-      throw new Error(t`Can't orphan a faction`);
+      throw new Error(t`Can not orphan a faction`);
     default:
       throw new Error(t`Server Error`);
   }

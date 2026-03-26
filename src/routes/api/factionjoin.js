@@ -27,6 +27,8 @@ export default async function factionjoin(req, res) {
     case 3:
       throw new Error(t`You are already part of this faction`);
     case 4:
+      throw new Error(t`This faction is full`);
+    case 5:
       throw new Error(t`You need an invite to join this faction`);
     default:
       throw new Error(t`Server Error`);
