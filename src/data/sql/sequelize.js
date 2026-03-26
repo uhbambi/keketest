@@ -391,9 +391,10 @@ BEGIN
     INSERT INTO UserChannels (uid, cid, lastRead)
       SELECT p_uid, f.cid, NOW() FROM Factions f WHERE f.id = p_fid AND f.cid IS NOT NULL;
 
-    UPDATE FactionRoles
-      INNER JOIN UserFactionRoles ufr ON ufr.frid = FactionRoles.id
-    SET memberCount = memberCount + 1 WHERE ufr.uid = p_uid AND FactionRoles.fid = p_fid;
+    UPDATE FactionRoles SET memberCount = memberCount + 1
+    WHERE EXISTS (
+      SELECT 1 FROM UserFactionRoles ufr WHERE ufr.frid = FactionRoles.id AND ufr.uid = p_uid
+    ) AND fid = p_fid;
     UPDATE Factions SET memberCount = memberCount + 1 WHERE id = p_fid;
 
     COMMIT;
@@ -432,9 +433,10 @@ BEGIN
     SELECT 2 AS result;
     ROLLBACK;
   ELSE
-    UPDATE FactionRoles
-      INNER JOIN UserFactionRoles ufr ON ufr.frid = FactionRoles.id
-    SET memberCount = memberCount - 1 WHERE ufr.uid = p_uid AND FactionRoles.fid = v_fid;
+    UPDATE FactionRoles SET memberCount = memberCount - 1
+    WHERE EXISTS (
+      SELECT 1 FROM UserFactionRoles ufr WHERE ufr.frid = FactionRoles.id AND ufr.uid = p_uid
+    ) AND fid = v_fid;
     UPDATE Factions SET memberCount = memberCount - 1 WHERE id = v_fid;
 
     DELETE uc FROM UserChannels uc

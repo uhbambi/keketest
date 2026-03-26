@@ -105,12 +105,17 @@ END`);
     `CREATE TRIGGER IF NOT EXISTS before_user_delete
 BEFORE DELETE ON Users FOR EACH ROW
 BEGIN
-  UPDATE FactionRoles
-    INNER JOIN UserFactionRoles ufr ON ufr.frid = FactionRoles.id
-  SET memberCount = memberCount - 1 WHERE ufr.uid = OLD.id;
-  UPDATE Factions
-    INNER JOIN UserFactions uf ON uf.fid = Factions.id
-  SET memberCount = memberCount - 1 WHERE uf.uid = OLD.id;
+  UPDATE FactionRoles SET memberCount = memberCount - 1
+  WHERE EXISTS (
+      SELECT 1 FROM UserFactionRoles ufr
+      WHERE ufr.frid = FactionRoles.id AND ufr.uid = OLD.id
+  );
+
+  UPDATE Factions SET memberCount = memberCount - 1
+  WHERE EXISTS (
+    SELECT 1 FROM UserFactions uf
+    WHERE uf.fid = Factions.id AND uf.uid = OLD.id
+  );
 END`);
 });
 
