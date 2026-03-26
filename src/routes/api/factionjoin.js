@@ -3,7 +3,7 @@
  */
 import logger from '../../core/logger.js';
 import socketEvents from '../../socket/socketEvents.js';
-import { getFactionInfo, joinFaction } from '../../data/sql/Faction.js';
+import { getFactionInfo, joinFactionPublic } from '../../data/sql/Faction.js';
 
 export default async function factionjoin(req, res) {
   req.tickRateLimiter(7000);
@@ -13,24 +13,26 @@ export default async function factionjoin(req, res) {
     throw new Error('No faction given');
   }
 
-  const factionInfo = await getFactionInfo(fid);
-  if (!factionInfo) {
-    throw new Error('Could not find faction');
-  }
-  if (!factionInfo.isPublic) {
-    throw new Error('You need an invite to join this faction');
-  }
-
-  const ret = await joinFaction(user.id, ipString, factionInfo.sqlFid);
-  switch (ret) {
+  const [joinRet, factionInfo] = await Promise.all([
+    joinFactionPublic(user.id, ipString, fid),
+    getFactionInfo(fid),
+  ]);
+  switch (joinRet) {
     case 0:
       break;
     case 1:
-      throw new Error(t`You are banned from this faction`);
+      throw new Error(t`This faction does not exist`);
     case 2:
+      throw new Error(t`You are banned from this faction`);
+    case 3:
       throw new Error(t`You are already part of this faction`);
+    case 4:
+      throw new Error(t`You need an invite to join this faction`);
     default:
       throw new Error(t`Server Error`);
+  }
+  if (!factionInfo) {
+    throw new Error(t`This faction does not exist`);
   }
 
   /*
@@ -44,6 +46,20 @@ export default async function factionjoin(req, res) {
   delete factionInfo.sqlFid;
   delete factionInfo.defaultFrid;
 
+  let chatPatch;
+  if (factionInfo.channelId) {
+    chatPatch = {
+      op: 'push',
+      path: 'channels',
+      value: [
+        getFactionInfo.channelId, factionInfo.name, Date.now(), Date.now(),
+        false, factionInfo.avatarId,
+      ],
+    };
+    socketEvents.patchUserState(user.id, 'chat', chatPatch);
+    delete factionInfo.channelId;
+  }
+
   const profilePatch = {
     op: 'push',
     path: 'factions',
@@ -51,9 +67,10 @@ export default async function factionjoin(req, res) {
   };
   socketEvents.patchUserState(user.id, 'profile', profilePatch);
 
-  logger.info(`User ${user.id} joined faction ${fid}`);
+  logger.info(`User ${user.id} joined faction ${factionInfo.name}`);
   res.json({
     status: 'ok',
     profilePatch,
+    chatPatch,
   });
 }

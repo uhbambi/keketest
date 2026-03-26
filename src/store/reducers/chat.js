@@ -1,3 +1,4 @@
+import patchState from '../index.js';
 import { MAX_CHAT_MESSAGES, CHANNEL_TYPES } from '../../core/constants.js';
 
 function getChannelIndexAndType(state, cid) {
@@ -53,6 +54,13 @@ export default function chat(
         channels: action.channels,
         blocked: action.blocked,
       };
+    }
+
+    case 's/PATCH_STATE': {
+      if (action.state === 'chat') {
+        return patchState(state, action.patch)[0];
+      }
+      return state;
     }
 
     case 's/LOGOUT': {

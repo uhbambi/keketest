@@ -7,6 +7,9 @@
 import Sequelize from 'sequelize';
 
 import {
+  FACTION_FLAGS, CHANNEL_TYPES, FACTIONLVL,
+} from '../../core/constants.js';
+import {
   MYSQL_HOST, MYSQL_DATABASE, MYSQL_USER, MYSQL_PW, LOG_MYSQL,
 } from '../../core/config.js';
 
@@ -262,29 +265,132 @@ BEGIN
   INSERT INTO Fishes (uid, type, size, createdAt) VALUES (p_uid, p_type, p_size, NOW());
   SELECT LAST_INSERT_ID() AS id;
 END`,
+    CREATE_FACTION: `CREATE PROCEDURE IF NOT EXISTS CREATE_FACTION(
+      IN p_uid INT UNSIGNED,
+      IN p_name VARCHAR(32) CHARACTER SET ascii COLLATE ascii_general_ci,
+      IN p_title VARCHAR(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
+      IN p_description VARCHAR(1000) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
+      IN p_flags TINYINT UNSIGNED,
+      IN p_avatar_shortId VARCHAR(16),
+      IN p_avatar_extension VARCHAR(12),
+      IN p_faction_uuid CHAR(36),
+      IN p_sovereign_uuid CHAR(36),
+      IN p_peasant_uuid CHAR(36)
+) NOT DETERMINISTIC MODIFIES SQL DATA
+BEGIN
+  DECLARE v_mid BIGINT UNSIGNED;
+  DECLARE v_cid INT UNSIGNED;
+  DECLARE v_fid BIGINT UNSIGNED;
+  START TRANSACTION;
+
+  SELECT MAX(id) INTO v_mid FROM Media m
+    WHERE m.shortId = p_avatar_shortId AND m.extension = p_avatar_extension AND m.type = 'image';
+  IF v_mid IS NULL THEN
+    SELECT 1 AS result;
+    ROLLBACK;
+  ELSEIF EXISTS(
+    SELECT 1 FROM Factions WHERE name = p_name
+  ) THEN
+    SELECT 2 AS result;
+    ROLLBACK;
+  ELSE
+    INSERT INTO Channels (
+      name, type, lastMessage, createdAt
+    ) VALUES (
+      p_name, ${CHANNEL_TYPES.FACTION}, NOW(), NOW()
+    );
+    SELECT LAST_INSERT_ID() INTO v_cid;
+    INSERT INTO Factions (
+      uuid, name, title, description, avatar, flags, memberCount, createdAt, cid
+    ) VALUES (
+      UUID_TO_BIN(p_faction_uuid), p_name, p_title, p_description, v_mid, p_flags, 1, NOW(), v_cid
+    );
+    SELECT LAST_INSERT_ID() INTO v_fid;
+    INSERT INTO FactionRoles (
+      uuid, fid, name, factionlvl
+    ) VALUES (
+      UUID_TO_BIN(p_sovereign_uuid), v_fid, 'Sovereign', ${FACTIONLVL.SOVEREIGN}
+    ), (
+      UUID_TO_BIN(p_peasant_uuid), v_fid, 'Peasant', ${FACTIONLVL.PEASANT}
+    );
+    INSERT INTO UserFactions (uid, fid, joined) VALUES (p_uid, v_fid, NOW());
+    INSERT INTO UserFactionRoles (uid, frid)
+      SELECT p_uid, fr.id FROM FactionRoles fr WHERE fr.uuid = UUID_TO_BIN(p_sovereign_uuid);
+    UPDATE Factions SET defaultRole = (
+      SELECT fr.id FROM FactionRoles fr WHERE fr.uuid = UUID_TO_BIN(p_peasant_uuid)
+    ) WHERE id = v_fid;
+    INSERT INTO UserChannels (uid, cid, lastRead) VALUES (p_uid, v_cid, NOW());
+    COMMIT;
+    SELECT 0 AS result;
+  END IF;
+END`,
     JOIN_FACTION: `CREATE PROCEDURE IF NOT EXISTS JOIN_FACTION(IN p_uid INT UNSIGNED, IN p_ipString VARCHAR(39), IN p_fid BIGINT UNSIGNED) NOT DETERMINISTIC MODIFIES SQL DATA
 BEGIN
-  DECLARE i_return INT DEFAULT 0;
-  DECLARE i_ip VARBINARY(8);
-  SET i_ip = IP_TO_BIN(p_ipString);
+  DECLARE v_ip VARBINARY(8);
+  SET v_ip = IP_TO_BIN(p_ipString);
+  START TRANSACTION;
 
-  SELECT 1 INTO i_return FROM FactionBans fb
-    LEFT JOIN UserFactionBans ufb ON ufb.bid = fb.id AND ufb.uid = p_uid
-    LEFT JOIN IPFactionBans ifb ON ifb.bid = fb.id AND ifb.ip = i_ip
-  WHERE fb.fid = p_fid AND (fb.expires > NOW() OR fb.expires IS NULL) AND (ufb.uid IS NOT NULL OR ifb.ip IS NOT NULL)
-  LIMIT 1;
-
-  if i_return = 0 THEN
-    SELECT 2 INTO i_return FROM UserFactions WHERE uid = p_uid AND fid = p_fid;
-  END IF:
-
-  IF i_return = 0 THEN
-    INSERT INTO UserFactions (uid, fid) VALUES (p_uid, p_fid);
+  IF EXISTS(
+    SELECT 1 FROM FactionBans fb
+      LEFT JOIN UserFactionBans ufb ON ufb.bid = fb.id AND ufb.uid = p_uid
+      LEFT JOIN IPFactionBans ifb ON ifb.bid = fb.id AND ifb.ip = v_ip
+    WHERE fb.fid = p_fid AND (fb.expires > NOW() OR fb.expires IS NULL) AND (ufb.uid IS NOT NULL OR ifb.ip IS NOT NULL)
+    LIMIT 1
+  ) THEN
+    SELECT 2 AS result;
+    ROLLBACK;
+  ELSEIF EXISTS(
+    SELECT 1 FROM UserFactions WHERE uid = p_uid AND fid = p_fid
+  ) THEN
+    SELECT 3 AS result;
+    ROLLBACK;
+  ELSE
+    INSERT INTO UserFactions (uid, fid, joined) VALUES (p_uid, p_fid, NOW());
+    UPDATE Factions SET memberCount = memberCount + 1 WHERE id = p_fid;
     INSERT INTO UserFactionRoles (uid, frid)
       SELECT p_uid, f.defaultRole FROM Factions f WHERE f.id = p_fid AND f.defaultRole IS NOT NULL;
-  END IF:
+    INSERT INTO UserChannels (uid, cid, lastRead)
+      SELECT p_uid, f.cid, NOW() FROM Factions f WHERE f.id = p_fid AND f.cid IS NOT NULL;
+    COMMIT;
+    SELECT 0 AS result;
+  END IF;
+END`,
+    JOIN_FACTION_PUBLIC: `CREATE PROCEDURE IF NOT EXISTS JOIN_FACTION_PUBLIC(IN p_uid INT UNSIGNED, IN p_ipString VARCHAR(39), IN p_faction_uuid CHAR(36)) NOT DETERMINISTIC MODIFIES SQL DATA
+BEGIN
+  DECLARE v_fid BIGINT UNSIGNED;
 
-  SELECT i_return AS \`return\`;
+  SELECT MAX(id) INTO v_fid FROM Factions WHERE uuid = UUID_TO_BIN(p_faction_uuid);
+  IF v_fid IS NULL THEN
+    SELECT 1 AS result;
+  ELSEIF EXISTS(
+    SELECT 1 FROM Factions WHERE id = v_fid AND (flags & ${0x01 << FACTION_FLAGS.PUBLIC}) = 0
+  ) THEN
+    SELECT 4 AS result;
+  ELSE
+    CALL JOIN_FACTION(p_uid, p_ipString, v_fid);
+  END IF;
+END`,
+    LEAVE_FACTION: `CREATE PROCEDURE IF NOT EXISTS LEAVE_FACTION(IN p_uid INT UNSIGNED, IN p_faction_uuid CHAR(36)) NOT DETERMINISTIC MODIFIES SQL DATA
+BEGIN
+  DECLARE v_fid BIGINT UNSIGNED;
+  START TRANSACTION;
+
+  SELECT MAX(id) INTO v_fid FROM Factions WHERE uuid = UUID_TO_BIN(p_faction_uuid);
+  IF v_fid IS NULL THEN
+    SELECT 1 AS result;
+    ROLLBACK;
+  ELSE
+    DELETE uc FROM UserChannels uc
+      INNER JOIN Factions f ON f.cid = uc.cid
+    WHERE uc.uid = p_uid AND f.id = v_fid;
+    DELETE ufr FROM UserFactionRoles ufr
+      INNER JOIN FactionRoles fr ON fr.id = ufr.frid
+    WHERE ufr.uid = p_uid  AND fr.fid = v_fid;
+    DELETE FROM UserFactions WHERE uid = p_uid AND fid = v_fid;
+    UPDATE Factions SET memberCount = memberCount - 1 WHERE id = v_fid;
+    COMMIT;
+    SELECT 0 AS result;
+  END IF;
 END`,
     GET_CLOSE_IMAGE: `CREATE PROCEDURE IF NOT EXISTS GET_CLOSE_IMAGE(IN p_pHash CHAR(16)) READS SQL DATA
 BEGIN
@@ -299,18 +405,6 @@ BEGIN
   DECLARE i_pHash BIGINT UNSIGNED;
   SET i_pHash = CONV(p_pHash, 16, 10);
   SELECT BIN_TO_UUID(uuid) AS mbid, LOWER(HEX(hash)) AS hash, reason FROM MediaBans WHERE BIT_COUNT(pHash ^ i_pHash) < 9 LIMIT 1;
-END`,
-    GET_USER_ALLOWANCE: `CREATE PROCEDURE IF NOT EXISTS GET_USER_ALLOWANCE(uid INTEGER UNSIGNED) READS SQL DATA
-BEGIN
-  SELECT
-    (SELECT bid FROM UserBans ub WHERE ub.uid = uid LIMIT 1) AS userBanId,
-    (SELECT tb.bid FROM Users u INNER JOIN ThreePIDs t ON t.uid = u.id INNER JOIN ThreePIDBans tb ON tb.tid = t.id WHERE u.id = uid LIMIT 1) AS tpidBanId;
-END`,
-    WHOIS_REFERRAL_OF_IP: `CREATE PROCEDURE IF NOT EXISTS WHOIS_REFERRAL_OF_IP(ip VARCHAR(39)) READS SQL DATA
-BEGIN
-  DECLARE binIp VARBINARY(8);
-  SET binIp = IP_TO_BIN(ip);
-  SELECT host FROM WhoisReferrals WHERE min <= binIp AND max >= binIp AND LENGTH(binIP) = LENGTH(min);
 END`,
   };
 

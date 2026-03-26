@@ -7,11 +7,10 @@ import {
   validateFactionName, validateFactionTitle, validateDescription,
 } from '../../utils/validation.js';
 import {
-  checkIfFactionExists, getFactionsAmountOfUser, createFaction,
+  getFactionsAmountOfUser, createFaction, getFactionInfo,
 } from '../../data/sql/Faction.js';
-import { getMediaType } from '../../data/sql/Media.js';
 import {
-  MAX_FACTIONS_PER_USER, MAX_OWNED_FACTIONS_PER_USER,
+  MAX_FACTIONS_PER_USER, MAX_OWNED_FACTIONS_PER_USER, FACTIONLVL,
 } from '../../core/constants.js';
 
 export default async function factioncreate(req, res) {
@@ -41,20 +40,6 @@ export default async function factioncreate(req, res) {
   }
 
   if (!errors.length) {
-    const exists = await checkIfFactionExists(name);
-    if (exists) {
-      errors.push(t`Name already in use.`);
-    }
-  }
-
-  if (!errors.length) {
-    const isLegitMedia = await getMediaType(avatarId) === 'image';
-    if (!isLegitMedia) {
-      errors.push(t`Avatar can only be an image`);
-    }
-  }
-
-  if (!errors.length) {
     const [amountTotal, amountOwned] = await getFactionsAmountOfUser(user.id);
     if (amountTotal >= MAX_FACTIONS_PER_USER) {
       errors.push(
@@ -73,17 +58,55 @@ export default async function factioncreate(req, res) {
     res.status(400).json({ errors });
   }
 
-  const model = await createFaction(
+  const [createRet, fid] = await createFaction(
     user.id, name, title, description, isPrivate, isPublic, avatarId,
   );
-  if (!model) {
-    throw new Error('Could not create faction');
+  switch (createRet) {
+    case 0:
+      break;
+    case 1:
+      throw new Error(t`Avatar not given or not an image`);
+    case 2:
+      throw new Error(t`Name already in use.`);
+    default:
+      throw new Error(t`Server Error`);
+  }
+
+  const factionInfo = await getFactionInfo(fid);
+  if (!factionInfo) {
+    /* no reason why this should even happen */
+    throw new Error(t`Server Error`);
+  }
+
+  /*
+   * turn info object into faction object for user profile
+   */
+  factionInfo.isHidden = false;
+  for (let i = 0; i < factionInfo.roles.length; i += 1) {
+    const role = factionInfo.roles[i];
+    role.isMember = role.factionlvl === FACTIONLVL.SOVEREIGN;
+  }
+  delete factionInfo.sqlFid;
+  delete factionInfo.defaultFrid;
+
+  let chatPatch;
+  if (factionInfo.channelId) {
+    chatPatch = {
+      op: 'push',
+      path: 'channels',
+      value: [
+        getFactionInfo.channelId, factionInfo.name, Date.now(), Date.now(),
+        false, factionInfo.avatarId,
+      ],
+    };
+    socketEvents.patchUserState(user.id, 'chat', chatPatch);
+    delete factionInfo.channelId;
   }
 
   const profilePatch = {
     op: 'push',
     path: 'factions',
-    value: model,
+    value: factionInfo,
   };
   socketEvents.patchUserState(user.id, 'profile', profilePatch);
 
@@ -91,5 +114,6 @@ export default async function factioncreate(req, res) {
   res.json({
     status: 'ok',
     profilePatch,
+    chatPatch,
   });
 }
