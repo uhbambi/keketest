@@ -30,17 +30,17 @@ const UserFaction = sequelize.define('UserFaction', {
  */
 UserFaction.afterSync(async () => {
   await sequelize.query(
-    `CREATE TRIGGER after_user_factions_delete
-    AFTER DELETE ON UserFactions FOR EACH ROW
-    BEGIN
+    `CREATE TRIGGER IF NOT EXISTS after_user_factions_delete
+AFTER DELETE ON UserFactions FOR EACH ROW
+BEGIN
     UPDATE Factions SET memberCount = memberCount - 1 WHERE id = OLD.fid;
-    END`);
+END`);
   await sequelize.query(
-    `CREATE TRIGGER after_user_factions_insert
-    AFTER INSERT ON UserFactions FOR EACH ROW
-    BEGIN
+    `CREATE TRIGGER IF NOT EXISTS after_user_factions_insert
+AFTER INSERT ON UserFactions FOR EACH ROW
+BEGIN
     UPDATE Factions SET memberCount = memberCount + 1 WHERE id = NEW.fid;
-    END`);
+END`);
 });
 
 export default UserFaction;

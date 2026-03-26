@@ -69,6 +69,7 @@ const Faction = sequelize.define('Faction', {
 
   memberCount: {
     type: DataTypes.INTEGER.UNSIGNED,
+    allowNull: false,
     defaultValue: 0,
   },
 

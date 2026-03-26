@@ -50,6 +50,12 @@ const FactionRole = sequelize.define('FactionRole', {
     allowNull: false,
     defaultValue: FACTIONLVL.PEASANT,
   },
+
+  memberCount: {
+    type: DataTypes.INTEGER.UNSIGNED,
+    allowNull: false,
+    defaultValue: 0,
+  },
 }, {
   indexes: [{
     name: 'role_fid',
