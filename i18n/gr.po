@@ -203,10 +203,6 @@ msgstr "Κάτι πήγε λάθος με τον κανβας :("
 msgid "Canvas Selection"
 msgstr "Μη έγκυρος καμβάς"
 
-#. This if for moderation tools, it's not important to translate this
-msgid "Canvastools"
-msgstr ""
-
 msgid "Captcha"
 msgstr "Captcha"
 
@@ -715,10 +711,6 @@ msgstr "Ενέργειες IID"
 msgid "IID Actions"
 msgstr "Ενέργειες IID"
 
-#. This if for moderation tools, it's not important to translate this
-msgid "IIDTools"
-msgstr ""
-
 msgid "IP Actions"
 msgstr "Ενέργειες IP"
 
@@ -852,10 +844,6 @@ msgid "Maximize"
 msgstr "Αύξηση ανώτερου βαθμού"
 
 msgid "Media Actions"
-msgstr ""
-
-#. This if for moderation tools, it's not important to translate this
-msgid "Mediatools"
 msgstr ""
 
 msgid "Minimum Color Distance"
@@ -1582,10 +1570,6 @@ msgid "Username must be at least 2 characters long"
 msgstr ""
 
 msgid "Username must be shorter than 26 characters"
-msgstr ""
-
-#. This if for moderation tools, it's not important to translate this
-msgid "Watchtools"
 msgstr ""
 
 #, javascript-format

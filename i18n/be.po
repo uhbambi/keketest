@@ -203,10 +203,6 @@ msgstr "Памылка палатна"
 msgid "Canvas Selection"
 msgstr "Выбар Палатна"
 
-#. This if for moderation tools, it's not important to translate this
-msgid "Canvastools"
-msgstr ""
-
 msgid "Captcha"
 msgstr "Captcha"
 
@@ -713,10 +709,6 @@ msgstr "IID (апцыянальна)"
 msgid "IID Actions"
 msgstr "Дзеянні з IID"
 
-#. This if for moderation tools, it's not important to translate this
-msgid "IIDTools"
-msgstr ""
-
 msgid "IP Actions"
 msgstr "Дзеянні з IP"
 
@@ -840,10 +832,6 @@ msgid "Maximize"
 msgstr "Максімальна Павялічыць"
 
 msgid "Media Actions"
-msgstr ""
-
-#. This if for moderation tools, it's not important to translate this
-msgid "Mediatools"
 msgstr ""
 
 msgid "Minimum Color Distance"
@@ -1566,10 +1554,6 @@ msgid "Username must be at least 2 characters long"
 msgstr ""
 
 msgid "Username must be shorter than 26 characters"
-msgstr ""
-
-#. This if for moderation tools, it's not important to translate this
-msgid "Watchtools"
 msgstr ""
 
 #, javascript-format

@@ -204,10 +204,6 @@ msgstr "Ошибка полотна"
 msgid "Canvas Selection"
 msgstr "Выбор полотна"
 
-#. This if for moderation tools, it's not important to translate this
-msgid "Canvastools"
-msgstr ""
-
 msgid "Captcha"
 msgstr "Капча"
 
@@ -711,10 +707,6 @@ msgstr "IID (необязательно)"
 msgid "IID Actions"
 msgstr "Действия с IID"
 
-#. This if for moderation tools, it's not important to translate this
-msgid "IIDTools"
-msgstr ""
-
 msgid "IP Actions"
 msgstr "Действия с IP"
 
@@ -849,10 +841,6 @@ msgstr "Увеличить"
 
 msgid "Media Actions"
 msgstr "Действия с медиафайлами"
-
-#. This if for moderation tools, it's not important to translate this
-msgid "Mediatools"
-msgstr ""
 
 msgid "Minimum Color Distance"
 msgstr "Минимальное цветовое расстояние"
@@ -1587,10 +1575,6 @@ msgstr "Имя пользователя должно быть не менее д
 
 msgid "Username must be shorter than 26 characters"
 msgstr "Имя пользователя должно быть короче 26 символов"
-
-#. This if for moderation tools, it's not important to translate this
-msgid "Watchtools"
-msgstr ""
 
 #, javascript-format
 msgid "We are Libre Software under the ${ agplLink }, "

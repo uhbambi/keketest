@@ -195,10 +195,6 @@ msgstr "Կտավի Սխալ"
 msgid "Canvas Selection"
 msgstr "Կտավի ընտրություն"
 
-#. This if for moderation tools, it's not important to translate this
-msgid "Canvastools"
-msgstr ""
-
 msgid "Captcha"
 msgstr "Captcha"
 
@@ -697,10 +693,6 @@ msgstr "IID (ըստ ցանկության)"
 msgid "IID Actions"
 msgstr "IID գործողություններ"
 
-#. This if for moderation tools, it's not important to translate this
-msgid "IIDTools"
-msgstr ""
-
 msgid "IP Actions"
 msgstr "IP գործողություններ"
 
@@ -826,10 +818,6 @@ msgid "Maximize"
 msgstr "Առավելագույնի մեծացնել"
 
 msgid "Media Actions"
-msgstr ""
-
-#. This if for moderation tools, it's not important to translate this
-msgid "Mediatools"
 msgstr ""
 
 msgid "Minimum Color Distance"
@@ -1554,10 +1542,6 @@ msgid "Username must be at least 2 characters long"
 msgstr ""
 
 msgid "Username must be shorter than 26 characters"
-msgstr ""
-
-#. This if for moderation tools, it's not important to translate this
-msgid "Watchtools"
 msgstr ""
 
 #, javascript-format

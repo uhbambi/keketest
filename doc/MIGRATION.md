@@ -1,4 +1,4 @@
-# Pixelplaent 2.0
+# Pixelplanet <2.0 to 2.0
 
 The 2.0 release comes with a total revamp of the account system, proxy detection
 and more. Its database layout is not compatible with previous versions.

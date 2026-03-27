@@ -198,10 +198,6 @@ msgstr "Kanvas Fejl"
 msgid "Canvas Selection"
 msgstr "Kanvas Udvælgelse"
 
-#. This if for moderation tools, it's not important to translate this
-msgid "Canvastools"
-msgstr ""
-
 msgid "Captcha"
 msgstr "Captcha"
 
@@ -701,10 +697,6 @@ msgstr "IID (valgfrit)"
 msgid "IID Actions"
 msgstr "IID Handlinger"
 
-#. This if for moderation tools, it's not important to translate this
-msgid "IIDTools"
-msgstr ""
-
 msgid "IP Actions"
 msgstr "IP Handlinger"
 
@@ -836,10 +828,6 @@ msgid "Maximize"
 msgstr "Maximer"
 
 msgid "Media Actions"
-msgstr ""
-
-#. This if for moderation tools, it's not important to translate this
-msgid "Mediatools"
 msgstr ""
 
 msgid "Minimum Color Distance"
@@ -1564,10 +1552,6 @@ msgstr "Brugernavn skal være mindst 2 tegn langt"
 
 msgid "Username must be shorter than 26 characters"
 msgstr "Brugernavn skal være kortere end 26 tegn"
-
-#. This if for moderation tools, it's not important to translate this
-msgid "Watchtools"
-msgstr ""
 
 #, javascript-format
 msgid "We are Libre Software under the ${ agplLink }, "

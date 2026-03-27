@@ -201,10 +201,6 @@ msgstr "Leinwandfehler"
 msgid "Canvas Selection"
 msgstr "Leinwandauswahl"
 
-#. This if for moderation tools, it's not important to translate this
-msgid "Canvastools"
-msgstr ""
-
 msgid "Captcha"
 msgstr "Captcha"
 
@@ -709,10 +705,6 @@ msgstr "IID (optional)"
 msgid "IID Actions"
 msgstr "IID Aktionen"
 
-#. This if for moderation tools, it's not important to translate this
-msgid "IIDTools"
-msgstr ""
-
 msgid "IP Actions"
 msgstr "IP Aktionen"
 
@@ -846,10 +838,6 @@ msgid "Maximize"
 msgstr "Maximieren"
 
 msgid "Media Actions"
-msgstr ""
-
-#. This if for moderation tools, it's not important to translate this
-msgid "Mediatools"
 msgstr ""
 
 msgid "Minimum Color Distance"
@@ -1584,10 +1572,6 @@ msgstr "Benutzername muss mindestens zwei Zeichen lang sein"
 
 msgid "Username must be shorter than 26 characters"
 msgstr "Benutzername muss kürzer als 26 Zeichen sein"
-
-#. This if for moderation tools, it's not important to translate this
-msgid "Watchtools"
-msgstr ""
 
 #, javascript-format
 msgid "We are Libre Software under the ${ agplLink }, "

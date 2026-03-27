@@ -204,10 +204,6 @@ msgstr "Gabim i Kanavacës"
 msgid "Canvas Selection"
 msgstr "Përzgjedhja e Kanavacës"
 
-#. This if for moderation tools, it's not important to translate this
-msgid "Canvastools"
-msgstr ""
-
 msgid "Captcha"
 msgstr "Captcha"
 
@@ -708,10 +704,6 @@ msgstr "IID (opsionale)"
 msgid "IID Actions"
 msgstr "Veprimet IID"
 
-#. This if for moderation tools, it's not important to translate this
-msgid "IIDTools"
-msgstr ""
-
 msgid "IP Actions"
 msgstr "Veprimet IP"
 
@@ -846,10 +838,6 @@ msgstr "Maksimizoni"
 
 msgid "Media Actions"
 msgstr "Veprimet Media"
-
-#. This if for moderation tools, it's not important to translate this
-msgid "Mediatools"
-msgstr ""
 
 msgid "Minimum Color Distance"
 msgstr "Distanca Minimale e Ngjyrave"
@@ -1584,10 +1572,6 @@ msgstr "Emri i përdoruesit duhet të jetë të paktën 2 karaktere i gjatë"
 
 msgid "Username must be shorter than 26 characters"
 msgstr "Emri i përdoruesit duhet të jetë më i shkurtër se 26 karaktere"
-
-#. This if for moderation tools, it's not important to translate this
-msgid "Watchtools"
-msgstr ""
 
 #, javascript-format
 msgid "We are Libre Software under the ${ agplLink }, "

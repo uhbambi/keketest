@@ -205,10 +205,6 @@ msgstr "Kanvasarkivo"
 msgid "Canvas Selection"
 msgstr "Kanvasselekaĵ'"
 
-#. This if for moderation tools, it's not important to translate this
-msgid "Canvastools"
-msgstr ""
-
 msgid "Captcha"
 msgstr ""
 
@@ -715,10 +711,6 @@ msgstr "IID (nedeviga)"
 msgid "IID Actions"
 msgstr "IP Aktoj"
 
-#. This if for moderation tools, it's not important to translate this
-msgid "IIDTools"
-msgstr ""
-
 msgid "IP Actions"
 msgstr "IP Aktoj"
 
@@ -851,10 +843,6 @@ msgid "Maximize"
 msgstr "maksimumigu"
 
 msgid "Media Actions"
-msgstr ""
-
-#. This if for moderation tools, it's not important to translate this
-msgid "Mediatools"
 msgstr ""
 
 msgid "Minimum Color Distance"
@@ -1596,10 +1584,6 @@ msgstr "Uzantnomo devas esti almenaŭ 2 signojn longa"
 
 msgid "Username must be shorter than 26 characters"
 msgstr "Uzantnomo devas esti pli mallonga ol 26 signoj"
-
-#. This if for moderation tools, it's not important to translate this
-msgid "Watchtools"
-msgstr ""
 
 #, javascript-format
 msgid "We are Libre Software under the ${ agplLink }, "

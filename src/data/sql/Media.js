@@ -546,7 +546,9 @@ export async function getTotalUsedSpace() {
         type: QueryTypes.SELECT,
       },
     );
-    return model.sizeMb;
+    if (model) {
+      return Number(model.sizeMb);
+    }
   } catch (error) {
     console.error('SQL Error on getTotalUsedSpace:', error.message);
   }
@@ -589,7 +591,9 @@ export async function getUserUsedSpace(userId, ipString) {
         type: QueryTypes.SELECT,
       },
     );
-    return model.sizeMb;
+    if (model) {
+      return Number(model.sizeMb);
+    }
   } catch (error) {
     console.error('SQL Error on getUserUsedSpace:', error.message);
   }
