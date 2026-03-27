@@ -286,7 +286,7 @@ export async function setFlagOfFaction(uid, fid, index, value) {
  */
 export async function getFactionLvlOfUser(uid, fid) {
   let sqlFid = null;
-  let powerlvl = 0;
+  let powerlvl = -1;
   try {
     const model = await sequelize.query(
       /* eslint-disable max-len */
@@ -550,6 +550,7 @@ export async function joinFactionPublic(uid, ipString, fid) {
  * @param fid uuid of faction
  * @return {
  *   fid,
+ *   sqlFid,
  *   name,
  *   title,
  *   description,
