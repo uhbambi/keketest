@@ -1,5 +1,5 @@
 /*
- * join a faction
+ * leave a faction
  */
 import logger from '../../core/logger.js';
 import socketEvents from '../../socket/socketEvents.js';
@@ -7,17 +7,17 @@ import { getFactionInfo, leaveFaction } from '../../data/sql/Faction.js';
 
 export default async function factionleave(req, res) {
   req.tickRateLimiter(7000);
-  const { ttag: { t }, user, id: { ipString }, body: { fid } } = req;
+  const { ttag: { t }, user, body: { fid } } = req;
 
   if (!fid || typeof fid !== 'string') {
     throw new Error('No faction given');
   }
 
-  const [joinRet, factionInfo] = await Promise.all([
-    leaveFaction(user.id, ipString, fid),
+  const [leaveRet, factionInfo] = await Promise.all([
+    leaveFaction(user.id, fid),
     getFactionInfo(fid),
   ]);
-  switch (joinRet) {
+  switch (leaveRet) {
     case 0:
       break;
     case 1:

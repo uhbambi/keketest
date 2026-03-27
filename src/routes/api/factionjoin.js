@@ -8,7 +8,7 @@ import { MAX_FACTIONS_PER_USER } from '../../core/constants.js';
 
 export default async function factionjoin(req, res) {
   req.tickRateLimiter(7000);
-  const { ttag: { t }, user, id: { ipString }, body: { fid } } = req;
+  const { ttag: { t }, user, ip: { ipString }, body: { fid } } = req;
 
   if (!fid || typeof fid !== 'string') {
     throw new Error('No faction given');

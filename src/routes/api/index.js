@@ -24,6 +24,8 @@ import factionrolecreate from './factionrolecreate.js';
 import factionroledelete from './factionroledelete.js';
 import factionrolejoin from './factionrolejoin.js';
 import factionroleleave from './factionroleleave.js';
+import factionkickban from './factionkickban.js';
+import factionunban from './factionunban.js';
 import modtools from './modtools.js';
 import baninfo from './baninfo.js';
 import getiid from './getiid.js';
@@ -124,6 +126,8 @@ router.post('/factioncreate', factioncreate);
 router.post('/factiondelete', factiondelete);
 router.post('/factionjoin', factionjoin);
 router.post('/factionleave', factionleave);
+router.post('/factionkickban', factionkickban);
+router.post('/factionunban', factionunban);
 
 router.post('/factionrolecreate', factionrolecreate);
 router.post('/factionroledelete', factionroledelete);
