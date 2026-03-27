@@ -16,7 +16,7 @@ import socketEvents from '../socket/socketEvents.js';
 import { sanitizeName, validateEMail } from '../utils/validation.js';
 import {
   getUserByEmail, getUserByTpid, getNameThatIsNotTaken, createNewUser,
-  setUserLvl,
+  setUserProperty,
 } from '../data/sql/User.js';
 import { addOrReplaceTpid } from '../data/sql/ThreePID.js';
 
@@ -349,7 +349,7 @@ router.get('/r/:abbr', parseDevice, async (req, res) => {
   if ((tpidVerified || emailVerified)
     && userData.userlvl === USERLVL.REGISTERED
   ) {
-    promises.push(setUserLvl(userData.id, USERLVL.VERIFIED));
+    promises.push(setUserProperty(userData.id, 'userlvl', USERLVL.VERIFIED));
   }
   await Promise.all(promises);
 

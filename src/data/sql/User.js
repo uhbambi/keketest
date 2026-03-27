@@ -757,47 +757,26 @@ export async function createNewUser(
 }
 
 /**
- * set userlvl
+ * change a property of a user
  * @param id user id
- * @param userlvl user level
- * @return boolean success
+ * @param property
+ * @param value
+ * @return success
  */
-export async function setUserLvl(id, userlvl) {
+export async function setUserProperty(id, property, value) {
   try {
-    await User.update({ userlvl }, { where: { id }, returning: false });
+    await sequelize.query(
+      `UPDATE Users SET ${property} = ? WHERE id = ?`, {
+        replacements: [value, id],
+        raw: true,
+        type: QueryTypes.UPDATE,
+      },
+    );
     return true;
   } catch (error) {
-    console.error(`SQL Error on setUserLvl: ${error.message}`);
+    console.error(`SQL Error on setUserProperty: ${error.message}`);
   }
   return false;
-}
-
-/**
- * set name
- * @param id user id
- * @param name name
- */
-export async function setName(id, name) {
-  try {
-    await User.update({ name }, { where: { id }, returning: false });
-  } catch (error) {
-    return false;
-  }
-  return true;
-}
-
-/**
- * set name
- * @param id user id
- * @param name name
- */
-export async function setUsername(id, username) {
-  try {
-    await User.update({ username }, { where: { id }, returning: false });
-  } catch (error) {
-    return false;
-  }
-  return true;
 }
 
 /**
@@ -805,14 +784,8 @@ export async function setUsername(id, username) {
  * @param id user id
  * @param password password in cleartext (we hash it here)
  */
-export async function setPassword(id, password) {
-  try {
-    await User.update({ password }, { where: { id }, returning: false });
-  } catch (error) {
-    console.error(`SQL Error on setPassword: ${error.message}`);
-    return false;
-  }
-  return true;
+export function setPassword(id, password) {
+  return setUserProperty(id, 'password', generateHash(password));
 }
 
 /**

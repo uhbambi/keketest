@@ -166,7 +166,6 @@ export async function setFactionRoleProperty(sqlFrid, property, value) {
   return false;
 }
 
-
 /**
  * create a new faction role
  * @param fid uuid of faction

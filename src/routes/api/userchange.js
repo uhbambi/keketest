@@ -5,7 +5,7 @@
  */
 import logger from '../../core/logger.js';
 import socketEvents from '../../socket/socketEvents.js';
-import { setFlagOfUser, setUsername, setName } from '../../data/sql/User.js';
+import { setFlagOfUser, setUserProperty } from '../../data/sql/User.js';
 import { resolveSession } from '../../data/sql/Session.js';
 import { validateUsername, validateName } from '../../utils/validation.js';
 import { USER_FLAGS } from '../../core/constants.js';
@@ -73,7 +73,7 @@ export default async function userchange(req, res) {
     }
     userChanges.username = username;
 
-    const success = await setUsername(user.id, username);
+    const success = await setUserProperty(user.id, 'username', username);
     if (!success) {
       throw new Error(t`Username already in use.`);
     }
@@ -97,7 +97,7 @@ export default async function userchange(req, res) {
     }
     userChanges.name = name;
 
-    const success = await setName(user.id, name);
+    const success = await setUserProperty(user.id, 'name', name);
     if (!success) {
       throw new Error(t`Name already in use.`);
     }

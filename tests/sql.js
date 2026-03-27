@@ -4,7 +4,7 @@ import { DailyCron, HourlyCron } from '../src/utils/cron.js';
 import { getIPAllowance, getIPsOfIIDs, getIIDsOfIPs, getIPofIID, getIIDofIP, touchIP } from '../src/data/sql/IP.js';
 import { getBanInfos } from '../src/data/sql/Ban.js';
 import { resolveSession, createSession } from '../src/data/sql/Session.js';
-import { getUsersByNameOrEmail, setPassword, setUserLvl, createNewUser } from '../src/data/sql/User.js';
+import { getUsersByNameOrEmail, setPassword, setUserProperty, createNewUser } from '../src/data/sql/User.js';
 import { setEmail, getTPIDsOfUser } from '../src/data/sql/ThreePID.js';
 import { notifyUserIpChanges, ban } from '../src/core/ban.js';
 import { sanitizeIPString, ipToHex, hexToIP } from '../src/utils/intel/ip.js';
@@ -68,7 +68,7 @@ async function establishUsers() {
   for (const [name, password, email] of newusers) {
     let userdata = await createUserIfNotExists(name, email, password);
     if (name === 'test1') {
-      await setUserLvl(userdata.id, 100);
+      await setUserProperty(userdata.id, 'userlvl', 100);
     }
   };
   console.log('Create Sessions');
