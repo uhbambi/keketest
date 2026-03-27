@@ -9,6 +9,7 @@ import { generateUUID, bufferToUUID } from '../../utils/hash.js';
 import {
   FACTION_FLAGS, USER_FACTION_FLAGS, FACTIONLVL,
   MAX_FACTIONS_PER_USER, MAX_OWNED_FACTIONS_PER_USER,
+  FACTION_ROLE_FLAGS,
 } from '../../core/constants.js';
 
 const Faction = sequelize.define('Faction', {
@@ -22,13 +23,6 @@ const Faction = sequelize.define('Faction', {
     type: 'BINARY(16)',
     allowNull: false,
     unique: 'uuid',
-  },
-
-  /*
-   * id of default faction role that gets assigned to new members
-   */
-  defaultRole: {
-    type: DataTypes.BIGINT.UNSIGNED,
   },
 
   /* [a-zA-Z0-9._-] */
@@ -117,6 +111,8 @@ const Faction = sequelize.define('Faction', {
  *       name,
  *       customFlagId,
  *       factionlvl,
+ *       isProtected,
+ *       isDeault,
  *       isMember,
  *     }, ...],
  *   }, ...],
@@ -140,7 +136,8 @@ uf.flags AS userFactionFlags,
 BIN_TO_UUID(fr.uuid) AS 'roles.frid',
 CONCAT(frm.shortId, ':', frm.extension) AS 'roles.customFlagId',
 EXISTS(SELECT 1 FROM UserFactionRoles ufr WHERE ufr.uid = uf.uid AND ufr.frid = fr.id) AS 'roles.isMember',
-fr.name AS 'roles.name', fr.factionlvl AS 'roles.factionlvl' FROM Factions f
+fr.name AS 'roles.name', fr.flags AS 'roles.flags',
+fr.factionlvl AS 'roles.factionlvl' FROM Factions f
   INNER JOIN UserFactions uf ON uf.fid = f.id
   LEFT JOIN FactionRole fr ON fr.fid = f.id
   LEFT JOIN Media a ON a.id = f.avatar
@@ -188,6 +185,15 @@ WHERE p.uid = ?`, {
           delete model.userFactionFlags;
         }
         delete model.flags;
+
+        for (let u = 0; u < model.roles.length; u += 1) {
+          const role = model.roles[u];
+          // eslint-disable-next-line max-len
+          role.isProtected = (role.flags & (0x01 << FACTION_ROLE_FLAGS.PROTECTED)) !== 0;
+          // eslint-disable-next-line max-len
+          role.isDefault = (role.flags & (0x01 << FACTION_ROLE_FLAGS.DEFAULT)) !== 0;
+          delete role.flags;
+        }
       }
 
       /* filter for public */
@@ -202,7 +208,7 @@ WHERE p.uid = ?`, {
 }
 
 /**
- * set one bit in flags of user
+ * set one bit in flags of user faction
  * @param uid user id
  * @param fid faction uuid (NOT sql id)
  * @param index index of flag
@@ -560,12 +566,13 @@ export async function joinFactionPublic(uid, ipString, fid) {
  *   isPublic,
  *   avatarId,
  *   channelId,
- *   defaultFrid,
  *   roles: [{
  *     frid,
  *     customFlagId,
  *     name,
  *     factionlvl,
+ *     isProtected,
+ *     isDefault,
  *   }, ...]
  * } | null
  */
@@ -576,12 +583,11 @@ export async function getFactionInfo(fid) {
       `SELECT f.id AS sqlFid, f.name, f.ttle, f.description, f.memberCount, f.flags, f.cid AS channelId,
 CONCAT(a.shortId, ':', a.extension) AS avatarId,
 BIN_TO_UUID(fr.uuid) AS 'roles.frid',
-BIN_TO_UUID(drf.uuid) AS 'defaultFrid',
 CONCAT(frm.shortId, ':', frm.extension) AS 'roles.customFlagId',
-fr.name AS 'roles.name', fr.factionlvl AS 'roles.factionlvl' FROM Factions f
+fr.name AS 'roles.name', fr.flags AS 'roles.flags',
+fr.factionlvl AS 'roles.factionlvl' FROM Factions f
   LEFT JOIN Media a ON a.id = f.avatar
   LEFT JOIN FactionRole fr ON fr.fid = f.id
-  LEFT JOIN FactionRole dfr ON drf.id = f.defaultRole,
   LEFT JOIN Media frm ON frm.id = fr.customFlag
 WHERE f.uuid = UUID_TO_BIN(fid)`, {
         replacements: [fid],
@@ -597,6 +603,14 @@ WHERE f.uuid = UUID_TO_BIN(fid)`, {
       model.isPublic = (model.flags & (0x01 << FACTION_FLAGS.PUBLIC)) !== 0;
       delete model.flags;
       model.fid = fid;
+      for (let i = 0; i < model.roles.length; i += 1) {
+        const role = model.roles[i];
+        // eslint-disable-next-line max-len
+        role.isProtected = (role.flags & (0x01 << FACTION_ROLE_FLAGS.PROTECTED)) !== 0;
+        // eslint-disable-next-line max-len
+        role.isDefault = (role.flags & (0x01 << FACTION_ROLE_FLAGS.DEFAULT)) !== 0;
+        delete role.flags;
+      }
       return model;
     }
   } catch (error) {

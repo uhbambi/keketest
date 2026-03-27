@@ -19,8 +19,9 @@ export default async function factionrolecreate(req, res) {
     throw new Error('No faction given');
   }
 
-  let { name } = factionRoleData;
+  let { name, isDefault } = factionRoleData;
   name = name?.toLowerCase();
+  isDefault = !!isDefault;
 
   const { sqlFid, powerlvl } = await getFactionLvlOfUser(user.id, fid);
   if (!sqlFid) {
@@ -51,7 +52,7 @@ export default async function factionrolecreate(req, res) {
   }
 
   const [createRet, frid] = await createFactionRole(
-    fid, name, factionlvl, customFlagId,
+    fid, name, factionlvl, customFlagId, isDefault,
   );
   switch (createRet) {
     case 0:

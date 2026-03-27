@@ -7,7 +7,7 @@
 import Sequelize from 'sequelize';
 
 import {
-  FACTION_FLAGS, CHANNEL_TYPES, FACTIONLVL,
+  FACTION_FLAGS, CHANNEL_TYPES, FACTIONLVL, FACTION_ROLE_FLAGS,
 } from '../../core/constants.js';
 import {
   MYSQL_HOST, MYSQL_DATABASE, MYSQL_USER, MYSQL_PW, LOG_MYSQL,
@@ -310,18 +310,15 @@ BEGIN
     );
     SELECT LAST_INSERT_ID() INTO v_fid;
     INSERT INTO FactionRoles (
-      uuid, fid, name, memberCount, factionlvl
+      uuid, fid, name, memberCount, factionlvl, flags,
     ) VALUES (
-      UUID_TO_BIN(p_sovereign_uuid), v_fid, 'Sovereign', 1, ${FACTIONLVL.SOVEREIGN}
+      UUID_TO_BIN(p_sovereign_uuid), v_fid, 'Sovereign', 1, ${FACTIONLVL.SOVEREIGN}, ${0x01 << FACTION_ROLE_FLAGS.PROTECTED}
     ), (
-      UUID_TO_BIN(p_peasant_uuid), v_fid, 'Peasant', 0, ${FACTIONLVL.PEASANT}
+      UUID_TO_BIN(p_peasant_uuid), v_fid, 'Peasant', 1, ${FACTIONLVL.PEASANT}, ${(0x01 << FACTION_ROLE_FLAGS.DEFAULT) | (0x01 << FACTION_ROLE_FLAGS.PROTECTED)}
     );
     INSERT INTO UserFactions (uid, fid, joined) VALUES (p_uid, v_fid, NOW());
     INSERT INTO UserFactionRoles (uid, frid)
-      SELECT p_uid, fr.id FROM FactionRoles fr WHERE fr.uuid = UUID_TO_BIN(p_sovereign_uuid);
-    UPDATE Factions SET defaultRole = (
-      SELECT fr.id FROM FactionRoles fr WHERE fr.uuid = UUID_TO_BIN(p_peasant_uuid)
-    ) WHERE id = v_fid;
+      SELECT p_uid, fr.id FROM FactionRoles fr WHERE fr.fid = v_fid;
     INSERT INTO UserChannels (uid, cid, lastRead) VALUES (p_uid, v_cid, NOW());
     COMMIT;
     SELECT 0 AS result;
@@ -332,7 +329,8 @@ END`,
   IN p_factionrole_uuid CHAR(36),
   IN p_name VARCHAR(32) CHARACTER SET ascii COLLATE ascii_general_ci,
   IN p_factionlvl TINYINT SIGNED,
-  IN p_custom_flag_id VARCHAR(29)
+  IN p_custom_flag_id VARCHAR(29),
+  IN p_flags TINYINT UNSIGNED
 ) NOT DETERMINISTIC MODIFIES SQL DATA
 BEGIN
   DECLARE v_fid BIGINT UNSIGNED;
@@ -351,9 +349,9 @@ BEGIN
       SELECT 2 AS result;
     ELSE
       INSERT INTO FactionRoles (
-        uuid, fid, customFlag, name, factionlvl
+        uuid, fid, customFlag, name, factionlvl, flags,
       ) VALUES (
-        UUID_TO_BIN(p_factionrole_uuid), v_fid, v_mid, p_name, p_factionlvl
+        UUID_TO_BIN(p_factionrole_uuid), v_fid, v_mid, p_name, p_factionlvl, p_flags,
       );
       SELECT 0 AS result;
     END IF;
@@ -387,7 +385,7 @@ BEGIN
   ELSE
     INSERT INTO UserFactions (uid, fid, joined) VALUES (p_uid, p_fid, NOW());
     INSERT INTO UserFactionRoles (uid, frid)
-      SELECT p_uid, f.defaultRole FROM Factions f WHERE f.id = p_fid AND f.defaultRole IS NOT NULL;
+      SELECT p_uid, fr.id FROM FactionRoles fr WHERE fr.fid = v_fid AND (fr.flags & ${0x01 << FACTION_ROLE_FLAGS.DEFAULT}) != 0;
     INSERT INTO UserChannels (uid, cid, lastRead)
       SELECT p_uid, f.cid, NOW() FROM Factions f WHERE f.id = p_fid AND f.cid IS NOT NULL;
 

@@ -7,7 +7,7 @@ import { DataTypes, QueryTypes } from 'sequelize';
 
 import sequelize from './sequelize.js';
 import { generateUUID, bufferToUUID } from '../../utils/hash.js';
-import { FACTIONLVL } from '../../core/constants.js';
+import { FACTIONLVL, FACTION_ROLE_FLAGS } from '../../core/constants.js';
 
 const FactionRole = sequelize.define('FactionRole', {
   id: {
@@ -43,6 +43,16 @@ const FactionRole = sequelize.define('FactionRole', {
   },
 
   /*
+   * from lowest to highest bit
+   * 0: assign per default
+   */
+  flags: {
+    type: DataTypes.TINYINT.UNSIGNED,
+    allowNull: false,
+    defaultValue: 0,
+  },
+
+  /*
    * what user with role is allowed to do
    */
   factionlvl: {
@@ -73,10 +83,11 @@ export async function getFactionRole(frid) {
   let fid = null;
   let sqlFrid = null;
   let factionlvl = 0;
+  let isProtected = true;
   try {
     const model = await sequelize.query(
       // eslint-disable-next-line max-len
-      `SELECT BIN_TO_UUID(f.uuid) AS fid, fr.id AS sqlFrid, fr.factionlvl FROM FactionRoles fr
+      `SELECT BIN_TO_UUID(f.uuid) AS fid, fr.id AS sqlFrid, fr.flags, fr.factionlvl FROM FactionRoles fr
   INNER JOIN Factions f ON fr.fid = f.id
 WHERE fr.uuid = UUID_TO_BIN(?)`, {
         replacements: [frid],
@@ -86,11 +97,13 @@ WHERE fr.uuid = UUID_TO_BIN(?)`, {
     );
     if (model) {
       ({ fid, sqlFrid, factionlvl } = model);
+      // eslint-disable-next-line max-len
+      isProtected = (model.flags & (0x01 << FACTION_ROLE_FLAGS.PROTECTED)) !== 0;
     }
   } catch (error) {
     console.error(`SQL Error on getFactionRole: ${error.message}`);
   }
-  return { fid, sqlFrid, factionlvl };
+  return { fid, sqlFrid, factionlvl, isProtected };
 }
 
 /**
@@ -164,15 +177,20 @@ export async function setFactionRoleProperty(sqlFrid, property, value) {
  *   3 failure
  */
 export async function createFactionRole(
-  fid, name, factionlvl, customFlagId,
+  fid, name, factionlvl, customFlagId, isDefault,
 ) {
+  let flags = 0;
+  if (isDefault) {
+    flags |= 0x01 << FACTION_ROLE_FLAGS.DEFAULT;
+  }
+
   try {
     const frid = bufferToUUID(generateUUID());
 
     const model = await sequelize.query(
-      'CALL CREATE_FACTION_ROLE(?, ?, ?, ?, ?)', {
+      'CALL CREATE_FACTION_ROLE(?, ?, ?, ?, ?, ?)', {
         replacements: [
-          fid, frid, name, factionlvl, customFlagId,
+          fid, frid, name, factionlvl, customFlagId, flags,
         ],
         plain: true,
         type: QueryTypes.SELECT,
@@ -186,6 +204,63 @@ export async function createFactionRole(
     console.error('SQL Error on createFactionRole:', error.message);
   }
   return [3, null];
+}
+
+/**
+ * set one bit in flags of faction role
+ * @param sqlFrid faction role sql id
+ * @param index index of flag
+ * @param value 0 or 1, true or false
+ * @return success boolean
+ */
+export async function setFlagOfFactionRole(sqlFrid, index, value) {
+  try {
+    const mask = 0x01 << index;
+    /* eslint-disable max-len */
+    if (value) {
+      await sequelize.query(
+        'UPDATE FactionRoles SET flags = flags | ? WHERE id = ?', {
+          replacements: [mask, sqlFrid],
+          raw: true,
+          type: QueryTypes.UPDATE,
+        },
+      );
+    } else {
+      await sequelize.query(
+        'UPDATE FactionRoles SET flags = flags & ~(?) WHERE id = ?', {
+          replacements: [mask, sqlFrid],
+          raw: true,
+          type: QueryTypes.UPDATE,
+        },
+      );
+    }
+    /* eslint-enable max-len */
+    return true;
+  } catch (error) {
+    console.error(`SQL Error on setFlagOfFactionRole: ${error.message}`);
+  }
+  return false;
+}
+
+/**
+ * change a property of a faction role
+ * @param sqlFrid sql id of faction role
+ * @return success
+ */
+export async function deleteFactionRole(sqlFrid) {
+  try {
+    await sequelize.query(
+      'DELETE FROM FactionRoles WHERE id = ?', {
+        replacements: [sqlFrid],
+        raw: true,
+        type: QueryTypes.UPDATE,
+      },
+    );
+    return true;
+  } catch (error) {
+    console.error(`SQL Error on setFactionRoleProperty: ${error.message}`);
+  }
+  return false;
 }
 
 export default FactionRole;

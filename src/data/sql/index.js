@@ -236,10 +236,6 @@ Faction.hasMany(FactionRole, {
   as: 'roles',
   foreignKey: 'fid',
 });
-Faction.belongsTo(FactionRole, {
-  as: 'defaultRole',
-  foreignKey: 'defaultRole',
-});
 FactionInvite.belongsTo(Faction, {
   as: 'faction',
   foreignKey: 'fid',

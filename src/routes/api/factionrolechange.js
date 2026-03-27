@@ -10,20 +10,23 @@ import {
 } from '../../data/sql/Faction.js';
 import {
   getFactionRole, setFactionRoleFlag, setFactionRoleProperty,
+  setFlagOfFactionRole,
 } from '../../data/sql/FactionRole.js';
 import { getMediaDimensions } from '../../data/sql/Media.js';
-import { FACTIONLVL } from '../../core/constants.js';
+import { FACTIONLVL, FACTION_ROLE_FLAGS } from '../../core/constants.js';
 
 export default async function factionrolechange(req, res) {
   req.tickRateLimiter(7000);
   const { ttag: { t, gettext }, user, body: factionRoleData } = req;
-  const { frid, customFlagId, factionlvl } = factionRoleData;
+  const { frid, customFlagId, factionlvl, isDefault } = factionRoleData;
 
   if (!frid || typeof frid !== 'string') {
     throw new Error('No faction role given');
   }
 
-  const { fid, sqlFrid, factionlvl: cFactionlvl } = await getFactionRole(frid);
+  const {
+    fid, sqlFrid, factionlvl: cFactionlvl, isProtected,
+  } = await getFactionRole(frid);
 
   if (!fid || !sqlFrid) {
     throw new Error('This faction or faction role does not exist');
@@ -39,11 +42,31 @@ export default async function factionrolechange(req, res) {
   if (cFactionlvl > powerlvl) {
     throw new Error(t`Can not change a role above your own`);
   }
+  if (powerlvl < FACTIONLVL.SOVEREIGN && cFactionlvl === powerlvl) {
+    throw new Error(t`Can not change a role that is equal to your own`);
+  }
 
   let { name } = factionRoleData;
 
   let changed = false;
   const factionRoleChanges = {};
+
+  if (typeof isDefault === 'boolean') {
+    changed = true;
+    factionRoleChanges.isDefault = isDefault;
+    if (isProtected) {
+      throw new Error(t`Can not change this role`);
+    }
+    const success = await setFlagOfFactionRole(
+      sqlFrid, FACTION_ROLE_FLAGS.DEFAULT, isDefault,
+    );
+    if (!success) {
+      throw new Error('Could not set this faction roles default property');
+    }
+    logger.info(
+      `User ${user.username} changed role ${frid} default to ${isDefault}`,
+    );
+  }
 
   if (typeof factionlvl === 'number') {
     changed = true;

@@ -144,6 +144,13 @@ export const USER_FACTION_FLAGS = {
   HIDDEN: 0,
 };
 
+export const FACTION_ROLE_FLAGS = {
+  // can not be deleted, can not have his default flag changed
+  PROTECTED: 0,
+  // new members join this role per default
+  DEFAULT: 1,
+};
+
 export const FACTIONLVL = {
   PEASANT: 0,
   NOBLE: 50,

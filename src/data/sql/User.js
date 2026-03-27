@@ -203,7 +203,7 @@ export async function getInfoByUsernameOrId(usernameOrId) {
     let query = `SELECT u.id AS uid, u.name, u.username, s.country, u.userlvl, p.customFlag,
 CONCAT(a.shortId, ':', a.extension) AS avatarId,
 CONCAT(frm.shortId, ':', frm.extension) AS customRoleFlagId,
-EXISTS(SELECT 1 FROM Bans b INNER JOIN UserBans ub ON ub.bid = b.id WHERE ub.uid = u.id AND (b.flags & 0x02) > 0 AND (b.expires > NOW() OR b.expires IS NULL)) AS isMuted
+EXISTS(SELECT 1 FROM Bans b INNER JOIN UserBans ub ON ub.bid = b.id WHERE ub.uid = u.id AND (b.flags & 0x02) != 0 AND (b.expires > NOW() OR b.expires IS NULL)) AS isMuted
 FROM Users u
     LEFT JOIN Profiles p ON p.uid = u.id
     LEFT JOIN Media a ON a.id = p.avatar
