@@ -164,6 +164,8 @@ export const MAX_OWNED_FACTIONS_PER_USER = 10;
 
 export const MAX_FLAGS_PER_FACTION = 10;
 
+export const MAX_ROLES_PER_FACTION = 20;
+
 // Mode for shift-painting or phone pencil, HISTORY has to be last
 export const PENCIL_MODE = {
   COLOR: 0,

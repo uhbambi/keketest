@@ -7,9 +7,7 @@ import { DataTypes, QueryTypes } from 'sequelize';
 import sequelize, { nestQuery } from './sequelize.js';
 import { generateUUID, bufferToUUID } from '../../utils/hash.js';
 import {
-  FACTION_FLAGS, USER_FACTION_FLAGS, FACTIONLVL,
-  MAX_FACTIONS_PER_USER, MAX_OWNED_FACTIONS_PER_USER,
-  FACTION_ROLE_FLAGS,
+  FACTION_FLAGS, USER_FACTION_FLAGS, FACTION_ROLE_FLAGS,
 } from '../../core/constants.js';
 
 const Faction = sequelize.define('Faction', {
@@ -312,40 +310,6 @@ WHERE ufr.uid = ? AND f.uuid = UUID_TO_BIN(?) ORDER BY fr.factionlvl DESC LIMIT 
 }
 
 /**
- * get amount of factions by user, total and owned
- * @param uid user id
- * @return [amount, amountOwned]
- */
-export async function getFactionsAmountOfUser(uid, fid) {
-  try {
-    const model = await sequelize.query(
-      /* eslint-disable max-len */
-      `SELECT COUNT(*) AS total,
-  COUNT(CASE WHEN isOwner = TRUE THEN 1 END) AS owned
-FROM (
-  SELECT EXISTS(
-    SELECT 1 FROM UserFactionRoles ufr
-      INNER JOIN FactionRoles fr ON ufr.frid = fr.id
-    WHERE ufr.uid = uf.uid AND fr.fid = uf.fid AND fr.factionlvl >= ${FACTIONLVL.SOVEREIGN}
-  ) AS isOwner
-  FROM UserFactions uf WHERE uf.uid = ?
-) AS ufc`, {
-        /* eslint-enable max-len */
-        replacements: [uid, fid],
-        plain: true,
-        type: QueryTypes.SELECT,
-      },
-    );
-    if (model) {
-      return [model.total, model.owned];
-    }
-  } catch (error) {
-    console.error(`SQL Error on getFactionsAmountOfUser: ${error.message}`);
-  }
-  return [MAX_FACTIONS_PER_USER, MAX_OWNED_FACTIONS_PER_USER];
-}
-
-/**
  * get all members of a faction
  * @param sqlFid sql id of faction
  * @return [ userId1, userId2, ...]
@@ -425,9 +389,11 @@ export async function setFactionAvatar(sqlFid, mediaId = null) {
  * @param uid user id of owner
  * @return [number, fid]
  *   0 success
- *   1 media doesnt exist
- *   2 faction name already taken
- *   3 failure
+ *   1 max amount of factions reached
+ *   2 max amount of owned factions reached
+ *   3 media doesnt exist
+ *   4 faction name already taken
+ *   -1 failure
  */
 export async function createFaction(
   uid, name, title, description, isPrivate, isPublic, avatarId,
@@ -462,7 +428,7 @@ export async function createFaction(
   } catch (error) {
     console.error('SQL Error on createFaction:', error.message);
   }
-  return [3, null];
+  return [-1, null];
 }
 
 /**
@@ -500,7 +466,7 @@ export async function deleteFaction(sqlFid) {
  *   0 success
  *   1 no such faction
  *   2 no other sovereign
- *   3 failure
+ *   -1 failure
  */
 export async function leaveFaction(uid, fid) {
   try {
@@ -518,7 +484,7 @@ export async function leaveFaction(uid, fid) {
   } catch (error) {
     console.error('SQL Error on leaveFaction:', error.message);
   }
-  return 3;
+  return -1;
 }
 
 /**
@@ -528,11 +494,12 @@ export async function leaveFaction(uid, fid) {
  * @return number
  *   0 success
  *   1 no such faction
- *   2 banned
- *   3 already joined
- *   4 faction full
- *   5 faction not public
- *   6 failure
+ *   2 max factions reached
+ *   3 banned
+ *   4 already joined
+ *   5 faction full
+ *   6 faction not public
+ *   -1 failure
  */
 export async function joinFactionPublic(uid, ipString, fid) {
   try {
@@ -550,7 +517,7 @@ export async function joinFactionPublic(uid, ipString, fid) {
   } catch (error) {
     console.error('SQL Error on joinFaction:', error.message);
   }
-  return 6;
+  return -1;
 }
 
 /**

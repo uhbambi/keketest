@@ -174,7 +174,8 @@ export async function setFactionRoleProperty(sqlFrid, property, value) {
  *   0 success
  *   1 faction doesn't exist
  *   2 customFlagId invalid
- *   3 failure
+ *   3 max role count reached
+ *   4 failure
  */
 export async function createFactionRole(
   fid, name, factionlvl, customFlagId, isDefault,
@@ -245,6 +246,34 @@ export async function setFlagOfFactionRole(sqlFrid, index, value) {
 /**
  * change a property of a faction role
  * @param sqlFrid sql id of faction role
+ * @param uid user id
+ * @return success
+ */
+export async function joinFactionRole(sqlFrid, uid) {
+  try {
+    const [, insertedRows] = await sequelize.query(
+      `INSERT INTO UserFactionRoles (uid, frid)
+  SELECT ?, ? WHERE EXISTS (
+    SELECT 1 FROM UserFactions uf
+      INNER JOIN Factions f ON uf.fid = f.id
+      INNER JOIN FactionRoles fr ON fr.fid = f.id
+    WHERE uf.uid = ? AND fr.id = ?
+  )`, {
+        replacements: [uid, sqlFrid, uid, sqlFrid],
+        raw: true,
+        type: QueryTypes.INSERT,
+      },
+    );
+    return insertedRows > 0;
+  } catch (error) {
+    console.error(`SQL Error on setFactionRoleProperty: ${error.message}`);
+  }
+  return false;
+}
+
+/**
+ * change a property of a faction role
+ * @param sqlFrid sql id of faction role
  * @return success
  */
 export async function deleteFactionRole(sqlFrid) {
@@ -253,7 +282,7 @@ export async function deleteFactionRole(sqlFrid) {
       'DELETE FROM FactionRoles WHERE id = ?', {
         replacements: [sqlFrid],
         raw: true,
-        type: QueryTypes.UPDATE,
+        type: QueryTypes.DELETE,
       },
     );
     return true;

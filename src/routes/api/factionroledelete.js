@@ -16,7 +16,7 @@ export default async function factionroledelete(req, res) {
   const { ttag: { t }, user, body: { frid } } = req;
 
   if (!frid || typeof frid !== 'string') {
-    throw new Error('No faction given');
+    throw new Error('No faction role given');
   }
 
   const {
@@ -38,7 +38,7 @@ export default async function factionroledelete(req, res) {
     throw new Error('Insufficient permissions on this faction');
   }
   if (cFactionlvl >= powerlvl) {
-    throw new Error(t`Can not change a role above your own`);
+    throw new Error(t`Can not change a role above or equal to your own`);
   }
   if (cFactionlvl >= FACTIONLVL.SOVEREIGN) {
     throw new Error('Can not delete the Sovereign');

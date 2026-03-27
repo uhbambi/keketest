@@ -61,6 +61,8 @@ export default async function factionrolecreate(req, res) {
       throw new Error(t`This faction does not exist`);
     case 2:
       throw new Error('Invalid customFlagId');
+    case 3:
+      throw new Error(t`Can not have more than 20 faction roles`);
     default:
       throw new Error(t`Server Error`);
   }

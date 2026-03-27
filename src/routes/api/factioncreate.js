@@ -7,7 +7,7 @@ import {
   validateFactionName, validateFactionTitle, validateDescription,
 } from '../../utils/validation.js';
 import {
-  getFactionsAmountOfUser, createFaction, getFactionInfo,
+  createFaction, getFactionInfo,
 } from '../../data/sql/Faction.js';
 import {
   MAX_FACTIONS_PER_USER, MAX_OWNED_FACTIONS_PER_USER, FACTIONLVL,
@@ -39,21 +39,6 @@ export default async function factioncreate(req, res) {
     errors.push(t`No Avatar given`);
   }
 
-  if (!errors.length) {
-    const [amountTotal, amountOwned] = await getFactionsAmountOfUser(user.id);
-    if (amountTotal >= MAX_FACTIONS_PER_USER) {
-      errors.push(
-        t`You can only have ${MAX_FACTIONS_PER_USER} factions in total`,
-      );
-    }
-    if (amountOwned >= MAX_OWNED_FACTIONS_PER_USER) {
-      errors.push(
-        // eslint-disable-next-line max-len
-        t`You can only be owner of ${MAX_OWNED_FACTIONS_PER_USER} factions in total`,
-      );
-    }
-  }
-
   if (errors.length) {
     res.status(400).json({ errors });
   }
@@ -65,8 +50,17 @@ export default async function factioncreate(req, res) {
     case 0:
       break;
     case 1:
-      throw new Error(t`Avatar not given or not an image`);
+      throw new Error(
+        t`You can only have ${MAX_FACTIONS_PER_USER} factions in total`,
+      );
     case 2:
+      throw new Error(
+        // eslint-disable-next-line max-len
+        t`You can only be owner of ${MAX_OWNED_FACTIONS_PER_USER} factions in total`,
+      );
+    case 3:
+      throw new Error(t`Avatar not given or not an image`);
+    case 4:
       throw new Error(t`Name already in use.`);
     default:
       throw new Error(t`Server Error`);

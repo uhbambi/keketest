@@ -4,6 +4,7 @@
 import logger from '../../core/logger.js';
 import socketEvents from '../../socket/socketEvents.js';
 import { getFactionInfo, joinFactionPublic } from '../../data/sql/Faction.js';
+import { MAX_FACTIONS_PER_USER } from '../../core/constants.js';
 
 export default async function factionjoin(req, res) {
   req.tickRateLimiter(7000);
@@ -23,12 +24,16 @@ export default async function factionjoin(req, res) {
     case 1:
       throw new Error(t`This faction does not exist`);
     case 2:
-      throw new Error(t`You are banned from this faction`);
+      throw new Error(
+        t`You can only have ${MAX_FACTIONS_PER_USER} factions in total`,
+      );
     case 3:
-      throw new Error(t`You are already part of this faction`);
+      throw new Error(t`You are banned from this faction`);
     case 4:
-      throw new Error(t`This faction is full`);
+      throw new Error(t`You are already part of this faction`);
     case 5:
+      throw new Error(t`This faction is full`);
+    case 6:
       throw new Error(t`You need an invite to join this faction`);
     default:
       throw new Error(t`Server Error`);

@@ -8,6 +8,7 @@ import Sequelize from 'sequelize';
 
 import {
   FACTION_FLAGS, CHANNEL_TYPES, FACTIONLVL, FACTION_ROLE_FLAGS,
+  MAX_ROLES_PER_FACTION, MAX_FACTIONS_PER_USER, MAX_OWNED_FACTIONS_PER_USER,
 } from '../../core/constants.js';
 import {
   MYSQL_HOST, MYSQL_DATABASE, MYSQL_USER, MYSQL_PW, LOG_MYSQL,
@@ -280,21 +281,39 @@ BEGIN
   DECLARE v_mid BIGINT UNSIGNED;
   DECLARE v_cid INT UNSIGNED;
   DECLARE v_fid BIGINT UNSIGNED;
+  DECLARE v_joined_count INT UNSIGNED;
+  DECLARE v_owned_count INT UNSIGNED;
   START TRANSACTION;
-
 
   SELECT MAX(id) INTO v_mid  FROM Media m
     WHERE LOCATE(':', p_avatar_id) > 0
       AND m.type = 'image'
       AND m.shortId = SUBSTRING_INDEX(p_avatar_id, ':', 1)
       AND m.extension = SUBSTRING_INDEX(p_avatar_id, ':', -1);
-  IF v_mid IS NULL THEN
+
+  SELECT COUNT(*), SUM(isOwner) INTO v_joined_count, v_owned_count
+  FROM (
+    SELECT EXISTS(
+      SELECT 1 FROM UserFactionRoles ufr
+        INNER JOIN FactionRoles fr ON ufr.frid = fr.id
+      WHERE ufr.uid = uf.uid AND fr.fid = uf.fid AND fr.factionlvl >= ${FACTIONLVL.SOVEREIGN}
+    ) AS isOwner
+    FROM UserFactions uf WHERE uf.uid = ?
+  ) AS ufc
+
+  IF v_joined_count >= ${MAX_FACTIONS_PER_USER} THEN
     SELECT 1 AS result;
+    ROLLBACK;
+  IF v_owned_count >= ${MAX_OWNED_FACTIONS_PER_USER} THEN
+    SELECT 2 AS result;
+    ROLLBACK;
+  IF v_mid IS NULL THEN
+    SELECT 3 AS result;
     ROLLBACK;
   ELSEIF EXISTS(
     SELECT 1 FROM Factions WHERE name = p_name
   ) THEN
-    SELECT 2 AS result;
+    SELECT 4 AS result;
     ROLLBACK;
   ELSE
     INSERT INTO Channels (
@@ -335,18 +354,23 @@ END`,
 BEGIN
   DECLARE v_fid BIGINT UNSIGNED;
   DECLARE v_mid BIGINT UNSIGNED;
+  DECLARE v_role_count INT UNSIGNED;
 
   SELECT MAX(id) INTO v_fid FROM Factions WHERE uuid = UUID_TO_BIN(p_faction_uuid);
   IF v_fid IS NULL THEN
     SELECT 1 AS result;
   ELSE
+    SELECT COUNT(*) INTO v_role_count FROM FactionRoles WHERE fid = v_fid;
     SELECT MAX(id) INTO v_mid  FROM Media m
       WHERE LOCATE(':', p_custom_flag_id) > 0
         AND m.type = 'image'
         AND m.shortId = SUBSTRING_INDEX(p_custom_flag_id, ':', 1)
         AND m.extension = SUBSTRING_INDEX(p_custom_flag_id, ':', -1);
+
     IF p_custom_flag_id IS NOT NULL AND v_mid IS NULL THEN
       SELECT 2 AS result;
+    ELSEIF v_role_count >= ${MAX_ROLES_PER_FACTION} THEN
+      SELECT 3 AS result;
     ELSE
       INSERT INTO FactionRoles (
         uuid, fid, customFlag, name, factionlvl, flags,
@@ -360,27 +384,32 @@ END`,
     JOIN_FACTION: `CREATE PROCEDURE IF NOT EXISTS JOIN_FACTION(IN p_uid INT UNSIGNED, IN p_ipString VARCHAR(39), IN p_fid BIGINT UNSIGNED) NOT DETERMINISTIC MODIFIES SQL DATA
 BEGIN
   DECLARE v_ip VARBINARY(8);
+  DECLARE v_joined_count INT UNSIGNED;
   SET v_ip = IP_TO_BIN(p_ipString);
   START TRANSACTION;
 
-  IF EXISTS(
+  SELECT COUNT(*) INTO v_joined_count FROM UserFactions WHERE uid = p_uid;
+  IF v_joined_count >= ${MAX_FACTIONS_PER_USER} THEN
+    SELECT 2 AS result;
+    ROLLBACK;
+  ELSEIF EXISTS(
     SELECT 1 FROM FactionBans fb
       LEFT JOIN UserFactionBans ufb ON ufb.bid = fb.id AND ufb.uid = p_uid
       LEFT JOIN IPFactionBans ifb ON ifb.bid = fb.id AND ifb.ip = v_ip
     WHERE fb.fid = p_fid AND (fb.expires > NOW() OR fb.expires IS NULL) AND (ufb.uid IS NOT NULL OR ifb.ip IS NOT NULL)
     LIMIT 1
   ) THEN
-    SELECT 2 AS result;
+    SELECT 3 AS result;
     ROLLBACK;
   ELSEIF EXISTS(
     SELECT 1 FROM UserFactions WHERE uid = p_uid AND fid = p_fid
   ) THEN
-    SELECT 3 AS result;
+    SELECT 4 AS result;
     ROLLBACK;
   ELSEIF EXISTS(
     SELECT 1 FROM Factions WHERE id = p_fid AND memberCount >= 10000
   ) THEN
-    SELECT 4 AS result;
+    SELECT 5 AS result;
     ROLLBACK;
   ELSE
     INSERT INTO UserFactions (uid, fid, joined) VALUES (p_uid, p_fid, NOW());
@@ -409,7 +438,7 @@ BEGIN
   ELSEIF EXISTS(
     SELECT 1 FROM Factions WHERE id = v_fid AND (flags & ${0x01 << FACTION_FLAGS.PUBLIC}) = 0
   ) THEN
-    SELECT 5 AS result;
+    SELECT 6 AS result;
   ELSE
     CALL JOIN_FACTION(p_uid, p_ipString, v_fid);
   END IF;
