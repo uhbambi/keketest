@@ -10,7 +10,7 @@ import {
   createFaction, getFactionInfo,
 } from '../../data/sql/Faction.js';
 import {
-  MAX_FACTIONS_PER_USER, MAX_OWNED_FACTIONS_PER_USER, FACTIONLVL,
+  MAX_FACTIONS_PER_USER, MAX_OWNED_FACTIONS_PER_USER,
 } from '../../core/constants.js';
 
 export default async function factioncreate(req, res) {
@@ -78,7 +78,7 @@ export default async function factioncreate(req, res) {
   factionInfo.isHidden = false;
   for (let i = 0; i < factionInfo.roles.length; i += 1) {
     const role = factionInfo.roles[i];
-    role.isMember = role.factionlvl === FACTIONLVL.SOVEREIGN;
+    role.isMember = true;
   }
   delete factionInfo.sqlFid;
   delete factionInfo.defaultFrid;

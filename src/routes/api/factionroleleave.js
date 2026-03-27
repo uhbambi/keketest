@@ -1,15 +1,17 @@
 /*
- * add user to a faction role,
+ * remove user from a faction role,
  */
 import logger from '../../core/logger.js';
 import socketEvents from '../../socket/socketEvents.js';
-import { getFactionLvlOfUser } from '../../data/sql/Faction.js';
 import {
-  getFactionRole, joinFactionRole,
+  getFactionLvlOfUser, getAmountOfFactionOwners,
+} from '../../data/sql/Faction.js';
+import {
+  getFactionRole, leaveFactionRole,
 } from '../../data/sql/FactionRole.js';
 import { FACTIONLVL } from '../../core/constants.js';
 
-export default async function factionrolejoin(req, res) {
+export default async function factionroleleave(req, res) {
   req.tickRateLimiter(5000);
   const { ttag: { t }, user, body: { frid, uid } } = req;
 
@@ -49,19 +51,14 @@ export default async function factionrolejoin(req, res) {
   ) {
     throw new Error(t`Can not modify user equal to you or above you`);
   }
-  if (cFactionlvl > ownPowerlvl) {
-    throw new Error(t`Can not change a role above your own`);
-  }
-  if (ownPowerlvl < FACTIONLVL.SOVEREIGN
-    /* cant join others to your own role, unless your are Sovereign */
-    && cFactionlvl === ownPowerlvl
-    /* may join yourself to roles equal to yours */
-    && uid !== user.id
+
+  if (cFactionlvl >= FACTIONLVL.SOVEREIGN
+    && await getAmountOfFactionOwners(sqlFid) < 2
   ) {
-    throw new Error(t`Can not change a role that is equal to your own`);
+    throw new Error(t`Can not orphan a faction`);
   }
 
-  const success = await joinFactionRole(sqlFrid, uid);
+  const success = await leaveFactionRole(sqlFrid, uid);
   if (!success) {
     throw new Error(t`Server Error`);
   }
@@ -69,7 +66,7 @@ export default async function factionrolejoin(req, res) {
   const profilePatch = {
     op: 'set',
     path: `factions[fid:${fid}].roles[frid:${frid}].isMember`,
-    value: true,
+    value: false,
   };
   socketEvents.patchUserState(uid, 'profile', profilePatch);
 

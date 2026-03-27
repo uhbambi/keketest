@@ -21,6 +21,9 @@ import factiondelete from './factiondelete.js';
 import factionjoin from './factionjoin.js';
 import factionleave from './factionleave.js';
 import factionrolecreate from './factionrolecreate.js';
+import factionroledelete from './factionroledelete.js';
+import factionrolejoin from './factionrolejoin.js';
+import factionroleleave from './factionroleleave.js';
 import modtools from './modtools.js';
 import baninfo from './baninfo.js';
 import getiid from './getiid.js';
@@ -113,22 +116,19 @@ router.post('/mute', mute);
 router.post('/userchange', userchange);
 
 router.post('/profilechange', profilechange);
-
 router.post('/factionchange', factionchange);
-
 router.post('/userfactionchange', userfactionchange);
-
 router.post('/factionrolechange', factionrolechange);
 
 router.post('/factioncreate', factioncreate);
-
 router.post('/factiondelete', factiondelete);
-
 router.post('/factionjoin', factionjoin);
-
 router.post('/factionleave', factionleave);
 
 router.post('/factionrolecreate', factionrolecreate);
+router.post('/factionroledelete', factionroledelete);
+router.post('/factionrolejoin', factionrolejoin);
+router.post('/factionroleleave', factionroleleave);
 
 router.use(errorJson);
 

@@ -244,27 +244,67 @@ export async function setFlagOfFactionRole(sqlFrid, index, value) {
 }
 
 /**
- * change a property of a faction role
+ * add user to a faction role
  * @param sqlFrid sql id of faction role
  * @param uid user id
  * @return success
  */
 export async function joinFactionRole(sqlFrid, uid) {
   try {
-    const [, insertedRows] = await sequelize.query(
-      `INSERT INTO UserFactionRoles (uid, frid)
-  SELECT ?, ? WHERE EXISTS (
-    SELECT 1 FROM UserFactions uf
-      INNER JOIN Factions f ON uf.fid = f.id
-      INNER JOIN FactionRoles fr ON fr.fid = f.id
-    WHERE uf.uid = ? AND fr.id = ?
-  )`, {
-        replacements: [uid, sqlFrid, uid, sqlFrid],
-        raw: true,
-        type: QueryTypes.INSERT,
-      },
-    );
+    const [[, insertedRows]] = await Promise.all([
+      sequelize.query(
+        `INSERT INTO UserFactionRoles (uid, frid)
+    SELECT ?, ? WHERE EXISTS (
+      SELECT 1 FROM UserFactions uf
+        INNER JOIN Factions f ON uf.fid = f.id
+        INNER JOIN FactionRoles fr ON fr.fid = f.id
+      WHERE uf.uid = ? AND fr.id = ?
+    )`, {
+          replacements: [uid, sqlFrid, uid, sqlFrid],
+          raw: true,
+          type: QueryTypes.INSERT,
+        },
+      ),
+      sequelize.query(
+        'UPDATE FactionRoles SET memberCount = memberCount + 1 WHERE id = ?', {
+          replacements: [sqlFrid],
+          raw: true,
+          type: QueryTypes.UPDATE,
+        },
+      ),
+    ]);
     return insertedRows > 0;
+  } catch (error) {
+    console.error(`SQL Error on setFactionRoleProperty: ${error.message}`);
+  }
+  return false;
+}
+
+/**
+ * remove user from a faction role
+ * @param sqlFrid sql id of faction role
+ * @param uid user id
+ * @return success
+ */
+export async function leaveFactionRole(sqlFrid, uid) {
+  try {
+    await Promise.all([
+      sequelize.query(
+        'DELETE FROM UserFactionRoles WHERE uid = ? AND frid = ?', {
+          replacements: [uid, sqlFrid],
+          raw: true,
+          type: QueryTypes.DELETE,
+        },
+      ),
+      sequelize.query(
+        'UPDATE FactionRoles SET memberCount = memberCount - 1 WHERE id = ?', {
+          replacements: [sqlFrid],
+          raw: true,
+          type: QueryTypes.UPDATE,
+        },
+      ),
+    ]);
+    return true;
   } catch (error) {
     console.error(`SQL Error on setFactionRoleProperty: ${error.message}`);
   }

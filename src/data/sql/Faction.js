@@ -7,7 +7,7 @@ import { DataTypes, QueryTypes } from 'sequelize';
 import sequelize, { nestQuery } from './sequelize.js';
 import { generateUUID, bufferToUUID } from '../../utils/hash.js';
 import {
-  FACTION_FLAGS, USER_FACTION_FLAGS, FACTION_ROLE_FLAGS,
+  FACTION_FLAGS, USER_FACTION_FLAGS, FACTION_ROLE_FLAGS, FACTIONLVL,
 } from '../../core/constants.js';
 
 const Faction = sequelize.define('Faction', {
@@ -307,6 +307,31 @@ WHERE ufr.uid = ? AND f.uuid = UUID_TO_BIN(?) ORDER BY fr.factionlvl DESC LIMIT 
     console.error(`SQL Error on getFactionLvlOfUser: ${error.message}`);
   }
   return { sqlFid, powerlvl };
+}
+
+/**
+ * get amount of sovereign of a faction
+ * @param sqlFid sql id of faction
+ * @return number
+ */
+export async function getAmountOfFactionOwners(sqlFid) {
+  try {
+    const model = await sequelize.query(
+      `SELECT COUNT(DISTINCT ufr.uid) AS count FROM UserFactionRoles ufr
+  INNER JOIN FactionRoles fr ON ufr.frid = fr.id
+WHERE fr.fid = ? AND fr.factionlvl >= ?`, {
+        replacements: [sqlFid, FACTIONLVL.SOVEREIGN],
+        plain: true,
+        type: QueryTypes.SELECT,
+      },
+    );
+    if (model) {
+      return model.count;
+    }
+  } catch (error) {
+    console.error(`SQL Error on getAllMembersOfFaction: ${error.message}`);
+  }
+  return 0;
 }
 
 /**
