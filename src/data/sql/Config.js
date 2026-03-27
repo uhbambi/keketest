@@ -18,6 +18,18 @@ const Config = sequelize.define('Config', {
   },
 });
 
+/*
+ * schema_version to track for future manual database migrations, when we
+ * eventually drop sequelizejs
+ */
+Config.afterSync(() => sequelize.query(
+  'INSERT IGNORE INTO Configs (`key`, value) VALUES (?,?)', {
+    replacements: ['schema_version', JSON.stringify(1)],
+    plain: true,
+    type: QueryTypes.INSERT,
+  },
+));
+
 /**
  * get config
  * @param key
