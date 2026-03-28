@@ -958,4 +958,43 @@ WHERE (u.flags & ?) = 0 AND u.id IN (?);`, {
   return rawRanks;
 }
 
+/**
+ * get users by search term
+ * @param term search term
+ * @return [{
+ *   uid,
+ *   name,
+ *   username,
+ *   customFlagId,
+ *   avatarId,
+ * }, ...]
+ */
+export async function searchUser(term) {
+  try {
+    const sqlTerm = `%${term}%`;
+    const model = await sequelize.query(
+      `SELECT u.id AS uid, u.name, u.username,
+CONCAT(frm.shortId, ':', frm.extension) AS 'roles.customFlagId',
+CONCAT(a.shortId, ':', a.extension) AS avatarId FROM Users u
+  LEFT JOIN Media a ON a.id = u.avatar
+  LEFT JOIN Profile p ON p.uid = u.id
+  LEFT JOIN FactionRoles fr ON p.activeRole = fr.id
+  LEFT JOIN Media frm ON fr.customFlag = frm.id
+WHERE (u.flags & ?) = 0 AND (
+  u.name LIKE ? OR u.username LIKE ?
+) LIMIT 100`, {
+        replacements: [0x01 << USER_FLAGS.PRIV, sqlTerm, sqlTerm],
+        raw: true,
+        type: QueryTypes.SELECT,
+      },
+    );
+    if (model) {
+      return model;
+    }
+  } catch (error) {
+    console.error('SQL Error on searchUser:', error.message);
+  }
+  return [];
+}
+
 export default User;

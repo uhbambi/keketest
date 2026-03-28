@@ -30,6 +30,7 @@ import factionunban from './factionunban.js';
 import factionmembers from './factionmembers.js';
 import factionbans from './factionbans.js';
 import factionsearch from './factionsearch.js';
+import usersearch from './usersearch.js';
 import modtools from './modtools.js';
 import baninfo from './baninfo.js';
 import getiid from './getiid.js';
@@ -78,6 +79,7 @@ router.get('/pubchannels', pubchannels);
 router.get('/getiid', getiid);
 
 router.post('/factionsearch', factionsearch);
+router.post('/usersearch', usersearch);
 
 /*
  * get user session if available
