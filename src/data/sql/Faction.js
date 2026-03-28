@@ -665,7 +665,7 @@ WHERE uf.fid = ?`, {
  *   reason,
  *   [expires],
  *   [createdAt],
- * },...]
+ * },...] | null
  */
 export async function getFactionBanInfo(sqlFid) {
   try {
@@ -673,12 +673,12 @@ export async function getFactionBanInfo(sqlFid) {
       // eslint-disable-next-line max-len
       `SELECT BIN_TO_UUID(fb.uuid) AS fbid, fb.reason, fb.expires, fb.createdAt,
 u.id AS 'users.id', u.name AS 'users.name', u.username AS users.username,
-BIN_TO_UUID(i.uuid) AS 'ips.iid',
+BIN_TO_UUID(i.uuid) AS 'ips.iid' FROM FactionBans fb
   LEFT JOIN UserFactionBans ufb ON ufb.bid = fb.id
   LEFT JOIN Users u ON ufb.uid = u.id
   LEFT JOIN IPFactionBans ifb ON ifb.bid = fb.id
   LEFT JOIN IPs i ON ifb.ip = i.ip
-FROM FactionBans fb WHERE fb.fid = ?`, {
+WHERE fb.fid = ?`, {
         replacements: [sqlFid],
         raw: true,
         type: QueryTypes.SELECT,
@@ -712,6 +712,43 @@ FROM FactionBans fb WHERE fb.fid = ?`, {
     console.error('SQL Error on getFactionBanInfo:', error.message);
   }
   return null;
+}
+
+/**
+ * get factions by search term
+ * @param term search term
+ * @return [{
+ *   fid,
+ *   name,
+ *   title,
+ *   description,
+ *   memberCount,
+ *   avatarId,
+ * }, ...]
+ */
+export async function searchFaction(term) {
+  try {
+    const sqlTerm = `%${term}%`;
+    const model = await sequelize.query(
+      `SELECT BIN_TO_UUID(f.uuid) AS fid, f.name, f.ttle, f.description,
+f.memberCount,
+CONCAT(a.shortId, ':', a.extension) AS avatarId FROM Factions f
+  LEFT JOIN Media a ON a.id = f.avatar
+WHERE (f.flags & ?) = 0 AND (
+  f.name LIKE ? OR f.title LIKE ? OR f.description LIKE ?
+)`, {
+        replacements: [0x01 << FACTION_FLAGS.PRIV, sqlTerm, sqlTerm, sqlTerm],
+        raw: true,
+        type: QueryTypes.SELECT,
+      },
+    );
+    if (model) {
+      return model;
+    }
+  } catch (error) {
+    console.error('SQL Error on searchFaction:', error.message);
+  }
+  return [];
 }
 
 /**

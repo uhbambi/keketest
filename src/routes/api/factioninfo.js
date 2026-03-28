@@ -20,8 +20,8 @@ export default async function factionrolechange(req, res) {
     getFactionInfo(fid),
   ]);
 
-  if (faction.isHidden && powerlvl < 0) {
-    throw new Error(t`This faction is hidden`);
+  if (faction.isPrivate && powerlvl < 0) {
+    throw new Error(t`This faction is private`);
   }
 
   delete faction.sqlFid;

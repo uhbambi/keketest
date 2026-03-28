@@ -29,6 +29,7 @@ import factionkickban from './factionkickban.js';
 import factionunban from './factionunban.js';
 import factionmembers from './factionmembers.js';
 import factionbans from './factionbans.js';
+import factionsearch from './factionsearch.js';
 import modtools from './modtools.js';
 import baninfo from './baninfo.js';
 import getiid from './getiid.js';
@@ -75,6 +76,8 @@ router.get('/shards', shards);
 router.get('/pubchannels', pubchannels);
 
 router.get('/getiid', getiid);
+
+router.post('/factionsearch', factionsearch);
 
 /*
  * get user session if available
