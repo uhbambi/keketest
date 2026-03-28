@@ -6,6 +6,7 @@ import socketEvents from '../../socket/socketEvents.js';
 import {
   getFactionInfo, leaveFaction, getFactionLvlOfUser,
 } from '../../data/sql/Faction.js';
+import { getLastIPOfUser } from '../../data/sql/User.js';
 import {
   banUserFromFaction,
 } from '../../data/sql/FactionBan.js';
@@ -13,9 +14,7 @@ import { FACTIONLVL } from '../../core/constants.js';
 
 export default async function factionkickban(req, res) {
   req.tickRateLimiter(7000);
-  const { ttag: { t }, user, ip: { ipString }, body: {
-    fid, uid, isBan,
-  } } = req;
+  const { ttag: { t }, user, body: { fid, uid, isBan } } = req;
 
   if (!fid || typeof fid !== 'string') {
     throw new Error('No faction given');
@@ -44,8 +43,10 @@ export default async function factionkickban(req, res) {
     throw new Error(t`Can not modify user equal to you or above you`);
   }
 
+  const lastOnlineIPString = await getLastIPOfUser(uid);
+
   const [leaveRet, factionInfo] = await Promise.all([
-    leaveFaction(uid, ipString, fid),
+    leaveFaction(uid, fid),
     getFactionInfo(fid),
   ]);
   switch (leaveRet) {
@@ -74,12 +75,13 @@ export default async function factionkickban(req, res) {
     }
     if (typeof duration === 'number') {
       duration = Math.ceil(duration / 1000);
-    } else if (duration !== null) {
-      throw new Error('No duration given');
+    } else {
+      /* default to perma ban */
+      duration = null;
     }
 
     const success = await banUserFromFaction(
-      fid, uid, ipString, reason, duration,
+      fid, uid, lastOnlineIPString, reason, duration,
     );
     if (!success) {
       throw new Error(t`Server Error`);

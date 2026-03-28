@@ -27,6 +27,8 @@ import factionrolejoin from './factionrolejoin.js';
 import factionroleleave from './factionroleleave.js';
 import factionkickban from './factionkickban.js';
 import factionunban from './factionunban.js';
+import factionmembers from './factionmembers.js';
+import factionbans from './factionbans.js';
 import modtools from './modtools.js';
 import baninfo from './baninfo.js';
 import getiid from './getiid.js';
@@ -94,6 +96,7 @@ router.use((req, res, next) => {
 router.get('/me', me);
 
 router.post('/factioninfo', factioninfo);
+router.post('/factionmembers', factionmembers);
 
 router.use(parseDevice);
 
@@ -124,6 +127,8 @@ router.post('/profilechange', profilechange);
 router.post('/factionchange', factionchange);
 router.post('/userfactionchange', userfactionchange);
 router.post('/factionrolechange', factionrolechange);
+
+router.post('/factionbans', factionbans);
 
 router.post('/factioncreate', factioncreate);
 router.post('/factiondelete', factiondelete);

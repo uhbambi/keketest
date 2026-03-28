@@ -585,7 +585,7 @@ fr.factionlvl AS 'roles.factionlvl' FROM Factions f
 WHERE f.uuid = UUID_TO_BIN(fid)`, {
         replacements: [fid],
         raw: true,
-        type: QueryTypes.UPDATE,
+        type: QueryTypes.SELECT,
       },
     );
     if (model) {
@@ -608,6 +608,108 @@ WHERE f.uuid = UUID_TO_BIN(fid)`, {
     }
   } catch (error) {
     console.error('SQL Error on getFactionInfo:', error.message);
+  }
+  return null;
+}
+
+/**
+ * get faction members
+ * @param sqlFid sql id of faction
+ * @return [{
+ *   uid,
+ *   name,
+ *   username,
+ *   avatarId,
+ *   roles: [frid1, frid2,..]
+ * }, ...]
+ */
+export async function getFactionMemberInfo(sqlFid, showHiddenUsers) {
+  try {
+    let model = await sequelize.query(
+      `SELECT u.id AS uid, u.name, u.username,
+CONCAT(a.shortId, ':', a.extension) AS avatarId,
+(uf.flags & ?) != 0 AS isHidden
+BIN_TO_UUID(fr.id) AS 'roles.frid' FROM Users u
+  INNER JOIN UserFactions uf ON uf.uid = u.id
+  LEFT JOIN Media a ON a.id = u.avatar
+  LEFT JOIN FactionRoles fr ON fr.fid = uf.fid
+WHERE uf.fid = ?`, {
+        replacements: [0x01 << USER_FACTION_FLAGS.HIDDEN, sqlFid],
+        raw: true,
+        type: QueryTypes.SELECT,
+      },
+    );
+    if (model) {
+      model = nestQuery(model, 'uid');
+      if (!showHiddenUsers) {
+        model = model.filter((m) => m.isHidden === 0);
+      }
+      for (let i = 0; i < model.length; i += 1) {
+        const userInfo = model[i];
+        userInfo.roles = userInfo.roles.map((r) => r.frid);
+      }
+      return model;
+    }
+  } catch (error) {
+    console.error('SQL Error on getFactionMemberInfo:', error.message);
+  }
+  return null;
+}
+
+/**
+ * get faction bans
+ * @param sqlFid sql id of faction
+ * @return [{
+ *   fbid,
+ *   affects: dstring describing user or iid if no user,
+ *   reason,
+ *   [expires],
+ *   [createdAt],
+ * },...]
+ */
+export async function getFactionBanInfo(sqlFid) {
+  try {
+    let model = await sequelize.query(
+      // eslint-disable-next-line max-len
+      `SELECT BIN_TO_UUID(fb.uuid) AS fbid, fb.reason, fb.expires, fb.createdAt,
+u.id AS 'users.id', u.name AS 'users.name', u.username AS users.username,
+BIN_TO_UUID(i.uuid) AS 'ips.iid',
+  LEFT JOIN UserFactionBans ufb ON ufb.bid = fb.id
+  LEFT JOIN Users u ON ufb.uid = u.id
+  LEFT JOIN IPFactionBans ifb ON ifb.bid = fb.id
+  LEFT JOIN IPs i ON ifb.ip = i.ip
+FROM FactionBans fb WHERE fb.fid = ?`, {
+        replacements: [sqlFid],
+        raw: true,
+        type: QueryTypes.SELECT,
+      },
+    );
+    if (model) {
+      model = nestQuery(model, 'fbid');
+      for (let i = 0; i < model.length; i += 1) {
+        const banInfo = model[i];
+        if (banInfo.users.length) {
+          const user = banInfo.users[0];
+          banInfo.affects = `${user.name} [${user.username}]`;
+        } else if (banInfo.ips.length) {
+          banInfo.affects = banInfo.ips[0].iid;
+        } else {
+          banInfo.affects = 'N/A';
+        }
+        delete banInfo.users;
+        delete banInfo.ips;
+
+        if (banInfo.expires) {
+          banInfo.expires = banInfo.expires.toLocaleString();
+        }
+        if (banInfo.createdAt) {
+          banInfo.createdAt = banInfo.createdAt.toLocaleString();
+        }
+      }
+      return model;
+    }
+  } catch (error) {
+    console.error('SQL Error on getFactionBanInfo:', error.message);
   }
   return null;
 }

@@ -95,7 +95,7 @@ export async function banUserFromFaction(
           type: QueryTypes.INSERT,
         },
       ),
-      sequelize.query(
+      ipString && sequelize.query(
         'INSERT INTO IPFactionBans (bid, ip) VALUES (?, IP_TO_BIN(?))', {
           replacements: [bid, ipString],
           raw: true,
