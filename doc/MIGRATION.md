@@ -1,3 +1,12 @@
+# Pixelplanet 4.0
+
+With this release, we drop support for MySQL and only support MariaDB now.
+MariaDB can be fed with a backup created by mysqldump, so if you are on mysql
+and want to migrate, you may do:
+`backup -> remove mysql and install mariadb -> restore`
+We won't clarify here how this works exactly. But remember that that the 3.1.0
+release is very stable, so no need to rush.
+
 # Pixelplanet <2.0 to 2.0
 
 The 2.0 release comes with a total revamp of the account system, proxy detection
