@@ -13,7 +13,7 @@ import errorJson from '../src/middleware/errorJson.js';
 import media from '../src/routes/api/media.js';
 
 const LOG_QUERY = false;
-const SYNC_MYSQL = false;
+const SYNC_MARIADB = false;
 
 function title(title, spacer = '=') {
   const spacerAmount = Math.floor((80 - title.length - 2) / 2);
@@ -58,7 +58,7 @@ function requestBodyByteLogger(req, res, next) {
 }
 
 async function initialize() {
-  await syncSql(SYNC_MYSQL);
+  await syncSql(SYNC_MARIADB);
 }
 
 async function destruct() {

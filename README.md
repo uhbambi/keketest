@@ -30,8 +30,8 @@ Make sure to set-up an own user with password and database for pixelplanet in SQ
 
 ```
 CREATE DATABASE pixelplanet;
-CREATE USER 'pixelplanet'@'localhost' IDENTIFIED BY 'sqlpassword';
-GRANT ALL PRIVILEGES ON pixelplanet.* TO 'pixelplanet'@'localhost';
+CREATE USER 'pixelplanet'@'%' IDENTIFIED BY 'sqlpassword';
+GRANT ALL PRIVILEGES ON pixelplanet.* TO 'pixelplanet'@'%';
 ```
 
 ### Download 📥
@@ -50,10 +50,10 @@ Those are options you will most likely want to adjust:
 | PORT           | Own Port                 | 5000                    |
 | HOST           | Own Host                 | "localhost"             |
 | REDIS_URL      | URL:PORT of redis server | "redis://localhost:6379"|
-| MYSQL_HOST     | MySql Host               | "localhost"             |
-| MYSQL_USER     | MySql User               | "pixelplanet"           |
-| MYSQL_PW       | MySql Password           | "sqlpassword"           |
-| MYSQL_DATABASE | MySql Database           | "pixelplanet"           |
+| MARIADB_HOST     | MariaDB Host               | "localhost"             |
+| MARIADB_USER     | MariaDB User               | "pixelplanet"           |
+| MARIADB_PW       | MariaDB Password           | "sqlpassword"           |
+| MARIADB_DATABASE | MariaDB Database           | "pixelplanet"           |
 
 #### Canvas Configuration
 

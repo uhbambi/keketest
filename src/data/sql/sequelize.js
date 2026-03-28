@@ -11,11 +11,11 @@ import {
   MAX_ROLES_PER_FACTION, MAX_FACTIONS_PER_USER, MAX_OWNED_FACTIONS_PER_USER,
 } from '../../core/constants.js';
 import {
-  MYSQL_HOST, MYSQL_DATABASE, MYSQL_USER, MYSQL_PW, LOG_MYSQL,
+  MARIADB_HOST, MARIADB_DATABASE, MARIADB_USER, MARIADB_PW, LOG_MARIADB,
 } from '../../core/config.js';
 
-const sequelize = new Sequelize(MYSQL_DATABASE, MYSQL_USER, MYSQL_PW, {
-  host: MYSQL_HOST,
+const sequelize = new Sequelize(MARIADB_DATABASE, MARIADB_USER, MARIADB_PW, {
+  host: MARIADB_HOST,
   dialect: 'mysql',
   define: {
     timestamps: false,
@@ -27,7 +27,7 @@ const sequelize = new Sequelize(MYSQL_DATABASE, MYSQL_USER, MYSQL_PW, {
     acquire: 10000,
   },
   // eslint-disable-next-line no-console
-  logging: (LOG_MYSQL) ? (sql) => console.info(sql) : false,
+  logging: (LOG_MARIADB) ? (sql) => console.info(sql) : false,
   dialectOptions: {
     connectTimeout: 10000,
     multipleStatements: true,
