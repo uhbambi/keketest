@@ -283,6 +283,11 @@ BEGIN
   DECLARE v_fid BIGINT UNSIGNED;
   DECLARE v_joined_count INT UNSIGNED;
   DECLARE v_owned_count INT UNSIGNED;
+  DECLARE EXIT HANDLER FOR SQLEXCEPTION
+  BEGIN
+    ROLLBACK;
+    RESIGNAL;
+  END;
   START TRANSACTION;
 
   SELECT MAX(id) INTO v_mid  FROM Media m
@@ -298,16 +303,16 @@ BEGIN
         INNER JOIN FactionRoles fr ON ufr.frid = fr.id
       WHERE ufr.uid = uf.uid AND fr.fid = uf.fid AND fr.factionlvl >= ${FACTIONLVL.SOVEREIGN}
     ) AS isOwner
-    FROM UserFactions uf WHERE uf.uid = ?
-  ) AS ufc
+    FROM UserFactions uf WHERE uf.uid = p_uid
+  ) AS ufc;
 
   IF v_joined_count >= ${MAX_FACTIONS_PER_USER} THEN
     SELECT 1 AS result;
     ROLLBACK;
-  IF v_owned_count >= ${MAX_OWNED_FACTIONS_PER_USER} THEN
+  ELSEIF v_owned_count >= ${MAX_OWNED_FACTIONS_PER_USER} THEN
     SELECT 2 AS result;
     ROLLBACK;
-  IF v_mid IS NULL THEN
+  ELSEIF v_mid IS NULL THEN
     SELECT 3 AS result;
     ROLLBACK;
   ELSEIF EXISTS(
@@ -329,7 +334,7 @@ BEGIN
     );
     SELECT LAST_INSERT_ID() INTO v_fid;
     INSERT INTO FactionRoles (
-      uuid, fid, name, memberCount, factionlvl, flags,
+      uuid, fid, name, memberCount, factionlvl, flags
     ) VALUES (
       UUID_TO_BIN(p_sovereign_uuid), v_fid, 'Sovereign', 1, ${FACTIONLVL.SOVEREIGN}, ${0x01 << FACTION_ROLE_FLAGS.PROTECTED}
     ), (
@@ -373,9 +378,9 @@ BEGIN
       SELECT 3 AS result;
     ELSE
       INSERT INTO FactionRoles (
-        uuid, fid, customFlag, name, factionlvl, flags,
+        uuid, fid, customFlag, name, factionlvl, flags
       ) VALUES (
-        UUID_TO_BIN(p_factionrole_uuid), v_fid, v_mid, p_name, p_factionlvl, p_flags,
+        UUID_TO_BIN(p_factionrole_uuid), v_fid, v_mid, p_name, p_factionlvl, p_flags
       );
       SELECT 0 AS result;
     END IF;
@@ -385,7 +390,13 @@ END`,
 BEGIN
   DECLARE v_ip VARBINARY(8);
   DECLARE v_joined_count INT UNSIGNED;
+  DECLARE EXIT HANDLER FOR SQLEXCEPTION
+  BEGIN
+    ROLLBACK;
+    RESIGNAL;
+  END;
   SET v_ip = IP_TO_BIN(p_ipString);
+
   START TRANSACTION;
 
   SELECT COUNT(*) INTO v_joined_count FROM UserFactions WHERE uid = p_uid;
@@ -414,7 +425,7 @@ BEGIN
   ELSE
     INSERT INTO UserFactions (uid, fid, joined) VALUES (p_uid, p_fid, NOW());
     INSERT INTO UserFactionRoles (uid, frid)
-      SELECT p_uid, fr.id FROM FactionRoles fr WHERE fr.fid = v_fid AND (fr.flags & ${0x01 << FACTION_ROLE_FLAGS.DEFAULT}) != 0;
+      SELECT p_uid, fr.id FROM FactionRoles fr WHERE fr.fid = p_fid AND (fr.flags & ${0x01 << FACTION_ROLE_FLAGS.DEFAULT}) != 0;
     INSERT INTO UserChannels (uid, cid, lastRead)
       SELECT p_uid, f.cid, NOW() FROM Factions f WHERE f.id = p_fid AND f.cid IS NOT NULL;
 
@@ -446,6 +457,11 @@ END`,
     LEAVE_FACTION: `CREATE PROCEDURE IF NOT EXISTS LEAVE_FACTION(IN p_uid INT UNSIGNED, IN p_faction_uuid CHAR(36)) NOT DETERMINISTIC MODIFIES SQL DATA
 BEGIN
   DECLARE v_fid BIGINT UNSIGNED;
+  DECLARE EXIT HANDLER FOR SQLEXCEPTION
+  BEGIN
+    ROLLBACK;
+    RESIGNAL;
+  END;
   START TRANSACTION;
 
   SELECT MAX(id) INTO v_fid FROM Factions WHERE uuid = UUID_TO_BIN(p_faction_uuid);
@@ -494,6 +510,13 @@ BEGIN
 END`,
   };
 
+  const funcVersion = 3;
+  const curVersion = Number((await sequelize.query('SELECT value FROM Configs WHERE `key`=\'functions_version\''))[0]?.[0]?.value);
+  const doUpgrade = funcVersion !== curVersion;
+  if (doUpgrade) {
+    console.log('Upgrading Procedures');
+  }
+
   const isMariaDB = (await sequelize.query('SELECT VERSION() AS version'))[0][0].version.includes('MariaDB');
   if (!isMariaDB) {
     /* those functions are native to MySQL 8+ */
@@ -501,25 +524,31 @@ END`,
     delete functions.BIN_TO_UUID;
   }
 
-  const promises = [];
-  for (const name of Object.keys(functions)) {
-    if (alter) {
-      if (functions[name].includes('PROCEDURE')) {
-        promises.push(sequelize.query(`DROP PROCEDURE IF EXISTS ${name}`,
-          { raw: true },
-        ));
-      } else if (functions[name].includes('FUNCTION')) {
-        promises.push(sequelize.query(`DROP FUNCTION IF EXISTS ${name}`,
-          { raw: true },
-        ));
-      }
-    }
-    promises.push(sequelize.query(functions[name]));
-  }
   try {
-    await Promise.all(promises);
+    if (alter || doUpgrade) {
+      console.log('Dropping old SQL functions and procedures');
+      await Promise.all(Object.entries(functions).map(([name, func]) => {
+        if (func.includes('PROCEDURE')) {
+          return sequelize.query(`DROP PROCEDURE IF EXISTS ${name}`, { raw: true });
+        } if (func.includes('FUNCTION')) {
+          return sequelize.query(`DROP FUNCTION IF EXISTS ${name}`, { raw: true });
+        }
+        return null;
+      }));
+      await sequelize.query(`INSERT INTO Configs (\`key\`, value) VALUES ('functions_version', ${funcVersion}) ON DUPLICATE KEY UPDATE value = VALUES(value)`);
+    }
   } catch (err) {
-    throw new Error(`Error on creating SQL Function: ${err.message}`);
+    throw new Error(`Error on cleaning SQL Functions: ${err.message}`);
+  }
+
+  for (const [name, func] of Object.entries(functions)) {
+    console.log(`Loading ${name}...`);
+    try {
+      // eslint-disable-next-line no-await-in-loop
+      await sequelize.query(func);
+    } catch (error) {
+      throw new Error(`Error on creating SQL Function ${name}: ${error.message}\n${func}`);
+    }
   }
 };
 

@@ -112,7 +112,7 @@ export function changeUser(userChanges, alert) {
     try {
       const res = await requestChangeUser(userChanges);
       if (res) {
-        revertOperations.forEach((...args) => dispatch(
+        revertOperations.forEach((args) => dispatch(
           patchState('user', 'set', ...args),
         ));
         if (alert) {
@@ -148,7 +148,7 @@ export function changeProfile(profileChanges, alert) {
     try {
       const res = await requestChangeProfile(profileChanges);
       if (res) {
-        revertOperations.forEach((...args) => dispatch(
+        revertOperations.forEach((args) => dispatch(
           patchState('profile', 'set', ...args),
         ));
         if (alert) {
@@ -191,7 +191,7 @@ export function changeUserFaction(userFactionChanges) {
     try {
       const res = await requestChangeUserFaction(userFactionChanges);
       if (res) {
-        revertOperations.forEach((...args) => dispatch(
+        revertOperations.forEach((args) => dispatch(
           patchState('profile', 'setex', ...args),
         ));
       }
@@ -226,7 +226,7 @@ export function changeFaction(factionChanges) {
     try {
       const res = await requestChangeFaction(factionChanges);
       if (res) {
-        revertOperations.forEach((...args) => dispatch(
+        revertOperations.forEach((args) => dispatch(
           patchState('profile', 'setex', ...args),
         ));
       }
@@ -272,7 +272,7 @@ export function changeFactionRole(factionRoleChanges) {
     try {
       const res = await requestChangeFactionRole(factionRoleChanges);
       if (res) {
-        revertOperations.forEach((...args) => dispatch(
+        revertOperations.forEach((args) => dispatch(
           patchState('profile', 'setex', ...args),
         ));
       }

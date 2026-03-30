@@ -1,4 +1,4 @@
-import patchState from '../index.js';
+import { patchState } from '../index.js';
 import { MAX_CHAT_MESSAGES, CHANNEL_TYPES } from '../../core/constants.js';
 
 function getChannelIndexAndType(state, cid) {

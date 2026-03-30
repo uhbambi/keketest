@@ -17,6 +17,7 @@
   --control-bg-highlight: #e4e4e4;
   --control-bg-selected: #e8e8e8;
   --control-txt-color: black;
+  --caption-txt-color: #b1b1b1;
   --button-bg-pressed: #cbcbcb;
   --button-bg-confirm: red;
   --menu-bg: rgba(226,226,226,.95);
@@ -879,6 +880,60 @@ table td span {
 .menuelement > .expand-btn {
   position: absolute;
   right: 4px;
+}
+
+/*
+ * ================================ Forms ======================================
+ */
+
+.client-form {
+  text-align: initial;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-group > label, .form-group-avatar {
+  display: block;
+  margin-bottom: 6px;
+  font-weight: bold;
+  font-size: 15px;
+}
+
+.form-group > label > input[type="text"], .form-group > label > textarea {
+  width: 100%;
+  max-width: 100%;
+  padding: 6px;
+  border: 1px solid #ccc;
+  font-family: inherit;
+  font-size: 14px;
+  box-sizing: border-box;
+  margin-top: 3px;
+}
+
+.form-group > label > input[type="text"]:focus, .form-group > label >textarea:focus {
+  outline: none;
+  border-color: #007bff;
+}
+
+.form-group > textarea {
+  resize: vertical;
+  min-height: 80px;
+}
+
+.form-group > small {
+  display: block;
+  margin-top: 0.25rem;
+  font-size: 0.875rem;
+  color: var(--caption-txt-color);
+}
+
+.form-actions {
+  display: flex;
+  gap: 5px;
+  align-items: center;
+  justify-content: center;
 }
 
 /*

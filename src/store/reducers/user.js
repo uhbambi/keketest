@@ -1,4 +1,4 @@
-import patchState from '../index.js';
+import { patchState } from '../index.js';
 import { USERLVL } from '../../core/constants.js';
 
 const initialState = {

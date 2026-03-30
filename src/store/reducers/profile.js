@@ -1,4 +1,4 @@
-import patchState from '../index.js';
+import { patchState } from '../index.js';
 
 const initialState = {
   fishes: [],

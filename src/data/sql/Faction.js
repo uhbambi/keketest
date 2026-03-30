@@ -137,7 +137,7 @@ EXISTS(SELECT 1 FROM UserFactionRoles ufr WHERE ufr.uid = uf.uid AND ufr.frid = 
 fr.name AS 'roles.name', fr.flags AS 'roles.flags',
 fr.factionlvl AS 'roles.factionlvl' FROM Factions f
   INNER JOIN UserFactions uf ON uf.fid = f.id
-  LEFT JOIN FactionRole fr ON fr.fid = f.id
+  LEFT JOIN FactionRoles fr ON fr.fid = f.id
   LEFT JOIN Media a ON a.id = f.avatar
   LEFT JOIN Media frm ON frm.id = fr.customFlag
 WHERE uf.uid = ?`, {
@@ -148,7 +148,7 @@ WHERE uf.uid = ?`, {
         },
       ),
       sequelize.query(
-        `SELECT BIN_TO_UUID(f.uuid) AS fid BIN_TO_UUID(fr.uuid) FROM Factions f
+        `SELECT BIN_TO_UUID(f.uuid) AS fid, BIN_TO_UUID(fr.uuid) AS frid FROM Factions f
   INNER JOIN FactionRoles fr ON fr.fid = f.id
   INNER JOIN Profiles p ON fr.id = p.activeRole
 WHERE p.uid = ?`, {
@@ -573,22 +573,22 @@ export async function getFactionInfo(fid) {
   try {
     let model = await sequelize.query(
       // eslint-disable-next-line max-len
-      `SELECT f.id AS sqlFid, f.name, f.ttle, f.description, f.memberCount, f.flags, f.cid AS channelId,
+      `SELECT f.id AS sqlFid, f.name, f.title, f.description, f.memberCount, f.flags, f.cid AS channelId,
 CONCAT(a.shortId, ':', a.extension) AS avatarId,
 BIN_TO_UUID(fr.uuid) AS 'roles.frid',
 CONCAT(frm.shortId, ':', frm.extension) AS 'roles.customFlagId',
 fr.name AS 'roles.name', fr.flags AS 'roles.flags',
 fr.factionlvl AS 'roles.factionlvl' FROM Factions f
   LEFT JOIN Media a ON a.id = f.avatar
-  LEFT JOIN FactionRole fr ON fr.fid = f.id
+  LEFT JOIN FactionRoles fr ON fr.fid = f.id
   LEFT JOIN Media frm ON frm.id = fr.customFlag
-WHERE f.uuid = UUID_TO_BIN(fid)`, {
+WHERE f.uuid = UUID_TO_BIN(?)`, {
         replacements: [fid],
         raw: true,
         type: QueryTypes.SELECT,
       },
     );
-    if (model) {
+    if (model?.length) {
       model = nestQuery(model);
       // whether or not searchable
       model.isPrivate = (model.flags & (0x01 << FACTION_FLAGS.PRIV)) !== 0;

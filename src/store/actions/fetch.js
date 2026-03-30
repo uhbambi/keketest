@@ -459,6 +459,15 @@ export function requestRankings() {
   );
 }
 
+export function requestCreateFaction(
+  name, title, description, isPrivate, isPublic, avatarId,
+) {
+  const body = {
+    name, title, description, isPrivate, isPublic, avatarId,
+  };
+  return makeAPIPOSTRequest('/api/factioncreate', body);
+}
+
 export function requestProfile() {
   return makeAPIGETRequest(
     '/api/profile',

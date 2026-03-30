@@ -189,6 +189,9 @@ const SocialSettings = ({ done }) => {
           onDragStart={(e) => e.preventDefault()}
         />
       </div>
+      <div className="modaldesc">{
+        t`Note: Your active Faction may overwrite your flag settings.`
+      }</div>
       <div className="modaldivider" />
 
       <SettingsItem

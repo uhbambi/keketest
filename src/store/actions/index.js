@@ -297,6 +297,12 @@ export function patchState(state, op, path, value) {
   };
 }
 
+export function applyPatches(patches) {
+  return patches.map(
+    ([state, { op, path, value }]) => patchState(state, op, path, value),
+  );
+}
+
 export function parseCanvases() {
   /*
    * can only do this once and requires window.ssv

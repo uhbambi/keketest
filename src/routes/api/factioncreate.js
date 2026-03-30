@@ -83,9 +83,9 @@ export default async function factioncreate(req, res) {
   delete factionInfo.sqlFid;
   delete factionInfo.defaultFrid;
 
-  let chatPatch;
+  const patches = [];
   if (factionInfo.channelId) {
-    chatPatch = {
+    const chatPatch = {
       op: 'push',
       path: 'channels',
       value: [
@@ -95,6 +95,7 @@ export default async function factioncreate(req, res) {
     };
     socketEvents.patchUserState(user.id, 'chat', chatPatch);
     delete factionInfo.channelId;
+    patches.push(['chat', chatPatch]);
   }
 
   const profilePatch = {
@@ -103,11 +104,11 @@ export default async function factioncreate(req, res) {
     value: factionInfo,
   };
   socketEvents.patchUserState(user.id, 'profile', profilePatch);
+  patches.push(['profile', profilePatch]);
 
   logger.info(`User ${user.id} created new faction ${name}`);
   res.json({
     status: 'ok',
-    profilePatch,
-    chatPatch,
+    patches,
   });
 }

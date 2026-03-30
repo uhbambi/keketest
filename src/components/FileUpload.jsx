@@ -73,7 +73,7 @@ const FileUploadElement = ({
 
   const buttonStyle = {
     width: active && render ? 40 : 0,
-    minHeight,
+    height: minHeight,
     transition: 'width 200ms ease-in-out',
     padding: 0,
     overflow: 'hidden',
