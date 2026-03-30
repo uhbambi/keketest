@@ -141,7 +141,6 @@ fr.factionlvl AS 'roles.factionlvl' FROM Factions f
   LEFT JOIN Media a ON a.id = f.avatar
   LEFT JOIN Media frm ON frm.id = fr.customFlag
 WHERE uf.uid = ?`, {
-        /* eslint-enable max-len */
           replacements: [uid],
           raw: true,
           type: QueryTypes.SELECT,
@@ -152,6 +151,7 @@ WHERE uf.uid = ?`, {
   INNER JOIN FactionRoles fr ON fr.fid = f.id
   INNER JOIN Profiles p ON fr.id = p.activeRole
 WHERE p.uid = ?`, {
+        /* eslint-enable max-len */
           replacements: [uid],
           plain: true,
           type: QueryTypes.SELECT,

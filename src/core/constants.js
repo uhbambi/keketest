@@ -180,7 +180,6 @@ export const OVERLAY_SP_TH = 8;
  * PopUp path args
  */
 export const POPUP_ARGS = {
-  USERAREA: ['activeTab'],
   MODTOOLS: ['activeTab'],
   CHAT: [['chatChannel', 'int']],
   FISH_DISPLAY: [['id', 'int']],
@@ -204,6 +203,7 @@ export const AVAILABLE_POPUPS = [
   'STATISTICS',
   'MODTOOLS',
   'MYFACTIONS',
+  'CONVERTER',
 ];
 
 /*

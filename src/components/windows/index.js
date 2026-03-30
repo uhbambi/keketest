@@ -18,6 +18,8 @@ import MyFactions from './MyFactions.jsx';
 const Modtools = React.lazy(() => import(/* webpackChunkName: "modtools" */ './Modtools.jsx'));
 // eslint-disable-next-line max-len
 const Statistics = React.lazy(() => import(/* webpackChunkName: "stats" */ './Statistics.jsx'));
+// eslint-disable-next-line max-len
+const Converter = React.lazy(() => import(/* webpackChunkName: "stats" */ './Converter.jsx'));
 
 export default {
   /*
@@ -27,6 +29,7 @@ export default {
   HELP: [Help, t`Help`, true],
   SETTINGS: [Settings, t`Settings`, true],
   USERAREA: [UserArea, t`User Area`, false],
+  CONVERTER: [Converter, t`Converter`, false],
   CHAT: [Chat, t`Chat`, false],
   CANVAS_SELECTION: [CanvasSelect, t`Canvas Selection`, true],
   ARCHIVE: [Archive, t`Canvas Archive`, true],

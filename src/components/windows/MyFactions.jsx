@@ -3,7 +3,7 @@
  */
 import React, { useMemo, useState, useCallback, useRef } from 'react';
 import { useDispatch } from 'react-redux';
-import { t } from 'ttag';
+import { t, jt } from 'ttag';
 
 import {
   validateFactionName, validateFactionTitle, validateDescription,
@@ -28,15 +28,13 @@ import useLink from '../hooks/link.js';
 
 const FactionAvatar = ({ avatarId }) => {
   const [, thumb] = getUrlsFromMediaIdAndName(avatarId, 'avatar');
-  let avatarStyle;
-  if (thumb) {
-    avatarStyle = {
-      backgroundImage: `url(${cdn`${thumb}`})`,
-    };
-  }
   return (
-    <div className="factionavatar" style={avatarStyle}>
-      {!avatarId && '#'}
+    <div style={{ width: 40, height: 40 }}>
+      {(thumb) ? <img
+        src={cdn`${thumb}`}
+        loading="lazy"
+        style={{ width: '100%', height: '100%' }}
+      /> : null}
     </div>
   );
 };
@@ -68,13 +66,15 @@ const MyFactions = () => {
     activeFaction, activeFactionTitle, activeRoleName, activeCustomFlagId,
   ] = useMemo(() => {
     for (let i = 0; i < factions.length; i += 1) {
-      const roles = factions[i];
+      const { roles } = factions[i];
       for (let u = 0; u < roles.length; u += 1) {
         if (roles[u].frid === activeFactionRole) {
           return [
             factions[i].fid,
-            factions[i].title,
-            roles[u].name,
+            // eslint-disable-next-line react/jsx-key
+            <strong>"{factions[i].title}"</strong>,
+            // eslint-disable-next-line react/jsx-key
+            <strong>"{roles[u].name}"</strong>,
             roles[u].customFlagId,
           ];
         }
@@ -83,7 +83,7 @@ const MyFactions = () => {
     return [null, '', '', null];
   }, [factions, activeFactionRole]);
 
-  const setActiveRole = useCallback(async (gActiveFactionRole = null) => {
+  const setActiveRole = useCallback(async (gActiveFactionRole) => {
     const respErrors = await dispatch(
       changeProfile({ activeFactionRole: gActiveFactionRole }),
     );
@@ -154,256 +154,244 @@ const MyFactions = () => {
     setSubmitting(false);
   }, [submitting]);
 
+  if (!fetched) {
+    return (<div className="content" key="loading"><h1>{t`Loading...`}</h1></div>);
+  }
+
+  if (page === 'create') {
+    return (
+      <div className="content" key="create">
+        <h2>{t`Create Faction`}</h2>
+        <form onSubmit={submitCreateFaction} className="client-form">
+          <div className="form-group">
+            <label>{t`Name`}:
+              <input
+                type="text"
+                name="name"
+                placeholder="Name"
+                required
+              /></label>
+            <small>{t`Name of your faction [a-z][A-Z][0-9].-_`}</small>
+          </div>
+
+          <div className="form-group form-group-avatar">
+            <span>{t`Avatar`}:
+              <FileUpload
+                acceptedTypes="image/*"
+                maxFiles={1}
+                uploadRef={uploadRef}
+                minHeight={50}
+              /></span>
+            <small>{t`An image representing your faction`}</small>
+          </div>
+
+          <div className="form-group">
+            <label htmlFor="title">{t`Title`}:
+              <input
+                type="text"
+                name="title"
+                placeholder="title"
+                required
+              /></label>
+            <small>{t`Title of your faction`}</small>
+          </div>
+
+          <div className="form-group">
+            <label>{t`Description`}:
+              <textarea
+                name="description"
+                placeholder={t`Enter a little text that describes your faction`}
+                rows="3"
+                required
+              /></label>
+            <small>{t`Description of your faction`}</small>
+          </div>
+
+          <div className="form-group checkbox-group">
+            <label className="checkbox-label">
+              <input
+                type="checkbox"
+                name="isprivate"
+                value="true"
+              />
+              <span className="checkmark" />
+              {t`Don't show faction in search`}
+            </label>
+            <small>{t`Don't let people find this faction in public search or look at its profile.`}</small>
+          </div>
+
+          <div className="form-group checkbox-group">
+            <label className="checkbox-label">
+              <input
+                type="checkbox"
+                name="ispublic"
+                value="true"
+              />
+              <span className="checkmark" />
+              {t`Let everyone join this faction`}
+            </label>
+            <small>{t`Let people join this faction without needing an invite.`}</small>
+          </div>
+
+          {errors.map((error) => (
+            <p key={error} className="errormessage">
+              <span>{t`Error`}</span>:&nbsp;{error}</p>
+          ))}
+          <div className="form-actions">
+            <button
+              type="submit"
+              disabled={submitting}
+            >
+              {t`Submit`}
+            </button>
+            <button
+              type="button"
+              onClick={changePage('list')}
+            >
+              {t`Cancel`}
+            </button>
+          </div>
+        </form>
+      </div>
+    );
+  }
+
   return (
-    <div className="content">
-      {(() => {
-        if (!fetched) {
-          return (<div className="content">{t`Loading...`}</div>);
-        }
+    <div className="content" key="list">
+      <h2>{t`Your Factions`}</h2>
+      {errors.map((error) => (
+        <p key={error} className="errormessage">
+          <span>{t`Error`}</span>:&nbsp;{error}</p>
+      ))}
+      {(factions.length > 0) ? (
+        <React.Fragment key="fl">
+          {(activeFaction) ? (
+            <p key="pres">
+              {jt`You are currently representing ${activeFactionTitle} as ${activeRoleName}`}
+              {(activeCustomFlagId) && (
+              <img
+                className="chatflag"
+                src={cdn`${getUrlsFromMediaIdAndName(activeCustomFlagId)[0]}`}
+                alt=""
+              />
+              )}.&nbsp;
+              <span
+                role="button"
+                tabIndex={-1}
+                className="modallink"
+                onClick={() => setActiveRole(null)}
+              >
+                {t`Click here to cease representation.`}
+              </span>
+            </p>
+          ) : (
+            <p key="pres">{t`You are currently not representing any faction. To represent one, activate a role in one of your factions below.`}</p>
+          )}
+          <div className="factionlist">{factions.map((faction) => {
+            const { fid } = faction;
+            let titleClass = 'faction-title';
+            if (fid === activeFaction) {
+              titleClass += ' active';
+            }
+            if (faction.isHidden) {
+              titleClass += ' hidden';
+            }
 
-        if (page === 'create') {
-          /*
-           * name, title, description, isPrivate, isPublic
-           */
-          return (
-            <React.Fragment key="create">
-              <div className="client-form-box">
-                <h2>{t`Create Faction`}</h2>
-                <form onSubmit={submitCreateFaction} className="client-form">
-                  <div className="form-group">
-                    <label>{t`Name`}:
-                      <input
-                        type="text"
-                        name="name"
-                        placeholder="Name"
-                        required
-                      /></label>
-                    <small>{t`Name of your faction [a-z][A-Z][0-9].-_`}</small>
-                  </div>
-
-                  <div className="form-group form-group-avatar">
-                    <span>{t`Avatar`}:
-                      <FileUpload
-                        acceptedTypes="image/*"
-                        maxFiles={1}
-                        uploadRef={uploadRef}
-                        minHeight={50}
-                      /></span>
-                    <small>{t`An image representing your faction`}</small>
-                  </div>
-
-                  <div className="form-group">
-                    <label htmlFor="title">{t`Title`}:
-                      <input
-                        type="text"
-                        name="title"
-                        placeholder="title"
-                        required
-                      /></label>
-                    <small>{t`Title of your faction`}</small>
-                  </div>
-
-                  <div className="form-group">
-                    <label>{t`Description`}:
-                      <textarea
-                        name="description"
-                        placeholder={t`Enter a little text that describes your faction`}
-                        rows="3"
-                        required
-                      /></label>
-                    <small>{t`Description of your faction`}</small>
-                  </div>
-
-                  <div className="form-group checkbox-group">
-                    <label className="checkbox-label">
-                      <input
-                        type="checkbox"
-                        name="isprivate"
-                        value="true"
-                      />
-                      <span className="checkmark" />
-                      {t`Don't show faction in search`}
-                    </label>
-                    <small>{t`Don't let people find this faction in public search or look at its profile.`}</small>
-                  </div>
-
-                  <div className="form-group checkbox-group">
-                    <label className="checkbox-label">
-                      <input
-                        type="checkbox"
-                        name="ispublic"
-                        value="true"
-                      />
-                      <span className="checkmark" />
-                      {t`Let everyone join this faction`}
-                    </label>
-                    <small>{t`Let people join this faction without needing an invite.`}</small>
-                  </div>
-
-                  {errors.map((error) => (
-                    <p key={error} className="errormessage">
-                      <span>{t`Error`}</span>:&nbsp;{error}</p>
-                  ))}
-                  <div className="form-actions">
+            if (fid === selected) {
+              return (
+                <div
+                  key={faction.fid}
+                  className="factionlist-item-edit"
+                >
+                  <FactionAvatar
+                    avatarId={faction.avatarId}
+                  /><span className={titleClass}>{faction.title}</span>
+                  <p className="faction-description">{faction.description}</p>
+                  <p>{t`Your Roles:`}
+                    {faction.roles.map((role) => (
+                      <span
+                        role="button"
+                        tabIndex={-1}
+                        key={role.frid}
+                        onClick={() => setActiveRole(role.frid)}
+                      >
+                        <img
+                          className="chatflag"
+                          src={cdn`${getUrlsFromMediaIdAndName(activeCustomFlagId)[0]}`}
+                          alt=""
+                        /> {role.name}
+                      </span>
+                    ))}
+                    <br />
+                    <span>{t`(click a role to activate it)`}</span>
+                  </p>
+                  <p>
+                    <input
+                      type="checkbox"
+                      checked={faction.isHidden}
+                      onChange={(evt) => {
+                        setFactionHidden(faction.fid, evt.target.checked);
+                      }}
+                    /> {t`Hide from profile`}
+                  </p>
+                  <p>
                     <button
-                      type="submit"
-                      disabled={submitting}
+                      type="button"
+                      className={confirmLeave ? 'confirm' : undefined}
+                      onClick={() => {
+                        if (!confirmLeave) {
+                          setConfirmLeave(true);
+                        }
+                        /* */
+                      }}
                     >
-                      {t`Submit`}
+                      {/* t: button for leaving a faction, it asks for confirmation */}
+                      {(confirmLeave) ? t`Confirm Leave` : t`Leave Faction`}
                     </button>
                     <button
                       type="button"
-                      onClick={changePage('list')}
-                    >
-                      {t`Cancel`}
-                    </button>
-                  </div>
-                </form>
-              </div>
-            </React.Fragment>
-          );
-        }
-        return (
-          <React.Fragment key="list">
-            <h2>{t`Your Factions`}</h2>
-            {errors.map((error) => (
-              <p key={error} className="errormessage">
-                <span>{t`Error`}</span>:&nbsp;{error}</p>
-            ))}
-            {(factions.length > 0) ? (
-              <React.Fragment key="fl">
-                {(activeFaction) ? (
-                  <p key="pres">
-                    {`${t`You are currently representing ${activeFactionTitle} as ${activeRoleName}`} `}
-                    {(activeCustomFlagId) && (
-                    <img
-                      className="chatflag"
-                      src={cdn`${getUrlsFromMediaIdAndName(activeCustomFlagId)[0]}`}
-                      alt=""
-                    />
-                    )}.
-                    <span
-                      role="button"
-                      tabIndex={-1}
-                      className="modallink"
-                      onClick={setActiveRole}
-                    >
-                      {t`Click here to cease representation.`}
-                    </span>
-                  </p>
-                ) : (
-                  <p key="pres">{t`You are currently not representing any faction. To represent one, activate a role in one of your factions below.`}</p>
-                )}
-                <div className="factionlist">{factions.map((faction) => {
-                  const { fid } = faction;
-                  let titleClass = 'faction-title';
-                  if (fid === activeFaction) {
-                    titleClass += ' active';
-                  }
-                  if (faction.isHidden) {
-                    titleClass += ' hidden';
-                  }
-
-                  if (fid === selected) {
-                    return (
-                      <div
-                        key={faction.fid}
-                        className="factionlist-item-edit"
-                      >
-                        <FactionAvatar
-                          fid={fid}
-                          avatarId={faction.avatarId}
-                        /><span className={titleClass}>{faction.title}</span>
-                        <p className="faction-description">{faction.description}</p>
-                        <p>{t`Your Roles:`}
-                          {faction.roles.map((role) => (
-                            <span
-                              role="button"
-                              tabIndex={-1}
-                              key={role.frid}
-                              onClick={() => setActiveRole(role.frid)}
-                            >
-                              <img
-                                className="chatflag"
-                                src={cdn`${getUrlsFromMediaIdAndName(activeCustomFlagId)[0]}`}
-                                alt=""
-                              /> {role.name}
-                            </span>
-                          ))}
-                          <br />
-                          <span>{t`(click a role to activate it)`}</span>
-                        </p>
-                        <p>
-                          <input
-                            type="checkbox"
-                            checked={faction.isHidden}
-                            onChange={(evt) => {
-                              setFactionHidden(faction.fid, evt.target.checked);
-                            }}
-                          /> {t`Hide from profile`}
-                        </p>
-                        <p>
-                          <button
-                            type="button"
-                            className={confirmLeave ? 'confirm' : undefined}
-                            onClick={() => {
-                              if (!confirmLeave) {
-                                setConfirmLeave(true);
-                              }
-                              /* */
-                            }}
-                          >
-                            {/* t: button for leaving a faction, it asks for confirmation */}
-                            {(confirmLeave) ? t`Confirm Leave` : t`Leave Faction`}
-                          </button>
-                          <button
-                            type="button"
-                            onClick={() => {
-                              link('FACTION', {
-                                target: 'parent',
-                                reuse: true,
-                                args: { fid },
-                              });
-                            }}
-                          >
-                            {t`Open Faction`}
-                          </button>
-                        </p>
-                      </div>
-                    );
-                  }
-                  return (
-                    <div
-                      key={faction.fid}
-                      className="factionlist-item"
                       onClick={() => {
-                        setSelected(fid);
-                        setConfirmLeave(false);
+                        link('FACTION', {
+                          target: 'parent',
+                          reuse: true,
+                          args: { fid },
+                        });
                       }}
-                      role="button"
-                      tabIndex={0}
                     >
-                      <FactionAvatar
-                        fid={fid}
-                        avatarId={faction.avatarId}
-                      /><span className={titleClass}>{faction.title}</span>
-                    </div>
-                  );
-                })}</div>
-              </React.Fragment>
-            ) : (
-              <p key="nofl">{t`You are currently not a member of any faction.`}</p>
-            )}
-            <h2>{t`Create a new Faction here:`}</h2>
-            <button
-              type="button"
-              onClick={changePage('create')}
-            >
-              {t`Create`}
-            </button>
-          </React.Fragment>
-        );
-      })()}
+                      {t`Open Faction`}
+                    </button>
+                  </p>
+                </div>
+              );
+            }
+            return (
+              <div
+                key={faction.fid}
+                className="factionlist-item"
+                onClick={() => {
+                  setSelected(fid);
+                  setConfirmLeave(false);
+                }}
+                role="button"
+                tabIndex={0}
+              >
+                <FactionAvatar
+                  avatarId={faction.avatarId}
+                /><span className={titleClass}>{faction.title}</span>
+              </div>
+            );
+          })}</div>
+        </React.Fragment>
+      ) : (
+        <p key="nofl">{t`You are currently not a member of any faction.`}</p>
+      )}
+      <h2>{t`Create a new Faction`}</h2>
+      <button
+        type="button"
+        onClick={changePage('create')}
+      >
+        {t`Create`}
+      </button>
     </div>
   );
 };

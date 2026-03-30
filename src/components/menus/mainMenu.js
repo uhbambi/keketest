@@ -29,6 +29,10 @@ import {
   // battle axe
   PiAxeFill,
 } from 'react-icons/pi';
+import {
+  // some square for converter
+  GiConvergenceTarget,
+} from 'react-icons/gi';
 import fileDownload from 'js-file-download';
 import { t } from 'ttag';
 
@@ -106,7 +110,7 @@ export default function mainMenu(store) {
       id: 'pe',
       type: 'submenu',
       symbol: MdPerson,
-      test: t`User Area`,
+      text: t`User Area`,
       elements: [{
         id: 'uapr',
         type: 'link',
@@ -119,6 +123,12 @@ export default function mainMenu(store) {
         symbol: PiAxeFill,
         link: 'MYFACTIONS',
         text: t`My Factions`,
+      }, {
+        id: 'uaco',
+        type: 'link',
+        symbol: GiConvergenceTarget,
+        link: 'CONVERTER',
+        text: t`Converter`,
       }],
     });
   } else {

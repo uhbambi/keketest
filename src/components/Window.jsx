@@ -163,7 +163,11 @@ const Window = ({ id }) => {
   const { title, windowType } = win;
   const { z } = position;
 
-  const [Content, name] = COMPONENTS[windowType];
+  const typeObj = COMPONENTS[windowType];
+  if (!typeObj) {
+    return null;
+  }
+  const [Content, name] = typeObj;
 
   const windowTitle = (title) ? `${name} - ${title}` : name;
 

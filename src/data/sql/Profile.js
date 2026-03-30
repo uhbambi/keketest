@@ -114,7 +114,7 @@ export async function setActiveFactionRole(uid, factionRole = null) {
     if (factionRole) {
       /* make sure user has that role and is in that faction */
       const model = await sequelize.query(
-        `SELECT fr.id AS id FROM UserFactionRoles ufr
+        `SELECT fr.id AS sqlFrid FROM UserFactionRoles ufr
   INNER JOIN FactionRoles fr ON ufr.frid = fr.id
   INNER JOIN Factions f ON fr.fid = f.id
   INNER JOIN UserFactions uf ON uf.fid = f.id
@@ -124,10 +124,10 @@ WHERE ufr.uid = ? AND uf.uid = ? AND fr.uuid = UUID_TO_BIN(?)`, {
           type: QueryTypes.SELECT,
         },
       );
-      if (model) {
+      if (!model) {
         return false;
       }
-      activeRole = model.id;
+      activeRole = model.sqlFrid;
     }
 
     await sequelize.query(

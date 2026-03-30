@@ -17,7 +17,8 @@
   --control-bg-highlight: #e4e4e4;
   --control-bg-selected: #e8e8e8;
   --control-txt-color: black;
-  --caption-txt-color: #b1b1b1;
+  --caption-txt-color: #6e6e6e;
+  --error-txt-color: #b73c3c;
   --button-bg-pressed: #cbcbcb;
   --button-bg-confirm: red;
   --menu-bg: rgba(226,226,226,.95);
@@ -1472,7 +1473,7 @@ button:hover {
 }
 
 .errormessage {
-  color: #b73c3c;
+  color: var(--error-txt-color);
 }
 
 .cooldownbox {
