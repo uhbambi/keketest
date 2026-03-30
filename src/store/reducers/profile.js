@@ -12,6 +12,7 @@ const initialState = {
    *     isPrivate,
    *     isPublic,
    *     isHidden,
+   *     memberCount,
    *     avatarId,
    *     roles: [{
    *       frid,

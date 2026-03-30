@@ -39,7 +39,7 @@ async function parseAPIresponse(response) {
   if (code === 429) {
     let error = t`You made too many requests`;
     const retryAfter = response.headers.get('Retry-After');
-    if (!Number.isNaN(Number(retryAfter))) {
+    if (!Number.isNaN(Number(retryAfter)) && retryAfter > 0) {
       const ti = Math.floor(retryAfter / 60);
       error += `, ${t`try again after ${ti}min`}`;
     }
@@ -466,6 +466,10 @@ export function requestCreateFaction(
     name, title, description, isPrivate, isPublic, avatarId,
   };
   return makeAPIPOSTRequest('/api/factioncreate', body);
+}
+
+export function requestLeaveFaction(fid) {
+  return makeAPIPOSTRequest('/api/factionleave', { fid });
 }
 
 export function requestProfile() {

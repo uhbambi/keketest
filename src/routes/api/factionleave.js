@@ -6,7 +6,7 @@ import socketEvents from '../../socket/socketEvents.js';
 import { getFactionInfo, leaveFaction } from '../../data/sql/Faction.js';
 
 export default async function factionleave(req, res) {
-  req.tickRateLimiter(7000);
+  req.tickRateLimiter(5000);
   const { ttag: { t }, user, body: { fid } } = req;
 
   if (!fid || typeof fid !== 'string') {
@@ -32,13 +32,14 @@ export default async function factionleave(req, res) {
     throw new Error(t`This faction does not exist`);
   }
 
-  let chatPatch;
+  const patches = [];
   if (factionInfo.channelId) {
-    chatPatch = {
+    const chatPatch = {
       op: 'del',
       path: `channels[0:${factionInfo.channelId}]`,
     };
     socketEvents.patchUserState(user.id, 'chat', chatPatch);
+    patches.push(['chat', chatPatch]);
   }
 
   const profilePatch = {
@@ -47,11 +48,11 @@ export default async function factionleave(req, res) {
     value: factionInfo,
   };
   socketEvents.patchUserState(user.id, 'profile', profilePatch);
+  patches.push(['profile', profilePatch]);
 
   logger.info(`User ${user.id} left faction ${factionInfo.name}`);
   res.json({
     status: 'ok',
-    profilePatch,
-    chatPatch,
+    patches,
   });
 }

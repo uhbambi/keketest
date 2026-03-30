@@ -6,6 +6,7 @@ import { getBadgesOfUser } from '../../data/sql/Badge.js';
 import { getFactionsOfUser } from '../../data/sql/Faction.js';
 
 export default async (req, res) => {
+  req.tickRateLimiter(1000);
   const { user: { id: uid, data: { customFlag, avatarId } } } = req;
   const [
     fishes,

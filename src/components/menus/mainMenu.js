@@ -117,12 +117,14 @@ export default function mainMenu(store) {
         symbol: MdPerson,
         link: 'USERAREA',
         text: t`Profile`,
+        reuse: true,
       }, {
         id: 'uafa',
         type: 'link',
         symbol: PiAxeFill,
         link: 'MYFACTIONS',
         text: t`My Factions`,
+        reuse: true,
       }, {
         id: 'uaco',
         type: 'link',

@@ -21,6 +21,7 @@
   --error-txt-color: #b73c3c;
   --button-bg-pressed: #cbcbcb;
   --button-bg-confirm: red;
+  --border-seperator-color: #b1b1b2;
   --menu-bg: rgba(226,226,226,.95);
 }
 
@@ -620,6 +621,10 @@ button.confirm {
   background-color: var(--button-bg-confirm);
 }
 
+button.confirm:hover {
+  background-color: var(--button-bg-confirm);
+}
+
 .Alert .md-paragraph {
   margin-top: 12px;
   margin-bottom: 12px;
@@ -932,9 +937,10 @@ table td span {
 
 .form-actions {
   display: flex;
-  gap: 5px;
+  gap: 3px;
   align-items: center;
   justify-content: center;
+  margin-top: 4px;
 }
 
 /*
@@ -944,21 +950,95 @@ table td span {
 .factionlist {
   display: inline-block;
   margin: 5px 0px 15px 0px;
-  width: 95%;
-  max-height: 250px;
+  width: 100%;
   overflow-y: auto;
-  max-width: 340px;
   border: thin solid;
+  text-align: initial;
 }
 
 .factionlist-item {
+  display: flex;
+  gap: 9px;
   cursor: pointer;
   padding: 4px;
+  margin-right: 10px;
   font-weight: bold;
+  align-items: center;
 }
 
-.factionavatar {
-  background-color: --control-bg;
+.factionlist-edit {
+  margin: 0 10px 7px 10px;
+  line-height: 1.5em;
+}
+
+.factionlist-key {
+  color: var(--caption-txt-color);
+}
+
+.factionlist > div:not(:first-child) {
+  border-top: thin solid var(--border-seperator-color);
+}
+
+.factionlist-avatar {
+  flex-shrink: 0;
+  width: 40px;
+  height: 40px;
+}
+
+.factionlist-membercount {
+  color: var(--caption-txt-color);
+}
+
+.factionlist-title {
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  font-size: 16px;
+}
+
+.factionlist-name {
+  flex-grow: 1;
+  color: var(--caption-txt-color);
+}
+
+.factionlist-role {
+  cursor: pointer;
+  border: solid;
+  border-width: thin;
+  padding: 4px;
+  border-radius: 1em;
+  background-color: #c1c1c1;
+  color: #191919;
+  margin: 2px;
+  font-size: 12px;
+}
+
+.factionlist-square {
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  border-radius: 3px;
+  background-color: #c1c1c1;
+}
+
+.powerlvl-sovereign {
+  background-color: #ca12ca;
+}
+
+.powerlvl-magistrate {
+  background-color: #3e8adb;
+}
+
+.powerlvl-noble {
+  background-color: #eccc4c;
+}
+
+.factionlist-role:hover {
+  font-weight: 700;
+}
+
+.factionlist-role.active {
+  font-weight: 700;
 }
 
 /*

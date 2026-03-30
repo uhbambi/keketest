@@ -37,7 +37,7 @@
  * @return [newState, firstTarget, success]
  */
 export function patchState(state, patch) {
-  const { path } = patch;
+  const { path, op } = patch;
   const newState = { ...state };
 
   let failed = false;
@@ -46,6 +46,8 @@ export function patchState(state, patch) {
   let location = newState;
   let locationIndex = null;
   let sectionStart = 0;
+
+  let targetSelectorPushNX = null;
 
   let i = 0;
   while (i < path.length) {
@@ -65,7 +67,18 @@ export function patchState(state, patch) {
           firstTarget = locationTarget;
         }
       }
-      const newLocation = location[locationTarget];
+      let newLocation = location[locationTarget];
+      if (!newLocation && op === 'addnx' && char === '['
+        && !Array.isArray(location)
+        && path.indexOf('[', i + 1) === -1
+        && path.indexOf('.', i + 1) === -1
+      ) {
+        /*
+         * special case where we create the last array for "addnx",
+         * array creation for "add" would happen later
+         */
+        newLocation = [];
+      }
       if (!newLocation || typeof newLocation !== 'object') {
         failed = true;
         break;
@@ -100,7 +113,16 @@ export function patchState(state, patch) {
           // eslint-disable-next-line eqeqeq
           index = location.findIndex((l) => l?.[key] == value);
           if (index === -1) {
-            failed = true;
+            if ((op === 'pushnx' || op === 'addnx')
+              && endIndex === path.length - 1
+            ) {
+              /*
+               * pushnx HAS to end with a [key:value] selector that doesn't exist
+               */
+              targetSelectorPushNX = [key, value];
+            } else {
+              failed = true;
+            }
             break;
           }
           locationIndex = index;
@@ -118,6 +140,14 @@ export function patchState(state, patch) {
     i += 1;
   }
 
+  /*
+  console.log('location', location);
+  console.log('firstTarget', firstTarget);
+  console.log('locationIndex', locationIndex);
+  console.log('sectionStart', sectionStart, sectionStart === path.length);
+  console.log('pushnx', targetSelectorPushNX);
+  */
+
   let target;
   if (!failed) {
     if (locationIndex || locationIndex === 0) {
@@ -134,7 +164,7 @@ export function patchState(state, patch) {
     }
   }
 
-  const { op, value } = patch;
+  const { value } = patch;
   if (!failed) {
     switch (op) {
       case 'add': {
@@ -152,7 +182,15 @@ export function patchState(state, patch) {
         }
         break;
       }
-      /* TODO: pushnx */
+      case 'addnx':
+      case 'pushnx': {
+        if (!targetSelectorPushNX || !Array.isArray(location)) {
+          failed = true;
+        } else {
+          location.push(value);
+        }
+        break;
+      }
       case 'setex': {
         if (typeof location[target] === 'undefined') {
           failed = true;

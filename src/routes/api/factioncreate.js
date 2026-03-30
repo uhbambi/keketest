@@ -10,7 +10,7 @@ import {
   createFaction, getFactionInfo,
 } from '../../data/sql/Faction.js';
 import {
-  MAX_FACTIONS_PER_USER, MAX_OWNED_FACTIONS_PER_USER,
+  MAX_FACTIONS_PER_USER, MAX_OWNED_FACTIONS_PER_USER, CHANNEL_TYPES,
 } from '../../core/constants.js';
 
 export default async function factioncreate(req, res) {
@@ -86,10 +86,10 @@ export default async function factioncreate(req, res) {
   const patches = [];
   if (factionInfo.channelId) {
     const chatPatch = {
-      op: 'push',
-      path: 'channels',
+      op: 'addnx',
+      path: `channels.${CHANNEL_TYPES.FACTION}[0:${factionInfo.channelId}]`,
       value: [
-        getFactionInfo.channelId, factionInfo.name, Date.now(), Date.now(),
+        factionInfo.channelId, factionInfo.name, Date.now(), Date.now(),
         false, factionInfo.avatarId,
       ],
     };
@@ -99,8 +99,8 @@ export default async function factioncreate(req, res) {
   }
 
   const profilePatch = {
-    op: 'push',
-    path: 'factions',
+    op: 'pushnx',
+    path: `factions[fid:${fid}]`,
     value: factionInfo,
   };
   socketEvents.patchUserState(user.id, 'profile', profilePatch);

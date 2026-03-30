@@ -14,7 +14,7 @@ import {
 } from '../../data/sql/Profile.js';
 
 export default async function profilechange(req, res) {
-  req.tickRateLimiter(7000);
+  req.tickRateLimiter(3000);
   const { ttag: { t }, user, body: profile } = req;
 
   if (!profile || typeof profile !== 'object') {

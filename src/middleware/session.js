@@ -158,7 +158,7 @@ export class User {
       console.log('PATCHED USER STATE', newState, '\nFROM:\n', patch);
       this.#data = newState;
       if (target === 'channels') {
-        this.populateChannelIds();
+        this.populateFromData(newState);
       }
     }
   }

@@ -14,7 +14,7 @@ import {
   changeProfile, changeUserFaction,
 } from '../../store/actions/thunks.js';
 import {
-  requestCreateFaction,
+  requestCreateFaction, requestLeaveFaction,
 } from '../../store/actions/fetch.js';
 import {
   applyPatches,
@@ -24,21 +24,6 @@ import useProfile from '../hooks/useProfile.js';
 import useLink from '../hooks/link.js';
 
 /* eslint-disable max-len */
-
-
-const FactionAvatar = ({ avatarId }) => {
-  const [, thumb] = getUrlsFromMediaIdAndName(avatarId, 'avatar');
-  return (
-    <div style={{ width: 40, height: 40 }}>
-      {(thumb) ? <img
-        src={cdn`${thumb}`}
-        loading="lazy"
-        style={{ width: '100%', height: '100%' }}
-      /> : null}
-    </div>
-  );
-};
-
 
 const MyFactions = () => {
   const [selected, setSelected] = useState(null);
@@ -72,9 +57,9 @@ const MyFactions = () => {
           return [
             factions[i].fid,
             // eslint-disable-next-line react/jsx-key
-            <strong>"{factions[i].title}"</strong>,
+            <strong>&quot;{factions[i].title}&quot;</strong>,
             // eslint-disable-next-line react/jsx-key
-            <strong>"{roles[u].name}"</strong>,
+            <strong>&quot;{roles[u].name}&quot;</strong>,
             roles[u].customFlagId,
           ];
         }
@@ -93,6 +78,7 @@ const MyFactions = () => {
       }
       return oErrors.length ? [] : oErrors;
     });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const setFactionHidden = useCallback(async (fid, isHidden) => {
@@ -105,6 +91,7 @@ const MyFactions = () => {
       }
       return oErrors.length ? [] : oErrors;
     });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const submitCreateFaction = useCallback(async (evt) => {
@@ -152,10 +139,32 @@ const MyFactions = () => {
       }
     }
     setSubmitting(false);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [submitting]);
+
+  const submitLeaveFaction = useCallback(async (fid) => {
+    if (submitting) {
+      return;
+    }
+    setSubmitting(true);
+    const {
+      errors: respErrors, patches,
+    } = await requestLeaveFaction(fid);
+    if (patches) {
+      dispatch(applyPatches(patches));
+    }
+    if (respErrors) {
+      setErrors(respErrors);
+    } else {
+      setErrors([]);
+      setSelected(null);
+    }
+    setSubmitting(false);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [submitting]);
 
   if (!fetched) {
-    return (<div className="content" key="loading"><h1>{t`Loading...`}</h1></div>);
+    return (<div className="content" key="loading"><h3>{t`Loading...`}</h3></div>);
   }
 
   if (page === 'create') {
@@ -289,43 +298,96 @@ const MyFactions = () => {
           )}
           <div className="factionlist">{factions.map((faction) => {
             const { fid } = faction;
-            let titleClass = 'faction-title';
+            let titleClass = 'factionlist-title';
             if (fid === activeFaction) {
               titleClass += ' active';
             }
             if (faction.isHidden) {
               titleClass += ' hidden';
             }
+            const [, thumb] = getUrlsFromMediaIdAndName(faction.avatarId, 'avatar');
+            /* determine highest user powerlvl */
+            let powerlvl = 0;
+            for (const role of faction.roles) {
+              if (role.factionlvl > powerlvl) {
+                powerlvl = role.factionlvl;
+              }
+            }
+            if (powerlvl >= 100) {
+              powerlvl = 'sovereign';
+            } else if (powerlvl >= 80) {
+              powerlvl = 'magistrate';
+            } else if (powerlvl >= 50) {
+              powerlvl = 'noble';
+            } else {
+              powerlvl = 'peasant';
+            }
 
             if (fid === selected) {
               return (
                 <div
-                  key={faction.fid}
-                  className="factionlist-item-edit"
+                  key={`edit-${faction.fid}`}
                 >
-                  <FactionAvatar
-                    avatarId={faction.avatarId}
-                  /><span className={titleClass}>{faction.title}</span>
-                  <p className="faction-description">{faction.description}</p>
-                  <p>{t`Your Roles:`}
-                    {faction.roles.map((role) => (
-                      <span
-                        role="button"
-                        tabIndex={-1}
-                        key={role.frid}
-                        onClick={() => setActiveRole(role.frid)}
-                      >
-                        <img
-                          className="chatflag"
-                          src={cdn`${getUrlsFromMediaIdAndName(activeCustomFlagId)[0]}`}
-                          alt=""
-                        /> {role.name}
-                      </span>
-                    ))}
-                    <br />
-                    <span>{t`(click a role to activate it)`}</span>
-                  </p>
-                  <p>
+                  <div
+                    key={faction.fid}
+                    className="factionlist-item"
+                    onClick={() => {
+                      setSelected(null);
+                      setErrors([]);
+                      setConfirmLeave(false);
+                    }}
+                  >
+                    {(thumb) && (
+                    <img
+                      src={cdn`${thumb}`}
+                      loading="lazy"
+                      className="factionlist-avatar"
+                      alt=""
+                    />
+                    )}
+                    <span className={`factionlist-square powerlvl-${powerlvl}`} />
+                    <span className={titleClass}>{faction.title}</span>
+                    <span className="factionlist-name">[{faction.name}]</span>
+                    <span className="factionlist-membercount">{faction.memberCount}</span>
+                  </div>
+                  <div className="factionlist-edit">
+                    <span className="factionlist-key">{t`Description`}: </span>{faction.description}<br />
+                    <span className="factionlist-key">{t`Your Roles`}: </span>
+                    {faction.roles.map((role) => {
+                      const [flagUrl] = getUrlsFromMediaIdAndName(activeCustomFlagId);
+                      let roleClassName = 'factionlist-role';
+                      if (role.frid === activeFactionRole) {
+                        roleClassName += ' active';
+                      }
+                      const { factionlvl } = role;
+                      if (factionlvl >= 100) {
+                        roleClassName += ' powerlvl-sovereign';
+                      } else if (factionlvl >= 80) {
+                        roleClassName += ' powerlvl-magistrate';
+                      } else if (factionlvl >= 50) {
+                        roleClassName += ' powerlvl-noble';
+                      } else {
+                        roleClassName += ' powerlvl-peasant';
+                      }
+                      return (
+                        <span
+                          key={role.frid}
+                          role="button"
+                          tabIndex={-1}
+                          className={roleClassName}
+                          onClick={() => setActiveRole(role.frid)}
+                        >
+                          {(flagUrl) && (
+                            <img
+                              className="chatflag"
+                              src={cdn`${flagUrl}`}
+                              alt=""
+                            />
+                          )} {role.name}
+                        </span>
+                      );
+                    })}<br />
+                    <span className="factionlist-key">{t`(click a role to activate it)`}</span><br />
                     <input
                       type="checkbox"
                       checked={faction.isHidden}
@@ -333,34 +395,45 @@ const MyFactions = () => {
                         setFactionHidden(faction.fid, evt.target.checked);
                       }}
                     /> {t`Hide from profile`}
-                  </p>
-                  <p>
-                    <button
-                      type="button"
-                      className={confirmLeave ? 'confirm' : undefined}
-                      onClick={() => {
-                        if (!confirmLeave) {
-                          setConfirmLeave(true);
-                        }
-                        /* */
-                      }}
-                    >
-                      {/* t: button for leaving a faction, it asks for confirmation */}
-                      {(confirmLeave) ? t`Confirm Leave` : t`Leave Faction`}
-                    </button>
-                    <button
-                      type="button"
-                      onClick={() => {
-                        link('FACTION', {
-                          target: 'parent',
-                          reuse: true,
-                          args: { fid },
-                        });
-                      }}
-                    >
-                      {t`Open Faction`}
-                    </button>
-                  </p>
+                    <div className="form-actions">
+                      <button
+                        type="button"
+                        className={confirmLeave ? 'confirm' : undefined}
+                        onClick={() => {
+                          if (!confirmLeave) {
+                            setConfirmLeave(true);
+                            return;
+                          }
+                          submitLeaveFaction(faction.fid);
+                        }}
+                      >
+                        {/* t: button for leaving a faction, it asks for confirmation */}
+                        {(confirmLeave) ? t`Confirm Leave` : t`Leave`}
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => {
+                          link('FACTION', {
+                            target: 'parent',
+                            reuse: true,
+                            args: { fid },
+                          });
+                        }}
+                      >
+                        {t`Open`}
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setSelected(null);
+                          setErrors([]);
+                          setConfirmLeave(false);
+                        }}
+                      >
+                        {t`Close`}
+                      </button>
+                    </div>
+                  </div>
                 </div>
               );
             }
@@ -370,14 +443,24 @@ const MyFactions = () => {
                 className="factionlist-item"
                 onClick={() => {
                   setSelected(fid);
+                  setErrors([]);
                   setConfirmLeave(false);
                 }}
                 role="button"
                 tabIndex={0}
               >
-                <FactionAvatar
-                  avatarId={faction.avatarId}
-                /><span className={titleClass}>{faction.title}</span>
+                {(thumb) && (
+                <img
+                  src={cdn`${thumb}`}
+                  loading="lazy"
+                  className="factionlist-avatar"
+                  alt=""
+                />
+                )}
+                <span className={`factionlist-square powerlvl-${powerlvl}`} />
+                <span className={titleClass}>{faction.title}</span>
+                <span className="factionlist-name">[{faction.name}]</span>
+                <span className="factionlist-membercount">{faction.memberCount}</span>
               </div>
             );
           })}</div>
@@ -385,13 +468,21 @@ const MyFactions = () => {
       ) : (
         <p key="nofl">{t`You are currently not a member of any faction.`}</p>
       )}
-      <h2>{t`Create a new Faction`}</h2>
-      <button
-        type="button"
-        onClick={changePage('create')}
-      >
-        {t`Create`}
-      </button>
+      <p>{t`Factions allow you to coordinate better with other players. Search for existing factions, find friends or create your own faction.`}</p>
+      <div className="form-actions">
+        <button
+          type="button"
+          onClick={/* TODO */changePage('create')}
+        >
+          {t`Search Existing Faction`}
+        </button>
+        <button
+          type="button"
+          onClick={changePage('create')}
+        >
+          {t`Create New Faction`}
+        </button>
+      </div>
     </div>
   );
 };
