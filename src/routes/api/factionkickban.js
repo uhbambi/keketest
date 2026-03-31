@@ -81,7 +81,7 @@ export default async function factionkickban(req, res) {
     }
 
     const success = await banUserFromFaction(
-      fid, uid, lastOnlineIPString, reason, duration,
+      factionInfo.sqlFid, uid, lastOnlineIPString, reason, duration, user.id,
     );
     if (!success) {
       throw new Error(t`Server Error`);

@@ -312,13 +312,18 @@ BEGIN
   ELSEIF v_owned_count >= ${MAX_OWNED_FACTIONS_PER_USER} THEN
     SELECT 2 AS result;
     ROLLBACK;
-  ELSEIF v_mid IS NULL THEN
+  ELSEIF NOT EXISTS(
+    SELECT 1 FROM Users WHERE id = p_uid AND createdAt < NOW() - INTERVAL 14 DAY
+  ) THEN
     SELECT 3 AS result;
+    ROLLBACK;
+  ELSEIF v_mid IS NULL THEN
+    SELECT 4 AS result;
     ROLLBACK;
   ELSEIF EXISTS(
     SELECT 1 FROM Factions WHERE name = p_name
   ) THEN
-    SELECT 4 AS result;
+    SELECT 5 AS result;
     ROLLBACK;
   ELSE
     INSERT INTO Channels (
@@ -511,7 +516,7 @@ BEGIN
 END`,
   };
 
-  const funcVersion = 4;
+  const funcVersion = 5;
   const curVersion = Number((await sequelize.query('SELECT value FROM Configs WHERE `key`=\'functions_version\''))[0]?.[0]?.value);
   const doUpgrade = funcVersion !== curVersion;
   if (doUpgrade) {

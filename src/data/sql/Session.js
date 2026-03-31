@@ -313,6 +313,22 @@ WHERE s.token = $1 AND (s.expires > NOW() OR s.expires IS NULL)`, {
       promises.push([]);
     }
 
+    /* get info to factions */
+    if (user.channels.some(({ type }) => type === CHANNEL_TYPES.FACTION)) {
+      promises.push(sequelize.query(
+        // eslint-disable-next-line max-len
+        `SELECT CONCAT(a.shortId, ':', a.extension) AS avatarId, f.cid FROM UserFactions uf
+    INNER JOIN Factions f ON f.id = uf.fid
+    INNER JOIN Media a ON a.id = f.avatar
+  WHERE uf.uid = ?`, {
+          replacements: [userId],
+          raw: true,
+          type: QueryTypes.SELECT,
+        }));
+    } else {
+      promises.push([]);
+    }
+
     /* get blocked users */
     promises.push(sequelize.query(
       `SELECT bu.id, bu.name FROM UserBlocks ub
@@ -339,7 +355,9 @@ WHERE ub.uid = ?`, {
 
     /* eslint-enable max-len */
 
-    const [dmChannels, blocked, bans] = await Promise.all(promises);
+    const [
+      dmChannels, factionAvatars, blocked, bans,
+    ] = await Promise.all(promises);
 
     /*
      * dmChannels:
@@ -374,6 +392,16 @@ WHERE ub.uid = ?`, {
           }
           channel[1] = dmChannel.dmname;
           channel[5] = dmChannel.avatarId;
+        }
+        if (type === CHANNEL_TYPES.FACTION) {
+          /*
+           * populate avatar of faction channels
+           */
+          const factionAvatar = factionAvatars
+            .find((f) => f.cid === cid)?.avatarId;
+          if (factionAvatar) {
+            channel[5] = factionAvatar;
+          }
         }
         if (user.channels[type]) {
           user.channels[type].push(channel);

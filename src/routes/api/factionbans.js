@@ -35,6 +35,8 @@ export default async function factionrolechange(req, res) {
      * [{
      *   fbid,
      *   affects,
+     *   createdBy,
+     *   createdAt,
      *   reason,
      * },...]
      */

@@ -48,10 +48,9 @@ export default async function factionjoin(req, res) {
   factionInfo.isHidden = false;
   for (let i = 0; i < factionInfo.roles.length; i += 1) {
     const role = factionInfo.roles[i];
-    role.isMember = role.frid === factionInfo.defaultFrid;
+    role.isMember = role.isDefault;
   }
   delete factionInfo.sqlFid;
-  delete factionInfo.defaultFrid;
 
   const patches = [];
   if (factionInfo.channelId) {

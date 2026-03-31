@@ -1076,10 +1076,6 @@ table td span {
   height: 20px;
 }
 
-.factionbans-table {
-  display: inline;
-}
-
 /*
  * =========================== CHANNEL DROP DOWN ===============================
  */
@@ -1241,7 +1237,7 @@ avatar, .channelavatar {
   font-weight: 600;
 }
 
-.avatar {
+avatar {
   width: 28px;
   height: 28px;
   font-size: 14px;

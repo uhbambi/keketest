@@ -421,8 +421,9 @@ export async function setFactionAvatar(sqlFid, mediaId = null) {
  *   0 success
  *   1 max amount of factions reached
  *   2 max amount of owned factions reached
- *   3 media doesnt exist
- *   4 faction name already taken
+ *   3 user too young
+ *   4 media doesnt exist
+ *   5 faction name already taken
  *   -1 failure
  */
 export async function createFaction(

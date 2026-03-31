@@ -5,9 +5,9 @@ import React, { useState, useEffect, useContext, useCallback } from 'react';
 import { useDispatch } from 'react-redux';
 import { t } from 'ttag';
 
+import { IoIosRefresh } from 'react-icons/io';
 import { cdn } from '../../utils/utag.js';
 import { getUrlsFromMediaIdAndName } from '../../utils/media/utils.js';
-import { IoIosRefresh } from "react-icons/io";
 import WindowContext from '../context/window.js';
 import {
   requestFactionInfo,
@@ -264,18 +264,19 @@ const Faction = () => {
     } else {
       setErrors([]);
       setMemberData((members) => members.filter((m) => m.uid !== uid));
+      setBanData(null);
     }
     setConfirm(false);
     setSubmitting(false);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [submitting]);
 
-  const submitLiftBan = useCallback(async (fbid) => {
+  const submitLiftBan = useCallback(async (fbid, fid) => {
     if (submitting) {
       return;
     }
     setSubmitting(true);
-    const { errors: respErrors } = await requestLiftFactionBan(fbid);
+    const { errors: respErrors } = await requestLiftFactionBan(fbid, fid);
     if (respErrors) {
       setErrors(respErrors);
     } else {
@@ -495,7 +496,7 @@ const Faction = () => {
                       const [flagUrl] = getUrlsFromMediaIdAndName(role.customFlagId);
                       let roleClassName = 'factionlist-role';
                       const { factionlvl, frid } = role;
-                      const confirmString = 'role-' + frid;
+                      const confirmString = `role-${frid}`;
                       if (factionlvl >= 100) {
                         roleClassName += ' powerlvl-sovereign';
                       } else if (factionlvl >= 80) {
@@ -519,7 +520,7 @@ const Faction = () => {
                               setConfirm(confirmString);
                               return;
                             }
-                            submitRemoveFactionRole(member.uid, role.frid)
+                            submitRemoveFactionRole(member.uid, role.frid);
                           }}
                         >
                           {(flagUrl) && (
@@ -537,7 +538,7 @@ const Faction = () => {
                       const [flagUrl] = getUrlsFromMediaIdAndName(role.customFlagId);
                       let roleClassName = 'factionlist-role';
                       const { factionlvl, frid } = role;
-                      const confirmString = 'role-' + frid;
+                      const confirmString = `role-${frid}`;
                       if (factionlvl >= 100) {
                         roleClassName += ' powerlvl-sovereign';
                       } else if (factionlvl >= 80) {
@@ -561,7 +562,7 @@ const Faction = () => {
                               setConfirm(confirmString);
                               return;
                             }
-                            submitAddFactionRole(member.uid, frid)
+                            submitAddFactionRole(member.uid, frid);
                           }}
                         >
                           {(flagUrl) && (
@@ -578,40 +579,40 @@ const Faction = () => {
                   </React.Fragment>
                   )}
                   <div className="form-actions">
-                  {(canBanMember) && (
-                  <React.Fragment key="kickban">
-                    <button
-                      type="button"
-                      className={confirm === 'kick' ? 'confirm' : undefined}
-                      disabled={submitting}
-                      onClick={() => {
-                        if (confirm !== 'kick') {
-                          setConfirm('kick');
-                          return;
-                        }
-                        submitKickBanMember(member.uid, faction.fid, false);
-                      }}
-                    >
-                      {/* t: button for kicking a user from a faction, it asks for confirmation */}
-                      {(confirm === 'kick') ? t`Confirm Kick` : t`Kick`}
-                    </button>
-                    <button
-                      type="button"
-                      className={confirm === 'ban' ? 'confirm' : undefined}
-                      disabled={submitting}
-                      onClick={() => {
-                        if (confirm !== 'ban') {
-                          setConfirm('ban');
-                          return;
-                        }
-                        submitKickBanMember(member.uid, faction.fid, true);
-                      }}
-                    >
-                      {/* t: button for banning a user from a faction, it asks for confirmation */}
-                      {(confirm === 'ban') ? t`Confirm Ban` : t`Ban`}
-                    </button>
-                  </React.Fragment>
-                  )}
+                    {(canBanMember) && (
+                    <React.Fragment key="kickban">
+                      <button
+                        type="button"
+                        className={confirm === 'kick' ? 'confirm' : undefined}
+                        disabled={submitting}
+                        onClick={() => {
+                          if (confirm !== 'kick') {
+                            setConfirm('kick');
+                            return;
+                          }
+                          submitKickBanMember(member.uid, faction.fid, false);
+                        }}
+                      >
+                        {/* t: button for kicking a user from a faction, it asks for confirmation */}
+                        {(confirm === 'kick') ? t`Confirm Kick` : t`Kick`}
+                      </button>
+                      <button
+                        type="button"
+                        className={confirm === 'ban' ? 'confirm' : undefined}
+                        disabled={submitting}
+                        onClick={() => {
+                          if (confirm !== 'ban') {
+                            setConfirm('ban');
+                            return;
+                          }
+                          submitKickBanMember(member.uid, faction.fid, true);
+                        }}
+                      >
+                        {/* t: button for banning a user from a faction, it asks for confirmation */}
+                        {(confirm === 'ban') ? t`Confirm Ban` : t`Ban`}
+                      </button>
+                    </React.Fragment>
+                    )}
                     <button
                       type="button"
                       onClick={() => {
@@ -647,18 +648,21 @@ const Faction = () => {
             <thead>
               <tr>
                 { /* t: who is affected by a faction ban */ }
-                <th>{t`Affects`}</th>
+                <th>{t`affects`}</th>
                 { /* t: who created a faction ban "by: moderator" */ }
                 <th>{t`by`}</th>
+                { /* t: created at time when user got baned from faction */ }
+                <th>{t`created at`}</th>
                 { /* t: Lift faction ban */ }
-                <th>{t`Lift`}</th>
+                <th>{t`lift`}</th>
               </tr>
             </thead>
             <tbody>
-              {banData.map(({ fbid, affects, createdBy }) => (
+              {banData.map(({ fbid, affects, createdBy, createdAt }) => (
                 <tr key={fbid}>
                   <td>{affects}</td>
                   <td>{createdBy}</td>
+                  <td>{createdAt}</td>
                   <td>
                     <button
                       type="button"
@@ -669,7 +673,7 @@ const Faction = () => {
                           setConfirm(`lift-${fbid}`);
                           return;
                         }
-                        submitLiftBan(fbid);
+                        submitLiftBan(fbid, faction.fid);
                       }}
                     >
                       {(confirm !== `lift-${fbid}`) ? '🗑' : '‣'}

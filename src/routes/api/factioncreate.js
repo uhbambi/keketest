@@ -59,8 +59,13 @@ export default async function factioncreate(req, res) {
         t`You can only be owner of ${MAX_OWNED_FACTIONS_PER_USER} factions in total`,
       );
     case 3:
-      throw new Error(t`Avatar not given or not an image`);
+      throw new Error(
+        // eslint-disable-next-line max-len
+        t`Your account must be at least two weeks old before you can create a faction`,
+      );
     case 4:
+      throw new Error(t`Avatar not given or not an image`);
+    case 5:
       throw new Error(t`Name already in use.`);
     default:
       throw new Error(t`Server Error`);
@@ -81,7 +86,6 @@ export default async function factioncreate(req, res) {
     role.isMember = true;
   }
   delete factionInfo.sqlFid;
-  delete factionInfo.defaultFrid;
 
   const patches = [];
   if (factionInfo.channelId) {

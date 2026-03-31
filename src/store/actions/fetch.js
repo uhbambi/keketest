@@ -511,17 +511,19 @@ export function requestRemoveFactionRole(uid, frid) {
   );
 }
 
-export function requestKickBanFactionMember(uid, fid, isBan) {
+export function requestKickBanFactionMember(
+  uid, fid, isBan, reason = '',
+) {
   return makeAPIPOSTRequest(
     '/api/factionkickban',
-    { uid, fid, isBan },
+    { uid, fid, isBan, reason },
   );
 }
 
-export function requestLiftFactionBan(fbid) {
+export function requestLiftFactionBan(fbid, fid) {
   return makeAPIPOSTRequest(
     '/api/factionunban',
-    { fbid },
+    { fbid, fid },
   );
 }
 

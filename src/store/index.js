@@ -205,12 +205,10 @@ export function patchState(state, patch) {
       case 'del': {
         if (!location[target]) {
           failed = true;
+        } else if (Array.isArray(location)) {
+          location.splice(target, 1);
         } else {
-          if (Array.isArray(location)) {
-            location.splice(target, 1);
-          } else {
-            delete location[target];
-          }
+          delete location[target];
         }
         break;
       }

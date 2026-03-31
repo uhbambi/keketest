@@ -58,23 +58,24 @@ const FactionBan = sequelize.define('FactionBan', {
 
 /**
  * ban user
- * @param fid uuid of faction
+ * @param sqlFid id of faction
  * ...
  * @param duration duration in seconds
  * @return success
  */
 export async function banUserFromFaction(
-  fid, uid, ipString, reason, duration,
+  sqlFid, uid, ipString, reason, duration, muid = null,
 ) {
   try {
     const fbid = bufferToUUID(generateUUID());
 
     await sequelize.query(
       // eslint-disable-next-line max-len
-      'INSERT INTO FactionBans (uuid, fid, reason, expires, createdAt) VALUES (?, ?, ?, ?, NOW())', {
+      'INSERT INTO FactionBans (uuid, fid, reason, expires, muid, createdAt) VALUES (UUID_TO_BIN(?), ?, ?, ?, ?, NOW())', {
         replacements: [
-          fbid, fid, reason,
+          fbid, sqlFid, reason,
           (duration) ? new Date(Date.now() + duration * 1000) : null,
+          muid,
         ],
         raw: true,
         type: QueryTypes.INSERT,
