@@ -48,6 +48,12 @@ msgstr ""
 msgid "(0 = infinite)"
 msgstr "(0 = lõppematu)"
 
+msgid "(click a role to activate it)"
+msgstr ""
+
+msgid "(click a role to assign or remove it)"
+msgstr ""
+
 msgid "+last hour"
 msgstr "+ viimane tund"
 
@@ -82,6 +88,9 @@ msgstr "Näita alati Liikumiskontrolle"
 msgid "Always show movement control buttons"
 msgstr "Näita alati liikumiskontrolli nuppe"
 
+msgid "An image representing your faction"
+msgstr ""
+
 msgid "Anti Aliasing"
 msgstr "Anti Aliasing"
 
@@ -90,6 +99,9 @@ msgstr "Lisa filter, et puhastada suur lõuendi osa prügist."
 
 msgid "Archive"
 msgstr "Arhiiv"
+
+msgid "Assign Roles"
+msgstr ""
 
 msgid "Assign new Mod"
 msgstr "Lisa uus Moderaator"
@@ -112,6 +124,9 @@ msgstr ""
 msgid "Badges"
 msgstr ""
 
+msgid "Ban"
+msgstr ""
+
 msgid "Ban media"
 msgstr ""
 
@@ -120,6 +135,9 @@ msgstr "Ligipääs Piiratud"
 
 msgid "Banned? Detected as Proxy?"
 msgstr "Ligipääs Piiratud? Tuvastatud kui Puhverserver?"
+
+msgid "Bans"
+msgstr ""
 
 msgid "Block"
 msgstr "Blokeeri"
@@ -280,6 +298,9 @@ msgstr ""
 msgid "Click a color in palette to select it"
 msgstr "Vajuta värvile palettil, et see valida"
 
+msgid "Click here to cease representation."
+msgstr ""
+
 msgid "Click here to request a new verification mail."
 msgstr "Kliki siia, et taotleda uus verifikatsioonimeil."
 
@@ -307,6 +328,18 @@ msgstr ""
 msgid "Compact Palette"
 msgstr "Kompaktne Palett"
 
+msgid "Confirm"
+msgstr ""
+
+msgid "Confirm Ban"
+msgstr ""
+
+msgid "Confirm Kick"
+msgstr ""
+
+msgid "Confirm Leave"
+msgstr ""
+
 msgid "Confirm New Password"
 msgstr "Kinnita Uus Salasõna"
 
@@ -318,9 +351,6 @@ msgid "Connection error ${ code } :("
 msgstr "Ühenduse viga ${ code } :("
 
 msgid "Consent"
-msgstr ""
-
-msgid "Consider joining us on Matrix:"
 msgstr ""
 
 msgid "Controls"
@@ -388,6 +418,12 @@ msgstr "Riigid Täna"
 msgid "Country"
 msgstr "Riik"
 
+msgid "Create Faction"
+msgstr ""
+
+msgid "Create New Faction"
+msgstr ""
+
 #, javascript-format
 msgid "Credit for the Palette of the 2bit canvas goes to ${ donendoLink }."
 msgstr "2bit'i lõuendi palett pärineb saidilt ${ donendoLink }."
@@ -438,6 +474,18 @@ msgstr "Kustuta Kasutaja"
 msgid "Deny"
 msgstr ""
 
+msgid "Description"
+msgstr ""
+
+msgid "Description can't be empty"
+msgstr ""
+
+msgid "Description must be shorter than 1000 characters"
+msgstr ""
+
+msgid "Description of your faction"
+msgstr ""
+
 msgid ""
 "Didn't get an answer from pixelplanet. Try to refresh if this problem "
 "persists."
@@ -467,7 +515,14 @@ msgstr ""
 msgid "Do stuff with IPs (one IP per line)"
 msgstr "Tee asju IP-dega (üks IP rea kohta)"
 
+msgid ""
+"Don't let people find this faction in public search or look at its profile."
+msgstr ""
+
 msgid "Don't remember"
+msgstr ""
+
+msgid "Don't show faction in search"
 msgstr ""
 
 msgid "Don't show me in global stats"
@@ -537,6 +592,9 @@ msgstr "Sisesta Põhjus"
 msgid "Enter UserName of new Mod"
 msgstr "Sisesta uue Moderaatori Kasutajanimi"
 
+msgid "Enter a little text that describes your faction"
+msgstr ""
+
 msgid "Enter your mail address and we will send you a new password:"
 msgstr "Sisesta oma meil ja me saadame sulle uue salasõna:"
 
@@ -557,6 +615,11 @@ msgid "Export enabled templates"
 msgstr "Ekspordi sisse lülitatud šabloonid"
 
 msgid "Factions"
+msgstr ""
+
+msgid ""
+"Factions allow you to coordinate better with other players. Search for "
+"existing factions, find friends or create your own faction."
 msgstr ""
 
 msgid "Factor"
@@ -656,6 +719,9 @@ msgstr ""
 msgid "Hide Embed"
 msgstr "Peida Fail"
 
+msgid "Hide from profile"
+msgstr ""
+
 msgid ""
 "Higher zoomlevels take some time to update, the 3D globe gets updated at "
 "least once per day."
@@ -730,11 +796,17 @@ msgstr "Valitud värv ei ole sobilik"
 msgid "Invited to Chat"
 msgstr ""
 
+msgid "Invites"
+msgstr ""
+
 msgid ""
 "It requests the following permissions. Uncheck what you don't want to grant:"
 msgstr ""
 
 msgid "Jannies can rollback and protect, but not watch or ban."
+msgstr ""
+
+msgid "Join Faction"
 msgstr ""
 
 msgid "Just for registered Users"
@@ -749,10 +821,25 @@ msgstr "Ainult eelmise päeva kümme parimat saavad siia joonistada"
 msgid "Keep Ratio"
 msgstr "Hoia Suhet"
 
+msgid "Kick"
+msgstr ""
+
 msgid "Know that an account exists"
 msgstr ""
 
+msgid "Leave"
+msgstr ""
+
+msgid "Leave Faction"
+msgstr ""
+
 msgid "Legal Requests"
+msgstr ""
+
+msgid "Let everyone join this faction"
+msgstr ""
+
+msgid "Let people join this faction without needing an invite."
 msgstr ""
 
 msgid "Light Grid"
@@ -766,6 +853,9 @@ msgstr "Laaditakse"
 
 msgid "Loading..."
 msgstr "Laadimine..."
+
+msgid "Log in or Register"
+msgstr ""
 
 msgid "Log out"
 msgstr "Logi välja"
@@ -810,6 +900,9 @@ msgstr "Maksimeeri"
 msgid "Media Actions"
 msgstr ""
 
+msgid "Members"
+msgstr ""
+
 msgid "Minimum Color Distance"
 msgstr "Minimaalne Värvikaugus"
 
@@ -829,8 +922,14 @@ msgstr ""
 msgid "Muted Sound"
 msgstr "Heli Vaigistatud"
 
+msgid "My Factions"
+msgstr ""
+
 msgid "Name"
 msgstr "Nimi"
+
+msgid "Name can only contain the characters: a-z . _ and -"
+msgstr ""
 
 msgid "Name can't be empty."
 msgstr "Nimi ei saa olla tühi."
@@ -843,6 +942,9 @@ msgstr "Nimi peab olema vähemalt 2 tähist pikk"
 
 msgid "Name must be shorter than 26 characters"
 msgstr "Nimi peaks olema lühem kui 26 tähist"
+
+msgid "Name of your faction [a-z][A-Z][0-9].-_"
+msgstr ""
 
 msgid "Name or Email"
 msgstr "Nimi või E-meil"
@@ -880,6 +982,9 @@ msgstr "Puudulik või sobimatu captcha tekst"
 msgid "No password given."
 msgstr "Salasõna ei sisestatud."
 
+msgid "Nobody is banned from this faction"
+msgstr ""
+
 msgid "Not Allowed"
 msgstr ""
 
@@ -887,6 +992,9 @@ msgid "Not allowed"
 msgstr "Ei ole lubatud"
 
 msgid "Note"
+msgstr ""
+
+msgid "Note: Your active Faction may overwrite your flag settings."
 msgstr ""
 
 msgid "OIDC LogIn"
@@ -915,6 +1023,9 @@ msgstr ""
 
 msgid "Opacity of Overlay in percent."
 msgstr "Ülekatte läbipaistvus protsendina."
+
+msgid "Open"
+msgstr ""
 
 msgid "Open Chat"
 msgstr "Ava Jututuba"
@@ -952,6 +1063,9 @@ msgstr "Ülekate SEES"
 
 msgid "Overlay Opacity"
 msgstr "Ülekatte Läbipaistvus"
+
+msgid "Overview"
+msgstr ""
 
 msgid "Palette Download"
 msgstr "Paleti Allalaadimine"
@@ -1145,6 +1259,9 @@ msgstr ""
 msgid "Remove Moderator"
 msgstr "Eemalda Moderaator"
 
+msgid "Remove Roles"
+msgstr ""
+
 msgid "Remove a Login method:"
 msgstr ""
 
@@ -1178,6 +1295,12 @@ msgstr ""
 msgid "Revoke consent of third party applications:"
 msgstr ""
 
+msgid "Role Flags"
+msgstr ""
+
+msgid "Roles"
+msgstr ""
+
 msgid "Roll different Captcha Fonts"
 msgstr ""
 
@@ -1196,6 +1319,9 @@ msgstr "Muuda Pildi Suurust"
 
 #, javascript-format
 msgid "Scroll ${ mouseSymbol } mouse wheel or ${ touchSymbol } pinch to zoom"
+msgstr ""
+
+msgid "Search Existing Faction"
 msgstr ""
 
 msgid "Select Date above"
@@ -1407,6 +1533,24 @@ msgstr ""
 "aidata! Šabloone saab näidata ülekattes ja sa saad nende abil lihtsamini "
 "joonistada. Üks piksel šabloonil, peaks olema üks piksel lõuendil."
 
+msgid "Title"
+msgstr ""
+
+msgid "Title can't be empty."
+msgstr ""
+
+msgid "Title contains invalid character like @, /, \\ or #"
+msgstr ""
+
+msgid "Title must be at least 2 characters long"
+msgstr ""
+
+msgid "Title must be shorter than 26 characters"
+msgstr ""
+
+msgid "Title of your faction"
+msgstr ""
+
 msgid "To use this page, enter your Password:"
 msgstr ""
 
@@ -1593,7 +1737,20 @@ msgid ""
 "on how to appeal. And don't forget to include the BID you can get below."
 msgstr ""
 
+msgid "You are currently not a member of any faction."
+msgstr ""
+
 msgid "You are currently not allowed to access this game."
+msgstr ""
+
+msgid ""
+"You are currently not representing any faction. To represent one, activate a "
+"role in one of your factions below."
+msgstr ""
+
+#, javascript-format
+msgid ""
+"You are currently representing ${ activeFactionTitle } as ${ activeRoleName }"
 msgstr ""
 
 msgid "You are not allowed to play this game right now :("
@@ -1669,6 +1826,9 @@ msgstr ""
 msgid "You must enter at least one IID, User Id or BID"
 msgstr ""
 
+msgid "You must select an avatar for your faction"
+msgstr ""
+
 msgid "You took too long, try again."
 msgstr "Sul läks liiga kaua, proovi uuesti."
 
@@ -1682,8 +1842,14 @@ msgstr ""
 msgid "Your Browser looks shady"
 msgstr ""
 
+msgid "Your Factions"
+msgstr ""
+
 msgid "Your Internet Provider is banned from this game"
 msgstr "Sinu Internetipakkujal on mängule ligipääs piiratud"
+
+msgid "Your Roles"
+msgstr ""
 
 msgid "Your ban expires at "
 msgstr "Su karistus lõppeb "
@@ -1706,14 +1872,26 @@ msgstr ""
 "Suumi sisse, piksli panemise asemel, kui sa vajutad lõuendile ja su "
 "suumitase on madal."
 
+msgid "affects"
+msgstr ""
+
 #, javascript-format
 msgid "and ${ canvas.req } Pixels set"
 msgstr "ja ${ canvas.req } Pikslit joonistatud"
 
+msgid "by"
+msgstr ""
+
 msgid "check compliance here"
 msgstr ""
 
+msgid "created at"
+msgstr ""
+
 msgid "download here"
+msgstr ""
+
+msgid "lift"
 msgstr ""
 
 msgid "or login with:"

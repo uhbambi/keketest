@@ -58,6 +58,12 @@ msgstr ""
 msgid "(0 = infinite)"
 msgstr "(0 = infinit)"
 
+msgid "(click a role to activate it)"
+msgstr ""
+
+msgid "(click a role to assign or remove it)"
+msgstr ""
+
 msgid "+last hour"
 msgstr "+ultima oră"
 
@@ -92,6 +98,9 @@ msgstr "Totdeauna arată Controalele de Mișcare"
 msgid "Always show movement control buttons"
 msgstr "Totdeauna arată butoanele Controalelor de Mișcare"
 
+msgid "An image representing your faction"
+msgstr ""
+
 msgid "Anti Aliasing"
 msgstr "Anti Aliasing"
 
@@ -100,6 +109,9 @@ msgstr "Aplică un filtru pentru a șterge gunoi în zonele cu canvas mare."
 
 msgid "Archive"
 msgstr "Arhivă"
+
+msgid "Assign Roles"
+msgstr ""
 
 msgid "Assign new Mod"
 msgstr "Atribuiți un nou moderator"
@@ -122,6 +134,9 @@ msgstr "Afișare insigne"
 msgid "Badges"
 msgstr "Insigne"
 
+msgid "Ban"
+msgstr ""
+
 msgid "Ban media"
 msgstr "Interzice media"
 
@@ -130,6 +145,9 @@ msgstr "Banat"
 
 msgid "Banned? Detected as Proxy?"
 msgstr "Banat? Detectat ca Proxy?"
+
+msgid "Bans"
+msgstr ""
 
 msgid "Block"
 msgstr "Blochează"
@@ -292,6 +310,9 @@ msgstr ""
 msgid "Click a color in palette to select it"
 msgstr "Apasă pe o culoare din paletă ca să o selectezi"
 
+msgid "Click here to cease representation."
+msgstr ""
+
 msgid "Click here to request a new verification mail."
 msgstr "Dă click aici pentru a cere un nou mail de verificare."
 
@@ -319,6 +340,18 @@ msgstr "Compactează Chatul"
 msgid "Compact Palette"
 msgstr "Paletă Compactă"
 
+msgid "Confirm"
+msgstr ""
+
+msgid "Confirm Ban"
+msgstr ""
+
+msgid "Confirm Kick"
+msgstr ""
+
+msgid "Confirm Leave"
+msgstr ""
+
 msgid "Confirm New Password"
 msgstr "Confirmă Parola Nouă"
 
@@ -331,9 +364,6 @@ msgstr "Eroare de conectare ${ code } :("
 
 msgid "Consent"
 msgstr "Consimțământ"
-
-msgid "Consider joining us on Matrix:"
-msgstr "Ia în considerare sa te alături noua pe Matrix:"
 
 msgid "Controls"
 msgstr "Controale"
@@ -402,6 +432,12 @@ msgstr "Tări Azi"
 msgid "Country"
 msgstr "Țară"
 
+msgid "Create Faction"
+msgstr ""
+
+msgid "Create New Faction"
+msgstr ""
+
 #, javascript-format
 msgid "Credit for the Palette of the 2bit canvas goes to ${ donendoLink }."
 msgstr "Credit pentru Paleta de pe 2bit se duce la ${ donendoLink }."
@@ -450,6 +486,18 @@ msgstr "Șterge Contul"
 msgid "Deny"
 msgstr "Refuză"
 
+msgid "Description"
+msgstr ""
+
+msgid "Description can't be empty"
+msgstr ""
+
+msgid "Description must be shorter than 1000 characters"
+msgstr ""
+
+msgid "Description of your faction"
+msgstr ""
+
 msgid ""
 "Didn't get an answer from pixelplanet. Try to refresh if this problem "
 "persists."
@@ -478,8 +526,15 @@ msgstr "Arată Paleta într-o formă compactă ca să ocupe mai puțin spațiu."
 msgid "Do stuff with IPs (one IP per line)"
 msgstr "Faceți lucruri cu IPuri (un IP pe linie)"
 
+msgid ""
+"Don't let people find this faction in public search or look at its profile."
+msgstr ""
+
 msgid "Don't remember"
 msgstr "Nu îmi amintesc"
+
+msgid "Don't show faction in search"
+msgstr ""
 
 msgid "Don't show me in global stats"
 msgstr "Nu mă arăta în statisticile globale"
@@ -550,6 +605,9 @@ msgstr "Pune Motiv"
 msgid "Enter UserName of new Mod"
 msgstr "Pune Numele de Utilizator al moderatorului nou"
 
+msgid "Enter a little text that describes your faction"
+msgstr ""
+
 msgid "Enter your mail address and we will send you a new password:"
 msgstr "Pune adresa ta de mail și o să îți trimitem o parolă nouă:"
 
@@ -570,6 +628,11 @@ msgid "Export enabled templates"
 msgstr "Exportă șabloanele activate"
 
 msgid "Factions"
+msgstr ""
+
+msgid ""
+"Factions allow you to coordinate better with other players. Search for "
+"existing factions, find friends or create your own faction."
 msgstr ""
 
 msgid "Factor"
@@ -674,6 +737,9 @@ msgstr ""
 msgid "Hide Embed"
 msgstr "Ascunde încorporatele"
 
+msgid "Hide from profile"
+msgstr ""
+
 msgid ""
 "Higher zoomlevels take some time to update, the 3D globe gets updated at "
 "least once per day."
@@ -753,6 +819,9 @@ msgstr "Culoare invalidă selectată"
 msgid "Invited to Chat"
 msgstr "Invitat în Chat"
 
+msgid "Invites"
+msgstr ""
+
 msgid ""
 "It requests the following permissions. Uncheck what you don't want to grant:"
 msgstr ""
@@ -760,6 +829,9 @@ msgstr ""
 
 msgid "Jannies can rollback and protect, but not watch or ban."
 msgstr "Jannies pot da rollback și pot proteja, dar nu pot privi sau da ban."
+
+msgid "Join Faction"
+msgstr ""
 
 msgid "Just for registered Users"
 msgstr "Doar pentru Utilizatorii înregistrați"
@@ -773,11 +845,26 @@ msgstr "Doar cei din Top10 ieri pot pune aici"
 msgid "Keep Ratio"
 msgstr "Păstrează Ratioul"
 
+msgid "Kick"
+msgstr ""
+
 msgid "Know that an account exists"
 msgstr "Să știe ca există un account"
 
+msgid "Leave"
+msgstr ""
+
+msgid "Leave Faction"
+msgstr ""
+
 msgid "Legal Requests"
 msgstr "Cereri legale"
+
+msgid "Let everyone join this faction"
+msgstr ""
+
+msgid "Let people join this faction without needing an invite."
+msgstr ""
 
 msgid "Light Grid"
 msgstr "Grilă Albă"
@@ -790,6 +877,9 @@ msgstr "Se încarcă"
 
 msgid "Loading..."
 msgstr "Se încarcă..."
+
+msgid "Log in or Register"
+msgstr ""
 
 msgid "Log out"
 msgstr "Deloghează-te"
@@ -833,6 +923,9 @@ msgstr "Maximizează"
 msgid "Media Actions"
 msgstr "Acțiuni media"
 
+msgid "Members"
+msgstr ""
+
 msgid "Minimum Color Distance"
 msgstr "Distanța Minimă de Culoare"
 
@@ -854,8 +947,14 @@ msgstr "Amuțește Canalul"
 msgid "Muted Sound"
 msgstr "Sunet Oprit"
 
+msgid "My Factions"
+msgstr ""
+
 msgid "Name"
 msgstr "Nume"
+
+msgid "Name can only contain the characters: a-z . _ and -"
+msgstr ""
 
 msgid "Name can't be empty."
 msgstr "Numele nu poate fi gol."
@@ -868,6 +967,9 @@ msgstr "Numele trebuie să aibă cel puțin 2 litere"
 
 msgid "Name must be shorter than 26 characters"
 msgstr "Numele trebuie să aibă mai puțin de 26 de litere"
+
+msgid "Name of your faction [a-z][A-Z][0-9].-_"
+msgstr ""
 
 msgid "Name or Email"
 msgstr "Nume sau Email"
@@ -905,6 +1007,9 @@ msgstr "Fără captcha text sau invalid"
 msgid "No password given."
 msgstr "Nu ai pus o parolă."
 
+msgid "Nobody is banned from this faction"
+msgstr ""
+
 msgid "Not Allowed"
 msgstr ""
 
@@ -913,6 +1018,9 @@ msgstr "Nu este permis"
 
 msgid "Note"
 msgstr "Notiţă"
+
+msgid "Note: Your active Faction may overwrite your flag settings."
+msgstr ""
 
 msgid "OIDC LogIn"
 msgstr "Login OIDC"
@@ -940,6 +1048,9 @@ msgstr "Doar utilizatorii verificați au voie să se joace."
 
 msgid "Opacity of Overlay in percent."
 msgstr "Opacitate de Overlay în procente."
+
+msgid "Open"
+msgstr ""
 
 msgid "Open Chat"
 msgstr "Deschide Chatul"
@@ -976,6 +1087,9 @@ msgstr "Overlay Activat"
 
 msgid "Overlay Opacity"
 msgstr "Opacitate de Overlay"
+
+msgid "Overview"
+msgstr ""
 
 msgid "Palette Download"
 msgstr "Descarcă Paleta"
@@ -1170,6 +1284,9 @@ msgstr "Retrogradați janny"
 msgid "Remove Moderator"
 msgstr "Scoate Moderatori"
 
+msgid "Remove Roles"
+msgstr ""
+
 msgid "Remove a Login method:"
 msgstr "Scoateți o metodă de conectare:"
 
@@ -1203,6 +1320,12 @@ msgstr "Retractează"
 msgid "Revoke consent of third party applications:"
 msgstr "Revocheaza consimțământului aplicațiilor terțe:"
 
+msgid "Role Flags"
+msgstr ""
+
+msgid "Roles"
+msgstr ""
+
 msgid "Roll different Captcha Fonts"
 msgstr "Rulați diferite fonturi Captcha"
 
@@ -1223,6 +1346,9 @@ msgid "Scroll ${ mouseSymbol } mouse wheel or ${ touchSymbol } pinch to zoom"
 msgstr ""
 "Scrolează ${ mouseSymbol } rotița mouseului sau ${ touchSymbol } ciupește "
 "pentru a da zoom"
+
+msgid "Search Existing Faction"
+msgstr ""
 
 msgid "Select Date above"
 msgstr "Selectează Data deasupra"
@@ -1446,6 +1572,24 @@ msgstr ""
 "puteți desena peste ele. Un pixel pe șablon, ar trebui să fie un pixel pe "
 "pânză."
 
+msgid "Title"
+msgstr ""
+
+msgid "Title can't be empty."
+msgstr ""
+
+msgid "Title contains invalid character like @, /, \\ or #"
+msgstr ""
+
+msgid "Title must be at least 2 characters long"
+msgstr ""
+
+msgid "Title must be shorter than 26 characters"
+msgstr ""
+
+msgid "Title of your faction"
+msgstr ""
+
 msgid "To use this page, enter your Password:"
 msgstr "Pentru a utiliza această pagină, introduceți parola ta:"
 
@@ -1634,8 +1778,21 @@ msgstr ""
 "Ești banat. Crezi că este nejustificat? Consulta ${ helpButton } despre cum "
 "să faci appeal. Și nu uita să incluzi BID-ul pe care îl poți obține mai jos."
 
+msgid "You are currently not a member of any faction."
+msgstr ""
+
 msgid "You are currently not allowed to access this game."
 msgstr "Nu ai voie să accesezi acest joc."
+
+msgid ""
+"You are currently not representing any faction. To represent one, activate a "
+"role in one of your factions below."
+msgstr ""
+
+#, javascript-format
+msgid ""
+"You are currently representing ${ activeFactionTitle } as ${ activeRoleName }"
+msgstr ""
 
 msgid "You are not allowed to play this game right now :("
 msgstr "Nu ai voie să joci acest joc chiar acum :("
@@ -1712,6 +1869,9 @@ msgstr "Trebuie să introduci un IID sau UserId"
 msgid "You must enter at least one IID, User Id or BID"
 msgstr "Trebuie să introduceți macar un IID sau UserId"
 
+msgid "You must select an avatar for your faction"
+msgstr ""
+
 msgid "You took too long, try again."
 msgstr "Ți-a luat prea mult, încearcă din nou."
 
@@ -1725,8 +1885,14 @@ msgstr ""
 msgid "Your Browser looks shady"
 msgstr "Browserul tău arată ciudat"
 
+msgid "Your Factions"
+msgstr ""
+
 msgid "Your Internet Provider is banned from this game"
 msgstr "Furnizorul tău de internet este interzis din a juca acest joc"
+
+msgid "Your Roles"
+msgstr ""
 
 msgid "Your ban expires at "
 msgstr "Banul tău expiră la• "
@@ -1751,15 +1917,27 @@ msgstr ""
 "Zoom in în loc să pui in pixel atunci când apeși canvasul și zoomul tău este "
 "mic."
 
+msgid "affects"
+msgstr ""
+
 #, javascript-format
 msgid "and ${ canvas.req } Pixels set"
 msgstr "și ${ canvas.req } Pixeli puși în total"
 
+msgid "by"
+msgstr ""
+
 msgid "check compliance here"
 msgstr "Verifică conformitatea aici"
 
+msgid "created at"
+msgstr ""
+
 msgid "download here"
 msgstr "descarcă aici"
+
+msgid "lift"
+msgstr ""
 
 msgid "or login with:"
 msgstr "sau loghează-te cu:"
@@ -1842,6 +2020,9 @@ msgstr "W"
 msgctxt "keybinds"
 msgid "X"
 msgstr "X"
+
+#~ msgid "Consider joining us on Matrix:"
+#~ msgstr "Ia în considerare sa te alături noua pe Matrix:"
 
 #~ msgid "Close Menu"
 #~ msgstr "Închide Meniul"

@@ -59,6 +59,12 @@ msgstr ""
 msgid "(0 = infinite)"
 msgstr "(0 = nekonečno)"
 
+msgid "(click a role to activate it)"
+msgstr ""
+
+msgid "(click a role to assign or remove it)"
+msgstr ""
+
 msgid "+last hour"
 msgstr "+poslední hodinu"
 
@@ -93,6 +99,9 @@ msgstr "Vždy ukázat Pohybové ovládaní"
 msgid "Always show movement control buttons"
 msgstr "Vždy ukázat tlačítka pohybového ovládaní"
 
+msgid "An image representing your faction"
+msgstr ""
+
 msgid "Anti Aliasing"
 msgstr "Anti falšování"
 
@@ -101,6 +110,9 @@ msgstr "Přidat filter na vyčištění odpadků ve velkých oblastech plátna."
 
 msgid "Archive"
 msgstr "Archiv"
+
+msgid "Assign Roles"
+msgstr ""
 
 msgid "Assign new Mod"
 msgstr "Přidat nového Moderátora"
@@ -123,6 +135,9 @@ msgstr ""
 msgid "Badges"
 msgstr ""
 
+msgid "Ban"
+msgstr ""
+
 msgid "Ban media"
 msgstr ""
 
@@ -131,6 +146,9 @@ msgstr "Zabanován"
 
 msgid "Banned? Detected as Proxy?"
 msgstr "Zabanován? Detektován jako Proxy?"
+
+msgid "Bans"
+msgstr ""
 
 msgid "Block"
 msgstr "Block"
@@ -289,6 +307,9 @@ msgstr ""
 msgid "Click a color in palette to select it"
 msgstr "Klikněte na barvu v paletě aby jste jí vybral"
 
+msgid "Click here to cease representation."
+msgstr ""
+
 msgid "Click here to request a new verification mail."
 msgstr "Klikněte tu aby jste požádali o nový ověřující mail."
 
@@ -316,6 +337,18 @@ msgstr ""
 msgid "Compact Palette"
 msgstr "Kompaktní Paleta"
 
+msgid "Confirm"
+msgstr ""
+
+msgid "Confirm Ban"
+msgstr ""
+
+msgid "Confirm Kick"
+msgstr ""
+
+msgid "Confirm Leave"
+msgstr ""
+
 msgid "Confirm New Password"
 msgstr "Potvrdit Nový Heslo"
 
@@ -327,9 +360,6 @@ msgid "Connection error ${ code } :("
 msgstr "Chyba připojení ${ code } :("
 
 msgid "Consent"
-msgstr ""
-
-msgid "Consider joining us on Matrix:"
 msgstr ""
 
 msgid "Controls"
@@ -399,6 +429,12 @@ msgstr "Státy dnes"
 msgid "Country"
 msgstr "Stát"
 
+msgid "Create Faction"
+msgstr ""
+
+msgid "Create New Faction"
+msgstr ""
+
 #, javascript-format
 msgid "Credit for the Palette of the 2bit canvas goes to ${ donendoLink }."
 msgstr "Čest za Top10 Paletu jde ${ donendoLink }."
@@ -447,6 +483,18 @@ msgstr "Odstranit Účet"
 msgid "Deny"
 msgstr ""
 
+msgid "Description"
+msgstr ""
+
+msgid "Description can't be empty"
+msgstr ""
+
+msgid "Description must be shorter than 1000 characters"
+msgstr ""
+
+msgid "Description of your faction"
+msgstr ""
+
 msgid ""
 "Didn't get an answer from pixelplanet. Try to refresh if this problem "
 "persists."
@@ -475,7 +523,14 @@ msgstr "Zobrazit Paletu v kompaktní formě která zabírá míň obrazovky."
 msgid "Do stuff with IPs (one IP per line)"
 msgstr "Udělat věci s IP (jedno IP na řádek)"
 
+msgid ""
+"Don't let people find this faction in public search or look at its profile."
+msgstr ""
+
 msgid "Don't remember"
+msgstr ""
+
+msgid "Don't show faction in search"
 msgstr ""
 
 msgid "Don't show me in global stats"
@@ -544,6 +599,9 @@ msgstr "Vložit Důvod"
 msgid "Enter UserName of new Mod"
 msgstr "Vlož Jméno nového Moderátora"
 
+msgid "Enter a little text that describes your faction"
+msgstr ""
+
 msgid "Enter your mail address and we will send you a new password:"
 msgstr "Zadejte svojí emailovou adresu a pošleme vám nové heslo:"
 
@@ -564,6 +622,11 @@ msgid "Export enabled templates"
 msgstr "Exportovat zapnuté šablony"
 
 msgid "Factions"
+msgstr ""
+
+msgid ""
+"Factions allow you to coordinate better with other players. Search for "
+"existing factions, find friends or create your own faction."
 msgstr ""
 
 msgid "Factor"
@@ -664,6 +727,9 @@ msgstr ""
 msgid "Hide Embed"
 msgstr ""
 
+msgid "Hide from profile"
+msgstr ""
+
 msgid ""
 "Higher zoomlevels take some time to update, the 3D globe gets updated at "
 "least once per day."
@@ -736,11 +802,17 @@ msgstr "Byla vybrána neplatná barva"
 msgid "Invited to Chat"
 msgstr ""
 
+msgid "Invites"
+msgstr ""
+
 msgid ""
 "It requests the following permissions. Uncheck what you don't want to grant:"
 msgstr ""
 
 msgid "Jannies can rollback and protect, but not watch or ban."
+msgstr ""
+
+msgid "Join Faction"
 msgstr ""
 
 msgid "Just for registered Users"
@@ -755,10 +827,25 @@ msgstr "Pouze Top 10 lidi ze včerejška zde mohou pokládat"
 msgid "Keep Ratio"
 msgstr "Zanechat Poměr"
 
+msgid "Kick"
+msgstr ""
+
 msgid "Know that an account exists"
 msgstr ""
 
+msgid "Leave"
+msgstr ""
+
+msgid "Leave Faction"
+msgstr ""
+
 msgid "Legal Requests"
+msgstr ""
+
+msgid "Let everyone join this faction"
+msgstr ""
+
+msgid "Let people join this faction without needing an invite."
 msgstr ""
 
 msgid "Light Grid"
@@ -772,6 +859,9 @@ msgstr "Načítaní"
 
 msgid "Loading..."
 msgstr "Načítaní..."
+
+msgid "Log in or Register"
+msgstr ""
 
 msgid "Log out"
 msgstr "Odhlásit se"
@@ -815,6 +905,9 @@ msgstr "Maximalizovat"
 msgid "Media Actions"
 msgstr ""
 
+msgid "Members"
+msgstr ""
+
 msgid "Minimum Color Distance"
 msgstr "Minimální Vzdálenost Barvy"
 
@@ -834,8 +927,14 @@ msgstr ""
 msgid "Muted Sound"
 msgstr "Zvuk Ztlumený"
 
+msgid "My Factions"
+msgstr ""
+
 msgid "Name"
 msgstr "Jméno"
+
+msgid "Name can only contain the characters: a-z . _ and -"
+msgstr ""
 
 msgid "Name can't be empty."
 msgstr "Jméno nemůže být prázdný."
@@ -848,6 +947,9 @@ msgstr "Jméno musí obsahovat alespoň dva znaky"
 
 msgid "Name must be shorter than 26 characters"
 msgstr "Jméno musí být menší jak 26 znaků"
+
+msgid "Name of your faction [a-z][A-Z][0-9].-_"
+msgstr ""
 
 msgid "Name or Email"
 msgstr "Jméno a Email"
@@ -885,6 +987,9 @@ msgstr "Žádný nebo neplatný captcha text"
 msgid "No password given."
 msgstr "Nebylo zadané heslo."
 
+msgid "Nobody is banned from this faction"
+msgstr ""
+
 msgid "Not Allowed"
 msgstr ""
 
@@ -892,6 +997,9 @@ msgid "Not allowed"
 msgstr "Nepovoleno"
 
 msgid "Note"
+msgstr ""
+
+msgid "Note: Your active Faction may overwrite your flag settings."
 msgstr ""
 
 msgid "OIDC LogIn"
@@ -920,6 +1028,9 @@ msgstr ""
 
 msgid "Opacity of Overlay in percent."
 msgstr "Průhlednost v procentech."
+
+msgid "Open"
+msgstr ""
 
 msgid "Open Chat"
 msgstr "Otevřít chat"
@@ -957,6 +1068,9 @@ msgstr "Overlay Zapnutý"
 
 msgid "Overlay Opacity"
 msgstr "Průhlednost"
+
+msgid "Overview"
+msgstr ""
 
 msgid "Palette Download"
 msgstr "Stažení Plátna"
@@ -1150,6 +1264,9 @@ msgstr ""
 msgid "Remove Moderator"
 msgstr "Odstranit Moderátora"
 
+msgid "Remove Roles"
+msgstr ""
+
 msgid "Remove a Login method:"
 msgstr ""
 
@@ -1183,6 +1300,12 @@ msgstr ""
 msgid "Revoke consent of third party applications:"
 msgstr ""
 
+msgid "Role Flags"
+msgstr ""
+
+msgid "Roles"
+msgstr ""
+
 msgid "Roll different Captcha Fonts"
 msgstr ""
 
@@ -1204,6 +1327,9 @@ msgid "Scroll ${ mouseSymbol } mouse wheel or ${ touchSymbol } pinch to zoom"
 msgstr ""
 "Rolujte ${ mouseSymbol } kolečko na myši nebo ${ touchSymbol } zatáhněte pro "
 "přiblížení"
+
+msgid "Search Existing Faction"
+msgstr ""
 
 msgid "Select Date above"
 msgstr "Zde Vyberte Datum"
@@ -1416,6 +1542,24 @@ msgstr ""
 "mohou pomoct! Šablony mohou se ukázat jako overlay a mužete na ně kreslit. "
 "Jeden pixel na šabloně by měl být jeden pixel na plátnu."
 
+msgid "Title"
+msgstr ""
+
+msgid "Title can't be empty."
+msgstr ""
+
+msgid "Title contains invalid character like @, /, \\ or #"
+msgstr ""
+
+msgid "Title must be at least 2 characters long"
+msgstr ""
+
+msgid "Title must be shorter than 26 characters"
+msgstr ""
+
+msgid "Title of your faction"
+msgstr ""
+
 msgid "To use this page, enter your Password:"
 msgstr ""
 
@@ -1598,7 +1742,20 @@ msgid ""
 "on how to appeal. And don't forget to include the BID you can get below."
 msgstr ""
 
+msgid "You are currently not a member of any faction."
+msgstr ""
+
 msgid "You are currently not allowed to access this game."
+msgstr ""
+
+msgid ""
+"You are currently not representing any faction. To represent one, activate a "
+"role in one of your factions below."
+msgstr ""
+
+#, javascript-format
+msgid ""
+"You are currently representing ${ activeFactionTitle } as ${ activeRoleName }"
 msgstr ""
 
 msgid "You are not allowed to play this game right now :("
@@ -1672,6 +1829,9 @@ msgstr ""
 msgid "You must enter at least one IID, User Id or BID"
 msgstr ""
 
+msgid "You must select an avatar for your faction"
+msgstr ""
+
 msgid "You took too long, try again."
 msgstr "Trvalo vám to příliš dlouho, zkuste znovu."
 
@@ -1685,8 +1845,14 @@ msgstr ""
 msgid "Your Browser looks shady"
 msgstr ""
 
+msgid "Your Factions"
+msgstr ""
+
 msgid "Your Internet Provider is banned from this game"
 msgstr "Váš internetový poskytovatel byl zablokován"
+
+msgid "Your Roles"
+msgstr ""
 
 msgid "Your ban expires at "
 msgstr "Váš ban skončí ve "
@@ -1709,14 +1875,26 @@ msgstr ""
 "Při klepnutí na plátno místo umístění pixelu přibližte a vaše přiblížení je "
 "malé."
 
+msgid "affects"
+msgstr ""
+
 #, javascript-format
 msgid "and ${ canvas.req } Pixels set"
 msgstr "a ${ canvas.req } Položenejch pixelů"
 
+msgid "by"
+msgstr ""
+
 msgid "check compliance here"
 msgstr ""
 
+msgid "created at"
+msgstr ""
+
 msgid "download here"
+msgstr ""
+
+msgid "lift"
 msgstr ""
 
 msgid "or login with:"

@@ -56,6 +56,12 @@ msgstr ""
 msgid "(0 = infinite)"
 msgstr "(0 = taʻe fakangatangata)"
 
+msgid "(click a role to activate it)"
+msgstr ""
+
+msgid "(click a role to assign or remove it)"
+msgstr ""
+
 msgid "+last hour"
 msgstr ""
 
@@ -91,6 +97,9 @@ msgstr ""
 msgid "Always show movement control buttons"
 msgstr ""
 
+msgid "An image representing your faction"
+msgstr ""
+
 msgid "Anti Aliasing"
 msgstr "ʻAnitai Aliasing"
 
@@ -101,6 +110,9 @@ msgstr ""
 
 msgid "Archive"
 msgstr "ʻAkaivi"
+
+msgid "Assign Roles"
+msgstr ""
 
 msgid "Assign new Mod"
 msgstr "Vahe ha Mod foʻou"
@@ -123,6 +135,9 @@ msgstr ""
 msgid "Badges"
 msgstr ""
 
+msgid "Ban"
+msgstr ""
+
 msgid "Ban media"
 msgstr ""
 
@@ -131,6 +146,9 @@ msgstr "Banned"
 
 msgid "Banned? Detected as Proxy?"
 msgstr "Banned? ʻIloʻi ko e fakafofonga?"
+
+msgid "Bans"
+msgstr ""
 
 msgid "Block"
 msgstr "Poloka"
@@ -291,6 +309,9 @@ msgstr ""
 msgid "Click a color in palette to select it"
 msgstr "Lomiʻi ʻi ha lanu ʻi palette ke fili ia"
 
+msgid "Click here to cease representation."
+msgstr ""
+
 msgid "Click here to request a new verification mail."
 msgstr "Lomiʻi heni ke kole ha meili fakapapauʻi foʻou."
 
@@ -318,6 +339,18 @@ msgstr ""
 msgid "Compact Palette"
 msgstr "Maʻuʻanga Fakamatala Palette"
 
+msgid "Confirm"
+msgstr ""
+
+msgid "Confirm Ban"
+msgstr ""
+
+msgid "Confirm Kick"
+msgstr ""
+
+msgid "Confirm Leave"
+msgstr ""
+
 msgid "Confirm New Password"
 msgstr "Fakapapauʻi ʻa e Lea Fufū Foʻoú"
 
@@ -329,9 +362,6 @@ msgid "Connection error ${ code } :("
 msgstr "Fehalaaki hono fakafehokotaki ${ code } :("
 
 msgid "Consent"
-msgstr ""
-
-msgid "Consider joining us on Matrix:"
 msgstr ""
 
 msgid "Controls"
@@ -403,6 +433,12 @@ msgstr "Ngaahi Fonua he ʻAho Ní"
 msgid "Country"
 msgstr "Fonua"
 
+msgid "Create Faction"
+msgstr ""
+
+msgid "Create New Faction"
+msgstr ""
+
 #, fuzzy, javascript-format
 msgid "Credit for the Palette of the 2bit canvas goes to ${ donendoLink }."
 msgstr ""
@@ -459,6 +495,18 @@ msgstr "Tāmateʻi e ʻAkauní"
 msgid "Deny"
 msgstr ""
 
+msgid "Description"
+msgstr ""
+
+msgid "Description can't be empty"
+msgstr ""
+
+msgid "Description must be shorter than 1000 characters"
+msgstr ""
+
+msgid "Description of your faction"
+msgstr ""
+
 #, fuzzy
 msgid ""
 "Didn't get an answer from pixelplanet. Try to refresh if this problem "
@@ -489,7 +537,14 @@ msgstr "Fakaʻaliʻali Palette ʻi ha foomu ʻoku siʻisiʻi ange hono screen."
 msgid "Do stuff with IPs (one IP per line)"
 msgstr "Fai ha ngaahi meʻa mo e IPs (taha IP ki he laine)"
 
+msgid ""
+"Don't let people find this faction in public search or look at its profile."
+msgstr ""
+
 msgid "Don't remember"
+msgstr ""
+
+msgid "Don't show faction in search"
 msgstr ""
 
 msgid "Don't show me in global stats"
@@ -559,6 +614,9 @@ msgstr "Fakahū ʻa e ʻUhingá"
 msgid "Enter UserName of new Mod"
 msgstr "Fakahu ʻa e hingoa ngaue ʻo e Mod foʻou"
 
+msgid "Enter a little text that describes your faction"
+msgstr ""
+
 msgid "Enter your mail address and we will send you a new password:"
 msgstr "Fakahū ho tuʻasila meilí pea te mau ʻoatu ha lea fufū foʻou kiate koe:"
 
@@ -579,6 +637,11 @@ msgid "Export enabled templates"
 msgstr ""
 
 msgid "Factions"
+msgstr ""
+
+msgid ""
+"Factions allow you to coordinate better with other players. Search for "
+"existing factions, find friends or create your own faction."
 msgstr ""
 
 msgid "Factor"
@@ -681,6 +744,9 @@ msgstr ""
 msgid "Hide Embed"
 msgstr ""
 
+msgid "Hide from profile"
+msgstr ""
+
 msgid ""
 "Higher zoomlevels take some time to update, the 3D globe gets updated at "
 "least once per day."
@@ -755,11 +821,17 @@ msgstr "ʻIkai tonu e lanu naʻe filí"
 msgid "Invited to Chat"
 msgstr ""
 
+msgid "Invites"
+msgstr ""
+
 msgid ""
 "It requests the following permissions. Uncheck what you don't want to grant:"
 msgstr ""
 
 msgid "Jannies can rollback and protect, but not watch or ban."
+msgstr ""
+
+msgid "Join Faction"
 msgstr ""
 
 msgid "Just for registered Users"
@@ -774,10 +846,25 @@ msgstr "ʻE lava ke fokotuʻu heni ʻa e Top10 ʻo e ʻaneafi"
 msgid "Keep Ratio"
 msgstr "Tauhi ʻa e fika fehangahangai"
 
+msgid "Kick"
+msgstr ""
+
 msgid "Know that an account exists"
 msgstr ""
 
+msgid "Leave"
+msgstr ""
+
+msgid "Leave Faction"
+msgstr ""
+
 msgid "Legal Requests"
+msgstr ""
+
+msgid "Let everyone join this faction"
+msgstr ""
+
+msgid "Let people join this faction without needing an invite."
 msgstr ""
 
 msgid "Light Grid"
@@ -791,6 +878,9 @@ msgstr "Load"
 
 msgid "Loading..."
 msgstr "Load..."
+
+msgid "Log in or Register"
+msgstr ""
 
 msgid "Log out"
 msgstr "Hu ki tuʻa"
@@ -836,6 +926,9 @@ msgstr "Fakalōloa e Taimi ʻ"
 msgid "Media Actions"
 msgstr ""
 
+msgid "Members"
+msgstr ""
+
 msgid "Minimum Color Distance"
 msgstr "Mamaʻo siʻisiʻi taha ʻo e lanu"
 
@@ -855,8 +948,14 @@ msgstr ""
 msgid "Muted Sound"
 msgstr "Ongo ʻoku ʻikai ke ʻi ai ha me"
 
+msgid "My Factions"
+msgstr ""
+
 msgid "Name"
 msgstr "Hingoa"
+
+msgid "Name can only contain the characters: a-z . _ and -"
+msgstr ""
 
 msgid "Name can't be empty."
 msgstr "ʻIkai lava ke taʻe ʻi ai ha hingoa."
@@ -869,6 +968,9 @@ msgstr "Kuo pau ke mataʻitohi ʻe 2 hono lōloa ʻo e hingoá"
 
 msgid "Name must be shorter than 26 characters"
 msgstr "Kuo pau ke nounou ange ʻa e hingoá ʻi he mataʻitohi ʻe 26"
+
+msgid "Name of your faction [a-z][A-Z][0-9].-_"
+msgstr ""
 
 msgid "Name or Email"
 msgstr "Hingoa pe ʻĪmeilí"
@@ -906,6 +1008,9 @@ msgstr "ʻIkai pe ʻikai tonu captcha text"
 msgid "No password given."
 msgstr "ʻIkai ʻoange ha lea fufū."
 
+msgid "Nobody is banned from this faction"
+msgstr ""
+
 msgid "Not Allowed"
 msgstr ""
 
@@ -913,6 +1018,9 @@ msgid "Not allowed"
 msgstr "ʻIkai ngofua"
 
 msgid "Note"
+msgstr ""
+
+msgid "Note: Your active Faction may overwrite your flag settings."
 msgstr ""
 
 msgid "OIDC LogIn"
@@ -940,6 +1048,9 @@ msgid "Only verified Users are currently allowed to play."
 msgstr ""
 
 msgid "Opacity of Overlay in percent."
+msgstr ""
+
+msgid "Open"
 msgstr ""
 
 msgid "Open Chat"
@@ -977,6 +1088,9 @@ msgid "Overlay ON"
 msgstr ""
 
 msgid "Overlay Opacity"
+msgstr ""
+
+msgid "Overview"
 msgstr ""
 
 msgid "Palette Download"
@@ -1174,6 +1288,9 @@ msgstr ""
 msgid "Remove Moderator"
 msgstr "Toʻo ʻa e tokotaha ʻoku ne"
 
+msgid "Remove Roles"
+msgstr ""
+
 msgid "Remove a Login method:"
 msgstr ""
 
@@ -1207,6 +1324,12 @@ msgstr ""
 msgid "Revoke consent of third party applications:"
 msgstr ""
 
+msgid "Role Flags"
+msgstr ""
+
+msgid "Roles"
+msgstr ""
+
 msgid "Roll different Captcha Fonts"
 msgstr ""
 
@@ -1228,6 +1351,9 @@ msgid "Scroll ${ mouseSymbol } mouse wheel or ${ touchSymbol } pinch to zoom"
 msgstr ""
 "Scroll ${mouseSymbol } veʻeteka ʻo e mausi pe ${touchSymbol } fefaʻuhi ke "
 "fakaʻata"
+
+msgid "Search Existing Faction"
+msgstr ""
 
 msgid "Select Date above"
 msgstr "Fili ʻa e ʻAho ʻi ʻolungá"
@@ -1447,6 +1573,24 @@ msgid ""
 "the template, should be one pixel on the canvas."
 msgstr ""
 
+msgid "Title"
+msgstr ""
+
+msgid "Title can't be empty."
+msgstr ""
+
+msgid "Title contains invalid character like @, /, \\ or #"
+msgstr ""
+
+msgid "Title must be at least 2 characters long"
+msgstr ""
+
+msgid "Title must be shorter than 26 characters"
+msgstr ""
+
+msgid "Title of your faction"
+msgstr ""
+
 msgid "To use this page, enter your Password:"
 msgstr ""
 
@@ -1636,7 +1780,20 @@ msgid ""
 "on how to appeal. And don't forget to include the BID you can get below."
 msgstr ""
 
+msgid "You are currently not a member of any faction."
+msgstr ""
+
 msgid "You are currently not allowed to access this game."
+msgstr ""
+
+msgid ""
+"You are currently not representing any faction. To represent one, activate a "
+"role in one of your factions below."
+msgstr ""
+
+#, javascript-format
+msgid ""
+"You are currently representing ${ activeFactionTitle } as ${ activeRoleName }"
 msgstr ""
 
 msgid "You are not allowed to play this game right now :("
@@ -1714,6 +1871,9 @@ msgstr ""
 msgid "You must enter at least one IID, User Id or BID"
 msgstr ""
 
+msgid "You must select an avatar for your faction"
+msgstr ""
+
 msgid "You took too long, try again."
 msgstr "Naʻe fuʻu fuoloa hoʻo feinga."
 
@@ -1728,9 +1888,15 @@ msgstr ""
 msgid "Your Browser looks shady"
 msgstr ""
 
+msgid "Your Factions"
+msgstr ""
+
 #, fuzzy
 msgid "Your Internet Provider is banned from this game"
 msgstr "ʻOku banned hoʻo kautaha ʻInitaneti mei he vaʻinga ko ʻeni"
+
+msgid "Your Roles"
+msgstr ""
 
 msgid "Your ban expires at "
 msgstr "ʻOku taʻeʻaonga hoʻo taʻeʻaonga ʻi he "
@@ -1753,14 +1919,26 @@ msgstr ""
 "Fakaʻata ke ʻoua naʻa ke fokotuʻu ha pixel ʻi he taimi ʻoku ke lomiʻi ai ʻa "
 "e fakatataa pea ʻoku siʻisiʻi hoʻo fakaʻata."
 
+msgid "affects"
+msgstr ""
+
 #, javascript-format
 msgid "and ${ canvas.req } Pixels set"
 msgstr "mo e ${ canvas.req } pixel"
 
+msgid "by"
+msgstr ""
+
 msgid "check compliance here"
 msgstr ""
 
+msgid "created at"
+msgstr ""
+
 msgid "download here"
+msgstr ""
+
+msgid "lift"
 msgstr ""
 
 msgid "or login with:"

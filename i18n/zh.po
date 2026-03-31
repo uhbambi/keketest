@@ -47,6 +47,12 @@ msgstr ""
 msgid "(0 = infinite)"
 msgstr "（0即无限）"
 
+msgid "(click a role to activate it)"
+msgstr ""
+
+msgid "(click a role to assign or remove it)"
+msgstr ""
+
 msgid "+last hour"
 msgstr "+最后小时"
 
@@ -81,6 +87,9 @@ msgstr "总是显示移动控制"
 msgid "Always show movement control buttons"
 msgstr "总是显示移动控制按钮"
 
+msgid "An image representing your faction"
+msgstr ""
+
 msgid "Anti Aliasing"
 msgstr "抗锯齿"
 
@@ -89,6 +98,9 @@ msgstr "启用过滤器以清理大画布区域中的杂笔。"
 
 msgid "Archive"
 msgstr "文档"
+
+msgid "Assign Roles"
+msgstr ""
 
 msgid "Assign new Mod"
 msgstr "指定新管理员"
@@ -111,6 +123,9 @@ msgstr "徽章显示"
 msgid "Badges"
 msgstr "徽章"
 
+msgid "Ban"
+msgstr ""
+
 msgid "Ban media"
 msgstr "禁止媒体"
 
@@ -119,6 +134,9 @@ msgstr "已封禁"
 
 msgid "Banned? Detected as Proxy?"
 msgstr "被封禁了？被检测为代理网络连接了？"
+
+msgid "Bans"
+msgstr ""
 
 msgid "Block"
 msgstr "屏蔽"
@@ -273,6 +291,9 @@ msgstr "点击 ${ mouseSymbol } 鼠标中键或 ${ touchSymbol } 长按以吸取
 msgid "Click a color in palette to select it"
 msgstr "在调色盘中点击一个颜色以选择"
 
+msgid "Click here to cease representation."
+msgstr ""
+
 msgid "Click here to request a new verification mail."
 msgstr "点击此处以请求新验证电子邮件。"
 
@@ -300,6 +321,18 @@ msgstr "紧凑聊天"
 msgid "Compact Palette"
 msgstr "便携调色盘"
 
+msgid "Confirm"
+msgstr ""
+
+msgid "Confirm Ban"
+msgstr ""
+
+msgid "Confirm Kick"
+msgstr ""
+
+msgid "Confirm Leave"
+msgstr ""
+
 msgid "Confirm New Password"
 msgstr "确认新密码"
 
@@ -312,9 +345,6 @@ msgstr "连接错误 ${ code } :("
 
 msgid "Consent"
 msgstr "同意"
-
-msgid "Consider joining us on Matrix:"
-msgstr "欢迎加入我们的 Matrix 项目："
 
 msgid "Controls"
 msgstr "控制"
@@ -381,6 +411,12 @@ msgstr "今日国家"
 msgid "Country"
 msgstr "国家"
 
+msgid "Create Faction"
+msgstr ""
+
+msgid "Create New Faction"
+msgstr ""
+
 #, javascript-format
 msgid "Credit for the Palette of the 2bit canvas goes to ${ donendoLink }."
 msgstr "2bit 画布调色板的功劳归于 ${ donendoLink }。"
@@ -429,6 +465,18 @@ msgstr "删除帐户"
 msgid "Deny"
 msgstr "否定"
 
+msgid "Description"
+msgstr ""
+
+msgid "Description can't be empty"
+msgstr ""
+
+msgid "Description must be shorter than 1000 characters"
+msgstr ""
+
+msgid "Description of your faction"
+msgstr ""
+
 msgid ""
 "Didn't get an answer from pixelplanet. Try to refresh if this problem "
 "persists."
@@ -455,8 +503,15 @@ msgstr "以紧凑的形式显示调色板，占用更少的屏幕空间。"
 msgid "Do stuff with IPs (one IP per line)"
 msgstr "对 IP 地址进行操作（每行一个 IP 地址）"
 
+msgid ""
+"Don't let people find this faction in public search or look at its profile."
+msgstr ""
+
 msgid "Don't remember"
 msgstr "不记得了"
+
+msgid "Don't show faction in search"
+msgstr ""
 
 msgid "Don't show me in global stats"
 msgstr "不要在全球统计数据中显示"
@@ -524,6 +579,9 @@ msgstr "请输入原因"
 msgid "Enter UserName of new Mod"
 msgstr "输入新版主的用户名"
 
+msgid "Enter a little text that describes your faction"
+msgstr ""
+
 msgid "Enter your mail address and we will send you a new password:"
 msgstr "请输入您的邮箱地址，我们将向您发送新密码："
 
@@ -545,6 +603,11 @@ msgstr "已启用导出功能的模板"
 
 msgid "Factions"
 msgstr "派系"
+
+msgid ""
+"Factions allow you to coordinate better with other players. Search for "
+"existing factions, find friends or create your own faction."
+msgstr ""
 
 msgid "Factor"
 msgstr "因素"
@@ -644,6 +707,9 @@ msgstr "我们在此收集已移除的画布，以便妥善归档。目前只有
 msgid "Hide Embed"
 msgstr "隐藏嵌入内容"
 
+msgid "Hide from profile"
+msgstr ""
+
 msgid ""
 "Higher zoomlevels take some time to update, the 3D globe gets updated at "
 "least once per day."
@@ -717,12 +783,18 @@ msgstr "选择了无效的颜色"
 msgid "Invited to Chat"
 msgstr "受邀聊天"
 
+msgid "Invites"
+msgstr ""
+
 msgid ""
 "It requests the following permissions. Uncheck what you don't want to grant:"
 msgstr "它会请求以下权限。取消勾选您不想授予的权限："
 
 msgid "Jannies can rollback and protect, but not watch or ban."
 msgstr "管理员可以回滚和保护，但不能监视或封禁。"
+
+msgid "Join Faction"
+msgstr ""
 
 msgid "Just for registered Users"
 msgstr "仅限注册用户"
@@ -736,11 +808,26 @@ msgstr "只有昨天的前十名才能排在这里"
 msgid "Keep Ratio"
 msgstr "保持比例"
 
+msgid "Kick"
+msgstr ""
+
 msgid "Know that an account exists"
 msgstr "确认账户存在"
 
+msgid "Leave"
+msgstr ""
+
+msgid "Leave Faction"
+msgstr ""
+
 msgid "Legal Requests"
 msgstr "法律请求"
+
+msgid "Let everyone join this faction"
+msgstr ""
+
+msgid "Let people join this faction without needing an invite."
+msgstr ""
 
 msgid "Light Grid"
 msgstr ""
@@ -753,6 +840,9 @@ msgstr ""
 
 msgid "Loading..."
 msgstr "加载中…"
+
+msgid "Log in or Register"
+msgstr ""
 
 msgid "Log out"
 msgstr ""
@@ -796,6 +886,9 @@ msgstr ""
 msgid "Media Actions"
 msgstr ""
 
+msgid "Members"
+msgstr ""
+
 msgid "Minimum Color Distance"
 msgstr ""
 
@@ -815,7 +908,13 @@ msgstr ""
 msgid "Muted Sound"
 msgstr ""
 
+msgid "My Factions"
+msgstr ""
+
 msgid "Name"
+msgstr ""
+
+msgid "Name can only contain the characters: a-z . _ and -"
 msgstr ""
 
 msgid "Name can't be empty."
@@ -829,6 +928,9 @@ msgstr "名称至少需要2字符长"
 
 msgid "Name must be shorter than 26 characters"
 msgstr "名称必须少于26字符"
+
+msgid "Name of your faction [a-z][A-Z][0-9].-_"
+msgstr ""
 
 msgid "Name or Email"
 msgstr ""
@@ -866,6 +968,9 @@ msgstr ""
 msgid "No password given."
 msgstr "无可用密码。"
 
+msgid "Nobody is banned from this faction"
+msgstr ""
+
 msgid "Not Allowed"
 msgstr ""
 
@@ -873,6 +978,9 @@ msgid "Not allowed"
 msgstr ""
 
 msgid "Note"
+msgstr ""
+
+msgid "Note: Your active Faction may overwrite your flag settings."
 msgstr ""
 
 msgid "OIDC LogIn"
@@ -900,6 +1008,9 @@ msgid "Only verified Users are currently allowed to play."
 msgstr ""
 
 msgid "Opacity of Overlay in percent."
+msgstr ""
+
+msgid "Open"
 msgstr ""
 
 msgid "Open Chat"
@@ -930,6 +1041,9 @@ msgid "Overlay ON"
 msgstr ""
 
 msgid "Overlay Opacity"
+msgstr ""
+
+msgid "Overview"
 msgstr ""
 
 msgid "Palette Download"
@@ -1119,6 +1233,9 @@ msgstr ""
 msgid "Remove Moderator"
 msgstr ""
 
+msgid "Remove Roles"
+msgstr ""
+
 msgid "Remove a Login method:"
 msgstr ""
 
@@ -1152,6 +1269,12 @@ msgstr ""
 msgid "Revoke consent of third party applications:"
 msgstr ""
 
+msgid "Role Flags"
+msgstr ""
+
+msgid "Roles"
+msgstr ""
+
 msgid "Roll different Captcha Fonts"
 msgstr ""
 
@@ -1169,6 +1292,9 @@ msgstr ""
 
 #, javascript-format
 msgid "Scroll ${ mouseSymbol } mouse wheel or ${ touchSymbol } pinch to zoom"
+msgstr ""
+
+msgid "Search Existing Faction"
 msgstr ""
 
 msgid "Select Date above"
@@ -1367,6 +1493,24 @@ msgid ""
 "the template, should be one pixel on the canvas."
 msgstr ""
 
+msgid "Title"
+msgstr ""
+
+msgid "Title can't be empty."
+msgstr ""
+
+msgid "Title contains invalid character like @, /, \\ or #"
+msgstr ""
+
+msgid "Title must be at least 2 characters long"
+msgstr ""
+
+msgid "Title must be shorter than 26 characters"
+msgstr ""
+
+msgid "Title of your faction"
+msgstr ""
+
 msgid "To use this page, enter your Password:"
 msgstr ""
 
@@ -1543,7 +1687,20 @@ msgstr ""
 "您已被封禁。您认为封禁不合理？请查看《${ helpButton }》了解如何申诉。别忘了附"
 "上您可以从下方获取的 BID 进报。"
 
+msgid "You are currently not a member of any faction."
+msgstr ""
+
 msgid "You are currently not allowed to access this game."
+msgstr ""
+
+msgid ""
+"You are currently not representing any faction. To represent one, activate a "
+"role in one of your factions below."
+msgstr ""
+
+#, javascript-format
+msgid ""
+"You are currently representing ${ activeFactionTitle } as ${ activeRoleName }"
 msgstr ""
 
 msgid "You are not allowed to play this game right now :("
@@ -1617,6 +1774,9 @@ msgstr ""
 msgid "You must enter at least one IID, User Id or BID"
 msgstr ""
 
+msgid "You must select an avatar for your faction"
+msgstr ""
+
 msgid "You took too long, try again."
 msgstr ""
 
@@ -1628,7 +1788,13 @@ msgstr ""
 msgid "Your Browser looks shady"
 msgstr "你的浏览器看起来可疑"
 
+msgid "Your Factions"
+msgstr ""
+
 msgid "Your Internet Provider is banned from this game"
+msgstr ""
+
+msgid "Your Roles"
 msgstr ""
 
 msgid "Your ban expires at "
@@ -1650,14 +1816,26 @@ msgid ""
 "small."
 msgstr ""
 
+msgid "affects"
+msgstr ""
+
 #, javascript-format
 msgid "and ${ canvas.req } Pixels set"
+msgstr ""
+
+msgid "by"
 msgstr ""
 
 msgid "check compliance here"
 msgstr ""
 
+msgid "created at"
+msgstr ""
+
 msgid "download here"
+msgstr ""
+
+msgid "lift"
 msgstr ""
 
 msgid "or login with:"
@@ -1741,6 +1919,9 @@ msgstr ""
 msgctxt "keybinds"
 msgid "X"
 msgstr ""
+
+#~ msgid "Consider joining us on Matrix:"
+#~ msgstr "欢迎加入我们的 Matrix 项目："
 
 #~ msgid "Close Menu"
 #~ msgstr "关闭菜单"

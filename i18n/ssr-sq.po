@@ -63,11 +63,51 @@ msgstr "Aplikacioni u shtua me sukses"
 msgid "Avatar can only be an image"
 msgstr "Avatari mund të jetë vetëm një imazh"
 
+msgid "Avatar not given or not an image"
+msgstr ""
+
 msgid "Black and White canvas"
 msgstr "Kanavacë Bardhë e Zi"
 
+msgid "Can not change a role above or equal to your own"
+msgstr ""
+
+msgid "Can not change a role above your own"
+msgstr ""
+
+msgid "Can not change a role that is equal to your own"
+msgstr ""
+
+msgid "Can not change the powerlevel of a role equal or above you"
+msgstr ""
+
+msgid "Can not change the powerlevel of the Sovereign"
+msgstr ""
+
+msgid "Can not change this role"
+msgstr ""
+
 msgid "Can not chat while being banned"
 msgstr "Nuk mund të bisedoni ndërkohë që jeni të përjashtuar"
+
+msgid "Can not create a role with a powerlevel of yours or beyond"
+msgstr ""
+
+msgid "Can not delete this role"
+msgstr ""
+
+msgid "Can not elevate the powerlevel of a role to yours or beyond"
+msgstr ""
+
+msgid "Can not have more than 20 faction roles"
+msgstr ""
+
+msgid "Can not modify user equal to you or above you"
+msgstr ""
+
+#. when leaving a faction and you are the last owner
+msgid "Can not orphan a faction"
+msgstr ""
 
 #, javascript-format
 msgid ""
@@ -102,6 +142,9 @@ msgstr "Autorizimi"
 msgid "Coronavirus"
 msgstr "Koronavirusi"
 
+msgid "Could not change this setting. Maybe try again later."
+msgstr ""
+
 msgid "Could not close this Session."
 msgstr "Nuk munda të mbyll këtë Seancë."
 
@@ -111,8 +154,17 @@ msgstr "Nuk u gjet kjo mënyrë hyrjeje"
 msgid "Could not leave this channel"
 msgstr "Nuk mund të largohej nga ky kanal"
 
-msgid "Could not set your avtar"
-msgstr "Nuk mund të vendosej avatari juaj"
+msgid "Could not set this factions avatar"
+msgstr ""
+
+msgid "Could not set your avatar"
+msgstr ""
+
+msgid "Could not set your faction role"
+msgstr ""
+
+msgid "Could not this roles flag"
+msgstr ""
 
 msgid "Could not upload all files"
 msgstr "Nuk mund të ngarkohen të gjithë skedarët"
@@ -125,6 +177,12 @@ msgstr "E paracaktuar"
 
 msgid "Delete Application"
 msgstr "Fshi aplikacionin"
+
+msgid "Description can't be empty"
+msgstr ""
+
+msgid "Description must be shorter than 1000 characters"
+msgstr ""
 
 msgid "Display name for your OIDC client"
 msgstr "Emri që do të shfaqet për klientin tuaj OIDC"
@@ -301,6 +359,9 @@ msgstr ""
 msgid "Name already in use."
 msgstr "Emri është në përdorim."
 
+msgid "Name can only contain the characters: a-z . _ and -"
+msgstr ""
+
 msgid "Name can't be empty."
 msgstr "Emri nuk mund të jetë bosh."
 
@@ -321,6 +382,9 @@ msgstr "Emri ose Email-i nuk ekziston!"
 
 msgid "New Password"
 msgstr "Fjalëkalimi i Ri"
+
+msgid "No Avatar given"
+msgstr ""
 
 msgid "No Captcha given"
 msgstr "Nuk është dhënë asnjë Captcha"
@@ -443,6 +507,12 @@ msgstr "Rivendos fjalëkalimin"
 msgid "Reset your password here"
 msgstr "Rivendosni fjalëkalimin tuaj këtu"
 
+msgid "Role flag can only be an image"
+msgstr ""
+
+msgid "Role flag needs to be 16x11"
+msgstr ""
+
 msgid "Server Error"
 msgstr "Gabim i serverit"
 
@@ -539,12 +609,36 @@ msgstr ""
 msgid "This email provider is not allowed"
 msgstr "Ky ofrues i emailit nuk lejohet"
 
+msgid "This faction does not exist"
+msgstr ""
+
+msgid "This faction is full"
+msgstr ""
+
+msgid "This faction is hidden"
+msgstr ""
+
+msgid "This faction is private"
+msgstr ""
+
 #, javascript-format
 msgid "This media is banned ${ reason }. Ban ID: ${ mbid }"
 msgstr "Kjo media është e ndaluar ${ reason }. BID Media: ${ mbid }"
 
 msgid "This password-reset link isn't valid anymore :("
 msgstr "Kjo lidhje e rivendosjes së fjalëkalimit nuk është më e vlefshme :("
+
+msgid "Title can't be empty."
+msgstr ""
+
+msgid "Title contains invalid character like @, /, \\ or #"
+msgstr ""
+
+msgid "Title must be at least 2 characters long"
+msgstr ""
+
+msgid "Title must be shorter than 26 characters"
+msgstr ""
 
 #. "redirect_uris" is a technical term and should not be translated
 msgid "Too many or too long redirect_uris"
@@ -616,8 +710,14 @@ msgstr "Ju tashmë keni zgjedhur emrin tuaj të përdoruesit"
 msgid "You already have that name."
 msgstr "Tashmë e keni këtë emër."
 
+msgid "You are already part of this faction"
+msgstr ""
+
 msgid "You are already verified."
 msgstr "Ju tashmë jeni verifikuar."
+
+msgid "You are banned from this faction"
+msgstr ""
 
 #, javascript-format
 msgid "You are muted for another ${ timeMin } minutes"
@@ -668,6 +768,15 @@ msgstr ""
 "Ju nuk mund të dërgoni mesazhe bisede ndërkohë që jeni duke përdorur një "
 "proxy"
 
+#, javascript-format
+msgid ""
+"You can only be owner of ${ MAX_OWNED_FACTIONS_PER_USER } factions in total"
+msgstr ""
+
+#, javascript-format
+msgid "You can only have ${ MAX_FACTIONS_PER_USER } factions in total"
+msgstr ""
+
 msgid ""
 "You can register your own application here to get the client_id and "
 "client_secret needed to make use of this."
@@ -702,6 +811,9 @@ msgstr "Ju duhet të plotësoni të gjitha fushat"
 msgid "You must be logged in to access this page"
 msgstr "Ju duhet të jeni të kyçur për të aksesuar këtë faqe"
 
+msgid "You need an invite to join this faction"
+msgstr ""
+
 #. "scope" is a technical term and should not be translated
 msgid "You need to define a valid scope"
 msgstr "Ju duhet të përcaktoni një scope të vlefshëm"
@@ -734,6 +846,10 @@ msgstr "Ju do të ridrejtoheni automatikisht pas 15 sekondash"
 
 msgid "Your Browser looks shady"
 msgstr "Shfletuesi juaj duket i dyshimtë"
+
+msgid ""
+"Your account must be at least two weeks old before you can create a faction"
+msgstr ""
 
 msgid "Your account needs to be verified to access this page"
 msgstr "Llogaria juaj duhet të jetë e verifikuar për të aksesuar këtë faqe"
@@ -795,6 +911,9 @@ msgid ""
 msgstr ""
 "mirësevini në komunitetin tonë të vogël të pixelplacers, për të përdorur "
 "llogarinë tuaj, duhet të verifikoni emailin tuaj. Këtë mund ta bëni këtu: "
+
+#~ msgid "Could not set your avtar"
+#~ msgstr "Nuk mund të vendosej avatari juaj"
 
 #~ msgid "Server error when deleting user."
 #~ msgstr "Gabim i serverit gjatë fshirjes së përdoruesit."

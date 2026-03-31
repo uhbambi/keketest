@@ -58,11 +58,51 @@ msgstr "应用程序已成功添加"
 msgid "Avatar can only be an image"
 msgstr "头像只能是一张图片"
 
+msgid "Avatar not given or not an image"
+msgstr ""
+
 msgid "Black and White canvas"
 msgstr "黑白画布"
 
+msgid "Can not change a role above or equal to your own"
+msgstr ""
+
+msgid "Can not change a role above your own"
+msgstr ""
+
+msgid "Can not change a role that is equal to your own"
+msgstr ""
+
+msgid "Can not change the powerlevel of a role equal or above you"
+msgstr ""
+
+msgid "Can not change the powerlevel of the Sovereign"
+msgstr ""
+
+msgid "Can not change this role"
+msgstr ""
+
 msgid "Can not chat while being banned"
 msgstr "被禁期间无法聊天"
+
+msgid "Can not create a role with a powerlevel of yours or beyond"
+msgstr ""
+
+msgid "Can not delete this role"
+msgstr ""
+
+msgid "Can not elevate the powerlevel of a role to yours or beyond"
+msgstr ""
+
+msgid "Can not have more than 20 faction roles"
+msgstr ""
+
+msgid "Can not modify user equal to you or above you"
+msgstr ""
+
+#. when leaving a faction and you are the last owner
+msgid "Can not orphan a faction"
+msgstr ""
 
 #, javascript-format
 msgid ""
@@ -93,6 +133,9 @@ msgstr "同意"
 msgid "Coronavirus"
 msgstr "新冠病毒"
 
+msgid "Could not change this setting. Maybe try again later."
+msgstr ""
+
 msgid "Could not close this Session."
 msgstr "无法关闭此会话。"
 
@@ -102,8 +145,17 @@ msgstr "找不到此登录方式"
 msgid "Could not leave this channel"
 msgstr "无法离开此频道"
 
-msgid "Could not set your avtar"
-msgstr "无法设置您的头像"
+msgid "Could not set this factions avatar"
+msgstr ""
+
+msgid "Could not set your avatar"
+msgstr ""
+
+msgid "Could not set your faction role"
+msgstr ""
+
+msgid "Could not this roles flag"
+msgstr ""
 
 msgid "Could not upload all files"
 msgstr "无法上传所有文件"
@@ -116,6 +168,12 @@ msgstr "默认"
 
 msgid "Delete Application"
 msgstr "删除应用程序"
+
+msgid "Description can't be empty"
+msgstr ""
+
+msgid "Description must be shorter than 1000 characters"
+msgstr ""
 
 msgid "Display name for your OIDC client"
 msgstr "OIDC 客户端的显示名称"
@@ -282,6 +340,9 @@ msgstr ""
 msgid "Name already in use."
 msgstr "该名称已被使用。"
 
+msgid "Name can only contain the characters: a-z . _ and -"
+msgstr ""
+
 msgid "Name can't be empty."
 msgstr "名称不能为空。"
 
@@ -302,6 +363,9 @@ msgstr "名称或电子邮箱不存在！"
 
 msgid "New Password"
 msgstr "新密码"
+
+msgid "No Avatar given"
+msgstr ""
 
 msgid "No Captcha given"
 msgstr "无可用验证码"
@@ -419,6 +483,12 @@ msgstr "重置密码"
 msgid "Reset your password here"
 msgstr "在此重置密码"
 
+msgid "Role flag can only be an image"
+msgstr ""
+
+msgid "Role flag needs to be 16x11"
+msgstr ""
+
 msgid "Server Error"
 msgstr "服务器错误"
 
@@ -506,12 +576,36 @@ msgstr ""
 msgid "This email provider is not allowed"
 msgstr "此电子邮件提供商未被允许"
 
+msgid "This faction does not exist"
+msgstr ""
+
+msgid "This faction is full"
+msgstr ""
+
+msgid "This faction is hidden"
+msgstr ""
+
+msgid "This faction is private"
+msgstr ""
+
 #, javascript-format
 msgid "This media is banned ${ reason }. Ban ID: ${ mbid }"
 msgstr "此媒体已被禁${ reason }。禁播 ID：${ mbid }"
 
 msgid "This password-reset link isn't valid anymore :("
 msgstr "这个密码重置链接已经失效了 :("
+
+msgid "Title can't be empty."
+msgstr ""
+
+msgid "Title contains invalid character like @, /, \\ or #"
+msgstr ""
+
+msgid "Title must be at least 2 characters long"
+msgstr ""
+
+msgid "Title must be shorter than 26 characters"
+msgstr ""
 
 #. "redirect_uris" is a technical term and should not be translated
 msgid "Too many or too long redirect_uris"
@@ -579,8 +673,14 @@ msgstr "您已选择用户名"
 msgid "You already have that name."
 msgstr "你已经有这个名字了。"
 
+msgid "You are already part of this faction"
+msgstr ""
+
 msgid "You are already verified."
 msgstr "您已通过验证。"
+
+msgid "You are banned from this faction"
+msgstr ""
 
 #, javascript-format
 msgid "You are muted for another ${ timeMin } minutes"
@@ -625,6 +725,15 @@ msgstr "您无法使用代理注册帐户"
 msgid "You can not send chat messages while using a proxy"
 msgstr "使用代理时无法发送聊天消息"
 
+#, javascript-format
+msgid ""
+"You can only be owner of ${ MAX_OWNED_FACTIONS_PER_USER } factions in total"
+msgstr ""
+
+#, javascript-format
+msgid "You can only have ${ MAX_FACTIONS_PER_USER } factions in total"
+msgstr ""
+
 msgid ""
 "You can register your own application here to get the client_id and "
 "client_secret needed to make use of this."
@@ -657,6 +766,9 @@ msgstr "您必须填写所有字段"
 msgid "You must be logged in to access this page"
 msgstr "您必须登录才能访问此页面"
 
+msgid "You need an invite to join this faction"
+msgstr ""
+
 #. "scope" is a technical term and should not be translated
 msgid "You need to define a valid scope"
 msgstr "您需要定义一个有效的 scope"
@@ -684,6 +796,10 @@ msgstr "15秒后您将被自动重定向"
 
 msgid "Your Browser looks shady"
 msgstr "你的浏览器看起来可疑"
+
+msgid ""
+"Your account must be at least two weeks old before you can create a faction"
+msgstr ""
 
 msgid "Your account needs to be verified to access this page"
 msgstr "您的帐户需要验证才能访问此页面"
@@ -743,3 +859,6 @@ msgid ""
 msgstr ""
 "欢迎来到我们的像素画爱好者小社区！要使用您的账号，您需要验证邮箱。您可以在这"
 "里进行验证： "
+
+#~ msgid "Could not set your avtar"
+#~ msgstr "无法设置您的头像"

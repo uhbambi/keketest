@@ -55,6 +55,12 @@ msgstr ""
 msgid "(0 = infinite)"
 msgstr "(0 = sonsuzluq)"
 
+msgid "(click a role to activate it)"
+msgstr ""
+
+msgid "(click a role to assign or remove it)"
+msgstr ""
+
 msgid "+last hour"
 msgstr ""
 
@@ -89,6 +95,9 @@ msgstr "Həmişə Hərəkət Kontrollarını göstər"
 msgid "Always show movement control buttons"
 msgstr "Həmişə hərəkət düymələrini göstər"
 
+msgid "An image representing your faction"
+msgstr ""
+
 msgid "Anti Aliasing"
 msgstr "Kənar Yumuşaldma"
 
@@ -97,6 +106,9 @@ msgstr "Böyük lövhə sahələrində zibilləri təmizləmək üçün filtr t�
 
 msgid "Archive"
 msgstr "Arxiv"
+
+msgid "Assign Roles"
+msgstr ""
 
 msgid "Assign new Mod"
 msgstr "Yeni Mod təyin edin"
@@ -119,6 +131,9 @@ msgstr ""
 msgid "Badges"
 msgstr ""
 
+msgid "Ban"
+msgstr ""
+
 msgid "Ban media"
 msgstr ""
 
@@ -127,6 +142,9 @@ msgstr "Banlandın"
 
 msgid "Banned? Detected as Proxy?"
 msgstr "Banlandınız?Proxy olaraq alğılandınız?"
+
+msgid "Bans"
+msgstr ""
 
 msgid "Block"
 msgstr "Blokla"
@@ -285,6 +303,9 @@ msgstr ""
 msgid "Click a color in palette to select it"
 msgstr "Palitrada rəng seçmək üçün rəngin üzərinə basın"
 
+msgid "Click here to cease representation."
+msgstr ""
+
 msgid "Click here to request a new verification mail."
 msgstr "Yeni doğrulama maili tələb etmək üçün bura basın."
 
@@ -312,6 +333,18 @@ msgstr ""
 msgid "Compact Palette"
 msgstr "Komplakt Palitra"
 
+msgid "Confirm"
+msgstr ""
+
+msgid "Confirm Ban"
+msgstr ""
+
+msgid "Confirm Kick"
+msgstr ""
+
+msgid "Confirm Leave"
+msgstr ""
+
 msgid "Confirm New Password"
 msgstr "Yeni parolu doğrulayın"
 
@@ -323,9 +356,6 @@ msgid "Connection error ${ code } :("
 msgstr "Bağlantı xətası ${ code } :("
 
 msgid "Consent"
-msgstr ""
-
-msgid "Consider joining us on Matrix:"
 msgstr ""
 
 msgid "Controls"
@@ -393,6 +423,12 @@ msgstr "Bugünkü Ölkələr"
 msgid "Country"
 msgstr "Ölkə"
 
+msgid "Create Faction"
+msgstr ""
+
+msgid "Create New Faction"
+msgstr ""
+
 #, javascript-format
 msgid "Credit for the Palette of the 2bit canvas goes to ${ donendoLink }."
 msgstr "Top10 Lövhəsinin palitrası üçün kredit ${ donendoLink }-ə gedir."
@@ -443,6 +479,18 @@ msgstr "Hesabı silin"
 msgid "Deny"
 msgstr ""
 
+msgid "Description"
+msgstr ""
+
+msgid "Description can't be empty"
+msgstr ""
+
+msgid "Description must be shorter than 1000 characters"
+msgstr ""
+
+msgid "Description of your faction"
+msgstr ""
+
 msgid ""
 "Didn't get an answer from pixelplanet. Try to refresh if this problem "
 "persists."
@@ -470,7 +518,14 @@ msgstr "Palitranı daha az ekran sahəsi tutan kompakt formada göstərin."
 msgid "Do stuff with IPs (one IP per line)"
 msgstr "IP-lərlə işlər aparın (hər sətirdə bir IP)"
 
+msgid ""
+"Don't let people find this faction in public search or look at its profile."
+msgstr ""
+
 msgid "Don't remember"
+msgstr ""
+
+msgid "Don't show faction in search"
 msgstr ""
 
 msgid "Don't show me in global stats"
@@ -541,6 +596,9 @@ msgstr "Səbəb daxil edin"
 msgid "Enter UserName of new Mod"
 msgstr "Yeni modun istifadəçi adını daxil edin"
 
+msgid "Enter a little text that describes your faction"
+msgstr ""
+
 msgid "Enter your mail address and we will send you a new password:"
 msgstr "Email adresinizi daxil edin və biz sizə yeni bir parol göndərəcəyik:"
 
@@ -561,6 +619,11 @@ msgid "Export enabled templates"
 msgstr "Açıq şablonları xaric et"
 
 msgid "Factions"
+msgstr ""
+
+msgid ""
+"Factions allow you to coordinate better with other players. Search for "
+"existing factions, find friends or create your own faction."
 msgstr ""
 
 msgid "Factor"
@@ -662,6 +725,9 @@ msgstr ""
 msgid "Hide Embed"
 msgstr ""
 
+msgid "Hide from profile"
+msgstr ""
+
 msgid ""
 "Higher zoomlevels take some time to update, the 3D globe gets updated at "
 "least once per day."
@@ -736,11 +802,17 @@ msgstr "Keçərsiz rənk seçildi"
 msgid "Invited to Chat"
 msgstr ""
 
+msgid "Invites"
+msgstr ""
+
 msgid ""
 "It requests the following permissions. Uncheck what you don't want to grant:"
 msgstr ""
 
 msgid "Jannies can rollback and protect, but not watch or ban."
+msgstr ""
+
+msgid "Join Faction"
 msgstr ""
 
 msgid "Just for registered Users"
@@ -755,10 +827,25 @@ msgstr "Yanlızca dünənin top 10'u bura piksel qoyabilər"
 msgid "Keep Ratio"
 msgstr "Nisbəti Qoru"
 
+msgid "Kick"
+msgstr ""
+
 msgid "Know that an account exists"
 msgstr ""
 
+msgid "Leave"
+msgstr ""
+
+msgid "Leave Faction"
+msgstr ""
+
 msgid "Legal Requests"
+msgstr ""
+
+msgid "Let everyone join this faction"
+msgstr ""
+
+msgid "Let people join this faction without needing an invite."
 msgstr ""
 
 msgid "Light Grid"
@@ -772,6 +859,9 @@ msgstr "Yüklənir"
 
 msgid "Loading..."
 msgstr "Yüklənir..."
+
+msgid "Log in or Register"
+msgstr ""
 
 msgid "Log out"
 msgstr "Çıxış edin"
@@ -815,6 +905,9 @@ msgstr "Maksimallaşdır"
 msgid "Media Actions"
 msgstr ""
 
+msgid "Members"
+msgstr ""
+
 msgid "Minimum Color Distance"
 msgstr "Minimum rəng məsafəsi"
 
@@ -834,8 +927,14 @@ msgstr ""
 msgid "Muted Sound"
 msgstr "Səs bağlandı"
 
+msgid "My Factions"
+msgstr ""
+
 msgid "Name"
 msgstr "Ad"
+
+msgid "Name can only contain the characters: a-z . _ and -"
+msgstr ""
 
 msgid "Name can't be empty."
 msgstr "Ad boş olabilməz."
@@ -848,6 +947,9 @@ msgstr "Ad ən az 2 simvol uzunluğunda olmalıdır"
 
 msgid "Name must be shorter than 26 characters"
 msgstr "Ad 26 simvoldan qısa olmalıdır"
+
+msgid "Name of your faction [a-z][A-Z][0-9].-_"
+msgstr ""
 
 msgid "Name or Email"
 msgstr "Ad vəya Email"
@@ -885,6 +987,9 @@ msgstr "captcha mətni yoxdur və ya etibarsızdır"
 msgid "No password given."
 msgstr "Heçbir şifrə verilmədi."
 
+msgid "Nobody is banned from this faction"
+msgstr ""
+
 msgid "Not Allowed"
 msgstr ""
 
@@ -892,6 +997,9 @@ msgid "Not allowed"
 msgstr "İcazə verilmir"
 
 msgid "Note"
+msgstr ""
+
+msgid "Note: Your active Faction may overwrite your flag settings."
 msgstr ""
 
 msgid "OIDC LogIn"
@@ -920,6 +1028,9 @@ msgstr ""
 
 msgid "Opacity of Overlay in percent."
 msgstr "Şablonun faiz olaraq şəffaflığı."
+
+msgid "Open"
+msgstr ""
 
 msgid "Open Chat"
 msgstr "Söhbəti aç"
@@ -956,6 +1067,9 @@ msgstr "Şablon qoşuldu"
 
 msgid "Overlay Opacity"
 msgstr "Şablon Şəffaflığı"
+
+msgid "Overview"
+msgstr ""
 
 msgid "Palette Download"
 msgstr "Palitrayı yüklə"
@@ -1149,6 +1263,9 @@ msgstr ""
 msgid "Remove Moderator"
 msgstr "Moderator qaldır"
 
+msgid "Remove Roles"
+msgstr ""
+
 msgid "Remove a Login method:"
 msgstr ""
 
@@ -1182,6 +1299,12 @@ msgstr ""
 msgid "Revoke consent of third party applications:"
 msgstr ""
 
+msgid "Role Flags"
+msgstr ""
+
+msgid "Roles"
+msgstr ""
+
 msgid "Roll different Captcha Fonts"
 msgstr ""
 
@@ -1205,6 +1328,9 @@ msgid "Scroll ${ mouseSymbol } mouse wheel or ${ touchSymbol } pinch to zoom"
 msgstr ""
 "Siçanınızın təkərləyini ${ mouseSymbol } döndürərək vəya ${ touchSymbol } "
 "iki barmağınızı istifadə edərək yaxınlaşın vəya uzaqlaşın"
+
+msgid "Search Existing Faction"
+msgstr ""
 
 msgid "Select Date above"
 msgstr "Tarixi seçin"
@@ -1423,6 +1549,24 @@ msgstr ""
 "onların üzərindən çəkə bilərsiniz. Şablonun üzərindəki 1 piksel lövhənin "
 "üzərindəki bir piksel olmalıdır."
 
+msgid "Title"
+msgstr ""
+
+msgid "Title can't be empty."
+msgstr ""
+
+msgid "Title contains invalid character like @, /, \\ or #"
+msgstr ""
+
+msgid "Title must be at least 2 characters long"
+msgstr ""
+
+msgid "Title must be shorter than 26 characters"
+msgstr ""
+
+msgid "Title of your faction"
+msgstr ""
+
 msgid "To use this page, enter your Password:"
 msgstr ""
 
@@ -1610,7 +1754,20 @@ msgid ""
 "on how to appeal. And don't forget to include the BID you can get below."
 msgstr ""
 
+msgid "You are currently not a member of any faction."
+msgstr ""
+
 msgid "You are currently not allowed to access this game."
+msgstr ""
+
+msgid ""
+"You are currently not representing any faction. To represent one, activate a "
+"role in one of your factions below."
+msgstr ""
+
+#, javascript-format
+msgid ""
+"You are currently representing ${ activeFactionTitle } as ${ activeRoleName }"
 msgstr ""
 
 msgid "You are not allowed to play this game right now :("
@@ -1684,6 +1841,9 @@ msgstr ""
 msgid "You must enter at least one IID, User Id or BID"
 msgstr ""
 
+msgid "You must select an avatar for your faction"
+msgstr ""
+
 msgid "You took too long, try again."
 msgstr "Bu çox vaxt aldı,yenidən yoxla."
 
@@ -1697,8 +1857,14 @@ msgstr ""
 msgid "Your Browser looks shady"
 msgstr ""
 
+msgid "Your Factions"
+msgstr ""
+
 msgid "Your Internet Provider is banned from this game"
 msgstr "Sənin internet provayderin oyundan banlandı"
+
+msgid "Your Roles"
+msgstr ""
 
 msgid "Your ban expires at "
 msgstr "Sizin banınız bu müddətdə bitir "
@@ -1720,14 +1886,26 @@ msgid ""
 msgstr ""
 "Bir yerə kliklədiyiniz zaman kiçildilirsə pixel atmaq əvəzinə böyüdəcək."
 
+msgid "affects"
+msgstr ""
+
 #, javascript-format
 msgid "and ${ canvas.req } Pixels set"
 msgstr "və ${ canvas.req } pixellər təyin edildi"
 
+msgid "by"
+msgstr ""
+
 msgid "check compliance here"
 msgstr ""
 
+msgid "created at"
+msgstr ""
+
 msgid "download here"
+msgstr ""
+
+msgid "lift"
 msgstr ""
 
 msgid "or login with:"
