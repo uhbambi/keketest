@@ -4,9 +4,10 @@
 import logger from '../../core/logger.js';
 import socketEvents from '../../socket/socketEvents.js';
 import { getFactionInfo, leaveFaction } from '../../data/sql/Faction.js';
+import { CHANNEL_TYPES } from '../../core/constants.js';
 
 export default async function factionleave(req, res) {
-  req.tickRateLimiter(5000);
+  req.tickRateLimiter(2000);
   const { ttag: { t }, user, body: { fid } } = req;
 
   if (!fid || typeof fid !== 'string') {
@@ -36,7 +37,7 @@ export default async function factionleave(req, res) {
   if (factionInfo.channelId) {
     const chatPatch = {
       op: 'del',
-      path: `channels[0:${factionInfo.channelId}]`,
+      path: `channels.${CHANNEL_TYPES.FACTION}[0:${factionInfo.channelId}]`,
     };
     socketEvents.patchUserState(user.id, 'chat', chatPatch);
     patches.push(['chat', chatPatch]);

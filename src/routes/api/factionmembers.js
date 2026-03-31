@@ -8,7 +8,7 @@ import {
 import { FACTIONLVL } from '../../core/constants.js';
 
 export default async function factionrolechange(req, res) {
-  req.tickRateLimiter(2000);
+  req.tickRateLimiter(1000);
   /* user can be undefined when not logged in */
   const { ttag: { t }, user, body: { fidOrName } } = req;
 

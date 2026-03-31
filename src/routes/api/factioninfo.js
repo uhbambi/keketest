@@ -7,7 +7,7 @@ import {
 } from '../../data/sql/Faction.js';
 
 export default async function factionrolechange(req, res) {
-  req.tickRateLimiter(3000);
+  req.tickRateLimiter(1000);
   /* user can be undefined when not logged in */
   const { ttag: { t }, user, body: { fidOrName } } = req;
 

@@ -518,6 +518,13 @@ export function requestKickBanFactionMember(uid, fid, isBan) {
   );
 }
 
+export function requestLiftFactionBan(fbid) {
+  return makeAPIPOSTRequest(
+    '/api/factionunban',
+    { fbid },
+  );
+}
+
 export function requestProfile() {
   return makeAPIGETRequest(
     '/api/profile',

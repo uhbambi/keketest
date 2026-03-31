@@ -476,20 +476,21 @@ BEGIN
     SELECT 2 AS result;
     ROLLBACK;
   ELSE
-    UPDATE FactionRoles SET memberCount = memberCount - 1
-    WHERE EXISTS (
-      SELECT 1 FROM UserFactionRoles ufr WHERE ufr.frid = FactionRoles.id AND ufr.uid = p_uid
-    ) AND fid = v_fid;
-    UPDATE Factions SET memberCount = memberCount - 1 WHERE id = v_fid;
-
-    DELETE uc FROM UserChannels uc
-      INNER JOIN Factions f ON f.cid = uc.cid
-    WHERE uc.uid = p_uid AND f.id = v_fid;
-    DELETE ufr FROM UserFactionRoles ufr
-      INNER JOIN FactionRoles fr ON fr.id = ufr.frid
-    WHERE ufr.uid = p_uid  AND fr.fid = v_fid;
     DELETE FROM UserFactions WHERE uid = p_uid AND fid = v_fid;
+    IF ROW_COUNT() > 0 THEN
+      UPDATE FactionRoles SET memberCount = memberCount - 1
+      WHERE EXISTS (
+        SELECT 1 FROM UserFactionRoles ufr WHERE ufr.frid = FactionRoles.id AND ufr.uid = p_uid
+      ) AND fid = v_fid;
+      UPDATE Factions SET memberCount = memberCount - 1 WHERE id = v_fid;
 
+      DELETE uc FROM UserChannels uc
+        INNER JOIN Factions f ON f.cid = uc.cid
+      WHERE uc.uid = p_uid AND f.id = v_fid;
+      DELETE ufr FROM UserFactionRoles ufr
+        INNER JOIN FactionRoles fr ON fr.id = ufr.frid
+      WHERE ufr.uid = p_uid  AND fr.fid = v_fid;
+    END IF;
     COMMIT;
     SELECT 0 AS result;
   END IF;
@@ -510,7 +511,7 @@ BEGIN
 END`,
   };
 
-  const funcVersion = 3;
+  const funcVersion = 4;
   const curVersion = Number((await sequelize.query('SELECT value FROM Configs WHERE `key`=\'functions_version\''))[0]?.[0]?.value);
   const doUpgrade = funcVersion !== curVersion;
   if (doUpgrade) {

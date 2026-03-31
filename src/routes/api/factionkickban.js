@@ -10,7 +10,7 @@ import { getLastIPOfUser } from '../../data/sql/User.js';
 import {
   banUserFromFaction,
 } from '../../data/sql/FactionBan.js';
-import { FACTIONLVL } from '../../core/constants.js';
+import { FACTIONLVL, CHANNEL_TYPES } from '../../core/constants.js';
 
 export default async function factionkickban(req, res) {
   req.tickRateLimiter(7000);
@@ -92,22 +92,19 @@ export default async function factionkickban(req, res) {
   if (factionInfo.channelId) {
     chatPatch = {
       op: 'del',
-      path: `channels[0:${factionInfo.channelId}]`,
+      path: `channels.${CHANNEL_TYPES.FACTION}[0:${factionInfo.channelId}]`,
     };
-    socketEvents.patchUserState(user.id, 'chat', chatPatch);
+    socketEvents.patchUserState(uid, 'chat', chatPatch);
   }
 
   const profilePatch = {
     op: 'del',
     path: `factions[fid:${fid}]`,
-    value: factionInfo,
   };
-  socketEvents.patchUserState(user.id, 'profile', profilePatch);
+  socketEvents.patchUserState(uid, 'profile', profilePatch);
 
-  logger.info(`User ${user.id} banned ${uid} from faction ${factionInfo.name}`);
+  logger.info(`User ${uid} banned ${uid} from faction ${factionInfo.name}`);
   res.json({
     status: 'ok',
-    profilePatch,
-    chatPatch,
   });
 }

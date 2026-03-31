@@ -293,6 +293,14 @@ User.belongsToMany(FactionBan, {
   through: UserFactionBan,
   foreignKey: 'uid',
 });
+FactionBan.belongsTo(User, {
+  as: 'mod',
+  foreignKey: 'muid',
+});
+User.hasMany(Ban, {
+  as: 'factionBanActions',
+  foreignKey: 'muid',
+});
 
 /*
  * ip informations of user

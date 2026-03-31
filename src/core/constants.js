@@ -215,6 +215,7 @@ export const AVAILABLE_POPUPS = [
  */
 export const POPUPS_NEEDING_WS = [
   'CHAT',
+  'MYFACTIONS',
   'USERAREA',
 ];
 

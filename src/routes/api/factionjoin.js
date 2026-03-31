@@ -4,10 +4,10 @@
 import logger from '../../core/logger.js';
 import socketEvents from '../../socket/socketEvents.js';
 import { getFactionInfo, joinFactionPublic } from '../../data/sql/Faction.js';
-import { MAX_FACTIONS_PER_USER } from '../../core/constants.js';
+import { MAX_FACTIONS_PER_USER, CHANNEL_TYPES } from '../../core/constants.js';
 
 export default async function factionjoin(req, res) {
-  req.tickRateLimiter(7000);
+  req.tickRateLimiter(2000);
   const { ttag: { t }, user, ip: { ipString }, body: { fid } } = req;
 
   if (!fid || typeof fid !== 'string') {
@@ -53,31 +53,32 @@ export default async function factionjoin(req, res) {
   delete factionInfo.sqlFid;
   delete factionInfo.defaultFrid;
 
-  let chatPatch;
+  const patches = [];
   if (factionInfo.channelId) {
-    chatPatch = {
-      op: 'push',
-      path: 'channels',
+    const chatPatch = {
+      op: 'addnx',
+      path: `channels.${CHANNEL_TYPES.FACTION}[0:${factionInfo.channelId}]`,
       value: [
-        getFactionInfo.channelId, factionInfo.name, Date.now(), Date.now(),
+        factionInfo.channelId, factionInfo.name, Date.now(), Date.now(),
         false, factionInfo.avatarId,
       ],
     };
     socketEvents.patchUserState(user.id, 'chat', chatPatch);
     delete factionInfo.channelId;
+    patches.push(['chat', chatPatch]);
   }
 
   const profilePatch = {
-    op: 'push',
-    path: 'factions',
+    op: 'pushnx',
+    path: `factions[fid:${fid}]`,
     value: factionInfo,
   };
   socketEvents.patchUserState(user.id, 'profile', profilePatch);
+  patches.push(['profile', profilePatch]);
 
   logger.info(`User ${user.id} joined faction ${factionInfo.name}`);
   res.json({
     status: 'ok',
-    profilePatch,
-    chatPatch,
+    patches,
   });
 }

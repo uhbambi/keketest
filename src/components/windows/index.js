@@ -42,7 +42,7 @@ export default {
   MODTOOLS: [Modtools, t`Modtools`, false],
   STATISTICS: [Statistics, t`Statistics`, false],
   MYFACTIONS: [MyFactions, t`My Factions`, false],
-  FACTION: [Faction, t`My Factions`, false],
+  FACTION: [Faction, t`My Factions`, true],
   /*
    * OIDC Consent is a very special case, because it is only available as
    * seperate popup, hoever, this is a single-page-applications, so we include

@@ -206,7 +206,11 @@ export function patchState(state, patch) {
         if (!location[target]) {
           failed = true;
         } else {
-          delete location[target];
+          if (Array.isArray(location)) {
+            location.splice(target, 1);
+          } else {
+            delete location[target];
+          }
         }
         break;
       }

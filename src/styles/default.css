@@ -1013,6 +1013,11 @@ table td span {
   font-size: 12px;
 }
 
+.factionlist-role.confirm {
+  border: solid #9e5a01;
+  font-weight: 600;
+}
+
 .factionlist-square {
   display: inline-block;
   width: 12px;
@@ -1049,8 +1054,8 @@ table td span {
  * =============================== FACTION =====================================
  */
 
-.factionwin-overview {
-  margin-top: 15px;
+.factionwin-overview, .factionwin-bans, .factionwin-members {
+  margin-top: 20px;
   line-height: 1.8em;
 }
 
@@ -1069,6 +1074,10 @@ table td span {
   flex-shrink: 0;
   width: 20px;
   height: 20px;
+}
+
+.factionbans-table {
+  display: inline;
 }
 
 /*
@@ -1222,7 +1231,7 @@ table td span {
   flex-wrap: wrap;
 }
 
-.avatar, .channelavatar {
+avatar, .channelavatar {
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;

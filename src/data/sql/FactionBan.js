@@ -24,6 +24,11 @@ const FactionBan = sequelize.define('FactionBan', {
     allowNull: false,
   },
 
+  muid: {
+    type: DataTypes.INTEGER.UNSIGNED,
+    allowNull: true,
+  },
+
   reason: {
     type: `${DataTypes.STRING(200)} CHARSET utf8mb4 COLLATE utf8mb4_unicode_ci`,
     allowNull: false,

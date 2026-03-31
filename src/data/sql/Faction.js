@@ -639,7 +639,8 @@ BIN_TO_UUID(fr.uuid) AS 'roles.frid' FROM Users u
   INNER JOIN UserFactions uf ON uf.uid = u.id
   LEFT JOIN Profiles p ON p.uid = u.id
   LEFT JOIN Media a ON a.id = p.avatar
-  LEFT JOIN FactionRoles fr ON fr.fid = uf.fid
+  LEFT JOIN UserFactionRoles ufr ON ufr.uid = u.id
+  LEFT JOIN FactionRoles fr ON fr.id = ufr.frid AND fr.fid = uf.fid
 WHERE uf.fid = ?`, {
         replacements: [0x01 << USER_FACTION_FLAGS.HIDDEN, sqlFid],
         raw: true,
@@ -671,6 +672,7 @@ WHERE uf.fid = ?`, {
  *   fbid,
  *   affects: dstring describing user or iid if no user,
  *   reason,
+ *   createdBy: username of mod,
  *   [expires],
  *   [createdAt],
  * },...] | null
@@ -680,12 +682,14 @@ export async function getFactionBanInfo(sqlFid) {
     let model = await sequelize.query(
       // eslint-disable-next-line max-len
       `SELECT BIN_TO_UUID(fb.uuid) AS fbid, fb.reason, fb.expires, fb.createdAt,
-u.id AS 'users.id', u.name AS 'users.name', u.username AS users.username,
+u.id AS 'users.id', u.name AS 'users.name', u.username AS 'users.username',
+mu.username AS createdBy,
 BIN_TO_UUID(i.uuid) AS 'ips.iid' FROM FactionBans fb
   LEFT JOIN UserFactionBans ufb ON ufb.bid = fb.id
   LEFT JOIN Users u ON ufb.uid = u.id
   LEFT JOIN IPFactionBans ifb ON ifb.bid = fb.id
   LEFT JOIN IPs i ON ifb.ip = i.ip
+  LEFT JOIN Users mu ON mu.id = fb.muid
 WHERE fb.fid = ?`, {
         replacements: [sqlFid],
         raw: true,
