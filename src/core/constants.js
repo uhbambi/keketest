@@ -153,7 +153,9 @@ export const FACTION_ROLE_FLAGS = {
 
 export const FACTIONLVL = {
   PEASANT: 0,
+  /* ban and invite people */
   NOBLE: 50,
+  /* unban and change roles */
   MAGISTRATE: 80,
   SOVEREIGN: 100,
 };
@@ -181,6 +183,7 @@ export const OVERLAY_SP_TH = 8;
  */
 export const POPUP_ARGS = {
   MODTOOLS: ['activeTab'],
+  FACTION: ['name', 'activeTab'],
   CHAT: [['chatChannel', 'int']],
   FISH_DISPLAY: [['id', 'int']],
   BADGE_DISPLAY: [['id', 'int']],
@@ -203,6 +206,7 @@ export const AVAILABLE_POPUPS = [
   'STATISTICS',
   'MODTOOLS',
   'MYFACTIONS',
+  'FACTION',
   'CONVERTER',
 ];
 

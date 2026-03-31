@@ -281,27 +281,32 @@ export async function setFlagOfFaction(uid, fid, index, value) {
 /**
  * get powerlevel and faction sql id of user in faction
  * @param uid user id
- * @param fid faction uuid (NOT sql id)
+ * @param fidOrName faction uuid (NOT sql id) or name
  * @return { sqlFid | null, powerlvl | null }
  */
-export async function getFactionLvlOfUser(uid, fid) {
+export async function getFactionLvlOfUser(uid, fidOrName) {
   let sqlFid = null;
   let powerlvl = -1;
   try {
     const model = await sequelize.query(
       /* eslint-disable max-len */
       `SELECT f.id AS sqlFid, fr.factionlvl AS powerlvl FROM Factions f
-  INNER JOIN FactionRoles fr ON fr.fid = f.id
-  INNER JOIN UserFactionRoles ufr ON ufr.frid = fr.id
-WHERE ufr.uid = ? AND f.uuid = UUID_TO_BIN(?) ORDER BY fr.factionlvl DESC LIMIT 1`, {
+  INNER JOIN UserFactions uf ON uf.fid = f.id
+  LEFT JOIN UserFactionRoles ufr ON ufr.uid = uf.uid
+  LEFT JOIN FactionRoles fr ON fr.id = ufr.frid AND fr.fid = f.id
+WHERE uf.uid = ? AND ${
+  (fidOrName.length === 36) ? 'f.uuid = UUID_TO_BIN(?)' : 'f.name = ?'
+} ORDER BY fr.factionlvl DESC LIMIT 1`, {
       /* eslint-enable max-len */
-        replacements: [uid, fid],
+        replacements: [uid, fidOrName],
         plain: true,
         type: QueryTypes.SELECT,
       },
     );
     if (model) {
-      ({ sqlFid, powerlvl } = model);
+      sqlFid = model.sqlFid;
+      /* if user is in faction but has no role assigned to him */
+      powerlvl = model.powerlvl || 0;
     }
   } catch (error) {
     console.error(`SQL Error on getFactionLvlOfUser: ${error.message}`);
@@ -547,7 +552,7 @@ export async function joinFactionPublic(uid, ipString, fid) {
 
 /**
  * get public info of faction
- * @param fid uuid of faction
+ * @param fidOrName uuid or name of faction
  * @return {
  *   fid,
  *   sqlFid,
@@ -569,11 +574,11 @@ export async function joinFactionPublic(uid, ipString, fid) {
  *   }, ...]
  * } | null
  */
-export async function getFactionInfo(fid) {
+export async function getFactionInfo(fidOrName) {
   try {
     let model = await sequelize.query(
       // eslint-disable-next-line max-len
-      `SELECT f.id AS sqlFid, f.name, f.title, f.description, f.memberCount, f.flags, f.cid AS channelId,
+      `SELECT f.id AS sqlFid, BIN_TO_UUID(f.uuid) AS fid, f.name, f.title, f.description, f.memberCount, f.flags, f.cid AS channelId,
 CONCAT(a.shortId, ':', a.extension) AS avatarId,
 BIN_TO_UUID(fr.uuid) AS 'roles.frid',
 CONCAT(frm.shortId, ':', frm.extension) AS 'roles.customFlagId',
@@ -582,8 +587,10 @@ fr.factionlvl AS 'roles.factionlvl' FROM Factions f
   LEFT JOIN Media a ON a.id = f.avatar
   LEFT JOIN FactionRoles fr ON fr.fid = f.id
   LEFT JOIN Media frm ON frm.id = fr.customFlag
-WHERE f.uuid = UUID_TO_BIN(?)`, {
-        replacements: [fid],
+WHERE ${
+  (fidOrName.length === 36) ? 'f.uuid = UUID_TO_BIN(?)' : 'f.name = ?'
+}`, {
+        replacements: [fidOrName],
         raw: true,
         type: QueryTypes.SELECT,
       },
@@ -595,7 +602,6 @@ WHERE f.uuid = UUID_TO_BIN(?)`, {
       // whether or not joinable without invite
       model.isPublic = (model.flags & (0x01 << FACTION_FLAGS.PUBLIC)) !== 0;
       delete model.flags;
-      model.fid = fid;
       for (let i = 0; i < model.roles.length; i += 1) {
         const role = model.roles[i];
         // eslint-disable-next-line max-len

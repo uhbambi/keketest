@@ -472,6 +472,31 @@ export function requestLeaveFaction(fid) {
   return makeAPIPOSTRequest('/api/factionleave', { fid });
 }
 
+export function requestJoinFaction(fid) {
+  return makeAPIPOSTRequest('/api/factionjoin', { fid });
+}
+
+export function requestFactionInfo(fidOrName) {
+  return makeAPIPOSTRequest(
+    '/api/factioninfo',
+    { fidOrName },
+  );
+}
+
+export function requestFactionMembers(fidOrName) {
+  return makeAPIPOSTRequest(
+    '/api/factionmembers',
+    { fidOrName },
+  );
+}
+
+export function requestFactionBans(fidOrName) {
+  return makeAPIPOSTRequest(
+    '/api/factionbans',
+    { fidOrName },
+  );
+}
+
 export function requestProfile() {
   return makeAPIGETRequest(
     '/api/profile',

@@ -10,13 +10,13 @@ import { FACTIONLVL } from '../../core/constants.js';
 export default async function factionrolechange(req, res) {
   req.tickRateLimiter(5000);
   /* user can be undefined when not logged in */
-  const { ttag: { t }, user, body: { fid } } = req;
+  const { ttag: { t }, user, body: { fidOrName } } = req;
 
-  if (!fid || typeof fid !== 'string') {
-    throw new Error('No faction role given');
+  if (!fidOrName || typeof fidOrName !== 'string') {
+    throw new Error('No faction given');
   }
 
-  const { sqlFid, powerlvl } = await getFactionLvlOfUser(user.id, fid);
+  const { sqlFid, powerlvl } = await getFactionLvlOfUser(user.id, fidOrName);
 
   if (!sqlFid) {
     throw new Error(t`This faction does not exist`);

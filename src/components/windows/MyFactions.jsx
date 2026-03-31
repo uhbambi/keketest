@@ -159,6 +159,7 @@ const MyFactions = () => {
       setErrors([]);
       setSelected(null);
     }
+    setConfirmLeave(false);
     setSubmitting(false);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [submitting]);
@@ -353,8 +354,8 @@ const MyFactions = () => {
                   <div className="factionlist-edit">
                     <span className="factionlist-key">{t`Description`}: </span>{faction.description}<br />
                     <span className="factionlist-key">{t`Your Roles`}: </span>
-                    {faction.roles.map((role) => {
-                      const [flagUrl] = getUrlsFromMediaIdAndName(activeCustomFlagId);
+                    {faction.roles.filter((role) => role.isMember).map((role) => {
+                      const [flagUrl] = getUrlsFromMediaIdAndName(role.customFlagId);
                       let roleClassName = 'factionlist-role';
                       if (role.frid === activeFactionRole) {
                         roleClassName += ' active';
@@ -412,11 +413,12 @@ const MyFactions = () => {
                       </button>
                       <button
                         type="button"
-                        onClick={() => {
+                        onClick={(evt) => {
+                          evt.stopPropagation();
                           link('FACTION', {
                             target: 'parent',
                             reuse: true,
-                            args: { fid },
+                            args: { name: faction.name },
                           });
                         }}
                       >

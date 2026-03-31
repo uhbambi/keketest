@@ -944,7 +944,7 @@ table td span {
 }
 
 /*
- * =============================== Factin List =================================
+ * =============================== Faction List ================================
  */
 
 .factionlist {
@@ -1033,12 +1033,36 @@ table td span {
   background-color: #eccc4c;
 }
 
+.powerlvl-stranger {
+  opacity: 0;
+}
+
 .factionlist-role:hover {
   font-weight: 700;
 }
 
 .factionlist-role.active {
   font-weight: 700;
+}
+
+/*
+ * =============================== FACTION =====================================
+ */
+
+.factionwin-overview {
+  padding-top: 5px;
+  line-height: 1.8em;
+}
+
+.factionavatar {
+  width: 100%;
+  height: 150px;
+  max-width: 100%;
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  cursor: pointer;
+  display: flex;
 }
 
 /*
@@ -1192,7 +1216,7 @@ table td span {
   flex-wrap: wrap;
 }
 
-.avatar, .channelavatar, .factionavatar {
+.avatar, .channelavatar {
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;

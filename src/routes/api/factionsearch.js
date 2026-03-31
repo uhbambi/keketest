@@ -4,7 +4,7 @@
 import { searchFaction } from '../../data/sql/Faction.js';
 
 export default async function factionsearch(req, res) {
-  req.tickRateLimiter(3000);
+  req.tickRateLimiter(1000);
   const { term } = req.body;
 
   if (!term || typeof term !== 'string') {
