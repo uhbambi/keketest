@@ -10,7 +10,7 @@ import {
 import { FACTIONLVL } from '../../core/constants.js';
 
 export default async function factionrolejoin(req, res) {
-  req.tickRateLimiter(5000);
+  req.tickRateLimiter(500);
   const { ttag: { t }, user, body: { frid, uid } } = req;
 
   if (!frid || typeof frid !== 'string') {

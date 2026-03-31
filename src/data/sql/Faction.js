@@ -634,10 +634,11 @@ export async function getFactionMemberInfo(sqlFid, showHiddenUsers) {
     let model = await sequelize.query(
       `SELECT u.id AS uid, u.name, u.username,
 CONCAT(a.shortId, ':', a.extension) AS avatarId,
-(uf.flags & ?) != 0 AS isHidden
-BIN_TO_UUID(fr.id) AS 'roles.frid' FROM Users u
+(uf.flags & ?) != 0 AS isHidden,
+BIN_TO_UUID(fr.uuid) AS 'roles.frid' FROM Users u
   INNER JOIN UserFactions uf ON uf.uid = u.id
-  LEFT JOIN Media a ON a.id = u.avatar
+  LEFT JOIN Profiles p ON p.uid = u.id
+  LEFT JOIN Media a ON a.id = p.avatar
   LEFT JOIN FactionRoles fr ON fr.fid = uf.fid
 WHERE uf.fid = ?`, {
         replacements: [0x01 << USER_FACTION_FLAGS.HIDDEN, sqlFid],
@@ -653,6 +654,7 @@ WHERE uf.fid = ?`, {
       for (let i = 0; i < model.length; i += 1) {
         const userInfo = model[i];
         userInfo.roles = userInfo.roles.map((r) => r.frid);
+        delete userInfo.isHidden;
       }
       return model;
     }

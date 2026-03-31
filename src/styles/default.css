@@ -989,14 +989,14 @@ table td span {
   color: var(--caption-txt-color);
 }
 
-.factionlist-title {
+.factionlist-title, .memberlist-name {
   white-space: nowrap;
   text-overflow: ellipsis;
   overflow: hidden;
   font-size: 16px;
 }
 
-.factionlist-name {
+.factionlist-name, .memberlist-username {
   flex-grow: 1;
   color: var(--caption-txt-color);
 }
@@ -1050,7 +1050,7 @@ table td span {
  */
 
 .factionwin-overview {
-  padding-top: 5px;
+  margin-top: 15px;
   line-height: 1.8em;
 }
 
@@ -1063,6 +1063,12 @@ table td span {
   background-repeat: no-repeat;
   cursor: pointer;
   display: flex;
+}
+
+.memberlist-avatar {
+  flex-shrink: 0;
+  width: 20px;
+  height: 20px;
 }
 
 /*

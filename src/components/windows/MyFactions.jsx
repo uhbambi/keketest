@@ -324,33 +324,43 @@ const MyFactions = () => {
               powerlvl = 'peasant';
             }
 
+            const item = (
+              <div
+                key={faction.fid}
+                className="factionlist-item"
+                onClick={() => {
+                  if (fid === selected) {
+                    setSelected(null);
+                  } else {
+                    setSelected(fid);
+                  }
+                  setErrors([]);
+                  setConfirmLeave(false);
+                }}
+                role="button"
+                tabIndex={0}
+              >
+                {(thumb) && (
+                <img
+                  src={cdn`${thumb}`}
+                  loading="lazy"
+                  className="factionlist-avatar"
+                  alt=""
+                />
+                )}
+                <span className={`factionlist-square powerlvl-${powerlvl}`} />
+                <span className={titleClass}>{faction.title}</span>
+                <span className="factionlist-name">[{faction.name}]</span>
+                <span className="factionlist-membercount">{faction.memberCount}</span>
+              </div>
+            );
+
             if (fid === selected) {
               return (
                 <div
                   key={`edit-${faction.fid}`}
                 >
-                  <div
-                    key={faction.fid}
-                    className="factionlist-item"
-                    onClick={() => {
-                      setSelected(null);
-                      setErrors([]);
-                      setConfirmLeave(false);
-                    }}
-                  >
-                    {(thumb) && (
-                    <img
-                      src={cdn`${thumb}`}
-                      loading="lazy"
-                      className="factionlist-avatar"
-                      alt=""
-                    />
-                    )}
-                    <span className={`factionlist-square powerlvl-${powerlvl}`} />
-                    <span className={titleClass}>{faction.title}</span>
-                    <span className="factionlist-name">[{faction.name}]</span>
-                    <span className="factionlist-membercount">{faction.memberCount}</span>
-                  </div>
+                  {item}
                   <div className="factionlist-edit">
                     <span className="factionlist-key">{t`Description`}: </span>{faction.description}<br />
                     <span className="factionlist-key">{t`Your Roles`}: </span>
@@ -439,32 +449,7 @@ const MyFactions = () => {
                 </div>
               );
             }
-            return (
-              <div
-                key={faction.fid}
-                className="factionlist-item"
-                onClick={() => {
-                  setSelected(fid);
-                  setErrors([]);
-                  setConfirmLeave(false);
-                }}
-                role="button"
-                tabIndex={0}
-              >
-                {(thumb) && (
-                <img
-                  src={cdn`${thumb}`}
-                  loading="lazy"
-                  className="factionlist-avatar"
-                  alt=""
-                />
-                )}
-                <span className={`factionlist-square powerlvl-${powerlvl}`} />
-                <span className={titleClass}>{faction.title}</span>
-                <span className="factionlist-name">[{faction.name}]</span>
-                <span className="factionlist-membercount">{faction.memberCount}</span>
-              </div>
-            );
+            return item;
           })}</div>
         </React.Fragment>
       ) : (

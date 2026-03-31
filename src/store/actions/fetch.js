@@ -497,6 +497,27 @@ export function requestFactionBans(fidOrName) {
   );
 }
 
+export function requestAddFactionRole(uid, frid) {
+  return makeAPIPOSTRequest(
+    '/api/factionrolejoin',
+    { uid, frid },
+  );
+}
+
+export function requestRemoveFactionRole(uid, frid) {
+  return makeAPIPOSTRequest(
+    '/api/factionroleleave',
+    { uid, frid },
+  );
+}
+
+export function requestKickBanFactionMember(uid, fid, isBan) {
+  return makeAPIPOSTRequest(
+    '/api/factionkickban',
+    { uid, fid, isBan },
+  );
+}
+
 export function requestProfile() {
   return makeAPIGETRequest(
     '/api/profile',
