@@ -1,8 +1,6 @@
 /*
  *
  * change stuff in a users profile
- * TODO: this should be an universal api, privatize etc. should be merged into
- * it
  *
  */
 import fs from 'fs';
@@ -11,55 +9,49 @@ import path from 'path';
 import logger from '../../core/logger.js';
 import socketEvents from '../../socket/socketEvents.js';
 import { getMediaType } from '../../data/sql/Media.js';
-import { setUserAvatar, setCustomFlag } from '../../data/sql/Profile.js';
+import {
+  setUserAvatar, setCustomFlag, setActiveFactionRole,
+} from '../../data/sql/Profile.js';
 
-async function profilechange(req, res) {
-  req.tickRateLimiter(15000);
-  const { ttag: { t }, user, body: { profile } } = req;
+export default async function profilechange(req, res) {
+  req.tickRateLimiter(3000);
+  const { ttag: { t }, user, body: profile } = req;
 
   if (!profile || typeof profile !== 'object') {
     throw new Error('Invalid request, no profile object included');
   }
 
-  const { avatarId, customFlag } = profile;
+  const { avatarId, customFlag, activeFactionRole } = profile;
   let changed = false;
-  let needsReload = false;
-  if (avatarId === null) {
+  const profileChanges = {};
+
+  if (avatarId === null || typeof avatarId === 'string') {
     changed = true;
-    needsReload = true;
-    const success = await setUserAvatar(user.id, null);
-    if (success) {
-      logger.info(`User ${user.name} removed his avatar`);
-    } else {
-      throw new Error('Could not remove your avatar');
-    }
-  } else if (typeof avatarId === 'string') {
-    changed = true;
-    needsReload = true;
-    const isLegitMedia = await getMediaType(avatarId) === 'image';
-    if (!isLegitMedia) {
-      throw new Error(t`Avatar can only be an image`);
+    profileChanges.avatarId = avatarId;
+    if (avatarId) {
+      const isLegitMedia = await getMediaType(avatarId) === 'image';
+      if (!isLegitMedia) {
+        throw new Error(t`Avatar can only be an image`);
+      }
     }
     const success = await setUserAvatar(user.id, avatarId);
-    if (success) {
-      logger.info(`User ${user.name} changed avatar to ${avatarId}`);
-    } else {
-      throw new Error(t`Could not set your avtar`);
+    if (!success) {
+      throw new Error(t`Could not set your avatar`);
     }
+    logger.info(`User ${user.name} changed avatar to ${avatarId}`);
   }
 
   if (customFlag === null) {
     changed = true;
-    needsReload = true;
+    profileChanges.customFlag = null;
     const success = await setCustomFlag(user.id, null);
-    if (success) {
-      logger.info(`User ${user.name} removed his custom flag`);
-    } else {
+    if (!success) {
       throw new Error('Could not remove your custom flag');
     }
+    logger.info(`User ${user.name} removed his custom flag`);
   } else if (typeof customFlag === 'string') {
     changed = true;
-    needsReload = true;
+    profileChanges.customFlag = customFlag;
     if (customFlag.length !== 2
       /* eslint-disable max-len */
       || customFlag.includes('/') || customFlag.includes('\\') || customFlag.includes('.')
@@ -70,24 +62,40 @@ async function profilechange(req, res) {
       throw new Error('This custom flag is invalid');
     }
     const success = await setCustomFlag(user.id, customFlag);
-    if (success) {
-      logger.info(`User ${user.name} changed flag to ${customFlag}`);
-    } else {
+    if (!success) {
       throw new Error('Could not set your custom flag');
     }
+    logger.info(`User ${user.name} changed flag to ${customFlag}`);
+  }
+
+  if (activeFactionRole === null || typeof activeFactionRole === 'string') {
+    changed = true;
+    profileChanges.activeFactionRole = activeFactionRole;
+    const success = await setActiveFactionRole(user.id, activeFactionRole);
+    if (!success) {
+      throw new Error(t`Could not set your faction role`);
+    }
+    logger.info(
+      `User ${user.name} changed active faction to ${activeFactionRole}`,
+    );
   }
 
   if (!changed) {
     throw new Error('You did not define anything to change');
   }
 
-  if (needsReload) {
-    socketEvents.reloadUser(user.id);
+  const changedKeys = Object.keys(profileChanges);
+  for (let i = 0; i < changedKeys.length; i += 1) {
+    const key = changedKeys[i];
+    const value = profileChanges[key];
+    socketEvents.patchUserState(user.id, 'profile', {
+      op: 'set',
+      path: key,
+      value,
+    });
   }
 
   res.json({
     status: 'ok',
   });
 }
-
-export default profilechange;

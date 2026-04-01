@@ -32,7 +32,7 @@ pm2 stop ecosystem.yml
 ### Auto-Start
 
 To have the canvas with all it's components autostart at systemstart,
-enable mysql, redis according to your system (`systemctl enable ...`), and then
+enable mariadb, redis according to your system (`systemctl enable ...`), and then
 setup pm2 startup with:
 
 ```
@@ -44,12 +44,12 @@ And follow the printed steps if needed. This will generate a systemctl service
 file `/etc/systemd/system/pm2-pixelplanet.service` and enable it. You will have
 to run `pm2 save` while the canvas is running to let pm2 know what to start.
 
-To make sure that mysql and redis are up when pixelplanet starts, edit this
+To make sure that mariadb and redis are up when pixelplanet starts, edit this
 service file and modify the lines:
 
 ```
 Wants=network-online.target
-After=network.target mysql.service redis.service
+After=network.target mariadb.service redis.service
 ```
 
 ### Logging

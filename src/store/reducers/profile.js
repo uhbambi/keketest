@@ -1,29 +1,60 @@
+import { patchState } from '../index.js';
+
 const initialState = {
   fishes: [],
   badges: [],
-  lastFetch: 0,
+  /*
+   * [{
+   *     fid,
+   *     name,
+   *     title,
+   *     description,
+   *     isPrivate,
+   *     isPublic,
+   *     isHidden,
+   *     memberCount,
+   *     avatarId,
+   *     roles: [{
+   *       frid,
+   *       name,
+   *       customFlagId,
+   *       factionlvl,
+   *       isMember,
+   *     }, ...],
+   *   }, ...],
+   */
+  factions: [],
+  activeFactionRole: null,
+  /*
+   * two letter custom flag code
+   */
+  customFlag: null,
+  /*
+   * media id of user avtar
+   */
+  avatarId: null,
+  /*
+   * 0: not fetched
+   * 1: requested
+   * 2: fetched
+   */
+  fetched: false,
 };
 
 export default function profile(state = initialState, action) {
   switch (action.type) {
-    case 'REC_PROFILE':
-      return {
-        ...action.profile,
-        lastFetch: Date.now(),
-      };
-
-    case 'FISH_CATCHED': {
-      if (!action.success) {
-        return state;
-      }
-      const { fishType: type, size } = action;
+    case 's/REC_PROFILE':
       return {
         ...state,
-        fishes: [
-          ...state.fishes,
-          { type, size, ts: Date.now() },
-        ],
+        ...action.profile,
+        fetched: true,
       };
+
+    case 's/PATCH_STATE': {
+      if (action.state === 'profile') {
+        return patchState(state, action.patch)[0];
+      }
+      return state;
     }
 
     case 's/LOGIN':

@@ -39,7 +39,7 @@ import {
   deleteMessages,
 } from '../store/actions/socket.js';
 import {
-  pRefresh, fishAppears, catchedFish, pAlert,
+  pRefresh, fishAppears, catchedFish, pAlert, patchState,
 } from '../store/actions/index.js';
 import { fetchMe } from '../store/actions/thunks.js';
 // import detectMalware from '../core/malwareDetection.js';
@@ -304,6 +304,12 @@ class SocketClient {
     switch (key) {
       case 'ck':
         this.store.dispatch(receiveChatMessage(...val));
+        break;
+      case 'ps':
+        /*
+         * patch profile, an object that describes changes of the profile state
+         */
+        this.store.dispatch(patchState(...val));
         break;
       case 'dpum':
         this.store.dispatch(deletePublicUserMessages(val));

@@ -27,10 +27,7 @@ export default function userContextMenu(store, args) {
        * if dm channel already exists,
        * just switch
        */
-      const {
-        chat: { channels },
-        fetching: { fetchingApi: fetching },
-      } = store.getState();
+      const { chat: { channels } } = store.getState();
       const cids = Object.keys(channels);
       for (let i = 0; i < cids.length; i += 1) {
         const cid = cids[i];
@@ -39,9 +36,7 @@ export default function userContextMenu(store, args) {
           return;
         }
       }
-      if (!fetching) {
-        store.dispatch(startDm({ userId: uid }, setChannel));
-      }
+      store.dispatch(startDm({ userId: uid }, setChannel));
     },
     text: t`DM`,
   }, {

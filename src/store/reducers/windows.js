@@ -352,17 +352,39 @@ export default function windows(
         windowType,
         hide,
       } = action;
+      const affectedWindowIds = [];
       const newWindows = state.windows.map((win) => {
-        if (win.windowType !== windowType) return win;
+        if (win.windowType !== windowType) {
+          return win;
+        }
+        affectedWindowIds.push(win.windowId);
         return {
           ...win,
           hidden: hide,
         };
       });
-      return {
+      if (!affectedWindowIds.length) {
+        return state;
+      }
+      let { zMax, positions: newPositions } = state;
+      if (!hide) {
+        /*
+         * focus on unhide
+         */
+        newPositions = { ...newPositions };
+        for (const windowId of affectedWindowIds) {
+          newPositions[windowId] = {
+            ...newPositions[windowId],
+            z: ++zMax,
+          };
+        }
+      }
+      return sortWindows({
         ...state,
+        zMax,
         windows: newWindows,
-      };
+        positions: newPositions,
+      });
     }
 
     case 'CLONE_WIN': {

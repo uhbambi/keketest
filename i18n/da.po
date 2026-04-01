@@ -55,6 +55,12 @@ msgstr ""
 msgid "(0 = infinite)"
 msgstr "(0 = uendelig)"
 
+msgid "(click a role to activate it)"
+msgstr ""
+
+msgid "(click a role to assign or remove it)"
+msgstr ""
+
 msgid "+last hour"
 msgstr "+sidste time"
 
@@ -90,6 +96,9 @@ msgstr "Vis altid bevægelseskontrollerne"
 msgid "Always show movement control buttons"
 msgstr "Vis altid bevægelseskontrollerne"
 
+msgid "An image representing your faction"
+msgstr ""
+
 msgid "Anti Aliasing"
 msgstr "Antialiasing"
 
@@ -98,6 +107,9 @@ msgstr "Påfør et filter til at rense affald i store kanvas områder."
 
 msgid "Archive"
 msgstr "Arkiv"
+
+msgid "Assign Roles"
+msgstr ""
 
 msgid "Assign new Mod"
 msgstr "Tildel ny Mod"
@@ -120,6 +132,9 @@ msgstr "Medaljeviser"
 msgid "Badges"
 msgstr "Medaljer"
 
+msgid "Ban"
+msgstr ""
+
 msgid "Ban media"
 msgstr ""
 
@@ -128,6 +143,9 @@ msgstr "Bannet"
 
 msgid "Banned? Detected as Proxy?"
 msgstr "Bannet? Detekted som Proxy?"
+
+msgid "Bans"
+msgstr ""
 
 msgid "Block"
 msgstr "Blokér"
@@ -287,6 +305,9 @@ msgstr ""
 msgid "Click a color in palette to select it"
 msgstr "Klik på en farve i paletten for at vælge den"
 
+msgid "Click here to cease representation."
+msgstr ""
+
 msgid "Click here to request a new verification mail."
 msgstr "Klik her for at anmode om et nyt bekræftelsesmail."
 
@@ -314,6 +335,18 @@ msgstr ""
 msgid "Compact Palette"
 msgstr "Kompakt Palet"
 
+msgid "Confirm"
+msgstr ""
+
+msgid "Confirm Ban"
+msgstr ""
+
+msgid "Confirm Kick"
+msgstr ""
+
+msgid "Confirm Leave"
+msgstr ""
+
 msgid "Confirm New Password"
 msgstr "Bekræft Nye Adgangskode"
 
@@ -326,9 +359,6 @@ msgstr "Forbindelse fejl ${ code } :("
 
 msgid "Consent"
 msgstr "Samtykke"
-
-msgid "Consider joining us on Matrix:"
-msgstr "Overvej at være med os på Matrix:"
 
 msgid "Controls"
 msgstr "Kontroller"
@@ -397,6 +427,12 @@ msgstr "Lande i Dag"
 msgid "Country"
 msgstr "Land"
 
+msgid "Create Faction"
+msgstr ""
+
+msgid "Create New Faction"
+msgstr ""
+
 #, javascript-format
 msgid "Credit for the Palette of the 2bit canvas goes to ${ donendoLink }."
 msgstr "Kredit til paletten for Top10 Kanvasset går til ${ donendoLink }."
@@ -445,6 +481,18 @@ msgstr "Slet Konto"
 msgid "Deny"
 msgstr "Nægt"
 
+msgid "Description"
+msgstr ""
+
+msgid "Description can't be empty"
+msgstr ""
+
+msgid "Description must be shorter than 1000 characters"
+msgstr ""
+
+msgid "Description of your faction"
+msgstr ""
+
 msgid ""
 "Didn't get an answer from pixelplanet. Try to refresh if this problem "
 "persists."
@@ -473,8 +521,15 @@ msgstr "Vis Palet i en kompakt form der tager mindre skærm plads."
 msgid "Do stuff with IPs (one IP per line)"
 msgstr "Gør ting med IP'er (én IP pr. linje)"
 
+msgid ""
+"Don't let people find this faction in public search or look at its profile."
+msgstr ""
+
 msgid "Don't remember"
 msgstr "Gem ikke"
+
+msgid "Don't show faction in search"
+msgstr ""
 
 msgid "Don't show me in global stats"
 msgstr "Vis mig ikke i globale statistikker"
@@ -545,6 +600,9 @@ msgstr "Angiv Begrundelse"
 msgid "Enter UserName of new Mod"
 msgstr "Indsæt BrugerNavn af ny mod"
 
+msgid "Enter a little text that describes your faction"
+msgstr ""
+
 msgid "Enter your mail address and we will send you a new password:"
 msgstr "Indsæt din mailadresse og vi vil sende dig en ny adgangskode:"
 
@@ -565,6 +623,11 @@ msgid "Export enabled templates"
 msgstr "Eksportér aktiverede skabeloner"
 
 msgid "Factions"
+msgstr ""
+
+msgid ""
+"Factions allow you to coordinate better with other players. Search for "
+"existing factions, find friends or create your own faction."
 msgstr ""
 
 msgid "Factor"
@@ -669,6 +732,9 @@ msgstr ""
 msgid "Hide Embed"
 msgstr "Skjul Indlejring"
 
+msgid "Hide from profile"
+msgstr ""
+
 msgid ""
 "Higher zoomlevels take some time to update, the 3D globe gets updated at "
 "least once per day."
@@ -749,6 +815,9 @@ msgstr "Ugyldig farve valgt"
 msgid "Invited to Chat"
 msgstr "Inviteret til Chat"
 
+msgid "Invites"
+msgstr ""
+
 msgid ""
 "It requests the following permissions. Uncheck what you don't want to grant:"
 msgstr ""
@@ -757,6 +826,9 @@ msgstr ""
 
 msgid "Jannies can rollback and protect, but not watch or ban."
 msgstr "Jannier kan tilbagerulle og beskytte, men ikke holde øje eller banne."
+
+msgid "Join Faction"
+msgstr ""
 
 msgid "Just for registered Users"
 msgstr "Kun for registrerede Brugere"
@@ -770,11 +842,26 @@ msgstr "Kun de Top10 fra i går kan placere her"
 msgid "Keep Ratio"
 msgstr "Behold Forhold"
 
+msgid "Kick"
+msgstr ""
+
 msgid "Know that an account exists"
 msgstr "Ved at en konto eksisterer"
 
+msgid "Leave"
+msgstr ""
+
+msgid "Leave Faction"
+msgstr ""
+
 msgid "Legal Requests"
 msgstr "Juridiske Anmodninger"
+
+msgid "Let everyone join this faction"
+msgstr ""
+
+msgid "Let people join this faction without needing an invite."
+msgstr ""
 
 msgid "Light Grid"
 msgstr "Lys Gitter"
@@ -787,6 +874,9 @@ msgstr "Indlæser"
 
 msgid "Loading..."
 msgstr "Indlæser..."
+
+msgid "Log in or Register"
+msgstr ""
 
 msgid "Log out"
 msgstr "Log ud"
@@ -830,6 +920,9 @@ msgstr "Maximer"
 msgid "Media Actions"
 msgstr ""
 
+msgid "Members"
+msgstr ""
+
 msgid "Minimum Color Distance"
 msgstr "Minimum Farve Afstand"
 
@@ -849,8 +942,14 @@ msgstr ""
 msgid "Muted Sound"
 msgstr "Stummet Lyd"
 
+msgid "My Factions"
+msgstr ""
+
 msgid "Name"
 msgstr "Navn"
+
+msgid "Name can only contain the characters: a-z . _ and -"
+msgstr ""
 
 msgid "Name can't be empty."
 msgstr "Navn må ikke være tomt."
@@ -863,6 +962,9 @@ msgstr "Navn skal være mindst 2 tegn langt"
 
 msgid "Name must be shorter than 26 characters"
 msgstr "Navn skal være kortere end 26 tegn"
+
+msgid "Name of your faction [a-z][A-Z][0-9].-_"
+msgstr ""
 
 msgid "Name or Email"
 msgstr "Navn eller Email"
@@ -900,6 +1002,9 @@ msgstr "Ingen eller ugyldig captcha text"
 msgid "No password given."
 msgstr "Ingen adgangskode angivet."
 
+msgid "Nobody is banned from this faction"
+msgstr ""
+
 msgid "Not Allowed"
 msgstr ""
 
@@ -907,6 +1012,9 @@ msgid "Not allowed"
 msgstr "Ikke tilladt"
 
 msgid "Note"
+msgstr ""
+
+msgid "Note: Your active Faction may overwrite your flag settings."
 msgstr ""
 
 msgid "OIDC LogIn"
@@ -935,6 +1043,9 @@ msgstr "Kun bekræftet Brugere er i øjeblikket tilladt at spille."
 
 msgid "Opacity of Overlay in percent."
 msgstr "Gennemsigtighed af Overlejring i procent."
+
+msgid "Open"
+msgstr ""
 
 msgid "Open Chat"
 msgstr "Åben Chat"
@@ -971,6 +1082,9 @@ msgstr "Overlejring PÅ"
 
 msgid "Overlay Opacity"
 msgstr "Overlejring gennemsigtighed"
+
+msgid "Overview"
+msgstr ""
 
 msgid "Palette Download"
 msgstr "Palet Download"
@@ -1164,6 +1278,9 @@ msgstr "Fjern Janny"
 msgid "Remove Moderator"
 msgstr "Fjern Moderator"
 
+msgid "Remove Roles"
+msgstr ""
+
 msgid "Remove a Login method:"
 msgstr "Fjern en Loginmetode:"
 
@@ -1197,6 +1314,12 @@ msgstr "Tilbagetræk"
 msgid "Revoke consent of third party applications:"
 msgstr "Tilbagekald samtykke for tredjepartsapplikationer:"
 
+msgid "Role Flags"
+msgstr ""
+
+msgid "Roles"
+msgstr ""
+
 msgid "Roll different Captcha Fonts"
 msgstr "Rul andre Captcha Skrifttyper"
 
@@ -1216,6 +1339,9 @@ msgstr "Skaler Billede"
 msgid "Scroll ${ mouseSymbol } mouse wheel or ${ touchSymbol } pinch to zoom"
 msgstr ""
 "Skrol ${ mouseSymbol } mus hjul eller ${ touchSymbol } knib for at zoome"
+
+msgid "Search Existing Faction"
+msgstr ""
 
 msgid "Select Date above"
 msgstr "Vælg Dato Ovenfor"
@@ -1438,6 +1564,24 @@ msgstr ""
 "dig med det! Skabeloner kan vises som overlejring og du kan tegne over dem. "
 "Én pixel på skabelonen, burde være én pixel på kanvasset."
 
+msgid "Title"
+msgstr ""
+
+msgid "Title can't be empty."
+msgstr ""
+
+msgid "Title contains invalid character like @, /, \\ or #"
+msgstr ""
+
+msgid "Title must be at least 2 characters long"
+msgstr ""
+
+msgid "Title must be shorter than 26 characters"
+msgstr ""
+
+msgid "Title of your faction"
+msgstr ""
+
 msgid "To use this page, enter your Password:"
 msgstr "For at bruge denne side, indtast din Adgangskode:"
 
@@ -1628,8 +1772,21 @@ msgstr ""
 "hvordan man appellerer. Og glem ikke at inkludere BID'en som du kan få "
 "nedenunder."
 
+msgid "You are currently not a member of any faction."
+msgstr ""
+
 msgid "You are currently not allowed to access this game."
 msgstr "Du er i øjeblikket ikke tilladt at tilgå til dette spil."
+
+msgid ""
+"You are currently not representing any faction. To represent one, activate a "
+"role in one of your factions below."
+msgstr ""
+
+#, javascript-format
+msgid ""
+"You are currently representing ${ activeFactionTitle } as ${ activeRoleName }"
+msgstr ""
 
 msgid "You are not allowed to play this game right now :("
 msgstr "Du er ikke tilladt at spille dette spil lige nu :("
@@ -1706,6 +1863,9 @@ msgstr "Du skal angive et IID eller BrugerId"
 msgid "You must enter at least one IID, User Id or BID"
 msgstr "Du skal angive mindst ét IID, Bruger Id eller BID"
 
+msgid "You must select an avatar for your faction"
+msgstr ""
+
 msgid "You took too long, try again."
 msgstr "Du tog for lang tid, prøv igen."
 
@@ -1719,8 +1879,14 @@ msgstr ""
 msgid "Your Browser looks shady"
 msgstr "Din Browser ser tvivlsom ud"
 
+msgid "Your Factions"
+msgstr ""
+
 msgid "Your Internet Provider is banned from this game"
 msgstr "Din internetudbyder er forbudt for at spille dette spil"
+
+msgid "Your Roles"
+msgstr ""
 
 msgid "Your ban expires at "
 msgstr "Din ban udløber på "
@@ -1745,14 +1911,26 @@ msgstr ""
 "Zoom ind i stedet for at placere en pixel når du trykker på kanvasset og dit "
 "zoom er lille."
 
+msgid "affects"
+msgstr ""
+
 #, javascript-format
 msgid "and ${ canvas.req } Pixels set"
 msgstr "og ${ canvas.req } Pixels indstillet"
 
+msgid "by"
+msgstr ""
+
 msgid "check compliance here"
 msgstr "Check overholdelse her"
 
+msgid "created at"
+msgstr ""
+
 msgid "download here"
+msgstr ""
+
+msgid "lift"
 msgstr ""
 
 msgid "or login with:"
@@ -1836,6 +2014,9 @@ msgstr "W"
 msgctxt "keybinds"
 msgid "X"
 msgstr "X"
+
+#~ msgid "Consider joining us on Matrix:"
+#~ msgstr "Overvej at være med os på Matrix:"
 
 #~ msgid "Close Menu"
 #~ msgstr "Luk Menu"

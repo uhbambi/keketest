@@ -14,7 +14,7 @@ import { sequelize, sync as syncSql } from '../src/data/sql/index.js';
 import { DailyCron, HourlyCron } from '../src/utils/cron.js';
 import { destructAllWatchers } from '../src/core/fsWatcher.js';
 const LOG_QUERY = false;
-const SYNC_MYSQL = false;
+const SYNC_MARIADB = false;
 
 import { generateIdToken } from '../src/middleware/oidc.js';
 import { createOIDCClient } from '../src/data/sql/OIDCClient.js';
@@ -33,7 +33,7 @@ function fail(message, value) {
 }
 
 async function initialize() {
-  await syncSql(SYNC_MYSQL);
+  await syncSql(SYNC_MARIADB);
 }
 
 async function destruct() {

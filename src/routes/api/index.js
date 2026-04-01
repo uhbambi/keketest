@@ -11,9 +11,26 @@ import startDm from './startdm.js';
 import leaveChan from './leavechan.js';
 import mute from './mute.js';
 import block from './block.js';
-import blockdm from './blockdm.js';
-import privatize from './privatize.js';
+import userchange from './userchange.js';
 import profilechange from './profilechange.js';
+import factionchange from './factionchange.js';
+import userfactionchange from './userfactionchange.js';
+import factionrolechange from './factionrolechange.js';
+import factioninfo from './factioninfo.js';
+import factioncreate from './factioncreate.js';
+import factiondelete from './factiondelete.js';
+import factionjoin from './factionjoin.js';
+import factionleave from './factionleave.js';
+import factionrolecreate from './factionrolecreate.js';
+import factionroledelete from './factionroledelete.js';
+import factionrolejoin from './factionrolejoin.js';
+import factionroleleave from './factionroleleave.js';
+import factionkickban from './factionkickban.js';
+import factionunban from './factionunban.js';
+import factionmembers from './factionmembers.js';
+import factionbans from './factionbans.js';
+import factionsearch from './factionsearch.js';
+import usersearch from './usersearch.js';
 import modtools from './modtools.js';
 import baninfo from './baninfo.js';
 import getiid from './getiid.js';
@@ -61,6 +78,9 @@ router.get('/pubchannels', pubchannels);
 
 router.get('/getiid', getiid);
 
+router.post('/factionsearch', factionsearch);
+router.post('/usersearch', usersearch);
+
 /*
  * get user session if available
  */
@@ -79,6 +99,9 @@ router.use((req, res, next) => {
 });
 
 router.get('/me', me);
+
+router.post('/factioninfo', factioninfo);
+router.post('/factionmembers', factionmembers);
 
 router.use(parseDevice);
 
@@ -103,11 +126,26 @@ router.post('/block', block);
 
 router.post('/mute', mute);
 
-router.post('/blockdm', blockdm);
-
-router.post('/privatize', privatize);
+router.post('/userchange', userchange);
 
 router.post('/profilechange', profilechange);
+router.post('/factionchange', factionchange);
+router.post('/userfactionchange', userfactionchange);
+router.post('/factionrolechange', factionrolechange);
+
+router.post('/factionbans', factionbans);
+
+router.post('/factioncreate', factioncreate);
+router.post('/factiondelete', factiondelete);
+router.post('/factionjoin', factionjoin);
+router.post('/factionleave', factionleave);
+router.post('/factionkickban', factionkickban);
+router.post('/factionunban', factionunban);
+
+router.post('/factionrolecreate', factionrolecreate);
+router.post('/factionroledelete', factionroledelete);
+router.post('/factionrolejoin', factionrolejoin);
+router.post('/factionroleleave', factionroleleave);
 
 router.use(errorJson);
 

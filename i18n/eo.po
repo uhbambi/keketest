@@ -56,6 +56,12 @@ msgstr ""
 msgid "(0 = infinite)"
 msgstr "(0 = senfina)"
 
+msgid "(click a role to activate it)"
+msgstr ""
+
+msgid "(click a role to assign or remove it)"
+msgstr ""
+
 msgid "+last hour"
 msgstr "+lasta horo"
 
@@ -91,6 +97,9 @@ msgstr "Ĉiam montri Movadajn Kontrolilojn"
 msgid "Always show movement control buttons"
 msgstr "Ĉiam montri butonojn por kontroli movojn"
 
+msgid "An image representing your faction"
+msgstr ""
+
 msgid "Anti Aliasing"
 msgstr "Glatigo"
 
@@ -99,6 +108,9 @@ msgstr "Apliku filtrilon por purigi rubon en grandaj kanvasaj areoj."
 
 msgid "Archive"
 msgstr "Arkiv'"
+
+msgid "Assign Roles"
+msgstr ""
 
 msgid "Assign new Mod"
 msgstr "Faru novan moderigiston"
@@ -121,6 +133,9 @@ msgstr "Insigno-Ekspozicio"
 msgid "Badges"
 msgstr "Insignoj"
 
+msgid "Ban"
+msgstr ""
+
 msgid "Ban media"
 msgstr ""
 
@@ -130,6 +145,9 @@ msgstr "Malpermesita"
 #, fuzzy
 msgid "Banned? Detected as Proxy?"
 msgstr "Detektita Kiel Prokuro?"
+
+msgid "Bans"
+msgstr ""
 
 msgid "Block"
 msgstr "Bloku"
@@ -296,6 +314,9 @@ msgstr ""
 msgid "Click a color in palette to select it"
 msgstr "Klaku kolorulon en l' koloraron selekti ĝin"
 
+msgid "Click here to cease representation."
+msgstr ""
+
 msgid "Click here to request a new verification mail."
 msgstr "Klaku jen peti novan verigan retpostmensaĝon."
 
@@ -323,6 +344,18 @@ msgstr ""
 msgid "Compact Palette"
 msgstr "Kompakta Kolorar'"
 
+msgid "Confirm"
+msgstr ""
+
+msgid "Confirm Ban"
+msgstr ""
+
+msgid "Confirm Kick"
+msgstr ""
+
+msgid "Confirm Leave"
+msgstr ""
+
 msgid "Confirm New Password"
 msgstr "Verigu Novan Pasvorton"
 
@@ -335,9 +368,6 @@ msgstr "Konekta eraro ${ code } :("
 
 msgid "Consent"
 msgstr "Konsento"
-
-msgid "Consider joining us on Matrix:"
-msgstr "Konsideru aliĝi al ni ĉe Matrix:"
 
 msgid "Controls"
 msgstr "Kontroloj"
@@ -408,6 +438,12 @@ msgstr "Landoj Hodiaŭ"
 msgid "Country"
 msgstr "Lando"
 
+msgid "Create Faction"
+msgstr ""
+
+msgid "Create New Faction"
+msgstr ""
+
 #, fuzzy, javascript-format
 msgid "Credit for the Palette of the 2bit canvas goes to ${ donendoLink }."
 msgstr "Kredito por l' Kolorar' de l' lun'  ĉeestas kun ${ donendoLink }"
@@ -459,6 +495,18 @@ msgstr "Nuligu Konton"
 msgid "Deny"
 msgstr "Malkonsentu"
 
+msgid "Description"
+msgstr ""
+
+msgid "Description can't be empty"
+msgstr ""
+
+msgid "Description must be shorter than 1000 characters"
+msgstr ""
+
+msgid "Description of your faction"
+msgstr ""
+
 #, fuzzy
 msgid ""
 "Didn't get an answer from pixelplanet. Try to refresh if this problem "
@@ -487,8 +535,15 @@ msgstr "Montru Kolorar' je kompakta form' kiu ekranuzas malpli."
 msgid "Do stuff with IPs (one IP per line)"
 msgstr "Faru iom kun IPs (un IP po linion)"
 
+msgid ""
+"Don't let people find this faction in public search or look at its profile."
+msgstr ""
+
 msgid "Don't remember"
 msgstr "Ne memoras"
+
+msgid "Don't show faction in search"
+msgstr ""
 
 msgid "Don't show me in global stats"
 msgstr "Ne montri min en tutmondaj statistikoj"
@@ -558,6 +613,9 @@ msgstr "Enigu Kialon"
 msgid "Enter UserName of new Mod"
 msgstr "Entajpu UzantNomon de la nova Moderigist'"
 
+msgid "Enter a little text that describes your faction"
+msgstr ""
+
 msgid "Enter your mail address and we will send you a new password:"
 msgstr "Enskribi vian retmesaĝadreson kaj ni sendos vi novan pasvorton:"
 
@@ -578,6 +636,11 @@ msgid "Export enabled templates"
 msgstr "Eksporti ebligitajn ŝablonojn"
 
 msgid "Factions"
+msgstr ""
+
+msgid ""
+"Factions allow you to coordinate better with other players. Search for "
+"existing factions, find friends or create your own faction."
 msgstr ""
 
 msgid "Factor"
@@ -684,6 +747,9 @@ msgstr ""
 msgid "Hide Embed"
 msgstr "Kaŝi Enkorpigi"
 
+msgid "Hide from profile"
+msgstr ""
+
 msgid ""
 "Higher zoomlevels take some time to update, the 3D globe gets updated at "
 "least once per day."
@@ -764,12 +830,18 @@ msgstr "Koloro nevalida selektit"
 msgid "Invited to Chat"
 msgstr "Invitita al babilado"
 
+msgid "Invites"
+msgstr ""
+
 msgid ""
 "It requests the following permissions. Uncheck what you don't want to grant:"
 msgstr "Ĝi petas la jenajn permesojn. Malmarku tion, kion vi ne volas doni:"
 
 msgid "Jannies can rollback and protect, but not watch or ban."
 msgstr "Jannioj povas malfari kaj protekti, sed ne observi aŭ malpermesi."
+
+msgid "Join Faction"
+msgstr ""
 
 msgid "Just for registered Users"
 msgstr "Nur pri registritaj uzantoj"
@@ -783,11 +855,26 @@ msgstr "Nur la Supraj 10 de hieraŭ povas esti ĉi tie"
 msgid "Keep Ratio"
 msgstr "Konservu Porporcion"
 
+msgid "Kick"
+msgstr ""
+
 msgid "Know that an account exists"
 msgstr "Sciu, ke konto ekzistas"
 
+msgid "Leave"
+msgstr ""
+
+msgid "Leave Faction"
+msgstr ""
+
 msgid "Legal Requests"
 msgstr "Laŭleĝaj Petoj"
+
+msgid "Let everyone join this faction"
+msgstr ""
+
+msgid "Let people join this faction without needing an invite."
+msgstr ""
 
 msgid "Light Grid"
 msgstr "Hela Krad'"
@@ -801,6 +888,9 @@ msgstr "Ŝarĝadanta..."
 
 msgid "Loading..."
 msgstr "Ŝarĝadanta..."
+
+msgid "Log in or Register"
+msgstr ""
 
 msgid "Log out"
 msgstr "Elsalutu"
@@ -845,6 +935,9 @@ msgstr "maksimumigu"
 msgid "Media Actions"
 msgstr ""
 
+msgid "Members"
+msgstr ""
+
 msgid "Minimum Color Distance"
 msgstr "Minimuma Kolordistanco"
 
@@ -864,8 +957,14 @@ msgstr ""
 msgid "Muted Sound"
 msgstr "Silentigita Sono"
 
+msgid "My Factions"
+msgstr ""
+
 msgid "Name"
 msgstr "Nom'"
+
+msgid "Name can only contain the characters: a-z . _ and -"
+msgstr ""
 
 msgid "Name can't be empty."
 msgstr "Nom' ne povas esti malplena."
@@ -879,6 +978,9 @@ msgstr "Nom' devus enhavi almenaŭ 4 karakterojn"
 
 msgid "Name must be shorter than 26 characters"
 msgstr "Nom' devus esti pli mallonga ol 26 karakterojn"
+
+msgid "Name of your faction [a-z][A-Z][0-9].-_"
+msgstr ""
 
 msgid "Name or Email"
 msgstr "Nom' aŭ Retpostadres'"
@@ -917,6 +1019,9 @@ msgstr "Neniu aŭ malvalida captcha-teksto"
 msgid "No password given."
 msgstr "Pasvorton ne donita."
 
+msgid "Nobody is banned from this faction"
+msgstr ""
+
 msgid "Not Allowed"
 msgstr ""
 
@@ -924,6 +1029,9 @@ msgid "Not allowed"
 msgstr "Ne permesita"
 
 msgid "Note"
+msgstr ""
+
+msgid "Note: Your active Faction may overwrite your flag settings."
 msgstr ""
 
 msgid "OIDC LogIn"
@@ -953,6 +1061,9 @@ msgstr "Nur konfirmitaj uzantoj nuntempe rajtas ludi."
 
 msgid "Opacity of Overlay in percent."
 msgstr "Opakeco de la tegaĵo en procento."
+
+msgid "Open"
+msgstr ""
 
 msgid "Open Chat"
 msgstr "Malfermu je l' babil'"
@@ -989,6 +1100,9 @@ msgstr "Supermetaĵo ŜALTITA"
 
 msgid "Overlay Opacity"
 msgstr "Supermeti Opakeco"
+
+msgid "Overview"
+msgstr ""
 
 msgid "Palette Download"
 msgstr "Elŝulti Kolorare"
@@ -1183,6 +1297,9 @@ msgstr "Forigu Janny"
 msgid "Remove Moderator"
 msgstr "Alĵetu je Moderigist'"
 
+msgid "Remove Roles"
+msgstr ""
+
 msgid "Remove a Login method:"
 msgstr "Forigi ensalutan metodon:"
 
@@ -1216,6 +1333,12 @@ msgstr "Retiri"
 msgid "Revoke consent of third party applications:"
 msgstr "Revoki konsenton de triapartaj aplikoj:"
 
+msgid "Role Flags"
+msgstr ""
+
+msgid "Roles"
+msgstr ""
+
 msgid "Roll different Captcha Fonts"
 msgstr "Rulu malsamajn Captcha-tiparojn"
 
@@ -1235,6 +1358,9 @@ msgstr "Skalu Bildon"
 #, javascript-format
 msgid "Scroll ${ mouseSymbol } mouse wheel or ${ touchSymbol } pinch to zoom"
 msgstr "Rulumu ${ mouseSymbol } la musradon aŭ ${ touchSymbol } pinĉu zomi"
+
+msgid "Search Existing Faction"
+msgstr ""
 
 #, fuzzy
 msgid "Select Date above"
@@ -1466,6 +1592,24 @@ msgstr ""
 "desegni super ili. Unu pikselo sur la ŝablono, devus esti unu pikselo sur la "
 "kanvaso."
 
+msgid "Title"
+msgstr ""
+
+msgid "Title can't be empty."
+msgstr ""
+
+msgid "Title contains invalid character like @, /, \\ or #"
+msgstr ""
+
+msgid "Title must be at least 2 characters long"
+msgstr ""
+
+msgid "Title must be shorter than 26 characters"
+msgstr ""
+
+msgid "Title of your faction"
+msgstr ""
+
 msgid "To use this page, enter your Password:"
 msgstr "Por uzi ĉi tiun paĝon, enigu vian pasvorton:"
 
@@ -1653,7 +1797,20 @@ msgid ""
 "on how to appeal. And don't forget to include the BID you can get below."
 msgstr ""
 
+msgid "You are currently not a member of any faction."
+msgstr ""
+
 msgid "You are currently not allowed to access this game."
+msgstr ""
+
+msgid ""
+"You are currently not representing any faction. To represent one, activate a "
+"role in one of your factions below."
+msgstr ""
+
+#, javascript-format
+msgid ""
+"You are currently representing ${ activeFactionTitle } as ${ activeRoleName }"
 msgstr ""
 
 msgid "You are not allowed to play this game right now :("
@@ -1728,6 +1885,9 @@ msgstr ""
 msgid "You must enter at least one IID, User Id or BID"
 msgstr ""
 
+msgid "You must select an avatar for your faction"
+msgstr ""
+
 msgid "You took too long, try again."
 msgstr ""
 
@@ -1739,7 +1899,13 @@ msgstr ""
 msgid "Your Browser looks shady"
 msgstr "Via retumilo aspektas suspektinda"
 
+msgid "Your Factions"
+msgstr ""
+
 msgid "Your Internet Provider is banned from this game"
+msgstr ""
+
+msgid "Your Roles"
 msgstr ""
 
 msgid "Your ban expires at "
@@ -1762,14 +1928,26 @@ msgid ""
 msgstr ""
 "Zomu anstataŭe meti pikselon kiam vi frapetas l' kanvason kaj vian zomo etas."
 
+msgid "affects"
+msgstr ""
+
 #, javascript-format
 msgid "and ${ canvas.req } Pixels set"
 msgstr "kaj ${ canvas.req } Pikselojn metitajn"
 
+msgid "by"
+msgstr ""
+
 msgid "check compliance here"
 msgstr ""
 
+msgid "created at"
+msgstr ""
+
 msgid "download here"
+msgstr ""
+
+msgid "lift"
 msgstr ""
 
 msgid "or login with:"
@@ -1853,6 +2031,9 @@ msgstr "W"
 msgctxt "keybinds"
 msgid "X"
 msgstr "X"
+
+#~ msgid "Consider joining us on Matrix:"
+#~ msgstr "Konsideru aliĝi al ni ĉe Matrix:"
 
 #~ msgid "Close Menu"
 #~ msgstr "Fermu je l' menu'"

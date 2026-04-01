@@ -289,6 +289,20 @@ export function receiveBigChunkFailure(chunk, error) {
   };
 }
 
+export function patchState(state, op, path, value) {
+  return {
+    type: 's/PATCH_STATE',
+    state,
+    patch: { op, path, value },
+  };
+}
+
+export function applyPatches(patches) {
+  return patches.map(
+    ([state, { op, path, value }]) => patchState(state, op, path, value),
+  );
+}
+
 export function parseCanvases() {
   /*
    * can only do this once and requires window.ssv
@@ -364,14 +378,6 @@ export function loginUser(
   return {
     type: 's/LOGIN',
     ...me,
-  };
-}
-
-export function setName(name, username) {
-  return {
-    type: 's/SET_NAME',
-    name,
-    username,
   };
 }
 
@@ -455,27 +461,6 @@ export function unblockUser(userId, userName) {
     type: 's/UNBLOCK_USER',
     userId,
     userName,
-  };
-}
-
-export function blockingDm(blockDm) {
-  return {
-    type: 's/SET_BLOCKING_DM',
-    blockDm,
-  };
-}
-
-export function privatize(priv) {
-  return {
-    type: 's/SET_PRIVATE',
-    priv,
-  };
-}
-
-export function profileChange(profile) {
-  return {
-    type: 's/CHANGED_PROFILE',
-    profile,
   };
 }
 

@@ -216,7 +216,9 @@ async function removeBans(bans, modUid) {
 
     await transaction.commit();
   } catch (error) {
-    await transaction.rollback();
+    if (transaction && !transaction.finished) {
+      await transaction.rollback();
+    }
     throw error;
   }
 }
@@ -421,7 +423,7 @@ export async function getBanInfos(
       `SELECT b.*, md.name as mname, BIN_TO_UUID(b.uuid) AS buuid, BIN_TO_IP(ib.ip) AS 'ips.ipString' FROM Bans b
   LEFT JOIN Users md ON md.id = b.muid
   LEFT JOIN IPBans ib ON ib.bid = b.id
-WHERE (b.flags & ?) > 0 AND (b.expires > NOW() OR b.expires IS NULL) AND b.id ${bidFilterMask}`, {
+WHERE (b.flags & ?) != 0 AND (b.expires > NOW() OR b.expires IS NULL) AND b.id ${bidFilterMask}`, {
         replacements: [flagMask].concat(replacements),
         raw: true,
         type: QueryTypes.SELECT,
@@ -609,7 +611,9 @@ export async function ban(
       await transaction.commit();
       return [ipStrings || [], userIds || []];
     } catch (error) {
-      await transaction.rollback();
+      if (transaction && !transaction.finished) {
+        await transaction.rollback();
+      }
       throw error;
     }
   } catch (error) {

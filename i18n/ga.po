@@ -55,6 +55,12 @@ msgstr ""
 msgid "(0 = infinite)"
 msgstr "(0 = gan teorainn)"
 
+msgid "(click a role to activate it)"
+msgstr ""
+
+msgid "(click a role to assign or remove it)"
+msgstr ""
+
 msgid "+last hour"
 msgstr "+an uair dheireanach"
 
@@ -89,6 +95,9 @@ msgstr "Taispéant srianta gluaiseacht i gcónaí"
 msgid "Always show movement control buttons"
 msgstr "Taispéant rialuithe Gluaiseacht cnaipí I gconaí"
 
+msgid "An image representing your faction"
+msgstr ""
+
 msgid "Anti Aliasing"
 msgstr "Frith-Ailiasú"
 
@@ -98,6 +107,9 @@ msgstr ""
 
 msgid "Archive"
 msgstr "Cartlann"
+
+msgid "Assign Roles"
+msgstr ""
 
 msgid "Assign new Mod"
 msgstr "Sannadh Mod nua"
@@ -120,6 +132,9 @@ msgstr "Taispeántas Suaitheantais"
 msgid "Badges"
 msgstr "Suaitheantais"
 
+msgid "Ban"
+msgstr ""
+
 msgid "Ban media"
 msgstr ""
 
@@ -128,6 +143,9 @@ msgstr "Cuirtear amach"
 
 msgid "Banned? Detected as Proxy?"
 msgstr "Cosc? Braitheadh mar Proxy?"
+
+msgid "Bans"
+msgstr ""
 
 msgid "Block"
 msgstr "Blocáil"
@@ -290,6 +308,9 @@ msgstr ""
 msgid "Click a color in palette to select it"
 msgstr "Cliceáil ar dath i bpailéad a roghnú é"
 
+msgid "Click here to cease representation."
+msgstr ""
+
 msgid "Click here to request a new verification mail."
 msgstr "Cliceáil anseo chun ríomhphost fíoraithe nua a iarraidh."
 
@@ -317,6 +338,18 @@ msgstr ""
 msgid "Compact Palette"
 msgstr "Pailéad dlúth"
 
+msgid "Confirm"
+msgstr ""
+
+msgid "Confirm Ban"
+msgstr ""
+
+msgid "Confirm Kick"
+msgstr ""
+
+msgid "Confirm Leave"
+msgstr ""
+
 msgid "Confirm New Password"
 msgstr "Deimhnigh Pasfhocal Nua"
 
@@ -329,9 +362,6 @@ msgstr "Earráid Ceangal ${ code } :("
 
 msgid "Consent"
 msgstr "Toiliú"
-
-msgid "Consider joining us on Matrix:"
-msgstr "Smaoinigh ar bheith linn ar Matrix:"
 
 msgid "Controls"
 msgstr "Rialúcháin"
@@ -401,6 +431,12 @@ msgstr "Tíortha Inniu"
 msgid "Country"
 msgstr "Tír"
 
+msgid "Create Faction"
+msgstr ""
+
+msgid "Create New Faction"
+msgstr ""
+
 #, javascript-format
 msgid "Credit for the Palette of the 2bit canvas goes to ${ donendoLink }."
 msgstr "Is é ${ donendoLink } an creidiúint as Pailéad an chanbháis 2-giotán."
@@ -449,6 +485,18 @@ msgstr "Scrios Cuntas"
 msgid "Deny"
 msgstr "Diúltaigh"
 
+msgid "Description"
+msgstr ""
+
+msgid "Description can't be empty"
+msgstr ""
+
+msgid "Description must be shorter than 1000 characters"
+msgstr ""
+
+msgid "Description of your faction"
+msgstr ""
+
 msgid ""
 "Didn't get an answer from pixelplanet. Try to refresh if this problem "
 "persists."
@@ -478,8 +526,15 @@ msgstr ""
 msgid "Do stuff with IPs (one IP per line)"
 msgstr "Déan rudaí le IPanna (IP amháin in aghaidh an líne)"
 
+msgid ""
+"Don't let people find this faction in public search or look at its profile."
+msgstr ""
+
 msgid "Don't remember"
 msgstr "Ní cuimhin liom"
+
+msgid "Don't show faction in search"
+msgstr ""
 
 msgid "Don't show me in global stats"
 msgstr "Ná taispeáin mé i staitisticí domhanda"
@@ -549,6 +604,9 @@ msgstr "Iontráil Cúis"
 msgid "Enter UserName of new Mod"
 msgstr "Cuir isteach Ainm Úsáideora an Mhod nua"
 
+msgid "Enter a little text that describes your faction"
+msgstr ""
+
 msgid "Enter your mail address and we will send you a new password:"
 msgstr ""
 "Cuir isteach do sheoladh ríomhphoist agus cuirfimid pasfhocal nua chugat:"
@@ -570,6 +628,11 @@ msgid "Export enabled templates"
 msgstr "Easpórtáil teimpléid chumasaithe"
 
 msgid "Factions"
+msgstr ""
+
+msgid ""
+"Factions allow you to coordinate better with other players. Search for "
+"existing factions, find friends or create your own faction."
 msgstr ""
 
 msgid "Factor"
@@ -672,6 +735,9 @@ msgstr "Anseo bhailiúmid na canbhás scriosta. Nach bhfuil ach ceann amháin."
 msgid "Hide Embed"
 msgstr "Folaigh Leabaigh"
 
+msgid "Hide from profile"
+msgstr ""
+
 msgid ""
 "Higher zoomlevels take some time to update, the 3D globe gets updated at "
 "least once per day."
@@ -752,6 +818,9 @@ msgstr "Ní dath ceart é seo"
 msgid "Invited to Chat"
 msgstr "Cuireadh chun Comhrá"
 
+msgid "Invites"
+msgstr ""
+
 msgid ""
 "It requests the following permissions. Uncheck what you don't want to grant:"
 msgstr ""
@@ -762,6 +831,9 @@ msgid "Jannies can rollback and protect, but not watch or ban."
 msgstr ""
 "Is féidir le Jannies rolladh siar agus cosaint a dhéanamh, ach ní féidir leo "
 "féachaint ná cosc a chur orthu."
+
+msgid "Join Faction"
+msgstr ""
 
 msgid "Just for registered Users"
 msgstr "Ní ach do Úsáideoirí síneadh isteach"
@@ -775,11 +847,26 @@ msgstr "Is féidir an Barr10 Don la inné a cuir anseo"
 msgid "Keep Ratio"
 msgstr "Coinnigh Cóimheas"
 
+msgid "Kick"
+msgstr ""
+
 msgid "Know that an account exists"
 msgstr "Bíodh a fhios agat go bhfuil cuntas ann"
 
+msgid "Leave"
+msgstr ""
+
+msgid "Leave Faction"
+msgstr ""
+
 msgid "Legal Requests"
 msgstr "Iarratais Dhlíthiúla"
+
+msgid "Let everyone join this faction"
+msgstr ""
+
+msgid "Let people join this faction without needing an invite."
+msgstr ""
 
 msgid "Light Grid"
 msgstr "Eangach Éadrom"
@@ -792,6 +879,9 @@ msgstr "Lódáil"
 
 msgid "Loading..."
 msgstr "Ag Loadail..."
+
+msgid "Log in or Register"
+msgstr ""
 
 msgid "Log out"
 msgstr "Logáil amach"
@@ -836,6 +926,9 @@ msgstr "Uasmhéid"
 msgid "Media Actions"
 msgstr ""
 
+msgid "Members"
+msgstr ""
+
 msgid "Minimum Color Distance"
 msgstr "Fad Íosta Dathanna"
 
@@ -857,8 +950,14 @@ msgstr ""
 msgid "Muted Sound"
 msgstr "Fuaim Mhúchta"
 
+msgid "My Factions"
+msgstr ""
+
 msgid "Name"
 msgstr "Ainm"
+
+msgid "Name can only contain the characters: a-z . _ and -"
+msgstr ""
 
 msgid "Name can't be empty."
 msgstr "Ní féidir ainm a bheith folamh."
@@ -871,6 +970,9 @@ msgstr "Ní mór ainm a bheith ar a laghad 2 carachtair fada"
 
 msgid "Name must be shorter than 26 characters"
 msgstr "Ní mór ainm a bheith níos giorra ná 26 carachtair"
+
+msgid "Name of your faction [a-z][A-Z][0-9].-_"
+msgstr ""
 
 msgid "Name or Email"
 msgstr "Ainm nó Ríomhphost"
@@ -908,6 +1010,9 @@ msgstr "Níl nó neamhbhailí captcha teics"
 msgid "No password given."
 msgstr "Níor thabhar tu phasfhocal."
 
+msgid "Nobody is banned from this faction"
+msgstr ""
+
 msgid "Not Allowed"
 msgstr ""
 
@@ -915,6 +1020,9 @@ msgid "Not allowed"
 msgstr "Níl cead"
 
 msgid "Note"
+msgstr ""
+
+msgid "Note: Your active Faction may overwrite your flag settings."
 msgstr ""
 
 msgid "OIDC LogIn"
@@ -943,6 +1051,9 @@ msgstr "Ní cheadaítear ach d'Úsáideoirí fíoraithe imirt faoi láthair."
 
 msgid "Opacity of Overlay in percent."
 msgstr "Teimhneacht an Fhorleagan i gcéatadán."
+
+msgid "Open"
+msgstr ""
 
 msgid "Open Chat"
 msgstr "Comhrá Oscailte"
@@ -980,6 +1091,9 @@ msgstr "Tá forleagan ar"
 
 msgid "Overlay Opacity"
 msgstr "Teimhneacht Forleagan"
+
+msgid "Overview"
+msgstr ""
 
 msgid "Palette Download"
 msgstr "Íoslódáil Pailéad"
@@ -1174,6 +1288,9 @@ msgstr ""
 msgid "Remove Moderator"
 msgstr "Bain an Modhnóir"
 
+msgid "Remove Roles"
+msgstr ""
+
 msgid "Remove a Login method:"
 msgstr ""
 
@@ -1207,6 +1324,12 @@ msgstr ""
 msgid "Revoke consent of third party applications:"
 msgstr ""
 
+msgid "Role Flags"
+msgstr ""
+
+msgid "Roles"
+msgstr ""
+
 msgid "Roll different Captcha Fonts"
 msgstr ""
 
@@ -1227,6 +1350,9 @@ msgid "Scroll ${ mouseSymbol } mouse wheel or ${ touchSymbol } pinch to zoom"
 msgstr ""
 "Scrollaigh ${ mouseSymbol } luchóg rotha nó ${ touchSymbol } bhain liomóg as "
 "le Zúm"
+
+msgid "Search Existing Faction"
+msgstr ""
 
 msgid "Select Date above"
 msgstr "Roghnaigh Dáta thuas"
@@ -1448,6 +1574,24 @@ msgstr ""
 "go mbeadh picteilín amháin ar an teimpléad mar phicteilín amháin ar an "
 "chanbhás."
 
+msgid "Title"
+msgstr ""
+
+msgid "Title can't be empty."
+msgstr ""
+
+msgid "Title contains invalid character like @, /, \\ or #"
+msgstr ""
+
+msgid "Title must be at least 2 characters long"
+msgstr ""
+
+msgid "Title must be shorter than 26 characters"
+msgstr ""
+
+msgid "Title of your faction"
+msgstr ""
+
 msgid "To use this page, enter your Password:"
 msgstr ""
 
@@ -1638,8 +1782,21 @@ msgstr ""
 "le haghaidh tuilleadh eolais faoi conas achomharc a dhéanamh. Agus ná déan "
 "dearmad an BID is féidir leat a fháil thíos a chur san áireamh."
 
+msgid "You are currently not a member of any faction."
+msgstr ""
+
 msgid "You are currently not allowed to access this game."
 msgstr "Níl cead agat rochtain a fháil ar an gcluiche seo faoi láthair."
+
+msgid ""
+"You are currently not representing any faction. To represent one, activate a "
+"role in one of your factions below."
+msgstr ""
+
+#, javascript-format
+msgid ""
+"You are currently representing ${ activeFactionTitle } as ${ activeRoleName }"
+msgstr ""
 
 msgid "You are not allowed to play this game right now :("
 msgstr "Níl cead agat an cluiche seo a imirt faoi láthair :("
@@ -1715,6 +1872,9 @@ msgstr ""
 msgid "You must enter at least one IID, User Id or BID"
 msgstr ""
 
+msgid "You must select an avatar for your faction"
+msgstr ""
+
 msgid "You took too long, try again."
 msgstr "Ghlac to raibh fhada, Tráil Arís."
 
@@ -1728,8 +1888,14 @@ msgstr ""
 msgid "Your Browser looks shady"
 msgstr "Tá cuma amhrasach ar do Bhrabhsálaí"
 
+msgid "Your Factions"
+msgstr ""
+
 msgid "Your Internet Provider is banned from this game"
 msgstr "Cuirtear cosc ar do soláthraí idirlín ón cliocha seo"
+
+msgid "Your Roles"
+msgstr ""
 
 msgid "Your ban expires at "
 msgstr "Cuirtear do cosc in éag ar "
@@ -1752,14 +1918,26 @@ msgstr ""
 "Zúmáil isteach in ait cuir picteilíní nuair a cliceáileann tú are an cambhas "
 "agus tá do zúm beag."
 
+msgid "affects"
+msgstr ""
+
 #, javascript-format
 msgid "and ${ canvas.req } Pixels set"
 msgstr "agus ${ canvas.req } Picteilíní socraithe"
 
+msgid "by"
+msgstr ""
+
 msgid "check compliance here"
 msgstr ""
 
+msgid "created at"
+msgstr ""
+
 msgid "download here"
+msgstr ""
+
+msgid "lift"
 msgstr ""
 
 msgid "or login with:"
@@ -1843,6 +2021,9 @@ msgstr "W"
 msgctxt "keybinds"
 msgid "X"
 msgstr "X"
+
+#~ msgid "Consider joining us on Matrix:"
+#~ msgstr "Smaoinigh ar bheith linn ar Matrix:"
 
 #~ msgid "Close Menu"
 #~ msgstr "Roghchlár droidte"

@@ -39,7 +39,7 @@ async function parseAPIresponse(response) {
   if (code === 429) {
     let error = t`You made too many requests`;
     const retryAfter = response.headers.get('Retry-After');
-    if (!Number.isNaN(Number(retryAfter))) {
+    if (!Number.isNaN(Number(retryAfter)) && retryAfter > 0) {
       const ti = Math.floor(retryAfter / 60);
       error += `, ${t`try again after ${ti}min`}`;
     }
@@ -157,25 +157,6 @@ export async function requestMute(channelId, mute) {
 }
 
 /*
- * set / unset profile as private
- * @param priv
- * @return error string or null if successful
- */
-export async function requestPrivatize(priv) {
-  const res = await makeAPIPOSTRequest(
-    '/api/privatize',
-    { priv },
-  );
-  if (res.errors) {
-    return res.errors[0];
-  }
-  if (res.status === 'ok') {
-    return null;
-  }
-  return t`Unknown Error`;
-}
-
-/*
  * start new DM channel with user
  * @param query Object with either userId or userName: string
  * @return channel Array on success, error string if not
@@ -195,43 +176,122 @@ export async function requestStartDm(query) {
 }
 
 /**
+ * change stuff for user
+ * @param user {
+ *   [priv],
+ *   [blockDm]
+ * }
+ * @return error array or null if successful
+ */
+export async function requestChangeUser(user) {
+  const res = await makeAPIPOSTRequest(
+    '/api/userchange',
+    user,
+  );
+  if (res.errors?.length) {
+    return res.errors;
+  }
+  if (res.status === 'ok') {
+    return null;
+  }
+  return [t`Unknown Error`];
+}
+
+/**
  * change stuff in profile
  * @param profile {
  *   [avatarId],
+ *   [customFlag],
+ *   [activeFactionRole],
  * }
- * @return error string or null if successful
+ * @return error array or null if successful
  */
 export async function requestChangeProfile(profile) {
   const res = await makeAPIPOSTRequest(
     '/api/profilechange',
-    { profile },
+    profile,
   );
-  if (res.errors) {
-    return res.errors[0];
+  if (res.errors?.length) {
+    return res.errors;
   }
   if (res.status === 'ok') {
     return null;
   }
-  return t`Unknown Error`;
+  return [t`Unknown Error`];
 }
 
-/*
- * set receiving of all DMs on/off
- * @param block true if blocking all dms, false if unblocking
- * @return error string or null if successful
+/**
+ * change stuff in a users faction
+ * @param userFaction {
+ *   fid: faction uuid,
+ *   [isHidden],
+ * }
+ * @return error array or null if successful
  */
-export async function requestBlockDm(block) {
+export async function requestChangeUserFaction(userFaction) {
   const res = await makeAPIPOSTRequest(
-    '/api/blockdm',
-    { block },
+    '/api/userfactionchange',
+    userFaction,
   );
-  if (res.errors) {
-    return res.errors[0];
+  if (res.errors?.length) {
+    return res.errors;
   }
   if (res.status === 'ok') {
     return null;
   }
-  return t`Unknown Error`;
+  return [t`Unknown Error`];
+}
+
+
+/**
+ * change stuff in a faction
+ * @param faction {
+ *   fid: faction uuid,
+ *   [isPrivate],
+ *   [isPublic],
+ *   [avatarId],
+ *   [name],
+ *   [title],
+ *   [description],
+ * }
+ * @return error array or null if successful
+ */
+export async function requestChangeFaction(faction) {
+  const res = await makeAPIPOSTRequest(
+    '/api/factionchange',
+    faction,
+  );
+  if (res.errors?.length) {
+    return res.errors;
+  }
+  if (res.status === 'ok') {
+    return null;
+  }
+  return [t`Unknown Error`];
+}
+
+/**
+ * change stuff in a faction role
+ * @param factionRole {
+ *   frid: faction role uuid,
+ *   [customFlagId],
+ *   [factionlvl],
+ *   [name],
+ * }
+ * @return error array or null if successful
+ */
+export async function requestChangeFactionRole(factionRole) {
+  const res = await makeAPIPOSTRequest(
+    '/api/factionrolechange',
+    factionRole,
+  );
+  if (res.errors?.length) {
+    return res.errors;
+  }
+  if (res.status === 'ok') {
+    return null;
+  }
+  return [t`Unknown Error`];
 }
 
 /*
@@ -329,21 +389,6 @@ export async function requestConsent(params) {
   return makeAPIPOSTRequest('/oidc/consent', params);
 }
 
-export function requestNameChange(name) {
-  return makeAPIPOSTRequest(
-    '/api/auth/change_name',
-    { name },
-  );
-}
-
-export function requestUsernameChange(username, token) {
-  const data = { username };
-  if (token) {
-    data.token = token;
-  }
-  return makeAPIPOSTRequest('/api/auth/change_username', data);
-}
-
 export function requestMailChange(email, password) {
   return makeAPIPOSTRequest(
     '/api/auth/change_mail',
@@ -414,6 +459,74 @@ export function requestRankings() {
   );
 }
 
+export function requestCreateFaction(
+  name, title, description, isPrivate, isPublic, avatarId,
+) {
+  const body = {
+    name, title, description, isPrivate, isPublic, avatarId,
+  };
+  return makeAPIPOSTRequest('/api/factioncreate', body);
+}
+
+export function requestLeaveFaction(fid) {
+  return makeAPIPOSTRequest('/api/factionleave', { fid });
+}
+
+export function requestJoinFaction(fid) {
+  return makeAPIPOSTRequest('/api/factionjoin', { fid });
+}
+
+export function requestFactionInfo(fidOrName) {
+  return makeAPIPOSTRequest(
+    '/api/factioninfo',
+    { fidOrName },
+  );
+}
+
+export function requestFactionMembers(fidOrName) {
+  return makeAPIPOSTRequest(
+    '/api/factionmembers',
+    { fidOrName },
+  );
+}
+
+export function requestFactionBans(fidOrName) {
+  return makeAPIPOSTRequest(
+    '/api/factionbans',
+    { fidOrName },
+  );
+}
+
+export function requestAddFactionRole(uid, frid) {
+  return makeAPIPOSTRequest(
+    '/api/factionrolejoin',
+    { uid, frid },
+  );
+}
+
+export function requestRemoveFactionRole(uid, frid) {
+  return makeAPIPOSTRequest(
+    '/api/factionroleleave',
+    { uid, frid },
+  );
+}
+
+export function requestKickBanFactionMember(
+  uid, fid, isBan, reason = '',
+) {
+  return makeAPIPOSTRequest(
+    '/api/factionkickban',
+    { uid, fid, isBan, reason },
+  );
+}
+
+export function requestLiftFactionBan(fbid, fid) {
+  return makeAPIPOSTRequest(
+    '/api/factionunban',
+    { fbid, fid },
+  );
+}
+
 export function requestProfile() {
   return makeAPIGETRequest(
     '/api/profile',
@@ -467,9 +580,12 @@ export function requestIID() {
  * file upload api preflight to check which files are available
  * @param files File or FileList
  * @param [controller] AbortController
+ * @param [route] which /api/media route to use
  * @return { availableFiles } or null if aborted
  */
-export async function requestFileUploadPreflight(files, controller) {
+export async function requestFileUploadPreflight(
+  files, controller, route,
+) {
   if (files instanceof File) {
     files = [files];
   }
@@ -477,6 +593,9 @@ export async function requestFileUploadPreflight(files, controller) {
     return {
       errors: [t`No File selected to upload`],
     };
+  }
+  if (!route) {
+    route = 'preflight';
   }
 
   const formData = new FormData();
@@ -517,7 +636,7 @@ export async function requestFileUploadPreflight(files, controller) {
   }
 
   try {
-    const response = await fetch(api`/api/media/preflight`, options);
+    const response = await fetch(api`/api/media/${route}`, options);
     return parseAPIresponse(response);
   } catch (error) {
     if (error.name === 'AbortError') {
@@ -534,9 +653,12 @@ export async function requestFileUploadPreflight(files, controller) {
  * @param files File or FileList
  * @param [controller] AbortController
  * @param [onProgress] callback for progress
+ * @param [route] which /api/media route to use
  * @return response or null if aborted
  */
-export async function requestFileUpload(files, controller, onProgress) {
+export async function requestFileUpload(
+  files, controller, onProgress, route,
+) {
   if (files instanceof File) {
     files = [files];
   }
@@ -544,6 +666,9 @@ export async function requestFileUpload(files, controller, onProgress) {
     return {
       errors: [t`No File selected to upload`],
     };
+  }
+  if (!route) {
+    route = 'upload';
   }
 
   let request;
@@ -596,7 +721,7 @@ export async function requestFileUpload(files, controller, onProgress) {
       xhr.addEventListener('abort', () => reject(true));
       /* eslint-enable prefer-promise-reject-errors */
 
-      xhr.open('POST', api`/api/media/upload`);
+      xhr.open('POST', api`/api/media/${route}`);
       xhr.send(formData);
     });
   } catch {

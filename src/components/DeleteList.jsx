@@ -20,7 +20,7 @@ const DeleteList = ({ list, callback, enabled, joinident }) => {
 
   /* eslint-disable no-nested-ternary */
   return (
-    <span className="deletelist">{
+    <div className="deletelist">{
       list.map(([identifier, name, iconUrl]) => (
         <div
           key={identifier}
@@ -52,7 +52,7 @@ const DeleteList = ({ list, callback, enabled, joinident }) => {
         </div>
       ))
     }
-    </span>
+    </div>
   );
 };
 

@@ -318,7 +318,7 @@ export class ChatProvider {
   async sendMessage(user, ip, message, channelId, lang, ttag) {
     const { id } = user;
     const { t } = ttag;
-    const { name, customFlag, avatarId } = user.data;
+    const { name, customRoleFlagId, customFlag, avatarId } = user.data;
     const { country } = ip;
 
     if (!user.rateLimiter) {
@@ -371,7 +371,7 @@ export class ChatProvider {
       return 'nope';
     }
     const [flagLegit, displayCountry] = mapFlag(
-      customFlag, user.userlvl, country,
+      customRoleFlagId, customFlag, user.userlvl, country,
     );
 
     if (USE_MAILER && user.userlvl < USERLVL.VERIFIED) {

@@ -6,7 +6,7 @@ import {
 } from '../../../data/sql/ThreePID.js';
 import { comparePasswordToHash } from '../../../utils/hash.js';
 import { USERLVL, THREEPID_PROVIDERS } from '../../../core/constants.js';
-import { setUserLvl } from '../../../data/sql/User.js';
+import { setUserProperty } from '../../../data/sql/User.js';
 import socketEvents from '../../../socket/socketEvents.js';
 
 export default async (req, res) => {
@@ -41,10 +41,10 @@ export default async (req, res) => {
   if (!hasVerified && userlvl <= USERLVL.VERIFIED
     && userlvl > USERLVL.REGISTERED
   ) {
-    await setUserLvl(user.id, USERLVL.REGISTERED);
+    await setUserProperty(user.id, 'userlvl', USERLVL.REGISTERED);
     socketEvents.reloadUser(user.id);
   } else if (hasVerified && userlvl === USERLVL.REGISTERED) {
-    await setUserLvl(user.id, USERLVL.VERIFIED);
+    await setUserProperty(user.id, 'userlvl', USERLVL.VERIFIED);
     socketEvents.reloadUser(user.id);
   }
 

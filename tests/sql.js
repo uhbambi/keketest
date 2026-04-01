@@ -4,7 +4,7 @@ import { DailyCron, HourlyCron } from '../src/utils/cron.js';
 import { getIPAllowance, getIPsOfIIDs, getIIDsOfIPs, getIPofIID, getIIDofIP, touchIP } from '../src/data/sql/IP.js';
 import { getBanInfos } from '../src/data/sql/Ban.js';
 import { resolveSession, createSession } from '../src/data/sql/Session.js';
-import { getUsersByNameOrEmail, setPassword, setUserLvl, createNewUser } from '../src/data/sql/User.js';
+import { getUsersByNameOrEmail, setPassword, setUserProperty, createNewUser } from '../src/data/sql/User.js';
 import { setEmail, getTPIDsOfUser } from '../src/data/sql/ThreePID.js';
 import { notifyUserIpChanges, ban } from '../src/core/ban.js';
 import { sanitizeIPString, ipToHex, hexToIP } from '../src/utils/intel/ip.js';
@@ -14,7 +14,7 @@ import { User } from '../src/middleware/session.js';
 import { USERLVL } from '../src/core/constants.js';
 
 const LOG_QUERY = false;
-const SYNC_MYSQL = false;
+const SYNC_MARIADB = false;
 
 function title(title, spacer = '=') {
   const spacerAmount = Math.floor((80 - title.length - 2) / 2);
@@ -29,7 +29,7 @@ function fail(message, value) {
 }
 
 async function initialize() {
-  await syncSql(SYNC_MYSQL);
+  await syncSql(SYNC_MARIADB);
 }
 
 async function destruct() {
@@ -68,7 +68,7 @@ async function establishUsers() {
   for (const [name, password, email] of newusers) {
     let userdata = await createUserIfNotExists(name, email, password);
     if (name === 'test1') {
-      await setUserLvl(userdata.id, 100);
+      await setUserProperty(userdata.id, 'userlvl', 100);
     }
   };
   console.log('Create Sessions');

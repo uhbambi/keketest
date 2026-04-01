@@ -17,7 +17,11 @@
   --control-bg-highlight: #e4e4e4;
   --control-bg-selected: #e8e8e8;
   --control-txt-color: black;
+  --caption-txt-color: #6e6e6e;
+  --error-txt-color: #b73c3c;
   --button-bg-pressed: #cbcbcb;
+  --button-bg-confirm: red;
+  --border-seperator-color: #b1b1b2;
   --menu-bg: rgba(226,226,226,.95);
 }
 
@@ -613,6 +617,14 @@ button.selected {
   background-color: var(--button-bg-pressed);
 }
 
+button.confirm {
+  background-color: var(--button-bg-confirm);
+}
+
+button.confirm:hover {
+  background-color: var(--button-bg-confirm);
+}
+
 .Alert .md-paragraph {
   margin-top: 12px;
   margin-bottom: 12px;
@@ -814,39 +826,6 @@ table td span {
  * ========================== CONTEXT MENUS ====================================
  */
 
-.contextmenu {
-  position: absolute;
-  font-size: 12px;
-  z-index: 10;
-  background-color: rgba(226, 226, 226);
-  border: solid black;
-  border-width: thin;
-  color: #212121;
-  box-shadow: 0 0 2px 2px rgba(0,0,0,.2);
-  transition: opacity 70ms ease-in-out;
-  opacity: 0;
-}
-
-.contextmenu.show {
-  opacity: 1;
-}
-
-.contextmenu > div {
-  margin: 2px;
-  height: 18px;
-  padding: 3px 2px 0px 0px;
-  background-color: #ebebeb;
-}
-
-.contextmenu > div:not(:first-child) {
-  border-top: thin solid #b1b1b2;
-}
-
-.contextmenu > div:hover {
-  background-color: #c9c9c9;
-  cursor: pointer;
-}
-
 .menu {
   position: fixed;
   font-size: 12px;
@@ -907,6 +886,194 @@ table td span {
 .menuelement > .expand-btn {
   position: absolute;
   right: 4px;
+}
+
+/*
+ * ================================ Forms ======================================
+ */
+
+.client-form {
+  text-align: initial;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-group > label, .form-group-avatar {
+  display: block;
+  margin-bottom: 6px;
+  font-weight: bold;
+  font-size: 15px;
+}
+
+.form-group > label > input[type="text"], .form-group > label > textarea {
+  width: 100%;
+  max-width: 100%;
+  padding: 6px;
+  border: 1px solid #ccc;
+  font-family: inherit;
+  font-size: 14px;
+  box-sizing: border-box;
+  margin-top: 3px;
+}
+
+.form-group > label > input[type="text"]:focus, .form-group > label >textarea:focus {
+  outline: none;
+  border-color: #007bff;
+}
+
+.form-group > textarea {
+  resize: vertical;
+  min-height: 80px;
+}
+
+.form-group > small {
+  display: block;
+  margin-top: 0.25rem;
+  font-size: 0.875rem;
+  color: var(--caption-txt-color);
+}
+
+.form-actions {
+  display: flex;
+  gap: 3px;
+  align-items: center;
+  justify-content: center;
+  margin-top: 4px;
+}
+
+/*
+ * =============================== Faction List ================================
+ */
+
+.factionlist {
+  display: inline-block;
+  margin: 5px 0px 15px 0px;
+  width: 100%;
+  overflow-y: auto;
+  border: thin solid;
+  text-align: initial;
+}
+
+.factionlist-item {
+  display: flex;
+  gap: 9px;
+  cursor: pointer;
+  padding: 4px;
+  margin-right: 10px;
+  font-weight: bold;
+  align-items: center;
+}
+
+.factionlist-edit {
+  margin: 0 10px 7px 10px;
+  line-height: 1.5em;
+}
+
+.factionlist-key {
+  color: var(--caption-txt-color);
+}
+
+.factionlist > div:not(:first-child) {
+  border-top: thin solid var(--border-seperator-color);
+}
+
+.factionlist-avatar {
+  flex-shrink: 0;
+  width: 40px;
+  height: 40px;
+}
+
+.factionlist-membercount {
+  color: var(--caption-txt-color);
+}
+
+.factionlist-title, .memberlist-name {
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  font-size: 16px;
+}
+
+.factionlist-name, .memberlist-username {
+  flex-grow: 1;
+  color: var(--caption-txt-color);
+}
+
+.factionlist-role {
+  cursor: pointer;
+  border: solid;
+  border-width: thin;
+  padding: 4px;
+  border-radius: 1em;
+  background-color: #c1c1c1;
+  color: #191919;
+  margin: 2px;
+  font-size: 12px;
+}
+
+.factionlist-role.confirm {
+  border: solid #9e5a01;
+  font-weight: 600;
+}
+
+.factionlist-square {
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  border-radius: 3px;
+  background-color: #c1c1c1;
+}
+
+.powerlvl-sovereign {
+  background-color: #ca12ca;
+}
+
+.powerlvl-magistrate {
+  background-color: #3e8adb;
+}
+
+.powerlvl-noble {
+  background-color: #eccc4c;
+}
+
+.powerlvl-stranger {
+  opacity: 0;
+}
+
+.factionlist-role:hover {
+  font-weight: 700;
+}
+
+.factionlist-role.active {
+  font-weight: 700;
+}
+
+/*
+ * =============================== FACTION =====================================
+ */
+
+.factionwin-overview, .factionwin-bans, .factionwin-members {
+  margin-top: 20px;
+  line-height: 1.8em;
+}
+
+.factionavatar {
+  width: 100%;
+  height: 150px;
+  max-width: 100%;
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  cursor: pointer;
+  display: flex;
+}
+
+.memberlist-avatar {
+  flex-shrink: 0;
+  width: 20px;
+  height: 20px;
 }
 
 /*
@@ -1060,7 +1227,7 @@ table td span {
   flex-wrap: wrap;
 }
 
-.avatar, .channelavatar {
+avatar, .channelavatar {
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -1070,7 +1237,7 @@ table td span {
   font-weight: 600;
 }
 
-.avatar {
+avatar {
   width: 28px;
   height: 28px;
   font-size: 14px;
@@ -1119,6 +1286,8 @@ table td span {
 }
 
 .chatflag {
+  width: 16px;
+  height: 11px;
   vertical-align: middle;
 }
 
@@ -1419,7 +1588,7 @@ button:hover {
 }
 
 .errormessage {
-  color: #b73c3c;
+  color: var(--error-txt-color);
 }
 
 .cooldownbox {

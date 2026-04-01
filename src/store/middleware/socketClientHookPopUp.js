@@ -20,7 +20,6 @@ export default (store) => (next) => (action) => {
     }
   } else {
     switch (action.type) {
-      case 's/SET_NAME':
       case 's/LOGIN':
       case 's/LOGOUT': {
         SocketClient.reconnect();

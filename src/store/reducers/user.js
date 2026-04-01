@@ -1,3 +1,4 @@
+import { patchState } from '../index.js';
 import { USERLVL } from '../../core/constants.js';
 
 const initialState = {
@@ -23,10 +24,6 @@ const initialState = {
   isOnMobile: false,
   // small notifications for received cooldown
   notification: null,
-  // mediaId of avatar
-  avatarId: null,
-  // code of customFlag
-  customFlag: null,
   /*
    * can be: {
    *   type, size,
@@ -80,18 +77,18 @@ export default function user(
       };
     }
 
+    case 's/PATCH_STATE': {
+      if (action.state === 'user') {
+        return patchState(state, action.patch)[0];
+      }
+      return state;
+    }
+
     case 'SET_MOBILE': {
       const { mobile: isOnMobile } = action;
       return {
         ...state,
         isOnMobile,
-      };
-    }
-
-    case 's/CHANGED_PROFILE': {
-      return {
-        ...state,
-        ...action.profile,
       };
     }
 
@@ -105,8 +102,6 @@ export default function user(
         blockDm,
         priv,
         userlvl,
-        avatarId,
-        customFlag,
       } = action;
       const messages = (action.messages) ? action.messages : [];
       return {
@@ -119,8 +114,6 @@ export default function user(
         blockDm,
         priv,
         userlvl,
-        avatarId,
-        customFlag,
       };
     }
 
@@ -135,30 +128,6 @@ export default function user(
         blockDm: false,
         priv: false,
         userlvl: USERLVL.ANONYM,
-      };
-    }
-
-    case 's/SET_NAME': {
-      return {
-        ...state,
-        name: action.name || state.name,
-        username: action.username || state.username,
-      };
-    }
-
-    case 's/SET_BLOCKING_DM': {
-      const { blockDm } = action;
-      return {
-        ...state,
-        blockDm,
-      };
-    }
-
-    case 's/SET_PRIVATE': {
-      const { priv } = action;
-      return {
-        ...state,
-        priv,
       };
     }
 

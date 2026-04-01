@@ -3,7 +3,7 @@
  */
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import { useDispatch, useSelector, shallowEqual } from 'react-redux';
 import { RiSave3Line } from 'react-icons/ri';
 import { IoTrashOutline } from 'react-icons/io5';
@@ -13,11 +13,9 @@ import { cdn } from '../utils/utag.js';
 import DeleteList from './DeleteList.jsx';
 
 import {
-  setBlockingDm,
-  setPrivatize,
-  setUserBlock,
-  changeProfile,
+  setUserBlock, changeProfile, changeUser,
 } from '../store/actions/thunks.js';
+import useProfile from './hooks/useProfile.js';
 import { selectIsDarkMode } from '../store/selectors/gui.js';
 import SettingsItem from './SettingsItem.jsx';
 import FileUpload from './FileUpload.jsx';
@@ -27,10 +25,7 @@ const selectBlocks = (state) => [
   state.chat.blocked,
   state.user.blockDm,
   state.user.priv,
-  state.user.avatarId,
   state.user.id,
-  state.user.customFlag,
-  state.fetching.fetchingApi,
 ];
 
 /* eslint-disable max-len */
@@ -39,17 +34,24 @@ const SocialSettings = ({ done }) => {
     blocked,
     blockDm,
     priv,
-    avatarId,
     userId,
-    customFlag,
-    fetching,
   ] = useSelector(selectBlocks, shallowEqual);
-  const [selectedCustomFlag, setSelectedCustomFlag] = useState(customFlag);
+  const [fetchChange, setFetchChange] = useState(false);
+
+  const [avatarId, customFlag] = useProfile((profile) => [
+    profile.avatarId, profile.customFlag,
+  ]);
+
+  const [selectedCustomFlag, setSelectedCustomFlag] = useState(null);
   const isDarkMode = useSelector(selectIsDarkMode);
   const uploadRef = useRef();
   const flagAtlasRef = useRef();
   const flagAtlasJsonRef = useRef();
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    setSelectedCustomFlag(customFlag);
+  }, [customFlag]);
 
   const onFlagAtlasClick = async (event) => {
     /*
@@ -92,27 +94,33 @@ const SocialSettings = ({ done }) => {
             <button
               type="button"
               onClick={async () => {
-                if (!fetching) {
-                  dispatch(changeProfile({ avatarId: null }));
+                if (!fetchChange) {
+                  setFetchChange(true);
+                  await dispatch(changeProfile({ avatarId: null }, true));
+                  setFetchChange(false);
                 }
               }}
               title={t`Clear`}
-              disabled={fetching}
+              disabled={fetchChange}
             >
               <IoTrashOutline />
             </button>
             <button
               type="button"
               onClick={async () => {
-                if (!fetching) {
+                if (!fetchChange) {
                   const files = await uploadRef.current?.();
                   if (files.length) {
-                    dispatch(changeProfile({ avatarId: files[0].mediaId }));
+                    setFetchChange(true);
+                    await dispatch(changeProfile({
+                      avatarId: files[0].mediaId,
+                    }, true));
+                    setFetchChange(false);
                   }
                 }
               }}
               title={t`Save`}
-              disabled={fetching}
+              disabled={fetchChange}
             >
               <RiSave3Line />
             </button>
@@ -150,19 +158,23 @@ const SocialSettings = ({ done }) => {
           type="button"
           onClick={() => setSelectedCustomFlag(null)}
           title={t`Clear`}
-          disabled={fetching || !selectedCustomFlag}
+          disabled={fetchChange || !selectedCustomFlag}
         >
           <IoTrashOutline />
         </button>
         <button
           type="button"
           onClick={async () => {
-            if (!fetching) {
-              dispatch(changeProfile({ customFlag: selectedCustomFlag }));
+            if (!fetchChange) {
+              setFetchChange(true);
+              await dispatch(changeProfile({
+                customFlag: selectedCustomFlag,
+              }, true));
+              setFetchChange(false);
             }
           }}
           title={t`Save`}
-          disabled={fetching || customFlag === selectedCustomFlag}
+          disabled={fetchChange || customFlag === selectedCustomFlag}
         >
           <RiSave3Line />
         </button>
@@ -177,23 +189,30 @@ const SocialSettings = ({ done }) => {
           onDragStart={(e) => e.preventDefault()}
         />
       </div>
+      <div className="modaldesc">{
+        t`Note: Your active Faction may overwrite your flag settings.`
+      }</div>
       <div className="modaldivider" />
 
       <SettingsItem
         title={t`Block DMs`}
         value={blockDm}
-        onToggle={() => {
-          if (!fetching) {
-            dispatch(setBlockingDm(!blockDm));
+        onToggle={async () => {
+          if (!fetchChange) {
+            setFetchChange(true);
+            await dispatch(changeUser({ blockDm: !blockDm }, true));
+            setFetchChange(false);
           }
         }}
       >{t`Block all Private Messages. Enabling this will delete all your current DMs. You can still start new DMs with other users, but other users won't be able to start DMs with you.`}</SettingsItem>
       <SettingsItem
         title={t`Private`}
         value={priv}
-        onToggle={() => {
-          if (!fetching) {
-            dispatch(setPrivatize(!priv));
+        onToggle={async () => {
+          if (!fetchChange) {
+            setFetchChange(true);
+            await dispatch(changeUser({ priv: !priv }, true));
+            setFetchChange(false);
           }
         }}
       >{t`Don't show me in global stats`}</SettingsItem>
@@ -207,12 +226,14 @@ const SocialSettings = ({ done }) => {
         (blocked.length) ? (
           <DeleteList
             list={blocked}
-            callback={(id, name) => {
-              if (!fetching) {
+            callback={async (id, name) => {
+              if (!fetchChange) {
+                setFetchChange(true);
                 dispatch(setUserBlock(id, name, false));
+                setFetchChange(false);
               }
             }}
-            enabled={!fetching}
+            enabled={!fetchChange}
           />
         )
           : <p>{t`You have no users blocked`}</p>

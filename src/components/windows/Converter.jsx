@@ -13,10 +13,10 @@ import {
   scaleImage,
   quantizeImage,
   addGrid,
-} from '../utils/imageFilters.js';
-import { fileToCanvas } from '../utils/imageFiles.js';
-import printGIMPPalette from '../core/exportGPL.js';
-import { copyCanvasToClipboard } from '../utils/clipboard.js';
+} from '../../utils/imageFilters.js';
+import { fileToCanvas } from '../../utils/imageFiles.js';
+import printGIMPPalette from '../../core/exportGPL.js';
+import { copyCanvasToClipboard } from '../../utils/clipboard.js';
 
 
 function downloadOutput() {
@@ -188,6 +188,7 @@ function Converter() {
 
   return (
     <div className="content">
+      <h2>{t`Converter`}</h2>
       <div>{t`Choose Canvas`}:&nbsp;
         <select
           value={selectedCanvas}

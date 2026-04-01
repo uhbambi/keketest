@@ -72,20 +72,6 @@ tr:nth-child(even) {
   background-color: #8b8b8b;
 }
 
-.contextmenu {
-  background-color: #353535;
-  color: #efefef;
-  border-radius: 4px;
-}
-
-.contextmenu > div {
-  background-color: #353535;
-}
-
-.contextmenu > div:hover {
-  background-color: #404040;
-}
-
 .actionbuttons, .coorbox, .onlinebox, .cooldownbox, .historyselect {
   background-color: rgba(27, 27, 27, 0.8);
   color: #ffd4ae;
@@ -100,10 +86,6 @@ tr:nth-child(even) {
 }
 #pencilbutton.poverlay {
   background-color: rgba(117, 31, 31, 0.8);
-}
-
-.contextmenu > div {
-  border-top: thin solid #ffa14c;
 }
 
 .modal, .Alert, .popup-modal {

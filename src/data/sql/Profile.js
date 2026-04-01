@@ -8,8 +8,22 @@ const Profile = sequelize.define('Profile', {
     primaryKey: true,
   },
 
+  /*
+   * custom flags set by user
+   */
   customFlag: {
     type: DataTypes.STRING(2),
+    allowNull: true,
+  },
+
+  /*
+   * id of active faction role,
+   * have to manually ensure on changes that this role is from a faction the
+   * user is actually a member of.
+   * If this role has a flag set, use that instead of ours.
+   */
+  activeRole: {
+    type: DataTypes.BIGINT.UNSIGNED,
     allowNull: true,
   },
 
@@ -72,7 +86,7 @@ export async function setUserAvatar(uid, mediaId = null) {
     }
     await sequelize.query(
       // eslint-disable-next-line max-len
-      'INSERT INTO Profiles (uid, avatar) SELECT ?, m.id AS hash FROM Media m WHERE m.shortId = ? AND m.extension = ? ON DUPLICATE KEY UPDATE avatar = VALUES(avatar)', {
+      'INSERT INTO Profiles (uid, avatar) SELECT ?, m.id FROM Media m WHERE m.shortId = ? AND m.extension = ? ON DUPLICATE KEY UPDATE avatar = VALUES(avatar)', {
         replacements: [uid, shortId, extension],
         raw: true,
         type: QueryTypes.INSERT,
@@ -81,6 +95,52 @@ export async function setUserAvatar(uid, mediaId = null) {
     return true;
   } catch (err) {
     console.error('SQL Error on setUserAvatar:', err.message);
+    return false;
+  }
+}
+
+/**
+ * set active faction role of user
+ * @param uid userId
+ * @param factionRole uuid of faction role
+ * @return boolean if successful
+ */
+export async function setActiveFactionRole(uid, factionRole = null) {
+  try {
+    if (!uid) {
+      return false;
+    }
+    let activeRole = null;
+    if (factionRole) {
+      /* make sure user has that role and is in that faction */
+      const model = await sequelize.query(
+        `SELECT fr.id AS sqlFrid FROM UserFactionRoles ufr
+  INNER JOIN FactionRoles fr ON ufr.frid = fr.id
+  INNER JOIN Factions f ON fr.fid = f.id
+  INNER JOIN UserFactions uf ON uf.fid = f.id
+WHERE ufr.uid = ? AND uf.uid = ? AND fr.uuid = UUID_TO_BIN(?)`, {
+          replacements: [uid, uid, factionRole],
+          plain: true,
+          type: QueryTypes.SELECT,
+        },
+      );
+      if (!model) {
+        return false;
+      }
+      activeRole = model.sqlFrid;
+    }
+
+    await sequelize.query(
+      // eslint-disable-next-line max-len
+      'INSERT INTO Profiles (uid, activeRole) VALUES (?, ?) ON DUPLICATE KEY UPDATE activeRole = VALUES(activeRole)', {
+        replacements: [uid, activeRole],
+        raw: true,
+        type: QueryTypes.INSERT,
+      },
+    );
+    return true;
+  } catch (err) {
+    console.error('SQL Error on setActiveFactionRole:', err.message);
     return false;
   }
 }

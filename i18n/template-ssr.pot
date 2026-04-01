@@ -25,7 +25,7 @@ msgid ""
 "ranking updates at 00:00 UTC."
 msgstr ""
 
-#: src/routes/api/media.js:287
+#: src/routes/api/media.js:308
 msgid "A file was too large"
 msgstr ""
 
@@ -61,19 +61,79 @@ msgstr ""
 msgid "Application successfully added"
 msgstr ""
 
-#: src/routes/api/profilechange.js:41
+#: src/routes/api/factionchange.js:129
+#: src/routes/api/profilechange.js:34
 msgid "Avatar can only be an image"
+msgstr ""
+
+#: src/routes/api/factioncreate.js:67
+msgid "Avatar not given or not an image"
 msgstr ""
 
 #: src/canvasesDesc.js:39
 msgid "Black and White canvas"
 msgstr ""
 
+#: src/routes/api/factionroledelete.js:41
+msgid "Can not change a role above or equal to your own"
+msgstr ""
+
+#: src/routes/api/factionrolechange.js:43
+#: src/routes/api/factionrolejoin.js:53
+msgid "Can not change a role above your own"
+msgstr ""
+
+#: src/routes/api/factionrolechange.js:46
+#: src/routes/api/factionrolejoin.js:61
+msgid "Can not change a role that is equal to your own"
+msgstr ""
+
+#: src/routes/api/factionrolechange.js:79
+msgid "Can not change the powerlevel of a role equal or above you"
+msgstr ""
+
+#: src/routes/api/factionrolechange.js:75
+msgid "Can not change the powerlevel of the Sovereign"
+msgstr ""
+
+#: src/routes/api/factionrolechange.js:58
+msgid "Can not change this role"
+msgstr ""
+
 #: src/core/ChatProvider.js:355
 msgid "Can not chat while being banned"
 msgstr ""
 
-#: src/routes/api/media.js:89
+#: src/routes/api/factionrolecreate.js:47
+msgid "Can not create a role with a powerlevel of yours or beyond"
+msgstr ""
+
+#: src/routes/api/factionroledelete.js:30
+msgid "Can not delete this role"
+msgstr ""
+
+#: src/routes/api/factionrolechange.js:84
+msgid "Can not elevate the powerlevel of a role to yours or beyond"
+msgstr ""
+
+#: src/routes/api/factionrolecreate.js:65
+msgid "Can not have more than 20 faction roles"
+msgstr ""
+
+#: src/routes/api/factionkickban.js:43
+#: src/routes/api/factionrolejoin.js:50
+#: src/routes/api/factionroleleave.js:52
+msgid "Can not modify user equal to you or above you"
+msgstr ""
+
+#: src/routes/api/factionkickban.js:59
+#: src/routes/api/factionleave.js:28
+#: src/routes/api/factionroleleave.js:58
+#. when leaving a faction and you are the last owner
+msgid "Can not orphan a faction"
+msgstr ""
+
+#: src/routes/api/media.js:90
 #, javascript-format
 msgid ""
 "Can not upload this many files at once, only 5 are allowed, you have ${ "
@@ -112,6 +172,11 @@ msgstr ""
 msgid "Coronavirus"
 msgstr ""
 
+#: src/routes/api/userchange.js:45
+#: src/routes/api/userchange.js:55
+msgid "Could not change this setting. Maybe try again later."
+msgstr ""
+
 #: src/routes/api/auth/close_session.js:22
 #: src/routes/api/auth/revoke_consent.js:12
 msgid "Could not close this Session."
@@ -125,11 +190,23 @@ msgstr ""
 msgid "Could not leave this channel"
 msgstr ""
 
-#: src/routes/api/profilechange.js:47
-msgid "Could not set your avtar"
+#: src/routes/api/factionchange.js:133
+msgid "Could not set this factions avatar"
 msgstr ""
 
-#: src/routes/api/media.js:291
+#: src/routes/api/profilechange.js:39
+msgid "Could not set your avatar"
+msgstr ""
+
+#: src/routes/api/profilechange.js:76
+msgid "Could not set your faction role"
+msgstr ""
+
+#: src/routes/api/factionrolechange.js:133
+msgid "Could not this roles flag"
+msgstr ""
+
+#: src/routes/api/media.js:312
 msgid "Could not upload all files"
 msgstr ""
 
@@ -144,6 +221,14 @@ msgstr ""
 
 #: src/routes/oidc/register.js:333
 msgid "Delete Application"
+msgstr ""
+
+#: src/utils/validation.js:91
+msgid "Description can't be empty"
+msgstr ""
+
+#: src/utils/validation.js:94
+msgid "Description must be shorter than 1000 characters"
 msgstr ""
 
 #: src/routes/oidc/register.js:193
@@ -192,23 +277,23 @@ msgstr ""
 msgid "Error"
 msgstr ""
 
-#: src/routes/api/auth/register.js:124
+#: src/routes/api/auth/register.js:121
 msgid "Failed to create a new user :("
 msgstr ""
 
-#: src/routes/api/media.js:123
+#: src/routes/api/media.js:124
 #, javascript-format
 msgid ""
 "File ${ filename } has ${ sizeMB } MB and is too large. It may only be ${ "
 "MAX_FILE_SIZE_MB } MB"
 msgstr ""
 
-#: src/routes/api/media.js:135
+#: src/routes/api/media.js:136
 #, javascript-format
 msgid "File ${ filename } has an invalid extension"
 msgstr ""
 
-#: src/routes/api/media.js:277
+#: src/routes/api/media.js:298
 msgid "File is broken"
 msgstr ""
 
@@ -265,7 +350,8 @@ msgstr ""
 msgid "Incorrect password!"
 msgstr ""
 
-#: src/routes/api/media.js:267
+#: src/routes/api/media.js:143
+#: src/routes/api/media.js:288
 msgid "Invalid type of media"
 msgstr ""
 
@@ -321,11 +407,11 @@ msgstr ""
 msgid "Mail verification"
 msgstr ""
 
-#: src/routes/api/media.js:264
+#: src/routes/api/media.js:285
 msgid "MimeType or extension not known or supported"
 msgstr ""
 
-#: src/routes/api/media.js:130
+#: src/routes/api/media.js:131
 #, javascript-format
 msgid "Mimetype ${ mimeType } of file ${ filename } is invalid or not allowed"
 msgstr ""
@@ -352,13 +438,19 @@ msgid ""
 "art) or art larger than 1.5k x 1.5k pixels."
 msgstr ""
 
-#: src/routes/api/auth/change_name.js:39
-#: src/routes/api/auth/change_username.js:36
 #: src/routes/api/auth/register.js:86
+#: src/routes/api/factionchange.js:78
+#: src/routes/api/factioncreate.js:69
+#: src/routes/api/userchange.js:102
 msgid "Name already in use."
 msgstr ""
 
+#: src/utils/validation.js:84
+msgid "Name can only contain the characters: a-z . _ and -"
+msgstr ""
+
 #: src/utils/validation.js:30
+#: src/utils/validation.js:76
 msgid "Name can't be empty."
 msgstr ""
 
@@ -371,10 +463,12 @@ msgid "Name is too long"
 msgstr ""
 
 #: src/utils/validation.js:31
+#: src/utils/validation.js:78
 msgid "Name must be at least 2 characters long"
 msgstr ""
 
 #: src/utils/validation.js:32
+#: src/utils/validation.js:81
 msgid "Name must be shorter than 26 characters"
 msgstr ""
 
@@ -386,11 +480,15 @@ msgstr ""
 msgid "New Password"
 msgstr ""
 
+#: src/routes/api/factioncreate.js:39
+msgid "No Avatar given"
+msgstr ""
+
 #: src/routes/api/auth/register.js:32
 msgid "No Captcha given"
 msgstr ""
 
-#: src/routes/api/media.js:261
+#: src/routes/api/media.js:282
 msgid "No file metadata given"
 msgstr ""
 
@@ -399,7 +497,7 @@ msgstr ""
 msgid "No or invalid fish id."
 msgstr ""
 
-#: src/utils/validation.js:69
+#: src/utils/validation.js:109
 msgid "No password given."
 msgstr ""
 
@@ -448,11 +546,11 @@ msgstr ""
 msgid "Our main canvas, a huge map of the world. Place anywhere you like!"
 msgstr ""
 
-#: src/utils/validation.js:72
+#: src/utils/validation.js:112
 msgid "Password must be at least 6 characters long."
 msgstr ""
 
-#: src/utils/validation.js:75
+#: src/utils/validation.js:115
 msgid "Password must be shorter than 60 characters."
 msgstr ""
 
@@ -522,7 +620,7 @@ msgstr ""
 msgid "Regularly update this data"
 msgstr ""
 
-#: src/routes/api/media.js:284
+#: src/routes/api/media.js:305
 msgid "Request stalled"
 msgstr ""
 
@@ -543,8 +641,27 @@ msgstr ""
 msgid "Reset your password here"
 msgstr ""
 
-#: src/routes/api/media.js:168
-#: src/routes/api/media.js:280
+#: src/routes/api/factionrolechange.js:125
+msgid "Role flag can only be an image"
+msgstr ""
+
+#: src/routes/api/factionrolechange.js:128
+msgid "Role flag needs to be 16x11"
+msgstr ""
+
+#: src/routes/api/factionbans.js:30
+#: src/routes/api/factioncreate.js:71
+#: src/routes/api/factioncreate.js:77
+#: src/routes/api/factionjoin.js:39
+#: src/routes/api/factionkickban.js:61
+#: src/routes/api/factionkickban.js:87
+#: src/routes/api/factionleave.js:30
+#: src/routes/api/factionmembers.js:34
+#: src/routes/api/factionrolecreate.js:67
+#: src/routes/api/factionrolejoin.js:66
+#: src/routes/api/factionroleleave.js:63
+#: src/routes/api/media.js:176
+#: src/routes/api/media.js:301
 msgid "Server Error"
 msgstr ""
 
@@ -650,6 +767,32 @@ msgstr ""
 msgid "This email provider is not allowed"
 msgstr ""
 
+#: src/routes/api/factionbans.js:22
+#: src/routes/api/factioninfo.js:24
+#: src/routes/api/factionjoin.js:25
+#: src/routes/api/factionjoin.js:42
+#: src/routes/api/factionkickban.js:56
+#: src/routes/api/factionkickban.js:64
+#: src/routes/api/factionleave.js:25
+#: src/routes/api/factionleave.js:33
+#: src/routes/api/factionmembers.js:25
+#: src/routes/api/factionrolecreate.js:61
+#: src/routes/api/factionunban.js:34
+msgid "This faction does not exist"
+msgstr ""
+
+#: src/routes/api/factionjoin.js:35
+msgid "This faction is full"
+msgstr ""
+
+#: src/routes/api/factionmembers.js:28
+msgid "This faction is hidden"
+msgstr ""
+
+#: src/routes/api/factioninfo.js:28
+msgid "This faction is private"
+msgstr ""
+
 #: src/utils/media/serverUtils.js:162
 #, javascript-format
 msgid "This media is banned ${ reason }. Ban ID: ${ mbid }"
@@ -657,6 +800,22 @@ msgstr ""
 
 #: src/routes/reset_password.js:48
 msgid "This password-reset link isn't valid anymore :("
+msgstr ""
+
+#: src/utils/validation.js:60
+msgid "Title can't be empty."
+msgstr ""
+
+#: src/utils/validation.js:70
+msgid "Title contains invalid character like @, /, \\ or #"
+msgstr ""
+
+#: src/utils/validation.js:61
+msgid "Title must be at least 2 characters long"
+msgstr ""
+
+#: src/utils/validation.js:62
+msgid "Title must be shorter than 26 characters"
 msgstr ""
 
 #: src/routes/oidc/register.js:67
@@ -672,8 +831,8 @@ msgstr ""
 msgid "Unknown Captcha Error"
 msgstr ""
 
-#: src/routes/api/media.js:328
-#: src/routes/api/media.js:369
+#: src/routes/api/media.js:349
+#: src/routes/api/media.js:391
 #, javascript-format
 msgid "Unknown field ${ name } in request"
 msgstr ""
@@ -691,10 +850,11 @@ msgid "User doesn't exist in our database :("
 msgstr ""
 
 #: src/routes/api/auth/register.js:89
+#: src/routes/api/userchange.js:78
 msgid "Username already in use."
 msgstr ""
 
-#: src/routes/api/auth/change_username.js:19
+#: src/routes/api/userchange.js:66
 msgid "Username can not start with pp_"
 msgstr ""
 
@@ -727,8 +887,8 @@ msgid ""
 "minLeft } minutes."
 msgstr ""
 
-#: src/routes/api/media.js:96
-#: src/routes/api/media.js:270
+#: src/routes/api/media.js:97
+#: src/routes/api/media.js:291
 msgid "We currently do not allow file uploads"
 msgstr ""
 
@@ -737,16 +897,24 @@ msgstr ""
 msgid "Welcome ${ name } to PixelPlanet, please verify your mail"
 msgstr ""
 
-#: src/routes/api/auth/change_username.js:17
+#: src/routes/api/userchange.js:64
 msgid "You already chose your username"
 msgstr ""
 
-#: src/routes/api/auth/change_name.js:11
+#: src/routes/api/userchange.js:90
 msgid "You already have that name."
+msgstr ""
+
+#: src/routes/api/factionjoin.js:33
+msgid "You are already part of this faction"
 msgstr ""
 
 #: src/routes/api/auth/resend_verify.js:14
 msgid "You are already verified."
+msgstr ""
+
+#: src/routes/api/factionjoin.js:31
+msgid "You are banned from this faction"
 msgstr ""
 
 #: src/core/ChatProvider.js:365
@@ -767,7 +935,7 @@ msgstr ""
 msgid "You are not banned"
 msgstr ""
 
-#: src/middleware/session.js:230
+#: src/middleware/session.js:255
 #: src/routes/api/modtools.js:67
 msgid "You are not logged in"
 msgstr ""
@@ -805,6 +973,17 @@ msgstr ""
 msgid "You can not send chat messages while using a proxy"
 msgstr ""
 
+#: src/routes/api/factioncreate.js:59
+#, javascript-format
+msgid "You can only be owner of ${ MAX_OWNED_FACTIONS_PER_USER } factions in total"
+msgstr ""
+
+#: src/routes/api/factioncreate.js:54
+#: src/routes/api/factionjoin.js:28
+#, javascript-format
+msgid "You can only have ${ MAX_FACTIONS_PER_USER } factions in total"
+msgstr ""
+
 #: src/routes/oidc/register.js:126
 msgid ""
 "You can register your own application here to get the client_id and "
@@ -815,7 +994,7 @@ msgstr ""
 msgid "You can't send a message this long :("
 msgstr ""
 
-#: src/routes/api/media.js:83
+#: src/routes/api/media.js:84
 msgid "You did not provide all necessary information"
 msgstr ""
 
@@ -845,6 +1024,10 @@ msgstr ""
 msgid "You must be logged in to access this page"
 msgstr ""
 
+#: src/routes/api/factionjoin.js:37
+msgid "You need an invite to join this faction"
+msgstr ""
+
 #: src/routes/oidc/register.js:93
 #. "scope" is a technical term and should not be translated
 msgid "You need to define a valid scope"
@@ -854,8 +1037,8 @@ msgstr ""
 msgid "You need to directly access this page in the browser :("
 msgstr ""
 
-#: src/routes/api/media.js:103
-#: src/routes/api/media.js:274
+#: src/routes/api/media.js:104
+#: src/routes/api/media.js:295
 #, javascript-format
 msgid "You reached your maximum upload quota of ${ MAX_USER_MEDIA_SIZE_MB } MB"
 msgstr ""
@@ -880,6 +1063,10 @@ msgstr ""
 
 #: src/routes/api/auth/register.js:69
 msgid "Your Browser looks shady"
+msgstr ""
+
+#: src/routes/api/factioncreate.js:64
+msgid "Your account must be at least two weeks old before you can create a faction"
 msgstr ""
 
 #: src/routes/oidc/register.js:38

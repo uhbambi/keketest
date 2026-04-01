@@ -56,6 +56,46 @@ export function validateUsername(username) {
   return false;
 }
 
+export function validateFactionTitle(title) {
+  if (!title) return t`Title can't be empty.`;
+  if (title.length < 2) return t`Title must be at least 2 characters long`;
+  if (title.length > 26) return t`Title must be shorter than 26 characters`;
+  if (title.indexOf('@') !== -1
+      || title.indexOf('/') !== -1
+      || title.indexOf('\\') !== -1
+      || title.indexOf('>') !== -1
+      || title.indexOf('<') !== -1
+      || title.indexOf('#') !== -1
+      || title.indexOf(String.fromCharCode(27)) !== -1) {
+    return t`Title contains invalid character like @, /, \\ or #`;
+  }
+  return false;
+}
+
+export function validateFactionName(name) {
+  if (!name) return t`Name can't be empty.`;
+  if (name.length < 2) {
+    return t`Name must be at least 2 characters long`;
+  }
+  if (name.length > 26) {
+    return t`Name must be shorter than 26 characters`;
+  }
+  if (/[^a-zA-Z0-9._-]/.test(name)) {
+    return t`Name can only contain the characters: a-z . _ and -`;
+  }
+  return false;
+}
+
+export function validateDescription(description) {
+  if (typeof description !== 'string') {
+    return t`Description can't be empty`;
+  }
+  if (description.length > 1000) {
+    return t`Description must be shorter than 1000 characters`;
+  }
+  return false;
+}
+
 export function sanitizeName(name) {
   name = name.substring(0, 25);
   // just sanitizes @ for now, other characters do not seem

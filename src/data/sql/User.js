@@ -50,7 +50,7 @@ const User = sequelize.define('User', {
   },
 
   userlvl: {
-    type: DataTypes.TINYINT.UNSIGNED,
+    type: DataTypes.TINYINT,
     allowNull: false,
     defaultValue: USERLVL.REGISTERED,
   },
@@ -100,6 +100,22 @@ BEGIN
   ELSE
     SET NEW.username = REGEXP_REPLACE(NEW.username, '[^a-zA-Z0-9._-]', '');
   END IF;
+END`);
+  await sequelize.query(
+    `CREATE TRIGGER IF NOT EXISTS before_user_delete
+BEFORE DELETE ON Users FOR EACH ROW
+BEGIN
+  UPDATE FactionRoles SET memberCount = memberCount - 1
+  WHERE EXISTS (
+      SELECT 1 FROM UserFactionRoles ufr
+      WHERE ufr.frid = FactionRoles.id AND ufr.uid = OLD.id
+  );
+
+  UPDATE Factions SET memberCount = memberCount - 1
+  WHERE EXISTS (
+    SELECT 1 FROM UserFactions uf
+    WHERE uf.fid = Factions.id AND uf.uid = OLD.id
+  );
 END`);
 });
 
@@ -186,10 +202,13 @@ export async function getInfoByUsernameOrId(usernameOrId) {
     /* eslint-disable max-len */
     let query = `SELECT u.id AS uid, u.name, u.username, s.country, u.userlvl, p.customFlag,
 CONCAT(a.shortId, ':', a.extension) AS avatarId,
-EXISTS(SELECT 1 FROM Bans b INNER JOIN UserBans ub ON ub.bid = b.id WHERE ub.uid = u.id AND (b.flags & 0x02) > 0 AND (b.expires > NOW() OR b.expires IS NULL)) AS isMuted
+CONCAT(frm.shortId, ':', frm.extension) AS customRoleFlagId,
+EXISTS(SELECT 1 FROM Bans b INNER JOIN UserBans ub ON ub.bid = b.id WHERE ub.uid = u.id AND (b.flags & 0x02) != 0 AND (b.expires > NOW() OR b.expires IS NULL)) AS isMuted
 FROM Users u
     LEFT JOIN Profiles p ON p.uid = u.id
     LEFT JOIN Media a ON a.id = p.avatar
+    LEFT JOIN FactionRoles fr ON fr.id = p.activeRole
+    LEFT JOIN Media frm ON frm.id = fr.customFlag
     LEFT JOIN Sessions s ON s.uid = u.id AND s.country != 'xx'
 WHERE `;
     /* eslint-enable max-len */
@@ -738,47 +757,26 @@ export async function createNewUser(
 }
 
 /**
- * set userlvl
+ * change a property of a user
  * @param id user id
- * @param userlvl user level
- * @return boolean success
+ * @param property
+ * @param value
+ * @return success
  */
-export async function setUserLvl(id, userlvl) {
+export async function setUserProperty(id, property, value) {
   try {
-    await User.update({ userlvl }, { where: { id }, returning: false });
+    await sequelize.query(
+      `UPDATE Users SET ${property} = ? WHERE id = ?`, {
+        replacements: [value, id],
+        raw: true,
+        type: QueryTypes.UPDATE,
+      },
+    );
     return true;
   } catch (error) {
-    console.error(`SQL Error on setUserLvl: ${error.message}`);
+    console.error(`SQL Error on setUserProperty: ${error.message}`);
   }
   return false;
-}
-
-/**
- * set name
- * @param id user id
- * @param name name
- */
-export async function setName(id, name) {
-  try {
-    await User.update({ name }, { where: { id }, returning: false });
-  } catch (error) {
-    return false;
-  }
-  return true;
-}
-
-/**
- * set name
- * @param id user id
- * @param name name
- */
-export async function setUsername(id, username) {
-  try {
-    await User.update({ username }, { where: { id }, returning: false });
-  } catch (error) {
-    return false;
-  }
-  return true;
 }
 
 /**
@@ -786,14 +784,8 @@ export async function setUsername(id, username) {
  * @param id user id
  * @param password password in cleartext (we hash it here)
  */
-export async function setPassword(id, password) {
-  try {
-    await User.update({ password }, { where: { id }, returning: false });
-  } catch (error) {
-    console.error(`SQL Error on setPassword: ${error.message}`);
-    return false;
-  }
-  return true;
+export function setPassword(id, password) {
+  return setUserProperty(id, 'password', generateHash(password));
 }
 
 /**
@@ -964,6 +956,45 @@ WHERE (u.flags & ?) = 0 AND u.id IN (?);`, {
     }
   }
   return rawRanks;
+}
+
+/**
+ * get users by search term
+ * @param term search term
+ * @return [{
+ *   uid,
+ *   name,
+ *   username,
+ *   customFlagId,
+ *   avatarId,
+ * }, ...]
+ */
+export async function searchUser(term) {
+  try {
+    const sqlTerm = `%${term}%`;
+    const model = await sequelize.query(
+      `SELECT u.id AS uid, u.name, u.username,
+CONCAT(frm.shortId, ':', frm.extension) AS 'roles.customFlagId',
+CONCAT(a.shortId, ':', a.extension) AS avatarId FROM Users u
+  LEFT JOIN Media a ON a.id = u.avatar
+  LEFT JOIN Profile p ON p.uid = u.id
+  LEFT JOIN FactionRoles fr ON p.activeRole = fr.id
+  LEFT JOIN Media frm ON fr.customFlag = frm.id
+WHERE (u.flags & ?) = 0 AND (
+  u.name LIKE ? OR u.username LIKE ?
+) LIMIT 100`, {
+        replacements: [0x01 << USER_FLAGS.PRIV, sqlTerm, sqlTerm],
+        raw: true,
+        type: QueryTypes.SELECT,
+      },
+    );
+    if (model) {
+      return model;
+    }
+  } catch (error) {
+    console.error('SQL Error on searchUser:', error.message);
+  }
+  return [];
 }
 
 export default User;

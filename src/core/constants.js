@@ -133,6 +133,41 @@ export const USER_FLAGS = {
   PRIV: 1,
 };
 
+export const FACTION_FLAGS = {
+  // whether it is searchable
+  PRIV: 0,
+  // whether everybody can join withhout invite
+  PUBLIC: 1,
+};
+
+export const USER_FACTION_FLAGS = {
+  HIDDEN: 0,
+};
+
+export const FACTION_ROLE_FLAGS = {
+  // can not be deleted, can not have his default flag changed
+  PROTECTED: 0,
+  // new members join this role per default
+  DEFAULT: 1,
+};
+
+export const FACTIONLVL = {
+  PEASANT: 0,
+  /* ban and invite people */
+  NOBLE: 50,
+  /* unban and change roles */
+  MAGISTRATE: 80,
+  SOVEREIGN: 100,
+};
+
+export const MAX_FACTIONS_PER_USER = 20;
+
+export const MAX_OWNED_FACTIONS_PER_USER = 10;
+
+export const MAX_FLAGS_PER_FACTION = 10;
+
+export const MAX_ROLES_PER_FACTION = 20;
+
 // Mode for shift-painting or phone pencil, HISTORY has to be last
 export const PENCIL_MODE = {
   COLOR: 0,
@@ -147,8 +182,8 @@ export const OVERLAY_SP_TH = 8;
  * PopUp path args
  */
 export const POPUP_ARGS = {
-  USERAREA: ['activeTab'],
   MODTOOLS: ['activeTab'],
+  FACTION: ['name', 'activeTab'],
   CHAT: [['chatChannel', 'int']],
   FISH_DISPLAY: [['id', 'int']],
   BADGE_DISPLAY: [['id', 'int']],
@@ -170,6 +205,9 @@ export const AVAILABLE_POPUPS = [
   'BADGE_DISPLAY',
   'STATISTICS',
   'MODTOOLS',
+  'MYFACTIONS',
+  'FACTION',
+  'CONVERTER',
 ];
 
 /*
@@ -177,6 +215,7 @@ export const AVAILABLE_POPUPS = [
  */
 export const POPUPS_NEEDING_WS = [
   'CHAT',
+  'MYFACTIONS',
   'USERAREA',
 ];
 

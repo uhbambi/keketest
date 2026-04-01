@@ -5,7 +5,7 @@
 import getMe from '../../core/me.js';
 
 export default async (req, res) => {
-  req.tickRateLimiter(3000);
+  req.tickRateLimiter(1000);
 
   const { ip, user, lang } = req;
   const userdata = await getMe(user, ip, lang);

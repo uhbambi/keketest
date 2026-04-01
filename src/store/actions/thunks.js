@@ -7,12 +7,14 @@ import {
   requestStartDm,
   requestBlock,
   requestMute,
-  requestBlockDm,
-  requestPrivatize,
   requestLeaveChan,
   requestRankings,
   requestProfile,
   requestChangeProfile,
+  requestChangeUser,
+  requestChangeUserFaction,
+  requestChangeFaction,
+  requestChangeFactionRole,
   requestMe,
 } from './fetch.js';
 import {
@@ -21,10 +23,8 @@ import {
   receiveMe,
   blockUser,
   unblockUser,
-  blockingDm,
-  privatize,
-  profileChange,
   selectPencilMode,
+  patchState,
 } from './index.js';
 import {
   addChatChannel,
@@ -33,12 +33,10 @@ import {
 import { isIntervalActive } from '../../core/utils.js';
 import { PENCIL_MODE, CHANNEL_TYPES } from '../../core/constants.js';
 
-function setApiFetching(fetching) {
-  return {
-    type: 'SET_API_FETCHING',
-    fetching,
-  };
-}
+/*
+ * for ongoing fetches to avoid multiple fetching
+ */
+const fetchStates = {};
 
 export function receiveChatHistory(
   cid,
@@ -56,22 +54,29 @@ export function receiveChatHistory(
  */
 export function startDm(query, cb = null) {
   return async (dispatch) => {
-    dispatch(setApiFetching(true));
-    const res = await requestStartDm(query);
-    if (typeof res === 'string') {
-      dispatch(pAlert(
-        'Direct Message Error',
-        res,
-        'error',
-        'OK',
-      ));
-    } else {
-      dispatch(addChatChannel(CHANNEL_TYPES.DM, res));
-      if (cb) {
-        cb(res[0]);
-      }
+    if (fetchStates.startDm) {
+      return;
     }
-    dispatch(setApiFetching(false));
+    fetchStates.startDm = true;
+
+    try {
+      const res = await requestStartDm(query);
+      if (typeof res === 'string') {
+        dispatch(pAlert(
+          'Direct Message Error',
+          res,
+          'error',
+          'OK',
+        ));
+      } else {
+        dispatch(addChatChannel(CHANNEL_TYPES.DM, res));
+        if (cb) {
+          cb(res[0]);
+        }
+      }
+    } finally {
+      delete fetchStates.startDm;
+    }
   };
 }
 
@@ -84,11 +89,219 @@ export function fetchStats() {
   };
 }
 
+export function changeUser(userChanges, alert) {
+  return async (dispatch, getState) => {
+    if (fetchStates.changeUser) {
+      return [];
+    }
+    fetchStates.changeUser = true;
+
+    const revertOperations = [];
+    /*
+    * we can define a token, which will then be used instead of the logged
+    * in user
+    */
+    if (!userChanges.token) {
+      const state = getState().user;
+      for (const [key, value] of Object.entries(userChanges)) {
+        revertOperations.push([key, state[key]]);
+        dispatch(patchState('user', 'set', key, value));
+      }
+    }
+
+    try {
+      const res = await requestChangeUser(userChanges);
+      if (res) {
+        revertOperations.forEach((args) => dispatch(
+          patchState('user', 'set', ...args),
+        ));
+        if (alert) {
+          dispatch(pAlert(
+            'Changing User Settings Error',
+            res[0],
+            'error',
+            'OK',
+          ));
+        }
+      }
+      return res;
+    } finally {
+      delete fetchStates.changeUser;
+    }
+  };
+}
+
+export function changeProfile(profileChanges, alert) {
+  return async (dispatch, getState) => {
+    if (fetchStates.changeProfile) {
+      return [];
+    }
+    fetchStates.changeProfile = true;
+
+    const state = getState().profile;
+    const revertOperations = [];
+    for (const [key, value] of Object.entries(profileChanges)) {
+      revertOperations.push([key, state[key]]);
+      dispatch(patchState('profile', 'set', key, value));
+    }
+
+    try {
+      const res = await requestChangeProfile(profileChanges);
+      if (res) {
+        revertOperations.forEach((args) => dispatch(
+          patchState('profile', 'set', ...args),
+        ));
+        if (alert) {
+          dispatch(pAlert(
+            'Changing Profile Settings Error',
+            res[0],
+            'error',
+            'OK',
+          ));
+        }
+      }
+      return res;
+    } finally {
+      delete fetchStates.changeProfile;
+    }
+  };
+}
+
+export function changeUserFaction(userFactionChanges) {
+  return async (dispatch, getState) => {
+    if (fetchStates.changeUserFaction) {
+      return [];
+    }
+    fetchStates.changeUserFaction = true;
+
+    const { fid } = userFactionChanges;
+    const state = getState().profile.factions.find((f) => f.fid === fid);
+    if (!state) {
+      return [];
+    }
+    const revertOperations = [];
+    for (const [key, value] of Object.entries(userFactionChanges)) {
+      if (key !== 'fid') {
+        const path = `factions[fid:${fid}].${key}`;
+        revertOperations.push([path, state[key]]);
+        dispatch(patchState('profile', 'setex', path, value));
+      }
+    }
+
+    try {
+      const res = await requestChangeUserFaction(userFactionChanges);
+      if (res) {
+        revertOperations.forEach((args) => dispatch(
+          patchState('profile', 'setex', ...args),
+        ));
+      }
+      return res;
+    } finally {
+      delete fetchStates.changeUserFaction;
+    }
+  };
+}
+
+export function changeFaction(factionChanges) {
+  return async (dispatch, getState) => {
+    if (fetchStates.changeFaction) {
+      return [];
+    }
+    fetchStates.changeFaction = true;
+
+    const { fid } = factionChanges;
+    const state = getState().profile.factions.find((f) => f.fid === fid);
+    if (!state) {
+      return [];
+    }
+    const revertOperations = [];
+    for (const [key, value] of Object.entries(factionChanges)) {
+      if (key !== 'fid') {
+        const path = `factions[fid:${fid}].${key}`;
+        revertOperations.push([path, state[key]]);
+        dispatch(patchState('profile', 'setex', path, value));
+      }
+    }
+
+    try {
+      const res = await requestChangeFaction(factionChanges);
+      if (res) {
+        revertOperations.forEach((args) => dispatch(
+          patchState('profile', 'setex', ...args),
+        ));
+      }
+      return res;
+    } finally {
+      delete fetchStates.changeFaction;
+    }
+  };
+}
+
+export function changeFactionRole(factionRoleChanges) {
+  return async (dispatch, getState) => {
+    if (fetchStates.changeFaction) {
+      return [];
+    }
+    fetchStates.changeFaction = true;
+
+    const { frid } = factionRoleChanges;
+    let fid;
+    let state;
+    const factionsState = getState().profile.factions;
+    for (let i = 0; i < factionsState.length; i += 1) {
+      const factionState = factionsState[i];
+      state = factionState.roles.find((r) => r.frid === frid);
+      if (state) {
+        fid = factionState.fid;
+        break;
+      }
+    }
+    if (!state) {
+      return [];
+    }
+
+    const revertOperations = [];
+    for (const [key, value] of Object.entries(factionRoleChanges)) {
+      if (key !== 'frid') {
+        const path = `factions[fid:${fid}].roles[frid:${frid}].${key}`;
+        revertOperations.push([path, state[key]]);
+        dispatch(patchState('profile', 'setex', path, value));
+      }
+    }
+
+    try {
+      const res = await requestChangeFactionRole(factionRoleChanges);
+      if (res) {
+        revertOperations.forEach((args) => dispatch(
+          patchState('profile', 'setex', ...args),
+        ));
+      }
+      return res;
+    } finally {
+      delete fetchStates.changeFaction;
+    }
+  };
+}
+
 export function fetchProfile() {
-  return async (dispatch) => {
-    const profile = await requestProfile();
-    if (!profile.errors) {
-      dispatch({ type: 'REC_PROFILE', profile });
+  return async (dispatch, getState) => {
+    if (fetchStates.profile) {
+      return;
+    }
+    fetchStates.profile = true;
+
+    try {
+      if (!getState().user.username) {
+        dispatch({ type: 's/REC_PROFILE', profile: {} });
+        return;
+      }
+      let profile = await requestProfile();
+      if (profile.errors) {
+        profile = {};
+      }
+      dispatch({ type: 's/REC_PROFILE', profile });
+    } finally {
+      delete fetchStates.profile;
     }
   };
 }
@@ -106,33 +319,35 @@ export function fetchMe() {
   };
 }
 
-export function setUserBlock(
-  userId,
-  userName,
-  block,
-) {
+export function setUserBlock(userId, userName, block) {
   return async (dispatch) => {
-    dispatch(setApiFetching(true));
-    const res = await requestBlock(userId, block);
-    if (res) {
-      dispatch(pAlert(
-        'User Block Error',
-        res,
-        'error',
-        'OK',
-      ));
-    } else if (block) {
-      dispatch(blockUser(userId, userName));
-    } else {
-      dispatch(unblockUser(userId, userName));
+    if (fetchStates.userBlock) {
+      return;
     }
-    dispatch(setApiFetching(false));
+    fetchStates.userBlock = true;
+
+    try {
+      const res = await requestBlock(userId, block);
+      if (res) {
+        dispatch(pAlert(
+          'User Block Error',
+          res,
+          'error',
+          'OK',
+        ));
+      } else if (block) {
+        dispatch(blockUser(userId, userName));
+      } else {
+        dispatch(unblockUser(userId, userName));
+      }
+    } finally {
+      delete fetchStates.userBlock;
+    }
   };
 }
 
 export function setChannelMute(channelId, mute) {
   return async (dispatch) => {
-    dispatch(setApiFetching(true));
     const res = await requestMute(channelId, mute);
     if (res) {
       dispatch(pAlert(
@@ -142,62 +357,7 @@ export function setChannelMute(channelId, mute) {
         'OK',
       ));
     }
-    dispatch(setApiFetching(false));
     return !res;
-  };
-}
-
-export function setBlockingDm(block) {
-  return async (dispatch) => {
-    dispatch(setApiFetching(true));
-    const res = await requestBlockDm(block);
-    if (res) {
-      dispatch(pAlert(
-        'Blocking DMs Error',
-        res,
-        'error',
-        'OK',
-      ));
-    } else {
-      dispatch(blockingDm(block));
-    }
-    dispatch(setApiFetching(false));
-  };
-}
-
-export function setPrivatize(priv) {
-  return async (dispatch) => {
-    dispatch(setApiFetching(true));
-    const res = await requestPrivatize(priv);
-    if (res) {
-      dispatch(pAlert(
-        'Setting User Private Error',
-        res,
-        'error',
-        'OK',
-      ));
-    } else {
-      dispatch(privatize(priv));
-    }
-    dispatch(setApiFetching(false));
-  };
-}
-
-export function changeProfile(profile) {
-  return async (dispatch) => {
-    dispatch(setApiFetching(true));
-    const res = await requestChangeProfile(profile);
-    if (res) {
-      dispatch(pAlert(
-        'Changing Profile Settings Error',
-        res,
-        'error',
-        'OK',
-      ));
-    } else {
-      dispatch(profileChange(profile));
-    }
-    dispatch(setApiFetching(false));
   };
 }
 
@@ -205,7 +365,6 @@ export function setLeaveChannel(
   cid,
 ) {
   return async (dispatch) => {
-    dispatch(setApiFetching(true));
     const res = await requestLeaveChan(cid);
     if (res) {
       dispatch(pAlert(
@@ -217,7 +376,6 @@ export function setLeaveChannel(
     } else {
       dispatch(removeChatChannel(cid));
     }
-    dispatch(setApiFetching(false));
   };
 }
 

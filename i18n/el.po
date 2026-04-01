@@ -57,6 +57,12 @@ msgstr ""
 msgid "(0 = infinite)"
 msgstr "(0 = άπειρο)"
 
+msgid "(click a role to activate it)"
+msgstr ""
+
+msgid "(click a role to assign or remove it)"
+msgstr ""
+
 msgid "+last hour"
 msgstr ""
 
@@ -91,6 +97,9 @@ msgstr "Εμφάνιζε πάντα τα κουμπιά κίνησης"
 msgid "Always show movement control buttons"
 msgstr "Εμφάνιζε πάντα τα κουμπιά κίνησης"
 
+msgid "An image representing your faction"
+msgstr ""
+
 msgid "Anti Aliasing"
 msgstr "Εξομάλυνση"
 
@@ -101,6 +110,9 @@ msgstr ""
 
 msgid "Archive"
 msgstr "Αρχείο"
+
+msgid "Assign Roles"
+msgstr ""
 
 msgid "Assign new Mod"
 msgstr "Διόρισε νέο συντονιστή"
@@ -123,6 +135,9 @@ msgstr ""
 msgid "Badges"
 msgstr ""
 
+msgid "Ban"
+msgstr ""
+
 msgid "Ban media"
 msgstr ""
 
@@ -131,6 +146,9 @@ msgstr "Αποκλεισμένος"
 
 msgid "Banned? Detected as Proxy?"
 msgstr "Εμπλόκαραν σε; Σε είδαν για Proxy;"
+
+msgid "Bans"
+msgstr ""
 
 msgid "Block"
 msgstr "Μπλόκαρε"
@@ -289,6 +307,9 @@ msgstr ""
 msgid "Click a color in palette to select it"
 msgstr "Πάτα ένα χρώμα στην παλέτα για να το θκιαλέξεις"
 
+msgid "Click here to cease representation."
+msgstr ""
+
 msgid "Click here to request a new verification mail."
 msgstr "Πάτα δαμέ για να ζητήσεις νέο email επιβεβαίωσης."
 
@@ -316,6 +337,18 @@ msgstr ""
 msgid "Compact Palette"
 msgstr "Μιτσιά παλέτα"
 
+msgid "Confirm"
+msgstr ""
+
+msgid "Confirm Ban"
+msgstr ""
+
+msgid "Confirm Kick"
+msgstr ""
+
+msgid "Confirm Leave"
+msgstr ""
+
 msgid "Confirm New Password"
 msgstr "Επιβεβαίωσε τον τζενούρκο κωδικό"
 
@@ -327,9 +360,6 @@ msgid "Connection error ${ code } :("
 msgstr "Σφάλμα σύνδεσης ${ code } :("
 
 msgid "Consent"
-msgstr ""
-
-msgid "Consider joining us on Matrix:"
 msgstr ""
 
 msgid "Controls"
@@ -397,6 +427,12 @@ msgstr "Χώρες σήμερα"
 msgid "Country"
 msgstr "Χώρα"
 
+msgid "Create Faction"
+msgstr ""
+
+msgid "Create New Faction"
+msgstr ""
+
 #, javascript-format
 msgid "Credit for the Palette of the 2bit canvas goes to ${ donendoLink }."
 msgstr "Εύσημα για την Παλέτα του 2bit: ${ donendoLink }."
@@ -445,6 +481,18 @@ msgstr "Διαγραφή λοαρκαζμού"
 msgid "Deny"
 msgstr ""
 
+msgid "Description"
+msgstr ""
+
+msgid "Description can't be empty"
+msgstr ""
+
+msgid "Description must be shorter than 1000 characters"
+msgstr ""
+
+msgid "Description of your faction"
+msgstr ""
+
 msgid ""
 "Didn't get an answer from pixelplanet. Try to refresh if this problem "
 "persists."
@@ -473,7 +521,14 @@ msgstr "Μιτσιά παλέτα για να πιάνει λλιόττερη θ
 msgid "Do stuff with IPs (one IP per line)"
 msgstr "Κάμε πράματα με τις IP (μια IP ανά γραμμή)"
 
+msgid ""
+"Don't let people find this faction in public search or look at its profile."
+msgstr ""
+
 msgid "Don't remember"
+msgstr ""
+
+msgid "Don't show faction in search"
 msgstr ""
 
 msgid "Don't show me in global stats"
@@ -544,6 +599,9 @@ msgstr "Βάλε λόγο"
 msgid "Enter UserName of new Mod"
 msgstr "Βάλε το όνομα χρήστη του νέου συντονιστή"
 
+msgid "Enter a little text that describes your faction"
+msgstr ""
+
 msgid "Enter your mail address and we will send you a new password:"
 msgstr ""
 "Βάλε τη διεύθυνση του email σου τζαι εν να σου στείλουμε καινούριο κωδικό:"
@@ -565,6 +623,11 @@ msgid "Export enabled templates"
 msgstr "Εξάγαρε τα πρότυπα που είναι ενεργά"
 
 msgid "Factions"
+msgstr ""
+
+msgid ""
+"Factions allow you to coordinate better with other players. Search for "
+"existing factions, find friends or create your own faction."
 msgstr ""
 
 msgid "Factor"
@@ -665,6 +728,9 @@ msgstr ""
 msgid "Hide Embed"
 msgstr ""
 
+msgid "Hide from profile"
+msgstr ""
+
 msgid ""
 "Higher zoomlevels take some time to update, the 3D globe gets updated at "
 "least once per day."
@@ -737,11 +803,17 @@ msgstr "Εδιάλεξες λάθος χρώμα"
 msgid "Invited to Chat"
 msgstr "Εκάλεσαν σε στο Chat"
 
+msgid "Invites"
+msgstr ""
+
 msgid ""
 "It requests the following permissions. Uncheck what you don't want to grant:"
 msgstr ""
 
 msgid "Jannies can rollback and protect, but not watch or ban."
+msgstr ""
+
+msgid "Join Faction"
 msgstr ""
 
 msgid "Just for registered Users"
@@ -756,10 +828,25 @@ msgstr "Μόνο οι Top10 που εχτες μπορούν να βάλλουν
 msgid "Keep Ratio"
 msgstr "Κράτα την αναλογία"
 
+msgid "Kick"
+msgstr ""
+
 msgid "Know that an account exists"
 msgstr ""
 
+msgid "Leave"
+msgstr ""
+
+msgid "Leave Faction"
+msgstr ""
+
 msgid "Legal Requests"
+msgstr ""
+
+msgid "Let everyone join this faction"
+msgstr ""
+
+msgid "Let people join this faction without needing an invite."
 msgstr ""
 
 msgid "Light Grid"
@@ -773,6 +860,9 @@ msgstr "Φόρτωση"
 
 msgid "Loading..."
 msgstr "Φορτώννει..."
+
+msgid "Log in or Register"
+msgstr ""
 
 msgid "Log out"
 msgstr "Εφκα έξω"
@@ -816,6 +906,9 @@ msgstr "Μεγιστοποιώ"
 msgid "Media Actions"
 msgstr ""
 
+msgid "Members"
+msgstr ""
+
 msgid "Minimum Color Distance"
 msgstr "Ελάχιστη απόσταση χρώματος"
 
@@ -835,8 +928,14 @@ msgstr ""
 msgid "Muted Sound"
 msgstr "Ο ήχος έσβησε"
 
+msgid "My Factions"
+msgstr ""
+
 msgid "Name"
 msgstr "Όνομα"
+
+msgid "Name can only contain the characters: a-z . _ and -"
+msgstr ""
 
 msgid "Name can't be empty."
 msgstr "Το όνομα εν μπορεί να είναι άδειο."
@@ -849,6 +948,9 @@ msgstr "Το όνομα πρέπει να έσιει τουλάχιστον 2 γ
 
 msgid "Name must be shorter than 26 characters"
 msgstr "Το όνομα πρέπει να είναι πιο μιτσίν που 26 γράμματα"
+
+msgid "Name of your faction [a-z][A-Z][0-9].-_"
+msgstr ""
 
 msgid "Name or Email"
 msgstr "Όνομα ή Email"
@@ -886,6 +988,9 @@ msgstr "Χωρίς ή μη έγκυρο κείμενο captcha"
 msgid "No password given."
 msgstr "Εν έβαλες κωδικό."
 
+msgid "Nobody is banned from this faction"
+msgstr ""
+
 msgid "Not Allowed"
 msgstr ""
 
@@ -893,6 +998,9 @@ msgid "Not allowed"
 msgstr "Εν επιτρέπεται"
 
 msgid "Note"
+msgstr ""
+
+msgid "Note: Your active Faction may overwrite your flag settings."
 msgstr ""
 
 msgid "OIDC LogIn"
@@ -921,6 +1029,9 @@ msgstr ""
 
 msgid "Opacity of Overlay in percent."
 msgstr "Πόση διαφάνεια να 'σιει η επικάλυψη, σε ποσοστό."
+
+msgid "Open"
+msgstr ""
 
 msgid "Open Chat"
 msgstr "Ανοίξτε το Chat"
@@ -958,6 +1069,9 @@ msgstr "Άναψε η επικάλυψη"
 
 msgid "Overlay Opacity"
 msgstr "Διαφάνεια επικάλυψης"
+
+msgid "Overview"
+msgstr ""
 
 msgid "Palette Download"
 msgstr "Κατέβασμα παλέτας"
@@ -1151,6 +1265,9 @@ msgstr ""
 msgid "Remove Moderator"
 msgstr "Φύε τον συντονιστή"
 
+msgid "Remove Roles"
+msgstr ""
+
 msgid "Remove a Login method:"
 msgstr ""
 
@@ -1184,6 +1301,12 @@ msgstr ""
 msgid "Revoke consent of third party applications:"
 msgstr ""
 
+msgid "Role Flags"
+msgstr ""
+
+msgid "Roles"
+msgstr ""
+
 msgid "Roll different Captcha Fonts"
 msgstr ""
 
@@ -1204,6 +1327,9 @@ msgid "Scroll ${ mouseSymbol } mouse wheel or ${ touchSymbol } pinch to zoom"
 msgstr ""
 "Κύλησε τη ροδέλα του ποντικιού ${ mouseSymbol } ή κάμε pinch $"
 "{ touchSymbol } για ζουμ"
+
+msgid "Search Existing Faction"
+msgstr ""
 
 msgid "Select Date above"
 msgstr "Επιλέξτε Ημερομηνία παραπάνω"
@@ -1419,6 +1545,24 @@ msgstr ""
 "βοηθήσουν! Μπορούν να εμφανίζονται σαν επικάλυψη, τζαι εσύ να ζωγραφίζεις "
 "που πάνω τους. Ένα pixel στο πρότυπο, πρέπει να είναι ένα pixel στον καμβά."
 
+msgid "Title"
+msgstr ""
+
+msgid "Title can't be empty."
+msgstr ""
+
+msgid "Title contains invalid character like @, /, \\ or #"
+msgstr ""
+
+msgid "Title must be at least 2 characters long"
+msgstr ""
+
+msgid "Title must be shorter than 26 characters"
+msgstr ""
+
+msgid "Title of your faction"
+msgstr ""
+
 msgid "To use this page, enter your Password:"
 msgstr ""
 
@@ -1604,7 +1748,20 @@ msgid ""
 "on how to appeal. And don't forget to include the BID you can get below."
 msgstr ""
 
+msgid "You are currently not a member of any faction."
+msgstr ""
+
 msgid "You are currently not allowed to access this game."
+msgstr ""
+
+msgid ""
+"You are currently not representing any faction. To represent one, activate a "
+"role in one of your factions below."
+msgstr ""
+
+#, javascript-format
+msgid ""
+"You are currently representing ${ activeFactionTitle } as ${ activeRoleName }"
 msgstr ""
 
 msgid "You are not allowed to play this game right now :("
@@ -1680,6 +1837,9 @@ msgstr ""
 msgid "You must enter at least one IID, User Id or BID"
 msgstr ""
 
+msgid "You must select an avatar for your faction"
+msgstr ""
+
 msgid "You took too long, try again."
 msgstr "Αγκάστροσες μας, φτου ξανά που αρκις."
 
@@ -1693,8 +1853,14 @@ msgstr ""
 msgid "Your Browser looks shady"
 msgstr ""
 
+msgid "Your Factions"
+msgstr ""
+
 msgid "Your Internet Provider is banned from this game"
 msgstr "Ο πάροχος ίντερνετ σου εν αποκλεισμένος που το παιχνίδι"
+
+msgid "Your Roles"
+msgstr ""
 
 msgid "Your ban expires at "
 msgstr "Η απαγόρευσή σου τελειώνει στις "
@@ -1715,14 +1881,26 @@ msgid ""
 "small."
 msgstr "Αντί να βάλλεις πίξελ, πρώτα κάμνει zoom αν είσαι πολλά μακριά."
 
+msgid "affects"
+msgstr ""
+
 #, javascript-format
 msgid "and ${ canvas.req } Pixels set"
 msgstr "τζαι ${ canvas.req } pixels τοποθετημένα"
 
+msgid "by"
+msgstr ""
+
 msgid "check compliance here"
 msgstr "Έλεγξε αν συμμορφώνεσαι δαμέ"
 
+msgid "created at"
+msgstr ""
+
 msgid "download here"
+msgstr ""
+
+msgid "lift"
 msgstr ""
 
 msgid "or login with:"

@@ -29,10 +29,9 @@ import {
   findAlts,
 } from '../data/sql/IP.js';
 import {
-  setUserLvl,
-  setUsername,
   findUserByIdOrName,
   markUserAccountsAsHacked,
+  setUserProperty,
 } from '../data/sql/User.js';
 import {
   getIIDSummary,
@@ -396,11 +395,11 @@ export async function executeIIDAction(
       }
       let out = '';
       if (curUser?.username === username) {
-        await setUsername(curUser.id, `pp_${curUser.id}`);
+        await setUserProperty(curUser.id, 'username', `pp_${curUser.id}`);
         socketEvents.reloadUser(curUser.id);
         out += `Changed ${curUser.username} to pp_${curUser.id} and `;
       }
-      const succ = await setUsername(targetUser.id, username);
+      const succ = await setUserProperty(targetUser.id, 'username', username);
       if (!succ) {
         // eslint-disable-next-line max-len
         return `${out}Couldn't change ${targetUser.username}, ${username} probably already exists.`;
@@ -924,7 +923,7 @@ export async function demoteUser(userId) {
   if (Number.isNaN(userId)) {
     throw new Error('Invalid userId');
   }
-  const success = await setUserLvl(userId, USERLVL.VERIFIED);
+  const success = await setUserProperty(userId, 'userlvl', USERLVL.VERIFIED);
   if (success) {
     socketEvents.reloadUser(userId);
     return `All moderation rights removed from user with the id ${userId}`;
@@ -949,7 +948,7 @@ export async function promoteUser(name, userlvl) {
     throw new Error(`User ${name} not found`);
   }
   const { id } = user;
-  const success = await setUserLvl(id, userlvl);
+  const success = await setUserProperty(id, 'userlvl', userlvl);
   if (success) {
     socketEvents.reloadUser(id);
     return [id, user.name];

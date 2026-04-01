@@ -134,7 +134,9 @@ export async function removeTpidFromUser(uid, id) {
     await transaction.commit();
   } catch (error) {
     console.error(`SQL Error on removeTpidFromUser: ${error.message}`);
-    await transaction.rollback();
+    if (transaction && !transaction.finished) {
+      await transaction.rollback();
+    }
     throw error;
   }
 }

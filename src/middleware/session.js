@@ -10,6 +10,7 @@ import {
 } from '../data/sql/Session.js';
 import { parseListOfBans } from '../data/sql/Ban.js';
 import { touchUser } from '../data/sql/User.js';
+import { patchState } from '../store/index.js';
 import { sign, unsign } from '../utils/hash.js';
 
 
@@ -20,6 +21,7 @@ export class User {
    * {
    *   id,
    *   name,
+   *   username,
    *   password,
    *   userlvl,
    *   flags,
@@ -28,6 +30,8 @@ export class User {
    *   havePassword,
    *   avatarId,
    *   customFlag,
+   *   activeFactionId,
+   *   customRoleFlagId,
    *   bans: [ { expires, flags }, ... ],
    *   tpids: [ { tpid, provider }, ... ],
    *   blocked: [ { id, name }, ...],
@@ -61,33 +65,39 @@ export class User {
   banRecheckTs = null;
 
   constructor(data, token) {
+    this.#token = token;
+
+    this.populateFromData(data);
+    if (TIMEBLOCK_USERS) {
+      const timeBlockProps = TIMEBLOCK_USERS.get(this.id);
+      if (timeBlockProps) {
+        [this.blockedInterval] = timeBlockProps;
+      }
+    }
+  }
+
+  populateFromData(data) {
+    this.#data = data;
     this.id = data.id;
     this.userlvl = data.userlvl;
-    this.#token = token;
-    this.#data = data;
 
+    const [isBanned, isMuted, banRecheckTs] = parseListOfBans(data.bans);
+    this.isBanned = isBanned;
+    this.isMuted = isMuted;
+    this.banRecheckTs = banRecheckTs;
+
+    this.channelIds.clear();
     /*
      * data.channels:
      *   { PUBLIC: [[cid, name, lastTs, lastReadTs, muted, avatar], ...], ... }
      */
-    const channelsByType = Object.values(data.channels);
+    const channelsByType = Object.values(this.#data.channels);
     for (let i = 0; i < channelsByType.length; i += 1) {
       const typeChannels = channelsByType[i];
       for (let u = 0; u < typeChannels.length; u += 1) {
         const typeChannel = typeChannels[u];
         // Map<isMuted>
         this.channelIds.set(typeChannel[0], typeChannel[4]);
-      }
-    }
-
-    const [isBanned, isMuted, banRecheckTs] = parseListOfBans(data.bans);
-    this.isBanned = isBanned;
-    this.isMuted = isMuted;
-    this.banRecheckTs = banRecheckTs;
-    if (TIMEBLOCK_USERS) {
-      const timeBlockProps = TIMEBLOCK_USERS.get(this.id);
-      if (timeBlockProps) {
-        [this.blockedInterval] = timeBlockProps;
       }
     }
   }
@@ -133,6 +143,26 @@ export class User {
     return this.getAllowance(true);
   }
 
+  patchUserState(state, patch) {
+    if (state === 'chat' || state === 'profile') {
+      if (patch.path === 'activeFactionRole') {
+        this.refresh();
+        return;
+      }
+
+      const [newState, target, hasChanged] = patchState(this.#data, patch);
+      if (!hasChanged) {
+        return;
+      }
+      // TODO
+      console.log('PATCHED USER STATE', newState, '\nFROM:\n', patch);
+      this.#data = newState;
+      if (target === 'channels') {
+        this.populateFromData(newState);
+      }
+    }
+  }
+
   /**
    * fetch allowance data of user
    * @param refresh whether we should refetch it, weven if we have it already
@@ -144,12 +174,7 @@ export class User {
     ) {
       const data = await resolveSession(this.#token);
       if (data) {
-        this.userlvl = data.userlvl;
-        this.#data = data;
-        const [isBanned, isMuted, banRecheckTs] = parseListOfBans(data.bans);
-        this.isBanned = isBanned;
-        this.isMuted = isMuted;
-        this.banRecheckTs = banRecheckTs;
+        this.populateFromData(data);
       } else {
         return {
           isBanned: this.isBanned, isMuted: this.isMuted, loggedOut: true,

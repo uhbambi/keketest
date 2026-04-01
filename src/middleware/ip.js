@@ -56,7 +56,7 @@ export class IP {
     }
     if (!ipString) {
       ipString = req.connection.remoteAddress;
-      if (USE_XREALIP) {
+      if (USE_XREALIP && ipString !== '127.0.0.1') {
         console.warn(
           `Connection not going through reverse proxy! IP: ${ipString}`,
         );

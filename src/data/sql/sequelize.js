@@ -7,11 +7,15 @@
 import Sequelize from 'sequelize';
 
 import {
-  MYSQL_HOST, MYSQL_DATABASE, MYSQL_USER, MYSQL_PW, LOG_MYSQL,
+  FACTION_FLAGS, CHANNEL_TYPES, FACTIONLVL, FACTION_ROLE_FLAGS,
+  MAX_ROLES_PER_FACTION, MAX_FACTIONS_PER_USER, MAX_OWNED_FACTIONS_PER_USER,
+} from '../../core/constants.js';
+import {
+  MARIADB_HOST, MARIADB_DATABASE, MARIADB_USER, MARIADB_PW, LOG_MARIADB,
 } from '../../core/config.js';
 
-const sequelize = new Sequelize(MYSQL_DATABASE, MYSQL_USER, MYSQL_PW, {
-  host: MYSQL_HOST,
+const sequelize = new Sequelize(MARIADB_DATABASE, MARIADB_USER, MARIADB_PW, {
+  host: MARIADB_HOST,
   dialect: 'mysql',
   define: {
     timestamps: false,
@@ -23,7 +27,7 @@ const sequelize = new Sequelize(MYSQL_DATABASE, MYSQL_USER, MYSQL_PW, {
     acquire: 10000,
   },
   // eslint-disable-next-line no-console
-  logging: (LOG_MYSQL) ? (sql) => console.info(sql) : false,
+  logging: (LOG_MARIADB) ? (sql) => console.info(sql) : false,
   dialectOptions: {
     connectTimeout: 10000,
     multipleStatements: true,
@@ -257,6 +261,245 @@ BEGIN
   INSERT INTO Messages (message, uid, cid, createdAt) VALUES (p_message, p_uid, p_cid, NOW());
   SELECT LAST_INSERT_ID() AS id;
 END`,
+    STORE_FISH: `CREATE PROCEDURE IF NOT EXISTS STORE_FISH(IN p_uid INT UNSIGNED, IN p_type TINYINT UNSIGNED, IN p_size FLOAT) NOT DETERMINISTIC MODIFIES SQL DATA
+BEGIN
+  INSERT INTO Fishes (uid, type, size, createdAt) VALUES (p_uid, p_type, p_size, NOW());
+  SELECT LAST_INSERT_ID() AS id;
+END`,
+    CREATE_FACTION: `CREATE PROCEDURE IF NOT EXISTS CREATE_FACTION(
+  IN p_uid INT UNSIGNED,
+  IN p_name VARCHAR(32) CHARACTER SET ascii COLLATE ascii_general_ci,
+  IN p_title VARCHAR(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
+  IN p_description VARCHAR(1000) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
+  IN p_flags TINYINT UNSIGNED,
+  IN p_avatar_id VARCHAR(29),
+  IN p_faction_uuid CHAR(36),
+  IN p_sovereign_uuid CHAR(36),
+  IN p_peasant_uuid CHAR(36)
+) NOT DETERMINISTIC MODIFIES SQL DATA
+BEGIN
+  DECLARE v_mid BIGINT UNSIGNED;
+  DECLARE v_cid INT UNSIGNED;
+  DECLARE v_fid BIGINT UNSIGNED;
+  DECLARE v_joined_count INT UNSIGNED;
+  DECLARE v_owned_count INT UNSIGNED;
+  DECLARE EXIT HANDLER FOR SQLEXCEPTION
+  BEGIN
+    ROLLBACK;
+    RESIGNAL;
+  END;
+  START TRANSACTION;
+
+  SELECT MAX(id) INTO v_mid  FROM Media m
+    WHERE LOCATE(':', p_avatar_id) > 0
+      AND m.type = 'image'
+      AND m.shortId = SUBSTRING_INDEX(p_avatar_id, ':', 1)
+      AND m.extension = SUBSTRING_INDEX(p_avatar_id, ':', -1);
+
+  SELECT COUNT(*), SUM(isOwner) INTO v_joined_count, v_owned_count
+  FROM (
+    SELECT EXISTS(
+      SELECT 1 FROM UserFactionRoles ufr
+        INNER JOIN FactionRoles fr ON ufr.frid = fr.id
+      WHERE ufr.uid = uf.uid AND fr.fid = uf.fid AND fr.factionlvl >= ${FACTIONLVL.SOVEREIGN}
+    ) AS isOwner
+    FROM UserFactions uf WHERE uf.uid = p_uid
+  ) AS ufc;
+
+  IF v_joined_count >= ${MAX_FACTIONS_PER_USER} THEN
+    SELECT 1 AS result;
+    ROLLBACK;
+  ELSEIF v_owned_count >= ${MAX_OWNED_FACTIONS_PER_USER} THEN
+    SELECT 2 AS result;
+    ROLLBACK;
+  ELSEIF NOT EXISTS(
+    SELECT 1 FROM Users WHERE id = p_uid AND createdAt < NOW() - INTERVAL 14 DAY
+  ) THEN
+    SELECT 3 AS result;
+    ROLLBACK;
+  ELSEIF v_mid IS NULL THEN
+    SELECT 4 AS result;
+    ROLLBACK;
+  ELSEIF EXISTS(
+    SELECT 1 FROM Factions WHERE name = p_name
+  ) THEN
+    SELECT 5 AS result;
+    ROLLBACK;
+  ELSE
+    INSERT INTO Channels (
+      name, type, lastMessage, createdAt
+    ) VALUES (
+      p_name, ${CHANNEL_TYPES.FACTION}, NOW(), NOW()
+    );
+    SELECT LAST_INSERT_ID() INTO v_cid;
+    INSERT INTO Factions (
+      uuid, name, title, description, avatar, flags, memberCount, createdAt, cid
+    ) VALUES (
+      UUID_TO_BIN(p_faction_uuid), p_name, p_title, p_description, v_mid, p_flags, 1, NOW(), v_cid
+    );
+    SELECT LAST_INSERT_ID() INTO v_fid;
+    INSERT INTO FactionRoles (
+      uuid, fid, name, memberCount, factionlvl, flags
+    ) VALUES (
+      UUID_TO_BIN(p_sovereign_uuid), v_fid, 'Sovereign', 1, ${FACTIONLVL.SOVEREIGN}, ${0x01 << FACTION_ROLE_FLAGS.PROTECTED}
+    ), (
+      UUID_TO_BIN(p_peasant_uuid), v_fid, 'Peasant', 1, ${FACTIONLVL.PEASANT}, ${(0x01 << FACTION_ROLE_FLAGS.DEFAULT) | (0x01 << FACTION_ROLE_FLAGS.PROTECTED)}
+    );
+    INSERT INTO UserFactions (uid, fid, joined) VALUES (p_uid, v_fid, NOW());
+    INSERT INTO UserFactionRoles (uid, frid)
+      SELECT p_uid, fr.id FROM FactionRoles fr WHERE fr.fid = v_fid;
+    INSERT INTO UserChannels (uid, cid, lastRead) VALUES (p_uid, v_cid, NOW());
+    COMMIT;
+    SELECT 0 AS result;
+  END IF;
+END`,
+    CREATE_FACTION_ROLE: `CREATE PROCEDURE IF NOT EXISTS CREATE_FACTION_ROLE(
+  IN p_faction_uuid CHAR(36),
+  IN p_factionrole_uuid CHAR(36),
+  IN p_name VARCHAR(32) CHARACTER SET ascii COLLATE ascii_general_ci,
+  IN p_factionlvl TINYINT SIGNED,
+  IN p_custom_flag_id VARCHAR(29),
+  IN p_flags TINYINT UNSIGNED
+) NOT DETERMINISTIC MODIFIES SQL DATA
+BEGIN
+  DECLARE v_fid BIGINT UNSIGNED;
+  DECLARE v_mid BIGINT UNSIGNED;
+  DECLARE v_role_count INT UNSIGNED;
+
+  SELECT MAX(id) INTO v_fid FROM Factions WHERE uuid = UUID_TO_BIN(p_faction_uuid);
+  IF v_fid IS NULL THEN
+    SELECT 1 AS result;
+  ELSE
+    SELECT COUNT(*) INTO v_role_count FROM FactionRoles WHERE fid = v_fid;
+    SELECT MAX(id) INTO v_mid  FROM Media m
+      WHERE LOCATE(':', p_custom_flag_id) > 0
+        AND m.type = 'image'
+        AND m.shortId = SUBSTRING_INDEX(p_custom_flag_id, ':', 1)
+        AND m.extension = SUBSTRING_INDEX(p_custom_flag_id, ':', -1);
+
+    IF p_custom_flag_id IS NOT NULL AND v_mid IS NULL THEN
+      SELECT 2 AS result;
+    ELSEIF v_role_count >= ${MAX_ROLES_PER_FACTION} THEN
+      SELECT 3 AS result;
+    ELSE
+      INSERT INTO FactionRoles (
+        uuid, fid, customFlag, name, factionlvl, flags
+      ) VALUES (
+        UUID_TO_BIN(p_factionrole_uuid), v_fid, v_mid, p_name, p_factionlvl, p_flags
+      );
+      SELECT 0 AS result;
+    END IF;
+  END IF;
+END`,
+    JOIN_FACTION: `CREATE PROCEDURE IF NOT EXISTS JOIN_FACTION(IN p_uid INT UNSIGNED, IN p_ipString VARCHAR(39), IN p_fid BIGINT UNSIGNED) NOT DETERMINISTIC MODIFIES SQL DATA
+BEGIN
+  DECLARE v_ip VARBINARY(8);
+  DECLARE v_joined_count INT UNSIGNED;
+  DECLARE EXIT HANDLER FOR SQLEXCEPTION
+  BEGIN
+    ROLLBACK;
+    RESIGNAL;
+  END;
+  SET v_ip = IP_TO_BIN(p_ipString);
+
+  START TRANSACTION;
+
+  SELECT COUNT(*) INTO v_joined_count FROM UserFactions WHERE uid = p_uid;
+  IF v_joined_count >= ${MAX_FACTIONS_PER_USER} THEN
+    SELECT 2 AS result;
+    ROLLBACK;
+  ELSEIF EXISTS(
+    SELECT 1 FROM FactionBans fb
+      LEFT JOIN UserFactionBans ufb ON ufb.bid = fb.id AND ufb.uid = p_uid
+      LEFT JOIN IPFactionBans ifb ON ifb.bid = fb.id AND ifb.ip = v_ip
+    WHERE fb.fid = p_fid AND (fb.expires > NOW() OR fb.expires IS NULL) AND (ufb.uid IS NOT NULL OR ifb.ip IS NOT NULL)
+    LIMIT 1
+  ) THEN
+    SELECT 3 AS result;
+    ROLLBACK;
+  ELSEIF EXISTS(
+    SELECT 1 FROM UserFactions WHERE uid = p_uid AND fid = p_fid
+  ) THEN
+    SELECT 4 AS result;
+    ROLLBACK;
+  ELSEIF EXISTS(
+    SELECT 1 FROM Factions WHERE id = p_fid AND memberCount >= 10000
+  ) THEN
+    SELECT 5 AS result;
+    ROLLBACK;
+  ELSE
+    INSERT INTO UserFactions (uid, fid, joined) VALUES (p_uid, p_fid, NOW());
+    INSERT INTO UserFactionRoles (uid, frid)
+      SELECT p_uid, fr.id FROM FactionRoles fr WHERE fr.fid = p_fid AND (fr.flags & ${0x01 << FACTION_ROLE_FLAGS.DEFAULT}) != 0;
+    INSERT INTO UserChannels (uid, cid, lastRead)
+      SELECT p_uid, f.cid, NOW() FROM Factions f WHERE f.id = p_fid AND f.cid IS NOT NULL;
+
+    UPDATE FactionRoles SET memberCount = memberCount + 1
+    WHERE EXISTS (
+      SELECT 1 FROM UserFactionRoles ufr WHERE ufr.frid = FactionRoles.id AND ufr.uid = p_uid
+    ) AND fid = p_fid;
+    UPDATE Factions SET memberCount = memberCount + 1 WHERE id = p_fid;
+
+    COMMIT;
+    SELECT 0 AS result;
+  END IF;
+END`,
+    JOIN_FACTION_PUBLIC: `CREATE PROCEDURE IF NOT EXISTS JOIN_FACTION_PUBLIC(IN p_uid INT UNSIGNED, IN p_ipString VARCHAR(39), IN p_faction_uuid CHAR(36)) NOT DETERMINISTIC MODIFIES SQL DATA
+BEGIN
+  DECLARE v_fid BIGINT UNSIGNED;
+
+  SELECT MAX(id) INTO v_fid FROM Factions WHERE uuid = UUID_TO_BIN(p_faction_uuid);
+  IF v_fid IS NULL THEN
+    SELECT 1 AS result;
+  ELSEIF EXISTS(
+    SELECT 1 FROM Factions WHERE id = v_fid AND (flags & ${0x01 << FACTION_FLAGS.PUBLIC}) = 0
+  ) THEN
+    SELECT 6 AS result;
+  ELSE
+    CALL JOIN_FACTION(p_uid, p_ipString, v_fid);
+  END IF;
+END`,
+    LEAVE_FACTION: `CREATE PROCEDURE IF NOT EXISTS LEAVE_FACTION(IN p_uid INT UNSIGNED, IN p_faction_uuid CHAR(36)) NOT DETERMINISTIC MODIFIES SQL DATA
+BEGIN
+  DECLARE v_fid BIGINT UNSIGNED;
+  DECLARE EXIT HANDLER FOR SQLEXCEPTION
+  BEGIN
+    ROLLBACK;
+    RESIGNAL;
+  END;
+  START TRANSACTION;
+
+  SELECT MAX(id) INTO v_fid FROM Factions WHERE uuid = UUID_TO_BIN(p_faction_uuid);
+  IF v_fid IS NULL THEN
+    SELECT 1 AS result;
+    ROLLBACK;
+  ELSEIF NOT EXISTS(
+    SELECT 1 FROM UserFactionRoles ufr
+      INNER JOIN FactionRoles fr ON ufr.frid = fr.id
+    WHERE fr.fid = v_fid AND ufr.uid != p_uid AND fr.factionlvl >= ${FACTIONLVL.SOVEREIGN}
+  ) THEN
+    SELECT 2 AS result;
+    ROLLBACK;
+  ELSE
+    DELETE FROM UserFactions WHERE uid = p_uid AND fid = v_fid;
+    IF ROW_COUNT() > 0 THEN
+      UPDATE FactionRoles SET memberCount = memberCount - 1
+      WHERE EXISTS (
+        SELECT 1 FROM UserFactionRoles ufr WHERE ufr.frid = FactionRoles.id AND ufr.uid = p_uid
+      ) AND fid = v_fid;
+      UPDATE Factions SET memberCount = memberCount - 1 WHERE id = v_fid;
+
+      DELETE uc FROM UserChannels uc
+        INNER JOIN Factions f ON f.cid = uc.cid
+      WHERE uc.uid = p_uid AND f.id = v_fid;
+      DELETE ufr FROM UserFactionRoles ufr
+        INNER JOIN FactionRoles fr ON fr.id = ufr.frid
+      WHERE ufr.uid = p_uid  AND fr.fid = v_fid;
+    END IF;
+    COMMIT;
+    SELECT 0 AS result;
+  END IF;
+END`,
     GET_CLOSE_IMAGE: `CREATE PROCEDURE IF NOT EXISTS GET_CLOSE_IMAGE(IN p_pHash CHAR(16)) READS SQL DATA
 BEGIN
   DECLARE i_pHash BIGINT UNSIGNED;
@@ -271,19 +514,14 @@ BEGIN
   SET i_pHash = CONV(p_pHash, 16, 10);
   SELECT BIN_TO_UUID(uuid) AS mbid, LOWER(HEX(hash)) AS hash, reason FROM MediaBans WHERE BIT_COUNT(pHash ^ i_pHash) < 9 LIMIT 1;
 END`,
-    GET_USER_ALLOWANCE: `CREATE PROCEDURE IF NOT EXISTS GET_USER_ALLOWANCE(uid INTEGER UNSIGNED) READS SQL DATA
-BEGIN
-  SELECT
-    (SELECT bid FROM UserBans ub WHERE ub.uid = uid LIMIT 1) AS userBanId,
-    (SELECT tb.bid FROM Users u INNER JOIN ThreePIDs t ON t.uid = u.id INNER JOIN ThreePIDBans tb ON tb.tid = t.id WHERE u.id = uid LIMIT 1) AS tpidBanId;
-END`,
-    WHOIS_REFERRAL_OF_IP: `CREATE PROCEDURE IF NOT EXISTS WHOIS_REFERRAL_OF_IP(ip VARCHAR(39)) READS SQL DATA
-BEGIN
-  DECLARE binIp VARBINARY(8);
-  SET binIp = IP_TO_BIN(ip);
-  SELECT host FROM WhoisReferrals WHERE min <= binIp AND max >= binIp AND LENGTH(binIP) = LENGTH(min);
-END`,
   };
+
+  const funcVersion = 5;
+  const curVersion = Number((await sequelize.query('SELECT value FROM Configs WHERE `key`=\'functions_version\''))[0]?.[0]?.value);
+  const doUpgrade = funcVersion !== curVersion;
+  if (doUpgrade) {
+    console.log('Upgrading Procedures');
+  }
 
   const isMariaDB = (await sequelize.query('SELECT VERSION() AS version'))[0][0].version.includes('MariaDB');
   if (!isMariaDB) {
@@ -292,25 +530,31 @@ END`,
     delete functions.BIN_TO_UUID;
   }
 
-  const promises = [];
-  for (const name of Object.keys(functions)) {
-    if (alter) {
-      if (functions[name].includes('PROCEDURE')) {
-        promises.push(sequelize.query(`DROP PROCEDURE IF EXISTS ${name}`,
-          { raw: true },
-        ));
-      } else if (functions[name].includes('FUNCTION')) {
-        promises.push(sequelize.query(`DROP FUNCTION IF EXISTS ${name}`,
-          { raw: true },
-        ));
-      }
-    }
-    promises.push(sequelize.query(functions[name]));
-  }
   try {
-    await Promise.all(promises);
+    if (alter || doUpgrade) {
+      console.log('Dropping old SQL functions and procedures');
+      await Promise.all(Object.entries(functions).map(([name, func]) => {
+        if (func.includes('PROCEDURE')) {
+          return sequelize.query(`DROP PROCEDURE IF EXISTS ${name}`, { raw: true });
+        } if (func.includes('FUNCTION')) {
+          return sequelize.query(`DROP FUNCTION IF EXISTS ${name}`, { raw: true });
+        }
+        return null;
+      }));
+      await sequelize.query(`INSERT INTO Configs (\`key\`, value) VALUES ('functions_version', ${funcVersion}) ON DUPLICATE KEY UPDATE value = VALUES(value)`);
+    }
   } catch (err) {
-    throw new Error(`Error on creating SQL Function: ${err.message}`);
+    throw new Error(`Error on cleaning SQL Functions: ${err.message}`);
+  }
+
+  for (const [name, func] of Object.entries(functions)) {
+    console.log(`Loading ${name}...`);
+    try {
+      // eslint-disable-next-line no-await-in-loop
+      await sequelize.query(func);
+    } catch (error) {
+      throw new Error(`Error on creating SQL Function ${name}: ${error.message}\n${func}`);
+    }
   }
 };
 

@@ -28,10 +28,10 @@ class APISocketServer {
    * [usernameOrId]: {
    *   id,
    *   name,
+   *   flagLegit,
    *   country,
    *   userlvl,
    *   isMuted,
-   *   customFlag
    * },
    */
   static #usernameMapping = new Map();
@@ -44,9 +44,13 @@ class APISocketServer {
         userData.fetchedAt = Date.now();
         APISocketServer.#usernameMapping.set(usernameOrId, userData);
         [userData.flagLegit, userData.country] = mapFlag(
-          userData.customFlag, userData.userlvl, userData.country || 'yy',
+          userData.customRoleFlagId,
+          userData.customFlag,
+          userData.userlvl,
+          userData.country || 'yy',
         );
         delete userData.customFlag;
+        delete userData.customRoleFlagId;
       }
     }
     if (Math.random() < 0.07) {
@@ -111,6 +115,7 @@ class APISocketServer {
     this.broadcastOnlineCounter = this.broadcastOnlineCounter.bind(this);
     this.broadcastPixelBuffer = this.broadcastPixelBuffer.bind(this);
     this.reloadUser = this.reloadUser.bind(this);
+    this.patchUserState = this.patchUserState.bind(this);
     this.ping = this.ping.bind(this);
     this.broadcastChatMessage = this.broadcastChatMessage.bind(this);
     this.refreshChatClients = this.refreshChatClients.bind(this);
@@ -124,6 +129,7 @@ class APISocketServer {
       this.broadcastUserPublicChatMessageDeletion.bind(this),
     );
     socketEvents.onAsync('reloadUser', this.reloadUser.bind(this));
+    socketEvents.on('patchState', this.patchUserState);
 
     setInterval(this.ping, 45 * 1000);
   }
@@ -272,6 +278,28 @@ class APISocketServer {
       JSON.stringify(['reloadUser', userId]),
       (client) => client.subReloadUser,
     );
+  }
+
+  patchUserState(userIds, state, patch) {
+    if (state !== 'profile' || (
+      patch.path !== 'customFlag' && patch.path !== 'avatarId'
+      && patch.path !== 'activeFactionRole'
+    )) {
+      return;
+    }
+
+    if (!Array.isArray(userIds)) {
+      userIds = [userIds];
+    }
+    for (let i = 0; i < userIds.length; i += 1) {
+      const userId = userIds[i];
+      APISocketServer.#deleteUserFromMapping(userId);
+
+      this.broadcast(
+        JSON.stringify(['reloadUser', userId]),
+        (client) => client.subReloadUser,
+      );
+    }
   }
 
   async onTextMessage(message, ws) {

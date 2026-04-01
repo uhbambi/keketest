@@ -127,7 +127,9 @@ WHERE mm.sid = ?`, {
       await transaction.commit();
       return [id, attachments];
     } catch (error) {
-      await transaction.rollback();
+      if (transaction && !transaction.finished) {
+        await transaction.rollback();
+      }
       throw error;
     }
   } catch (error) {
@@ -233,10 +235,13 @@ UNIX_TIMESTAMP(m.createdAt) AS 'ts',
 u.name, u.userlvl, p.customFlag,
 COALESCE((SELECT s.country FROM Sessions s WHERE s.uid = u.id ORDER BY s.id DESC LIMIT 1), 'xx') AS country,
 CONCAT(b.shortId, ':', b.extension) AS mediaId, b.type AS mediaType, b.size AS mediaSize, b.width AS mediaWidth, b.height AS mediaHeight, b.avgColor AS mediaAvgColor,
-CONCAT(a.shortId, ':', a.extension) AS avatarId FROM Messages m
+CONCAT(a.shortId, ':', a.extension) AS avatarId,
+CONCAT(frm.shortId, ':', frm.extension) AS customRoleFlagId FROM Messages m
   INNER JOIN Users u ON u.id = m.uid
   LEFT JOIN Profiles p ON p.uid = u.id
   LEFT JOIN Media a ON a.id = p.avatar
+  LEFT JOIN FactionRoles fr ON fr.id = p.activeRole
+  LEFT JOIN Media frm ON frm.id = fr.customFlag
   LEFT JOIN MessageMedia mm ON mm.sid = m.id
   LEFT JOIN Media b ON b.id = mm.mid
 WHERE m.cid = ? ORDER BY m.createdAt DESC LIMIT ?`, {
@@ -255,7 +260,7 @@ WHERE m.cid = ? ORDER BY m.createdAt DESC LIMIT ?`, {
       const model = models[i];
       const { name, message, userId, ts, msgId, avatarId, mediaId } = model;
       const [flagLegit, flag] = mapFlag(
-        model.customFlag, model.userlvl, model.country,
+        model.customRoleFlagId, model.customFlag, model.userlvl, model.country,
       );
       if (mediaId) {
         let attachments = mediaReferences.get(msgId);

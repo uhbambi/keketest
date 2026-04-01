@@ -73,7 +73,7 @@ const FileUploadElement = ({
 
   const buttonStyle = {
     width: active && render ? 40 : 0,
-    minHeight,
+    height: minHeight,
     transition: 'width 200ms ease-in-out',
     padding: 0,
     overflow: 'hidden',
@@ -169,6 +169,13 @@ const FileUpload = ({
   // ref that we define a function on, that the parent calls when all should
   // be uploaded
   uploadRef,
+  /*
+   * routes to use for upload within /api/media, is only used if we need a
+   * route doing specific things, like a flag upload that resizes an image
+   * to 16x11 and only allowed images
+   */
+  uploadRoute,
+  preflightRoute,
 }) => {
   /*
    * whether or not input button is active and rendered, used for animating it
@@ -284,7 +291,9 @@ const FileUpload = ({
 
     let response;
     if (preflight) {
-      response = await requestFileUploadPreflight(files, uploadInfo.controller);
+      response = await requestFileUploadPreflight(
+        files, uploadInfo.controller, preflightRoute,
+      );
     } else {
       response = await requestFileUpload(
         files, uploadInfo.controller, (complete) => {
@@ -297,7 +306,7 @@ const FileUpload = ({
             }
             return info;
           }));
-        },
+        }, uploadRoute,
       );
     }
 
@@ -389,7 +398,7 @@ const FileUpload = ({
     }
 
     resolvePromise();
-  }, [printErrors]);
+  }, [printErrors, uploadRoute, preflightRoute]);
 
   const doPreflight = useCallback(() => uploadFile(true), [uploadFile]);
 

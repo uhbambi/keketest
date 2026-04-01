@@ -280,7 +280,7 @@ class PixelTransferController {
       pixels: [[offset, color]],
     });
 
-    if (!this.store.getState().fetching.fetchingPixel) {
+    if (!this.store.getState().canvas.fetchingPixel) {
       this.requestFromQueue();
     }
   }

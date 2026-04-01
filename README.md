@@ -22,16 +22,16 @@ A game changer in the world of browser games ✊🏿
 
 ### Requirements 📡
 
-- [nodejs environment](https://nodejs.org/en/) (>=20)
+- [nodejs environment](https://nodejs.org/en/) (>=21)
 - [redis](https://redis.io/) or [redis-for-windows](https://github.com/redis-windows/redis-windows) in version **6.2.0 or above** as database for storìng the canvas
-- mysql or mariadb
+- [mariadb](https://www.mariadbtutorial.com/getting-started/install-mariadb/)
 
-Make sure to set-up an own user with password and database for pixelplanet in SQL, i.e. in `mysql` run as `root`:
+Make sure to set-up an own user with password and database for pixelplanet in SQL, i.e. in `mariadb` run as `root`:
 
 ```
 CREATE DATABASE pixelplanet;
-CREATE USER 'pixelplanet'@'localhost' IDENTIFIED BY 'sqlpassword';
-GRANT ALL PRIVILEGES ON pixelplanet.* TO 'pixelplanet'@'localhost';
+CREATE USER 'pixelplanet'@'%' IDENTIFIED BY 'sqlpassword';
+GRANT ALL PRIVILEGES ON pixelplanet.* TO 'pixelplanet'@'%';
 ```
 
 ### Download 📥
@@ -50,10 +50,10 @@ Those are options you will most likely want to adjust:
 | PORT           | Own Port                 | 5000                    |
 | HOST           | Own Host                 | "localhost"             |
 | REDIS_URL      | URL:PORT of redis server | "redis://localhost:6379"|
-| MYSQL_HOST     | MySql Host               | "localhost"             |
-| MYSQL_USER     | MySql User               | "pixelplanet"           |
-| MYSQL_PW       | MySql Password           | "sqlpassword"           |
-| MYSQL_DATABASE | MySql Database           | "pixelplanet"           |
+| MARIADB_HOST     | MariaDB Host               | "localhost"             |
+| MARIADB_USER     | MariaDB User               | "pixelplanet"           |
+| MARIADB_PW       | MariaDB Password           | "sqlpassword"           |
+| MARIADB_DATABASE | MariaDB Database           | "pixelplanet"           |
 
 #### Canvas Configuration
 
@@ -102,7 +102,7 @@ npm install
 
 ### Running ‍⚡
 
-1. Make sure that mysql and redis are running
+1. Make sure that mariadb and redis are running
 3. Start with
 
 ```

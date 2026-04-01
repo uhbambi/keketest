@@ -12,11 +12,15 @@ import FishDisplay from './FishDisplay.jsx';
 import BadgeDisplay from './BadgeDisplay.jsx';
 import OIDCConsent from './OIDCConsent.jsx';
 import Templates from './Templates.jsx';
+import MyFactions from './MyFactions.jsx';
+import Faction from './Faction.jsx';
 
 // eslint-disable-next-line max-len
 const Modtools = React.lazy(() => import(/* webpackChunkName: "modtools" */ './Modtools.jsx'));
 // eslint-disable-next-line max-len
 const Statistics = React.lazy(() => import(/* webpackChunkName: "stats" */ './Statistics.jsx'));
+// eslint-disable-next-line max-len
+const Converter = React.lazy(() => import(/* webpackChunkName: "stats" */ './Converter.jsx'));
 
 export default {
   /*
@@ -26,6 +30,7 @@ export default {
   HELP: [Help, t`Help`, true],
   SETTINGS: [Settings, t`Settings`, true],
   USERAREA: [UserArea, t`User Area`, false],
+  CONVERTER: [Converter, t`Converter`, false],
   CHAT: [Chat, t`Chat`, false],
   CANVAS_SELECTION: [CanvasSelect, t`Canvas Selection`, true],
   ARCHIVE: [Archive, t`Canvas Archive`, true],
@@ -36,6 +41,8 @@ export default {
   /* t: This if for moderation tools, it's not important to translate this */
   MODTOOLS: [Modtools, t`Modtools`, false],
   STATISTICS: [Statistics, t`Statistics`, false],
+  MYFACTIONS: [MyFactions, t`My Factions`, false],
+  FACTION: [Faction, t`My Factions`, true],
   /*
    * OIDC Consent is a very special case, because it is only available as
    * seperate popup, hoever, this is a single-page-applications, so we include

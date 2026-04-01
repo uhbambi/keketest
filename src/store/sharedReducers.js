@@ -13,7 +13,6 @@ import user from './reducers/user.js';
 import canvas from './reducers/canvas.js';
 import templates from './reducers/templates.js';
 import chat from './reducers/chat.js';
-import fetching from './reducers/fetching.js';
 import profile from './reducers/profile.js';
 
 
@@ -63,6 +62,5 @@ export default {
   canvas: canvasPersist,
   chat,
   user,
-  fetching,
   profile,
 };

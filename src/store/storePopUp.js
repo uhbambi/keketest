@@ -19,6 +19,7 @@ import popup from './reducers/popup.js';
  * middleware
  */
 import parent from './middleware/parent.js';
+import array from './middleware/array.js';
 import socketClientHook from './middleware/socketClientHookPopUp.js';
 import title from './middleware/titlePopUp.js';
 
@@ -31,6 +32,7 @@ const store = createStore(
   reducers,
   applyMiddleware(
     thunk,
+    array,
     parent,
     socketClientHook,
     title,
