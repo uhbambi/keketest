@@ -90,7 +90,7 @@ function runEventLoop() {
     logger.error(`FISHING: Error: ${error.message}`);
   }
 
-  setTimeout(runEventLoop, 300000);
+  setTimeout(runEventLoop, 10000);
 }
 
 async function registerCatchedFish(user, ip, type, size) {
