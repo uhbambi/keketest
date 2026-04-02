@@ -30,6 +30,17 @@ import {
 } from './core/config.js';
 import { SECOND } from './core/constants.js';
 
+/*
+ * Anti-crash global handlers
+ */
+process.on('uncaughtException', (err) => {
+  console.error('uncaughtException:', err);
+});
+
+process.on('unhandledRejection', (err) => {
+  console.error('unhandledRejection:', err);
+});
+
 import startAllCanvasLoops from './core/tileserver.js';
 
 /*
@@ -60,9 +71,19 @@ async function wsupgrade(request, socket, head) {
   const { pathname } = url.parse(request.url);
   try {
     if (pathname === wsUrl) {
-      await usersocket.handleUpgrade(request, socket, head);
+      try {
+        await usersocket.handleUpgrade(request, socket, head);
+      } catch (err) {
+        logger.error(`WS user upgrade error: ${err.message}`);
+        socket.destroy();
+      }
     } else if (pathname === apiWsUrl) {
-      await apisocket.handleUpgrade(request, socket, head);
+      try {
+        await apisocket.handleUpgrade(request, socket, head);
+      } catch (err) {
+        logger.error(`WS api upgrade error: ${err.message}`);
+        socket.destroy();
+      }
     } else {
       socket.write('HTTP/1.1 404 Not found\r\n\r\n');
       socket.destroy();
@@ -97,11 +118,18 @@ app.use(routes);
 //
 // ip config
 // -----------------------------------------------------------------------------
-// sync sql models
-syncSql()
-  // connect to redis
-  .then(connectRedis)
-  .then(async () => {
+// reemplazo del chain por init seguro
+async function startApp() {
+  try {
+    await syncSql();
+
+    try {
+      await connectRedis();
+      logger.info('Redis connected');
+    } catch (err) {
+      logger.error(`Redis connection failed, continuing without cache: ${err.message}`);
+    }
+
     User.setMailProvider(mailProvider);
     chatProvider.initialize();
     startAllCanvasLoops();
@@ -109,7 +137,7 @@ syncSql()
     usersocket.initialize();
     apisocket.initialize();
     canvasCleaner.initialize();
-    // start http server
+
     const startServer = () => {
       server.listen(PORT, HOST, () => {
         logger.info(
@@ -118,8 +146,9 @@ syncSql()
         );
       });
     };
+
     startServer();
-    // catch errors of server
+
     server.on('error', (e) => {
       logger.error(
         `HTTP Server Error ${e.code} occurred, trying again in 5s...`,
@@ -129,30 +158,31 @@ syncSql()
         startServer();
       }, 5000);
     });
-  })
-  .then(async () => {
+
     await socketEvents.initialize();
-  })
-  .then(async () => {
+
     /*
      * initializers that rely on the cluster being fully established
-     * i.e. to know if it is the shard that runs the event
      */
     if (socketEvents.isCluster && socketEvents.important) {
       logger.info('I am the main shard');
     }
+
     rankings.initialize();
+
     if (HOURLY_EVENT) {
-      /*
-       * give us 10s extra of negotating shards,
-       * TODO: initialize RpgEvent either in a redis lua function or in a
-       * single transaction, so we can not clash with other shards
-       */
       setTimeout(() => {
         rpgEvent.initialize();
       }, 10000);
     }
+
     if (FISHING) {
       initializeFishing();
     }
-  });
+
+  } catch (err) {
+    logger.error(`Fatal startup error: ${err.message}`);
+  }
+}
+
+startApp();
